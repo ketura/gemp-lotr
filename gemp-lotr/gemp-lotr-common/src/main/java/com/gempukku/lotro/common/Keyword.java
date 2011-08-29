@@ -1,20 +1,30 @@
 package com.gempukku.lotro.common;
 
 public enum Keyword {
-    ELF, HOBBIT, DWARF, MAN,
-    URUK_HAI, NAZGUL, ORC,
+    ELF("Elf"), HOBBIT("Hobbit"), DWARF("Dwarf"), MAN("Man"),
+    URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"),
 
-    SUPPORT_AREA, SKIRMISH, FELLOWSHIP, RESPONSE, MANEUVER, ARCHERY,
+    SUPPORT_AREA("Support Area"), SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"),
 
-    RING_BOUND, RING_BEARER,
+    RING_BOUND("Ring-Bound"), RING_BEARER("Ring-Bearer"),
 
-    ROAMING,
+    ROAMING("Roaming"),
 
-    WEATHER, TALE,
+    WEATHER("Weather"), TALE("Tale"),
 
-    RIVER, PLAINS, UNDERGROUND,
+    RIVER("River"), PLAINS("Plains"), UNDERGROUND("Underground"),
 
-    DAMAGE, DEFENDER, FIERCE, ARCHER, RANGER,
+    DAMAGE("Damage"), DEFENDER("Defender"), FIERCE("Fierce"), ARCHER("Archer"), RANGER("Ranger"),
 
-    HAND_WEAPON, ARMOR, HELM, MOUNT, RANGED_WEAPON, CLOAK
+    HAND_WEAPON("Hand Weapon"), ARMOR("Armor"), HELM("Helm"), MOUNT("Mount"), RANGED_WEAPON("Ranged Weapon"), CLOAK("Cloak");
+
+    private String _humanReadable;
+
+    private Keyword(String humanReadable) {
+        _humanReadable = humanReadable;
+    }
+
+    public String getHumanReadable() {
+        return _humanReadable;
+    }
 }

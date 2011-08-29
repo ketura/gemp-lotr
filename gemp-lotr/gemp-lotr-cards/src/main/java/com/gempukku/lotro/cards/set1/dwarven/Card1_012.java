@@ -49,7 +49,7 @@ public class Card1_012 extends AbstractCompanion {
 
             costToEffectAction.addCost(new AddTwilightEffect(2));
             costToEffectAction.addEffect(
-                    new ChooseAnyCardEffect(playerId, "Choose card", Filters.zone(Zone.HAND), Filters.owner(playerId)) {
+                    new ChooseAnyCardEffect(playerId, "Choose a card to place beneath your draw deck", Filters.zone(Zone.HAND), Filters.owner(playerId)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             costToEffectAction.addEffect(new PutCardFromHandOnBottomOfDeckEffect(card));
