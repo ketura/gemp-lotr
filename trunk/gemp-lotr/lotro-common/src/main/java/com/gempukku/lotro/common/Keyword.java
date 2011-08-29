@@ -8,6 +8,8 @@ public enum Keyword {
 
     RING_BOUND, RING_BEARER,
 
+    ROAMING,
+
     WEATHER, TALE,
 
     RIVER, PLAINS, UNDERGROUND,

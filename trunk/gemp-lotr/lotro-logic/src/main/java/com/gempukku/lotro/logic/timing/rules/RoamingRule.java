@@ -1,13 +1,15 @@
 package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class RoamingRule {
     private ModifiersLogic _modifiersLogic;
@@ -17,18 +19,18 @@ public class RoamingRule {
     }
 
     public void applyRule() {
+        Filter roamingFilter = Filters.and(Filters.type(CardType.MINION), new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return (physicalCard.getBlueprint().getSiteNumber() > gameState.getCurrentSiteNumber());
+            }
+        });
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new KeywordModifier(null, null, Keyword.ROAMING));
+        modifiers.add(new TwilightCostModifier(null, null, 2));
+
         _modifiersLogic.addAlwaysOnModifier(
-                new AbstractModifier(null, "Roaming - +2 Twilight cost", Filters.and(Filters.type(CardType.MINION), new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return (physicalCard.getBlueprint().getSiteNumber() > gameState.getCurrentSiteNumber());
-                    }
-                })) {
-                    @Override
-                    public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int result) {
-                        return 2 + result;
-                    }
-                }
-        );
+                new CompositeModifier(null, roamingFilter, modifiers));
     }
 }
