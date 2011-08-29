@@ -4,12 +4,11 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.ChooseAnyCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -50,15 +49,12 @@ public class Card1_012 extends AbstractCompanion {
 
             costToEffectAction.addCost(new AddTwilightEffect(2));
             costToEffectAction.addEffect(
-                    new PlayoutDecisionEffect(lotroGame.getUserFeedback(), playerId,
-                            new CardsSelectionDecision(1, "Choose card to place on bottom of your draw deck", lotroGame.getGameState().getHand(playerId), 1, 1) {
-                                @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    PhysicalCard physicalCard = getSelectedCardsByResponse(result).get(0);
-
-                                    costToEffectAction.addEffect(new PutCardFromHandOnBottomOfDeckEffect(physicalCard));
-                                }
-                            }));
+                    new ChooseAnyCardEffect(playerId, "Choose card", Filters.zone(Zone.HAND), Filters.owner(playerId)) {
+                        @Override
+                        protected void cardSelected(PhysicalCard card) {
+                            costToEffectAction.addEffect(new PutCardFromHandOnBottomOfDeckEffect(card));
+                        }
+                    });
 
             result.add(costToEffectAction);
         }
