@@ -1,0 +1,41 @@
+package com.gempukku.lotro.logic.effects;
+
+import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.KillResult;
+
+public class KillEffect extends AbstractEffect {
+    private PhysicalCard _card;
+
+    public KillEffect(PhysicalCard card) {
+        _card = card;
+    }
+
+    @Override
+    public EffectResult getRespondableResult() {
+        return new KillResult(_card);
+    }
+
+    @Override
+    public String getText() {
+        return "Kills character";
+    }
+
+    @Override
+    public boolean canPlayEffect(LotroGame game) {
+        Zone zone = _card.getZone();
+        return zone == Zone.FREE_CHARACTERS || zone == Zone.FREE_SUPPORT || zone == Zone.SHADOW_CHARACTERS;
+    }
+
+    @Override
+    public void playEffect(LotroGame game) {
+        GameState gameState = game.getGameState();
+        gameState.stopAffecting(_card);
+        gameState.removeCardFromZone(_card);
+        gameState.addCardToZone(_card, Zone.DEAD);
+    }
+}

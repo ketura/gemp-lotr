@@ -1,0 +1,68 @@
+package com.gempukku.lotro.logic.decisions;
+
+import com.gempukku.lotro.game.PhysicalCard;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+public abstract class CardsSelectionDecision extends AbstractAwaitingDecision {
+    private List<? extends PhysicalCard> _physicalCards;
+    private int _minimum;
+    private int _maximum;
+
+    public CardsSelectionDecision(int id, String text, List<? extends PhysicalCard> physicalCard) {
+        this(id, text, physicalCard, 0, physicalCard.size());
+    }
+
+    public CardsSelectionDecision(int id, String text, List<? extends PhysicalCard> physicalCards, int minimum, int maximum) {
+        super(id, text, AwaitingDecisionType.CARD_SELECTION);
+        _physicalCards = physicalCards;
+        _minimum = minimum;
+        _maximum = maximum;
+        setParam("min", String.valueOf(minimum));
+        setParam("max", String.valueOf(maximum));
+        setParam("cardId", getCardIds(physicalCards));
+    }
+
+    private String[] getCardIds(List<? extends PhysicalCard> physicalCards) {
+        String[] result = new String[physicalCards.size()];
+        for (int i = 0; i < physicalCards.size(); i++)
+            result[i] = String.valueOf(physicalCards.get(i).getCardId());
+        return result;
+    }
+
+    protected List<PhysicalCard> getSelectedCardsByResponse(String response) throws DecisionResultInvalidException {
+        if (response.equals("")) {
+            if (_minimum == 0)
+                return Collections.emptyList();
+            else
+                throw new DecisionResultInvalidException();
+        }
+        String[] cardIds = response.split(",");
+        if (cardIds.length < _minimum || cardIds.length > _maximum)
+            throw new DecisionResultInvalidException();
+
+        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        try {
+            for (String cardId : cardIds) {
+                PhysicalCard card = getSelectedCardById(Integer.parseInt(cardId));
+                if (result.contains(card))
+                    throw new DecisionResultInvalidException();
+                result.add(card);
+            }
+        } catch (NumberFormatException e) {
+            throw new DecisionResultInvalidException();
+        }
+
+        return result;
+    }
+
+    private PhysicalCard getSelectedCardById(int cardId) throws DecisionResultInvalidException {
+        for (PhysicalCard physicalCard : _physicalCards)
+            if (physicalCard.getCardId() == cardId)
+                return physicalCard;
+
+        throw new DecisionResultInvalidException();
+    }
+}
