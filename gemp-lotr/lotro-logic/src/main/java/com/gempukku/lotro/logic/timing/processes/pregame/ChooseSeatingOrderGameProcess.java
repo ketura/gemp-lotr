@@ -69,7 +69,7 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
         _game.getUserFeedback().sendAwaitingDecision(playerId,
                 new MultipleChoiceAwaitingDecision(1, "Choose a seat number at the table", emptySeatNumbers) {
                     @Override
-                    protected void validDecisionMade(String result) {
+                    protected void validDecisionMade(int index, String result) {
                         participantHasChosenSeat(playerId, Integer.parseInt(result));
                     }
                 }

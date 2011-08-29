@@ -55,7 +55,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
                     new PlayoutDecisionEffect(game.getUserFeedback(), self.getOwner(),
                             new MultipleChoiceAwaitingDecision(1, "Choose opponent", getOpponents(game.getGameState().getPlayerOrder().getAllPlayers(), self.getOwner())) {
                                 @Override
-                                protected void validDecisionMade(final String opponentId) {
+                                protected void validDecisionMade(int index, final String opponentId) {
                                     action.addEffect(
                                             new ChooseAnyCardEffect(opponentId, "Choose card to discard", Filters.zone(Zone.HAND), Filters.owner(opponentId)) {
                                                 @Override

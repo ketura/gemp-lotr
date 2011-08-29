@@ -25,7 +25,7 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
             _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
                     new MultipleChoiceAwaitingDecision(1, "Do you want to make another move?", new String[]{"Yes", "No"}) {
                         @Override
-                        protected void validDecisionMade(String result) {
+                        protected void validDecisionMade(int index, String result) {
                             if (result.equals("Yes"))
                                 _nextProcess = new MovementGameProcess(_game,
                                         new EndOfPhaseGameProcess(_game, Phase.REGROUP,

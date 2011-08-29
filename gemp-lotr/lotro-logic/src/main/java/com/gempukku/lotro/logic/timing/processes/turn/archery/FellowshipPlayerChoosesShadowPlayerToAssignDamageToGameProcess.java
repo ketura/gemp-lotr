@@ -40,7 +40,7 @@ public class FellowshipPlayerChoosesShadowPlayerToAssignDamageToGameProcess impl
                 _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
                         new MultipleChoiceAwaitingDecision(1, "Choose shadow player to assign archery damage to", shadowPlayers.toArray(new String[shadowPlayers.size()])) {
                             @Override
-                            protected void validDecisionMade(String result) {
+                            protected void validDecisionMade(int index, String result) {
                                 _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, result, _woundsToAssign, _followingGameProcess);
                             }
                         });
