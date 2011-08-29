@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 public class KeywordModifier extends AbstractModifier {
     private Keyword _keyword;
 
-    public KeywordModifier(PhysicalCard physicalCard, String text, Filter affectFilter, Keyword keyword) {
-        super(physicalCard, text, affectFilter);
+    public KeywordModifier(PhysicalCard physicalCard, Filter affectFilter, Keyword keyword) {
+        super(physicalCard, "Has " + keyword, affectFilter);
         _keyword = keyword;
     }
 

@@ -43,6 +43,6 @@ public class Card1_021 extends AbstractLotroCardBlueprint {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new KeywordModifier(self, "Each Dwarf is Damage +1", Filters.keyword(Keyword.DWARF), Keyword.DAMAGE);
+        return new KeywordModifier(self, Filters.keyword(Keyword.DWARF), Keyword.DAMAGE);
     }
 }
