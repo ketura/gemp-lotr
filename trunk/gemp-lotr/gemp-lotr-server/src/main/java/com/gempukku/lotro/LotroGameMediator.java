@@ -50,7 +50,7 @@ public class LotroGameMediator {
             if (source != null)
                 sb.append("<br><b>" + source.getBlueprint().getName() + ":</b> " + modifier.getText());
             else
-                sb.append("<br><b><i>system</i>:</b> " + modifier.getText());
+                sb.append("<br><b><i>System</i>:</b> " + modifier.getText());
         }
         if (modifiers.size() == 0)
             sb.append("<br><i>nothing</i>");
