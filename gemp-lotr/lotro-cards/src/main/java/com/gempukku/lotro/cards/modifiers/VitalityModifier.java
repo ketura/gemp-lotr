@@ -6,16 +6,16 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
-public class StrengthModifier extends AbstractModifier {
+public class VitalityModifier extends AbstractModifier {
     private int _modifier;
 
-    public StrengthModifier(PhysicalCard source, Filter affectFilter, int modifier) {
-        super(source, "Strength " + ((modifier < 0) ? modifier : ("+" + modifier)), affectFilter);
+    public VitalityModifier(PhysicalCard source, Filter affectFilter, int modifier) {
+        super(source, "Vitality " + ((modifier < 0) ? modifier : ("+" + modifier)), affectFilter);
         _modifier = modifier;
     }
 
     @Override
-    public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
+    public int getVitality(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         if (affectsCard(gameState, modifiersQuerying, physicalCard))
             return result + _modifier;
         return result;

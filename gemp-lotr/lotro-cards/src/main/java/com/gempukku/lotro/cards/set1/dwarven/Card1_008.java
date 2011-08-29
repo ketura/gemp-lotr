@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -44,11 +42,6 @@ public class Card1_008 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "Bearer may not be overwhelmed unless his strength is tripled", Filters.sameCard(self.getAttachedTo())) {
-            @Override
-            public boolean isOverwhelmedByStrength(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int strength, int opposingStrength, boolean result) {
-                return (opposingStrength >= strength * 3);
-            }
-        };
+        return new OverwhelmedByMultiplierModifier(self, Filters.sameCard(self.getAttachedTo()), 3);
     }
 }
