@@ -48,7 +48,7 @@ public class Card1_029 extends AbstractLotroCardBlueprint {
                     new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF)) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard elf) {
-                            action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, "Strength +1", Filters.sameCard(elf), 1), Phase.SKIRMISH));
+                            action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
                             action.addEffect(new AddUntilEndOfPhaseActionProxyEffect(
                                     new AbstractActionProxy() {
                                         @Override
