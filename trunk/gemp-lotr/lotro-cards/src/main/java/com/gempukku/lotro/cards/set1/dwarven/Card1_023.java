@@ -48,7 +48,7 @@ public class Card1_023 extends AbstractLotroCardBlueprint {
                     game.getUserFeedback(), playerId,
                     new MultipleChoiceAwaitingDecision(1, "Choose an opponent", getOpponents(game.getGameState().getPlayerOrder().getAllPlayers(), playerId)) {
                         @Override
-                        protected void validDecisionMade(String result) {
+                        protected void validDecisionMade(int index, String result) {
                             action.addEffect(new DiscardTopCardFromDeckEffect(result));
                             action.addEffect(new DiscardTopCardFromDeckEffect(result));
                             action.addEffect(new DiscardTopCardFromDeckEffect(result));

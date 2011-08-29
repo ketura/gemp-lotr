@@ -84,7 +84,7 @@ public class Card1_022 extends AbstractLotroCardBlueprint {
                 _action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), _player,
                         new MultipleChoiceAwaitingDecision(1, "Do you want to put " + _lastCard.getBlueprint().getName() + " in your hand?", new String[]{"Yes", "No"}) {
                             @Override
-                            protected void validDecisionMade(String result) {
+                            protected void validDecisionMade(int index, String result) {
                                 if (result.equals("Yes")) {
                                     gameState.removeCardFromZone(_lastCard);
                                     gameState.addCardToZone(_lastCard, Zone.HAND);

@@ -49,7 +49,7 @@ public class Card1_036 extends AbstractLotroCardBlueprint {
                     action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new MultipleChoiceAwaitingDecision(1, "Choose an opponent", getOpponents(game.getGameState().getPlayerOrder().getAllPlayers(), playerId)) {
                                 @Override
-                                protected void validDecisionMade(String result) {
+                                protected void validDecisionMade(int index, String result) {
                                     // TODO
                                 }
                             })

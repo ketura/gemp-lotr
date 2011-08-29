@@ -9,20 +9,24 @@ public abstract class MultipleChoiceAwaitingDecision extends AbstractAwaitingDec
         setParam("results", _possibleResults);
     }
 
-    protected abstract void validDecisionMade(String result);
+    protected abstract void validDecisionMade(int index, String result);
 
     @Override
     public final void decisionMade(String result) throws DecisionResultInvalidException {
-        if (result == null || !containsResult(result))
+        if (result == null)
+            throw new DecisionResultInvalidException();
+        int index = resultIndex(result);
+        if (index < 0)
             throw new DecisionResultInvalidException();
 
-        validDecisionMade(result);
+        validDecisionMade(index, result);
     }
 
-    private boolean containsResult(String result) {
-        for (String possibleResult : _possibleResults)
-            if (possibleResult.equals(result))
-                return true;
-        return false;
+    private int resultIndex(String result) {
+        for (int i = 0; i < _possibleResults.length; i++) {
+            if (_possibleResults[i].equals(result))
+                return i;
+        }
+        return -1;
     }
 }
