@@ -35,7 +35,7 @@ public class Card1_051 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
-        return new StrengthModifier(self, "Strength +3",
+        return new StrengthModifier(self,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

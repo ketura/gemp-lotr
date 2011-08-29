@@ -45,7 +45,7 @@ public class Card1_026 extends AbstractLotroCardBlueprint {
                             GameState gameState = game.getGameState();
                             int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
                             game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
-                                    new StrengthModifier(self, "Strength +" + bonus, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH);
+                                    new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH);
                         }
                     }
             );

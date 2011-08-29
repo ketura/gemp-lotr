@@ -51,7 +51,7 @@ public class Card1_037 extends AbstractLotroCardBlueprint {
                                     bonus = 4;
                             }
 
-                            action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, "Strength +" + bonus, Filters.sameCard(elf), bonus), Phase.SKIRMISH));
+                            action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), bonus), Phase.SKIRMISH));
                         }
                     });
 

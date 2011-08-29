@@ -44,7 +44,7 @@ public class Card1_003 extends AbstractLotroCardBlueprint {
                                 int bonus = (attachedDwarvenHandWeapons.size() == 0) ? 2 : 3;
                                 action.addEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, "+" + bonus + " Strength", Filters.sameCard(dwarf), bonus), Phase.SKIRMISH
+                                                new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH
                                         )
                                 );
                             }

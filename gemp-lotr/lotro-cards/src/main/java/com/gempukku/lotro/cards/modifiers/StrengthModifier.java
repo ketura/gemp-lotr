@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 public class StrengthModifier extends AbstractModifier {
     private int _modifier;
 
-    public StrengthModifier(PhysicalCard source, String text, Filter affectFilter, int modifier) {
-        super(source, text, affectFilter);
+    public StrengthModifier(PhysicalCard source, Filter affectFilter, int modifier) {
+        super(source, "Strength +" + modifier, affectFilter);
         _modifier = modifier;
     }
 

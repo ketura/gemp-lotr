@@ -84,7 +84,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
                     new ChoiceEffect(action, playerId, possibleCosts, true));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, "Strength +1", Filters.sameCard(self.getAttachedTo()), 1),
+                            new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1),
                             Phase.SKIRMISH));
         }
 
@@ -93,6 +93,6 @@ public class Card1_047 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new StrengthModifier(self, "Strength +2", Filters.sameCard(self.getAttachedTo()), 2);
+        return new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 2);
     }
 }

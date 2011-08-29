@@ -47,7 +47,7 @@ public class Card1_024 extends AbstractLotroCardBlueprint {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new StrengthModifier(self, "While a Dwarf skirmishes a MORIA minion, that Dwarf is strength +1",
+        return new StrengthModifier(self,
                 Filters.and(
                         Filters.keyword(Keyword.DWARF),
                         new Filter() {
