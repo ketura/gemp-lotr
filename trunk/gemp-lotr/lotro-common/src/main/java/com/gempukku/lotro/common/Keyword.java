@@ -1,7 +1,7 @@
 package com.gempukku.lotro.common;
 
 public enum Keyword {
-    ELF, HOBBIT, DWARF,
+    ELF, HOBBIT, DWARF, MAN,
     URUK_HAI, NAZGUL, ORC,
 
     SUPPORT_AREA, SKIRMISH, FELLOWSHIP, RESPONSE, MANEUVER, ARCHERY,
