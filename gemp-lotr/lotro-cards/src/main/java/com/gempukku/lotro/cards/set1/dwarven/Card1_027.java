@@ -50,7 +50,7 @@ public class Card1_027 extends AbstractAlly {
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new AllyOnCurrentSiteModifier(self, "Can participate in archery fire and skimishes", Filters.sameCard(self)), Phase.REGROUP));
+                            new AllyOnCurrentSiteModifier(self, Filters.sameCard(self)), Phase.REGROUP));
         }
 
         return actions;

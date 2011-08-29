@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class AllyOnCurrentSiteModifier extends AbstractModifier {
-    public AllyOnCurrentSiteModifier(PhysicalCard source, String text, Filter affectFilter) {
-        super(source, text, affectFilter);
+    public AllyOnCurrentSiteModifier(PhysicalCard source, Filter affectFilter) {
+        super(source, "Can participate in archery and skirmishes", affectFilter);
     }
 
     @Override

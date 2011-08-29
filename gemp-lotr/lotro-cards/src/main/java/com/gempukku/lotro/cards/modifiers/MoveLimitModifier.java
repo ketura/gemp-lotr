@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 public class MoveLimitModifier extends AbstractModifier {
     private int _moveLimitModifier;
 
-    public MoveLimitModifier(PhysicalCard source, String text, int moveLimitModifier) {
-        super(source, text, null);
+    public MoveLimitModifier(PhysicalCard source, int moveLimitModifier) {
+        super(source, "Move limit " + ((moveLimitModifier < 0) ? moveLimitModifier : ("+" + moveLimitModifier)), null);
         _moveLimitModifier = moveLimitModifier;
     }
 

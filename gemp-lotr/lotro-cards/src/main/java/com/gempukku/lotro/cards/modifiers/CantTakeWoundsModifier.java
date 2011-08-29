@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CantTakeWoundsModifier extends AbstractModifier {
-    public CantTakeWoundsModifier(PhysicalCard source, String text, Filter affectFilter) {
-        super(source, text, affectFilter);
+    public CantTakeWoundsModifier(PhysicalCard source, Filter affectFilter) {
+        super(source, "Can't take wounds", affectFilter);
     }
 
     @Override
