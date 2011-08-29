@@ -8,25 +8,24 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-public class ChoiceCostEffect extends UnrespondableEffect {
+public class ChoiceEffect extends UnrespondableEffect {
     private CostToEffectAction _action;
     private String _choicePlayerId;
-    private Map<EffectPreCondition, Effect> _preConditions;
+    private List<Effect> _possibleEffects;
     private boolean _addedAsCost;
 
-    public ChoiceCostEffect(CostToEffectAction action, String choicePlayerId, Map<EffectPreCondition, Effect> preConditions, boolean addedAsCost) {
+    public ChoiceEffect(CostToEffectAction action, String choicePlayerId, List<Effect> possibleEffects, boolean addedAsCost) {
         _action = action;
         _choicePlayerId = choicePlayerId;
-        _preConditions = preConditions;
+        _possibleEffects = possibleEffects;
         _addedAsCost = addedAsCost;
     }
 
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        for (EffectPreCondition effectPreCondition : _preConditions.keySet()) {
-            boolean result = effectPreCondition.getResult(game);
+        for (Effect effect : _possibleEffects) {
+            boolean result = effect.canPlayEffect(game);
             if (result)
                 return true;
         }
@@ -37,9 +36,9 @@ public class ChoiceCostEffect extends UnrespondableEffect {
     @Override
     public void playEffect(LotroGame game) {
         final List<Effect> possibleEffects = new LinkedList<Effect>();
-        for (Map.Entry<EffectPreCondition, Effect> entry : _preConditions.entrySet()) {
-            if (entry.getKey().getResult(game))
-                possibleEffects.add(entry.getValue());
+        for (Effect effect : _possibleEffects) {
+            if (effect.canPlayEffect(game))
+                possibleEffects.add(effect);
         }
 
         if (possibleEffects.size() > 1) {
