@@ -46,6 +46,6 @@ public class Card1_042 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new ArcheryTotalModifier(self, "Minion archery total is -1", Side.SHADOW, -1);
+        return new ArcheryTotalModifier(self, Side.SHADOW, -1);
     }
 }
