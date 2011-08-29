@@ -201,6 +201,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return allyOnCurrentSite;
     }
 
+    @Override
+    public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card) {
+        boolean result = true;
+        for (Modifier modifier : _modifiers)
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                result = modifier.addsToArcheryTotal(gameState, this, card, result);
+
+        return result;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

@@ -33,4 +33,6 @@ public interface Modifier {
     public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Side side, int result);
 
     public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result);
+
+    public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result);
 }
