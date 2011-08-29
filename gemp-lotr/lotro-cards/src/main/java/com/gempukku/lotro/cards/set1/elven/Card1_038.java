@@ -41,7 +41,7 @@ public class Card1_038 extends AbstractLotroCardBlueprint {
             PlayEventFromHandAction action = new PlayEventFromHandAction(self);
             action.addCost(new SpotEffect(Filters.and(Filters.keyword(Keyword.ELF), Filters.keyword(Keyword.ARCHERY), Filters.type(CardType.COMPANION))));
             action.addEffect(new AddUntilEndOfPhaseModifierEffect(
-                    new ArcheryTotalModifier(self, "Fellowship archery total +1", Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+                    new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
 
             return Collections.singletonList(action);
         }

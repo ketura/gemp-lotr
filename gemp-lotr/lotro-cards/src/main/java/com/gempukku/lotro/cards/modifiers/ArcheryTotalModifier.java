@@ -10,8 +10,8 @@ public class ArcheryTotalModifier extends AbstractModifier {
     private Side _side;
     private int _modifier;
 
-    public ArcheryTotalModifier(PhysicalCard source, String text, Side side, int modifier) {
-        super(source, text, null);
+    public ArcheryTotalModifier(PhysicalCard source, Side side, int modifier) {
+        super(source, ((side == Side.FREE_PEOPLE) ? "Fellowship" : "Minion") + " archery total " + ((modifier < 0) ? modifier : ("+" + modifier)), null);
         _side = side;
         _modifier = modifier;
     }
