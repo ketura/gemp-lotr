@@ -84,4 +84,9 @@ public abstract class AbstractModifier implements Modifier {
     public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
         return result;
     }
+
+    @Override
+    public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+        return result;
+    }
 }
