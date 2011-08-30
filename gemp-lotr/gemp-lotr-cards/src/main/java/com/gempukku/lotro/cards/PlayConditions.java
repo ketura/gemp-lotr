@@ -26,6 +26,10 @@ public class PlayConditions {
                 && modifiersQuerying.getTwilightCost(gameState, self) <= gameState.getTwilightPool();
     }
 
+    public static boolean canUseFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
+        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.FREE_SUPPORT || self.getZone() == Zone.FREE_CHARACTERS);
+    }
+
     public static boolean canUseShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
         return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SHADOW_SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS)
                 && twilightCost <= gameState.getTwilightPool();

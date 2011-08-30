@@ -49,10 +49,14 @@ public class TurnProcedure {
                 Effect effect = _actionStack.getNextEffect();
                 if (effect != null) {
                     EffectResult effectResult = effect.getRespondableResult();
-                    if (effectResult != null)
+                    if (effectResult != null) {
                         _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
-                    else
-                        effect.playEffect(_game);
+                    } else {
+                        if (effect.canPlayEffect(_game))
+                            effect.playEffect(_game);
+                        else
+                            effect.setFailed();
+                    }
                 }
             }
         }
