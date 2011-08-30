@@ -22,9 +22,9 @@ public interface ModifiersQuerying {
 
     public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target);
 
-    public int getVitality(GameState gameState, PhysicalCard physicalCard);
-
     public int getStrength(GameState gameState, PhysicalCard physicalCard);
+
+    public int getVitality(GameState gameState, PhysicalCard physicalCard);
 
     public boolean isOverwhelmedByStrength(GameState gameState, PhysicalCard card, int strength, int opposingStrength);
 

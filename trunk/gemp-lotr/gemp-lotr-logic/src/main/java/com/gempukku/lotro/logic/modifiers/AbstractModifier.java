@@ -46,6 +46,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean appliesStrengthModifier(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard modifierSource, boolean result) {
+        return result;
+    }
+
+    @Override
     public int getVitality(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         return result;
     }

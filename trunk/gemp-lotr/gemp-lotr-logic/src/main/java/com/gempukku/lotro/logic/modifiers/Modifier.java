@@ -18,6 +18,8 @@ public interface Modifier {
 
     public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result);
 
+    public boolean appliesStrengthModifier(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard modifierSource, boolean result);
+
     public int getVitality(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result);
 
     public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result);
