@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.actions.PlayEventFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -37,7 +37,7 @@ public class Card1_004 extends AbstractLotroCardBlueprint {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
             List<Action> actions = new LinkedList<Action>();
 
-            final PlayEventFromHandAction action = new PlayEventFromHandAction(self);
+            final PlayEventAction action = new PlayEventAction(self);
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
                         @Override

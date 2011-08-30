@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -43,7 +43,7 @@ public class Card1_055 extends AbstractLotroCardBlueprint {
 
         if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("The Mirror of Galadriel")))
-            actions.add(new PlayPermanentFromHandAction(self, Zone.FREE_SUPPORT));
+            actions.add(new PlayPermanentAction(self, Zone.FREE_SUPPORT));
 
         if (game.getGameState().getCurrentPhase() == Phase.MANEUVER
                 && self.getZone() == Zone.FREE_SUPPORT

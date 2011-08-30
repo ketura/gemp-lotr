@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.actions.PlayPermanentFromDeckAction;
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.HealCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,10 +42,9 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
 
     protected void appendPlayCompanionActions(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
         ModifiersQuerying modifiersQuerying = lotroGame.getModifiersQuerying();
-        if (PlayConditions.canPlayCompanionDuringSetup(lotroGame.getGameState(), modifiersQuerying, self)) {
-            actions.add(new PlayPermanentFromDeckAction(self, Zone.FREE_CHARACTERS));
-        } else if (PlayConditions.canPlayCharacterDuringFellowship(lotroGame.getGameState(), modifiersQuerying, self)) {
-            actions.add(new PlayPermanentFromHandAction(self, Zone.FREE_CHARACTERS));
+        if (PlayConditions.canPlayCompanionDuringSetup(lotroGame.getGameState(), modifiersQuerying, self)
+                || PlayConditions.canPlayCharacterDuringFellowship(lotroGame.getGameState(), modifiersQuerying, self)) {
+            actions.add(new PlayPermanentAction(self, Zone.FREE_CHARACTERS));
         }
     }
 

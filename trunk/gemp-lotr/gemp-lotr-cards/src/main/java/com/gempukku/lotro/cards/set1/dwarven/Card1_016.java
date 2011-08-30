@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -42,7 +42,7 @@ public class Card1_016 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(getName()))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
-            final PlayPermanentFromHandAction action = new PlayPermanentFromHandAction(self, Zone.FREE_SUPPORT);
+            final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
                         @Override

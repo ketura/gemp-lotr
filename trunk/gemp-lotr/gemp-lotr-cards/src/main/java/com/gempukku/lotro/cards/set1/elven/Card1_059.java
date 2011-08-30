@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
@@ -42,7 +42,7 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayablePhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            PlayPermanentFromHandAction action = new PlayPermanentFromHandAction(self, Zone.FREE_SUPPORT);
+            PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
             return Collections.singletonList(action);
         }
 

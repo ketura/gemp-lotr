@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.HealCardEffect;
 import com.gempukku.lotro.common.*;
@@ -56,7 +56,7 @@ public class Card1_045 extends AbstractAlly {
                             LotroCardBlueprint blueprint = card.getBlueprint();
                             if (!blueprint.isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(blueprint.getName()))) {
                                 Zone zone = (blueprint.getCardType() == CardType.COMPANION) ? Zone.FREE_CHARACTERS : Zone.FREE_SUPPORT;
-                                game.getActionsEnvironment().addActionToStack(new PlayPermanentFromHandAction(card, zone, -1000));
+                                game.getActionsEnvironment().addActionToStack(new PlayPermanentAction(card, zone, -1000));
                             }
                         }
                     });

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.HealCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -38,7 +38,7 @@ public class Card1_025 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.DWARF))) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            PlayEventFromHandAction action = new PlayEventFromHandAction(self);
+            PlayEventAction action = new PlayEventAction(self);
             action.addEffect(new HealCardEffect(skirmishResult.getWinners().get(0)));
             return Collections.<Action>singletonList(action);
         }

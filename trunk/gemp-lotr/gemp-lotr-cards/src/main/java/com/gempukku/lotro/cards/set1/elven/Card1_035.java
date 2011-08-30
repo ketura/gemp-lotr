@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -42,7 +42,7 @@ public class Card1_035 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF))) {
-            final PlayEventFromHandAction action = new PlayEventFromHandAction(self);
+            final PlayEventAction action = new PlayEventAction(self);
             action.addCost(new SpotEffect(Filters.keyword(Keyword.ELF)));
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

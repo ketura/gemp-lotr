@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
@@ -42,7 +42,7 @@ public class Card1_046 extends AbstractLotroCardBlueprint {
         if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert())
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gift of Boats"))) {
-            final PlayPermanentFromHandAction action = new PlayPermanentFromHandAction(self, Zone.FREE_SUPPORT);
+            final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an Elf ally to exert", Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert()) {
                         @Override

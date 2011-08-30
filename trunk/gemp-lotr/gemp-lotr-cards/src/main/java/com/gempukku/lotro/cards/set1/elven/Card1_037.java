@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -38,7 +38,7 @@ public class Card1_037 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
-            final PlayEventFromHandAction action = new PlayEventFromHandAction(self);
+            final PlayEventAction action = new PlayEventAction(self);
 
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF)) {

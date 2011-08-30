@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.actions.PlayEventFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -33,7 +33,7 @@ public class Card1_003 extends AbstractLotroCardBlueprint {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             List<Action> actions = new LinkedList<Action>();
 
-            final PlayEventFromHandAction action = new PlayEventFromHandAction(self);
+            final PlayEventAction action = new PlayEventAction(self);
             List<PhysicalCard> dwarves = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF));
             if (dwarves.size() > 0) {
                 action.addEffect(

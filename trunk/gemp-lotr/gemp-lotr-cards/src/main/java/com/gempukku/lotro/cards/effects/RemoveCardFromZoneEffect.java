@@ -4,10 +4,10 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
-public class RemoveCardFromDeckEffect extends UnrespondableEffect {
+public class RemoveCardFromZoneEffect extends UnrespondableEffect {
     private PhysicalCard _physicalCard;
 
-    public RemoveCardFromDeckEffect(PhysicalCard physicalCard) {
+    public RemoveCardFromZoneEffect(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
     }
 

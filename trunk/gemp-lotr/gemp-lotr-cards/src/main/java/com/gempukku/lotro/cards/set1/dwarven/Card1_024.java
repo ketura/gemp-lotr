@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -40,7 +40,7 @@ public class Card1_024 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            return Collections.<Action>singletonList(new PlayPermanentFromHandAction(self, Zone.FREE_SUPPORT));
+            return Collections.<Action>singletonList(new PlayPermanentAction(self, Zone.FREE_SUPPORT));
         }
         return null;
     }
