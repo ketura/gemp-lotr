@@ -306,6 +306,10 @@ public class GameState {
         return Collections.unmodifiableList(_decks.get(playerId));
     }
 
+    public List<? extends PhysicalCard> getDiscard(String playerId) {
+        return Collections.unmodifiableList(_discards.get(playerId));
+    }
+
     public List<? extends PhysicalCard> getAdventureDeck(String playerId) {
         return Collections.unmodifiableList(_adventureDecks.get(playerId));
     }
