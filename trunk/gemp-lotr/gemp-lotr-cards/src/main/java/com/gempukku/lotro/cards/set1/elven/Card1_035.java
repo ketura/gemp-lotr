@@ -51,7 +51,7 @@ public class Card1_035 extends AbstractLotroCardBlueprint {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                             List<? extends Action> playableActions = physicalCard.getBlueprint().getPlayablePhaseActions(playerId, game, physicalCard);
-                                            return (playableActions.size() > 0);
+                                            return (playableActions != null && playableActions.size() > 0);
                                         }
                                     }), 0, 1) {
                                 @Override

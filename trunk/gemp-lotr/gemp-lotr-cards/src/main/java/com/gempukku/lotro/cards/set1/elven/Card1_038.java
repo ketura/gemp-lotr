@@ -37,9 +37,9 @@ public class Card1_038 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.keyword(Keyword.ARCHERY), Filters.type(CardType.COMPANION))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.keyword(Keyword.ARCHER), Filters.type(CardType.COMPANION))) {
             PlayEventAction action = new PlayEventAction(self);
-            action.addCost(new SpotEffect(Filters.and(Filters.keyword(Keyword.ELF), Filters.keyword(Keyword.ARCHERY), Filters.type(CardType.COMPANION))));
+            action.addCost(new SpotEffect(Filters.and(Filters.keyword(Keyword.ELF), Filters.keyword(Keyword.ARCHER), Filters.type(CardType.COMPANION))));
             action.addEffect(new AddUntilEndOfPhaseModifierEffect(
                     new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
 

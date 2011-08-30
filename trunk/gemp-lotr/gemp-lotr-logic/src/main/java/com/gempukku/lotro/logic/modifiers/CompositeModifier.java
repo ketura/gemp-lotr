@@ -68,6 +68,14 @@ public class CompositeModifier implements Modifier {
     }
 
     @Override
+    public boolean appliesStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, boolean result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.appliesStrengthModifier(gameState, modifiersQuerying, modifierSource, result);
+
+        return result;
+    }
+
+    @Override
     public int getVitality(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         for (Modifier modifier : _modifiers)
             result = modifier.getVitality(gameState, modifiersQuerying, physicalCard, result);
