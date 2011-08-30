@@ -36,7 +36,7 @@ public class Card1_052 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.ARCHERY, self)
+        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION))) {
             CostToEffectAction action = new CostToEffectAction(self, "Make the minion archery total -1");
             action.addCost(new SpotEffect(Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION))));

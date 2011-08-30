@@ -41,7 +41,7 @@ public class Card1_055 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("The Mirror of Galadriel")))
             actions.add(new PlayPermanentAction(self, Zone.FREE_SUPPORT));
 
