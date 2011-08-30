@@ -34,6 +34,5 @@ public class DiscardCardFromPlayEffect extends UnrespondableEffect {
             gameState.removeCardFromZone(attachedCard);
             gameState.addCardToZone(attachedCard, Zone.DISCARD);
         }
-
     }
 }

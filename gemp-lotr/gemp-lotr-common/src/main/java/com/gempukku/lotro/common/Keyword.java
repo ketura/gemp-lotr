@@ -4,7 +4,7 @@ public enum Keyword {
     ELF("Elf"), HOBBIT("Hobbit"), DWARF("Dwarf"), MAN("Man"),
     URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"),
 
-    SUPPORT_AREA("Support Area"), SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"),
+    SUPPORT_AREA("Support Area"), SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"),
 
     RING_BOUND("Ring-Bound"), RING_BEARER("Ring-Bearer"),
 
