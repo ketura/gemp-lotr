@@ -34,7 +34,7 @@ public class Card1_062 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
 
             Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION));
 

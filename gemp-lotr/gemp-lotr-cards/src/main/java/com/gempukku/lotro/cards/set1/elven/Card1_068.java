@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
@@ -48,7 +49,7 @@ public class Card1_068 extends AbstractAttachable {
             action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose an opponent to discard 2 cards at random from hand", getOpponents(game, playerId)) {
+                            new MultipleChoiceAwaitingDecision(1, "Choose an opponent to discard 2 cards at random from hand", GameUtils.getOpponents(game, playerId)) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     action.addEffect(new DiscardCardAtRandomFromHandEffect(result));
@@ -61,11 +62,5 @@ public class Card1_068 extends AbstractAttachable {
         }
 
         return actions;
-    }
-
-    private String[] getOpponents(LotroGame game, String self) {
-        List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
-        shadowPlayers.remove(self);
-        return shadowPlayers.toArray(new String[shadowPlayers.size()]);
     }
 }

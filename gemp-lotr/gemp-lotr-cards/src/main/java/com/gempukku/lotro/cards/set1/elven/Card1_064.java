@@ -42,7 +42,7 @@ public class Card1_064 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.MANEUVER, self)
+        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(3), Filters.canExert())) {
             final CostToEffectAction action = new CostToEffectAction(self, "Exert an Elf ally whose home is site 3. Until the regroup phase, that ally is strength +3 and participates in archery fire and skirmishes.");
             action.addCost(

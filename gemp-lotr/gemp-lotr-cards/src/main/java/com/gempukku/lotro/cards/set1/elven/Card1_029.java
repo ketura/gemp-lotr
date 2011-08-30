@@ -42,7 +42,7 @@ public class Card1_029 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF)) {

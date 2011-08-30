@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.*;
@@ -16,7 +17,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Far-seeing Eyes"))) {
             PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
             return Collections.singletonList(action);
@@ -53,7 +53,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
             final CostToEffectAction action = new CostToEffectAction(self, "Choose an opponent to discard a card from hand");
             action.addCost(
                     new PlayoutDecisionEffect(game.getUserFeedback(), self.getOwner(),
-                            new MultipleChoiceAwaitingDecision(1, "Choose opponent", getOpponents(game.getGameState().getPlayerOrder().getAllPlayers(), self.getOwner())) {
+                            new MultipleChoiceAwaitingDecision(1, "Choose opponent", GameUtils.getOpponents(game, self.getOwner())) {
                                 @Override
                                 protected void validDecisionMade(int index, final String opponentId) {
                                     action.addEffect(
@@ -68,11 +68,5 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
             return Collections.singletonList(action);
         }
         return null;
-    }
-
-    private String[] getOpponents(List<String> players, String self) {
-        List<String> shadowPlayers = new LinkedList<String>(players);
-        shadowPlayers.remove(self);
-        return shadowPlayers.toArray(new String[shadowPlayers.size()]);
     }
 }
