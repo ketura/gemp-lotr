@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.HealCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -37,7 +37,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     protected void appendPlayAllyActions(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
         ModifiersQuerying modifiersQuerying = lotroGame.getModifiersQuerying();
         if (PlayConditions.canPlayCharacterDuringFellowship(lotroGame.getGameState(), modifiersQuerying, self)) {
-            actions.add(new PlayPermanentFromHandAction(self, Zone.FREE_SUPPORT));
+            actions.add(new PlayPermanentAction(self, Zone.FREE_SUPPORT));
         }
     }
 

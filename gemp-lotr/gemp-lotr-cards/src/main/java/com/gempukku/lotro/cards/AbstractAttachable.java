@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.actions.AttachPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -38,7 +38,7 @@ public class AbstractAttachable extends AbstractLotroCardBlueprint {
                 && (!blueprint.isUnique() || !Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.name(blueprint.getName())))
                 && Filters.canSpot(gameState, game.getModifiersQuerying(), validTargetFilter)) {
 
-            actions.add(new AttachPermanentFromHandAction(self, validTargetFilter, playCostModifiers));
+            actions.add(new AttachPermanentAction(self, validTargetFilter, playCostModifiers));
         }
     }
 

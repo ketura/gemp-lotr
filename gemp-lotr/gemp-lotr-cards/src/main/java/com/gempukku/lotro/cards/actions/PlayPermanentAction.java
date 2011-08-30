@@ -7,15 +7,20 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.TriggeringEffect;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
-public class PlayPermanentFromDeckAction extends CostToEffectAction {
-    public PlayPermanentFromDeckAction(PhysicalCard card, Zone zone) {
-        super(card, "Play " + card.getBlueprint().getName() + " from deck");
+public class PlayPermanentAction extends CostToEffectAction {
+    public PlayPermanentAction(PhysicalCard card, Zone zone) {
+        this(card, zone, 0);
+    }
 
-        addCost(new RemoveCardFromDeckEffect(card));
-        addCost(new PayTwilightCostEffect(card));
+    public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier) {
+        super(card, "Play " + card.getBlueprint().getName());
+
+        addCost(new RemoveCardFromZoneEffect(card));
+        addCost(new PayTwilightCostEffect(card, twilightModifier));
 
         addEffect(new PutCardIntoPlayEffect(card, zone));
-        addEffect(new ShuffleDeckEffect(card.getOwner()));
+        if (card.getZone() == Zone.DECK)
+            addEffect(new ShuffleDeckEffect(card.getOwner()));
         addEffect(new CardAffectingGameEffect(card));
         addEffect(new TriggeringEffect(new PlayCardResult(card)));
 

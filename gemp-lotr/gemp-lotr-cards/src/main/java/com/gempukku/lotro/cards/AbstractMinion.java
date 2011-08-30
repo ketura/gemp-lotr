@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.actions.PlayPermanentFromHandAction;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -33,7 +33,7 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
     protected void appendPlayMinionAction(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
         ModifiersQuerying modifiersQuerying = lotroGame.getModifiersQuerying();
         if (PlayConditions.canPlayMinionDuringShadow(lotroGame.getGameState(), modifiersQuerying, self)) {
-            actions.add(new PlayPermanentFromHandAction(self, Zone.SHADOW_CHARACTERS));
+            actions.add(new PlayPermanentAction(self, Zone.SHADOW_CHARACTERS));
         }
     }
 
