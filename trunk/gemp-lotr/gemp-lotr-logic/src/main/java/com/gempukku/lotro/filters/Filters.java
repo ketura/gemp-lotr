@@ -158,6 +158,9 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard == null) {
+                    System.out.println("Blah!");
+                }
                 return (physicalCard.getBlueprint().getCardType() == cardType);
             }
         };

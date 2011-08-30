@@ -142,6 +142,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     private boolean appliesStrengthModifier(GameState gameState, PhysicalCard modifierSource) {
+        if (modifierSource == null)
+            return true;
         boolean result = true;
         for (Modifier modifier : _modifiers) {
             if (affectsCardWithSkipSet(gameState, modifierSource, modifier))
