@@ -34,7 +34,7 @@ public class AbstractAttachable extends AbstractLotroCardBlueprint {
         GameState gameState = game.getGameState();
         LotroCardBlueprint blueprint = self.getBlueprint();
         if (gameState.getCurrentPhase() == ((getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW)
-                && self.getZone() == Zone.HAND
+                && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
                 && (!blueprint.isUnique() || !Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.name(blueprint.getName())))
                 && Filters.canSpot(gameState, game.getModifiersQuerying(), validTargetFilter)) {
 

@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,6 +28,7 @@ import java.util.List;
 public class Card1_017 extends AbstractAlly {
     public Card1_017() {
         super(1, 3, 3, 3, Culture.DWARVEN, "Grimir", "1_17", true);
+        addKeyword(Keyword.DWARF);
     }
 
     @Override
@@ -53,6 +51,7 @@ public class Card1_017 extends AbstractAlly {
                         }
                     }
             );
+            actions.add(action);
         }
 
         return actions;

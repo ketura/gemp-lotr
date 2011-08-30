@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.actions.PlayEventFromHandAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -41,8 +42,7 @@ public class Card1_022 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (game.getGameState().getCurrentPhase() == Phase.MANEUVER
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Discard cards from the top of your draw deck until you choose to stop" +
-                    " (limit 5). Add (1) for each card discarded in this way. Take the last card discarded into hand.");
+            final PlayEventFromHandAction action = new PlayEventFromHandAction(self);
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
                         @Override

@@ -37,7 +37,7 @@ public class Card1_019 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (game.getGameState().getCurrentPhase() == Phase.MANEUVER
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.canExert(), Filters.keyword(Keyword.DWARF))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
             final PlayEventFromHandAction action = new PlayEventFromHandAction(self);
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.canExert(), Filters.keyword(Keyword.DWARF)) {
