@@ -14,7 +14,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,9 +60,9 @@ public class Card1_050 extends AbstractCompanion {
                         }
                     });
 
-            return Collections.singletonList(action);
+            actions.add(action);
         }
 
-        return null;
+        return actions;
     }
 }

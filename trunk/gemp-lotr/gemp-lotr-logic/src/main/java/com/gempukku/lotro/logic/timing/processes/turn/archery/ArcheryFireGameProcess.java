@@ -28,6 +28,12 @@ public class ArcheryFireGameProcess implements GameProcess {
         GameState gameState = _game.getGameState();
         _fellowshipArcheryTotal = Filters.countActive(gameState, _game.getModifiersQuerying(),
                 Filters.keyword(Keyword.ARCHER),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return modifiersQuerying.addsToArcheryTotal(gameState, physicalCard);
+                    }
+                },
                 Filters.or(
                         Filters.type(CardType.COMPANION),
                         new Filter() {
@@ -40,7 +46,14 @@ public class ArcheryFireGameProcess implements GameProcess {
         _fellowshipArcheryTotal = _game.getModifiersQuerying().getArcheryTotal(gameState, Side.FREE_PEOPLE, _fellowshipArcheryTotal);
 
         _shadowArcheryTotal = Filters.countActive(gameState, _game.getModifiersQuerying(),
-                Filters.keyword(Keyword.ARCHER), Filters.type(CardType.MINION));
+                Filters.keyword(Keyword.ARCHER),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return modifiersQuerying.addsToArcheryTotal(gameState, physicalCard);
+                    }
+                },
+                Filters.type(CardType.MINION));
 
         _shadowArcheryTotal = _game.getModifiersQuerying().getArcheryTotal(gameState, Side.SHADOW, _shadowArcheryTotal);
     }

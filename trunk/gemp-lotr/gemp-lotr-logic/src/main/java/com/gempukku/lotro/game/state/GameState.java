@@ -134,9 +134,9 @@ public class GameState {
     }
 
     public void attachCard(PhysicalCard card, PhysicalCard attachTo) {
-        removeCardFromZone(card);
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) attachTo);
-        addCardToZone(card, Zone.ATTACHED);
+        if (card.getZone() != Zone.ATTACHED)
+            addCardToZone(card, Zone.ATTACHED);
     }
 
     public void setRingBearer(PhysicalCard card) {
@@ -160,6 +160,9 @@ public class GameState {
 
     public void removeCardFromZone(PhysicalCard card) {
         Zone zone = card.getZone();
+
+        removeAllTokens(card);
+
         boolean b = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone).remove(card);
         if (!b)
             throw new RuntimeException("Card was not found in the expected zone");
@@ -180,6 +183,18 @@ public class GameState {
         else if (isZonePrivate(zone))
             for (GameStateListener listener : getPrivateGameStateListeners(card))
                 listener.cardCreated(card);
+    }
+
+    private void removeAllTokens(PhysicalCard card) {
+        Map<Token, Integer> map = _cardTokens.get(card);
+        if (map != null) {
+            for (Map.Entry<Token, Integer> tokenIntegerEntry : map.entrySet())
+                if (tokenIntegerEntry.getValue() > 0)
+                    for (GameStateListener listener : getAllGameStateListeners())
+                        listener.removeTokens(card, tokenIntegerEntry.getKey(), tokenIntegerEntry.getValue());
+
+            map.clear();
+        }
     }
 
     public void putCardOnBottomOfDeck(PhysicalCard card) {

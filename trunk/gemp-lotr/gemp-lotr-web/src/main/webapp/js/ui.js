@@ -331,6 +331,7 @@ var GempLotrUI = Class.extend({
         cardData.tokens[token] += count;
 
         this.layoutZone(zone);
+        this.assignmentsChanged();
     },
 
     removeTokens: function(element) {
@@ -347,6 +348,7 @@ var GempLotrUI = Class.extend({
         cardData.tokens[token] -= count;
 
         this.layoutZone(zone);
+        this.assignmentsChanged();
     },
 
     startSkirmish: function(element) {
@@ -444,10 +446,16 @@ var GempLotrUI = Class.extend({
         } else if (zone == "FREE_CHARACTERS") {
             this.charactersPlayer.layoutCards();
             this.charactersOpponent.layoutCards();
+        } else if (zone == "FREE_SUPPORT") {
+            this.supportPlayer.layoutCards();
+            this.supportOpponent.layoutCards();
         } else if (zone == "HAND") {
             this.hand.layoutCards();
         } else if (zone == "SHADOW_CHARACTERS") {
             this.shadow.layoutCards();
+        } else if (zone == "SHADOW_SUPPORT") {
+            this.shadowPlayer.layoutCards();
+            this.shadowOpponent.layoutCards();
         }
     },
 

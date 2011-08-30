@@ -43,7 +43,8 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return (physicalCard.getBlueprint().getPlayablePhaseActions(playerId, _game, physicalCard).size() > 0);
+                        List<? extends Action> playableActions = physicalCard.getBlueprint().getPlayablePhaseActions(playerId, _game, physicalCard);
+                        return (playableActions != null && playableActions.size() > 0);
                     }
                 });
     }

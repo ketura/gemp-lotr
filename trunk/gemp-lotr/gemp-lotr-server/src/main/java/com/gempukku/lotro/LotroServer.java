@@ -53,6 +53,10 @@ public class LotroServer {
         lotroDeck.setRing(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_1"));
         lotroDeck.setRingBearer(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_290"));
 
+        for (int i = 3; i < 58; i++)
+            lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_" + i));
+
+        // Sites
         lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_326"));
         lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_331"));
         lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_337"));
@@ -62,10 +66,6 @@ public class LotroServer {
         lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_354"));
         lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_356"));
         lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_362"));
-
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_12"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_13"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_51"));
 
         for (int i = 0; i < 4; i++) {
             lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_145"));
