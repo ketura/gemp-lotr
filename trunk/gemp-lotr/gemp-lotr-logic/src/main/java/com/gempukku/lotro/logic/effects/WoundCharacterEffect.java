@@ -7,10 +7,10 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
 
-public class WoundEffect extends AbstractEffect {
+public class WoundCharacterEffect extends AbstractEffect {
     private PhysicalCard _woundTarget;
 
-    public WoundEffect(PhysicalCard woundTarget) {
+    public WoundCharacterEffect(PhysicalCard woundTarget) {
         _woundTarget = woundTarget;
     }
 

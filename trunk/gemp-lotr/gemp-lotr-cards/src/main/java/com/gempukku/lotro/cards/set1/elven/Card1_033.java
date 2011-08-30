@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundEffect;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -61,7 +61,7 @@ public class Card1_033 extends AbstractAttachableFPPossession {
                     new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard minion) {
-                            action.addEffect(new WoundEffect(minion));
+                            action.addEffect(new WoundCharacterEffect(minion));
                         }
                     }
             );
