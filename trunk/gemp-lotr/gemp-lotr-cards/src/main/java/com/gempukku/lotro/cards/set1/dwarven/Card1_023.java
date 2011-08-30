@@ -46,7 +46,7 @@ public class Card1_023 extends AbstractLotroCardBlueprint {
             final CostToEffectAction action = new CostToEffectAction(self, "Make an opponent discard 3 cards from the top of his or her draw deck");
             action.addEffect(new PlayoutDecisionEffect(
                     game.getUserFeedback(), playerId,
-                    new MultipleChoiceAwaitingDecision(1, "Choose an opponent", getOpponents(game.getGameState().getPlayerOrder().getAllPlayers(), playerId)) {
+                    new MultipleChoiceAwaitingDecision(1, "Choose an opponent", getOpponents(game, playerId)) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
                             action.addEffect(new DiscardTopCardFromDeckEffect(result));
@@ -60,8 +60,8 @@ public class Card1_023 extends AbstractLotroCardBlueprint {
         return null;
     }
 
-    private String[] getOpponents(List<String> players, String self) {
-        List<String> shadowPlayers = new LinkedList<String>(players);
+    private String[] getOpponents(LotroGame game, String self) {
+        List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
         shadowPlayers.remove(self);
         return shadowPlayers.toArray(new String[shadowPlayers.size()]);
     }
