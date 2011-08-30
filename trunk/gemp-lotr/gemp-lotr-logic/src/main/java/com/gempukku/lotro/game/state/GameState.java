@@ -28,6 +28,7 @@ public class GameState {
 
     private int _moveCount;
     private boolean _fierceSkirmishes;
+    private boolean _wearingRing;
 
     private Map<String, Integer> _playerPosition = new HashMap<String, Integer>();
     private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
@@ -66,6 +67,14 @@ public class GameState {
                 _adventureDecks.get(playerId).add(new PhysicalCardImpl(nextCardId(), playerId, Zone.DECK, card));
             else
                 _decks.get(playerId).add(new PhysicalCardImpl(nextCardId(), playerId, Zone.DECK, card));
+    }
+
+    public void setWearingRing(boolean wearingRing) {
+        _wearingRing = wearingRing;
+    }
+
+    public boolean isWearingRing() {
+        return _wearingRing;
     }
 
     public PlayerOrder getPlayerOrder() {

@@ -9,27 +9,27 @@ import java.util.List;
 
 public abstract class AbstractActionProxy implements ActionProxy {
     @Override
-    public List<Action> getRequiredIsAboutToActions(LotroGame lotroGame, Effect effect, EffectResult effectResult) {
+    public List<? extends Action> getRequiredIsAboutToActions(LotroGame lotroGame, Effect effect, EffectResult effectResult) {
         return null;
     }
 
     @Override
-    public List<Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
+    public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
         return null;
     }
 
     @Override
-    public List<Action> getPlayablePhaseActions(String playerId, LotroGame lotroGame) {
+    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame lotroGame) {
         return null;
     }
 
     @Override
-    public List<Action> getPlayableIsAboutToActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult) {
+    public List<? extends Action> getPlayableIsAboutToActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult) {
         return null;
     }
 
     @Override
-    public List<Action> getPlayableWhenActions(String playerId, LotroGame lotroGame, EffectResult effectResult) {
+    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame lotroGame, EffectResult effectResult) {
         return null;
     }
 }

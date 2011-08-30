@@ -53,7 +53,7 @@ public class Card1_029 extends AbstractLotroCardBlueprint {
                                     new AddUntilEndOfPhaseActionProxyEffect(
                                             new AbstractActionProxy() {
                                                 @Override
-                                                public List<Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
+                                                public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
                                                     if (PlayConditions.winsSkirmish(effectResult, elf)) {
                                                         SkirmishResult skirmishResult = (SkirmishResult) effectResult;
                                                         List<PhysicalCard> losers = skirmishResult.getLosers();
