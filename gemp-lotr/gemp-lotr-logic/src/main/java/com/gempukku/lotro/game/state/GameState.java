@@ -146,6 +146,10 @@ public class GameState {
         _ringBearers.put(card.getOwner(), card);
     }
 
+    public PhysicalCard getRingBearer(String playerId) {
+        return _ringBearers.get(playerId);
+    }
+
     private List<PhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
         if (zone == Zone.DECK && type != CardType.SITE)
             return _decks.get(playerId);
