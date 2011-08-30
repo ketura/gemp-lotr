@@ -353,6 +353,10 @@ public class GameState {
         addTokens(_ringBearers.get(playerId), Token.BURDEN, Math.max(0, burdens));
     }
 
+    public int getBurdens(String playerId) {
+        return getTokenCount(_ringBearers.get(playerId), Token.BURDEN);
+    }
+
     public void removeBurdens(String playerId, int burdens) {
         removeTokens(_ringBearers.get(playerId), Token.BURDEN, Math.max(0, burdens));
     }

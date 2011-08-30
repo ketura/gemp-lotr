@@ -39,7 +39,7 @@ public class Card1_046 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert())
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gift of Boats"))) {
             final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);

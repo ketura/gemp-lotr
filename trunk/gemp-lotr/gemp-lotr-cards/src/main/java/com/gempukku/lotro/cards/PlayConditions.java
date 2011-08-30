@@ -17,8 +17,13 @@ import com.gempukku.lotro.logic.timing.results.WoundResult;
 import java.util.List;
 
 public class PlayConditions {
-    public static boolean canPlayDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
+    public static boolean canPlayFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
         return gameState.getCurrentPhase() == phase && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK);
+    }
+
+    public static boolean canPlayShadowCardDuringPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, PhysicalCard self) {
+        return gameState.getCurrentPhase() == phase && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
+                && modifiersQuerying.getTwilightCost(gameState, self) <= gameState.getTwilightPool();
     }
 
     public static boolean canPlayCompanionDuringSetup(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {

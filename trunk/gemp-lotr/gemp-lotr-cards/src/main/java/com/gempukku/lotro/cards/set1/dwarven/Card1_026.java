@@ -36,7 +36,7 @@ public class Card1_026 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             PlayEventAction action = new PlayEventAction(self);
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.keyword(Keyword.DWARF)) {

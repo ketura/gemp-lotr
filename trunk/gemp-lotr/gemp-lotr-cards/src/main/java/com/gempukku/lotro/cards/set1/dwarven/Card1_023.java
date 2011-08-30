@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
@@ -17,7 +18,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -46,7 +46,7 @@ public class Card1_023 extends AbstractLotroCardBlueprint {
             final CostToEffectAction action = new CostToEffectAction(self, "Make an opponent discard 3 cards from the top of his or her draw deck");
             action.addEffect(new PlayoutDecisionEffect(
                     game.getUserFeedback(), playerId,
-                    new MultipleChoiceAwaitingDecision(1, "Choose an opponent", getOpponents(game, playerId)) {
+                    new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
                             action.addEffect(new DiscardTopCardFromDeckEffect(result));
@@ -58,11 +58,5 @@ public class Card1_023 extends AbstractLotroCardBlueprint {
             return Collections.<Action>singletonList(action);
         }
         return null;
-    }
-
-    private String[] getOpponents(LotroGame game, String self) {
-        List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
-        shadowPlayers.remove(self);
-        return shadowPlayers.toArray(new String[shadowPlayers.size()]);
     }
 }
