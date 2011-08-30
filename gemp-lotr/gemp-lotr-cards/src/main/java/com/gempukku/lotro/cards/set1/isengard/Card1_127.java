@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -36,6 +36,10 @@ public class Card1_127 extends AbstractMinion {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        List<Action> actions = new LinkedList<Action>();
+
+        appendPlayMinionAction(actions, game, self);
+
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self)))) {
             CostToEffectAction action = new CostToEffectAction(self, "Spot another Uruk-hai to make Lurtz fierce until the regroup phase.");
@@ -43,8 +47,8 @@ public class Card1_127 extends AbstractMinion {
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));
 
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+        return actions;
     }
 }
