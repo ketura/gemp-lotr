@@ -22,8 +22,13 @@ public class PlayConditions {
     }
 
     public static boolean canPlayShadowCardDuringPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, PhysicalCard self) {
-        return gameState.getCurrentPhase() == phase && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
-                && (phase == null || modifiersQuerying.getTwilightCost(gameState, self) <= gameState.getTwilightPool());
+        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
+                && modifiersQuerying.getTwilightCost(gameState, self) <= gameState.getTwilightPool();
+    }
+
+    public static boolean canUseShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
+        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SHADOW_SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS)
+                && twilightCost <= gameState.getTwilightPool();
     }
 
     public static boolean canPlayCompanionDuringSetup(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {

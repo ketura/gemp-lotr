@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundEffect;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -67,7 +67,7 @@ public class Card1_014 extends AbstractAttachableFPPossession {
                         new ChooseActiveCardEffect(playerId, "Choose an Orc to wound", Filters.keyword(Keyword.ORC)) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard orc) {
-                                action.addEffect(new WoundEffect(orc));
+                                action.addEffect(new WoundCharacterEffect(orc));
                             }
                         }
                 );

@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-import com.gempukku.lotro.logic.effects.WoundEffect;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -52,11 +52,11 @@ public class Card1_019 extends AbstractLotroCardBlueprint {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> cards) {
                             if (cards.size() == 2) {
-                                action.addEffect(new WoundEffect(cards.get(0)));
-                                action.addEffect(new WoundEffect(cards.get(1)));
+                                action.addEffect(new WoundCharacterEffect(cards.get(0)));
+                                action.addEffect(new WoundCharacterEffect(cards.get(1)));
                             } else {
-                                action.addEffect(new WoundEffect(cards.get(0)));
-                                action.addEffect(new WoundEffect(cards.get(0)));
+                                action.addEffect(new WoundCharacterEffect(cards.get(0)));
+                                action.addEffect(new WoundCharacterEffect(cards.get(0)));
                             }
                         }
                     }
