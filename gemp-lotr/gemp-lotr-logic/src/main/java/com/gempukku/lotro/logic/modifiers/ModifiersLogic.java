@@ -134,8 +134,18 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public int getStrength(GameState gameState, PhysicalCard physicalCard) {
         int result = physicalCard.getBlueprint().getStrength();
         for (Modifier modifier : _modifiers) {
-            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier)
+                    && appliesStrengthModifier(gameState, modifier.getSource()))
                 result = modifier.getStrength(gameState, this, physicalCard, result);
+        }
+        return result;
+    }
+
+    private boolean appliesStrengthModifier(GameState gameState, PhysicalCard modifierSource) {
+        boolean result = true;
+        for (Modifier modifier : _modifiers) {
+            if (affectsCardWithSkipSet(gameState, modifierSource, modifier))
+                result = modifier.appliesStrengthModifier(gameState, this, modifierSource, result);
         }
         return result;
     }
