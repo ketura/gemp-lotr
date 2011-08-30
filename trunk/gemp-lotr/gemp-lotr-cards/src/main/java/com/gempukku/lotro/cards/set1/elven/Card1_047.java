@@ -49,7 +49,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
         Filter validTargetFilter = Filters.and(Filters.name("Arwen"), Filters.not(Filters.attached(Filters.keyword(Keyword.HAND_WEAPON))));
 
         if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gwemegil")))
-            appendAttachCardFromHandAction(actions, game, self, validTargetFilter);
+            appendAttachCardAction(actions, game, self, validTargetFilter);
 
         appendTransferPossessionAction(actions, game, self, validTargetFilter);
 

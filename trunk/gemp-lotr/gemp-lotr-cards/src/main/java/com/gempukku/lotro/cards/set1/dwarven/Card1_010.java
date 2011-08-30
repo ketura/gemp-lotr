@@ -40,7 +40,7 @@ public class Card1_010 extends AbstractAttachable {
 
         Filter validTargetFilter = Filters.keyword(Keyword.DWARF);
 
-        appendAttachCardFromHandAction(actions, game, self, validTargetFilter);
+        appendAttachCardAction(actions, game, self, validTargetFilter);
 
         return actions;
     }

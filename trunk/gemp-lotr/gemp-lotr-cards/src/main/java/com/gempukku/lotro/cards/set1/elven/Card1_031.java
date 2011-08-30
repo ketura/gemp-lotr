@@ -43,7 +43,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
         Map<Filter, Integer> costModifiers = new HashMap<Filter, Integer>();
         costModifiers.put(Filters.name("Arwen"), -2);
 
-        appendAttachCardFromHandAction(actions, game, self, validTargetFilter, costModifiers);
+        appendAttachCardAction(actions, game, self, validTargetFilter, costModifiers);
         appendTransferPossessionAction(actions, game, self, validTargetFilter);
 
         return actions;
