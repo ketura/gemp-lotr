@@ -61,19 +61,17 @@ public class Card1_014 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC))) {
-                final CostToEffectAction action = new CostToEffectAction(self, "Wound an Orc");
-                action.addEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose an Orc to wound", Filters.keyword(Keyword.ORC)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard orc) {
-                                action.addEffect(new WoundCharacterEffect(orc));
-                            }
+            final CostToEffectAction action = new CostToEffectAction(self, "Wound an Orc");
+            action.addEffect(
+                    new ChooseActiveCardEffect(playerId, "Choose an Orc to wound", Filters.keyword(Keyword.ORC)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard orc) {
+                            action.addEffect(new WoundCharacterEffect(orc));
                         }
-                );
+                    }
+            );
 
-                return Collections.<Action>singletonList(action);
-            }
+            return Collections.<Action>singletonList(action);
         }
 
         return null;

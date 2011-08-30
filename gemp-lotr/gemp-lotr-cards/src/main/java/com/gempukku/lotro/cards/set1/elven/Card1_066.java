@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -38,8 +39,7 @@ public class Card1_066 extends AbstractAttachable {
 
         appendAttachCardAction(actions, game, self, validTargetFilter);
 
-        if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && self.getZone() == Zone.ATTACHED) {
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             CostToEffectAction action = new CostToEffectAction(self, "Discard this condition to make bearer strength +2");
             action.addCost(new DiscardCardFromPlayEffect(self));
             action.addEffect(

@@ -39,23 +39,24 @@ public class Card1_036 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert())) {
             final CostToEffectAction action = new CostToEffectAction(self, "Exert an Elf to reveal an opponent's hand. That player discards a card from hand for each Orc revealed.");
-            action.addCost(new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {
-                @Override
-                protected void cardSelected(LotroGame game, PhysicalCard elf) {
-                    action.addCost(new ExertCharacterEffect(elf));
-                    action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
-                                @Override
-                                protected void validDecisionMade(int index, String result) {
-                                    // TODO
-                                }
-                            })
-                    );
-                }
-            });
+            action.addCost(
+                    new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard elf) {
+                            action.addCost(new ExertCharacterEffect(elf));
+                            action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                    new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
+                                        @Override
+                                        protected void validDecisionMade(int index, String result) {
+                                            // TODO
+                                        }
+                                    })
+                            );
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;

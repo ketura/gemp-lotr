@@ -44,8 +44,7 @@ public class Card1_045 extends AbstractAlly {
         appendPlayAllyActions(actions, game, self);
         appendHealAllyActions(actions, game, self);
 
-        if (game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
-                && self.getZone() == Zone.FREE_SUPPORT
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, "Exert Galadriel to play an Elf for free");
             action.addCost(new ExertCharacterEffect(self));

@@ -10,7 +10,6 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -53,8 +52,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
 
         appendTransferPossessionAction(actions, game, self, validTargetFilter);
 
-        if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && self.getZone() == Zone.ATTACHED
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && (PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 || game.getGameState().getHand(playerId).size() >= 2)) {
             final CostToEffectAction action = new CostToEffectAction(self, "Exert Arwen or discard 2 cards from hand to make her Strength +1");

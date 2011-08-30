@@ -38,8 +38,7 @@ public class Card1_017 extends AbstractAlly {
         appendPlayAllyActions(actions, game, self);
         appendHealAllyActions(actions, game, self);
 
-        if (game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
-                && self.getZone() == Zone.FREE_SUPPORT
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, "Exert Grimir to shuffle a DWARVEN event from your discard pile into draw deck");
             action.addCost(new ExertCharacterEffect(self));

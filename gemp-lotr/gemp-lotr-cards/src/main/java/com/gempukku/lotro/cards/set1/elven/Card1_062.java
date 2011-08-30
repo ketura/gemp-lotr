@@ -34,7 +34,7 @@ public class Card1_062 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
 
             Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION));
 
@@ -43,8 +43,7 @@ public class Card1_062 extends AbstractAttachable {
             return actions;
         }
 
-        if (game.getGameState().getCurrentPhase() == Phase.ARCHERY
-                && self.getZone() == Zone.ATTACHED
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             CostToEffectAction action = new CostToEffectAction(self, "Exert bearer to make the fellowship archery total +1");
