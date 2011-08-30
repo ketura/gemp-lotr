@@ -40,7 +40,7 @@ public class Card1_128 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayShadowCardDuringPhase(game.getGameState(), game.getModifiersQuerying(), Phase.SKIRMISH, self)
+        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SKIRMISH, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI))) {
             final PlayEventAction action = new PlayEventAction(self);
 

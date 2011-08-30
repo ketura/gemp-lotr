@@ -39,8 +39,9 @@ public class Card1_024 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            return Collections.<Action>singletonList(new PlayPermanentAction(self, Zone.FREE_SUPPORT));
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
+            PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+            return Collections.<Action>singletonList(action);
         }
         return null;
     }

@@ -8,6 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
@@ -17,21 +18,23 @@ import com.gempukku.lotro.logic.timing.results.WoundResult;
 import java.util.List;
 
 public class PlayConditions {
-    public static boolean canPlayFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
-        return gameState.getCurrentPhase() == phase && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK);
+    public static boolean canPlayFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
+                && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
 
-    public static boolean canPlayShadowCardDuringPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, PhysicalCard self) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
-                && modifiersQuerying.getTwilightCost(gameState, self) <= gameState.getTwilightPool();
+    public static boolean canPlayShadowCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
+                && game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) <= game.getGameState().getTwilightPool()
+                && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
 
     public static boolean canUseFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.FREE_SUPPORT || self.getZone() == Zone.FREE_CHARACTERS);
+        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.FREE_SUPPORT || self.getZone() == Zone.FREE_CHARACTERS || self.getZone() == Zone.ATTACHED);
     }
 
     public static boolean canUseShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SHADOW_SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS)
+        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SHADOW_SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS || self.getZone() == Zone.ATTACHED)
                 && twilightCost <= gameState.getTwilightPool();
     }
 

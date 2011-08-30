@@ -5,7 +5,10 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -42,9 +45,7 @@ public class Card1_013 extends AbstractCompanion {
         appendPlayCompanionActions(result, lotroGame, self);
         appendHealCompanionActions(result, lotroGame, self);
 
-        if (playerId.equals(self.getOwner())
-                && lotroGame.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && self.getZone() == Zone.FREE_CHARACTERS
+        if (PlayConditions.canUseFPCardDuringPhase(lotroGame.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, "Exert Gimli to make him strength +2");
 

@@ -44,8 +44,7 @@ public class Card1_050 extends AbstractCompanion {
         appendPlayCompanionActions(actions, game, self);
         appendHealCompanionActions(actions, game, self);
 
-        if (game.getGameState().getCurrentPhase() == Phase.ARCHERY
-                && self.getZone() == Zone.FREE_CHARACTERS
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final CostToEffectAction action = new CostToEffectAction(self, "Exert Legolas to wound a minion");
             action.addCost(new ExertCharacterEffect(self));

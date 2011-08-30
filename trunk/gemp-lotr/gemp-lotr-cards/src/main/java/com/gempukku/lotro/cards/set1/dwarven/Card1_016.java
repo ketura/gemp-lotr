@@ -40,7 +40,7 @@ public class Card1_016 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(getName()))
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
             final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
             action.addCost(

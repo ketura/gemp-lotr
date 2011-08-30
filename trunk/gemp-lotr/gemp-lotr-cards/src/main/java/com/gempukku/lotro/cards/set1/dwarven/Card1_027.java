@@ -8,7 +8,6 @@ import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -43,8 +42,7 @@ public class Card1_027 extends AbstractAlly {
         appendPlayAllyActions(actions, game, self);
         appendHealAllyActions(actions, game, self);
 
-        if (game.getGameState().getCurrentPhase() == Phase.MANEUVER
-                && self.getZone() == Zone.FREE_SUPPORT
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, "Exert Thrarin to allow him to participate in archery fire and skirmished until the regroup phase");
             action.addCost(new ExertCharacterEffect(self));

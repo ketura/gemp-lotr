@@ -42,37 +42,38 @@ public class Card1_029 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF)) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard elf) {
                             action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
-                            action.addEffect(new AddUntilEndOfPhaseActionProxyEffect(
-                                    new AbstractActionProxy() {
-                                        @Override
-                                        public List<Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
-                                            if (PlayConditions.winsSkirmish(effectResult, elf)) {
-                                                SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-                                                List<PhysicalCard> losers = skirmishResult.getLosers();
-                                                Set<String> opponents = new HashSet<String>();
-                                                for (PhysicalCard loser : losers)
-                                                    opponents.add(loser.getOwner());
+                            action.addEffect(
+                                    new AddUntilEndOfPhaseActionProxyEffect(
+                                            new AbstractActionProxy() {
+                                                @Override
+                                                public List<Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
+                                                    if (PlayConditions.winsSkirmish(effectResult, elf)) {
+                                                        SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+                                                        List<PhysicalCard> losers = skirmishResult.getLosers();
+                                                        Set<String> opponents = new HashSet<String>();
+                                                        for (PhysicalCard loser : losers)
+                                                            opponents.add(loser.getOwner());
 
-                                                List<Action> actions = new LinkedList<Action>();
-                                                for (String opponent : opponents) {
-                                                    CostToEffectAction action = new CostToEffectAction(self, "Discard 2 cards at random from hand");
-                                                    action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
-                                                    action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
-                                                    actions.add(action);
+                                                        List<Action> actions = new LinkedList<Action>();
+                                                        for (String opponent : opponents) {
+                                                            CostToEffectAction action = new CostToEffectAction(self, "Discard 2 cards at random from hand");
+                                                            action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
+                                                            action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
+                                                            actions.add(action);
+                                                        }
+                                                        return actions;
+                                                    }
+                                                    return null;
                                                 }
-                                                return actions;
-                                            }
-                                            return null;
-                                        }
-                                    }, Phase.SKIRMISH
-                            ));
+                                            }, Phase.SKIRMISH
+                                    ));
                         }
                     }
             );

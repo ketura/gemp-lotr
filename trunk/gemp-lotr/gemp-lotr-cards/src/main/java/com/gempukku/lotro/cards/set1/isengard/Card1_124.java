@@ -42,7 +42,7 @@ public class Card1_124 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayShadowCardDuringPhase(game.getGameState(), game.getModifiersQuerying(), Phase.MANEUVER, self)
+        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())) {
             final PlayEventAction action = new PlayEventAction(self);
             String fpPlayer = game.getGameState().getCurrentPlayerId();

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.*;
@@ -42,8 +43,7 @@ public class Card1_012 extends AbstractCompanion {
         appendPlayCompanionActions(result, lotroGame, self);
         appendHealCompanionActions(result, lotroGame, self);
 
-        if (self.getZone() == Zone.FREE_CHARACTERS
-                && lotroGame.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
+        if (PlayConditions.canUseFPCardDuringPhase(lotroGame.getGameState(), Phase.FELLOWSHIP, self)
                 && lotroGame.getGameState().getTwilightPool() < 2) {
             final CostToEffectAction costToEffectAction = new CostToEffectAction(self, "Add (2) to place a card from hand beneath your draw deck");
 

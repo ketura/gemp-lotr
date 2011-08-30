@@ -44,7 +44,7 @@ public class Card1_120 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         final GameState gameState = game.getGameState();
-        if (PlayConditions.canPlayShadowCardDuringPhase(gameState, game.getModifiersQuerying(), Phase.SHADOW, self)
+        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
                 && Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.culture(Culture.URUK_HAI), Filters.canExert())) {
             final PlayPermanentAction action = new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
             action.addCost(
