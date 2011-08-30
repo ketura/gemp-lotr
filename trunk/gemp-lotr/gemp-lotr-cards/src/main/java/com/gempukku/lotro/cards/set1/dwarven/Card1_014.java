@@ -55,7 +55,7 @@ public class Card1_014 extends AbstractAttachableFPPossession {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new StrengthModifier(null, null, 2));
         modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-        return new CompositeModifier(self, Filters.sameCard(self.getAttachedTo()), modifiers);
+        return new CompositeModifier(self, Filters.attachedTo(self), modifiers);
     }
 
     @Override

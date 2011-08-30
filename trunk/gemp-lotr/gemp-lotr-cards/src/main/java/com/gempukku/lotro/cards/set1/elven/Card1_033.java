@@ -50,7 +50,7 @@ public class Card1_033 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1);
+        return new StrengthModifier(self, Filters.attachedTo(self), 1);
     }
 
     @Override

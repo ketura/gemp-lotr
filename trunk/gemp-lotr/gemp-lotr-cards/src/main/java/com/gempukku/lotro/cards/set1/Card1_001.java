@@ -47,7 +47,7 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
         modifiers.add(new KeywordModifier(null, null, Keyword.RING_BEARER));
         modifiers.add(new KeywordModifier(null, null, Keyword.RING_BOUND));
 
-        return new CompositeModifier(self, Filters.sameCard(self.getAttachedTo()), modifiers);
+        return new CompositeModifier(self, Filters.attachedTo(self), modifiers);
     }
 
     @Override
@@ -83,5 +83,10 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public int getTwilightCost() {
+        throw new UnsupportedOperationException("This method should not be called on this card");
     }
 }
