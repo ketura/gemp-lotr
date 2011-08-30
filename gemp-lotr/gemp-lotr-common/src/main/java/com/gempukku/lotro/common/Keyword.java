@@ -10,7 +10,7 @@ public enum Keyword {
 
     ROAMING("Roaming"),
 
-    WEATHER("Weather"), TALE("Tale"),
+    WEATHER("Weather"), TALE("Tale"), SPELL("Spell"),
 
     RIVER("River"), PLAINS("Plains"), UNDERGROUND("Underground"),
 
