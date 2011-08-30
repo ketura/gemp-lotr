@@ -35,6 +35,11 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public int getTwilightCost() {
+        return 1;
+    }
+
+    @Override
     public List<? extends Action> getPlayablePhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             PlayPermanentFromHandAction action = new PlayPermanentFromHandAction(self, Zone.FREE_SUPPORT);

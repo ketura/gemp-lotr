@@ -51,7 +51,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +2, if at Plains another +2", Filters.sameCard(self.getAttachedTo())) {
+        return new AbstractModifier(self, "Strength +2, if at Plains another +2", Filters.attachedTo(self)) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
                 return modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.PLAINS) ? 4 : 2;

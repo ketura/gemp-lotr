@@ -163,11 +163,11 @@ public class Filters {
         };
     }
 
-    public static Filter attachedTo(final int cardId) {
+    public static Filter attachedTo(final PhysicalCard attachment) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getZone() == Zone.ATTACHED && physicalCard.getAttachedTo().getCardId() == cardId;
+                return physicalCard == attachment.getAttachedTo();
             }
         };
     }

@@ -30,6 +30,7 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
             gameState.setRingBearer(ringBearer);
 
             PhysicalCard ring = Filters.filter(gameState.getDeck(playerId), gameState, _game.getModifiersQuerying(), Filters.type(CardType.THE_ONE_RING)).get(0);
+            gameState.removeCardFromZone(ring);
             gameState.attachCard(ring, ringBearer);
 
             gameState.addBurdens(playerId, _bids.get(playerId));

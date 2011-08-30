@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.actions;
 
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
-import com.gempukku.lotro.cards.effects.RemoveCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -16,7 +15,6 @@ public class TransferPermanentAction extends CostToEffectAction {
         addCost(new ChooseActiveCardEffect(card.getOwner(), "Choose target to attach to", filter) {
             @Override
             protected void cardSelected(LotroGame game, PhysicalCard target) {
-                addCost(new RemoveCardFromHandEffect(card));
                 addCost(new PayTwilightCostEffect(card));
                 addCost(new TransferPermanentEffect(card, target));
             }

@@ -133,10 +133,13 @@ public class GameState {
         return zone == Zone.DISCARD || zone == Zone.HAND;
     }
 
+    public void transferCard(PhysicalCard card, PhysicalCard transferTo) {
+        ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) transferTo);
+    }
+
     public void attachCard(PhysicalCard card, PhysicalCard attachTo) {
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) attachTo);
-        if (card.getZone() != Zone.ATTACHED)
-            addCardToZone(card, Zone.ATTACHED);
+        addCardToZone(card, Zone.ATTACHED);
     }
 
     public void setRingBearer(PhysicalCard card) {

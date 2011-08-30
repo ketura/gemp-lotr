@@ -42,6 +42,6 @@ public class Card1_008 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new OverwhelmedByMultiplierModifier(self, Filters.sameCard(self.getAttachedTo()), 3);
+        return new OverwhelmedByMultiplierModifier(self, Filters.attachedTo(self), 3);
     }
 }
