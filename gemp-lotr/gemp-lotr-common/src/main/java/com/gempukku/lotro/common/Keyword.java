@@ -12,7 +12,7 @@ public enum Keyword {
 
     WEATHER("Weather"), TALE("Tale"), SPELL("Spell"),
 
-    RIVER("River"), PLAINS("Plains"), UNDERGROUND("Underground"),
+    RIVER("River"), PLAINS("Plains"), UNDERGROUND("Underground"), SANCTUARY("Sanctuary"),
 
     DAMAGE("Damage"), DEFENDER("Defender"), FIERCE("Fierce"), ARCHER("Archer"), RANGER("Ranger"),
 
