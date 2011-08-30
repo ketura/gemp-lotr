@@ -34,7 +34,7 @@ public class Card1_041 extends AbstractAttachableFPPossession {
 
         Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.not(Filters.attached(Filters.keyword(Keyword.RANGED_WEAPON))));
 
-        appendAttachCardFromHandAction(actions, game, self, validTargetFilter);
+        appendAttachCardAction(actions, game, self, validTargetFilter);
         appendTransferPossessionAction(actions, game, self, validTargetFilter);
 
         return actions;

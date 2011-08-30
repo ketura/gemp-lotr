@@ -39,7 +39,7 @@ public class Card1_049 extends AbstractAttachable {
 
         Filter validTargetFilter = Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.MAN), Filters.not(Filters.attached(Filters.name("The Last Alliance of Elves and Men"))));
 
-        appendAttachCardFromHandAction(actions, game, self, validTargetFilter);
+        appendAttachCardAction(actions, game, self, validTargetFilter);
 
         return actions;
     }

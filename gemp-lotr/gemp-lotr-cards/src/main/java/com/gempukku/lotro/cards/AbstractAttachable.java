@@ -26,11 +26,11 @@ public class AbstractAttachable extends AbstractLotroCardBlueprint {
         _twilight = twilight;
     }
 
-    protected void appendAttachCardFromHandAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
-        appendAttachCardFromHandAction(actions, game, self, validTargetFilter, Collections.<Filter, Integer>emptyMap());
+    protected void appendAttachCardAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
+        appendAttachCardAction(actions, game, self, validTargetFilter, Collections.<Filter, Integer>emptyMap());
     }
 
-    protected void appendAttachCardFromHandAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter, Map<Filter, Integer> playCostModifiers) {
+    protected void appendAttachCardAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter, Map<Filter, Integer> playCostModifiers) {
         GameState gameState = game.getGameState();
         LotroCardBlueprint blueprint = self.getBlueprint();
         if (gameState.getCurrentPhase() == ((getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW)

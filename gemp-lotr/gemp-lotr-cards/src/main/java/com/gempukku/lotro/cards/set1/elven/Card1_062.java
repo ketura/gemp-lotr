@@ -39,7 +39,7 @@ public class Card1_062 extends AbstractAttachable {
             Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION));
 
             List<Action> actions = new LinkedList<Action>();
-            appendAttachCardFromHandAction(actions, game, self, validTargetFilter);
+            appendAttachCardAction(actions, game, self, validTargetFilter);
             return actions;
         }
 
