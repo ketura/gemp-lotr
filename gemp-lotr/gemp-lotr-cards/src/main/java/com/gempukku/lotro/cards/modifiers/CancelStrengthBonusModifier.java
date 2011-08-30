@@ -4,7 +4,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CancelStrengthBonusModifier extends AbstractModifier {
     public CancelStrengthBonusModifier(PhysicalCard source, Filter affectFilter) {
@@ -12,7 +12,7 @@ public class CancelStrengthBonusModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean appliesStrengthModifier(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard modifierSource, boolean result) {
+    public boolean appliesStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, boolean result) {
         return false;
     }
 }

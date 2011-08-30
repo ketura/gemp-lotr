@@ -55,6 +55,7 @@ public class Card1_056 extends AbstractAlly {
                             action.addEffect(new WoundCharacterEffect(urukHai));
                         }
                     });
+            actions.add(action);
         }
 
         return actions;

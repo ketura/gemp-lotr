@@ -55,9 +55,8 @@ public class Card1_047 extends AbstractAttachableFPPossession {
 
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && self.getZone() == Zone.ATTACHED
-                &&
-                (PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
-                        || game.getGameState().getHand(playerId).size() >= 2)) {
+                && (PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
+                || game.getGameState().getHand(playerId).size() >= 2)) {
             final CostToEffectAction action = new CostToEffectAction(self, "Exert Arwen or discard 2 cards from hand to make her Strength +1");
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
@@ -88,6 +87,8 @@ public class Card1_047 extends AbstractAttachableFPPossession {
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1),
                             Phase.SKIRMISH));
+
+            actions.add(action);
         }
 
         return actions;

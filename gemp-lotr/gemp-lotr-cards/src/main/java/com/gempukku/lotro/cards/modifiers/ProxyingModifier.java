@@ -69,6 +69,14 @@ public class ProxyingModifier implements Modifier {
     }
 
     @Override
+    public boolean appliesStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, boolean result) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.appliesStrengthModifier(gameState, modifiersQuerying, modifierSource, result);
+        return result;
+    }
+
+    @Override
     public int getVitality(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
         if (modifier != null)
