@@ -1,9 +1,7 @@
 package com.gempukku.lotro.cards.set1;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseActionProxyEffect;
-import com.gempukku.lotro.cards.effects.CancelEffect;
+import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.CardType;
@@ -21,8 +19,10 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,25 +60,39 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
             action.addCost(new CancelEffect(effect));
             action.addEffect(new AddBurdenEffect(playerId));
             action.addEffect(new AddBurdenEffect(playerId));
-            action.addEffect(new AddUntilStartOfPhaseActionProxyEffect(
+            action.addEffect(new PutOnTheOneRingEffect());
+            action.addEffect(new AddUntilEndOfPhaseActionProxyEffect(
                     new AbstractActionProxy() {
                         @Override
-                        public List<Action> getRequiredIsAboutToActions(LotroGame lotroGame, Effect effect, EffectResult effectResult) {
-                            if (effectResult.getType() == EffectResult.Type.WOUND
-                                    && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
-                                List<Action> actions = new LinkedList<Action>();
-                                CostToEffectAction action = new CostToEffectAction(self, "Add 2 burdens instead of taking a wound");
-                                action.addCost(new CancelEffect(effect));
-                                action.addEffect(new AddBurdenEffect(playerId));
-                                action.addEffect(new AddBurdenEffect(playerId));
-                                return actions;
-                            } else {
-                                return null;
+                        public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
+                            if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
+                                    && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
+                                CostToEffectAction action = new CostToEffectAction(self, "Take off The One Ring");
+                                action.addEffect(new TakeOffTheOneRingEffect());
+                                return Collections.singletonList(action);
                             }
+                            return null;
                         }
-                    }, Phase.REGROUP));
+                    }
+                    , Phase.REGROUP));
 
             actions.add(action);
+            return actions;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<? extends Action> getRequiredIsAboutToActions(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+        if (effectResult.getType() == EffectResult.Type.WOUND
+                && game.getGameState().isWearingRing()
+                && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
+            List<Action> actions = new LinkedList<Action>();
+            CostToEffectAction action = new CostToEffectAction(self, "Add 2 burdens instead of taking a wound");
+            action.addCost(new CancelEffect(effect));
+            action.addEffect(new AddBurdenEffect(self.getOwner()));
+            action.addEffect(new AddBurdenEffect(self.getOwner()));
             return actions;
         } else {
             return null;

@@ -78,7 +78,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<Action> actions = actionProxy.getRequiredIsAboutToActions(_lotroGame, effect, effectResult);
+            List<? extends Action> actions = actionProxy.getRequiredIsAboutToActions(_lotroGame, effect, effectResult);
             if (actions != null)
                 gatheredActions.addAll(actions);
         }
@@ -105,7 +105,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<Action> actions = actionProxy.getPlayableIsAboutToActions(playerId, _lotroGame, effect, effectResult);
+            List<? extends Action> actions = actionProxy.getPlayableIsAboutToActions(playerId, _lotroGame, effect, effectResult);
             if (actions != null)
                 gatheredActions.addAll(actions);
         }
@@ -122,7 +122,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<Action> actions = actionProxy.getRequiredWhenActions(_lotroGame, effectResult);
+            List<? extends Action> actions = actionProxy.getRequiredWhenActions(_lotroGame, effectResult);
             if (actions != null)
                 gatheredActions.addAll(actions);
         }
@@ -149,7 +149,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<Action> actions = actionProxy.getPlayableWhenActions(playerId, _lotroGame, effectResult);
+            List<? extends Action> actions = actionProxy.getPlayableWhenActions(playerId, _lotroGame, effectResult);
             if (actions != null)
                 gatheredActions.addAll(actions);
         }

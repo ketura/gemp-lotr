@@ -3,10 +3,12 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -37,7 +39,14 @@ public class Card1_136 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())) {
-            PlayEventAction action = new PlayEventAction(self);
+            final PlayEventAction action = new PlayEventAction(self);
+            action.addCost(
+                    new ChooseActiveCardEffect(playerId, "Choose an ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard isengardMinion) {
+                            action.addCost(new ExertCharacterEffect(isengardMinion));
+                        }
+                    });
             action.addEffect(
                     new DiscardCardsFromPlayEffect(Filters.type(CardType.CONDITION)));
 
