@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
@@ -9,7 +10,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class Card1_052 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION))) {
-            CostToEffectAction action = new CostToEffectAction(self, "Make the minion archery total -1");
+            PlayEventAction action = new PlayEventAction(self);
             action.addCost(new SpotEffect(Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION))));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
