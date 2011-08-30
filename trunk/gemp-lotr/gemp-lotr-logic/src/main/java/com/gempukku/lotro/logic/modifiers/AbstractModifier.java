@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -92,6 +93,11 @@ public abstract class AbstractModifier implements Modifier {
 
     @Override
     public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+        return result;
+    }
+
+    @Override
+    public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
         return result;
     }
 }

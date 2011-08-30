@@ -223,6 +223,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return result;
     }
 
+    @Override
+    public boolean canPlayPhaseActions(GameState gameState, Phase phase) {
+        boolean result = true;
+        for (Modifier modifier : _modifiers)
+            result = modifier.canPlayPhaseActions(gameState, this, phase, result);
+        return result;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

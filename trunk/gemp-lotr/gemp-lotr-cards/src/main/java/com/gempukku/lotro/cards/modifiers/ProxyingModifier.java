@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.modifiers;
 
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -145,6 +146,14 @@ public class ProxyingModifier implements Modifier {
         Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
         if (modifier != null)
             return modifier.addsToArcheryTotal(gameState, modifiersQuerying, card, result);
+        return result;
+    }
+
+    @Override
+    public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.canPlayPhaseActions(gameState, modifiersQuerying, phase, result);
         return result;
     }
 }

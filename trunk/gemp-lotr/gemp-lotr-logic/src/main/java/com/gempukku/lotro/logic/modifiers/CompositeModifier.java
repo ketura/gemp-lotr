@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -143,6 +144,14 @@ public class CompositeModifier implements Modifier {
     public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
         for (Modifier modifier : _modifiers)
             result = modifier.addsToArcheryTotal(gameState, modifiersQuerying, card, result);
+
+        return result;
+    }
+
+    @Override
+    public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.canPlayPhaseActions(gameState, modifiersQuerying, phase, result);
 
         return result;
     }
