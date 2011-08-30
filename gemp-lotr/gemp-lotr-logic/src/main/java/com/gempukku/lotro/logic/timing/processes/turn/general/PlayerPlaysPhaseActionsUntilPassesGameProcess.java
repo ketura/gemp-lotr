@@ -22,21 +22,25 @@ public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProces
 
     @Override
     public void process() {
-        GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, _playerId);
-        _game.getGameState().iterateActivableCards(_playerId, visitor);
+        if (_game.getModifiersQuerying().canPlayPhaseActions(_game.getGameState(), _game.getGameState().getCurrentPhase())) {
+            GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, _playerId);
+            _game.getGameState().iterateActivableCards(_playerId, visitor);
 
-        _game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ActionsSelectionDecision(1, "Choose action to play or press DONE", visitor.getActions()) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        Action action = getSelectedAction(result);
-                        if (action != null) {
-                            _nextProcess = new PlayerPlaysPhaseActionsUntilPassesGameProcess(_game, _playerId, _followingGameProcess);
-                            _game.getActionsEnvironment().addActionToStack(action);
-                        } else
-                            _nextProcess = _followingGameProcess;
-                    }
-                });
+            _game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new ActionsSelectionDecision(1, "Choose action to play or press DONE", visitor.getActions()) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            Action action = getSelectedAction(result);
+                            if (action != null) {
+                                _nextProcess = new PlayerPlaysPhaseActionsUntilPassesGameProcess(_game, _playerId, _followingGameProcess);
+                                _game.getActionsEnvironment().addActionToStack(action);
+                            } else
+                                _nextProcess = _followingGameProcess;
+                        }
+                    });
+        } else {
+            _nextProcess = _followingGameProcess;
+        }
     }
 
     @Override

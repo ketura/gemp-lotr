@@ -25,27 +25,31 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        String playerId = _playOrder.getNextPlayer();
-        GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, playerId);
-        _game.getGameState().iterateActivableCards(playerId, visitor);
+        if (_game.getModifiersQuerying().canPlayPhaseActions(_game.getGameState(), _game.getGameState().getCurrentPhase())) {
+            String playerId = _playOrder.getNextPlayer();
+            GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, playerId);
+            _game.getGameState().iterateActivableCards(playerId, visitor);
 
-        _game.getUserFeedback().sendAwaitingDecision(playerId,
-                new ActionsSelectionDecision(1, "Choose action to play or press DONE", visitor.getActions()) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        Action action = getSelectedAction(result);
-                        if (action != null) {
-                            _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, 0, _followingGameProcess);
-                            _game.getActionsEnvironment().addActionToStack(action);
-                        } else {
-                            _consecutivePasses++;
-                            if (_consecutivePasses >= _playOrder.getPlayerCount())
-                                _nextProcess = _followingGameProcess;
-                            else
-                                _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, _consecutivePasses, _followingGameProcess);
+            _game.getUserFeedback().sendAwaitingDecision(playerId,
+                    new ActionsSelectionDecision(1, "Choose action to play or press DONE", visitor.getActions()) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            Action action = getSelectedAction(result);
+                            if (action != null) {
+                                _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, 0, _followingGameProcess);
+                                _game.getActionsEnvironment().addActionToStack(action);
+                            } else {
+                                _consecutivePasses++;
+                                if (_consecutivePasses >= _playOrder.getPlayerCount())
+                                    _nextProcess = _followingGameProcess;
+                                else
+                                    _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, _consecutivePasses, _followingGameProcess);
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            _nextProcess = _followingGameProcess;
+        }
     }
 
     @Override

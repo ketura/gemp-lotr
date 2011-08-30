@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -37,4 +38,6 @@ public interface Modifier {
     public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result);
 
     public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result);
+
+    public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result);
 }

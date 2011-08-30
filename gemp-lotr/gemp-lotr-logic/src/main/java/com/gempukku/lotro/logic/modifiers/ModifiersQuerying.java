@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -33,4 +34,6 @@ public interface ModifiersQuerying {
     public boolean isAllyOnCurrentSite(GameState gameState, PhysicalCard card);
 
     public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
+
+    public boolean canPlayPhaseActions(GameState gameState, Phase phase);
 }
