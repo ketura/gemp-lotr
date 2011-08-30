@@ -89,7 +89,7 @@ public class Card1_060 extends AbstractAlly {
             if (copied != null)
                 return copied.getPlayablePhaseActions(playerId, game, self);
             return null;
-        } else if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
+        } else if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             List<Action> actions = new LinkedList<Action>();
 
             appendPlayAllyActions(actions, game, self);

@@ -39,7 +39,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFromHandDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canPlayDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Far-seeing Eyes"))) {
             PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
             return Collections.singletonList(action);
