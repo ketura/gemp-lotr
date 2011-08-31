@@ -37,7 +37,7 @@ public class Card1_049 extends AbstractAttachable {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        Filter validTargetFilter = Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.MAN), Filters.not(Filters.attached(Filters.name("The Last Alliance of Elves and Men"))));
+        Filter validTargetFilter = Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.MAN), Filters.not(Filters.hasAttached(Filters.name("The Last Alliance of Elves and Men"))));
 
         appendAttachCardAction(actions, game, self, validTargetFilter);
 

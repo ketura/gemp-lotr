@@ -38,7 +38,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.not(Filters.attached(Filters.keyword(Keyword.MOUNT))));
+        Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.MOUNT))));
 
         Map<Filter, Integer> costModifiers = new HashMap<Filter, Integer>();
         costModifiers.put(Filters.name("Arwen"), -2);

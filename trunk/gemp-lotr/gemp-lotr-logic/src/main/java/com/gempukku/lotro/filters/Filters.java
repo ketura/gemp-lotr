@@ -90,7 +90,7 @@ public class Filters {
         };
     }
 
-    public static Filter attached(final Filter filter) {
+    public static Filter hasAttached(final Filter filter) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
