@@ -45,7 +45,8 @@ public class Card1_338 extends AbstractSite {
 
     @Override
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.NAZGUL)))
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.NAZGUL))
+                && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN)
             self.removeData();
