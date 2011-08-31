@@ -60,6 +60,15 @@ public class Filters {
         return visitor.getCounter();
     }
 
+    public static Filter any() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return true;
+            }
+        };
+    }
+
     public static Filter side(final Side side) {
         return new Filter() {
             @Override

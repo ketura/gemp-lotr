@@ -9,7 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseAnyCardEffect;
+import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -44,11 +44,11 @@ public class Card1_054 extends AbstractLotroCardBlueprint {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             final CostToEffectAction action = new CostToEffectAction(self, "Reveal an ELVEN card from hand and place it beneath your draw deck");
-            action.addCost(
-                    new ChooseAnyCardEffect(playerId, "Choose ELVEN card", Filters.zone(Zone.HAND), Filters.owner(playerId), Filters.culture(Culture.ELVEN)) {
+            action.addEffect(
+                    new ChooseCardsFromHandEffect(playerId, "Choose ELVEN card", 1, 1, Filters.culture(Culture.ELVEN)) {
                         @Override
-                        protected void cardSelected(PhysicalCard elvenCard) {
-                            action.addEffect(new PutCardFromHandOnBottomOfDeckEffect(elvenCard));
+                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                            action.addEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCards.get(0)));
                         }
                     });
             return Collections.singletonList(action);

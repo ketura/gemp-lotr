@@ -50,7 +50,7 @@ public class Card1_125 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                        protected void cardSelected(PhysicalCard companion) {
                             action.addEffect(new WoundCharacterEffect(companion));
                         }
                     }

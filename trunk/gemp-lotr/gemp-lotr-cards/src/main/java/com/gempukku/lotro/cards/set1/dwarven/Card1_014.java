@@ -65,7 +65,7 @@ public class Card1_014 extends AbstractAttachableFPPossession {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Orc to wound", Filters.keyword(Keyword.ORC)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard orc) {
+                        protected void cardSelected(PhysicalCard orc) {
                             action.addEffect(new WoundCharacterEffect(orc));
                         }
                     }

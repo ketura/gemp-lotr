@@ -41,7 +41,7 @@ public class AbstractAttachable extends AbstractLotroCardBlueprint {
                         (getSide() == Side.SHADOW && PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)))
                 ) {
 
-            actions.add(new AttachPermanentAction(self, validTargetFilter, playCostModifiers));
+            actions.add(new AttachPermanentAction(game, self, validTargetFilter, playCostModifiers));
         }
     }
 

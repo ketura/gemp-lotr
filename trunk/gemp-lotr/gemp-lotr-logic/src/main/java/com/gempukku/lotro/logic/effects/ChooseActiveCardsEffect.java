@@ -17,10 +17,6 @@ public abstract class ChooseActiveCardsEffect extends UnrespondableEffect {
     private int _maximum;
     private Filter[] _filters;
 
-    public ChooseActiveCardsEffect(String playerId, String choiceText, int maximum, Filter... filters) {
-        this(playerId, choiceText, 1, maximum, filters);
-    }
-
     public ChooseActiveCardsEffect(String playerId, String choiceText, int minimum, int maximum, Filter... filters) {
         _playerId = playerId;
         _choiceText = choiceText;

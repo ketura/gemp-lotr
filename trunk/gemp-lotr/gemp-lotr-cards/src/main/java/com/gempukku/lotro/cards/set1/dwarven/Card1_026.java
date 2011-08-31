@@ -41,7 +41,7 @@ public class Card1_026 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.keyword(Keyword.DWARF)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
+                        protected void cardSelected(PhysicalCard dwarf) {
                             GameState gameState = game.getGameState();
                             int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
                             game.getModifiersEnvironment().addUntilEndOfPhaseModifier(

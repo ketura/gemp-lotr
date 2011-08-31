@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.ChooseAnyCardEffect;
+import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -42,13 +42,13 @@ public class Card1_326 extends AbstractSite {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
+                        protected void cardSelected(PhysicalCard hobbit) {
                             action.addCost(new ExertCharacterEffect(hobbit));
                         }
                     }
             );
             action.addEffect(
-                    new ChooseAnyCardEffect(playerId, "Choose companion or ally to play", Filters.owner(playerId), Filters.zone(Zone.HAND), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)),
+                    new ChooseCardsFromHandEffect(playerId, "Choose companion or ally to play", 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)),
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -57,11 +57,11 @@ public class Card1_326 extends AbstractSite {
                                 }
                             }) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            LotroCardBlueprint blueprint = card.getBlueprint();
+                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                            LotroCardBlueprint blueprint = selectedCards.get(0).getBlueprint();
                             if (!blueprint.isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(blueprint.getName()))) {
                                 Zone zone = (blueprint.getCardType() == CardType.COMPANION) ? Zone.FREE_CHARACTERS : Zone.FREE_SUPPORT;
-                                game.getActionsEnvironment().addActionToStack(new PlayPermanentAction(card, zone, -1));
+                                game.getActionsEnvironment().addActionToStack(new PlayPermanentAction(selectedCards.get(0), zone, -1));
                             }
                         }
                     });

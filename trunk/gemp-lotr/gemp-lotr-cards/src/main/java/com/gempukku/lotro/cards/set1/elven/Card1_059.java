@@ -59,12 +59,12 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
             possibleCosts.add(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
+                        protected void cardSelected(PhysicalCard dwarf) {
                             action.addCost(new ExertCharacterEffect(dwarf));
                             action.addEffect(
                                     new ChooseActiveCardEffect(playerId, "Choose Elf to heal", Filters.keyword(Keyword.ELF)) {
                                         @Override
-                                        protected void cardSelected(LotroGame game, PhysicalCard elf) {
+                                        protected void cardSelected(PhysicalCard elf) {
                                             action.addEffect(new HealCharacterEffect(elf));
                                         }
                                     });
@@ -74,12 +74,12 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
             possibleCosts.add(
                     new ChooseActiveCardEffect(playerId, "Choose Elf to exert", Filters.keyword(Keyword.ELF)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard elf) {
+                        protected void cardSelected(PhysicalCard elf) {
                             action.addCost(new ExertCharacterEffect(elf));
                             action.addEffect(
                                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to heal", Filters.keyword(Keyword.DWARF)) {
                                         @Override
-                                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
+                                        protected void cardSelected(PhysicalCard dwarf) {
                                             action.addEffect(new HealCharacterEffect(dwarf));
                                         }
                                     });

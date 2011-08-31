@@ -8,33 +8,39 @@ import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
-public abstract class ChooseAnyCardEffect extends UnrespondableEffect {
+import java.util.List;
+
+public abstract class ChooseCardsFromHandEffect extends UnrespondableEffect {
     private String _playerId;
     private String _choiceText;
+    private int _minimum;
+    private int _maximum;
     private Filter[] _filters;
 
-    public ChooseAnyCardEffect(String playerId, String choiceText, Filter... filters) {
+    public ChooseCardsFromHandEffect(String playerId, String choiceText, int minimum, int maximum, Filter... filters) {
         _playerId = playerId;
         _choiceText = choiceText;
+        _minimum = minimum;
+        _maximum = maximum;
         _filters = filters;
     }
 
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        return Filters.canSpotAnywhere(game.getGameState(), game.getModifiersQuerying(), _filters);
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters).size() >= _minimum;
     }
 
     @Override
     public void playEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new CardsSelectionDecision(1, _choiceText, Filters.filterAnywhere(game.getGameState(), game.getModifiersQuerying(), _filters), 1, 1) {
+                new CardsSelectionDecision(1, _choiceText, Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters), _minimum, _maximum) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
-                        PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
-                        cardSelected(selectedCard);
+                        cardsSelected(getSelectedCardsByResponse(result));
                     }
                 });
     }
 
-    protected abstract void cardSelected(PhysicalCard card);
+    protected abstract void cardsSelected(List<PhysicalCard> selectedCards);
 }
+

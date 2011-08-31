@@ -42,7 +42,7 @@ public class Card1_063 extends AbstractLotroCardBlueprint {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard elf) {
+                        protected void cardSelected(PhysicalCard elf) {
                             action.addCost(new ExertCharacterEffect(elf));
                         }
                     });
@@ -50,7 +50,7 @@ public class Card1_063 extends AbstractLotroCardBlueprint {
                     new ChooseActiveCardEffect(playerId, "Choose SAURON minion, condition or possession", Filters.culture(Culture.SAURON),
                             Filters.or(Filters.type(CardType.MINION), Filters.type(CardType.CONDITION), Filters.type(CardType.POSSESSION))) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard sauronCard) {
+                        protected void cardSelected(PhysicalCard sauronCard) {
                             action.addEffect(new DiscardCardFromPlayEffect(sauronCard));
                         }
                     }

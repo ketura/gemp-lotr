@@ -56,7 +56,7 @@ public class Card1_144 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose Uruk-hai to heal", Filters.keyword(Keyword.URUK_HAI), Filters.in(skirmishResult.getWinners())) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard winningUrukHai) {
+                        protected void cardSelected(PhysicalCard winningUrukHai) {
                             action.addEffect(new HealCharacterEffect(winningUrukHai));
                         }
                     }

@@ -48,11 +48,11 @@ public class Card1_140 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())) {
-            final AttachPermanentAction action = new AttachPermanentAction(self, Filters.type(CardType.SITE), Collections.<Filter, Integer>emptyMap());
+            final AttachPermanentAction action = new AttachPermanentAction(game, self, Filters.type(CardType.SITE), Collections.<Filter, Integer>emptyMap());
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard isengardMinion) {
+                        protected void cardSelected(PhysicalCard isengardMinion) {
                             action.addCost(new ExertCharacterEffect(isengardMinion));
                         }
                     }
