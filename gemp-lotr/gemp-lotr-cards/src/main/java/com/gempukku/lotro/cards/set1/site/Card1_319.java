@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -66,6 +67,7 @@ public class Card1_319 extends AbstractSite {
                             })
 
             );
+            return Collections.singletonList(action);
         }
         return null;
     }
