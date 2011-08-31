@@ -14,4 +14,10 @@ public interface PhysicalCard {
     public LotroCardBlueprint getBlueprint();
 
     public PhysicalCard getAttachedTo();
+
+    public void storeData(Object object);
+
+    public Object getData();
+
+    public void removeData();
 }
