@@ -24,6 +24,7 @@ import java.util.List;
 public class Card1_131 extends AbstractMinion {
     public Card1_131() {
         super(5, 10, 3, 5, Culture.ISENGARD, "Orthanc Assassin", "1_131", true);
+        addKeyword(Keyword.URUK_HAI);
         addKeyword(Keyword.ARCHER);
         addKeyword(Keyword.DAMAGE);
     }
