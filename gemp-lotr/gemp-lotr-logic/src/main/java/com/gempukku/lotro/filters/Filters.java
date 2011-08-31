@@ -158,9 +158,6 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                if (physicalCard == null) {
-                    System.out.println("Blah!");
-                }
                 return (physicalCard.getBlueprint().getCardType() == cardType);
             }
         };
@@ -171,6 +168,15 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return physicalCard == attachment.getAttachedTo();
+            }
+        };
+    }
+
+    public static Filter attachedTo(final Filter filter) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return filter.accepts(gameState, modifiersQuerying, physicalCard.getAttachedTo());
             }
         };
     }
