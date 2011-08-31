@@ -61,6 +61,6 @@ public class Card1_143 extends AbstractMinion {
                         return false;
                     }
                 }
-        ))
+        ));
     }
 }
