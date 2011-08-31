@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.cards.effects.HealCardEffect;
+import com.gempukku.lotro.cards.effects.HealCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -48,7 +48,7 @@ public class Card1_034 extends AbstractAlly {
             action.addEffect(new ChooseActiveCardEffect(playerId, "Choose an ELVEN ally", Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)) {
                 @Override
                 protected void cardSelected(LotroGame game, PhysicalCard elvenAlly) {
-                    action.addEffect(new HealCardEffect(elvenAlly));
+                    action.addEffect(new HealCharacterEffect(elvenAlly));
                 }
             });
 

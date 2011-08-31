@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.HealCardEffect;
+import com.gempukku.lotro.cards.effects.HealCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -55,7 +55,7 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
 
             PhysicalCard active = Filters.findFirstActive(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
             if (active != null)
-                action.addEffect(new HealCardEffect(active));
+                action.addEffect(new HealCharacterEffect(active));
 
             actions.add(action);
         }

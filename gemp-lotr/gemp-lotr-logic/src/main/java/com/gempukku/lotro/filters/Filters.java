@@ -118,6 +118,15 @@ public class Filters {
         };
     }
 
+    public static Filter in(final List<PhysicalCard> cards) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return cards.contains(physicalCard);
+            }
+        };
+    }
+
     public static Filter zone(final Zone zone) {
         return new Filter() {
             @Override

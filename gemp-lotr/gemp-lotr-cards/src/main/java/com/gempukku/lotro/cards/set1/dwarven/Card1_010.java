@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.cards.effects.HealCardEffect;
+import com.gempukku.lotro.cards.effects.HealCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -49,8 +49,8 @@ public class Card1_010 extends AbstractAttachable {
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             CostToEffectAction action = new CostToEffectAction(self, "Heal bearer up to 2 times");
-            action.addEffect(new HealCardEffect(self.getAttachedTo()));
-            action.addEffect(new HealCardEffect(self.getAttachedTo()));
+            action.addEffect(new HealCharacterEffect(self.getAttachedTo()));
+            action.addEffect(new HealCharacterEffect(self.getAttachedTo()));
             return Collections.<Action>singletonList(action);
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             CostToEffectAction action = new CostToEffectAction(self, "Exert bearer at the start of each of your turns");
