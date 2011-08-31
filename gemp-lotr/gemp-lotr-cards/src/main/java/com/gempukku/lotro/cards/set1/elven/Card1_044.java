@@ -55,10 +55,10 @@ public class Card1_044 extends AbstractLotroCardBlueprint {
                             List<? extends PhysicalCard> hand = game.getGameState().getHand(chosenOpponent);
                             List<PhysicalCard> isengardMinions = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
                             action.addCost(
-                                    new ChooseArbitraryCardEffect(playerId, "Choose ISENGARD minion to discard", isengardMinions) {
+                                    new ChooseArbitraryCardsEffect(playerId, "Choose ISENGARD minion to discard", isengardMinions, 1, 1) {
                                         @Override
-                                        protected void cardSelected(PhysicalCard card) {
-                                            action.addEffect(new DiscardCardFromHandEffect(card));
+                                        protected void cardsSelected(List<PhysicalCard> card) {
+                                            action.addEffect(new DiscardCardFromHandEffect(card.get(0)));
                                             action.addEffect(new DrawCardEffect(playerId));
                                             action.addEffect(new DrawCardEffect(playerId));
                                         }

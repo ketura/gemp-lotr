@@ -8,33 +8,36 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.List;
 
-public abstract class ChooseArbitraryCardEffect extends UnrespondableEffect {
+public abstract class ChooseArbitraryCardsEffect extends UnrespondableEffect {
     private String _playerId;
     private String _choiceText;
     private List<PhysicalCard> _cards;
+    private int _minimum;
+    private int _maximum;
 
-    public ChooseArbitraryCardEffect(String playerId, String choiceText, List<PhysicalCard> cards) {
+    public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<PhysicalCard> cards, int minimum, int maximum) {
         _playerId = playerId;
         _choiceText = choiceText;
         _cards = cards;
+        _minimum = minimum;
+        _maximum = maximum;
     }
 
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        return (_cards.size() > 0);
+        return (_cards.size() >= _minimum);
     }
 
     @Override
     public void playEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, _choiceText, _cards, 1, 1) {
+                new ArbitraryCardsSelectionDecision(1, _choiceText, _cards, _minimum, _maximum) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
-                        PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
-                        cardSelected(selectedCard);
+                        cardsSelected(getSelectedCardsByResponse(result));
                     }
                 });
     }
 
-    protected abstract void cardSelected(PhysicalCard card);
+    protected abstract void cardsSelected(List<PhysicalCard> selectedCards);
 }
