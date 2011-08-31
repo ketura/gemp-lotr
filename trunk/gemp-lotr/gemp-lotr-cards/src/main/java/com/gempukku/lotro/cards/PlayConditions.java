@@ -18,13 +18,19 @@ import com.gempukku.lotro.logic.timing.results.WoundResult;
 import java.util.List;
 
 public class PlayConditions {
+    private static boolean nonPlayZone(Zone zone) {
+        return zone != Zone.SHADOW_CHARACTERS && zone != Zone.SHADOW_SUPPORT
+                && zone != Zone.FREE_SUPPORT && zone != Zone.FREE_CHARACTERS
+                && zone != Zone.ATTACHED && zone != Zone.ADVENTURE_PATH;
+    }
+
     public static boolean canPlayFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && nonPlayZone(self.getZone())
                 && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
 
     public static boolean canPlayShadowCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && nonPlayZone(self.getZone())
                 && game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) <= game.getGameState().getTwilightPool()
                 && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
@@ -44,7 +50,7 @@ public class PlayConditions {
 
     public static boolean canPlayCompanionDuringSetup(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         LotroCardBlueprint blueprint = self.getBlueprint();
-        return (self.getZone() == Zone.DECK
+        return (nonPlayZone(self.getZone())
                 && self.getBlueprint().getCardType() == CardType.COMPANION
                 && gameState.getCurrentPhase() == Phase.GAME_SETUP
                 && (!blueprint.isUnique() || !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())))
@@ -53,7 +59,7 @@ public class PlayConditions {
 
     public static boolean canPlayCharacterDuringFellowship(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         LotroCardBlueprint blueprint = self.getBlueprint();
-        return (self.getZone() == Zone.HAND
+        return (nonPlayZone(self.getZone())
                 && (self.getBlueprint().getCardType() == CardType.COMPANION || self.getBlueprint().getCardType() == CardType.ALLY)
                 && gameState.getCurrentPhase() == Phase.FELLOWSHIP
                 && (!blueprint.isUnique() || !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))));
@@ -61,7 +67,7 @@ public class PlayConditions {
 
     public static boolean canPlayMinionDuringShadow(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         LotroCardBlueprint blueprint = self.getBlueprint();
-        return (self.getZone() == Zone.HAND
+        return (nonPlayZone(self.getZone())
                 && gameState.getCurrentPhase() == Phase.SHADOW
                 && gameState.getTwilightPool() >= modifiersQuerying.getTwilightCost(gameState, self)
                 && (!blueprint.isUnique() || !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))));
