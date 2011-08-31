@@ -43,7 +43,7 @@ public class Card1_054 extends AbstractLotroCardBlueprint {
         }
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Reveal an ELVEN card from hand and place it beneath your draw deck");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Reveal an ELVEN card from hand and place it beneath your draw deck");
             action.addEffect(
                     new ChooseCardsFromHandEffect(playerId, "Choose ELVEN card", 1, 1, Filters.culture(Culture.ELVEN)) {
                         @Override

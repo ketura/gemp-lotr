@@ -37,7 +37,7 @@ public class Card1_126 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.MANEUVER, self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Make an Uruk-hai fierce until the regroup phase.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Make an Uruk-hai fierce until the regroup phase.");
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
                         @Override

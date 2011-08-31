@@ -50,7 +50,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getRequiredWhenActions(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.ELF))) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Choose an opponent to discard a card from hand");
+            final CostToEffectAction action = new CostToEffectAction(self, null, "Choose an opponent to discard a card from hand");
             action.addCost(
                     new PlayoutDecisionEffect(game.getUserFeedback(), self.getOwner(),
                             new MultipleChoiceAwaitingDecision(1, "Choose opponent", GameUtils.getOpponents(game, self.getOwner())) {

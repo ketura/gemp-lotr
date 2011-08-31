@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.actions;
 
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class CostToEffectAction implements Action {
     private PhysicalCard _physicalCard;
+    private Keyword _type;
     private String _text;
 
     private List<Effect> _costs = new ArrayList<Effect>();
@@ -19,9 +21,15 @@ public class CostToEffectAction implements Action {
     private int _effectsNextIndex = 0;
     private int _failedCostEffectsNextIndex = 0;
 
-    public CostToEffectAction(PhysicalCard physicalCard, String text) {
+    public CostToEffectAction(PhysicalCard physicalCard, Keyword type, String text) {
         _physicalCard = physicalCard;
+        _type = type;
         _text = text;
+    }
+
+    @Override
+    public Keyword getType() {
+        return _type;
     }
 
     @Override

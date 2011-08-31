@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
 public class WoundAction extends CostToEffectAction {
     public WoundAction(PhysicalCard card, int wounds) {
-        super(null, "Wound character");
+        super(null, null, "Wound character");
         for (int i = 0; i < wounds; i++)
             addEffect(new WoundCharacterEffect(card));
     }

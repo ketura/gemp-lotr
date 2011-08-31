@@ -56,14 +56,14 @@ public class Card1_020 extends AbstractLotroCardBlueprint {
                 List<Action> actions = new LinkedList<Action>();
 
                 for (PhysicalCard losingOrc : losingOrcs) {
-                    CostToEffectAction action = new CostToEffectAction(self, "Discard Orc");
+                    CostToEffectAction action = new CostToEffectAction(self, null, "Discard Orc");
                     action.addEffect(new DiscardCardFromPlayEffect(losingOrc));
                     actions.add(action);
                 }
 
                 return actions;
             } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF)).size() > 0) {
-                CostToEffectAction action = new CostToEffectAction(self, "Discard this condition if Dwarf loses a skirmish");
+                CostToEffectAction action = new CostToEffectAction(self, null, "Discard this condition if Dwarf loses a skirmish");
                 action.addEffect(new DiscardCardFromPlayEffect(self));
                 return Collections.<Action>singletonList(action);
             }

@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 public class PlayEventAction extends CostToEffectAction {
     public PlayEventAction(PhysicalCard card) {
-        super(card, "Play " + card.getBlueprint().getName() + " from hand");
+        super(card, null, "Play " + card.getBlueprint().getName() + " from hand");
 
         addCost(new RemoveCardFromZoneEffect(card));
         addCost(new PayTwilightCostEffect(card));

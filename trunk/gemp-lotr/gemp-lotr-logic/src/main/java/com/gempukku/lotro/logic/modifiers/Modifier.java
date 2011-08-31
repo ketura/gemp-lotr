@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public interface Modifier {
 
     public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result);
 
-    public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result);
+    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result);
 
     public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result);
 

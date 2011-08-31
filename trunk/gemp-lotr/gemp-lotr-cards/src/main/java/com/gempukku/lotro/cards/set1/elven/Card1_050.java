@@ -46,7 +46,7 @@ public class Card1_050 extends AbstractCompanion {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Exert Legolas to wound a minion");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.ARCHERY, "Exert Legolas to wound a minion");
             action.addCost(new ExertCharacterEffect(self));
             action.addCost(
                     new AddUntilEndOfPhaseModifierEffect(

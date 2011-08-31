@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
 
@@ -149,9 +150,9 @@ public class CompositeModifier implements Modifier {
     }
 
     @Override
-    public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
         for (Modifier modifier : _modifiers)
-            result = modifier.canPlayPhaseActions(gameState, modifiersQuerying, phase, result);
+            result = modifier.canPlayAction(gameState, modifiersQuerying, action, result);
 
         return result;
     }

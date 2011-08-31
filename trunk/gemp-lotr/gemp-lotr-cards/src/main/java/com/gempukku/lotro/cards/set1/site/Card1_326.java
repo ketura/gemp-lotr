@@ -38,7 +38,7 @@ public class Card1_326 extends AbstractSite {
     public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.canExert())) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Exert a Hobbit to play a companion or ally; that character's twilight cost is -1.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert a Hobbit to play a companion or ally; that character's twilight cost is -1.");
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT), Filters.canExert()) {
                         @Override

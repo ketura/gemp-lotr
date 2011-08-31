@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.effects.KillEffect;
 
 public class KillAction extends CostToEffectAction {
     public KillAction(PhysicalCard card) {
-        super(null, "Kill the character");
+        super(null, null, "Kill the character");
 
         addEffect(new KillEffect(card));
         addEffect(new DiscardAttachedCardsEffect(card));

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.actions;
 
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -11,6 +12,11 @@ public class SimpleEffectAction implements Action {
     public SimpleEffectAction(Effect effect, String text) {
         _effect = effect;
         _text = text;
+    }
+
+    @Override
+    public Keyword getType() {
+        return null;
     }
 
     @Override

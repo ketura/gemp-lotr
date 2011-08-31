@@ -42,7 +42,7 @@ public class Card1_156 extends AbstractMinion {
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 6) {
-            CostToEffectAction action = new CostToEffectAction(self, "Make this minion fierce until the regroup phase.");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Make this minion fierce until the regroup phase.");
             action.addEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));

@@ -50,7 +50,7 @@ public class Card1_055 extends AbstractLotroCardBlueprint {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"), Filters.canExert())
                 && opponentsHavingAtLeast7Cards(game, playerId).length > 0) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Exert Galadriel to look at 2 random cards, discard one");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert Galadriel to look at 2 random cards, discard one");
             PhysicalCard galadriel = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"));
             action.addCost(new ExertCharacterEffect(galadriel));
             action.addEffect(

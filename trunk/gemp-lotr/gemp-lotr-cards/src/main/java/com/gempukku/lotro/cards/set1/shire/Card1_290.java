@@ -44,7 +44,7 @@ public class Card1_290 extends AbstractCompanion {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.canExert())) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Exert another companion who has the Frodo signet to heal Frodo.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert another companion who has the Frodo signet to heal Frodo.");
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose another companion who has the Frodo signet", Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.canExert()) {
                         @Override

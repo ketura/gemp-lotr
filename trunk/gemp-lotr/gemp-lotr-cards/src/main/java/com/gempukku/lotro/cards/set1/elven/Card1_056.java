@@ -44,7 +44,7 @@ public class Card1_056 extends AbstractAlly {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Exert to wound an Uruk-hai");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.ARCHERY, "Exert to wound an Uruk-hai");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {

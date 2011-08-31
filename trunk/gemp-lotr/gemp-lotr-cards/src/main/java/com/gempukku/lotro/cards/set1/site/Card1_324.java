@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -33,7 +34,7 @@ public class Card1_324 extends AbstractSite {
     @Override
     public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Add a burder to play Aragorn from your draw deck.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Add a burder to play Aragorn from your draw deck.");
             action.addCost(new AddBurdenEffect(playerId));
 
             action.addEffect(

@@ -43,7 +43,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
 
     protected void appendHealAllyActions(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), self)) {
-            CostToEffectAction action = new CostToEffectAction(self, "Discard card to heal");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Discard card to heal");
             action.addCost(new DiscardCardFromHandEffect(self));
 
             PhysicalCard active = Filters.findFirstActive(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));

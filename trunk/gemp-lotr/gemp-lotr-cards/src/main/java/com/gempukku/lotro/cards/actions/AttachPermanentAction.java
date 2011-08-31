@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class AttachPermanentAction extends CostToEffectAction {
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers) {
-        super(card, "Attach " + card.getBlueprint().getName() + " from hand");
+        super(card, null, "Attach " + card.getBlueprint().getName() + " from hand");
 
         addCost(new ChooseActiveCardsEffect(card.getOwner(), "Choose target to attach to", 1, 1, filter) {
             @Override

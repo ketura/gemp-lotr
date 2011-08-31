@@ -46,7 +46,7 @@ public class Card1_015 extends AbstractAttachableFPPossession {
         appendTransferPossessionAction(actions, game, self, validTargetFilter);
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
-            CostToEffectAction action = new CostToEffectAction(self, "Discard Gimli's Helm to prevent all wounds to him");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard Gimli's Helm to prevent all wounds to him");
             action.addCost(new DiscardCardFromPlayEffect(self));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
@@ -60,7 +60,7 @@ public class Card1_015 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.isWounded(effectResult, self.getAttachedTo())) {
-            CostToEffectAction action = new CostToEffectAction(self, "Apply damage prevention");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Apply damage prevention");
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new CantTakeWoundsModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.SKIRMISH));

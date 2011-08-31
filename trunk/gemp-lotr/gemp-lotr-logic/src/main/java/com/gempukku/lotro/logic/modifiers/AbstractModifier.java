@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
 
@@ -99,7 +100,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
         return result;
     }
 

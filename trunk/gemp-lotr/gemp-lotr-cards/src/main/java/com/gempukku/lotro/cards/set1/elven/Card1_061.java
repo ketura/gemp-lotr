@@ -45,7 +45,7 @@ public class Card1_061 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.ELVEN), Filters.keyword(Keyword.TALE)))) {
-            CostToEffectAction action = new CostToEffectAction(self, "Remove a burder");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Remove a burder");
             action.addEffect(new RemoveBurderEffect(playerId));
             return Collections.singletonList(action);
         }

@@ -4,7 +4,9 @@ public enum Keyword {
     ELF("Elf"), HOBBIT("Hobbit"), DWARF("Dwarf"), MAN("Man"),
     URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"),
 
-    SUPPORT_AREA("Support Area"), SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"),
+    SUPPORT_AREA("Support Area"),
+
+    SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"), ASSIGNMENT("Assignment"),
 
     RING_BOUND("Ring-Bound"), RING_BEARER("Ring-Bearer"),
 
@@ -12,7 +14,7 @@ public enum Keyword {
 
     WEATHER("Weather"), TALE("Tale"), SPELL("Spell"), SEARCH("Search"), STEALTH("Stealth"),
 
-    RIVER("River"), PLAINS("Plains"), UNDERGROUND("Underground"), SANCTUARY("Sanctuary"),
+    RIVER("River"), PLAINS("Plains"), UNDERGROUND("Underground"), SANCTUARY("Sanctuary"), FOREST("Forest"),
 
     DAMAGE("Damage"), DEFENDER("Defender"), FIERCE("Fierce"), ARCHER("Archer"), RANGER("Ranger"),
 

@@ -40,7 +40,7 @@ public class Card1_066 extends AbstractAttachable {
         appendAttachCardAction(actions, game, self, validTargetFilter);
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
-            CostToEffectAction action = new CostToEffectAction(self, "Discard this condition to make bearer strength +2");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard this condition to make bearer strength +2");
             action.addCost(new DiscardCardFromPlayEffect(self));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(

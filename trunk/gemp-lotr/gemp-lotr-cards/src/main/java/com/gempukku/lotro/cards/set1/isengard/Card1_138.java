@@ -66,8 +66,10 @@ public class Card1_138 extends AbstractLotroCardBlueprint {
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
         return new AbstractModifier(self, "Can't play Skirmish actions", null) {
             @Override
-            public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
-                if (phase == Phase.SKIRMISH
+            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
+                PhysicalCard actionSource = action.getActionSource();
+                if ((action.getType() == Keyword.SKIRMISH
+                        || (actionSource != null && actionSource.getBlueprint().getCardType() == CardType.EVENT && modifiersQuerying.hasKeyword(gameState, actionSource, Keyword.SKIRMISH)))
                         && gameState.getCurrentSite() == self.getAttachedTo()) {
                     return false;
                 }
@@ -79,7 +81,7 @@ public class Card1_138 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            CostToEffectAction action = new CostToEffectAction(self, "Discard at the end of the turn");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Discard at the end of the turn");
             action.addEffect(new DiscardCardFromPlayEffect(self));
 
             return Collections.singletonList(action);

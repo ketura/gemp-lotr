@@ -45,7 +45,7 @@ public class Card1_012 extends AbstractCompanion {
 
         if (PlayConditions.canUseFPCardDuringPhase(lotroGame.getGameState(), Phase.FELLOWSHIP, self)
                 && lotroGame.getGameState().getTwilightPool() < 2) {
-            final CostToEffectAction costToEffectAction = new CostToEffectAction(self, "Add (2) to place a card from hand beneath your draw deck");
+            final CostToEffectAction costToEffectAction = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to place a card from hand beneath your draw deck");
 
             costToEffectAction.addCost(new AddTwilightEffect(2));
             costToEffectAction.addEffect(

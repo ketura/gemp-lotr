@@ -43,7 +43,7 @@ public class Card1_034 extends AbstractAlly {
         appendHealAllyActions(actions, game, self);
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Exert Celeborn to Heal an ELVEN ally");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Celeborn to Heal an ELVEN ally");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(new ChooseActiveCardEffect(playerId, "Choose an ELVEN ally", Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)) {
                 @Override

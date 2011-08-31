@@ -43,7 +43,7 @@ public class Card1_127 extends AbstractMinion {
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self)))) {
-            CostToEffectAction action = new CostToEffectAction(self, "Spot another Uruk-hai to make Lurtz fierce until the regroup phase.");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Spot another Uruk-hai to make Lurtz fierce until the regroup phase.");
             action.addEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));

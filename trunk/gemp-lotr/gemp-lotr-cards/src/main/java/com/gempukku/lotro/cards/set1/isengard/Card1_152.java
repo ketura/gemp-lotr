@@ -41,7 +41,7 @@ public class Card1_152 extends AbstractMinion {
         appendPlayMinionAction(actions, game, self);
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 2)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Remove (2) to heal an Uruk-hai");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Remove (2) to heal an Uruk-hai");
             action.addCost(new RemoveTwilightEffect(2));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {

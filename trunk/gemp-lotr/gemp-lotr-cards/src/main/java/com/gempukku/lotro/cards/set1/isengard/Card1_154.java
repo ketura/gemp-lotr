@@ -45,7 +45,7 @@ public class Card1_154 extends AbstractMinion {
     @Override
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            CostToEffectAction action = new CostToEffectAction(self, "The Free Peoples player discard the top card of his draw deck.");
+            CostToEffectAction action = new CostToEffectAction(self, null, "The Free Peoples player discard the top card of his draw deck.");
             action.addEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);
         }
