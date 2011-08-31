@@ -38,6 +38,10 @@ public class PlayConditions {
                 && twilightCost <= gameState.getTwilightPool();
     }
 
+    public static boolean canUseSiteDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
+        return (phase == null || gameState.getCurrentPhase() == phase) && (gameState.getCurrentSite() == self);
+    }
+
     public static boolean canPlayCompanionDuringSetup(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         LotroCardBlueprint blueprint = self.getBlueprint();
         return (self.getZone() == Zone.DECK
