@@ -48,7 +48,8 @@ public class Card1_338 extends AbstractSite {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.NAZGUL))
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN)
+        if (effectResult.getType() == EffectResult.Type.END_OF_TURN
+                && self.getData() != null)
             self.removeData();
         return null;
     }
