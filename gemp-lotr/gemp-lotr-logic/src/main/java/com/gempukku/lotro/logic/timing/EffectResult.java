@@ -13,6 +13,8 @@ public abstract class EffectResult {
 
         PLAY,
 
+        PUT_ON_THE_ONE_RING,
+
         WHEN_MOVE_FROM, WHEN_FELLOWSHIP_MOVES, WHEN_MOVE_TO
     }
 
