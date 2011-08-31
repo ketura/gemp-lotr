@@ -10,6 +10,8 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
+import java.util.List;
+
 public class ProxyingModifier implements Modifier {
     private PhysicalCard _card;
     private Filter _filter;
@@ -162,6 +164,14 @@ public class ProxyingModifier implements Modifier {
         Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
         if (modifier != null)
             return modifier.shouldSkipPhase(gameState, modifiersQuerying, phase, result);
+        return result;
+    }
+
+    @Override
+    public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.isValidFreePlayerAssignments(gameState, modifiersQuerying, companion, minions, result);
         return result;
     }
 }

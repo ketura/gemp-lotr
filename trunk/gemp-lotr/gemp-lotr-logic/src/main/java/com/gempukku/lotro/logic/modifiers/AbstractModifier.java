@@ -7,6 +7,8 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 
+import java.util.List;
+
 public abstract class AbstractModifier implements Modifier {
     private PhysicalCard _physicalCard;
     private String _text;
@@ -103,6 +105,11 @@ public abstract class AbstractModifier implements Modifier {
 
     @Override
     public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+        return result;
+    }
+
+    @Override
+    public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
         return result;
     }
 }

@@ -239,6 +239,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return result;
     }
 
+    @Override
+    public boolean isValidFreePlayerAssignments(GameState gameState, PhysicalCard companion, List<PhysicalCard> minions) {
+        boolean result = true;
+        for (Modifier modifier : _modifiers)
+            if (affectsCardWithSkipSet(gameState, companion, modifier))
+                result = modifier.isValidFreePlayerAssignments(gameState, this, companion, minions, result);
+        return result;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 
