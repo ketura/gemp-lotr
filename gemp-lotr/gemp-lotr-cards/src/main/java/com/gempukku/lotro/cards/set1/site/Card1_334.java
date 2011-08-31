@@ -23,8 +23,8 @@ import java.util.List;
  * Site: 2
  * Game Text: Forest. Each time you play a possession or artifact on your companion, draw a card.
  */
-public class Card1_338 extends AbstractSite {
-    public Card1_338() {
+public class Card1_334 extends AbstractSite {
+    public Card1_334() {
         super("Trollshaw Forest", 2, 1, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
