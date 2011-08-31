@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_137 extends AbstractLotroCardBlueprint {
     public Card1_137() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Saruman's Reach", "1_137");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Saruman's Reach");
         addKeyword(Keyword.SEARCH);
         addKeyword(Keyword.MANEUVER);
     }

@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_160 extends AbstractAttachable {
     public Card1_160() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.ISENGARD, "Uruk-hai Sword", "1_160");
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.ISENGARD, "Uruk-hai Sword");
         addKeyword(Keyword.HAND_WEAPON);
     }
 

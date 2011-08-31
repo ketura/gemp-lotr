@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_010 extends AbstractAttachable {
     public Card1_010() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.DWARVEN, "Dwarven Heart", "1_10");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.DWARVEN, "Dwarven Heart");
     }
 
     @Override

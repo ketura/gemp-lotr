@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_018 extends AbstractLotroCardBlueprint {
     public Card1_018() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Halls of My Home", "1_18");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Halls of My Home");
         addKeyword(Keyword.FELLOWSHIP);
     }
 

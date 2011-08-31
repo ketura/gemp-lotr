@@ -1,46 +1,44 @@
 package com.gempukku.lotro.logic.vo;
 
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class LotroDeck {
-    private LotroCardBlueprint _ringBearer;
-    private LotroCardBlueprint _ring;
-    private List<LotroCardBlueprint> _siteCards = new LinkedList<LotroCardBlueprint>();
-    private List<LotroCardBlueprint> _nonSiteCards = new LinkedList<LotroCardBlueprint>();
+    private String _ringBearer;
+    private String _ring;
+    private List<String> _siteCards = new LinkedList<String>();
+    private List<String> _nonSiteCards = new LinkedList<String>();
 
-    public void setRingBearer(LotroCardBlueprint ringBearer) {
+    public void setRingBearer(String ringBearer) {
         _ringBearer = ringBearer;
     }
 
-    public void setRing(LotroCardBlueprint ring) {
+    public void setRing(String ring) {
         _ring = ring;
     }
 
-    public void addCard(LotroCardBlueprint card) {
-        if (card.getCardType() == CardType.SITE)
-            _siteCards.add(card);
-        else
-            _nonSiteCards.add(card);
+    public void addCard(String card) {
+        _nonSiteCards.add(card);
     }
 
-    public List<LotroCardBlueprint> getAdventureCards() {
+    public void addSite(String card) {
+        _siteCards.add(card);
+    }
+
+    public List<String> getAdventureCards() {
         return Collections.unmodifiableList(_nonSiteCards);
     }
 
-    public List<LotroCardBlueprint> getSites() {
+    public List<String> getSites() {
         return Collections.unmodifiableList(_siteCards);
     }
 
-    public LotroCardBlueprint getRingBearer() {
+    public String getRingBearer() {
         return _ringBearer;
     }
 
-    public LotroCardBlueprint getRing() {
+    public String getRing() {
         return _ring;
     }
 }

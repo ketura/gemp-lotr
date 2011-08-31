@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_290 extends AbstractCompanion {
     public Card1_290() {
-        super(0, 3, 4, Culture.SHIRE, "Frodo", "1_290", true);
+        super(0, 3, 4, Culture.SHIRE, "Frodo", true);
         setSignet(Signet.FRODO);
         addKeyword(Keyword.HOBBIT);
         addKeyword(Keyword.RING_BEARER);

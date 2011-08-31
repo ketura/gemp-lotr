@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_320 extends AbstractSite {
     public Card1_320() {
-        super("East Road", "1_320", 1, 0, Direction.LEFT);
+        super("East Road", 1, 0, Direction.LEFT);
     }
 
     @Override

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_065 extends AbstractLotroCardBlueprint {
     public Card1_065() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Swan-ship of the Galadhrim", "1_65");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Swan-ship of the Galadhrim");
         addKeyword(Keyword.MANEUVER);
     }
 

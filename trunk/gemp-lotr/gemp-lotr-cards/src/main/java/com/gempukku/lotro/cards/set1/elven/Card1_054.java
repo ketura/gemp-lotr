@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_054 extends AbstractLotroCardBlueprint {
     public Card1_054() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Mallorn-trees", "1_54");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Mallorn-trees");
     }
 
     @Override

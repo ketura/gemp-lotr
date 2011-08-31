@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_157 extends AbstractLotroCardBlueprint {
     public Card1_157() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Uruk-hai Armory", "1_157");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Uruk-hai Armory");
     }
 
     @Override

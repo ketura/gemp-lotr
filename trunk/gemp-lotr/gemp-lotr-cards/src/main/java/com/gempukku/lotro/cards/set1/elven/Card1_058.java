@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_058 extends AbstractLotroCardBlueprint {
     public Card1_058() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "The Seen and the Unseen", "1_58");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "The Seen and the Unseen");
         addKeyword(Keyword.FELLOWSHIP);
     }
 

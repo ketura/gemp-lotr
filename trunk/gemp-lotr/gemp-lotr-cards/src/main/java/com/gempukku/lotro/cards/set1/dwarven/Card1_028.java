@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_028 extends AbstractLotroCardBlueprint {
     public Card1_028() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Wealth of Moria", "1_28");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Wealth of Moria");
         addKeyword(Keyword.FELLOWSHIP);
     }
 

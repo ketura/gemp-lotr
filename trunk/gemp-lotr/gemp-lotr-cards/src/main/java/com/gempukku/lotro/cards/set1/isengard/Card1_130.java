@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_130 extends AbstractLotroCardBlueprint {
     public Card1_130() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "No Ordinary Storm", "1_130");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "No Ordinary Storm");
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card1_021 extends AbstractLotroCardBlueprint {
     public Card1_021() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Lord of Moria", "1_21");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Lord of Moria");
     }
 
     @Override

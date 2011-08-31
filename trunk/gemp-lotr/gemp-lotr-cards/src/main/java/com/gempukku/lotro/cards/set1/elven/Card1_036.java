@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_036 extends AbstractLotroCardBlueprint {
     public Card1_036() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Curse Their Foul Feet!", "1_36");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Curse Their Foul Feet!");
         addKeyword(Keyword.FELLOWSHIP);
     }
 

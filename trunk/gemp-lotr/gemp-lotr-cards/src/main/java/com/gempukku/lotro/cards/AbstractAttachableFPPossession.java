@@ -13,12 +13,12 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.List;
 
 public class AbstractAttachableFPPossession extends AbstractAttachable {
-    public AbstractAttachableFPPossession(int twilight, Culture culture, String name, String blueprintId) {
-        this(twilight, culture, name, blueprintId, false);
+    public AbstractAttachableFPPossession(int twilight, Culture culture, String name) {
+        this(twilight, culture, name, false);
     }
 
-    public AbstractAttachableFPPossession(int twilight, Culture culture, String name, String blueprintId, boolean unique) {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, twilight, culture, name, blueprintId, unique);
+    public AbstractAttachableFPPossession(int twilight, Culture culture, String name, boolean unique) {
+        super(Side.FREE_PEOPLE, CardType.POSSESSION, twilight, culture, name, unique);
     }
 
     protected void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {

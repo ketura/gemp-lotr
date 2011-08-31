@@ -11,6 +11,6 @@ import com.gempukku.lotro.cards.AbstractSite;
  */
 public class Card1_337 extends AbstractSite {
     public Card1_337() {
-        super("Council Courtyard", "1_337", 3, 0, Direction.RIGHT);
+        super("Council Courtyard", 3, 0, Direction.RIGHT);
     }
 }

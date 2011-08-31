@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card1_033 extends AbstractAttachableFPPossession {
     public Card1_033() {
-        super(1, Culture.ELVEN, "Bow of the Galadhrim", "1_33", true);
+        super(1, Culture.ELVEN, "Bow of the Galadhrim", true);
         addKeyword(Keyword.RANGED_WEAPON);
     }
 

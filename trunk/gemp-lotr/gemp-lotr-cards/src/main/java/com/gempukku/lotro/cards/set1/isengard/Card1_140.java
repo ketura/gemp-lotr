@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card1_140 extends AbstractLotroCardBlueprint {
     public Card1_140() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Spies of Saruman", "1_140");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Spies of Saruman");
     }
 
     @Override

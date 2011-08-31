@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.timing;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.ActionsEnvironment;
-import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
@@ -28,14 +28,14 @@ public class DefaultLotroGame implements LotroGame {
 
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
 
-    public DefaultLotroGame(Map<String, LotroDeck> decks, UserFeedback userFeedback) {
+    public DefaultLotroGame(Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
         _actionStack = new ActionStack();
 
         _actionsEnvironment = new DefaultActionsEnvironment(this, decks.keySet(), _actionStack);
 
-        final Map<String, List<LotroCardBlueprint>> cards = new HashMap<String, List<LotroCardBlueprint>>();
+        final Map<String, List<String>> cards = new HashMap<String, List<String>>();
         for (String playerId : decks.keySet()) {
-            List<LotroCardBlueprint> deck = new LinkedList<LotroCardBlueprint>();
+            List<String> deck = new LinkedList<String>();
 
             LotroDeck lotroDeck = decks.get(playerId);
             deck.add(lotroDeck.getRingBearer());
@@ -50,7 +50,7 @@ public class DefaultLotroGame implements LotroGame {
                 new PlayerOrderFeedback() {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {
-                        _gameState = new GameState(playerOrder, firstPlayer, cards);
+                        _gameState = new GameState(playerOrder, firstPlayer, cards, library);
                         for (Map.Entry<String, GameStateListener> stringGameStateListenerEntry : _gameStateListeners.entrySet())
                             _gameState.addGameStateListener(stringGameStateListenerEntry.getKey(), stringGameStateListenerEntry.getValue());
                         _gameStateListeners = null;

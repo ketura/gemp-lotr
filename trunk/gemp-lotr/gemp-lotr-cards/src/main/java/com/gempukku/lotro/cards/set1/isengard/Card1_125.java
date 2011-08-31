@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_125 extends AbstractLotroCardBlueprint {
     public Card1_125() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Greed", "1_125");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Greed");
     }
 
     @Override

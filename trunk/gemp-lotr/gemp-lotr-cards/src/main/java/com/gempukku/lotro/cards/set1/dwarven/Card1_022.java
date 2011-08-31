@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_022 extends AbstractLotroCardBlueprint {
     public Card1_022() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Mithril Shaft", "1_22");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Mithril Shaft");
         addKeyword(Keyword.MANEUVER);
     }
 

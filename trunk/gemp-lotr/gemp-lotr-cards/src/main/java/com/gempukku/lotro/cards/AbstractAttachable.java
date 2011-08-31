@@ -19,12 +19,12 @@ import java.util.Map;
 public class AbstractAttachable extends AbstractLotroCardBlueprint {
     private int _twilight;
 
-    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, String name, String blueprintId) {
-        this(side, cardType, twilight, culture, name, blueprintId, false);
+    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, String name) {
+        this(side, cardType, twilight, culture, name, false);
     }
 
-    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, String name, String blueprintId, boolean unique) {
-        super(side, cardType, culture, name, blueprintId, unique);
+    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, String name, boolean unique) {
+        super(side, cardType, culture, name, unique);
         _twilight = twilight;
     }
 

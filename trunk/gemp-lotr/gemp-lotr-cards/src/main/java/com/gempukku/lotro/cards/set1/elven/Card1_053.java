@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card1_053 extends AbstractCompanion {
     public Card1_053() {
-        super(1, 5, 3, Culture.ELVEN, "Lorien Elf", "1_53");
+        super(1, 5, 3, Culture.ELVEN, "Lorien Elf");
         addKeyword(Keyword.ELF);
     }
 

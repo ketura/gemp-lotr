@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_005 extends AbstractLotroCardBlueprint {
     public Card1_005() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Cleaving Blow", "1_5");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Cleaving Blow");
         addKeyword(Keyword.SKIRMISH);
     }
 

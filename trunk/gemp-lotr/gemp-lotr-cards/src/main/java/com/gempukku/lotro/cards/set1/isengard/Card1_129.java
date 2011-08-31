@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_129 extends AbstractLotroCardBlueprint {
     public Card1_129() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "The Misadventure of Mr. Underhill", "1_129");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "The Misadventure of Mr. Underhill");
     }
 
     @Override

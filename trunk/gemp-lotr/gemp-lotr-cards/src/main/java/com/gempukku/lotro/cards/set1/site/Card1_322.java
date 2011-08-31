@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_322 extends AbstractSite {
     public Card1_322() {
-        super("Green Dragon Inn", "1_322", 1, 0, Direction.LEFT);
+        super("Green Dragon Inn", 1, 0, Direction.LEFT);
     }
 
     @Override

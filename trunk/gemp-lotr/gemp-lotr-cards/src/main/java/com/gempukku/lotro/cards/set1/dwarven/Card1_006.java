@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_006 extends AbstractLotroCardBlueprint {
     public Card1_006() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Delving", "1_6");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Delving");
         addKeyword(Keyword.FELLOWSHIP);
     }
 

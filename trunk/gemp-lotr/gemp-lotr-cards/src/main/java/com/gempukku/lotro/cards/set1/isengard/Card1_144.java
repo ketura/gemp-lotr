@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_144 extends AbstractLotroCardBlueprint {
     public Card1_144() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Uruk Bloodlust", "1_144");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Uruk Bloodlust");
     }
 
     @Override

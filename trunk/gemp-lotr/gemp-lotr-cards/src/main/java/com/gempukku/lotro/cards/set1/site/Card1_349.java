@@ -11,6 +11,6 @@ import com.gempukku.lotro.cards.AbstractSite;
  */
 public class Card1_349 extends AbstractSite {
     public Card1_349() {
-        super("The Bridge of Khazad-dum", "1_349", 5, 6, Direction.LEFT);
+        super("The Bridge of Khazad-dum", 5, 6, Direction.LEFT);
     }
 }

@@ -11,6 +11,6 @@ import com.gempukku.lotro.cards.AbstractSite;
  */
 public class Card1_362 extends AbstractSite {
     public Card1_362() {
-        super("Summit of Amon Hen", "1_362", 9, 8, Direction.LEFT);
+        super("Summit of Amon Hen", 9, 8, Direction.LEFT);
     }
 }

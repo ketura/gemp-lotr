@@ -10,8 +10,6 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.List;
 
 public interface LotroCardBlueprint {
-    public String getBlueprintId();
-
     public Side getSide();
 
     public CardType getCardType();

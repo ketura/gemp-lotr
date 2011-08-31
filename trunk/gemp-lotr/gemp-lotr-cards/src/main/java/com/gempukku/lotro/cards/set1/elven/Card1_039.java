@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card1_039 extends AbstractLotroCardBlueprint {
     public Card1_039() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Elf-song", "1_39");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Elf-song");
         addKeyword(Keyword.FELLOWSHIP);
     }
 

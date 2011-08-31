@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_049 extends AbstractAttachable {
     public Card1_049() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, "The Last Alliance of Elves and Men", "1_49");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, "The Last Alliance of Elves and Men");
         addKeyword(Keyword.TALE);
     }
 

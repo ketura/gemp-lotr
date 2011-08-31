@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_061 extends AbstractLotroCardBlueprint {
     public Card1_061() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Songs of the Blessed Realm", "1_61");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Songs of the Blessed Realm");
     }
 
     @Override

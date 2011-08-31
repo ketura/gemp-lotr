@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card1_001 extends AbstractLotroCardBlueprint {
     public Card1_001() {
-        super(Side.RING, CardType.THE_ONE_RING, null, "The One Ring", "1_1", true);
+        super(Side.RING, CardType.THE_ONE_RING, null, "The One Ring", true);
     }
 
     @Override

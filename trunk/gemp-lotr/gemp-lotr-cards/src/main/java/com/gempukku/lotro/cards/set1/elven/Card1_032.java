@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_032 extends AbstractLotroCardBlueprint {
     public Card1_032() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Border Defenses", "1_32");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Border Defenses");
         addKeyword(Keyword.SKIRMISH);
     }
 

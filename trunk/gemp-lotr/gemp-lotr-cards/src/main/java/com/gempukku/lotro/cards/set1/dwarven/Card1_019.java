@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_019 extends AbstractLotroCardBlueprint {
     public Card1_019() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Here Lies Balin, Son of Fundin", "1_19");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Here Lies Balin, Son of Fundin");
         addKeyword(Keyword.MANEUVER);
     }
 

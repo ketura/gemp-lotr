@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_332 extends AbstractSite {
     public Card1_332() {
-        super("Midgewater Marshes", "1_332", 2, 1, Direction.LEFT);
+        super("Midgewater Marshes", 2, 1, Direction.LEFT);
         addKeyword(Keyword.MARSH);
     }
 

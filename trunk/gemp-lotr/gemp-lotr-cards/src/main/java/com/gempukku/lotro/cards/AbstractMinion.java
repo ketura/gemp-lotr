@@ -18,12 +18,12 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
     private int _vitality;
     private int _site;
 
-    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Culture culture, String name, String blueprintId) {
-        this(twilightCost, strength, vitality, site, culture, name, blueprintId, false);
+    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Culture culture, String name) {
+        this(twilightCost, strength, vitality, site, culture, name, false);
     }
 
-    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Culture culture, String name, String blueprintId, boolean unique) {
-        super(Side.SHADOW, CardType.MINION, culture, name, blueprintId, unique);
+    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Culture culture, String name, boolean unique) {
+        super(Side.SHADOW, CardType.MINION, culture, name, unique);
         _twilightCost = twilightCost;
         _strength = strength;
         _vitality = vitality;

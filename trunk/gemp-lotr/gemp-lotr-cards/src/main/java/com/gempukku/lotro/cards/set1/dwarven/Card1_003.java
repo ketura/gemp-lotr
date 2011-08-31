@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_003 extends AbstractLotroCardBlueprint {
     public Card1_003() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Axe Strike", "1_3");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Axe Strike");
         addKeyword(Keyword.SKIRMISH);
     }
 

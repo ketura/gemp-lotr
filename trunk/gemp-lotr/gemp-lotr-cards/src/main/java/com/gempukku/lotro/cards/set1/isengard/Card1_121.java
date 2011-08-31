@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_121 extends AbstractLotroCardBlueprint {
     public Card1_121() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Bred for Battle", "1_121");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Bred for Battle");
         addKeyword(Keyword.SKIRMISH);
     }
 

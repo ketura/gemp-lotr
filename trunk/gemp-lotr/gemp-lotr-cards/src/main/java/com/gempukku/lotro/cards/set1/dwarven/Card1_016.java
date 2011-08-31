@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_016 extends AbstractLotroCardBlueprint {
     public Card1_016() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Greatest Kingdom of My People", "1_16", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Greatest Kingdom of My People", true);
         addKeyword(Keyword.TALE);
     }
 

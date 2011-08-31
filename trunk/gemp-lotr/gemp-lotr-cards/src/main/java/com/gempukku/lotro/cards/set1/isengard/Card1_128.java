@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_128 extends AbstractLotroCardBlueprint {
     public Card1_128() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Lurtz's Battle Cry", "1_128");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Lurtz's Battle Cry");
         addKeyword(Keyword.SKIRMISH);
     }
 

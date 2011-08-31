@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_133 extends AbstractLotroCardBlueprint {
     public Card1_133() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Saruman's Ambition", "1_133");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Saruman's Ambition");
     }
 
     @Override

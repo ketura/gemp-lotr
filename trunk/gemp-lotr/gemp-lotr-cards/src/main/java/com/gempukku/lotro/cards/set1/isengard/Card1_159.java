@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_159 extends AbstractLotroCardBlueprint {
     public Card1_159() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Uruk-hai Rampage", "1_159");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Uruk-hai Rampage");
     }
 
     @Override

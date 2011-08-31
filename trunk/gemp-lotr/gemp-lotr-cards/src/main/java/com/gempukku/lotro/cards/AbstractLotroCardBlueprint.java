@@ -15,7 +15,6 @@ import java.util.Map;
 
 public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     private String _name;
-    private String _blueprintId;
     private CardType _cardType;
     private Side _side;
     private Culture _culture;
@@ -23,16 +22,15 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     private Signet _signet;
     private Map<Keyword, Integer> _keywords = new HashMap<Keyword, Integer>();
 
-    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name, String blueprintId) {
-        this(side, cardType, culture, name, blueprintId, false);
+    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name) {
+        this(side, cardType, culture, name, false);
     }
 
-    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name, String blueprintId, boolean unique) {
+    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name, boolean unique) {
         _side = side;
         _cardType = cardType;
         _culture = culture;
         _name = name;
-        _blueprintId = blueprintId;
         _unique = unique;
     }
 
@@ -56,11 +54,6 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
             return 0;
         else
             return count;
-    }
-
-    @Override
-    public String getBlueprintId() {
-        return _blueprintId;
     }
 
     @Override
@@ -135,7 +128,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public Signet getSignet() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
+        return _signet;
     }
 
     @Override

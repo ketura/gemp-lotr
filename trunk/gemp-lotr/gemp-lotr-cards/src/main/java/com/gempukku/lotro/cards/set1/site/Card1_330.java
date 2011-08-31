@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_330 extends AbstractSite {
     public Card1_330() {
-        super("Buckleberry Ferry", "1_330", 2, 1, Direction.LEFT);
+        super("Buckleberry Ferry", 2, 1, Direction.LEFT);
         addKeyword(Keyword.RIVER);
     }
 

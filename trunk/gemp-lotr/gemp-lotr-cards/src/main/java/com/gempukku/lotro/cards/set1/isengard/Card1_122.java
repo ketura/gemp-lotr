@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_122 extends AbstractLotroCardBlueprint {
     public Card1_122() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Breeding Pit", "1_122");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Breeding Pit");
         addKeyword(Keyword.RESPONSE);
     }
 

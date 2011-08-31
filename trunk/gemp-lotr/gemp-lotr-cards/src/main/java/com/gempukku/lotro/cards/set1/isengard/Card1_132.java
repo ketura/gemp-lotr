@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_132 extends AbstractLotroCardBlueprint {
     public Card1_132() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Parry", "1_132");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Parry");
         addKeyword(Keyword.MANEUVER);
     }
 

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_126 extends AbstractLotroCardBlueprint {
     public Card1_126() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Hunt Them Down!", "1_126");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Hunt Them Down!");
         addKeyword(Keyword.MANEUVER);
     }
 

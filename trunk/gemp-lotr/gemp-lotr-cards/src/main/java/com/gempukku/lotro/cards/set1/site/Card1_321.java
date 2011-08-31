@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_321 extends AbstractSite {
     public Card1_321() {
-        super("Farmer Maggot's Fields", "1_321", 1, 0, Direction.LEFT);
+        super("Farmer Maggot's Fields", 1, 0, Direction.LEFT);
     }
 
     @Override

@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class Card1_031 extends AbstractAttachableFPPossession {
     public Card1_031() {
-        super(2, Culture.ELVEN, "Asfaloth", "1_31", true);
+        super(2, Culture.ELVEN, "Asfaloth", true);
         addKeyword(Keyword.MOUNT);
     }
 

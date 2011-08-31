@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_120 extends AbstractLotroCardBlueprint {
     public Card1_120() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Alive and Unspoiled", "1_120");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Alive and Unspoiled");
     }
 
     @Override

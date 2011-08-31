@@ -20,12 +20,12 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
     private int _vitality;
     private Signet _signet;
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, String name, String blueprintId) {
-        this(twilightCost, strength, vitality, culture, name, blueprintId, false);
+    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, String name) {
+        this(twilightCost, strength, vitality, culture, name, false);
     }
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, String name, String blueprintId, boolean unique) {
-        super(Side.FREE_PEOPLE, CardType.COMPANION, culture, name, blueprintId, unique);
+    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, String name, boolean unique) {
+        super(Side.FREE_PEOPLE, CardType.COMPANION, culture, name, unique);
         _twilightCost = twilightCost;
         _strength = strength;
         _vitality = vitality;

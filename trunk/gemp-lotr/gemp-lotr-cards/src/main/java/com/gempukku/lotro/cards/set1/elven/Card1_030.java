@@ -27,7 +27,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_030 extends AbstractCompanion {
     public Card1_030() {
-        super(2, 6, 3, Culture.ELVEN, "Arwen", "1_30", true);
+        super(2, 6, 3, Culture.ELVEN, "Arwen", true);
         addKeyword(Keyword.RANGER);
         addKeyword(Keyword.ELF);
         setSignet(Signet.ARAGORN);

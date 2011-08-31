@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_064 extends AbstractLotroCardBlueprint {
     public Card1_064() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Support of the Last Homely House", "1_64");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Support of the Last Homely House");
         addKeyword(Keyword.MANEUVER);
     }
 

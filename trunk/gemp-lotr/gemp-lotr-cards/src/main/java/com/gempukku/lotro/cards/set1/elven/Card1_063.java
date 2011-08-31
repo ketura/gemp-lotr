@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_063 extends AbstractLotroCardBlueprint {
     public Card1_063() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Stand Against Darkness", "1_63");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Stand Against Darkness");
         addKeyword(Keyword.MANEUVER);
     }
 

@@ -27,7 +27,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_051 extends AbstractCompanion {
     public Card1_051() {
-        super(2, 6, 3, Culture.ELVEN, "Legolas", "1_51", true);
+        super(2, 6, 3, Culture.ELVEN, "Legolas", true);
         addKeyword(Keyword.ELF);
         addKeyword(Keyword.ARCHER);
         setSignet(Signet.GANDALF);

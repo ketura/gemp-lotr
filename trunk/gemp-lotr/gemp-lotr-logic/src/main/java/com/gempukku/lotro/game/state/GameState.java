@@ -2,10 +2,7 @@ package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.game.PhysicalCardVisitor;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 
@@ -46,10 +43,10 @@ public class GameState {
         return _nextCardId++;
     }
 
-    public GameState(PlayerOrder playerOrder, String firstPlayer, Map<String, List<LotroCardBlueprint>> cards) {
+    public GameState(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, LotroCardBlueprintLibrary library) {
         _playerOrder = playerOrder;
         _currentPlayerId = firstPlayer;
-        for (Map.Entry<String, List<LotroCardBlueprint>> stringListEntry : cards.entrySet()) {
+        for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {
             _adventureDecks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _decks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _hands.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
@@ -57,16 +54,18 @@ public class GameState {
             _deadPiles.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _inPlay.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
 
-            addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue());
+            addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
         }
     }
 
-    private void addPlayerCards(String playerId, List<LotroCardBlueprint> cards) {
-        for (LotroCardBlueprint card : cards)
+    private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
+        for (String blueprintId : cards) {
+            LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
             if (card.getCardType() == CardType.SITE)
-                _adventureDecks.get(playerId).add(new PhysicalCardImpl(nextCardId(), playerId, Zone.DECK, card));
+                _adventureDecks.get(playerId).add(new PhysicalCardImpl(nextCardId(), blueprintId, playerId, Zone.DECK, card));
             else
-                _decks.get(playerId).add(new PhysicalCardImpl(nextCardId(), playerId, Zone.DECK, card));
+                _decks.get(playerId).add(new PhysicalCardImpl(nextCardId(), blueprintId, playerId, Zone.DECK, card));
+        }
     }
 
     public void setWearingRing(boolean wearingRing) {

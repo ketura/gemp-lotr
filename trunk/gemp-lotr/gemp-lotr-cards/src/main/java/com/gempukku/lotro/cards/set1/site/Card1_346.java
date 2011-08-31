@@ -11,6 +11,6 @@ import com.gempukku.lotro.cards.AbstractSite;
  */
 public class Card1_346 extends AbstractSite {
     public Card1_346() {
-        super("Moria Lake", "1_346", 4, 3, Direction.RIGHT);
+        super("Moria Lake", 4, 3, Direction.RIGHT);
     }
 }

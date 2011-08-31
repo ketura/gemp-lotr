@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card1_162 extends AbstractLotroCardBlueprint {
     public Card1_162() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Worry", "1_162", true);
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Worry", true);
     }
 
     @Override
