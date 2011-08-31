@@ -1,11 +1,15 @@
 package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.HealCharacterEffect;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -32,14 +36,28 @@ public class Card1_290 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self) {
-        LinkedList<Action> result = new LinkedList<Action>();
+    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        LinkedList<Action> actions = new LinkedList<Action>();
 
-        appendPlayCompanionActions(result, lotroGame, self);
-        appendHealCompanionActions(result, lotroGame, self);
+        appendPlayCompanionActions(actions, game, self);
+        appendHealCompanionActions(actions, game, self);
 
-        // TODO Fellowship action
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.canExert())) {
+            final CostToEffectAction action = new CostToEffectAction(self, "Exert another companion who has the Frodo signet to heal Frodo.");
+            action.addCost(
+                    new ChooseActiveCardEffect(playerId, "Choose another companion who has the Frodo signet", Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.canExert()) {
+                        @Override
+                        protected void cardSelected(PhysicalCard card) {
+                            action.addCost(new ExertCharacterEffect(card));
+                        }
+                    });
+            action.addEffect(
+                    new HealCharacterEffect(self));
 
-        return result;
+            actions.add(action);
+        }
+
+        return actions;
     }
 }

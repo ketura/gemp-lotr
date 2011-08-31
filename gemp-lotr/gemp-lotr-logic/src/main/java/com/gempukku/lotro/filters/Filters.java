@@ -69,6 +69,15 @@ public class Filters {
         };
     }
 
+    public static Filter signet(final Signet signet) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return (physicalCard.getBlueprint().getSignet() == signet);
+            }
+        };
+    }
+
     public static Filter side(final Side side) {
         return new Filter() {
             @Override
