@@ -56,7 +56,7 @@ public class Card1_033 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Wound a minion");
+            final CostToEffectAction action = new CostToEffectAction(self, null, "Wound a minion");
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                         @Override

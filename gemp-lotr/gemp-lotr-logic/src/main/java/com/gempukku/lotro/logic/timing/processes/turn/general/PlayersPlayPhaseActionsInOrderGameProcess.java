@@ -8,6 +8,9 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsVisitor;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
     private LotroGame _game;
     private PlayOrder _playOrder;
@@ -25,31 +28,34 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        if (_game.getModifiersQuerying().canPlayPhaseActions(_game.getGameState(), _game.getGameState().getCurrentPhase())) {
-            String playerId = _playOrder.getNextPlayer();
-            GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, playerId);
-            _game.getGameState().iterateActivableCards(playerId, visitor);
+        String playerId = _playOrder.getNextPlayer();
+        GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, playerId);
+        _game.getGameState().iterateActivableCards(playerId, visitor);
 
-            _game.getUserFeedback().sendAwaitingDecision(playerId,
-                    new ActionsSelectionDecision(1, "Choose action to play or press DONE", visitor.getActions()) {
-                        @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Action action = getSelectedAction(result);
-                            if (action != null) {
-                                _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, 0, _followingGameProcess);
-                                _game.getActionsEnvironment().addActionToStack(action);
-                            } else {
-                                _consecutivePasses++;
-                                if (_consecutivePasses >= _playOrder.getPlayerCount())
-                                    _nextProcess = _followingGameProcess;
-                                else
-                                    _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, _consecutivePasses, _followingGameProcess);
-                            }
+        List<? extends Action> actions = visitor.getActions();
+
+        List<Action> playableActions = new LinkedList<Action>();
+        for (Action action : actions)
+            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), action))
+                playableActions.add(action);
+
+        _game.getUserFeedback().sendAwaitingDecision(playerId,
+                new ActionsSelectionDecision(1, "Choose action to play or press DONE", playableActions) {
+                    @Override
+                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                        Action action = getSelectedAction(result);
+                        if (action != null) {
+                            _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, 0, _followingGameProcess);
+                            _game.getActionsEnvironment().addActionToStack(action);
+                        } else {
+                            _consecutivePasses++;
+                            if (_consecutivePasses >= _playOrder.getPlayerCount())
+                                _nextProcess = _followingGameProcess;
+                            else
+                                _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, _consecutivePasses, _followingGameProcess);
                         }
-                    });
-        } else {
-            _nextProcess = _followingGameProcess;
-        }
+                    }
+                });
     }
 
     @Override

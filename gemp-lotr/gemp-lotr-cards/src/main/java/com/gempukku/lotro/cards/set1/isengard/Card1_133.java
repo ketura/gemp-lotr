@@ -47,7 +47,7 @@ public class Card1_133 extends AbstractLotroCardBlueprint {
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI))) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Discard this condition to make an Uruk-hai strength +2.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard this condition to make an Uruk-hai strength +2.");
             action.addCost(new DiscardCardFromPlayEffect(self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {

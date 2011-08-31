@@ -46,7 +46,7 @@ public class Card1_147 extends AbstractMinion {
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Exert this minion and spot a companion to prevent the opponent from assigning that companion to this minion.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.ASSIGNMENT, "Exert this minion and spot a companion to prevent the opponent from assigning that companion to this minion.");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a companion", Filters.type(CardType.COMPANION)) {

@@ -54,7 +54,7 @@ public class Card1_159 extends AbstractLotroCardBlueprint {
                 && game.getGameState().getTwilightPool() >= 3) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
 
-            final CostToEffectAction action = new CostToEffectAction(self, "If your Uruk-hai wins a skirmish, remove (3) to make him fierce until the regroup phase.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (3) to make him fierce until the regroup phase.");
 
             action.addCost(new RemoveTwilightEffect(3));
             action.addEffect(

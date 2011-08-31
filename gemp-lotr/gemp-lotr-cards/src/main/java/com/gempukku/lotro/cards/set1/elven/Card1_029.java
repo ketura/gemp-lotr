@@ -63,7 +63,7 @@ public class Card1_029 extends AbstractLotroCardBlueprint {
 
                                                         List<Action> actions = new LinkedList<Action>();
                                                         for (String opponent : opponents) {
-                                                            CostToEffectAction action = new CostToEffectAction(self, "Discard 2 cards at random from hand");
+                                                            CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard 2 cards at random from hand");
                                                             action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
                                                             action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
                                                             actions.add(action);

@@ -62,7 +62,7 @@ public class Card1_162 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         GameState gameState = game.getGameState();
         if (PlayConditions.winsSkirmish(gameState, game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.URUK_HAI))) {
-            CostToEffectAction action = new CostToEffectAction(self, "Each time a companion or ally loses a skirmish involving an Uruk-hai, the opponent must choose to either exert the Ring-bearer or add a burden.");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Each time a companion or ally loses a skirmish involving an Uruk-hai, the opponent must choose to either exert the Ring-bearer or add a burden.");
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(new ExertCharacterEffect(gameState.getRingBearer(gameState.getCurrentPlayerId())));
             possibleEffects.add(new AddBurdenEffect(gameState.getCurrentPlayerId()));

@@ -51,7 +51,7 @@ public class Card1_144 extends AbstractLotroCardBlueprint {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.owner(playerId)))
                 && game.getGameState().getTwilightPool() >= 1) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
-            final CostToEffectAction action = new CostToEffectAction(self, "If your Uruk-hai wins a skirmish, remove (1) to heal him.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (1) to heal him.");
             action.addCost(new RemoveTwilightEffect(1));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose Uruk-hai to heal", Filters.keyword(Keyword.URUK_HAI), Filters.in(skirmishResult.getWinners())) {

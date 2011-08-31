@@ -13,7 +13,7 @@ public class PlayPermanentAction extends CostToEffectAction {
     }
 
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier) {
-        super(card, "Play " + card.getBlueprint().getName());
+        super(card, null, "Play " + card.getBlueprint().getName());
 
         addCost(new RemoveCardFromZoneEffect(card));
         addCost(new PayTwilightCostEffect(card, twilightModifier));

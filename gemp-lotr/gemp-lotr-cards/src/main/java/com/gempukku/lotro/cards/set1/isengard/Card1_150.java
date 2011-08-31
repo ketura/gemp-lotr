@@ -46,7 +46,7 @@ public class Card1_150 extends AbstractMinion {
     @Override
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)) {
-            CostToEffectAction action = new CostToEffectAction(self, "Free Peoples player must discard the top 2 cards of his draw deck.");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Free Peoples player must discard the top 2 cards of his draw deck.");
             action.addEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             action.addEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);

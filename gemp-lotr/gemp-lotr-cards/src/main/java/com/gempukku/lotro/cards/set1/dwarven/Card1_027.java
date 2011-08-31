@@ -44,7 +44,7 @@ public class Card1_027 extends AbstractAlly {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            CostToEffectAction action = new CostToEffectAction(self, "Exert Thrarin to allow him to participate in archery fire and skirmished until the regroup phase");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert Thrarin to allow him to participate in archery fire and skirmished until the regroup phase");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
                     new AddUntilStartOfPhaseModifierEffect(

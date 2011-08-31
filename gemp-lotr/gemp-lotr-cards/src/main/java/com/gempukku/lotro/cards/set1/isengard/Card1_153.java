@@ -42,7 +42,7 @@ public class Card1_153 extends AbstractMinion {
         appendPlayMinionAction(actions, game, self);
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 1)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Remove (1) to make this minion strength +1 (limit +3).");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Remove (1) to make this minion strength +1 (limit +3).");
             action.addCost(new RemoveTwilightEffect(1));
             action.addEffect(
                     new CheckLimitEffect(action, self, 3, Phase.SKIRMISH, false,

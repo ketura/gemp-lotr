@@ -56,7 +56,7 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
                 && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
             List<Action> actions = new LinkedList<Action>();
 
-            CostToEffectAction action = new CostToEffectAction(self, "Put on The One Ring until the Regroup phase");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
             action.addCost(new CancelEffect(effect));
             action.addEffect(new AddBurdenEffect(playerId));
             action.addEffect(new AddBurdenEffect(playerId));
@@ -67,7 +67,7 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
                         public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
                             if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                     && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                CostToEffectAction action = new CostToEffectAction(self, "Take off The One Ring");
+                                CostToEffectAction action = new CostToEffectAction(self, null, "Take off The One Ring");
                                 action.addEffect(new TakeOffTheOneRingEffect());
                                 return Collections.singletonList(action);
                             }
@@ -89,7 +89,7 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
                 && game.getGameState().isWearingRing()
                 && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
             List<Action> actions = new LinkedList<Action>();
-            CostToEffectAction action = new CostToEffectAction(self, "Add 2 burdens instead of taking a wound");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Add 2 burdens instead of taking a wound");
             action.addCost(new CancelEffect(effect));
             action.addEffect(new AddBurdenEffect(self.getOwner()));
             action.addEffect(new AddBurdenEffect(self.getOwner()));

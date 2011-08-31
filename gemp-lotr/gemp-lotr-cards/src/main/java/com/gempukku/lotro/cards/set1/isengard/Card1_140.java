@@ -78,7 +78,7 @@ public class Card1_140 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            CostToEffectAction action = new CostToEffectAction(self, "Discard at the end of the turn");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Discard at the end of the turn");
             action.addEffect(new DiscardCardFromPlayEffect(self));
 
             return Collections.singletonList(action);

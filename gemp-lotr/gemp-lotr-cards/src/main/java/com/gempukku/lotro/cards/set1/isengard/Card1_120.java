@@ -59,7 +59,7 @@ public class Card1_120 extends AbstractLotroCardBlueprint {
         }
 
         if (PlayConditions.canUseShadowCardDuringPhase(gameState, Phase.SHADOW, self, 3)) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Remove (3) and spot X burdens to make the Free Peoples player reveal X cards at random from hand. You may discard 1 revealed card.");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.SHADOW, "Remove (3) and spot X burdens to make the Free Peoples player reveal X cards at random from hand. You may discard 1 revealed card.");
             action.addCost(new RemoveTwilightEffect(3));
             final String fpPlayer = gameState.getCurrentPlayerId();
             action.addEffect(

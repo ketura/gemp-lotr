@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.*;
 
@@ -244,10 +245,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean canPlayPhaseActions(GameState gameState, Phase phase) {
+    public boolean canPlayAction(GameState gameState, Action action) {
         boolean result = true;
         for (Modifier modifier : _modifiers)
-            result = modifier.canPlayPhaseActions(gameState, this, phase, result);
+            result = modifier.canPlayAction(gameState, this, action, result);
         return result;
     }
 

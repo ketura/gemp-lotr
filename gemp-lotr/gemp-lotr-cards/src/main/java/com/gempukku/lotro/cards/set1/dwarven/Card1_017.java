@@ -43,7 +43,7 @@ public class Card1_017 extends AbstractAlly {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            CostToEffectAction action = new CostToEffectAction(self, "Exert Grimir to shuffle a DWARVEN event from your discard pile into draw deck");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Grimir to shuffle a DWARVEN event from your discard pile into draw deck");
             action.addCost(new ExertCharacterEffect(self));
 
             List<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), Filters.type(CardType.EVENT));

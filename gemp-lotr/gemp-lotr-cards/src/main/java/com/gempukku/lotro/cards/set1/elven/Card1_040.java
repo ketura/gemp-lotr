@@ -49,7 +49,7 @@ public class Card1_040 extends AbstractAlly {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            CostToEffectAction action = new CostToEffectAction(self, "Exert Elrond to draw a card");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Elrond to draw a card");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(new DrawCardEffect(playerId));
             actions.add(action);
@@ -63,7 +63,7 @@ public class Card1_040 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             List<PhysicalCard> allies = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY), Filters.siteNumber(3));
 
-            CostToEffectAction action = new CostToEffectAction(self, "Heal every ally whose home is site 3");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Heal every ally whose home is site 3");
             for (PhysicalCard ally : allies)
                 action.addEffect(new HealCharacterEffect(ally));
 

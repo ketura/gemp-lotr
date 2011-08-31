@@ -64,7 +64,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO) {
             boolean isUnderground = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND);
             if (isUnderground) {
-                CostToEffectAction action = new CostToEffectAction(self, "Discard when Underground");
+                CostToEffectAction action = new CostToEffectAction(self, null, "Discard when Underground");
                 action.addEffect(new DiscardCardFromPlayEffect(self));
                 return Collections.singletonList(action);
             }

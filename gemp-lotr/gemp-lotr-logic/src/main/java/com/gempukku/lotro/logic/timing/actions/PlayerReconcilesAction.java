@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.actions;
 
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -24,6 +25,11 @@ public class PlayerReconcilesAction implements Action {
     public PlayerReconcilesAction(LotroGame game, String playerId) {
         _game = game;
         _playerId = playerId;
+    }
+
+    @Override
+    public Keyword getType() {
+        return null;
     }
 
     @Override

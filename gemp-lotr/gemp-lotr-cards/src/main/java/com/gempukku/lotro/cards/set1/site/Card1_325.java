@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -33,7 +34,7 @@ public class Card1_325 extends AbstractSite {
     public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            CostToEffectAction action = new CostToEffectAction(self, "Play Gandalf's Cart from your draw deck");
+            CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Play Gandalf's Cart from your draw deck");
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new ArbitraryCardsSelectionDecision(1, "Choose Gandalf's Cart to play from your deck", Filters.filter(game.getGameState().getDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf's Cart"),

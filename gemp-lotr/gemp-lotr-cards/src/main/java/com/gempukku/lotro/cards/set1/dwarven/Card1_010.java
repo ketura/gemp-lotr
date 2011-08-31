@@ -48,12 +48,12 @@ public class Card1_010 extends AbstractAttachable {
     @Override
     public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            CostToEffectAction action = new CostToEffectAction(self, "Heal bearer up to 2 times");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Heal bearer up to 2 times");
             action.addEffect(new HealCharacterEffect(self.getAttachedTo()));
             action.addEffect(new HealCharacterEffect(self.getAttachedTo()));
             return Collections.<Action>singletonList(action);
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            CostToEffectAction action = new CostToEffectAction(self, "Exert bearer at the start of each of your turns");
+            CostToEffectAction action = new CostToEffectAction(self, null, "Exert bearer at the start of each of your turns");
             action.addEffect(new ExertCharacterEffect(self.getAttachedTo()));
             return Collections.<Action>singletonList(action);
         }

@@ -45,7 +45,7 @@ public class Card1_125 extends AbstractLotroCardBlueprint {
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 2)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 6) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Spot 6 companions and remove (2) to wound a companion (except the Ring-bearer).");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Spot 6 companions and remove (2) to wound a companion (except the Ring-bearer).");
             action.addCost(new RemoveTwilightEffect(2));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
