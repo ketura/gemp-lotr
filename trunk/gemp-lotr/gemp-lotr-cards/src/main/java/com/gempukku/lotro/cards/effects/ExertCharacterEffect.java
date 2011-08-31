@@ -13,6 +13,11 @@ public class ExertCharacterEffect extends UnrespondableEffect {
     }
 
     @Override
+    public String getText() {
+        return "Exert " + _physicalCard.getBlueprint().getName();
+    }
+
+    @Override
     public boolean canPlayEffect(LotroGame game) {
         return PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), _physicalCard);
     }
