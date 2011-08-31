@@ -155,4 +155,12 @@ public class CompositeModifier implements Modifier {
 
         return result;
     }
+
+    @Override
+    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.shouldSkipPhase(gameState, modifiersQuerying, phase, result);
+
+        return result;
+    }
 }

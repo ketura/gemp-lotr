@@ -1,10 +1,12 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,11 +34,12 @@ public class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     protected void appendAttachCardAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter, Map<Filter, Integer> playCostModifiers) {
         GameState gameState = game.getGameState();
-        LotroCardBlueprint blueprint = self.getBlueprint();
-        if (gameState.getCurrentPhase() == ((getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW)
-                && (self.getZone() == Zone.HAND || self.getZone() == Zone.DECK)
-                && (!blueprint.isUnique() || !Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.name(blueprint.getName())))
-                && Filters.canSpot(gameState, game.getModifiersQuerying(), validTargetFilter)) {
+        if (Filters.canSpot(gameState, game.getModifiersQuerying(), validTargetFilter)
+                &&
+                ((getSide() == Side.FREE_PEOPLE && PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self))
+                        ||
+                        (getSide() == Side.SHADOW && PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)))
+                ) {
 
             actions.add(new AttachPermanentAction(self, validTargetFilter, playCostModifiers));
         }

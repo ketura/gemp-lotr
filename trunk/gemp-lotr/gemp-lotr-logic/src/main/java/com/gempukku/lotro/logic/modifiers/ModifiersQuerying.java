@@ -36,4 +36,6 @@ public interface ModifiersQuerying {
     public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
 
     public boolean canPlayPhaseActions(GameState gameState, Phase phase);
+
+    public boolean shouldSkipPhase(GameState gameState, Phase phase);
 }

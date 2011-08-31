@@ -100,4 +100,9 @@ public abstract class AbstractModifier implements Modifier {
     public boolean canPlayPhaseActions(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
         return result;
     }
+
+    @Override
+    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+        return result;
+    }
 }

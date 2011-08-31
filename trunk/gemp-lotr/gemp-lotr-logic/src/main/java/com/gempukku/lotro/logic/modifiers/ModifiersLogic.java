@@ -231,6 +231,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return result;
     }
 
+    @Override
+    public boolean shouldSkipPhase(GameState gameState, Phase phase) {
+        boolean result = false;
+        for (Modifier modifier : _modifiers)
+            result = modifier.shouldSkipPhase(gameState, this, phase, result);
+        return result;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

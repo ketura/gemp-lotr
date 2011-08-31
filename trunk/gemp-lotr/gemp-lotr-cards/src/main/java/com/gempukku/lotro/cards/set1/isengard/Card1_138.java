@@ -10,11 +10,14 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -71,5 +74,17 @@ public class Card1_138 extends AbstractLotroCardBlueprint {
                 return result;
             }
         };
+    }
+
+    @Override
+    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
+            CostToEffectAction action = new CostToEffectAction(self, "Discard at the end of the turn");
+            action.addEffect(new DiscardCardFromPlayEffect(self));
+
+            return Collections.singletonList(action);
+        }
+
+        return null;
     }
 }
