@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -63,9 +64,8 @@ public class Card1_322 extends AbstractSite {
                                         game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayablePhaseActions(playerId, game, selectedCard).get(0));
                                     }
                                 }
-                            })
-
-            );
+                            }));
+            return Collections.singletonList(action);
         }
         return null;
     }

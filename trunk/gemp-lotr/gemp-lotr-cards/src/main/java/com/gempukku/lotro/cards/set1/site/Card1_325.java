@@ -2,8 +2,6 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -24,23 +22,21 @@ import java.util.List;
  * Set: The Fellowship of the Ring
  * Type: Site
  * Site: 1
- * Game Text: Fellowship: Add a burden to play Aragorn from your draw deck.
+ * Game Text: Fellowship: Spot Gandalf to play Gandalf's Cart from your draw deck.
  */
-public class Card1_324 extends AbstractSite {
-    public Card1_324() {
-        super("The Prancing Pony", "1_324", 1, 0, Direction.LEFT);
+public class Card1_325 extends AbstractSite {
+    public Card1_325() {
+        super("Shire Lookout Point", "1_325", 1, 0, Direction.LEFT);
     }
 
     @Override
     public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.canExert())) {
-            final CostToEffectAction action = new CostToEffectAction(self, "Add a burder to play Aragorn from your draw deck.");
-            action.addCost(new AddBurdenEffect(playerId));
-
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
+            CostToEffectAction action = new CostToEffectAction(self, "Play Gandalf's Cart from your draw deck");
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new ArbitraryCardsSelectionDecision(1, "Choose Aragorn to play from your deck", Filters.filter(game.getGameState().getDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"),
+                            new ArbitraryCardsSelectionDecision(1, "Choose Gandalf's Cart to play from your deck", Filters.filter(game.getGameState().getDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf's Cart"),
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
