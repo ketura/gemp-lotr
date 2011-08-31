@@ -16,6 +16,8 @@ public class PhysicalCardImpl implements PhysicalCard {
 
     private ModifierHook _modifierHook;
 
+    private Object _data;
+
     public PhysicalCardImpl(int cardId, String blueprintId, String owner, Zone zone, LotroCardBlueprint blueprint) {
         _cardId = cardId;
         _blueprintId = blueprintId;
@@ -73,5 +75,20 @@ public class PhysicalCardImpl implements PhysicalCard {
     @Override
     public PhysicalCard getAttachedTo() {
         return _attachedTo;
+    }
+
+    @Override
+    public void storeData(Object object) {
+        _data = object;
+    }
+
+    @Override
+    public Object getData() {
+        return _data;
+    }
+
+    @Override
+    public void removeData() {
+        _data = null;
     }
 }
