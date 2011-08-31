@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_023 extends AbstractLotroCardBlueprint {
     public Card1_023() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Nobody Tosses a Dwarf", "1_23");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Nobody Tosses a Dwarf");
         addKeyword(Keyword.RESPONSE);
     }
 

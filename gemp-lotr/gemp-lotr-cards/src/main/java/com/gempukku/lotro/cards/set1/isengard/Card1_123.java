@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_123 extends AbstractLotroCardBlueprint {
     public Card1_123() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Caradhras Has Not Forgiven Us", "1_123");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Caradhras Has Not Forgiven Us");
         addKeyword(Keyword.WEATHER);
         addKeyword(Keyword.SPELL);
         addKeyword(Keyword.MANEUVER);

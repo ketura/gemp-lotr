@@ -31,7 +31,7 @@ import java.util.*;
  */
 public class Card1_029 extends AbstractLotroCardBlueprint {
     public Card1_029() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Ancient Enmity", "1_29");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Ancient Enmity");
         addKeyword(Keyword.SKIRMISH);
     }
 

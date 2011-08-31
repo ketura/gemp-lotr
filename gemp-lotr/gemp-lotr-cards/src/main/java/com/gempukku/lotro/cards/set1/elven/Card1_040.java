@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card1_040 extends AbstractAlly {
     public Card1_040() {
-        super(4, 3, 8, 4, Culture.ELVEN, "Elrond", "1_40", true);
+        super(4, 3, 8, 4, Culture.ELVEN, "Elrond", true);
         addKeyword(Keyword.ELF);
     }
 

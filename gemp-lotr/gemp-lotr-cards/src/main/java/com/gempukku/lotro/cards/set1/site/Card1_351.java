@@ -11,6 +11,6 @@ import com.gempukku.lotro.cards.AbstractSite;
  */
 public class Card1_351 extends AbstractSite {
     public Card1_351() {
-        super("Galadriel's Glade", "1_351", 6, 3, Direction.LEFT);
+        super("Galadriel's Glade", 6, 3, Direction.LEFT);
     }
 }

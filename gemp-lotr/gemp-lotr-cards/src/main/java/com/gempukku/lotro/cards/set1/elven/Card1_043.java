@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_043 extends AbstractLotroCardBlueprint {
     public Card1_043() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Far-seeing Eyes", "1_43", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Far-seeing Eyes", true);
     }
 
     @Override

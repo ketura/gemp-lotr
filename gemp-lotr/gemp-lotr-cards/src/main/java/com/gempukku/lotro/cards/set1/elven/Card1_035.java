@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_035 extends AbstractLotroCardBlueprint {
     public Card1_035() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "The Council of Elrond", "1_35");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "The Council of Elrond");
         addKeyword(Keyword.FELLOWSHIP);
     }
 

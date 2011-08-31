@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_004 extends AbstractLotroCardBlueprint {
     public Card1_004() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Battle Fury", "1_4");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Battle Fury");
         addKeyword(Keyword.SKIRMISH);
     }
 

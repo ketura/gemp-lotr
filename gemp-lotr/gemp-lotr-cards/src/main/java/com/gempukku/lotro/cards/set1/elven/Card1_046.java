@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_046 extends AbstractLotroCardBlueprint {
     public Card1_046() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Gift of Boats", "1_46", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Gift of Boats", true);
     }
 
     @Override

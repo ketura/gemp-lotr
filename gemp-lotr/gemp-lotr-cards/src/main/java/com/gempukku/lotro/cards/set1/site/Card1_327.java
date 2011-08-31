@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_327 extends AbstractSite {
     public Card1_327() {
-        super("Bree Gate", "1_327", 2, 2, Direction.LEFT);
+        super("Bree Gate", 2, 2, Direction.LEFT);
     }
 
     @Override

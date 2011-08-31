@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_154 extends AbstractMinion {
     public Card1_154() {
-        super(2, 7, 1, 5, Culture.ISENGARD, "Uruk Soldier", "1_154");
+        super(2, 7, 1, 5, Culture.ISENGARD, "Uruk Soldier");
         addKeyword(Keyword.URUK_HAI);
         addKeyword(Keyword.DAMAGE);
     }

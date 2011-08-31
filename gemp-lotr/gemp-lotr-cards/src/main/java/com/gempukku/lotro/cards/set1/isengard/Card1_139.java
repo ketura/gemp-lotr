@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_139 extends AbstractLotroCardBlueprint {
     public Card1_139() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Savagery to Match Their Numbers", "1_139");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Savagery to Match Their Numbers");
         addKeyword(Keyword.SKIRMISH);
     }
 

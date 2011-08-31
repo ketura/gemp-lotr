@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_329 extends AbstractSite {
     public Card1_329() {
-        super("Breeland Forest", "1_329", 2, 1, Direction.LEFT);
+        super("Breeland Forest", 2, 1, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_319 extends AbstractSite {
     public Card1_319() {
-        super("Bag End", "1_319", 1, 0, Direction.LEFT);
+        super("Bag End", 1, 0, Direction.LEFT);
     }
 
     @Override

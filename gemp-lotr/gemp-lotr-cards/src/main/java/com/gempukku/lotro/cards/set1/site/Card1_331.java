@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_331 extends AbstractSite {
     public Card1_331() {
-        super("Ettenmoors", "1_331", 2, 2, Direction.LEFT);
+        super("Ettenmoors", 2, 2, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

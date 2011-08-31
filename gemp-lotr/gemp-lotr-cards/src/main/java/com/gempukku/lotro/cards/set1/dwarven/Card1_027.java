@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_027 extends AbstractAlly {
     public Card1_027() {
-        super(1, 3, 4, 2, Culture.DWARVEN, "Thrarin", "1_27", true);
+        super(1, 3, 4, 2, Culture.DWARVEN, "Thrarin", true);
         addKeyword(Keyword.DWARF);
     }
 

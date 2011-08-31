@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_324 extends AbstractSite {
     public Card1_324() {
-        super("The Prancing Pony", "1_324", 1, 0, Direction.LEFT);
+        super("The Prancing Pony", 1, 0, Direction.LEFT);
     }
 
     @Override

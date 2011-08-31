@@ -11,6 +11,6 @@ import com.gempukku.lotro.cards.AbstractSite;
  */
 public class Card1_356 extends AbstractSite {
     public Card1_356() {
-        super("Anduin Banks", "1_356", 8, 6, Direction.RIGHT);
+        super("Anduin Banks", 8, 6, Direction.RIGHT);
     }
 }

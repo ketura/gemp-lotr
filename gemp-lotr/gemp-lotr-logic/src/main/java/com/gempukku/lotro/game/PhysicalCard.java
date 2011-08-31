@@ -5,6 +5,8 @@ import com.gempukku.lotro.common.Zone;
 public interface PhysicalCard {
     public Zone getZone();
 
+    public String getBlueprintId();
+
     public String getOwner();
 
     public int getCardId();

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_326 extends AbstractSite {
     public Card1_326() {
-        super("Westfarthing", "1_326", 1, 0, Direction.LEFT);
+        super("Westfarthing", 1, 0, Direction.LEFT);
     }
 
     @Override

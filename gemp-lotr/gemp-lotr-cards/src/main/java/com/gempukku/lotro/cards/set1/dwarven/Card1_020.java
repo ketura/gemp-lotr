@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_020 extends AbstractLotroCardBlueprint {
     public Card1_020() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Let Them Come!", "1_20");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Let Them Come!");
     }
 
     @Override

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_325 extends AbstractSite {
     public Card1_325() {
-        super("Shire Lookout Point", "1_325", 1, 0, Direction.LEFT);
+        super("Shire Lookout Point", 1, 0, Direction.LEFT);
     }
 
     @Override

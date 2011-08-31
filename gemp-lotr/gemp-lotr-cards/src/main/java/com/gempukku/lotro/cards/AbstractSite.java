@@ -8,8 +8,8 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     private int _twilight;
     private Direction _siteDirection;
 
-    public AbstractSite(String name, String blueprintId, int siteNumber, int twilight, Direction siteDirection) {
-        super(Side.SITE, CardType.SITE, null, name, blueprintId);
+    public AbstractSite(String name, int siteNumber, int twilight, Direction siteDirection) {
+        super(Side.SITE, CardType.SITE, null, name);
         _siteNumber = siteNumber;
         _twilight = twilight;
         _siteDirection = siteDirection;

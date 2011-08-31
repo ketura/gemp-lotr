@@ -7,6 +7,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 
 public class PhysicalCardImpl implements PhysicalCard {
     private int _cardId;
+    private String _blueprintId;
     private String _owner;
     private Zone _zone;
     private LotroCardBlueprint _blueprint;
@@ -15,21 +16,29 @@ public class PhysicalCardImpl implements PhysicalCard {
 
     private ModifierHook _modifierHook;
 
-    public PhysicalCardImpl(int cardId, String owner, Zone zone, LotroCardBlueprint blueprint) {
+    public PhysicalCardImpl(int cardId, String blueprintId, String owner, Zone zone, LotroCardBlueprint blueprint) {
         _cardId = cardId;
+        _blueprintId = blueprintId;
         _owner = owner;
         _zone = zone;
         _blueprint = blueprint;
+    }
+
+    @Override
+    public String getBlueprintId() {
+        return _blueprintId;
     }
 
     public void setZone(Zone zone) {
         _zone = zone;
     }
 
+    @Override
     public Zone getZone() {
         return _zone;
     }
 
+    @Override
     public String getOwner() {
         return _owner;
     }
@@ -47,10 +56,12 @@ public class PhysicalCardImpl implements PhysicalCard {
         }
     }
 
+    @Override
     public int getCardId() {
         return _cardId;
     }
 
+    @Override
     public LotroCardBlueprint getBlueprint() {
         return _blueprint;
     }
@@ -59,6 +70,7 @@ public class PhysicalCardImpl implements PhysicalCard {
         _attachedTo = physicalCard;
     }
 
+    @Override
     public PhysicalCard getAttachedTo() {
         return _attachedTo;
     }

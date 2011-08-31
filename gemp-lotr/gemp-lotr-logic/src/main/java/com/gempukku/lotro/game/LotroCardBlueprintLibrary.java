@@ -1,6 +1,4 @@
-package com.gempukku.lotro.cards;
-
-import com.gempukku.lotro.game.LotroCardBlueprint;
+package com.gempukku.lotro.game;
 
 import java.util.HashMap;
 import java.util.Map;

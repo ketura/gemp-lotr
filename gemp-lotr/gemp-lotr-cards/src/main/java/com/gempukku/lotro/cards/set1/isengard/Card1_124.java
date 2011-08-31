@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_124 extends AbstractLotroCardBlueprint {
     public Card1_124() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Cruel Caradhras", "1_124");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Cruel Caradhras");
         addKeyword(Keyword.SPELL);
         addKeyword(Keyword.WEATHER);
         addKeyword(Keyword.MANEUVER);

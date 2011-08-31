@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_138 extends AbstractLotroCardBlueprint {
     public Card1_138() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Saruman's Snows", "1_138");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Saruman's Snows");
         addKeyword(Keyword.SPELL);
         addKeyword(Keyword.WEATHER);
     }

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_059 extends AbstractLotroCardBlueprint {
     public Card1_059() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Shoulder to Shoulder", "1_59");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Shoulder to Shoulder");
     }
 
     @Override

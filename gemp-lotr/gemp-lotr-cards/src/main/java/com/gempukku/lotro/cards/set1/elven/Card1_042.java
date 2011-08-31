@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_042 extends AbstractAttachableFPPossession {
     public Card1_042() {
-        super(1, Culture.ELVEN, "Elven Cloak", "1_42");
+        super(1, Culture.ELVEN, "Elven Cloak");
         addKeyword(Keyword.CLOAK);
     }
 

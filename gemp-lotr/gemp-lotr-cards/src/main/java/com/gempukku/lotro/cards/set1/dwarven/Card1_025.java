@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_025 extends AbstractLotroCardBlueprint {
     public Card1_025() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Still Draws Breath", "1_25");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Still Draws Breath");
         addKeyword(Keyword.RESPONSE);
     }
 

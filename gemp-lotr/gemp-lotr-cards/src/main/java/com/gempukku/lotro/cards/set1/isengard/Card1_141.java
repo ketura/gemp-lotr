@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_141 extends AbstractLotroCardBlueprint {
     public Card1_141() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Their Arrows Enrage", "1_141");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Their Arrows Enrage");
     }
 
     @Override

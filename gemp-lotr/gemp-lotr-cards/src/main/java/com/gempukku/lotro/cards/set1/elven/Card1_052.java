@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_052 extends AbstractLotroCardBlueprint {
     public Card1_052() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Lightfootedness", "1_52");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Lightfootedness");
         addKeyword(Keyword.ARCHERY);
     }
 

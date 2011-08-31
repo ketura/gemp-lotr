@@ -1,5 +1,6 @@
 package com.gempukku.lotro;
 
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,7 +20,7 @@ public class LotroGameMediator {
     private DefaultUserFeedback _userFeedback = new DefaultUserFeedback();
     private DefaultLotroGame _lotroGame;
 
-    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants) {
+    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library) {
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -32,7 +33,7 @@ public class LotroGameMediator {
             participantSet.add(participantId);
             decks.put(participantId, participant.getDeck());
         }
-        _lotroGame = new DefaultLotroGame(decks, _userFeedback);
+        _lotroGame = new DefaultLotroGame(decks, _userFeedback, library);
     }
 
     public synchronized String produceCardInfo(String participantId, int cardId) {

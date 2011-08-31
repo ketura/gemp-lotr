@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_134 extends AbstractLotroCardBlueprint {
     public Card1_134() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Saruman's Chill", "1_134");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Saruman's Chill");
         addKeyword(Keyword.SPELL);
         addKeyword(Keyword.WEATHER);
     }

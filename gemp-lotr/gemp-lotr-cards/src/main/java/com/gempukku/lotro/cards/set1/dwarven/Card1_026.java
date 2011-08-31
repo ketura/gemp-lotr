@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_026 extends AbstractLotroCardBlueprint {
     public Card1_026() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Their Halls of Stone", "1_26");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Their Halls of Stone");
         addKeyword(Keyword.SKIRMISH);
     }
 

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_136 extends AbstractLotroCardBlueprint {
     public Card1_136() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Saruman's Power", "1_136");
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Saruman's Power");
         addKeyword(Keyword.SPELL);
         addKeyword(Keyword.SHADOW);
     }

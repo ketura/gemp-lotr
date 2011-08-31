@@ -11,6 +11,6 @@ import com.gempukku.lotro.cards.AbstractSite;
  */
 public class Card1_354 extends AbstractSite {
     public Card1_354() {
-        super("Anduin Wilderland", "1_354", 7, 6, Direction.RIGHT);
+        super("Anduin Wilderland", 7, 6, Direction.RIGHT);
     }
 }

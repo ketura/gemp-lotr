@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_024 extends AbstractLotroCardBlueprint {
     public Card1_024() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Stairs of Khazad-dum", "1_24");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Stairs of Khazad-dum");
         addKeyword(Keyword.TALE);
     }
 

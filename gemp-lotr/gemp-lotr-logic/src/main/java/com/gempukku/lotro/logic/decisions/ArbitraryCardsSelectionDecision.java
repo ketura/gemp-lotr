@@ -35,7 +35,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
     private String[] getBlueprintIds(List<PhysicalCard> physicalCards) {
         String[] result = new String[physicalCards.size()];
         for (int i = 0; i < physicalCards.size(); i++)
-            result[i] = physicalCards.get(i).getBlueprint().getBlueprintId();
+            result[i] = physicalCards.get(i).getBlueprintId();
         return result;
     }
 

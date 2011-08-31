@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card1_055 extends AbstractLotroCardBlueprint {
     public Card1_055() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, Culture.ELVEN, "The Mirror of Galadriel", "1_55", true);
+        super(Side.FREE_PEOPLE, CardType.POSSESSION, Culture.ELVEN, "The Mirror of Galadriel", true);
     }
 
     @Override

@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_323 extends AbstractSite {
     public Card1_323() {
-        super("Green Hill Country", "1_323", 1, 0, Direction.LEFT);
+        super("Green Hill Country", 1, 0, Direction.LEFT);
     }
 
     @Override

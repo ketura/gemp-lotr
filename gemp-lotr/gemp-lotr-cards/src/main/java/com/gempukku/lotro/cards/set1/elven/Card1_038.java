@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_038 extends AbstractLotroCardBlueprint {
     public Card1_038() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Double Shot", "1_38");
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Double Shot");
         addKeyword(Keyword.ARCHERY);
     }
 

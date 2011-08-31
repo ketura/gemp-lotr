@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_142 extends AbstractLotroCardBlueprint {
     public Card1_142() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Traitor's Voice", "1_142");
+        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Traitor's Voice");
         addKeyword(Keyword.SEARCH);
     }
 

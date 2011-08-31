@@ -22,12 +22,12 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     private int _strength;
     private int _vitality;
 
-    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Culture culture, String name, String blueprintId) {
-        this(twilight, siteNumber, strength, vitality, culture, name, blueprintId, false);
+    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Culture culture, String name) {
+        this(twilight, siteNumber, strength, vitality, culture, name, false);
     }
 
-    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Culture culture, String name, String blueprintId, boolean unique) {
-        super(Side.FREE_PEOPLE, CardType.ALLY, culture, name, blueprintId, unique);
+    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Culture culture, String name, boolean unique) {
+        super(Side.FREE_PEOPLE, CardType.ALLY, culture, name, unique);
         _twilight = twilight;
         _siteNumber = siteNumber;
         _strength = strength;

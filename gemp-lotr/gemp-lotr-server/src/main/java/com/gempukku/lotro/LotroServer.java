@@ -1,6 +1,6 @@
 package com.gempukku.lotro;
 
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
@@ -41,7 +41,7 @@ public class LotroServer {
     public synchronized String createNewGame(LotroFormat lotroFormat, LotroGameParticipant[] participants, String gameId) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
-        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants);
+        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary);
 //        String gameId = String.valueOf(_nextGameId);
         _runningGames.put(gameId, lotroGameMediator);
         _nextGameId++;
@@ -50,28 +50,29 @@ public class LotroServer {
 
     public LotroDeck getParticipantDeck(String participantId) {
         LotroDeck lotroDeck = new LotroDeck();
-        lotroDeck.setRing(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_1"));
-        lotroDeck.setRingBearer(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_290"));
+        lotroDeck.setRing("1_1");
+        lotroDeck.setRingBearer("1_290");
 
         for (int i = 3; i < 58; i++)
-            lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_" + i));
+            lotroDeck.addCard("1_" + i);
 
         // Sites
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_326"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_331"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_337"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_346"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_349"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_351"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_354"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_356"));
-        lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_362"));
+        lotroDeck.addSite("1_326");
+        lotroDeck.addSite("1_331");
+        lotroDeck.addSite("1_337");
+        lotroDeck.addSite("1_346");
+        lotroDeck.addSite("1_349");
+        lotroDeck.addSite("1_351");
+        lotroDeck.addSite("1_354");
+        lotroDeck.addSite("1_356");
+        lotroDeck.addSite("1_362");
 
+        // Minions
         for (int i = 0; i < 4; i++) {
-            lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_145"));
-            lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_146"));
-            lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_148"));
-            lotroDeck.addCard(_lotroCardBlueprintLibrary.getLotroCardBlueprint("1_149"));
+            lotroDeck.addCard("1_145");
+            lotroDeck.addCard("1_146");
+            lotroDeck.addCard("1_148");
+            lotroDeck.addCard("1_149");
         }
 
         return lotroDeck;

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_060 extends AbstractAlly {
     public Card1_060() {
-        super(2, 3, 5, 2, Culture.ELVEN, "Silinde", "1_60", true);
+        super(2, 3, 5, 2, Culture.ELVEN, "Silinde", true);
         addKeyword(Keyword.ELF);
     }
 
