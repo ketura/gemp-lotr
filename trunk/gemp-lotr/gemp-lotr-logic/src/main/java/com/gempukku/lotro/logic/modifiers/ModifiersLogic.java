@@ -17,6 +17,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     private Set<Modifier> _skipSet = new HashSet<Modifier>();
 
+    private Map<Phase, Map<PhysicalCard, LimitCounter>> _counters = new HashMap<Phase, Map<PhysicalCard, LimitCounter>>();
+
+    @Override
+    public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase) {
+        Map<PhysicalCard, LimitCounter> limitCounterMap = _counters.get(phase);
+        if (limitCounterMap == null) {
+            limitCounterMap = new HashMap<PhysicalCard, LimitCounter>();
+            _counters.put(phase, limitCounterMap);
+        }
+        LimitCounter limitCounter = limitCounterMap.get(card);
+        if (limitCounter == null) {
+            limitCounter = new DefaultLimitCounter();
+            limitCounterMap.put(card, limitCounter);
+        }
+        return limitCounter;
+    }
+
     @Override
     public ModifierHook addAlwaysOnModifier(Modifier modifier) {
         _modifiers.add(modifier);
@@ -29,6 +46,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             _modifiers.removeAll(list);
             list.clear();
         }
+        Map<PhysicalCard, LimitCounter> counterMap = _counters.get(phase);
+        if (counterMap != null)
+            counterMap.clear();
     }
 
     public void removeStartOfPhase(Phase phase) {
