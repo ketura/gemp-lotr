@@ -1,6 +1,16 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.EffectResult;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -12,5 +22,17 @@ import com.gempukku.lotro.cards.AbstractSite;
 public class Card1_337 extends AbstractSite {
     public Card1_337() {
         super("Council Courtyard", 3, 0, Direction.RIGHT);
+        addKeyword(Keyword.SANCTUARY);
+    }
+
+    @Override
+    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
+                && game.getGameState().getCurrentSite() == self) {
+            CostToEffectAction action = new CostToEffectAction(self, null, "Remove (2)");
+            action.addEffect(new RemoveTwilightEffect(2));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 }
