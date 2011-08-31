@@ -217,6 +217,10 @@ public class GameState {
         addCardToZone(card, Zone.DECK);
     }
 
+    public void putCardOnTopOfDeck(PhysicalCard card) {
+        _decks.get(card.getOwner()).add(0, (PhysicalCardImpl) card);
+    }
+
     public boolean iterateActiveCards(PhysicalCardVisitor physicalCardVisitor) {
         for (List<PhysicalCardImpl> physicalCards : _inPlay.values()) {
             for (PhysicalCardImpl physicalCard : physicalCards) {

@@ -1,9 +1,6 @@
 package com.gempukku.lotro.filters;
 
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardVisitor;
@@ -61,6 +58,15 @@ public class Filters {
         GetCardsVisitor visitor = new GetCardsVisitor(gameState, modifiersQuerying, Filters.and(filters));
         gameState.iterateActiveCards(visitor);
         return visitor.getCounter();
+    }
+
+    public static Filter side(final Side side) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getBlueprint().getSide() == side;
+            }
+        };
     }
 
     public static Filter owner(final String playerId) {
