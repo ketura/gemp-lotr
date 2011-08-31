@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.turn.skirmish;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,26 +26,30 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        final GameState gameState = _game.getGameState();
-        List<Skirmish> assignments = gameState.getAssignments();
-
-        if (assignments.size() > 0) {
-            List<PhysicalCard> fps = new LinkedList<PhysicalCard>();
-            for (Skirmish assignment : assignments)
-                fps.add(assignment.getFellowshipCharacter());
-
-            _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
-                    new CardsSelectionDecision(1, "Choose next skirmish to resolve", fps, 1, 1) {
-                        @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                            PhysicalCard fp = getSelectedCardsByResponse(result).get(0);
-                            gameState.startSkirmish(fp);
-
-                            _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));
-                        }
-                    });
-        } else {
+        if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.SKIRMISH)) {
             _nextProcess = _followingGameProcess;
+        } else {
+            final GameState gameState = _game.getGameState();
+            List<Skirmish> assignments = gameState.getAssignments();
+
+            if (assignments.size() > 0) {
+                List<PhysicalCard> fps = new LinkedList<PhysicalCard>();
+                for (Skirmish assignment : assignments)
+                    fps.add(assignment.getFellowshipCharacter());
+
+                _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
+                        new CardsSelectionDecision(1, "Choose next skirmish to resolve", fps, 1, 1) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                PhysicalCard fp = getSelectedCardsByResponse(result).get(0);
+                                gameState.startSkirmish(fp);
+
+                                _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));
+                            }
+                        });
+            } else {
+                _nextProcess = _followingGameProcess;
+            }
         }
     }
 
