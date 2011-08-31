@@ -38,4 +38,6 @@ public interface ModifiersQuerying {
     public boolean canPlayPhaseActions(GameState gameState, Phase phase);
 
     public boolean shouldSkipPhase(GameState gameState, Phase phase);
+
+    public boolean isValidFreePlayerAssignments(GameState gameState, PhysicalCard companion, List<PhysicalCard> minions);
 }

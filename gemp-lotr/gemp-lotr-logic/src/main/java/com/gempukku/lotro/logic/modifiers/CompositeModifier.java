@@ -163,4 +163,12 @@ public class CompositeModifier implements Modifier {
 
         return result;
     }
+
+    @Override
+    public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.isValidFreePlayerAssignments(gameState, modifiersQuerying, companion, minions, result);
+
+        return result;
+    }
 }
