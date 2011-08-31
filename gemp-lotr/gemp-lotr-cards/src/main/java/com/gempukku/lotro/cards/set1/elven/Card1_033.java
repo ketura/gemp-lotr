@@ -60,7 +60,7 @@ public class Card1_033 extends AbstractAttachableFPPossession {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard minion) {
+                        protected void cardSelected(PhysicalCard minion) {
                             action.addEffect(new WoundCharacterEffect(minion));
                         }
                     }

@@ -611,21 +611,25 @@ var GempLotrUI = Class.extend({
 
         var that = this;
 
+        var selectedCardIds = new Array();
+
         this.dialogInstance
                 .html("<div id='arbitraryChoice'></div>")
                 .dialog("option", "title", text)
-                .dialog("option", "buttons",
-        {
-            "DONE": function() {
-                $(this).dialog("close");
-                $("#arbitraryChoice").html("");
-                that.clearSelection();
-                that.decisionFunction(id, "");
-            }
-        }
-                )
+                .dialog("option", "buttons", {})
                 .dialog("option", "width", "600")
                 .dialog("option", "height", "300");
+
+        if (min == 0) {
+            this.dialogInstance.dialog("option", "buttons", {
+                "DONE": function() {
+                    $(this).dialog("close");
+                    $("#arbitraryChoice").html("");
+                    that.clearSelection();
+                    that.decisionFunction(id, "" + selectedCardIds);
+                }
+            });
+        }
 
         for (var i = 0; i < blueprintIds.length; i++) {
             var cardId = cardIds[i];
@@ -639,10 +643,25 @@ var GempLotrUI = Class.extend({
         }
 
         this.selectionFunction = function(cardId) {
-            that.dialogInstance.dialog("close");
-            $("#arbitraryChoice").html("");
-            that.clearSelection();
-            that.decisionFunction(id, "" + cardId);
+            selectedCardIds.push(cardId);
+
+            if (selectedCardIds.length == min) {
+                this.dialogInstance.dialog("option", "buttons", {
+                    "DONE": function() {
+                        $(this).dialog("close");
+                        $("#arbitraryChoice").html("");
+                        that.clearSelection();
+                        that.decisionFunction(id, "" + selectedCardIds);
+                    }
+                });
+            }
+
+            if (selectedCardIds.length == max) {
+                that.clearSelection();
+                $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+            } else {
+                $(".card:cardId(" + cardId + ")").removeClass("selectableCard").addClass("selectedCard");
+            }
         };
 
         $(".card:cardId(" + cardIds + ")").addClass("selectableCard");

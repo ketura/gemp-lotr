@@ -49,7 +49,7 @@ public class Card1_057 extends AbstractAlly {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Orc", Filters.keyword(Keyword.ORC)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
+                        protected void cardSelected(PhysicalCard urukHai) {
                             action.addEffect(new WoundCharacterEffect(urukHai));
                         }
                     });

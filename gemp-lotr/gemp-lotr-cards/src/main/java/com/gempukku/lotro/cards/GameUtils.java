@@ -23,6 +23,6 @@ public class GameUtils {
         List<PhysicalCard> randomizedCards = new ArrayList<PhysicalCard>(cards);
         Collections.shuffle(randomizedCards);
 
-        return randomizedCards.subList(0, Math.min(count, randomizedCards.size()));
+        return new LinkedList<PhysicalCard>(randomizedCards.subList(0, Math.min(count, randomizedCards.size())));
     }
 }

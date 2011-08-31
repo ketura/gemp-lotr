@@ -40,7 +40,7 @@ public class Card1_321 extends AbstractSite {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
+                        protected void cardSelected(PhysicalCard hobbit) {
                             action.addCost(new ExertCharacterEffect(hobbit));
                         }
                     }

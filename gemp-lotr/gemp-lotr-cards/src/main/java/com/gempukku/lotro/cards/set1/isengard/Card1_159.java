@@ -60,7 +60,7 @@ public class Card1_159 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Filters.keyword(Keyword.URUK_HAI), Filters.in(skirmishResult.getWinners()))) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard winningUrukHai) {
+                        protected void cardSelected(PhysicalCard winningUrukHai) {
                             action.addEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(winningUrukHai), Keyword.FIERCE), Phase.REGROUP));

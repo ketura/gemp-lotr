@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class Card1_028 extends AbstractLotroCardBlueprint {
                         public void playEffect(LotroGame game) {
                             List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                             int cardCount = Math.min(deck.size(), 3);
-                            List<? extends PhysicalCard> cards = deck.subList(0, cardCount);
+                            List<? extends PhysicalCard> cards = new LinkedList<PhysicalCard>(deck.subList(0, cardCount));
 
                             for (PhysicalCard card : cards) {
                                 game.getGameState().removeCardFromZone(card);

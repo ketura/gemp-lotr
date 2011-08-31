@@ -50,7 +50,7 @@ public class Card1_130 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(self.getOwner(), "Choose GANDALF companion or GANDALF ally", Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard gandalfCharacter) {
+                        protected void cardSelected(PhysicalCard gandalfCharacter) {
                             action.addEffect(new ExertCharacterEffect(gandalfCharacter));
                         }
                     }

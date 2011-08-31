@@ -47,7 +47,7 @@ public class Card1_022 extends AbstractLotroCardBlueprint {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
+                        protected void cardSelected(PhysicalCard dwarf) {
                             action.addCost(new ExertCharacterEffect(dwarf));
                         }
                     }

@@ -45,7 +45,7 @@ public class Card1_046 extends AbstractLotroCardBlueprint {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an Elf ally to exert", Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard elfAlly) {
+                        protected void cardSelected(PhysicalCard elfAlly) {
                             action.addCost(new ExertCharacterEffect(elfAlly));
                         }
                     });

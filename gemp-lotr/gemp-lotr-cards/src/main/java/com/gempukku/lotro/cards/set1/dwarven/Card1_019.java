@@ -43,13 +43,13 @@ public class Card1_019 extends AbstractLotroCardBlueprint {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.canExert(), Filters.keyword(Keyword.DWARF)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
+                        protected void cardSelected(PhysicalCard dwarf) {
                             action.addCost(new ExertCharacterEffect(dwarf));
                         }
                     }
             );
             action.addEffect(
-                    new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 2, Filters.keyword(Keyword.ORC)) {
+                    new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 1, 2, Filters.keyword(Keyword.ORC)) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> cards) {
                             if (cards.size() == 2) {

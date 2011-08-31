@@ -46,7 +46,7 @@ public class Card1_152 extends AbstractMinion {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
+                        protected void cardSelected(PhysicalCard urukHai) {
                             action.addEffect(new HealCharacterEffect(urukHai));
                         }
                     });

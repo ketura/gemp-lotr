@@ -41,13 +41,13 @@ public class Card1_139 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPlayablePhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SKIRMISH, self)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
+                        protected void cardSelected(PhysicalCard urukHai) {
                             if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
                                 List<Modifier> modifiers = new LinkedList<Modifier>();
                                 modifiers.add(new StrengthModifier(null, null, 4));

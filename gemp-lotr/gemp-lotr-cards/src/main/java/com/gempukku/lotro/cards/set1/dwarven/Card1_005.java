@@ -45,7 +45,7 @@ public class Card1_005 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.keyword(Keyword.DWARF)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
+                        protected void cardSelected(PhysicalCard dwarf) {
                             List<Modifier> modifiers = new LinkedList<Modifier>();
                             modifiers.add(new StrengthModifier(null, null, 2));
                             modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));

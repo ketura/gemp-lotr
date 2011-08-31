@@ -28,7 +28,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
     private String[] getCardIds(List<PhysicalCard> physicalCards) {
         String[] result = new String[physicalCards.size()];
         for (int i = 0; i < physicalCards.size(); i++)
-            result[i] = String.valueOf(physicalCards.get(i).getCardId());
+            result[i] = "temp" + i;
         return result;
     }
 
@@ -52,23 +52,17 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         List<PhysicalCard> result = new LinkedList<PhysicalCard>();
         try {
             for (String cardId : cardIds) {
-                PhysicalCard card = getSelectedCardById(Integer.parseInt(cardId));
+                PhysicalCard card = _physicalCards.get(Integer.parseInt(cardId.substring(4)));
                 if (result.contains(card))
                     throw new DecisionResultInvalidException();
                 result.add(card);
             }
         } catch (NumberFormatException e) {
             throw new DecisionResultInvalidException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new DecisionResultInvalidException();
         }
 
         return result;
-    }
-
-    private PhysicalCard getSelectedCardById(int cardId) throws DecisionResultInvalidException {
-        for (PhysicalCard physicalCard : _physicalCards)
-            if (physicalCard.getCardId() == cardId)
-                return physicalCard;
-
-        throw new DecisionResultInvalidException();
     }
 }

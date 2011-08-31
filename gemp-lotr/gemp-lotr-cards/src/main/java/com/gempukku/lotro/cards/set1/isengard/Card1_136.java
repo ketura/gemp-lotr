@@ -43,7 +43,7 @@ public class Card1_136 extends AbstractLotroCardBlueprint {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard isengardMinion) {
+                        protected void cardSelected(PhysicalCard isengardMinion) {
                             action.addCost(new ExertCharacterEffect(isengardMinion));
                         }
                     });

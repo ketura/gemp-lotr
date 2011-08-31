@@ -47,7 +47,7 @@ public class Card1_034 extends AbstractAlly {
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(new ChooseActiveCardEffect(playerId, "Choose an ELVEN ally", Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)) {
                 @Override
-                protected void cardSelected(LotroGame game, PhysicalCard elvenAlly) {
+                protected void cardSelected(PhysicalCard elvenAlly) {
                     action.addEffect(new HealCharacterEffect(elvenAlly));
                 }
             });

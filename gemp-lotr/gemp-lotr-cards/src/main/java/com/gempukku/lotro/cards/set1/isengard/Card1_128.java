@@ -47,7 +47,7 @@ public class Card1_128 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
+                        protected void cardSelected(PhysicalCard urukHai) {
                             List<Modifier> modifiers = new LinkedList<Modifier>();
                             modifiers.add(new StrengthModifier(null, null, -1));
                             modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));

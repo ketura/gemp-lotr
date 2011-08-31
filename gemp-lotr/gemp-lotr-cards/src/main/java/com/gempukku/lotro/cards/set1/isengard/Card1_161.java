@@ -59,7 +59,7 @@ public class Card1_161 extends AbstractLotroCardBlueprint {
                         }
 
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
+                        protected void cardSelected(PhysicalCard urukHai) {
                             action.addCost(new ExertCharacterEffect(urukHai));
                         }
                     });
@@ -71,7 +71,7 @@ public class Card1_161 extends AbstractLotroCardBlueprint {
                         }
 
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
+                        protected void cardSelected(PhysicalCard urukHai) {
                             action.addCost(new DiscardCardFromPlayEffect(urukHai));
                         }
                     });

@@ -42,7 +42,7 @@ public class Card1_132 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose possession", Filters.type(CardType.POSSESSION)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard possession) {
+                        protected void cardSelected(PhysicalCard possession) {
                             action.addEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new CancelStrengthBonusModifier(self, Filters.sameCard(possession)), Phase.REGROUP));

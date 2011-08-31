@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseAnyCardEffect;
+import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -52,7 +52,7 @@ public class Card1_045 extends AbstractAlly {
             CostToEffectAction action = new CostToEffectAction(self, "Exert Galadriel to play an Elf for free");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
-                    new ChooseAnyCardEffect(playerId, "Choose an Elf to play", Filters.owner(playerId), Filters.zone(Zone.HAND), Filters.keyword(Keyword.ELF),
+                    new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.keyword(Keyword.ELF),
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -61,11 +61,11 @@ public class Card1_045 extends AbstractAlly {
                                 }
                             }) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            LotroCardBlueprint blueprint = card.getBlueprint();
+                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                            LotroCardBlueprint blueprint = selectedCards.get(0).getBlueprint();
                             if (!blueprint.isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(blueprint.getName()))) {
                                 Zone zone = (blueprint.getCardType() == CardType.COMPANION) ? Zone.FREE_CHARACTERS : Zone.FREE_SUPPORT;
-                                game.getActionsEnvironment().addActionToStack(new PlayPermanentAction(card, zone, -1000));
+                                game.getActionsEnvironment().addActionToStack(new PlayPermanentAction(selectedCards.get(0), zone, -1000));
                             }
                         }
                     });

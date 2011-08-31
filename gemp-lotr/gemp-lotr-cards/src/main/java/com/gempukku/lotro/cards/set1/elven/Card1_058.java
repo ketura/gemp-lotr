@@ -42,12 +42,12 @@ public class Card1_058 extends AbstractLotroCardBlueprint {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Exert first Elf", Filters.keyword(Keyword.ELF)) {
                         @Override
-                        protected void cardSelected(LotroGame game, final PhysicalCard firstElf) {
+                        protected void cardSelected(final PhysicalCard firstElf) {
                             action.addCost(new ExertCharacterEffect(firstElf));
                             action.addCost(
                                     new ChooseActiveCardEffect(playerId, "Exert second Elf", Filters.keyword(Keyword.ELF), Filters.not(Filters.sameCard(firstElf))) {
                                         @Override
-                                        protected void cardSelected(LotroGame game, PhysicalCard secondElf) {
+                                        protected void cardSelected(PhysicalCard secondElf) {
                                             action.addCost(new ExertCharacterEffect(secondElf));
                                         }
                                     });
@@ -56,7 +56,7 @@ public class Card1_058 extends AbstractLotroCardBlueprint {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard condition) {
+                        protected void cardSelected(PhysicalCard condition) {
                             action.addEffect(new DiscardCardFromPlayEffect(condition));
                         }
                     });

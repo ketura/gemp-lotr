@@ -9,7 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseAnyCardEffect;
+import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -49,10 +49,10 @@ public class Card1_012 extends AbstractCompanion {
 
             costToEffectAction.addCost(new AddTwilightEffect(2));
             costToEffectAction.addEffect(
-                    new ChooseAnyCardEffect(playerId, "Choose a card to place beneath your draw deck", Filters.zone(Zone.HAND), Filters.owner(playerId)) {
+                    new ChooseCardsFromHandEffect(playerId, "Choose a card to place beneath your draw deck", 1, 1, Filters.zone(Zone.HAND), Filters.owner(playerId)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            costToEffectAction.addEffect(new PutCardFromHandOnBottomOfDeckEffect(card));
+                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                            costToEffectAction.addEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCards.get(0)));
                         }
                     });
 

@@ -46,14 +46,14 @@ public class Card1_123 extends AbstractLotroCardBlueprint {
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose an ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard isengardMinion) {
+                        protected void cardSelected(PhysicalCard isengardMinion) {
                             action.addCost(new ExertCharacterEffect(isengardMinion));
                         }
                     });
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.not(Filters.canExert())) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard exhaustedCompanion) {
+                        protected void cardSelected(PhysicalCard exhaustedCompanion) {
                             action.addEffect(new DiscardCardFromPlayEffect(exhaustedCompanion));
                         }
                     }
