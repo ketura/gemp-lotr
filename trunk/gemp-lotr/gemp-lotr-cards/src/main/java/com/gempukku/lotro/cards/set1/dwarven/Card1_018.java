@@ -11,10 +11,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -69,24 +68,22 @@ public class Card1_018 extends AbstractLotroCardBlueprint {
 
                                         if (shadowCards.size() > 0) {
                                             action.addEffect(
-                                                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                                                            new ArbitraryCardsSelectionDecision(1, "Choose shadow card to discard", shadowCards, 0, 1) {
-                                                                @Override
-                                                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                                                    List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                                                                    if (selectedCards.size() > 0) {
-                                                                        action.addEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.get(0)));
-                                                                        topDeckCards.remove(selectedCards.get(0));
-                                                                    }
+                                                    new ChooseArbitraryCardsEffect(playerId, "Choose shadow card to discard", shadowCards, 0, 1) {
+                                                        @Override
+                                                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                                            if (selectedCards.size() > 0) {
+                                                                action.addEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.get(0)));
+                                                                topDeckCards.remove(selectedCards.get(0));
+                                                            }
 
-                                                                    if (topDeckCards.size() > 0) {
-                                                                        for (PhysicalCard topDeckCard : topDeckCards)
-                                                                            game.getGameState().removeCardFromZone(topDeckCard);
+                                                            if (topDeckCards.size() > 0) {
+                                                                for (PhysicalCard topDeckCard : topDeckCards)
+                                                                    game.getGameState().removeCardFromZone(topDeckCard);
 
-                                                                        action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
-                                                                    }
-                                                                }
-                                                            }));
+                                                                action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
+                                                            }
+                                                        }
+                                                    });
                                         }
 
                                     }
@@ -112,17 +109,18 @@ public class Card1_018 extends AbstractLotroCardBlueprint {
 
         @Override
         public void playEffect(final LotroGame game) {
-            game.getUserFeedback().sendAwaitingDecision(_playerIdDeciding,
-                    new ArbitraryCardsSelectionDecision(1, "Choose card to put on top", _cardsToPutOnTop, 1, 1) {
+            _action.addEffect(
+                    new ChooseArbitraryCardsEffect(_playerIdDeciding, "Choose card to put on top", _cardsToPutOnTop, 1, 1) {
                         @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                            PhysicalCard card = getSelectedCardsByResponse(result).get(0);
+                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                            PhysicalCard card = selectedCards.get(0);
                             game.getGameState().putCardOnTopOfDeck(card);
                             _cardsToPutOnTop.remove(card);
                             if (_cardsToPutOnTop.size() > 0)
                                 _action.addEffect(new ChooseCardToPutOnTop(_action, _playerIdDeciding, _cardsToPutOnTop));
                         }
-                    });
+                    }
+            );
         }
     }
 }
