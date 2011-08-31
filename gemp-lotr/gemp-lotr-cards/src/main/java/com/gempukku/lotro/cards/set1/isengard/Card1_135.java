@@ -47,9 +47,9 @@ public class Card1_135 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.attached(Filters.name("Saruman's Frost"))))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost"))))) {
 
-            final AttachPermanentAction action = new AttachPermanentAction(self, Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.attached(Filters.name("Saruman's Frost")))), Collections.<Filter, Integer>emptyMap());
+            final AttachPermanentAction action = new AttachPermanentAction(self, Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost")))), Collections.<Filter, Integer>emptyMap());
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
                         @Override

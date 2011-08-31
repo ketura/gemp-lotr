@@ -34,7 +34,7 @@ public class Card1_042 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        Filter validTargetFilter = Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.attached(Filters.keyword(Keyword.CLOAK))));
+        Filter validTargetFilter = Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.CLOAK))));
 
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF)))
             appendAttachCardAction(actions, game, self, validTargetFilter);

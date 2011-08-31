@@ -39,7 +39,7 @@ public class Card1_015 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        Filter validTargetFilter = Filters.and(Filters.name("Gimli"), Filters.not(Filters.attached(Filters.keyword(Keyword.HELM))));
+        Filter validTargetFilter = Filters.and(Filters.name("Gimli"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HELM))));
 
         appendAttachCardAction(actions, game, self, validTargetFilter);
 

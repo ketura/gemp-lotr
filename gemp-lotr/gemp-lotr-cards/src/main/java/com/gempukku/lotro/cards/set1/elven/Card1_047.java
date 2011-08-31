@@ -45,7 +45,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPlayablePhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        Filter validTargetFilter = Filters.and(Filters.name("Arwen"), Filters.not(Filters.attached(Filters.keyword(Keyword.HAND_WEAPON))));
+        Filter validTargetFilter = Filters.and(Filters.name("Arwen"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
 
         if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gwemegil")))
             appendAttachCardAction(actions, game, self, validTargetFilter);
