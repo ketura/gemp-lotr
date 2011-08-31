@@ -1,14 +1,26 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.cards.GameUtils;
+import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
+import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,8 +44,85 @@ public class Card1_018 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        // TODO
+    public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
+            final PlayEventAction action = new PlayEventAction(self);
+            action.addCost(
+                    new ChooseActiveCardEffect(playerId, "Choose a Dwarf", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
+                            action.addCost(new ExertCharacterEffect(dwarf));
+                        }
+                    });
+            action.addEffect(
+                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                            new MultipleChoiceAwaitingDecision(1, "Choose player", GameUtils.getAllPlayers(game)) {
+                                @Override
+                                protected void validDecisionMade(int index, final String chosenPlayerId) {
+                                    List<? extends PhysicalCard> deck = game.getGameState().getDeck(chosenPlayerId);
+                                    int topCards = Math.min(deck.size(), 3);
+                                    final List<PhysicalCard> topDeckCards = new LinkedList<PhysicalCard>(deck.subList(0, topCards));
+
+                                    if (topDeckCards.size() > 0) {
+                                        List<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW));
+
+                                        if (shadowCards.size() > 0) {
+                                            action.addEffect(
+                                                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                            new ArbitraryCardsSelectionDecision(1, "Choose shadow card to discard", shadowCards, 0, 1) {
+                                                                @Override
+                                                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                                    List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                                                    if (selectedCards.size() > 0) {
+                                                                        action.addEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.get(0)));
+                                                                        topDeckCards.remove(selectedCards.get(0));
+                                                                    }
+
+                                                                    if (topDeckCards.size() > 0) {
+                                                                        for (PhysicalCard topDeckCard : topDeckCards)
+                                                                            game.getGameState().removeCardFromZone(topDeckCard);
+
+                                                                        action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
+                                                                    }
+                                                                }
+                                                            }));
+                                        }
+
+                                    }
+                                }
+                            })
+            );
+
+            return Collections.singletonList(action);
+        }
         return null;
+    }
+
+    private class ChooseCardToPutOnTop extends UnrespondableEffect {
+        private CostToEffectAction _action;
+        private String _playerIdDeciding;
+        private List<PhysicalCard> _cardsToPutOnTop;
+
+        private ChooseCardToPutOnTop(CostToEffectAction action, String playerIdDeciding, List<PhysicalCard> cardsToPutOnTop) {
+            _action = action;
+            _playerIdDeciding = playerIdDeciding;
+            _cardsToPutOnTop = cardsToPutOnTop;
+        }
+
+        @Override
+        public void playEffect(final LotroGame game) {
+            game.getUserFeedback().sendAwaitingDecision(_playerIdDeciding,
+                    new ArbitraryCardsSelectionDecision(1, "Choose card to put on top", _cardsToPutOnTop, 1, 1) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            PhysicalCard card = getSelectedCardsByResponse(result).get(0);
+                            game.getGameState().putCardOnTopOfDeck(card);
+                            _cardsToPutOnTop.remove(card);
+                            if (_cardsToPutOnTop.size() > 0)
+                                _action.addEffect(new ChooseCardToPutOnTop(_action, _playerIdDeciding, _cardsToPutOnTop));
+                        }
+                    });
+        }
     }
 }

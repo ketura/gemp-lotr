@@ -15,6 +15,10 @@ public class GameUtils {
         return shadowPlayers.toArray(new String[shadowPlayers.size()]);
     }
 
+    public static String[] getAllPlayers(LotroGame game) {
+        return game.getGameState().getPlayerOrder().getAllPlayers().toArray(new String[0]);
+    }
+
     public static List<PhysicalCard> getRandomCards(List<? extends PhysicalCard> cards, int count) {
         List<PhysicalCard> randomizedCards = new ArrayList<PhysicalCard>(cards);
         Collections.shuffle(randomizedCards);
