@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.cards.effects.HealCardEffect;
+import com.gempukku.lotro.cards.effects.HealCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -65,7 +65,7 @@ public class Card1_040 extends AbstractAlly {
 
             CostToEffectAction action = new CostToEffectAction(self, "Heal every ally whose home is site 3");
             for (PhysicalCard ally : allies)
-                action.addEffect(new HealCardEffect(ally));
+                action.addEffect(new HealCharacterEffect(ally));
 
             return Collections.singletonList(action);
         }

@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.cards.effects.HealCardEffect;
+import com.gempukku.lotro.cards.effects.HealCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -65,7 +65,7 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
                                     new ChooseActiveCardEffect(playerId, "Choose Elf to heal", Filters.keyword(Keyword.ELF)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, PhysicalCard elf) {
-                                            action.addEffect(new HealCardEffect(elf));
+                                            action.addEffect(new HealCharacterEffect(elf));
                                         }
                                     });
                         }
@@ -80,7 +80,7 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
                                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to heal", Filters.keyword(Keyword.DWARF)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
-                                            action.addEffect(new HealCardEffect(dwarf));
+                                            action.addEffect(new HealCharacterEffect(dwarf));
                                         }
                                     });
                         }
