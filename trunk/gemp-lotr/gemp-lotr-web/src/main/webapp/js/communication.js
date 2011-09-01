@@ -53,8 +53,7 @@ var GempLotrCommunication = Class.extend({
                 decisionValue: response},
             success: this.success,
             error: this.failure,
-            dataType: "xml",
-            crossDomain: true
+            dataType: "xml"
         });
     }
 });

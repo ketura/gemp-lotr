@@ -312,8 +312,9 @@ var GempLotrUI = Class.extend({
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {
-        //        alert("There was a problem during communication with server");
-        alert(xhr.status);
+        alert("There was a problem during communication with server:");
+        alert(xhr);
+        alert(ajaxOptions);
         alert(thrownError);
     },
 
