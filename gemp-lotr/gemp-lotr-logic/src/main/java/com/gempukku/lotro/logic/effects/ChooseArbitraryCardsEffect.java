@@ -13,16 +13,16 @@ import java.util.List;
 public abstract class ChooseArbitraryCardsEffect extends UnrespondableEffect {
     private String _playerId;
     private String _choiceText;
-    private List<PhysicalCard> _cards;
+    private List<? extends PhysicalCard> _cards;
     private Filter _filter;
     private int _minimum;
     private int _maximum;
 
-    public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<PhysicalCard> cards, int minimum, int maximum) {
+    public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<? extends PhysicalCard> cards, int minimum, int maximum) {
         this(playerId, choiceText, cards, Filters.any(), minimum, maximum);
     }
 
-    public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<PhysicalCard> cards, Filter filter, int minimum, int maximum) {
+    public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<? extends PhysicalCard> cards, Filter filter, int minimum, int maximum) {
         _playerId = playerId;
         _choiceText = choiceText;
         _cards = cards;
