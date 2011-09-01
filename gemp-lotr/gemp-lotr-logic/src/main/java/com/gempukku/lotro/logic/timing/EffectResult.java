@@ -2,7 +2,8 @@ package com.gempukku.lotro.logic.timing;
 
 public abstract class EffectResult {
     public enum Type {
-        WOUND, KILL,
+        WOUND, KILL, HEAL,
+
         OVERWHELM_IN_SKIRMISH, RESOLVE_SKIRMISH,
 
         START_OF_PHASE,
