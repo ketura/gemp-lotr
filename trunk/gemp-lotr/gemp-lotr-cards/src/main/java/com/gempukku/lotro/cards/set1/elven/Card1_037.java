@@ -36,7 +36,7 @@ public class Card1_037 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             final PlayEventAction action = new PlayEventAction(self);
 

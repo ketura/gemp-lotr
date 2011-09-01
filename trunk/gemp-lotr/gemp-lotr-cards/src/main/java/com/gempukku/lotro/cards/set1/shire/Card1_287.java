@@ -38,7 +38,7 @@ public class Card1_287 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayableIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.HEAL
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((HealResult) effectResult).getCard(), Keyword.RING_BEARER)) {
             PlayEventAction action = new PlayEventAction(self);

@@ -6,13 +6,17 @@ import java.util.List;
 
 public abstract class ActionsSelectionDecision extends AbstractAwaitingDecision {
     private List<? extends Action> _actions;
+    private boolean _optional;
 
-    public ActionsSelectionDecision(int decisionId, String text, List<? extends Action> actions) {
+    public ActionsSelectionDecision(int decisionId, String text, List<? extends Action> actions, boolean optional) {
         super(decisionId, text, AwaitingDecisionType.ACTION_CHOICE);
         _actions = actions;
+        _optional = optional;
+
         setParam("actionId", getActionIds(actions));
         setParam("cardId", getCardIds(actions));
         setParam("actionText", getActionTexts(actions));
+        setParam("optional", String.valueOf(optional));
     }
 
     private String[] getActionIds(List<? extends Action> actions) {
@@ -37,6 +41,9 @@ public abstract class ActionsSelectionDecision extends AbstractAwaitingDecision 
     }
 
     protected Action getSelectedAction(String result) throws DecisionResultInvalidException {
+        if (result.equals("") && !_optional)
+            throw new DecisionResultInvalidException();
+
         if (result.equals(""))
             return null;
         try {

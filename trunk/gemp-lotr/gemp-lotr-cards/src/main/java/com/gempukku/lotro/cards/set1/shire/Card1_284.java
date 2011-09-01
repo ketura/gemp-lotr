@@ -36,7 +36,7 @@ public class Card1_284 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
         appendPlayAllyActions(actions, game, self);
         appendHealAllyActions(actions, game, self);

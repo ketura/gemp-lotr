@@ -59,35 +59,35 @@ public class Card1_067 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getRequiredWhenActions(game, effectResult, self);
+            return copied.getRequiredOneTimeActions(game, effectResult, self);
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayableIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getPlayableIsAboutToActions(playerId, game, effect, effectResult, self);
+            return copied.getOptionalIsAboutToActions(playerId, game, effect, effectResult, self);
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getPlayableWhenActions(playerId, game, effectResult, self);
+            return copied.getOptionalOneTimeActions(playerId, game, effectResult, self);
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (self.getZone() == Zone.FREE_SUPPORT) {
             LotroCardBlueprint copied = getCopied(game, self);
             if (copied != null)
-                return copied.getPlayablePhaseActions(playerId, game, self);
+                return copied.getPhaseActions(playerId, game, self);
             return null;
         } else if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             List<Action> actions = new LinkedList<Action>();

@@ -38,13 +38,15 @@ public interface LotroCardBlueprint {
 
     public List<? extends Action> getRequiredIsAboutToActions(LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self);
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self);
 
-    public List<? extends Action> getPlayableIsAboutToActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+
+    public List<? extends Action> getOptionalActions(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
 
     public int getSiteNumber();
 

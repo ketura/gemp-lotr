@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.timing;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.decisions.AbstractAwaitingDecision;
 import com.gempukku.lotro.logic.decisions.ActionsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
@@ -12,10 +13,7 @@ import com.gempukku.lotro.logic.timing.actions.SystemAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 // Action generates multiple Effects, both costs and result of an action are Effects.
 
@@ -93,17 +91,16 @@ public class TurnProcedure {
                 _checkedIsAboutToRequiredResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
                 List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredIsAboutToResponses(_effect, effectResult);
-                if (requiredIsAboutToResponses.size() == 1) {
-                    return new StackActionEffect(requiredIsAboutToResponses.get(0));
-                } else if (requiredIsAboutToResponses.size() > 1) {
-                    return new PlayoutDecisionEffect(_userFeedback, _game.getGameState().getCurrentPlayerId(), new ChooseActionsOrderDecision(requiredIsAboutToResponses));
+                if (requiredIsAboutToResponses.size() > 0) {
+                    CostToEffectAction action = new CostToEffectAction(null, null, null);
+                    action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredIsAboutToResponses));
+                    return new StackActionEffect(action);
                 }
             }
             if (!_checkedIsAboutToOptionalResponses) {
                 _checkedIsAboutToOptionalResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
-                if (_game.getActionsEnvironment().hasOptionalIsAboutToResponse(_effect, effectResult))
-                    return new StackActionEffect(new PlayoutOptionalIsAboutToResponsesAction(_effect, effectResult));
+                return new StackActionEffect(new PlayoutOptionalIsAboutToResponsesAction(_effect, effectResult));
             }
             if (!_effectPlayed) {
                 if (_effect.canPlayEffect(_game))
@@ -117,21 +114,102 @@ public class TurnProcedure {
             if (!_checkedRequiredWhenResponses) {
                 _checkedRequiredWhenResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
-                List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredWhenResponses(effectResult);
-                if (requiredResponses.size() == 1) {
-                    return new StackActionEffect(requiredResponses.get(0));
-                } else if (requiredResponses.size() > 1) {
-                    return new PlayoutDecisionEffect(_userFeedback, _game.getGameState().getCurrentPlayerId(), new ChooseActionsOrderDecision(requiredResponses));
+                List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredOneTimeResponses(effectResult);
+                if (requiredResponses.size() > 0) {
+                    CostToEffectAction action = new CostToEffectAction(null, null, null);
+                    action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
+                    return new StackActionEffect(action);
                 }
             }
             if (!_checkedOptionalWhenResponses) {
                 _checkedOptionalWhenResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
-                if (_game.getActionsEnvironment().hasOptionalWhenResponse(effectResult))
-                    return new StackActionEffect(new PlayoutOptionalWhenResponsesAction(effectResult));
+                Map<String, List<Action>> optionalWhenResponses = _game.getActionsEnvironment().getOptionalOneTimeResponses(_game.getGameState().getPlayerOrder().getAllPlayers(), effectResult);
+                CostToEffectAction action = new CostToEffectAction(null, null, null);
+                action.addEffect(
+                        new PlayoutOptionalAfterResponsesEffect(action, optionalWhenResponses, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, effectResult));
+                return new StackActionEffect(action);
             }
 
             return null;
+        }
+    }
+
+    private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect {
+        private CostToEffectAction _action;
+        private Map<String, List<Action>> _actionMap = new HashMap<String, List<Action>>();
+        private PlayOrder _playOrder;
+        private int _passCount;
+        private EffectResult _effectResult;
+
+        private PlayoutOptionalAfterResponsesEffect(CostToEffectAction action, Map<String, List<Action>> actionMap, PlayOrder playOrder, int passCount, EffectResult effectResult) {
+            _action = action;
+            _actionMap = actionMap;
+            _playOrder = playOrder;
+            _passCount = passCount;
+            _effectResult = effectResult;
+        }
+
+        @Override
+        public void playEffect(LotroGame game) {
+            final String activePlayer = _playOrder.getNextPlayer();
+            List<Action> possibleActions = _actionMap.get(activePlayer);
+            possibleActions.addAll(_game.getActionsEnvironment().getOptionalResponses(activePlayer, _effectResult));
+
+            if (possibleActions.size() > 0) {
+                _game.getUserFeedback().sendAwaitingDecision(activePlayer,
+                        new ActionsSelectionDecision(1, "Choose action to play or DONE", possibleActions, true) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                Action action = getSelectedAction(result);
+                                if (action != null) {
+                                    _game.getActionsEnvironment().addActionToStack(action);
+                                    _actionMap.get(activePlayer).remove(action);
+                                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, 0, _effectResult));
+                                } else {
+                                    if ((_passCount + 1) < _playOrder.getPlayerCount()) {
+                                        _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effectResult));
+                                    }
+                                }
+                            }
+                        });
+            } else {
+                if ((_passCount + 1) < _playOrder.getPlayerCount()) {
+                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effectResult));
+                }
+            }
+        }
+    }
+
+    private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect {
+        private CostToEffectAction _action;
+        private Effect _effect;
+        private List<Action> _actions;
+
+        private PlayoutAllActionsIfEffectNotCancelledEffect(CostToEffectAction action, Effect effect, List<Action> actions) {
+            _action = action;
+            _effect = effect;
+            _actions = actions;
+        }
+
+        @Override
+        public void playEffect(LotroGame game) {
+            if (!_effect.isCancelled()) {
+                if (_actions.size() == 1) {
+                    _game.getActionsEnvironment().addActionToStack(_actions.get(0));
+                } else {
+                    _game.getUserFeedback().sendAwaitingDecision(_game.getGameState().getCurrentPlayerId(),
+                            new ActionsSelectionDecision(1, "Choose action to play now", _actions, false) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    Action action = getSelectedAction(result);
+                                    _game.getActionsEnvironment().addActionToStack(action);
+                                    _actions.remove(action);
+                                    _action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(_action, _effect, _actions));
+                                }
+                            });
+                }
+            }
         }
     }
 
@@ -196,39 +274,7 @@ public class TurnProcedure {
 
             String player = _playOrder.getNextPlayer();
             List<Action> actions = _game.getActionsEnvironment().getOptionalIsAboutToResponses(player, _effect, _effectResult);
-            return new PlayoutDecisionEffect(_userFeedback, player, new ActionsSelectionDecision(1, "Choose action to play or DONE", actions) {
-                @Override
-                public void decisionMade(String result) throws DecisionResultInvalidException {
-                    Action action = getSelectedAction(result);
-                    if (action == null)
-                        _consecutivePassesCount++;
-                    else {
-                        _consecutivePassesCount = 0;
-                        _actionStack.stackAction(action);
-                    }
-                }
-            });
-        }
-    }
-
-    private class PlayoutOptionalWhenResponsesAction extends SystemAction {
-        private EffectResult _effectResult;
-        private PlayOrder _playOrder;
-        private int _consecutivePassesCount = 0;
-
-        private PlayoutOptionalWhenResponsesAction(EffectResult effectResult) {
-            _effectResult = effectResult;
-            _playOrder = _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true);
-        }
-
-        @Override
-        public Effect nextEffect() {
-            if (_consecutivePassesCount == _playOrder.getPlayerCount())
-                return null;
-
-            String player = _playOrder.getNextPlayer();
-            List<Action> actions = _game.getActionsEnvironment().getOptionalWhenResponses(player, _effectResult);
-            return new PlayoutDecisionEffect(_userFeedback, player, new ActionsSelectionDecision(1, "Choose action to play or DONE", actions) {
+            return new PlayoutDecisionEffect(_userFeedback, player, new ActionsSelectionDecision(1, "Choose action to play or DONE", actions, true) {
                 @Override
                 public void decisionMade(String result) throws DecisionResultInvalidException {
                     Action action = getSelectedAction(result);

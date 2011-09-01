@@ -26,7 +26,7 @@ public class Card1_342 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN)
             self.removeData();
         else if (game.getGameState().getCurrentSite() == self

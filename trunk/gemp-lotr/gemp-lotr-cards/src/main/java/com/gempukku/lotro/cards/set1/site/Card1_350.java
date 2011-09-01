@@ -45,7 +45,7 @@ public class Card1_350 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC))))
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN

@@ -87,16 +87,6 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public boolean hasOptionalIsAboutToResponse(Effect effect, EffectResult effectResult) {
-        for (String participant : _participants) {
-            List<Action> actions = getOptionalIsAboutToResponses(participant, effect, effectResult);
-            if (actions.size() > 0)
-                return true;
-        }
-        return false;
-    }
-
-    @Override
     public List<Action> getOptionalIsAboutToResponses(String playerId, Effect effect, EffectResult effectResult) {
         GatherIsAboutToActionsVisitor gatherActions = new GatherIsAboutToActionsVisitor(playerId, effect, effectResult);
 
@@ -105,7 +95,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<? extends Action> actions = actionProxy.getPlayableIsAboutToActions(playerId, _lotroGame, effect, effectResult);
+            List<? extends Action> actions = actionProxy.getOptionalIsAboutToActions(playerId, _lotroGame, effect, effectResult);
             if (actions != null)
                 gatheredActions.addAll(actions);
         }
@@ -114,7 +104,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public List<Action> getRequiredWhenResponses(EffectResult effectResult) {
+    public List<Action> getRequiredOneTimeResponses(EffectResult effectResult) {
         GatherRequiredWhenActionsVisitor gatherActions = new GatherRequiredWhenActionsVisitor(effectResult);
 
         _lotroGame.getGameState().iterateActiveCards(gatherActions);
@@ -122,7 +112,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<? extends Action> actions = actionProxy.getRequiredWhenActions(_lotroGame, effectResult);
+            List<? extends Action> actions = actionProxy.getRequiredOneTimeActions(_lotroGame, effectResult);
             if (actions != null)
                 gatheredActions.addAll(actions);
         }
@@ -131,25 +121,36 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public boolean hasOptionalWhenResponse(EffectResult effectResult) {
-        for (String playerId : _participants) {
-            List<Action> actions = getOptionalWhenResponses(playerId, effectResult);
-            if (actions.size() > 0)
-                return true;
+    public Map<String, List<Action>> getOptionalOneTimeResponses(List<String> players, EffectResult effectResult) {
+        Map<String, List<Action>> result = new HashMap<String, List<Action>>();
+        for (String playerId : players) {
+            GatherOptionalOneTimeActionsVisitor gatherActions = new GatherOptionalOneTimeActionsVisitor(playerId, effectResult);
+
+            _lotroGame.getGameState().iterateActivableCards(playerId, gatherActions);
+
+            List<Action> gatheredActions = gatherActions.getActions();
+
+            for (ActionProxy actionProxy : _actionProxies) {
+                List<? extends Action> actions = actionProxy.getOptionalOneTimeActions(playerId, _lotroGame, effectResult);
+                if (actions != null)
+                    gatheredActions.addAll(actions);
+            }
+            result.put(playerId, gatheredActions);
         }
-        return false;
+
+        return result;
     }
 
     @Override
-    public List<Action> getOptionalWhenResponses(String playerId, EffectResult effectResult) {
-        GatherWhenActionsVisitor gatherActions = new GatherWhenActionsVisitor(playerId, effectResult);
+    public List<Action> getOptionalResponses(String playerId, EffectResult effectResult) {
+        GatherOptionalActionsVisitor gatherActions = new GatherOptionalActionsVisitor(playerId, effectResult);
 
         _lotroGame.getGameState().iterateActivableCards(playerId, gatherActions);
 
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<? extends Action> actions = actionProxy.getPlayableWhenActions(playerId, _lotroGame, effectResult);
+            List<? extends Action> actions = actionProxy.getOptionalActions(playerId, _lotroGame, effectResult);
             if (actions != null)
                 gatheredActions.addAll(actions);
         }
@@ -172,7 +173,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            List<? extends Action> actions = physicalCard.getBlueprint().getRequiredWhenActions(_lotroGame, _effectResult, physicalCard);
+            List<? extends Action> actions = physicalCard.getBlueprint().getRequiredOneTimeActions(_lotroGame, _effectResult, physicalCard);
             if (actions != null)
                 _actions.addAll(actions);
         }
@@ -218,7 +219,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         public void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            List<? extends Action> actions = physicalCard.getBlueprint().getPlayableIsAboutToActions(_playerId, _lotroGame, _effect, _effectResult, physicalCard);
+            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalIsAboutToActions(_playerId, _lotroGame, _effect, _effectResult, physicalCard);
             if (actions != null)
                 _actions.addAll(actions);
         }
@@ -228,19 +229,41 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         }
     }
 
-    private class GatherWhenActionsVisitor extends CompletePhysicalCardVisitor {
+    private class GatherOptionalOneTimeActionsVisitor extends CompletePhysicalCardVisitor {
         private String _playerId;
         private EffectResult _effectResult;
         private List<Action> _actions = new LinkedList<Action>();
 
-        private GatherWhenActionsVisitor(String playerId, EffectResult effectResult) {
+        private GatherOptionalOneTimeActionsVisitor(String playerId, EffectResult effectResult) {
             _playerId = playerId;
             _effectResult = effectResult;
         }
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            List<? extends Action> actions = physicalCard.getBlueprint().getPlayableWhenActions(_playerId, _lotroGame, _effectResult, physicalCard);
+            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalOneTimeActions(_playerId, _lotroGame, _effectResult, physicalCard);
+            if (actions != null)
+                _actions.addAll(actions);
+        }
+
+        public List<Action> getActions() {
+            return _actions;
+        }
+    }
+
+    private class GatherOptionalActionsVisitor extends CompletePhysicalCardVisitor {
+        private String _playerId;
+        private EffectResult _effectResult;
+        private List<Action> _actions = new LinkedList<Action>();
+
+        private GatherOptionalActionsVisitor(String playerId, EffectResult effectResult) {
+            _playerId = playerId;
+            _effectResult = effectResult;
+        }
+
+        @Override
+        protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
+            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalActions(_playerId, _lotroGame, _effectResult, physicalCard);
             if (actions != null)
                 _actions.addAll(actions);
         }
