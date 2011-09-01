@@ -80,12 +80,12 @@ public class Card1_018 extends AbstractLotroCardBlueprint {
                                                                 for (PhysicalCard topDeckCard : topDeckCards)
                                                                     game.getGameState().removeCardFromZone(topDeckCard);
 
-                                                                action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
                                                             }
                                                         }
                                                     });
                                         }
 
+                                        action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
                                     }
                                 }
                             })
