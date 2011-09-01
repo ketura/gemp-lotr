@@ -35,7 +35,7 @@ public class Card1_025 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.DWARF))) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);

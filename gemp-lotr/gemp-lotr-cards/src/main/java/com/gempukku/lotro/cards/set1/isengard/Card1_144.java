@@ -47,7 +47,7 @@ public class Card1_144 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.owner(playerId)))
                 && game.getGameState().getTwilightPool() >= 1) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
