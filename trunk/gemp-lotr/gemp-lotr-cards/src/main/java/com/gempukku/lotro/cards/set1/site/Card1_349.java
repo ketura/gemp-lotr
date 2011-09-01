@@ -61,6 +61,7 @@ public class Card1_349 extends AbstractSite {
                         }
                     });
 
+            // Play from deck
             possibleEffects.add(
                     new ChooseArbitraryCardsEffect(playerId, "Choose Balrog to play",
                             Filters.filter(game.getGameState().getDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Balrog"),
