@@ -92,6 +92,16 @@ public class Card1_363 extends AbstractSite {
                                         }
                                     }, Phase.SHADOW
                             ));
+            } else {
+                _action.addEffect(
+                        new AddUntilEndOfPhaseModifierEffect(
+                                new AbstractModifier(null, "End Shadow Phase", null) {
+                                    @Override
+                                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
+                                        return false;
+                                    }
+                                }, Phase.SHADOW
+                        ));
             }
         }
     }
