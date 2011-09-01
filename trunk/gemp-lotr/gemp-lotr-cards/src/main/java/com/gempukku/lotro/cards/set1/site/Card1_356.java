@@ -35,7 +35,6 @@ public class Card1_356 extends AbstractSite {
                 }
                 return result;
             }
-
-            );
-        }
+        };
     }
+}
