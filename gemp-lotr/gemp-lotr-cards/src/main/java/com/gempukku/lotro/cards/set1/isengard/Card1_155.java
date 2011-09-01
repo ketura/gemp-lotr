@@ -47,7 +47,7 @@ public class Card1_155 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getOptionalOneTimeActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.RESPONSE, "Exert this minion. Discard a card from the top of your draw deck for each ISENGARD minion you spot. Add a burden for each Shadow card discarded in this way.");

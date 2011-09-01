@@ -36,17 +36,19 @@ public interface LotroCardBlueprint {
 
     public Modifier getAlwaysOnEffect(PhysicalCard self);
 
-    public List<? extends Action> getRequiredIsAboutToActions(LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
-
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
-
     public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self);
 
-    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getOptionalActions(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
+
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+
+    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+
+    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
 
     public int getSiteNumber();
 

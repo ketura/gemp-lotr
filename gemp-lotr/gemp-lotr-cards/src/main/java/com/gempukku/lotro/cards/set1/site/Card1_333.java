@@ -29,7 +29,7 @@ public class Card1_333 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.MINION))) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Free Peoples player discards a card from hand");
             action.addEffect(

@@ -54,7 +54,7 @@ public class Card1_160 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             CostToEffectAction action = new CostToEffectAction(self, null, "The Free Peoples player must discard the top card of his draw deck.");
             action.addEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));

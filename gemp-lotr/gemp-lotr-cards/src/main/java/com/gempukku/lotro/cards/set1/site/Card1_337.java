@@ -26,7 +26,7 @@ public class Card1_337 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getGameState().getCurrentSite() == self) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Remove (2)");

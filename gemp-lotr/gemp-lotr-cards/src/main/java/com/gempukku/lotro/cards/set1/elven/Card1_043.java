@@ -48,7 +48,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.ELF))) {
             final CostToEffectAction action = new CostToEffectAction(self, null, "Choose an opponent to discard a card from hand");
             action.addCost(

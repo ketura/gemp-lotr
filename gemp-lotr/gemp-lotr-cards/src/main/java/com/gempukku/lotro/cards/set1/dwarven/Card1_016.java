@@ -57,7 +57,7 @@ public class Card1_016 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.ORC))) {
             String playerId = ((PlayCardResult) effectResult).getPlayedCard().getOwner();
             CostToEffectAction action = new CostToEffectAction(self, null, "Discard the top card of deck");

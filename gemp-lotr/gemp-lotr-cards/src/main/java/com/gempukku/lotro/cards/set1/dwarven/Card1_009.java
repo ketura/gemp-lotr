@@ -55,7 +55,7 @@ public class Card1_009 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
             List<PhysicalCard> losers = skirmishResult.getLosers();

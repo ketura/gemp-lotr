@@ -107,32 +107,37 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getRequiredIsAboutToActions(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<? extends Action> getOptionalActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }
 
