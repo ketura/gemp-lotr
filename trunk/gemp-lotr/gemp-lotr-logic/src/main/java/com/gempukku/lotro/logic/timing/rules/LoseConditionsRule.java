@@ -25,7 +25,7 @@ public class LoseConditionsRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult) {
+                    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
                             CostToEffectAction action = new CostToEffectAction(null, null, "Losing the game due to Ring-Bearer being killed");
                             action.addEffect(

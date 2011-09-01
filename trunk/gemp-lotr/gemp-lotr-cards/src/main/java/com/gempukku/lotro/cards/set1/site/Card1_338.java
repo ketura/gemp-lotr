@@ -44,7 +44,7 @@ public class Card1_338 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.NAZGUL))
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());

@@ -58,7 +58,7 @@ public class Card1_015 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.isWounded(effectResult, self.getAttachedTo())) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Apply damage prevention");
             action.addEffect(

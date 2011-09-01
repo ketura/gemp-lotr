@@ -90,7 +90,7 @@ public class TurnProcedure {
             if (!_checkedIsAboutToRequiredResponses) {
                 _checkedIsAboutToRequiredResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
-                List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredIsAboutToResponses(_effect, effectResult);
+                List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect, effectResult);
                 if (requiredIsAboutToResponses.size() > 0) {
                     CostToEffectAction action = new CostToEffectAction(null, null, null);
                     action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredIsAboutToResponses));
@@ -114,7 +114,7 @@ public class TurnProcedure {
             if (!_checkedRequiredWhenResponses) {
                 _checkedRequiredWhenResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
-                List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredOneTimeResponses(effectResult);
+                List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(effectResult);
                 if (requiredResponses.size() > 0) {
                     CostToEffectAction action = new CostToEffectAction(null, null, null);
                     action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
@@ -124,7 +124,7 @@ public class TurnProcedure {
             if (!_checkedOptionalWhenResponses) {
                 _checkedOptionalWhenResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
-                Map<String, List<Action>> optionalWhenResponses = _game.getActionsEnvironment().getOptionalOneTimeResponses(_game.getGameState().getPlayerOrder().getAllPlayers(), effectResult);
+                Map<String, List<Action>> optionalWhenResponses = _game.getActionsEnvironment().getOptionalAfterTriggers(_game.getGameState().getPlayerOrder().getAllPlayers(), effectResult);
                 CostToEffectAction action = new CostToEffectAction(null, null, null);
                 action.addEffect(
                         new PlayoutOptionalAfterResponsesEffect(action, optionalWhenResponses, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, effectResult));
@@ -154,7 +154,7 @@ public class TurnProcedure {
         public void playEffect(LotroGame game) {
             final String activePlayer = _playOrder.getNextPlayer();
             List<Action> possibleActions = _actionMap.get(activePlayer);
-            possibleActions.addAll(_game.getActionsEnvironment().getOptionalResponses(activePlayer, _effectResult));
+            possibleActions.addAll(_game.getActionsEnvironment().getOptionalAfterActions(activePlayer, _effectResult));
 
             if (possibleActions.size() > 0) {
                 _game.getUserFeedback().sendAwaitingDecision(activePlayer,
@@ -273,7 +273,7 @@ public class TurnProcedure {
                 return null;
 
             String player = _playOrder.getNextPlayer();
-            List<Action> actions = _game.getActionsEnvironment().getOptionalIsAboutToResponses(player, _effect, _effectResult);
+            List<Action> actions = _game.getActionsEnvironment().getOptionalBeforeActions(player, _effect, _effectResult);
             return new PlayoutDecisionEffect(_userFeedback, player, new ActionsSelectionDecision(1, "Choose action to play or DONE", actions, true) {
                 @Override
                 public void decisionMade(String result) throws DecisionResultInvalidException {

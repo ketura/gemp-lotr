@@ -25,7 +25,7 @@ public class CharacterDeathRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult) {
+                    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         List<Action> actions = new LinkedList<Action>();
 
                         GameState gameState = game.getGameState();

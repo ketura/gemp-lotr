@@ -24,7 +24,7 @@ public class WinConditionRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredIsAboutToActions(final LotroGame lotroGame, Effect effect, EffectResult effectResult) {
+                    public List<? extends Action> getRequiredBeforeTriggers(final LotroGame lotroGame, Effect effect, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                 && lotroGame.getGameState().getCurrentPhase() == Phase.REGROUP
                                 && lotroGame.getGameState().getCurrentSiteNumber() == 9) {

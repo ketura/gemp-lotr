@@ -28,7 +28,7 @@ public class SanctuaryRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult) {
+                    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
                             CostToEffectAction action = new CostToEffectAction(null, null, "Sanctuary healing");

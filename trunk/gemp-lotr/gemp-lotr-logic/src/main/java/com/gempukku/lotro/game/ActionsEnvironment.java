@@ -9,15 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 public interface ActionsEnvironment {
-    public List<Action> getRequiredIsAboutToResponses(Effect effect, EffectResult effectResult);
+    public List<Action> getRequiredBeforeTriggers(Effect effect, EffectResult effectResult);
 
-    public List<Action> getOptionalIsAboutToResponses(String playerId, Effect effect, EffectResult effectResult);
+    public Map<String, List<Action>> getOptionalBeforeTriggers(List<String> players, Effect effect, EffectResult effectResult);
 
-    public List<Action> getRequiredOneTimeResponses(EffectResult effectResult);
+    public List<Action> getOptionalBeforeActions(String playerId, Effect effect, EffectResult effectResult);
 
-    public Map<String, List<Action>> getOptionalOneTimeResponses(List<String> players, EffectResult effectResult);
+    public List<Action> getRequiredAfterTriggers(EffectResult effectResult);
 
-    public List<Action> getOptionalResponses(String playerId, EffectResult effectResult);
+    public Map<String, List<Action>> getOptionalAfterTriggers(List<String> players, EffectResult effectResult);
+
+    public List<Action> getOptionalAfterActions(String playerId, EffectResult effectResult);
 
     public void addUntilStartOfPhaseActionProxy(ActionProxy actionProxy, Phase phase);
 

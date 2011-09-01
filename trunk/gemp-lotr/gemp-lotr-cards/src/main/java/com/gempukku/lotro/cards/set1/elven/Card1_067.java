@@ -51,34 +51,34 @@ public class Card1_067 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getRequiredIsAboutToActions(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getRequiredIsAboutToActions(game, effect, effectResult, self);
+            return copied.getRequiredBeforeTriggers(game, effect, effectResult, self);
         return null;
     }
 
     @Override
-    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getRequiredOneTimeActions(game, effectResult, self);
+            return copied.getRequiredAfterTriggers(game, effectResult, self);
         return null;
     }
 
     @Override
-    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getOptionalIsAboutToActions(playerId, game, effect, effectResult, self);
+            return copied.getOptionalBeforeActions(playerId, game, effect, effectResult, self);
         return null;
     }
 
     @Override
-    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getOptionalOneTimeActions(playerId, game, effectResult, self);
+            return copied.getOptionalAfterTriggers(playerId, game, effectResult, self);
         return null;
     }
 
