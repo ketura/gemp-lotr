@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.HealCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -14,6 +13,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;

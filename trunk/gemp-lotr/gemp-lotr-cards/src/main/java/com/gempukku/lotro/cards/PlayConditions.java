@@ -53,8 +53,20 @@ public class PlayConditions {
         return (nonPlayZone(self.getZone())
                 && self.getBlueprint().getCardType() == CardType.COMPANION
                 && gameState.getCurrentPhase() == Phase.GAME_SETUP
-                && (!blueprint.isUnique() || !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())))
+                // Rule of 9
+                && (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9)
+                &&
+                (!blueprint.isUnique()
+                        ||
+                        (!Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())))
+                        ||
+                        (!Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())) && (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0)))
                 && modifiersQuerying.getTwilightCost(gameState, self) <= (4 - gameState.getTwilightPool()));
+    }
+
+    private static int getTotalCompanions(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
+        return Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.COMPANION))
+                + Filters.filter(gameState.getDeadPile(playerId), gameState, modifiersQuerying, Filters.type(CardType.COMPANION)).size();
     }
 
     public static boolean canPlayCharacterDuringFellowship(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
@@ -62,7 +74,13 @@ public class PlayConditions {
         return (nonPlayZone(self.getZone())
                 && (self.getBlueprint().getCardType() == CardType.COMPANION || self.getBlueprint().getCardType() == CardType.ALLY)
                 && gameState.getCurrentPhase() == Phase.FELLOWSHIP
-                && (!blueprint.isUnique() || !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))));
+                // Rule of 9
+                && (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9)
+                // Uniqness
+                &&
+                (!blueprint.isUnique()
+                        ||
+                        (!Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())) && (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0))));
     }
 
     public static boolean canPlayMinionDuringShadow(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {

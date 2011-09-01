@@ -326,6 +326,10 @@ public class GameState {
         return Collections.unmodifiableList(_discards.get(playerId));
     }
 
+    public List<? extends PhysicalCard> getDeadPile(String playerId) {
+        return Collections.unmodifiableList(_deadPiles.get(playerId));
+    }
+
     public List<? extends PhysicalCard> getAdventureDeck(String playerId) {
         return Collections.unmodifiableList(_adventureDecks.get(playerId));
     }
