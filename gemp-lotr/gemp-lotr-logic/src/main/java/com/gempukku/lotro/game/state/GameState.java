@@ -236,7 +236,7 @@ public class GameState {
         if (physicalCardVisitor.visitPhysicalCard(getCurrentSite()))
             return true;
         for (PhysicalCardImpl physicalCard : _inPlay.get(player)) {
-            if (isCardInPlayActive(physicalCard))
+            if (physicalCard.getBlueprint().getSide() != Side.SITE && isCardInPlayActive(physicalCard))
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
         }
