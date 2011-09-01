@@ -1,5 +1,6 @@
 package com.gempukku.lotro;
 
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
@@ -55,6 +56,12 @@ public class LotroGameMediator {
         }
         if (modifiers.size() == 0)
             sb.append("<br><i>nothing</i>");
+
+        CardType type = card.getBlueprint().getCardType();
+        if (type == CardType.COMPANION || type == CardType.ALLY || type == CardType.MINION) {
+            sb.append("<br><b>Strength:</b> " + _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card));
+            sb.append("<br><b>Vitality:</b> " + _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card));
+        }
 
         return sb.toString();
     }
