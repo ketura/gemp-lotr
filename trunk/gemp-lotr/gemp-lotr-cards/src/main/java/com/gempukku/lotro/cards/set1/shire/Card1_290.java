@@ -60,4 +60,9 @@ public class Card1_290 extends AbstractCompanion {
 
         return actions;
     }
+
+    @Override
+    public int getResistance() {
+        return 10;
+    }
 }
