@@ -35,7 +35,7 @@ public class Card1_010 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         Filter validTargetFilter = Filters.keyword(Keyword.DWARF);
@@ -46,7 +46,7 @@ public class Card1_010 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Heal bearer up to 2 times");
             action.addEffect(new HealCharacterEffect(self.getAttachedTo()));

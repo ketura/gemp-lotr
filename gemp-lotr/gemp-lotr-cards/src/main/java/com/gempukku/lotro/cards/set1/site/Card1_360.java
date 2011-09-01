@@ -31,7 +31,7 @@ public class Card1_360 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.type(CardType.MINION), Filters.canExert())) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert your minion to make that minion fierce until the regroup phase.");

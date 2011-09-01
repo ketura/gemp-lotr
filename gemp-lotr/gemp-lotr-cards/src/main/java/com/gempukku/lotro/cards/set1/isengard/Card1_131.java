@@ -30,7 +30,7 @@ public class Card1_131 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         appendPlayMinionAction(actions, game, self);

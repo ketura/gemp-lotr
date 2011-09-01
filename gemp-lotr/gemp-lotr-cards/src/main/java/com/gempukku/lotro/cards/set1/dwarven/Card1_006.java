@@ -35,7 +35,7 @@ public class Card1_006 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.type(CardType.COMPANION), Filters.canExert())) {
             final PlayEventAction action = new PlayEventAction(self);

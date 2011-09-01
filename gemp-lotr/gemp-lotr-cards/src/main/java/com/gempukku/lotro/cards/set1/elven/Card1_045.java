@@ -41,7 +41,7 @@ public class Card1_045 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         appendPlayAllyActions(actions, game, self);
@@ -56,7 +56,7 @@ public class Card1_045 extends AbstractAlly {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getPlayablePhaseActions(playerId, game, physicalCard);
+                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
                                     return (playableActions != null && playableActions.size() > 0);
                                 }
                             }) {
@@ -77,7 +77,7 @@ public class Card1_045 extends AbstractAlly {
 
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             List<PhysicalCard> allies = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY), Filters.siteNumber(6));
 

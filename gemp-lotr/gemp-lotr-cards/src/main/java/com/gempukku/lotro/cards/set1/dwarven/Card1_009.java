@@ -38,7 +38,7 @@ public class Card1_009 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.DWARF), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
@@ -55,7 +55,7 @@ public class Card1_009 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
             List<PhysicalCard> losers = skirmishResult.getLosers();

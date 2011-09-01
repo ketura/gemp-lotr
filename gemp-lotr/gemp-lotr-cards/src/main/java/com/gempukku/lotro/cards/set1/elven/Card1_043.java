@@ -38,7 +38,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Far-seeing Eyes"))) {
             PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
@@ -48,7 +48,7 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.ELF))) {
             final CostToEffectAction action = new CostToEffectAction(self, null, "Choose an opponent to discard a card from hand");
             action.addCost(

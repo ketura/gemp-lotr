@@ -30,7 +30,7 @@ public class ResolveSkirmishRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
+                    public List<? extends Action> getRequiredOneTimeActions(LotroGame lotroGame, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.RESOLVE_SKIRMISH) {
                             NormalSkirmishResult skirmishResult = (NormalSkirmishResult) effectResult;
                             List<PhysicalCard> winners = skirmishResult.getWinners();

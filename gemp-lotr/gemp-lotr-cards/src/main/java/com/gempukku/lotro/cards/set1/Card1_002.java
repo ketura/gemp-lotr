@@ -49,7 +49,7 @@ public class Card1_002 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayableIsAboutToActions(final String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, final PhysicalCard self) {
+    public List<? extends Action> getOptionalIsAboutToActions(final String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, final PhysicalCard self) {
         if (lotroGame.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && effectResult.getType() == EffectResult.Type.WOUND
                 && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
@@ -62,7 +62,7 @@ public class Card1_002 extends AbstractLotroCardBlueprint {
             action.addEffect(new AddUntilEndOfPhaseActionProxyEffect(
                     new AbstractActionProxy() {
                         @Override
-                        public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
+                        public List<? extends Action> getRequiredOneTimeActions(LotroGame lotroGame, EffectResult effectResult) {
                             if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                     && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
                                 CostToEffectAction action = new CostToEffectAction(self, null, "Take off The One Ring");

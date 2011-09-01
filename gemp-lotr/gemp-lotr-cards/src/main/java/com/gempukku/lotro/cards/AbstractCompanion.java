@@ -62,7 +62,7 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
         appendPlayCompanionActions(actions, game, self);
         appendHealCompanionActions(actions, game, self);

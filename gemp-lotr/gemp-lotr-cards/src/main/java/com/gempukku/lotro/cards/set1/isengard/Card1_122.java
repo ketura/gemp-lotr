@@ -39,7 +39,7 @@ public class Card1_122 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.owner(playerId)))
                 && PlayConditions.canPlayShadowCardDuringPhase(game, null, self)) {
             final PlayEventAction action = new PlayEventAction(self);

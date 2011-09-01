@@ -39,7 +39,7 @@ public class Card1_013 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self) {
         LinkedList<Action> result = new LinkedList<Action>();
 
         appendPlayCompanionActions(result, lotroGame, self);

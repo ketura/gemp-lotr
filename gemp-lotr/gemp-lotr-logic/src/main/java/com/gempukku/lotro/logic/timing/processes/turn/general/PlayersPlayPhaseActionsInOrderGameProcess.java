@@ -40,7 +40,7 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
                 playableActions.add(action);
 
         _game.getUserFeedback().sendAwaitingDecision(playerId,
-                new ActionsSelectionDecision(1, "Choose action to play or press DONE", playableActions) {
+                new ActionsSelectionDecision(1, "Choose action to play or press DONE", playableActions, true) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         Action action = getSelectedAction(result);

@@ -30,7 +30,7 @@ public class Card1_334 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.ARTIFACT)))) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             PhysicalCard attachedTo = playCardResult.getAttachedTo();

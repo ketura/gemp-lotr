@@ -41,7 +41,7 @@ public class Card1_023 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.DWARF))) {
             final PlayEventAction action = new PlayEventAction(self);
             action.addEffect(new PlayoutDecisionEffect(

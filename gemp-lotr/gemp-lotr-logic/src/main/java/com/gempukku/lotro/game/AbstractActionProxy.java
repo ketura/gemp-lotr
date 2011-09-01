@@ -14,22 +14,27 @@ public abstract class AbstractActionProxy implements ActionProxy {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame lotroGame, EffectResult effectResult) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame lotroGame, EffectResult effectResult) {
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame lotroGame) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame) {
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayableIsAboutToActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult) {
+    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult) {
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame lotroGame, EffectResult effectResult) {
+    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame lotroGame, EffectResult effectResult) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getOptionalActions(String playerId, LotroGame lotroGame, EffectResult effectResult) {
         return null;
     }
 }

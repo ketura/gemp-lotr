@@ -34,7 +34,7 @@ public class Card1_363 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.SHADOW, "Play up to 3 trackers from your discard pile; end your Shadow phase.");
             action.addEffect(
@@ -45,7 +45,7 @@ public class Card1_363 extends AbstractSite {
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            List<? extends Action> playableActions = physicalCard.getBlueprint().getPlayablePhaseActions(playerId, game, physicalCard);
+                                            List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
                                             return (playableActions != null && playableActions.size() > 0);
                                         }
                                     }), 0, 1));
@@ -76,7 +76,7 @@ public class Card1_363 extends AbstractSite {
         protected void cardsSelected(List<PhysicalCard> selectedCards) {
             if (selectedCards.size() > 0) {
                 PhysicalCard selectedCard = selectedCards.get(0);
-                _game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayablePhaseActions(_playerId, _game, selectedCard).get(0));
+                _game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPhaseActions(_playerId, _game, selectedCard).get(0));
 
                 LinkedList<PhysicalCard> remainingCards = new LinkedList<PhysicalCard>(_game.getGameState().getDiscard(_playerId));
                 remainingCards.remove(selectedCard);

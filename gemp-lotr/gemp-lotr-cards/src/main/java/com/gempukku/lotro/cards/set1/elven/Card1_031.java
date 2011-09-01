@@ -35,7 +35,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.MOUNT))));
@@ -60,7 +60,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO) {
             boolean isUnderground = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND);
             if (isUnderground) {

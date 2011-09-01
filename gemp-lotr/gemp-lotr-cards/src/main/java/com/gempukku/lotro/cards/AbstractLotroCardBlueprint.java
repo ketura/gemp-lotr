@@ -112,22 +112,27 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getRequiredWhenActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getRequiredOneTimeActions(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayableIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalIsAboutToActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getOptionalActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         return null;
     }
 

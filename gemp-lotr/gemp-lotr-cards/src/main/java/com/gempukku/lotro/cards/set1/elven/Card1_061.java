@@ -34,7 +34,7 @@ public class Card1_061 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayablePhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
             return Collections.singletonList(action);
@@ -43,7 +43,7 @@ public class Card1_061 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPlayableWhenActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalOneTimeActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.ELVEN), Filters.keyword(Keyword.TALE)))) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Remove a burder");
             action.addEffect(new RemoveBurderEffect(playerId));
