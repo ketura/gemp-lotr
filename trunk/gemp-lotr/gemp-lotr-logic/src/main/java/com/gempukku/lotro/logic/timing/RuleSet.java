@@ -28,5 +28,7 @@ public class RuleSet {
         new SanctuaryRule(_actionsEnvironment).applyRule();
 
         new WinConditionRule(_actionsEnvironment).applyRule();
+
+        new LoseConditionsRule(_actionsEnvironment).applyRule();
     }
 }
