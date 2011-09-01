@@ -83,4 +83,9 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
     public final int getVitality() {
         return _vitality;
     }
+
+    @Override
+    public int getResistance() {
+        return 6;
+    }
 }

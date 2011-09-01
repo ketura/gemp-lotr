@@ -32,6 +32,8 @@ public interface LotroCardBlueprint {
 
     public int getVitality();
 
+    public int getResistance();
+
     public Modifier getAlwaysOnEffect(PhysicalCard self);
 
     public List<? extends Action> getRequiredIsAboutToActions(LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);

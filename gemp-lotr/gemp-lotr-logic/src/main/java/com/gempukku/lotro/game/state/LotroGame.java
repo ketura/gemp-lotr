@@ -15,4 +15,8 @@ public interface LotroGame {
     public ActionsEnvironment getActionsEnvironment();
 
     public UserFeedback getUserFeedback();
+
+    public void playerWon(String currentPlayerId);
+
+    public void playerLost(String currentPlayerId);
 }

@@ -13,10 +13,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DefaultLotroGame implements LotroGame {
     private GameState _gameState;
@@ -27,8 +24,10 @@ public class DefaultLotroGame implements LotroGame {
     private ActionStack _actionStack;
 
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
+    private GameResultListener _gameResultListener;
 
-    public DefaultLotroGame(Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
+    public DefaultLotroGame(Map<String, LotroDeck> decks, UserFeedback userFeedback, GameResultListener gameResultListener, final LotroCardBlueprintLibrary library) {
+        _gameResultListener = gameResultListener;
         _actionStack = new ActionStack();
 
         _actionsEnvironment = new DefaultActionsEnvironment(this, decks.keySet(), _actionStack);
@@ -70,6 +69,26 @@ public class DefaultLotroGame implements LotroGame {
 
     public void carryOutPendingActionsUntilDecisionNeeded() {
         _turnProcedure.carryOutPendingActionsUntilDecisionNeeded();
+    }
+
+    @Override
+    public void playerWon(String currentPlayerId) {
+        _gameState.setWinnerPlayerId(currentPlayerId);
+        if (_gameResultListener != null) {
+            Set<String> losers = new HashSet<String>(_gameState.getPlayerOrder().getAllPlayers());
+            losers.remove(currentPlayerId);
+            _gameResultListener.gameFinished(currentPlayerId, losers);
+        }
+    }
+
+    @Override
+    public void playerLost(String currentPlayerId) {
+        String winner = _gameState.setLoserPlayerId(currentPlayerId);
+        if (winner != null && _gameResultListener != null) {
+            Set<String> losers = new HashSet<String>(_gameState.getPlayerOrder().getAllPlayers());
+            losers.remove(winner);
+            _gameResultListener.gameFinished(winner, losers);
+        }
     }
 
     @Override
