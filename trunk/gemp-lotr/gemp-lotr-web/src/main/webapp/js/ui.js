@@ -299,8 +299,10 @@ var GempLotrUI = Class.extend({
                 this.multipleChoiceDecision(decision);
             } else if (decisionType == "ARBITRARY_CARDS") {
                 this.arbitraryCardsDecision(decision);
-            } else if (decisionType == "CARD_ACTION_CHOICE") {
+            } else if (decisionType == "ACTION_CHOICE") {
                 this.actionChoiceDecision(decision);
+            } else if (decisionType == "CARD_ACTION_CHOICE") {
+                this.cardActionChoiceDecision(decision);
             } else if (decisionType == "CARD_SELECTION") {
                 this.cardSelectionDecision(decision);
             } else if (decisionType == "ASSIGN_MINIONS") {
@@ -591,8 +593,8 @@ var GempLotrUI = Class.extend({
         this.dialogInstance.dialog("open");
     },
 
-    createCardDiv: function(card) {
-        var cardDiv = $("<div class='card'><img src='" + card.imageUrl + "' width='100%' height='100%'></div>");
+    createCardDiv: function(card, text) {
+        var cardDiv = $("<div class='card'><img src='" + card.imageUrl + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
         cardDiv.data("card", card);
         var borderDiv = $("<div class='borderOverlay'></div>");
         cardDiv.append(borderDiv);
@@ -673,7 +675,7 @@ var GempLotrUI = Class.extend({
         this.dialogInstance.dialog("open");
     },
 
-    actionChoiceDecision: function (decision) {
+    cardActionChoiceDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -715,6 +717,60 @@ var GempLotrUI = Class.extend({
                 that.decisionFunction(id, "" + action.actionId);
             }
         };
+    },
+
+    actionChoiceDecision: function (decision) {
+        var id = decision.getAttribute("id");
+        var text = decision.getAttribute("text");
+
+        var blueprintIds = this.getDecisionParameters(decision, "blueprintId");
+        var actionIds = this.getDecisionParameters(decision, "actionId");
+        var actionTexts = this.getDecisionParameters(decision, "actionText");
+
+        var that = this;
+
+        this.dialogInstance
+                .html("<div id='arbitraryChoice'></div>")
+                .dialog("option", "title", text)
+                .dialog("option", "buttons", {})
+                .dialog("option", "width", "600")
+                .dialog("option", "height", "300");
+
+        var cardIds = new Array();
+
+        for (var i = 0; i < blueprintIds.length; i++) {
+            var blueprintId = blueprintIds[i];
+
+            cardIds.push("temp" + i);
+            var card = new Card(blueprintId, "SPECIAL", "temp" + i, this.selfParticipantId);
+
+            var cardDiv = this.createCardDiv(card, actionTexts[i]);
+
+            $("#arbitraryChoice").append(cardDiv);
+        }
+
+        this.selectionFunction = function(cardId) {
+            var actionId = actionIds[parseInt(cardId.substring(4))];
+
+            this.dialogInstance.dialog("option", "buttons", {
+                "DONE": function() {
+                    $(this).dialog("close");
+                    $("#arbitraryChoice").html("");
+                    that.clearSelection();
+                    that.decisionFunction(id, "" + actionId);
+                }
+            });
+
+            that.clearSelection();
+            $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+        };
+
+        $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
+
+        this.specialGroup.setBounds(10, 10, 547, 188);
+
+        $(".ui-dialog-titlebar").show();
+        this.dialogInstance.dialog("open");
     },
 
     cardSelectionDecision: function(decision) {
