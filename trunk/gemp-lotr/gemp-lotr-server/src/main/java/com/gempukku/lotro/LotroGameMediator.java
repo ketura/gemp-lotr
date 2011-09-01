@@ -33,7 +33,7 @@ public class LotroGameMediator {
             participantSet.add(participantId);
             decks.put(participantId, participant.getDeck());
         }
-        _lotroGame = new DefaultLotroGame(decks, _userFeedback, library);
+        _lotroGame = new DefaultLotroGame(decks, _userFeedback, null, library);
     }
 
     public synchronized String produceCardInfo(String participantId, int cardId) {

@@ -37,6 +37,9 @@ public class GameState {
 
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
 
+    private String _winnerPlayerId;
+    private Set<String> _losers = new HashSet<String>();
+
     private int _nextCardId = 0;
 
     private int nextCardId() {
@@ -56,6 +59,24 @@ public class GameState {
 
             addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
         }
+    }
+
+    public void setWinnerPlayerId(String winnerPlayerId) {
+        _winnerPlayerId = winnerPlayerId;
+    }
+
+    public String setLoserPlayerId(String loserPlayerId) {
+        _losers.add(loserPlayerId);
+        if (_losers.size() + 1 == _playerOrder.getAllPlayers().size()) {
+            List<String> allPlayers = new LinkedList<String>(_playerOrder.getAllPlayers());
+            allPlayers.removeAll(_losers);
+            return allPlayers.get(0);
+        }
+        return null;
+    }
+
+    public String getWinnerPlayerId() {
+        return _winnerPlayerId;
     }
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {

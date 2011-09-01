@@ -26,5 +26,7 @@ public class RuleSet {
         new CharacterDeathRule(_actionsEnvironment).applyRule();
 
         new SanctuaryRule(_actionsEnvironment).applyRule();
+
+        new WinConditionRule(_actionsEnvironment).applyRule();
     }
 }

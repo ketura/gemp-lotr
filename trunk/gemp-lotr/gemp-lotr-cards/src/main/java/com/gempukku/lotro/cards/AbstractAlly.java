@@ -73,4 +73,9 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     public int getVitality() {
         return _vitality;
     }
+
+    @Override
+    public int getResistance() {
+        return 0;
+    }
 }
