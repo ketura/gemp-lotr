@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.timing.processes.turn.general;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.ActionsSelectionDecision;
+import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
@@ -34,7 +34,7 @@ public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProces
                 playableActions.add(action);
 
         _game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ActionsSelectionDecision(1, "Choose action to play or press DONE", playableActions, true) {
+                new CardActionSelectionDecision(1, "Choose action to play or press DONE", playableActions, true) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         Action action = getSelectedAction(result);

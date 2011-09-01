@@ -299,7 +299,7 @@ var GempLotrUI = Class.extend({
                 this.multipleChoiceDecision(decision);
             } else if (decisionType == "ARBITRARY_CARDS") {
                 this.arbitraryCardsDecision(decision);
-            } else if (decisionType == "ACTION_CHOICE") {
+            } else if (decisionType == "CARD_ACTION_CHOICE") {
                 this.actionChoiceDecision(decision);
             } else if (decisionType == "CARD_SELECTION") {
                 this.cardSelectionDecision(decision);
