@@ -23,7 +23,8 @@ public class AbstractAttachableFPPossession extends AbstractAttachable {
 
     protected void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
         GameState gameState = game.getGameState();
-        if (gameState.getCurrentPhase() == Phase.FELLOWSHIP
+        if (Filters.canSpot(gameState, game.getModifiersQuerying(), validTargetFilter)
+                && gameState.getCurrentPhase() == Phase.FELLOWSHIP
                 && self.getZone() == Zone.ATTACHED) {
 
             Filter vaildTransferFilter;
