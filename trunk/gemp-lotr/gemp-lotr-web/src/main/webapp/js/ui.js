@@ -122,16 +122,10 @@ var GempLotrUI = Class.extend({
         $("body").click(function (event) {
             var selectedCardElem = $(event.target).closest(".card");
             if (selectedCardElem.length != 0) {
-                switch (event.which) {
-                    case 1:
-                        if ($(selectedCardElem[0]).hasClass("selectableCard"))
-                            that.selectionFunction($(selectedCardElem[0]).data("card").cardId);
-                        break;
-                    case 2:
+                if (event.which == 1) {
+                    if (event.shiftKey) {
                         that.displayCardInfo($(selectedCardElem[0]).data("card"));
-                        break;
-                    case 3:
-                        break;
+                    }
                 }
             }
             return false;
@@ -141,7 +135,9 @@ var GempLotrUI = Class.extend({
     displayCardInfo: function(card) {
         this.infoDialog.html("<div><div style='float: left;'><img src='" + card.imageUrl + "'></div><div id='cardEffects'></div></div>");
 
-        this.getCardModifiersFunction(card.cardId, this.setCardModifiers);
+        var cardId = card.cardId;
+        if (cardId.length < 4 || cardId.substring(0, 4) != "temp")
+            this.getCardModifiersFunction(cardId, this.setCardModifiers);
 
         this.infoDialog.dialog("open");
     },
@@ -593,11 +589,27 @@ var GempLotrUI = Class.extend({
     createCardDiv: function(card, text) {
         var cardDiv = $("<div class='card'><img src='" + card.imageUrl + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
         cardDiv.data("card", card);
-        var borderDiv = $("<div class='borderOverlay'></div>");
-        cardDiv.append(borderDiv);
         var overlayDiv = $("<div class='tokenOverlay'></div>");
         cardDiv.append(overlayDiv);
+        var borderDiv = $("<div class='borderOverlay'></div>");
+        cardDiv.append(borderDiv);
         return cardDiv;
+    },
+
+    attachSelectionFunctions: function(cardIds) {
+        var that = this;
+        $(".card:cardId(" + cardIds + ")").each(
+                function() {
+                    var theOtherOne = that;
+                    $(this).addClass("selectableCard");
+                    var cardData = $(this).data("card");
+                    $(".borderOverlay", $(this)).bind("click",
+                            function(event) {
+                                if (event.which == 1)
+                                    theOtherOne.selectionFunction(cardData.cardId);
+                            });
+                }
+                );
     },
 
     arbitraryCardsDecision: function(decision) {
@@ -664,7 +676,7 @@ var GempLotrUI = Class.extend({
             }
         };
 
-        $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
+        this.attachSelectionFunctions(cardIds);
 
         this.specialGroup.setBounds(10, 10, 547, 188);
 
@@ -694,10 +706,10 @@ var GempLotrUI = Class.extend({
             var actionId = actionIds[i];
             var actionText = actionTexts[i];
 
+
             var cardIdElem = $(".card:cardId(" + cardId + ")");
             if (cardIdElem.data("action") == null) {
                 cardIdElem.data("action", new Array());
-                cardIdElem.addClass("selectableCard");
             }
 
             var actions = cardIdElem.data("action");
@@ -714,6 +726,8 @@ var GempLotrUI = Class.extend({
                 that.decisionFunction(id, "" + action.actionId);
             }
         };
+
+        this.attachSelectionFunctions(cardIds);
     },
 
     actionChoiceDecision: function (decision) {
@@ -762,7 +776,7 @@ var GempLotrUI = Class.extend({
             $(".card:cardId(" + cardId + ")").addClass("selectedCard");
         };
 
-        $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
+        this.attachSelectionFunctions(cardIds);
 
         this.specialGroup.setBounds(10, 10, 547, 188);
 
@@ -781,8 +795,6 @@ var GempLotrUI = Class.extend({
         var that = this;
 
         this.alert.html(text);
-
-        $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
 
         var selectedCardIds = new Array();
 
@@ -810,9 +822,12 @@ var GempLotrUI = Class.extend({
                 that.clearSelection();
                 $(".card:cardId(" + cardId + ")").addClass("selectedCard");
             } else {
+
                 $(".card:cardId(" + cardId + ")").removeClass("selectableCard").addClass("selectedCard");
             }
         };
+
+        this.attachSelectionFunctions(cardIds);
     },
 
     assignMinionsDecision: function(decision) {
@@ -908,12 +923,10 @@ var GempLotrUI = Class.extend({
     },
 
     doAssignments: function(freeCharacters, minions) {
-        $(".card:cardId(" + minions + ")").addClass("selectableCard");
-
         var that = this;
         this.selectionFunction = function(cardId) {
             that.clearSelection();
-            $(".card:cardId(" + freeCharacters + "," + cardId + ")").addClass("selectableCard");
+
             that.selectionFunction = function(secondCardId) {
                 that.clearSelection();
                 if (cardId != secondCardId) {
@@ -924,7 +937,12 @@ var GempLotrUI = Class.extend({
                 that.assignmentsChanged();
                 that.doAssignments(freeCharacters, minions);
             };
+
+            that.attachSelectionFunctions(freeCharacters);
+            that.attachSelectionFunctions([cardId]);
         };
+
+        this.attachSelectionFunctions(minions);
     },
 
     moveCardToElement: function(cardId, element) {
@@ -987,6 +1005,10 @@ var GempLotrUI = Class.extend({
     },
 
     clearSelection: function() {
+        $(".selectableCard").each(
+                function() {
+                    $(".borderOverlay", $(this)).unbind("click");
+                });
         $(".selectableCard").removeClass("selectableCard").data("action", null);
         $(".selectedCard").removeClass("selectedCard");
         this.selectionFunction = null;
