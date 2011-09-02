@@ -17,7 +17,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,23 +38,20 @@ public class Card1_040 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    protected boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.keyword(Keyword.ELF), Filters.name("Gandalf")));
+    }
 
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.keyword(Keyword.ELF), Filters.name("Gandalf"))))
-            appendPlayAllyActions(actions, game, self);
-
-        appendHealAllyActions(actions, game, self);
-
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Elrond to draw a card");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(new DrawCardEffect(playerId));
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
 
     @Override

@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,11 +36,7 @@ public class Card1_284 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-        appendPlayAllyActions(actions, game, self);
-        appendHealAllyActions(actions, game, self);
-
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Bilbo to shuffle a SHIRE card from your discard pile into your draw deck.");
@@ -55,7 +51,7 @@ public class Card1_284 extends AbstractAlly {
                         }
                     }
             );
-            actions.add(action);
+            return Collections.singletonList(action);
         }
         return null;
     }
