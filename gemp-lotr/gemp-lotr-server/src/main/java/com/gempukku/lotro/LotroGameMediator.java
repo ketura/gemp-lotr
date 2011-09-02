@@ -45,7 +45,7 @@ public class LotroGameMediator {
         if (card == null)
             return null;
 
-        sb.append("Affecting card:");
+        sb.append("<b>Affecting card:</b>");
         List<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
         for (Modifier modifier : modifiers) {
             PhysicalCard source = modifier.getSource();
@@ -59,8 +59,11 @@ public class LotroGameMediator {
 
         CardType type = card.getBlueprint().getCardType();
         if (type == CardType.COMPANION || type == CardType.ALLY || type == CardType.MINION) {
+            sb.append("<b>Effective stats:</b>");
             sb.append("<br><b>Strength:</b> " + _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card));
             sb.append("<br><b>Vitality:</b> " + _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card));
+            if (type == CardType.MINION)
+                sb.append("<br><b>Twilight cost:</b> " + _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card));
         }
 
         return sb.toString();
