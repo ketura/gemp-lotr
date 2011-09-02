@@ -88,8 +88,15 @@ var AdvPathCardGroup = CardGroup.extend({
         var index = 0;
         for (var cardId in cardsToLayout) {
             var cardElem = cardsToLayout[cardId];
+            var cardData = cardsToLayout[cardId].data("card");
             var cardHeight = (cardElem.data("card").getHeightForWidth(this.width));
             this.layoutCard(cardElem, x, y, this.width, cardHeight, index);
+
+            for (var i = 0; i < cardData.attachedCards.length; i++) {
+                this.layoutCard(cardData.attachedCards[i], x + (this.width - cardHeight) / 2, y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
+                index++;
+            }
+
             y += cardHeight + resultPadding;
             index++;
         }

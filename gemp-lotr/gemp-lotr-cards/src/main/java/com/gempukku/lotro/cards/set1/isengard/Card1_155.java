@@ -18,7 +18,6 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -37,13 +36,6 @@ public class Card1_155 extends AbstractMinion {
     public Card1_155() {
         super(2, 7, 2, 5, Culture.ISENGARD, "Uruk Spy");
         addKeyword(Keyword.URUK_HAI);
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-        appendPlayMinionAction(actions, game, self);
-        return actions;
     }
 
     @Override

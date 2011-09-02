@@ -15,7 +15,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,10 +37,7 @@ public class Card1_153 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-        appendPlayMinionAction(actions, game, self);
-
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 1)) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Remove (1) to make this minion strength +1 (limit +3).");
             action.addCost(new RemoveTwilightEffect(1));
@@ -49,9 +46,8 @@ public class Card1_153 extends AbstractMinion {
                             new AddUntilEndOfPhaseModifierEffect(
                                     new StrengthModifier(self, Filters.sameCard(self), 1), Phase.SKIRMISH)));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
 }
