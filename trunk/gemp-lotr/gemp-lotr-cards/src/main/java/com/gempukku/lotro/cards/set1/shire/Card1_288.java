@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,11 +37,7 @@ public class Card1_288 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-        appendPlayAllyActions(actions, game, self);
-        appendHealAllyActions(actions, game, self);
-
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Farmer Maggot to heal Merry or Pippin.");
@@ -61,8 +58,8 @@ public class Card1_288 extends AbstractAlly {
             action.addEffect(
                     new ChoiceEffect(action, playerId, possibleEffects, false));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-        return actions;
+        return null;
     }
 }

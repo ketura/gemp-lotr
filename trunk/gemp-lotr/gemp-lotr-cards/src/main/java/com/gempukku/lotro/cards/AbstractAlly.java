@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class AbstractAlly extends AbstractLotroCardBlueprint {
@@ -34,24 +35,52 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
         _vitality = vitality;
     }
 
-    protected void appendPlayAllyActions(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
-        ModifiersQuerying modifiersQuerying = lotroGame.getModifiersQuerying();
-        if (PlayConditions.canPlayCharacterDuringFellowship(lotroGame.getGameState(), modifiersQuerying, self)) {
-            actions.add(new PlayPermanentAction(self, Zone.FREE_SUPPORT));
+    @Override
+    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        List<Action> actions = new LinkedList<Action>();
+
+        if (checkPlayRequirements(playerId, game, self))
+            appendPlayAllyActions(actions, game, self);
+
+        appendHealAllyActions(actions, game, self);
+
+        List<? extends Action> extraActions = getExtraPhaseActions(playerId, game, self);
+        if (extraActions != null)
+            actions.addAll(extraActions);
+
+        return actions;
+    }
+
+    private void appendPlayAllyActions(List<Action> actions, LotroGame game, PhysicalCard self) {
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        if (PlayConditions.canPlayCharacterDuringFellowship(game.getGameState(), modifiersQuerying, self)) {
+            actions.add(getPlayAllyAction(game, self));
         }
     }
 
-    protected void appendHealAllyActions(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
-        if (PlayConditions.canHealByDiscarding(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), self)) {
+    private void appendHealAllyActions(List<Action> actions, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Discard card to heal");
             action.addCost(new DiscardCardFromHandEffect(self));
 
-            PhysicalCard active = Filters.findFirstActive(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
+            PhysicalCard active = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
             if (active != null)
                 action.addEffect(new HealCharacterEffect(active));
 
             actions.add(action);
         }
+    }
+
+    protected boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    protected Action getPlayAllyAction(LotroGame game, PhysicalCard self) {
+        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+    }
+
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
     }
 
     @Override

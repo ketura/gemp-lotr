@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,11 +37,7 @@ public class Card1_286 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-        appendPlayAllyActions(actions, game, self);
-        appendHealAllyActions(actions, game, self);
-
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Exert this ally to prevent a Hobbit from being overwhelmed unless that Hobbit's strength is tripled.");
@@ -56,8 +52,8 @@ public class Card1_286 extends AbstractAlly {
                         }
                     }
             );
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-        return actions;
+        return null;
     }
 }

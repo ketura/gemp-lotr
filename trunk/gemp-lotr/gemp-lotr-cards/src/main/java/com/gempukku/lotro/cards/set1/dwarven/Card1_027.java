@@ -14,7 +14,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,12 +36,7 @@ public class Card1_027 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        appendPlayAllyActions(actions, game, self);
-        appendHealAllyActions(actions, game, self);
-
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert Thrarin to allow him to participate in archery fire and skirmished until the regroup phase");
@@ -49,8 +44,9 @@ public class Card1_027 extends AbstractAlly {
             action.addEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new AllyOnCurrentSiteModifier(self, Filters.sameCard(self)), Phase.REGROUP));
+            return Collections.singletonList(action);
         }
 
-        return actions;
+        return null;
     }
 }

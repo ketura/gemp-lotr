@@ -1,9 +1,10 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.modifiers.ProxyingModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -83,20 +83,10 @@ public class Card1_067 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (self.getZone() == Zone.FREE_SUPPORT) {
-            LotroCardBlueprint copied = getCopied(game, self);
-            if (copied != null)
-                return copied.getPhaseActions(playerId, game, self);
-            return null;
-        } else if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-            List<Action> actions = new LinkedList<Action>();
-
-            appendPlayAllyActions(actions, game, self);
-            appendHealAllyActions(actions, game, self);
-
-            return actions;
-        }
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        LotroCardBlueprint copied = getCopied(game, self);
+        if (copied != null)
+            return copied.getPhaseActions(playerId, game, self);
         return null;
     }
 }
