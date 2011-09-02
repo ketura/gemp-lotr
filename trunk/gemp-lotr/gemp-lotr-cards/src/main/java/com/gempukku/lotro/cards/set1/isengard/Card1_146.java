@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,20 +36,15 @@ public class Card1_146 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        appendPlayMinionAction(actions, lotroGame, self);
-
-        if (PlayConditions.canUseShadowCardDuringPhase(lotroGame.getGameState(), Phase.MANEUVER, self, 0)
-                && Filters.countActive(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
 
             CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Spot 5 companions to make this minion fierce until the regroup phase");
             action.addEffect(new AddUntilStartOfPhaseModifierEffect(new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
 }

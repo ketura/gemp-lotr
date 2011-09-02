@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class AbstractMinion extends AbstractLotroCardBlueprint {
@@ -30,11 +31,37 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
         _site = site;
     }
 
-    protected void appendPlayMinionAction(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
-        ModifiersQuerying modifiersQuerying = lotroGame.getModifiersQuerying();
-        if (PlayConditions.canPlayMinionDuringShadow(lotroGame.getGameState(), modifiersQuerying, self)) {
-            actions.add(new PlayPermanentAction(self, Zone.SHADOW_CHARACTERS));
+    private void appendPlayMinionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        if (PlayConditions.canPlayMinionDuringShadow(game.getGameState(), modifiersQuerying, self)) {
+            actions.add(getPlayMinionAction(game, self));
         }
+    }
+
+    @Override
+    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        List<Action> actions = new LinkedList<Action>();
+
+        if (checkPlayRequirements(playerId, game, self))
+            appendPlayMinionActions(actions, game, self);
+
+        List<? extends Action> extraActions = getExtraPhaseActions(playerId, game, self);
+        if (extraActions != null)
+            actions.addAll(extraActions);
+
+        return actions;
+    }
+
+    protected boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    protected Action getPlayMinionAction(LotroGame game, PhysicalCard self) {
+        return new PlayPermanentAction(self, Zone.SHADOW_CHARACTERS);
+    }
+
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
     }
 
     @Override

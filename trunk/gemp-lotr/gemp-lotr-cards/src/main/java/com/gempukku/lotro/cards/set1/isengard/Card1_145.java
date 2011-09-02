@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,18 +39,14 @@ public class Card1_145 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, final LotroGame lotroGame, final PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        appendPlayMinionAction(actions, lotroGame, self);
-
-        if (PlayConditions.canUseShadowCardDuringPhase(lotroGame.getGameState(), Phase.SKIRMISH, self, 2)) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 2)) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Remove (2) to make this minion strength +1 for each other Uruk-hai you spot");
 
             action.addCost(new RemoveTwilightEffect(2));
             action.addEffect(
-                    new PlayoutDecisionEffect(lotroGame.getUserFeedback(), playerId,
-                            new ForEachYouSpotDecision(1, "Choose number of minions you wish to spot", lotroGame, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self))), Integer.MAX_VALUE) {
+                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                            new ForEachYouSpotDecision(1, "Choose number of minions you wish to spot", game, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self))), Integer.MAX_VALUE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
@@ -62,9 +58,8 @@ public class Card1_145 extends AbstractMinion {
                             }
                     ));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
 }

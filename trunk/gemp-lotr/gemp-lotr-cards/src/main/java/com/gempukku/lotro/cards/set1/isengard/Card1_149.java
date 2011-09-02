@@ -9,13 +9,8 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -46,14 +41,5 @@ public class Card1_149 extends AbstractMinion {
                                 return Filters.canSpot(gameState, modifiersQuerying, Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION));
                             }
                         }), 3);
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        appendPlayMinionAction(actions, lotroGame, self);
-
-        return actions;
     }
 }

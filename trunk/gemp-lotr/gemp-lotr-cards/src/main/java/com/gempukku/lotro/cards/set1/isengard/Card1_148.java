@@ -6,14 +6,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -41,14 +36,5 @@ public class Card1_148 extends AbstractMinion {
                 return result + Filters.countActive(gameState, modifiersQuerying, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self))));
             }
         };
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        appendPlayMinionAction(actions, lotroGame, self);
-
-        return actions;
     }
 }
