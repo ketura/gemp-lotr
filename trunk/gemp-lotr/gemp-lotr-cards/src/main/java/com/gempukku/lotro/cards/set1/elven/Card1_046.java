@@ -56,7 +56,8 @@ public class Card1_046 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM) {
+        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
+                && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Move limit for this turn is +1");
             action.addEffect(new AddUntilEndOfTurnModifierEffect(new MoveLimitModifier(self, 1)));
             return Collections.singletonList(action);
