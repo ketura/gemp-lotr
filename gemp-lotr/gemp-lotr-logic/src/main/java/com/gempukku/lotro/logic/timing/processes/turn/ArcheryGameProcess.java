@@ -26,7 +26,7 @@ public class ArcheryGameProcess implements GameProcess {
     @Override
     public GameProcess getNextProcess() {
         if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.ARCHERY))
-            new CanSpotGameProcess(_game, Filters.type(CardType.MINION), new AssignmentGameProcess(_game), new RegroupGameProcess(_game));
+            return new CanSpotGameProcess(_game, Filters.type(CardType.MINION), new AssignmentGameProcess(_game), new RegroupGameProcess(_game));
 
         return new StartOfPhaseGameProcess(_game, Phase.ARCHERY,
                 new PlayersPlayPhaseActionsInOrderGameProcess(_game, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0,
