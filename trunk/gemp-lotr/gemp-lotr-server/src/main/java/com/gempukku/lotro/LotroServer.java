@@ -53,16 +53,8 @@ public class LotroServer {
         lotroDeck.setRing("1_1");
         lotroDeck.setRingBearer("1_290");
 
-        for (int i = 3; i < 58; i++)
+        for (int i = 3; i <= 68; i++)
             lotroDeck.addCard("1_" + i);
-
-        for (int i = 0; i < 3; i++) {
-            lotroDeck.addCard("1_14");
-            lotroDeck.addCard("1_15");
-            lotroDeck.addCard("1_17");
-            lotroDeck.addCard("1_31");
-            lotroDeck.addCard("1_33");
-        }
 
         // Sites
         lotroDeck.addSite("1_326");
@@ -76,12 +68,8 @@ public class LotroServer {
         lotroDeck.addSite("1_362");
 
         // Minions
-        for (int i = 0; i < 4; i++) {
-            lotroDeck.addCard("1_145");
-            lotroDeck.addCard("1_146");
-            lotroDeck.addCard("1_148");
-            lotroDeck.addCard("1_149");
-        }
+        for (int i = 120; i <= 162; i++)
+            lotroDeck.addCard("1_" + i);
 
         return lotroDeck;
     }

@@ -59,7 +59,7 @@ public class LotroGameMediator {
 
         CardType type = card.getBlueprint().getCardType();
         if (type == CardType.COMPANION || type == CardType.ALLY || type == CardType.MINION) {
-            sb.append("<br><b>Effective stats:</b>");
+            sb.append("<br><br><b>Effective stats:</b>");
             sb.append("<br><b>Strength:</b> " + _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card));
             sb.append("<br><b>Vitality:</b> " + _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card));
             if (type == CardType.MINION)
