@@ -40,20 +40,20 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
         _signet = signet;
     }
 
-    protected void appendPlayCompanionActions(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
-        ModifiersQuerying modifiersQuerying = lotroGame.getModifiersQuerying();
-        if (PlayConditions.canPlayCompanionDuringSetup(lotroGame.getGameState(), modifiersQuerying, self)
-                || PlayConditions.canPlayCharacterDuringFellowship(lotroGame.getGameState(), modifiersQuerying, self)) {
-            actions.add(new PlayPermanentAction(self, Zone.FREE_CHARACTERS));
+    private void appendPlayCompanionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        if (PlayConditions.canPlayCompanionDuringSetup(game.getGameState(), modifiersQuerying, self)
+                || PlayConditions.canPlayCharacterDuringFellowship(game.getGameState(), modifiersQuerying, self)) {
+            actions.add(getPlayCompanionAction(game, self));
         }
     }
 
-    protected void appendHealCompanionActions(List<Action> actions, LotroGame lotroGame, PhysicalCard self) {
-        if (PlayConditions.canHealByDiscarding(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), self)) {
+    private void appendHealCompanionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
             CostToEffectAction action = new CostToEffectAction(self, null, "Discard card to heal");
             action.addCost(new DiscardCardFromHandEffect(self));
 
-            PhysicalCard active = Filters.findFirstActive(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
+            PhysicalCard active = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
             if (active != null)
                 action.addEffect(new HealCharacterEffect(active));
 
@@ -62,11 +62,31 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
-        appendPlayCompanionActions(actions, game, self);
+
+        if (checkPlayRequirements(playerId, game, self))
+            appendPlayCompanionActions(actions, game, self);
+
         appendHealCompanionActions(actions, game, self);
+
+        List<? extends Action> extraActions = getExtraPhaseActions(playerId, game, self);
+        if (extraActions != null)
+            actions.addAll(extraActions);
+
         return actions;
+    }
+
+    protected boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    protected Action getPlayCompanionAction(LotroGame game, PhysicalCard self) {
+        return new PlayPermanentAction(self, Zone.FREE_CHARACTERS);
+    }
+
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
     }
 
     @Override

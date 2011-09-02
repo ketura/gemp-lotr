@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,28 +37,22 @@ public class Card1_012 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, final LotroGame lotroGame, PhysicalCard self) {
-        LinkedList<Action> result = new LinkedList<Action>();
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+                && game.getGameState().getTwilightPool() < 2) {
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to place a card from hand beneath your draw deck");
 
-        appendPlayCompanionActions(result, lotroGame, self);
-        appendHealCompanionActions(result, lotroGame, self);
-
-        if (PlayConditions.canUseFPCardDuringPhase(lotroGame.getGameState(), Phase.FELLOWSHIP, self)
-                && lotroGame.getGameState().getTwilightPool() < 2) {
-            final CostToEffectAction costToEffectAction = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to place a card from hand beneath your draw deck");
-
-            costToEffectAction.addCost(new AddTwilightEffect(2));
-            costToEffectAction.addEffect(
+            action.addCost(new AddTwilightEffect(2));
+            action.addEffect(
                     new ChooseCardsFromHandEffect(playerId, "Choose a card to place beneath your draw deck", 1, 1, Filters.zone(Zone.HAND), Filters.owner(playerId)) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            costToEffectAction.addEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCards.get(0)));
+                            action.addEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCards.get(0)));
                         }
                     });
 
-            result.add(costToEffectAction);
+            return Collections.singletonList(action);
         }
-
-        return result;
+        return null;
     }
 }

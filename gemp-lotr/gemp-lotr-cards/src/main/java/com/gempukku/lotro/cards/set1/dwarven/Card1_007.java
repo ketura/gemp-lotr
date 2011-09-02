@@ -6,10 +6,6 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Action;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -29,14 +25,7 @@ public class Card1_007 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF))) {
-            List<Action> actions = new LinkedList<Action>();
-
-            appendPlayCompanionActions(actions, game, self);
-
-            return actions;
-        }
-        return null;
+    protected boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF));
     }
 }
