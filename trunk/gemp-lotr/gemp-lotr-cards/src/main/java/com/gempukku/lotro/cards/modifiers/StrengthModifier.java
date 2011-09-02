@@ -16,8 +16,6 @@ public class StrengthModifier extends AbstractModifier {
 
     @Override
     public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        if (affectsCard(gameState, modifiersQuerying, physicalCard))
-            return result + _modifier;
-        return result;
+        return result + _modifier;
     }
 }

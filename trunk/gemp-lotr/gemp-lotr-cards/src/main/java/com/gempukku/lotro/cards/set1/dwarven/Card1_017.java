@@ -3,6 +3,8 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -43,7 +45,7 @@ public class Card1_017 extends AbstractAlly {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Grimir to shuffle a DWARVEN event from your discard pile into draw deck");
+            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Grimir to shuffle a DWARVEN event from your discard pile into draw deck");
             action.addCost(new ExertCharacterEffect(self));
 
             List<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), Filters.type(CardType.EVENT));
@@ -52,8 +54,9 @@ public class Card1_017 extends AbstractAlly {
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to shuffle into draw deck", discardedDwarvenEvents, 1, 1) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            game.getGameState().putCardOnBottomOfDeck(selectedCards.get(0));
-                            game.getGameState().shuffleDeck(playerId);
+                            action.addEffect(
+                                    new PutCardFromDiscardOnBottomOfDeckEffect(selectedCards.get(0)));
+                            action.addEffect(new ShuffleDeckEffect(playerId));
                         }
                     }
             );
