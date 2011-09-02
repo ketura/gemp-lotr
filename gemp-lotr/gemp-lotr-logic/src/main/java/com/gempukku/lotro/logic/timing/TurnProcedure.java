@@ -161,7 +161,7 @@ public class TurnProcedure {
             if (!_effect.isCancelled()) {
                 final String activePlayer = _playOrder.getNextPlayer();
                 List<Action> possibleActions = _actionMap.get(activePlayer);
-                possibleActions.addAll(_game.getActionsEnvironment().getOptionalAfterActions(activePlayer, _effectResult));
+                possibleActions.addAll(_game.getActionsEnvironment().getOptionalBeforeActions(activePlayer, _effect, _effectResult));
 
                 if (possibleActions.size() > 0) {
                     _game.getUserFeedback().sendAwaitingDecision(activePlayer,
@@ -172,17 +172,17 @@ public class TurnProcedure {
                                     if (action != null) {
                                         _game.getActionsEnvironment().addActionToStack(action);
                                         _actionMap.get(activePlayer).remove(action);
-                                        _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, 0, _effectResult));
+                                        _action.addEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _actionMap, _playOrder, 0, _effect, _effectResult));
                                     } else {
                                         if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                                            _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effectResult));
+                                            _action.addEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effect, _effectResult));
                                         }
                                     }
                                 }
                             });
                 } else {
                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                        _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effectResult));
+                        _action.addEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effect, _effectResult));
                     }
                 }
             }
