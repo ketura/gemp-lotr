@@ -137,7 +137,7 @@ var GempLotrUI = Class.extend({
     },
 
     displayCardInfo: function(card) {
-        this.infoDialog.html("<div><div style='float: left;'><img src='" + card.imageUrl + "' height='260'></div><div id='cardEffects'></div></div>");
+        this.infoDialog.html("<div><div style='float: left;'><img src='" + card.imageUrl + "' height='250'></div><div id='cardEffects'></div></div>");
 
         var cardId = card.cardId;
         if (cardId.length < 4 || cardId.substring(0, 4) != "temp")
@@ -187,7 +187,7 @@ var GempLotrUI = Class.extend({
 
         $(".ui-dialog-titlebar-close").hide();
 
-        this.infoDialog = $("<div style='overflow: scroll'></div>")
+        this.infoDialog = $("<div></div>")
                 .dialog({
             autoOpen: false,
             closeOnEscape: true,
