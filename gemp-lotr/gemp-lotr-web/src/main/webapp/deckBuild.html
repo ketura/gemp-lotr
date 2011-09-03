@@ -68,6 +68,7 @@
     <script type="text/javascript" src="js/jCardGroup.js"></script>
     <script type="text/javascript" src="js/jCards.js"></script>
     <script type="text/javascript" src="js/logging.js"></script>
+    <script type="text/javascript" src="js/deckBuildingUi.js"></script>
 
     <script type="text/javascript">
         var ui;
@@ -98,29 +99,28 @@
 
         $(document).ready(
                 function () {
+                    ui = new GempLotrDeckBuildingUI();
+
                     communication = new GempLotrCommunication("/gemp-lotr/server",
-                            function(xml) {
-                                ui.processXml(xml);
-                            },
                             function() {
                                 ui.processError();
                             });
-                    ui.setUpdateState(function() {
-                        communication.updateGameState();
-                    });
-                    ui.setDecisionFunction(function(decisionId, result) {
-                        communication.gameDecisionMade(decisionId, result);
-                    });
-                    ui.setGetCardModifiers(function(cardId, func) {
-                        communication.getGameCardModifiers(cardId, func);
-                    });
-                    ui.layoutUI();
 
                     $(window).resize(function() {
                         ui.layoutUI();
                     });
 
-                    communication.startGameSession();
+                    ui.setLoadCollectionFunc(function(collectionType, filter, start, count) {
+                        communication.getCollection(collectionType, filter, start, count, function(xml) {
+                            ui.displayCollection(xml);
+                        });
+                    });
+
+                    ui.layoutUI();
+
+                    communication.getDeck("default", function(xml) {
+                        ui.setupDeck(xml);
+                    });
                 });
     </script>
 

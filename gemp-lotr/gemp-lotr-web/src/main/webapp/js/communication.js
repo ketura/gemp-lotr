@@ -55,10 +55,31 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    getDeck: function(callback) {
+    getDeck: function(deckType, callback) {
         $.ajax({
             type: "GET",
-            url: this
+            url: this.url + "/deck/" + deckType,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    getCollection: function(collectionType, filter, start, count, callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/collection/" + collectionType,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                filter: filter,
+                start: start,
+                count: count},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
         });
     }
 });
