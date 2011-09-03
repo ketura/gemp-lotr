@@ -98,9 +98,7 @@
 
         $(document).ready(
                 function () {
-                    ui = new GempLotrUI();
-
-                    communication = new GempLotrCommunication("/gemp-lotr/server/game/" + getUrlParam("gameId"),
+                    communication = new GempLotrCommunication("/gemp-lotr/server",
                             function(xml) {
                                 ui.processXml(xml);
                             },

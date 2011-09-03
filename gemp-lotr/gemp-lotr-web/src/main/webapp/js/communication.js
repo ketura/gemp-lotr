@@ -1,32 +1,30 @@
 var GempLotrCommunication = Class.extend({
     url: null,
-    success: null,
     failure: null,
 
-    init: function(url, success, failure) {
+    init: function(url, failure) {
         this.url = url;
-        this.success = success;
         this.failure = failure;
     },
 
-    startGameSession: function() {
+    startGameSession: function(callback) {
         $.ajax({
             type: "GET",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: { participantId: getUrlParam("participantId") },
-            success: this.success,
+            success: callback,
             error: this.failure,
             dataType: "xml"
         });
     },
-    updateGameState: function() {
+    updateGameState: function(callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: { participantId: getUrlParam("participantId") },
-            success: this.success,
+            success: callback,
             error: this.failure,
             dataType: "xml"
         });
@@ -43,7 +41,7 @@ var GempLotrCommunication = Class.extend({
             dataType: "html"
         });
     },
-    gameDecisionMade: function(decisionId, response) {
+    gameDecisionMade: function(decisionId, response, callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
@@ -52,7 +50,7 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 decisionId: decisionId,
                 decisionValue: response},
-            success: this.success,
+            success: callback,
             error: this.failure,
             dataType: "xml"
         });
