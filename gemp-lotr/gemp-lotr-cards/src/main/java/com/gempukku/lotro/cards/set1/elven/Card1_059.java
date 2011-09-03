@@ -48,10 +48,11 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && (
-                Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.canExert(),
+                Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),
                         Filters.or(
                                 Filters.keyword(Keyword.ELF),
-                                Filters.keyword(Keyword.DWARF))))) {
+                                Filters.keyword(Keyword.DWARF)),
+                        Filters.canExert()))) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Use Shoulder to Shoulder");
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
