@@ -4,6 +4,11 @@ import com.gempukku.lotro.GameEvent;
 import com.gempukku.lotro.LotroGameMediator;
 import com.gempukku.lotro.LotroGameParticipant;
 import com.gempukku.lotro.LotroServer;
+import com.gempukku.lotro.db.DeckDAO;
+import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.vo.Deck;
+import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultLotroFormat;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -148,6 +153,114 @@ public class ServerResource {
         long time = System.currentTimeMillis() - start;
         if (time > 10)
             _logger.debug("Processing time: " + time);
+
+        return doc;
+    }
+
+    @Path("/deck/{deckType}")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getDeck(
+            @QueryParam("participantId") String participantId,
+            @PathParam("deckType") String deckType,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+        DeckDAO deckDao = _lotroServer.getDeckDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        Deck deck = deckDao.getDeckForPlayer(player, deckType);
+        if (deck == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+        Element deckElem = doc.createElement("deck");
+        doc.appendChild(deckElem);
+
+        Element ringBearer = doc.createElement("ringBearer");
+        ringBearer.setAttribute("blueprintId", deck.getRingBearer());
+        deckElem.appendChild(ringBearer);
+
+        Element ring = doc.createElement("ring");
+        ring.setAttribute("blueprintId", deck.getRing());
+        deckElem.appendChild(ring);
+
+        for (String s : deck.getSites()) {
+            Element site = doc.createElement("site");
+            site.setAttribute("blueprintId", s);
+            deckElem.appendChild(site);
+        }
+        for (String s : deck.getDeck()) {
+            Element card = doc.createElement("card");
+            card.setAttribute("blueprintId", s);
+            deckElem.appendChild(card);
+        }
+
+        return doc;
+    }
+
+    @Path("/deck/{deckType}")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public void createDeck(
+            @FormParam("participantId") String participantId,
+            @PathParam("deckType") String deckType,
+            @FormParam("deckContents") String contents) {
+
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+        DeckDAO deckDao = _lotroServer.getDeckDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        Deck deck = _lotroServer.validateDeck(contents);
+        if (deck == null)
+            sendError(Response.Status.BAD_REQUEST);
+
+        deckDao.setDeckForPlayer(player, deckType, deck);
+    }
+
+    @Path("/collection/{collectionType}")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getCollection(
+            @QueryParam("participantId") String participantId,
+            @PathParam("collectionType") String collectionType,
+            @QueryParam("filter") String filter,
+            @QueryParam("start") int start,
+            @QueryParam("count") int count,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (collectionType == null || !collectionType.equals("default"))
+            sendError(Response.Status.NOT_FOUND);
+
+        CardCollection collection = _lotroServer.getDefaultCollection();
+        Map<String, Integer> filteredResult = collection.filter(filter);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element collectionElem = doc.createElement("collection");
+        collectionElem.setAttribute("count", String.valueOf(filteredResult.size()));
+        doc.appendChild(collectionElem);
+
+        int index = 0;
+        for (Map.Entry<String, Integer> stringIntegerEntry : filteredResult.entrySet()) {
+            if (index >= start && index < start + count) {
+                Element card = doc.createElement("card");
+                card.setAttribute("count", stringIntegerEntry.getValue().toString());
+                card.setAttribute("blueprintId", stringIntegerEntry.getKey());
+                collectionElem.appendChild(card);
+            }
+            index++;
+        }
 
         return doc;
     }

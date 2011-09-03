@@ -1,14 +1,15 @@
 package com.gempukku.lotro.game;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class LotroCardBlueprintLibrary {
     private String[] _packageNames =
             new String[]{
                     "", ".dwarven", ".elven", ".isengard", ".moria", ".shire", ".site"
             };
-    private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
+    private Map<String, LotroCardBlueprint> _blueprintMap = new TreeMap<String, LotroCardBlueprint>();
 
     public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) {
         if (_blueprintMap.containsKey(blueprintId))
@@ -17,6 +18,20 @@ public class LotroCardBlueprintLibrary {
         LotroCardBlueprint blueprint = getBlueprint(blueprintId);
         _blueprintMap.put(blueprintId, blueprint);
         return blueprint;
+    }
+
+    public void initializeLibrary(String setNo, int maxCardIndex) {
+        for (int i = 1; i <= maxCardIndex; i++) {
+            try {
+                getLotroCardBlueprint(setNo + "_" + i);
+            } catch (IllegalArgumentException exp) {
+                // Ignore
+            }
+        }
+    }
+
+    public Collection<LotroCardBlueprint> getAllLoadedBlueprints() {
+        return _blueprintMap.values();
     }
 
     private LotroCardBlueprint getBlueprint(String blueprintId) {
