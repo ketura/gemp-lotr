@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
@@ -30,7 +31,7 @@ public class Card1_148 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +1 for each other Uruk-hai you can spot", Filters.sameCard(self)) {
+        return new AbstractModifier(self, "Strength +1 for each other Uruk-hai you can spot", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
                 return result + Filters.countActive(gameState, modifiersQuerying, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self))));

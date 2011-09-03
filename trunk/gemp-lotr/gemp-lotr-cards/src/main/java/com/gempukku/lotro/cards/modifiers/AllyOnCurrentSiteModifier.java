@@ -4,11 +4,12 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class AllyOnCurrentSiteModifier extends AbstractModifier {
     public AllyOnCurrentSiteModifier(PhysicalCard source, Filter affectFilter) {
-        super(source, "Can participate in archery and skirmishes", affectFilter);
+        super(source, "Can participate in archery and skirmishes", affectFilter, new ModifierEffect[]{ModifierEffect.PRESENCE_MODIFIER});
     }
 
     @Override

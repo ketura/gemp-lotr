@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -48,7 +49,7 @@ public class Card1_142 extends AbstractLotroCardBlueprint {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "While the Ring-bearer is exhausted or you can spot 5 burdens, the move limit for this turn is -1 (to a minimum of 1)", null) {
+        return new AbstractModifier(self, "While the Ring-bearer is exhausted or you can spot 5 burdens, the move limit for this turn is -1 (to a minimum of 1)", null, new ModifierEffect[]{ModifierEffect.MOVE_LIMIT_MODIFIER}) {
             @Override
             public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
                 String currentPlayerId = gameState.getCurrentPlayerId();

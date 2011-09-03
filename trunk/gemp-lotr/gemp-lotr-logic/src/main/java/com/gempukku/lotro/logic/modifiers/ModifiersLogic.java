@@ -11,7 +11,8 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.*;
 
 public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
-    private List<Modifier> _modifiers = new LinkedList<Modifier>();
+    private Map<ModifierEffect, List<Modifier>> _modifiers = new HashMap<ModifierEffect, List<Modifier>>();
+
     private Map<Phase, List<Modifier>> _untilStartOfPhaseModifiers = new HashMap<Phase, List<Modifier>>();
     private Map<Phase, List<Modifier>> _untilEndOfPhaseModifiers = new HashMap<Phase, List<Modifier>>();
     private List<Modifier> _untilEndOfTurnModifiers = new LinkedList<Modifier>();
@@ -35,16 +36,49 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return limitCounter;
     }
 
+    private List<Modifier> getEffectModifiers(ModifierEffect modifierEffect) {
+        List<Modifier> modifiers = _modifiers.get(modifierEffect);
+        if (modifiers == null) {
+            modifiers = new LinkedList<Modifier>();
+            _modifiers.put(modifierEffect, modifiers);
+        }
+        return modifiers;
+    }
+
+    private void removeModifiers(List<Modifier> modifiers) {
+        for (List<Modifier> list : _modifiers.values())
+            list.removeAll(modifiers);
+    }
+
+    private void removeModifier(Modifier modifier) {
+        for (List<Modifier> list : _modifiers.values())
+            list.remove(modifier);
+    }
+
     @Override
     public ModifierHook addAlwaysOnModifier(Modifier modifier) {
-        _modifiers.add(modifier);
+        addModifier(modifier);
         return new ModifierHookImpl(modifier);
+    }
+
+    private void addModifier(Modifier modifier) {
+        ModifierEffect[] modifierEffects = modifier.getModifierEffects();
+        for (ModifierEffect modifierEffect : modifierEffects)
+            getEffectModifiers(modifierEffect).add(modifier);
+    }
+
+    private List<Modifier> getModifiers(ModifierEffect modifierEffect) {
+        List<Modifier> modifiers = _modifiers.get(modifierEffect);
+        if (modifiers == null)
+            return Collections.emptyList();
+        else
+            return modifiers;
     }
 
     public void removeEndOfPhase(Phase phase) {
         List<Modifier> list = _untilEndOfPhaseModifiers.get(phase);
         if (list != null) {
-            _modifiers.removeAll(list);
+            removeModifiers(list);
             list.clear();
         }
         Map<PhysicalCard, LimitCounter> counterMap = _counters.get(phase);
@@ -55,19 +89,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public void removeStartOfPhase(Phase phase) {
         List<Modifier> list = _untilStartOfPhaseModifiers.get(phase);
         if (list != null) {
-            _modifiers.removeAll(list);
+            removeModifiers(list);
             list.clear();
         }
     }
 
     public void removeEndOfTurn() {
-        _modifiers.removeAll(_untilEndOfTurnModifiers);
+        removeModifiers(_untilEndOfTurnModifiers);
         _untilEndOfTurnModifiers.clear();
     }
 
     @Override
     public void addUntilEndOfPhaseModifier(Modifier modifier, Phase phase) {
-        _modifiers.add(modifier);
+        addModifier(modifier);
         List<Modifier> list = _untilEndOfPhaseModifiers.get(phase);
         if (list == null) {
             list = new LinkedList<Modifier>();
@@ -78,7 +112,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public void addUntilStartOfPhaseModifier(Modifier modifier, Phase phase) {
-        _modifiers.add(modifier);
+        addModifier(modifier);
         List<Modifier> list = _untilStartOfPhaseModifiers.get(phase);
         if (list == null) {
             list = new LinkedList<Modifier>();
@@ -89,16 +123,18 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public void addUntilEndOfTurnModifier(Modifier modifier) {
-        _modifiers.add(modifier);
+        addModifier(modifier);
         _untilEndOfTurnModifiers.add(modifier);
     }
 
     @Override
     public List<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card) {
         List<Modifier> result = new LinkedList<Modifier>();
-        for (Modifier modifier : _modifiers) {
-            if (affectsCardWithSkipSet(gameState, card, modifier))
-                result.add(modifier);
+        for (List<Modifier> modifiers : _modifiers.values()) {
+            for (Modifier modifier : modifiers) {
+                if (affectsCardWithSkipSet(gameState, card, modifier))
+                    result.add(modifier);
+            }
         }
         return result;
     }
@@ -117,7 +153,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         boolean result = physicalCard.getBlueprint().hasKeyword(keyword);
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.hasKeyword(gameState, this, physicalCard, keyword, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.hasKeyword(gameState, this, physicalCard, keyword, result);
         }
@@ -127,7 +167,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         int result = physicalCard.getBlueprint().getKeywordCount(keyword);
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.getKeywordCount(gameState, this, physicalCard, keyword, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getKeywordCount(gameState, this, physicalCard, keyword, result);
         }
@@ -137,7 +181,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getArcheryTotal(GameState gameState, Side side, int baseArcheryTotal) {
         int result = baseArcheryTotal;
-        for (Modifier modifier : _modifiers)
+        for (Modifier modifier : getModifiers(ModifierEffect.ARCHERY_MODIFIER))
+            result = modifier.getArcheryTotal(gameState, this, side, result);
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             result = modifier.getArcheryTotal(gameState, this, side, result);
         return result;
     }
@@ -145,7 +191,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getMoveLimit(GameState gameState, int baseMoveLimit) {
         int result = baseMoveLimit;
-        for (Modifier modifier : _modifiers)
+        for (Modifier modifier : getModifiers(ModifierEffect.MOVE_LIMIT_MODIFIER))
+            result = modifier.getMoveLimit(gameState, this, result);
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             result = modifier.getMoveLimit(gameState, this, result);
 
         return result;
@@ -154,7 +202,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getStrength(GameState gameState, PhysicalCard physicalCard) {
         int result = physicalCard.getBlueprint().getStrength();
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.STRENGTH_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier)
+                    && appliesStrengthModifier(gameState, modifier.getSource()))
+                result = modifier.getStrength(gameState, this, physicalCard, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier)
                     && appliesStrengthModifier(gameState, modifier.getSource()))
                 result = modifier.getStrength(gameState, this, physicalCard, result);
@@ -166,7 +219,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         if (modifierSource == null)
             return true;
         boolean result = true;
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.STRENGTH_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, modifierSource, modifier))
+                result = modifier.appliesStrengthModifier(gameState, this, modifierSource, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, modifierSource, modifier))
                 result = modifier.appliesStrengthModifier(gameState, this, modifierSource, result);
         }
@@ -176,7 +233,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getVitality(GameState gameState, PhysicalCard physicalCard) {
         int result = physicalCard.getBlueprint().getVitality();
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.VITALITY_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.getVitality(gameState, this, physicalCard, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getVitality(gameState, this, physicalCard, result);
         }
@@ -186,7 +247,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getTwilightCost(GameState gameState, PhysicalCard physicalCard) {
         int result = physicalCard.getBlueprint().getTwilightCost();
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.TWILIGHT_COST_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.getTwilightCost(gameState, this, physicalCard, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getTwilightCost(gameState, this, physicalCard, result);
         }
@@ -196,7 +261,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target) {
         int result = getTwilightCost(gameState, physicalCard);
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.TWILIGHT_COST_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.getPlayOnTwilightCost(gameState, this, physicalCard, target, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getPlayOnTwilightCost(gameState, this, physicalCard, target, result);
         }
@@ -206,7 +275,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean isOverwhelmedByStrength(GameState gameState, PhysicalCard card, int strength, int opposingStrength) {
         boolean result = (opposingStrength > strength * 2);
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.OVERWHELM_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                result = modifier.isOverwhelmedByStrength(gameState, this, card, strength, opposingStrength, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
                 result = modifier.isOverwhelmedByStrength(gameState, this, card, strength, opposingStrength, result);
         }
@@ -216,7 +289,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean canTakeWound(GameState gameState, PhysicalCard card) {
         boolean result = true;
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.WOUND_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                result = modifier.canTakeWound(gameState, this, card, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
                 result = modifier.canTakeWound(gameState, this, card, result);
         }
@@ -227,7 +304,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public boolean isAllyOnCurrentSite(GameState gameState, PhysicalCard card) {
         boolean allyOnCurrentSite = (card.getBlueprint().getCardType() == CardType.ALLY
                 && gameState.getCurrentSiteNumber() == card.getBlueprint().getSiteNumber());
-        for (Modifier modifier : _modifiers) {
+        for (Modifier modifier : getModifiers(ModifierEffect.PRESENCE_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                allyOnCurrentSite = modifier.isAllyOnCurrentSite(gameState, this, card, allyOnCurrentSite);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
                 allyOnCurrentSite = modifier.isAllyOnCurrentSite(gameState, this, card, allyOnCurrentSite);
         }
@@ -237,7 +318,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card) {
         boolean result = true;
-        for (Modifier modifier : _modifiers)
+        for (Modifier modifier : getModifiers(ModifierEffect.ARCHERY_MODIFIER))
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                result = modifier.addsToArcheryTotal(gameState, this, card, result);
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             if (affectsCardWithSkipSet(gameState, card, modifier))
                 result = modifier.addsToArcheryTotal(gameState, this, card, result);
 
@@ -247,7 +331,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean canPlayAction(GameState gameState, Action action) {
         boolean result = true;
-        for (Modifier modifier : _modifiers)
+        for (Modifier modifier : getModifiers(ModifierEffect.ACTION_MODIFIER))
+            result = modifier.canPlayAction(gameState, this, action, result);
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             result = modifier.canPlayAction(gameState, this, action, result);
         return result;
     }
@@ -255,7 +341,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean shouldSkipPhase(GameState gameState, Phase phase) {
         boolean result = false;
-        for (Modifier modifier : _modifiers)
+        for (Modifier modifier : getModifiers(ModifierEffect.ACTION_MODIFIER))
+            result = modifier.shouldSkipPhase(gameState, this, phase, result);
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             result = modifier.shouldSkipPhase(gameState, this, phase, result);
         return result;
     }
@@ -263,7 +351,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean isValidFreePlayerAssignments(GameState gameState, PhysicalCard companion, List<PhysicalCard> minions) {
         boolean result = true;
-        for (Modifier modifier : _modifiers)
+        for (Modifier modifier : getModifiers(ModifierEffect.ASSIGNMENT_MODIFIER))
+            if (affectsCardWithSkipSet(gameState, companion, modifier))
+                result = modifier.isValidFreePlayerAssignments(gameState, this, companion, minions, result);
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             if (affectsCardWithSkipSet(gameState, companion, modifier))
                 result = modifier.isValidFreePlayerAssignments(gameState, this, companion, minions, result);
         return result;
@@ -278,7 +369,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
         @Override
         public void stop() {
-            _modifiers.remove(_modifier);
+            removeModifier(_modifier);
         }
     }
 }

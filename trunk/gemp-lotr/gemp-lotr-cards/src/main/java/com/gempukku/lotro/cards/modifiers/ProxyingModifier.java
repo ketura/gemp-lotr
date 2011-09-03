@@ -8,6 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class ProxyingModifier implements Modifier {
     private PhysicalCard _card;
     private Filter _filter;
+    private final ModifierEffect[] _modifierEffects = new ModifierEffect[]{ModifierEffect.ALL_MODIFIER};
 
     public ProxyingModifier(PhysicalCard card, Filter filter) {
         _card = card;
@@ -30,6 +32,11 @@ public class ProxyingModifier implements Modifier {
     @Override
     public String getText() {
         return "Copy of another card text";
+    }
+
+    @Override
+    public ModifierEffect[] getModifierEffects() {
+        return _modifierEffects;
     }
 
     private Modifier getProxiedModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {

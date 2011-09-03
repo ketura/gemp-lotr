@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -51,7 +52,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +2, if at Plains another +2", Filters.attachedTo(self)) {
+        return new AbstractModifier(self, "Strength +2, if at Plains another +2", Filters.attachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
                 return result + (modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.PLAINS) ? 4 : 2);

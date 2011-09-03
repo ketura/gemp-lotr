@@ -14,6 +14,8 @@ public interface Modifier {
 
     public String getText();
 
+    public ModifierEffect[] getModifierEffects();
+
     public boolean affectsCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
     public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result);

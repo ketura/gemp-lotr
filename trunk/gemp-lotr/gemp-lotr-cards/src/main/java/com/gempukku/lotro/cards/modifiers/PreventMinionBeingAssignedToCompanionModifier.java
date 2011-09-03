@@ -5,6 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class PreventMinionBeingAssignedToCompanionModifier extends AbstractModif
     private Filter _minionFilter;
 
     public PreventMinionBeingAssignedToCompanionModifier(PhysicalCard source, Filter companionFilter, Filter minionFilter) {
-        super(source, "Is affected by assignment restriction", companionFilter);
+        super(source, "Is affected by assignment restriction", companionFilter, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER});
         _minionFilter = minionFilter;
     }
 

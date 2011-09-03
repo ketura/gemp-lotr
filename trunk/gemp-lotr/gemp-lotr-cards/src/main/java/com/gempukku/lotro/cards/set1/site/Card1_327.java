@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
@@ -23,7 +24,7 @@ public class Card1_327 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "While you can spot a ranger, the move limit is +1 for this turn.", null) {
+        return new AbstractModifier(self, "While you can spot a ranger, the move limit is +1 for this turn.", null, new ModifierEffect[]{ModifierEffect.MOVE_LIMIT_MODIFIER}) {
             @Override
             public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
                 if (Filters.canSpot(gameState, modifiersQuerying, Filters.keyword(Keyword.RANGER)))

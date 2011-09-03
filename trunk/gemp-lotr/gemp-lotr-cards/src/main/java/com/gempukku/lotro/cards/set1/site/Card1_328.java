@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
@@ -30,7 +31,7 @@ public class Card1_328 extends AbstractSite {
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                         return (gameState.getCurrentSite() == self);
                     }
-                })) {
+                }), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
             @Override
             public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int result) {
                 return result - 2;

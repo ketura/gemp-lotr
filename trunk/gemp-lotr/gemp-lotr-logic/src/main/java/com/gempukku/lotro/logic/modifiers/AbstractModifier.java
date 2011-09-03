@@ -14,19 +14,28 @@ public abstract class AbstractModifier implements Modifier {
     private PhysicalCard _physicalCard;
     private String _text;
     private Filter _affectFilter;
+    private ModifierEffect[] _effects;
 
-    protected AbstractModifier(PhysicalCard source, String text, Filter affectFilter) {
+    protected AbstractModifier(PhysicalCard source, String text, Filter affectFilter, ModifierEffect[] effects) {
         _physicalCard = source;
         _text = text;
         _affectFilter = affectFilter;
+        _effects = effects;
     }
 
+    @Override
     public PhysicalCard getSource() {
         return _physicalCard;
     }
 
+    @Override
     public String getText() {
         return _text;
+    }
+
+    @Override
+    public ModifierEffect[] getModifierEffects() {
+        return _effects;
     }
 
     @Override
