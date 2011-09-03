@@ -59,8 +59,10 @@ public class ServerResource {
 
     @Path("/login")
     @POST
-    public void login(@FormParam("login") String login, @FormParam("password") String password,
-                      @Context HttpServletRequest request) {
+    public void login(
+            @FormParam("login") String login,
+            @FormParam("password") String password,
+            @Context HttpServletRequest request) {
         _logger.debug("/server/login " + login + ", " + password);
         if (login == null)
             sendError(Response.Status.NOT_FOUND);
@@ -71,9 +73,10 @@ public class ServerResource {
     @Path("/game/{gameId}")
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Document getGameState(@PathParam("gameId") String gameId,
-                                 @QueryParam("participantId") String participantId,
-                                 @Context HttpServletRequest request) throws ParserConfigurationException {
+    public Document getGameState(
+            @PathParam("gameId") String gameId,
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
 //        String participantId = getLoggedUser(request);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
@@ -101,10 +104,11 @@ public class ServerResource {
     @Path("/game/{gameId}/cardInfo")
     @GET
     @Produces("text/html")
-    public String getCardInfo(@PathParam("gameId") String gameId,
-                              @QueryParam("cardId") int cardId,
-                              @QueryParam("participantId") String participantId,
-                              @Context HttpServletRequest request) throws ParserConfigurationException {
+    public String getCardInfo(
+            @PathParam("gameId") String gameId,
+            @QueryParam("cardId") int cardId,
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
 //        String participantId = getLoggedUser(request);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
@@ -161,8 +165,8 @@ public class ServerResource {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getDeck(
-            @QueryParam("participantId") String participantId,
             @PathParam("deckType") String deckType,
+            @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         PlayerDAO playerDao = _lotroServer.getPlayerDao();
         DeckDAO deckDao = _lotroServer.getDeckDao();
@@ -171,12 +175,16 @@ public class ServerResource {
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
-        Deck deck = deckDao.getDeckForPlayer(player, deckType);
-        if (deck == null)
-            sendError(Response.Status.NOT_FOUND);
-
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Deck deck = deckDao.getDeckForPlayer(player, deckType);
+        if (deck == null) {
+            Document doc = documentBuilder.newDocument();
+            Element deckElem = doc.createElement("deck");
+            doc.appendChild(deckElem);
+            return doc;
+        }
 
         Document doc = documentBuilder.newDocument();
         Element deckElem = doc.createElement("deck");
@@ -208,8 +216,8 @@ public class ServerResource {
     @POST
     @Produces(MediaType.APPLICATION_XML)
     public void createDeck(
-            @FormParam("participantId") String participantId,
             @PathParam("deckType") String deckType,
+            @FormParam("participantId") String participantId,
             @FormParam("deckContents") String contents) {
 
         PlayerDAO playerDao = _lotroServer.getPlayerDao();
@@ -230,8 +238,8 @@ public class ServerResource {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getCollection(
-            @QueryParam("participantId") String participantId,
             @PathParam("collectionType") String collectionType,
+            @QueryParam("participantId") String participantId,
             @QueryParam("filter") String filter,
             @QueryParam("start") int start,
             @QueryParam("count") int count,

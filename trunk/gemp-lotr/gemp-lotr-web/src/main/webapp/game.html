@@ -66,7 +66,7 @@
 
     <script type="text/javascript" src="js/inheritance.js"></script>
     <script type="text/javascript" src="js/communication.js"></script>
-    <script type="text/javascript" src="js/ui.js"></script>
+    <script type="text/javascript" src="js/gameUi.js"></script>
     <script type="text/javascript" src="js/jCardGroup.js"></script>
     <script type="text/javascript" src="js/jCards.js"></script>
     <script type="text/javascript" src="js/logging.js"></script>
@@ -100,7 +100,7 @@
 
         $(document).ready(
                 function () {
-                    ui = new GempLotrUI();
+                    ui = new GempLotrGameUI();
 
                     communication = new GempLotrCommunication("/gemp-lotr/server",
                             function() {

@@ -1,4 +1,4 @@
-var GempLotrUI = Class.extend({
+var GempLotrGameUI = Class.extend({
     padding: 5,
 
     updateGameState: null,
@@ -592,12 +592,8 @@ var GempLotrUI = Class.extend({
     },
 
     createCardDiv: function(card, text) {
-        var cardDiv = $("<div class='card'><img src='" + card.imageUrl + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
+        var cardDiv = createCardDiv(card.imageUrl, text);
         cardDiv.data("card", card);
-        var overlayDiv = $("<div class='tokenOverlay'></div>");
-        cardDiv.append(overlayDiv);
-        var borderDiv = $("<div class='borderOverlay'></div>");
-        cardDiv.append(borderDiv);
 
         var that = this;
         var swipeOptions = {
