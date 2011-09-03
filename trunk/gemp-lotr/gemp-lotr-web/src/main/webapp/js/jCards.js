@@ -16,17 +16,21 @@ var Card = Class.extend({
         this.cardId = cardId;
         this.owner = owner;
         this.attachedCards = new Array();
-        if (cardCache[blueprintId] != null) {
-            var cardFromCache = cardCache[blueprintId];
-            this.horizontal = cardFromCache.horizontal;
-            this.imageUrl = cardFromCache.imageUrl;
+        if (blueprintId == "rules") {
+            this.imageUrl = "/gemp-lotr/images/rules.png";
         } else {
-            this.imageUrl = this.getUrlByBlueprintId(blueprintId);
-            this.horizontal = this.isHorizontal(blueprintId);
-            cardCache[blueprintId] = {
-                imageUrl: this.imageUrl,
-                horizontal: this.horizontal
-            };
+            if (cardCache[blueprintId] != null) {
+                var cardFromCache = cardCache[blueprintId];
+                this.horizontal = cardFromCache.horizontal;
+                this.imageUrl = cardFromCache.imageUrl;
+            } else {
+                this.imageUrl = this.getUrlByBlueprintId(blueprintId);
+                this.horizontal = this.isHorizontal(blueprintId);
+                cardCache[blueprintId] = {
+                    imageUrl: this.imageUrl,
+                    horizontal: this.horizontal
+                };
+            }
         }
     },
 
