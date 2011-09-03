@@ -61,12 +61,10 @@
 
     <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
     <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
     <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
 
     <script type="text/javascript" src="js/inheritance.js"></script>
     <script type="text/javascript" src="js/communication.js"></script>
-    <script type="text/javascript" src="js/ui.js"></script>
     <script type="text/javascript" src="js/jCardGroup.js"></script>
     <script type="text/javascript" src="js/jCards.js"></script>
     <script type="text/javascript" src="js/logging.js"></script>
@@ -110,13 +108,13 @@
                                 ui.processError();
                             });
                     ui.setUpdateState(function() {
-                        communication.updateStateFunction();
+                        communication.updateGameState();
                     });
                     ui.setDecisionFunction(function(decisionId, result) {
-                        communication.decisionMade(decisionId, result);
+                        communication.gameDecisionMade(decisionId, result);
                     });
                     ui.setGetCardModifiers(function(cardId, func) {
-                        communication.getCardModifiers(cardId, func);
+                        communication.getGameCardModifiers(cardId, func);
                     });
                     ui.layoutUI();
 
@@ -124,7 +122,7 @@
                         ui.layoutUI();
                     });
 
-                    communication.startSession();
+                    communication.startGameSession();
                 });
     </script>
 

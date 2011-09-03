@@ -9,31 +9,32 @@ var GempLotrCommunication = Class.extend({
         this.failure = failure;
     },
 
-    startSession: function() {
-        $.ajax({
-            url: this.url,
-            cache: false,
-            data: { participantId: getUrlParam("participantId") },
-            success: this.success,
-            error: this.failure,
-            dataType: "xml"
-        });
-    },
-    updateStateFunction: function() {
-        $.ajax({
-            type: "POST",
-            url: this.url,
-            cache: false,
-            data: { participantId: getUrlParam("participantId") },
-            success: this.success,
-            error: this.failure,
-            dataType: "xml"
-        });
-    },
-    getCardModifiers: function(cardId, callback) {
+    startGameSession: function() {
         $.ajax({
             type: "GET",
-            url: this.url + "/cardInfo",
+            url: this.url + "/game/" + getUrlParam("gameId"),
+            cache: false,
+            data: { participantId: getUrlParam("participantId") },
+            success: this.success,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    updateGameState: function() {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/game/" + getUrlParam("gameId"),
+            cache: false,
+            data: { participantId: getUrlParam("participantId") },
+            success: this.success,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    getGameCardModifiers: function(cardId, callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/game/" + getUrlParam("gameId") + "/cardInfo",
             cache: false,
             data: { cardId: cardId,
                 participantId: getUrlParam("participantId") },
@@ -42,10 +43,10 @@ var GempLotrCommunication = Class.extend({
             dataType: "html"
         });
     },
-    decisionMade: function(decisionId, response) {
+    gameDecisionMade: function(decisionId, response) {
         $.ajax({
             type: "POST",
-            url: this.url,
+            url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: {
                 participantId: getUrlParam("participantId"),
@@ -54,6 +55,12 @@ var GempLotrCommunication = Class.extend({
             success: this.success,
             error: this.failure,
             dataType: "xml"
+        });
+    },
+    getDeck: function(callback) {
+        $.ajax({
+            type: "GET",
+            url: this
         });
     }
 });

@@ -1,7 +1,7 @@
 var GempLotrUI = Class.extend({
     padding: 5,
 
-    updateStateFunction: null,
+    updateGameState: null,
     decisionFunction: null,
     getCardModifiersFunction: null,
 
@@ -240,7 +240,7 @@ var GempLotrUI = Class.extend({
     },
 
     setUpdateState: function(func) {
-        this.updateStateFunction = func;
+        this.updateGameState = func;
     },
 
     setDecisionFunction: function(func) {
@@ -310,7 +310,7 @@ var GempLotrUI = Class.extend({
                 this.assignMinionsDecision(decision);
             }
         } else {
-            setTimeout(this.updateStateFunction, 1000);
+            setTimeout(this.updateGameState, 1000);
         }
     },
 
@@ -617,7 +617,8 @@ var GempLotrUI = Class.extend({
     },
 
     attachSelectionFunctions: function(cardIds) {
-        $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
+        if (cardIds.length > 0)
+            $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
     },
 
     arbitraryCardsDecision: function(decision) {
