@@ -8,17 +8,30 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CompositeModifier implements Modifier {
     private PhysicalCard _source;
     private Filter _affectFilter;
     private List<Modifier> _modifiers;
+    private final ModifierEffect[] _effects;
 
     public CompositeModifier(PhysicalCard source, Filter affectFilter, List<Modifier> modifiers) {
         _source = source;
         _affectFilter = affectFilter;
         _modifiers = modifiers;
+
+        Set<ModifierEffect> effects = new HashSet<ModifierEffect>();
+        for (Modifier modifier : _modifiers)
+            effects.addAll(Arrays.asList(modifier.getModifierEffects()));
+
+        if (effects.contains(ModifierEffect.ALL_MODIFIER))
+            _effects = new ModifierEffect[]{ModifierEffect.ALL_MODIFIER};
+        else
+            _effects = effects.toArray(new ModifierEffect[effects.size()]);
     }
 
     @Override
@@ -38,6 +51,11 @@ public class CompositeModifier implements Modifier {
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public ModifierEffect[] getModifierEffects() {
+        return _effects;
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -85,7 +86,7 @@ public class Card1_363 extends AbstractSite {
                 else
                     _action.addEffect(
                             new AddUntilEndOfPhaseModifierEffect(
-                                    new AbstractModifier(null, "End Shadow Phase", null) {
+                                    new AbstractModifier(null, "End Shadow Phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                                         @Override
                                         public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
                                             return false;
@@ -95,7 +96,7 @@ public class Card1_363 extends AbstractSite {
             } else {
                 _action.addEffect(
                         new AddUntilEndOfPhaseModifierEffect(
-                                new AbstractModifier(null, "End Shadow Phase", null) {
+                                new AbstractModifier(null, "End Shadow Phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                                     @Override
                                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
                                         return false;

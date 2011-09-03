@@ -9,7 +9,7 @@ public class KeywordModifier extends AbstractModifier {
     private Keyword _keyword;
 
     public KeywordModifier(PhysicalCard physicalCard, Filter affectFilter, Keyword keyword) {
-        super(physicalCard, "Has " + keyword.getHumanReadable(), affectFilter);
+        super(physicalCard, "Has " + keyword.getHumanReadable(), affectFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
         _keyword = keyword;
     }
 

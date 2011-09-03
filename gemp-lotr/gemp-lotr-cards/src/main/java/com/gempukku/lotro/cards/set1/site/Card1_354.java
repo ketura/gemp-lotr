@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
@@ -25,7 +26,7 @@ public class Card1_354 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
-        return new AbstractModifier(self, "Skip archery phase", null) {
+        return new AbstractModifier(self, "Skip archery phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
             public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
                 if (phase == Phase.ARCHERY

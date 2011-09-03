@@ -4,11 +4,12 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class DoesNotAddToArcheryTotalModifier extends AbstractModifier {
     public DoesNotAddToArcheryTotalModifier(PhysicalCard source, Filter affectFilter) {
-        super(source, "Does not add to archery total", affectFilter);
+        super(source, "Does not add to archery total", affectFilter, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER});
     }
 
     @Override
