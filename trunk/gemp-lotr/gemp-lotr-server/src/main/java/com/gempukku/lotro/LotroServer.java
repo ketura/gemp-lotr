@@ -56,6 +56,9 @@ public class LotroServer {
         for (int i = 3; i <= 68; i++)
             lotroDeck.addCard("1_" + i);
 
+        for (int i = 0; i < 30; i++)
+            lotroDeck.addCard("1_178");
+
         // Sites
         lotroDeck.addSite("1_326");
         lotroDeck.addSite("1_331");

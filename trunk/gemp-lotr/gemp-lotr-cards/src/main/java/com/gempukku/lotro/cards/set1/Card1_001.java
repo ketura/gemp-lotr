@@ -61,7 +61,7 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
             action.addEffect(new AddBurdenEffect(playerId));
             action.addEffect(new AddBurdenEffect(playerId));
             action.addEffect(new PutOnTheOneRingEffect());
-            action.addEffect(new AddUntilEndOfPhaseActionProxyEffect(
+            action.addEffect(new AddUntilStartOfPhaseActionProxyEffect(
                     new AbstractActionProxy() {
                         @Override
                         public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {

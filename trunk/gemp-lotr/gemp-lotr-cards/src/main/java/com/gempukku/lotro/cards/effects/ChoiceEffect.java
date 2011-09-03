@@ -41,7 +41,7 @@ public class ChoiceEffect extends UnrespondableEffect {
                 possibleEffects.add(effect);
         }
 
-        if (possibleEffects.size() > 1) {
+        if (possibleEffects.size() == 1) {
             if (_addedAsCost)
                 _action.addCost(possibleEffects.get(0));
             else
