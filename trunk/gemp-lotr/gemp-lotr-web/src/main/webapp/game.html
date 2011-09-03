@@ -103,17 +103,18 @@
                     ui = new GempLotrUI();
 
                     communication = new GempLotrCommunication("/gemp-lotr/server",
-                            function(xml) {
-                                ui.processXml(xml);
-                            },
                             function() {
                                 ui.processError();
                             });
                     ui.setUpdateState(function() {
-                        communication.updateGameState();
+                        communication.updateGameState(function(xml) {
+                            ui.processXml(xml);
+                        });
                     });
                     ui.setDecisionFunction(function(decisionId, result) {
-                        communication.gameDecisionMade(decisionId, result);
+                        communication.gameDecisionMade(decisionId, result, function(xml) {
+                            ui.processXml(xml);
+                        });
                     });
                     ui.setGetCardModifiers(function(cardId, func) {
                         communication.getGameCardModifiers(cardId, func);
@@ -124,7 +125,9 @@
                         ui.layoutUI();
                     });
 
-                    communication.startGameSession();
+                    communication.startGameSession(function(xml) {
+                        ui.processXml(xml);
+                    });
                 });
     </script>
 
