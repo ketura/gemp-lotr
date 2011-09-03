@@ -18,7 +18,7 @@ public class DiscardCardFromPlayEffect extends UnrespondableEffect {
     @Override
     public boolean canPlayEffect(LotroGame game) {
         Zone zone = _card.getZone();
-        return zone == Zone.FREE_CHARACTERS || zone == Zone.FREE_SUPPORT || zone == Zone.SHADOW_CHARACTERS || zone == Zone.SHADOW_SUPPORT;
+        return zone == Zone.FREE_CHARACTERS || zone == Zone.FREE_SUPPORT || zone == Zone.SHADOW_CHARACTERS || zone == Zone.SHADOW_SUPPORT || zone == Zone.ATTACHED;
     }
 
     @Override
