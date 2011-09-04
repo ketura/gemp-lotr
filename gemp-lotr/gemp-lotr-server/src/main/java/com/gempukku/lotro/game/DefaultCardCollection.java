@@ -22,6 +22,7 @@ public class DefaultCardCollection implements CardCollection {
 
         List<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", Arrays.asList(CardType.values()), filterParams);
         List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
+        Integer siteNumber = getSiteNumber(filterParams);
 
         Map<String, Integer> result = new LinkedHashMap<String, Integer>();
         for (Map.Entry<String, LotroCardBlueprint> stringLotroCardBlueprintEntry : _cards.entrySet()) {
@@ -29,9 +30,18 @@ public class DefaultCardCollection implements CardCollection {
             LotroCardBlueprint blueprint = stringLotroCardBlueprintEntry.getValue();
             if (cardTypes.contains(blueprint.getCardType()))
                 if (containsAllKeywords(blueprint, keywords))
-                    result.put(blueprintId, _cardsCount.get(blueprintId));
+                    if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
+                        result.put(blueprintId, _cardsCount.get(blueprintId));
         }
         return result;
+    }
+
+    private Integer getSiteNumber(String[] filterParams) {
+        for (String filterParam : filterParams) {
+            if (filterParam.startsWith("siteNumber:"))
+                return Integer.parseInt(filterParam.substring("siteNumber:".length()));
+        }
+        return null;
     }
 
     private boolean containsAllKeywords(LotroCardBlueprint blueprint, List<Keyword> keywords) {
