@@ -22,7 +22,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.collectionDiv = $("#collectionDiv");
 
         this.normalCollectionDiv = $("<div></div>");
-        this.normalCollectionDiv.css
         this.normalCollectionGroup = new NormalCardGroup(null, this.normalCollectionDiv, function(card) {
             return true;
         });
@@ -77,7 +76,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.drawDeckDiv = $("<div></div>");
         this.drawDeckGroup = new NormalCardGroup(null, this.drawDeckDiv, function(card) {
-            return true;
+            return (card.zone == "deck");
         });
         this.deckDiv.append(this.drawDeckDiv);
 
@@ -90,11 +89,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                 if (event.which == 1) {
                     if (event.shiftKey) {
                         //                        that.displayCardInfo(selectedCardElem.data("card"));
-                    } else  if (selectedCardElem.hasClass("addableCard")) {
+                    } else  if (selectedCardElem.hasClass("cardInCollection")) {
                         that.selectionFunc(selectedCardElem.data("card").blueprintId);
-                    } else if (selectedCardElem.hasClass("removableCard")) {
-                        selectedCardElem.remove();
-                        that.layoutUI();
+                    } else if (selectedCardElem.hasClass("cardInDeck")) {
+                        that.removeCardFromDeck(selectedCardElem);
                     }
                 }
             }
@@ -102,8 +100,8 @@ var GempLotrDeckBuildingUI = Class.extend({
         });
     },
 
-    addCardToContainer: function(blueprintId, container) {
-        var card = new Card(blueprintId, "deck", "deckCardId", "player");
+    addCardToContainer: function(blueprintId, zone, container) {
+        var card = new Card(blueprintId, zone, "deckCardId", "player");
         var cardDiv = createCardDiv(card.imageUrl, null);
         cardDiv.data("card", card);
         container.append(cardDiv);
@@ -116,7 +114,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.specialCollectionDiv.show();
         this.loadCollectionFunc("default", filter, 0, 18);
         this.selectionFunc = function(blueprintId) {
-            this.addCardToContainer(blueprintId, container);
+            this.addCardToContainer(blueprintId, "special", container);
             this.specialCollectionDiv.hide();
             this.normalCollectionDiv.show();
             this.selectionFunc = this.addCardToDeck;
@@ -124,8 +122,33 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     addCardToDeck: function(blueprintId) {
-        var div = this.addCardToContainer(blueprintId, this.drawDeckDiv)
-        div.addClass("removableCard");
+        var that = this;
+        var added = false;
+        $(".card.cardInDeck", this.drawDeckDiv).each(
+                function() {
+                    var cardData = $(this).data("card");
+                    if (cardData.blueprintId == blueprintId) {
+                        var attDiv = that.addCardToContainer(blueprintId, "attached", that.drawDeckDiv);
+                        cardData.attachedCards.push(attDiv);
+                        added = true;
+                        that.layoutUI();
+                    }
+                });
+        if (!added) {
+            var div = this.addCardToContainer(blueprintId, "deck", this.drawDeckDiv)
+            div.addClass("cardInDeck");
+        }
+    },
+
+    removeCardFromDeck: function(cardDiv) {
+        var cardData = cardDiv.data("card");
+        if (cardData.attachedCards.length > 0) {
+            cardData.attachedCards[0].remove();
+            cardData.attachedCards.splice(0, 1);
+        } else {
+            cardDiv.remove();
+        }
+        this.layoutUI();
     },
 
     setLoadCollectionFunc: function(func) {
@@ -152,7 +175,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 var card = new Card(blueprintId, "collection", "collection" + i, "player");
                 var cardDiv = createCardDiv(card.imageUrl, null);
                 cardDiv.data("card", card);
-                cardDiv.addClass("addableCard");
+                cardDiv.addClass("cardInCollection");
                 if (this.normalCollectionDiv.is(":visible"))
                     this.normalCollectionDiv.append(cardDiv);
                 else
@@ -168,6 +191,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         var deckHeight = this.deckDiv.height();
         var rowHeight = Math.floor(deckHeight / 5);
         var sitesWidth = Math.floor(1.5 * deckHeight / 5);
+        sitesWidth = Math.min(sitesWidth, 150);
 
         this.ringBearerDiv.css({ position: "absolute", left: 0, top: 0, width: Math.floor(sitesWidth / 2), height: rowHeight });
         this.ringBearerGroup.setBounds(0, 0, Math.floor(sitesWidth / 2), rowHeight);
