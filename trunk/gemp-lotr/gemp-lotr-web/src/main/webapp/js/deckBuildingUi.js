@@ -1,11 +1,16 @@
 var GempLotrDeckBuildingUI = Class.extend({
     deckDiv: null,
     collectionDiv: null,
+    collectionGroup: null,
     loadCollectionFunc: null,
 
     init: function() {
         this.deckDiv = $("<div></div>");
         this.collectionDiv = $("<div></div>");
+
+        this.collectionGroup = new NormalCardGroup(null, function(card) {
+            return (card.zone == "collection");
+        });
 
         $("#main").append(this.deckDiv);
         $("#main").append(this.collectionDiv);
@@ -20,7 +25,21 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     displayCollection: function(xml) {
-        alert(xml.text);
+        var root = xml.documentElement;
+        if (root.tagName == "collection") {
+            var cards = root.getElementsByTagName("card");
+            for (var i = 0; i < cards.length; i++) {
+                var cardElem = cards[i];
+                var blueprintId = cardElem.getAttribute("blueprintId");
+                var count = cardElem.getAttribute("count");
+                var card = new Card(blueprintId, "collection", "collection" + i, "player");
+                var cardDiv = createCardDiv(card.imageUrl, null);
+                cardDiv.data("card", card);
+                this.collectionDiv.append(cardDiv);
+            }
+
+            this.collectionGroup.layoutCards();
+        }
     },
 
     layoutUI: function() {
@@ -31,6 +50,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.deckDiv.css({left:0 + "px", top:0 + "px", width: width, height: deckHeight, position: "absolute"});
         this.collectionDiv.css({left:0 + "px", top:deckHeight + "px", width: width, height: height - deckHeight, position: "absolute"});
+        this.collectionGroup.setBounds(0, 0, width, height - deckHeight);
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {

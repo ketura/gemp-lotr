@@ -1,15 +1,15 @@
 package com.gempukku.lotro.game;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class LotroCardBlueprintLibrary {
     private String[] _packageNames =
             new String[]{
                     "", ".dwarven", ".elven", ".isengard", ".moria", ".shire", ".site"
             };
-    private Map<String, LotroCardBlueprint> _blueprintMap = new TreeMap<String, LotroCardBlueprint>();
+    private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
     public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) {
         if (_blueprintMap.containsKey(blueprintId))
