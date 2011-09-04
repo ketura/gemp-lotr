@@ -5,15 +5,14 @@ var GempLotrDeckBuildingUI = Class.extend({
     loadCollectionFunc: null,
 
     init: function() {
-        this.deckDiv = $("<div></div>");
-        this.collectionDiv = $("<div></div>");
+        this.deckDiv = $("#deckDiv");
+        this.collectionDiv = $("#collectionDiv");
 
         this.collectionGroup = new NormalCardGroup(null, function(card) {
             return (card.zone == "collection");
         });
 
-        $("#main").append(this.deckDiv);
-        $("#main").append(this.collectionDiv);
+
     },
 
     setLoadCollectionFunc: function(func) {
@@ -43,14 +42,8 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     layoutUI: function() {
-        var width = $(window).width();
-        var height = $(window).height();
 
-        var deckHeight = Math.floor(height * 0.3);
-
-        this.deckDiv.css({left:0 + "px", top:0 + "px", width: width, height: deckHeight, position: "absolute"});
-        this.collectionDiv.css({left:0 + "px", top:deckHeight + "px", width: width, height: height - deckHeight, position: "absolute"});
-        this.collectionGroup.setBounds(0, 0, width, height - deckHeight);
+        this.collectionGroup.setBounds(0, 0, this.collectionDiv.width(), this.collectionDiv.height());
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {

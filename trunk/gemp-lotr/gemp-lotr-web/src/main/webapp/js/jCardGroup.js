@@ -1,4 +1,5 @@
 var CardGroup = Class.extend({
+    container: null,
     x: null,
     y: null,
     width: null,
@@ -7,7 +8,8 @@ var CardGroup = Class.extend({
     padding: 5,
     cardId: null,
 
-    init: function(belongTest) {
+    init: function(container, belongTest) {
+        this.container = container;
         this.belongTestFunc = belongTest;
     },
 
@@ -58,8 +60,8 @@ var CardGroup = Class.extend({
 });
 
 var AdvPathCardGroup = CardGroup.extend({
-    init: function() {
-        this._super(
+    init: function(container) {
+        this._super(container,
                 function(card) {
                     return (card.zone == "ADVENTURE_PATH");
                 });
@@ -68,7 +70,7 @@ var AdvPathCardGroup = CardGroup.extend({
     layoutCards: function() {
         var cardsToLayout = new Array();
         var that = this;
-        $(".card").each(function(index) {
+        $(".card", this.container).each(function(index) {
             var card = $(this).data("card");
             if (that.belongTestFunc(card)) {
                 cardsToLayout.push($(this));
@@ -106,8 +108,8 @@ var AdvPathCardGroup = CardGroup.extend({
 var NormalCardGroup = CardGroup.extend({
     descDiv: null,
 
-    init: function(text, belongTest) {
-        this._super(belongTest);
+    init: function(text, container, belongTest) {
+        this._super(container, belongTest);
         if (text != null) {
             this.descDiv = $("<div>" + text + "</div>");
             $("#main").append(this.descDiv);
@@ -123,7 +125,7 @@ var NormalCardGroup = CardGroup.extend({
     layoutCards: function() {
         var cardsToLayout = new Array();
         var that = this;
-        $(".card").each(function(index) {
+        $(".card", this.container).each(function(index) {
             var card = $(this).data("card");
             if (that.belongTestFunc(card)) {
                 cardsToLayout.push($(this));

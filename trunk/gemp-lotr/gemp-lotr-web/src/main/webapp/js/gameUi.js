@@ -47,10 +47,10 @@ var GempLotrGameUI = Class.extend({
         this.shadowAssignGroups = {};
         this.freePeopleAssignGroups = {};
 
-        this.skirmishShadowGroup = new NormalCardGroup(null, function (card) {
+        this.skirmishShadowGroup = new NormalCardGroup(null, $("#main"), function (card) {
             return card.zone == "SHADOW_CHARACTERS" && card.skirmish == true;
         });
-        this.skirmishFellowshipGroup = new NormalCardGroup(null, function (card) {
+        this.skirmishFellowshipGroup = new NormalCardGroup(null, $("#main"), function (card) {
             return (card.zone == "FREE_SUPPORT" || card.zone == "FREE_CHARACTERS") && card.skirmish == true;
         });
 
@@ -64,32 +64,32 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
-        this.supportOpponent = new NormalCardGroup("Free People Support of Opponent", function(card) {
+        this.supportOpponent = new NormalCardGroup("Free People Support of Opponent", $("#main"), function(card) {
             return (card.zone == "FREE_SUPPORT" && card.owner != that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.charactersOpponent = new NormalCardGroup("Free People Characters of Opponent", function(card) {
+        this.charactersOpponent = new NormalCardGroup("Free People Characters of Opponent", $("#main"), function(card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner != that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.shadow = new NormalCardGroup("Shadow minions", function(card) {
+        this.shadow = new NormalCardGroup("Shadow minions", $("#main"), function(card) {
             return (card.zone == "SHADOW_CHARACTERS" && card.assign == null && card.skirmish == null);
         });
-        this.charactersPlayer = new NormalCardGroup("Free People Characters of Player", function(card) {
+        this.charactersPlayer = new NormalCardGroup("Free People Characters of Player", $("#main"), function(card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner == that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.supportPlayer = new NormalCardGroup("Free People Support of Player", function(card) {
+        this.supportPlayer = new NormalCardGroup("Free People Support of Player", $("#main"), function(card) {
             return (card.zone == "FREE_SUPPORT" && card.owner == that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.hand = new NormalCardGroup("Hand", function(card) {
+        this.hand = new NormalCardGroup("Hand", $("#main"), function(card) {
             return (card.zone == "HAND");
         });
-        this.shadowOpponent = new NormalCardGroup("Shadow Support of Opponent", function(card) {
+        this.shadowOpponent = new NormalCardGroup("Shadow Support of Opponent", $("#main"), function(card) {
             return (card.zone == "SHADOW_SUPPORT" && card.owner != that.selfPlayerId);
         });
-        this.shadowPlayer = new NormalCardGroup("Shadow Support of Player", function(card) {
+        this.shadowPlayer = new NormalCardGroup("Shadow Support of Player", $("#main"), function(card) {
             return (card.zone == "SHADOW_SUPPORT" && card.owner == that.selfPlayerId);
         });
 
-        this.specialGroup = new NormalCardGroup(null, function(card) {
+        this.specialGroup = new NormalCardGroup(null, this.dialogInstance, function(card) {
             return (card.zone == "SPECIAL");
         });
         this.specialGroup.setBounds(this.padding, this.padding, 400, 200);
@@ -910,11 +910,11 @@ var GempLotrGameUI = Class.extend({
         }
 
         if (this.shadowAssignGroups[characterId] == null) {
-            this.shadowAssignGroups[characterId] = new NormalCardGroup(null, function (card) {
+            this.shadowAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
                 return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
             }
                     );
-            this.freePeopleAssignGroups[characterId] = new NormalCardGroup(null, function (card) {
+            this.freePeopleAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
                 return (card.cardId == characterId);
             }
                     );
