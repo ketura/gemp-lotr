@@ -50,8 +50,8 @@ public class ServerResource {
 
     private void createGame(String gameId) {
         LotroGameParticipant[] participants = new LotroGameParticipant[2];
-        participants[0] = new LotroGameParticipant("Player1", _lotroServer.getParticipantDeck("Player1"));
-        participants[1] = new LotroGameParticipant("Player2", _lotroServer.getParticipantDeck("Player2"));
+        participants[0] = new LotroGameParticipant("MarcinS1", _lotroServer.getParticipantDeck("MarcinS1"));
+        participants[1] = new LotroGameParticipant("MarcinS2", _lotroServer.getParticipantDeck("MarcinS2"));
 
         _lotroServer.createNewGame(new DefaultLotroFormat(true), participants, gameId);
         _lotroServer.getGameById(gameId).startGame();

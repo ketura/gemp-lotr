@@ -6,6 +6,7 @@ import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Deck;
+import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
@@ -126,30 +127,18 @@ public class LotroServer {
     }
 
     public LotroDeck getParticipantDeck(String participantId) {
+        Player player = _playerDao.getPlayer(participantId);
+        Deck deck = _deckDao.getDeckForPlayer(player, "default");
+        if (deck == null)
+            return null;
+
         LotroDeck lotroDeck = new LotroDeck();
-        lotroDeck.setRing("1_1");
-        lotroDeck.setRingBearer("1_290");
-
-        for (int i = 3; i <= 68; i++)
-            lotroDeck.addCard("1_" + i);
-
-        for (int i = 0; i < 30; i++)
-            lotroDeck.addCard("1_178");
-
-        // Sites
-        lotroDeck.addSite("1_326");
-        lotroDeck.addSite("1_331");
-        lotroDeck.addSite("1_337");
-        lotroDeck.addSite("1_346");
-        lotroDeck.addSite("1_349");
-        lotroDeck.addSite("1_351");
-        lotroDeck.addSite("1_354");
-        lotroDeck.addSite("1_356");
-        lotroDeck.addSite("1_362");
-
-        // Minions
-        for (int i = 120; i <= 162; i++)
-            lotroDeck.addCard("1_" + i);
+        lotroDeck.setRing(deck.getRing());
+        lotroDeck.setRingBearer(deck.getRingBearer());
+        for (String site : deck.getSites())
+            lotroDeck.addSite(site);
+        for (String card : deck.getDeck())
+            lotroDeck.addCard(card);
 
         return lotroDeck;
     }
