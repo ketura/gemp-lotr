@@ -7,6 +7,7 @@ var CardGroup = Class.extend({
     belongTestFunc: null,
     padding: 5,
     cardId: null,
+    maxCardHeight: null,
 
     init: function(container, belongTest) {
         this.container = container;
@@ -166,6 +167,8 @@ var NormalCardGroup = CardGroup.extend({
 
     tryIfCanLayoutInRows: function(rowCount, cardsToLayout) {
         var rowHeight = (this.height - (this.padding * (rowCount - 1))) / rowCount;
+        if (this.maxCardHeight != null)
+            rowHeight = Math.min(this.maxCardHeight, rowHeight);
         var totalWidth = 0;
         var row = 0;
         for (var cardId in cardsToLayout) {
@@ -185,6 +188,8 @@ var NormalCardGroup = CardGroup.extend({
     },
 
     layoutInRow: function(cardsToLayout, height) {
+        if (this.maxCardHeight != null)
+            height = Math.min(this.maxCardHeight, height);
         var x = 0;
         var row = 0;
         var y = Math.floor((this.height - height) / 2);
@@ -208,6 +213,8 @@ var NormalCardGroup = CardGroup.extend({
 
     layoutInRows: function(rowCount, cardsToLayout) {
         var rowHeight = (this.height - ((rowCount - 1) * this.padding)) / rowCount;
+        if (this.maxCardHeight != null)
+            rowHeight = Math.min(this.maxCardHeight, rowHeight);
         var x = 0;
         var row = 0;
         var y = 0;

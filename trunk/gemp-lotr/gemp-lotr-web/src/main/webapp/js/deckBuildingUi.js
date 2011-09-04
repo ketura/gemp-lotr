@@ -25,6 +25,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.normalCollectionGroup = new NormalCardGroup(null, this.normalCollectionDiv, function(card) {
             return true;
         });
+        this.normalCollectionGroup.maxCardHeight = 200;
         this.collectionDiv.append(this.normalCollectionDiv);
 
         this.specialCollectionDiv = $("<div></div>");
@@ -32,6 +33,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.specialCollectionGroup = new NormalCardGroup(null, this.specialCollectionDiv, function(card) {
             return true;
         });
+        this.specialCollectionGroup.maxCardHeight = 200;
         this.collectionDiv.append(this.specialCollectionDiv);
 
         this.ringBearerDiv = $("<div>Ring Bearer</div>");
@@ -78,6 +80,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.drawDeckGroup = new NormalCardGroup(null, this.drawDeckDiv, function(card) {
             return (card.zone == "deck");
         });
+        this.drawDeckGroup.maxCardHeight = 200;
         this.deckDiv.append(this.drawDeckDiv);
 
         this.selectionFunc = this.addCardToDeck;
@@ -208,10 +211,10 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.drawDeckDiv.css({ position: "absolute", left: sitesWidth * 2, top: 0, width: this.deckDiv.width() - sitesWidth * 2, height: deckHeight });
         this.drawDeckGroup.setBounds(0, 0, this.deckDiv.width() - sitesWidth * 2, deckHeight);
 
-        this.normalCollectionDiv.css({ position: "absolute", left: 0, top: 0, width: this.collectionDiv.width(), height: this.collectionDiv.height() })
+        this.normalCollectionDiv.css({ position: "absolute", left: 0, top: 50, width: this.collectionDiv.width(), height: this.collectionDiv.height() - 50 })
         this.specialCollectionDiv.css({ position: "absolute", left: 0, top: 0, width: this.collectionDiv.width(), height: this.collectionDiv.height() })
 
-        this.normalCollectionGroup.setBounds(0, 0, this.collectionDiv.width(), this.collectionDiv.height());
+        this.normalCollectionGroup.setBounds(0, 0, this.collectionDiv.width(), this.collectionDiv.height() - 50);
         this.specialCollectionGroup.setBounds(0, 0, this.collectionDiv.width(), this.collectionDiv.height());
     },
 
