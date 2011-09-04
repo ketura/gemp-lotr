@@ -4,7 +4,7 @@ var CardGroup = Class.extend({
     width: null,
     height: null,
     belongTestFunc: null,
-    padding: 10,
+    padding: 5,
     cardId: null,
 
     init: function(belongTest) {
@@ -131,30 +131,111 @@ var NormalCardGroup = CardGroup.extend({
         });
 
         var cardCount = cardsToLayout.length;
-        var totalWidth = 0;
 
-        for (var cardId in cardsToLayout) {
-            var cardData = cardsToLayout[cardId].data("card");
-            totalWidth += Math.floor(cardData.getWidthForHeight(this.height) * (1 + (0.2 * cardData.attachedCards.length)));
+        var oneRowHeight = this.getHeightForLayoutInOneRow(cardsToLayout);
+        if (oneRowHeight * 2 + this.padding <= this.height) {
+            var result;
+            var rows = 1;
+            do {
+                rows++;
+                result = this.tryIfCanLayoutInRows(rows, cardsToLayout);
+            } while (!result);
+            this.layoutInRows(rows, cardsToLayout);
+        } else {
+            this.layoutInRow(cardsToLayout, oneRowHeight);
         }
+    },
 
-        var resultPadding = Math.min(this.padding, (this.width - totalWidth) / (cardCount - 1));
-        var x = this.x;
-        var y = this.y;
-        var index = 0;
+    getHeightForLayoutInOneRow: function(cardsToLayout) {
+        var totalWidth = 0;
         for (var cardId in cardsToLayout) {
-            var cardElem = cardsToLayout[cardId];
             var cardData = cardsToLayout[cardId].data("card");
             var cardWidth = cardData.getWidthForHeight(this.height);
+            var cardWidthWithAttachments = cardWidth + Math.floor(cardWidth * 0.2) * cardData.attachedCards.length;
+            totalWidth += cardWidthWithAttachments;
+        }
+        var widthWithoutPadding = this.width - (this.padding * (cardsToLayout.length - 1));
+        if (totalWidth > widthWithoutPadding) {
+            return Math.floor(this.height / (totalWidth / widthWithoutPadding));
+        } else {
+            return this.height;
+        }
+    },
+
+    tryIfCanLayoutInRows: function(rowCount, cardsToLayout) {
+        var rowHeight = (this.height - (this.padding * (rowCount - 1))) / rowCount;
+        var totalWidth = 0;
+        var row = 0;
+        for (var cardId in cardsToLayout) {
+            var cardData = cardsToLayout[cardId].data("card");
+            var cardWidth = cardData.getWidthForHeight(rowHeight);
+            var cardWidthWithAttachments = cardWidth + Math.floor(cardWidth * 0.2) * cardData.attachedCards.length;
+            totalWidth += cardWidthWithAttachments;
+            if (totalWidth > this.width) {
+                row++;
+                if (row >= rowCount)
+                    return false;
+                totalWidth = cardWidthWithAttachments;
+            }
+            totalWidth += this.padding;
+        }
+        return true;
+    },
+
+    layoutInRow: function(cardsToLayout, height) {
+        var x = 0;
+        var row = 0;
+        var y = Math.floor((this.height - height) / 2);
+
+        for (var cardId in cardsToLayout) {
+            var index = 0;
+            var cardElem = cardsToLayout[cardId];
+            var cardData = cardsToLayout[cardId].data("card");
+            var cardWidth = cardData.getWidthForHeight(height);
 
             for (var i = 0; i < cardData.attachedCards.length; i++) {
-                this.layoutCard(cardData.attachedCards[i], x, y, cardWidth, this.height, index);
+                this.layoutCard(cardData.attachedCards[i], this.x + x, this.y + y, cardWidth, height, index);
                 x += Math.floor(cardWidth * 0.2);
                 index++;
             }
-            this.layoutCard(cardElem, x, y, cardWidth, this.height, index);
-            x += cardWidth + resultPadding;
-            index++;
+            this.layoutCard(cardElem, this.x + x, this.y + y, cardWidth, height, index);
+            x += cardWidth;
+            x += this.padding;
         }
+    },
+
+    layoutInRows: function(rowCount, cardsToLayout) {
+        var rowHeight = (this.height - ((rowCount - 1) * this.padding)) / rowCount;
+        var x = 0;
+        var row = 0;
+        var y = 0;
+
+
+        for (var cardId in cardsToLayout) {
+            var index = 0;
+            var cardElem = cardsToLayout[cardId];
+            var cardData = cardsToLayout[cardId].data("card");
+            var cardWidth = cardData.getWidthForHeight(rowHeight);
+
+            var cardWidthWithAttachments = cardWidth + Math.floor(cardWidth * 0.2) * cardData.attachedCards.length;
+            if (x + cardWidthWithAttachments > this.width) {
+                row++;
+                x = 0;
+                y = row * (rowHeight + this.padding);
+            }
+
+            for (var i = 0; i < cardData.attachedCards.length; i++) {
+                this.layoutCard(cardData.attachedCards[i], this.x + x, this.y + y, cardWidth, rowHeight, index);
+                x += Math.floor(cardWidth * 0.2);
+                index++;
+            }
+            this.layoutCard(cardElem, this.x + x, this.y + y, cardWidth, rowHeight, index);
+            x += cardWidth;
+            if (x > this.width)
+                return false;
+            x += this.padding;
+        }
+
+        return true;
     }
 });
