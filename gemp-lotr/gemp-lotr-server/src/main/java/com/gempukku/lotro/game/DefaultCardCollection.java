@@ -7,7 +7,7 @@ import java.util.*;
 
 public class DefaultCardCollection implements CardCollection {
     private Map<String, Integer> _cardsCount = new TreeMap<String, Integer>();
-    private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>();
+    private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>(new CardBlueprintIdComparator());
 
     public void addCards(String blueprintId, LotroCardBlueprint blueprint, int count) {
         _cardsCount.put(blueprintId, count);
@@ -64,5 +64,17 @@ public class DefaultCardCollection implements CardCollection {
             }
         }
         return defaultResult;
+    }
+
+    private static class CardBlueprintIdComparator implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            String[] o1Parts = o1.split("_");
+            String[] o2Parts = o2.split("_");
+            if (o1Parts[0].equals(o2Parts[0]))
+                return Integer.parseInt(o1Parts[1]) - Integer.parseInt(o2Parts[1]);
+            else
+                return Integer.parseInt(o1Parts[0]) - Integer.parseInt(o2Parts[0]);
+        }
     }
 }
