@@ -7,6 +7,7 @@ import java.util.List;
 public class Skirmish {
     private PhysicalCard _fellowshipCharacter;
     private List<PhysicalCard> _shadowCharacters;
+    private boolean _cancelled;
 
     public Skirmish(PhysicalCard fellowshipCharacter, List<PhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;
@@ -19,5 +20,13 @@ public class Skirmish {
 
     public List<PhysicalCard> getShadowCharacters() {
         return _shadowCharacters;
+    }
+
+    public void cancel() {
+        _cancelled = true;
+    }
+
+    public boolean isCancelled() {
+        return _cancelled;
     }
 }
