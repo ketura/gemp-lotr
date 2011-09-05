@@ -37,7 +37,7 @@ public class Card1_349 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getInPlayPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
             CostToEffectAction action = new CostToEffectAction(self, Keyword.SHADOW, "Play The Balrog from your draw deck or hand; The Balrog's twilight cost is -6.");
 

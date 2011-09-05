@@ -102,7 +102,7 @@ public class Card1_295 extends AbstractAlly {
         }
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null) {
-            List<? extends Action> list = copied.getInPlayPhaseActions(playerId, game, self);
+            List<? extends Action> list = copied.getPhaseActions(playerId, game, self);
             if (list != null)
                 actions.addAll(list);
         }

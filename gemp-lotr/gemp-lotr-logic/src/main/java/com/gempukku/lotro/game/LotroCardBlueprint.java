@@ -36,7 +36,7 @@ public interface LotroCardBlueprint {
 
     public Modifier getAlwaysOnEffect(PhysicalCard self);
 
-    public List<? extends Action> getInPlayPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self);
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self);
 
     public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
 
