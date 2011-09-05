@@ -128,8 +128,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public List<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card) {
-        List<Modifier> result = new LinkedList<Modifier>();
+    public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card) {
+        Set<Modifier> result = new HashSet<Modifier>();
         for (List<Modifier> modifiers : _modifiers.values()) {
             for (Modifier modifier : modifiers) {
                 if (affectsCardWithSkipSet(gameState, card, modifier))
