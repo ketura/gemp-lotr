@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEffect;
@@ -31,11 +31,10 @@ import java.util.List;
  * Type: Event
  * Game Text: Search. Response: If a stealth event is played, exert or discard your Uruk-hai to cancel that event.
  */
-public class Card1_161 extends AbstractLotroCardBlueprint {
+public class Card1_161 extends AbstractResponseEvent {
     public Card1_161() {
         super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Wariness");
         addKeyword(Keyword.SEARCH);
-        addKeyword(Keyword.RESPONSE);
     }
 
     @Override

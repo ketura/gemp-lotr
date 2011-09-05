@@ -39,10 +39,19 @@ public class Card1_133 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)) {
-            PlayPermanentAction action = new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
-            return Collections.singletonList(action);
+            return Collections.singletonList(getPlayCardAction(playerId, game, self));
         }
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)

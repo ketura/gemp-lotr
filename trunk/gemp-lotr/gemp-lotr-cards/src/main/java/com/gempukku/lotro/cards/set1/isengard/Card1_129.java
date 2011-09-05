@@ -38,19 +38,29 @@ public class Card1_129 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI), Filters.canExert());
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        final PlayPermanentAction action = new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard urukHai) {
+                        action.addCost(new ExertCharacterEffect(urukHai));
+                    }
+                }
+        );
+        return action;
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI), Filters.canExert())) {
-            final PlayPermanentAction action = new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard urukHai) {
-                            action.addCost(new ExertCharacterEffect(urukHai));
-                        }
-                    }
-            );
-            return Collections.singletonList(action);
+                && checkPlayRequirements(playerId, game, self)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self));
         }
         return null;
     }

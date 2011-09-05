@@ -25,12 +25,12 @@ public class PlayConditions {
     }
 
     public static boolean canPlayFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return (phase == null || game.getGameState().getCurrentPhase() == phase) && nonPlayZone(self.getZone())
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && self.getZone() == Zone.HAND
                 && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
 
     public static boolean canPlayShadowCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return (phase == null || game.getGameState().getCurrentPhase() == phase) && nonPlayZone(self.getZone())
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && self.getZone() == Zone.HAND
                 && game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) <= game.getGameState().getTwilightPool()
                 && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
@@ -48,20 +48,12 @@ public class PlayConditions {
         return (phase == null || gameState.getCurrentPhase() == phase) && (gameState.getCurrentSite() == self);
     }
 
-    public static boolean canPlayCompanionDuringSetup(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public static boolean checkUniqueness(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         LotroCardBlueprint blueprint = self.getBlueprint();
-        return (nonPlayZone(self.getZone())
-                && self.getBlueprint().getCardType() == CardType.COMPANION
-                && gameState.getCurrentPhase() == Phase.GAME_SETUP
-                // Rule of 9
-                && (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9)
-                &&
-                (!blueprint.isUnique()
-                        ||
-                        (!Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())))
-                        ||
-                        (!Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())) && (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0)))
-                && modifiersQuerying.getTwilightCost(gameState, self) <= (4 - gameState.getTwilightPool()));
+        return (!blueprint.isUnique()
+                || (
+                !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))
+                        && (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0)));
     }
 
     private static int getTotalCompanions(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
@@ -69,26 +61,8 @@ public class PlayConditions {
                 + Filters.filter(gameState.getDeadPile(playerId), gameState, modifiersQuerying, Filters.type(CardType.COMPANION)).size();
     }
 
-    public static boolean canPlayCharacterDuringFellowship(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        LotroCardBlueprint blueprint = self.getBlueprint();
-        return (nonPlayZone(self.getZone())
-                && (self.getBlueprint().getCardType() == CardType.COMPANION || self.getBlueprint().getCardType() == CardType.ALLY)
-                && gameState.getCurrentPhase() == Phase.FELLOWSHIP
-                // Rule of 9
-                && (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9)
-                // Uniqness
-                &&
-                (!blueprint.isUnique()
-                        ||
-                        (!Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName())) && (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0))));
-    }
-
-    public static boolean canPlayMinionDuringShadow(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        LotroCardBlueprint blueprint = self.getBlueprint();
-        return (nonPlayZone(self.getZone())
-                && gameState.getCurrentPhase() == Phase.SHADOW
-                && gameState.getTwilightPool() >= modifiersQuerying.getTwilightCost(gameState, self)
-                && (!blueprint.isUnique() || !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))));
+    public static boolean checkRuleOfNine(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+        return (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9);
     }
 
     public static boolean canHealByDiscarding(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {

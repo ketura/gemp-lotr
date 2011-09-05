@@ -6,7 +6,7 @@ public enum Keyword {
 
     SUPPORT_AREA("Support Area"),
 
-    SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"), ASSIGNMENT("Assignment"),
+    SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"), ASSIGNMENT("Assignment"), REGROUP("Regroup"),
 
     RING_BOUND("Ring-Bound"), RING_BEARER("Ring-Bearer"),
 

@@ -14,7 +14,6 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,16 +32,12 @@ public class Card1_062 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION));
+    }
 
-            Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION));
-
-            List<Action> actions = new LinkedList<Action>();
-            appendAttachCardAction(actions, game, self, validTargetFilter);
-            return actions;
-        }
-
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {

@@ -39,6 +39,16 @@ public class Card1_002 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return false;
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new StrengthModifier(null, null, 1));

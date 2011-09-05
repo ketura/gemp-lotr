@@ -36,11 +36,20 @@ public class Card1_125 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI));
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI))) {
-            PlayPermanentAction action = new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
-            return Collections.singletonList(action);
+                && checkPlayRequirements(playerId, game, self)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self));
         }
 
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 2)

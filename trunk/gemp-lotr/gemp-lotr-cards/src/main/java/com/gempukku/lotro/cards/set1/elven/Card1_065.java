@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
@@ -16,7 +15,6 @@ import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,10 +27,9 @@ import java.util.List;
  * Game Text: Maneuver: Exert an Elf ally whose home is site 6. Until the regroup phase, that ally is strength +3 and
  * participates in archery fire and skirmishes.
  */
-public class Card1_065 extends AbstractLotroCardBlueprint {
+public class Card1_065 extends AbstractEvent {
     public Card1_065() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Swan-ship of the Galadhrim");
-        addKeyword(Keyword.MANEUVER);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Swan-ship of the Galadhrim", Phase.MANEUVER);
     }
 
     @Override
@@ -41,30 +38,30 @@ public class Card1_065 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert())) {
-            final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert an Elf ally whose home is site 6. Until the regroup phase, that ally is strength +3 and participates in archery fire and skirmishes.");
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose and Elf ally", Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard elfAlly) {
-                            action.addCost(new ExertCharacterEffect(elfAlly));
+    public Action getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self) {
+        final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert an Elf ally whose home is site 6. Until the regroup phase, that ally is strength +3 and participates in archery fire and skirmishes.");
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose and Elf ally", Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard elfAlly) {
+                        action.addCost(new ExertCharacterEffect(elfAlly));
 
-                            List<Modifier> modifiers = new LinkedList<Modifier>();
-                            modifiers.add(new StrengthModifier(null, null, 3));
-                            modifiers.add(new AllyOnCurrentSiteModifier(null, null));
+                        List<Modifier> modifiers = new LinkedList<Modifier>();
+                        modifiers.add(new StrengthModifier(null, null, 3));
+                        modifiers.add(new AllyOnCurrentSiteModifier(null, null));
 
-                            action.addEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new CompositeModifier(self, Filters.sameCard(elfAlly), modifiers)
-                                            , Phase.REGROUP));
-                        }
+                        action.addEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new CompositeModifier(self, Filters.sameCard(elfAlly), modifiers)
+                                        , Phase.REGROUP));
                     }
-            );
+                }
+        );
+        return action;
+    }
 
-            return Collections.singletonList(action);
-        }
-        return null;
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert());
     }
 }

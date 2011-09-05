@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
@@ -23,10 +23,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a Dwarf wins a skirmish, heal that Dwarf.
  */
-public class Card1_025 extends AbstractLotroCardBlueprint {
+public class Card1_025 extends AbstractResponseEvent {
     public Card1_025() {
         super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Still Draws Breath");
-        addKeyword(Keyword.RESPONSE);
     }
 
     @Override

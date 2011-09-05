@@ -10,9 +10,10 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class AbstractAttachableFPPossession extends AbstractAttachable {
+public abstract class AbstractAttachableFPPossession extends AbstractAttachable {
     public AbstractAttachableFPPossession(int twilight, Culture culture, String name) {
         this(twilight, culture, name, false);
     }
@@ -21,7 +22,7 @@ public class AbstractAttachableFPPossession extends AbstractAttachable {
         super(Side.FREE_PEOPLE, CardType.POSSESSION, twilight, culture, name, unique);
     }
 
-    protected void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
+    private void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
         GameState gameState = game.getGameState();
         if (Filters.canSpot(gameState, game.getModifiersQuerying(), validTargetFilter)
                 && gameState.getCurrentPhase() == Phase.FELLOWSHIP
@@ -49,4 +50,11 @@ public class AbstractAttachableFPPossession extends AbstractAttachable {
         }
     }
 
+
+    @Override
+    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        List<Action> actions = new LinkedList<Action>(super.getPhaseActions(playerId, game, self));
+        appendTransferPossessionAction(actions, game, self, getValidTargetFilter(playerId, game, self));
+        return actions;
+    }
 }

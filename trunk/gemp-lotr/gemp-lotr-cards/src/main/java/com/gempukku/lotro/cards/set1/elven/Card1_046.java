@@ -38,18 +38,28 @@ public class Card1_046 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert());
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose an Elf ally to exert", Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard elfAlly) {
+                        action.addCost(new ExertCharacterEffect(elfAlly));
+                    }
+                });
+        return action;
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert())) {
-            final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose an Elf ally to exert", Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard elfAlly) {
-                            action.addCost(new ExertCharacterEffect(elfAlly));
-                        }
-                    });
-            return Collections.singletonList(action);
+                && checkPlayRequirements(playerId, game, self)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self));
         }
         return null;
     }

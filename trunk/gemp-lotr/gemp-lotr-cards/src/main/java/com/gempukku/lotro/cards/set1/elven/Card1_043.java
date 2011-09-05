@@ -38,11 +38,20 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Far-seeing Eyes"))) {
-            PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-            return Collections.singletonList(action);
+                && checkPlayRequirements(playerId, game, self)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self));
         }
         return null;
     }

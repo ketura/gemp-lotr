@@ -2,6 +2,9 @@ package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.timing.Action;
 
 public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     private int _siteNumber;
@@ -13,6 +16,16 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
         _siteNumber = siteNumber;
         _twilight = twilight;
         _siteDirection = siteDirection;
+    }
+
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
     }
 
     @Override

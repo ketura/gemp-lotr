@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.GameUtils;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
@@ -18,7 +17,6 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,10 +29,9 @@ import java.util.List;
  * Game Text: Fellowship: Exert a Dwarf to reveal the top 3 cards of any draw deck. You may discard 1 Shadow card
  * revealed. Return the rest in any order.
  */
-public class Card1_018 extends AbstractLotroCardBlueprint {
+public class Card1_018 extends AbstractEvent {
     public Card1_018() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Halls of My Home");
-        addKeyword(Keyword.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Halls of My Home", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -43,57 +40,57 @@ public class Card1_018 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose a Dwarf", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard dwarf) {
-                            action.addCost(new ExertCharacterEffect(dwarf));
-                        }
-                    });
-            action.addEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose player", GameUtils.getAllPlayers(game)) {
-                                @Override
-                                protected void validDecisionMade(int index, final String chosenPlayerId) {
-                                    List<? extends PhysicalCard> deck = game.getGameState().getDeck(chosenPlayerId);
-                                    int topCards = Math.min(deck.size(), 3);
-                                    final List<PhysicalCard> topDeckCards = new LinkedList<PhysicalCard>(deck.subList(0, topCards));
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert());
+    }
 
-                                    if (topDeckCards.size() > 0) {
-                                        List<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW));
+    @Override
+    public Action getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose a Dwarf", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard dwarf) {
+                        action.addCost(new ExertCharacterEffect(dwarf));
+                    }
+                });
+        action.addEffect(
+                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                        new MultipleChoiceAwaitingDecision(1, "Choose player", GameUtils.getAllPlayers(game)) {
+                            @Override
+                            protected void validDecisionMade(int index, final String chosenPlayerId) {
+                                List<? extends PhysicalCard> deck = game.getGameState().getDeck(chosenPlayerId);
+                                int topCards = Math.min(deck.size(), 3);
+                                final List<PhysicalCard> topDeckCards = new LinkedList<PhysicalCard>(deck.subList(0, topCards));
 
-                                        if (shadowCards.size() > 0) {
-                                            action.addEffect(
-                                                    new ChooseArbitraryCardsEffect(playerId, "Choose shadow card to discard", shadowCards, 0, 1) {
-                                                        @Override
-                                                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                                            if (selectedCards.size() > 0) {
-                                                                action.addEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.get(0)));
-                                                                topDeckCards.remove(selectedCards.get(0));
-                                                            }
+                                if (topDeckCards.size() > 0) {
+                                    List<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW));
 
-                                                            if (topDeckCards.size() > 0) {
-                                                                for (PhysicalCard topDeckCard : topDeckCards)
-                                                                    game.getGameState().removeCardFromZone(topDeckCard);
-
-                                                            }
+                                    if (shadowCards.size() > 0) {
+                                        action.addEffect(
+                                                new ChooseArbitraryCardsEffect(playerId, "Choose shadow card to discard", shadowCards, 0, 1) {
+                                                    @Override
+                                                    protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                                        if (selectedCards.size() > 0) {
+                                                            action.addEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.get(0)));
+                                                            topDeckCards.remove(selectedCards.get(0));
                                                         }
-                                                    });
-                                        }
 
-                                        action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
+                                                        if (topDeckCards.size() > 0) {
+                                                            for (PhysicalCard topDeckCard : topDeckCards)
+                                                                game.getGameState().removeCardFromZone(topDeckCard);
+
+                                                        }
+                                                    }
+                                                });
                                     }
-                                }
-                            })
-            );
 
-            return Collections.singletonList(action);
-        }
-        return null;
+                                    action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
+                                }
+                            }
+                        })
+        );
+        return action;
     }
 
     private class ChooseCardToPutOnTop extends UnrespondableEffect {

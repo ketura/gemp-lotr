@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
@@ -26,10 +26,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If the Ring-bearer is about to heal, remove a burden instead.
  */
-public class Card1_287 extends AbstractLotroCardBlueprint {
+public class Card1_287 extends AbstractResponseEvent {
     public Card1_287() {
         super(Side.FREE_PEOPLE, CardType.EVENT, Culture.SHIRE, "Extraordinary Resilience");
-        addKeyword(Keyword.RESPONSE);
     }
 
     @Override

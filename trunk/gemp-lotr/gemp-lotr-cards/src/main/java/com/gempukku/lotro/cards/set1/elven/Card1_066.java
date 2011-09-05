@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,17 +30,15 @@ import java.util.List;
 public class Card1_066 extends AbstractAttachable {
     public Card1_066() {
         super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, "The Tale of Gil-galad", true);
-        addKeyword(Keyword.TALE);
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.keyword(Keyword.ELF);
+    }
 
-        Filter validTargetFilter = Filters.keyword(Keyword.ELF);
-
-        appendAttachCardAction(actions, game, self, validTargetFilter);
-
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard this condition to make bearer strength +2");
             action.addCost(new DiscardCardFromPlayEffect(self));
@@ -48,10 +46,9 @@ public class Card1_066 extends AbstractAttachable {
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 2), Phase.SKIRMISH));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
 
     @Override

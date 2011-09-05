@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
@@ -18,7 +18,10 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Set: The Fellowship of the Ring
@@ -29,10 +32,9 @@ import java.util.*;
  * Game Text: Skirmish: Make an Elf strength +1. If a minion loses this skirmish to that Elf, that minion's owner
  * discards 2 cards at random from hand.
  */
-public class Card1_029 extends AbstractLotroCardBlueprint {
+public class Card1_029 extends AbstractEvent {
     public Card1_029() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Ancient Enmity");
-        addKeyword(Keyword.SKIRMISH);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Ancient Enmity", Phase.SKIRMISH);
     }
 
     @Override
@@ -41,45 +43,46 @@ public class Card1_029 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF)) {
-                        @Override
-                        protected void cardSelected(final PhysicalCard elf) {
-                            action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
-                            action.addEffect(
-                                    new AddUntilEndOfPhaseActionProxyEffect(
-                                            new AbstractActionProxy() {
-                                                @Override
-                                                public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                                    if (PlayConditions.winsSkirmish(effectResult, elf)) {
-                                                        SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-                                                        List<PhysicalCard> losers = skirmishResult.getLosers();
-                                                        Set<String> opponents = new HashSet<String>();
-                                                        for (PhysicalCard loser : losers)
-                                                            opponents.add(loser.getOwner());
+    public Action getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF)) {
+                    @Override
+                    protected void cardSelected(final PhysicalCard elf) {
+                        action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
+                        action.addEffect(
+                                new AddUntilEndOfPhaseActionProxyEffect(
+                                        new AbstractActionProxy() {
+                                            @Override
+                                            public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                                                if (PlayConditions.winsSkirmish(effectResult, elf)) {
+                                                    SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+                                                    List<PhysicalCard> losers = skirmishResult.getLosers();
+                                                    Set<String> opponents = new HashSet<String>();
+                                                    for (PhysicalCard loser : losers)
+                                                        opponents.add(loser.getOwner());
 
-                                                        List<Action> actions = new LinkedList<Action>();
-                                                        for (String opponent : opponents) {
-                                                            CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard 2 cards at random from hand");
-                                                            action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
-                                                            action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
-                                                            actions.add(action);
-                                                        }
-                                                        return actions;
+                                                    List<Action> actions = new LinkedList<Action>();
+                                                    for (String opponent : opponents) {
+                                                        CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard 2 cards at random from hand");
+                                                        action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
+                                                        action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
+                                                        actions.add(action);
                                                     }
-                                                    return null;
+                                                    return actions;
                                                 }
-                                            }, Phase.SKIRMISH
-                                    ));
-                        }
+                                                return null;
+                                            }
+                                        }, Phase.SKIRMISH
+                                ));
                     }
-            );
+                }
+        );
+        return action;
+    }
 
-            return Collections.singletonList(action);
-        }
-        return null;
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
     }
 }
