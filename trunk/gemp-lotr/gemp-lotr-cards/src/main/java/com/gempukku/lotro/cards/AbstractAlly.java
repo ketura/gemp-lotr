@@ -36,7 +36,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public final List<? extends Action> getInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         if (checkPlayRequirements(playerId, game, self))

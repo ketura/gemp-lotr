@@ -29,7 +29,7 @@ public class Card1_359 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC)) >= 5) {
             CostToEffectAction action = new CostToEffectAction(self, Keyword.SHADOW, "Prevent the fellowship from moving again this turn.");

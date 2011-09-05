@@ -31,7 +31,7 @@ public class Card1_343 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.keyword(Keyword.TALE))) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Discard your tale from play or from hand to heal your companion.");

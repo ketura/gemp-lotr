@@ -42,7 +42,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         Filter validTargetFilter = Filters.and(Filters.name("Arwen"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));

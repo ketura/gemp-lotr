@@ -43,7 +43,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, _game, physicalCard);
+                        List<? extends Action> playableActions = physicalCard.getBlueprint().getInPlayPhaseActions(playerId, _game, physicalCard);
                         return (playableActions != null && playableActions.size() > 0);
                     }
                 });
@@ -59,7 +59,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                     _nextProcess = _followingGameProcess;
                 else {
                     PhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
-                    Action playAction = selectedPhysicalCard.getBlueprint().getPhaseActions(playerId, _game, selectedPhysicalCard).iterator().next();
+                    Action playAction = selectedPhysicalCard.getBlueprint().getInPlayPhaseActions(playerId, _game, selectedPhysicalCard).iterator().next();
                     _game.getActionsEnvironment().addActionToStack(playAction);
                     _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_game, _playerId, _followingGameProcess);
                 }
