@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_058 extends AbstractEvent {
     public Card1_058() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "The Seen and the Unseen", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "The Seen and the Unseen", Phase.FELLOWSHIP);
     }
 
     @Override

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_044 extends AbstractEvent {
     public Card1_044() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Foul Creation", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "Foul Creation", Phase.FELLOWSHIP);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_064 extends AbstractEvent {
     public Card1_064() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Support of the Last Homely House", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "Support of the Last Homely House", Phase.MANEUVER);
     }
 
     @Override

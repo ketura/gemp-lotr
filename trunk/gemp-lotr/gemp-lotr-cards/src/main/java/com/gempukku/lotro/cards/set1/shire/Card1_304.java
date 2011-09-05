@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_304 extends AbstractEvent {
     public Card1_304() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.SHIRE, "Noble Intentions", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, Culture.SHIRE, "Noble Intentions", Phase.SKIRMISH);
     }
 
     @Override

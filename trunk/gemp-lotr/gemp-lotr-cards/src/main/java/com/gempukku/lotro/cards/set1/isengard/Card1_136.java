@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_136 extends AbstractEvent {
     public Card1_136() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Saruman's Power", Phase.SHADOW);
+        super(Side.SHADOW, Culture.ISENGARD, "Saruman's Power", Phase.SHADOW);
         addKeyword(Keyword.SPELL);
     }
 

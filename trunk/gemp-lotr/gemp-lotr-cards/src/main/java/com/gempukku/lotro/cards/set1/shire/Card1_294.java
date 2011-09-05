@@ -3,7 +3,10 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -24,7 +27,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_294 extends AbstractEvent {
     public Card1_294() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.SHIRE, "Hobbit Appetite", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, Culture.SHIRE, "Hobbit Appetite", Phase.FELLOWSHIP);
     }
 
     @Override

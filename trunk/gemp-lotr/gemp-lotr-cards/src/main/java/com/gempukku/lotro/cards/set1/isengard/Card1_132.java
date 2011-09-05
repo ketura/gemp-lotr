@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_132 extends AbstractEvent {
     public Card1_132() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Parry", Phase.MANEUVER);
+        super(Side.SHADOW, Culture.ISENGARD, "Parry", Phase.MANEUVER);
     }
 
     @Override

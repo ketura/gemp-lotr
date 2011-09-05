@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_065 extends AbstractEvent {
     public Card1_065() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Swan-ship of the Galadhrim", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "Swan-ship of the Galadhrim", Phase.MANEUVER);
     }
 
     @Override

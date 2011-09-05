@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public class Card1_122 extends AbstractResponseEvent {
     public Card1_122() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Breeding Pit");
+        super(Side.SHADOW, Culture.ISENGARD, "Breeding Pit");
     }
 
     @Override

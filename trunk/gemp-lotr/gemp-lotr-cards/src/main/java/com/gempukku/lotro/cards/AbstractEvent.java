@@ -11,8 +11,8 @@ import java.util.List;
 public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     private Phase _playableInPhase;
 
-    public AbstractEvent(Side side, CardType cardType, Culture culture, String name, Phase playableInPhase) {
-        super(side, cardType, culture, name);
+    public AbstractEvent(Side side, Culture culture, String name, Phase playableInPhase) {
+        super(side, CardType.EVENT, culture, name);
         _playableInPhase = playableInPhase;
         if (_playableInPhase == Phase.FELLOWSHIP)
             addKeyword(Keyword.FELLOWSHIP);

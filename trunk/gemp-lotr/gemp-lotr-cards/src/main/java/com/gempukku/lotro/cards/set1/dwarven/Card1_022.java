@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
  */
 public class Card1_022 extends AbstractEvent {
     public Card1_022() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Mithril Shaft", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Mithril Shaft", Phase.MANEUVER);
     }
 
     @Override

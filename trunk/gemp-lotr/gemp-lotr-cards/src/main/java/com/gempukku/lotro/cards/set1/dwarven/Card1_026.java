@@ -3,7 +3,10 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -21,7 +24,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_026 extends AbstractEvent {
     public Card1_026() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Their Halls of Stone", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Their Halls of Stone", Phase.SKIRMISH);
     }
 
     @Override

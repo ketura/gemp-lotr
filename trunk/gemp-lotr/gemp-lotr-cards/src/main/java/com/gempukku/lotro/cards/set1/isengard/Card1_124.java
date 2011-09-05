@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_124 extends AbstractEvent {
     public Card1_124() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Cruel Caradhras", Phase.MANEUVER);
+        super(Side.SHADOW, Culture.ISENGARD, "Cruel Caradhras", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);
         addKeyword(Keyword.WEATHER);
     }

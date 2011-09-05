@@ -4,7 +4,10 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
 import com.gempukku.lotro.cards.effects.SpotEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -20,7 +23,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_039 extends AbstractEvent {
     public Card1_039() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Elf-song", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "Elf-song", Phase.FELLOWSHIP);
     }
 
     @Override
