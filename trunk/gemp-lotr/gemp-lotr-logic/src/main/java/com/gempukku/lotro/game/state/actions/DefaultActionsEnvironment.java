@@ -11,19 +11,20 @@ import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class DefaultActionsEnvironment implements ActionsEnvironment {
     private LotroGame _lotroGame;
-    private Set<String> _participants;
     private ActionStack _actionStack;
     private List<ActionProxy> _actionProxies = new LinkedList<ActionProxy>();
     private Map<Phase, List<ActionProxy>> _untilStartOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
     private Map<Phase, List<ActionProxy>> _untilEndOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
 
-    public DefaultActionsEnvironment(LotroGame lotroGame, Set<String> participants, ActionStack actionStack) {
+    public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
-        _participants = participants;
         _actionStack = actionStack;
     }
 

@@ -30,7 +30,7 @@ public class DefaultLotroGame implements LotroGame {
         _gameResultListener = gameResultListener;
         _actionStack = new ActionStack();
 
-        _actionsEnvironment = new DefaultActionsEnvironment(this, decks.keySet(), _actionStack);
+        _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack);
 
         final Map<String, List<String>> cards = new HashMap<String, List<String>>();
         for (String playerId : decks.keySet()) {
