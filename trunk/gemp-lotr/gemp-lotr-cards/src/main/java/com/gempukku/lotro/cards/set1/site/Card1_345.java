@@ -45,14 +45,13 @@ public class Card1_345 extends AbstractSite {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
-                                    return (playableActions != null && playableActions.size() > 0);
+                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard);
                                 }
                             }), 1, 1) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             PhysicalCard selectedCard = selectedCards.get(0);
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPhaseActions(playerId, game, selectedCard).get(0));
+                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
                         }
                     });
             return Collections.singletonList(action);

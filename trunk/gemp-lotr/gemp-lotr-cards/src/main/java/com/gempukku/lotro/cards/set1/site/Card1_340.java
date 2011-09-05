@@ -2,14 +2,10 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -44,17 +40,13 @@ public class Card1_340 extends AbstractSite {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
-                                    return (playableActions != null && playableActions.size() > 0);
+                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard);
                                 }
                             }) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            LotroCardBlueprint blueprint = selectedCards.get(0).getBlueprint();
-                            if (!blueprint.isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(blueprint.getName()))) {
-                                Zone zone = (blueprint.getCardType() == CardType.COMPANION) ? Zone.FREE_CHARACTERS : Zone.FREE_SUPPORT;
-                                game.getActionsEnvironment().addActionToStack(new PlayPermanentAction(selectedCards.get(0), zone));
-                            }
+                            PhysicalCard selectedCard = selectedCards.get(0);
+                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
                         }
                     });
             action.addEffect(new DrawCardEffect(playerId));

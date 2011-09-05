@@ -38,7 +38,7 @@ public interface LotroCardBlueprint {
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self);
 
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self);
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self);
 

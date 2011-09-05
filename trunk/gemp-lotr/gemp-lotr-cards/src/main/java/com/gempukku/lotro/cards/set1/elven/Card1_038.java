@@ -35,7 +35,7 @@ public class Card1_038 extends AbstractEvent {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.addCost(new SpotEffect(Filters.and(Filters.keyword(Keyword.ELF), Filters.keyword(Keyword.ARCHER), Filters.type(CardType.COMPANION))));
         action.addEffect(new AddUntilEndOfPhaseModifierEffect(

@@ -29,7 +29,7 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
 
     private void appendPlayMinionActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self))
-            actions.add(getPlayCardAction(playerId, game, self));
+            actions.add(getPlayCardAction(playerId, game, self, 0));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
     }
 
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return new PlayPermanentAction(self, Zone.SHADOW_CHARACTERS);
     }
 

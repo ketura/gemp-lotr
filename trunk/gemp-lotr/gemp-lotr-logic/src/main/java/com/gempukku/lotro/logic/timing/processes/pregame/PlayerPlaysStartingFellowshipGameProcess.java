@@ -58,7 +58,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                     _nextProcess = _followingGameProcess;
                 else {
                     PhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
-                    Action playCardAction = selectedPhysicalCard.getBlueprint().getPlayCardAction(playerId, _game, selectedPhysicalCard);
+                    Action playCardAction = selectedPhysicalCard.getBlueprint().getPlayCardAction(playerId, _game, selectedPhysicalCard, 0);
                     _game.getActionsEnvironment().addActionToStack(playCardAction);
                     _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_game, _playerId, _followingGameProcess);
                 }

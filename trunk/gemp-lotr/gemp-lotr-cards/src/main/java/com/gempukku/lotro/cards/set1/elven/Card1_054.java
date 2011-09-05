@@ -40,7 +40,7 @@ public class Card1_054 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
     }
 
@@ -49,7 +49,7 @@ public class Card1_054 extends AbstractLotroCardBlueprint {
 
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && checkPlayRequirements(playerId, game, self)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self));
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
         }
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
