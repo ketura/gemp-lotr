@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -45,7 +45,7 @@ public class Card1_289 extends AbstractCompanion {
     @Override
     public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            final CostToEffectAction action = new CostToEffectAction(self, null, "You may heal a Hobbit ally");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "You may heal a Hobbit ally");
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit ally", Filters.type(CardType.ALLY), Filters.keyword(Keyword.HOBBIT)) {
                         @Override

@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -68,7 +68,7 @@ public class Card1_046 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
-            CostToEffectAction action = new CostToEffectAction(self, null, "Move limit for this turn is +1");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Move limit for this turn is +1");
             action.addEffect(new AddUntilEndOfTurnModifierEffect(new MoveLimitModifier(self, 1)));
             return Collections.singletonList(action);
         }

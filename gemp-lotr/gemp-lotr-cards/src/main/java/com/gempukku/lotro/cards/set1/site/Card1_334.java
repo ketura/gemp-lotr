@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -35,7 +35,7 @@ public class Card1_334 extends AbstractSite {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             PhysicalCard attachedTo = playCardResult.getAttachedTo();
             if (attachedTo != null && attachedTo.getBlueprint().getCardType() == CardType.COMPANION) {
-                CostToEffectAction action = new CostToEffectAction(self, null, "Draw a card");
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Draw a card");
                 action.addEffect(new DrawCardEffect(game.getGameState().getCurrentPlayerId()));
                 return Collections.singletonList(action);
             }

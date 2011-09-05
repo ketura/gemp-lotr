@@ -5,14 +5,14 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.TriggeringEffect;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.Map;
 
-public class AttachPermanentAction extends CostToEffectAction {
+public class AttachPermanentAction extends DefaultCostToEffectAction {
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers) {
         super(card, null, "Attach " + card.getBlueprint().getName() + " from hand");
 
@@ -27,14 +27,13 @@ public class AttachPermanentAction extends CostToEffectAction {
                         modifier += filterIntegerEntry.getValue();
 
                 addCost(new PayPlayOnTwilightCostEffect(card, target, modifier));
-
-                addEffect(new AttachCardFromHandEffect(card, target));
+                addCost(new AttachCardFromHandEffect(card, target));
                 if (card.getZone() == Zone.DECK)
-                    addEffect(new ShuffleDeckEffect(card.getOwner()));
-                addEffect(new CardAffectingGameEffect(card));
-                addEffect(new TriggeringEffect(new PlayCardResult(card, target)));
+                    addCost(new ShuffleDeckEffect(card.getOwner()));
+                addCost(new CardAffectingGameEffect(card));
+                addCost(new TriggeringEffect(new PlayCardResult(card, target)));
 
-                addFailedCostEffect(new PutCardIntoDiscardEffect(card));
+//                addFailedCostEffect(new PutCardIntoDiscardEffect(card));
             }
         });
     }

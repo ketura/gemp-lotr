@@ -10,7 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
@@ -37,7 +37,7 @@ public class Card1_363 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, Keyword.SHADOW, "Play up to 3 trackers from your discard pile; end your Shadow phase.");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Play up to 3 trackers from your discard pile; end your Shadow phase.");
             action.addEffect(
                     new ChooseTrackerToPlay(action, game, 1, playerId, "Choose tracker to play",
                             new LinkedList<PhysicalCard>(game.getGameState().getDiscard(playerId)),
@@ -55,14 +55,14 @@ public class Card1_363 extends AbstractSite {
     }
 
     private class ChooseTrackerToPlay extends ChooseArbitraryCardsEffect {
-        private CostToEffectAction _action;
+        private DefaultCostToEffectAction _action;
         private LotroGame _game;
         private int _count;
         private String _playerId;
         private String _choiceText;
         private Filter _filter;
 
-        private ChooseTrackerToPlay(CostToEffectAction action, LotroGame game, int count, String playerId, String choiceText, List<PhysicalCard> cards, Filter filter, int minimum, int maximum) {
+        private ChooseTrackerToPlay(DefaultCostToEffectAction action, LotroGame game, int count, String playerId, String choiceText, List<PhysicalCard> cards, Filter filter, int minimum, int maximum) {
             super(playerId, choiceText, cards, filter, minimum, maximum);
             _action = action;
             _game = game;

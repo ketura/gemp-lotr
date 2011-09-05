@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -31,7 +31,7 @@ public class SanctuaryRule {
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
-                            CostToEffectAction action = new CostToEffectAction(null, null, "Sanctuary healing");
+                            DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Sanctuary healing");
                             action.addEffect(new HealCompanion(game.getGameState().getCurrentPlayerId(), action, 0));
                             return Collections.singletonList(action);
                         }
@@ -42,10 +42,10 @@ public class SanctuaryRule {
 
     private class HealCompanion extends UnrespondableEffect {
         private String _fpPlayerId;
-        private CostToEffectAction _action;
+        private DefaultCostToEffectAction _action;
         private int _counter;
 
-        private HealCompanion(String fpPlayerId, CostToEffectAction action, int counter) {
+        private HealCompanion(String fpPlayerId, DefaultCostToEffectAction action, int counter) {
             _fpPlayerId = fpPlayerId;
             _action = action;
             _counter = counter;

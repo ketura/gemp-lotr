@@ -8,7 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -65,8 +65,8 @@ public class Card1_031 extends AbstractAttachableFPPossession {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO) {
             boolean isUnderground = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND);
             if (isUnderground) {
-                CostToEffectAction action = new CostToEffectAction(self, null, "Discard when Underground");
-                action.addEffect(new DiscardCardFromPlayEffect(self));
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard when Underground");
+                action.addEffect(new DiscardCardFromPlayEffect(self, self));
                 return Collections.singletonList(action);
             }
         }

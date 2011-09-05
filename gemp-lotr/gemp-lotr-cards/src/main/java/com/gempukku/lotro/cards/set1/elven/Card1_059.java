@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -63,7 +63,7 @@ public class Card1_059 extends AbstractLotroCardBlueprint {
                                 Filters.keyword(Keyword.ELF),
                                 Filters.keyword(Keyword.DWARF)),
                         Filters.canExert()))) {
-            final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Use Shoulder to Shoulder");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Use Shoulder to Shoulder");
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
 

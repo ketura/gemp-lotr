@@ -43,7 +43,7 @@ public class Card1_161 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.type(CardType.EVENT), Filters.keyword(Keyword.STEALTH)))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI))) {
 
@@ -66,12 +66,12 @@ public class Card1_161 extends AbstractResponseEvent {
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai to discard", Filters.keyword(Keyword.URUK_HAI)) {
                         @Override
                         public String getText() {
-                            return "discard an Uruk-hai";
+                            return "Discard an Uruk-hai";
                         }
 
                         @Override
                         protected void cardSelected(PhysicalCard urukHai) {
-                            action.addCost(new DiscardCardFromPlayEffect(urukHai));
+                            action.addCost(new DiscardCardFromPlayEffect(self, urukHai));
                         }
                     });
 

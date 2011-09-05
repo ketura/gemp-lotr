@@ -10,7 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -42,7 +42,7 @@ public class Card1_302 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && game.getModifiersQuerying().getVitality(game.getGameState(), self) > 2 + game.getGameState().getWounds(self)
                 && !isAssigned(game, self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Exert Merry twice to add his strength to another companion.");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Merry twice to add his strength to another companion.");
             action.addCost(
                     new ExertCharacterEffect(self));
             action.addCost(

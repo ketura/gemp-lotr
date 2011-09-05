@@ -10,7 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
@@ -35,7 +35,7 @@ public class Card1_345 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && game.getGameState().getTwilightPool() >= 1) {
-            CostToEffectAction action = new CostToEffectAction(self, Keyword.SHADOW, "Remove (1) to play a Shadow weapon from your discard pile.");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Remove (1) to play a Shadow weapon from your discard pile.");
             action.addCost(new RemoveTwilightEffect(1));
             action.addEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose Shadow weapon to play", Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(),

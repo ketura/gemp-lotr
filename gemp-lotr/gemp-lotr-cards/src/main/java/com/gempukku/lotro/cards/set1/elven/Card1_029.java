@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -64,7 +64,7 @@ public class Card1_029 extends AbstractEvent {
 
                                                     List<Action> actions = new LinkedList<Action>();
                                                     for (String opponent : opponents) {
-                                                        CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Discard 2 cards at random from hand");
+                                                        DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Discard 2 cards at random from hand");
                                                         action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
                                                         action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
                                                         actions.add(action);

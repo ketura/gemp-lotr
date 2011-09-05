@@ -5,12 +5,12 @@ import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 
 import java.util.List;
 
-public class TransferPermanentAction extends CostToEffectAction {
+public class TransferPermanentAction extends DefaultCostToEffectAction {
     public TransferPermanentAction(final PhysicalCard card, LotroGame game, Filter filter) {
         super(card, null, "Transfer " + card.getBlueprint().getName());
 

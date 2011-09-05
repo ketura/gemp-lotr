@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -34,7 +34,7 @@ public class Card1_332 extends AbstractSite {
             List<Action> actions = new LinkedList<Action>();
             List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION));
             for (PhysicalCard hobbit : hobbits) {
-                CostToEffectAction action = new CostToEffectAction(self, null, "Each Hobbit must exert");
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Each Hobbit must exert");
                 action.addEffect(new ExertCharacterEffect(hobbit));
                 actions.add(action);
             }

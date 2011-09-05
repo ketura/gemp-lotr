@@ -3,11 +3,11 @@ package com.gempukku.lotro.cards.actions;
 import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.TriggeringEffect;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
-public class PlayPermanentAction extends CostToEffectAction {
+public class PlayPermanentAction extends DefaultCostToEffectAction {
     public PlayPermanentAction(PhysicalCard card, Zone zone) {
         this(card, zone, 0);
     }
@@ -24,6 +24,6 @@ public class PlayPermanentAction extends CostToEffectAction {
         addEffect(new CardAffectingGameEffect(card));
         addEffect(new TriggeringEffect(new PlayCardResult(card)));
 
-        addFailedCostEffect(new PutCardIntoDiscardEffect(card));
+//        addFinalEffect(new PutCardIntoDiscardEffect(card));
     }
 }

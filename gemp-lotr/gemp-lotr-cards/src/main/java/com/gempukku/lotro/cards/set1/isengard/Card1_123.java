@@ -39,7 +39,7 @@ public class Card1_123 extends AbstractEvent {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public Action getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseActiveCardEffect(playerId, "Choose an ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
@@ -52,7 +52,7 @@ public class Card1_123 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.not(Filters.canExert())) {
                     @Override
                     protected void cardSelected(PhysicalCard exhaustedCompanion) {
-                        action.addEffect(new DiscardCardFromPlayEffect(exhaustedCompanion));
+                        action.addEffect(new DiscardCardFromPlayEffect(self, exhaustedCompanion));
                     }
                 }
         );

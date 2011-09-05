@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.timing;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -93,7 +93,7 @@ public class TurnProcedure {
                 EffectResult effectResult = _effect.getRespondableResult();
                 List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect, effectResult);
                 if (requiredIsAboutToResponses.size() > 0) {
-                    CostToEffectAction action = new CostToEffectAction(null, null, null);
+                    DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
                     action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredIsAboutToResponses));
                     return new StackActionEffect(action);
                 }
@@ -102,7 +102,7 @@ public class TurnProcedure {
                 _checkedIsAboutToOptionalResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
                 Map<String, List<Action>> optionalBeforeTriggers = _game.getActionsEnvironment().getOptionalBeforeTriggers(_game.getGameState().getPlayerOrder().getAllPlayers(), _effect, effectResult);
-                CostToEffectAction action = new CostToEffectAction(null, null, null);
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
                 action.addEffect(new PlayoutOptionalBeforeResponsesEffect(action, optionalBeforeTriggers, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect, effectResult));
                 return new StackActionEffect(action);
             }
@@ -120,7 +120,7 @@ public class TurnProcedure {
                 EffectResult effectResult = _effect.getRespondableResult();
                 List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(effectResult);
                 if (requiredResponses.size() > 0) {
-                    CostToEffectAction action = new CostToEffectAction(null, null, null);
+                    DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
                     action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
                     return new StackActionEffect(action);
                 }
@@ -129,7 +129,7 @@ public class TurnProcedure {
                 _checkedOptionalWhenResponses = true;
                 EffectResult effectResult = _effect.getRespondableResult();
                 Map<String, List<Action>> optionalWhenResponses = _game.getActionsEnvironment().getOptionalAfterTriggers(_game.getGameState().getPlayerOrder().getAllPlayers(), effectResult);
-                CostToEffectAction action = new CostToEffectAction(null, null, null);
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
                 action.addEffect(
                         new PlayoutOptionalAfterResponsesEffect(action, optionalWhenResponses, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, effectResult));
                 return new StackActionEffect(action);
@@ -140,14 +140,14 @@ public class TurnProcedure {
     }
 
     private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect {
-        private CostToEffectAction _action;
+        private DefaultCostToEffectAction _action;
         private Map<String, List<Action>> _actionMap = new HashMap<String, List<Action>>();
         private PlayOrder _playOrder;
         private int _passCount;
         private Effect _effect;
         private EffectResult _effectResult;
 
-        private PlayoutOptionalBeforeResponsesEffect(CostToEffectAction action, Map<String, List<Action>> actionMap, PlayOrder playOrder, int passCount, Effect effect, EffectResult effectResult) {
+        private PlayoutOptionalBeforeResponsesEffect(DefaultCostToEffectAction action, Map<String, List<Action>> actionMap, PlayOrder playOrder, int passCount, Effect effect, EffectResult effectResult) {
             _action = action;
             _actionMap = actionMap;
             _playOrder = playOrder;
@@ -190,13 +190,13 @@ public class TurnProcedure {
     }
 
     private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect {
-        private CostToEffectAction _action;
+        private DefaultCostToEffectAction _action;
         private Map<String, List<Action>> _actionMap = new HashMap<String, List<Action>>();
         private PlayOrder _playOrder;
         private int _passCount;
         private EffectResult _effectResult;
 
-        private PlayoutOptionalAfterResponsesEffect(CostToEffectAction action, Map<String, List<Action>> actionMap, PlayOrder playOrder, int passCount, EffectResult effectResult) {
+        private PlayoutOptionalAfterResponsesEffect(DefaultCostToEffectAction action, Map<String, List<Action>> actionMap, PlayOrder playOrder, int passCount, EffectResult effectResult) {
             _action = action;
             _actionMap = actionMap;
             _playOrder = playOrder;
@@ -236,11 +236,11 @@ public class TurnProcedure {
     }
 
     private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect {
-        private CostToEffectAction _action;
+        private DefaultCostToEffectAction _action;
         private Effect _effect;
         private List<Action> _actions;
 
-        private PlayoutAllActionsIfEffectNotCancelledEffect(CostToEffectAction action, Effect effect, List<Action> actions) {
+        private PlayoutAllActionsIfEffectNotCancelledEffect(DefaultCostToEffectAction action, Effect effect, List<Action> actions) {
             _action = action;
             _effect = effect;
             _actions = actions;

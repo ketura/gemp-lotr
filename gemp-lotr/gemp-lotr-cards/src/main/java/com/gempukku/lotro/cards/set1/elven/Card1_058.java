@@ -35,7 +35,7 @@ public class Card1_058 extends AbstractEvent {
     }
 
     @Override
-    public Action getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public Action getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseActiveCardEffect(playerId, "Exert first Elf", Filters.keyword(Keyword.ELF)) {
@@ -55,7 +55,7 @@ public class Card1_058 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard condition) {
-                        action.addEffect(new DiscardCardFromPlayEffect(condition));
+                        action.addEffect(new DiscardCardFromPlayEffect(self, condition));
                     }
                 });
         return action;
