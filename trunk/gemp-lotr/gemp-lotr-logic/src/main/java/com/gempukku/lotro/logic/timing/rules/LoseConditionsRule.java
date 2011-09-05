@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -27,7 +27,7 @@ public class LoseConditionsRule {
                     @Override
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
-                            CostToEffectAction action = new CostToEffectAction(null, null, "Losing the game due to Ring-Bearer being killed");
+                            DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Losing the game due to Ring-Bearer being killed");
                             action.addEffect(
                                     new UnrespondableEffect() {
                                         @Override
@@ -40,7 +40,7 @@ public class LoseConditionsRule {
                         PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
                         int ringBearerResistance = ringBearer.getBlueprint().getResistance();
                         if (game.getGameState().getBurdens(game.getGameState().getCurrentPlayerId()) >= ringBearerResistance) {
-                            CostToEffectAction action = new CostToEffectAction(null, null, "Losing the game due to Ring-Bearer corruption");
+                            DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Losing the game due to Ring-Bearer corruption");
                             action.addEffect(
                                     new UnrespondableEffect() {
                                         @Override

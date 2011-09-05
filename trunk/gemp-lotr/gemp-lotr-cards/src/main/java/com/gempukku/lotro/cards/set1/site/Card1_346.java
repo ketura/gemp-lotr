@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -39,7 +39,7 @@ public class Card1_346 extends AbstractSite {
             boolean frodoCanExert = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"), Filters.canExert());
             boolean twoOtherCanExert = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) >= 2;
             if (frodoCanExert && twoOtherCanExert) {
-                final CostToEffectAction action = new CostToEffectAction(self, null, "Frodo or 2 other companions must exert.");
+                final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Frodo or 2 other companions must exert.");
 
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
                 List<Effect> possibleEffects = new LinkedList<Effect>();
@@ -62,13 +62,13 @@ public class Card1_346 extends AbstractSite {
                 return Collections.singletonList(action);
             }
             if (frodoCanExert) {
-                CostToEffectAction action = new CostToEffectAction(self, null, "Frodo must exert");
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Frodo must exert");
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
                 action.addEffect(new ExertCharacterEffect(frodo));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {
-                final CostToEffectAction action = new CostToEffectAction(self, null, "2 non-Frodo companions must exert");
+                final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "2 non-Frodo companions must exert");
                 action.addEffect(
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override

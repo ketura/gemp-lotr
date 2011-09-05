@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -65,7 +65,7 @@ public class Card1_002 extends AbstractLotroCardBlueprint {
                 && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
             List<Action> actions = new LinkedList<Action>();
 
-            CostToEffectAction action = new CostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
             action.addCost(new CancelEffect(effect));
             action.addEffect(new AddBurdenEffect(playerId));
             action.addEffect(new PutOnTheOneRingEffect());
@@ -75,7 +75,7 @@ public class Card1_002 extends AbstractLotroCardBlueprint {
                         public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                             if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                     && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                CostToEffectAction action = new CostToEffectAction(self, null, "Take off The One Ring");
+                                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Take off The One Ring");
                                 action.addEffect(new TakeOffTheOneRingEffect());
                                 return Collections.singletonList(action);
                             }
@@ -97,7 +97,7 @@ public class Card1_002 extends AbstractLotroCardBlueprint {
                 && game.getGameState().isWearingRing()
                 && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
             List<Action> actions = new LinkedList<Action>();
-            CostToEffectAction action = new CostToEffectAction(self, null, "Add a burden instead of taking a wound");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add a burden instead of taking a wound");
             action.addCost(new CancelEffect(effect));
             action.addEffect(new AddBurdenEffect(self.getOwner()));
             return actions;

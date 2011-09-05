@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -36,7 +36,7 @@ public class Card1_301 extends AbstractAlly {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (game.getGameState().getTwilightPool() < 3) {
-            CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to reveal the top 3 cards of your draw deck. Take all SHIRE cards revealed into hand and discard the rest.");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to reveal the top 3 cards of your draw deck. Take all SHIRE cards revealed into hand and discard the rest.");
             action.addCost(new AddTwilightEffect(2));
             action.addEffect(
                     new UnrespondableEffect() {

@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -35,7 +35,7 @@ public class Card1_355 extends AbstractSite {
             List<PhysicalCard> companions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
             List<Action> actions = new LinkedList<Action>();
             for (PhysicalCard companion : companions) {
-                CostToEffectAction action = new CostToEffectAction(self, null, "Exert companion");
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert companion");
                 action.addEffect(new ExertCharacterEffect(companion));
                 actions.add(action);
             }

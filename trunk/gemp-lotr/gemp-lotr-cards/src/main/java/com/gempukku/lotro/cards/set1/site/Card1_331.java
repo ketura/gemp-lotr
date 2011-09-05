@@ -11,7 +11,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -35,7 +35,7 @@ public class Card1_331 extends AbstractSite {
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert())) {
-            final CostToEffectAction action = new CostToEffectAction(self, Keyword.SKIRMISH, "Exert your companion or minion to make that character strength +2.");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert your companion or minion to make that character strength +2.");
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose your companion or minion", Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert()) {
                         @Override

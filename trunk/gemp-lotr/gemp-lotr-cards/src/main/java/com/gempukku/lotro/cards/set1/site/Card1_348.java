@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
@@ -39,7 +39,7 @@ public class Card1_348 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION))
                 && self.getData() == null) {
-            final CostToEffectAction action = new CostToEffectAction(self, Keyword.SHADOW, "Play a weather card from your draw deck (limit one per turn).");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Play a weather card from your draw deck (limit one per turn).");
             action.addEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose a weather card to play", Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(),
                             Filters.keyword(Keyword.WEATHER),

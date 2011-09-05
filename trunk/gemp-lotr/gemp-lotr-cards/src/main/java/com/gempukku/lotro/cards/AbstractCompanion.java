@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -46,7 +46,7 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
 
     private void appendHealCompanionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
-            CostToEffectAction action = new CostToEffectAction(self, null, "Discard card to heal");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard card to heal");
             action.addCost(new DiscardCardFromHandEffect(self));
 
             PhysicalCard active = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));

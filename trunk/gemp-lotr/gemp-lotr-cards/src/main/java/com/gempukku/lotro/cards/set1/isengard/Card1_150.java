@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -36,7 +36,7 @@ public class Card1_150 extends AbstractMinion {
     @Override
     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)) {
-            CostToEffectAction action = new CostToEffectAction(self, null, "Free Peoples player must discard the top 2 cards of his draw deck.");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Free Peoples player must discard the top 2 cards of his draw deck.");
             action.addEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             action.addEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);

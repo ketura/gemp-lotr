@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -44,7 +44,7 @@ public class Card1_045 extends AbstractAlly {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Galadriel to play an Elf for free");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Galadriel to play an Elf for free");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
                     new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.keyword(Keyword.ELF),
@@ -71,7 +71,7 @@ public class Card1_045 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             List<PhysicalCard> allies = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY), Filters.siteNumber(6));
 
-            CostToEffectAction action = new CostToEffectAction(self, null, "Heal every ally whose home is site 6");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Heal every ally whose home is site 6");
             for (PhysicalCard ally : allies)
                 action.addEffect(new HealCharacterEffect(ally));
 

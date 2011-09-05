@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -31,7 +31,7 @@ public class Card1_333 extends AbstractSite {
     @Override
     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.MINION))) {
-            CostToEffectAction action = new CostToEffectAction(self, null, "Free Peoples player discards a card from hand");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Free Peoples player discards a card from hand");
             action.addEffect(
                     new ChooseAndDiscardCardFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false));
             return Collections.singletonList(action);

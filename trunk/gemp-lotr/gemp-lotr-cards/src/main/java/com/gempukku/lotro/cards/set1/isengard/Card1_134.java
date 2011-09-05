@@ -9,7 +9,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -73,7 +73,7 @@ public class Card1_134 extends AbstractLotroCardBlueprint {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getGameState().getCurrentSite() == self.getAttachedTo()) {
 
-            CostToEffectAction action = new CostToEffectAction(self, null, "Exert each Hobbit who moves from this site");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert each Hobbit who moves from this site");
             List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.HOBBIT));
             for (PhysicalCard hobbit : hobbits)
                 action.addEffect(new ExertCharacterEffect(hobbit));
@@ -82,8 +82,8 @@ public class Card1_134 extends AbstractLotroCardBlueprint {
         }
 
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            CostToEffectAction action = new CostToEffectAction(self, null, "Discard at the end of the turn");
-            action.addEffect(new DiscardCardFromPlayEffect(self));
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard at the end of the turn");
+            action.addEffect(new DiscardCardFromPlayEffect(self, self));
 
             return Collections.singletonList(action);
         }

@@ -12,7 +12,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -40,7 +40,7 @@ public class Card1_017 extends AbstractAlly {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Grimir to shuffle a DWARVEN event from your discard pile into draw deck");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Grimir to shuffle a DWARVEN event from your discard pile into draw deck");
             action.addCost(new ExertCharacterEffect(self));
 
             List<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), Filters.type(CardType.EVENT));

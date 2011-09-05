@@ -9,10 +9,16 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import java.util.List;
 
 public class DiscardCardFromPlayEffect extends UnrespondableEffect {
+    private PhysicalCard _source;
     private PhysicalCard _card;
 
-    public DiscardCardFromPlayEffect(PhysicalCard card) {
+    public DiscardCardFromPlayEffect(PhysicalCard source, PhysicalCard card) {
+        _source = source;
         _card = card;
+    }
+
+    public PhysicalCard getSource() {
+        return _source;
     }
 
     @Override
