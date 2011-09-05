@@ -35,7 +35,7 @@ public class Card1_063 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert())) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert and Elf to discard a SAURON minion, a SAURON condition, or a SAURON possession");

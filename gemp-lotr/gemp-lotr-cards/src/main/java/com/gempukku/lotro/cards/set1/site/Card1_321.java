@@ -33,7 +33,7 @@ public class Card1_321 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getInPlayPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.canExert())) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Exert a Hobbit to play Merry or Pippin from your draw deck.");
@@ -52,7 +52,7 @@ public class Card1_321 extends AbstractSite {
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
+                                            List<? extends Action> playableActions = physicalCard.getBlueprint().getInPlayPhaseActions(playerId, game, physicalCard);
                                             return (playableActions != null && playableActions.size() > 0);
                                         }
                                     }), 0, 1) {
@@ -61,7 +61,7 @@ public class Card1_321 extends AbstractSite {
                                     List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                     if (selectedCards.size() > 0) {
                                         PhysicalCard selectedCard = selectedCards.get(0);
-                                        game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPhaseActions(playerId, game, selectedCard).get(0));
+                                        game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getInPlayPhaseActions(playerId, game, selectedCard).get(0));
                                     }
                                 }
                             }));

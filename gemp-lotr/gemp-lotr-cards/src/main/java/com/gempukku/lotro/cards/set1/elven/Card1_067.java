@@ -86,7 +86,7 @@ public class Card1_067 extends AbstractAlly {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getPhaseActions(playerId, game, self);
+            return copied.getInPlayPhaseActions(playerId, game, self);
         return null;
     }
 }
