@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -13,7 +12,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,10 +22,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Maneuver: Exert a Dwarf to wound 2 Orcs or to wound 1 Orc twice.
  */
-public class Card1_019 extends AbstractLotroCardBlueprint {
+public class Card1_019 extends AbstractEvent {
     public Card1_019() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Here Lies Balin, Son of Fundin");
-        addKeyword(Keyword.MANEUVER);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Here Lies Balin, Son of Fundin", Phase.MANEUVER);
     }
 
     @Override
@@ -36,36 +33,35 @@ public class Card1_019 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard dwarf) {
-                            action.addCost(new ExertCharacterEffect(dwarf));
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert());
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard dwarf) {
+                        action.addCost(new ExertCharacterEffect(dwarf));
+                    }
+                }
+        );
+        action.addEffect(
+                new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 1, 2, Filters.keyword(Keyword.ORC)) {
+                    @Override
+                    protected void cardsSelected(List<PhysicalCard> cards) {
+                        if (cards.size() == 2) {
+                            action.addEffect(new WoundCharacterEffect(cards.get(0)));
+                            action.addEffect(new WoundCharacterEffect(cards.get(1)));
+                        } else {
+                            action.addEffect(new WoundCharacterEffect(cards.get(0)));
+                            action.addEffect(new WoundCharacterEffect(cards.get(0)));
                         }
                     }
-            );
-            action.addEffect(
-                    new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 1, 2, Filters.keyword(Keyword.ORC)) {
-                        @Override
-                        protected void cardsSelected(List<PhysicalCard> cards) {
-                            if (cards.size() == 2) {
-                                action.addEffect(new WoundCharacterEffect(cards.get(0)));
-                                action.addEffect(new WoundCharacterEffect(cards.get(1)));
-                            } else {
-                                action.addEffect(new WoundCharacterEffect(cards.get(0)));
-                                action.addEffect(new WoundCharacterEffect(cards.get(0)));
-                            }
-                        }
-                    }
-            );
-
-            return Collections.<Action>singletonList(action);
-        }
-
-        return null;
+                }
+        );
+        return action;
     }
 }

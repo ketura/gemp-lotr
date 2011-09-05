@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -12,9 +11,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -23,10 +19,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Skirmish: Make a Dwarf strength +2 (or +4 if at an underground site).
  */
-public class Card1_026 extends AbstractLotroCardBlueprint {
+public class Card1_026 extends AbstractEvent {
     public Card1_026() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Their Halls of Stone");
-        addKeyword(Keyword.SKIRMISH);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Their Halls of Stone", Phase.SKIRMISH);
     }
 
     @Override
@@ -35,22 +30,24 @@ public class Card1_026 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
-            PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.keyword(Keyword.DWARF)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard dwarf) {
-                            GameState gameState = game.getGameState();
-                            int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
-                            game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
-                                    new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH);
-                        }
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self) {
+        PlayEventAction action = new PlayEventAction(self);
+        action.addEffect(
+                new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.keyword(Keyword.DWARF)) {
+                    @Override
+                    protected void cardSelected(PhysicalCard dwarf) {
+                        GameState gameState = game.getGameState();
+                        int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
+                        game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
+                                new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH);
                     }
-            );
-            return Collections.<Action>singletonList(action);
-        }
-        return null;
+                }
+        );
+        return action;
     }
 }

@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.common.*;
@@ -15,9 +14,6 @@ import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -26,10 +22,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Fellowship: Add (X) to heal a Hobbit companion X times.
  */
-public class Card1_294 extends AbstractLotroCardBlueprint {
+public class Card1_294 extends AbstractEvent {
     public Card1_294() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.SHIRE, "Hobbit Appetite");
-        addKeyword(Keyword.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.SHIRE, "Hobbit Appetite", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -38,28 +33,30 @@ public class Card1_294 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addCost(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new IntegerAwaitingDecision(1, "Choose how many twilight to add", 0) {
-                                @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    final int twilight = getValidatedResult(result);
-                                    action.addCost(new AddTwilightEffect(twilight));
-                                    action.addEffect(
-                                            new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT)) {
-                                                @Override
-                                                protected void cardSelected(PhysicalCard hobbit) {
-                                                    for (int i = 0; i < twilight; i++)
-                                                        action.addEffect(new HealCharacterEffect(hobbit));
-                                                }
-                                            });
-                                }
-                            }));
-            return Collections.singletonList(action);
-        }
-        return null;
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    @Override
+    public Action getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addCost(
+                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                        new IntegerAwaitingDecision(1, "Choose how many twilight to add", 0) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                final int twilight = getValidatedResult(result);
+                                action.addCost(new AddTwilightEffect(twilight));
+                                action.addEffect(
+                                        new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT)) {
+                                            @Override
+                                            protected void cardSelected(PhysicalCard hobbit) {
+                                                for (int i = 0; i < twilight; i++)
+                                                    action.addEffect(new HealCharacterEffect(hobbit));
+                                            }
+                                        });
+                            }
+                        }));
+        return action;
     }
 }

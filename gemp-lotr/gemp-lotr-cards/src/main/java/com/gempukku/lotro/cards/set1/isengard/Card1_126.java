@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -12,9 +11,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -23,10 +19,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Maneuver: Make an Uruk-hai fierce until the regroup phase.
  */
-public class Card1_126 extends AbstractLotroCardBlueprint {
+public class Card1_126 extends AbstractEvent {
     public Card1_126() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Hunt Them Down!");
-        addKeyword(Keyword.MANEUVER);
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Hunt Them Down!", Phase.MANEUVER);
     }
 
     @Override
@@ -35,21 +30,23 @@ public class Card1_126 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.MANEUVER, self)) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard urukHai) {
-                            action.addEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(urukHai), Keyword.FIERCE), Phase.REGROUP));
-                        }
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addEffect(
+                new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
+                    @Override
+                    protected void cardSelected(PhysicalCard urukHai) {
+                        action.addEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new KeywordModifier(self, Filters.sameCard(urukHai), Keyword.FIERCE), Phase.REGROUP));
                     }
-            );
-            return Collections.singletonList(action);
-        }
-        return null;
+                }
+        );
+        return action;
     }
 }

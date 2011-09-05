@@ -38,16 +38,8 @@ public class Card1_014 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        Filter validTargetFilter = Filters.and(Filters.name("Gimli"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
-
-        appendAttachCardAction(actions, game, self, validTargetFilter);
-
-        appendTransferPossessionAction(actions, game, self, validTargetFilter);
-
-        return actions;
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.name("Gimli"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
     }
 
     @Override

@@ -41,11 +41,21 @@ public class Card1_055 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self))
-            actions.add(new PlayPermanentAction(self, Zone.FREE_SUPPORT));
+            actions.add(getPlayCardAction(playerId, game, self));
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"), Filters.canExert())

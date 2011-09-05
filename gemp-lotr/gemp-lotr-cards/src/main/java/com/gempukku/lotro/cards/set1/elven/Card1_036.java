@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.GameUtils;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
@@ -15,7 +14,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,10 +25,9 @@ import java.util.List;
  * Game Text: Fellowship: Exert an Elf to reveal an opponent's hand. That player discards a card from hand for each Orc
  * revealed.
  */
-public class Card1_036 extends AbstractLotroCardBlueprint {
+public class Card1_036 extends AbstractEvent {
     public Card1_036() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Curse Their Foul Feet!");
-        addKeyword(Keyword.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Curse Their Foul Feet!", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -39,30 +36,31 @@ public class Card1_036 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert())) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard elf) {
-                            action.addCost(new ExertCharacterEffect(elf));
-                        }
-                    });
-            action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                    new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
-                        @Override
-                        protected void validDecisionMade(int index, String chosenOpponent) {
-                            List<? extends PhysicalCard> hand = game.getGameState().getHand(chosenOpponent);
-                            int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC)).size();
-                            for (int i = 0; i < orcsCount; i++)
-                                action.addEffect(new ChooseAndDiscardCardFromHandEffect(action, chosenOpponent, false));
-                        }
-                    })
-            );
-            return Collections.singletonList(action);
-        }
-        return null;
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert());
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard elf) {
+                        action.addCost(new ExertCharacterEffect(elf));
+                    }
+                });
+        action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
+                    @Override
+                    protected void validDecisionMade(int index, String chosenOpponent) {
+                        List<? extends PhysicalCard> hand = game.getGameState().getHand(chosenOpponent);
+                        int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC)).size();
+                        for (int i = 0; i < orcsCount; i++)
+                            action.addEffect(new ChooseAndDiscardCardFromHandEffect(action, chosenOpponent, false));
+                    }
+                })
+        );
+        return action;
     }
 }

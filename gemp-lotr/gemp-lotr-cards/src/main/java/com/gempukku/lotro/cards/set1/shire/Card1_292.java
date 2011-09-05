@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,14 +37,12 @@ public class Card1_292 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.keyword(Keyword.HOBBIT), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.PIPE))));
+    }
 
-        Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.HOBBIT), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.PIPE))));
-
-        appendAttachCardAction(actions, game, self, validTargetFilter);
-        appendTransferPossessionAction(actions, game, self, validTargetFilter);
-
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION))) {
             final CostToEffectAction action = new CostToEffectAction(self, Keyword.FELLOWSHIP, "Discard a pipeweed possession and spot X pipes to remove (X).");
@@ -64,10 +62,8 @@ public class Card1_292 extends AbstractAttachableFPPossession {
                                     action.addEffect(new RemoveTwilightEffect(spotCount));
                                 }
                             }));
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
-
 }

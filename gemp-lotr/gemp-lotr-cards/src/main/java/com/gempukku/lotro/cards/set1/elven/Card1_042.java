@@ -11,10 +11,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -31,17 +27,14 @@ public class Card1_042 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.CLOAK))));
+    }
 
-        Filter validTargetFilter = Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.CLOAK))));
-
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF)))
-            appendAttachCardAction(actions, game, self, validTargetFilter);
-
-        appendTransferPossessionAction(actions, game, self, validTargetFilter);
-
-        return actions;
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return super.checkPlayRequirements(playerId, game, self)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF));
     }
 
     @Override

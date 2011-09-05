@@ -14,10 +14,6 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -35,14 +31,8 @@ public class Card1_049 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        Filter validTargetFilter = Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.MAN), Filters.not(Filters.hasAttached(Filters.name("The Last Alliance of Elves and Men"))));
-
-        appendAttachCardAction(actions, game, self, validTargetFilter);
-
-        return actions;
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.MAN), Filters.not(Filters.hasAttached(Filters.name("The Last Alliance of Elves and Men"))));
     }
 
     @Override

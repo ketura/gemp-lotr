@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -16,9 +15,6 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -28,10 +24,9 @@ import java.util.List;
  * Game Text: Maneuver: Exert a Dwarf to discard cards from the top of your draw deck until you choose to stop
  * (limit 5). Add (1) for each card discarded in this way. Take the last card discarded into hand.
  */
-public class Card1_022 extends AbstractLotroCardBlueprint {
+public class Card1_022 extends AbstractEvent {
     public Card1_022() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Mithril Shaft");
-        addKeyword(Keyword.MANEUVER);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Mithril Shaft", Phase.MANEUVER);
     }
 
     @Override
@@ -40,23 +35,23 @@ public class Card1_022 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard dwarf) {
-                            action.addCost(new ExertCharacterEffect(dwarf));
-                        }
-                    }
-            );
-            action.addEffect(new DiscardAndChooseToPutToHandEffect(action, playerId, null, 0));
-            return Collections.<Action>singletonList(action);
-        }
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert());
+    }
 
-        return null;
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard dwarf) {
+                        action.addCost(new ExertCharacterEffect(dwarf));
+                    }
+                }
+        );
+        action.addEffect(new DiscardAndChooseToPutToHandEffect(action, playerId, null, 0));
+        return action;
     }
 
     private class DiscardAndChooseToPutToHandEffect extends UnrespondableEffect {

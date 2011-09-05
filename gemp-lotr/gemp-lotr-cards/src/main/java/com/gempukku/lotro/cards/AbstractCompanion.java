@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -40,12 +39,9 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
         _signet = signet;
     }
 
-    private void appendPlayCompanionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
-        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        if (PlayConditions.canPlayCompanionDuringSetup(game.getGameState(), modifiersQuerying, self)
-                || PlayConditions.canPlayCharacterDuringFellowship(game.getGameState(), modifiersQuerying, self)) {
-            actions.add(getPlayCompanionAction(game, self));
-        }
+    private void appendPlayCompanionActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self))
+            actions.add(getPlayCardAction(playerId, game, self));
     }
 
     private void appendHealCompanionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
@@ -66,7 +62,7 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
         List<Action> actions = new LinkedList<Action>();
 
         if (checkPlayRequirements(playerId, game, self))
-            appendPlayCompanionActions(actions, game, self);
+            appendPlayCompanionActions(actions, playerId, game, self);
 
         appendHealCompanionActions(actions, game, self);
 
@@ -77,11 +73,12 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
         return actions;
     }
 
-    protected boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
-        return true;
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.checkRuleOfNine(game.getGameState(), game.getModifiersQuerying(), self);
     }
 
-    protected Action getPlayCompanionAction(LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
         return new PlayPermanentAction(self, Zone.FREE_CHARACTERS);
     }
 

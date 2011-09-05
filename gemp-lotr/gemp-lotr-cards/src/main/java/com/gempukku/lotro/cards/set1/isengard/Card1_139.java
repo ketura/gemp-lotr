@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -16,7 +15,6 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,10 +27,9 @@ import java.util.List;
  * Game Text: Skirmish: Make an Uruk-hai strength +2, or spot 5 companions to make an Uruk-hai strength +4 and fierce
  * until the regroup phase.
  */
-public class Card1_139 extends AbstractLotroCardBlueprint {
+public class Card1_139 extends AbstractEvent {
     public Card1_139() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Savagery to Match Their Numbers");
-        addKeyword(Keyword.SKIRMISH);
+        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Savagery to Match Their Numbers", Phase.SKIRMISH);
     }
 
     @Override
@@ -41,30 +38,31 @@ public class Card1_139 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SKIRMISH, self)) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard urukHai) {
-                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
-                                List<Modifier> modifiers = new LinkedList<Modifier>();
-                                modifiers.add(new StrengthModifier(null, null, 4));
-                                modifiers.add(new KeywordModifier(null, null, Keyword.FIERCE));
-                                action.addEffect(
-                                        new AddUntilStartOfPhaseModifierEffect(
-                                                new CompositeModifier(self, Filters.sameCard(urukHai), modifiers), Phase.REGROUP));
-                            } else {
-                                action.addEffect(
-                                        new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, Filters.sameCard(urukHai), 2), Phase.SKIRMISH));
-                            }
-                        }
-                    });
-            return Collections.singletonList(action);
-        }
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return true;
+    }
 
-        return null;
+    @Override
+    public Action getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addEffect(
+                new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
+                    @Override
+                    protected void cardSelected(PhysicalCard urukHai) {
+                        if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
+                            List<Modifier> modifiers = new LinkedList<Modifier>();
+                            modifiers.add(new StrengthModifier(null, null, 4));
+                            modifiers.add(new KeywordModifier(null, null, Keyword.FIERCE));
+                            action.addEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new CompositeModifier(self, Filters.sameCard(urukHai), modifiers), Phase.REGROUP));
+                        } else {
+                            action.addEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(
+                                            new StrengthModifier(self, Filters.sameCard(urukHai), 2), Phase.SKIRMISH));
+                        }
+                    }
+                });
+        return action;
     }
 }

@@ -1,13 +1,9 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -31,11 +27,9 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
         _site = site;
     }
 
-    private void appendPlayMinionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
-        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        if (PlayConditions.canPlayMinionDuringShadow(game.getGameState(), modifiersQuerying, self)) {
-            actions.add(getPlayMinionAction(game, self));
-        }
+    private void appendPlayMinionActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self))
+            actions.add(getPlayCardAction(playerId, game, self));
     }
 
     @Override
@@ -43,7 +37,7 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
         List<Action> actions = new LinkedList<Action>();
 
         if (checkPlayRequirements(playerId, game, self))
-            appendPlayMinionActions(actions, game, self);
+            appendPlayMinionActions(actions, playerId, game, self);
 
         List<? extends Action> extraActions = getExtraPhaseActions(playerId, game, self);
         if (extraActions != null)
@@ -52,11 +46,11 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
         return actions;
     }
 
-    protected boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
-        return true;
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
     }
 
-    protected Action getPlayMinionAction(LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
         return new PlayPermanentAction(self, Zone.SHADOW_CHARACTERS);
     }
 

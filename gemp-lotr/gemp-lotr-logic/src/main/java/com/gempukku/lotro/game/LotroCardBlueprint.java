@@ -36,19 +36,23 @@ public interface LotroCardBlueprint {
 
     public Modifier getAlwaysOnEffect(PhysicalCard self);
 
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame lotroGame, PhysicalCard self);
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self);
 
-    public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self);
 
-    public List<? extends Action> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self);
 
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self);
 
-    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame lotroGame, EffectResult effectResult, PhysicalCard self);
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self);
+
+    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
+
+    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
 
     public int getSiteNumber();
 

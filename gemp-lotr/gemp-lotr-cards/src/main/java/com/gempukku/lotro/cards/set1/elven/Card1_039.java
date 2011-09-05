@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
 import com.gempukku.lotro.cards.effects.SpotEffect;
@@ -11,9 +10,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -22,10 +18,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Fellowship: Spot an Elf to remove a burden.
  */
-public class Card1_039 extends AbstractLotroCardBlueprint {
+public class Card1_039 extends AbstractEvent {
     public Card1_039() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Elf-song");
-        addKeyword(Keyword.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Elf-song", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -34,15 +29,15 @@ public class Card1_039 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF))) {
-            PlayEventAction action = new PlayEventAction(self);
-            action.addCost(new SpotEffect(Filters.keyword(Keyword.ELF)));
-            action.addEffect(new RemoveBurderEffect(playerId));
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF));
+    }
 
-            return Collections.singletonList(action);
-        }
-        return null;
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        PlayEventAction action = new PlayEventAction(self);
+        action.addCost(new SpotEffect(Filters.keyword(Keyword.ELF)));
+        action.addEffect(new RemoveBurderEffect(playerId));
+        return action;
     }
 }

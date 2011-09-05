@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
@@ -29,10 +29,9 @@ import java.util.List;
  * Game Text: Response: If a Dwarf wins a skirmish, make an opponent discard 3 cards from the top of his or her draw
  * deck.
  */
-public class Card1_023 extends AbstractLotroCardBlueprint {
+public class Card1_023 extends AbstractResponseEvent {
     public Card1_023() {
         super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Nobody Tosses a Dwarf");
-        addKeyword(Keyword.RESPONSE);
     }
 
     @Override

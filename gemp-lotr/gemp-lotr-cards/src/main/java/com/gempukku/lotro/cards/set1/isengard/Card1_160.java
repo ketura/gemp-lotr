@@ -18,7 +18,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,14 +37,8 @@ public class Card1_160 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
-
-        appendAttachCardAction(actions, game, self, validTargetFilter);
-
-        return actions;
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
     }
 
     @Override

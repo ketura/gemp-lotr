@@ -44,22 +44,30 @@ public class Card1_135 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost"))));
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        final AttachPermanentAction action = new AttachPermanentAction(game, self, Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost")))), Collections.<Filter, Integer>emptyMap());
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard isengardMinion) {
+                        action.addCost(new ExertCharacterEffect(isengardMinion));
+                    }
+                }
+        );
+        return action;
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost"))))) {
-
-            final AttachPermanentAction action = new AttachPermanentAction(game, self, Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost")))), Collections.<Filter, Integer>emptyMap());
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard isengardMinion) {
-                            action.addCost(new ExertCharacterEffect(isengardMinion));
-                        }
-                    }
-            );
-
-            return Collections.singletonList(action);
+                && checkPlayRequirements(playerId, game, self)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self));
         }
 
         return null;

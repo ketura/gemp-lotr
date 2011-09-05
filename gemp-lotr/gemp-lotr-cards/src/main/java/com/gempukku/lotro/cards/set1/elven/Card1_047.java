@@ -22,6 +22,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,16 +43,12 @@ public class Card1_047 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.name("Arwen"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
+    }
 
-        Filter validTargetFilter = Filters.and(Filters.name("Arwen"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
-
-        if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gwemegil")))
-            appendAttachCardAction(actions, game, self, validTargetFilter);
-
-        appendTransferPossessionAction(actions, game, self, validTargetFilter);
-
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && (PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 || game.getGameState().getHand(playerId).size() >= 2)) {
@@ -86,10 +83,9 @@ public class Card1_047 extends AbstractAttachableFPPossession {
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1),
                             Phase.SKIRMISH));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-
-        return actions;
+        return null;
     }
 
     @Override

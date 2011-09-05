@@ -39,19 +39,28 @@ public class Card1_016 extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert());
+    }
+
+    @Override
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard dwarf) {
+                        action.addCost(new ExertCharacterEffect(dwarf));
+                    }
+                });
+        return action;
+    }
+
+    @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert())) {
-            final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard dwarf) {
-                            action.addCost(new ExertCharacterEffect(dwarf));
-                        }
-                    });
-
-            return Collections.<Action>singletonList(action);
+                && checkPlayRequirements(playerId, game, self)) {
+            return Collections.<Action>singletonList(getPlayCardAction(playerId, game, self));
         }
         return null;
     }

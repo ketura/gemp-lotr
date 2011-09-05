@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -12,9 +11,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -23,10 +19,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Fellowship: Exert a Dwarf companion to draw 3 cards.
  */
-public class Card1_006 extends AbstractLotroCardBlueprint {
+public class Card1_006 extends AbstractEvent {
     public Card1_006() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Delving");
-        addKeyword(Keyword.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Delving", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -35,24 +30,24 @@ public class Card1_006 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.type(CardType.COMPANION), Filters.canExert())) {
-            final PlayEventAction action = new PlayEventAction(self);
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose Dwarf companion", Filters.keyword(Keyword.DWARF), Filters.type(CardType.COMPANION), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard dwarf) {
-                            action.addCost(new ExertCharacterEffect(dwarf));
-                            action.addEffect(new DrawCardEffect(playerId));
-                            action.addEffect(new DrawCardEffect(playerId));
-                            action.addEffect(new DrawCardEffect(playerId));
-                        }
-                    }
-            );
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.type(CardType.COMPANION), Filters.canExert());
+    }
 
-            return Collections.singletonList(action);
-        }
-        return null;
+    @Override
+    public Action getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.addCost(
+                new ChooseActiveCardEffect(playerId, "Choose Dwarf companion", Filters.keyword(Keyword.DWARF), Filters.type(CardType.COMPANION), Filters.canExert()) {
+                    @Override
+                    protected void cardSelected(PhysicalCard dwarf) {
+                        action.addCost(new ExertCharacterEffect(dwarf));
+                        action.addEffect(new DrawCardEffect(playerId));
+                        action.addEffect(new DrawCardEffect(playerId));
+                        action.addEffect(new DrawCardEffect(playerId));
+                    }
+                }
+        );
+        return action;
     }
 }

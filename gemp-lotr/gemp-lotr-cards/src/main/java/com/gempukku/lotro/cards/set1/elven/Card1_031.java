@@ -17,7 +17,10 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Set: The Fellowship of the Ring
@@ -36,18 +39,15 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.keyword(Keyword.ELF), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.MOUNT))));
+    }
 
-        Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.ELF), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.MOUNT))));
-
+    @Override
+    protected Map<Filter, Integer> getAttachCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
         Map<Filter, Integer> costModifiers = new HashMap<Filter, Integer>();
         costModifiers.put(Filters.name("Arwen"), -2);
-
-        appendAttachCardAction(actions, game, self, validTargetFilter, costModifiers);
-        appendTransferPossessionAction(actions, game, self, validTargetFilter);
-
-        return actions;
+        return costModifiers;
     }
 
     @Override
