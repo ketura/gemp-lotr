@@ -300,9 +300,11 @@ var GempLotrDeckBuildingUI = Class.extend({
             this.normalCollectionGroup.layoutCards();
             this.specialCollectionGroup.layoutCards();
 
-            $("#previousPage").button("option", "disabled", this.start == 0);
-            var cnt = parseInt(root.getAttribute("count"));
-            $("#nextPage").button("option", "disabled", (this.start + this.count) >= cnt);
+            if (this.normalCollectionDiv.is(":visible")) {
+                $("#previousPage").button("option", "disabled", this.start == 0);
+                var cnt = parseInt(root.getAttribute("count"));
+                $("#nextPage").button("option", "disabled", (this.start + this.count) >= cnt);
+            }
         }
     },
 
