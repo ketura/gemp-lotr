@@ -11,6 +11,11 @@ public class RemoveBurderEffect extends UnrespondableEffect {
     }
 
     @Override
+    public String getText() {
+        return "Remove a burden";
+    }
+
+    @Override
     public void playEffect(LotroGame game) {
         game.getGameState().removeBurdens(_playerId, 1);
     }
