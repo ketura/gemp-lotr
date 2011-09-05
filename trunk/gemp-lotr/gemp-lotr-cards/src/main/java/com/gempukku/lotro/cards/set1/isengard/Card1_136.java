@@ -46,7 +46,7 @@ public class Card1_136 extends AbstractEvent {
                     }
                 });
         action.addEffect(
-                new DiscardCardsFromPlayEffect(Filters.type(CardType.CONDITION)));
+                new DiscardCardsFromPlayEffect(self, Filters.type(CardType.CONDITION)));
         return action;
     }
 }

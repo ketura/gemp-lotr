@@ -33,7 +33,7 @@ public class Card1_353 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard every ally");
             action.addEffect(
-                    new DiscardCardsFromPlayEffect(Filters.type(CardType.ALLY)));
+                    new DiscardCardsFromPlayEffect(self, Filters.type(CardType.ALLY)));
             return Collections.singletonList(action);
         }
         return null;

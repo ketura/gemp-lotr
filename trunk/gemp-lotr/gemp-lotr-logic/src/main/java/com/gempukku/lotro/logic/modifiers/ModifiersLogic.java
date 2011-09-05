@@ -360,6 +360,18 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return result;
     }
 
+    @Override
+    public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source) {
+        boolean result = true;
+        for (Modifier modifier : getModifiers(ModifierEffect.DISCARD_FROM_PLAY_MODIFIER))
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                result = modifier.canBeDiscardedFromPlay(gameState, this, card, source, result);
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                result = modifier.canBeDiscardedFromPlay(gameState, this, card, source, result);
+        return result;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

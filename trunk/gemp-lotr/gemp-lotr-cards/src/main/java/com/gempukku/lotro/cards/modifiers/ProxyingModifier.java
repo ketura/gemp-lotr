@@ -182,4 +182,12 @@ public class ProxyingModifier implements Modifier {
             return modifier.isValidFreePlayerAssignments(gameState, modifiersQuerying, companion, minions, result);
         return result;
     }
+
+    @Override
+    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.canBeDiscardedFromPlay(gameState, modifiersQuerying, card, source, result);
+        return result;
+    }
 }

@@ -190,4 +190,12 @@ public class CompositeModifier implements Modifier {
 
         return result;
     }
+
+    @Override
+    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.canBeDiscardedFromPlay(gameState, modifiersQuerying, card, source, result);
+
+        return result;
+    }
 }
