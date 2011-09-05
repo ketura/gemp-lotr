@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.turn.general;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
@@ -28,34 +29,39 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        String playerId = _playOrder.getNextPlayer();
-        GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, playerId);
-        _game.getGameState().iterateActivableCards(playerId, visitor);
+        if (_game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+                && _game.getGameState().getSkirmish().isCancelled()) {
+            _nextProcess = _followingGameProcess;
+        } else {
+            String playerId = _playOrder.getNextPlayer();
+            GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, playerId);
+            _game.getGameState().iterateActivableCards(playerId, visitor);
 
-        List<? extends Action> actions = visitor.getActions();
+            List<? extends Action> actions = visitor.getActions();
 
-        List<Action> playableActions = new LinkedList<Action>();
-        for (Action action : actions)
-            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), action))
-                playableActions.add(action);
+            List<Action> playableActions = new LinkedList<Action>();
+            for (Action action : actions)
+                if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), action))
+                    playableActions.add(action);
 
-        _game.getUserFeedback().sendAwaitingDecision(playerId,
-                new CardActionSelectionDecision(1, "Choose action to play or press DONE", playableActions, true) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        Action action = getSelectedAction(result);
-                        if (action != null) {
-                            _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, 0, _followingGameProcess);
-                            _game.getActionsEnvironment().addActionToStack(action);
-                        } else {
-                            _consecutivePasses++;
-                            if (_consecutivePasses >= _playOrder.getPlayerCount())
-                                _nextProcess = _followingGameProcess;
-                            else
-                                _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, _consecutivePasses, _followingGameProcess);
+            _game.getUserFeedback().sendAwaitingDecision(playerId,
+                    new CardActionSelectionDecision(1, "Choose action to play or press DONE", playableActions, true) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            Action action = getSelectedAction(result);
+                            if (action != null) {
+                                _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, 0, _followingGameProcess);
+                                _game.getActionsEnvironment().addActionToStack(action);
+                            } else {
+                                _consecutivePasses++;
+                                if (_consecutivePasses >= _playOrder.getPlayerCount())
+                                    _nextProcess = _followingGameProcess;
+                                else
+                                    _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_game, _playOrder, _consecutivePasses, _followingGameProcess);
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     @Override

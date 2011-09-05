@@ -17,7 +17,8 @@ public class ResolveSkirmishGameProcess implements GameProcess {
     @Override
     public void process() {
         Skirmish skirmish = _game.getGameState().getSkirmish();
-        _game.getActionsEnvironment().addActionToStack(new ResolveSkirmishAction(_game, skirmish));
+        if (!skirmish.isCancelled())
+            _game.getActionsEnvironment().addActionToStack(new ResolveSkirmishAction(_game, skirmish));
     }
 
     @Override
