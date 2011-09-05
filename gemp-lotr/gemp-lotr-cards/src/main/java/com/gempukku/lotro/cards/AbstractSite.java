@@ -24,7 +24,7 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return null;
     }
 

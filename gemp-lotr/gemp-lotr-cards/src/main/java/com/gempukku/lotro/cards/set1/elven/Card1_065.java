@@ -38,7 +38,7 @@ public class Card1_065 extends AbstractEvent {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final CostToEffectAction action = new CostToEffectAction(self, Keyword.MANEUVER, "Exert an Elf ally whose home is site 6. Until the regroup phase, that ally is strength +3 and participates in archery fire and skirmishes.");
         action.addCost(
                 new ChooseActiveCardEffect(playerId, "Choose and Elf ally", Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert()) {

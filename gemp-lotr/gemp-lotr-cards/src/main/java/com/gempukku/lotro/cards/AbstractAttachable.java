@@ -43,7 +43,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
         if (((side == Side.FREE_PEOPLE && PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self))
                 || (side == Side.SHADOW && PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)))
                 && checkPlayRequirements(playerId, game, self)) {
-            actions.add(getPlayCardAction(playerId, game, self));
+            actions.add(getPlayCardAction(playerId, game, self, 0));
         }
 
         List<? extends Action> extraPhaseActions = getExtraPhaseActions(playerId, game, self);
@@ -54,7 +54,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return new AttachPermanentAction(game, self, getValidTargetFilter(playerId, game, self), getAttachCostModifiers(playerId, game, self));
     }
 

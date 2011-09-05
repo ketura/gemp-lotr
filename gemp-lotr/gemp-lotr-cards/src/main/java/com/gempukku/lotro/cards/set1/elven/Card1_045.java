@@ -2,12 +2,13 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -50,17 +51,14 @@ public class Card1_045 extends AbstractAlly {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
-                                    return (playableActions != null && playableActions.size() > 0);
+                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard);
                                 }
                             }) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            LotroCardBlueprint blueprint = selectedCards.get(0).getBlueprint();
-                            if (!blueprint.isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(blueprint.getName()))) {
-                                Zone zone = (blueprint.getCardType() == CardType.COMPANION) ? Zone.FREE_CHARACTERS : Zone.FREE_SUPPORT;
-                                game.getActionsEnvironment().addActionToStack(new PlayPermanentAction(selectedCards.get(0), zone, -1000));
-                            }
+                            PhysicalCard selectedCard = selectedCards.get(0);
+                            game.getActionsEnvironment().addActionToStack(
+                                    selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, -1000));
                         }
                     });
             return Collections.singletonList(action);

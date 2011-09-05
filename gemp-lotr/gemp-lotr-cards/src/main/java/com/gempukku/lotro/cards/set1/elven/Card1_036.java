@@ -41,7 +41,7 @@ public class Card1_036 extends AbstractEvent {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {

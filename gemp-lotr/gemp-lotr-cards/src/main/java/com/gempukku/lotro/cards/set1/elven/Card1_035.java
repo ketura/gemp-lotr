@@ -41,7 +41,7 @@ public class Card1_035 extends AbstractEvent {
     }
 
     @Override
-    public Action getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self) {
+    public Action getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(new SpotEffect(Filters.keyword(Keyword.ELF)));
         action.addEffect(
@@ -50,8 +50,7 @@ public class Card1_035 extends AbstractEvent {
                                 new Filter() {
                                     @Override
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
-                                        return (playableActions != null && playableActions.size() > 0);
+                                        return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard);
                                     }
                                 }), 0, 1) {
                             @Override
@@ -59,7 +58,7 @@ public class Card1_035 extends AbstractEvent {
                                 List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                 if (selectedCards.size() > 0) {
                                     PhysicalCard selectedCard = selectedCards.get(0);
-                                    game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPhaseActions(playerId, game, selectedCard).get(0));
+                                    game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
                                 }
                             }
                         })
