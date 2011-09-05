@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_139 extends AbstractEvent {
     public Card1_139() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Savagery to Match Their Numbers", Phase.SKIRMISH);
+        super(Side.SHADOW, Culture.ISENGARD, "Savagery to Match Their Numbers", Phase.SKIRMISH);
     }
 
     @Override

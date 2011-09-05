@@ -4,7 +4,10 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Card1_003 extends AbstractEvent {
     public Card1_003() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Axe Strike", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Axe Strike", Phase.SKIRMISH);
     }
 
     @Override

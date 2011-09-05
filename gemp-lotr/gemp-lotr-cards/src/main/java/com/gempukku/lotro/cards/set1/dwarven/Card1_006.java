@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_006 extends AbstractEvent {
     public Card1_006() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Delving", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Delving", Phase.FELLOWSHIP);
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card1_287 extends AbstractResponseEvent {
     public Card1_287() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.SHIRE, "Extraordinary Resilience");
+        super(Side.FREE_PEOPLE, Culture.SHIRE, "Extraordinary Resilience");
     }
 
     @Override

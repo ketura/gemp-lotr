@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_052 extends AbstractEvent {
     public Card1_052() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Lightfootedness", Phase.ARCHERY);
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "Lightfootedness", Phase.ARCHERY);
     }
 
     @Override

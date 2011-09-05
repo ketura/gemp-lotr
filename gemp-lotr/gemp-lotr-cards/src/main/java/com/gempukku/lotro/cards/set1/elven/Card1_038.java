@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_038 extends AbstractEvent {
     public Card1_038() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.ELVEN, "Double Shot", Phase.ARCHERY);
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "Double Shot", Phase.ARCHERY);
     }
 
     @Override

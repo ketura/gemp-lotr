@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_028 extends AbstractEvent {
     public Card1_028() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Wealth of Moria", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Wealth of Moria", Phase.FELLOWSHIP);
     }
 
     @Override

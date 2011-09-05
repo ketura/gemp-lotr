@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -31,7 +30,7 @@ import java.util.List;
  */
 public class Card1_023 extends AbstractResponseEvent {
     public Card1_023() {
-        super(Side.FREE_PEOPLE, CardType.EVENT, Culture.DWARVEN, "Nobody Tosses a Dwarf");
+        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Nobody Tosses a Dwarf");
     }
 
     @Override

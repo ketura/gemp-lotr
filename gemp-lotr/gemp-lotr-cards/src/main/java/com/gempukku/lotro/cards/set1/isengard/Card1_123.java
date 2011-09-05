@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.timing.Action;
  */
 public class Card1_123 extends AbstractEvent {
     public Card1_123() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Caradhras Has Not Forgiven Us", Phase.MANEUVER);
+        super(Side.SHADOW, Culture.ISENGARD, "Caradhras Has Not Forgiven Us", Phase.MANEUVER);
         addKeyword(Keyword.WEATHER);
         addKeyword(Keyword.SPELL);
     }

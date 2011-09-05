@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_161 extends AbstractResponseEvent {
     public Card1_161() {
-        super(Side.SHADOW, CardType.EVENT, Culture.ISENGARD, "Wariness");
+        super(Side.SHADOW, Culture.ISENGARD, "Wariness");
         addKeyword(Keyword.SEARCH);
     }
 
