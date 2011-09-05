@@ -11,10 +11,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LotroGameMediator {
     private Map<String, GatheringParticipantCommunicationChannel> _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
@@ -46,7 +43,7 @@ public class LotroGameMediator {
             return null;
 
         sb.append("<b>Affecting card:</b>");
-        List<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
+        Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
         for (Modifier modifier : modifiers) {
             PhysicalCard source = modifier.getSource();
             if (source != null)

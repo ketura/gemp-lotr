@@ -31,7 +31,8 @@ public class Card1_048 extends AbstractCompanion {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF));
+        return super.checkPlayRequirements(playerId, game, self)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF));
     }
 
     @Override
