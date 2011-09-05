@@ -1,0 +1,48 @@
+package com.gempukku.lotro.cards.set1.shire;
+
+import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.timing.Action;
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Set: The Fellowship of the Ring
+ * Side: Free
+ * Culture: Shire
+ * Twilight Cost: 1
+ * Type: Possession • Hand Weapon
+ * Strength: +2
+ * Game Text: Bearer must be a Hobbit.
+ */
+public class Card1_299 extends AbstractAttachableFPPossession {
+    public Card1_299() {
+        super(1, Culture.SHIRE, "Hobbit Sword");
+        addKeyword(Keyword.HAND_WEAPON);
+    }
+
+    @Override
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        List<Action> actions = new LinkedList<Action>();
+
+        Filter validTargetFilter = Filters.and(Filters.keyword(Keyword.HOBBIT), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
+
+        appendAttachCardAction(actions, game, self, validTargetFilter);
+        appendTransferPossessionAction(actions, game, self, validTargetFilter);
+
+        return actions;
+    }
+
+    @Override
+    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+        return new StrengthModifier(self, Filters.attachedTo(self), 2);
+    }
+}
