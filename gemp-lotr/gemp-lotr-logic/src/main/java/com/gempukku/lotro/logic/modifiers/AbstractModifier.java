@@ -122,4 +122,9 @@ public abstract class AbstractModifier implements Modifier {
     public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
         return result;
     }
+
+    @Override
+    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result) {
+        return result;
+    }
 }

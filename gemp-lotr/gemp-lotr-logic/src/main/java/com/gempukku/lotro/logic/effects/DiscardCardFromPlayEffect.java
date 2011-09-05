@@ -17,10 +17,6 @@ public class DiscardCardFromPlayEffect extends UnrespondableEffect {
         _card = card;
     }
 
-    public PhysicalCard getSource() {
-        return _source;
-    }
-
     @Override
     public boolean canPlayEffect(LotroGame game) {
         Zone zone = _card.getZone();
@@ -29,16 +25,18 @@ public class DiscardCardFromPlayEffect extends UnrespondableEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        GameState gameState = game.getGameState();
-        gameState.stopAffecting(_card);
-        gameState.removeCardFromZone(_card);
-        gameState.addCardToZone(_card, Zone.DISCARD);
+        if (game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), _card, _source)) {
+            GameState gameState = game.getGameState();
+            gameState.stopAffecting(_card);
+            gameState.removeCardFromZone(_card);
+            gameState.addCardToZone(_card, Zone.DISCARD);
 
-        List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
-        for (PhysicalCard attachedCard : attachedCards) {
-            gameState.stopAffecting(attachedCard);
-            gameState.removeCardFromZone(attachedCard);
-            gameState.addCardToZone(attachedCard, Zone.DISCARD);
+            List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
+            for (PhysicalCard attachedCard : attachedCards) {
+                gameState.stopAffecting(attachedCard);
+                gameState.removeCardFromZone(attachedCard);
+                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+            }
         }
     }
 }
