@@ -18,5 +18,6 @@ public class AttachCardFromHandEffect extends UnrespondableEffect {
     public void playEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         gameState.attachCard(_physicalCard, _targetCard);
+        gameState.startAffecting(_physicalCard, game.getModifiersEnvironment());
     }
 }
