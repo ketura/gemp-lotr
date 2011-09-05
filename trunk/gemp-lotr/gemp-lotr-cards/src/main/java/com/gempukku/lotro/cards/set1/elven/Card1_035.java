@@ -39,7 +39,7 @@ public class Card1_035 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getInPlayPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF))) {
             final PlayEventAction action = new PlayEventAction(self);
@@ -50,7 +50,7 @@ public class Card1_035 extends AbstractLotroCardBlueprint {
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            List<? extends Action> playableActions = physicalCard.getBlueprint().getInPlayPhaseActions(playerId, game, physicalCard);
+                                            List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
                                             return (playableActions != null && playableActions.size() > 0);
                                         }
                                     }), 0, 1) {
@@ -59,7 +59,7 @@ public class Card1_035 extends AbstractLotroCardBlueprint {
                                     List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                     if (selectedCards.size() > 0) {
                                         PhysicalCard selectedCard = selectedCards.get(0);
-                                        game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getInPlayPhaseActions(playerId, game, selectedCard).get(0));
+                                        game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPhaseActions(playerId, game, selectedCard).get(0));
                                     }
                                 }
                             })

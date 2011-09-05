@@ -35,7 +35,7 @@ public class Card1_348 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION))
                 && self.getData() == null) {
@@ -46,7 +46,7 @@ public class Card1_348 extends AbstractSite {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getInPlayPhaseActions(playerId, game, physicalCard);
+                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
                                     return (playableActions != null && playableActions.size() > 0);
                                 }
                             }), 1, 1) {
@@ -54,7 +54,7 @@ public class Card1_348 extends AbstractSite {
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             PhysicalCard selectedCard = selectedCards.get(0);
                             self.storeData(new Object());
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getInPlayPhaseActions(playerId, game, selectedCard).get(0));
+                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPhaseActions(playerId, game, selectedCard).get(0));
                         }
                     });
             return Collections.singletonList(action);

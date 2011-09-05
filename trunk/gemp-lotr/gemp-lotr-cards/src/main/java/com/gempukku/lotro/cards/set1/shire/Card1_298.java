@@ -38,7 +38,7 @@ public class Card1_298 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
             if (game.getGameState().getCurrentSiteNumber() > 5 || (fpCharacter != null && game.getModifiersQuerying().hasKeyword(game.getGameState(), fpCharacter, Keyword.HOBBIT))) {

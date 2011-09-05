@@ -50,7 +50,7 @@ public class Card1_045 extends AbstractAlly {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getInPlayPhaseActions(playerId, game, physicalCard);
+                                    List<? extends Action> playableActions = physicalCard.getBlueprint().getPhaseActions(playerId, game, physicalCard);
                                     return (playableActions != null && playableActions.size() > 0);
                                 }
                             }) {
