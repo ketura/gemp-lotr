@@ -23,8 +23,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_303 extends AbstractCompanion {
     public Card1_303() {
-        super(1, 3, 4, Culture.SHIRE, Signet.ARAGORN, "Merry", true);
-        addKeyword(Keyword.HOBBIT);
+        super(1, 3, 4, Culture.SHIRE, Keyword.HOBBIT, Signet.ARAGORN, "Merry", true);
     }
 
     @Override

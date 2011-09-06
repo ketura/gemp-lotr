@@ -17,18 +17,26 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
     private int _twilightCost;
     private int _strength;
     private int _vitality;
+    private Keyword _race;
     private Signet _signet;
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Signet signet, String name) {
-        this(twilightCost, strength, vitality, culture, signet, name, false);
+    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Keyword race, Signet signet, String name) {
+        this(twilightCost, strength, vitality, culture, race, signet, name, false);
     }
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Signet signet, String name, boolean unique) {
+    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Keyword race, Signet signet, String name, boolean unique) {
         super(Side.FREE_PEOPLE, CardType.COMPANION, culture, name, unique);
         _twilightCost = twilightCost;
         _strength = strength;
         _vitality = vitality;
+        _race = race;
         _signet = signet;
+        if (race != null)
+            addKeyword(race);
+    }
+
+    public Keyword getRace() {
+        return _race;
     }
 
     @Override

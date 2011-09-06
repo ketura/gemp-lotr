@@ -26,8 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_011 extends AbstractCompanion {
     public Card1_011() {
-        super(2, 5, 3, Culture.DWARVEN, null, "Farin", true);
-        addKeyword(Keyword.DWARF);
+        super(2, 5, 3, Culture.DWARVEN, Keyword.DWARF, null, "Farin", true);
     }
 
     @Override

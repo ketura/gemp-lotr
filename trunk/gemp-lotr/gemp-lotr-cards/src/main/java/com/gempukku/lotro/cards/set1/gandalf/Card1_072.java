@@ -28,8 +28,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_072 extends AbstractCompanion {
     public Card1_072() {
-        super(4, 6, 4, Culture.GANDALF, Signet.FRODO, "Gandalf", true);
-        addKeyword(Keyword.WIZARD);
+        super(4, 6, 4, Culture.GANDALF, Keyword.WIZARD, Signet.FRODO, "Gandalf", true);
     }
 
     @Override
