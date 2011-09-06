@@ -16,6 +16,9 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -47,6 +50,15 @@ public class Card1_316 extends AbstractLotroCardBlueprint {
         PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
         action.addCost(new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit", true, Filters.keyword(Keyword.HOBBIT), Filters.canExert()));
         return action;
+    }
+
+    @Override
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
+                && checkPlayRequirements(playerId, game, self)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
+        }
+        return null;
     }
 
     @Override

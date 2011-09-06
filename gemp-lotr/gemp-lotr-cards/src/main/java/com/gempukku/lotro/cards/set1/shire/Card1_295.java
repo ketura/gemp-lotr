@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.cards.effects.ReplaceOpponentSiteEffect;
+import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.cards.modifiers.ProxyingModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -97,7 +97,7 @@ public class Card1_295 extends AbstractAlly {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert this ally and to replace opponent's site 1 with your site 1.");
             action.addCost(new ExertCharacterEffect(self));
-            action.addEffect(new ReplaceOpponentSiteEffect(playerId, 1));
+            action.addEffect(new PlaySiteEffect(playerId, 1));
             actions.add(action);
         }
         LotroCardBlueprint copied = getCopied(game, self);
