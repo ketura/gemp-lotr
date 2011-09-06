@@ -37,8 +37,7 @@ import java.util.List;
  */
 public class Card1_295 extends AbstractAlly {
     public Card1_295() {
-        super(1, 1, 2, 2, Culture.SHIRE, "Hobbit Farmer");
-        addKeyword(Keyword.HOBBIT);
+        super(1, 1, 2, 2, Keyword.HOBBIT, Culture.SHIRE, "Hobbit Farmer");
     }
 
     private Filter getFilter(PhysicalCard self) {

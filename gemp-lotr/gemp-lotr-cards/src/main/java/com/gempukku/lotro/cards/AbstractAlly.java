@@ -18,17 +18,24 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     private int _siteNumber;
     private int _strength;
     private int _vitality;
+    private Keyword _race;
 
-    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Culture culture, String name) {
-        this(twilight, siteNumber, strength, vitality, culture, name, false);
+    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Keyword race, Culture culture, String name) {
+        this(twilight, siteNumber, strength, vitality, race, culture, name, false);
     }
 
-    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Culture culture, String name, boolean unique) {
+    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Keyword race, Culture culture, String name, boolean unique) {
         super(Side.FREE_PEOPLE, CardType.ALLY, culture, name, unique);
         _twilight = twilight;
         _siteNumber = siteNumber;
         _strength = strength;
         _vitality = vitality;
+        _race = race;
+        addKeyword(_race);
+    }
+
+    public Keyword getRace() {
+        return _race;
     }
 
     @Override

@@ -33,8 +33,7 @@ import java.util.List;
  */
 public class Card1_040 extends AbstractAlly {
     public Card1_040() {
-        super(4, 3, 8, 4, Culture.ELVEN, "Elrond", true);
-        addKeyword(Keyword.ELF);
+        super(4, 3, 8, 4, Keyword.ELF, Culture.ELVEN, "Elrond", true);
     }
 
     @Override
