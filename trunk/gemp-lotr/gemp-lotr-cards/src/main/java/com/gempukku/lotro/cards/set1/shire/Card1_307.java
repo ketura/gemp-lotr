@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
+import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -46,7 +46,7 @@ public class Card1_307 extends AbstractCompanion {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Remove a burder or wound from a companion");
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(new RemoveBurderEffect(self.getOwner()));
+            possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
             possibleEffects.add(
                     new ChooseActiveCardEffect(self.getOwner(), "Choose a companion", Filters.type(CardType.COMPANION)) {
                         @Override
