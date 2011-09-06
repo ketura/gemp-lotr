@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
@@ -13,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
@@ -38,13 +37,7 @@ public class Card1_319 extends AbstractSite {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.canExert())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert a Hobbit to play The Gaffer from your draw deck.");
             action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard hobbit) {
-                            action.addCost(new ExertCharacterEffect(hobbit));
-                        }
-                    }
-            );
+                    new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit", true, Filters.keyword(Keyword.HOBBIT), Filters.canExert()));
 
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

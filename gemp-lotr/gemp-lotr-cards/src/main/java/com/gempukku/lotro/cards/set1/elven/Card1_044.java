@@ -3,13 +3,16 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 import java.util.List;
 
@@ -41,12 +44,7 @@ public class Card1_044 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard elf) {
-                        action.addCost(new ExertCharacterEffect(elf));
-                    }
-                });
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.keyword(Keyword.ELF), Filters.canExert()));
         action.addCost(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                 new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
                     @Override

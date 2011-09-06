@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -10,7 +10,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
@@ -43,13 +42,7 @@ public class Card1_019 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard dwarf) {
-                        action.addCost(new ExertCharacterEffect(dwarf));
-                    }
-                }
-        );
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose Dwarf to exert", true, Filters.keyword(Keyword.DWARF), Filters.canExert()));
         action.addEffect(
                 new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 1, 2, Filters.keyword(Keyword.ORC)) {
                     @Override

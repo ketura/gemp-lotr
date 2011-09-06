@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -11,7 +11,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -39,12 +38,7 @@ public class Card1_351 extends AbstractSite {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert an Elf to look at an opponent's hand.");
             action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.keyword(Keyword.ELF), Filters.canExert()) {
-                        @Override
-                        protected void cardSelected(PhysicalCard elf) {
-                            action.addCost(new ExertCharacterEffect(elf));
-                        }
-                    });
+                    new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.keyword(Keyword.ELF), Filters.canExert()));
 
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

@@ -2,13 +2,12 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -37,12 +36,7 @@ public class Card1_312 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose a Hobbit companion", Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard hobbitCompanion) {
-                        action.addCost(new ExertCharacterEffect(hobbitCompanion));
-                    }
-                });
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit companion", true, Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION), Filters.canExert()));
         action.addEffect(new RemoveBurderEffect(playerId));
         return action;
     }

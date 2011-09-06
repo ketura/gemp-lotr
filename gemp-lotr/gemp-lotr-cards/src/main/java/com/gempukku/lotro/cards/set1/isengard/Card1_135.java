@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -12,7 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -53,13 +52,7 @@ public class Card1_135 extends AbstractLotroCardBlueprint {
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final AttachPermanentAction action = new AttachPermanentAction(game, self, Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost")))), Collections.<Filter, Integer>emptyMap());
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard isengardMinion) {
-                        action.addCost(new ExertCharacterEffect(isengardMinion));
-                    }
-                }
-        );
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose ISENGARD minion", true, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()));
         return action;
     }
 

@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -51,15 +51,10 @@ public class Card1_161 extends AbstractResponseEvent {
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai to exert", Filters.keyword(Keyword.URUK_HAI), Filters.canExert()) {
+                    new ChooseAndExertCharacterEffect(action, playerId, "Choose an Uruk-hai to exert", true, Filters.keyword(Keyword.URUK_HAI), Filters.canExert()) {
                         @Override
                         public String getText() {
                             return "Exert an Uruk-hai";
-                        }
-
-                        @Override
-                        protected void cardSelected(PhysicalCard urukHai) {
-                            action.addCost(new ExertCharacterEffect(urukHai));
                         }
                     });
             possibleCosts.add(
