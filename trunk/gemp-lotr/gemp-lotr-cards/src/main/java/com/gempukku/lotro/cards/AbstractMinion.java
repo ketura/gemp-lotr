@@ -50,7 +50,8 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
     }
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
-        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
+        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
+                && game.getGameState().getTwilightPool() >= game.getModifiersQuerying().getTwilightCost(game.getGameState(), self);
     }
 
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
