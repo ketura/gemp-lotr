@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -10,8 +10,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -36,14 +34,12 @@ public class Card1_086 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                        new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
-                            @Override
-                            protected void validDecisionMade(int index, String result) {
-                                // TODO - Reveal
-                            }
-                        })
-        );
+                new ChooseOpponentEffect(playerId) {
+                    @Override
+                    protected void opponentChosen(String opponentId) {
+                        // TODO - Reveal
+                    }
+                });
         return action;
     }
 

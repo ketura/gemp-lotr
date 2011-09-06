@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -41,19 +39,18 @@ public class Card1_351 extends AbstractSite {
                     new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.keyword(Keyword.ELF), Filters.canExert()));
 
             action.addEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
-                                @Override
-                                protected void validDecisionMade(int index, String opponentId) {
-                                    action.addEffect(
-                                            new ChooseArbitraryCardsEffect(playerId, "Opponent's hand", new LinkedList<PhysicalCard>(game.getGameState().getHand(opponentId)), 0, 0) {
-                                                @Override
-                                                protected void cardsSelected(List<PhysicalCard> selectedCards) {
-
-                                                }
-                                            });
-                                }
-                            }));
+                    new ChooseOpponentEffect(playerId) {
+                        @Override
+                        protected void opponentChosen(String opponentId) {
+                            action.addEffect(
+                                    new ChooseArbitraryCardsEffect(playerId, "Opponent's hand", new LinkedList<PhysicalCard>(game.getGameState().getHand(opponentId)), 0, 0) {
+                                        @Override
+                                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                            // TODO - Reveal hand
+                                        }
+                                    });
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;

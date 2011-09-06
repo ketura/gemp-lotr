@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 import java.util.List;
 
@@ -45,11 +43,11 @@ public class Card1_044 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.keyword(Keyword.ELF), Filters.canExert()));
-        action.addCost(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
+        action.addCost(
+                new ChooseOpponentEffect(playerId) {
                     @Override
-                    protected void validDecisionMade(int index, String chosenOpponent) {
-                        List<? extends PhysicalCard> hand = game.getGameState().getHand(chosenOpponent);
+                    protected void opponentChosen(String opponentId) {
+                        List<? extends PhysicalCard> hand = game.getGameState().getHand(opponentId);
                         List<PhysicalCard> isengardMinions = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
                         action.addCost(
                                 new ChooseArbitraryCardsEffect(playerId, "Choose ISENGARD minion to discard", isengardMinions, 1, 1) {
@@ -62,8 +60,7 @@ public class Card1_044 extends AbstractEvent {
                                 }
                         );
                     }
-                })
-        );
+                });
         return action;
     }
 }
