@@ -28,8 +28,7 @@ import java.util.List;
  */
 public class Card1_178 extends AbstractMinion {
     public Card1_178() {
-        super(1, 5, 1, 4, Culture.MORIA, "Goblin Runner");
-        addKeyword(Keyword.ORC);
+        super(1, 5, 1, 4, Keyword.ORC, Culture.MORIA, "Goblin Runner");
     }
 
     @Override
