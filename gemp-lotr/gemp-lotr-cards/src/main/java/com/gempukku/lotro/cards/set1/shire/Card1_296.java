@@ -35,7 +35,7 @@ public class Card1_296 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
         return (game.getGameState().getCurrentSiteNumber() > 4 || (fpCharacter != null && game.getModifiersQuerying().hasKeyword(game.getGameState(), fpCharacter, Keyword.HOBBIT)));
     }

@@ -44,7 +44,7 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
             Side side = self.getBlueprint().getSide();
             if ((side == Side.FREE_PEOPLE && PlayConditions.canPlayFPCardDuringPhase(game, _playableInPhases, self))
                     || (side == Side.SHADOW && PlayConditions.canPlayShadowCardDuringPhase(game, _playableInPhases, self))) {
-                if (checkPlayRequirements(playerId, game, self))
+                if (checkPlayRequirements(playerId, game, self, 0))
                     return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
             }
         }
