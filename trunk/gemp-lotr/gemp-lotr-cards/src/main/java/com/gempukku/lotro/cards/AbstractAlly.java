@@ -42,7 +42,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (checkPlayRequirements(playerId, game, self))
+        if (checkPlayRequirements(playerId, game, self, 0))
             appendPlayAllyActions(actions, playerId, game, self);
 
         appendHealAllyActions(actions, game, self);
@@ -72,7 +72,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
         }
     }
 
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
     }
 

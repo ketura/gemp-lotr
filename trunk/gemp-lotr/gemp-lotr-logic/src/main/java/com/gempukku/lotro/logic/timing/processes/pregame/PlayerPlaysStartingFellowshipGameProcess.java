@@ -45,7 +45,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                         int twilightCost = modifiersQuerying.getTwilightCost(gameState, physicalCard);
                         return gameState.getTwilightPool() + twilightCost <= 4
-                                && physicalCard.getBlueprint().checkPlayRequirements(playerId, _game, physicalCard);
+                                && physicalCard.getBlueprint().checkPlayRequirements(playerId, _game, physicalCard, 0);
                     }
                 });
     }

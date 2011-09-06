@@ -31,7 +31,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     protected abstract Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(playerId, game, self));
     }
@@ -42,7 +42,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
         Side side = self.getBlueprint().getSide();
         if (((side == Side.FREE_PEOPLE && PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self))
                 || (side == Side.SHADOW && PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)))
-                && checkPlayRequirements(playerId, game, self)) {
+                && checkPlayRequirements(playerId, game, self, 0)) {
             actions.add(getPlayCardAction(playerId, game, self, 0));
         }
 

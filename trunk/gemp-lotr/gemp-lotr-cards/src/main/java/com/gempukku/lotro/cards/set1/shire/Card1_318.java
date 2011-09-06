@@ -37,7 +37,7 @@ public class Card1_318 extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
     }
 
@@ -49,7 +49,7 @@ public class Card1_318 extends AbstractLotroCardBlueprint {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && checkPlayRequirements(playerId, game, self)) {
+                && checkPlayRequirements(playerId, game, self, 0)) {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
         }
 

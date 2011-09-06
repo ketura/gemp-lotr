@@ -66,7 +66,7 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (checkPlayRequirements(playerId, game, self))
+        if (checkPlayRequirements(playerId, game, self, 0))
             appendPlayCompanionActions(actions, playerId, game, self);
 
         appendHealCompanionActions(actions, game, self);
@@ -78,7 +78,7 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
         return actions;
     }
 
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
                 && PlayConditions.checkRuleOfNine(game.getGameState(), game.getModifiersQuerying(), self);
     }

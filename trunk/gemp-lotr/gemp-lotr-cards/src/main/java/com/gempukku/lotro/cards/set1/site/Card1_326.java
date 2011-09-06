@@ -42,7 +42,7 @@ public class Card1_326 extends AbstractSite {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard);
+                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0);
                                 }
                             }) {
                         @Override

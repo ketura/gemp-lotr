@@ -36,7 +36,7 @@ public interface LotroCardBlueprint {
 
     public Modifier getAlwaysOnEffect(PhysicalCard self);
 
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self);
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 

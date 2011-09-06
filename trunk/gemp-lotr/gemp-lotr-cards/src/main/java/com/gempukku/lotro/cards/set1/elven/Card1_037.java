@@ -55,7 +55,7 @@ public class Card1_037 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return true;
     }
 }

@@ -37,8 +37,8 @@ public class Card1_040 extends AbstractAlly {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self) {
-        return super.checkPlayRequirements(playerId, game, self) && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.keyword(Keyword.ELF), Filters.name("Gandalf")));
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier) && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.keyword(Keyword.ELF), Filters.name("Gandalf")));
     }
 
     @Override
