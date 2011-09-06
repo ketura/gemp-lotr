@@ -30,8 +30,7 @@ import java.util.List;
  */
 public class Card1_060 extends AbstractAlly {
     public Card1_060() {
-        super(2, 3, 5, 2, Culture.ELVEN, "Silinde", true);
-        addKeyword(Keyword.ELF);
+        super(2, 3, 5, 2, Keyword.ELF, Culture.ELVEN, "Silinde", true);
     }
 
     private Filter getFilter(PhysicalCard self) {

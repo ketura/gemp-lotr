@@ -32,8 +32,7 @@ import java.util.List;
  */
 public class Card1_288 extends AbstractAlly {
     public Card1_288() {
-        super(1, 1, 2, 3, Culture.SHIRE, "Farmer Maggot", true);
-        addKeyword(Keyword.HOBBIT);
+        super(1, 1, 2, 3, Keyword.HOBBIT, Culture.SHIRE, "Farmer Maggot", true);
     }
 
     @Override
