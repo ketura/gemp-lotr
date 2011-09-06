@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
-import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
+import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -14,7 +14,6 @@ import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -43,10 +42,10 @@ public class Card1_351 extends AbstractSite {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.addEffect(
-                                    new ChooseArbitraryCardsEffect(playerId, "Opponent's hand", new LinkedList<PhysicalCard>(game.getGameState().getHand(opponentId)), 0, 0) {
+                                    new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, Filters.none(), 0, 0) {
                                         @Override
                                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                            // TODO - Reveal hand
+                                            // Do nothing, it's just to reveal
                                         }
                                     });
                         }

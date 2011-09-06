@@ -79,6 +79,15 @@ public class Filters {
         };
     }
 
+    public static Filter none() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return false;
+            }
+        };
+    }
+
     public static Filter signet(final Signet signet) {
         return new Filter() {
             @Override

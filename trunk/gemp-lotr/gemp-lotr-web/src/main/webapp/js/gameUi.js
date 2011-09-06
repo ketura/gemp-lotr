@@ -128,7 +128,7 @@ var GempLotrGameUI = Class.extend({
                 if (event.which == 1) {
                     if (event.shiftKey) {
                         that.displayCardInfo(selectedCardElem.data("card"));
-                    } else  if (selectedCardElem.hasClass("selectableCard"))
+                    } else if (selectedCardElem.hasClass("selectableCard"))
                         that.selectionFunction(selectedCardElem.data("card").cardId);
                 }
             }
@@ -153,52 +153,52 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.dialogInstance = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: false,
-            minHeight: 80
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: false,
+                    minHeight: 80
+                });
 
         this.assignmentDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            title: "Assignments",
-            resizable: true,
-            minHeight: 240,
-            minWidth: 400,
-            width: 500,
-            height: 200,
-            position: ["right", "bottom"]
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    title: "Assignments",
+                    resizable: true,
+                    minHeight: 240,
+                    minWidth: 400,
+                    width: 500,
+                    height: 200,
+                    position: ["right", "bottom"]
+                });
 
         this.skirmishDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            title: "Skirmish",
-            resizable: true,
-            minHeight: 240,
-            minWidth: 400,
-            width: 500,
-            height: 200,
-            position: ["right", "top"]
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    title: "Skirmish",
+                    resizable: true,
+                    minHeight: 240,
+                    minWidth: 400,
+                    width: 500,
+                    height: 200,
+                    position: ["right", "top"]
+                });
 
         $(".ui-dialog-titlebar-close").hide();
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information",
-            minHeight: 80,
-            minWidth: 200,
-            width: 600,
-            height: 300,
-            maxHeight: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information",
+                    minHeight: 80,
+                    minWidth: 200,
+                    width: 600,
+                    height: 300,
+                    maxHeight: 300
+                });
 
     },
 
@@ -538,13 +538,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#integerDecision").val());
-            }
-        }
-                )
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#integerDecision").val());
+                    }
+                }
+        )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
         ;
@@ -578,13 +578,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(html)
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-            }
-        }
-                )
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                }
+        )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
 
@@ -625,10 +625,13 @@ var GempLotrGameUI = Class.extend({
         var max = this.getDecisionParameter(decision, "max");
         var cardIds = this.getDecisionParameters(decision, "cardId");
         var blueprintIds = this.getDecisionParameters(decision, "blueprintId");
+        var selectable = this.getDecisionParameters(decision, "selectable");
 
         var that = this;
 
         var selectedCardIds = new Array();
+
+        var selectableCardIds = new Array();
 
         this.dialogInstance
                 .html("<div id='arbitraryChoice'></div>")
@@ -651,6 +654,9 @@ var GempLotrGameUI = Class.extend({
         for (var i = 0; i < blueprintIds.length; i++) {
             var cardId = cardIds[i];
             var blueprintId = blueprintIds[i];
+
+            if (selectable[i] == "true")
+                selectableCardIds.push(cardId);
 
             var card = new Card(blueprintId, "SPECIAL", cardId, this.selfParticipantId);
 
@@ -681,7 +687,7 @@ var GempLotrGameUI = Class.extend({
             }
         };
 
-        this.attachSelectionFunctions(cardIds);
+        this.attachSelectionFunctions(selectableCardIds);
 
         this.specialGroup.setBounds(10, 10, 547, 188);
 
@@ -911,13 +917,13 @@ var GempLotrGameUI = Class.extend({
 
         if (this.shadowAssignGroups[characterId] == null) {
             this.shadowAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
-                return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
-            }
-                    );
+                        return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
+                    }
+            );
             this.freePeopleAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
-                return (card.cardId == characterId);
-            }
-                    );
+                        return (card.cardId == characterId);
+                    }
+            );
 
             this.moveCardToElement(characterId, this.assignmentDialog);
             this.assignDialogResized();
