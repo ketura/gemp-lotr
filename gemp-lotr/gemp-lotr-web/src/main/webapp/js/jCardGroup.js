@@ -8,17 +8,24 @@ var CardGroup = Class.extend({
     padding: 5,
     cardId: null,
     maxCardHeight: null,
+    descDiv: null,
 
     init: function(container, belongTest) {
         this.container = container;
         this.belongTestFunc = belongTest;
+
+        this.descDiv = $("<div class='ui-widget-content'></div>");
+        this.descDiv.css({"border-radius": "7px"});
+
+        container.append(this.descDiv);
     },
 
     setBounds: function(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        this.x = x + 3;
+        this.y = y + 3;
+        this.width = width - 6;
+        this.height = height - 6;
+        this.descDiv.css({left:x + "px", top:y + "px", width: width, height: height, position: "absolute"});
         this.layoutCards();
     },
 
@@ -29,12 +36,12 @@ var CardGroup = Class.extend({
     layoutCard: function(cardElem, x, y, width, height, index) {
         cardElem.css({position: "absolute", left: x + "px", top: y + "px", width: width, height: height, zIndex: index });
 
-        var borderOverlay = $(".borderOverlay", cardElem);
-        borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 4, height: height - 4});
-
         var tokenOverlay = $(".tokenOverlay", cardElem);
         tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height})
                 .html("");
+
+        var borderOverlay = $(".borderOverlay", cardElem);
+        borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 4, height: height - 4});
 
         var tokens = cardElem.data("card").tokens;
         if (tokens != null) {
@@ -107,20 +114,9 @@ var AdvPathCardGroup = CardGroup.extend({
 });
 
 var NormalCardGroup = CardGroup.extend({
-    descDiv: null,
 
-    init: function(text, container, belongTest) {
+    init: function(container, belongTest) {
         this._super(container, belongTest);
-        if (text != null) {
-            this.descDiv = $("<div class='ui-widget-content'></div>");
-            $("#main").append(this.descDiv);
-        }
-    },
-
-    setBounds: function(x, y, width, height) {
-        this._super(x + 3, y + 3, width - 6, height - 6);
-        if (this.descDiv != null)
-            this.descDiv.css({left:x + "px", top:y + "px", width: width, height: height, position: "absolute"});
     },
 
     layoutCards: function() {

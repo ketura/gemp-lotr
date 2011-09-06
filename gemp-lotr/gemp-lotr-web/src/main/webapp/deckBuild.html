@@ -85,6 +85,8 @@
                         east__minSize: "30%"
                     });
 
+                    $(".ui-layout-pane").css({"background-color": "#000000"});
+
                     communication = new GempLotrCommunication("/gemp-lotr/server",
                             function() {
                                 ui.processError();
