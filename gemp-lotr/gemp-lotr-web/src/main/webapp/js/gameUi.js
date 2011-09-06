@@ -95,6 +95,7 @@ var GempLotrGameUI = Class.extend({
         this.specialGroup.setBounds(this.padding, this.padding, 400, 200);
 
         this.gameStateElem = $("<div></div>");
+        this.gameStateElem.css({"border-radius": "7px", "background-color": "#ffffff"});
 
         this.gameStateElem.append("<b>Players:</b><br>");
         for (var i = 0; i < this.allPlayerIds.length; i++)
@@ -153,52 +154,52 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.dialogInstance = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    minHeight: 80
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            minHeight: 80
+        });
 
         this.assignmentDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    title: "Assignments",
-                    resizable: true,
-                    minHeight: 240,
-                    minWidth: 400,
-                    width: 500,
-                    height: 200,
-                    position: ["right", "bottom"]
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            title: "Assignments",
+            resizable: true,
+            minHeight: 240,
+            minWidth: 400,
+            width: 500,
+            height: 200,
+            position: ["right", "bottom"]
+        });
 
         this.skirmishDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    title: "Skirmish",
-                    resizable: true,
-                    minHeight: 240,
-                    minWidth: 400,
-                    width: 500,
-                    height: 200,
-                    position: ["right", "top"]
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            title: "Skirmish",
+            resizable: true,
+            minHeight: 240,
+            minWidth: 400,
+            width: 500,
+            height: 200,
+            position: ["right", "top"]
+        });
 
         $(".ui-dialog-titlebar-close").hide();
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information",
-                    minHeight: 80,
-                    minWidth: 200,
-                    width: 600,
-                    height: 300,
-                    maxHeight: 300
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300,
+            maxHeight: 300
+        });
 
     },
 
@@ -538,13 +539,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#integerDecision").val());
-                    }
-                }
-        )
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#integerDecision").val());
+            }
+        }
+                )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
         ;
@@ -578,13 +579,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(html)
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                }
-        )
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+            }
+        }
+                )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
 
@@ -917,13 +918,13 @@ var GempLotrGameUI = Class.extend({
 
         if (this.shadowAssignGroups[characterId] == null) {
             this.shadowAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
-                        return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
-                    }
-            );
+                return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
+            }
+                    );
             this.freePeopleAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
-                        return (card.cardId == characterId);
-                    }
-            );
+                return (card.cardId == characterId);
+            }
+                    );
 
             this.moveCardToElement(characterId, this.assignmentDialog);
             this.assignDialogResized();

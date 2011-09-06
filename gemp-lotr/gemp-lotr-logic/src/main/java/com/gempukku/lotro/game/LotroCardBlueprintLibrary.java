@@ -7,7 +7,7 @@ import java.util.Map;
 public class LotroCardBlueprintLibrary {
     private String[] _packageNames =
             new String[]{
-                    "", ".dwarven", ".elven", ".isengard", ".moria", ".shire", ".site"
+                    "", ".dwarven", ".elven", ".gandalf", ".gondor", ".isengard", ".moria", ".shire", ".site"
             };
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
