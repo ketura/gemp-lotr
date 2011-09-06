@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.MakeRingBearerEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -48,16 +48,7 @@ public class Card1_310 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Play Bill the Pony from your draw deck.");
             action.addEffect(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose Bill the Pony to play", game.getGameState().getDeck(playerId),
-                            Filters.and(Filters.name("Bill the Pony"), Filters.playable(game)), 0, 1) {
-                        @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            if (selectedCards.size() > 0) {
-                                PhysicalCard selectedCard = selectedCards.get(0);
-                                game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
-                            }
-                        }
-                    });
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.and(Filters.name("Bill the Pony"))));
             return Collections.singletonList(action);
         }
         return null;

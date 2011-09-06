@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
@@ -63,23 +63,7 @@ public class Card1_349 extends AbstractSite {
 
             // Play from deck
             possibleEffects.add(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose Balrog to play",
-                            Filters.filter(game.getGameState().getDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Balrog"),
-                                    new Filter() {
-                                        @Override
-                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            return
-                                                    !Filters.canSpot(gameState, modifiersQuerying, Filters.name("Balrog"))
-                                                            && gameState.getTwilightPool() >= (modifiersQuerying.getTwilightCost(gameState, physicalCard) - 6);
-                                        }
-                                    }), 1, 1) {
-                        @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            PhysicalCard balrog = selectedCards.get(0);
-                            game.getActionsEnvironment().addActionToStack(
-                                    new PlayPermanentAction(balrog, Zone.SHADOW_CHARACTERS, -6));
-                        }
-                    });
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Balrog"), -6));
 
             action.addEffect(
                     new ChoiceEffect(action, playerId, possibleEffects, false));
