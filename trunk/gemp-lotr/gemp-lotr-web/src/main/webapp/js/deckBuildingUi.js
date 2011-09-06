@@ -135,15 +135,18 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         $("body").click(function (event) {
             var tar = $(event.target);
-            if (tar.hasClass("borderOverlay")) {
-                var selectedCardElem = tar.parent();
-                if (event.which == 1) {
-                    if (event.shiftKey) {
-                        // that.displayCardInfo(selectedCardElem.data("card"));
-                    } else  if (selectedCardElem.hasClass("cardInCollection")) {
-                        that.selectionFunc(selectedCardElem.data("card").blueprintId);
-                    } else if (selectedCardElem.hasClass("cardInDeck")) {
-                        that.removeCardFromDeck(selectedCardElem);
+            if (tar.hasClass("actionArea")) {
+                tar = tar.parent();
+                if (tar.hasClass("borderOverlay")) {
+                    var selectedCardElem = tar.parent();
+                    if (event.which == 1) {
+                        if (event.shiftKey) {
+                            // that.displayCardInfo(selectedCardElem.data("card"));
+                        } else  if (selectedCardElem.hasClass("cardInCollection")) {
+                            that.selectionFunc(selectedCardElem.data("card").blueprintId);
+                        } else if (selectedCardElem.hasClass("cardInDeck")) {
+                            that.removeCardFromDeck(selectedCardElem);
+                        }
                     }
                 }
             }

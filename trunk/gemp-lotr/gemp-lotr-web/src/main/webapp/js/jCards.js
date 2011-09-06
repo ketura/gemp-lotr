@@ -81,7 +81,7 @@ function createCardDiv(image, text) {
     var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
     var overlayDiv = $("<div class='tokenOverlay'></div>");
     cardDiv.append(overlayDiv);
-    var borderDiv = $("<div class='borderOverlay'></div>");
+    var borderDiv = $("<div class='borderOverlay'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
     cardDiv.append(borderDiv);
 
     return cardDiv;

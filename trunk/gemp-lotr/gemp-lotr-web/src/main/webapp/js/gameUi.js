@@ -123,17 +123,24 @@ var GempLotrGameUI = Class.extend({
         this.alert.css({"border-radius": "7px"});
         $("#main").append(this.alert);
 
+        $("body").click(
+                function (event) {
+                    that.clickCardFunction(event);
+                });
     },
 
     clickCardFunction: function(event) {
         var tar = $(event.target);
-        if (tar.hasClass("borderOverlay")) {
-            var selectedCardElem = tar.parent();
-            if (event.which == 1) {
-                if (event.shiftKey) {
-                    this.displayCardInfo(selectedCardElem.data("card"));
-                } else if (selectedCardElem.hasClass("selectableCard"))
-                    this.selectionFunction(selectedCardElem.data("card").cardId);
+        if (tar.hasClass("actionArea")) {
+            tar = tar.parent();
+            if (tar.hasClass("borderOverlay")) {
+                var selectedCardElem = tar.parent();
+                if (event.which == 1) {
+                    if (event.shiftKey) {
+                        this.displayCardInfo(selectedCardElem.data("card"));
+                    } else if (selectedCardElem.hasClass("selectableCard"))
+                        this.selectionFunction(selectedCardElem.data("card").cardId);
+                }
             }
         }
         return false;
@@ -611,10 +618,6 @@ var GempLotrGameUI = Class.extend({
             }
         };
         cardDiv.swipe(swipeOptions);
-
-        $(".borderOverlay", cardDiv).click(function(event) {
-            that.clickCardFunction(event);
-        });
 
         return cardDiv;
     },
