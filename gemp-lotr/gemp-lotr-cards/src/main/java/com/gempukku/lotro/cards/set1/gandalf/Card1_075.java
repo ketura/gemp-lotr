@@ -1,0 +1,78 @@
+package com.gempukku.lotro.cards.set1.gandalf;
+
+import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.GameUtils;
+import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.timing.Action;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Set: The Fellowship of the Ring
+ * Side: Free
+ * Culture: Gandalf
+ * Twilight Cost: 2
+ * Type: Possession • Hand Weapon
+ * Strength: +2
+ * Game Text: Bearer must be Gandalf. He is damage +1. Fellowship or Regroup: Exert Gandalf to reveal an opponent's
+ * hand. Remove (1) for each Orc revealed.
+ */
+public class Card1_075 extends AbstractAttachableFPPossession {
+    public Card1_075() {
+        super(2, Culture.GANDALF, "Glamdring", true);
+        addKeyword(Keyword.HAND_WEAPON);
+    }
+
+    @Override
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.name("Gandalf"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
+    }
+
+    @Override
+    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+        return new KeywordModifier(self, Filters.attachedTo(self), Keyword.DAMAGE);
+    }
+
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
+        if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+                || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
+                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+            Phase phase = game.getGameState().getCurrentPhase();
+            Keyword keyword;
+            if (phase == Phase.FELLOWSHIP)
+                keyword = Keyword.FELLOWSHIP;
+            else
+                keyword = Keyword.REGROUP;
+
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, keyword, "Exert Frodo to reveal an opponent's hand. Remove (1) for each Orc revealed (limit (4)).");
+            action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
+            action.addEffect(
+                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                            new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
+                                @Override
+                                protected void validDecisionMade(int index, String opponent) {
+                                    List<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponent), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC));
+                                    action.addEffect(new RemoveTwilightEffect(orcs.size()));
+                                }
+                            }));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+}
