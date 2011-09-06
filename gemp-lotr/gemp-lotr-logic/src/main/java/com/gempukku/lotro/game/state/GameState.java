@@ -16,6 +16,7 @@ public class GameState {
     private Map<String, List<PhysicalCardImpl>> _hands = new HashMap<String, List<PhysicalCardImpl>>();
     private Map<String, List<PhysicalCardImpl>> _discards = new HashMap<String, List<PhysicalCardImpl>>();
     private Map<String, List<PhysicalCardImpl>> _deadPiles = new HashMap<String, List<PhysicalCardImpl>>();
+    private Map<String, List<PhysicalCardImpl>> _stacked = new HashMap<String, List<PhysicalCardImpl>>();
 
     private Map<String, List<PhysicalCardImpl>> _inPlay = new HashMap<String, List<PhysicalCardImpl>>();
 
@@ -155,7 +156,7 @@ public class GameState {
 
     private boolean isZonePublic(Zone zone) {
         return zone == Zone.FREE_CHARACTERS || zone == Zone.FREE_SUPPORT || zone == Zone.SHADOW_CHARACTERS || zone == Zone.SHADOW_SUPPORT
-                || zone == Zone.ADVENTURE_PATH || zone == Zone.ATTACHED || zone == Zone.DEAD;
+                || zone == Zone.ADVENTURE_PATH || zone == Zone.ATTACHED || zone == Zone.STACKED || zone == Zone.DEAD;
     }
 
     private boolean isZonePrivate(Zone zone) {
@@ -169,6 +170,11 @@ public class GameState {
     public void attachCard(PhysicalCard card, PhysicalCard attachTo) {
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) attachTo);
         addCardToZone(card, Zone.ATTACHED);
+    }
+
+    public void stackCard(PhysicalCard card, PhysicalCard stackOn) {
+        ((PhysicalCardImpl) card).stackOn((PhysicalCardImpl) stackOn);
+        addCardToZone(card, Zone.STACKED);
     }
 
     public void setRingBearer(PhysicalCard card) {
@@ -384,6 +390,17 @@ public class GameState {
         for (List<PhysicalCardImpl> physicalCardList : _inPlay.values()) {
             for (PhysicalCardImpl physicalCard : physicalCardList) {
                 if (physicalCard.getAttachedTo() != null && physicalCard.getAttachedTo() == card)
+                    result.add(physicalCard);
+            }
+        }
+        return result;
+    }
+
+    public List<PhysicalCard> getStackedCards(PhysicalCard card) {
+        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        for (List<PhysicalCardImpl> physicalCardList : _stacked.values()) {
+            for (PhysicalCardImpl physicalCard : physicalCardList) {
+                if (physicalCard.getStackedOn() == card)
                     result.add(physicalCard);
             }
         }

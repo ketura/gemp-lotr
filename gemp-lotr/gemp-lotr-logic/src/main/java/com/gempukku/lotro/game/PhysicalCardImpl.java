@@ -13,6 +13,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     private LotroCardBlueprint _blueprint;
 
     private PhysicalCardImpl _attachedTo;
+    private PhysicalCardImpl _stackedOn;
 
     private ModifierHook _modifierHook;
 
@@ -75,6 +76,15 @@ public class PhysicalCardImpl implements PhysicalCard {
     @Override
     public PhysicalCard getAttachedTo() {
         return _attachedTo;
+    }
+
+    public void stackOn(PhysicalCardImpl physicalCard) {
+        _stackedOn = physicalCard;
+    }
+
+    @Override
+    public PhysicalCard getStackedOn() {
+        return _stackedOn;
     }
 
     @Override
