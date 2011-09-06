@@ -215,10 +215,10 @@ public class ServerResource {
     @Path("/deck/{deckType}")
     @POST
     @Produces(MediaType.APPLICATION_XML)
-    public void createDeck(
+    public Document createDeck(
             @PathParam("deckType") String deckType,
             @FormParam("participantId") String participantId,
-            @FormParam("deckContents") String contents) {
+            @FormParam("deckContents") String contents) throws ParserConfigurationException {
 
         PlayerDAO playerDao = _lotroServer.getPlayerDao();
         DeckDAO deckDao = _lotroServer.getDeckDao();
@@ -232,6 +232,15 @@ public class ServerResource {
             sendError(Response.Status.BAD_REQUEST);
 
         deckDao.setDeckForPlayer(player, deckType, deck);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+        Element deckElem = doc.createElement("ok");
+        doc.appendChild(deckElem);
+
+        return doc;
     }
 
     @Path("/collection/{collectionType}")
