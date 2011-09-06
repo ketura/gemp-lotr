@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEffect;
-import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
+import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -43,7 +43,7 @@ public class Card1_287 extends AbstractResponseEvent {
             action.addCost(
                     new CancelEffect(effect));
             action.addEffect(
-                    new RemoveBurderEffect(playerId));
+                    new RemoveBurdenEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;

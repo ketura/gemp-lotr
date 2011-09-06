@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
+import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -55,7 +55,7 @@ public class Card1_061 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.ELVEN), Filters.keyword(Keyword.TALE)))) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Remove a burder");
-            action.addEffect(new RemoveBurderEffect(playerId));
+            action.addEffect(new RemoveBurdenEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;

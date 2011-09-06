@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.MakeRingBearerEffect;
-import com.gempukku.lotro.cards.effects.RemoveBurderEffect;
+import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -44,7 +44,7 @@ public class Card1_311 extends AbstractCompanion {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Sam to remove a burden.");
             action.addCost(new ExertCharacterEffect(self));
-            action.addEffect(new RemoveBurderEffect(playerId));
+            action.addEffect(new RemoveBurdenEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;
