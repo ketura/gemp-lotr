@@ -120,7 +120,7 @@ var NormalCardGroup = CardGroup.extend({
     setBounds: function(x, y, width, height) {
         this._super(x + 3, y + 3, width - 6, height - 6);
         if (this.descDiv != null)
-            this.descDiv.css({left:x + "px", top:y + "px", width: width, height: height, "background-color":"#ffffff", "border-radius":"7px", position: "absolute", "text-align": "center"});
+            this.descDiv.css({left:x + "px", top:y + "px", width: width, height: height, position: "absolute"});
     },
 
     layoutCards: function() {

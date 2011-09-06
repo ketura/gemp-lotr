@@ -94,7 +94,7 @@ var GempLotrGameUI = Class.extend({
         });
         this.specialGroup.setBounds(this.padding, this.padding, 400, 200);
 
-        this.gameStateElem = $("<div></div>");
+        this.gameStateElem = $("<div class='ui-widget-content'></div>");
         this.gameStateElem.css({"border-radius": "7px", "background-color": "#ffffff"});
 
         this.gameStateElem.append("<b>Players:</b><br>");
