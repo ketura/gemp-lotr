@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -74,16 +75,14 @@ public class Card1_022 extends AbstractEvent {
                             @Override
                             protected void validDecisionMade(int index, String result) {
                                 if (result.equals("Yes")) {
-                                    gameState.removeCardFromZone(_lastCard);
-                                    gameState.addCardToZone(_lastCard, Zone.HAND);
+                                    _action.addEffect(new PutCardFromDiscardIntoHandEffect(_lastCard));
                                 } else {
                                     _action.addEffect(new DiscardAndChooseToPutToHandEffect(_action, _player, _lastCard, _count + 1));
                                 }
                             }
                         }));
             } else if (_lastCard != null) {
-                gameState.removeCardFromZone(_lastCard);
-                gameState.addCardToZone(_lastCard, Zone.HAND);
+                _action.addEffect(new PutCardFromDiscardIntoHandEffect(_lastCard));
             }
         }
     }
