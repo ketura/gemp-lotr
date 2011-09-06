@@ -2,7 +2,7 @@ package com.gempukku.lotro.common;
 
 public enum Keyword {
     ELF("Elf"), HOBBIT("Hobbit"), DWARF("Dwarf"), MAN("Man"),
-    URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"),
+    URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"), TROLL("Troll"),
 
     SUPPORT_AREA("Support Area"),
 
