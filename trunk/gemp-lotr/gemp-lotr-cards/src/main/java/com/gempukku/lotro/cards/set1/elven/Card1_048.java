@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_048 extends AbstractCompanion {
     public Card1_048() {
-        super(2, 5, 3, Culture.ELVEN, "Haldir", true);
+        super(2, 5, 3, Culture.ELVEN, null, "Haldir", true);
         addKeyword(Keyword.ELF);
     }
 
