@@ -59,7 +59,7 @@ public class Card1_318 extends AbstractLotroCardBlueprint {
             Keyword phaseKeyword = (game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) ? Keyword.FELLOWSHIP : Keyword.REGROUP;
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, phaseKeyword, "Exert 2 Hobbits and discard Thror's Map to play the fellowship's next site (replacing opponent's site if necessary)");
             action.addCost(
-                    new ChooseActiveCardsEffect(playerId, "Choose Hobbit", 2, 2, Filters.keyword(Keyword.HOBBIT), Filters.canExert()) {
+                    new ChooseActiveCardsEffect(playerId, "Choose Hobbits", 2, 2, Filters.keyword(Keyword.HOBBIT), Filters.canExert()) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> cards) {
                             action.addCost(new ExertCharacterEffect(cards.get(0)));
