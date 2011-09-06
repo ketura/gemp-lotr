@@ -17,8 +17,7 @@ import com.gempukku.lotro.common.Keyword;
  */
 public class Card1_151 extends AbstractMinion {
     public Card1_151() {
-        super(2, 5, 3, 5, Culture.ISENGARD, "Uruk Savage");
-        addKeyword(Keyword.URUK_HAI);
+        super(2, 5, 3, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Uruk Savage");
         addKeyword(Keyword.DAMAGE);
     }
 }

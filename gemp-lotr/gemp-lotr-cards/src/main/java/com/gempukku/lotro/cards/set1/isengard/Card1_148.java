@@ -24,8 +24,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_148 extends AbstractMinion {
     public Card1_148() {
-        super(3, 8, 2, 5, Culture.ISENGARD, "Uruk Lieutenant");
-        addKeyword(Keyword.URUK_HAI);
+        super(3, 8, 2, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Uruk Lieutenant");
         addKeyword(Keyword.DAMAGE, 1);
     }
 

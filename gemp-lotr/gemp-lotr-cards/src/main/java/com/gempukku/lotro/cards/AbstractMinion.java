@@ -14,17 +14,20 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
     private int _strength;
     private int _vitality;
     private int _site;
+    private Keyword _race;
 
-    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Culture culture, String name) {
-        this(twilightCost, strength, vitality, site, culture, name, false);
+    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Keyword race, Culture culture, String name) {
+        this(twilightCost, strength, vitality, site, race, culture, name, false);
     }
 
-    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Culture culture, String name, boolean unique) {
+    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Keyword race, Culture culture, String name, boolean unique) {
         super(Side.SHADOW, CardType.MINION, culture, name, unique);
         _twilightCost = twilightCost;
         _strength = strength;
         _vitality = vitality;
         _site = site;
+        _race = race;
+        addKeyword(_race);
     }
 
     private void appendPlayMinionActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
