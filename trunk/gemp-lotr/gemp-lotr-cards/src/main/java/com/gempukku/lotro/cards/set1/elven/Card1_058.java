@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -42,12 +43,7 @@ public class Card1_058 extends AbstractEvent {
                     protected void cardSelected(final PhysicalCard firstElf) {
                         action.addCost(new ExertCharacterEffect(firstElf));
                         action.addCost(
-                                new ChooseActiveCardEffect(playerId, "Exert second Elf", Filters.keyword(Keyword.ELF), Filters.not(Filters.sameCard(firstElf))) {
-                                    @Override
-                                    protected void cardSelected(PhysicalCard secondElf) {
-                                        action.addCost(new ExertCharacterEffect(secondElf));
-                                    }
-                                });
+                                new ChooseAndExertCharacterEffect(action, playerId, "Exert second Elf", true, Filters.keyword(Keyword.ELF), Filters.not(Filters.sameCard(firstElf))));
                     }
                 });
         action.addEffect(

@@ -3,14 +3,13 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
@@ -47,12 +46,7 @@ public class Card1_016 extends AbstractLotroCardBlueprint {
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard dwarf) {
-                        action.addCost(new ExertCharacterEffect(dwarf));
-                    }
-                });
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose Dwarf to exert", true, Filters.keyword(Keyword.DWARF), Filters.canExert()));
         return action;
     }
 

@@ -3,13 +3,12 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -57,13 +56,7 @@ public class Card1_130 extends AbstractLotroCardBlueprint {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION), Filters.owner(self.getOwner())))) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert a GANDALF companion or GANDALF ally");
             action.addEffect(
-                    new ChooseActiveCardEffect(self.getOwner(), "Choose GANDALF companion or GANDALF ally", Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))) {
-                        @Override
-                        protected void cardSelected(PhysicalCard gandalfCharacter) {
-                            action.addEffect(new ExertCharacterEffect(gandalfCharacter));
-                        }
-                    }
-            );
+                    new ChooseAndExertCharacterEffect(action, self.getOwner(), "Choose GANDALF companion or GANDALF ally", false, Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))));
 
             return Collections.singletonList(action);
         }

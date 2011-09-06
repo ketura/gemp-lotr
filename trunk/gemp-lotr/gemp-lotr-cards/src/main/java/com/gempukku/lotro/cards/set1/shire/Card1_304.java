@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -38,12 +38,7 @@ public class Card1_304 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose a non-Hobbit companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.HOBBIT)), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard nonHobbitCompanion) {
-                        action.addCost(new ExertCharacterEffect(nonHobbitCompanion));
-                    }
-                });
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose a non-Hobbit companion", true, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.HOBBIT)), Filters.canExert()));
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT)) {
                     @Override

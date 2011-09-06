@@ -4,12 +4,12 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -47,13 +47,7 @@ public class Card1_124 extends AbstractEvent {
         String fpPlayer = game.getGameState().getCurrentPlayerId();
 
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose an ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard isengardMinion) {
-                        action.addCost(new ExertCharacterEffect(isengardMinion));
-                    }
-                }
-        );
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose an ISENGARD minion", true, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()));
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(new ExertCharacterEffect(game.getGameState().getRingBearer(fpPlayer)));
