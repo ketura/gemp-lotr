@@ -46,6 +46,7 @@ public class Card1_099 extends AbstractEvent {
                         List<PhysicalCard> hand = new LinkedList<PhysicalCard>(game.getGameState().getHand(opponentId));
                         for (PhysicalCard physicalCard : hand)
                             game.getGameState().putCardOnBottomOfDeck(physicalCard);
+                        game.getGameState().shuffleDeck(opponentId);
 
                         for (int i = 0; i < 8; i++)
                             action.addEffect(new DrawCardEffect(opponentId));
