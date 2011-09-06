@@ -10,24 +10,29 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
-    private Phase _playableInPhase;
+    private Phase[] _playableInPhases;
 
-    public AbstractEvent(Side side, Culture culture, String name, Phase playableInPhase) {
+    public AbstractEvent(Side side, Culture culture, String name, Phase... playableInPhases) {
         super(side, CardType.EVENT, culture, name);
-        _playableInPhase = playableInPhase;
-        if (_playableInPhase == Phase.FELLOWSHIP)
+        _playableInPhases = playableInPhases;
+        for (Phase playableInPhase : _playableInPhases)
+            processPhase(playableInPhase);
+    }
+
+    private void processPhase(Phase phase) {
+        if (phase == Phase.FELLOWSHIP)
             addKeyword(Keyword.FELLOWSHIP);
-        else if (_playableInPhase == Phase.SHADOW)
+        else if (phase == Phase.SHADOW)
             addKeyword(Keyword.SHADOW);
-        else if (_playableInPhase == Phase.MANEUVER)
+        else if (phase == Phase.MANEUVER)
             addKeyword(Keyword.MANEUVER);
-        else if (_playableInPhase == Phase.ARCHERY)
+        else if (phase == Phase.ARCHERY)
             addKeyword(Keyword.ARCHERY);
-        else if (_playableInPhase == Phase.ASSIGNMENT)
+        else if (phase == Phase.ASSIGNMENT)
             addKeyword(Keyword.ASSIGNMENT);
-        else if (_playableInPhase == Phase.SKIRMISH)
+        else if (phase == Phase.SKIRMISH)
             addKeyword(Keyword.SKIRMISH);
-        else if (_playableInPhase == Phase.REGROUP)
+        else if (phase == Phase.REGROUP)
             addKeyword(Keyword.REGROUP);
         else
             addKeyword(Keyword.RESPONSE);
@@ -35,10 +40,10 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
 
     @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (_playableInPhase != null) {
+        if (_playableInPhases != null) {
             Side side = self.getBlueprint().getSide();
-            if ((side == Side.FREE_PEOPLE && PlayConditions.canPlayFPCardDuringPhase(game, _playableInPhase, self))
-                    || (side == Side.SHADOW && PlayConditions.canPlayShadowCardDuringPhase(game, _playableInPhase, self))) {
+            if ((side == Side.FREE_PEOPLE && PlayConditions.canPlayFPCardDuringPhase(game, _playableInPhases, self))
+                    || (side == Side.SHADOW && PlayConditions.canPlayShadowCardDuringPhase(game, _playableInPhases, self))) {
                 if (checkPlayRequirements(playerId, game, self))
                     return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
             }
