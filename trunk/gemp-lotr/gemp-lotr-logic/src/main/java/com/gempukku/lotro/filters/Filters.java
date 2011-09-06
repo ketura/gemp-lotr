@@ -237,7 +237,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return filter.accepts(gameState, modifiersQuerying, physicalCard.getAttachedTo());
+                return physicalCard.getAttachedTo() != null && filter.accepts(gameState, modifiersQuerying, physicalCard.getAttachedTo());
             }
         };
     }
