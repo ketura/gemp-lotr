@@ -35,8 +35,7 @@ import java.util.List;
  */
 public class Card1_310 extends AbstractCompanion {
     public Card1_310() {
-        super(2, 3, 4, Culture.SHIRE, Signet.FRODO, "Sam", true);
-        addKeyword(Keyword.HOBBIT);
+        super(2, 3, 4, Culture.SHIRE, Keyword.HOBBIT, Signet.FRODO, "Sam", true);
     }
 
     @Override

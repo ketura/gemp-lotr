@@ -20,8 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card1_053 extends AbstractCompanion {
     public Card1_053() {
-        super(1, 4, 2, Culture.ELVEN, null, "Lorien Elf");
-        addKeyword(Keyword.ELF);
+        super(1, 4, 2, Culture.ELVEN, Keyword.ELF, null, "Lorien Elf");
     }
 
     @Override
