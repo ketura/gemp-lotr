@@ -116,6 +116,9 @@ public class GameEvent {
         PhysicalCard attachedTo = physicalCard.getAttachedTo();
         if (attachedTo != null)
             gameEvent = gameEvent.targetCardId(attachedTo.getCardId());
+        PhysicalCard stackedOn = physicalCard.getStackedOn();
+        if (stackedOn != null)
+            gameEvent = gameEvent.targetCardId(stackedOn.getCardId());
         if (physicalCard.getBlueprint().getCardType() == CardType.SITE)
             gameEvent = gameEvent.index(physicalCard.getBlueprint().getSiteNumber());
         return gameEvent;

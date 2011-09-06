@@ -15,6 +15,8 @@ public interface PhysicalCard {
 
     public PhysicalCard getAttachedTo();
 
+    public PhysicalCard getStackedOn();
+
     public void storeData(Object object);
 
     public Object getData();
