@@ -3,12 +3,12 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 

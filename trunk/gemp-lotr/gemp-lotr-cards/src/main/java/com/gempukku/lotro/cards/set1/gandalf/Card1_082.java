@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.common.Culture;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 
 import java.util.LinkedList;
 import java.util.List;
