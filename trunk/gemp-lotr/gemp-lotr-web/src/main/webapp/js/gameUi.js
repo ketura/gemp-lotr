@@ -47,10 +47,10 @@ var GempLotrGameUI = Class.extend({
         this.shadowAssignGroups = {};
         this.freePeopleAssignGroups = {};
 
-        this.skirmishShadowGroup = new NormalCardGroup(null, $("#main"), function (card) {
+        this.skirmishShadowGroup = new NormalCardGroup($("#main"), function (card) {
             return card.zone == "SHADOW_CHARACTERS" && card.skirmish == true;
         });
-        this.skirmishFellowshipGroup = new NormalCardGroup(null, $("#main"), function (card) {
+        this.skirmishFellowshipGroup = new NormalCardGroup($("#main"), function (card) {
             return (card.zone == "FREE_SUPPORT" || card.zone == "FREE_CHARACTERS") && card.skirmish == true;
         });
 
@@ -60,42 +60,42 @@ var GempLotrGameUI = Class.extend({
     },
 
     initializeGameUI: function() {
-        this.advPathGroup = new AdvPathCardGroup();
+        this.advPathGroup = new AdvPathCardGroup($("#main"));
 
         var that = this;
 
-        this.supportOpponent = new NormalCardGroup("Free People Support of Opponent", $("#main"), function(card) {
+        this.supportOpponent = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "FREE_SUPPORT" && card.owner != that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.charactersOpponent = new NormalCardGroup("Free People Characters of Opponent", $("#main"), function(card) {
+        this.charactersOpponent = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner != that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.shadow = new NormalCardGroup("Shadow minions", $("#main"), function(card) {
+        this.shadow = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "SHADOW_CHARACTERS" && card.assign == null && card.skirmish == null);
         });
-        this.charactersPlayer = new NormalCardGroup("Free People Characters of Player", $("#main"), function(card) {
+        this.charactersPlayer = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner == that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.supportPlayer = new NormalCardGroup("Free People Support of Player", $("#main"), function(card) {
+        this.supportPlayer = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "FREE_SUPPORT" && card.owner == that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.hand = new NormalCardGroup("Hand", $("#main"), function(card) {
+        this.hand = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "HAND");
         });
-        this.shadowOpponent = new NormalCardGroup("Shadow Support of Opponent", $("#main"), function(card) {
+        this.shadowOpponent = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "SHADOW_SUPPORT" && card.owner != that.selfPlayerId);
         });
-        this.shadowPlayer = new NormalCardGroup("Shadow Support of Player", $("#main"), function(card) {
+        this.shadowPlayer = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "SHADOW_SUPPORT" && card.owner == that.selfPlayerId);
         });
 
-        this.specialGroup = new NormalCardGroup(null, this.dialogInstance, function(card) {
+        this.specialGroup = new NormalCardGroup(this.dialogInstance, function(card) {
             return (card.zone == "SPECIAL");
         });
         this.specialGroup.setBounds(this.padding, this.padding, 400, 200);
 
         this.gameStateElem = $("<div class='ui-widget-content'></div>");
-        this.gameStateElem.css({"border-radius": "7px", "background-color": "#ffffff"});
+        this.gameStateElem.css({"border-radius": "7px"});
 
         this.gameStateElem.append("<b>Players:</b><br>");
         for (var i = 0; i < this.allPlayerIds.length; i++)
@@ -119,22 +119,24 @@ var GempLotrGameUI = Class.extend({
 
         $("#main").append(this.gameStateElem);
 
-        this.alert = $("<div></div>");
+        this.alert = $("<div class='ui-widget-content'></div>");
+        this.alert.css({"border-radius": "7px"});
         $("#main").append(this.alert);
 
-        $("body").click(function (event) {
-            var tar = $(event.target);
-            if (tar.hasClass("borderOverlay")) {
-                var selectedCardElem = tar.parent();
-                if (event.which == 1) {
-                    if (event.shiftKey) {
-                        that.displayCardInfo(selectedCardElem.data("card"));
-                    } else if (selectedCardElem.hasClass("selectableCard"))
-                        that.selectionFunction(selectedCardElem.data("card").cardId);
-                }
+    },
+
+    clickCardFunction: function(event) {
+        var tar = $(event.target);
+        if (tar.hasClass("borderOverlay")) {
+            var selectedCardElem = tar.parent();
+            if (event.which == 1) {
+                if (event.shiftKey) {
+                    this.displayCardInfo(selectedCardElem.data("card"));
+                } else if (selectedCardElem.hasClass("selectableCard"))
+                    this.selectionFunction(selectedCardElem.data("card").cardId);
             }
-            return false;
-        });
+        }
+        return false;
     },
 
     displayCardInfo: function(card) {
@@ -223,7 +225,7 @@ var GempLotrGameUI = Class.extend({
             var shadowSupportWidth = width * 0.2;
             var specialUiWidth = 150;
 
-            var alertHeight = 80;
+            var alertHeight = 120;
 
             this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 2));
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + shadowSupportWidth + padding * 4), heightScales[0] * heightPerScale);
@@ -231,12 +233,12 @@ var GempLotrGameUI = Class.extend({
             this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[2] * heightPerScale);
             this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, width - (advPathWidth + specialUiWidth + shadowSupportWidth + padding * 4), heightScales[3] * heightPerScale);
             this.supportPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 5 + yScales[4] * heightPerScale, width - (advPathWidth + specialUiWidth + shadowSupportWidth + padding * 4), heightScales[4] * heightPerScale);
-            this.hand.setBounds(advPathWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + padding * 3), heightScales[5] * heightPerScale);
+            this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
             this.shadowOpponent.setBounds(width - (shadowSupportWidth + padding), padding, shadowSupportWidth, padding + (heightScales[0] + heightScales[1]) * heightPerScale);
             this.shadowPlayer.setBounds(width - (shadowSupportWidth + padding), padding * 4 + yScales[3] * heightPerScale, shadowSupportWidth, padding + (heightScales[3] + heightScales[4]) * heightPerScale);
 
-            this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: padding * 5 + yScales[5] * heightPerScale - alertHeight });
-            this.alert.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding * 6 + yScales[5] * heightPerScale - alertHeight, width: specialUiWidth - padding, height: alertHeight });
+            this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: height - padding * 3 - alertHeight });
+            this.alert.css({ position: "absolute", left: padding * 2 + advPathWidth, top: height - padding - alertHeight, width: specialUiWidth - padding, height: alertHeight });
         }
     },
 
@@ -610,6 +612,10 @@ var GempLotrGameUI = Class.extend({
         };
         cardDiv.swipe(swipeOptions);
 
+        $(".borderOverlay", cardDiv).click(function(event) {
+            that.clickCardFunction(event);
+        });
+
         return cardDiv;
     },
 
@@ -917,11 +923,11 @@ var GempLotrGameUI = Class.extend({
         }
 
         if (this.shadowAssignGroups[characterId] == null) {
-            this.shadowAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
+            this.shadowAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
                 return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
             }
                     );
-            this.freePeopleAssignGroups[characterId] = new NormalCardGroup(null, this.assignmentDialog, function (card) {
+            this.freePeopleAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
                 return (card.cardId == characterId);
             }
                     );

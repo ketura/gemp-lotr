@@ -41,7 +41,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 function() {
                     $("#previousPage").button("option", "disabled", true);
                     $("#nextPage").button("option", "disabled", true);
-                    that.normalCollectionDiv.html("");
+                    $(".card", that.normalCollectionDiv).remove();
                     that.start -= that.count;
                     that.loadCollectionFunc("default", "cardType:-SITE,THE_ONE_RING", that.start, that.count);
                 });
@@ -55,13 +55,13 @@ var GempLotrDeckBuildingUI = Class.extend({
                 function() {
                     $("#previousPage").button("option", "disabled", true);
                     $("#nextPage").button("option", "disabled", true);
-                    that.normalCollectionDiv.html("");
+                    $(".card", that.normalCollectionDiv).remove();
                     that.start += that.count;
                     that.loadCollectionFunc("default", "cardType:-SITE,THE_ONE_RING", that.start, that.count);
                 });
 
         this.normalCollectionDiv = $("<div></div>");
-        this.normalCollectionGroup = new NormalCardGroup(null, this.normalCollectionDiv, function(card) {
+        this.normalCollectionGroup = new NormalCardGroup(this.normalCollectionDiv, function(card) {
             return true;
         });
         this.normalCollectionGroup.maxCardHeight = 200;
@@ -69,7 +69,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.specialCollectionDiv = $("<div></div>");
         this.specialCollectionDiv.hide();
-        this.specialCollectionGroup = new NormalCardGroup(null, this.specialCollectionDiv, function(card) {
+        this.specialCollectionGroup = new NormalCardGroup(this.specialCollectionDiv, function(card) {
             return true;
         });
         this.specialCollectionGroup.maxCardHeight = 200;
@@ -81,7 +81,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     $(".card", that.ringBearerDiv).remove();
                     that.showPredefinedFilter("keyword:RING_BEARER", that.ringBearerDiv);
                 });
-        this.ringBearerGroup = new NormalCardGroup(null, this.ringBearerDiv, function(card) {
+        this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function(card) {
             return true;
         });
         this.deckDiv.append(this.ringBearerDiv);
@@ -92,7 +92,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     $(".card", that.ringDiv).remove();
                     that.showPredefinedFilter("cardType:THE_ONE_RING", that.ringDiv);
                 });
-        this.ringGroup = new NormalCardGroup(null, this.ringDiv, function(card) {
+        this.ringGroup = new NormalCardGroup(this.ringDiv, function(card) {
             return true;
         });
         this.deckDiv.append(this.ringDiv);
@@ -109,14 +109,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                         };
                     })(i, siteDiv));
             this.deckDiv.append(siteDiv);
-            this.siteGroups.push(new NormalCardGroup(null, siteDiv, function(card) {
+            this.siteGroups.push(new NormalCardGroup(siteDiv, function(card) {
                 return true;
             }));
             this.siteDivs.push(siteDiv);
         }
 
         this.drawDeckDiv = $("<div></div>");
-        this.drawDeckGroup = new NormalCardGroup(null, this.drawDeckDiv, function(card) {
+        this.drawDeckGroup = new NormalCardGroup(this.drawDeckDiv, function(card) {
             return (card.zone == "deck");
         });
         this.drawDeckGroup.maxCardHeight = 200;
@@ -277,10 +277,11 @@ var GempLotrDeckBuildingUI = Class.extend({
         log(xml);
         var root = xml.documentElement;
         if (root.tagName == "collection") {
-            if (this.normalCollectionDiv.is(":visible"))
-                this.normalCollectionDiv.html("");
-            else
-                this.specialCollectionDiv.html("");
+            if (this.normalCollectionDiv.is(":visible")) {
+                $(".card", this.normalCollectionDiv).remove();
+            } else {
+                $(".card", this.specialCollectionDiv).remove();
+            }
 
             var cards = root.getElementsByTagName("card");
             for (var i = 0; i < cards.length; i++) {
@@ -309,39 +310,40 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     layoutUI: function() {
+        var padding = 5;
         var collectionWidth = this.collectionDiv.width();
         var collectionHeight = this.collectionDiv.height();
 
         var deckWidth = this.deckDiv.width();
         var deckHeight = this.deckDiv.height();
 
-        var rowHeight = Math.floor(deckHeight / 5);
+        var rowHeight = Math.floor((deckHeight - 6 * padding) / 5);
         var sitesWidth = Math.floor(1.5 * deckHeight / 5);
         sitesWidth = Math.min(sitesWidth, 150);
 
-        this.ringBearerDiv.css({ position: "absolute", left: 0, top: 0, width: Math.floor(sitesWidth / 2), height: rowHeight });
-        this.ringBearerGroup.setBounds(0, 0, Math.floor(sitesWidth / 2), rowHeight);
-        this.ringDiv.css({ position: "absolute", left: Math.floor(sitesWidth / 2), top: 0, width: Math.floor(sitesWidth / 2), height: rowHeight });
-        this.ringGroup.setBounds(0, 0, Math.floor(sitesWidth / 2), rowHeight);
+        this.ringBearerDiv.css({ position: "absolute", left: padding, top: padding, width: Math.floor((sitesWidth - padding) / 2), height: rowHeight });
+        this.ringBearerGroup.setBounds(0, 0, Math.floor((sitesWidth - padding) / 2), rowHeight);
+        this.ringDiv.css({ position: "absolute", left: Math.floor((sitesWidth + 3 * padding) / 2), top: padding, width: Math.floor(sitesWidth - padding / 2), height: rowHeight });
+        this.ringGroup.setBounds(0, 0, Math.floor((sitesWidth - padding) / 2), rowHeight);
         for (var i = 0; i < 4; i++) {
-            this.siteDivs[i].css({ position: "absolute", left: 0, top: rowHeight * (i + 1), width: sitesWidth, height: rowHeight });
+            this.siteDivs[i].css({ position: "absolute", left: padding, top: padding + (rowHeight + padding) * (i + 1), width: sitesWidth, height: rowHeight });
             this.siteGroups[i].setBounds(0, 0, sitesWidth, rowHeight);
         }
         for (var i = 4; i < 9; i++) {
-            this.siteDivs[i].css({ position: "absolute", left: sitesWidth, top: rowHeight * (i - 4), width: sitesWidth, height: rowHeight });
+            this.siteDivs[i].css({ position: "absolute", left: padding * 2 + sitesWidth, top: padding + (rowHeight + padding) * (i - 4), width: sitesWidth, height: rowHeight });
             this.siteGroups[i].setBounds(0, 0, sitesWidth, rowHeight);
         }
-        this.drawDeckDiv.css({ position: "absolute", left: sitesWidth * 2, top: 0, width: deckWidth - sitesWidth * 2, height: deckHeight - 50 });
-        this.drawDeckGroup.setBounds(0, 0, deckWidth - sitesWidth * 2, deckHeight - 50);
+        this.drawDeckDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: padding, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: deckHeight - 2 * padding - 50 });
+        this.drawDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) * 2 - padding, deckHeight - 2 * padding - 50);
 
         this.bottomBarDiv.css({ position: "absolute", left: sitesWidth * 2, top: deckHeight - 50, width: deckWidth - sitesWidth * 2, height: 50 });
 
-        this.normalCollectionDiv.css({ position: "absolute", left: 0, top: 50, width: collectionWidth, height: collectionHeight - 50 });
-        this.filterDiv.css({ position: "absolute", left: 0, top: 0, width: collectionWidth, height: 50 });
-        this.specialCollectionDiv.css({ position: "absolute", left: 0, top: 0, width: collectionWidth, height: collectionHeight });
+        this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding * 2, height: collectionHeight - 50 });
+        this.filterDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding, height: 50 });
+        this.specialCollectionDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding * 2, height: collectionHeight });
 
-        this.normalCollectionGroup.setBounds(0, 0, collectionWidth, collectionHeight - 50);
-        this.specialCollectionGroup.setBounds(0, 0, collectionWidth, collectionHeight);
+        this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 50);
+        this.specialCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight);
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {
