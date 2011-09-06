@@ -2,7 +2,12 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -37,7 +42,7 @@ public class Card1_028 extends AbstractEvent {
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayEventAction action = new PlayEventAction(self);
+        final PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
                 new UnrespondableEffect() {
                     @Override
@@ -47,11 +52,10 @@ public class Card1_028 extends AbstractEvent {
                         List<? extends PhysicalCard> cards = new LinkedList<PhysicalCard>(deck.subList(0, cardCount));
 
                         for (PhysicalCard card : cards) {
-                            game.getGameState().removeCardFromZone(card);
                             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE)
-                                game.getGameState().addCardToZone(card, Zone.HAND);
+                                action.addEffect(new PutCardFromDeckIntoHandOrDiscardEffect(card));
                             else
-                                game.getGameState().addCardToZone(card, Zone.DISCARD);
+                                action.addEffect(new DiscardCardFromDeckEffect(playerId, card));
                         }
                     }
                 });

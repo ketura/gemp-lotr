@@ -2,9 +2,10 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
+import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
@@ -36,7 +37,7 @@ public class Card1_301 extends AbstractAlly {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (game.getGameState().getTwilightPool() < 3) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to reveal the top 3 cards of your draw deck. Take all SHIRE cards revealed into hand and discard the rest.");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to reveal the top 3 cards of your draw deck. Take all SHIRE cards revealed into hand and discard the rest.");
             action.addCost(new AddTwilightEffect(2));
             action.addEffect(
                     new UnrespondableEffect() {
@@ -47,11 +48,10 @@ public class Card1_301 extends AbstractAlly {
                             List<? extends PhysicalCard> cards = new LinkedList<PhysicalCard>(deck.subList(0, cardCount));
 
                             for (PhysicalCard card : cards) {
-                                game.getGameState().removeCardFromZone(card);
                                 if (card.getBlueprint().getCulture() == Culture.SHIRE)
-                                    game.getGameState().addCardToZone(card, Zone.HAND);
+                                    action.addEffect(new PutCardFromDeckIntoHandOrDiscardEffect(card));
                                 else
-                                    game.getGameState().addCardToZone(card, Zone.DISCARD);
+                                    action.addEffect(new DiscardCardFromDeckEffect(playerId, card));
                             }
                         }
                     });
