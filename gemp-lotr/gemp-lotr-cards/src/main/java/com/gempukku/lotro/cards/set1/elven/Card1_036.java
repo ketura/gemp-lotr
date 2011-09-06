@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -12,8 +12,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 import java.util.List;
 
@@ -46,17 +44,16 @@ public class Card1_036 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.keyword(Keyword.ELF), Filters.canExert()));
-        action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
+        action.addEffect(
+                new ChooseOpponentEffect(playerId) {
                     @Override
-                    protected void validDecisionMade(int index, String chosenOpponent) {
-                        List<? extends PhysicalCard> hand = game.getGameState().getHand(chosenOpponent);
+                    protected void opponentChosen(String opponentId) {
+                        List<? extends PhysicalCard> hand = game.getGameState().getHand(opponentId);
                         int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC)).size();
                         for (int i = 0; i < orcsCount; i++)
-                            action.addEffect(new ChooseAndDiscardCardFromHandEffect(action, chosenOpponent, false));
+                            action.addEffect(new ChooseAndDiscardCardFromHandEffect(action, opponentId, false));
                     }
-                })
-        );
+                });
         return action;
     }
 }

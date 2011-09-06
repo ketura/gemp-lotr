@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -11,8 +11,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -42,17 +40,15 @@ public class Card1_023 extends AbstractResponseEvent {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.DWARF))) {
             final PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(new PlayoutDecisionEffect(
-                    game.getUserFeedback(), playerId,
-                    new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
+            action.addEffect(
+                    new ChooseOpponentEffect(playerId) {
                         @Override
-                        protected void validDecisionMade(int index, String result) {
-                            action.addEffect(new DiscardTopCardFromDeckEffect(result));
-                            action.addEffect(new DiscardTopCardFromDeckEffect(result));
-                            action.addEffect(new DiscardTopCardFromDeckEffect(result));
+                        protected void opponentChosen(String opponentId) {
+                            action.addEffect(new DiscardTopCardFromDeckEffect(opponentId));
+                            action.addEffect(new DiscardTopCardFromDeckEffect(opponentId));
+                            action.addEffect(new DiscardTopCardFromDeckEffect(opponentId));
                         }
-                    }
-            ));
+                    });
             return Collections.<Action>singletonList(action);
         }
         return null;

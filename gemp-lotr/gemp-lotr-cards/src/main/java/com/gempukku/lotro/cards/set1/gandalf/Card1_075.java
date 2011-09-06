@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
@@ -13,8 +13,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -63,14 +61,13 @@ public class Card1_075 extends AbstractAttachableFPPossession {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, keyword, "Exert Frodo to reveal an opponent's hand. Remove (1) for each Orc revealed (limit (4)).");
             action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
             action.addEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose an opponent", GameUtils.getOpponents(game, playerId)) {
-                                @Override
-                                protected void validDecisionMade(int index, String opponent) {
-                                    List<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponent), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC));
-                                    action.addEffect(new RemoveTwilightEffect(orcs.size()));
-                                }
-                            }));
+                    new ChooseOpponentEffect(playerId) {
+                        @Override
+                        protected void opponentChosen(String opponentId) {
+                            List<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC));
+                            action.addEffect(new RemoveTwilightEffect(orcs.size()));
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;

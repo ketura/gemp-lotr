@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -61,19 +59,18 @@ public class Card1_043 extends AbstractLotroCardBlueprint {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.ELF))) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Choose an opponent to discard a card from hand");
             action.addCost(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), self.getOwner(),
-                            new MultipleChoiceAwaitingDecision(1, "Choose opponent", GameUtils.getOpponents(game, self.getOwner())) {
-                                @Override
-                                protected void validDecisionMade(int index, final String opponentId) {
-                                    action.addEffect(
-                                            new ChooseCardsFromHandEffect(opponentId, "Choose card to discard", 1, 1, Filters.any()) {
-                                                @Override
-                                                protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                                    action.addEffect(new DiscardCardFromHandEffect(selectedCards.get(0)));
-                                                }
-                                            });
-                                }
-                            }));
+                    new ChooseOpponentEffect(self.getOwner()) {
+                        @Override
+                        protected void opponentChosen(String opponentId) {
+                            action.addEffect(
+                                    new ChooseCardsFromHandEffect(opponentId, "Choose card to discard", 1, 1, Filters.any()) {
+                                        @Override
+                                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                            action.addEffect(new DiscardCardFromHandEffect(selectedCards.get(0)));
+                                        }
+                                    });
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;
