@@ -48,13 +48,14 @@ public class ServerResource {
         _logger.debug("Resource created");
     }
 
-    private void createGame(String gameId) {
+    private String createGameOnServer(String player1Name, String player2Name) {
         LotroGameParticipant[] participants = new LotroGameParticipant[2];
-        participants[0] = new LotroGameParticipant("MarcinS1", _lotroServer.getParticipantDeck("MarcinS1"));
-        participants[1] = new LotroGameParticipant("MarcinS2", _lotroServer.getParticipantDeck("MarcinS2"));
+        participants[0] = new LotroGameParticipant(player1Name, _lotroServer.getParticipantDeck(player1Name));
+        participants[1] = new LotroGameParticipant(player2Name, _lotroServer.getParticipantDeck(player2Name));
 
-        _lotroServer.createNewGame(new DefaultLotroFormat(true), participants, gameId);
+        String gameId = _lotroServer.createNewGame(new DefaultLotroFormat(true), participants);
         _lotroServer.getGameById(gameId).startGame();
+        return gameId;
     }
 
     @Path("/login")
@@ -70,6 +71,35 @@ public class ServerResource {
             logUser(request, login);
     }
 
+    @Path("/createGame")
+    @POST
+    @Produces(MediaType.TEXT_HTML)
+    public String createGame(
+            @FormParam("player1") String player1Name,
+            @FormParam("player2") String player2Name) {
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+        Player player1 = playerDao.getPlayer(player1Name);
+        if (player1 == null)
+            return "<b>Error:</b> Can't find user with name: " + player1Name;
+        Player player2 = playerDao.getPlayer(player2Name);
+        if (player2 == null)
+            return "<b>Error:</b> Can't find user with name: " + player2Name;
+
+        DeckDAO deckDao = _lotroServer.getDeckDao();
+        Deck deck1 = deckDao.getDeckForPlayer(player1, "default");
+        if (deck1 == null)
+            return "<b>Error:</b> Can't find deck for user with name: " + player1Name + " - <a href='deckBuild.html?participantId=" + player1Name + "'>create deck</a>";
+        Deck deck2 = deckDao.getDeckForPlayer(player2, "default");
+        if (deck2 == null)
+            return "<b>Error:</b> Can't find deck for user with name: " + player2Name + " - <a href='deckBuild.html?participantId=" + player2Name + "'>create deck</a>";
+
+        String gameId = createGameOnServer(player1Name, player2Name);
+
+        return "Game created, open following links in two windows:<br />" +
+                "<a href='game.html?gameId=" + gameId + "&participantId=" + player1Name + "'>" + player1Name + "</a><br />" +
+                "<a href='game.html?gameId=" + gameId + "&participantId=" + player2Name + "'>" + player2Name + "</a>";
+    }
+
     @Path("/game/{gameId}")
     @GET
     @Produces(MediaType.APPLICATION_XML)
@@ -80,9 +110,6 @@ public class ServerResource {
 //        String participantId = getLoggedUser(request);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
-        if (gameMediator == null)
-            createGame(gameId);
-        gameMediator = _lotroServer.getGameById(gameId);
 
         if (gameMediator == null)
             sendError(Response.Status.NOT_FOUND);

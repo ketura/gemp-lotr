@@ -85,11 +85,11 @@ public class LotroServer {
         // TODO
     }
 
-    public synchronized String createNewGame(LotroFormat lotroFormat, LotroGameParticipant[] participants, String gameId) {
+    public synchronized String createNewGame(LotroFormat lotroFormat, LotroGameParticipant[] participants) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary);
-//        String gameId = String.valueOf(_nextGameId);
+        String gameId = String.valueOf(_nextGameId);
         _runningGames.put(gameId, lotroGameMediator);
         _nextGameId++;
         return gameId;
