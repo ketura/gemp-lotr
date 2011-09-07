@@ -85,6 +85,9 @@ public class ServerResource {
         if (player2 == null)
             return "<b>Error:</b> Can't find user with name: " + player2Name;
 
+        if (player1Name.equals(player2Name))
+            return "<b>Error:</b> Can't create game with two same players";
+
         DeckDAO deckDao = _lotroServer.getDeckDao();
         Deck deck1 = deckDao.getDeckForPlayer(player1, "default");
         if (deck1 == null)
@@ -97,7 +100,10 @@ public class ServerResource {
 
         return "Game created, open following links in two windows:<br />" +
                 "<a href='game.html?gameId=" + gameId + "&participantId=" + player1Name + "'>" + player1Name + "</a><br />" +
-                "<a href='game.html?gameId=" + gameId + "&participantId=" + player2Name + "'>" + player2Name + "</a>";
+                "<a href='game.html?gameId=" + gameId + "&participantId=" + player2Name + "'>" + player2Name + "</a><br />" +
+                "If you wish to edit decks, use following links:<br />" +
+                "<a href='deckBuild.html?participantId=" + player1Name + "'>" + player1Name + "</a><br />" +
+                "<a href='deckBuild.html?participantId=" + player2Name + "'>" + player2Name + "</a>";
     }
 
     @Path("/game/{gameId}")
