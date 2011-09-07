@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gemp-LotR</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+
+    <script type="text/javascript" src="js/inheritance.js"></script>
+    <script type="text/javascript" src="js/logging.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(
+                function() {
+                    /* attach a submit handler to the form */
+                    $("#createGameForm").submit(function(event) {
+
+                        /* stop form from submitting normally */
+                        event.preventDefault();
+
+                        /* get some values from elements on the page: */
+                        var form = $(this);
+
+                        /* Send the data using post and put the results in a div */
+                        $.post("/gemp-lotr/server/createGame", form.serialize(),
+                                function(data) {
+                                    $("#result").empty().append(data);
+                                });
+                    });
+                });
+    </script>
+
+</head>
+<body>
+<body>
+<form action="/" id="createGameForm">
+    <b>Create game:</b><br/>
+    First player name: <input type="text" name="player1"/><br/>
+    Second player name: <input type="text" name="player2"/><br/>
+    <input type="submit" value="Create game"/>
+</form>
+<!-- the result of the search will be rendered inside this div -->
+<div id="result"></div>
+</body>
+</html>
