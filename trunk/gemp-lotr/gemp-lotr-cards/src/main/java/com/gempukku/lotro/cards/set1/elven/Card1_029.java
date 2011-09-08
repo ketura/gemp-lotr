@@ -83,9 +83,4 @@ public class Card1_029 extends AbstractEvent {
         );
         return action;
     }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return true;
-    }
 }
