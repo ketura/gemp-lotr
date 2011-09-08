@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 public class WoundCharacterEffect extends AbstractEffect {
     private PhysicalCard _woundTarget;
+    private boolean _prevented;
 
     public WoundCharacterEffect(PhysicalCard woundTarget) {
         _woundTarget = woundTarget;
@@ -34,6 +35,11 @@ public class WoundCharacterEffect extends AbstractEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        game.getGameState().addWound(_woundTarget);
+        if (!_prevented)
+            game.getGameState().addWound(_woundTarget);
+    }
+
+    public void prevent() {
+        _prevented = true;
     }
 }
