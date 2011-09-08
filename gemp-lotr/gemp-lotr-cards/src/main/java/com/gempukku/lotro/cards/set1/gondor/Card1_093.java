@@ -41,7 +41,7 @@ public class Card1_093 extends AbstractEvent {
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
 
-        final PhysicalCard arwen = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Arwern"));
+        final PhysicalCard arwen = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Arwen"));
         final PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
 
         if (arwen != null) {
