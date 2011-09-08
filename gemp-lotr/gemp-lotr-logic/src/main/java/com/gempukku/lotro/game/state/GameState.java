@@ -203,11 +203,25 @@ public class GameState {
     public void removeCardFromZone(PhysicalCard card) {
         Zone zone = card.getZone();
 
-        removeAllTokens(card);
-
         boolean b = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone).remove(card);
         if (!b)
             throw new RuntimeException("Card was not found in the expected zone");
+
+        for (Skirmish assignment : new LinkedList<Skirmish>(_assignments)) {
+            if (assignment.getFellowshipCharacter() == card)
+                removeAssignment(assignment);
+            if (assignment.getShadowCharacters().remove(card))
+                removeAssignment(assignment);
+        }
+
+        if (_skirmish != null) {
+            if (_skirmish.getFellowshipCharacter() == card)
+                _skirmish.setFellowshipCharacter(card);
+            _skirmish.getShadowCharacters().remove(card);
+        }
+
+        removeAllTokens(card);
+
         if (isZonePublic(zone))
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.cardRemoved(card);
