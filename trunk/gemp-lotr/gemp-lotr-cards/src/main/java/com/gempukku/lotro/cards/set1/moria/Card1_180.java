@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -12,6 +13,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -31,6 +33,11 @@ public class Card1_180 extends AbstractAttachable {
     public Card1_180() {
         super(Side.SHADOW, CardType.POSSESSION, 0, Culture.MORIA, "Goblin Scimitar");
         addKeyword(Keyword.HAND_WEAPON);
+    }
+
+    @Override
+    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+        return new StrengthModifier(self, Filters.attachedTo(self), 2);
     }
 
     @Override
