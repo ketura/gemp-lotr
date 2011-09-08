@@ -7,10 +7,16 @@ import com.gempukku.lotro.game.state.GameState;
 
 public class KeywordModifier extends AbstractModifier {
     private Keyword _keyword;
+    private int _count;
 
     public KeywordModifier(PhysicalCard physicalCard, Filter affectFilter, Keyword keyword) {
-        super(physicalCard, "Has " + keyword.getHumanReadable(), affectFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
+        this(physicalCard, affectFilter, keyword, 1);
+    }
+
+    public KeywordModifier(PhysicalCard physicalCard, Filter affectFilter, Keyword keyword, int count) {
+        super(physicalCard, "Has " + keyword.getHumanReadable() + ((count > 1) ? (" +" + count) : ""), affectFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
         _keyword = keyword;
+        _count = count;
     }
 
     @Override
@@ -21,7 +27,7 @@ public class KeywordModifier extends AbstractModifier {
     @Override
     public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
         if (keyword == _keyword)
-            return result + 1;
+            return result + _count;
         else
             return result;
     }
