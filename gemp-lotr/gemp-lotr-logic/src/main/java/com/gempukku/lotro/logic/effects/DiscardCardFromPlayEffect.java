@@ -4,17 +4,32 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class DiscardCardFromPlayEffect extends UnrespondableEffect {
+public class DiscardCardFromPlayEffect extends AbstractEffect {
     private PhysicalCard _source;
     private PhysicalCard _card;
+
+    private List<PhysicalCard> _discardedCards;
 
     public DiscardCardFromPlayEffect(PhysicalCard source, PhysicalCard card) {
         _source = source;
         _card = card;
+    }
+
+    @Override
+    public EffectResult getRespondableResult() {
+        return new DiscardCardsFromPlayResult(_discardedCards);
+    }
+
+    @Override
+    public String getText() {
+        return "Discard " + _card.getBlueprint().getName() + " from play";
     }
 
     @Override
@@ -25,7 +40,11 @@ public class DiscardCardFromPlayEffect extends UnrespondableEffect {
 
     @Override
     public void playEffect(LotroGame game) {
+        _discardedCards = new LinkedList<PhysicalCard>();
+
         if (game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), _card, _source)) {
+            _discardedCards.add(_card);
+
             GameState gameState = game.getGameState();
             gameState.stopAffecting(_card);
             gameState.removeCardFromZone(_card);
@@ -33,6 +52,8 @@ public class DiscardCardFromPlayEffect extends UnrespondableEffect {
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
             for (PhysicalCard attachedCard : attachedCards) {
+                _discardedCards.add(attachedCard);
+
                 gameState.stopAffecting(attachedCard);
                 gameState.removeCardFromZone(attachedCard);
                 gameState.addCardToZone(attachedCard, Zone.DISCARD);

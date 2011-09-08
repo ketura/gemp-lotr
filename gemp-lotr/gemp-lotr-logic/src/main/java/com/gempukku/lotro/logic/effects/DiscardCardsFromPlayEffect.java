@@ -6,17 +6,31 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class DiscardCardsFromPlayEffect extends UnrespondableEffect {
+public class DiscardCardsFromPlayEffect extends AbstractEffect {
     private PhysicalCard _source;
     private Filter _filter;
+    private List<PhysicalCard> _discardedCards;
 
     public DiscardCardsFromPlayEffect(PhysicalCard source, Filter filter) {
         _source = source;
         _filter = filter;
+    }
+
+    @Override
+    public EffectResult getRespondableResult() {
+        return new DiscardCardsFromPlayResult(_discardedCards);
+    }
+
+    @Override
+    public String getText() {
+        return "Discard multiple cards from play";
     }
 
     @Override
@@ -27,8 +41,11 @@ public class DiscardCardsFromPlayEffect extends UnrespondableEffect {
     @Override
     public void playEffect(LotroGame game) {
         List<PhysicalCard> cardsToDiscard = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
+        _discardedCards = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cardsToDiscard) {
             if (game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, _source)) {
+                _discardedCards.add(card);
+
                 GameState gameState = game.getGameState();
                 gameState.stopAffecting(card);
                 gameState.removeCardFromZone(card);
@@ -36,6 +53,8 @@ public class DiscardCardsFromPlayEffect extends UnrespondableEffect {
 
                 List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
                 for (PhysicalCard attachedCard : attachedCards) {
+                    _discardedCards.add(attachedCard);
+
                     gameState.stopAffecting(attachedCard);
                     gameState.removeCardFromZone(attachedCard);
                     gameState.addCardToZone(attachedCard, Zone.DISCARD);
