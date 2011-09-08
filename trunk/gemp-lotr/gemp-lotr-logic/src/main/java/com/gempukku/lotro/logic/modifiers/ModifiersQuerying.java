@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface ModifiersQuerying {
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
@@ -41,7 +42,7 @@ public interface ModifiersQuerying {
 
     public boolean shouldSkipPhase(GameState gameState, Phase phase);
 
-    public boolean isValidFreePlayerAssignments(GameState gameState, PhysicalCard companion, List<PhysicalCard> minions);
+    public boolean isValidFreePlayerAssignments(GameState gameState, Map<PhysicalCard, List<PhysicalCard>> assignments);
 
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
 }

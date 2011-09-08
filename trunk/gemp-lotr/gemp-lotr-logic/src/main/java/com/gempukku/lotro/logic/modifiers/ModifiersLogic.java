@@ -349,14 +349,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean isValidFreePlayerAssignments(GameState gameState, PhysicalCard companion, List<PhysicalCard> minions) {
+    public boolean isValidFreePlayerAssignments(GameState gameState, Map<PhysicalCard, List<PhysicalCard>> assignments) {
         boolean result = true;
-        for (Modifier modifier : getModifiers(ModifierEffect.ASSIGNMENT_MODIFIER))
-            if (affectsCardWithSkipSet(gameState, companion, modifier))
-                result = modifier.isValidFreePlayerAssignments(gameState, this, companion, minions, result);
-        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
-            if (affectsCardWithSkipSet(gameState, companion, modifier))
-                result = modifier.isValidFreePlayerAssignments(gameState, this, companion, minions, result);
+
+
+        for (Modifier modifier : getModifiers(ModifierEffect.ASSIGNMENT_MODIFIER)) {
+            result = modifier.isValidFreePlayerAssignments(gameState, this, assignments, result);
+            for (Map.Entry<PhysicalCard, List<PhysicalCard>> assignment : assignments.entrySet()) {
+                if (affectsCardWithSkipSet(gameState, assignment.getKey(), modifier))
+                    result = modifier.isValidFreePlayerAssignments(gameState, this, assignment.getKey(), assignment.getValue(), result);
+            }
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
+            result = modifier.isValidFreePlayerAssignments(gameState, this, assignments, result);
+            for (Map.Entry<PhysicalCard, List<PhysicalCard>> assignment : assignments.entrySet()) {
+                if (affectsCardWithSkipSet(gameState, assignment.getKey(), modifier))
+                    result = modifier.isValidFreePlayerAssignments(gameState, this, assignment.getKey(), assignment.getValue(), result);
+            }
+        }
         return result;
     }
 

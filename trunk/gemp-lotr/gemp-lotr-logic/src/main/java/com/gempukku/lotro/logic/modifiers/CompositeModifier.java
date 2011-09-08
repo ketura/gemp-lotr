@@ -8,10 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CompositeModifier implements Modifier {
     private PhysicalCard _source;
@@ -187,6 +184,14 @@ public class CompositeModifier implements Modifier {
     public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
         for (Modifier modifier : _modifiers)
             result = modifier.isValidFreePlayerAssignments(gameState, modifiersQuerying, companion, minions, result);
+
+        return result;
+    }
+
+    @Override
+    public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments, boolean result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.isValidFreePlayerAssignments(gameState, modifiersQuerying, assignments, result);
 
         return result;
     }
