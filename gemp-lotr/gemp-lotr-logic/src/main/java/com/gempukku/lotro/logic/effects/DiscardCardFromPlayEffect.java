@@ -37,6 +37,12 @@ public class DiscardCardFromPlayEffect extends UnrespondableEffect {
                 gameState.removeCardFromZone(attachedCard);
                 gameState.addCardToZone(attachedCard, Zone.DISCARD);
             }
+
+            List<PhysicalCard> stackedCards = gameState.getStackedCards(_card);
+            for (PhysicalCard stackedCard : stackedCards) {
+                gameState.removeCardFromZone(stackedCard);
+                gameState.addCardToZone(stackedCard, Zone.DISCARD);
+            }
         }
     }
 }

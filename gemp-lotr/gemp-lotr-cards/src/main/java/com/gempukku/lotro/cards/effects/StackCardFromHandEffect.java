@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.effects;
 
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -11,6 +12,11 @@ public class StackCardFromHandEffect extends UnrespondableEffect {
     public StackCardFromHandEffect(PhysicalCard card, PhysicalCard stackOn) {
         _card = card;
         _stackOn = stackOn;
+    }
+
+    @Override
+    public boolean canPlayEffect(LotroGame game) {
+        return _card.getZone() == Zone.HAND;
     }
 
     @Override

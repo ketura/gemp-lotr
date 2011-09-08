@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.timing.results.WoundResult;
 import java.util.List;
 
 public class PlayConditions {
-    private static boolean nonPlayZone(Zone zone) {
+    public static boolean nonPlayZone(Zone zone) {
         return zone != Zone.SHADOW_CHARACTERS && zone != Zone.SHADOW_SUPPORT
                 && zone != Zone.FREE_SUPPORT && zone != Zone.FREE_CHARACTERS
                 && zone != Zone.ATTACHED && zone != Zone.ADVENTURE_PATH;
