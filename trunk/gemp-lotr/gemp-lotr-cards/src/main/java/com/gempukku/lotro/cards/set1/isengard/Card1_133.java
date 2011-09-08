@@ -40,7 +40,7 @@ public class Card1_133 extends AbstractLotroCardBlueprint {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return true;
+        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Card1_133 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)) {
+        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)) {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
         }
 

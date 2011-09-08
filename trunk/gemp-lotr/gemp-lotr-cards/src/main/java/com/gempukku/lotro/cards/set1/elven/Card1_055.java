@@ -54,7 +54,7 @@ public class Card1_055 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self))
+        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
             actions.add(getPlayCardAction(playerId, game, self, 0));
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)

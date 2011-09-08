@@ -55,7 +55,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     }
 
     private void appendPlayAllyActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayFPCardDuringPhase(game, Phase.FELLOWSHIP, self))
+        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
             actions.add(getPlayCardAction(playerId, game, self, 0));
     }
 

@@ -24,9 +24,8 @@ public class PlayConditions {
                 && zone != Zone.ATTACHED && zone != Zone.ADVENTURE_PATH;
     }
 
-    public static boolean canPlayFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return (phase == null || game.getGameState().getCurrentPhase() == phase) && self.getZone() == Zone.HAND
-                && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
+    public static boolean canPayForShadowCard(LotroGame game, PhysicalCard self, int twilightModifier) {
+        return game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) + twilightModifier <= game.getGameState().getTwilightPool();
     }
 
     private static boolean containsPhase(Phase[] phases, Phase phase) {
@@ -37,21 +36,15 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean canPlayFPCardDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
-        return (phases == null || containsPhase(phases, game.getGameState().getCurrentPhase()))
+    public static boolean canPlayCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
+        return (phase == null || game.getGameState().getCurrentPhase() == phase)
                 && self.getZone() == Zone.HAND
                 && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
 
-    public static boolean canPlayShadowCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return (phase == null || game.getGameState().getCurrentPhase() == phase) && self.getZone() == Zone.HAND
-                && game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) <= game.getGameState().getTwilightPool()
-                && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
-    }
-
-    public static boolean canPlayShadowCardDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
-        return (phases == null || containsPhase(phases, game.getGameState().getCurrentPhase())) && self.getZone() == Zone.HAND
-                && game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) <= game.getGameState().getTwilightPool()
+    public static boolean canPlayCardDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
+        return (phases == null || containsPhase(phases, game.getGameState().getCurrentPhase()))
+                && self.getZone() == Zone.HAND
                 && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
 
