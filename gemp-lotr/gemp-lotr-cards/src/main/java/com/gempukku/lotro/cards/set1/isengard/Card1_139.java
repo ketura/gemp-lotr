@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -35,11 +34,6 @@ public class Card1_139 extends AbstractEvent {
     @Override
     public int getTwilightCost() {
         return 0;
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
     }
 
     @Override

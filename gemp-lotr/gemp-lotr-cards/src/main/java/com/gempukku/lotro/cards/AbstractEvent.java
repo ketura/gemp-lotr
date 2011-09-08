@@ -39,6 +39,12 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return (getSide() != Side.SHADOW
+                || game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) + twilightModifier <= game.getGameState().getTwilightPool());
+    }
+
+    @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (_playableInPhases != null) {
             Side side = self.getBlueprint().getSide();

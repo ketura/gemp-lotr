@@ -16,9 +16,4 @@ public abstract class AbstractResponseEvent extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return null;
     }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return false;
-    }
 }

@@ -68,9 +68,4 @@ public class Card1_118 extends AbstractEvent {
     public int getTwilightCost() {
         return 1;
     }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

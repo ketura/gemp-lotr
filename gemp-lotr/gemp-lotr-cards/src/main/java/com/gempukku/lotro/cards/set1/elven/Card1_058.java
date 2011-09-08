@@ -31,7 +31,8 @@ public class Card1_058 extends AbstractEvent {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert()) >= 2;
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert()) >= 2;
     }
 
     @Override
