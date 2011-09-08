@@ -44,7 +44,8 @@ public class Card1_135 extends AbstractLotroCardBlueprint {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())
+        return PlayConditions.canPayForShadowCard(game, self, twilightModifier)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Frost"))));
     }
 
@@ -58,7 +59,7 @@ public class Card1_135 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self)
+        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)
                 && checkPlayRequirements(playerId, game, self, 0)) {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
         }

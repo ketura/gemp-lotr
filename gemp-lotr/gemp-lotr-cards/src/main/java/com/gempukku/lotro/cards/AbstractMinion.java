@@ -31,7 +31,7 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
     }
 
     private void appendPlayMinionActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayShadowCardDuringPhase(game, Phase.SHADOW, self))
+        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self))
             actions.add(getPlayCardAction(playerId, game, self, 0));
     }
 
@@ -51,7 +51,7 @@ public class AbstractMinion extends AbstractLotroCardBlueprint {
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
-                && game.getGameState().getTwilightPool() >= game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) + twilightModifier;
+                && PlayConditions.canPayForShadowCard(game, self, twilightModifier);
     }
 
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {

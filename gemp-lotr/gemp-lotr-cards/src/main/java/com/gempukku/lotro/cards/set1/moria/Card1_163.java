@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  * Side: Shadow
  * Culture: Moria
  * Twilight Cost: 4
- * Type: Minion • Orc
+ * Type: Minion o Orc
  * Strength: 9
  * Vitality: 2
  * Site: 4
