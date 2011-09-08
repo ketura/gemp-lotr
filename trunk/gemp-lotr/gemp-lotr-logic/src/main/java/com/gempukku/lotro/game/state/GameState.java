@@ -592,7 +592,7 @@ public class GameState {
         if (assignment != null)
             assignment.getShadowCharacters().addAll(minions);
         else
-            _assignments.add(new Skirmish(fp, minions));
+            _assignments.add(new Skirmish(fp, new LinkedList<PhysicalCard>(minions)));
 
         for (GameStateListener listener : getAllGameStateListeners())
             listener.addAssignment(fp, minions);
