@@ -22,6 +22,10 @@ public class Skirmish {
         return _shadowCharacters;
     }
 
+    public void setFellowshipCharacter(PhysicalCard fellowshipCharacter) {
+        _fellowshipCharacter = fellowshipCharacter;
+    }
+
     public void cancel() {
         _cancelled = true;
     }

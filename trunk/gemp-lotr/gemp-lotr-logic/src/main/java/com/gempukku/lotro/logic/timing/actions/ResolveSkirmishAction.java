@@ -60,20 +60,22 @@ public class ResolveSkirmishAction implements Action {
         final GameState gameState = _game.getGameState();
 
         PhysicalCard fp = _skirmish.getFellowshipCharacter();
-        int fpStrength = _game.getModifiersQuerying().getStrength(gameState, fp);
+        int fpStrength = 0;
+        if (fp != null)
+            fpStrength = _game.getModifiersQuerying().getStrength(gameState, fp);
 
         int shadowStrength = 0;
         for (PhysicalCard minion : _skirmish.getShadowCharacters())
             shadowStrength += _game.getModifiersQuerying().getStrength(gameState, minion);
 
         if (_game.getModifiersQuerying().isOverwhelmedByStrength(gameState, fp, fpStrength, shadowStrength))
-            effects.add(new OverwhelmedEffect(_skirmish.getShadowCharacters(), Collections.singletonList(fp)));
+            effects.add(new OverwhelmedEffect(_skirmish.getShadowCharacters(), fpList(fp)));
         else if (shadowStrength >= fpStrength)
-            effects.add(new SkirmishResolvedEffect(_skirmish.getShadowCharacters(), Collections.singletonList(fp)));
+            effects.add(new SkirmishResolvedEffect(_skirmish.getShadowCharacters(), fpList(fp)));
         else if (fpStrength >= 2 * shadowStrength)
-            effects.add(new OverwhelmedEffect(Collections.singletonList(fp), _skirmish.getShadowCharacters()));
+            effects.add(new OverwhelmedEffect(fpList(fp), _skirmish.getShadowCharacters()));
         else
-            effects.add(new SkirmishResolvedEffect(Collections.singletonList(fp), _skirmish.getShadowCharacters()));
+            effects.add(new SkirmishResolvedEffect(fpList(fp), _skirmish.getShadowCharacters()));
 
         effects.add(new UnrespondableEffect() {
             @Override
@@ -83,5 +85,12 @@ public class ResolveSkirmishAction implements Action {
         });
 
         return effects.iterator();
+    }
+
+    private List<PhysicalCard> fpList(PhysicalCard card) {
+        if (card != null)
+            return Collections.singletonList(card);
+        else
+            return Collections.emptyList();
     }
 }

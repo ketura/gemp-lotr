@@ -140,7 +140,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     private boolean affectsCardWithSkipSet(GameState gameState, PhysicalCard physicalCard, Modifier modifier) {
-        if (!_skipSet.contains(modifier)) {
+        if (!_skipSet.contains(modifier) && physicalCard != null) {
             _skipSet.add(modifier);
             boolean result = modifier.affectsCard(gameState, this, physicalCard);
             _skipSet.remove(modifier);
