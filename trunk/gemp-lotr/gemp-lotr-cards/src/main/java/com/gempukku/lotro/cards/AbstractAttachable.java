@@ -32,9 +32,13 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return checkPlayRequirements(playerId, game, self, Filters.any(), twilightModifier);
+    }
+
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return (self.getBlueprint().getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier))
                 && PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(playerId, game, self));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(playerId, game, self), additionalAttachmentFilter);
     }
 
     @Override
@@ -56,7 +60,11 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     @Override
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new AttachPermanentAction(game, self, getValidTargetFilter(playerId, game, self), getAttachCostModifiers(playerId, game, self));
+        return getPlayCardAction(playerId, game, self, Filters.any(), twilightModifier);
+    }
+
+    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
+        return new AttachPermanentAction(game, self, Filters.and(getValidTargetFilter(playerId, game, self), additionalAttachmentFilter), getAttachCostModifiers(playerId, game, self));
     }
 
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
