@@ -1,12 +1,14 @@
 package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
+import com.gempukku.lotro.logic.actions.DiscardMinionFromPlayAction;
 import com.gempukku.lotro.logic.actions.KillAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -34,7 +36,11 @@ public class CharacterDeathRule {
                                 Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)));
                         for (PhysicalCard character : characters)
                             if (gameState.getWounds(character) >= game.getModifiersQuerying().getVitality(gameState, character))
-                                actions.add(new KillAction(character));
+                                if (character.getBlueprint().getSide() == Side.FREE_PEOPLE) {
+                                    actions.add(new KillAction(character));
+                                } else {
+                                    actions.add(new DiscardMinionFromPlayAction(character));
+                                }
 
                         return actions;
                     }
