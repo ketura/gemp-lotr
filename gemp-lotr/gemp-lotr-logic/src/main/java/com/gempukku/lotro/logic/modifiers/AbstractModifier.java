@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractModifier implements Modifier {
     private PhysicalCard _physicalCard;
@@ -120,6 +121,11 @@ public abstract class AbstractModifier implements Modifier {
 
     @Override
     public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
+        return result;
+    }
+
+    @Override
+    public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments, boolean result) {
         return result;
     }
 

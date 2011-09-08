@@ -62,9 +62,8 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                 unassignedMinions.removeAll(minionsAssigned);
                             }
 
-                            for (Map.Entry<PhysicalCard, List<PhysicalCard>> assignment : assignments.entrySet())
-                                if (!_game.getModifiersQuerying().isValidFreePlayerAssignments(_game.getGameState(), assignment.getKey(), assignment.getValue()))
-                                    throw new DecisionResultInvalidException(assignment.getKey().getBlueprint().getName() + " can't be assigned to these minions");
+                            if (!_game.getModifiersQuerying().isValidFreePlayerAssignments(_game.getGameState(), assignments))
+                                throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
                             for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : assignments.entrySet()) {
                                 PhysicalCard fp = physicalCardListEntry.getKey();

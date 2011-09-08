@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Modifier {
     public PhysicalCard getSource();
@@ -49,6 +50,8 @@ public interface Modifier {
     public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result);
 
     public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result);
+
+    public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments, boolean result);
 
     public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result);
 }
