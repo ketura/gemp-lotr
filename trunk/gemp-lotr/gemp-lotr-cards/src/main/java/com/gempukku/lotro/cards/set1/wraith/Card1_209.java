@@ -3,11 +3,13 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -61,6 +63,23 @@ public class Card1_209 extends AbstractLotroCardBlueprint {
 
                         }
                     });
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
+                && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
+                && self.getZone() == Zone.ATTACHED) {
+            boolean ringBearer = game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.RING_BEARER);
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Wound bearer or if bearer is Ring-Bearer, add a burden instead");
+            if (ringBearer) {
+                action.addEffect(new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+            } else {
+                action.addEffect(new WoundCharacterEffect(self.getAttachedTo()));
+            }
             return Collections.singletonList(action);
         }
         return null;
