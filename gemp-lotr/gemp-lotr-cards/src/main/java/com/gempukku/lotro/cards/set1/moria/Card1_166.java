@@ -33,7 +33,7 @@ public class Card1_166 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.name("Cave Troll of Moria"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
+        return Filters.name("Cave Troll of Moria");
     }
 
     @Override

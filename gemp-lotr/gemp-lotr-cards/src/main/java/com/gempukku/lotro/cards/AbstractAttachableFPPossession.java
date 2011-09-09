@@ -54,7 +54,7 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
     @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>(super.getPhaseActions(playerId, game, self));
-        appendTransferPossessionAction(actions, game, self, getValidTargetFilter(playerId, game, self));
+        appendTransferPossessionAction(actions, game, self, getFullValidTargetFilter(playerId, game, self));
         return actions;
     }
 }

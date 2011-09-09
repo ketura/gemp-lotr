@@ -40,7 +40,7 @@ public class Card1_285 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.keyword(Keyword.HOBBIT), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.PIPE))));
+        return Filters.keyword(Keyword.HOBBIT);
     }
 
     @Override

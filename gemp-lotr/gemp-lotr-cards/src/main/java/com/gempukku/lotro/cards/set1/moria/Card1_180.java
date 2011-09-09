@@ -41,7 +41,7 @@ public class Card1_180 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
+        return Filters.and(Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC));
     }
 
     @Override
