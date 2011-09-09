@@ -199,4 +199,12 @@ public class ProxyingModifier implements Modifier {
             return modifier.canBeDiscardedFromPlay(gameState, modifiersQuerying, card, source, result);
         return result;
     }
+
+    @Override
+    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.canBeHealed(gameState, modifiersQuerying, card, result);
+        return result;
+    }
 }

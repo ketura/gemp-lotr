@@ -14,7 +14,7 @@ public abstract class EffectResult {
 
         PLAY,
 
-        PUT_ON_THE_ONE_RING,
+        PUT_ON_THE_ONE_RING, REMOVE_BURDEN,
 
         WHEN_MOVE_FROM, WHEN_FELLOWSHIP_MOVES, WHEN_MOVE_TO
     }

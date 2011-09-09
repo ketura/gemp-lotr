@@ -45,4 +45,6 @@ public interface ModifiersQuerying {
     public boolean isValidFreePlayerAssignments(GameState gameState, Map<PhysicalCard, List<PhysicalCard>> assignments);
 
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
+
+    public boolean canBeHealed(GameState gameState, PhysicalCard card);
 }
