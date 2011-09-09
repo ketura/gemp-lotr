@@ -133,4 +133,9 @@ public abstract class AbstractModifier implements Modifier {
     public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result) {
         return result;
     }
+
+    @Override
+    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+        return result;
+    }
 }

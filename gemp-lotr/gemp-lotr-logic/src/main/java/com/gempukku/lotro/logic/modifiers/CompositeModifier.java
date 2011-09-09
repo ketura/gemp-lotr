@@ -203,4 +203,12 @@ public class CompositeModifier implements Modifier {
 
         return result;
     }
+
+    @Override
+    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.canBeHealed(gameState, modifiersQuerying, card, result);
+
+        return result;
+    }
 }

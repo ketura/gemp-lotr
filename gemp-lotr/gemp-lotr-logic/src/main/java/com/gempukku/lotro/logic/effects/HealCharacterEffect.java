@@ -25,7 +25,8 @@ public class HealCharacterEffect extends AbstractEffect {
 
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        return (game.getGameState().getWounds(_physicalCard) > 0);
+        return (game.getGameState().getWounds(_physicalCard) > 0)
+                && game.getModifiersQuerying().canBeHealed(game.getGameState(), _physicalCard);
     }
 
     @Override
