@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.set1;
+package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.common.CardType;
