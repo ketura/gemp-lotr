@@ -1,8 +1,10 @@
-package com.gempukku.lotro.cards.set1.elven;
+package com.gempukku.lotro.cards.set1;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -18,44 +20,36 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Set: The Fellowship of the Ring
- * Side: Free
- * Culture: Elven
- * Twilight Cost: 2
- * Type: Possession � Mount
+ * Side: Shadow
+ * Culture: Wraith
+ * Twilight Cost: 1
+ * Type: Possession • Mount
  * Strength: +2
- * Game Text: Bearer must be an Elf. When played on Arwen, Asfaloth's twilight cost is -2. While at a plains site,
- * bearer is strength +2. Discard Asfaloth when at an underground site.
+ * Game Text: Bearer must be a Nazgul. While at a plains site, bearer is strength +2. Discard this possession when at
+ * an underground site.
  */
-public class Card1_031 extends AbstractAttachableFPPossession {
-    public Card1_031() {
-        super(2, Culture.ELVEN, "Asfaloth", true);
+public class Card1_208 extends AbstractAttachable {
+    public Card1_208() {
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.WRAITH, "Black Steed");
         addKeyword(Keyword.MOUNT);
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.keyword(Keyword.ELF), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.MOUNT))));
-    }
-
-    @Override
-    protected Map<Filter, Integer> getAttachCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
-        Map<Filter, Integer> costModifiers = new HashMap<Filter, Integer>();
-        costModifiers.put(Filters.name("Arwen"), -2);
-        return costModifiers;
+        return Filters.and(Filters.keyword(Keyword.NAZGUL), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.MOUNT))));
     }
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +2, if at Plains another +2", Filters.attachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
+        return new AbstractModifier(self, "Strength +2, While at a Plains site, bearer is Strength +2", Filters.attachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                return result + (modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.PLAINS) ? 4 : 2);
+                int bonus = (modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.PLAINS)) ? 4 : 2;
+                return result + bonus;
             }
         };
     }
@@ -63,7 +57,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard when Underground");
+            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard this possession");
             action.addEffect(new DiscardCardFromPlayEffect(self, self));
             return Collections.singletonList(action);
         }
