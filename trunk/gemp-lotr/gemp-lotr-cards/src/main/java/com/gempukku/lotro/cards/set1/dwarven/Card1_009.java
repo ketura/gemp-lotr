@@ -33,8 +33,7 @@ import java.util.Set;
  */
 public class Card1_009 extends AbstractAttachableFPPossession {
     public Card1_009() {
-        super(0, Culture.DWARVEN, "Dwarven Axe");
-        addKeyword(Keyword.HAND_WEAPON);
+        super(0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Dwarven Axe");
     }
 
     @Override

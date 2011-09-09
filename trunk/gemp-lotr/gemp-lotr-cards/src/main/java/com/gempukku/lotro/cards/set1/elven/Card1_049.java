@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_049 extends AbstractAttachable {
     public Card1_049() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, "The Last Alliance of Elves and Men");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, null, "The Last Alliance of Elves and Men");
         addKeyword(Keyword.TALE);
     }
 

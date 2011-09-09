@@ -33,8 +33,7 @@ import java.util.List;
  */
 public class Card1_014 extends AbstractAttachableFPPossession {
     public Card1_014() {
-        super(2, Culture.DWARVEN, "Gimli's Battle Axe", true);
-        addKeyword(Keyword.HAND_WEAPON);
+        super(2, Culture.DWARVEN, Keyword.HAND_WEAPON, "Gimli's Battle Axe", true);
     }
 
     @Override

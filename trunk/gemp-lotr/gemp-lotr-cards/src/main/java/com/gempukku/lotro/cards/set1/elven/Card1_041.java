@@ -20,8 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_041 extends AbstractAttachableFPPossession {
     public Card1_041() {
-        super(1, Culture.ELVEN, "Elven Bow");
-        addKeyword(Keyword.RANGED_WEAPON);
+        super(1, Culture.ELVEN, Keyword.RANGED_WEAPON, "Elven Bow");
     }
 
     @Override

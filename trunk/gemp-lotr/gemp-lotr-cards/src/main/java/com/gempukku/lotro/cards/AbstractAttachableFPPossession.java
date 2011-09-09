@@ -14,12 +14,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractAttachableFPPossession extends AbstractAttachable {
-    public AbstractAttachableFPPossession(int twilight, Culture culture, String name) {
-        this(twilight, culture, name, false);
+    public AbstractAttachableFPPossession(int twilight, Culture culture, Keyword possessionClass, String name) {
+        this(twilight, culture, possessionClass, name, false);
     }
 
-    public AbstractAttachableFPPossession(int twilight, Culture culture, String name, boolean unique) {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, twilight, culture, name, unique);
+    public AbstractAttachableFPPossession(int twilight, Culture culture, Keyword possessionClass, String name, boolean unique) {
+        super(Side.FREE_PEOPLE, CardType.POSSESSION, twilight, culture, possessionClass, name, unique);
     }
 
     private void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {

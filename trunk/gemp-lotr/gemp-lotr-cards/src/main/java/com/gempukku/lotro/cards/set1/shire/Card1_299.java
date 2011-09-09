@@ -21,8 +21,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_299 extends AbstractAttachableFPPossession {
     public Card1_299() {
-        super(1, Culture.SHIRE, "Hobbit Sword");
-        addKeyword(Keyword.HAND_WEAPON);
+        super(1, Culture.SHIRE, Keyword.HAND_WEAPON, "Hobbit Sword");
     }
 
     @Override

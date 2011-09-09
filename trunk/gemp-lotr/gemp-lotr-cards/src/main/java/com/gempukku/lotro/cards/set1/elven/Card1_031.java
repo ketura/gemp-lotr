@@ -34,8 +34,7 @@ import java.util.Map;
  */
 public class Card1_031 extends AbstractAttachableFPPossession {
     public Card1_031() {
-        super(2, Culture.ELVEN, "Asfaloth", true);
-        addKeyword(Keyword.MOUNT);
+        super(2, Culture.ELVEN, Keyword.MOUNT, "Asfaloth", true);
     }
 
     @Override

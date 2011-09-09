@@ -20,8 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_101 extends AbstractAttachableFPPossession {
     public Card1_101() {
-        super(1, Culture.GONDOR, "Coat of Mail");
-        addKeyword(Keyword.ARMOR);
+        super(1, Culture.GONDOR, Keyword.ARMOR, "Coat of Mail");
     }
 
     @Override

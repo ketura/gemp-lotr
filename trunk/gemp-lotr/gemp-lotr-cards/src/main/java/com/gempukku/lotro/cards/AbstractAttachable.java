@@ -1,10 +1,7 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -18,14 +15,18 @@ import java.util.Map;
 
 public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     private int _twilight;
+    private Keyword _possessionClass;
 
-    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, String name) {
-        this(side, cardType, twilight, culture, name, false);
+    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, Keyword possessionClass, String name) {
+        this(side, cardType, twilight, culture, possessionClass, name, false);
     }
 
-    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, String name, boolean unique) {
+    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, Keyword possessionClass, String name, boolean unique) {
         super(side, cardType, culture, name, unique);
         _twilight = twilight;
+        _possessionClass = possessionClass;
+        if (_possessionClass != null)
+            addKeyword(_possessionClass);
     }
 
     protected abstract Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_094 extends AbstractAttachableFPPossession {
     public Card1_094() {
-        super(1, Culture.GONDOR, "Athelas");
+        super(1, Culture.GONDOR, null, "Athelas");
     }
 
     @Override

@@ -20,8 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_008 extends AbstractAttachableFPPossession {
     public Card1_008() {
-        super(0, Culture.DWARVEN, "Dwarven Armor");
-        addKeyword(Keyword.ARMOR);
+        super(0, Culture.DWARVEN, Keyword.ARMOR, "Dwarven Armor");
     }
 
     @Override

@@ -22,8 +22,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_042 extends AbstractAttachableFPPossession {
     public Card1_042() {
-        super(1, Culture.ELVEN, "Elven Cloak");
-        addKeyword(Keyword.CLOAK);
+        super(1, Culture.ELVEN, Keyword.CLOAK, "Elven Cloak");
     }
 
     @Override
