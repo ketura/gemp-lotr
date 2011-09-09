@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -43,8 +44,9 @@ public class Card1_189 extends AbstractResponseEvent {
 
     @Override
     public List<? extends Action> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if ((effectResult.getType() == EffectResult.Type.EXERT && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((ExertResult) effectResult).getExertedCard(), Keyword.RING_BEARER))
-                || (effectResult.getType() == EffectResult.Type.WOUND && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((WoundResult) effectResult).getWoundedCard(), Keyword.RING_BEARER))) {
+        if (((effectResult.getType() == EffectResult.Type.EXERT && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((ExertResult) effectResult).getExertedCard(), Keyword.RING_BEARER))
+                || (effectResult.getType() == EffectResult.Type.WOUND && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((WoundResult) effectResult).getWoundedCard(), Keyword.RING_BEARER)))
+                && PlayConditions.canPayForShadowCard(game, self, 0)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

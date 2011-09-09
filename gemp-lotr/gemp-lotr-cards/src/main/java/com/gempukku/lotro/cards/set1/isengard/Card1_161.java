@@ -45,7 +45,8 @@ public class Card1_161 extends AbstractResponseEvent {
     @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.type(CardType.EVENT), Filters.keyword(Keyword.STEALTH)))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI))
+                && PlayConditions.canPayForShadowCard(game, self, 0)) {
 
             final PlayEventAction action = new PlayEventAction(self);
 
