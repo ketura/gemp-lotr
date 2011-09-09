@@ -43,7 +43,7 @@ public class Card1_045 extends AbstractAlly {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Galadriel to play an Elf for free");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
-                    new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.keyword(Keyword.ELF), Filters.playable(game)) {
+                    new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.keyword(Keyword.ELF), Filters.playable(game, -1000)) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             PhysicalCard selectedCard = selectedCards.get(0);
