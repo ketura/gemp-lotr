@@ -29,7 +29,8 @@ import java.util.List;
  */
 public class Card1_066 extends AbstractAttachable {
     public Card1_066() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, "The Tale of Gil-galad", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, null, "The Tale of Gil-galad", true);
+        addKeyword(Keyword.TALE);
     }
 
     @Override

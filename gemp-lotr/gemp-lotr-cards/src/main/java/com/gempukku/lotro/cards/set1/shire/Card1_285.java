@@ -35,8 +35,7 @@ import java.util.List;
  */
 public class Card1_285 extends AbstractAttachableFPPossession {
     public Card1_285() {
-        super(1, Culture.SHIRE, "Bilbo's Pipe", true);
-        addKeyword(Keyword.PIPE);
+        super(1, Culture.SHIRE, Keyword.PIPE, "Bilbo's Pipe", true);
     }
 
     @Override

@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_108 extends AbstractAttachable {
     public Card1_108() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GONDOR, "No Stranger to the Shadows");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GONDOR, null, "No Stranger to the Shadows");
     }
 
     @Override

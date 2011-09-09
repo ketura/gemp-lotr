@@ -29,8 +29,7 @@ import java.util.List;
  */
 public class Card1_098 extends AbstractAttachableFPPossession {
     public Card1_098() {
-        super(0, Culture.GONDOR, "Boromir's Cloak", true);
-        addKeyword(Keyword.CLOAK);
+        super(0, Culture.GONDOR, Keyword.CLOAK, "Boromir's Cloak", true);
     }
 
     @Override

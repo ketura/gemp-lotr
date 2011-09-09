@@ -31,8 +31,7 @@ import java.util.List;
  */
 public class Card1_180 extends AbstractAttachable {
     public Card1_180() {
-        super(Side.SHADOW, CardType.POSSESSION, 0, Culture.MORIA, "Goblin Scimitar");
-        addKeyword(Keyword.HAND_WEAPON);
+        super(Side.SHADOW, CardType.POSSESSION, 0, Culture.MORIA, Keyword.HAND_WEAPON, "Goblin Scimitar");
     }
 
     @Override

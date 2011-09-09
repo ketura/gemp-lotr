@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_317 extends AbstractAttachable {
     public Card1_317() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.SHIRE, "There and Back Again", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.SHIRE, null, "There and Back Again", true);
         addKeyword(Keyword.TALE);
     }
 

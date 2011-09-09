@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_314 extends AbstractAttachable {
     public Card1_314() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 2, Culture.SHIRE, "Stone Trolls");
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 2, Culture.SHIRE, null, "Stone Trolls");
         addKeyword(Keyword.TALE);
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_062 extends AbstractAttachable {
     public Card1_062() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, "The Splendor of Their Banners", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, null, "The Splendor of Their Banners", true);
         addKeyword(Keyword.TALE);
     }
 

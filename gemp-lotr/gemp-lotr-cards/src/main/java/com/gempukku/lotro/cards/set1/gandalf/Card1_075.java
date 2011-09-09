@@ -35,8 +35,7 @@ import java.util.List;
  */
 public class Card1_075 extends AbstractAttachableFPPossession {
     public Card1_075() {
-        super(2, Culture.GANDALF, "Glamdring", true);
-        addKeyword(Keyword.HAND_WEAPON);
+        super(2, Culture.GANDALF, Keyword.HAND_WEAPON, "Glamdring", true);
     }
 
     @Override

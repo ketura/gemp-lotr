@@ -21,8 +21,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_107 extends AbstractAttachableFPPossession {
     public Card1_107() {
-        super(1, Culture.GONDOR, "Great Shield");
-        addKeyword(Keyword.SHIELD);
+        super(1, Culture.GONDOR, Keyword.SHIELD, "Great Shield");
     }
 
     @Override
