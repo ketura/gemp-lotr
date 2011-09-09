@@ -41,7 +41,7 @@ public class Card1_095 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.name("Boromir"), Filters.not(Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))));
+        return Filters.name("Boromir");
     }
 
     @Override
