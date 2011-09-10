@@ -114,6 +114,15 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean losesSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter filter) {
+        EffectResult.Type effectType = effectResult.getType();
+        if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
+            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+            return (Filters.filter(skirmishResult.getLosers(), gameState, modifiersQuerying, filter).size() > 0);
+        }
+        return false;
+    }
+
     public static boolean isWounded(EffectResult effectResult, PhysicalCard character) {
         if (effectResult.getType() == EffectResult.Type.WOUND) {
             PhysicalCard woundedCard = ((WoundResult) effectResult).getWoundedCard();
