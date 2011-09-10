@@ -27,7 +27,7 @@ public class Card1_227 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.keyword(Keyword.NAZGUL)) {
@@ -36,7 +36,7 @@ public class Card1_227 extends AbstractEvent {
                         int bonus = (game.getGameState().getBurdens(game.getGameState().getCurrentPlayerId()) >= 5) ? 4 : 2;
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(nazgul), bonus)));
+                                        new StrengthModifier(self, Filters.sameCard(nazgul), bonus), Phase.SKIRMISH));
                     }
                 });
         return action;
