@@ -97,6 +97,7 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WOUND
                 && game.getGameState().isWearingRing()
+                && !game.getGameState().isCancelRingText()
                 && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
             List<Action> actions = new LinkedList<Action>();
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add 2 burdens instead of taking a wound");
