@@ -438,12 +438,12 @@ public class GameState {
         addTokens(_ringBearers.get(playerId), Token.BURDEN, Math.max(0, burdens));
     }
 
-    public int getBurdens(String playerId) {
-        return getTokenCount(_ringBearers.get(playerId), Token.BURDEN);
+    public int getBurdens() {
+        return getTokenCount(_ringBearers.get(getCurrentPlayerId()), Token.BURDEN);
     }
 
-    public void removeBurdens(String playerId, int burdens) {
-        removeTokens(_ringBearers.get(playerId), Token.BURDEN, Math.max(0, burdens));
+    public void removeBurdens(int burdens) {
+        removeTokens(_ringBearers.get(getCurrentPlayerId()), Token.BURDEN, Math.max(0, burdens));
     }
 
     public void addWound(PhysicalCard card) {

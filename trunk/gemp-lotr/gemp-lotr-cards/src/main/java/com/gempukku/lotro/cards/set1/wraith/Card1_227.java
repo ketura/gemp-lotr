@@ -33,7 +33,7 @@ public class Card1_227 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.keyword(Keyword.NAZGUL)) {
                     @Override
                     protected void cardSelected(PhysicalCard nazgul) {
-                        int bonus = (game.getGameState().getBurdens(game.getGameState().getCurrentPlayerId()) >= 5) ? 4 : 2;
+                        int bonus = (game.getGameState().getBurdens() >= 5) ? 4 : 2;
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(nazgul), bonus), Phase.SKIRMISH));

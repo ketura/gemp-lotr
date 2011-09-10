@@ -44,14 +44,14 @@ public class Card1_218 extends AbstractAttachable {
 
             @Override
             public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
-                if (keyword == Keyword.DAMAGE && gameState.getBurdens(gameState.getCurrentPlayerId()) >= 3)
+                if (keyword == Keyword.DAMAGE && gameState.getBurdens() >= 3)
                     return result + 1;
                 return result;
             }
 
             @Override
             public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
-                if (keyword == Keyword.DAMAGE && gameState.getBurdens(gameState.getCurrentPlayerId()) >= 3)
+                if (keyword == Keyword.DAMAGE && gameState.getBurdens() >= 3)
                     return true;
                 return result;
             }
