@@ -27,6 +27,7 @@ public class GameState {
     private int _moveCount;
     private boolean _fierceSkirmishes;
     private boolean _wearingRing;
+    private boolean _cancelRingText;
 
     private Map<String, Integer> _playerPosition = new HashMap<String, Integer>();
     private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
@@ -96,6 +97,14 @@ public class GameState {
 
     public boolean isWearingRing() {
         return _wearingRing;
+    }
+
+    public void setCancelRingText(boolean cancelRingText) {
+        _cancelRingText = cancelRingText;
+    }
+
+    public boolean isCancelRingText() {
+        return _cancelRingText;
     }
 
     public PlayerOrder getPlayerOrder() {
@@ -598,7 +607,7 @@ public class GameState {
             listener.addAssignment(fp, minions);
     }
 
-    private void removeAssignment(Skirmish skirmish) {
+    public void removeAssignment(Skirmish skirmish) {
         _assignments.remove(skirmish);
         for (GameStateListener listener : getAllGameStateListeners())
             listener.removeAssignment(skirmish.getFellowshipCharacter());
