@@ -39,7 +39,7 @@ public class LoseConditionsRule {
                         }
                         PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
                         int ringBearerResistance = ringBearer.getBlueprint().getResistance();
-                        if (game.getGameState().getBurdens(game.getGameState().getCurrentPlayerId()) >= ringBearerResistance) {
+                        if (game.getGameState().getBurdens() >= ringBearerResistance) {
                             DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Losing the game due to Ring-Bearer corruption");
                             action.addEffect(
                                     new UnrespondableEffect() {

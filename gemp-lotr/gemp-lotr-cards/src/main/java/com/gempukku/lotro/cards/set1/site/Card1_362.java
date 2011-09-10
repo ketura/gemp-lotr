@@ -33,7 +33,7 @@ public class Card1_362 extends AbstractSite {
             List<Action> actions = new LinkedList<Action>();
 
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
-            final int burdens = game.getGameState().getBurdens(fpPlayerId);
+            final int burdens = game.getGameState().getBurdens();
 
             String[] opponents = GameUtils.getOpponents(game, fpPlayerId);
             for (String opponent : opponents) {

@@ -63,7 +63,7 @@ public class Card1_142 extends AbstractLotroCardBlueprint {
             @Override
             public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
                 String currentPlayerId = gameState.getCurrentPlayerId();
-                if (gameState.getBurdens(currentPlayerId) >= 5
+                if (gameState.getBurdens() >= 5
                         || !PlayConditions.canExert(gameState, modifiersQuerying, gameState.getRingBearer(currentPlayerId)))
                     return result - 1;
                 return result;

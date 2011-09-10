@@ -29,7 +29,7 @@ public class Card1_078 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        int bonus = (game.getGameState().getBurdens(playerId) <= 4) ? 4 : 2;
+        int bonus = (game.getGameState().getBurdens() <= 4) ? 4 : 2;
         action.addEffect(
                 new AddUntilEndOfPhaseModifierEffect(
                         new StrengthModifier(self, Filters.name("Gandalf"), bonus), Phase.SKIRMISH));

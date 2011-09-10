@@ -68,7 +68,7 @@ public class Card1_120 extends AbstractLotroCardBlueprint {
             final String fpPlayer = gameState.getCurrentPlayerId();
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new ArbitraryCardsSelectionDecision(1, "Choose card to discard", GameUtils.getRandomCards(gameState.getHand(fpPlayer), gameState.getBurdens(fpPlayer)), 0, 1) {
+                            new ArbitraryCardsSelectionDecision(1, "Choose card to discard", GameUtils.getRandomCards(gameState.getHand(fpPlayer), gameState.getBurdens()), 0, 1) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     List<PhysicalCard> cards = getSelectedCardsByResponse(result);

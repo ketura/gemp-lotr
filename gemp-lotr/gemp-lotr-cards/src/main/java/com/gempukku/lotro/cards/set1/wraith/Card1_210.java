@@ -36,7 +36,7 @@ public class Card1_210 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && game.getGameState().getBurdens(game.getGameState().getCurrentPlayerId()) >= 3;
+                && game.getGameState().getBurdens() >= 3;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Card1_210 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.keyword(Keyword.NAZGUL)) {
                     @Override
                     protected void cardSelected(PhysicalCard nazgul) {
-                        int burdens = game.getGameState().getBurdens(game.getGameState().getCurrentPlayerId());
+                        int burdens = game.getGameState().getBurdens();
 
                         List<Modifier> modifiers = new LinkedList<Modifier>();
                         modifiers.add(new StrengthModifier(null, null, (burdens >= 6) ? 3 : 1));
