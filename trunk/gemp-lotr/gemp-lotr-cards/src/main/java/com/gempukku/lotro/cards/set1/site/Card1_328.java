@@ -1,14 +1,13 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
@@ -25,17 +24,14 @@ public class Card1_328 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
-        return new AbstractModifier(self, "The roaming penalty for each Nazgul you play to Bree Streets is -2.", Filters.and(Filters.keyword(Keyword.ROAMING), Filters.keyword(Keyword.NAZGUL),
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return (gameState.getCurrentSite() == self);
-                    }
-                }), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
-            @Override
-            public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int result) {
-                return result - 2;
-            }
-        };
+        return new RoamingPenaltyModifier(self,
+                Filters.and(
+                        Filters.keyword(Keyword.NAZGUL),
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return (gameState.getCurrentSite() == self);
+                            }
+                        }), -2);
     }
 }

@@ -138,4 +138,9 @@ public abstract class AbstractModifier implements Modifier {
     public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
         return result;
     }
+
+    @Override
+    public int getRoamingPenalty(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
+        return result;
+    }
 }
