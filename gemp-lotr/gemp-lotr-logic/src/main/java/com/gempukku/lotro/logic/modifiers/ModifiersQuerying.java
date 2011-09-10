@@ -26,6 +26,8 @@ public interface ModifiersQuerying {
 
     public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target);
 
+    public int getRoamingPenalty(GameState gameState, PhysicalCard physicalCard);
+
     public int getStrength(GameState gameState, PhysicalCard physicalCard);
 
     public int getVitality(GameState gameState, PhysicalCard physicalCard);

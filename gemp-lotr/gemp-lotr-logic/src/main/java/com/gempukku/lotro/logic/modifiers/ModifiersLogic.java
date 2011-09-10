@@ -273,6 +273,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public int getRoamingPenalty(GameState gameState, PhysicalCard physicalCard) {
+        int result = 2;
+        for (Modifier modifier : getModifiers(ModifierEffect.TWILIGHT_COST_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.getRoamingPenalty(gameState, this, physicalCard, result);
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.getRoamingPenalty(gameState, this, physicalCard, result);
+        }
+        return result;
+    }
+
+    @Override
     public boolean isOverwhelmedByStrength(GameState gameState, PhysicalCard card, int strength, int opposingStrength) {
         boolean result = (opposingStrength > strength * 2);
         for (Modifier modifier : getModifiers(ModifierEffect.OVERWHELM_MODIFIER)) {
