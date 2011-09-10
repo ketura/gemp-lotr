@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardFromHandEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
@@ -70,8 +70,8 @@ public class Card1_047 extends AbstractAttachableFPPossession {
 
                         @Override
                         public void playEffect(LotroGame game) {
-                            action.addCost(new ChooseAndDiscardCardFromHandEffect(action, playerId, true));
-                            action.addCost(new ChooseAndDiscardCardFromHandEffect(action, playerId, true));
+                            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
+                            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
                         }
                     });
 

@@ -45,7 +45,7 @@ public class Card1_307 extends AbstractCompanion {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Remove a burder or wound from a companion");
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
+            possibleEffects.add(new RemoveBurdenEffect());
             possibleEffects.add(
                     new ChooseActiveCardEffect(self.getOwner(), "Choose a companion", Filters.type(CardType.COMPANION)) {
                         @Override

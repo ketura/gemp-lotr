@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 import java.util.Collections;
@@ -34,7 +35,8 @@ public class Card1_171 extends AbstractEvent {
                                 new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.notAssigned()) {
                                     @Override
                                     protected void cardSelected(PhysicalCard moriaOrc) {
-                                        game.getGameState().assignToSkirmishes(companion, Collections.singletonList(moriaOrc));
+                                        action.addEffect(
+                                                new AssignmentEffect(companion, Collections.singletonList(moriaOrc), "Frenzy effect"));
                                     }
                                 });
                     }

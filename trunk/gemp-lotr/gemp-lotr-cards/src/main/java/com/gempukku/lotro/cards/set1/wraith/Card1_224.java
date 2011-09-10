@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -57,7 +58,7 @@ public class Card1_224 extends AbstractResponseEvent {
                                         @Override
                                         protected void cardSelected(PhysicalCard nazgul) {
                                             PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                            game.getGameState().assignToSkirmishes(ringBearer, Collections.singletonList(nazgul));
+                                            action.addEffect(new AssignmentEffect(ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
                                             game.getGameState().setCancelRingText(true);
                                             game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
                                                     new AbstractActionProxy() {

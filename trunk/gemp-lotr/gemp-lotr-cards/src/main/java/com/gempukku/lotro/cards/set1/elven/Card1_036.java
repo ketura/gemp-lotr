@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardFromHandEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
@@ -52,7 +52,7 @@ public class Card1_036 extends AbstractEvent {
                         List<? extends PhysicalCard> hand = game.getGameState().getHand(opponentId);
                         int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC)).size();
                         for (int i = 0; i < orcsCount; i++)
-                            action.addEffect(new ChooseAndDiscardCardFromHandEffect(action, opponentId, false));
+                            action.addEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false));
                     }
                 });
         return action;

@@ -18,7 +18,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.results.RemoveBurdenResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -88,9 +87,9 @@ public class Card1_207 extends AbstractLotroCardBlueprint {
 
     @Override
     public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.REMOVE_BURDEN) {
-            RemoveBurdenResult removeBurdenResult = (RemoveBurdenResult) effectResult;
-            if (game.getGameState().getRingBearer(removeBurdenResult.getPlayerId()) == self.getStackedOn()) {
+        if (effectResult.getType() == EffectResult.Type.REMOVE_BURDEN
+                && self.getZone() == Zone.ATTACHED) {
+            if (game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getStackedOn(), Keyword.RING_BEARER)) {
                 DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Cancel burden removal");
                 action.addEffect(
                         new CancelEffect(effect));

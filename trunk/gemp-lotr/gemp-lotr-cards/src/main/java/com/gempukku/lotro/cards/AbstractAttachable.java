@@ -63,7 +63,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     protected abstract Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public final boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return checkPlayRequirements(playerId, game, self, Filters.any(), twilightModifier);
     }
 

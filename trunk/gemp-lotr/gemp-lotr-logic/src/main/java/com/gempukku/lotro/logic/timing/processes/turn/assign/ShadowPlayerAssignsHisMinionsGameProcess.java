@@ -9,8 +9,10 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.PlayOrder;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
@@ -62,12 +64,11 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Map<PhysicalCard, List<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                            for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : assignments.entrySet()) {
-                                PhysicalCard fp = physicalCardListEntry.getKey();
-                                List<PhysicalCard> minions = physicalCardListEntry.getValue();
-                                if (minions != null && minions.size() > 0)
-                                    _game.getGameState().assignToSkirmishes(fp, minions);
-                            }
+                            DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Shadow player assignments");
+                            action.addEffect(
+                                    new AssignmentEffect(assignments, "Shadow player assignments"));
+
+                            _game.getActionsEnvironment().addActionToStack(action);
                         }
                     });
         }

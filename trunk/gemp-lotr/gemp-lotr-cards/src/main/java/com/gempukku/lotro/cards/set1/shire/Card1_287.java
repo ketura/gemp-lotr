@@ -43,7 +43,7 @@ public class Card1_287 extends AbstractResponseEvent {
             action.addCost(
                     new CancelEffect(effect));
             action.addEffect(
-                    new RemoveBurdenEffect(playerId));
+                    new RemoveBurdenEffect());
             return Collections.singletonList(action);
         }
         return null;

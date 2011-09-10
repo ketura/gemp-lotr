@@ -38,7 +38,7 @@ public class Card1_312 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit companion", true, Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION), Filters.canExert()));
-        action.addEffect(new RemoveBurdenEffect(playerId));
+        action.addEffect(new RemoveBurdenEffect());
         return action;
     }
 }
