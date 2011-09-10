@@ -10,6 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -38,13 +39,14 @@ public class Card1_236 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && game.getGameState().getBurdens() >= 4) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ASSIGNMENT, "Assign a companion (except the Ring-bearer) to skirmish Ulaire Toldea.");
+            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ASSIGNMENT, "Assign a companion (except the Ring-bearer) to skirmish Ulaire Toldea.");
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
                 action.addEffect(
                         new ChooseActiveCardEffect(playerId, "Choose a companion (except the Ring-Bearer", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
-                                game.getGameState().assignToSkirmishes(companion, Collections.singletonList(self));
+                                action.addEffect(
+                                        new AssignmentEffect(companion, Collections.singletonList(self), "Ulaire Toldea effect"));
                             }
                         });
             }

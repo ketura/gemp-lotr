@@ -7,8 +7,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
@@ -65,12 +67,10 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                             if (!_game.getModifiersQuerying().isValidFreePlayerAssignments(_game.getGameState(), assignments))
                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
-                            for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : assignments.entrySet()) {
-                                PhysicalCard fp = physicalCardListEntry.getKey();
-                                List<PhysicalCard> minions = physicalCardListEntry.getValue();
-                                if (minions != null && minions.size() > 0)
-                                    _game.getGameState().assignToSkirmishes(fp, minions);
-                            }
+                            DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Free People player assignments");
+                            action.addEffect(
+                                    new AssignmentEffect(assignments, "Free People player assignments"));
+                            _game.getActionsEnvironment().addActionToStack(action);
                         }
                     });
         }

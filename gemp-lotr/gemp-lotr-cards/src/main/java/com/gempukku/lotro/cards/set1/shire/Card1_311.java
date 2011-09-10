@@ -43,7 +43,7 @@ public class Card1_311 extends AbstractCompanion {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Sam to remove a burden.");
             action.addCost(new ExertCharacterEffect(self));
-            action.addEffect(new RemoveBurdenEffect(playerId));
+            action.addEffect(new RemoveBurdenEffect());
             return Collections.singletonList(action);
         }
         return null;

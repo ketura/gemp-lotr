@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardFromHandEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -53,9 +53,9 @@ public class Card1_196 extends AbstractLotroCardBlueprint {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && game.getGameState().getHand(playerId).size() >= 3) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard 3 cards from hand to play a [MORIA] Orc from your discard pile.");
-            action.addCost(new ChooseAndDiscardCardFromHandEffect(action, playerId, true));
-            action.addCost(new ChooseAndDiscardCardFromHandEffect(action, playerId, true));
-            action.addCost(new ChooseAndDiscardCardFromHandEffect(action, playerId, true));
+            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
+            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
+            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
             action.addEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, Filters.and(Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC))));
             return Collections.singletonList(action);

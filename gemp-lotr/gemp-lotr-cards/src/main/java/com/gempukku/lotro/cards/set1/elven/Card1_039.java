@@ -40,7 +40,7 @@ public class Card1_039 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.addCost(new SpotEffect(Filters.keyword(Keyword.ELF)));
-        action.addEffect(new RemoveBurdenEffect(playerId));
+        action.addEffect(new RemoveBurdenEffect());
         return action;
     }
 }

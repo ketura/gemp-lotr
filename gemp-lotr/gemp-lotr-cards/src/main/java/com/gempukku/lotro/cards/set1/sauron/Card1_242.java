@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardFromHandEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
@@ -75,7 +75,7 @@ public class Card1_242 extends AbstractLotroCardBlueprint {
                                     action.addEffect(
                                             new DiscardCardFromDeckEffect(playerId, topCard));
                                     action.addEffect(
-                                            new ChooseAndDiscardCardFromHandEffect(action, playerId, false));
+                                            new ChooseAndDiscardCardsFromHandEffect(action, playerId, false));
                                 }
                             }
                         }

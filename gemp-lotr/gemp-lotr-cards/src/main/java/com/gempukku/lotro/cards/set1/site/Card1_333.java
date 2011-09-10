@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardFromHandEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -33,7 +33,7 @@ public class Card1_333 extends AbstractSite {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.MINION))) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Free Peoples player discards a card from hand");
             action.addEffect(
-                    new ChooseAndDiscardCardFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false));
+                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false));
             return Collections.singletonList(action);
         }
         return null;

@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class Card1_169 extends AbstractEvent {
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayEventAction action = new PlayEventAction(self);
+        final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
 
         if (!isFPCharacterAssigned(game.getGameState(), ringBearer)) {
@@ -44,7 +45,8 @@ public class Card1_169 extends AbstractEvent {
                     new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.notAssigned()) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
-                            game.getGameState().assignToSkirmishes(ringBearer, Collections.singletonList(minion));
+                            action.addEffect(
+                                    new AssignmentEffect(ringBearer, Collections.singletonList(minion), "The End Comes effect"));
                         }
                     });
         }

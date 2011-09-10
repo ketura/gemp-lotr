@@ -55,7 +55,7 @@ public class Card1_061 extends AbstractLotroCardBlueprint {
     public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.ELVEN), Filters.keyword(Keyword.TALE)))) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Remove a burder");
-            action.addEffect(new RemoveBurdenEffect(playerId));
+            action.addEffect(new RemoveBurdenEffect());
             return Collections.singletonList(action);
         }
         return null;
