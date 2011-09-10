@@ -552,6 +552,7 @@ public class GameState {
     }
 
     public void stopAffecting(PhysicalCard card) {
+        card.removeData();
         ((PhysicalCardImpl) card).stopAffectingGame();
     }
 
