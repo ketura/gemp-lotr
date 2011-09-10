@@ -46,7 +46,8 @@ public class Card1_261 extends AbstractMinion {
 
     @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.EVENT), Filters.keyword(Keyword.REGROUP)))
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
+                && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.EVENT), Filters.keyword(Keyword.REGROUP)))
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert this minion to cancel that event.");
             action.addCost(
