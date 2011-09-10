@@ -63,8 +63,7 @@ public class AttachPermanentAction implements CostToEffectAction {
 
                         _preCostIterator = preCostEffects.iterator();
 
-                        _playCardEffect = new TriggeringEffect(new PlayCardResult(card));
-
+                        _playCardEffect = new TriggeringEffect(new PlayCardResult(card, target));
                     }
                 };
         _discardCardEffect = new PutCardIntoDiscardEffect(card);
