@@ -38,7 +38,7 @@ public class Card1_046 extends AbstractPermanent {
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        final PlayPermanentAction action = getPlayCardAction(playerId, game, self, twilightModifier);
+        final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf ally to exert", true, Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.canExert()));
         return action;
