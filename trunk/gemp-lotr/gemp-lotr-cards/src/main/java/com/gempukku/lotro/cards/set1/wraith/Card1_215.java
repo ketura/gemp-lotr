@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
+import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,17 +39,20 @@ public class Card1_215 extends AbstractEvent {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotCount = getValidatedResult(result);
-                                List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
-                                spotCount = Math.min(spotCount, deck.size());
-                                List<PhysicalCard> revealedCards = new LinkedList<PhysicalCard>(deck.subList(0, spotCount));
-                                for (PhysicalCard revealedCard : revealedCards) {
-                                    if (revealedCard.getBlueprint().getCulture() == Culture.WRAITH)
-                                        action.addEffect(
-                                                new PutCardFromDeckIntoHandOrDiscardEffect(revealedCard));
-                                    else
-                                        action.addEffect(
-                                                new DiscardCardFromDeckEffect(playerId, revealedCard));
-                                }
+                                action.addEffect(
+                                        new RevealTopCardsOfDrawDeckEffect(playerId, spotCount) {
+                                            @Override
+                                            protected void cardsRevealed(List<PhysicalCard> cards) {
+                                                for (PhysicalCard revealedCard : cards) {
+                                                    if (revealedCard.getBlueprint().getCulture() == Culture.WRAITH)
+                                                        action.addEffect(
+                                                                new PutCardFromDeckIntoHandOrDiscardEffect(revealedCard));
+                                                    else
+                                                        action.addEffect(
+                                                                new DiscardCardFromDeckEffect(playerId, revealedCard));
+                                                }
+                                            }
+                                        });
                             }
                         }));
         return action;
