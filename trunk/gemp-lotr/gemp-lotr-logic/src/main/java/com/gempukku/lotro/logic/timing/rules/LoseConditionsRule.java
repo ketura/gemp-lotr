@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.effects.CorruptRingBearerEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -42,12 +43,7 @@ public class LoseConditionsRule {
                         if (game.getGameState().getBurdens() >= ringBearerResistance) {
                             DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Losing the game due to Ring-Bearer corruption");
                             action.addEffect(
-                                    new UnrespondableEffect() {
-                                        @Override
-                                        public void playEffect(LotroGame game) {
-                                            game.playerLost(game.getGameState().getCurrentPlayerId());
-                                        }
-                                    });
+                                    new CorruptRingBearerEffect());
                             return Collections.singletonList(action);
                         }
                         return null;

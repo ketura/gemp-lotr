@@ -6,7 +6,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.effects.CorruptRingBearerEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -33,12 +33,7 @@ public class Card1_243 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
-                new UnrespondableEffect() {
-                    @Override
-                    public void playEffect(LotroGame game) {
-                        game.getGameState().setLoserPlayerId(game.getGameState().getCurrentPlayerId());
-                    }
-                });
+                new CorruptRingBearerEffect());
         return action;
     }
 

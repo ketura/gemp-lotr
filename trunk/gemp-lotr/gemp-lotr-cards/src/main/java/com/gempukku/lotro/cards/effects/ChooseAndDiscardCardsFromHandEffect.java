@@ -28,6 +28,11 @@ public class ChooseAndDiscardCardsFromHandEffect extends UnrespondableEffect {
     }
 
     @Override
+    public String getText() {
+        return "Discard " + _count + " card(s) from hand";
+    }
+
+    @Override
     public boolean canPlayEffect(LotroGame game) {
         return (game.getGameState().getHand(_playerId).size() >= _count);
     }

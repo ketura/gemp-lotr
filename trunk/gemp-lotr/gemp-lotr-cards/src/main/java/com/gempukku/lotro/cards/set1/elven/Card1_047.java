@@ -20,7 +20,6 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -57,23 +56,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
             possibleCosts.add(
                     new ExertCharacterEffect(self.getAttachedTo()));
             possibleCosts.add(
-                    new UnrespondableEffect() {
-                        @Override
-                        public String getText() {
-                            return "Discard 2 cards";
-                        }
-
-                        @Override
-                        public boolean canPlayEffect(LotroGame game) {
-                            return game.getGameState().getHand(playerId).size() >= 2;
-                        }
-
-                        @Override
-                        public void playEffect(LotroGame game) {
-                            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
-                            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
-                        }
-                    });
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, true, 2));
 
             action.addCost(
                     new ChoiceEffect(action, playerId, possibleCosts, true));

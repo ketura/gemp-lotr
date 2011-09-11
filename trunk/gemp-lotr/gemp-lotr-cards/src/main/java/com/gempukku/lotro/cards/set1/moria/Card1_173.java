@@ -56,8 +56,7 @@ public class Card1_173 extends AbstractPermanent {
                         new UnrespondableEffect() {
                             @Override
                             public void playEffect(LotroGame game) {
-                                WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-                                woundEffect.prevent();
+                                ((WoundCharacterEffect) effect).prevent();
                             }
                         });
                 return Collections.singletonList(action);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,12 +62,7 @@ public class Card1_216 extends AbstractAttachable {
                     final PhysicalCard bladeTip = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"), Filters.owner(playerId), Filters.zone(Zone.SHADOW_SUPPORT));
                     if (bladeTip != null)
                         action.addEffect(
-                                new UnrespondableEffect() {
-                                    @Override
-                                    public void playEffect(LotroGame game) {
-                                        game.getGameState().attachCard(bladeTip, fpChar);
-                                    }
-                                });
+                                new TransferPermanentEffect(bladeTip, fpChar));
                 }
             }
             return Collections.singletonList(action);

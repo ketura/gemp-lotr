@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,14 +39,7 @@ public class Card1_209 extends AbstractPermanent {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(game.getGameState().getSkirmish().getFellowshipCharacter()), Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))))) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Transfer condition to losing character");
             action.addEffect(
-                    new UnrespondableEffect() {
-                        @Override
-                        public void playEffect(LotroGame game) {
-                            PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
-                            game.getGameState().attachCard(self, fpCharacter);
-
-                        }
-                    });
+                    new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));
             return Collections.singletonList(action);
         }
         return null;
