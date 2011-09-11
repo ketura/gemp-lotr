@@ -27,7 +27,7 @@ public class RoamingRule {
         });
 
         _modifiersLogic.addAlwaysOnModifier(
-                new AbstractModifier(null, "Has Roaming keyword", roamingFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER, ModifierEffect.TWILIGHT_COST_MODIFIER}) {
+                new AbstractModifier(null, "Is Roaming", roamingFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER, ModifierEffect.TWILIGHT_COST_MODIFIER}) {
                     @Override
                     public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
                         if (keyword == Keyword.ROAMING)
