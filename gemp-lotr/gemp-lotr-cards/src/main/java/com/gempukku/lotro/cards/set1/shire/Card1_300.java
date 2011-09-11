@@ -6,10 +6,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -31,9 +30,9 @@ public class Card1_300 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "You may discard up to 2 cards from hand.");
+            final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "You may discard up to 2 cards from hand.");
             action.addEffect(
                     new ChooseCardsFromHandEffect(playerId, "Choose up to 2 cards to discard from hand", 0, 2, Filters.any()) {
                         @Override

@@ -9,6 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -46,12 +47,12 @@ public class Card1_209 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
                 && self.getZone() == Zone.ATTACHED) {
             boolean ringBearer = game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.RING_BEARER);
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Wound bearer or if bearer is Ring-Bearer, add a burden instead");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Wound bearer or if bearer is Ring-Bearer, add a burden instead");
             if (ringBearer) {
                 action.addEffect(new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
             } else {

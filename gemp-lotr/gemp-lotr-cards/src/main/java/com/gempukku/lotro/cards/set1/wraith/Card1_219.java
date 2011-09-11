@@ -7,9 +7,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -31,9 +30,9 @@ public class Card1_219 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.race(Race.NAZGUL)))) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert a Hobbit (except the Ring-Bearer)");
+            final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Exert a Hobbit (except the Ring-Bearer)");
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit (except the Ring-Bearer)", Filters.race(Race.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override

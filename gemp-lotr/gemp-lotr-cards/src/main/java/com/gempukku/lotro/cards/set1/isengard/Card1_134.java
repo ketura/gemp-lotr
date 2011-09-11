@@ -9,9 +9,8 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -53,11 +52,11 @@ public class Card1_134 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getGameState().getCurrentSite() == self.getAttachedTo()) {
 
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert each Hobbit who moves from this site");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert each Hobbit who moves from this site");
             List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT));
             for (PhysicalCard hobbit : hobbits)
                 action.addEffect(new ExertCharacterEffect(hobbit));
@@ -66,7 +65,7 @@ public class Card1_134 extends AbstractAttachable {
         }
 
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard at the end of the turn");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard at the end of the turn");
             action.addEffect(new DiscardCardFromPlayEffect(self, self));
 
             return Collections.singletonList(action);

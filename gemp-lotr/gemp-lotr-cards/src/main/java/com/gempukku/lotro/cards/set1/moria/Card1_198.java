@@ -8,8 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -45,12 +44,12 @@ public class Card1_198 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         int siteNumber = game.getGameState().getCurrentSiteNumber();
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && siteNumber >= 4 && siteNumber <= 6
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Free Peoples player discards 2 cards at random from hand.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Free Peoples player discards 2 cards at random from hand.");
             action.addEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             action.addEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);

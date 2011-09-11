@@ -9,8 +9,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
@@ -51,7 +50,7 @@ public class Card1_279 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
             if (assignmentResult.getAssignments().containsKey(self.getAttachedTo()))
@@ -61,7 +60,7 @@ public class Card1_279 extends AbstractAttachable {
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN
                 && self.getData() != null && (!((Boolean) self.getData()))) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add a burden");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden");
             action.addEffect(
                     new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);

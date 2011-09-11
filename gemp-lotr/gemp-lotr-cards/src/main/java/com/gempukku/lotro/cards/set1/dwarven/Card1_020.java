@@ -5,9 +5,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
@@ -30,26 +29,26 @@ public class Card1_020 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         EffectResult.Type resultType = effectResult.getType();
         if (resultType == EffectResult.Type.OVERWHELM_IN_SKIRMISH || resultType == EffectResult.Type.RESOLVE_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             if (Filters.filter(skirmishResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF)).size() > 0) {
                 List<PhysicalCard> losingOrcs = Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
 
-                List<Action> actions = new LinkedList<Action>();
+                List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
 
                 for (PhysicalCard losingOrc : losingOrcs) {
-                    DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard Orc");
+                    RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard Orc");
                     action.addEffect(new DiscardCardFromPlayEffect(self, losingOrc));
                     actions.add(action);
                 }
 
                 return actions;
             } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF)).size() > 0) {
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard this condition if Dwarf loses a skirmish");
+                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard this condition if Dwarf loses a skirmish");
                 action.addEffect(new DiscardCardFromPlayEffect(self, self));
-                return Collections.<Action>singletonList(action);
+                return Collections.singletonList(action);
             }
         }
         return null;

@@ -11,9 +11,8 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
@@ -48,19 +47,19 @@ public class Card1_009 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
             List<PhysicalCard> losers = skirmishResult.getLosers();
 
-            List<Action> actions = new LinkedList<Action>();
+            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
 
             Set<String> losingPlayers = new HashSet<String>();
             for (PhysicalCard loser : losers)
                 losingPlayers.add(loser.getOwner());
 
             for (String losingPlayer : losingPlayers) {
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard top card of deck belonging to  " + losingPlayer);
+                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard top card of deck belonging to  " + losingPlayer);
                 action.addEffect(new DiscardTopCardFromDeckEffect(losingPlayer));
                 actions.add(action);
             }

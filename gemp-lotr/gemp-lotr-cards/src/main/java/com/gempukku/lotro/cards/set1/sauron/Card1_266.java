@@ -7,8 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
@@ -33,7 +32,7 @@ public class Card1_266 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             PhysicalCard playedCard = playCardResult.getPlayedCard();
@@ -43,7 +42,7 @@ public class Card1_266 extends AbstractMinion {
                     game.getModifiersQuerying().hasKeyword(game.getGameState(), playedCard, Keyword.HAND_WEAPON)
                             || game.getModifiersQuerying().hasKeyword(game.getGameState(), playedCard, Keyword.RANGED_WEAPON))
                     ) {
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add (2)");
+                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add (2)");
                 action.addEffect(
                         new AddTwilightEffect(2));
                 action.addEffect(
