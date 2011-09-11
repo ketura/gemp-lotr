@@ -46,7 +46,7 @@ public class Card1_351 extends AbstractSite {
                                     new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, Filters.none(), 0, 0) {
                                         @Override
                                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                            // Do nothing, it's just to reveal
+                                            // Do nothing, it's just to look at hand
                                         }
                                     });
                         }
