@@ -173,6 +173,10 @@ public class GameState {
     }
 
     public void transferCard(PhysicalCard card, PhysicalCard transferTo) {
+        if (card.getZone() != Zone.ATTACHED) {
+            removeCardFromZone(card);
+            addCardToZone(card, Zone.ATTACHED);
+        }
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) transferTo);
     }
 

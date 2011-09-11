@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.CancelEffect;
+import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -16,7 +17,6 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,13 +43,7 @@ public class Card1_207 extends AbstractPermanent {
                 && game.getGameState().getSkirmish().getFellowshipCharacter() != null) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Transfer this condition to character skirmishing a Nazgul");
             action.addEffect(
-                    new UnrespondableEffect() {
-                        @Override
-                        public void playEffect(LotroGame game) {
-                            PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
-                            game.getGameState().attachCard(self, fpCharacter);
-                        }
-                    });
+                    new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));
             return Collections.singletonList(action);
         }
         return null;

@@ -8,9 +8,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.effects.CorruptRingBearerEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,12 +49,7 @@ public class Card1_252 extends AbstractPermanent {
                 && game.getGameState().getDeck(game.getGameState().getCurrentPlayerId()).size() == 0) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Corrupt Ring-Bearer");
             action.addEffect(
-                    new UnrespondableEffect() {
-                        @Override
-                        public void playEffect(LotroGame game) {
-                            game.getGameState().setLoserPlayerId(game.getGameState().getCurrentPlayerId());
-                        }
-                    });
+                    new CorruptRingBearerEffect());
             return Collections.singletonList(action);
         }
         return null;
