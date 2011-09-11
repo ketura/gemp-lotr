@@ -14,7 +14,9 @@ and go with different selection.
 9. Add checkbox option to auto-pass if there is no actions to be played.
 10. Add active/all cards switch to the user interface.
 11. Merge Shadow and FP support area on the UI and extend the Shadow and FP characters window.
-12. Add rule of 4
+12. Add rule of 4.
+13. Add dead/discard pile displays.
+14. Add hand/deck card count displays.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.

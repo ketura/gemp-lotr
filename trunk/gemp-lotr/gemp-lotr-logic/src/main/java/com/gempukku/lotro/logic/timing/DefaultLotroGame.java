@@ -116,6 +116,10 @@ public class DefaultLotroGame implements LotroGame {
         return _userFeedback;
     }
 
+    public ActionStack getActionStack() {
+        return _actionStack;
+    }
+
     public void addGameStateListener(String playerId, GameStateListener gameStateListener) {
         if (_gameState != null)
             _gameState.addGameStateListener(playerId, gameStateListener);

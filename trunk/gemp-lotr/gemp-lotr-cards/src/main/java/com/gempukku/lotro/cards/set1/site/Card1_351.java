@@ -43,7 +43,7 @@ public class Card1_351 extends AbstractSite {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.addEffect(
-                                    new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, Filters.none(), 0, 0) {
+                                    new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none(), 0, 0) {
                                         @Override
                                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                             // Do nothing, it's just to look at hand

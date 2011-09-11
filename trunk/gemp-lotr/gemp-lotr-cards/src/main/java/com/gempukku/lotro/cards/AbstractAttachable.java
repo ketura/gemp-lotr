@@ -52,7 +52,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
                             if (matchingClassPossessions.size() > 1)
                                 return false;
                             if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&
-                                    !((AbstractAttachable) matchingClassPossessions.get(0)).isExtraPossessionClass())
+                                    !((AbstractAttachable) matchingClassPossessions.get(0).getBlueprint()).isExtraPossessionClass())
                                 return false;
                         }
                         return true;
