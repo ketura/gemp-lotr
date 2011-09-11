@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -10,11 +9,10 @@ import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
-public class AbstractAlly extends AbstractLotroCardBlueprint {
-    private int _twilight;
+public class AbstractAlly extends AbstractPermanent {
     private int _siteNumber;
     private int _strength;
     private int _vitality;
@@ -25,8 +23,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
     }
 
     public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Keyword race, Culture culture, String name, boolean unique) {
-        super(Side.FREE_PEOPLE, CardType.ALLY, culture, name, unique);
-        _twilight = twilight;
+        super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, Zone.FREE_SUPPORT, name, unique);
         _siteNumber = siteNumber;
         _strength = strength;
         _vitality = vitality;
@@ -38,28 +35,7 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
         return _race;
     }
 
-    @Override
-    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        if (checkPlayRequirements(playerId, game, self, 0))
-            appendPlayAllyActions(actions, playerId, game, self);
-
-        appendHealAllyActions(actions, game, self);
-
-        List<? extends Action> extraActions = getExtraPhaseActions(playerId, game, self);
-        if (extraActions != null)
-            actions.addAll(extraActions);
-
-        return actions;
-    }
-
-    private void appendPlayAllyActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
-            actions.add(getPlayCardAction(playerId, game, self, 0));
-    }
-
-    private void appendHealAllyActions(List<Action> actions, LotroGame game, PhysicalCard self) {
+    protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard card to heal");
             action.addCost(new DiscardCardFromHandEffect(self));
@@ -68,25 +44,13 @@ public class AbstractAlly extends AbstractLotroCardBlueprint {
             if (active != null)
                 action.addEffect(new HealCharacterEffect(active));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
+        return getExtraInPlayPhaseActions(playerId, game, self);
     }
 
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
-    }
-
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-    }
-
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         return null;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return _twilight;
     }
 
     @Override

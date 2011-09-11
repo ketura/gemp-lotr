@@ -1,0 +1,56 @@
+package com.gempukku.lotro.cards;
+
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.timing.Action;
+
+import java.util.Collections;
+import java.util.List;
+
+public class AbstractPermanent extends AbstractLotroCardBlueprint {
+    private int _twilightCost;
+    private Zone _playedToZone;
+
+    public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name) {
+        super(side, cardType, culture, name);
+        _playedToZone = playedToZone;
+        _twilightCost = twilightCost;
+    }
+
+    public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name, boolean unique) {
+        super(side, cardType, culture, name, unique);
+        _playedToZone = playedToZone;
+        _twilightCost = twilightCost;
+    }
+
+    @Override
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return new PlayPermanentAction(self, _playedToZone, twilightModifier);
+    }
+
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
+                && (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier));
+    }
+
+    @Override
+    public final int getTwilightCost() {
+        return _twilightCost;
+    }
+
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canPlayCardDuringPhase(game, (getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW, self)
+                && checkPlayRequirements(playerId, game, self, 0))
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
+
+        return getExtraPhaseActions(playerId, game, self);
+    }
+}

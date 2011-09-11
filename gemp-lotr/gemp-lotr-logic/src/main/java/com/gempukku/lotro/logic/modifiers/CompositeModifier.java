@@ -109,6 +109,14 @@ public class CompositeModifier implements Modifier {
     }
 
     @Override
+    public int getRoamingPenalty(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
+        for (Modifier modifier : _modifiers)
+            result = modifier.getRoamingPenalty(gameState, modifiersQuerying, physicalCard, result);
+
+        return result;
+    }
+
+    @Override
     public int getPlayOnTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target, int result) {
         for (Modifier modifier : _modifiers)
             result = modifier.getPlayOnTwilightCost(gameState, modifiersQuerying, physicalCard, target, result);
