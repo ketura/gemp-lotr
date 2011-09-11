@@ -49,7 +49,7 @@ public class AttachPermanentAction implements CostToEffectAction {
                 new ChooseActiveCardEffect(card.getOwner(), "Choose target to attach to", filter) {
                     @Override
                     protected void cardSelected(PhysicalCard target) {
-                        _putCardIntoPlayEffect = new AttachCardFromHandEffect(_source, target);
+                        _putCardIntoPlayEffect = new AttachCardEffect(_source, target);
 
                         int modifier = 0;
                         for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())

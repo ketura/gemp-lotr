@@ -56,6 +56,11 @@ public class Card1_073 extends AbstractPermanent {
             possibleChoices.add(
                     new ChooseArbitraryCardsEffect(playerId, "Choose artifact or possession to play", game.getGameState().getStackedCards(self), Filters.playable(game), 1, 1) {
                         @Override
+                        public String getText() {
+                            return "Play stacked artifact or possession";
+                        }
+
+                        @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             PhysicalCard selectedCard = selectedCards.get(0);
                             game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
