@@ -29,7 +29,7 @@ public class Card1_264 extends AbstractPermanent {
             @Override
             public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
                 if (side == Side.SHADOW
-                        && Filters.canSpot(gameState, modifiersLogic, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC)))
+                        && Filters.canSpot(gameState, modifiersLogic, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)))
                     return result + 1;
                 return result;
             }

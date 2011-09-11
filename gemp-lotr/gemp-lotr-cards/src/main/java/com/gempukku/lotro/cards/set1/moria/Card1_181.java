@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_181 extends AbstractMinion {
     public Card1_181() {
-        super(1, 5, 1, 4, Keyword.ORC, Culture.MORIA, "Goblin Sneak");
+        super(1, 5, 1, 4, Race.ORC, Culture.MORIA, "Goblin Sneak");
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Card1_181 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Place a MORIA Orc from your discard pile beneath your draw deck.");
             action.addEffect(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose MORIA Orc", game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC)), 1, 1) {
+                    new ChooseArbitraryCardsEffect(playerId, "Choose MORIA Orc", game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)), 1, 1) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             action.addEffect(

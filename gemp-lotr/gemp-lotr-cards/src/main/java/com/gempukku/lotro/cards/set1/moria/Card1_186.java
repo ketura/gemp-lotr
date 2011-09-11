@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class Card1_186 extends AbstractMinion {
     public Card1_186() {
-        super(3, 7, 2, 4, Keyword.ORC, Culture.MORIA, "Guard Commander", true);
+        super(3, 7, 2, 4, Race.ORC, Culture.MORIA, "Guard Commander", true);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Card1_186 extends AbstractMinion {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Remove (3) to make a MORIA Orc strength +2.");
             action.addCost(new RemoveTwilightEffect(3));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC)) {
+                    new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
                             action.addEffect(

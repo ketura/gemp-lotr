@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_096 extends AbstractCompanion {
     public Card1_096() {
-        super(3, 7, 3, Culture.GONDOR, Keyword.MAN, Signet.ARAGORN, "Boromir", true);
+        super(3, 7, 3, Culture.GONDOR, Race.MAN, Signet.ARAGORN, "Boromir", true);
         addKeyword(Keyword.RANGER);
     }
 

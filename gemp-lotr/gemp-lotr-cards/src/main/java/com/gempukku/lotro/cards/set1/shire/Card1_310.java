@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.MakeRingBearerEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,7 +32,7 @@ import java.util.List;
  */
 public class Card1_310 extends AbstractCompanion {
     public Card1_310() {
-        super(2, 3, 4, Culture.SHIRE, Keyword.HOBBIT, Signet.FRODO, "Sam", true);
+        super(2, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Sam", true);
     }
 
     @Override

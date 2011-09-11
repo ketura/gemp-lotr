@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class Card1_174 extends AbstractMinion {
     public Card1_174() {
-        super(1, 5, 1, 4, Keyword.ORC, Culture.MORIA, "Goblin Backstabber");
+        super(1, 5, 1, 4, Race.ORC, Culture.MORIA, "Goblin Backstabber");
     }
 
     @Override
@@ -42,7 +43,7 @@ public class Card1_174 extends AbstractMinion {
                                 if (skirmish != null) {
                                     List<PhysicalCard> shadowChars = skirmish.getShadowCharacters();
                                     if (shadowChars.contains(self)
-                                            && Filters.filter(shadowChars, gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.not(Filters.sameCard(self))).size() > 0)
+                                            && Filters.filter(shadowChars, gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(self))).size() > 0)
                                         return true;
                                 }
                                 return false;

@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -28,13 +28,13 @@ import java.util.List;
  */
 public class Card1_191 extends AbstractMinion {
     public Card1_191() {
-        super(2, 6, 2, 4, Keyword.ORC, Culture.MORIA, "Moria Scout");
+        super(2, 6, 2, 4, Race.ORC, Culture.MORIA, "Moria Scout");
     }
 
     @Override
     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF))) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add (2)");
             action.addEffect(new AddTwilightEffect(2));
             return Collections.singletonList(action);

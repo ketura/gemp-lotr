@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -33,7 +34,7 @@ public class Card1_330 extends AbstractSite {
             public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
                 if (gameState.getCurrentSite() == self
                         && (phase == Phase.ASSIGNMENT || phase == Phase.SKIRMISH)
-                        && !Filters.canSpot(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.HOBBIT))))
+                        && !Filters.canSpot(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.not(Filters.race(Race.HOBBIT))))
                     return true;
                 return result;
             }

@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -25,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_143 extends AbstractMinion {
     public Card1_143() {
-        super(5, 9, 4, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Troop of Uruk-hai");
+        super(5, 9, 4, 5, Race.URUK_HAI, Culture.ISENGARD, "Troop of Uruk-hai");
         addKeyword(Keyword.DAMAGE);
     }
 

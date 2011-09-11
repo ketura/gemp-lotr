@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_256 extends AbstractMinion {
     public Card1_256() {
-        super(5, 9, 4, 6, Keyword.ORC, Culture.SAURON, "Morgul Hunter");
+        super(5, 9, 4, 6, Race.ORC, Culture.SAURON, "Morgul Hunter");
     }
 
     @Override

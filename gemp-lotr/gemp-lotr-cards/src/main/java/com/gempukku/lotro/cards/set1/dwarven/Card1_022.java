@@ -36,14 +36,14 @@ public class Card1_022 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.canExert());
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose Dwarf to exert", true, Filters.keyword(Keyword.DWARF), Filters.canExert()));
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose Dwarf to exert", true, Filters.race(Race.DWARF), Filters.canExert()));
         action.addEffect(new DiscardAndChooseToPutToHandEffect(action, playerId, null, 0));
         return action;
     }

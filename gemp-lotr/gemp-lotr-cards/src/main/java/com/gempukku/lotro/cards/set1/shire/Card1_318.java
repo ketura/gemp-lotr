@@ -34,11 +34,11 @@ public class Card1_318 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.canExert()) >= 2) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert()) >= 2) {
             Keyword phaseKeyword = (game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) ? Keyword.FELLOWSHIP : Keyword.REGROUP;
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, phaseKeyword, "Exert 2 Hobbits and discard Thror's Map to play the fellowship's next site (replacing opponent's site if necessary)");
             action.addCost(
-                    new ChooseActiveCardsEffect(playerId, "Choose Hobbits", 2, 2, Filters.keyword(Keyword.HOBBIT), Filters.canExert()) {
+                    new ChooseActiveCardsEffect(playerId, "Choose Hobbits", 2, 2, Filters.race(Race.HOBBIT), Filters.canExert()) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> cards) {
                             action.addCost(new ExertCharacterEffect(cards.get(0)));

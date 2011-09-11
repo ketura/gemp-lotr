@@ -34,8 +34,8 @@ public class Card1_020 extends AbstractPermanent {
         EffectResult.Type resultType = effectResult.getType();
         if (resultType == EffectResult.Type.OVERWHELM_IN_SKIRMISH || resultType == EffectResult.Type.RESOLVE_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            if (Filters.filter(skirmishResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF)).size() > 0) {
-                List<PhysicalCard> losingOrcs = Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC));
+            if (Filters.filter(skirmishResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF)).size() > 0) {
+                List<PhysicalCard> losingOrcs = Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
 
                 List<Action> actions = new LinkedList<Action>();
 
@@ -46,7 +46,7 @@ public class Card1_020 extends AbstractPermanent {
                 }
 
                 return actions;
-            } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF)).size() > 0) {
+            } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF)).size() > 0) {
                 DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard this condition if Dwarf loses a skirmish");
                 action.addEffect(new DiscardCardFromPlayEffect(self, self));
                 return Collections.<Action>singletonList(action);

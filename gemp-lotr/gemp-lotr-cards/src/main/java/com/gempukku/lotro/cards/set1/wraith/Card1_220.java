@@ -35,7 +35,7 @@ public class Card1_220 extends AbstractPermanent {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, (game.getGameState().getCurrentPhase() == Phase.MANEUVER) ? Keyword.MANEUVER : Keyword.SKIRMISH, "Remove (3) to heal a Nazgul.");
             action.addCost(new RemoveTwilightEffect(3));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.keyword(Keyword.NAZGUL)) {
+                    new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)) {
                         @Override
                         protected void cardSelected(PhysicalCard nazgul) {
                             action.addEffect(

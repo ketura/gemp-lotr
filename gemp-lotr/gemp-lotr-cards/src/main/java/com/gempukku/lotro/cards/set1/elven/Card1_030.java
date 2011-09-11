@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +28,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_030 extends AbstractCompanion {
     public Card1_030() {
-        super(2, 6, 3, Culture.ELVEN, Keyword.ELF, Signet.ARAGORN, "Arwen", true);
+        super(2, 6, 3, Culture.ELVEN, Race.ELF, Signet.ARAGORN, "Arwen", true);
         addKeyword(Keyword.RANGER);
     }
 
@@ -40,7 +41,7 @@ public class Card1_030 extends AbstractCompanion {
                         Skirmish activeSkirmish = gameState.getSkirmish();
                         return (activeSkirmish != null
                                 && activeSkirmish.getFellowshipCharacter().equals(self)
-                                && Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Filters.keyword(Keyword.NAZGUL)).size() > 0);
+                                && Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Filters.race(Race.NAZGUL)).size() > 0);
                     }
                 }, 3);
     }

@@ -2,6 +2,7 @@ package com.gempukku.lotro.filters;
 
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
+import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardVisitor;
 import com.gempukku.lotro.game.state.GameState;
@@ -117,6 +118,18 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return (physicalCard.getBlueprint().getSignet() == signet);
+            }
+        };
+    }
+
+    public static Filter race(final Race race) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                LotroCardBlueprint blueprint = physicalCard.getBlueprint();
+                CardType cardType = blueprint.getCardType();
+                return (cardType == CardType.COMPANION || cardType == CardType.ALLY || cardType == CardType.MINION)
+                        && blueprint.getRace() == race;
             }
         };
     }

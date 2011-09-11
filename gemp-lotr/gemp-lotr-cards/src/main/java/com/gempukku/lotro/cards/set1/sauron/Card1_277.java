@@ -26,14 +26,14 @@ public class Card1_277 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert());
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Exert a SAURON Orc to discard a Free Peoples condition.", true, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC)));
+                new ChooseAndExertCharacterEffect(action, playerId, "Exert a SAURON Orc to discard a Free Peoples condition.", true, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)));
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
                     @Override

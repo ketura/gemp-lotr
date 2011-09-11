@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +32,7 @@ public class Card1_359 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC)) >= 5) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC)) >= 5) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Prevent the fellowship from moving again this turn.");
             action.addEffect(
                     new AddUntilEndOfTurnModifierEffect(

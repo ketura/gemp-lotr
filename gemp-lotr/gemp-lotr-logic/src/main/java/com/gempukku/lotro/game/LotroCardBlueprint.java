@@ -16,6 +16,8 @@ public interface LotroCardBlueprint {
 
     public Culture getCulture();
 
+    public Race getRace();
+
     public boolean isUnique();
 
     public String getName();

@@ -32,7 +32,7 @@ public class Card1_171 extends AbstractEvent {
                     @Override
                     protected void cardSelected(final PhysicalCard companion) {
                         action.addEffect(
-                                new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.notAssigned()) {
+                                new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.notAssigned()) {
                                     @Override
                                     protected void cardSelected(PhysicalCard moriaOrc) {
                                         action.addEffect(

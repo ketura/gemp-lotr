@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -38,7 +35,7 @@ public class Card1_215 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                        new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Filters.keyword(Keyword.NAZGUL), Integer.MAX_VALUE) {
+                        new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Filters.race(Race.NAZGUL), Integer.MAX_VALUE) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotCount = getValidatedResult(result);

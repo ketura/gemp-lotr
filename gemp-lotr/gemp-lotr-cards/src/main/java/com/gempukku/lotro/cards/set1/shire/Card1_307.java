@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card1_307 extends AbstractCompanion {
     public Card1_307() {
-        super(1, 3, 4, Culture.SHIRE, Keyword.HOBBIT, Signet.GANDALF, "Pippin", true);
+        super(1, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Pippin", true);
     }
 
     @Override

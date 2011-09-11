@@ -22,6 +22,6 @@ public class Card1_021 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new KeywordModifier(self, Filters.keyword(Keyword.DWARF), Keyword.DAMAGE);
+        return new KeywordModifier(self, Filters.race(Race.DWARF), Keyword.DAMAGE);
     }
 }

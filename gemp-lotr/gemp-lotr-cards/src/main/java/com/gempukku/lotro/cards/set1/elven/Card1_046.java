@@ -33,14 +33,14 @@ public class Card1_046 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.canExert());
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayPermanentAction action = getPlayCardAction(playerId, game, self, twilightModifier);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf ally to exert", true, Filters.keyword(Keyword.ELF), Filters.type(CardType.ALLY), Filters.canExert()));
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf ally to exert", true, Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.canExert()));
         return action;
     }
 

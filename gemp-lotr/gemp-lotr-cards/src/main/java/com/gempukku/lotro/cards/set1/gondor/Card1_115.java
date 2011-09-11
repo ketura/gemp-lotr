@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -42,7 +39,7 @@ public class Card1_115 extends AbstractResponseEvent {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null) {
                 PhysicalCard fpCharacter = skirmish.getFellowshipCharacter();
-                if (game.getModifiersQuerying().hasKeyword(game.getGameState(), fpCharacter, Keyword.MAN)
+                if (fpCharacter.getBlueprint().getRace() == Race.MAN
                         && fpCharacter.getBlueprint().getCulture() == Culture.GONDOR) {
                     PlayEventAction action = new PlayEventAction(self);
                     action.addEffect(new CancelEffect(effect));

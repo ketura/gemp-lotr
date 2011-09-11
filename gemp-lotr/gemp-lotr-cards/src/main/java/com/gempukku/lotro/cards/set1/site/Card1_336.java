@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +27,7 @@ public class Card1_336 extends AbstractSite {
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
         return new KeywordModifier(self,
                 Filters.and(
-                        Filters.keyword(Keyword.NAZGUL),
+                        Filters.race(Race.NAZGUL),
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

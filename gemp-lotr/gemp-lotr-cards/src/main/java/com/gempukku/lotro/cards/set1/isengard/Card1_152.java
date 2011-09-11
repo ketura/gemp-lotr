@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class Card1_152 extends AbstractMinion {
     public Card1_152() {
-        super(3, 8, 2, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Uruk Shaman");
+        super(3, 8, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Shaman");
         addKeyword(Keyword.DAMAGE);
     }
 
@@ -40,7 +41,7 @@ public class Card1_152 extends AbstractMinion {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Remove (2) to heal an Uruk-hai");
             action.addCost(new RemoveTwilightEffect(2));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
+                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                         @Override
                         protected void cardSelected(PhysicalCard urukHai) {
                             action.addEffect(new HealCharacterEffect(urukHai));

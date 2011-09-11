@@ -9,6 +9,7 @@ import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class Card1_284 extends AbstractAlly {
     public Card1_284() {
-        super(2, 3, 2, 3, Keyword.HOBBIT, Culture.SHIRE, "Bilbo", true);
+        super(2, 3, 2, 3, Race.HOBBIT, Culture.SHIRE, "Bilbo", true);
     }
 
     @Override

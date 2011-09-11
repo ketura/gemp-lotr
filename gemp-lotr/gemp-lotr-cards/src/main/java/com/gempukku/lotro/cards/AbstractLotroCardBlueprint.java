@@ -86,6 +86,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public Race getRace() {
+        throw new UnsupportedOperationException("This method should not be called on this card");
+    }
+
+    @Override
     public int getStrength() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }

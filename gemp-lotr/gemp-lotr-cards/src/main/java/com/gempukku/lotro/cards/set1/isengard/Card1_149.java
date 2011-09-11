@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_149 extends AbstractMinion {
     public Card1_149() {
-        super(2, 6, 1, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Uruk Messenger");
+        super(2, 6, 1, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Messenger");
         addKeyword(Keyword.DAMAGE, 1);
     }
 

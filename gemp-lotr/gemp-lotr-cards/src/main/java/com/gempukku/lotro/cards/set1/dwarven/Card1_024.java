@@ -29,7 +29,7 @@ public class Card1_024 extends AbstractPermanent {
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
-                        Filters.keyword(Keyword.DWARF),
+                        Filters.race(Race.DWARF),
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

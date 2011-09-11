@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 
 /**
  * Set: The Fellowship of the Ring
@@ -16,6 +16,6 @@ import com.gempukku.lotro.common.Keyword;
  */
 public class Card1_177 extends AbstractMinion {
     public Card1_177() {
-        super(6, 13, 3, 4, Keyword.ORC, Culture.MORIA, "Goblin Patrol Troop");
+        super(6, 13, 3, 4, Race.ORC, Culture.MORIA, "Goblin Patrol Troop");
     }
 }

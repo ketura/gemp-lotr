@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card1_089 extends AbstractCompanion {
     public Card1_089() {
-        super(4, 8, 4, Culture.GONDOR, Keyword.MAN, Signet.GANDALF, "Aragorn", true);
+        super(4, 8, 4, Culture.GONDOR, Race.MAN, Signet.GANDALF, "Aragorn", true);
         addKeyword(Keyword.RANGER);
     }
 

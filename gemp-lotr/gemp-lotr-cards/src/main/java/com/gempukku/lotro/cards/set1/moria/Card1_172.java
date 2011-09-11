@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_172 extends AbstractMinion {
     public Card1_172() {
-        super(5, 4, 3, 4, Keyword.ORC, Culture.MORIA, "Goblin Archer");
+        super(5, 4, 3, 4, Race.ORC, Culture.MORIA, "Goblin Archer");
         addKeyword(Keyword.ARCHER);
     }
 
@@ -35,7 +36,7 @@ public class Card1_172 extends AbstractMinion {
             @Override
             public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
                 if (side == Side.FREE_PEOPLE
-                        && Filters.canSpot(gameState, modifiersLogic, Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.not(Filters.sameCard(self))))
+                        && Filters.canSpot(gameState, modifiersLogic, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(self))))
                     return result - 6;
                 return result;
             }

@@ -31,13 +31,13 @@ public class Card1_052 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.type(CardType.COMPANION));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        action.addCost(new SpotEffect(Filters.and(Filters.keyword(Keyword.ELF), Filters.type(CardType.COMPANION))));
+        action.addCost(new SpotEffect(Filters.and(Filters.race(Race.ELF), Filters.type(CardType.COMPANION))));
         action.addEffect(
                 new AddUntilEndOfPhaseModifierEffect(
                         new ArcheryTotalModifier(self, Side.SHADOW, -1), Phase.ARCHERY));

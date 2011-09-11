@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class Card1_080 extends AbstractAlly {
     public Card1_080() {
-        super(1, 3, 2, 2, Keyword.MAN, Culture.GANDALF, "Ottar", true);
+        super(1, 3, 2, 2, Race.MAN, Culture.GANDALF, "Ottar", true);
     }
 
     @Override

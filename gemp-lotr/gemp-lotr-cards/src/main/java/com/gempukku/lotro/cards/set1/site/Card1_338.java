@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,7 +35,7 @@ public class Card1_338 extends AbstractSite {
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
-                        Filters.keyword(Keyword.NAZGUL),
+                        Filters.race(Race.NAZGUL),
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -45,7 +46,7 @@ public class Card1_338 extends AbstractSite {
 
     @Override
     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.NAZGUL))
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.NAZGUL))
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN

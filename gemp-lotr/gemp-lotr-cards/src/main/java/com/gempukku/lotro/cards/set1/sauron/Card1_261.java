@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.CancelEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,7 +32,7 @@ import java.util.List;
  */
 public class Card1_261 extends AbstractMinion {
     public Card1_261() {
-        super(1, 5, 2, 6, Keyword.ORC, Culture.SAURON, "Orc Ambusher");
+        super(1, 5, 2, 6, Race.ORC, Culture.SAURON, "Orc Ambusher");
         addKeyword(Keyword.TRACKER);
     }
 

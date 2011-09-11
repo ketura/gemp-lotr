@@ -49,7 +49,7 @@ public class Card1_198 extends AbstractPermanent {
         int siteNumber = game.getGameState().getCurrentSiteNumber();
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && siteNumber >= 4 && siteNumber <= 6
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.keyword(Keyword.ELF), Filters.keyword(Keyword.DWARF)))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Free Peoples player discards 2 cards at random from hand.");
             action.addEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             action.addEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));

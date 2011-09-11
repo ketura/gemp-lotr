@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -30,7 +30,7 @@ public class Card1_217 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
-                new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.keyword(Keyword.NAZGUL), Filters.playable(game, -2)) {
+                new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.race(Race.NAZGUL), Filters.playable(game, -2)) {
                     @Override
                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                         PhysicalCard selectedCard = selectedCards.get(0);

@@ -15,24 +15,22 @@ import java.util.List;
 public abstract class AbstractCompanion extends AbstractPermanent {
     private int _strength;
     private int _vitality;
-    private Keyword _race;
+    private Race _race;
     private Signet _signet;
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Keyword race, Signet signet, String name) {
+    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Race race, Signet signet, String name) {
         this(twilightCost, strength, vitality, culture, race, signet, name, false);
     }
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Keyword race, Signet signet, String name, boolean unique) {
+    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Race race, Signet signet, String name, boolean unique) {
         super(Side.FREE_PEOPLE, twilightCost, CardType.COMPANION, culture, Zone.FREE_CHARACTERS, name, unique);
         _strength = strength;
         _vitality = vitality;
         _race = race;
         _signet = signet;
-        if (race != null)
-            addKeyword(race);
     }
 
-    public Keyword getRace() {
+    public Race getRace() {
         return _race;
     }
 
