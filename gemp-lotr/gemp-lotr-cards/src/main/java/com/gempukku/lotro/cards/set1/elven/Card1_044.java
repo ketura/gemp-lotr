@@ -52,9 +52,11 @@ public class Card1_044 extends AbstractEvent {
                                 new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, Filters.and(Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)), 1, 1) {
                                     @Override
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                        action.addEffect(new DiscardCardFromHandEffect(selectedCards.get(0)));
-                                        action.addEffect(new DrawCardEffect(playerId));
-                                        action.addEffect(new DrawCardEffect(playerId));
+                                        if (selectedCards.size() > 0) {
+                                            action.addEffect(new DiscardCardFromHandEffect(selectedCards.get(0)));
+                                            action.addEffect(new DrawCardEffect(playerId));
+                                            action.addEffect(new DrawCardEffect(playerId));
+                                        }
                                     }
                                 }
                         );
