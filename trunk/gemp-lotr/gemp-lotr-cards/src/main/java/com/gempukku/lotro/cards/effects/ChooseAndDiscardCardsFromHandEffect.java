@@ -39,18 +39,28 @@ public class ChooseAndDiscardCardsFromHandEffect extends UnrespondableEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new CardsSelectionDecision(1, "Choose card(s) to discard", game.getGameState().getHand(_playerId), _count, _count) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        List<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                        for (PhysicalCard card : cards) {
-                            if (_cost)
-                                _action.addCost(new DiscardCardFromHandEffect(card));
-                            else
-                                _action.addEffect(new DiscardCardFromHandEffect(card));
+        List<? extends PhysicalCard> hand = game.getGameState().getHand(_playerId);
+        if (hand.size() == _count) {
+            for (PhysicalCard card : hand) {
+                if (_cost)
+                    _action.addCost(new DiscardCardFromHandEffect(card));
+                else
+                    _action.addEffect(new DiscardCardFromHandEffect(card));
+            }
+        } else {
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new CardsSelectionDecision(1, "Choose card(s) to discard", hand, _count, _count) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            List<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                            for (PhysicalCard card : cards) {
+                                if (_cost)
+                                    _action.addCost(new DiscardCardFromHandEffect(card));
+                                else
+                                    _action.addEffect(new DiscardCardFromHandEffect(card));
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 }
