@@ -97,7 +97,7 @@ public class LotroGameMediator {
             visitor.visitWarning(warning);
         AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
         if (awaitingDecision != null)
-            visitor.visitAwaitingDecision(awaitingDecision);
+            visitor.visitAwaitingDecision(_lotroGame.getActionStack().getTopmostAction(), awaitingDecision);
     }
 
     public synchronized void singupUserForGame(String participantId, ParticipantCommunicationVisitor visitor) {
@@ -114,6 +114,6 @@ public class LotroGameMediator {
             visitor.visitWarning(warning);
         AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
         if (awaitingDecision != null)
-            visitor.visitAwaitingDecision(awaitingDecision);
+            visitor.visitAwaitingDecision(_lotroGame.getActionStack().getTopmostAction(), awaitingDecision);
     }
 }

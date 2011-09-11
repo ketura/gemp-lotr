@@ -23,4 +23,10 @@ public class ActionStack {
     public boolean isEmpty() {
         return _actionStack.isEmpty();
     }
+
+    public Action getTopmostAction() {
+        if (_actionStack.isEmpty())
+            return null;
+        return _actionStack.peek();
+    }
 }
