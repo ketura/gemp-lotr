@@ -30,14 +30,14 @@ public class Card1_312 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION), Filters.canExert());
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit companion", true, Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION), Filters.canExert()));
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit companion", true, Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION), Filters.canExert()));
         action.addEffect(new RemoveBurdenEffect());
         return action;
     }

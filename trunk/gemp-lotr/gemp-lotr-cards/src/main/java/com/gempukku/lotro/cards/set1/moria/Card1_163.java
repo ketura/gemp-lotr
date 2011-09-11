@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_163 extends AbstractMinion {
     public Card1_163() {
-        super(4, 9, 2, 4, Keyword.ORC, Culture.MORIA, "Ancient Chieftain", true);
+        super(4, 9, 2, 4, Race.ORC, Culture.MORIA, "Ancient Chieftain", true);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Card1_163 extends AbstractMinion {
         return new AbstractModifier(self, "For each other MORIA Orc you can spot, Ancient Chieftain is strength +1.", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                return result + Filters.countActive(gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.not(Filters.sameCard(physicalCard)));
+                return result + Filters.countActive(gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(physicalCard)));
             }
         };
     }

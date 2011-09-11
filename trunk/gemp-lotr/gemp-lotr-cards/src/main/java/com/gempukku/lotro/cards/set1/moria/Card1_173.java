@@ -48,7 +48,7 @@ public class Card1_173 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.WOUND) {
             WoundResult woundResult = (WoundResult) effectResult;
             PhysicalCard woundedCard = woundResult.getWoundedCard();
-            if (woundedCard.getBlueprint().getCulture() == Culture.MORIA && game.getModifiersQuerying().hasKeyword(game.getGameState(), woundedCard, Keyword.ORC)) {
+            if (woundedCard.getBlueprint().getCulture() == Culture.MORIA && woundedCard.getBlueprint().getRace() == Race.ORC) {
                 DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Prevent wound");
                 action.addCost(
                         new DiscardCardFromPlayEffect(self, self));

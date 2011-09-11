@@ -9,6 +9,7 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class Card1_145 extends AbstractMinion {
     public Card1_145() {
-        super(4, 9, 2, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Uruk Brood");
+        super(4, 9, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Brood");
         addKeyword(Keyword.DAMAGE, 1);
     }
 
@@ -45,7 +46,7 @@ public class Card1_145 extends AbstractMinion {
             action.addCost(new RemoveTwilightEffect(2));
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new ForEachYouSpotDecision(1, "Choose number of minions you wish to spot", game, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self))), Integer.MAX_VALUE) {
+                            new ForEachYouSpotDecision(1, "Choose number of minions you wish to spot", game, Filters.and(Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))), Integer.MAX_VALUE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);

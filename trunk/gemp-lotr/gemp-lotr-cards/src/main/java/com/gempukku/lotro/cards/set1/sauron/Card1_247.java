@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,13 +31,13 @@ public class Card1_247 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC)))
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.SAURON), Filters.race(Race.ORC)))
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
 
             final PlayEventAction action = new PlayEventAction(self);
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Orc", Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC), Filters.in(skirmishResult.getWinners())) {
+                    new ChooseActiveCardEffect(playerId, "Choose an Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.in(skirmishResult.getWinners())) {
                         @Override
                         protected void cardSelected(PhysicalCard winningSauronOrc) {
                             action.addEffect(

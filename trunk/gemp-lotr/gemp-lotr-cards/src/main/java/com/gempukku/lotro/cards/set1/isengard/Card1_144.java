@@ -32,13 +32,13 @@ public class Card1_144 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.URUK_HAI), Filters.owner(playerId)))
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.race(Race.URUK_HAI), Filters.owner(playerId)))
                 && game.getGameState().getTwilightPool() >= 1) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (1) to heal him.");
             action.addCost(new RemoveTwilightEffect(1));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose Uruk-hai to heal", Filters.keyword(Keyword.URUK_HAI), Filters.in(skirmishResult.getWinners())) {
+                    new ChooseActiveCardEffect(playerId, "Choose Uruk-hai to heal", Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())) {
                         @Override
                         protected void cardSelected(PhysicalCard winningUrukHai) {
                             action.addEffect(new HealCharacterEffect(winningUrukHai));

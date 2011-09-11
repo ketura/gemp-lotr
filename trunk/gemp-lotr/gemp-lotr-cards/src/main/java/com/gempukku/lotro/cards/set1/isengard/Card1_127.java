@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card1_127 extends AbstractMinion {
     public Card1_127() {
-        super(7, 13, 3, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Lurtz", true);
+        super(7, 13, 3, 5, Race.URUK_HAI, Culture.ISENGARD, "Lurtz", true);
         addKeyword(Keyword.ARCHER);
         addKeyword(Keyword.DAMAGE, 1);
     }
@@ -37,7 +38,7 @@ public class Card1_127 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.URUK_HAI), Filters.not(Filters.sameCard(self)))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self)))) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Spot another Uruk-hai to make Lurtz fierce until the regroup phase.");
             action.addEffect(
                     new AddUntilStartOfPhaseModifierEffect(

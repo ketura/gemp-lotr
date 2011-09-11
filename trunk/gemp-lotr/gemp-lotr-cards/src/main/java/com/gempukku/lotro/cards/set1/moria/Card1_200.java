@@ -42,7 +42,7 @@ public class Card1_200 extends AbstractPermanent {
                             if (deck.size() > 0) {
                                 PhysicalCard bottomCard = deck.get(deck.size() - 1);
                                 if (bottomCard.getBlueprint().getCulture() == Culture.MORIA
-                                        && game.getModifiersQuerying().hasKeyword(game.getGameState(), bottomCard, Keyword.ORC)) {
+                                        && bottomCard.getBlueprint().getRace() == Race.ORC) {
                                     action.addEffect(
                                             new PutCardFromDeckIntoHandOrDiscardEffect(bottomCard));
                                 } else {

@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -61,7 +58,7 @@ public class Card1_134 extends AbstractAttachable {
                 && game.getGameState().getCurrentSite() == self.getAttachedTo()) {
 
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert each Hobbit who moves from this site");
-            List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.HOBBIT));
+            List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT));
             for (PhysicalCard hobbit : hobbits)
                 action.addEffect(new ExertCharacterEffect(hobbit));
 

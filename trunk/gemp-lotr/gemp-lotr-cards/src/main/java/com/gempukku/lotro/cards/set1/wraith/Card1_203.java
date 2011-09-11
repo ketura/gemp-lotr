@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -39,7 +39,7 @@ public class Card1_203 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WOUND) {
             final WoundResult woundResult = (WoundResult) effectResult;
-            if (game.getModifiersQuerying().hasKeyword(game.getGameState(), woundResult.getWoundedCard(), Keyword.NAZGUL)
+            if (woundResult.getWoundedCard().getBlueprint().getRace() == Race.NAZGUL
                     && PlayConditions.canPayForShadowCard(game, self, 0)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.addEffect(

@@ -32,13 +32,13 @@ public class Card1_316 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert());
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
-        action.addCost(new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit", true, Filters.keyword(Keyword.HOBBIT), Filters.canExert()));
+        action.addCost(new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit", true, Filters.race(Race.HOBBIT), Filters.canExert()));
         return action;
     }
 
@@ -56,7 +56,7 @@ public class Card1_316 extends AbstractPermanent {
                 ), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
             @Override
             public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int hobbitsCount = Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.keyword(Keyword.HOBBIT));
+                int hobbitsCount = Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT));
                 if (hobbitsCount >= 4)
                     return result - 2;
                 if (hobbitsCount >= 2)

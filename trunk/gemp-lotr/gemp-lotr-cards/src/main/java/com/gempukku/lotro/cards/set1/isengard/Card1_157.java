@@ -29,7 +29,7 @@ public class Card1_157 extends AbstractPermanent {
             @Override
             public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
                 if (side == Side.FREE_PEOPLE
-                        && Filters.canSpot(gameState, modifiersLogic, Filters.keyword(Keyword.URUK_HAI)))
+                        && Filters.canSpot(gameState, modifiersLogic, Filters.race(Race.URUK_HAI)))
                     return result - 1;
                 return result;
             }

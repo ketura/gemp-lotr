@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class Card1_056 extends AbstractAlly {
     public Card1_056() {
-        super(2, 6, 3, 3, Keyword.ELF, Culture.ELVEN, "Orophin", true);
+        super(2, 6, 3, 3, Race.ELF, Culture.ELVEN, "Orophin", true);
         addKeyword(Keyword.ARCHER);
     }
 
@@ -41,7 +42,7 @@ public class Card1_056 extends AbstractAlly {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert to wound an Uruk-hai");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.keyword(Keyword.URUK_HAI)) {
+                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                         @Override
                         protected void cardSelected(PhysicalCard urukHai) {
                             action.addEffect(new WoundCharacterEffect(urukHai));

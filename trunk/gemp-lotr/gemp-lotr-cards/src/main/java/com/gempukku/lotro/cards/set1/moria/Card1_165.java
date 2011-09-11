@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +23,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card1_165 extends AbstractMinion {
     public Card1_165() {
-        super(10, 15, 4, 4, Keyword.TROLL, Culture.MORIA, "Cave Troll of Moria", true);
+        super(10, 15, 4, 4, Race.TROLL, Culture.MORIA, "Cave Troll of Moria", true);
         addKeyword(Keyword.DAMAGE);
         addKeyword(Keyword.FIERCE);
     }
@@ -33,7 +34,7 @@ public class Card1_165 extends AbstractMinion {
         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), currentSite, Keyword.UNDERGROUND))
             twilightModifier -= 3;
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
     }
 
     @Override

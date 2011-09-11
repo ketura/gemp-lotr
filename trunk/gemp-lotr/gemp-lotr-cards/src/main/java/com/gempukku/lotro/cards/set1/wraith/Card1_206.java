@@ -49,7 +49,7 @@ public class Card1_206 extends AbstractPermanent {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert a Nazgul or discard this condition");
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ChooseActiveCardEffect(self.getOwner(), "Choose a Nazgul", Filters.keyword(Keyword.NAZGUL), Filters.canExert()) {
+                    new ChooseActiveCardEffect(self.getOwner(), "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.canExert()) {
                         @Override
                         public String getText() {
                             return "Exert a Nazgul";

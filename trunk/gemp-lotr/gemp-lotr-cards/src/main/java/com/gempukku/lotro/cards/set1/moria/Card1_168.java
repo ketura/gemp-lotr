@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -31,14 +31,14 @@ public class Card1_168 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
-                new ChooseActiveCardEffect(playerId, "Choose MORIA orc", Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC)) {
+                new ChooseActiveCardEffect(playerId, "Choose MORIA orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                     @Override
                     protected void cardSelected(PhysicalCard moriaOrc) {
                         int bonus = 2;
                         Skirmish skirmish = game.getGameState().getSkirmish();
                         if (skirmish != null && skirmish.getShadowCharacters().contains(moriaOrc)) {
                             PhysicalCard fpCharacter = skirmish.getFellowshipCharacter();
-                            if (fpCharacter != null && game.getModifiersQuerying().hasKeyword(game.getGameState(), fpCharacter, Keyword.DWARF))
+                            if (fpCharacter != null && fpCharacter.getBlueprint().getRace() == Race.DWARF)
                                 bonus = 4;
                         }
                         action.addEffect(

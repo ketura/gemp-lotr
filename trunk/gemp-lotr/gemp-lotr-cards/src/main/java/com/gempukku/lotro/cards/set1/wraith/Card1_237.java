@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -24,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_237 extends AbstractMinion {
     public Card1_237() {
-        super(8, 14, 4, 3, Keyword.NAZGUL, Culture.WRAITH, "The Witch-king", true);
+        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", true);
         addKeyword(Keyword.FIERCE);
     }
 
@@ -33,7 +34,7 @@ public class Card1_237 extends AbstractMinion {
         return new AbstractModifier(self, "For each other Nazgul you can spot, The Witch-king is strength +2.", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int otherNazgul = Filters.countActive(gameState, modifiersQuerying, Filters.keyword(Keyword.NAZGUL), Filters.not(Filters.sameCard(self)));
+                int otherNazgul = Filters.countActive(gameState, modifiersQuerying, Filters.race(Race.NAZGUL), Filters.not(Filters.sameCard(self)));
                 return result + (otherNazgul * 2);
             }
         };

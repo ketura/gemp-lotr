@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -62,7 +63,7 @@ public class Card1_095 extends AbstractAttachableFPPossession {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getFellowshipCharacter() == self.getAttachedTo()) {
                 action.addEffect(
-                        new ChooseActiveCardEffect(playerId, "Chose Orc or Uruk-hai in skirmish", Filters.or(Filters.keyword(Keyword.ORC), Filters.keyword(Keyword.URUK_HAI)), Filters.in(skirmish.getShadowCharacters())) {
+                        new ChooseActiveCardEffect(playerId, "Chose Orc or Uruk-hai in skirmish", Filters.or(Filters.race(Race.ORC), Filters.race(Race.URUK_HAI)), Filters.in(skirmish.getShadowCharacters())) {
                             @Override
                             protected void cardSelected(PhysicalCard minion) {
                                 action.addEffect(new WoundCharacterEffect(minion));

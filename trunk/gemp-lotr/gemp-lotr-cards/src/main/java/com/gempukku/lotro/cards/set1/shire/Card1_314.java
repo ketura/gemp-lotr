@@ -2,10 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -54,8 +51,8 @@ public class Card1_314 extends AbstractAttachable {
                                         && skirmish.getFellowshipCharacter() == self.getAttachedTo()
                                         && Filters.filter(skirmish.getShadowCharacters(), gameState, modifiersQuerying,
                                         Filters.or(
-                                                Filters.keyword(Keyword.URUK_HAI),
-                                                Filters.keyword(Keyword.TROLL))).size() > 0;
+                                                Filters.race(Race.URUK_HAI),
+                                                Filters.race(Race.TROLL))).size() > 0;
                             }
                         }), 3);
     }

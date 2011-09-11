@@ -31,7 +31,7 @@ public class Card1_043 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.ELF))) {
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.ELF))) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Choose an opponent to discard a card from hand");
             action.addCost(
                     new ChooseOpponentEffect(self.getOwner()) {

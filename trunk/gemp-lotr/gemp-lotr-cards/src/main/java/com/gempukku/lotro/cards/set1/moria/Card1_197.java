@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,14 +28,14 @@ public class Card1_197 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canExert());
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a MORIA Orc", true, Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC), Filters.canExert()));
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose a MORIA Orc", true, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canExert()));
         action.addEffect(
                 new DrawCardEffect(playerId));
         action.addEffect(

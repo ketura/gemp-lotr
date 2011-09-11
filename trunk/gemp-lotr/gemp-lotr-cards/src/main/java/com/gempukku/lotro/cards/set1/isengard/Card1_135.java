@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -62,7 +59,7 @@ public class Card1_135 extends AbstractAttachable {
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
-                        Filters.keyword(Keyword.HOBBIT),
+                        Filters.race(Race.HOBBIT),
                         Filters.type(CardType.COMPANION),
                         new Filter() {
                             @Override

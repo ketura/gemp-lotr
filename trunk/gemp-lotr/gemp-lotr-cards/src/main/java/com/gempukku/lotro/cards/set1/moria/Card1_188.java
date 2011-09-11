@@ -39,7 +39,7 @@ public class Card1_188 extends AbstractPermanent {
             action.addCost(
                     new DiscardCardFromPlayEffect(self, self));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose your MORIA Orc", Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC)) {
+                    new ChooseActiveCardEffect(playerId, "Choose your MORIA Orc", Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
                             action.addEffect(
@@ -57,7 +57,7 @@ public class Card1_188 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && (game.getGameState().getCurrentSiteNumber() == 4 || game.getGameState().getCurrentSiteNumber() == 5)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add (2) for each Dwarf companion.");
-            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.type(CardType.COMPANION));
+            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
             action.addEffect(new AddTwilightEffect(dwarfCompanions * 2));
             return Collections.singletonList(action);
         }

@@ -40,7 +40,7 @@ public class Card1_216 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.keyword(Keyword.NAZGUL);
+        return Filters.race(Race.NAZGUL);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class Card1_265 extends AbstractResponseEvent {
             if (effectResult.getType() == EffectResult.Type.KILL
                     && ((KillResult) effectResult).getKilledCard().getBlueprint().getCardType() == CardType.COMPANION
                     && skirmish != null
-                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC)).size() > 0) {
+                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC)).size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);
                 int deadPileCount = game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size();
                 for (int i = 0; i < deadPileCount * 3; i++)

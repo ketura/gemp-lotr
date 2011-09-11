@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card1_013 extends AbstractCompanion {
     public Card1_013() {
-        super(2, 6, 3, Culture.DWARVEN, Keyword.DWARF, Signet.GANDALF, "Gimli", true);
+        super(2, 6, 3, Culture.DWARVEN, Race.DWARF, Signet.GANDALF, "Gimli", true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 

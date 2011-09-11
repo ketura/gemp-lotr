@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class Card1_286 extends AbstractAlly {
     public Card1_286() {
-        super(1, 2, 2, 2, Keyword.HOBBIT, Culture.SHIRE, "Bounder");
+        super(1, 2, 2, 2, Race.HOBBIT, Culture.SHIRE, "Bounder");
     }
 
     @Override
@@ -42,7 +43,7 @@ public class Card1_286 extends AbstractAlly {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert this ally to prevent a Hobbit from being overwhelmed unless that Hobbit's strength is tripled.");
             action.addCost(new ExertCharacterEffect(self));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT)) {
+                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
                             action.addEffect(

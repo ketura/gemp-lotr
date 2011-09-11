@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,13 +26,13 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_011 extends AbstractCompanion {
     public Card1_011() {
-        super(2, 5, 3, Culture.DWARVEN, Keyword.DWARF, null, "Farin", true);
+        super(2, 5, 3, Culture.DWARVEN, Race.DWARF, null, "Farin", true);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Card1_011 extends AbstractCompanion {
                         Skirmish activeSkirmish = gameState.getSkirmish();
                         return (activeSkirmish != null
                                 && activeSkirmish.getFellowshipCharacter().equals(self)
-                                && Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Filters.keyword(Keyword.ORC)).size() > 0);
+                                && Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Filters.race(Race.ORC)).size() > 0);
                     }
                 }, 2);
     }

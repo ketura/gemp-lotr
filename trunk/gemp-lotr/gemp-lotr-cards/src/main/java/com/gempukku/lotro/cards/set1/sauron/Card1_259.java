@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_259 extends AbstractMinion {
     public Card1_259() {
-        super(3, 9, 3, 6, Keyword.ORC, Culture.SAURON, "Morgul Warden", true);
+        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Morgul Warden", true);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Card1_259 extends AbstractMinion {
         return new AbstractModifier(self, "For each other [SAURON] Orc you can spot, Morgul Warden is strength +1.", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int otherSauronOrcs = Filters.countActive(gameState, modifiersQuerying, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC), Filters.not(Filters.sameCard(self)));
+                int otherSauronOrcs = Filters.countActive(gameState, modifiersQuerying, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.not(Filters.sameCard(self)));
                 return otherSauronOrcs + result;
             }
         };

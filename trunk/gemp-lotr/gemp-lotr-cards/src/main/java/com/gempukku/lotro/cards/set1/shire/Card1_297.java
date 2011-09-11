@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public class Card1_297 extends AbstractAlly {
     public Card1_297() {
-        super(1, 1, 2, 2, Keyword.HOBBIT, Culture.SHIRE, "Hobbit Party Guest");
+        super(1, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Party Guest");
     }
 
     @Override
@@ -44,7 +41,7 @@ public class Card1_297 extends AbstractAlly {
             action.addCost(
                     new ExertCharacterEffect(self));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose another Hobbit ally", Filters.type(CardType.ALLY), Filters.keyword(Keyword.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)) {
+                    new ChooseActiveCardEffect(playerId, "Choose another Hobbit ally", Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)) {
                         @Override
                         protected void cardSelected(PhysicalCard anotherHobbitAlly) {
                             action.addEffect(new HealCharacterEffect(anotherHobbitAlly));

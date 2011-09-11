@@ -32,16 +32,16 @@ public class Card1_304 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.HOBBIT)), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.not(Filters.race(Race.HOBBIT)), Filters.canExert());
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a non-Hobbit companion", true, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.HOBBIT)), Filters.canExert()));
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose a non-Hobbit companion", true, Filters.type(CardType.COMPANION), Filters.not(Filters.race(Race.HOBBIT)), Filters.canExert()));
         action.addEffect(
-                new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT)) {
+                new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                     @Override
                     protected void cardSelected(PhysicalCard hobbit) {
                         action.addEffect(

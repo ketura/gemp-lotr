@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_199 extends AbstractMinion {
     public Card1_199() {
-        super(3, 8, 3, 4, Keyword.ORC, Culture.MORIA, "Troll's Keyward", true);
+        super(3, 8, 3, 4, Race.ORC, Culture.MORIA, "Troll's Keyward", true);
     }
 
     @Override

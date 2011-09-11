@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.cards.modifiers.ProxyingModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -37,7 +34,7 @@ import java.util.List;
  */
 public class Card1_295 extends AbstractAlly {
     public Card1_295() {
-        super(1, 1, 2, 2, Keyword.HOBBIT, Culture.SHIRE, "Hobbit Farmer");
+        super(1, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Farmer");
     }
 
     private Filter getFilter(PhysicalCard self) {

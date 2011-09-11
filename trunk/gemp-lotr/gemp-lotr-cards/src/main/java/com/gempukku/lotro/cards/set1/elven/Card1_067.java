@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.modifiers.ProxyingModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_067 extends AbstractAlly {
     public Card1_067() {
-        super(2, 6, 5, 2, Keyword.ELF, Culture.ELVEN, "Uruviel", true);
+        super(2, 6, 5, 2, Race.ELF, Culture.ELVEN, "Uruviel", true);
     }
 
     private Filter getFilter(PhysicalCard self) {

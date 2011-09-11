@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +28,7 @@ import java.util.List;
  */
 public class Card1_070 extends AbstractAlly {
     public Card1_070() {
-        super(0, 1, 1, 2, Keyword.MAN, Culture.GANDALF, "Barliman Butterbur", true);
+        super(0, 1, 1, 2, Race.MAN, Culture.GANDALF, "Barliman Butterbur", true);
     }
 
     @Override

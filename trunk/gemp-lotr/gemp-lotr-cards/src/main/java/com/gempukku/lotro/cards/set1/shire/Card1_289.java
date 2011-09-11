@@ -1,10 +1,7 @@
 package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +28,7 @@ import java.util.List;
  */
 public class Card1_289 extends AbstractCompanion {
     public Card1_289() {
-        super(0, 3, 4, Culture.SHIRE, Keyword.HOBBIT, Signet.GANDALF, "Frodo", true);
+        super(0, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Frodo", true);
         addKeyword(Keyword.RING_BEARER);
     }
 
@@ -45,7 +42,7 @@ public class Card1_289 extends AbstractCompanion {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "You may heal a Hobbit ally");
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit ally", Filters.type(CardType.ALLY), Filters.keyword(Keyword.HOBBIT)) {
+                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit ally", Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbitAlly) {
                             action.addEffect(new HealCharacterEffect(hobbitAlly));

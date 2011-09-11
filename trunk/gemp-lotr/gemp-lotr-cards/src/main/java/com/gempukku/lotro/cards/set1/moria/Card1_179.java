@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,13 +33,13 @@ import java.util.List;
  */
 public class Card1_179 extends AbstractMinion {
     public Card1_179() {
-        super(3, 8, 1, 4, Keyword.ORC, Culture.MORIA, "Goblin Scavengers");
+        super(3, 8, 1, 4, Race.ORC, Culture.MORIA, "Goblin Scavengers");
     }
 
     @Override
     public List<? extends Action> getOptionalAfterTriggers(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ORC));
+            final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
 
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Play a weapon from your discard pile on your [MORIA] Orc.");
             action.addEffect(

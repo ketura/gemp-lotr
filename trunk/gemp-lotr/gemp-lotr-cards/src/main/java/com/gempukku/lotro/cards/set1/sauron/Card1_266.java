@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card1_266 extends AbstractMinion {
     public Card1_266() {
-        super(2, 7, 2, 6, Keyword.ORC, Culture.SAURON, "Orc Chieftain");
+        super(2, 7, 2, 6, Race.ORC, Culture.SAURON, "Orc Chieftain");
     }
 
     @Override

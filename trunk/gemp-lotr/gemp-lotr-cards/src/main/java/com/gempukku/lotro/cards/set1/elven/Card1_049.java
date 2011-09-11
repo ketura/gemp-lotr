@@ -1,10 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,7 +29,7 @@ public class Card1_049 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.MAN), Filters.not(Filters.hasAttached(Filters.name("The Last Alliance of Elves and Men"))));
+        return Filters.and(Filters.culture(Culture.GONDOR), Filters.race(Race.MAN), Filters.not(Filters.hasAttached(Filters.name("The Last Alliance of Elves and Men"))));
     }
 
     @Override
@@ -40,7 +37,7 @@ public class Card1_049 extends AbstractAttachable {
         return new AbstractModifier(self, "Streng +1 for each Elf you can spot (limit +3)", Filters.attachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int count = Math.min(3, Filters.countActive(gameState, modifiersQuerying, Filters.keyword(Keyword.ELF)));
+                int count = Math.min(3, Filters.countActive(gameState, modifiersQuerying, Filters.race(Race.ELF)));
                 return result + count;
             }
         };

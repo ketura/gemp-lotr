@@ -9,6 +9,7 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class Card1_229 extends AbstractMinion {
     public Card1_229() {
-        super(6, 12, 3, 3, Keyword.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
         addKeyword(Keyword.FIERCE);
     }
 

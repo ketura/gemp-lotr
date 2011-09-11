@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class Card1_301 extends AbstractAlly {
     public Card1_301() {
-        super(1, 1, 2, 2, Keyword.HOBBIT, Culture.SHIRE, "Master Proudfoot", true);
+        super(1, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Master Proudfoot", true);
     }
 
     @Override

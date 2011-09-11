@@ -39,20 +39,20 @@ public class Card1_059 extends AbstractPermanent {
                 && (
                 Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),
                         Filters.or(
-                                Filters.keyword(Keyword.ELF),
-                                Filters.keyword(Keyword.DWARF)),
+                                Filters.race(Race.ELF),
+                                Filters.race(Race.DWARF)),
                         Filters.canExert()))) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Use Shoulder to Shoulder");
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
 
             possibleCosts.add(
-                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.keyword(Keyword.DWARF)) {
+                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.race(Race.DWARF)) {
                         @Override
                         protected void cardSelected(PhysicalCard dwarf) {
                             action.addCost(new ExertCharacterEffect(dwarf));
                             action.addEffect(
-                                    new ChooseActiveCardEffect(playerId, "Choose Elf to heal", Filters.keyword(Keyword.ELF)) {
+                                    new ChooseActiveCardEffect(playerId, "Choose Elf to heal", Filters.race(Race.ELF)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard elf) {
                                             action.addEffect(new HealCharacterEffect(elf));
@@ -62,12 +62,12 @@ public class Card1_059 extends AbstractPermanent {
                     });
 
             possibleCosts.add(
-                    new ChooseActiveCardEffect(playerId, "Choose Elf to exert", Filters.keyword(Keyword.ELF)) {
+                    new ChooseActiveCardEffect(playerId, "Choose Elf to exert", Filters.race(Race.ELF)) {
                         @Override
                         protected void cardSelected(PhysicalCard elf) {
                             action.addCost(new ExertCharacterEffect(elf));
                             action.addEffect(
-                                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to heal", Filters.keyword(Keyword.DWARF)) {
+                                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to heal", Filters.race(Race.DWARF)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard dwarf) {
                                             action.addEffect(new HealCharacterEffect(dwarf));

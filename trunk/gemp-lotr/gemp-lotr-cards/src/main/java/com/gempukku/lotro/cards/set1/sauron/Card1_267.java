@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card1_267 extends AbstractMinion {
     public Card1_267() {
-        super(3, 9, 2, 6, Keyword.ORC, Culture.SAURON, "Orc Hunters");
+        super(3, 9, 2, 6, Race.ORC, Culture.SAURON, "Orc Hunters");
     }
 
     @Override

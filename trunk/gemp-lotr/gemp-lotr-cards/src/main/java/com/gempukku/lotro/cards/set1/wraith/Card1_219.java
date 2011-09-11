@@ -32,10 +32,10 @@ public class Card1_219 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.keyword(Keyword.NAZGUL)))) {
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.race(Race.NAZGUL)))) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert a Hobbit (except the Ring-Bearer)");
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit (except the Ring-Bearer)", Filters.keyword(Keyword.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
+                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit (except the Ring-Bearer)", Filters.race(Race.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.addEffect(

@@ -35,7 +35,7 @@ public class Card1_278 extends AbstractPermanent {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Remove (3) to make a SAURON Orc strength +1.");
             action.addCost(new RemoveTwilightEffect(3));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a SAURON Orc", Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC)) {
+                    new ChooseActiveCardEffect(playerId, "Choose a SAURON Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard sauronOrc) {
                             action.addEffect(

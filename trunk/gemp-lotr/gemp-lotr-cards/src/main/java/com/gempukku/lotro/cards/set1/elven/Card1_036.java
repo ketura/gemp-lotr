@@ -6,8 +6,8 @@ import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,20 +37,20 @@ public class Card1_036 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.canExert());
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.keyword(Keyword.ELF), Filters.canExert()));
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.race(Race.ELF), Filters.canExert()));
         action.addEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         List<? extends PhysicalCard> hand = game.getGameState().getHand(opponentId);
-                        int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ORC)).size();
+                        int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC)).size();
                         for (int i = 0; i < orcsCount; i++)
                             action.addEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false));
                     }

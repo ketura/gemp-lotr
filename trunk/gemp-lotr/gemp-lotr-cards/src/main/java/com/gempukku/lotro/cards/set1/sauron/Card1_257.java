@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card1_257 extends AbstractMinion {
     public Card1_257() {
-        super(3, 9, 3, 6, Keyword.ORC, Culture.SAURON, "Morgul Skirmisher");
+        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Morgul Skirmisher");
     }
 
     @Override
@@ -38,7 +39,7 @@ public class Card1_257 extends AbstractMinion {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Remove (3) to exert a Hobbit (except the Ring-bearer).");
             action.addCost(new RemoveTwilightEffect(3));
             action.addEffect(
-                    new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit (except the Ring-Bearer)", false, Filters.keyword(Keyword.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))));
+                    new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit (except the Ring-Bearer)", false, Filters.race(Race.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))));
             return Collections.singletonList(action);
         }
         return null;

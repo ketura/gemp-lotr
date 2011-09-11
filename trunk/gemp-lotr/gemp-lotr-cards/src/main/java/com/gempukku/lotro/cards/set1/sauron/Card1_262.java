@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public class Card1_262 extends AbstractMinion {
     public Card1_262() {
-        super(2, 6, 2, 6, Keyword.ORC, Culture.SAURON, "Orc Assassin");
+        super(2, 6, 2, 6, Race.ORC, Culture.SAURON, "Orc Assassin");
         addKeyword(Keyword.TRACKER);
     }
 
@@ -45,11 +42,11 @@ public class Card1_262 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION)) >= 2
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) >= 2
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ASSIGNMENT, "Make the Free Peoples player assign a Hobbit to skirmish this minion.");
             action.addEffect(
-                    new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT), Filters.type(CardType.COMPANION)) {
+                    new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
                             action.addEffect(new AssignmentEffect(hobbit, Collections.singletonList(self), "Orc Assassin effect"));

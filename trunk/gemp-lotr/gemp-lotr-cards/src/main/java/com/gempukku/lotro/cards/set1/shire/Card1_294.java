@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -45,7 +45,7 @@ public class Card1_294 extends AbstractEvent {
                                 final int twilight = getValidatedResult(result);
                                 action.addCost(new AddTwilightEffect(twilight));
                                 action.addEffect(
-                                        new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT)) {
+                                        new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                                             @Override
                                             protected void cardSelected(PhysicalCard hobbit) {
                                                 for (int i = 0; i < twilight; i++)

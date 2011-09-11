@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
@@ -52,7 +52,7 @@ public class Card1_224 extends AbstractResponseEvent {
                                 game.getGameState().removeAssignment(assignment);
 
                             action.addEffect(
-                                    new ChooseActiveCardEffect(playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.keyword(Keyword.NAZGUL)) {
+                                    new ChooseActiveCardEffect(playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard nazgul) {
                                             PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());

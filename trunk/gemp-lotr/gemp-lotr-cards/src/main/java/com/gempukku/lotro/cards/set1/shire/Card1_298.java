@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -38,7 +35,7 @@ public class Card1_298 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && game.getGameState().getCurrentSiteNumber() > 5 || (fpCharacter != null && game.getModifiersQuerying().hasKeyword(game.getGameState(), fpCharacter, Keyword.HOBBIT));
+                && game.getGameState().getCurrentSiteNumber() > 5 || (fpCharacter != null && fpCharacter.getBlueprint().getRace() == Race.HOBBIT);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class Card1_298 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentSiteNumber() > 5) {
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.keyword(Keyword.HOBBIT)) {
+                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
                             action.addEffect(

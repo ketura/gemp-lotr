@@ -6,10 +6,7 @@ import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card1_017 extends AbstractAlly {
     public Card1_017() {
-        super(1, 3, 3, 3, Keyword.DWARF, Culture.DWARVEN, "Grimir", true);
+        super(1, 3, 3, 3, Race.DWARF, Culture.DWARVEN, "Grimir", true);
     }
 
     @Override

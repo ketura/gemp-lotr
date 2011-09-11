@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -54,7 +51,7 @@ public class Card1_182 extends AbstractAttachable {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (killedCard.getBlueprint().getCardType() == CardType.COMPANION && skirmish != null
                     && skirmish.getFellowshipCharacter() == killedCard && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
-                int burdens = (game.getModifiersQuerying().hasKeyword(game.getGameState(), killedCard, Keyword.HOBBIT)) ? 2 : 1;
+                int burdens = (killedCard.getBlueprint().getRace() == Race.HOBBIT) ? 2 : 1;
                 DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add " + burdens + " burden(s)");
                 for (int i = 0; i < burdens; i++)
                     action.addEffect(new AddBurdenEffect(killedCard.getOwner()));

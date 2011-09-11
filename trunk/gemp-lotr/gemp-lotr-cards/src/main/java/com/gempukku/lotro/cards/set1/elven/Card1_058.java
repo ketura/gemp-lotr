@@ -32,19 +32,19 @@ public class Card1_058 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ELF), Filters.canExert()) >= 2;
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.canExert()) >= 2;
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Exert first Elf", Filters.keyword(Keyword.ELF)) {
+                new ChooseActiveCardEffect(playerId, "Exert first Elf", Filters.race(Race.ELF)) {
                     @Override
                     protected void cardSelected(final PhysicalCard firstElf) {
                         action.addCost(new ExertCharacterEffect(firstElf));
                         action.addCost(
-                                new ChooseAndExertCharacterEffect(action, playerId, "Exert second Elf", true, Filters.keyword(Keyword.ELF), Filters.not(Filters.sameCard(firstElf))));
+                                new ChooseAndExertCharacterEffect(action, playerId, "Exert second Elf", true, Filters.race(Race.ELF), Filters.not(Filters.sameCard(firstElf))));
                     }
                 });
         action.addEffect(

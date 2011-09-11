@@ -9,6 +9,7 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class Card1_153 extends AbstractMinion {
     public Card1_153() {
-        super(4, 9, 2, 5, Keyword.URUK_HAI, Culture.ISENGARD, "Uruk Slayer");
+        super(4, 9, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Slayer");
         addKeyword(Keyword.DAMAGE);
     }
 
