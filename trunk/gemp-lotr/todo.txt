@@ -1,5 +1,4 @@
-1. Introduce AbstractPermanent into Blueprint hierarchy.
-2. Migrate Race (Orc, Elf, etc) into separate enum from Keyword.
+TO DO:
 3. Refactor Effect to return EffectResult upon playEffect, which will contain information about what actually
 happened. Modify the Blueprints to have the "before" methods to take Effect parameter only and the "after" to
 take the EffectResult parameter only. Effects which modify cards should take filters as parameters, use
@@ -7,3 +6,15 @@ overloaded constructor for single cards for backward compatibility, this constru
 with Filters.sameCard(...) filter.
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
+5. Introduce move card operation in communication between the server and client to change the zone/params of the card.
+6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
+7. Add chat.
+8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
+and go with different selection.
+9. Add checkbox option to auto-pass if there is no actions to be played.
+10. Add active/all cards switch to the user interface.
+11. Merge Shadow and FP support area on the UI and extend the Shadow and FP characters window.
+
+DONE:
+1. Introduce AbstractPermanent into Blueprint hierarchy.
+2. Migrate Race (Orc, Elf, etc) into separate enum from Keyword.

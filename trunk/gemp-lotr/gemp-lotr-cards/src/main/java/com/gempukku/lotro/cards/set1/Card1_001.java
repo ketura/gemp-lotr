@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
@@ -8,6 +8,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,19 +35,14 @@ import java.util.List;
  * Game Text: Response: If bearer is about to take a wound, he wears The One Ring until the regroup phase. While wearing
  * The One Ring, each time the Ring-bearer is about to take a wound, add 2 burdens instead.
  */
-public class Card1_001 extends AbstractLotroCardBlueprint {
+public class Card1_001 extends AbstractAttachable {
     public Card1_001() {
-        super(Side.RING, CardType.THE_ONE_RING, null, "The One Ring", true);
+        super(Side.RING, CardType.THE_ONE_RING, 0, null, null, "The One Ring", true);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return false;
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return null;
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.none();
     }
 
     @Override
@@ -108,10 +104,5 @@ public class Card1_001 extends AbstractLotroCardBlueprint {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public int getTwilightCost() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
     }
 }

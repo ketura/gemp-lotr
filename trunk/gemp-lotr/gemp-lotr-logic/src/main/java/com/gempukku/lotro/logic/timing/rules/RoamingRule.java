@@ -44,7 +44,7 @@ public class RoamingRule {
 
                     @Override
                     public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int result) {
-                        return result + Math.min(0, modifiersLogic.getRoamingPenalty(gameState, physicalCard));
+                        return result + Math.max(0, modifiersLogic.getRoamingPenalty(gameState, physicalCard));
                     }
                 });
     }

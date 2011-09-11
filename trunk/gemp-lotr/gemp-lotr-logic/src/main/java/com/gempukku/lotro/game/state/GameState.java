@@ -308,6 +308,20 @@ public class GameState {
         return false;
     }
 
+    public boolean iterateActiveCards(String player, PhysicalCardVisitor physicalCardVisitor) {
+        for (int i = 1; i <= 9; i++) {
+            PhysicalCard site = getSite(i);
+            if (site != null)
+                physicalCardVisitor.visitPhysicalCard(site);
+        }
+        for (PhysicalCardImpl physicalCard : _inPlay.get(player)) {
+            if (isCardInPlayActive(physicalCard))
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
+        }
+        return false;
+    }
+
     private boolean iterateCards(List<PhysicalCardImpl> cards, PhysicalCardVisitor physicalCardVisitor) {
         for (PhysicalCard card : cards)
             if (physicalCardVisitor.visitPhysicalCard(card))

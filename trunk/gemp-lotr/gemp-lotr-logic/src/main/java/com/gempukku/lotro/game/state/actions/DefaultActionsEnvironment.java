@@ -93,7 +93,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         for (String playerId : players) {
             GatherOptionalBeforeTriggers gatherActions = new GatherOptionalBeforeTriggers(playerId, effect, effectResult);
 
-            _lotroGame.getGameState().iterateActivableCards(playerId, gatherActions);
+            _lotroGame.getGameState().iterateActiveCards(playerId, gatherActions);
 
             List<Action> gatheredActions = gatherActions.getActions();
 
@@ -135,7 +135,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         for (String playerId : players) {
             GatherOptionalAfterTriggers gatherActions = new GatherOptionalAfterTriggers(playerId, effectResult);
 
-            _lotroGame.getGameState().iterateActivableCards(playerId, gatherActions);
+            _lotroGame.getGameState().iterateActiveCards(playerId, gatherActions);
 
             List<Action> gatheredActions = gatherActions.getActions();
 
