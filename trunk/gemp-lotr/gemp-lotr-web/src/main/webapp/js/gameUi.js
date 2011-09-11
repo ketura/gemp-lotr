@@ -483,8 +483,24 @@ var GempLotrGameUI = Class.extend({
     removeCardFromPlay: function(element) {
         var cardId = element.getAttribute("cardId");
         var zone = element.getAttribute("zone");
+        var targetCardId = element.getAttribute("targetCardId");
 
-        $(".card:cardId(" + cardId + ")").remove();
+        var card = $(".card:cardId(" + cardId + ")")
+
+        if (targetCardId != null) {
+            var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
+            var index = -1;
+            for (var i = 0; i < targetCardData.attachedCards.length; i++) {
+                if (targetCardData.attachedCards[i].data("card").cardId == cardId) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != -1)
+                targetCardData.attachedCards.splice(index, 1);
+        }
+
+        card.remove();
 
         this.layoutZone(zone);
     },

@@ -58,6 +58,7 @@ public class GameState {
             _discards.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _deadPiles.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _inPlay.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
+            _stacked.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
 
             addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
         }
@@ -209,6 +210,8 @@ public class GameState {
             return _deadPiles.get(playerId);
         else if (zone == Zone.HAND)
             return _hands.get(playerId);
+        else if (zone == Zone.STACKED)
+            return _stacked.get(playerId);
         else
             return _inPlay.get(playerId);
     }
@@ -241,6 +244,12 @@ public class GameState {
         else if (isZonePrivate(zone))
             for (GameStateListener listener : getPrivateGameStateListeners(card))
                 listener.cardRemoved(card);
+
+        if (zone == Zone.ATTACHED)
+            ((PhysicalCardImpl) card).attachTo(null);
+
+        if (zone == Zone.STACKED)
+            ((PhysicalCardImpl) card).stackOn(null);
     }
 
     public void addCardToZone(PhysicalCard card, Zone zone) {
