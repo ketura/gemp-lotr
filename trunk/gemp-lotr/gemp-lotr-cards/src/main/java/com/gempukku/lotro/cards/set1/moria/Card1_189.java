@@ -15,7 +15,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
@@ -43,7 +42,7 @@ public class Card1_189 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (((effectResult.getType() == EffectResult.Type.EXERT && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((ExertResult) effectResult).getExertedCard(), Keyword.RING_BEARER))
                 || (effectResult.getType() == EffectResult.Type.WOUND && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((WoundResult) effectResult).getWoundedCard(), Keyword.RING_BEARER)))
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {

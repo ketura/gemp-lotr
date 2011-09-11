@@ -5,6 +5,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,4 +61,34 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
 
     @Override
     public abstract PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
+
+    @Override
+    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public final List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final List<? extends Action> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+        throw new UnsupportedOperationException();
+    }
 }

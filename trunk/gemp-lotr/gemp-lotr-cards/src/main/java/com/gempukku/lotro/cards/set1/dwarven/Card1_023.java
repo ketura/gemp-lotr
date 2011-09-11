@@ -11,7 +11,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -37,7 +36,7 @@ public class Card1_023 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.DWARF))) {
             final PlayEventAction action = new PlayEventAction(self);
             action.addEffect(
@@ -49,7 +48,7 @@ public class Card1_023 extends AbstractResponseEvent {
                             action.addEffect(new DiscardTopCardFromDeckEffect(opponentId));
                         }
                     });
-            return Collections.<Action>singletonList(action);
+            return Collections.singletonList(action);
         }
         return null;
     }

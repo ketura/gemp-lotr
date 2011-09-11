@@ -11,7 +11,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
@@ -37,12 +36,12 @@ public class Card1_025 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.DWARF))) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             action.addEffect(new HealCharacterEffect(skirmishResult.getWinners().get(0)));
-            return Collections.<Action>singletonList(action);
+            return Collections.singletonList(action);
         }
         return null;
     }

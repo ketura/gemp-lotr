@@ -9,7 +9,6 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.HealResult;
@@ -36,7 +35,7 @@ public class Card1_287 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.HEAL
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((HealResult) effectResult).getCard(), Keyword.RING_BEARER)) {
             PlayEventAction action = new PlayEventAction(self);
