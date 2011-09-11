@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
@@ -25,29 +24,24 @@ import java.util.List;
  * Game Text: Search. To play, exert a [MORIA] minion. Plays to your support area. Each time the fellowship moves to
  * site 4, 5, or 6 and contains a Dwarf or Elf, the Free Peoples player discards 2 cards at random from hand.
  */
-public class Card1_198 extends AbstractLotroCardBlueprint {
+public class Card1_198 extends AbstractPermanent {
     public Card1_198() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.MORIA, "Through the Misty Mountains");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SHADOW_SUPPORT, "Through the Misty Mountains");
         addKeyword(Keyword.SEARCH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier)
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.MINION), Filters.canExert());
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayPermanentAction action = new PlayPermanentAction(self, Zone.SHADOW_SUPPORT, twilightModifier);
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose MORIA minion to exert", true, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION), Filters.canExert()));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

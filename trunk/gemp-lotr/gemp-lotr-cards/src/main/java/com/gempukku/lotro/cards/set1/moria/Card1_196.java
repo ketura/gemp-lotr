@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
@@ -24,32 +23,13 @@ import java.util.List;
  * Game Text: Plays to your support area. Shadow: Discard 3 cards from hand to play a [MORIA] Orc from your discard
  * pile.
  */
-public class Card1_196 extends AbstractLotroCardBlueprint {
+public class Card1_196 extends AbstractPermanent {
     public Card1_196() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.MORIA, "They Are Coming");
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.MORIA, Zone.SHADOW_SUPPORT, "They Are Coming");
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT, twilightModifier);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)
-                && checkPlayRequirements(playerId, game, self, 0))
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-
+    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && game.getGameState().getHand(playerId).size() >= 3) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard 3 cards from hand to play a [MORIA] Orc from your discard pile.");

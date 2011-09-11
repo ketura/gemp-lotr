@@ -19,7 +19,6 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     private Side _side;
     private Culture _culture;
     private boolean _unique;
-    private Signet _signet;
     private Map<Keyword, Integer> _keywords = new HashMap<Keyword, Integer>();
 
     public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name) {
@@ -143,7 +142,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public Signet getSignet() {
-        return _signet;
+        throw new UnsupportedOperationException("This method should not be called on this card");
     }
 
     @Override

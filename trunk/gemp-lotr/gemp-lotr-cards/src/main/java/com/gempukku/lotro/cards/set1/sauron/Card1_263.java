@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -25,24 +24,9 @@ import java.util.List;
  * Game Text: Plays to your support area. Each time a companion or ally loses a skirmish that involves a [SAURON] Orc,
  * each [SAURON] Orc is strength +1 until the regroup phase.
  */
-public class Card1_263 extends AbstractLotroCardBlueprint {
+public class Card1_263 extends AbstractPermanent {
     public Card1_263() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.SAURON, "Orc Banner");
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT, twilightModifier);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Orc Banner");
     }
 
     @Override

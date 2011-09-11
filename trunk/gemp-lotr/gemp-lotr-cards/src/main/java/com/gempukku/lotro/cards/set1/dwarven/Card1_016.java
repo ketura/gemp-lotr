@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
@@ -26,37 +26,24 @@ import java.util.List;
  * Game Text: Tale. Exert a Dwarf to play this condition. Plays to your support area. Each time your opponent plays an
  * Orc, that player discards the top card of his or her draw deck.
  */
-public class Card1_016 extends AbstractLotroCardBlueprint {
+public class Card1_016 extends AbstractPermanent {
     public Card1_016() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Greatest Kingdom of My People", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Greatest Kingdom of My People", true);
         addKeyword(Keyword.TALE);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 0;
-    }
-
-    @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert());
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.DWARF), Filters.canExert());
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        final PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose Dwarf to exert", true, Filters.keyword(Keyword.DWARF), Filters.canExert()));
         return action;
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            return Collections.<Action>singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-        return null;
     }
 
     @Override

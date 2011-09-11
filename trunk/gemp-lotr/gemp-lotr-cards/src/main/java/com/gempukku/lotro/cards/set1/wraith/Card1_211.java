@@ -1,8 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -24,24 +22,9 @@ import java.util.List;
  * Game Text: Plays to your support area. Each time a companion is killed in a skirmish involving a Nazgul, add
  * a burden.
  */
-public class Card1_211 extends AbstractLotroCardBlueprint {
+public class Card1_211 extends AbstractPermanent {
     public Card1_211() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.WRAITH, "Drawn to Its Power");
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT, twilightModifier);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Drawn to Its Power");
     }
 
     @Override

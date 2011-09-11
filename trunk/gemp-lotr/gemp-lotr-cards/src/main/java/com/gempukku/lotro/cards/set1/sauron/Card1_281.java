@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -24,29 +23,24 @@ import java.util.List;
  * Game Text: Search. To play, exert a [SAURON] tracker. Plays to your support area. Each time the fellowship moves,
  * the Free Peoples player must exert a companion.
  */
-public class Card1_281 extends AbstractLotroCardBlueprint {
+public class Card1_281 extends AbstractPermanent {
     public Card1_281() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.SAURON, "Under the Watching Eye");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Under the Watching Eye");
         addKeyword(Keyword.SEARCH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier)
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER), Filters.canExert());
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayPermanentAction action = new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose SAURON tracker", true, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER), Filters.canExert()));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override
