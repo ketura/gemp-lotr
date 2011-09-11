@@ -34,10 +34,6 @@ public class PlayPermanentAction implements CostToEffectAction {
     private Effect _discardCardEffect;
     private boolean _cardDiscarded;
 
-    public PlayPermanentAction(PhysicalCard card, Zone zone) {
-        this(card, zone, 0);
-    }
-
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier) {
         _source = card;
 

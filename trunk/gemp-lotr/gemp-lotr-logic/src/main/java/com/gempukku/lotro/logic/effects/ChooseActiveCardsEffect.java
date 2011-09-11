@@ -32,14 +32,19 @@ public abstract class ChooseActiveCardsEffect extends UnrespondableEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new CardsSelectionDecision(1, _choiceText, Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters), _minimum, _maximum) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                        cardsSelected(selectedCards);
-                    }
-                });
+        List<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
+        if (matchingCards.size() == _minimum) {
+            cardsSelected(matchingCards);
+        } else {
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new CardsSelectionDecision(1, _choiceText, matchingCards, _minimum, _maximum) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            cardsSelected(selectedCards);
+                        }
+                    });
+        }
     }
 
     protected abstract void cardsSelected(List<PhysicalCard> cards);
