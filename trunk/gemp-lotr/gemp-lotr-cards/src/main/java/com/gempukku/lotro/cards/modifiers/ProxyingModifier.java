@@ -105,6 +105,14 @@ public class ProxyingModifier implements Modifier {
     }
 
     @Override
+    public int getRoamingPenalty(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.getRoamingPenalty(gameState, modifiersQuerying, physicalCard, result);
+        return result;
+    }
+
+    @Override
     public int getPlayOnTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target, int result) {
         Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
         if (modifier != null)

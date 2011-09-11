@@ -36,7 +36,7 @@ public class Card1_302 extends AbstractCompanion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && game.getModifiersQuerying().getVitality(game.getGameState(), self) > 2 + game.getGameState().getWounds(self)
                 && !isAssigned(game, self)) {

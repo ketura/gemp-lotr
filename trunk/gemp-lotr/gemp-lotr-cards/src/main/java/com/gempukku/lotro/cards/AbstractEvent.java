@@ -41,7 +41,7 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return (getSide() != Side.SHADOW
-                || game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) + twilightModifier <= game.getGameState().getTwilightPool());
+                || PlayConditions.canPayForShadowCard(game, self, twilightModifier));
     }
 
     @Override

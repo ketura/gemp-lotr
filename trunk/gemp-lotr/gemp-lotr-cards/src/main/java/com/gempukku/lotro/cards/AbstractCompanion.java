@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -10,11 +9,10 @@ import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
-    private int _twilightCost;
+public abstract class AbstractCompanion extends AbstractPermanent {
     private int _strength;
     private int _vitality;
     private Keyword _race;
@@ -25,8 +23,7 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
     }
 
     public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Keyword race, Signet signet, String name, boolean unique) {
-        super(Side.FREE_PEOPLE, CardType.COMPANION, culture, name, unique);
-        _twilightCost = twilightCost;
+        super(Side.FREE_PEOPLE, twilightCost, CardType.COMPANION, culture, Zone.FREE_CHARACTERS, name, unique);
         _strength = strength;
         _vitality = vitality;
         _race = race;
@@ -44,12 +41,12 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
         return _signet;
     }
 
-    private void appendPlayCompanionActions(List<Action> actions, String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
-            actions.add(getPlayCardAction(playerId, game, self, 0));
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+                && PlayConditions.checkRuleOfNine(game.getGameState(), game.getModifiersQuerying(), self);
     }
 
-    private void appendHealCompanionActions(List<Action> actions, LotroGame game, PhysicalCard self) {
+    protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard card to heal");
             action.addCost(new DiscardCardFromHandEffect(self));
@@ -58,42 +55,14 @@ public abstract class AbstractCompanion extends AbstractLotroCardBlueprint {
             if (active != null)
                 action.addEffect(new HealCharacterEffect(active));
 
-            actions.add(action);
+            return Collections.singletonList(action);
         }
+
+        return getExtraInPlayPhaseActions(playerId, game, self);
     }
 
-    @Override
-    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-
-        if (checkPlayRequirements(playerId, game, self, 0))
-            appendPlayCompanionActions(actions, playerId, game, self);
-
-        appendHealCompanionActions(actions, game, self);
-
-        List<? extends Action> extraActions = getExtraPhaseActions(playerId, game, self);
-        if (extraActions != null)
-            actions.addAll(extraActions);
-
-        return actions;
-    }
-
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
-                && PlayConditions.checkRuleOfNine(game.getGameState(), game.getModifiersQuerying(), self);
-    }
-
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.FREE_CHARACTERS);
-    }
-
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         return null;
-    }
-
-    @Override
-    public final int getTwilightCost() {
-        return _twilightCost;
     }
 
     @Override

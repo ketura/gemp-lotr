@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Action;
 
 /**
  * Set: The Fellowship of the Ring
@@ -37,7 +37,7 @@ public class Card1_165 extends AbstractMinion {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PhysicalCard currentSite = game.getGameState().getCurrentSite();
         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), currentSite, Keyword.UNDERGROUND))
             twilightModifier -= 3;

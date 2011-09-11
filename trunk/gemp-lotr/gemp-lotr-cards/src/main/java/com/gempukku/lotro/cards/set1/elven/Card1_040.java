@@ -38,11 +38,12 @@ public class Card1_040 extends AbstractAlly {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier) && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.keyword(Keyword.ELF), Filters.name("Gandalf")));
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.keyword(Keyword.ELF), Filters.name("Gandalf")));
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Elrond to draw a card");
