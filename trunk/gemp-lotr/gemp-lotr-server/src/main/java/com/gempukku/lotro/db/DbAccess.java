@@ -45,6 +45,7 @@ public class DbAccess {
         //
         GenericObjectPool connectionPool =
                 new GenericObjectPool();
+        connectionPool.setTestOnBorrow(true);
 
         //
         // Next we'll create the PoolableConnectionFactory, which wraps
