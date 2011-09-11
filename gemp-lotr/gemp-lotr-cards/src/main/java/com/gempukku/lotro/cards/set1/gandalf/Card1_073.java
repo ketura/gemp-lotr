@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.StackCardFromHandEffect;
@@ -28,33 +27,13 @@ import java.util.List;
  * Game Text: Plays to your support area. Fellowship: Stack a Free Peoples artifact (or possession) from hand on this
  * card, or play a card stacked here as if played from hand.
  */
-public class Card1_073 extends AbstractLotroCardBlueprint {
+public class Card1_073 extends AbstractPermanent {
     public Card1_073() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, Culture.GANDALF, "Gandalf's Cart", true);
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.GANDALF, Zone.FREE_SUPPORT, "Gandalf's Cart", true);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-
+    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && (
                 game.getGameState().getStackedCards(self).size() > 0

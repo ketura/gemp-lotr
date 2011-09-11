@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -27,24 +26,9 @@ import java.util.List;
  * support area to the losing character. Limit 1 per character. Wound bearer at the start of each fellowship phase.
  * (If bearer is the Ring-bearer, add a burden instead )
  */
-public class Card1_209 extends AbstractLotroCardBlueprint {
+public class Card1_209 extends AbstractPermanent {
     public Card1_209() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.WRAITH, "Blade Tip");
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT, twilightModifier);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Blade Tip");
     }
 
     @Override

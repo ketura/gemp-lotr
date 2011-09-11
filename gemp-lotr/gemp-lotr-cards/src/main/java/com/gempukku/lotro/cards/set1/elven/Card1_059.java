@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
@@ -29,33 +28,13 @@ import java.util.List;
  * Game Text: Plays to your support area. Maneuver: Add (1) and exert a Dwarf to heal an Elf, or add (1) and exert an
  * Elf to heal a Dwarf.
  */
-public class Card1_059 extends AbstractLotroCardBlueprint {
+public class Card1_059 extends AbstractPermanent {
     public Card1_059() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Shoulder to Shoulder");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.FREE_SUPPORT, "Shoulder to Shoulder");
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return true;
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-
+    public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && (
                 Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),

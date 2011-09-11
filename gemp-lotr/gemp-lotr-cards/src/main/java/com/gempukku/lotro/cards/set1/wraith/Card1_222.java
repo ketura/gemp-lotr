@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
@@ -24,34 +23,20 @@ import java.util.List;
  * Game Text: Search. To play, spot a Nazgul. Plays to your support area. Shadow: Remove (3) to replace the fellowship's
  * site with your version of the same site.
  */
-public class Card1_222 extends AbstractLotroCardBlueprint {
+public class Card1_222 extends AbstractPermanent {
     public Card1_222() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.WRAITH, "Paths Seldom Trodden");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Paths Seldom Trodden");
         addKeyword(Keyword.SEARCH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier)
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.NAZGUL));
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT, twilightModifier);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)
-                && checkPlayRequirements(playerId, game, self, 0))
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-
+    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Remove (3) to replace the fellowship's site with your version of the same site.");
             action.addCost(new RemoveTwilightEffect(3));

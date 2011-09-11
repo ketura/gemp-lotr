@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -14,10 +13,6 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -28,37 +23,23 @@ import java.util.List;
  * Game Text: Stealth. To play, exert a Hobbit. Plays to your support area. Each time the fellowship moves, spot 2
  * Hobbit companions to make the shadow number -1 (or spot 4 to make it -2).
  */
-public class Card1_316 extends AbstractLotroCardBlueprint {
+public class Card1_316 extends AbstractPermanent {
     public Card1_316() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.SHIRE, "A Talent for Not Being Seen", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.FREE_SUPPORT, "A Talent for Not Being Seen", true);
         addKeyword(Keyword.STEALTH);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 0;
-    }
-
-    @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HOBBIT), Filters.canExert());
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayPermanentAction action = new PlayPermanentAction(self, Zone.FREE_SUPPORT);
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.addCost(new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit", true, Filters.keyword(Keyword.HOBBIT), Filters.canExert()));
         return action;
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-        return null;
     }
 
     @Override

@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -25,33 +24,10 @@ import java.util.List;
  * Game Text: Search. Plays to your support area. Each time you play a Nazgul, you may exert a Hobbit (except
  * the Ring-bearer).
  */
-public class Card1_219 extends AbstractLotroCardBlueprint {
+public class Card1_219 extends AbstractPermanent {
     public Card1_219() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.WRAITH, "The Nine Servants of Sauron");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "The Nine Servants of Sauron");
         addKeyword(Keyword.SEARCH);
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)
-                && checkPlayRequirements(playerId, game, self, 0))
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        return null;
     }
 
     @Override

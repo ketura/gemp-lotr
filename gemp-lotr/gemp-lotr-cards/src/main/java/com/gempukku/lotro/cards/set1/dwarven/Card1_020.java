@@ -1,8 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,32 +24,9 @@ import java.util.List;
  * Game Text: Plays to your support area. Each time a Dwarf wins a skirmish against an Orc, discard that Orc. Discard
  * this condition if a Dwarf loses a skirmish.
  */
-public class Card1_020 extends AbstractLotroCardBlueprint {
+public class Card1_020 extends AbstractPermanent {
     public Card1_020() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.DWARVEN, "Let Them Come!");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return true;
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-            return Collections.<Action>singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-        return null;
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Let Them Come!");
     }
 
     @Override

@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -23,32 +22,9 @@ import java.util.List;
  * Type: Condition
  * Game Text: Plays to your support area. Each time you play an [ELVEN] tale, you may remove a burden.
  */
-public class Card1_061 extends AbstractLotroCardBlueprint {
+public class Card1_061 extends AbstractPermanent {
     public Card1_061() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, Culture.ELVEN, "Songs of the Blessed Realm");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return true;
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.FREE_SUPPORT);
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-        return null;
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.FREE_SUPPORT, "Songs of the Blessed Realm");
     }
 
     @Override

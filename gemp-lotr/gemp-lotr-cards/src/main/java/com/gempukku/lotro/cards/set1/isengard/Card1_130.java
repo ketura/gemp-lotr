@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -23,32 +22,9 @@ import java.util.List;
  * Type: Condition
  * Game Text: Plays to your support area. Each time you play a weather condition, exert a [GANDALF] companion or [GANDALF] ally.
  */
-public class Card1_130 extends AbstractLotroCardBlueprint {
+public class Card1_130 extends AbstractPermanent {
     public Card1_130() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "No Ordinary Storm");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-        return null;
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "No Ordinary Storm");
     }
 
     @Override

@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
+import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.CancelEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -26,33 +25,10 @@ import java.util.List;
  * Game Text: Search. Plays to your support area. Response: If a stealth event is played, exert a [SAURON] tracker
  * to cancel that event.
  */
-public class Card1_275 extends AbstractLotroCardBlueprint {
+public class Card1_275 extends AbstractPermanent {
     public Card1_275() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.SAURON, "Seeking It Always");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Seeking It Always");
         addKeyword(Keyword.SEARCH);
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier);
-    }
-
-    @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, Zone.SHADOW_SUPPORT);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)
-                && checkPlayRequirements(playerId, game, self, 0))
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        return null;
     }
 
     @Override
