@@ -7,7 +7,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>lotro</name>
+    <name>gemp-lotro</name>
     <url>http://maven.apache.org</url>
 
     <modules>
