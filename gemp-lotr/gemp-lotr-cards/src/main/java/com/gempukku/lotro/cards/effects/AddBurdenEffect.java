@@ -12,7 +12,7 @@ public class AddBurdenEffect extends UnrespondableEffect {
 
     @Override
     public String getText() {
-        return "Add a burder";
+        return "Add a burden";
     }
 
     @Override
