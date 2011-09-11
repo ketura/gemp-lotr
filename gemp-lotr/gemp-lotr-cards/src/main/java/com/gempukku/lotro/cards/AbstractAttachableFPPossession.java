@@ -50,11 +50,17 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
         }
     }
 
+    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
 
     @Override
-    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>(super.getPhaseActions(playerId, game, self));
+    protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        List<Action> actions = new LinkedList<Action>();
         appendTransferPossessionAction(actions, game, self, getFullValidTargetFilter(playerId, game, self));
+        List<? extends Action> extraActions = getExtraInPlayPhaseActions(playerId, game, self);
+        if (extraActions != null)
+            actions.addAll(extraActions);
         return actions;
     }
 }

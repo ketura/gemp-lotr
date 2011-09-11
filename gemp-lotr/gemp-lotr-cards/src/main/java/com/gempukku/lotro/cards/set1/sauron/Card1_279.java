@@ -46,8 +46,8 @@ public class Card1_279 extends AbstractAttachable {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
-        AttachPermanentAction action = (AttachPermanentAction) super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
+    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
+        AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose SAURON Orc", true, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.ORC), Filters.canExert()));
         return action;

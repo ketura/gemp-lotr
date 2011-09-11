@@ -1,11 +1,13 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,40 +29,30 @@ import java.util.List;
  * Game Text: Spell. Weather. To play, exert a [ISENGARD] minion. Plays on a site. Limit 1 per site. Each Hobbit who
  * moves from this site must exert. Discard this condition at the end of the turn.
  */
-public class Card1_134 extends AbstractLotroCardBlueprint {
+public class Card1_134 extends AbstractAttachable {
     public Card1_134() {
-        super(Side.SHADOW, CardType.CONDITION, Culture.ISENGARD, "Saruman's Chill");
+        super(Side.SHADOW, CardType.CONDITION, 1, Culture.ISENGARD, null, "Saruman's Chill");
         addKeyword(Keyword.SPELL);
         addKeyword(Keyword.WEATHER);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
+    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Chill"))));
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return PlayConditions.canPayForShadowCard(game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert())
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Chill"))));
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert());
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        final AttachPermanentAction action = new AttachPermanentAction(game, self, Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Chill")))), Collections.<Filter, Integer>emptyMap());
+    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
+        AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose ISENGARD minion", true, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()));
         return action;
-    }
-
-    @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
-        }
-        return null;
     }
 
     @Override

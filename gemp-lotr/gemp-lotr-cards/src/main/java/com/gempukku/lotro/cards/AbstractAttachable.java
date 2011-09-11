@@ -74,7 +74,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
         Side side = self.getBlueprint().getSide();
         if (((side == Side.FREE_PEOPLE && PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
@@ -91,11 +91,11 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public final AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return getPlayCardAction(playerId, game, self, Filters.any(), twilightModifier);
     }
 
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
+    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return new AttachPermanentAction(game, self, Filters.and(getFullValidTargetFilter(playerId, game, self), additionalAttachmentFilter), getAttachCostModifiers(playerId, game, self));
     }
 
@@ -108,7 +108,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public int getTwilightCost() {
+    public final int getTwilightCost() {
         return _twilight;
     }
 }
