@@ -7,11 +7,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
@@ -36,17 +35,17 @@ public class Card1_206 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && ((StartOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Draw 1 card");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Draw 1 card");
             action.addEffect(
                     new DrawCardEffect(self.getOwner()));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && ((EndOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert a Nazgul or discard this condition");
+            final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert a Nazgul or discard this condition");
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ChooseActiveCardEffect(self.getOwner(), "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.canExert()) {

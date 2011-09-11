@@ -12,8 +12,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -38,13 +37,13 @@ public class Card1_092 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.isWounded(effectResult, self.getAttachedTo())) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Apply damage prevention");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Apply damage prevention");
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new CantTakeWoundsModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.SKIRMISH));
-            return Collections.<Action>singletonList(action);
+            return Collections.singletonList(action);
         }
         return null;
     }

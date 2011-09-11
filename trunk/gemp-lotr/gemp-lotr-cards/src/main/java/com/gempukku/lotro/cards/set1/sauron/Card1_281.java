@@ -7,8 +7,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -44,9 +43,9 @@ public class Card1_281 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Free Peoples player must exert a companion.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Free Peoples player must exert a companion.");
             action.addEffect(
                     new ChooseAndExertCharacterEffect(action, game.getGameState().getCurrentPlayerId(), "Choose companion", false, Filters.type(CardType.COMPANION), Filters.canExert()));
             return Collections.singletonList(action);

@@ -9,8 +9,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
@@ -47,12 +46,12 @@ public class Card1_016 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.ORC))) {
             String playerId = ((PlayCardResult) effectResult).getPlayedCard().getOwner();
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard the top card of deck");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard the top card of deck");
             action.addEffect(new DiscardTopCardFromDeckEffect(playerId));
-            return Collections.<Action>singletonList(action);
+            return Collections.singletonList(action);
         }
         return null;
     }

@@ -28,25 +28,26 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
                 && gameState.getCurrentPhase() == Phase.FELLOWSHIP
                 && self.getZone() == Zone.ATTACHED) {
 
-            Filter vaildTransferFilter;
+            Filter validTransferFilter;
 
             LotroCardBlueprint attachedTo = self.getAttachedTo().getBlueprint();
             if (attachedTo.getCardType() == CardType.COMPANION) {
-                vaildTransferFilter = Filters.and(validTargetFilter,
+                validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
                                 Filters.type(CardType.COMPANION),
                                 Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(gameState.getCurrentSiteNumber()))));
             } else if (attachedTo.getSiteNumber() == gameState.getCurrentSiteNumber()) {
-                vaildTransferFilter = Filters.and(validTargetFilter,
+                validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
                                 Filters.type(CardType.COMPANION),
                                 Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(gameState.getCurrentSiteNumber()))));
             } else {
-                vaildTransferFilter = Filters.and(validTargetFilter,
+                validTransferFilter = Filters.and(validTargetFilter,
                         Filters.type(CardType.ALLY), Filters.siteNumber(attachedTo.getSiteNumber()));
             }
 
-            actions.add(new TransferPermanentAction(self, game, vaildTransferFilter));
+            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), validTransferFilter))
+                actions.add(new TransferPermanentAction(self, game, validTransferFilter));
         }
     }
 

@@ -11,10 +11,9 @@ import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -40,9 +39,9 @@ public class Card1_307 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Remove a burder or wound from a companion");
+            final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Remove a burder or wound from a companion");
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(new RemoveBurdenEffect());

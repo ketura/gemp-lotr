@@ -10,13 +10,12 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -51,9 +50,9 @@ public class Card1_014 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Wound an Orc");
+            final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Wound an Orc");
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Orc to wound", Filters.race(Race.ORC)) {
                         @Override
@@ -63,7 +62,7 @@ public class Card1_014 extends AbstractAttachableFPPossession {
                     }
             );
 
-            return Collections.<Action>singletonList(action);
+            return Collections.singletonList(action);
         }
 
         return null;

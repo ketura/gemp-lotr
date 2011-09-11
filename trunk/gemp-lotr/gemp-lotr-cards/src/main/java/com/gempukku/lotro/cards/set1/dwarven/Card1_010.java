@@ -11,9 +11,8 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -39,16 +38,16 @@ public class Card1_010 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Heal bearer up to 2 times");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal bearer up to 2 times");
             action.addEffect(new HealCharacterEffect(self.getAttachedTo()));
             action.addEffect(new HealCharacterEffect(self.getAttachedTo()));
-            return Collections.<Action>singletonList(action);
+            return Collections.singletonList(action);
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert bearer at the start of each of your turns");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert bearer at the start of each of your turns");
             action.addEffect(new ExertCharacterEffect(self.getAttachedTo()));
-            return Collections.<Action>singletonList(action);
+            return Collections.singletonList(action);
         }
 
         return null;

@@ -7,9 +7,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.CorruptRingBearerEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -44,10 +43,10 @@ public class Card1_252 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getGameState().getBurdens() >= 5
                 && game.getGameState().getDeck(game.getGameState().getCurrentPlayerId()).size() == 0) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Corrupt Ring-Bearer");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Corrupt Ring-Bearer");
             action.addEffect(
                     new CorruptRingBearerEffect());
             return Collections.singletonList(action);

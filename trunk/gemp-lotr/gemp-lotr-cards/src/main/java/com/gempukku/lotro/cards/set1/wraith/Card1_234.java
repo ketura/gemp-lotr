@@ -9,8 +9,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -33,9 +32,9 @@ public class Card1_234 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "For each companion over 4, you may play 1 minion from your discard pile.");
+            OptionalTriggerAction action = new OptionalTriggerAction(self, null, "For each companion over 4, you may play 1 minion from your discard pile.");
             int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
             int minions = Math.min(0, companions - 4);
             for (int i = 0; i < minions; i++) {

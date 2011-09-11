@@ -7,8 +7,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
@@ -37,11 +36,11 @@ public class Card1_175 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.COMPANION))
                 && game.getGameState().getCurrentSiteNumber() >= 4) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exhaust the played companion.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exhaust the played companion.");
             action.addEffect(
                     new ExhaustCharacterEffect(action, false, playCardResult.getPlayedCard()));
             return Collections.singletonList(action);

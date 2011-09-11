@@ -9,6 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -52,11 +53,11 @@ public class Card1_310 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL) {
             KillResult killResult = (KillResult) effectResult;
             if (killResult.getKilledCard().getBlueprint().getName().equals("Frodo")) {
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Make Sam the Ring-Bearer");
+                OptionalTriggerAction action = new OptionalTriggerAction(self, Keyword.RESPONSE, "Make Sam the Ring-Bearer");
                 action.addEffect(new MakeRingBearerEffect(self));
                 return Collections.singletonList(action);
             }

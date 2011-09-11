@@ -5,10 +5,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -33,9 +32,9 @@ public class Card1_365 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Heal another companion who has the Aragorn signet");
+            final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Heal another companion who has the Aragorn signet");
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose companion to heal", Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN), Filters.not(Filters.sameCard(self))) {
                         @Override

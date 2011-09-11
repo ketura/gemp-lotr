@@ -10,6 +10,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -50,7 +52,7 @@ public class Card1_067 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
             return copied.getRequiredBeforeTriggers(game, effect, effectResult, self);
@@ -58,7 +60,7 @@ public class Card1_067 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
             return copied.getRequiredAfterTriggers(game, effectResult, self);
@@ -74,7 +76,7 @@ public class Card1_067 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
             return copied.getOptionalAfterTriggers(playerId, game, effectResult, self);

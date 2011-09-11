@@ -14,6 +14,7 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -90,17 +91,16 @@ public class Card1_001 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WOUND
                 && game.getGameState().isWearingRing()
                 && !game.getGameState().isCancelRingText()
                 && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
-            List<Action> actions = new LinkedList<Action>();
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Add 2 burdens instead of taking a wound");
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add 2 burdens instead of taking a wound");
             action.addCost(new CancelEffect(effect));
             action.addEffect(new AddBurdenEffect(self.getOwner()));
             action.addEffect(new AddBurdenEffect(self.getOwner()));
-            return actions;
+            return Collections.singletonList(action);
         } else {
             return null;
         }
