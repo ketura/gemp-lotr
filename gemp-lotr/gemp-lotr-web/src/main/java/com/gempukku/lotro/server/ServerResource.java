@@ -4,6 +4,9 @@ import com.gempukku.lotro.GameEvent;
 import com.gempukku.lotro.LotroGameMediator;
 import com.gempukku.lotro.LotroGameParticipant;
 import com.gempukku.lotro.LotroServer;
+import com.gempukku.lotro.chat.ChatMessage;
+import com.gempukku.lotro.chat.ChatRoomMediator;
+import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Deck;
@@ -27,6 +30,7 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.List;
 import java.util.Map;
 
 @Singleton
@@ -35,6 +39,7 @@ public class ServerResource {
     private static final Logger _logger = Logger.getLogger(ServerResource.class);
 
     private LotroServer _lotroServer;
+    private ChatServer _chatServer;
 
     public ServerResource() {
         _logger.debug("starting resource");
@@ -42,6 +47,10 @@ public class ServerResource {
         try {
             _lotroServer = new LotroServer();
             _lotroServer.startServer();
+
+            _chatServer = new ChatServer();
+            _chatServer.startServer();
+            _chatServer.createChatRoom("default");
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
             exp.printStackTrace();
@@ -311,6 +320,72 @@ public class ServerResource {
                 collectionElem.appendChild(card);
             }
             index++;
+        }
+
+        return doc;
+    }
+
+    @Path("/chat/{room}")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getMessages(
+            @PathParam("room") String room,
+            @QueryParam("participantId") String participantId) throws ParserConfigurationException {
+        ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
+        if (chatRoom == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        List<ChatMessage> chatMessages = chatRoom.joinUser(participantId);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element chatElem = doc.createElement("chat");
+        chatElem.setAttribute("roomName", room);
+        doc.appendChild(chatElem);
+
+        for (ChatMessage chatMessage : chatMessages) {
+            Element message = doc.createElement("message");
+            message.setAttribute("from", chatMessage.getFrom());
+            message.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
+            message.appendChild(doc.createTextNode(chatMessage.getMessage()));
+            chatElem.appendChild(message);
+        }
+
+        return doc;
+    }
+
+    @Path("/chat/{room}")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document postMessage(
+            @PathParam("room") String room,
+            @FormParam("participantId") String participantId,
+            @FormParam("message") String message) throws ParserConfigurationException {
+        ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
+        if (chatRoom == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        chatRoom.sendMessage(participantId, message);
+        List<ChatMessage> chatMessages = chatRoom.getPendingMessages(participantId);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element chatElem = doc.createElement("chat");
+        chatElem.setAttribute("roomName", room);
+        doc.appendChild(chatElem);
+
+        for (ChatMessage chatMessage : chatMessages) {
+            Element messageElem = doc.createElement("message");
+            messageElem.setAttribute("from", chatMessage.getFrom());
+            messageElem.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
+            messageElem.appendChild(doc.createTextNode(chatMessage.getMessage()));
+            chatElem.appendChild(messageElem);
         }
 
         return doc;

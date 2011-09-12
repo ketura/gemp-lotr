@@ -98,6 +98,10 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
         _events.add(new GameEvent(REMOVE_TOKENS).card(card).token(token).count(count));
     }
 
+    public void sendMessage(String message) {
+        _events.add(new GameEvent(MESSAGE).message(message));
+    }
+
     public List<GameEvent> consumeGameEvents() {
         List<GameEvent> result = _events;
         _events = new LinkedList<GameEvent>();

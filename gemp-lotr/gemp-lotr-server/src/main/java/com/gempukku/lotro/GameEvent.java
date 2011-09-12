@@ -11,13 +11,14 @@ import java.util.List;
 public class GameEvent {
     public enum Type {
         PARTICIPANT, GAME_PHASE_CHANGE, TURN_CHANGE, PLAYER_POSITION, TWILIGHT_POOL,
-        PUT_CARD_IN_PLAY, MOVE_CARD_IN_PLAY, REMOVE_CARD_FROM_PLAY, ATTACH_CARD,
+        PUT_CARD_IN_PLAY, MOVE_CARD_IN_PLAY, REMOVE_CARD_FROM_PLAY,
         ADD_ASSIGNMENT, REMOVE_ASSIGNMENT,
         START_SKIRMISH, END_SKIRMISH,
-        ADD_TOKENS, REMOVE_TOKENS
+        ADD_TOKENS, REMOVE_TOKENS,
+        MESSAGE
     }
 
-    private String _warning;
+    private String _message;
     private Type _type;
     private Zone _zone;
     private String _participantId;
@@ -66,6 +67,15 @@ public class GameEvent {
         return this;
     }
 
+    public String getMessage() {
+        return _message;
+    }
+
+    public GameEvent message(String message) {
+        _message = message;
+        return this;
+    }
+
     public Integer getCount() {
         return _count;
     }
@@ -81,15 +91,6 @@ public class GameEvent {
 
     public GameEvent opposingCardIds(int[] opposingCardIds) {
         _opposingCardIds = opposingCardIds;
-        return this;
-    }
-
-    public String getWarning() {
-        return _warning;
-    }
-
-    public GameEvent warning(String warning) {
-        _warning = warning;
         return this;
     }
 
