@@ -17,6 +17,7 @@ import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.Action;
 import com.sun.jersey.spi.resource.Singleton;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -368,8 +369,13 @@ public class ServerResource {
         if (chatRoom == null)
             sendError(Response.Status.NOT_FOUND);
 
-        chatRoom.sendMessage(participantId, message);
+        if (message != null)
+            chatRoom.sendMessage(participantId, StringEscapeUtils.escapeHtml(message));
+
         List<ChatMessage> chatMessages = chatRoom.getPendingMessages(participantId);
+
+        if (chatMessages == null)
+            sendError(Response.Status.NOT_FOUND);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

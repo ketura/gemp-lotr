@@ -19,8 +19,25 @@
 
     <script type="text/javascript" src="js/inheritance.js"></script>
     <script type="text/javascript" src="js/logging.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
+    <script type="text/javascript" src="js/communication.js"></script>
 
     <script type="text/javascript">
+        function getUrlParam(param) {
+            var search = window.location.search.substring(1);
+            if (search.indexOf('&') > -1) {
+                var params = search.split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var key_value = params[i].split('=');
+                    if (key_value[0] == param) return key_value[1];
+                }
+            } else {
+                var params = search.split('=');
+                if (params[0] == param) return params[1];
+            }
+            return null;
+        }
+
         $(document).ready(
                 function() {
                     /* attach a submit handler to the form */
@@ -45,7 +62,7 @@
                             });
 
                     var chat = new ChatBoxUI("default", $("#chat"), comm);
-                    chat.setSize(800, 300);
+                    chat.setBounds(2, 2, 800 - 4, 300 - 4);
                 });
     </script>
 

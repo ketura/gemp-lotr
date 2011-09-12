@@ -64,6 +64,7 @@
 
     <script type="text/javascript" src="js/inheritance.js"></script>
     <script type="text/javascript" src="js/communication.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
     <script type="text/javascript" src="js/gameUi.js"></script>
     <script type="text/javascript" src="js/jCardGroup.js"></script>
     <script type="text/javascript" src="js/jCards.js"></script>
@@ -98,12 +99,14 @@
 
         $(document).ready(
                 function () {
-                    ui = new GempLotrGameUI();
 
                     communication = new GempLotrCommunication("/gemp-lotr/server",
                             function() {
-                                ui.processError();
+                                alert("There was a problem communicaiton with server, most likely the game does not exist");
                             });
+
+                    ui = new GempLotrGameUI(communication);
+
                     ui.setUpdateState(function() {
                         communication.updateGameState(function(xml) {
                             ui.processXml(xml);

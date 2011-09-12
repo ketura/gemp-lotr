@@ -4,6 +4,7 @@ var ChatBoxUI = Class.extend({
     communication: null,
     chatMessagesDiv: null,
     chatTalkDiv: null,
+    talkBoxHeight: 25,
 
     init: function(name, div, communication) {
         this.name = name;
@@ -20,19 +21,28 @@ var ChatBoxUI = Class.extend({
 
         this.communication.startChat(this.name, function(xml) {
             that.processMessages(xml, true);
-        })
+        });
 
         this.chatTalkDiv.bind("keypress", function(e) {
             var code = (e.keyCode ? e.keyCode : e.which);
             if (code == 13) {
-                that.sendMessage($(this).value);
+                var value = $(this).val();
+                that.sendMessage(value);
+                that.appendMessage("<b>Me:</b> " + that.escapeHtml(value));
+                $(this).val("");
             }
         });
     },
 
-    setSize: function(width, height) {
-        this.chatMessagesDiv.css({ position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height - 30, overflow: "scroll" });
-        this.chatTalkDiv.css({ position: "absolute", left: 0 + "px", top: (height - 30) + "px", width: width, height: 30 });
+    escapeHtml: function(text) {
+        return $('<div/>').text(text).html();
+    },
+
+    setBounds: function(x, y, width, height) {
+        var talkBoxPadding = 3;
+
+        this.chatMessagesDiv.css({ position: "absolute", left: x + "px", top: y + "px", width: width, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
+        this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
     },
 
     appendMessage: function(message) {
@@ -40,21 +50,26 @@ var ChatBoxUI = Class.extend({
         if ($("p", this.chatMessagesDiv).length > 50) {
             $("p", this.chatMessagesDiv).first().remove();
         }
+        this.chatMessagesDiv.prop({ scrollTop: this.chatMessagesDiv.prop("scrollHeight") });
     },
 
     processMessages: function(xml, processAgain) {
         var root = xml.documentElement;
         if (root.tagName == 'chat') {
-            var messages = element.getElementsByTagName("message");
+            var messages = root.getElementsByTagName("message");
             for (var i = 0; i < messages.length; i++) {
                 var message = messages[i];
                 var from = message.getAttribute("from");
                 var text = message.childNodes[0].nodeValue;
-                this.appendMessage("<b>" + from + ":</b>" + text);
+                this.appendMessage("<b>" + from + ":</b> " + text);
             }
 
+            var that = this;
+
             if (processAgain)
-                setTimeout(this.updateChatMessages, 1000);
+                setTimeout(function() {
+                    that.updateChatMessages();
+                }, 1000);
         }
     },
 
