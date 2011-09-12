@@ -122,20 +122,23 @@ public class DefaultLotroGame implements LotroGame {
 
     @Override
     public void checkWinLoseConditions() {
-        // Ring-bearer death
-        if (!Filters.canSpot(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
-            playerLost(getGameState().getCurrentPlayerId());
-        }
-        // Ring-bearer corruption
-        PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
-        int ringBearerResistance = ringBearer.getBlueprint().getResistance();
-        if (getGameState().getBurdens() >= ringBearerResistance) {
-            playerLost(getGameState().getCurrentPlayerId());
-        }
-        // Fellowship in regroup at the last site
-        if (getGameState().getCurrentPhase() == Phase.REGROUP
-                && getGameState().getCurrentSiteNumber() == 9) {
-            playerWon(getGameState().getCurrentPlayerId());
+        GameState gameState = getGameState();
+        if (gameState != null && gameState.getCurrentPhase() != Phase.GAME_SETUP) {
+            // Ring-bearer death
+            if (!Filters.canSpot(gameState, getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
+                playerLost(getGameState().getCurrentPlayerId());
+            }
+            // Ring-bearer corruption
+            PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
+            int ringBearerResistance = ringBearer.getBlueprint().getResistance();
+            if (getGameState().getBurdens() >= ringBearerResistance) {
+                playerLost(getGameState().getCurrentPlayerId());
+            }
+            // Fellowship in regroup at the last site
+            if (getGameState().getCurrentPhase() == Phase.REGROUP
+                    && getGameState().getCurrentSiteNumber() == 9) {
+                playerWon(getGameState().getCurrentPlayerId());
+            }
         }
     }
 

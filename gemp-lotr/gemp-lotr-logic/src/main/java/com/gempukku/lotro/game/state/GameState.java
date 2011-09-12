@@ -21,7 +21,7 @@ public class GameState {
     private Map<String, List<PhysicalCardImpl>> _inPlay = new HashMap<String, List<PhysicalCardImpl>>();
 
     private String _currentPlayerId;
-    private Phase _currentPhase;
+    private Phase _currentPhase = Phase.GAME_SETUP;
     private int _twilightPool;
 
     private int _moveCount;
@@ -73,6 +73,7 @@ public class GameState {
         if (_losers.size() + 1 == _playerOrder.getAllPlayers().size()) {
             List<String> allPlayers = new LinkedList<String>(_playerOrder.getAllPlayers());
             allPlayers.removeAll(_losers);
+            _winnerPlayerId = allPlayers.get(0);
             return allPlayers.get(0);
         }
         return null;
