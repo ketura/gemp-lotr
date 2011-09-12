@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class CorruptRingBearerEffect extends UnrespondableEffect {
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getGameState().setLoserPlayerId(game.getGameState().getCurrentPlayerId());
     }
 }

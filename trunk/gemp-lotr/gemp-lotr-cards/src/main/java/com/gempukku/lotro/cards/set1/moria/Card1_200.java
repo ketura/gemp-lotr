@@ -37,7 +37,7 @@ public class Card1_200 extends AbstractPermanent {
             action.addEffect(
                     new UnrespondableEffect() {
                         @Override
-                        public void playEffect(LotroGame game) {
+                        public void doPlayEffect(LotroGame game) {
                             List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                             if (deck.size() > 0) {
                                 PhysicalCard bottomCard = deck.get(deck.size() - 1);

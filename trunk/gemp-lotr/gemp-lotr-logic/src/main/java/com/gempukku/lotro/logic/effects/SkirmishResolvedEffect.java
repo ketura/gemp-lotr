@@ -18,8 +18,8 @@ public class SkirmishResolvedEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new NormalSkirmishResult(_winners, _losers);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.RESOLVE_SKIRMISH;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SkirmishResolvedEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
-
+    public EffectResult playEffect(LotroGame game) {
+        return new NormalSkirmishResult(_winners, _losers);
     }
 }

@@ -1,9 +1,13 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.ActionsEnvironment;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
@@ -114,6 +118,25 @@ public class DefaultLotroGame implements LotroGame {
     @Override
     public UserFeedback getUserFeedback() {
         return _userFeedback;
+    }
+
+    @Override
+    public void checkWinLoseConditions() {
+        // Ring-bearer death
+        if (!Filters.canSpot(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
+            playerLost(getGameState().getCurrentPlayerId());
+        }
+        // Ring-bearer corruption
+        PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
+        int ringBearerResistance = ringBearer.getBlueprint().getResistance();
+        if (getGameState().getBurdens() >= ringBearerResistance) {
+            playerLost(getGameState().getCurrentPlayerId());
+        }
+        // Fellowship in regroup at the last site
+        if (getGameState().getCurrentPhase() == Phase.REGROUP
+                && getGameState().getCurrentSiteNumber() == 9) {
+            playerWon(getGameState().getCurrentPlayerId());
+        }
     }
 
     public ActionStack getActionStack() {

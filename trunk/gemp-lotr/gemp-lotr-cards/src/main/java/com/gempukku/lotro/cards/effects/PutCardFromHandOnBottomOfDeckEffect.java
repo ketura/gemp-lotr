@@ -13,7 +13,7 @@ public class PutCardFromHandOnBottomOfDeckEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         gameState.removeCardFromZone(_physicalCard);
         gameState.putCardOnBottomOfDeck(_physicalCard);

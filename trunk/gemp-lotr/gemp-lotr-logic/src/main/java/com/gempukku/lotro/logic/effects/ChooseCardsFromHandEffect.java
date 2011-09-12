@@ -31,7 +31,7 @@ public abstract class ChooseCardsFromHandEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new CardsSelectionDecision(1, _choiceText, Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters), _minimum, _maximum) {
                     @Override

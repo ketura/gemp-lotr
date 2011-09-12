@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.timing;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public interface Effect {
-    public EffectResult getRespondableResult();
+    public EffectResult.Type getType();
 
     public String getText();
 
@@ -17,5 +17,5 @@ public interface Effect {
 
     public boolean canPlayEffect(LotroGame game);
 
-    public void playEffect(LotroGame game);
+    public EffectResult playEffect(LotroGame game);
 }

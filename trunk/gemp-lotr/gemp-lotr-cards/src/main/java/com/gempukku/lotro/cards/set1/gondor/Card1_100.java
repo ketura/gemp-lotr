@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -46,10 +47,11 @@ public class Card1_100 extends AbstractPermanent {
                 action.addCost(
                         new ExertCharacterEffect(arwen) {
                             @Override
-                            public void playEffect(LotroGame game) {
-                                super.playEffect(game);
+                            public EffectResult playEffect(LotroGame game) {
+                                EffectResult effectResult = super.playEffect(game);
                                 if (aragorn != null)
-                                    new HealCharacterEffect(aragorn);
+                                    action.addEffect(new HealCharacterEffect(aragorn));
+                                return effectResult;
                             }
                         });
             }
@@ -57,10 +59,11 @@ public class Card1_100 extends AbstractPermanent {
                 action.addCost(
                         new ExertCharacterEffect(aragorn) {
                             @Override
-                            public void playEffect(LotroGame game) {
-                                super.playEffect(game);
+                            public EffectResult playEffect(LotroGame game) {
+                                EffectResult effectResult = super.playEffect(game);
                                 if (arwen != null)
-                                    new HealCharacterEffect(arwen);
+                                    action.addEffect(new HealCharacterEffect(arwen));
+                                return effectResult;
                             }
                         });
             }

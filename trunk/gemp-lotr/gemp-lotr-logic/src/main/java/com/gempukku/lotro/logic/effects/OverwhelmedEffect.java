@@ -18,8 +18,8 @@ public class OverwhelmedEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new OverwhelmSkirmishResult(_winners, _losers);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.OVERWHELM_IN_SKIRMISH;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class OverwhelmedEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
-
+    public EffectResult playEffect(LotroGame game) {
+        return new OverwhelmSkirmishResult(_winners, _losers);
     }
 }

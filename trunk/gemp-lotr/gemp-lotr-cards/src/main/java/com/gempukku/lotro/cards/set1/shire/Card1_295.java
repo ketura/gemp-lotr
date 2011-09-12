@@ -56,10 +56,10 @@ public class Card1_295 extends AbstractAlly {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getRequiredBeforeTriggers(game, effect, effectResult, self);
+            return copied.getRequiredBeforeTriggers(game, effect, self);
         return null;
     }
 
@@ -72,10 +72,10 @@ public class Card1_295 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
-            return copied.getOptionalBeforeActions(playerId, game, effect, effectResult, self);
+            return copied.getOptionalBeforeActions(playerId, game, effect, self);
         return null;
     }
 

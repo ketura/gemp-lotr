@@ -62,7 +62,7 @@ public class Card1_022 extends AbstractEvent {
         }
 
         @Override
-        public void playEffect(LotroGame game) {
+        public void doPlayEffect(LotroGame game) {
             final GameState gameState = game.getGameState();
             PhysicalCard card = gameState.removeTopDeckCard(_player);
             if (card != null) {

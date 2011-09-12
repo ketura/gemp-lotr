@@ -45,7 +45,7 @@ public class Card1_155 extends AbstractMinion {
                 action.addEffect(
                         new UnrespondableEffect() {
                             @Override
-                            public void playEffect(LotroGame game) {
+                            public void doPlayEffect(LotroGame game) {
                                 List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                                 if (deck.size() > 0 && deck.get(0).getBlueprint().getSide() == Side.SHADOW)
                                     action.addEffect(new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));

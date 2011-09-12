@@ -30,7 +30,7 @@ public class PayTwilightCostEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         int twilightCost = _twilightModifier + game.getModifiersQuerying().getTwilightCost(game.getGameState(), _physicalCard);
 
         String currentPlayerId = game.getGameState().getCurrentPlayerId();

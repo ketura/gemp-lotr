@@ -52,7 +52,7 @@ public class SanctuaryRule {
         }
 
         @Override
-        public void playEffect(LotroGame game) {
+        public void doPlayEffect(LotroGame game) {
             _action.addEffect(
                     new ChooseActiveCardsEffect(_fpPlayerId, "Choose companion to heal", 0, 1, Filters.type(CardType.COMPANION)) {
                         @Override

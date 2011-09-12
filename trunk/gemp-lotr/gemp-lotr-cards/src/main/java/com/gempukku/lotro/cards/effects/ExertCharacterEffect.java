@@ -16,8 +16,12 @@ public class ExertCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new ExertResult(_physicalCard);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.EXERT;
+    }
+
+    public PhysicalCard getExertedCard() {
+        return _physicalCard;
     }
 
     @Override
@@ -31,9 +35,10 @@ public class ExertCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         if (!_prevented)
             game.getGameState().addWound(_physicalCard);
+        return new ExertResult(_physicalCard);
     }
 
     public void prevent() {

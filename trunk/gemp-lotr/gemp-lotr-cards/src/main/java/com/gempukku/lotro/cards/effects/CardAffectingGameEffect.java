@@ -12,7 +12,7 @@ public class CardAffectingGameEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getGameState().startAffecting(_physicalCard, game.getModifiersEnvironment());
     }
 }

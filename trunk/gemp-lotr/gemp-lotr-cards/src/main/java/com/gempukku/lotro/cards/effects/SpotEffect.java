@@ -18,7 +18,7 @@ public class SpotEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         // Do nothing
     }
 }

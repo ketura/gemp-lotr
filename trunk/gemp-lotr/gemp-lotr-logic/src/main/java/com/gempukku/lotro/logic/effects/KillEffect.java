@@ -16,8 +16,12 @@ public class KillEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new KillResult(_card);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.KILL;
+    }
+
+    public PhysicalCard getKilledCard() {
+        return _card;
     }
 
     @Override
@@ -32,10 +36,12 @@ public class KillEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         gameState.stopAffecting(_card);
         gameState.removeCardFromZone(_card);
         gameState.addCardToZone(_card, Zone.DEAD);
+
+        return new KillResult(_card);
     }
 }

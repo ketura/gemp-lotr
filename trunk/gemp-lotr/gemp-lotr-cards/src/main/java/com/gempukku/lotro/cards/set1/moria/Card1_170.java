@@ -39,7 +39,7 @@ public class Card1_170 extends AbstractEvent {
         action.addEffect(
                 new UnrespondableEffect() {
                     @Override
-                    public void playEffect(LotroGame game) {
+                    public void doPlayEffect(LotroGame game) {
                         List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                         List<PhysicalCard> cardsToPutIntoHand = new LinkedList<PhysicalCard>();
                         for (PhysicalCard physicalCard : deck) {

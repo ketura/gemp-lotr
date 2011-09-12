@@ -31,7 +31,7 @@ public class ChooseAndPlayCardFromDiscardEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(final LotroGame game) {
+    public void doPlayEffect(final LotroGame game) {
         List<PhysicalCard> discard = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new ArbitraryCardsSelectionDecision(1, "Choose a card to play", discard, 0, 1) {

@@ -31,7 +31,7 @@ public abstract class ChooseActiveCardsEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         List<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
         if (matchingCards.size() == _minimum) {
             cardsSelected(matchingCards);

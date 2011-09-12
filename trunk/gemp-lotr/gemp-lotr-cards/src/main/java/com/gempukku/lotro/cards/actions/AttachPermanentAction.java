@@ -8,9 +8,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.TriggeringEffect;
+import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.*;
 
@@ -63,7 +62,7 @@ public class AttachPermanentAction implements CostToEffectAction {
 
                         _preCostIterator = preCostEffects.iterator();
 
-                        _playCardEffect = new TriggeringEffect(new PlayCardResult(card, target));
+                        _playCardEffect = new PlayCardEffect(card, target);
                     }
                 };
         _discardCardEffect = new PutCardIntoDiscardEffect(card);

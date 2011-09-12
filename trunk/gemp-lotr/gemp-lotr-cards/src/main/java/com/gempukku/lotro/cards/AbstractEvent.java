@@ -70,7 +70,7 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         return null;
     }
 
@@ -80,7 +80,7 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public final List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public final List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, PhysicalCard self) {
         throw new UnsupportedOperationException();
     }
 
@@ -90,7 +90,7 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public final List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
+    public final List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         throw new UnsupportedOperationException();
     }
 }

@@ -34,7 +34,7 @@ public class ChoiceEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         final List<Effect> possibleEffects = new LinkedList<Effect>();
         for (Effect effect : _possibleEffects) {
             if (effect.canPlayEffect(game))

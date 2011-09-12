@@ -12,8 +12,8 @@ public class RemoveBurdenEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new RemoveBurdenResult();
+    public EffectResult.Type getType() {
+        return EffectResult.Type.REMOVE_BURDEN;
     }
 
     @Override
@@ -22,7 +22,8 @@ public class RemoveBurdenEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         game.getGameState().removeBurdens(1);
+        return new RemoveBurdenResult();
     }
 }

@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface ActionsEnvironment {
-    public List<Action> getRequiredBeforeTriggers(Effect effect, EffectResult effectResult);
+    public List<Action> getRequiredBeforeTriggers(Effect effect);
 
-    public Map<String, List<Action>> getOptionalBeforeTriggers(List<String> players, Effect effect, EffectResult effectResult);
+    public Map<String, List<Action>> getOptionalBeforeTriggers(List<String> players, Effect effect);
 
-    public List<Action> getOptionalBeforeActions(String playerId, Effect effect, EffectResult effectResult);
+    public List<Action> getOptionalBeforeActions(String playerId, Effect effect);
 
     public List<Action> getRequiredAfterTriggers(EffectResult effectResult);
 

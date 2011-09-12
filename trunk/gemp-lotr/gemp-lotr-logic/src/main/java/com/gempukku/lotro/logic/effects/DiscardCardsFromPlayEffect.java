@@ -24,8 +24,8 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new DiscardCardsFromPlayResult(_discardedCards);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.DISCARD_FROM_PLAY;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         List<PhysicalCard> cardsToDiscard = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
         _discardedCards = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cardsToDiscard) {
@@ -67,5 +67,6 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
                 }
             }
         }
+        return new DiscardCardsFromPlayResult(_discardedCards);
     }
 }

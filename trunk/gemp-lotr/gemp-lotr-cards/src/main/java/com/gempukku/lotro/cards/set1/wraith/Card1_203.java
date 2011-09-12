@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,16 +35,15 @@ public class Card1_203 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WOUND) {
-            final WoundResult woundResult = (WoundResult) effectResult;
-            if (woundResult.getWoundedCard().getBlueprint().getRace() == Race.NAZGUL
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.WOUND) {
+            if (((WoundCharacterEffect) effect).getWoundedCard().getBlueprint().getRace() == Race.NAZGUL
                     && PlayConditions.canPayForShadowCard(game, self, 0)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.addEffect(
                         new UnrespondableEffect() {
                             @Override
-                            public void playEffect(LotroGame game) {
+                            public void doPlayEffect(LotroGame game) {
                                 ((WoundCharacterEffect) effect).prevent();
                             }
                         });

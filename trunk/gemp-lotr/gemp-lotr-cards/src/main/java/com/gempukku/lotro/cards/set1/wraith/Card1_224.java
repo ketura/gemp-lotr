@@ -46,7 +46,7 @@ public class Card1_224 extends AbstractResponseEvent {
             action.addEffect(
                     new UnrespondableEffect() {
                         @Override
-                        public void playEffect(final LotroGame game) {
+                        public void doPlayEffect(final LotroGame game) {
                             List<Skirmish> assignments = new LinkedList<Skirmish>(game.getGameState().getAssignments());
                             for (Skirmish assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);

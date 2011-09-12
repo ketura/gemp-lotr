@@ -24,7 +24,7 @@ public class StackCardFromPlayEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getGameState().stopAffecting(_card);
         game.getGameState().removeCardFromZone(_card);
 

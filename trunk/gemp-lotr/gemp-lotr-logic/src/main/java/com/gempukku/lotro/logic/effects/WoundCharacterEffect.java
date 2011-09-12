@@ -15,9 +15,13 @@ public class WoundCharacterEffect extends AbstractEffect {
         _woundTarget = woundTarget;
     }
 
+    public PhysicalCard getWoundedCard() {
+        return _woundTarget;
+    }
+
     @Override
-    public EffectResult getRespondableResult() {
-        return new WoundResult(_woundTarget);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.WOUND;
     }
 
     @Override
@@ -34,9 +38,10 @@ public class WoundCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         if (!_prevented)
             game.getGameState().addWound(_woundTarget);
+        return new WoundResult(_woundTarget);
     }
 
     public void prevent() {

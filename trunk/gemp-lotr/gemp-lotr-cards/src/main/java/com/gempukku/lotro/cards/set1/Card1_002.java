@@ -14,6 +14,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -21,7 +22,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -56,10 +56,10 @@ public class Card1_002 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(final String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, final PhysicalCard self) {
+    public List<? extends Action> getOptionalBeforeActions(final String playerId, LotroGame lotroGame, Effect effect, final PhysicalCard self) {
         if (lotroGame.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && effectResult.getType() == EffectResult.Type.WOUND
-                && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
+                && effect.getType() == EffectResult.Type.WOUND
+                && ((WoundCharacterEffect) effect).getWoundedCard() == self.getAttachedTo()) {
             List<Action> actions = new LinkedList<Action>();
 
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
@@ -89,11 +89,11 @@ public class Card1_002 extends AbstractAttachable {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WOUND
+    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.WOUND
                 && game.getGameState().isWearingRing()
                 && !game.getGameState().isCancelRingText()
-                && ((WoundResult) effectResult).getWoundedCard() == self.getAttachedTo()) {
+                && ((WoundCharacterEffect) effect).getWoundedCard() == self.getAttachedTo()) {
             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden instead of taking a wound");
             action.addCost(new CancelEffect(effect));

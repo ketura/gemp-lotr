@@ -15,7 +15,7 @@ public class AddUntilEndOfPhaseActionProxyEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(_actionProxy, _phase);
     }
 }

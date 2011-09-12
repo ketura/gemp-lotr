@@ -13,6 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,11 +50,12 @@ public class Card1_093 extends AbstractEvent {
             action.addCost(
                     new ExertCharacterEffect(arwen) {
                         @Override
-                        public void playEffect(LotroGame game) {
-                            super.playEffect(game);
+                        public EffectResult playEffect(LotroGame game) {
+                            EffectResult effectResult = super.playEffect(game);
                             action.addEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.name("Aragorn"), 3), Phase.SKIRMISH));
+                            return effectResult;
                         }
                     });
         }
@@ -61,11 +63,12 @@ public class Card1_093 extends AbstractEvent {
             action.addCost(
                     new ExertCharacterEffect(aragorn) {
                         @Override
-                        public void playEffect(LotroGame game) {
-                            super.playEffect(game);
+                        public EffectResult playEffect(LotroGame game) {
+                            EffectResult effectResult = super.playEffect(game);
                             action.addEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.name("Arwen"), 3), Phase.SKIRMISH));
+                            return effectResult;
                         }
                     });
         }

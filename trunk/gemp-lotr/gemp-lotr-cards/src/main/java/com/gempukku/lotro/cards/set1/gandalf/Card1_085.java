@@ -13,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,16 +37,15 @@ public class Card1_085 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.EXERT
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.EXERT
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            ExertResult exertResult = (ExertResult) effectResult;
-            if (exertResult.getExertedCard().getBlueprint().getCardType() == CardType.COMPANION) {
+            if (((ExertCharacterEffect) effect).getExertedCard().getBlueprint().getCardType() == CardType.COMPANION) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.addEffect(
                         new UnrespondableEffect() {
                             @Override
-                            public void playEffect(LotroGame game) {
+                            public void doPlayEffect(LotroGame game) {
                                 ((ExertCharacterEffect) effect).prevent();
                             }
                         });

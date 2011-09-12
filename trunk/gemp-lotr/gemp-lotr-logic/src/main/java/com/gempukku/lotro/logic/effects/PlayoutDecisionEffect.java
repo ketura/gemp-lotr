@@ -17,7 +17,7 @@ public class PlayoutDecisionEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         _userFeedback.sendAwaitingDecision(_playerId, _decision);
     }
 }
