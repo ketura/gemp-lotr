@@ -1,5 +1,6 @@
 package com.gempukku.lotro;
 
+import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.db.DbAccess;
@@ -8,13 +9,11 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LotroServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
@@ -30,8 +29,10 @@ public class LotroServer {
     private PlayerDAO _playerDao;
     private DeckDAO _deckDao;
     private DefaultCardCollection _defaultCollection;
+    private ChatServer _chatServer;
 
-    public LotroServer() {
+    public LotroServer(ChatServer chatServer) {
+        _chatServer = chatServer;
         _defaultCollection = new DefaultCardCollection();
         for (int i = 1; i <= 1; i++) {
             for (int j = 1; j <= 365; j++) {
@@ -88,8 +89,18 @@ public class LotroServer {
     public synchronized String createNewGame(LotroFormat lotroFormat, LotroGameParticipant[] participants) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
-        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary);
         String gameId = String.valueOf(_nextGameId);
+        final String chatRoomName = "Game" + gameId;
+
+        _chatServer.createChatRoom(chatRoomName);
+        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
+                new GameResultListener() {
+                    @Override
+                    public void gameFinished(String winnerPlayerId, Set<String> loserPlayerIds) {
+                        _chatServer.destroyChatRoom(chatRoomName);
+                    }
+                });
+
         _runningGames.put(gameId, lotroGameMediator);
         _nextGameId++;
         return gameId;
