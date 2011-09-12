@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -40,7 +41,10 @@ public class KillEffect extends AbstractEffect {
         GameState gameState = game.getGameState();
         gameState.stopAffecting(_card);
         gameState.removeCardFromZone(_card);
-        gameState.addCardToZone(_card, Zone.DEAD);
+        if (_card.getBlueprint().getSide() == Side.FREE_PEOPLE)
+            gameState.addCardToZone(_card, Zone.DEAD);
+        else
+            gameState.addCardToZone(_card, Zone.DISCARD);
 
         return new KillResult(_card);
     }
