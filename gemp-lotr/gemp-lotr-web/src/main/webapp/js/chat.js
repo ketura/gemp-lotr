@@ -19,8 +19,15 @@ var ChatBoxUI = Class.extend({
         var that = this;
 
         this.communication.startChat(this.name, function(xml) {
-            that.processMessages(xml);
+            that.processMessages(xml, true);
         })
+
+        this.chatTalkDiv.bind("keypress", function(e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                that.sendMessage($(this).value);
+            }
+        });
     },
 
     setSize: function(width, height) {
@@ -35,7 +42,7 @@ var ChatBoxUI = Class.extend({
         }
     },
 
-    processMessages: function(xml) {
+    processMessages: function(xml, processAgain) {
         var root = xml.documentElement;
         if (root.tagName == 'chat') {
             var messages = element.getElementsByTagName("message");
@@ -46,7 +53,8 @@ var ChatBoxUI = Class.extend({
                 this.appendMessage("<b>" + from + ":</b>" + text);
             }
 
-            setTimeout(this.updateChatMessages, 1000);
+            if (processAgain)
+                setTimeout(this.updateChatMessages, 1000);
         }
     },
 
@@ -54,7 +62,15 @@ var ChatBoxUI = Class.extend({
         var that = this;
 
         this.communication.updateChat(this.name, function(xml) {
-            that.processMessages(xml);
+            that.processMessages(xml, true);
+        });
+    },
+
+    sendMessage: function(message) {
+        var that = this;
+
+        this.communication.sendChatMessage(this.name, message, function(xml) {
+            that.processMessages(xml, false);
         });
     }
 });
