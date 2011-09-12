@@ -163,52 +163,52 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.dialogInstance = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: false,
-            minHeight: 80
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: false,
+                    minHeight: 80
+                });
 
         this.assignmentDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            title: "Assignments",
-            resizable: true,
-            minHeight: 240,
-            minWidth: 400,
-            width: 500,
-            height: 200,
-            position: ["right", "bottom"]
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    title: "Assignments",
+                    resizable: true,
+                    minHeight: 240,
+                    minWidth: 400,
+                    width: 500,
+                    height: 200,
+                    position: ["right", "bottom"]
+                });
 
         this.skirmishDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            title: "Skirmish",
-            resizable: true,
-            minHeight: 240,
-            minWidth: 400,
-            width: 500,
-            height: 200,
-            position: ["right", "top"]
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    title: "Skirmish",
+                    resizable: true,
+                    minHeight: 240,
+                    minWidth: 400,
+                    width: 500,
+                    height: 200,
+                    position: ["right", "top"]
+                });
 
         $(".ui-dialog-titlebar-close").hide();
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information",
-            minHeight: 80,
-            minWidth: 200,
-            width: 600,
-            height: 300,
-            maxHeight: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information",
+                    minHeight: 80,
+                    minWidth: 200,
+                    width: 600,
+                    height: 300,
+                    maxHeight: 300
+                });
 
     },
 
@@ -299,6 +299,8 @@ var GempLotrGameUI = Class.extend({
                 this.removeTokens(gameEvent);
             }
         }
+        if (gameEvents.length > 0)
+            this.layoutZones();
 
         var decisions = element.getElementsByTagName("decision");
         if (decisions.length == 1) {
@@ -340,9 +342,6 @@ var GempLotrGameUI = Class.extend({
         if (cardData.tokens[token] == null)
             cardData.tokens[token] = 0;
         cardData.tokens[token] += count;
-
-        this.layoutZone(zone);
-        this.assignmentsChanged();
     },
 
     removeTokens: function(element) {
@@ -357,9 +356,6 @@ var GempLotrGameUI = Class.extend({
         if (cardData.tokens[token] == null)
             cardData.tokens[token] = 0;
         cardData.tokens[token] -= count;
-
-        this.layoutZone(zone);
-        this.assignmentsChanged();
     },
 
     startSkirmish: function(element) {
@@ -381,7 +377,6 @@ var GempLotrGameUI = Class.extend({
         });
 
         this.skirmishDialogResized();
-        this.assignmentsChanged();
     },
 
     endSkirmish: function() {
@@ -398,8 +393,6 @@ var GempLotrGameUI = Class.extend({
         });
 
         this.skirmishDialog.html("");
-
-        this.assignmentsChanged();
     },
 
     removeAssignment: function(element) {
@@ -421,8 +414,6 @@ var GempLotrGameUI = Class.extend({
             if ($(".card:cardId(" + opposingCardIds[i] + ")").data("card").assign != cardId)
                 this.assignMinion(opposingCardIds[i], cardId);
         }
-
-        this.assignmentsChanged();
     },
 
     putCardInPlay: function(element) {
@@ -439,34 +430,32 @@ var GempLotrGameUI = Class.extend({
             var cardDiv = this.createCardDiv(card);
             $("#main").append(cardDiv);
 
-            var affectedZone = zone;
-
             if (targetCardId != null) {
                 var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
                 targetCardData.attachedCards.push(cardDiv);
-                affectedZone = targetCardData.zone;
             }
-
-            this.layoutZone(affectedZone);
         }
     },
 
-    layoutZone: function(zone) {
-        if (zone == "ADVENTURE_PATH") {
-            this.advPathGroup.layoutCards();
-        } else if (zone == "FREE_CHARACTERS") {
-            this.charactersPlayer.layoutCards();
-            this.charactersOpponent.layoutCards();
-        } else if (zone == "FREE_SUPPORT") {
-            this.supportPlayer.layoutCards();
-            this.supportOpponent.layoutCards();
-        } else if (zone == "HAND") {
-            this.hand.layoutCards();
-        } else if (zone == "SHADOW_CHARACTERS") {
-            this.shadow.layoutCards();
-        } else if (zone == "SHADOW_SUPPORT") {
-            this.shadowPlayer.layoutCards();
-            this.shadowOpponent.layoutCards();
+    layoutZones: function() {
+        this.advPathGroup.layoutCards();
+        this.charactersPlayer.layoutCards();
+        this.charactersOpponent.layoutCards();
+        this.supportPlayer.layoutCards();
+        this.supportOpponent.layoutCards();
+        this.hand.layoutCards();
+        this.shadow.layoutCards();
+        this.shadowPlayer.layoutCards();
+        this.shadowOpponent.layoutCards();
+
+        this.skirmishFellowshipGroup.layoutCards();
+        this.skirmishShadowGroup.layoutCards();
+
+        for (var characterId in this.shadowAssignGroups) {
+            if (this.shadowAssignGroups.hasOwnProperty(characterId)) {
+                this.shadowAssignGroups[characterId].layoutCards();
+                this.freePeopleAssignGroups[characterId].layoutCards();
+            }
         }
     },
 
@@ -483,26 +472,26 @@ var GempLotrGameUI = Class.extend({
     removeCardFromPlay: function(element) {
         var cardId = element.getAttribute("cardId");
         var zone = element.getAttribute("zone");
-        var targetCardId = element.getAttribute("targetCardId");
 
-        var card = $(".card:cardId(" + cardId + ")")
+        var card = $(".card:cardId(" + cardId + ")");
 
-        if (targetCardId != null) {
-            var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
-            var index = -1;
-            for (var i = 0; i < targetCardData.attachedCards.length; i++) {
-                if (targetCardData.attachedCards[i].data("card").cardId == cardId) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index != -1)
-                targetCardData.attachedCards.splice(index, 1);
+        if (zone == "ATTACHED" || zone == "STACKED") {
+            $(".card").each(
+                    function() {
+                        var cardData = $(this).data("card");
+                        var index = -1;
+                        for (var i = 0; i < cardData.attachedCards.length; i++)
+                            if (cardData.attachedCards[i].data("card").cardId == cardId) {
+                                index = i;
+                                break;
+                            }
+                        if (index != -1)
+                            cardData.attachedCards.splice(index, 1);
+                    }
+            );
         }
 
         card.remove();
-
-        this.layoutZone(zone);
     },
 
     gamePhaseChange: function(element) {
@@ -564,13 +553,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#integerDecision").val());
-            }
-        }
-                )
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#integerDecision").val());
+                    }
+                }
+        )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
         ;
@@ -604,13 +593,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(html)
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-            }
-        }
-                )
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                }
+        )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
 
@@ -943,13 +932,13 @@ var GempLotrGameUI = Class.extend({
 
         if (this.shadowAssignGroups[characterId] == null) {
             this.shadowAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
-                return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
-            }
-                    );
+                        return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
+                    }
+            );
             this.freePeopleAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
-                return (card.cardId == characterId);
-            }
-                    );
+                        return (card.cardId == characterId);
+                    }
+            );
 
             this.moveCardToElement(characterId, this.assignmentDialog);
             this.assignDialogResized();
@@ -971,7 +960,7 @@ var GempLotrGameUI = Class.extend({
                 } else {
                     that.unassignMinion(cardId);
                 }
-                that.assignmentsChanged();
+                that.layoutZones();
                 that.doAssignments(freeCharacters, minions);
             };
 
@@ -1021,24 +1010,6 @@ var GempLotrGameUI = Class.extend({
         var cellHeight = Math.floor(height / 2);
         this.skirmishShadowGroup.setBounds(0, 0, width, cellHeight);
         this.skirmishFellowshipGroup.setBounds(0, cellHeight, width, cellHeight);
-    },
-
-    assignmentsChanged: function() {
-        this.charactersPlayer.layoutCards();
-        this.supportPlayer.layoutCards();
-        this.charactersOpponent.layoutCards();
-        this.supportOpponent.layoutCards();
-        this.shadow.layoutCards();
-
-        this.skirmishFellowshipGroup.layoutCards();
-        this.skirmishShadowGroup.layoutCards();
-
-        for (var characterId in this.shadowAssignGroups) {
-            if (this.shadowAssignGroups.hasOwnProperty(characterId)) {
-                this.shadowAssignGroups[characterId].layoutCards();
-                this.freePeopleAssignGroups[characterId].layoutCards();
-            }
-        }
     },
 
     clearSelection: function() {

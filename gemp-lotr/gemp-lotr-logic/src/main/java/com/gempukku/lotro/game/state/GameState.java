@@ -224,6 +224,12 @@ public class GameState {
         if (!b)
             throw new RuntimeException("Card was not found in the expected zone");
 
+        if (zone == Zone.ATTACHED)
+            ((PhysicalCardImpl) card).attachTo(null);
+
+        if (zone == Zone.STACKED)
+            ((PhysicalCardImpl) card).stackOn(null);
+
         for (Skirmish assignment : new LinkedList<Skirmish>(_assignments)) {
             if (assignment.getFellowshipCharacter() == card)
                 removeAssignment(assignment);
@@ -245,12 +251,6 @@ public class GameState {
         else if (isZonePrivate(zone))
             for (GameStateListener listener : getPrivateGameStateListeners(card))
                 listener.cardRemoved(card);
-
-        if (zone == Zone.ATTACHED)
-            ((PhysicalCardImpl) card).attachTo(null);
-
-        if (zone == Zone.STACKED)
-            ((PhysicalCardImpl) card).stackOn(null);
     }
 
     public void addCardToZone(PhysicalCard card, Zone zone) {
