@@ -45,12 +45,12 @@ public class ServerResource {
         _logger.debug("starting resource");
 
         try {
-            _lotroServer = new LotroServer();
-            _lotroServer.startServer();
-
             _chatServer = new ChatServer();
             _chatServer.startServer();
             _chatServer.createChatRoom("default");
+
+            _lotroServer = new LotroServer(_chatServer);
+            _lotroServer.startServer();
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
             exp.printStackTrace();

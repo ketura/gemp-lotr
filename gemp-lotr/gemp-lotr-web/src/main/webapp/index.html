@@ -38,12 +38,24 @@
                                     $("#result").empty().append(data);
                                 });
                     });
+
+                    var comm = new GempLotrCommunication("/gemp-lotr/server",
+                            function() {
+                                alert("There was problem with communication with the server");
+                            });
+
+                    var chat = new ChatBoxUI("default", $("#chat"), comm);
+                    chat.setSize(800, 300);
                 });
     </script>
 
 </head>
 <body>
-<body>
+
+<div id="chat" style="width:800px;height:300px;">
+
+</div>
+
 <form action="/" id="createGameForm">
     <b>Create game:</b><br/>
     First player name: <input type="text" name="player1"/><br/>
@@ -52,5 +64,6 @@
 </form>
 <!-- the result of the search will be rendered inside this div -->
 <div id="result"></div>
+
 </body>
 </html>
