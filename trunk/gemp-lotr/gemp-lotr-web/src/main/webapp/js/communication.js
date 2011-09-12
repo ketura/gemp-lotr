@@ -94,5 +94,42 @@ var GempLotrCommunication = Class.extend({
             error: this.failure,
             dataType: "xml"
         });
+    },
+    startChat: function(room, callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/chat/" + room,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    updateChat: function(room, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/chat/" + room,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    sendChatMessage: function(room, message, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/chat/" + room,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                message: message},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
     }
 });
