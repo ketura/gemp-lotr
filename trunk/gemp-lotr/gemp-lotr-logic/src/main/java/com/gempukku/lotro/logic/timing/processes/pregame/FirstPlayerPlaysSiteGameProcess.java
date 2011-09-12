@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.timing.processes.pregame;
 
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +22,6 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
     public void process() {
         GameState gameState = _game.getGameState();
         PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(gameState.getCurrentPlayerId()), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).get(0);
-        gameState.setCurrentPhase(Phase.GAME_SETUP);
         gameState.removeCardFromZone(firstSite);
         gameState.addCardToZone(firstSite, Zone.ADVENTURE_PATH);
 
