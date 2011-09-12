@@ -14,7 +14,7 @@ public class MakeRingBearerEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         if (game.getGameState().isWearingRing())
             game.getGameState().setWearingRing(false);
 

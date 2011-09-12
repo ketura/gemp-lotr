@@ -9,7 +9,9 @@ import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
@@ -134,6 +136,14 @@ public class PlayConditions {
     public static boolean played(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter filter) {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
             PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
+            return filter.accepts(gameState, modifiersQuerying, playedCard);
+        }
+        return false;
+    }
+
+    public static boolean played(GameState gameState, ModifiersQuerying modifiersQuerying, Effect effect, Filter filter) {
+        if (effect.getType() == EffectResult.Type.PLAY) {
+            PhysicalCard playedCard = ((PlayCardEffect) effect).getPlayedCard();
             return filter.accepts(gameState, modifiersQuerying, playedCard);
         }
         return false;

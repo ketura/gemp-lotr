@@ -3,10 +3,9 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
-public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
+public class PutCardFromDeckIntoHandOrDiscardEffect extends UnrespondableEffect {
     private PhysicalCard _physicalCard;
 
     public PutCardFromDeckIntoHandOrDiscardEffect(PhysicalCard physicalCard) {
@@ -23,17 +22,12 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return null;
-    }
-
-    @Override
     public String getText() {
         return "Put card from deck into hand";
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getGameState().removeCardFromZone(_physicalCard);
         game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
     }

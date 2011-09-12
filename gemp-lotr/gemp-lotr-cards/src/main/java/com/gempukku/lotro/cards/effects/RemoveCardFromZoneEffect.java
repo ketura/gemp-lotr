@@ -12,7 +12,7 @@ public class RemoveCardFromZoneEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getGameState().removeCardFromZone(_physicalCard);
     }
 }

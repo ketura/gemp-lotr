@@ -13,9 +13,13 @@ public class HealCharacterEffect extends AbstractEffect {
         _physicalCard = physicalCard;
     }
 
+    public PhysicalCard getCard() {
+        return _physicalCard;
+    }
+
     @Override
-    public EffectResult getRespondableResult() {
-        return new HealResult(_physicalCard);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.HEAL;
     }
 
     @Override
@@ -30,7 +34,8 @@ public class HealCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         game.getGameState().removeWound(_physicalCard);
+        return new HealResult(_physicalCard);
     }
 }

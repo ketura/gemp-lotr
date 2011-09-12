@@ -5,9 +5,8 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.TriggeringEffect;
+import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -47,7 +46,7 @@ public class PlayPermanentAction implements CostToEffectAction {
 
         _putCardIntoPlayEffect = new PutCardIntoPlayEffect(card, zone);
 
-        _playCardEffect = new TriggeringEffect(new PlayCardResult(card));
+        _playCardEffect = new PlayCardEffect(card);
 
         _discardCardEffect = new PutCardIntoDiscardEffect(card);
     }

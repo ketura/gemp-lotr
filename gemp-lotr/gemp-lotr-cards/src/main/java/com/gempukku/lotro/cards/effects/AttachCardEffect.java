@@ -15,7 +15,7 @@ public class AttachCardEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         gameState.attachCard(_physicalCard, _targetCard);
         gameState.startAffecting(_physicalCard, game.getModifiersEnvironment());

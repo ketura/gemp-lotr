@@ -61,8 +61,8 @@ public class Card1_207 extends AbstractPermanent {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.REMOVE_BURDEN
+    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.REMOVE_BURDEN
                 && self.getZone() == Zone.ATTACHED) {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getStackedOn(), Keyword.RING_BEARER)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Cancel burden removal");

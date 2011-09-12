@@ -16,6 +16,8 @@ public interface LotroGame {
 
     public UserFeedback getUserFeedback();
 
+    public void checkWinLoseConditions();
+
     public void playerWon(String currentPlayerId);
 
     public void playerLost(String currentPlayerId);

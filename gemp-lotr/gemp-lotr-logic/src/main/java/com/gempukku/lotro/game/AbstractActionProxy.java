@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class AbstractActionProxy implements ActionProxy {
     @Override
-    public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect, EffectResult effectResult) {
+    public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect) {
         return null;
     }
 

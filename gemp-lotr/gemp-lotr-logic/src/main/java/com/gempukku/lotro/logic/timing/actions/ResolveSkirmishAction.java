@@ -79,7 +79,7 @@ public class ResolveSkirmishAction implements Action {
 
         effects.add(new UnrespondableEffect() {
             @Override
-            public void playEffect(LotroGame game) {
+            public void doPlayEffect(LotroGame game) {
                 gameState.finishSkirmish();
             }
         });

@@ -15,7 +15,7 @@ public class AddUntilStartOfPhaseModifierEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getModifiersEnvironment().addUntilStartOfPhaseModifier(_modifier, _phase);
     }
 }

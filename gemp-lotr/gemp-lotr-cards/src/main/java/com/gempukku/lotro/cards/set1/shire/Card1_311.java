@@ -10,10 +10,10 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,10 +48,9 @@ public class Card1_311 extends AbstractCompanion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL) {
-            KillResult killResult = (KillResult) effectResult;
-            if (killResult.getKilledCard().getBlueprint().getName().equals("Frodo")) {
+    public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.KILL) {
+            if (((KillEffect) effect).getKilledCard().getBlueprint().getName().equals("Frodo")) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self, Keyword.RESPONSE, "Make Sam the Ring-Bearer");
                 action.addEffect(new MakeRingBearerEffect(self));
                 return Collections.singletonList(action);

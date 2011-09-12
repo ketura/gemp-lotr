@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,10 +44,9 @@ public class Card1_173 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WOUND) {
-            WoundResult woundResult = (WoundResult) effectResult;
-            PhysicalCard woundedCard = woundResult.getWoundedCard();
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.WOUND) {
+            PhysicalCard woundedCard = ((WoundCharacterEffect) effect).getWoundedCard();
             if (woundedCard.getBlueprint().getCulture() == Culture.MORIA && woundedCard.getBlueprint().getRace() == Race.ORC) {
                 DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Prevent wound");
                 action.addCost(
@@ -56,7 +54,7 @@ public class Card1_173 extends AbstractPermanent {
                 action.addEffect(
                         new UnrespondableEffect() {
                             @Override
-                            public void playEffect(LotroGame game) {
+                            public void doPlayEffect(LotroGame game) {
                                 ((WoundCharacterEffect) effect).prevent();
                             }
                         });

@@ -12,7 +12,7 @@ public class AddUntilEndOfTurnModifierEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getModifiersEnvironment().addUntilEndOfTurnModifier(_modifier);
     }
 }

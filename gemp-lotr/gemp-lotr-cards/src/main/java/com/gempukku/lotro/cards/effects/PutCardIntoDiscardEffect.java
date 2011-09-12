@@ -14,7 +14,7 @@ public class PutCardIntoDiscardEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         gameState.addCardToZone(_card, Zone.DISCARD);
     }

@@ -32,13 +32,13 @@ public class AssignmentEffect extends AbstractEffect {
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return true;
+    public EffectResult.Type getType() {
+        return EffectResult.Type.ASSIGNMENT;
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new AssignmentResult(_assignments);
+    public boolean canPlayEffect(LotroGame game) {
+        return true;
     }
 
     @Override
@@ -47,11 +47,12 @@ public class AssignmentEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : _assignments.entrySet()) {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             List<PhysicalCard> minions = physicalCardListEntry.getValue();
             game.getGameState().assignToSkirmishes(fpChar, minions);
         }
+        return new AssignmentResult(_assignments);
     }
 }

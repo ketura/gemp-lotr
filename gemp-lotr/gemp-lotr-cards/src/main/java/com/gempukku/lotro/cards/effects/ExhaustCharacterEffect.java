@@ -20,8 +20,8 @@ public class ExhaustCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new ExertResult(_physicalCard);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.EXERT;
     }
 
     @Override
@@ -35,11 +35,12 @@ public class ExhaustCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         game.getGameState().addWound(_physicalCard);
         if (_cost)
             _action.addCost(new ExhaustCharacterEffect(_action, _cost, _physicalCard));
         else
             _action.addEffect(new ExhaustCharacterEffect(_action, _cost, _physicalCard));
+        return new ExertResult(_physicalCard);
     }
 }

@@ -17,7 +17,7 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends UnrespondableEffect
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerId);
         int count = Math.min(deck.size(), _count);
         cardsRevealed(new LinkedList<PhysicalCard>(deck.subList(0, count)));

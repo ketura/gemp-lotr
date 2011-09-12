@@ -7,6 +7,11 @@ public abstract class UnrespondableEffect implements Effect {
     private boolean _cancelled;
 
     @Override
+    public EffectResult.Type getType() {
+        return null;
+    }
+
+    @Override
     public String getText() {
         return null;
     }
@@ -32,15 +37,15 @@ public abstract class UnrespondableEffect implements Effect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return null;
-    }
-
-    @Override
     public boolean canPlayEffect(LotroGame game) {
         return true;
     }
 
+    protected abstract void doPlayEffect(LotroGame game);
+
     @Override
-    public abstract void playEffect(LotroGame game);
+    public final EffectResult playEffect(LotroGame game) {
+        doPlayEffect(game);
+        return null;
+    }
 }

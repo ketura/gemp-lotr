@@ -17,7 +17,7 @@ public class DiscardCardAtRandomFromHandEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         List<? extends PhysicalCard> hand = gameState.getHand(_playerId);
         if (hand.size() > 0) {

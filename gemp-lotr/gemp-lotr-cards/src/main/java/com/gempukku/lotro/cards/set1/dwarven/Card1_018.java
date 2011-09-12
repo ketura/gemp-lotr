@@ -102,7 +102,7 @@ public class Card1_018 extends AbstractEvent {
         }
 
         @Override
-        public void playEffect(final LotroGame game) {
+        public void doPlayEffect(final LotroGame game) {
             _action.addEffect(
                     new ChooseArbitraryCardsEffect(_playerIdDeciding, "Choose card to put on top", _cardsToPutOnTop, 1, 1) {
                         @Override

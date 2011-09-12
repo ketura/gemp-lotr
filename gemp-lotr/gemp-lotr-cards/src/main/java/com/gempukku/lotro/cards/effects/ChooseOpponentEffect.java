@@ -13,7 +13,7 @@ public abstract class ChooseOpponentEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         String[] opponents = GameUtils.getOpponents(game, _playerId);
         if (opponents.length == 1)
             opponentChosen(opponents[0]);

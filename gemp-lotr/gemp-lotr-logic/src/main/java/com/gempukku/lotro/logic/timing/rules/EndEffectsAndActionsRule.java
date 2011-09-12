@@ -27,34 +27,34 @@ public class EndEffectsAndActionsRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredBeforeTriggers(final LotroGame lotroGame, Effect effect, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE)
+                    public List<? extends Action> getRequiredBeforeTriggers(final LotroGame lotroGame, Effect effect) {
+                        if (effect.getType() == EffectResult.Type.START_OF_PHASE)
                             return Collections.<Action>singletonList(new SimpleEffectAction(
                                     new UnrespondableEffect() {
                                         @Override
-                                        public void playEffect(LotroGame game) {
+                                        public void doPlayEffect(LotroGame game) {
                                             Phase phase = game.getGameState().getCurrentPhase();
                                             _modifiersLogic.removeStartOfPhase(phase);
                                             _actionsEnvironment.removeStartOfPhaseActionProxies(phase);
                                         }
                                     }, "Remove effects"
                             ));
-                        else if (effectResult.getType() == EffectResult.Type.END_OF_PHASE)
+                        else if (effect.getType() == EffectResult.Type.END_OF_PHASE)
                             return Collections.<Action>singletonList(new SimpleEffectAction(
                                     new UnrespondableEffect() {
                                         @Override
-                                        public void playEffect(LotroGame game) {
+                                        public void doPlayEffect(LotroGame game) {
                                             Phase phase = game.getGameState().getCurrentPhase();
                                             _modifiersLogic.removeEndOfPhase(phase);
                                             _actionsEnvironment.removeEndOfPhaseActionProxies(phase);
                                         }
                                     }, "Remove effects"
                             ));
-                        else if (effectResult.getType() == EffectResult.Type.END_OF_TURN)
+                        else if (effect.getType() == EffectResult.Type.END_OF_TURN)
                             return Collections.<Action>singletonList(new SimpleEffectAction(
                                     new UnrespondableEffect() {
                                         @Override
-                                        public void playEffect(LotroGame game) {
+                                        public void doPlayEffect(LotroGame game) {
                                             _modifiersLogic.removeEndOfTurn();
                                         }
                                     }, "Remove effects"

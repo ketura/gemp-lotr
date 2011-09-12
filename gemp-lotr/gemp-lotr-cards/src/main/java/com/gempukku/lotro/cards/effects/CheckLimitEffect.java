@@ -25,7 +25,7 @@ public class CheckLimitEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         int count = game.getModifiersEnvironment().getUntilEndOfPhaseLimitCounter(_card, _phase).incrementCounter();
         if (count <= _limit) {
             if (_cost)

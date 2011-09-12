@@ -17,7 +17,7 @@ public class CancelEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         _effect.cancel();
     }
 }

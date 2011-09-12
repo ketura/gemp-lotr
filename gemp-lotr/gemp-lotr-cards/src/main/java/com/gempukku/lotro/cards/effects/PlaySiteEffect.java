@@ -17,7 +17,7 @@ public class PlaySiteEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         PhysicalCard card = gameState.getSite(_siteNumber);
         if (card != null) {

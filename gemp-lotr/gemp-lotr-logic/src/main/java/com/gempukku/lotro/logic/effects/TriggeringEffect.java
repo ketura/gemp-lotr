@@ -12,8 +12,8 @@ public class TriggeringEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult getRespondableResult() {
-        return _effectResult;
+    public EffectResult.Type getType() {
+        return _effectResult.getType();
     }
 
     @Override
@@ -27,6 +27,7 @@ public class TriggeringEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
+        return _effectResult;
     }
 }

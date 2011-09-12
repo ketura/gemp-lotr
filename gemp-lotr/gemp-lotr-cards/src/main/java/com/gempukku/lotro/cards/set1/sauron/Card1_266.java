@@ -48,7 +48,7 @@ public class Card1_266 extends AbstractMinion {
                 action.addEffect(
                         new UnrespondableEffect() {
                             @Override
-                            public void playEffect(LotroGame game) {
+                            public void doPlayEffect(LotroGame game) {
                                 self.storeData(new Object());
                             }
                         });

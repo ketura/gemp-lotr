@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.timing.results.PutOnTheOneRingResult;
 public class PutOnTheOneRingEffect extends AbstractEffect {
 
     @Override
-    public EffectResult getRespondableResult() {
-        return new PutOnTheOneRingResult();
+    public EffectResult.Type getType() {
+        return EffectResult.Type.PUT_ON_THE_ONE_RING;
     }
 
     @Override
@@ -23,7 +23,8 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public EffectResult playEffect(LotroGame game) {
         game.getGameState().setWearingRing(true);
+        return new PutOnTheOneRingResult();
     }
 }

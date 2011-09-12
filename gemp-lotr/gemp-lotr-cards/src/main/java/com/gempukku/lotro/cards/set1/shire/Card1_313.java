@@ -85,8 +85,8 @@ public class Card1_313 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE)
+    public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.END_OF_PHASE)
             self.removeData();
         return null;
     }

@@ -9,9 +9,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,10 +36,9 @@ public class Card1_076 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WOUND) {
-            WoundResult woundResult = (WoundResult) effectResult;
-            if (woundResult.getWoundedCard().getBlueprint().getCardType() == CardType.COMPANION) {
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+        if (effect.getType() == EffectResult.Type.WOUND) {
+            if (((WoundCharacterEffect) effect).getWoundedCard().getBlueprint().getCardType() == CardType.COMPANION) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.addEffect(new CancelEffect(effect));
                 return Collections.singletonList(action);

@@ -37,7 +37,7 @@ public abstract class ChooseArbitraryCardsEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void playEffect(LotroGame game) {
+    public void doPlayEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new ArbitraryCardsSelectionDecision(1, _choiceText, Filters.filter(_cards, game.getGameState(), game.getModifiersQuerying(), _filter), _minimum, _maximum) {
                     @Override
