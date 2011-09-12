@@ -46,9 +46,9 @@ var ChatBoxUI = Class.extend({
     },
 
     appendMessage: function(message) {
-        this.chatMessagesDiv.append("<p>" + message + "</p>");
-        if ($("p", this.chatMessagesDiv).length > 50) {
-            $("p", this.chatMessagesDiv).first().remove();
+        this.chatMessagesDiv.append("<div class='chatMessage'>" + message + "</div>");
+        if ($("div", this.chatMessagesDiv).length > 50) {
+            $("div", this.chatMessagesDiv).first().remove();
         }
         this.chatMessagesDiv.prop({ scrollTop: this.chatMessagesDiv.prop("scrollHeight") });
     },
