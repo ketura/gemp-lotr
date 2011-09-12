@@ -1,6 +1,5 @@
 package com.gempukku.lotro;
 
-import static com.gempukku.lotro.GameEvent.Type.*;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
@@ -8,6 +7,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.gempukku.lotro.GameEvent.Type.*;
 
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
@@ -60,6 +61,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     @Override
     public void cardCreated(PhysicalCard card) {
         _events.add(new GameEvent(PUT_CARD_IN_PLAY).card(card));
+    }
+
+    @Override
+    public void cardMoved(PhysicalCard card) {
+        _events.add(new GameEvent(MOVE_CARD_IN_PLAY).card(card));
     }
 
     @Override

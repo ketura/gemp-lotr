@@ -275,6 +275,8 @@ var GempLotrGameUI = Class.extend({
             var eventType = gameEvent.getAttribute("type");
             if (eventType == "PUT_CARD_IN_PLAY") {
                 this.putCardInPlay(gameEvent);
+            } else if (eventType == "MOVE_CARD_IN_PLAY") {
+                this.moveCardInPlay(gameEvent);
             } else if (eventType == "PARTICIPANT") {
                 this.participant(gameEvent);
             } else if (eventType == "REMOVE_CARD_FROM_PLAY") {
@@ -434,6 +436,38 @@ var GempLotrGameUI = Class.extend({
                 var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
                 targetCardData.attachedCards.push(cardDiv);
             }
+        }
+    },
+
+    moveCardInPlay: function(element) {
+        var cardId = element.getAttribute("cardId");
+        var zone = element.getAttribute("zone");
+        var targetCardId = element.getAttribute("targetCardId");
+
+        // Remove from where it was already attached
+        $(".card").each(
+                function() {
+                    var cardData = $(this).data("card");
+                    var index = -1;
+                    for (var i = 0; i < cardData.attachedCards.length; i++)
+                        if (cardData.attachedCards[i].data("card").cardId == cardId) {
+                            index = i;
+                            break;
+                        }
+                    if (index != -1)
+                        cardData.attachedCards.splice(index, 1);
+                }
+        );
+
+        var card = $(".card:cardId(" + cardId + ")");
+        var cardData = card.data("card");
+        // move to new zone
+        cardData.zone = zone;
+
+        if (targetCardId != null) {
+            // attach to new card if it's attached
+            var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
+            targetCardData.attachedCards.push(cardDiv);
         }
     },
 
