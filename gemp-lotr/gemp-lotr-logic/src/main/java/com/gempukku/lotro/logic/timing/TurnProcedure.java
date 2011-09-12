@@ -76,6 +76,11 @@ public class TurnProcedure {
         }
 
         @Override
+        public String getText() {
+            return _effect.getText();
+        }
+
+        @Override
         public Effect nextEffect() {
             if (_effect.isCancelled())
                 return null;
