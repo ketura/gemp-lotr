@@ -1,9 +1,7 @@
 TO DO:
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
-5. Introduce move card operation in communication between the server and client to change the zone/params of the card.
 6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
-7. Add chat.
 8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
 and go with different selection.
 9. Add checkbox option to auto-pass if there is no actions to be played.
@@ -21,3 +19,5 @@ happened. Modify the Blueprints to have the "before" methods to take Effect para
 take the EffectResult parameter only. Effects which modify cards should take filters as parameters, use
 overloaded constructor for single cards for backward compatibility, this constructor will call another constructor
 with Filters.sameCard(...) filter.
+5. Introduce move card operation in communication between the server and client to change the zone/params of the card.
+7. Add chat.
