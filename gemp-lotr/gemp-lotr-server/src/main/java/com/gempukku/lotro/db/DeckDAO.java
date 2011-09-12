@@ -8,14 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DeckDAO {
     private DbAccess _dbAccess;
 
-    private Map<Integer, Map<String, Deck>> _decks = new HashMap<Integer, Map<String, Deck>>();
+    private Map<Integer, Map<String, Deck>> _decks = new ConcurrentHashMap<Integer, Map<String, Deck>>();
 
     public DeckDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -33,7 +33,7 @@ public class DeckDAO {
         if (deck != null) {
             Map<String, Deck> decksByType = _decks.get(player.getId());
             if (decksByType == null) {
-                decksByType = new HashMap<String, Deck>();
+                decksByType = new ConcurrentHashMap<String, Deck>();
                 _decks.put(player.getId(), decksByType);
             }
             decksByType.put(type, deck);
@@ -46,7 +46,7 @@ public class DeckDAO {
         storeDeckToDB(player.getId(), type, deck);
         Map<String, Deck> decksByType = _decks.get(player.getId());
         if (decksByType == null) {
-            decksByType = new HashMap<String, Deck>();
+            decksByType = new ConcurrentHashMap<String, Deck>();
             _decks.put(player.getId(), decksByType);
         }
         decksByType.put(type, deck);

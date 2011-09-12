@@ -6,12 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerDAO {
     private DbAccess _dbAccess;
-    private Map<String, Player> _players = new HashMap<String, Player>();
+    private Map<String, Player> _players = new ConcurrentHashMap<String, Player>();
 
     public PlayerDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
