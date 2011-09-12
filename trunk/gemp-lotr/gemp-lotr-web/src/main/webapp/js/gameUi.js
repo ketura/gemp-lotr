@@ -35,8 +35,13 @@ var GempLotrGameUI = Class.extend({
 
     swipeOptions: null,
 
-    init: function() {
+    chatBoxDiv: null,
+    chatBox: null,
+    communication: null,
+
+    init: function(communication) {
         log("ui initialized");
+        this.communication = communication;
 
         $.expr[':'].cardId = function(obj, index, meta, stack) {
             var cardIds = meta[3].split(",");
@@ -123,6 +128,12 @@ var GempLotrGameUI = Class.extend({
         this.alert.css({"border-radius": "7px"});
         $("#main").append(this.alert);
 
+        this.chatBoxDiv = $("<div class='ui-widget-content'><div id='chatBox'></div></div>");
+        this.chatBoxDiv.css({"border-radius": "7px"});
+        $("#main").append(this.chatBoxDiv);
+
+        this.chatBox = new ChatBoxUI("Game" + getUrlParam("gameId"), $("#chatBox"), this.communication);
+
         $("body").click(
                 function (event) {
                     that.clickCardFunction(event);
@@ -147,7 +158,7 @@ var GempLotrGameUI = Class.extend({
     },
 
     displayCardInfo: function(card) {
-        this.infoDialog.html("<div><div style='float: left;'><img src='" + card.imageUrl + "' height='250'></div><div id='cardEffects'></div></div>");
+        this.infoDialog.html("<div style='scroll: auto'><div style='float: left;'><img src='" + card.imageUrl + "'></div><div id='cardEffects'></div></div>");
 
         var cardId = card.cardId;
         if (cardId.length < 4 || cardId.substring(0, 4) != "temp")
@@ -163,52 +174,52 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.dialogInstance = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    minHeight: 80
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            minHeight: 80
+        });
 
         this.assignmentDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    title: "Assignments",
-                    resizable: true,
-                    minHeight: 240,
-                    minWidth: 400,
-                    width: 500,
-                    height: 200,
-                    position: ["right", "bottom"]
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            title: "Assignments",
+            resizable: true,
+            minHeight: 240,
+            minWidth: 400,
+            width: 500,
+            height: 200,
+            position: ["right", "bottom"]
+        });
 
         this.skirmishDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    title: "Skirmish",
-                    resizable: true,
-                    minHeight: 240,
-                    minWidth: 400,
-                    width: 500,
-                    height: 200,
-                    position: ["right", "top"]
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            title: "Skirmish",
+            resizable: true,
+            minHeight: 240,
+            minWidth: 400,
+            width: 500,
+            height: 200,
+            position: ["right", "top"]
+        });
 
         $(".ui-dialog-titlebar-close").hide();
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information",
-                    minHeight: 80,
-                    minWidth: 200,
-                    width: 600,
-                    height: 300,
-                    maxHeight: 300
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300,
+            maxHeight: 300
+        });
 
     },
 
@@ -234,7 +245,9 @@ var GempLotrGameUI = Class.extend({
 
             var alertHeight = 120;
 
-            this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 2));
+            var chatHeight = 200;
+
+            this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight);
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + shadowSupportWidth + padding * 4), heightScales[0] * heightPerScale);
             this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, width - (advPathWidth + specialUiWidth + shadowSupportWidth + padding * 4), heightScales[1] * heightPerScale);
             this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[2] * heightPerScale);
@@ -244,8 +257,10 @@ var GempLotrGameUI = Class.extend({
             this.shadowOpponent.setBounds(width - (shadowSupportWidth + padding), padding, shadowSupportWidth, padding + (heightScales[0] + heightScales[1]) * heightPerScale);
             this.shadowPlayer.setBounds(width - (shadowSupportWidth + padding), padding * 4 + yScales[3] * heightPerScale, shadowSupportWidth, padding + (heightScales[3] + heightScales[4]) * heightPerScale);
 
-            this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: height - padding * 3 - alertHeight });
-            this.alert.css({ position: "absolute", left: padding * 2 + advPathWidth, top: height - padding - alertHeight, width: specialUiWidth - padding, height: alertHeight });
+            this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: height - padding * 4 - alertHeight - chatHeight});
+            this.alert.css({ position: "absolute", left: padding * 2 + advPathWidth, top: height - (padding * 2) - alertHeight - chatHeight, width: specialUiWidth - padding, height: alertHeight });
+            this.chatBoxDiv.css({ position: "absolute", left: padding, top: height - padding - chatHeight, width: specialUiWidth + advPathWidth, height: chatHeight });
+            this.chatBox.setBounds(4, 4, specialUiWidth + advPathWidth - 8, chatHeight - 8);
         }
     },
 
@@ -457,7 +472,7 @@ var GempLotrGameUI = Class.extend({
                     if (index != -1)
                         cardData.attachedCards.splice(index, 1);
                 }
-        );
+                );
 
         var card = $(".card:cardId(" + cardId + ")");
         var cardData = card.data("card");
@@ -522,7 +537,7 @@ var GempLotrGameUI = Class.extend({
                         if (index != -1)
                             cardData.attachedCards.splice(index, 1);
                     }
-            );
+                    );
         }
 
         card.remove();
@@ -587,13 +602,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#integerDecision").val());
-                    }
-                }
-        )
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#integerDecision").val());
+            }
+        }
+                )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
         ;
@@ -627,13 +642,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(html)
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                }
-        )
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+            }
+        }
+                )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
 
@@ -966,13 +981,13 @@ var GempLotrGameUI = Class.extend({
 
         if (this.shadowAssignGroups[characterId] == null) {
             this.shadowAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
-                        return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
-                    }
-            );
+                return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
+            }
+                    );
             this.freePeopleAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
-                        return (card.cardId == characterId);
-                    }
-            );
+                return (card.cardId == characterId);
+            }
+                    );
 
             this.moveCardToElement(characterId, this.assignmentDialog);
             this.assignDialogResized();

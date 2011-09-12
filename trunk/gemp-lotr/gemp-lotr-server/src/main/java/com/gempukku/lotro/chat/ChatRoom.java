@@ -10,6 +10,10 @@ public class ChatRoom {
     private LinkedList<ChatMessage> _lastMessages = new LinkedList<ChatMessage>();
     private Map<String, ChatRoomListener> _chatRoomListeners = new HashMap<String, ChatRoomListener>();
 
+    public ChatRoom() {
+        postMessage("System", "Welcome to the room");
+    }
+
     public void postMessage(String from, String message) {
         ChatMessage chatMessage = new ChatMessage(new Date(), from, message);
         _lastMessages.add(chatMessage);
