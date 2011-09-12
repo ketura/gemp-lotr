@@ -482,7 +482,7 @@ var GempLotrGameUI = Class.extend({
         if (targetCardId != null) {
             // attach to new card if it's attached
             var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
-            targetCardData.attachedCards.push(cardDiv);
+            targetCardData.attachedCards.push(card);
         }
     },
 
