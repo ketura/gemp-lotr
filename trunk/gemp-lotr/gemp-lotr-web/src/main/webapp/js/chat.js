@@ -45,6 +45,16 @@ var ChatBoxUI = Class.extend({
                 var text = message.childNodes[0].nodeValue;
                 this.appendMessage("<b>" + from + ":</b>" + text);
             }
+
+            setTimeout(this.updateChatMessages, 1000);
         }
+    },
+
+    updateChatMessages: function(xml) {
+        var that = this;
+
+        this.communication.updateChat(this.name, function(xml) {
+            that.processMessages(xml);
+        });
     }
 });
