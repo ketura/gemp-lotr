@@ -180,6 +180,8 @@ public class GameState {
             addCardToZone(card, Zone.ATTACHED);
         }
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) transferTo);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.cardMoved(card);
     }
 
     public void attachCard(PhysicalCard card, PhysicalCard attachTo) {

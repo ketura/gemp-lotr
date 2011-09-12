@@ -9,6 +9,8 @@ import java.util.List;
 public interface GameStateListener {
     public void cardCreated(PhysicalCard card);
 
+    public void cardMoved(PhysicalCard card);
+
     public void cardRemoved(PhysicalCard card);
 
     public void setPlayerOrder(List<String> playerIds);
