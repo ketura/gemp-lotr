@@ -10,14 +10,16 @@ var CardGroup = Class.extend({
     maxCardHeight: null,
     descDiv: null,
 
-    init: function(container, belongTest) {
+    init: function(container, belongTest, createDiv) {
         this.container = container;
         this.belongTestFunc = belongTest;
 
-        this.descDiv = $("<div class='ui-widget-content'></div>");
-        this.descDiv.css({"border-radius": "7px"});
+        if (createDiv === undefined || createDiv) {
+            this.descDiv = $("<div class='ui-widget-content'></div>");
+            this.descDiv.css({"border-radius": "7px"});
 
-        container.append(this.descDiv);
+            container.append(this.descDiv);
+        }
     },
 
     setBounds: function(x, y, width, height) {
@@ -25,7 +27,8 @@ var CardGroup = Class.extend({
         this.y = y + 3;
         this.width = width - 6;
         this.height = height - 6;
-        this.descDiv.css({left:x + "px", top:y + "px", width: width, height: height, position: "absolute"});
+        if (this.descDiv != null)
+            this.descDiv.css({left:x + "px", top:y + "px", width: width, height: height, position: "absolute"});
         this.layoutCards();
     },
 
@@ -115,8 +118,8 @@ var AdvPathCardGroup = CardGroup.extend({
 
 var NormalCardGroup = CardGroup.extend({
 
-    init: function(container, belongTest) {
-        this._super(container, belongTest);
+    init: function(container, belongTest, createDiv) {
+        this._super(container, belongTest, createDiv);
     },
 
     layoutCards: function() {
