@@ -1,7 +1,6 @@
 TO DO:
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
-6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
 8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
 and go with different selection.
 9. Add checkbox option to auto-pass if there is no actions to be played.
@@ -21,3 +20,4 @@ with Filters.sameCard(...) filter.
 7. Add chat.
 11. Merge Shadow and FP support area on the UI and extend the Shadow and FP characters window.
 12. Add rule of 4.
+6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
