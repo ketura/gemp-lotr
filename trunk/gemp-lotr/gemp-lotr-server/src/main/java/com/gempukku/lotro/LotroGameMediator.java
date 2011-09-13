@@ -73,6 +73,7 @@ public class LotroGameMediator {
 
     public synchronized void startGame() {
         _lotroGame.startGame();
+        startClocksForUsersPendingDecision();
     }
 
     public synchronized void playerAnswered(String lotroGameParticipant, int decisionId, String answer) {
@@ -157,8 +158,10 @@ public class LotroGameMediator {
             visitor.visitAwaitingDecision(_lotroGame.getActionStack().getTopmostAction(), awaitingDecision);
 
         Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
-        for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet())
-            secondsLeft.put(playerClock.getKey(), _maxSecondsPerPlayer - playerClock.getValue());
+        for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
+            String player = playerClock.getKey();
+            secondsLeft.put(player, _maxSecondsPerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
+        }
         visitor.visitClock(secondsLeft);
     }
 }
