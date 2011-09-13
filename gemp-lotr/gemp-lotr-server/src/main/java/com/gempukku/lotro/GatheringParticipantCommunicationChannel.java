@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import static com.gempukku.lotro.GameEvent.Type.*;
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
+    private Date _lastConsumed;
 
     public GatheringParticipantCommunicationChannel(String self) {
         _self = self;
@@ -105,6 +107,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     public List<GameEvent> consumeGameEvents() {
         List<GameEvent> result = _events;
         _events = new LinkedList<GameEvent>();
+        _lastConsumed = new Date();
         return result;
+    }
+
+    public Date getLastConsumed() {
+        return _lastConsumed;
     }
 }

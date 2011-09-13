@@ -118,6 +118,10 @@ public class GameState {
         sendStateToPlayer(playerId);
     }
 
+    public void removeGameStateListener(String playerId, GameStateListener gameStateListener) {
+        _gameStateListeners.remove(playerId);
+    }
+
     private Collection<GameStateListener> getPrivateGameStateListeners(PhysicalCard physicalCard) {
         String owner = physicalCard.getOwner();
         GameStateListener result = _gameStateListeners.get(owner);

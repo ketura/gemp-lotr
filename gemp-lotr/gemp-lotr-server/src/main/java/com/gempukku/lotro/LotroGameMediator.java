@@ -20,7 +20,11 @@ public class LotroGameMediator {
     private DefaultLotroGame _lotroGame;
     private Map<String, Integer> _playerClocks = new HashMap<String, Integer>();
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
-    private final int _maxSecondsPerPlayer = 60 * 30; // 30 minutes
+
+    private final int _maxSecondsForGamePerPlayer = 60 * 30; // 30 minutes
+    private final int _channelInactivityTimeoutPeriod = 30; // 30 seconds
+    private final int _playerDecisionTimeoutPeriod = 60 * 5; // 5 minutes
+
 
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, GameResultListener gameResultListener) {
         if (participants.length < 1)
@@ -76,6 +80,27 @@ public class LotroGameMediator {
         startClocksForUsersPendingDecision();
     }
 
+    public synchronized void cleanup() {
+        long currentTime = System.currentTimeMillis();
+        Map<String, GatheringParticipantCommunicationChannel> channelsCopy = new HashMap<String, GatheringParticipantCommunicationChannel>(_communicationChannels);
+        for (Map.Entry<String, GatheringParticipantCommunicationChannel> playerChannels : channelsCopy.entrySet()) {
+            String playerId = playerChannels.getKey();
+            // Channel is stale (user no longer connected to game, to save memory, we remove the channel
+            // User can always reconnect and establish a new channel
+            GatheringParticipantCommunicationChannel channel = playerChannels.getValue();
+            _lotroGame.removeGameStateListener(playerId, channel);
+            if (currentTime > channel.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod)
+                _communicationChannels.remove(playerId);
+        }
+
+        for (Map.Entry<String, Long> playerDecision : _decisionQuerySentTimes.entrySet()) {
+            String playerId = playerDecision.getKey();
+            long decisionSent = playerDecision.getValue();
+            if (currentTime > decisionSent + _playerDecisionTimeoutPeriod)
+                _lotroGame.playerLost(playerId);
+        }
+    }
+
     public synchronized void playerAnswered(String lotroGameParticipant, int decisionId, String answer) {
         AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(lotroGameParticipant);
         if (awaitingDecision != null) {
@@ -99,28 +124,6 @@ public class LotroGameMediator {
         }
     }
 
-    private void startClocksForUsersPendingDecision() {
-        long currentTime = System.currentTimeMillis();
-        Set<String> users = _userFeedback.getUsersPendingDecision();
-        for (String user : users)
-            _decisionQuerySentTimes.put(user, currentTime);
-    }
-
-    private void addTimeSpentOnDecisionToUserClock(String participantId) {
-        long queryTime = _decisionQuerySentTimes.remove(participantId);
-        long currentTime = System.currentTimeMillis();
-        long diffSec = (currentTime - queryTime) / 1000;
-        _playerClocks.put(participantId, _playerClocks.get(participantId) + (int) diffSec);
-    }
-
-    private int getCurrentUserPendingTime(String participantId) {
-        if (!_decisionQuerySentTimes.containsKey(participantId))
-            return 0;
-        long queryTime = _decisionQuerySentTimes.get(participantId);
-        long currentTime = System.currentTimeMillis();
-        return (int) ((currentTime - queryTime) / 1000);
-    }
-
     public synchronized void processCommunicationChannel(String participantId, ParticipantCommunicationVisitor visitor) {
         GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(participantId);
         if (communicationChannel != null)
@@ -136,7 +139,7 @@ public class LotroGameMediator {
         Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
             String player = playerClock.getKey();
-            secondsLeft.put(player, _maxSecondsPerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
+            secondsLeft.put(player, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
         }
         visitor.visitClock(secondsLeft);
     }
@@ -160,8 +163,30 @@ public class LotroGameMediator {
         Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
             String player = playerClock.getKey();
-            secondsLeft.put(player, _maxSecondsPerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
+            secondsLeft.put(player, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
         }
         visitor.visitClock(secondsLeft);
+    }
+
+    private void startClocksForUsersPendingDecision() {
+        long currentTime = System.currentTimeMillis();
+        Set<String> users = _userFeedback.getUsersPendingDecision();
+        for (String user : users)
+            _decisionQuerySentTimes.put(user, currentTime);
+    }
+
+    private void addTimeSpentOnDecisionToUserClock(String participantId) {
+        long queryTime = _decisionQuerySentTimes.remove(participantId);
+        long currentTime = System.currentTimeMillis();
+        long diffSec = (currentTime - queryTime) / 1000;
+        _playerClocks.put(participantId, _playerClocks.get(participantId) + (int) diffSec);
+    }
+
+    private int getCurrentUserPendingTime(String participantId) {
+        if (!_decisionQuerySentTimes.containsKey(participantId))
+            return 0;
+        long queryTime = _decisionQuerySentTimes.get(participantId);
+        long currentTime = System.currentTimeMillis();
+        return (int) ((currentTime - queryTime) / 1000);
     }
 }

@@ -103,6 +103,9 @@ public class LotroServer {
                 }
             }
         }
+
+        for (LotroGameMediator lotroGameMediator : _runningGames.values())
+            lotroGameMediator.cleanup();
     }
 
     private String getChatRoomName(String gameId) {

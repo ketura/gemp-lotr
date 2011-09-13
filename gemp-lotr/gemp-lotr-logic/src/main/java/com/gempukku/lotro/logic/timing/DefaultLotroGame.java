@@ -152,4 +152,11 @@ public class DefaultLotroGame implements LotroGame {
         else
             _gameStateListeners.put(playerId, gameStateListener);
     }
+
+    public void removeGameStateListener(String playerId, GameStateListener gameStateListener) {
+        if (_gameState != null)
+            _gameState.removeGameStateListener(playerId, gameStateListener);
+        else
+            _gameStateListeners.remove(playerId);
+    }
 }
