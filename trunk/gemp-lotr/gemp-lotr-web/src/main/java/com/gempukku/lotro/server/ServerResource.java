@@ -522,6 +522,8 @@ public class ServerResource {
     }
 
     private void sendError(Response.Status status) {
-        throw new WebApplicationException(status);
+        WebApplicationException webApplicationException = new WebApplicationException(status);
+        _logger.debug("Sending error to user: " + status.getStatusCode(), webApplicationException);
+        throw webApplicationException;
     }
 }
