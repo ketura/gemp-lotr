@@ -86,7 +86,7 @@ var GempLotrGameUI = Class.extend({
 
         this.specialGroup = new NormalCardGroup(this.dialogInstance, function(card) {
             return (card.zone == "SPECIAL");
-        });
+        }, false);
         this.specialGroup.setBounds(this.padding, this.padding, 400, 200);
 
         this.gameStateElem = $("<div class='ui-widget-content'></div>");
@@ -879,10 +879,9 @@ var GempLotrGameUI = Class.extend({
             }
 
             if (selectedCardIds.length == max) {
-                that.clearSelection();
+                $(".selectableCard").removeClass("selectableCard");
                 $(".card:cardId(" + cardId + ")").addClass("selectedCard");
             } else {
-
                 $(".card:cardId(" + cardId + ")").removeClass("selectableCard").addClass("selectedCard");
             }
         };
