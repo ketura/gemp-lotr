@@ -5,6 +5,7 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class DefaultUserFeedback implements UserFeedback {
     private Map<String, AwaitingDecision> _awaitingDecisionMap = new HashMap<String, AwaitingDecision>();
@@ -35,5 +36,9 @@ public class DefaultUserFeedback implements UserFeedback {
     @Override
     public void sendWarning(String playerId, String warning) {
         _warnings.put(playerId, warning);
+    }
+
+    public Set<String> getUsersPendingDecision() {
+        return _awaitingDecisionMap.keySet();
     }
 }

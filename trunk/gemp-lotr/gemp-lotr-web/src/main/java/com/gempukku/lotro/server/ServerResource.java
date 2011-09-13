@@ -420,6 +420,23 @@ public class ServerResource {
         public void visitAwaitingDecision(Action currentAction, AwaitingDecision awaitingDecision) {
             _element.appendChild(serializeDecision(_doc, currentAction, awaitingDecision));
         }
+
+        @Override
+        public void visitClock(Map<String, Integer> secondsLeft) {
+            _element.appendChild(serializeClocks(_doc, secondsLeft));
+        }
+    }
+
+    private Node serializeClocks(Document doc, Map<String, Integer> secondsLeft) {
+        Element clocks = doc.createElement("clocks");
+        for (Map.Entry<String, Integer> userClock : secondsLeft.entrySet()) {
+            Element clock = doc.createElement("clock");
+            clock.setAttribute("participantId", userClock.getKey());
+            clock.appendChild(doc.createTextNode(userClock.getValue().toString()));
+            clocks.appendChild(clock);
+        }
+
+        return clocks;
     }
 
     private Node serializeDecision(Document doc, Action currentAction, AwaitingDecision decision) {
