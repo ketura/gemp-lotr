@@ -49,4 +49,6 @@ public interface ModifiersQuerying {
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
 
     public boolean canBeHealed(GameState gameState, PhysicalCard card);
+
+    public boolean canDrawCardAndIncrement(GameState gameState, String playerId);
 }

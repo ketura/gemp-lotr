@@ -21,6 +21,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     private Map<Phase, Map<PhysicalCard, LimitCounter>> _counters = new HashMap<Phase, Map<PhysicalCard, LimitCounter>>();
 
+    private int _drawnThisPhaseCount = 0;
+
     @Override
     public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase) {
         Map<PhysicalCard, LimitCounter> limitCounterMap = _counters.get(phase);
@@ -84,6 +86,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         Map<PhysicalCard, LimitCounter> counterMap = _counters.get(phase);
         if (counterMap != null)
             counterMap.clear();
+
+        _drawnThisPhaseCount = 0;
     }
 
     public void removeStartOfPhase(Phase phase) {
@@ -406,6 +410,26 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (affectsCardWithSkipSet(gameState, card, modifier))
                 result = modifier.canBeHealed(gameState, this, card, result);
         return result;
+    }
+
+    /**
+     * Rule of 4. "You cannot draw (or take into hand) more than 4 cards during your fellowship phase."
+     *
+     * @param gameState
+     * @param playerId
+     * @return
+     */
+    @Override
+    public boolean canDrawCardAndIncrement(GameState gameState, String playerId) {
+        if (gameState.getCurrentPlayerId().equals(playerId)) {
+            if (gameState.getCurrentPhase() != Phase.FELLOWSHIP || _drawnThisPhaseCount < 4) {
+                _drawnThisPhaseCount++;
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     private class ModifierHookImpl implements ModifierHook {
