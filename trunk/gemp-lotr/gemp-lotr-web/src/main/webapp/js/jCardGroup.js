@@ -98,7 +98,7 @@ var AdvPathCardGroup = CardGroup.extend({
 
         var x = this.x;
         var y = this.y;
-        var index = 0;
+        var index = 10;
         for (var cardId in cardsToLayout) {
             var cardElem = cardsToLayout[cardId];
             var cardData = cardsToLayout[cardId].data("card");
@@ -194,7 +194,7 @@ var NormalCardGroup = CardGroup.extend({
         var y = Math.floor((this.height - height) / 2);
 
         for (var cardId in cardsToLayout) {
-            var index = 0;
+            var index = 10;
             var cardElem = cardsToLayout[cardId];
             var cardData = cardsToLayout[cardId].data("card");
             var cardWidth = cardData.getWidthForHeight(height);
@@ -220,7 +220,7 @@ var NormalCardGroup = CardGroup.extend({
 
 
         for (var cardId in cardsToLayout) {
-            var index = 0;
+            var index = 10;
             var cardElem = cardsToLayout[cardId];
             var cardData = cardsToLayout[cardId].data("card");
             var cardWidth = cardData.getWidthForHeight(rowHeight);

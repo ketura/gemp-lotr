@@ -6,6 +6,7 @@ var GempLotrGameUI = Class.extend({
     getCardModifiersFunction: null,
 
     selfPlayerId: null,
+    currentPlayerId: null,
     allPlayerIds: null,
     dialogInstance: null,
     gameStateElem: null,
@@ -26,6 +27,7 @@ var GempLotrGameUI = Class.extend({
     skirmishShadowGroup: null,
     skirmishFellowshipGroup: null,
 
+    assignGroupDivs: null,
     shadowAssignGroups: null,
     freePeopleAssignGroups: null,
 
@@ -49,6 +51,7 @@ var GempLotrGameUI = Class.extend({
 
         this.shadowAssignGroups = {};
         this.freePeopleAssignGroups = {};
+        this.assignGroupDivs = new Array();
 
         this.skirmishShadowGroup = new NormalCardGroup($("#main"), function (card) {
             return card.zone == "SHADOW_CHARACTERS" && card.skirmish == true;
@@ -236,11 +239,39 @@ var GempLotrGameUI = Class.extend({
 
             var chatHeight = 200;
 
+            var assignmentsCount = this.assignGroupDivs.length;
+
+            var charsWidth = width - (advPathWidth + specialUiWidth + padding * 3);
+            var charsWidthWithAssignments = 2 * charsWidth / (2 + assignmentsCount);
+
+            var currentPlayerTurn = (this.currentPlayerId == this.selfPlayerId);
+
             this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight);
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);
-            this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[1] * heightPerScale);
-            this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[2] * heightPerScale);
-            this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[3] * heightPerScale);
+
+            this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, currentPlayerTurn ? charsWidth : charsWidthWithAssignments, heightScales[1] * heightPerScale);
+            this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, charsWidthWithAssignments, heightScales[2] * heightPerScale);
+            this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, currentPlayerTurn ? charsWidthWithAssignments : charsWidth, heightScales[3] * heightPerScale);
+
+            var i = 0;
+            for (var characterId in this.shadowAssignGroups) {
+                if (this.shadowAssignGroups.hasOwnProperty(characterId)) {
+                    var groupWidth = (charsWidth - charsWidthWithAssignments) / assignmentsCount - padding;
+                    var groupHeight = currentPlayerTurn ? (heightScales[2] * heightPerScale + heightScales[3] * heightPerScale + padding) : (heightScales[1] * heightPerScale + heightScales[2] * heightPerScale + padding);
+                    var x = advPathWidth + specialUiWidth + (padding * 2) + charsWidthWithAssignments + padding + i * (groupWidth + padding);
+                    var y = currentPlayerTurn ? (padding * 3 + yScales[2] * heightPerScale) : (padding * 2 + yScales[1] * heightPerScale);
+                    this.assignGroupDivs[i].css({left:x + "px", top:y + "px", width: groupWidth, height: groupHeight, position: "absolute"});
+                    if (currentPlayerTurn) {
+                        this.shadowAssignGroups[characterId].setBounds(x + 3, y + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
+                        this.freePeopleAssignGroups[characterId].setBounds(x + 3, y + heightScales[2] * heightPerScale + padding + 3, groupWidth - 6, heightScales[3] * heightPerScale - 6);
+                    } else {
+                        this.freePeopleAssignGroups[characterId].setBounds(x + 3, y + 3, groupWidth - 6, heightScales[1] * heightPerScale - 6);
+                        this.shadowAssignGroups[characterId].setBounds(x + 3, y + heightScales[1] * heightPerScale + padding + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
+                    }
+                    i++;
+                }
+            }
+
             this.supportPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 5 + yScales[4] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[4] * heightPerScale);
             this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
 
@@ -544,6 +575,8 @@ var GempLotrGameUI = Class.extend({
     turnChange: function(element) {
         var playerId = element.getAttribute("participantId");
         var playerIndex = $.inArray(playerId, this.allPlayerIds);
+
+        this.currentPlayerId = playerId;
 
         $(".player").each(function(index) {
             if (index == playerIndex)
@@ -928,7 +961,6 @@ var GempLotrGameUI = Class.extend({
     unassignMinion: function(minionId) {
         var previousCharacterId = $(".card:cardId(" + minionId + ")").data("card").assign;
         delete $(".card:cardId(" + minionId + ")").data("card").assign;
-        this.moveCardToElement(minionId, $("#main"));
 
         var characterHasMinion = false;
         $(".card").each(function () {
@@ -936,15 +968,14 @@ var GempLotrGameUI = Class.extend({
         });
 
         if (!characterHasMinion) {
-            this.moveCardToElement(previousCharacterId, $("#main"));
             delete this.shadowAssignGroups[previousCharacterId];
             delete this.freePeopleAssignGroups[previousCharacterId];
 
-            if (getMapSize(this.shadowAssignGroups) == 0) {
-                this.assignmentDialog.unbind("dialogresize");
-                this.assignmentDialog.dialog("close");
-            }
+            this.assignGroupDivs.remove(this.assignGroupDivs.length - 1).remove();
+            this.assignGroupDivs.splice(this.assignGroupDivs.length - 1, 1);
         }
+
+        this.layoutUI();
     },
 
     assignMinion: function(minionId, characterId) {
@@ -952,33 +983,24 @@ var GempLotrGameUI = Class.extend({
             this.unassignMinion(minionId);
 
         var that = this;
-        if (!this.assignmentDialog.dialog("isOpen")) {
-            this.assignmentDialog.bind("dialogresize", function() {
-                that.assignDialogResized();
-            });
-
-            that.shadowAssignGroups = {};
-            that.freePeopleAssignGroups = {};
-
-            this.assignmentDialog.dialog("open");
-        }
 
         if (this.shadowAssignGroups[characterId] == null) {
-            this.shadowAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
+            this.shadowAssignGroups[characterId] = new NormalCardGroup($("#main"), function (card) {
                 return (card.zone == "SHADOW_CHARACTERS" && card.assign == characterId);
-            }
-                    );
-            this.freePeopleAssignGroups[characterId] = new NormalCardGroup(this.assignmentDialog, function (card) {
+            }, false);
+            this.freePeopleAssignGroups[characterId] = new NormalCardGroup($("#main"), function (card) {
                 return (card.cardId == characterId);
-            }
-                    );
+            }, false);
 
-            this.moveCardToElement(characterId, this.assignmentDialog);
-            this.assignDialogResized();
+            var newDiv = $("<div class='ui-widget-content'></div>");
+            newDiv.css({"border-radius": "7px"});
+            $("#main").append(newDiv);
+            this.assignGroupDivs.push(newDiv);
         }
 
-        this.moveCardToElement(minionId, this.assignmentDialog);
         $(".card:cardId(" + minionId + ")").data("card").assign = characterId;
+
+        this.layoutUI();
     },
 
     doAssignments: function(freeCharacters, minions) {
