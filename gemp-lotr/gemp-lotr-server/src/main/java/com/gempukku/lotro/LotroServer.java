@@ -14,13 +14,17 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LotroServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
 
     private LotroCardBlueprintLibrary _lotroCardBlueprintLibrary = new LotroCardBlueprintLibrary();
 
-    private Map<String, LotroGameMediator> _runningGames = new HashMap<String, LotroGameMediator>();
+    private Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<String, LotroGameMediator>();
+
+    private final Map<String, Date> _finishedGamesTime = new LinkedHashMap<String, Date>();
+    private final long _timeToGameDeath = 1000 * 60 * 5; // 5 minutes
 
     private boolean _started;
     private CleaningTask _cleaningTask;
@@ -83,21 +87,41 @@ public class LotroServer {
     }
 
     public void cleanup() {
-        // TODO
+        long currentTime = System.currentTimeMillis();
+
+        synchronized (_finishedGamesTime) {
+            LinkedHashMap<String, Date> copy = new LinkedHashMap<String, Date>(_finishedGamesTime);
+            for (Map.Entry<String, Date> finishedGame : copy.entrySet()) {
+                if (finishedGame.getValue().getTime() > currentTime + _timeToGameDeath) {
+                    String gameId = finishedGame.getKey();
+                    _runningGames.remove(gameId);
+                    _chatServer.destroyChatRoom(getChatRoomName(gameId));
+                    _finishedGamesTime.remove(gameId);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    private String getChatRoomName(String gameId) {
+        return "Game" + gameId;
     }
 
     public synchronized String createNewGame(LotroFormat lotroFormat, LotroGameParticipant[] participants) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
-        String gameId = String.valueOf(_nextGameId);
-        final String chatRoomName = "Game" + gameId;
+        final String gameId = String.valueOf(_nextGameId);
+        String chatRoomName = getChatRoomName(gameId);
 
         _chatServer.createChatRoom(chatRoomName);
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
                 new GameResultListener() {
                     @Override
                     public void gameFinished(String winnerPlayerId, Set<String> loserPlayerIds) {
-                        _chatServer.destroyChatRoom(chatRoomName);
+                        synchronized (_finishedGamesTime) {
+                            _finishedGamesTime.put(gameId, new Date());
+                        }
                     }
                 });
 
