@@ -92,7 +92,7 @@ public class LotroServer {
         synchronized (_finishedGamesTime) {
             LinkedHashMap<String, Date> copy = new LinkedHashMap<String, Date>(_finishedGamesTime);
             for (Map.Entry<String, Date> finishedGame : copy.entrySet()) {
-                if (finishedGame.getValue().getTime() > currentTime + _timeToGameDeath) {
+                if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeath) {
                     String gameId = finishedGame.getKey();
                     log.debug("Removing stale game: " + gameId);
                     _runningGames.remove(gameId);
@@ -123,6 +123,7 @@ public class LotroServer {
                 new GameResultListener() {
                     @Override
                     public void gameFinished(String winnerPlayerId, Set<String> loserPlayerIds) {
+                        log.debug("Game finished, winner is: " + winnerPlayerId);
                         synchronized (_finishedGamesTime) {
                             _finishedGamesTime.put(gameId, new Date());
                         }
@@ -193,7 +194,7 @@ public class LotroServer {
             while (_running) {
                 cleanup();
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     log.error("Cleaning task interrupted", e);
                 }

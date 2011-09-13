@@ -332,6 +332,8 @@ var GempLotrGameUI = Class.extend({
                 this.addTokens(gameEvent);
             } else if (eventType == "REMOVE_TOKENS") {
                 this.removeTokens(gameEvent);
+            } else if (eventType == "MESSAGE") {
+                this.message(gameEvent);
             }
         }
         if (gameEvents.length > 0)
@@ -391,6 +393,12 @@ var GempLotrGameUI = Class.extend({
         if (cardData.tokens[token] == null)
             cardData.tokens[token] = 0;
         cardData.tokens[token] -= count;
+    },
+
+    message: function(element) {
+        var message = element.getAttribute("message");
+        if (this.chatBox != null)
+            this.chatBox.appendMessage("<b>" + message + "</b>");
     },
 
     startSkirmish: function(element) {

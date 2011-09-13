@@ -40,7 +40,8 @@ public class GameState {
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
 
     private String _winnerPlayerId;
-    private Set<String> _losers = new HashSet<String>();
+    private String _winReason;
+    private Map<String, String> _losers = new HashMap<String, String>();
 
     private int _nextCardId = 0;
 
@@ -64,16 +65,22 @@ public class GameState {
         }
     }
 
-    public void setWinnerPlayerId(String winnerPlayerId) {
+    public void setWinnerPlayerId(String winnerPlayerId, String reason) {
         _winnerPlayerId = winnerPlayerId;
+        _winReason = reason;
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.sendMessage(winnerPlayerId + " is the winner due to: " + reason);
     }
 
-    public String setLoserPlayerId(String loserPlayerId) {
-        _losers.add(loserPlayerId);
+    public String setLoserPlayerId(String loserPlayerId, String reason) {
+        _losers.put(loserPlayerId, reason);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.sendMessage(loserPlayerId + " lost due to: " + reason);
+
         if (_losers.size() + 1 == _playerOrder.getAllPlayers().size()) {
             List<String> allPlayers = new LinkedList<String>(_playerOrder.getAllPlayers());
-            allPlayers.removeAll(_losers);
-            _winnerPlayerId = allPlayers.get(0);
+            allPlayers.removeAll(_losers.keySet());
+            setWinnerPlayerId(allPlayers.get(0), "Last remaining player in game");
             return allPlayers.get(0);
         }
         return null;
@@ -167,6 +174,12 @@ public class GameState {
             for (Map.Entry<Token, Integer> tokenIntegerEntry : physicalCardMapEntry.getValue().entrySet())
                 listener.addTokens(card, tokenIntegerEntry.getKey(), tokenIntegerEntry.getValue());
         }
+
+        for (Map.Entry<String, String> playerLoseReason : _losers.entrySet())
+            listener.sendMessage(playerLoseReason.getKey() + " lost due to: " + playerLoseReason.getValue());
+
+        if (_winnerPlayerId != null)
+            listener.sendMessage(_winnerPlayerId + " is the winner due to: " + _winReason);
     }
 
     private boolean isZonePublic(Zone zone) {

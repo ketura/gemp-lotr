@@ -18,7 +18,7 @@ public interface LotroGame {
 
     public void checkWinLoseConditions();
 
-    public void playerWon(String currentPlayerId);
+    public void playerWon(String currentPlayerId, String reason);
 
-    public void playerLost(String currentPlayerId);
+    public void playerLost(String currentPlayerId, String reason);
 }

@@ -509,6 +509,8 @@ public class ServerResource {
             }
             eventElem.setAttribute("opposingCardIds", sb.toString());
         }
+        if (gameEvent.getMessage() != null)
+            eventElem.setAttribute("message", gameEvent.getMessage());
 
         return eventElem;
     }
