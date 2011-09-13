@@ -34,4 +34,6 @@ public interface GameStateListener {
     public void addTokens(PhysicalCard card, Token token, int count);
 
     public void removeTokens(PhysicalCard card, Token token, int count);
+
+    public void sendMessage(String message);
 }

@@ -76,8 +76,8 @@ public class DefaultLotroGame implements LotroGame {
     }
 
     @Override
-    public void playerWon(String currentPlayerId) {
-        _gameState.setWinnerPlayerId(currentPlayerId);
+    public void playerWon(String currentPlayerId, String reason) {
+        _gameState.setWinnerPlayerId(currentPlayerId, reason);
         if (_gameResultListener != null) {
             Set<String> losers = new HashSet<String>(_gameState.getPlayerOrder().getAllPlayers());
             losers.remove(currentPlayerId);
@@ -86,8 +86,8 @@ public class DefaultLotroGame implements LotroGame {
     }
 
     @Override
-    public void playerLost(String currentPlayerId) {
-        String winner = _gameState.setLoserPlayerId(currentPlayerId);
+    public void playerLost(String currentPlayerId, String reason) {
+        String winner = _gameState.setLoserPlayerId(currentPlayerId, reason);
         if (winner != null && _gameResultListener != null) {
             Set<String> losers = new HashSet<String>(_gameState.getPlayerOrder().getAllPlayers());
             losers.remove(winner);
@@ -126,18 +126,18 @@ public class DefaultLotroGame implements LotroGame {
         if (gameState != null && gameState.getCurrentPhase() != Phase.GAME_SETUP) {
             // Ring-bearer death
             if (!Filters.canSpot(gameState, getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
-                playerLost(getGameState().getCurrentPlayerId());
+                playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is dead");
             }
             // Ring-bearer corruption
             PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
             int ringBearerResistance = ringBearer.getBlueprint().getResistance();
             if (getGameState().getBurdens() >= ringBearerResistance) {
-                playerLost(getGameState().getCurrentPlayerId());
+                playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
             }
             // Fellowship in regroup at the last site
             if (getGameState().getCurrentPhase() == Phase.REGROUP
                     && getGameState().getCurrentSiteNumber() == 9) {
-                playerWon(getGameState().getCurrentPlayerId());
+                playerWon(getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
             }
         }
     }

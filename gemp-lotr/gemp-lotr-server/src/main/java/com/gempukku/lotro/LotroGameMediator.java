@@ -12,7 +12,10 @@ import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class LotroGameMediator {
     private Map<String, GatheringParticipantCommunicationChannel> _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
@@ -22,21 +25,19 @@ public class LotroGameMediator {
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
 
     private final int _maxSecondsForGamePerPlayer = 60 * 30; // 30 minutes
-    private final int _channelInactivityTimeoutPeriod = 30; // 30 seconds
-    private final int _playerDecisionTimeoutPeriod = 60 * 5; // 5 minutes
+    private final int _channelInactivityTimeoutPeriod = 1000 * 30; // 30 seconds
+    private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
 
 
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, GameResultListener gameResultListener) {
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
-        List<String> participantSet = new LinkedList<String>();
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
         _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
 
         for (LotroGameParticipant participant : participants) {
             String participantId = participant.getPlayerId();
-            participantSet.add(participantId);
             decks.put(participantId, participant.getDeck());
             _playerClocks.put(participantId, 0);
         }
@@ -88,16 +89,25 @@ public class LotroGameMediator {
             // Channel is stale (user no longer connected to game, to save memory, we remove the channel
             // User can always reconnect and establish a new channel
             GatheringParticipantCommunicationChannel channel = playerChannels.getValue();
-            _lotroGame.removeGameStateListener(playerId, channel);
-            if (currentTime > channel.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod)
+            if (currentTime > channel.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {
+                _lotroGame.removeGameStateListener(playerId, channel);
                 _communicationChannels.remove(playerId);
+            }
         }
 
-        for (Map.Entry<String, Long> playerDecision : _decisionQuerySentTimes.entrySet()) {
-            String playerId = playerDecision.getKey();
-            long decisionSent = playerDecision.getValue();
-            if (currentTime > decisionSent + _playerDecisionTimeoutPeriod)
-                _lotroGame.playerLost(playerId);
+        if (_lotroGame.getGameState() != null && _lotroGame.getGameState().getWinnerPlayerId() == null) {
+            for (Map.Entry<String, Long> playerDecision : _decisionQuerySentTimes.entrySet()) {
+                String playerId = playerDecision.getKey();
+                long decisionSent = playerDecision.getValue();
+                if (currentTime > decisionSent + _playerDecisionTimeoutPeriod)
+                    _lotroGame.playerLost(playerId, "Player decision timed-out");
+            }
+        }
+
+        for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
+            String player = playerClock.getKey();
+            if (_maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player) < 0)
+                _lotroGame.playerLost(player, "Player run out of time");
         }
     }
 
@@ -126,22 +136,25 @@ public class LotroGameMediator {
 
     public synchronized void processCommunicationChannel(String participantId, ParticipantCommunicationVisitor visitor) {
         GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(participantId);
-        if (communicationChannel != null)
+        if (communicationChannel != null) {
             for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);
-        String warning = _userFeedback.consumeWarning(participantId);
-        if (warning != null)
-            visitor.visitWarning(warning);
-        AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
-        if (awaitingDecision != null)
-            visitor.visitAwaitingDecision(_lotroGame.getActionStack().getTopmostAction(), awaitingDecision);
+            String warning = _userFeedback.consumeWarning(participantId);
+            if (warning != null)
+                visitor.visitWarning(warning);
+            AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
+            if (awaitingDecision != null)
+                visitor.visitAwaitingDecision(_lotroGame.getActionStack().getTopmostAction(), awaitingDecision);
 
-        Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
-        for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
-            String player = playerClock.getKey();
-            secondsLeft.put(player, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
+            Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
+            for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
+                String player = playerClock.getKey();
+                secondsLeft.put(player, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
+            }
+            visitor.visitClock(secondsLeft);
+        } else {
+            visitor.visitWarning("Your browser was inactive for too long, please refresh your browser window to continue playing");
         }
-        visitor.visitClock(secondsLeft);
     }
 
     public synchronized void singupUserForGame(String participantId, ParticipantCommunicationVisitor visitor) {
