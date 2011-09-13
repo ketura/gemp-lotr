@@ -22,6 +22,7 @@ public class ShadowPlayersReconcileGameProcess implements GameProcess {
     @Override
     public GameProcess getNextProcess() {
         GameState gameState = _game.getGameState();
+        gameState.setFierceSkirmishes(false);
         PlayOrder reverseShadowOrder = gameState.getPlayerOrder().getClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
         reverseShadowOrder.getNextPlayer();
 

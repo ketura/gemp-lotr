@@ -12,8 +12,6 @@ var GempLotrGameUI = Class.extend({
     gameStateElem: null,
     alert: null,
     infoDialog: null,
-    assignmentDialog: null,
-    skirmishDialog: null,
 
     advPathGroup: null,
     supportOpponent: null,
@@ -24,6 +22,7 @@ var GempLotrGameUI = Class.extend({
     hand: null,
     specialGroup: null,
 
+    skirmishGroupDiv: null,
     skirmishShadowGroup: null,
     skirmishFellowshipGroup: null,
 
@@ -173,32 +172,6 @@ var GempLotrGameUI = Class.extend({
             minHeight: 80
         });
 
-        this.assignmentDialog = $("<div></div>")
-                .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            title: "Assignments",
-            resizable: true,
-            minHeight: 240,
-            minWidth: 400,
-            width: 500,
-            height: 200,
-            position: ["right", "bottom"]
-        });
-
-        this.skirmishDialog = $("<div></div>")
-                .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            title: "Skirmish",
-            resizable: true,
-            minHeight: 240,
-            minWidth: 400,
-            width: 500,
-            height: 200,
-            position: ["right", "top"]
-        });
-
         $(".ui-dialog-titlebar-close").hide();
 
         this.infoDialog = $("<div></div>")
@@ -239,7 +212,7 @@ var GempLotrGameUI = Class.extend({
 
             var chatHeight = 200;
 
-            var assignmentsCount = this.assignGroupDivs.length;
+            var assignmentsCount = this.assignGroupDivs.length + ((this.skirmishGroupDiv != null) ? 1 : 0);
 
             var charsWidth = width - (advPathWidth + specialUiWidth + padding * 3);
             var charsWidthWithAssignments = 2 * charsWidth / (2 + assignmentsCount);
@@ -254,13 +227,31 @@ var GempLotrGameUI = Class.extend({
             this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, currentPlayerTurn ? charsWidthWithAssignments : charsWidth, heightScales[3] * heightPerScale);
 
             var i = 0;
+
+            if (this.skirmishGroupDiv != null) {
+                var groupWidth = (charsWidth - charsWidthWithAssignments) / assignmentsCount - padding;
+                var groupHeight = currentPlayerTurn ? (heightScales[2] * heightPerScale + heightScales[3] * heightPerScale + padding) : (heightScales[1] * heightPerScale + heightScales[2] * heightPerScale + padding);
+                var x = advPathWidth + specialUiWidth + (padding * 2) + charsWidthWithAssignments + padding + i * (groupWidth + padding);
+                var y = currentPlayerTurn ? (padding * 3 + yScales[2] * heightPerScale) : (padding * 2 + yScales[1] * heightPerScale);
+                this.skirmishGroupDiv.css({left:x + "px", top:y + "px", width: groupWidth, height: groupHeight, position: "absolute"});
+                if (currentPlayerTurn) {
+                    this.skirmishShadowGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
+                    this.skirmishFellowshipGroup.setBounds(x + 3, y + heightScales[2] * heightPerScale + padding + 3, groupWidth - 6, heightScales[3] * heightPerScale - 6);
+                } else {
+                    this.skirmishFellowshipGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[1] * heightPerScale - 6);
+                    this.skirmishShadowGroup.setBounds(x + 3, y + heightScales[1] * heightPerScale + padding + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
+                }
+                i++;
+            }
+
+            var assignIndex = 0;
             for (var characterId in this.shadowAssignGroups) {
                 if (this.shadowAssignGroups.hasOwnProperty(characterId)) {
                     var groupWidth = (charsWidth - charsWidthWithAssignments) / assignmentsCount - padding;
                     var groupHeight = currentPlayerTurn ? (heightScales[2] * heightPerScale + heightScales[3] * heightPerScale + padding) : (heightScales[1] * heightPerScale + heightScales[2] * heightPerScale + padding);
                     var x = advPathWidth + specialUiWidth + (padding * 2) + charsWidthWithAssignments + padding + i * (groupWidth + padding);
                     var y = currentPlayerTurn ? (padding * 3 + yScales[2] * heightPerScale) : (padding * 2 + yScales[1] * heightPerScale);
-                    this.assignGroupDivs[i].css({left:x + "px", top:y + "px", width: groupWidth, height: groupHeight, position: "absolute"});
+                    this.assignGroupDivs[assignIndex].css({left:x + "px", top:y + "px", width: groupWidth, height: groupHeight, position: "absolute"});
                     if (currentPlayerTurn) {
                         this.shadowAssignGroups[characterId].setBounds(x + 3, y + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
                         this.freePeopleAssignGroups[characterId].setBounds(x + 3, y + heightScales[2] * heightPerScale + padding + 3, groupWidth - 6, heightScales[3] * heightPerScale - 6);
@@ -269,6 +260,7 @@ var GempLotrGameUI = Class.extend({
                         this.shadowAssignGroups[characterId].setBounds(x + 3, y + heightScales[1] * heightPerScale + padding + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
                     }
                     i++;
+                    assignIndex++;
                 }
             }
 
@@ -337,7 +329,7 @@ var GempLotrGameUI = Class.extend({
             }
         }
         if (gameEvents.length > 0)
-            this.layoutZones();
+            this.layoutUI();
 
         var decisions = element.getElementsByTagName("decision");
         if (decisions.length == 1) {
@@ -409,33 +401,21 @@ var GempLotrGameUI = Class.extend({
             $(this).data("card").skirmish = true;
         });
 
-        this.moveCardToElement(cardId, this.skirmishDialog);
-        for (var i = 0; i < opposingCardIds.length; i++)
-            this.moveCardToElement(opposingCardIds[i], this.skirmishDialog);
-
-        var that = this;
-        this.skirmishDialog.dialog("open");
-        this.skirmishDialog.bind("dialogresize", function() {
-            that.skirmishDialogResized();
-        });
-
-        this.skirmishDialogResized();
+        this.skirmishGroupDiv = $("<div class='ui-widget-content skirmish'></div>");
+        this.skirmishGroupDiv.css({"border-radius": "7px", "border-color": "#ff0000"});
+        $("#main").append(this.skirmishGroupDiv);
     },
 
     endSkirmish: function() {
-        this.skirmishDialog.dialog("close");
-        this.skirmishDialog.unbind("dialogresize");
+        this.skirmishGroupDiv.remove();
+        this.skirmishGroupDiv = null;
 
-        var that = this;
         $(".card").each(function() {
             var cardData = $(this).data("card");
             if (cardData.skirmish == true) {
-                that.moveCardToElement(cardData.cardId, $("#main"));
                 delete cardData.skirmish;
             }
         });
-
-        this.skirmishDialog.html("");
     },
 
     removeAssignment: function(element) {
@@ -979,11 +959,9 @@ var GempLotrGameUI = Class.extend({
             delete this.shadowAssignGroups[previousCharacterId];
             delete this.freePeopleAssignGroups[previousCharacterId];
 
-            this.assignGroupDivs.remove(this.assignGroupDivs.length - 1).remove();
+            this.assignGroupDivs[this.assignGroupDivs.length - 1].remove();
             this.assignGroupDivs.splice(this.assignGroupDivs.length - 1, 1);
         }
-
-        this.layoutUI();
     },
 
     assignMinion: function(minionId, characterId) {
@@ -1007,8 +985,6 @@ var GempLotrGameUI = Class.extend({
         }
 
         $(".card:cardId(" + minionId + ")").data("card").assign = characterId;
-
-        this.layoutUI();
     },
 
     doAssignments: function(freeCharacters, minions) {
@@ -1023,7 +999,7 @@ var GempLotrGameUI = Class.extend({
                 } else {
                     that.unassignMinion(cardId);
                 }
-                that.layoutZones();
+                that.layoutUI();
                 that.doAssignments(freeCharacters, minions);
             };
 
@@ -1047,32 +1023,6 @@ var GempLotrGameUI = Class.extend({
             element.append(attachedDiv);
             attachedDiv.data("card", attachedData);
         }
-    },
-
-    assignDialogResized: function() {
-        var width = this.assignmentDialog.width();
-        var height = this.assignmentDialog.height() + 10;
-
-        var groupCount = getMapSize(this.shadowAssignGroups);
-        var cellWidth = Math.floor(width / groupCount);
-        var cellHeight = Math.floor(height / 2);
-        var index = 0;
-        for (var characterId in this.shadowAssignGroups) {
-            if (this.shadowAssignGroups.hasOwnProperty(characterId)) {
-                this.shadowAssignGroups[characterId].setBounds(index * cellWidth, 0, cellWidth, cellHeight);
-                this.freePeopleAssignGroups[characterId].setBounds(index * cellWidth, cellHeight, cellWidth, cellHeight);
-                index++;
-            }
-        }
-    },
-
-    skirmishDialogResized: function() {
-        var width = this.skirmishDialog.width();
-        var height = this.skirmishDialog.height() + 10;
-
-        var cellHeight = Math.floor(height / 2);
-        this.skirmishShadowGroup.setBounds(0, 0, width, cellHeight);
-        this.skirmishFellowshipGroup.setBounds(0, cellHeight, width, cellHeight);
     },
 
     clearSelection: function() {
