@@ -94,6 +94,7 @@ public class LotroServer {
             for (Map.Entry<String, Date> finishedGame : copy.entrySet()) {
                 if (finishedGame.getValue().getTime() > currentTime + _timeToGameDeath) {
                     String gameId = finishedGame.getKey();
+                    log.debug("Removing stale game: " + gameId);
                     _runningGames.remove(gameId);
                     _chatServer.destroyChatRoom(getChatRoomName(gameId));
                     _finishedGamesTime.remove(gameId);
