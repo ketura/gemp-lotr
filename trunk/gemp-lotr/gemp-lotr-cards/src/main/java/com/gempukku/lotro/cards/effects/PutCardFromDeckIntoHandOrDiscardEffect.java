@@ -28,7 +28,9 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends UnrespondableEffect 
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        game.getGameState().removeCardFromZone(_physicalCard);
-        game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
+        if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _physicalCard.getOwner())) {
+            game.getGameState().removeCardFromZone(_physicalCard);
+            game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
+        }
     }
 }

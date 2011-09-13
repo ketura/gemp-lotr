@@ -17,6 +17,7 @@ public class DrawCardEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        game.getGameState().playerDrawsCard(_playerId);
+        if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _playerId))
+            game.getGameState().playerDrawsCard(_playerId);
     }
 }
