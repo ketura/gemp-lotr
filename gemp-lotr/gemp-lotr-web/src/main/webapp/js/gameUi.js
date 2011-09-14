@@ -169,9 +169,15 @@ var GempLotrGameUI = Class.extend({
                 .dialog({
                     autoOpen: false,
                     closeOnEscape: false,
-                    resizable: false,
+                    resizable: true,
                     minHeight: 80
                 });
+
+        this.dialogInstance.bind("resize", function() {
+            var width = $(this).width();
+            var height = $(this).height();
+            this.specialGroup.setBounds(this.padding, this.padding, width - 2 * this.padding, height - 2 * this.padding);
+        });
 
         $(".ui-dialog-titlebar-close").hide();
 
@@ -179,13 +185,12 @@ var GempLotrGameUI = Class.extend({
                 .dialog({
                     autoOpen: false,
                     closeOnEscape: true,
-                    resizable: false,
+                    resizable: true,
                     title: "Card information",
                     minHeight: 80,
                     minWidth: 200,
                     width: 600,
-                    height: 300,
-                    maxHeight: 300
+                    height: 300
                 });
 
     },
