@@ -54,7 +54,7 @@ public class DefaultCostToEffectAction implements CostToEffectAction {
     public Effect nextEffect() {
         if (!_sentMessage && _physicalCard != null) {
             _sentMessage = true;
-            return new SendMessageEffect(_physicalCard.getBlueprint().getName() + " is used");
+            return new SendMessageEffect(getMessage());
         }
 
         if (_costsNextIndex < _costs.size()) {
@@ -70,6 +70,10 @@ public class DefaultCostToEffectAction implements CostToEffectAction {
         }
 
         return null;
+    }
+
+    protected String getMessage() {
+        return _physicalCard.getBlueprint().getName() + " is used";
     }
 
     private boolean checkNoFailedOrCancelledCost() {
