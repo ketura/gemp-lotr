@@ -7,6 +7,10 @@ and go with different selection.
 10. Add active/all cards switch to the user interface.
 13. Add dead/discard pile displays.
 14. Add hand/deck card count displays.
+15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
+16. Add an option to view an ongoing game.
+17. Timeout users from ChatServer the same way they are timed out of GameServer.
+18. 
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
