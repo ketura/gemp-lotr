@@ -36,10 +36,12 @@ public class PayTwilightCostEffect extends UnrespondableEffect {
         String currentPlayerId = game.getGameState().getCurrentPlayerId();
         if (currentPlayerId.equals(_physicalCard.getOwner())) {
             game.getGameState().addTwilight(twilightCost);
-            game.getGameState().sendMessage(_physicalCard.getOwner() + " adds " + twilightCost + " to twilight pool");
+            if (twilightCost > 0)
+                game.getGameState().sendMessage(_physicalCard.getOwner() + " adds " + twilightCost + " to twilight pool");
         } else {
             game.getGameState().removeTwilight(twilightCost);
-            game.getGameState().sendMessage(_physicalCard.getOwner() + " removes " + twilightCost + " from twilight pool");
+            if (twilightCost > 0)
+                game.getGameState().sendMessage(_physicalCard.getOwner() + " removes " + twilightCost + " from twilight pool");
         }
     }
 }
