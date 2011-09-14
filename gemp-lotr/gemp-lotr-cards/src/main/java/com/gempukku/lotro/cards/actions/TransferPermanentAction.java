@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TransferPermanentAction extends DefaultCostToEffectAction {
     public TransferPermanentAction(final PhysicalCard card, LotroGame game, Filter filter) {
-        super(null, null, "Transfer " + card.getBlueprint().getName());
+        super(card, null, "Transfer " + card.getBlueprint().getName());
 
         addCost(new ChooseActiveCardsEffect(card.getOwner(), "Choose target to attach to", 1, 1, filter) {
             @Override

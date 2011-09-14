@@ -42,11 +42,12 @@ public class DiscardCardFromPlayEffect extends AbstractEffect {
     public EffectResult playEffect(LotroGame game) {
         _discardedCards = new LinkedList<PhysicalCard>();
 
-        if (game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), _card, _source)) {
+        if (_source == null || game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), _card, _source)) {
             _discardedCards.add(_card);
 
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_source.getOwner() + " discards " + _card.getBlueprint().getName() + " from play using " + _source.getBlueprint().getName());
+            if (_source != null)
+                gameState.sendMessage(_source.getOwner() + " discards " + _card.getBlueprint().getName() + " from play using " + _source.getBlueprint().getName());
             gameState.stopAffecting(_card);
             gameState.removeCardFromZone(_card);
             gameState.addCardToZone(_card, Zone.DISCARD);

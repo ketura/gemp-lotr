@@ -28,7 +28,7 @@ public class WoundCharacterEffect extends AbstractEffect {
 
     @Override
     public String getText() {
-        return "Wound target";
+        return "Wound " + _woundTarget.getBlueprint().getName();
     }
 
     @Override
