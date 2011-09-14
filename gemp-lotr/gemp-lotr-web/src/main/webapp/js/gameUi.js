@@ -166,26 +166,26 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.dialogInstance = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: false,
-            minHeight: 80
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: false,
+                    minHeight: 80
+                });
 
         $(".ui-dialog-titlebar-close").hide();
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information",
-            minHeight: 80,
-            minWidth: 200,
-            width: 600,
-            height: 300,
-            maxHeight: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information",
+                    minHeight: 80,
+                    minWidth: 200,
+                    width: 600,
+                    height: 300,
+                    maxHeight: 300
+                });
 
     },
 
@@ -478,7 +478,7 @@ var GempLotrGameUI = Class.extend({
                     if (index != -1)
                         cardData.attachedCards.splice(index, 1);
                 }
-                );
+        );
 
         var card = $(".card:cardId(" + cardId + ")");
         var cardData = card.data("card");
@@ -541,7 +541,7 @@ var GempLotrGameUI = Class.extend({
                         if (index != -1)
                             cardData.attachedCards.splice(index, 1);
                     }
-                    );
+            );
         }
 
         card.remove();
@@ -608,13 +608,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#integerDecision").val());
-            }
-        }
-                )
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#integerDecision").val());
+                    }
+                }
+        )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
         ;
@@ -648,13 +648,13 @@ var GempLotrGameUI = Class.extend({
         this.dialogInstance
                 .html(html)
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-            }
-        }
-                )
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                }
+        )
                 .dialog("option", "width", "400")
                 .dialog("option", "height", "auto");
 
@@ -775,11 +775,13 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
+        var selectedCardIds = new Array();
+
         this.alert.html(text + "<br><button id='DONE'>DONE</button>");
         $("#DONE").button().click(function() {
             that.alert.html("");
             that.clearSelection();
-            that.decisionFunction(id, "");
+            that.decisionFunction(id, "" + selectedCardIds);
         });
 
         for (var i = 0; i < cardIds.length; i++) {
@@ -802,9 +804,8 @@ var GempLotrGameUI = Class.extend({
             var actions = cardIdElem.data("action");
             if (actions.length == 1) {
                 var action = actions[0];
-                that.alert.html("");
+                selectedCardIds.push(action.actionId);
                 that.clearSelection();
-                that.decisionFunction(id, "" + action.actionId);
             }
         };
 
