@@ -31,7 +31,7 @@ public class Card1_344 extends AbstractSite {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
@@ -42,13 +42,13 @@ public class Card1_344 extends AbstractSite {
 
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
                 List<Effect> possibleEffects = new LinkedList<Effect>();
-                possibleEffects.add(new ExertCharacterEffect(gimli));
+                possibleEffects.add(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), gimli));
                 possibleEffects.add(
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
                             protected void cardsSelected(List<PhysicalCard> cards) {
-                                action.addEffect(new ExertCharacterEffect(cards.get(0)));
-                                action.addEffect(new ExertCharacterEffect(cards.get(1)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(0)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(1)));
                             }
                         });
                 action.addEffect(
@@ -58,7 +58,7 @@ public class Card1_344 extends AbstractSite {
             if (gimliCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Gimli must exert");
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
-                action.addEffect(new ExertCharacterEffect(gimli));
+                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), gimli));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {
@@ -67,8 +67,8 @@ public class Card1_344 extends AbstractSite {
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
                             protected void cardsSelected(List<PhysicalCard> cards) {
-                                action.addEffect(new ExertCharacterEffect(cards.get(0)));
-                                action.addEffect(new ExertCharacterEffect(cards.get(1)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(0)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(1)));
                             }
                         });
 

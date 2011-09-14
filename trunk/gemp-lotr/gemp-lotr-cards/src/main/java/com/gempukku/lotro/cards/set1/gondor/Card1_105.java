@@ -29,7 +29,7 @@ public class Card1_105 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)), Filters.canExert())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert a GONDOR character to wound a SAURON minion.");
@@ -39,7 +39,7 @@ public class Card1_105 extends AbstractPermanent {
                     new ChooseActiveCardEffect(playerId, "Choose a SAURON minion", Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(PhysicalCard sauronMinion) {
-                            action.addEffect(new WoundCharacterEffect(sauronMinion));
+                            action.addEffect(new WoundCharacterEffect(playerId, sauronMinion));
                         }
                     });
             return Collections.singletonList(action);

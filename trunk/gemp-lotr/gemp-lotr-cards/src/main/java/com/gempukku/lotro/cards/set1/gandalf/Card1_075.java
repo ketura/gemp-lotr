@@ -65,7 +65,7 @@ public class Card1_075 extends AbstractAttachableFPPossession {
                 keyword = Keyword.REGROUP;
 
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, keyword, "Exert Frodo to reveal an opponent's hand. Remove (1) for each Orc revealed (limit (4)).");
-            action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
+            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
             action.addEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

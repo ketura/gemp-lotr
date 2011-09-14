@@ -22,6 +22,7 @@ public class DiscardTopCardFromDeckEffect extends UnrespondableEffect {
     public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
         PhysicalCard card = gameState.removeTopDeckCard(_playerId);
+        gameState.sendMessage(_playerId + " discards top card from his or her deck - " + card.getBlueprint().getName());
         gameState.addCardToZone(card, Zone.DISCARD);
     }
 }

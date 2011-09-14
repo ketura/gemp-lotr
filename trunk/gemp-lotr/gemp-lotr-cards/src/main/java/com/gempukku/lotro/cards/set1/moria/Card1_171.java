@@ -36,7 +36,7 @@ public class Card1_171 extends AbstractEvent {
                                     @Override
                                     protected void cardSelected(PhysicalCard moriaOrc) {
                                         action.addEffect(
-                                                new AssignmentEffect(companion, Collections.singletonList(moriaOrc), "Frenzy effect"));
+                                                new AssignmentEffect(playerId, companion, Collections.singletonList(moriaOrc), "Frenzy effect"));
                                     }
                                 });
                     }

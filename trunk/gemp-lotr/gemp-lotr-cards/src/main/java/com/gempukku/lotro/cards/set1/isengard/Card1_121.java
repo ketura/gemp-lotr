@@ -39,13 +39,13 @@ public class Card1_121 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI), Filters.canExert()) {
                     @Override
                     protected void cardSelected(PhysicalCard urukHai) {
-                        action.addCost(new ExertCharacterEffect(urukHai));
+                        action.addCost(new ExertCharacterEffect(playerId, urukHai));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(urukHai), 3), Phase.SKIRMISH));

@@ -39,12 +39,12 @@ public class Card1_267 extends AbstractMinion {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert this minion to wound a character he is skirmishing.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getShadowCharacters().contains(self)) {
                 PhysicalCard fpChar = skirmish.getFellowshipCharacter();
                 if (fpChar != null)
-                    action.addEffect(new WoundCharacterEffect(fpChar));
+                    action.addEffect(new WoundCharacterEffect(playerId, fpChar));
             }
             return Collections.singletonList(action);
         }

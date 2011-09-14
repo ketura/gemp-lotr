@@ -38,7 +38,7 @@ public class Card1_235 extends AbstractMinion {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Exert Ulaire Otsea to make a WRAITH minion fierce until the regroup phase.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a WRAITH minion", Filters.culture(Culture.WRAITH), Filters.type(CardType.MINION)) {
                         @Override

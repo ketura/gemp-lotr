@@ -37,7 +37,7 @@ public class Card1_223 extends AbstractEvent {
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a Nazgul", true, Filters.race(Race.NAZGUL), Filters.canExert()));
         List<PhysicalCard> archers = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER));
         for (PhysicalCard archer : archers)
-            action.addEffect(new WoundCharacterEffect(archer));
+            action.addEffect(new WoundCharacterEffect(playerId, archer));
         return action;
     }
 

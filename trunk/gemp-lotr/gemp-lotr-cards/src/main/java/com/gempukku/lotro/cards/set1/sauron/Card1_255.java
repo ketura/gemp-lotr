@@ -33,7 +33,7 @@ public class Card1_255 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a SAURON Orc", true, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert()) {
@@ -45,7 +45,7 @@ public class Card1_255 extends AbstractEvent {
                                 && skirmish.getShadowCharacters().contains(minion)
                                 && skirmish.getFellowshipCharacter() != null) {
                             action.addEffect(
-                                    new WoundCharacterEffect(skirmish.getFellowshipCharacter()));
+                                    new WoundCharacterEffect(playerId, skirmish.getFellowshipCharacter()));
                         }
                     }
                 });

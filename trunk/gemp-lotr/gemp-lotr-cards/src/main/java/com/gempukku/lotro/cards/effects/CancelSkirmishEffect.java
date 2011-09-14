@@ -6,6 +6,7 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 public class CancelSkirmishEffect extends UnrespondableEffect {
     @Override
     public void doPlayEffect(LotroGame game) {
+        game.getGameState().sendMessage("Skirmish is cancelled");
         game.getGameState().getSkirmish().cancel();
     }
 }

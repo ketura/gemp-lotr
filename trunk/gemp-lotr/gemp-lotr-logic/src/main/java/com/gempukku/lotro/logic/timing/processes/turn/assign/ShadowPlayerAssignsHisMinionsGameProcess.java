@@ -66,7 +66,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
 
                             DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Shadow player assignments");
                             action.addEffect(
-                                    new AssignmentEffect(assignments, "Shadow player assignments"));
+                                    new AssignmentEffect(_playerId, assignments, "Shadow player assignments"));
 
                             _game.getActionsEnvironment().addActionToStack(action);
                         }

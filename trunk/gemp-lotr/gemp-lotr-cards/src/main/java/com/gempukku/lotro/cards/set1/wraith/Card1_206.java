@@ -35,12 +35,12 @@ public class Card1_206 extends AbstractPermanent {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && ((StartOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Draw 1 card");
             action.addEffect(
-                    new DrawCardEffect(self.getOwner()));
+                    new DrawCardEffect(self.getOwner(), 1));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
@@ -57,7 +57,7 @@ public class Card1_206 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(PhysicalCard nazgul) {
                             action.addEffect(
-                                    new ExertCharacterEffect(nazgul));
+                                    new ExertCharacterEffect(self.getOwner(), nazgul));
                         }
                     });
             possibleEffects.add(

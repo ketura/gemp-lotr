@@ -40,8 +40,8 @@ public class Card1_311 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Sam to remove a burden.");
-            action.addCost(new ExertCharacterEffect(self));
-            action.addEffect(new RemoveBurdenEffect());
+            action.addCost(new ExertCharacterEffect(playerId, self));
+            action.addEffect(new RemoveBurdenEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;

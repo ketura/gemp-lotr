@@ -21,6 +21,7 @@ public class DiscardCardFromHandEffect extends UnrespondableEffect {
     @Override
     public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
+        gameState.sendMessage(_card.getOwner() + " discards " + _card.getBlueprint().getName() + " from hand");
         gameState.removeCardFromZone(_card);
         gameState.addCardToZone(_card, Zone.DISCARD);
     }

@@ -37,13 +37,13 @@ public class Card1_065 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseActiveCardEffect(playerId, "Choose and Elf ally", Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert()) {
                     @Override
                     protected void cardSelected(PhysicalCard elfAlly) {
-                        action.addCost(new ExertCharacterEffect(elfAlly));
+                        action.addCost(new ExertCharacterEffect(playerId, elfAlly));
 
                         List<Modifier> modifiers = new LinkedList<Modifier>();
                         modifiers.add(new StrengthModifier(null, null, 3));

@@ -36,16 +36,16 @@ public class Card1_056 extends AbstractAlly {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert to wound an Uruk-hai");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                         @Override
                         protected void cardSelected(PhysicalCard urukHai) {
-                            action.addEffect(new WoundCharacterEffect(urukHai));
+                            action.addEffect(new WoundCharacterEffect(playerId, urukHai));
                         }
                     });
             return Collections.singletonList(action);

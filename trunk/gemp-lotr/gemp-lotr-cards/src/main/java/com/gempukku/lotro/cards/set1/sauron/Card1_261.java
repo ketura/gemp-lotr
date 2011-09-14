@@ -47,9 +47,9 @@ public class Card1_261 extends AbstractMinion {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert this minion to cancel that event.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             action.addEffect(
-                    new CancelEffect(effect));
+                    new CancelEffect(playerId, effect));
             return Collections.singletonList(action);
         }
         return null;

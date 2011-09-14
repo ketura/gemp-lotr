@@ -26,13 +26,13 @@ public class Card1_315 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                     @Override
                     protected void cardSelected(PhysicalCard hobbit) {
-                        action.addEffect(new HealCharacterEffect(hobbit));
+                        action.addEffect(new HealCharacterEffect(playerId, hobbit));
                     }
                 });
         return action;

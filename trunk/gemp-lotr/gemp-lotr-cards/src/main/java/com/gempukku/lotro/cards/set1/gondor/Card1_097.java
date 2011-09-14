@@ -38,7 +38,7 @@ public class Card1_097 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Boromir to make a Hobbit strength +3.");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override

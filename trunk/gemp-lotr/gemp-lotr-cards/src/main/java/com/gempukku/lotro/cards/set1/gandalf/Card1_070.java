@@ -36,7 +36,7 @@ public class Card1_070 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Barliman Butterbur to take a GANDALF event into hand from your discard pile.");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose GANDALF event", game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.GANDALF), Filters.type(CardType.EVENT)), 1, 1) {
                         @Override

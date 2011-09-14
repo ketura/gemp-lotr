@@ -51,8 +51,8 @@ public class Card1_124 extends AbstractEvent {
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose an ISENGARD minion", true, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()));
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
-        possibleEffects.add(new ExertCharacterEffect(game.getGameState().getRingBearer(fpPlayer)));
-        possibleEffects.add(new AddBurdenEffect(fpPlayer));
+        possibleEffects.add(new ExertCharacterEffect(playerId, game.getGameState().getRingBearer(fpPlayer)));
+        possibleEffects.add(new AddBurdenEffect(playerId));
 
         action.addEffect(
                 new ChoiceEffect(action, fpPlayer, possibleEffects, false));

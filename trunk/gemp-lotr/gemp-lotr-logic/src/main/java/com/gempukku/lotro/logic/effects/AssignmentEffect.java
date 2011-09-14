@@ -14,8 +14,10 @@ import java.util.Map;
 public class AssignmentEffect extends AbstractEffect {
     private Map<PhysicalCard, List<PhysicalCard>> _assignments;
     private String _text;
+    private String _playerId;
 
-    public AssignmentEffect(Map<PhysicalCard, List<PhysicalCard>> assignments, String text) {
+    public AssignmentEffect(String playerId, Map<PhysicalCard, List<PhysicalCard>> assignments, String text) {
+        _playerId = playerId;
         // Sanitize the assignments
         _assignments = new HashMap<PhysicalCard, List<PhysicalCard>>();
         for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : assignments.entrySet()) {
@@ -27,8 +29,8 @@ public class AssignmentEffect extends AbstractEffect {
         _text = text;
     }
 
-    public AssignmentEffect(PhysicalCard fpChar, List<PhysicalCard> minions, String text) {
-        this(Collections.singletonMap(fpChar, minions), text);
+    public AssignmentEffect(String playerId, PhysicalCard fpChar, List<PhysicalCard> minions, String text) {
+        this(playerId, Collections.singletonMap(fpChar, minions), text);
     }
 
     @Override
@@ -48,6 +50,7 @@ public class AssignmentEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
+        game.getGameState().sendMessage(_playerId + " assigns minion(s) to skirmish");
         for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : _assignments.entrySet()) {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             List<PhysicalCard> minions = physicalCardListEntry.getValue();

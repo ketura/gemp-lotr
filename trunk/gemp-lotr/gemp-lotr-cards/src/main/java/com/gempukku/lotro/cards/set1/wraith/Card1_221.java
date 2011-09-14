@@ -59,7 +59,7 @@ public class Card1_221 extends AbstractAttachable {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert bearer to discard a Free Peoples condition.");
             action.addCost(
-                    new ExertCharacterEffect(self.getAttachedTo()));
+                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
                         @Override

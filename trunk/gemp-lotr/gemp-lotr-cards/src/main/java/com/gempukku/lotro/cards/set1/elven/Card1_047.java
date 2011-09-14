@@ -54,7 +54,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ExertCharacterEffect(self.getAttachedTo()));
+                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, true, 2));
 

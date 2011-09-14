@@ -31,7 +31,7 @@ public class Card1_318 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert()) >= 2) {
@@ -41,8 +41,8 @@ public class Card1_318 extends AbstractPermanent {
                     new ChooseActiveCardsEffect(playerId, "Choose Hobbits", 2, 2, Filters.race(Race.HOBBIT), Filters.canExert()) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> cards) {
-                            action.addCost(new ExertCharacterEffect(cards.get(0)));
-                            action.addCost(new ExertCharacterEffect(cards.get(1)));
+                            action.addCost(new ExertCharacterEffect(playerId, cards.get(0)));
+                            action.addCost(new ExertCharacterEffect(playerId, cards.get(1)));
                         }
                     });
             action.addCost(new DiscardCardFromPlayEffect(self, self));

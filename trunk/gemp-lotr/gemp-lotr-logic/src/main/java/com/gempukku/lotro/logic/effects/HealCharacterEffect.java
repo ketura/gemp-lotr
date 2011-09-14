@@ -7,9 +7,11 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.HealResult;
 
 public class HealCharacterEffect extends AbstractEffect {
+    private String _playerId;
     private PhysicalCard _physicalCard;
 
-    public HealCharacterEffect(PhysicalCard physicalCard) {
+    public HealCharacterEffect(String playerId, PhysicalCard physicalCard) {
+        _playerId = playerId;
         _physicalCard = physicalCard;
     }
 
@@ -35,6 +37,7 @@ public class HealCharacterEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
+        game.getGameState().sendMessage(_playerId + " heals " + _physicalCard.getBlueprint().getName());
         game.getGameState().removeWound(_physicalCard);
         return new HealResult(_physicalCard);
     }

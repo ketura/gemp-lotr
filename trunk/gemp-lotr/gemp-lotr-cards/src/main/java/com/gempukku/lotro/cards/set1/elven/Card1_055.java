@@ -43,7 +43,7 @@ public class Card1_055 extends AbstractPermanent {
                 && opponentsHavingAtLeast7Cards(game, playerId).length > 0) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert Galadriel to look at 2 random cards, discard one");
             PhysicalCard galadriel = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"));
-            action.addCost(new ExertCharacterEffect(galadriel));
+            action.addCost(new ExertCharacterEffect(playerId, galadriel));
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new MultipleChoiceAwaitingDecision(1, "Choose opponent with at least 7 cards in hand", opponentsHavingAtLeast7Cards(game, playerId)) {

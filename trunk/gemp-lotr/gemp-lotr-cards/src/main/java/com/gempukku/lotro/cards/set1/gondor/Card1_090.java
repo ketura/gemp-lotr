@@ -48,11 +48,11 @@ public class Card1_090 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert Aragorn to wound a minion; Aragorn does not add to the fellowship archery total.");
-            action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
+            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
             action.addCost(
                     new AddUntilEndOfPhaseModifierEffect(
                             new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.ARCHERY));
@@ -60,7 +60,7 @@ public class Card1_090 extends AbstractAttachableFPPossession {
                     new ChooseActiveCardEffect(playerId, "Choose minion", Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
-                            action.addEffect(new WoundCharacterEffect(minion));
+                            action.addEffect(new WoundCharacterEffect(playerId, minion));
                         }
                     });
             return Collections.singletonList(action);

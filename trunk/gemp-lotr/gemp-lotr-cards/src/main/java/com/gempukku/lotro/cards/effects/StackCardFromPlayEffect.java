@@ -43,6 +43,7 @@ public class StackCardFromPlayEffect extends UnrespondableEffect {
             gameState.addCardToZone(stackedCard, Zone.DISCARD);
         }
 
+        game.getGameState().sendMessage(_card.getOwner() + " stacks " + _card.getBlueprint().getName() + " from play on " + _stackOn.getBlueprint().getName());
         game.getGameState().stackCard(_card, _stackOn);
     }
 }

@@ -39,7 +39,7 @@ public class PlayCardEffect extends AbstractEffect {
 
     @Override
     public String getText() {
-        return "Played card " + _cardPlayed.getBlueprint().getName();
+        return "Play card " + _cardPlayed.getBlueprint().getName();
     }
 
     @Override

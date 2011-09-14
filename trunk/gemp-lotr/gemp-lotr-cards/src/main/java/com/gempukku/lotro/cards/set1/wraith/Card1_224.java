@@ -56,7 +56,7 @@ public class Card1_224 extends AbstractResponseEvent {
                                         @Override
                                         protected void cardSelected(PhysicalCard nazgul) {
                                             PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                            action.addEffect(new AssignmentEffect(ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
+                                            action.addEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
                                             game.getGameState().setCancelRingText(true);
                                             game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
                                                     new AbstractActionProxy() {

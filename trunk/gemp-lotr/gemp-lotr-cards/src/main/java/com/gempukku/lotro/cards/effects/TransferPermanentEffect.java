@@ -17,6 +17,7 @@ public class TransferPermanentEffect extends UnrespondableEffect {
     @Override
     public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
+        gameState.sendMessage(_physicalCard.getOwner() + " transfers " + _physicalCard.getBlueprint().getName() + " to " + _targetCard.getBlueprint().getName());
         gameState.transferCard(_physicalCard, _targetCard);
     }
 }

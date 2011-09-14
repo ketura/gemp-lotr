@@ -17,6 +17,7 @@ public class AddBurdenEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        game.getGameState().addBurdens(_playerId, 1);
+        game.getGameState().sendMessage(_playerId + " adds a burden");
+        game.getGameState().addBurdens(1);
     }
 }

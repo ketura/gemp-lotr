@@ -40,9 +40,9 @@ public class Card1_287 extends AbstractResponseEvent {
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((HealCharacterEffect) effect).getCard(), Keyword.RING_BEARER)) {
             PlayEventAction action = new PlayEventAction(self);
             action.addCost(
-                    new CancelEffect(effect));
+                    new CancelEffect(playerId, effect));
             action.addEffect(
-                    new RemoveBurdenEffect());
+                    new RemoveBurdenEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;

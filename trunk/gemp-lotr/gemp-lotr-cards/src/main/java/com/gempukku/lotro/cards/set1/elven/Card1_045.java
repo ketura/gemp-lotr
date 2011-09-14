@@ -39,7 +39,7 @@ public class Card1_045 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Galadriel to play an Elf for free");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.race(Race.ELF), Filters.playable(game, -1000)) {
                         @Override
@@ -61,7 +61,7 @@ public class Card1_045 extends AbstractAlly {
 
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal every ally whose home is site 6");
             for (PhysicalCard ally : allies)
-                action.addEffect(new HealCharacterEffect(ally));
+                action.addEffect(new HealCharacterEffect(ally.getOwner(), ally));
 
             return Collections.singletonList(action);
         }

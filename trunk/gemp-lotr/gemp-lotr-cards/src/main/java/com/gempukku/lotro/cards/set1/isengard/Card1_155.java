@@ -39,7 +39,7 @@ public class Card1_155 extends AbstractMinion {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Exert this minion. Discard a card from the top of your draw deck for each ISENGARD minion you spot. Add a burden for each Shadow card discarded in this way.");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             int isengardMinionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
             for (int i = 0; i < isengardMinionCount; i++) {
                 action.addEffect(
@@ -48,7 +48,7 @@ public class Card1_155 extends AbstractMinion {
                             public void doPlayEffect(LotroGame game) {
                                 List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                                 if (deck.size() > 0 && deck.get(0).getBlueprint().getSide() == Side.SHADOW)
-                                    action.addEffect(new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+                                    action.addEffect(new AddBurdenEffect(playerId));
                             }
                         });
                 action.addEffect(new DiscardTopCardFromDeckEffect(playerId));

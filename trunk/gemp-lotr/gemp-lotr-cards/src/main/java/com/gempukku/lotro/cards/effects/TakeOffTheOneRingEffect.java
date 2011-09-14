@@ -11,6 +11,7 @@ public class TakeOffTheOneRingEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
+        game.getGameState().sendMessage("Ring-bearer takes off The One Ring");
         game.getGameState().setWearingRing(false);
     }
 }

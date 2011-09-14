@@ -5,9 +5,11 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class CancelEffect extends UnrespondableEffect {
+    private String _playerId;
     private Effect _effect;
 
-    public CancelEffect(Effect effect) {
+    public CancelEffect(String playerId, Effect effect) {
+        _playerId = playerId;
         _effect = effect;
     }
 
@@ -18,6 +20,7 @@ public class CancelEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
+        game.getGameState().sendMessage(_playerId + " cancels effect - " + _effect.getText());
         _effect.cancel();
     }
 }

@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.actions;
 
-import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
-import com.gempukku.lotro.cards.effects.PutCardIntoDiscardEffect;
-import com.gempukku.lotro.cards.effects.RemoveCardFromZoneEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,6 +34,7 @@ public class PlayEventAction implements CostToEffectAction {
         _source = card;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
+        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + card.getBlueprint().getName() + " from " + card.getZone().getHumanReadable()));
         preCostEffects.add(new RemoveCardFromZoneEffect(card));
         preCostEffects.add(new PayTwilightCostEffect(card));
         if (card.getZone() == Zone.DECK)

@@ -6,6 +6,12 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.RemoveBurdenResult;
 
 public class RemoveBurdenEffect extends AbstractEffect {
+    private String _playerId;
+
+    public RemoveBurdenEffect(String playerId) {
+        _playerId = playerId;
+    }
+
     @Override
     public boolean canPlayEffect(LotroGame game) {
         return game.getGameState().getBurdens() > 0;
@@ -23,6 +29,7 @@ public class RemoveBurdenEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
+        game.getGameState().sendMessage(_playerId + " removes a burden");
         game.getGameState().removeBurdens(1);
         return new RemoveBurdenResult();
     }

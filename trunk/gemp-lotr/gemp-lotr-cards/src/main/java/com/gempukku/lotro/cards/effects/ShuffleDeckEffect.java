@@ -12,6 +12,7 @@ public class ShuffleDeckEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
+        game.getGameState().sendMessage(_playerId + " shuffles his or her deck");
         game.getGameState().shuffleDeck(_playerId);
     }
 }

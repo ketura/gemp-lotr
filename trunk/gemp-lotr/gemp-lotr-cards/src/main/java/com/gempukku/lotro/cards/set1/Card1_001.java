@@ -64,7 +64,7 @@ public class Card1_001 extends AbstractAttachable {
             List<Action> actions = new LinkedList<Action>();
 
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
-            action.addCost(new CancelEffect(effect));
+            action.addCost(new CancelEffect(playerId, effect));
             action.addEffect(new AddBurdenEffect(playerId));
             action.addEffect(new AddBurdenEffect(playerId));
             action.addEffect(new PutOnTheOneRingEffect());
@@ -97,7 +97,7 @@ public class Card1_001 extends AbstractAttachable {
                 && !game.getGameState().isCancelRingText()
                 && ((WoundCharacterEffect) effect).getWoundedCard() == self.getAttachedTo()) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add 2 burdens instead of taking a wound");
-            action.addCost(new CancelEffect(effect));
+            action.addCost(new CancelEffect(self.getOwner(), effect));
             action.addEffect(new AddBurdenEffect(self.getOwner()));
             action.addEffect(new AddBurdenEffect(self.getOwner()));
             return Collections.singletonList(action);

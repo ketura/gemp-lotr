@@ -36,11 +36,11 @@ public class Card1_050 extends AbstractCompanion {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert Legolas to wound a minion");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addCost(
                     new AddUntilEndOfPhaseModifierEffect(
                             new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self)), Phase.ARCHERY));
@@ -48,7 +48,7 @@ public class Card1_050 extends AbstractCompanion {
                     new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
-                            action.addEffect(new WoundCharacterEffect(minion));
+                            action.addEffect(new WoundCharacterEffect(playerId, minion));
                         }
                     });
 

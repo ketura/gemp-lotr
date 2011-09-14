@@ -54,19 +54,19 @@ public class Card1_095 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Boromir to wound an Orc or Uruk-hai he is skirmishing.");
             action.addCost(
-                    new ExertCharacterEffect(self.getAttachedTo()));
+                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getFellowshipCharacter() == self.getAttachedTo()) {
                 action.addEffect(
                         new ChooseActiveCardEffect(playerId, "Chose Orc or Uruk-hai in skirmish", Filters.or(Filters.race(Race.ORC), Filters.race(Race.URUK_HAI)), Filters.in(skirmish.getShadowCharacters())) {
                             @Override
                             protected void cardSelected(PhysicalCard minion) {
-                                action.addEffect(new WoundCharacterEffect(minion));
+                                action.addEffect(new WoundCharacterEffect(playerId, minion));
                             }
                         });
             }

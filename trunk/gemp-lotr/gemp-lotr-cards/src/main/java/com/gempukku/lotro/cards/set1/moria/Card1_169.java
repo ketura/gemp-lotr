@@ -36,7 +36,7 @@ public class Card1_169 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
 
@@ -46,7 +46,7 @@ public class Card1_169 extends AbstractEvent {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
                             action.addEffect(
-                                    new AssignmentEffect(ringBearer, Collections.singletonList(minion), "The End Comes effect"));
+                                    new AssignmentEffect(playerId, ringBearer, Collections.singletonList(minion), "The End Comes effect"));
                         }
                     });
         }

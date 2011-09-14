@@ -42,9 +42,9 @@ public class Card1_302 extends AbstractCompanion {
                 && !isAssigned(game, self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Merry twice to add his strength to another companion.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.sameCard(self))) {
                         @Override

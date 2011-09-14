@@ -39,7 +39,7 @@ public class Card1_109 extends AbstractEvent {
         PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
 
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(new ExertCharacterEffect(aragorn));
+        action.addCost(new ExertCharacterEffect(playerId, aragorn));
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
                     @Override

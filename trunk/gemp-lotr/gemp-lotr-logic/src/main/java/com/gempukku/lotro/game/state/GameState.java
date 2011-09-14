@@ -191,6 +191,11 @@ public class GameState {
         return zone == Zone.DISCARD || zone == Zone.HAND;
     }
 
+    public void sendMessage(String message) {
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.sendMessage(message);
+    }
+
     public void transferCard(PhysicalCard card, PhysicalCard transferTo) {
         if (card.getZone() != Zone.ATTACHED) {
             removeCardFromZone(card);
@@ -481,8 +486,8 @@ public class GameState {
         return getTokenCount(physicalCard, Token.WOUND);
     }
 
-    public void addBurdens(String playerId, int burdens) {
-        addTokens(_ringBearers.get(playerId), Token.BURDEN, Math.max(0, burdens));
+    public void addBurdens(int burdens) {
+        addTokens(_ringBearers.get(getCurrentPlayerId()), Token.BURDEN, Math.max(0, burdens));
     }
 
     public int getBurdens() {

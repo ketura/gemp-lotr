@@ -17,6 +17,7 @@ public class RemoveTwilightEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
+        game.getGameState().sendMessage(_twilight + " twilight gets removed from twilight pool");
         game.getGameState().removeTwilight(_twilight);
     }
 }

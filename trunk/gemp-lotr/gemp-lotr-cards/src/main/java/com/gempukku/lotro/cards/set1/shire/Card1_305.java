@@ -32,7 +32,7 @@ public class Card1_305 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Draw a card");
             action.addEffect(
-                    new DrawCardEffect(playerId));
+                    new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

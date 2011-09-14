@@ -45,10 +45,10 @@ public class Card1_309 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Rosie Cotton to heal Sam");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Sam"));
             if (sam != null)
-                action.addEffect(new HealCharacterEffect(sam));
+                action.addEffect(new HealCharacterEffect(playerId, sam));
             return Collections.singletonList(action);
         }
         return null;

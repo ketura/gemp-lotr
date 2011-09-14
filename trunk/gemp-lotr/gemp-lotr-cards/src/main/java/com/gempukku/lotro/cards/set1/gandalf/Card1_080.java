@@ -47,7 +47,7 @@ public class Card1_080 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Ottar to discard up to 3 cards from hand and draw an equal number of cards.");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseCardsFromHandEffect(playerId, "Choose cards to discard", 0, 3, Filters.any()) {
                         @Override
@@ -55,8 +55,7 @@ public class Card1_080 extends AbstractAlly {
                             for (PhysicalCard selectedCard : selectedCards)
                                 action.addEffect(new DiscardCardFromHandEffect(selectedCard));
 
-                            for (int i = 0; i < selectedCards.size(); i++)
-                                action.addEffect(new DrawCardEffect(playerId));
+                            action.addEffect(new DrawCardEffect(playerId, selectedCards.size()));
                         }
                     });
             return Collections.singletonList(action);

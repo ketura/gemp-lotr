@@ -37,6 +37,7 @@ public class PlayPermanentAction implements CostToEffectAction {
         _source = card;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
+        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + card.getBlueprint().getName() + " from " + card.getZone().getHumanReadable()));
         preCostEffects.add(new RemoveCardFromZoneEffect(card));
         preCostEffects.add(new PayTwilightCostEffect(card, twilightModifier));
         if (card.getZone() == Zone.DECK)

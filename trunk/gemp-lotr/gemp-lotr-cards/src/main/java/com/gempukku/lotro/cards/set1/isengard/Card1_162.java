@@ -54,7 +54,7 @@ public class Card1_162 extends AbstractPermanent {
         if (PlayConditions.winsSkirmish(gameState, game.getModifiersQuerying(), effectResult, Filters.race(Race.URUK_HAI))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Each time a companion or ally loses a skirmish involving an Uruk-hai, the opponent must choose to either exert the Ring-bearer or add a burden.");
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(new ExertCharacterEffect(gameState.getRingBearer(gameState.getCurrentPlayerId())));
+            possibleEffects.add(new ExertCharacterEffect(gameState.getCurrentPlayerId(), gameState.getRingBearer(gameState.getCurrentPlayerId())));
             possibleEffects.add(new AddBurdenEffect(gameState.getCurrentPlayerId()));
 
             action.addEffect(

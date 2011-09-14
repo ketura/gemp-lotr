@@ -58,7 +58,7 @@ public class SanctuaryRule {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> cards) {
                             if (cards.size() > 0) {
-                                _action.addEffect(new HealCharacterEffect(cards.get(0)));
+                                _action.addEffect(new HealCharacterEffect(_fpPlayerId, cards.get(0)));
                                 if (_counter < 5)
                                     _action.addEffect(new HealCompanion(_fpPlayerId, _action, _counter + 1));
                             }

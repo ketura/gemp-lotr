@@ -62,7 +62,7 @@ public class Card1_279 extends AbstractAttachable {
                 && self.getData() != null && (!((Boolean) self.getData()))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden");
             action.addEffect(
-                    new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+                    new AddBurdenEffect(self.getOwner()));
             return Collections.singletonList(action);
         }
         return null;

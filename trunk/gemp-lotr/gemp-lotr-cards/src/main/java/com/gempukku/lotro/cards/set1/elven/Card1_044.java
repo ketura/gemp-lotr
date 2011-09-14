@@ -54,8 +54,8 @@ public class Card1_044 extends AbstractEvent {
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {
                                             action.addEffect(new DiscardCardFromHandEffect(selectedCards.get(0)));
-                                            action.addEffect(new DrawCardEffect(playerId));
-                                            action.addEffect(new DrawCardEffect(playerId));
+                                            action.addEffect(new DrawCardEffect(playerId, 1));
+                                            action.addEffect(new DrawCardEffect(playerId, 1));
                                         }
                                     }
                                 }

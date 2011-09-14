@@ -94,7 +94,7 @@ public class Card1_295 extends AbstractAlly {
                 && !game.getGameState().getSite(1).getOwner().equals(playerId)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert this ally and to replace opponent's site 1 with your site 1.");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addEffect(new PlaySiteEffect(playerId, 1));
             actions.add(action);
         }

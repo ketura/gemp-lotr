@@ -12,6 +12,7 @@ public class AddTwilightEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
+        game.getGameState().sendMessage(_twilight + " gets added to the twilight pool");
         game.getGameState().addTwilight(_twilight);
     }
 }

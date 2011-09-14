@@ -39,6 +39,7 @@ public class KillEffect extends AbstractEffect {
     @Override
     public EffectResult playEffect(LotroGame game) {
         GameState gameState = game.getGameState();
+        gameState.sendMessage(_card.getBlueprint().getName() + " gets killed");
         gameState.stopAffecting(_card);
         gameState.removeCardFromZone(_card);
         if (_card.getBlueprint().getSide() == Side.FREE_PEOPLE)

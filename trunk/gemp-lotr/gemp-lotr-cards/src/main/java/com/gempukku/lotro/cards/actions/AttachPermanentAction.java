@@ -56,7 +56,8 @@ public class AttachPermanentAction implements CostToEffectAction {
                                 modifier += filterIntegerEntry.getValue();
 
                         List<Effect> preCostEffects = new LinkedList<Effect>();
-                        preCostEffects.add(new PayTwilightCostEffect(card, modifier));
+                        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + card.getBlueprint().getName() + " from " + card.getZone().getHumanReadable() + " on " + target.getBlueprint().getName()));
+                        preCostEffects.add(new PayPlayOnTwilightCostEffect(card, target, modifier));
                         if (card.getZone() == Zone.DECK)
                             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
 

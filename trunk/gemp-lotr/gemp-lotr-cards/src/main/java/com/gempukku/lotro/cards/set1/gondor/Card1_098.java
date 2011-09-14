@@ -42,7 +42,7 @@ public class Card1_098 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert Boromir to discard a weather condition.");
-            action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
+            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Weather condition", Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION)) {
                         @Override

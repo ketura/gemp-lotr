@@ -33,7 +33,7 @@ public class Card1_358 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Discard a GONDOR card from hand to heal a GONDOR companion.");
@@ -47,8 +47,8 @@ public class Card1_358 extends AbstractSite {
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a GONDOR companion", Filters.type(CardType.COMPANION), Filters.culture(Culture.GONDOR)) {
                         @Override
-                        protected void cardSelected(PhysicalCard gondonCompanion) {
-                            action.addEffect(new HealCharacterEffect(gondonCompanion));
+                        protected void cardSelected(PhysicalCard gondorCompanion) {
+                            action.addEffect(new HealCharacterEffect(playerId, gondorCompanion));
                         }
                     });
             return Collections.singletonList(action);

@@ -24,6 +24,7 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
+        game.getGameState().sendMessage("Ring-bearer puts on The One Ring");
         game.getGameState().setWearingRing(true);
         return new PutOnTheOneRingResult();
     }

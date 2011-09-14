@@ -31,7 +31,7 @@ public class Card1_346 extends AbstractSite {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
@@ -42,7 +42,7 @@ public class Card1_346 extends AbstractSite {
 
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
                 List<Effect> possibleEffects = new LinkedList<Effect>();
-                possibleEffects.add(new ExertCharacterEffect(frodo));
+                possibleEffects.add(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), frodo));
                 possibleEffects.add(
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
@@ -52,8 +52,8 @@ public class Card1_346 extends AbstractSite {
 
                             @Override
                             protected void cardsSelected(List<PhysicalCard> cards) {
-                                action.addEffect(new ExertCharacterEffect(cards.get(0)));
-                                action.addEffect(new ExertCharacterEffect(cards.get(1)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(0)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(1)));
                             }
                         });
                 action.addEffect(
@@ -63,7 +63,7 @@ public class Card1_346 extends AbstractSite {
             if (frodoCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Frodo must exert");
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
-                action.addEffect(new ExertCharacterEffect(frodo));
+                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), frodo));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {
@@ -72,8 +72,8 @@ public class Card1_346 extends AbstractSite {
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
                             protected void cardsSelected(List<PhysicalCard> cards) {
-                                action.addEffect(new ExertCharacterEffect(cards.get(0)));
-                                action.addEffect(new ExertCharacterEffect(cards.get(1)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(0)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(1)));
                             }
                         });
 

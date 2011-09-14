@@ -67,7 +67,7 @@ public class Card1_207 extends AbstractPermanent {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getStackedOn(), Keyword.RING_BEARER)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Cancel burden removal");
                 action.addEffect(
-                        new CancelEffect(effect));
+                        new CancelEffect(self.getOwner(), effect));
                 return Collections.singletonList(action);
             }
         }

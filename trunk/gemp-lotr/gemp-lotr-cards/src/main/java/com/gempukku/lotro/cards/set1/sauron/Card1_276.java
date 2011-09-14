@@ -38,7 +38,7 @@ public class Card1_276 extends AbstractPermanent {
             action.addCost(
                     new RemoveTwilightEffect(2));
             action.addEffect(
-                    new DrawCardEffect(playerId));
+                    new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

@@ -69,7 +69,7 @@ public class Card1_161 extends AbstractResponseEvent {
             action.addCost(
                     new ChoiceEffect(action, playerId, possibleCosts, true));
 
-            action.addEffect(new CancelEffect(effect));
+            action.addEffect(new CancelEffect(playerId, effect));
 
             return Collections.singletonList(action);
         }

@@ -50,12 +50,12 @@ public class Card1_059 extends AbstractPermanent {
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.race(Race.DWARF)) {
                         @Override
                         protected void cardSelected(PhysicalCard dwarf) {
-                            action.addCost(new ExertCharacterEffect(dwarf));
+                            action.addCost(new ExertCharacterEffect(playerId, dwarf));
                             action.addEffect(
                                     new ChooseActiveCardEffect(playerId, "Choose Elf to heal", Filters.race(Race.ELF)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard elf) {
-                                            action.addEffect(new HealCharacterEffect(elf));
+                                            action.addEffect(new HealCharacterEffect(playerId, elf));
                                         }
                                     });
                         }
@@ -65,12 +65,12 @@ public class Card1_059 extends AbstractPermanent {
                     new ChooseActiveCardEffect(playerId, "Choose Elf to exert", Filters.race(Race.ELF)) {
                         @Override
                         protected void cardSelected(PhysicalCard elf) {
-                            action.addCost(new ExertCharacterEffect(elf));
+                            action.addCost(new ExertCharacterEffect(playerId, elf));
                             action.addEffect(
                                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to heal", Filters.race(Race.DWARF)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard dwarf) {
-                                            action.addEffect(new HealCharacterEffect(dwarf));
+                                            action.addEffect(new HealCharacterEffect(playerId, dwarf));
                                         }
                                     });
                         }

@@ -35,7 +35,7 @@ public class Card1_355 extends AbstractSite {
             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
             for (PhysicalCard companion : companions) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert companion");
-                action.addEffect(new ExertCharacterEffect(companion));
+                action.addEffect(new ExertCharacterEffect(companion.getOwner(), companion));
                 actions.add(action);
             }
             return actions;

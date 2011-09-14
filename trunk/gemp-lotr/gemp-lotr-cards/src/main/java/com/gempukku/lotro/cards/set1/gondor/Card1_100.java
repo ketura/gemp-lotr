@@ -33,7 +33,7 @@ public class Card1_100 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Arwen"), Filters.name("Aragorn")), Filters.canExert())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert Aragorn to heal Arwen, or exert Arwen to heal Aragorn.");
@@ -45,24 +45,24 @@ public class Card1_100 extends AbstractPermanent {
 
             if (arwen != null) {
                 action.addCost(
-                        new ExertCharacterEffect(arwen) {
+                        new ExertCharacterEffect(playerId, arwen) {
                             @Override
                             public EffectResult playEffect(LotroGame game) {
                                 EffectResult effectResult = super.playEffect(game);
                                 if (aragorn != null)
-                                    action.addEffect(new HealCharacterEffect(aragorn));
+                                    action.addEffect(new HealCharacterEffect(playerId, aragorn));
                                 return effectResult;
                             }
                         });
             }
             if (aragorn != null) {
                 action.addCost(
-                        new ExertCharacterEffect(aragorn) {
+                        new ExertCharacterEffect(playerId, aragorn) {
                             @Override
                             public EffectResult playEffect(LotroGame game) {
                                 EffectResult effectResult = super.playEffect(game);
                                 if (arwen != null)
-                                    action.addEffect(new HealCharacterEffect(arwen));
+                                    action.addEffect(new HealCharacterEffect(playerId, arwen));
                                 return effectResult;
                             }
                         });

@@ -31,7 +31,7 @@ public class Card1_111 extends AbstractEvent {
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a ranger", true, Filters.keyword(Keyword.RANGER), Filters.canExert()));
         List<PhysicalCard> minions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION));
         for (PhysicalCard minion : minions)
-            action.addEffect(new WoundCharacterEffect(minion));
+            action.addEffect(new WoundCharacterEffect(playerId, minion));
 
         return action;
     }
