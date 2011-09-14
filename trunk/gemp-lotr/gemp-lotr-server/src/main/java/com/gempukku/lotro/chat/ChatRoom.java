@@ -1,9 +1,6 @@
 package com.gempukku.lotro.chat;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class ChatRoom {
     private int _maxMessageCount = 10;
@@ -31,6 +28,10 @@ public class ChatRoom {
 
     public void partChatRoom(String playerId) {
         _chatRoomListeners.remove(playerId);
+    }
+
+    public Set<String> getUsersInRoom() {
+        return new HashSet<String>(_chatRoomListeners.keySet());
     }
 
     private void shrinkLastMessages() {
