@@ -32,11 +32,12 @@ var GempLotrGameUI = Class.extend({
 
     selectionFunction: null,
 
-    swipeOptions: null,
-
     chatBoxDiv: null,
     chatBox: null,
     communication: null,
+
+    settingsAutoPass: false,
+    settingsAutoAccept: false,
 
     init: function(communication) {
         log("ui initialized");
@@ -710,13 +711,17 @@ var GempLotrGameUI = Class.extend({
                 .dialog("option", "width", "600")
                 .dialog("option", "height", "300");
 
+        var finishChoice = function() {
+            that.dialogInstance.dialog("close");
+            $("#arbitraryChoice").html("");
+            that.clearSelection();
+            that.decisionFunction(id, "" + selectedCardIds);
+        };
+
         if (min == 0) {
             this.dialogInstance.dialog("option", "buttons", {
                 "DONE": function() {
-                    $(this).dialog("close");
-                    $("#arbitraryChoice").html("");
-                    that.clearSelection();
-                    that.decisionFunction(id, "" + selectedCardIds);
+                    finishChoice();
                 }
             });
         }
@@ -741,17 +746,18 @@ var GempLotrGameUI = Class.extend({
             if (selectedCardIds.length == min) {
                 this.dialogInstance.dialog("option", "buttons", {
                     "DONE": function() {
-                        $(this).dialog("close");
-                        $("#arbitraryChoice").html("");
-                        that.clearSelection();
-                        that.decisionFunction(id, "" + selectedCardIds);
+                        finishChoice();
                     }
                 });
             }
 
             if (selectedCardIds.length == max) {
-                that.clearSelection();
-                $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+                if (that.settingsAutoAccept) {
+                    finishChoice();
+                } else {
+                    that.clearSelection();
+                    $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+                }
             } else {
                 $(".card:cardId(" + cardId + ")").removeClass("selectableCard").addClass("selectedCard");
             }
@@ -775,13 +781,22 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
+        if (cardIds.length == 0 && this.settingsAutoPass) {
+            that.decisionFunction(id, "");
+            return;
+        }
+
         var selectedCardIds = new Array();
 
-        this.alert.html(text + "<br><button id='DONE'>DONE</button>");
-        $("#DONE").button().click(function() {
+        var finishChoice = function() {
             that.alert.html("");
             that.clearSelection();
             that.decisionFunction(id, "" + selectedCardIds);
+        };
+
+        this.alert.html(text + "<br><button id='DONE'>DONE</button>");
+        $("#DONE").button().click(function() {
+            finishChoice();
         });
 
         for (var i = 0; i < cardIds.length; i++) {
@@ -805,7 +820,12 @@ var GempLotrGameUI = Class.extend({
             if (actions.length == 1) {
                 var action = actions[0];
                 selectedCardIds.push(action.actionId);
-                that.clearSelection();
+                if (this.settingsAutoAccept) {
+                    finishChoice();
+                } else {
+                    that.clearSelection();
+                    $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+                }
             }
         };
 
@@ -822,6 +842,8 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
+        var selectedActionIds = new Array();
+
         this.dialogInstance
                 .html("<div id='arbitraryChoice'></div>")
                 .dialog("option", "title", text)
@@ -830,6 +852,13 @@ var GempLotrGameUI = Class.extend({
                 .dialog("option", "height", "300");
 
         var cardIds = new Array();
+
+        var finishChoice = function() {
+            that.dialogInstance.dialog("close");
+            $("#arbitraryChoice").html("");
+            that.clearSelection();
+            that.decisionFunction(id, "" + selectedActionIds);
+        };
 
         for (var i = 0; i < blueprintIds.length; i++) {
             var blueprintId = blueprintIds[i];
@@ -844,18 +873,21 @@ var GempLotrGameUI = Class.extend({
 
         this.selectionFunction = function(cardId) {
             var actionId = actionIds[parseInt(cardId.substring(4))];
-
-            this.dialogInstance.dialog("option", "buttons", {
-                "DONE": function() {
-                    $(this).dialog("close");
-                    $("#arbitraryChoice").html("");
-                    that.clearSelection();
-                    that.decisionFunction(id, "" + actionId);
-                }
-            });
+            selectedActionIds.push(actionId);
 
             that.clearSelection();
-            $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+
+            if (this.settingsAutoAccept) {
+                finishChoice();
+            } else {
+                this.dialogInstance.dialog("option", "buttons", {
+                    "DONE": function() {
+                        finishChoice();
+                    }
+                });
+
+                $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+            }
         };
 
         this.attachSelectionFunctions(cardIds);
@@ -880,12 +912,16 @@ var GempLotrGameUI = Class.extend({
 
         var selectedCardIds = new Array();
 
+        var finishChoice = function() {
+            that.alert.html("");
+            that.clearSelection();
+            that.decisionFunction(id, "" + selectedCardIds);
+        };
+
         if (min == 0) {
             this.alert.append("<br><button id='DONE'>DONE</button>");
             $("#DONE").button().click(function() {
-                that.alert.html("");
-                that.clearSelection();
-                that.decisionFunction(id, "" + selectedCardIds);
+                finishChoice();
             });
         }
 
@@ -894,15 +930,17 @@ var GempLotrGameUI = Class.extend({
             if (selectedCardIds.length == min) {
                 this.alert.append("<br><button id='DONE'>DONE</button>");
                 $("#DONE").button().click(function() {
-                    that.alert.html("");
-                    that.clearSelection();
-                    that.decisionFunction(id, "" + selectedCardIds);
+                    finishChoice();
                 });
             }
 
             if (selectedCardIds.length == max) {
-                $(".selectableCard").removeClass("selectableCard");
-                $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+                if (this.settingsAutoAccept) {
+                    finishChoice();
+                } else {
+                    $(".selectableCard").removeClass("selectableCard");
+                    $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+                }
             } else {
                 $(".card:cardId(" + cardId + ")").removeClass("selectableCard").addClass("selectedCard");
             }
