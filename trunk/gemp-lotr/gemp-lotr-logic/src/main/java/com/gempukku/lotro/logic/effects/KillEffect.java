@@ -27,7 +27,7 @@ public class KillEffect extends AbstractEffect {
 
     @Override
     public String getText() {
-        return "Kills character";
+        return "Kill " + _card.getBlueprint().getName();
     }
 
     @Override

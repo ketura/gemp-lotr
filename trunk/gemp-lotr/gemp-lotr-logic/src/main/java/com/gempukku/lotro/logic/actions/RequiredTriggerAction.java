@@ -20,6 +20,6 @@ public class RequiredTriggerAction extends DefaultCostToEffectAction {
 
     @Override
     protected String getMessage() {
-        return _physicalCard.getBlueprint().getName() + " optional triggered effect is used";
+        return _physicalCard.getBlueprint().getName() + " required triggered effect is used";
     }
 }

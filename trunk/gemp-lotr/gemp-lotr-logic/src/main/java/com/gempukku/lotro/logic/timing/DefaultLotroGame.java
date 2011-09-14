@@ -127,17 +127,21 @@ public class DefaultLotroGame implements LotroGame {
             // Ring-bearer death
             if (!Filters.canSpot(gameState, getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
                 playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is dead");
-            }
-            // Ring-bearer corruption
-            PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
-            int ringBearerResistance = ringBearer.getBlueprint().getResistance();
-            if (getGameState().getBurdens() >= ringBearerResistance) {
-                playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
+                return;
+            } else {
+                // Ring-bearer corruption
+                PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
+                int ringBearerResistance = ringBearer.getBlueprint().getResistance();
+                if (getGameState().getBurdens() >= ringBearerResistance) {
+                    playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
+                    return;
+                }
             }
             // Fellowship in regroup at the last site
             if (getGameState().getCurrentPhase() == Phase.REGROUP
                     && getGameState().getCurrentSiteNumber() == 9) {
                 playerWon(getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
+                return;
             }
         }
     }
