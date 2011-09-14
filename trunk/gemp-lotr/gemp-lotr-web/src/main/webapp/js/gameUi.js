@@ -39,6 +39,9 @@ var GempLotrGameUI = Class.extend({
     settingsAutoPass: false,
     settingsAutoAccept: false,
 
+    windowWidth: null,
+    windowHeight: null,
+
     init: function(communication) {
         log("ui initialized");
         this.communication = communication;
@@ -196,11 +199,18 @@ var GempLotrGameUI = Class.extend({
 
     },
 
-    layoutUI: function() {
+    layoutUI: function(sizeNotChanged) {
         if (this.advPathGroup != null) {
             var padding = this.padding;
             var width = $(window).width();
             var height = $(window).height();
+            if (sizeNotChanged) {
+                width = this.windowWidth;
+                height = this.windowHeight;
+            } else {
+                this.windowWidth = width;
+                this.windowHeight = height;
+            }
 
             var heightScales = [5, 9, 9, 10, 6, 10];
             var yScales = new Array();
@@ -338,7 +348,7 @@ var GempLotrGameUI = Class.extend({
             }
         }
         if (gameEvents.length > 0)
-            this.layoutUI();
+            this.layoutUI(true);
 
         var decisions = element.getElementsByTagName("decision");
         if (decisions.length == 1) {
@@ -1042,7 +1052,7 @@ var GempLotrGameUI = Class.extend({
                 } else {
                     that.unassignMinion(cardId);
                 }
-                that.layoutUI();
+                that.layoutUI(true);
                 that.doAssignments(freeCharacters, minions);
             };
 
