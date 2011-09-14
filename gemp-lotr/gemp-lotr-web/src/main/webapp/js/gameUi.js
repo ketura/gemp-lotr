@@ -335,6 +335,8 @@ var GempLotrGameUI = Class.extend({
                 this.removeTokens(gameEvent);
             } else if (eventType == "MESSAGE") {
                 this.message(gameEvent);
+            } else if (eventType == "WARNING") {
+                this.message(gameEvent);
             }
         }
         if (gameEvents.length > 0)
@@ -399,7 +401,13 @@ var GempLotrGameUI = Class.extend({
     message: function(element) {
         var message = element.getAttribute("message");
         if (this.chatBox != null)
-            this.chatBox.appendMessage("<b>" + message + "</b>");
+            this.chatBox.appendMessage(message, "gameMessage");
+    },
+
+    warning: function(element) {
+        var message = element.getAttribute("message");
+        if (this.chatBox != null)
+            this.chatBox.appendMessage(message, "warningMessage");
     },
 
     startSkirmish: function(element) {

@@ -406,11 +406,6 @@ public class ServerResource {
         }
 
         @Override
-        public void visitWarning(String warning) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
         public void visitGameEvent(GameEvent gameEvent) {
             _element.appendChild(serializeEvent(_doc, gameEvent));
         }

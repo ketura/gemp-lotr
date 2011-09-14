@@ -15,7 +15,7 @@ public class GameEvent {
         ADD_ASSIGNMENT, REMOVE_ASSIGNMENT,
         START_SKIRMISH, END_SKIRMISH,
         ADD_TOKENS, REMOVE_TOKENS,
-        MESSAGE
+        MESSAGE, WARNING
     }
 
     private String _message;

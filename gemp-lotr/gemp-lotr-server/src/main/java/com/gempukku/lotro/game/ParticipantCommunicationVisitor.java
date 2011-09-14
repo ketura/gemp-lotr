@@ -8,8 +8,6 @@ import java.util.Map;
 public interface ParticipantCommunicationVisitor {
     public void visitClock(Map<String, Integer> secondsLeft);
 
-    public void visitWarning(String warning);
-
     public void visitAwaitingDecision(AwaitingDecision awaitingDecision);
 
     public void visitGameEvent(GameEvent gameEvent);
