@@ -47,7 +47,7 @@ public class TurnProcedure {
             } else {
                 Effect effect = _actionStack.getNextEffect();
                 if (effect != null) {
-                    if (effect instanceof UnrespondableEffect) {
+                    if (effect.getType() == null) {
                         if (effect.canPlayEffect(_game))
                             effect.playEffect(_game);
                         else
@@ -134,7 +134,7 @@ public class TurnProcedure {
                     Map<String, List<Action>> optionalWhenResponses = _game.getActionsEnvironment().getOptionalAfterTriggers(_game.getGameState().getPlayerOrder().getAllPlayers(), _effectResult);
                     DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
                     action.addEffect(
-                            new PlayoutOptionalAfterResponsesEffect(action, optionalWhenResponses, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effectResult));
+                            new PlayoutOptionalAfterResponsesEffect(action, optionalWhenResponses, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect, _effectResult));
                     return new StackActionEffect(action);
                 }
             }
@@ -167,7 +167,7 @@ public class TurnProcedure {
 
                 if (possibleActions.size() > 0) {
                     _game.getUserFeedback().sendAwaitingDecision(activePlayer,
-                            new CardActionSelectionDecision(1, "Choose action to play or DONE", possibleActions, true) {
+                            new CardActionSelectionDecision(1, _effect.getText() + " - Optional \"is about to\" responses", possibleActions, true) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     Action action = getSelectedAction(result);
@@ -196,13 +196,15 @@ public class TurnProcedure {
         private Map<String, List<Action>> _actionMap = new HashMap<String, List<Action>>();
         private PlayOrder _playOrder;
         private int _passCount;
+        private Effect _effect;
         private EffectResult _effectResult;
 
-        private PlayoutOptionalAfterResponsesEffect(DefaultCostToEffectAction action, Map<String, List<Action>> actionMap, PlayOrder playOrder, int passCount, EffectResult effectResult) {
+        private PlayoutOptionalAfterResponsesEffect(DefaultCostToEffectAction action, Map<String, List<Action>> actionMap, PlayOrder playOrder, int passCount, Effect effect, EffectResult effectResult) {
             _action = action;
             _actionMap = actionMap;
             _playOrder = playOrder;
             _passCount = passCount;
+            _effect = effect;
             _effectResult = effectResult;
         }
 
@@ -214,24 +216,24 @@ public class TurnProcedure {
 
             if (possibleActions.size() > 0) {
                 _game.getUserFeedback().sendAwaitingDecision(activePlayer,
-                        new CardActionSelectionDecision(1, "Choose action to play or DONE", possibleActions, true) {
+                        new CardActionSelectionDecision(1, _effect.getText() + " - optional \"when\" responses", possibleActions, true) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Action action = getSelectedAction(result);
                                 if (action != null) {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     _actionMap.get(activePlayer).remove(action);
-                                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, 0, _effectResult));
+                                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, 0, _effect, _effectResult));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                                        _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effectResult));
+                                        _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effect, _effectResult));
                                     }
                                 }
                             }
                         });
             } else {
                 if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effectResult));
+                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _actionMap, _playOrder, _passCount + 1, _effect, _effectResult));
                 }
             }
         }
@@ -255,7 +257,7 @@ public class TurnProcedure {
                     _game.getActionsEnvironment().addActionToStack(_actions.get(0));
                 } else {
                     _game.getUserFeedback().sendAwaitingDecision(_game.getGameState().getCurrentPlayerId(),
-                            new ActionSelectionDecision(1, "Choose action to play now", _actions) {
+                            new ActionSelectionDecision(1, _effect.getText() + " - required responses", _actions) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     Action action = getSelectedAction(result);

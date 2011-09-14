@@ -16,7 +16,7 @@ public class EndOfTurnGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new EndOfTurnResult()), "End of turn"));
+        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new EndOfTurnResult(), "End of turn"), "End of turn"));
         _game.getGameState().stopAffectingCardsForCurrentPlayer();
         _game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
     }

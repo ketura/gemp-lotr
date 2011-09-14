@@ -21,7 +21,7 @@ public class StartOfPhaseGameProcess implements GameProcess {
     @Override
     public void process() {
         _game.getGameState().setCurrentPhase(_phase);
-        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new StartOfPhaseResult(_phase)), "Start of " + _phase + " phase"));
+        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new StartOfPhaseResult(_phase), "Start of " + _phase + " phase"), "Start of " + _phase + " phase"));
     }
 
     @Override
