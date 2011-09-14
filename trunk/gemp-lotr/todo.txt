@@ -1,17 +1,18 @@
 TO DO:
-4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
-final methods were possible to avoid implementation errors on new cards added.
+17. Timeout users from ChatServer the same way they are timed out of GameServer.
 8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
 and go with different selection.
 9. Add checkbox option to auto-pass if there is no actions to be played.
-10. Add active/all cards switch to the user interface.
-13. Add dead/discard pile displays.
-14. Add hand/deck card count displays.
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
 16. Add an option to view an ongoing game.
-17. Timeout users from ChatServer the same way they are timed out of GameServer.
 18. Add display of site where player is on adventure path.
+
+13. Add dead/discard pile displays.
+14. Add hand/deck card count displays.
 19. Add filtering cards to deck-builder.
+4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
+final methods were possible to avoid implementation errors on new cards added.
+10. Add active/all cards switch to the user interface.
 20.
 
 DONE:
