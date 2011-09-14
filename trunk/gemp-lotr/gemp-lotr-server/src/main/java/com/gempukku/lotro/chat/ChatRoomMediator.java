@@ -39,7 +39,8 @@ public class ChatRoomMediator {
 
     public synchronized void cleanup() {
         long currentTime = System.currentTimeMillis();
-        for (Map.Entry<String, GatheringChatRoomListener> playerListener : _listeners.entrySet()) {
+        Map<String, GatheringChatRoomListener> copy = new HashMap<String, GatheringChatRoomListener>(_listeners);
+        for (Map.Entry<String, GatheringChatRoomListener> playerListener : copy.entrySet()) {
             String playerId = playerListener.getKey();
             GatheringChatRoomListener listener = playerListener.getValue();
             if (currentTime > listener.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {

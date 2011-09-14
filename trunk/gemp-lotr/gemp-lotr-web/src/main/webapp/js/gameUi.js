@@ -106,6 +106,7 @@ var GempLotrGameUI = Class.extend({
 
         this.gameStateElem.append("<br>");
 
+        this.gameStateElem.append("<div class='twilightPool'>0</div>");
         this.gameStateElem.append("<b>Phases:</b><br>");
         this.gameStateElem.append("<div class='phase' id='FELLOWSHIP'>Fellowship</div>");
         this.gameStateElem.append("<div class='phase' id='SHADOW'>Shadow</div>");
@@ -114,8 +115,6 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.append("<div class='phase' id='ASSIGNMENT'>Assignment</div>");
         this.gameStateElem.append("<div class='phase' id='SKIRMISH'>Skirmish</div>");
         this.gameStateElem.append("<div class='phase' id='REGROUP'>Regroup</div>");
-
-        this.gameStateElem.append("<div class='twilightPool'>0</div>");
 
         $("#main").append(this.gameStateElem);
 
@@ -252,7 +251,7 @@ var GempLotrGameUI = Class.extend({
             var advPathWidth = Math.min(150, width * 0.1);
             var specialUiWidth = 150;
 
-            var alertHeight = 120;
+            var alertHeight = 80;
 
             var chatHeight = 200;
 
