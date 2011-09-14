@@ -3,13 +3,14 @@ TO DO:
 18. Add display of site where player is on adventure path.
 16. Add an option to view an ongoing game.
 
+20. Display clock.
 13. Add dead/discard pile displays.
 14. Add hand/deck card count displays.
 19. Add filtering cards to deck-builder.
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-20.
+21.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
