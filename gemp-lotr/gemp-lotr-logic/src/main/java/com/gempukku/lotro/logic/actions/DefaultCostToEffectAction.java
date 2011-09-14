@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic.actions;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class DefaultCostToEffectAction implements CostToEffectAction {
 
     private int _costsNextIndex = 0;
     private int _effectsNextIndex = 0;
+
+    private boolean _sentMessage;
 
     public DefaultCostToEffectAction(PhysicalCard physicalCard, Keyword type, String text) {
         _physicalCard = physicalCard;
@@ -49,6 +52,11 @@ public class DefaultCostToEffectAction implements CostToEffectAction {
 
     @Override
     public Effect nextEffect() {
+        if (!_sentMessage && _physicalCard != null) {
+            _sentMessage = true;
+            return new SendMessageEffect(_physicalCard.getBlueprint().getName() + " is used");
+        }
+
         if (_costsNextIndex < _costs.size()) {
             _costsNextIndex++;
             return _costs.get(_costsNextIndex - 1);

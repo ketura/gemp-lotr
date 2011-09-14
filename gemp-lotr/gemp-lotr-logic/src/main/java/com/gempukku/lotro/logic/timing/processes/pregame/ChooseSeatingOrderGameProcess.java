@@ -78,6 +78,6 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new FirstPlayerPlaysSiteGameProcess(_game, _bids);
+        return new FirstPlayerPlaysSiteGameProcess(_game, _bids, _orderedPlayers[0]);
     }
 }
