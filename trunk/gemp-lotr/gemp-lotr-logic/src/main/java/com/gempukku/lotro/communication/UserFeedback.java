@@ -6,6 +6,4 @@ public interface UserFeedback {
     public void sendAwaitingDecision(String playerId, AwaitingDecision awaitingDecision);
 
     public boolean hasPendingDecisions();
-
-    public void sendWarning(String playerId, String warning);
 }

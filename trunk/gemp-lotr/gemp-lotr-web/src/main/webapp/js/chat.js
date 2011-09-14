@@ -45,8 +45,10 @@ var ChatBoxUI = Class.extend({
         this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
     },
 
-    appendMessage: function(message) {
-        this.chatMessagesDiv.append("<div class='chatMessage'>" + message + "</div>");
+    appendMessage: function(message, msgClass) {
+        if (msgClass == undefined)
+            msgClass = "chatMessage";
+        this.chatMessagesDiv.append("<div class='" + msgClass + "'>" + message + "</div>");
         if ($("div", this.chatMessagesDiv).length > 50) {
             $("div", this.chatMessagesDiv).first().remove();
         }

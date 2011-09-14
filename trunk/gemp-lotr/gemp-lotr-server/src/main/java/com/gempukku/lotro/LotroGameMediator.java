@@ -25,8 +25,8 @@ public class LotroGameMediator {
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
 
     private final int _maxSecondsForGamePerPlayer = 60 * 30; // 30 minutes
-    private final int _channelInactivityTimeoutPeriod = 1000 * 30; // 30 seconds
-    private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
+    private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
+    private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
 
 
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, GameResultListener gameResultListener) {
@@ -139,9 +139,6 @@ public class LotroGameMediator {
         if (communicationChannel != null) {
             for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);
-            String warning = _userFeedback.consumeWarning(participantId);
-            if (warning != null)
-                visitor.visitWarning(warning);
             AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
             if (awaitingDecision != null)
                 visitor.visitAwaitingDecision(awaitingDecision);
@@ -153,7 +150,7 @@ public class LotroGameMediator {
             }
             visitor.visitClock(secondsLeft);
         } else {
-            visitor.visitWarning("Your browser was inactive for too long, please refresh your browser window to continue playing");
+            visitor.visitGameEvent(new GameEvent(GameEvent.Type.WARNING).message("Your browser was inactive for too long, please refresh your browser window to continue playing"));
         }
     }
 
@@ -166,9 +163,6 @@ public class LotroGameMediator {
         for (GameEvent gameEvent : participantCommunicationChannel.consumeGameEvents())
             visitor.visitGameEvent(gameEvent);
 
-        String warning = _userFeedback.consumeWarning(participantId);
-        if (warning != null)
-            visitor.visitWarning(warning);
         AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
         if (awaitingDecision != null)
             visitor.visitAwaitingDecision(awaitingDecision);
