@@ -1,11 +1,10 @@
 TO DO:
-17. Timeout users from ChatServer the same way they are timed out of GameServer.
+9. Add checkbox option to auto-pass if there is no actions to be played.
 8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
 and go with different selection.
-9. Add checkbox option to auto-pass if there is no actions to be played.
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
-16. Add an option to view an ongoing game.
 18. Add display of site where player is on adventure path.
+16. Add an option to view an ongoing game.
 
 13. Add dead/discard pile displays.
 14. Add hand/deck card count displays.
@@ -28,3 +27,4 @@ with Filters.sameCard(...) filter.
 11. Merge Shadow and FP support area on the UI and extend the Shadow and FP characters window.
 12. Add rule of 4.
 6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
+17. Timeout users from ChatServer the same way they are timed out of GameServer.

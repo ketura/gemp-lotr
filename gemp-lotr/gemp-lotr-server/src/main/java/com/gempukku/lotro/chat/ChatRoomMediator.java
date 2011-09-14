@@ -11,6 +11,8 @@ public class ChatRoomMediator {
 
     private Map<String, GatheringChatRoomListener> _listeners = new HashMap<String, GatheringChatRoomListener>();
 
+    private final int _channelInactivityTimeoutPeriod = 1000 * 10; // 10 seconds
+
     public synchronized List<ChatMessage> joinUser(String playerId) {
         GatheringChatRoomListener value = new GatheringChatRoomListener();
         _listeners.put(playerId, value);
@@ -32,5 +34,17 @@ public class ChatRoomMediator {
 
     public synchronized void sendMessage(String playerId, String message) {
         _chatRoom.postMessage(playerId, message);
+    }
+
+    public synchronized void cleanup() {
+        long currentTime = System.currentTimeMillis();
+        for (Map.Entry<String, GatheringChatRoomListener> playerListener : _listeners.entrySet()) {
+            String playerId = playerListener.getKey();
+            GatheringChatRoomListener listener = playerListener.getValue();
+            if (currentTime > listener.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {
+                _chatRoom.partChatRoom(playerId);
+                _listeners.remove(playerId);
+            }
+        }
     }
 }
