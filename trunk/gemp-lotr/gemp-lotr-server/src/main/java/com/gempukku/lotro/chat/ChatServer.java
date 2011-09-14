@@ -37,7 +37,8 @@ public class ChatServer {
     }
 
     private void cleanup() {
-        // TODO cleanup server
+        for (ChatRoomMediator chatRoomMediator : _chatRooms.values())
+            chatRoomMediator.cleanup();
     }
 
     private class CleaningTask implements Runnable {
@@ -47,7 +48,7 @@ public class ChatServer {
             while (_running) {
                 cleanup();
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     // Ignore
                 }

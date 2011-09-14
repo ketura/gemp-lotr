@@ -13,7 +13,7 @@ import java.util.List;
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
-    private Date _lastConsumed;
+    private Date _lastConsumed = new Date();
 
     public GatheringParticipantCommunicationChannel(String self) {
         _self = self;
