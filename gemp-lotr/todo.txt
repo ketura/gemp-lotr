@@ -1,7 +1,4 @@
 TO DO:
-9. Add checkbox option to auto-pass if there is no actions to be played.
-8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
-and go with different selection.
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
 18. Add display of site where player is on adventure path.
 16. Add an option to view an ongoing game.
@@ -28,3 +25,6 @@ with Filters.sameCard(...) filter.
 12. Add rule of 4.
 6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
 17. Timeout users from ChatServer the same way they are timed out of GameServer.
+9. Add checkbox option to auto-pass if there is no actions to be played.
+8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
+and go with different selection.
