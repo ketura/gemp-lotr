@@ -37,14 +37,14 @@ public class Card1_289 extends AbstractCompanion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "You may heal a Hobbit ally");
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit ally", Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbitAlly) {
-                            action.addEffect(new HealCharacterEffect(hobbitAlly));
+                            action.addEffect(new HealCharacterEffect(playerId, hobbitAlly));
                         }
                     }
             );

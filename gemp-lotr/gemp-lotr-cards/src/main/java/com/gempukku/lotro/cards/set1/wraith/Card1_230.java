@@ -42,7 +42,7 @@ public class Card1_230 extends AbstractMinion {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Ulaire Cantea to discard a weapon borne by a character he is skirmishing.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getShadowCharacters().contains(self)) {
                 action.addEffect(

@@ -48,7 +48,7 @@ public class Card1_093 extends AbstractEvent {
 
         if (arwen != null) {
             action.addCost(
-                    new ExertCharacterEffect(arwen) {
+                    new ExertCharacterEffect(playerId, arwen) {
                         @Override
                         public EffectResult playEffect(LotroGame game) {
                             EffectResult effectResult = super.playEffect(game);
@@ -61,7 +61,7 @@ public class Card1_093 extends AbstractEvent {
         }
         if (aragorn != null) {
             action.addCost(
-                    new ExertCharacterEffect(aragorn) {
+                    new ExertCharacterEffect(playerId, aragorn) {
                         @Override
                         public EffectResult playEffect(LotroGame game) {
                             EffectResult effectResult = super.playEffect(game);

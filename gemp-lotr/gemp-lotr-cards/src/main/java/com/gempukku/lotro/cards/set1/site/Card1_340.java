@@ -50,7 +50,7 @@ public class Card1_340 extends AbstractSite {
                             game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
                         }
                     });
-            action.addEffect(new DrawCardEffect(playerId));
+            action.addEffect(new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

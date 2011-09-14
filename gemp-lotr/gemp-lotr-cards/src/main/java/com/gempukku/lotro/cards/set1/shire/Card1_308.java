@@ -38,7 +38,7 @@ public class Card1_308 extends AbstractEvent {
         if (skirmish != null) {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), skirmish.getFellowshipCharacter(), Keyword.RING_BEARER)) {
                 for (PhysicalCard minion : skirmish.getShadowCharacters()) {
-                    action.addEffect(new WoundCharacterEffect(minion));
+                    action.addEffect(new WoundCharacterEffect(playerId, minion));
                 }
             }
         }

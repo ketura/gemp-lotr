@@ -30,7 +30,7 @@ public class Card1_250 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose SAURON Orc", true, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert()));
@@ -39,7 +39,7 @@ public class Card1_250 extends AbstractEvent {
                     @Override
                     protected void cardSelected(PhysicalCard companion) {
                         action.addEffect(
-                                new WoundCharacterEffect(companion));
+                                new WoundCharacterEffect(playerId, companion));
                     }
                 });
         return action;

@@ -37,9 +37,7 @@ public class Card1_197 extends AbstractEvent {
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a MORIA Orc", true, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canExert()));
         action.addEffect(
-                new DrawCardEffect(playerId));
-        action.addEffect(
-                new DrawCardEffect(playerId));
+                new DrawCardEffect(playerId, 2));
         return action;
     }
 

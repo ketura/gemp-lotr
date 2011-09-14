@@ -22,6 +22,7 @@ public class DiscardCardAtRandomFromHandEffect extends UnrespondableEffect {
         List<? extends PhysicalCard> hand = gameState.getHand(_playerId);
         if (hand.size() > 0) {
             PhysicalCard randomCard = hand.get(new Random().nextInt(hand.size()));
+            gameState.sendMessage(_playerId + " randomly discards " + randomCard.getBlueprint().getName());
             gameState.removeCardFromZone(randomCard);
             gameState.addCardToZone(randomCard, Zone.DISCARD);
         } else {

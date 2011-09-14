@@ -35,7 +35,7 @@ public class Card1_332 extends AbstractSite {
             List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION));
             for (PhysicalCard hobbit : hobbits) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Each Hobbit must exert");
-                action.addEffect(new ExertCharacterEffect(hobbit));
+                action.addEffect(new ExertCharacterEffect(hobbit.getOwner(), hobbit));
                 actions.add(action);
             }
             return actions;

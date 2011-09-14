@@ -8,10 +8,12 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 public class ExertCharacterEffect extends AbstractEffect {
+    private String _playerId;
     private PhysicalCard _physicalCard;
     private boolean _prevented;
 
-    public ExertCharacterEffect(PhysicalCard physicalCard) {
+    public ExertCharacterEffect(String playerId, PhysicalCard physicalCard) {
+        _playerId = playerId;
         _physicalCard = physicalCard;
     }
 
@@ -36,9 +38,12 @@ public class ExertCharacterEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
-        if (!_prevented)
+        if (!_prevented) {
+            game.getGameState().sendMessage(_playerId + " exerts " + _physicalCard.getBlueprint().getName());
             game.getGameState().addWound(_physicalCard);
-        return new ExertResult(_physicalCard);
+            return new ExertResult(_physicalCard);
+        }
+        return null;
     }
 
     public void prevent() {

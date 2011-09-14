@@ -39,7 +39,7 @@ public class Card1_254 extends AbstractAttachable {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Exert bearer to add (1) for each archer companion.");
             action.addCost(
-                    new ExertCharacterEffect(self.getAttachedTo()));
+                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
             int archerCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER));
             action.addEffect(
                     new AddTwilightEffect(archerCompanions));

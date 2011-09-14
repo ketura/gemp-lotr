@@ -71,8 +71,7 @@ public class PlayerReconcilesAction implements Action {
                                 }
                                 int cardsInHandAfterDiscard = cardsInHand.size() - selectedCards.size();
                                 if (cardsInHandAfterDiscard < 8) {
-                                    for (int i = 0; i < 8 - cardsInHandAfterDiscard; i++)
-                                        _effectQueue.add(new DrawCardEffect(_playerId));
+                                    _effectQueue.add(new DrawCardEffect(_playerId, 8 - cardsInHandAfterDiscard));
                                 }
                             }
                         }));

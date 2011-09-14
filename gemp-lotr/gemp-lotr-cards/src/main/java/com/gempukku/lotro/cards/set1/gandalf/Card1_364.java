@@ -37,7 +37,7 @@ public class Card1_364 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Gandalf to play a companion who has the Gandalf signet. The twilight cost of that companion is -2.");
-            action.addCost(new ExertCharacterEffect(self));
+            action.addCost(new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.type(CardType.COMPANION), Filters.signet(Signet.GANDALF), Filters.playable(game)) {
                         @Override

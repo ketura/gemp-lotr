@@ -33,7 +33,7 @@ public class Card1_211 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden");
             action.addEffect(
-                    new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+                    new AddBurdenEffect(self.getOwner()));
             return Collections.singletonList(action);
         }
         return null;

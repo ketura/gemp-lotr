@@ -54,9 +54,9 @@ public class Card1_209 extends AbstractPermanent {
             boolean ringBearer = game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.RING_BEARER);
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Wound bearer or if bearer is Ring-Bearer, add a burden instead");
             if (ringBearer) {
-                action.addEffect(new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+                action.addEffect(new AddBurdenEffect(self.getOwner()));
             } else {
-                action.addEffect(new WoundCharacterEffect(self.getAttachedTo()));
+                action.addEffect(new WoundCharacterEffect(self.getOwner(), self.getAttachedTo()));
             }
             return Collections.singletonList(action);
         }

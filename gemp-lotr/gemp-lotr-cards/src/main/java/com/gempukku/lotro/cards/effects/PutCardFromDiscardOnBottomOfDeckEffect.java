@@ -15,6 +15,7 @@ public class PutCardFromDiscardOnBottomOfDeckEffect extends UnrespondableEffect 
     @Override
     public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
+        gameState.sendMessage(_physicalCard.getOwner() + " puts " + _physicalCard.getBlueprint().getName() + " from discard on the bottom of deck");
         gameState.removeCardFromZone(_physicalCard);
         gameState.putCardOnBottomOfDeck(_physicalCard);
     }

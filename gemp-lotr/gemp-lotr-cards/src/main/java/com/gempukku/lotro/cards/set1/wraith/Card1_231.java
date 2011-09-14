@@ -34,7 +34,7 @@ public class Card1_231 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
                 && (
@@ -42,13 +42,13 @@ public class Card1_231 extends AbstractMinion {
                         || game.getGameState().getBurdens() >= 5)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert Ulaire Enquea to wound a companion (except the Ring-bearer).");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a companion (except a Ring-Bearer)", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
                             action.addEffect(
-                                    new WoundCharacterEffect(companion));
+                                    new WoundCharacterEffect(playerId, companion));
                         }
                     });
             return Collections.singletonList(action);

@@ -29,7 +29,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        GameState gameState = _game.getGameState();
+        final GameState gameState = _game.getGameState();
 
         Filter minionFilter = Filters.type(CardType.MINION);
         if (gameState.isFierceSkirmishes())
@@ -69,7 +69,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
 
                             DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Free People player assignments");
                             action.addEffect(
-                                    new AssignmentEffect(assignments, "Free People player assignments"));
+                                    new AssignmentEffect(gameState.getCurrentPlayerId(), assignments, "Free People player assignments"));
                             _game.getActionsEnvironment().addActionToStack(action);
                         }
                     });

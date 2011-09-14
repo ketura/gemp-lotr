@@ -33,7 +33,8 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
             gameState.removeCardFromZone(ring);
             gameState.attachCard(ring, ringBearer);
 
-            gameState.addBurdens(playerId, _bids.get(playerId));
+            gameState.startPlayerTurn(playerId);
+            gameState.addBurdens(_bids.get(playerId));
         }
     }
 

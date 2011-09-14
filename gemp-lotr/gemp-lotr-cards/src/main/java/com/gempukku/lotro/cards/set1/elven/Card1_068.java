@@ -41,7 +41,7 @@ public class Card1_068 extends AbstractAttachable {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert bearer to make an opponent discard 2 cards at random from hand");
-            action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
+            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
             action.addEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

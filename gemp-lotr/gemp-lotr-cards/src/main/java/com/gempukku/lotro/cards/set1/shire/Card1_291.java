@@ -42,7 +42,7 @@ public class Card1_291 extends AbstractAlly {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert The Gaffer to heal Frodo or Sam.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
 
             PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
             PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Sam"));
@@ -50,10 +50,10 @@ public class Card1_291 extends AbstractAlly {
             List<Effect> possibleEffects = new LinkedList<Effect>();
             if (frodo != null)
                 possibleEffects.add(
-                        new HealCharacterEffect(frodo));
+                        new HealCharacterEffect(playerId, frodo));
             if (sam != null)
                 possibleEffects.add(
-                        new HealCharacterEffect(sam));
+                        new HealCharacterEffect(playerId, sam));
 
             action.addEffect(
                     new ChoiceEffect(action, playerId, possibleEffects, false));

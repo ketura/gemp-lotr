@@ -39,13 +39,13 @@ public class Card1_293 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.canExert()) {
                     @Override
                     protected void cardSelected(PhysicalCard hobbit) {
-                        action.addCost(new ExertCharacterEffect(hobbit));
+                        action.addCost(new ExertCharacterEffect(playerId, hobbit));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));

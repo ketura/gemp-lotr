@@ -42,7 +42,7 @@ public class Card1_058 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Exert first Elf", Filters.race(Race.ELF)) {
                     @Override
                     protected void cardSelected(final PhysicalCard firstElf) {
-                        action.addCost(new ExertCharacterEffect(firstElf));
+                        action.addCost(new ExertCharacterEffect(playerId, firstElf));
                         action.addCost(
                                 new ChooseAndExertCharacterEffect(action, playerId, "Exert second Elf", true, Filters.race(Race.ELF), Filters.not(Filters.sameCard(firstElf))));
                     }

@@ -17,6 +17,7 @@ public class PutCardFromDiscardIntoHandEffect extends UnrespondableEffect {
     public void doPlayEffect(LotroGame game) {
         if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _card.getOwner())) {
             GameState gameState = game.getGameState();
+            gameState.sendMessage(_card.getOwner() + " puts " + _card.getBlueprint().getName() + " from discard into his or her hand");
             gameState.removeCardFromZone(_card);
             gameState.addCardToZone(_card, Zone.HAND);
         }

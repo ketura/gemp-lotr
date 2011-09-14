@@ -55,7 +55,7 @@ public class Card1_225 extends AbstractAttachable {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Ulaire Lemenya to discard a possession borne by a character he is skirmishing.");
-            action.addCost(new ExertCharacterEffect(self.getAttachedTo()));
+            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null
                     && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {

@@ -31,7 +31,7 @@ public class Card1_343 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.keyword(Keyword.TALE))) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Discard your tale from play or from hand to heal your companion.");
@@ -46,7 +46,7 @@ public class Card1_343 extends AbstractSite {
                     new ChooseActiveCardEffect(playerId, "Choose your companion", Filters.owner(playerId), Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
-                            action.addEffect(new HealCharacterEffect(companion));
+                            action.addEffect(new HealCharacterEffect(playerId, companion));
                         }
                     });
             return Collections.singletonList(action);

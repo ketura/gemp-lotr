@@ -9,19 +9,27 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 public class ExhaustCharacterEffect extends AbstractEffect {
+    private String _playerId;
     private CostToEffectAction _action;
     private boolean _cost;
     private PhysicalCard _physicalCard;
+    private boolean _sendMessage;
 
-    public ExhaustCharacterEffect(CostToEffectAction action, boolean cost, PhysicalCard physicalCard) {
+    public ExhaustCharacterEffect(String playerId, CostToEffectAction action, boolean cost, PhysicalCard physicalCard) {
+        this(playerId, action, cost, physicalCard, true);
+    }
+
+    private ExhaustCharacterEffect(String playerId, CostToEffectAction action, boolean cost, PhysicalCard physicalCard, boolean sendMessage) {
+        _playerId = playerId;
         _action = action;
         _cost = cost;
         _physicalCard = physicalCard;
+        _sendMessage = sendMessage;
     }
 
     @Override
     public EffectResult.Type getType() {
-        return EffectResult.Type.EXERT;
+        return EffectResult.Type.EXHAUST;
     }
 
     @Override
@@ -36,11 +44,13 @@ public class ExhaustCharacterEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
+        if (_sendMessage)
+            game.getGameState().sendMessage(_playerId + " exhausts " + _physicalCard.getBlueprint().getName());
         game.getGameState().addWound(_physicalCard);
         if (_cost)
-            _action.addCost(new ExhaustCharacterEffect(_action, _cost, _physicalCard));
+            _action.addCost(new ExhaustCharacterEffect(_playerId, _action, _cost, _physicalCard, false));
         else
-            _action.addEffect(new ExhaustCharacterEffect(_action, _cost, _physicalCard));
+            _action.addEffect(new ExhaustCharacterEffect(_playerId, _action, _cost, _physicalCard, false));
         return new ExertResult(_physicalCard);
     }
 }

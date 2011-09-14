@@ -40,7 +40,7 @@ public class Card1_076 extends AbstractResponseEvent {
         if (effect.getType() == EffectResult.Type.WOUND) {
             if (((WoundCharacterEffect) effect).getWoundedCard().getBlueprint().getCardType() == CardType.COMPANION) {
                 PlayEventAction action = new PlayEventAction(self);
-                action.addEffect(new CancelEffect(effect));
+                action.addEffect(new CancelEffect(playerId, effect));
                 return Collections.singletonList(action);
             }
         }

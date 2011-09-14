@@ -33,7 +33,7 @@ public class Card1_236 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && game.getGameState().getBurdens() >= 4) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ASSIGNMENT, "Assign a companion (except the Ring-bearer) to skirmish Ulaire Toldea.");
@@ -43,7 +43,7 @@ public class Card1_236 extends AbstractMinion {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
                                 action.addEffect(
-                                        new AssignmentEffect(companion, Collections.singletonList(self), "Ulaire Toldea effect"));
+                                        new AssignmentEffect(playerId, companion, Collections.singletonList(self), "Ulaire Toldea effect"));
                             }
                         });
             }

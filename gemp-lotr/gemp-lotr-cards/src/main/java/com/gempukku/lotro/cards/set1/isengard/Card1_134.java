@@ -59,7 +59,7 @@ public class Card1_134 extends AbstractAttachable {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert each Hobbit who moves from this site");
             List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT));
             for (PhysicalCard hobbit : hobbits)
-                action.addEffect(new ExertCharacterEffect(hobbit));
+                action.addEffect(new ExertCharacterEffect(hobbit.getOwner(), hobbit));
 
             return Collections.singletonList(action);
         }

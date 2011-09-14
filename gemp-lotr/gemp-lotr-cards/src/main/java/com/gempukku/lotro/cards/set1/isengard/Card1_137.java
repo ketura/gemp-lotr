@@ -43,7 +43,7 @@ public class Card1_137 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose an Uruk-hai", true, Filters.race(Race.URUK_HAI), Filters.canExert()));
@@ -59,7 +59,7 @@ public class Card1_137 extends AbstractEvent {
                     @Override
                     protected void cardsSelected(List<PhysicalCard> cards) {
                         for (PhysicalCard card : cards)
-                            action.addEffect(new ExertCharacterEffect(card));
+                            action.addEffect(new ExertCharacterEffect(playerId, card));
                     }
                 });
 

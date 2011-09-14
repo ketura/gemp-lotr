@@ -44,8 +44,7 @@ public class Card1_362 extends AbstractSite {
                                     @Override
                                     protected void validDecisionMade(int index, String result) {
                                         if (result.equals("Yes")) {
-                                            for (int i = 0; i < burdens; i++)
-                                                action.addEffect(new DrawCardEffect(opp));
+                                            action.addEffect(new DrawCardEffect(opp, burdens));
                                         }
                                     }
                                 }));

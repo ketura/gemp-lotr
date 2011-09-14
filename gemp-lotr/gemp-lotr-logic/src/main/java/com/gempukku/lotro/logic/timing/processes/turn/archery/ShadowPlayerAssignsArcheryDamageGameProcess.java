@@ -40,7 +40,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
-                                _game.getActionsEnvironment().addActionToStack(new WoundAction(selectedCard, 1));
+                                _game.getActionsEnvironment().addActionToStack(new WoundAction(_playerId, selectedCard, 1));
                                 if (_woundsToAssign > 1)
                                     _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);
                                 else

@@ -34,6 +34,7 @@ public class SkirmishResolvedEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
+        game.getGameState().sendMessage("Skirmish finishes with a normal win");
         return new NormalSkirmishResult(_winners, _losers);
     }
 }

@@ -38,7 +38,7 @@ public class Card1_226 extends AbstractEvent {
         List<PhysicalCard> allies = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY));
         for (PhysicalCard ally : allies)
             action.addEffect(
-                    new WoundCharacterEffect(ally));
+                    new WoundCharacterEffect(playerId, ally));
         return action;
     }
 

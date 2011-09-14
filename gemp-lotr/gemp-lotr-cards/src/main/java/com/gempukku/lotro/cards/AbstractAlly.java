@@ -41,7 +41,7 @@ public class AbstractAlly extends AbstractPermanent {
 
             PhysicalCard active = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
             if (active != null)
-                action.addEffect(new HealCharacterEffect(active));
+                action.addEffect(new HealCharacterEffect(playerId, active));
 
             return Collections.singletonList(action);
         }

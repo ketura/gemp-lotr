@@ -63,7 +63,7 @@ public class Card1_189 extends AbstractResponseEvent {
                                     }
                                     int burdens = Math.min(3, shadowCardsCount);
                                     for (int i = 0; i < burdens; i++)
-                                        action.addEffect(new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+                                        action.addEffect(new AddBurdenEffect(playerId));
                                 }
                             }));
             return Collections.singletonList(action);

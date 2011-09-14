@@ -29,7 +29,7 @@ public class Card1_220 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 3)
                 || PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 3)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, (game.getGameState().getCurrentPhase() == Phase.MANEUVER) ? Keyword.MANEUVER : Keyword.SKIRMISH, "Remove (3) to heal a Nazgul.");
@@ -39,7 +39,7 @@ public class Card1_220 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(PhysicalCard nazgul) {
                             action.addEffect(
-                                    new HealCharacterEffect(nazgul));
+                                    new HealCharacterEffect(playerId, nazgul));
                         }
                     });
             return Collections.singletonList(action);

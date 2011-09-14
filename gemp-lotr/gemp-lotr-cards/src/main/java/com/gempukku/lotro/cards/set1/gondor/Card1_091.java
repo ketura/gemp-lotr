@@ -65,7 +65,7 @@ public class Card1_091 extends AbstractAttachableFPPossession {
                                                     @Override
                                                     protected void cardsSelected(List<PhysicalCard> cards) {
                                                         for (PhysicalCard card : cards)
-                                                            action.addEffect(new HealCharacterEffect(card));
+                                                            action.addEffect(new HealCharacterEffect(playerId, card));
                                                     }
                                                 });
                                 }

@@ -46,7 +46,7 @@ public class Card1_273 extends AbstractResponseEvent {
                 int burdens = (game.getGameState().isWearingRing()) ? 3 : 1;
                 for (int i = 0; i < burdens; i++)
                     action.addEffect(
-                            new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+                            new AddBurdenEffect(playerId));
                 return Collections.singletonList(action);
             }
         }

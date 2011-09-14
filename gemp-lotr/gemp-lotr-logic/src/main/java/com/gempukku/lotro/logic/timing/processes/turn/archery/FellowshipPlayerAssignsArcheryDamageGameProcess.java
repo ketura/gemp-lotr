@@ -30,7 +30,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
     @Override
     public void process() {
         if (_woundsToAssign > 0) {
-            GameState gameState = _game.getGameState();
+            final GameState gameState = _game.getGameState();
             List<PhysicalCard> possibleWoundTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
                             Filters.type(CardType.COMPANION),
@@ -46,7 +46,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
-                            _game.getActionsEnvironment().addActionToStack(new WoundAction(selectedCard, 1));
+                            _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
                             if (_woundsToAssign > 1)
                                 _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
                             else

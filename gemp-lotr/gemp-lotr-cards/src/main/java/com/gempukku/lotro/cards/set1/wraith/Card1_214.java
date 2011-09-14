@@ -45,7 +45,7 @@ public class Card1_214 extends AbstractResponseEvent {
             PlayEventAction action = new PlayEventAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ExertCharacterEffect(game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())));
+                    new ExertCharacterEffect(playerId, game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())));
             possibleEffects.add(
                     new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
             action.addEffect(

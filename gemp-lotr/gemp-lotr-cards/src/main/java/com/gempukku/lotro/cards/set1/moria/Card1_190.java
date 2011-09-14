@@ -54,7 +54,7 @@ public class Card1_190 extends AbstractAttachable {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert bearer to make him strength +2.");
             action.addCost(
-                    new ExertCharacterEffect(self.getAttachedTo()));
+                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 2), Phase.SKIRMISH));

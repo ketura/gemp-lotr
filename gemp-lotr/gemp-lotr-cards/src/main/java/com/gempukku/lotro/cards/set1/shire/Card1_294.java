@@ -49,7 +49,7 @@ public class Card1_294 extends AbstractEvent {
                                             @Override
                                             protected void cardSelected(PhysicalCard hobbit) {
                                                 for (int i = 0; i < twilight; i++)
-                                                    action.addEffect(new HealCharacterEffect(hobbit));
+                                                    action.addEffect(new HealCharacterEffect(playerId, hobbit));
                                             }
                                         });
                             }

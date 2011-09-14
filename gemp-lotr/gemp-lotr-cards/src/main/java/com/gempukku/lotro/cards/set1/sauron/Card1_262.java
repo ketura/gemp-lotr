@@ -40,7 +40,7 @@ public class Card1_262 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) >= 2
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
@@ -49,7 +49,7 @@ public class Card1_262 extends AbstractMinion {
                     new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
-                            action.addEffect(new AssignmentEffect(hobbit, Collections.singletonList(self), "Orc Assassin effect"));
+                            action.addEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self), "Orc Assassin effect"));
                         }
                     });
             return Collections.singletonList(action);

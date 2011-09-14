@@ -35,17 +35,17 @@ public class Card1_297 extends AbstractAlly {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert this ally to heal another Hobbit ally whose home is site 1.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
             action.addEffect(
                     new ChooseActiveCardEffect(playerId, "Choose another Hobbit ally", Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)) {
                         @Override
                         protected void cardSelected(PhysicalCard anotherHobbitAlly) {
-                            action.addEffect(new HealCharacterEffect(anotherHobbitAlly));
+                            action.addEffect(new HealCharacterEffect(playerId, anotherHobbitAlly));
                         }
                     });
             return Collections.singletonList(action);
@@ -57,7 +57,7 @@ public class Card1_297 extends AbstractAlly {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal this ally");
-            action.addEffect(new HealCharacterEffect(self));
+            action.addEffect(new HealCharacterEffect(self.getOwner(), self));
             return Collections.singletonList(action);
         }
         return null;

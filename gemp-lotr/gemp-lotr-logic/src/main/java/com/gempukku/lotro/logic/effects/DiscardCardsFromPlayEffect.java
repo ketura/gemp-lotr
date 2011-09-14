@@ -67,6 +67,9 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
                 }
             }
         }
+
+        if (_discardedCards.size() > 0)
+            game.getGameState().sendMessage(_source.getOwner() + " discards multiple cards from play using " + _source.getBlueprint().getName());
         return new DiscardCardsFromPlayResult(_discardedCards);
     }
 }

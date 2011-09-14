@@ -41,10 +41,8 @@ public class Card1_006 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose Dwarf companion", Filters.race(Race.DWARF), Filters.type(CardType.COMPANION), Filters.canExert()) {
                     @Override
                     protected void cardSelected(PhysicalCard dwarf) {
-                        action.addCost(new ExertCharacterEffect(dwarf));
-                        action.addEffect(new DrawCardEffect(playerId));
-                        action.addEffect(new DrawCardEffect(playerId));
-                        action.addEffect(new DrawCardEffect(playerId));
+                        action.addCost(new ExertCharacterEffect(playerId, dwarf));
+                        action.addEffect(new DrawCardEffect(playerId, 3));
                     }
                 }
         );

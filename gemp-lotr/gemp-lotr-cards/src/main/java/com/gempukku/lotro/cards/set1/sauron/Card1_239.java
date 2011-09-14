@@ -34,7 +34,7 @@ public class Card1_239 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
         int exertableCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.canExert());
@@ -45,7 +45,7 @@ public class Card1_239 extends AbstractEvent {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> companions) {
                             for (PhysicalCard companion : companions)
-                                action.addEffect(new ExertCharacterEffect(companion));
+                                action.addEffect(new ExertCharacterEffect(playerId, companion));
                         }
                     });
         }

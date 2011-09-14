@@ -30,7 +30,7 @@ public class Card1_219 extends AbstractPermanent {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.race(Race.NAZGUL)))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Exert a Hobbit (except the Ring-Bearer)");
             action.addEffect(
@@ -38,7 +38,7 @@ public class Card1_219 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.addEffect(
-                                    new ExertCharacterEffect(card));
+                                    new ExertCharacterEffect(playerId, card));
                         }
                     });
             return Collections.singletonList(action);

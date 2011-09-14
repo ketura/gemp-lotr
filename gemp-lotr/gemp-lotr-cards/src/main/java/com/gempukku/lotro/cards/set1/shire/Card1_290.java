@@ -40,7 +40,7 @@ public class Card1_290 extends AbstractCompanion {
             action.addCost(
                     new ChooseAndExertCharacterEffect(action, playerId, "Choose another companion who has the Frodo signet", true, Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.not(Filters.sameCard(self)), Filters.canExert()));
             action.addEffect(
-                    new HealCharacterEffect(self));
+                    new HealCharacterEffect(playerId, self));
 
             return Collections.singletonList(action);
         }

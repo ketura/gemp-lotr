@@ -39,12 +39,12 @@ public class Card1_307 extends AbstractCompanion {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Remove a burder or wound from a companion");
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(new RemoveBurdenEffect());
+            possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
             possibleEffects.add(
                     new ChooseActiveCardEffect(self.getOwner(), "Choose a companion", Filters.type(CardType.COMPANION)) {
                         @Override
@@ -54,7 +54,7 @@ public class Card1_307 extends AbstractCompanion {
 
                         @Override
                         protected void cardSelected(PhysicalCard card) {
-                            action.addEffect(new HealCharacterEffect(card));
+                            action.addEffect(new HealCharacterEffect(self.getOwner(), card));
                         }
                     });
 

@@ -39,7 +39,7 @@ public class Card1_275 extends AbstractPermanent {
             action.addCost(
                     new ChooseAndExertCharacterEffect(action, playerId, "Choose a SAURON tracker", true, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER), Filters.canExert()));
             action.addEffect(
-                    new CancelEffect(effect));
+                    new CancelEffect(playerId, effect));
             return Collections.singletonList(action);
         }
         return null;

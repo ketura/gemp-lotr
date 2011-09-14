@@ -42,7 +42,7 @@ public class Card1_288 extends AbstractAlly {
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Farmer Maggot to heal Merry or Pippin.");
             action.addCost(
-                    new ExertCharacterEffect(self));
+                    new ExertCharacterEffect(playerId, self));
 
             PhysicalCard merry = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Merry"));
             PhysicalCard pippin = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Pippin"));
@@ -50,10 +50,10 @@ public class Card1_288 extends AbstractAlly {
             List<Effect> possibleEffects = new LinkedList<Effect>();
             if (merry != null)
                 possibleEffects.add(
-                        new HealCharacterEffect(merry));
+                        new HealCharacterEffect(playerId, merry));
             if (pippin != null)
                 possibleEffects.add(
-                        new HealCharacterEffect(pippin));
+                        new HealCharacterEffect(playerId, pippin));
 
             action.addEffect(
                     new ChoiceEffect(action, playerId, possibleEffects, false));

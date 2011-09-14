@@ -44,7 +44,7 @@ public class ResolveSkirmishRule {
 
                             List<Action> actions = new LinkedList<Action>();
                             for (PhysicalCard loser : losers) {
-                                actions.add(new WoundAction(loser, dmg));
+                                actions.add(new WoundAction(loser.getOwner(), loser, dmg));
                             }
                             return actions;
                         } else if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
