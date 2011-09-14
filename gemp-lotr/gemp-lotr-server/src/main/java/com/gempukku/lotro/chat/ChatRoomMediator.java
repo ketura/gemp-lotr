@@ -5,6 +5,7 @@ import com.gempukku.lotro.GatheringChatRoomListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ChatRoomMediator {
     private ChatRoom _chatRoom = new ChatRoom();
@@ -46,5 +47,9 @@ public class ChatRoomMediator {
                 _listeners.remove(playerId);
             }
         }
+    }
+
+    public synchronized Set<String> getUsersInRoom() {
+        return _chatRoom.getUsersInRoom();
     }
 }

@@ -342,17 +342,7 @@ public class ServerResource {
 
         Document doc = documentBuilder.newDocument();
 
-        Element chatElem = doc.createElement("chat");
-        chatElem.setAttribute("roomName", room);
-        doc.appendChild(chatElem);
-
-        for (ChatMessage chatMessage : chatMessages) {
-            Element message = doc.createElement("message");
-            message.setAttribute("from", chatMessage.getFrom());
-            message.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
-            message.appendChild(doc.createTextNode(chatMessage.getMessage()));
-            chatElem.appendChild(message);
-        }
+        serializeChatRoomData(room, chatMessages, doc);
 
         return doc;
     }
@@ -381,19 +371,23 @@ public class ServerResource {
 
         Document doc = documentBuilder.newDocument();
 
+        serializeChatRoomData(room, chatMessages, doc);
+
+        return doc;
+    }
+
+    private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Document doc) {
         Element chatElem = doc.createElement("chat");
         chatElem.setAttribute("roomName", room);
         doc.appendChild(chatElem);
 
         for (ChatMessage chatMessage : chatMessages) {
-            Element messageElem = doc.createElement("message");
-            messageElem.setAttribute("from", chatMessage.getFrom());
-            messageElem.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
-            messageElem.appendChild(doc.createTextNode(chatMessage.getMessage()));
-            chatElem.appendChild(messageElem);
+            Element message = doc.createElement("message");
+            message.setAttribute("from", chatMessage.getFrom());
+            message.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
+            message.appendChild(doc.createTextNode(chatMessage.getMessage()));
+            chatElem.appendChild(message);
         }
-
-        return doc;
     }
 
     private class SerializationVisitor implements ParticipantCommunicationVisitor {
