@@ -43,7 +43,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
         List<PhysicalCard> cardsToDiscard = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
         _discardedCards = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cardsToDiscard) {
-            if (game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, _source)) {
+            if (_source == null || game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, _source)) {
                 _discardedCards.add(card);
 
                 GameState gameState = game.getGameState();
@@ -68,7 +68,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
             }
         }
 
-        if (_discardedCards.size() > 0)
+        if (_source != null && _discardedCards.size() > 0)
             game.getGameState().sendMessage(_source.getOwner() + " discards multiple cards from play using " + _source.getBlueprint().getName());
         return new DiscardCardsFromPlayResult(_discardedCards);
     }
