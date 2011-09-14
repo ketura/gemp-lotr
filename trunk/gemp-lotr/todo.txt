@@ -10,7 +10,9 @@ and go with different selection.
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
 16. Add an option to view an ongoing game.
 17. Timeout users from ChatServer the same way they are timed out of GameServer.
-18. 
+18. Add display of site where player is on adventure path.
+19. Add filtering cards to deck-builder.
+20.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
