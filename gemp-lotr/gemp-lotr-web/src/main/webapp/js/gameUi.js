@@ -42,6 +42,8 @@ var GempLotrGameUI = Class.extend({
     windowWidth: null,
     windowHeight: null,
 
+    tabPane: null,
+
     init: function(communication) {
         log("ui initialized");
         this.communication = communication;
@@ -124,9 +126,37 @@ var GempLotrGameUI = Class.extend({
         this.alert.css({"border-radius": "7px"});
         $("#main").append(this.alert);
 
-        this.chatBoxDiv = $("<div class='ui-widget-content'><div id='chatBox'></div></div>");
-        this.chatBoxDiv.css({"border-radius": "7px"});
-        $("#main").append(this.chatBoxDiv);
+        this.tabPane = $("<div><ul><li><a href='#chatBox'>Chat</a></li><li><a href='#settingsBox'>Settings</a></li></ul><div id='chatBox'></div><div id='settingsBox'></div></div>").tabs();
+
+        $("#main").append(this.tabPane);
+
+        this.chatBoxDiv = $("#chatBox");
+
+        $("#settingsBox").append("<input id='autoPass' type='checkbox' value='selected' /><label for='autoPass'>Auto-pass when there is no actions</label><br />");
+        $("#settingsBox").append("<input id='autoAccept' type='checkbox' value='selected' /><label for='autoAccept'>Auto-accept after selecting action or card</label><br />");
+
+        var autoPass = $.cookie("autoPass");
+        if (autoPass == "true") {
+            $("#autoPass").prop("checked", true);
+            this.settingsAutoPass = true;
+        }
+        var autoAccept = $.cookie("autoAccept");
+        if (autoAccept == "true") {
+            $("#autoAccept").prop("checked", true);
+            this.settingsAutoAccept = true;
+        }
+
+        $("#autoPass").bind("change", function() {
+            var selected = $("#autoPass").prop("checked");
+            that.settingsAutoPass = selected;
+            $.cookie("autoPass", "" + selected, { expires: 365 });
+        });
+
+        $("#autoAccept").bind("change", function() {
+            var selected = $("#autoAccept").prop("checked");
+            that.settingsAutoAccept = selected;
+            $.cookie("autoAccept", "" + selected, { expires: 365 });
+        });
 
         this.chatBox = new ChatBoxUI("Game" + getUrlParam("gameId"), $("#chatBox"), this.communication);
 
@@ -286,8 +316,8 @@ var GempLotrGameUI = Class.extend({
 
             this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: height - padding * 4 - alertHeight - chatHeight});
             this.alert.css({ position: "absolute", left: padding * 2 + advPathWidth, top: height - (padding * 2) - alertHeight - chatHeight, width: specialUiWidth - padding, height: alertHeight });
-            this.chatBoxDiv.css({ position: "absolute", left: padding, top: height - padding - chatHeight, width: specialUiWidth + advPathWidth, height: chatHeight });
-            this.chatBox.setBounds(4, 4, specialUiWidth + advPathWidth - 8, chatHeight - 8);
+            this.tabPane.css({ position: "absolute", left: padding, top: height - padding - chatHeight, width: specialUiWidth + advPathWidth - padding, height: chatHeight - padding});
+            this.chatBox.setBounds(4, 4 + 25, specialUiWidth + advPathWidth - 8, chatHeight - 8 - 25);
         }
     },
 
