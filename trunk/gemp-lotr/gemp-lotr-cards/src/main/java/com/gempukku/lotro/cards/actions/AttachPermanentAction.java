@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
+import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.*;

@@ -12,16 +12,18 @@ import java.util.Map;
 public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
     private LotroGame _game;
     private Map<String, Integer> _bids;
+    private String _firstPlayer;
 
-    public FirstPlayerPlaysSiteGameProcess(LotroGame game, Map<String, Integer> bids) {
+    public FirstPlayerPlaysSiteGameProcess(LotroGame game, Map<String, Integer> bids, String firstPlayer) {
         _game = game;
         _bids = bids;
+        _firstPlayer = firstPlayer;
     }
 
     @Override
     public void process() {
         GameState gameState = _game.getGameState();
-        PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(gameState.getCurrentPlayerId()), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).get(0);
+        PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).get(0);
         gameState.removeCardFromZone(firstSite);
         gameState.addCardToZone(firstSite, Zone.ADVENTURE_PATH);
 
@@ -31,6 +33,6 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new PlayRingBearerRingAndAddBurdersGameProcess(_game, _bids);
+        return new PlayRingBearerRingAndAddBurdersGameProcess(_game, _bids, _firstPlayer);
     }
 }

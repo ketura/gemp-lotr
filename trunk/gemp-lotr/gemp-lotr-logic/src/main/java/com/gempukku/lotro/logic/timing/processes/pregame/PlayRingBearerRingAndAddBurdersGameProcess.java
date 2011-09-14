@@ -14,10 +14,12 @@ import java.util.Map;
 public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
     private LotroGame _game;
     private Map<String, Integer> _bids;
+    private String _firstPlayer;
 
-    public PlayRingBearerRingAndAddBurdersGameProcess(LotroGame game, Map<String, Integer> bids) {
+    public PlayRingBearerRingAndAddBurdersGameProcess(LotroGame game, Map<String, Integer> bids, String firstPlayer) {
         _game = game;
         _bids = bids;
+        _firstPlayer = firstPlayer;
     }
 
     @Override
@@ -41,6 +43,6 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
     @Override
     public GameProcess getNextProcess() {
         GameState gameState = _game.getGameState();
-        return new PlayStartingFellowshipGameProcess(_game, gameState.getPlayerOrder().getClockwisePlayOrder(gameState.getCurrentPlayerId(), false));
+        return new PlayStartingFellowshipGameProcess(_game, gameState.getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
     }
 }
