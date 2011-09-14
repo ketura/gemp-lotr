@@ -144,7 +144,7 @@ public class LotroGameMediator {
                 visitor.visitWarning(warning);
             AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
             if (awaitingDecision != null)
-                visitor.visitAwaitingDecision(_lotroGame.getActionStack().getTopmostAction(), awaitingDecision);
+                visitor.visitAwaitingDecision(awaitingDecision);
 
             Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
@@ -171,7 +171,7 @@ public class LotroGameMediator {
             visitor.visitWarning(warning);
         AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
         if (awaitingDecision != null)
-            visitor.visitAwaitingDecision(_lotroGame.getActionStack().getTopmostAction(), awaitingDecision);
+            visitor.visitAwaitingDecision(awaitingDecision);
 
         Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
         for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {

@@ -15,7 +15,6 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultLotroFormat;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.timing.Action;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
@@ -417,8 +416,8 @@ public class ServerResource {
         }
 
         @Override
-        public void visitAwaitingDecision(Action currentAction, AwaitingDecision awaitingDecision) {
-            _element.appendChild(serializeDecision(_doc, currentAction, awaitingDecision));
+        public void visitAwaitingDecision(AwaitingDecision awaitingDecision) {
+            _element.appendChild(serializeDecision(_doc, awaitingDecision));
         }
 
         @Override
@@ -439,17 +438,12 @@ public class ServerResource {
         return clocks;
     }
 
-    private Node serializeDecision(Document doc, Action currentAction, AwaitingDecision decision) {
+    private Node serializeDecision(Document doc, AwaitingDecision decision) {
         Element decisionElem = doc.createElement("decision");
         decisionElem.setAttribute("id", String.valueOf(decision.getAwaitingDecisionId()));
         decisionElem.setAttribute("type", decision.getDecisionType().name());
-        if (decision.getText() != null) {
-            String text = "";
-            if (currentAction != null)
-                text += currentAction.getText() + ": ";
-            text += decision.getText();
-            decisionElem.setAttribute("text", text);
-        }
+        if (decision.getText() != null)
+            decisionElem.setAttribute("text", decision.getText());
         for (Map.Entry<String, Object> paramEntry : decision.getDecisionParameters().entrySet()) {
             if (paramEntry.getValue() instanceof String) {
                 Element decisionParam = doc.createElement("parameter");

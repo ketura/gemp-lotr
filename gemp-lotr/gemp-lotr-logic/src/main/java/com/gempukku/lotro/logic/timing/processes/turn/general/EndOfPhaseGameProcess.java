@@ -20,7 +20,7 @@ public class EndOfPhaseGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new EndOfPhaseResult(_phase)), "End of " + _phase + " phase"));
+        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new EndOfPhaseResult(_phase), "End of " + _phase + " phase"), "End of " + _phase + " phase"));
     }
 
     @Override

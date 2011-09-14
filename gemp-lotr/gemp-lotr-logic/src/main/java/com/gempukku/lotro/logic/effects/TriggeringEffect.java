@@ -6,9 +6,11 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class TriggeringEffect extends AbstractEffect {
     private EffectResult _effectResult;
+    private String _text;
 
-    public TriggeringEffect(EffectResult effectResult) {
+    public TriggeringEffect(EffectResult effectResult, String text) {
         _effectResult = effectResult;
+        _text = text;
     }
 
     @Override
@@ -18,7 +20,7 @@ public class TriggeringEffect extends AbstractEffect {
 
     @Override
     public String getText() {
-        return null;
+        return _text;
     }
 
     @Override
