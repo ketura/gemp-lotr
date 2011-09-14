@@ -115,9 +115,6 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.append("<div class='phase' id='SKIRMISH'>Skirmish</div>");
         this.gameStateElem.append("<div class='phase' id='REGROUP'>Regroup</div>");
 
-        this.gameStateElem.append("<br>");
-
-        this.gameStateElem.append("<b>Twilight pool:</b><br>");
         this.gameStateElem.append("<div class='twilightPool'>0</div>");
 
         $("#main").append(this.gameStateElem);
