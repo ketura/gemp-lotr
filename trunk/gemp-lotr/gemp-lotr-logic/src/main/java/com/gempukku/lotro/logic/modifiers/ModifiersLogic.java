@@ -179,7 +179,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getKeywordCount(gameState, this, physicalCard, keyword, result);
         }
-        return Math.min(0, result);
+        return Math.max(0, result);
     }
 
     @Override
@@ -200,7 +200,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             result = modifier.getMoveLimit(gameState, this, result);
 
-        return Math.min(1, result);
+        return Math.max(1, result);
     }
 
     @Override
@@ -216,7 +216,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                     && appliesStrengthModifier(gameState, modifier.getSource()))
                 result = modifier.getStrength(gameState, this, physicalCard, result);
         }
-        return Math.min(0, result);
+        return Math.max(0, result);
     }
 
     private boolean appliesStrengthModifier(GameState gameState, PhysicalCard modifierSource) {
@@ -245,7 +245,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getVitality(gameState, this, physicalCard, result);
         }
-        return Math.min(0, result);
+        return Math.max(0, result);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getTwilightCost(gameState, this, physicalCard, result);
         }
-        return Math.min(0, result);
+        return Math.max(0, result);
     }
 
     @Override
@@ -273,7 +273,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getPlayOnTwilightCost(gameState, this, physicalCard, target, result);
         }
-        return Math.min(0, result);
+        return Math.max(0, result);
     }
 
     @Override
@@ -287,7 +287,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getRoamingPenalty(gameState, this, physicalCard, result);
         }
-        return Math.min(0, result);
+        return Math.max(0, result);
     }
 
     @Override
