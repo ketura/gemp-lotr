@@ -8,7 +8,8 @@ var GempLotrGameUI = Class.extend({
     selfPlayerId: null,
     currentPlayerId: null,
     allPlayerIds: null,
-    dialogInstance: null,
+    cardActionDialog: null,
+    smallDialog: null,
     gameStateElem: null,
     alert: null,
     infoDialog: null,
@@ -92,10 +93,10 @@ var GempLotrGameUI = Class.extend({
             return (card.zone == "HAND");
         });
 
-        this.specialGroup = new NormalCardGroup(this.dialogInstance, function(card) {
+        this.specialGroup = new NormalCardGroup(this.cardActionDialog, function(card) {
             return (card.zone == "SPECIAL");
         }, false);
-        this.specialGroup.setBounds(this.padding, this.padding, this.dialogInstance.width() + 20, this.dialogInstance.height() + 20);
+        this.specialGroup.setBounds(this.padding, this.padding, this.cardActionDialog.width() + 20, this.cardActionDialog.height() + 20);
 
         this.gameStateElem = $("<div class='ui-widget-content'></div>");
         this.gameStateElem.css({"border-radius": "7px"});
@@ -194,7 +195,16 @@ var GempLotrGameUI = Class.extend({
     },
 
     initializeDialogs: function() {
-        this.dialogInstance = $("<div></div>")
+        this.smallDialog = $("<div></div>")
+                .dialog({
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
+
+        this.cardActionDialog = $("<div></div>")
                 .dialog({
             autoOpen: false,
             closeOnEscape: false,
@@ -205,7 +215,7 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
-        this.dialogInstance.bind("dialogresize", function() {
+        this.cardActionDialog.bind("dialogresize", function() {
             that.arbitraryDialogResize();
         });
 
@@ -668,7 +678,7 @@ var GempLotrGameUI = Class.extend({
             max = 1000;
 
         var that = this;
-        this.dialogInstance
+        this.smallDialog
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
         {
@@ -690,7 +700,7 @@ var GempLotrGameUI = Class.extend({
             backColor: "#000000"
         });
 
-        this.dialogInstance.dialog("open");
+        this.smallDialog.dialog("open");
     },
 
     multipleChoiceDecision: function(decision) {
@@ -705,7 +715,7 @@ var GempLotrGameUI = Class.extend({
         html += "</select>";
 
         var that = this;
-        this.dialogInstance
+        this.smallDialog
                 .html(html)
                 .dialog("option", "buttons",
         {
@@ -716,7 +726,7 @@ var GempLotrGameUI = Class.extend({
         }
                 );
 
-        this.dialogInstance.dialog("open");
+        this.smallDialog.dialog("open");
     },
 
     createCardDiv: function(card, text) {
@@ -764,20 +774,20 @@ var GempLotrGameUI = Class.extend({
 
         var selectableCardIds = new Array();
 
-        this.dialogInstance
+        this.cardActionDialog
                 .html("<div id='arbitraryChoice'></div>")
                 .dialog("option", "title", text)
                 .dialog("option", "buttons", {});
 
         var finishChoice = function() {
-            that.dialogInstance.dialog("close");
+            that.cardActionDialog.dialog("close");
             $("#arbitraryChoice").html("");
             that.clearSelection();
             that.decisionFunction(id, "" + selectedCardIds);
         };
 
         if (min == 0) {
-            this.dialogInstance.dialog("option", "buttons", {
+            this.cardActionDialog.dialog("option", "buttons", {
                 "DONE": function() {
                     finishChoice();
                 }
@@ -802,7 +812,7 @@ var GempLotrGameUI = Class.extend({
             selectedCardIds.push(cardId);
 
             if (selectedCardIds.length == min) {
-                this.dialogInstance.dialog("option", "buttons", {
+                this.cardActionDialog.dialog("option", "buttons", {
                     "DONE": function() {
                         finishChoice();
                     }
@@ -824,7 +834,7 @@ var GempLotrGameUI = Class.extend({
         this.attachSelectionFunctions(selectableCardIds);
 
         $(".ui-dialog-titlebar").show();
-        this.dialogInstance.dialog("open");
+        this.cardActionDialog.dialog("open");
         this.arbitraryDialogResize();
     },
 
@@ -901,7 +911,7 @@ var GempLotrGameUI = Class.extend({
 
         var selectedActionIds = new Array();
 
-        this.dialogInstance
+        this.cardActionDialog
                 .html("<div id='arbitraryChoice'></div>")
                 .dialog("option", "title", text)
                 .dialog("option", "buttons", {});
@@ -909,7 +919,7 @@ var GempLotrGameUI = Class.extend({
         var cardIds = new Array();
 
         var finishChoice = function() {
-            that.dialogInstance.dialog("close");
+            that.cardActionDialog.dialog("close");
             $("#arbitraryChoice").html("");
             that.clearSelection();
             that.decisionFunction(id, "" + selectedActionIds);
@@ -935,7 +945,7 @@ var GempLotrGameUI = Class.extend({
             if (this.settingsAutoAccept) {
                 finishChoice();
             } else {
-                this.dialogInstance.dialog("option", "buttons", {
+                this.cardActionDialog.dialog("option", "buttons", {
                     "DONE": function() {
                         finishChoice();
                     }
@@ -950,7 +960,7 @@ var GempLotrGameUI = Class.extend({
         this.specialGroup.setBounds(10, 10, 547, 188);
 
         $(".ui-dialog-titlebar").show();
-        this.dialogInstance.dialog("open");
+        this.cardActionDialog.dialog("open");
     },
 
     cardSelectionDecision: function(decision) {
@@ -1126,8 +1136,8 @@ var GempLotrGameUI = Class.extend({
     },
 
     arbitraryDialogResize: function() {
-        var width = this.dialogInstance.width() + 20;
-        var height = this.dialogInstance.height() + 20;
+        var width = this.cardActionDialog.width() + 20;
+        var height = this.cardActionDialog.height() + 20;
         this.specialGroup.setBounds(this.padding, this.padding, width - 2 * this.padding, height - 2 * this.padding);
     }
 });
