@@ -1,13 +1,12 @@
 package com.gempukku.lotro.chat;
 
+import com.gempukku.lotro.AbstractServer;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ChatServer {
+public class ChatServer extends AbstractServer {
     private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
-
-    private boolean _started;
-    private CleaningTask _cleaningTask;
 
     public void createChatRoom(String name) {
         _chatRooms.put(name, new ChatRoomMediator());
@@ -21,42 +20,8 @@ public class ChatServer {
         _chatRooms.remove(name);
     }
 
-    public synchronized void startServer() {
-        if (!_started) {
-            _cleaningTask = new CleaningTask();
-            new Thread(_cleaningTask).start();
-            _started = true;
-        }
-    }
-
-    public synchronized void stopServer() {
-        if (_started) {
-            _cleaningTask.stop();
-            _started = false;
-        }
-    }
-
-    private void cleanup() {
+    protected void cleanup() {
         for (ChatRoomMediator chatRoomMediator : _chatRooms.values())
             chatRoomMediator.cleanup();
-    }
-
-    private class CleaningTask implements Runnable {
-        private boolean _running = true;
-
-        public void run() {
-            while (_running) {
-                cleanup();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    // Ignore
-                }
-            }
-        }
-
-        public void stop() {
-            _running = false;
-        }
     }
 }

@@ -1,9 +1,5 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.GameEvent;
-import com.gempukku.lotro.LotroGameMediator;
-import com.gempukku.lotro.LotroGameParticipant;
-import com.gempukku.lotro.LotroServer;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
@@ -11,9 +7,8 @@ import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
-import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.DefaultLotroFormat;
-import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
+import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -38,6 +33,7 @@ import java.util.Map;
 public class ServerResource {
     private static final Logger _logger = Logger.getLogger(ServerResource.class);
 
+    private HallServer _hallServer;
     private LotroServer _lotroServer;
     private ChatServer _chatServer;
 
@@ -47,10 +43,12 @@ public class ServerResource {
         try {
             _chatServer = new ChatServer();
             _chatServer.startServer();
-            _chatServer.createChatRoom("default");
 
             _lotroServer = new LotroServer(_chatServer);
             _lotroServer.startServer();
+
+            _hallServer = new HallServer(_lotroServer, _chatServer);
+            _hallServer.startServer();
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
             exp.printStackTrace();

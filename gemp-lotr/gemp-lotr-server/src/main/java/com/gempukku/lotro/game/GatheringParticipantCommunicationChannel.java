@@ -1,14 +1,14 @@
-package com.gempukku.lotro;
+package com.gempukku.lotro.game;
 
-import static com.gempukku.lotro.GameEvent.Type.*;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
-import com.gempukku.lotro.game.PhysicalCard;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.gempukku.lotro.game.GameEvent.Type.*;
 
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();

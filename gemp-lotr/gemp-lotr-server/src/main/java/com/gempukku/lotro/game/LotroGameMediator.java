@@ -1,10 +1,6 @@
-package com.gempukku.lotro;
+package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
-import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -12,10 +8,7 @@ import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LotroGameMediator {
     private Map<String, GatheringParticipantCommunicationChannel> _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
@@ -23,6 +16,7 @@ public class LotroGameMediator {
     private DefaultLotroGame _lotroGame;
     private Map<String, Integer> _playerClocks = new HashMap<String, Integer>();
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
+    private Set<String> _playersPlaying = new HashSet<String>();
 
     private final int _maxSecondsForGamePerPlayer = 60 * 30; // 30 minutes
     private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
@@ -40,8 +34,13 @@ public class LotroGameMediator {
             String participantId = participant.getPlayerId();
             decks.put(participantId, participant.getDeck());
             _playerClocks.put(participantId, 0);
+            _playersPlaying.add(participantId);
         }
         _lotroGame = new DefaultLotroGame(decks, _userFeedback, gameResultListener, library);
+    }
+
+    public Set<String> getPlayersPlaying() {
+        return Collections.unmodifiableSet(_playersPlaying);
     }
 
     public synchronized String produceCardInfo(String participantId, int cardId) {

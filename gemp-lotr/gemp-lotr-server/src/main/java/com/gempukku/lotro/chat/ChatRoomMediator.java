@@ -1,6 +1,6 @@
 package com.gempukku.lotro.chat;
 
-import com.gempukku.lotro.GatheringChatRoomListener;
+import com.gempukku.lotro.game.GatheringChatRoomListener;
 
 import java.util.HashMap;
 import java.util.List;
