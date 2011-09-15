@@ -223,6 +223,18 @@ var GempLotrGameUI = Class.extend({
             height: 300
         });
 
+        var swipeOptions = {
+            threshold: 20,
+            swipeUp: function (event) {
+                that.infoDialog.prop({ scrollTop: that.infoDialog.prop("scrollHeight") });
+                return false;
+            },
+            swipeDown: function (event) {
+                that.infoDialog.prop({ scrollTop: 0 });
+                return false;
+            }
+        };
+        this.infoDialog.swipe(swipeOptions);
     },
 
     layoutUI: function(sizeNotChanged) {
@@ -716,9 +728,12 @@ var GempLotrGameUI = Class.extend({
             threshold: 20,
             swipeUp: function (event) {
                 var tar = $(event.target);
-                if (tar.hasClass("borderOverlay")) {
-                    var selectedCardElem = tar.parent();
-                    that.displayCardInfo(selectedCardElem.data("card"));
+                if (tar.hasClass("actionArea")) {
+                    tar = tar.parent();
+                    if (tar.hasClass("borderOverlay")) {
+                        var selectedCardElem = tar.parent();
+                        that.displayCardInfo(selectedCardElem.data("card"));
+                    }
                 }
                 return false;
             }
