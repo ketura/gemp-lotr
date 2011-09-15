@@ -1,4 +1,4 @@
-package com.gempukku.lotro;
+package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;

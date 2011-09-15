@@ -1,10 +1,9 @@
-package com.gempukku.lotro;
+package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.PhysicalCard;
 
 import java.util.List;
 

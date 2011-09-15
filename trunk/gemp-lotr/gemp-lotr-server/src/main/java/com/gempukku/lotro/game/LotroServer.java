@@ -1,5 +1,6 @@
-package com.gempukku.lotro;
+package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -8,7 +9,6 @@ import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
-import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
@@ -16,18 +16,17 @@ import org.apache.log4j.Logger;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LotroServer {
+public class LotroServer extends AbstractServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
 
     private LotroCardBlueprintLibrary _lotroCardBlueprintLibrary = new LotroCardBlueprintLibrary();
 
     private Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<String, LotroGameMediator>();
 
+
     private final Map<String, Date> _finishedGamesTime = new LinkedHashMap<String, Date>();
     private final long _timeToGameDeath = 1000 * 60 * 5; // 5 minutes
 
-    private boolean _started;
-    private CleaningTask _cleaningTask;
     private int _nextGameId = 1;
 
     private PlayerDAO _playerDao;
@@ -71,22 +70,7 @@ public class LotroServer {
         return _defaultCollection;
     }
 
-    public synchronized void startServer() {
-        if (!_started) {
-            _cleaningTask = new CleaningTask();
-            new Thread(_cleaningTask).start();
-            _started = true;
-        }
-    }
-
-    public synchronized void stopServer() {
-        if (_started) {
-            _cleaningTask.stop();
-            _started = false;
-        }
-    }
-
-    public void cleanup() {
+    protected void cleanup() {
         long currentTime = System.currentTimeMillis();
 
         synchronized (_finishedGamesTime) {
@@ -185,24 +169,5 @@ public class LotroServer {
 
     public LotroGameMediator getGameById(String gameId) {
         return _runningGames.get(gameId);
-    }
-
-    private class CleaningTask implements Runnable {
-        private boolean _running = true;
-
-        public void run() {
-            while (_running) {
-                cleanup();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    log.error("Cleaning task interrupted", e);
-                }
-            }
-        }
-
-        public void stop() {
-            _running = false;
-        }
     }
 }
