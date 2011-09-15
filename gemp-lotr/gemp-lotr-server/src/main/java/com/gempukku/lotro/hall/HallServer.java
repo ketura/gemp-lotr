@@ -2,10 +2,8 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.game.DefaultLotroFormat;
-import com.gempukku.lotro.game.LotroGameMediator;
-import com.gempukku.lotro.game.LotroGameParticipant;
-import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
     private LotroServer _lotroServer;
+
+    private LotroFormat _lotroFormat = new DefaultLotroFormat(true);
 
     private Map<String, AwaitingTable> _awaitingTables = new ConcurrentHashMap<String, AwaitingTable>();
     private Map<String, String> _runningTables = new ConcurrentHashMap<String, String>();
@@ -38,8 +38,8 @@ public class HallServer extends AbstractServer {
 
         String tableId = String.valueOf(_nextTableId++);
         AwaitingTable table = new AwaitingTable();
-        table.addPlayer(playerId);
         _awaitingTables.put(tableId, table);
+        joinTableAsPlayer(tableId, playerId);
 
         return true;
     }
@@ -55,14 +55,19 @@ public class HallServer extends AbstractServer {
         AwaitingTable awaitingTable = _awaitingTables.get(tableId);
         if (awaitingTable == null)
             return false;
-        boolean tableFull = awaitingTable.addPlayer(playerId);
-        if (tableFull) {
-            Set<String> players = awaitingTable.getPlayers();
-            LotroGameParticipant[] participants = new LotroGameParticipant[players.size()];
-            int index = 0;
-            for (String player : players)
-                participants[index] = new LotroGameParticipant(player, _lotroServer.getParticipantDeck(player));
 
+        LotroDeck lotroDeck = _lotroServer.getParticipantDeck(playerId);
+        if (lotroDeck == null)
+            return false;
+
+        boolean valid = _lotroFormat.validateDeck(lotroDeck);
+        if (!valid)
+            return false;
+
+        boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, lotroDeck));
+        if (tableFull) {
+            Set<LotroGameParticipant> players = awaitingTable.getPlayers();
+            LotroGameParticipant[] participants = new LotroGameParticipant[players.size()];
             String gameId = _lotroServer.createNewGame(new DefaultLotroFormat(true), participants);
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
             lotroGameMediator.startGame();
@@ -78,6 +83,29 @@ public class HallServer extends AbstractServer {
                 boolean empty = table.getValue().removePlayer(playerId);
                 if (empty)
                     _awaitingTables.remove(table.getKey());
+            }
+        }
+    }
+
+    public void processTables(String participantId, HallInfoVisitor visitor) {
+        Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
+        for (Map.Entry<String, AwaitingTable> table : copy.entrySet())
+            visitor.visitTable(table.getKey(), "Waiting", table.getValue().getPlayerNames());
+
+        Map<String, String> runningCopy = new HashMap<String, String>(_runningTables);
+        for (Map.Entry<String, String> runningGame : runningCopy.entrySet()) {
+            LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
+            if (lotroGameMediator != null)
+                visitor.visitTable(runningGame.getKey(), lotroGameMediator.getGameStatus(), lotroGameMediator.getPlayersPlaying());
+        }
+
+        String playerTable = getPlayerTable(participantId);
+        if (playerTable != null) {
+            String gameId = _runningTables.get(playerTable);
+            if (gameId != null) {
+                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
+                if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished"))
+                    visitor.runningPlayerGame(gameId);
             }
         }
     }

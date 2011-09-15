@@ -8,6 +8,7 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.sun.jersey.spi.resource.Singleton;
@@ -27,6 +28,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Singleton
 @Path("/")
@@ -372,6 +374,75 @@ public class ServerResource {
         serializeChatRoomData(room, chatMessages, doc);
 
         return doc;
+    }
+
+    @Path("/hall")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getHall(
+            @QueryParam("participantId") String participantId) throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element hall = doc.createElement("hall");
+
+        _hallServer.processTables(participantId, new SerializeHallInfoVisitor(doc, hall));
+
+        doc.appendChild(hall);
+
+        return doc;
+    }
+
+    @Path("/hall/{table}")
+    @POST
+    public void joinTable(
+            @PathParam("table") String tableId,
+            @FormParam("participantId") String participantId) throws ParserConfigurationException {
+        boolean joined = _hallServer.joinTableAsPlayer(tableId, participantId);
+    }
+
+    @Path("/hall")
+    @POST
+    public void createTable(
+            @FormParam("participantId") String participantId) throws ParserConfigurationException {
+        boolean created = _hallServer.createNewTable(participantId);
+    }
+
+    private class SerializeHallInfoVisitor implements HallInfoVisitor {
+        private Document _doc;
+        private Element _hall;
+
+        public SerializeHallInfoVisitor(Document doc, Element hall) {
+            _doc = doc;
+            _hall = hall;
+        }
+
+        @Override
+        public void visitTable(String tableId, String tableStatus, Set<String> playerIds) {
+            Element table = _doc.createElement("table");
+            table.setAttribute("id", tableId);
+            table.setAttribute("status", tableStatus);
+            table.setAttribute("players", mergeStrings(playerIds));
+            _hall.appendChild(table);
+        }
+
+        @Override
+        public void runningPlayerGame(String gameId) {
+            Element runningGame = _doc.createElement("game");
+            runningGame.setAttribute("id", gameId);
+            _hall.appendChild(runningGame);
+        }
+    }
+
+    private String mergeStrings(Set<String> strings) {
+        StringBuilder sb = new StringBuilder();
+        for (String string : strings)
+            sb.append(string).append(",");
+        if (sb.length() > 0)
+            return sb.deleteCharAt(sb.length() - 1).toString();
+        return sb.toString();
     }
 
     private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Document doc) {

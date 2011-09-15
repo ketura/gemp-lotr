@@ -22,7 +22,6 @@ public class LotroGameMediator {
     private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
     private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
 
-
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, GameResultListener gameResultListener) {
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
@@ -41,6 +40,14 @@ public class LotroGameMediator {
 
     public Set<String> getPlayersPlaying() {
         return Collections.unmodifiableSet(_playersPlaying);
+    }
+
+    public String getGameStatus() {
+        if (_lotroGame.getGameState() == null)
+            return "Preparation";
+        if (_lotroGame.getGameState().getWinnerPlayerId() != null)
+            return "Finished";
+        return "Playing";
     }
 
     public synchronized String produceCardInfo(String participantId, int cardId) {

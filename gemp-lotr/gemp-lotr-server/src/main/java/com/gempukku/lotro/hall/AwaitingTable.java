@@ -1,16 +1,16 @@
 package com.gempukku.lotro.hall;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import com.gempukku.lotro.game.LotroGameParticipant;
+
+import java.util.*;
 
 public class AwaitingTable {
-    private Set<String> _players = new HashSet<String>();
+    private Map<String, LotroGameParticipant> _players = new HashMap<String, LotroGameParticipant>();
 
     private int _capacity = 2;
 
-    public boolean addPlayer(String playerId) {
-        _players.add(playerId);
+    public boolean addPlayer(LotroGameParticipant player) {
+        _players.put(player.getPlayerId(), player);
         return _players.size() == _capacity;
     }
 
@@ -20,10 +20,14 @@ public class AwaitingTable {
     }
 
     public boolean hasPlayer(String playerId) {
-        return _players.contains(playerId);
+        return _players.containsKey(playerId);
     }
 
-    public Set<String> getPlayers() {
-        return Collections.unmodifiableSet(_players);
+    public Set<String> getPlayerNames() {
+        return Collections.unmodifiableSet(_players.keySet());
+    }
+
+    public Set<LotroGameParticipant> getPlayers() {
+        return Collections.unmodifiableSet(new HashSet<LotroGameParticipant>(_players.values()));
     }
 }
