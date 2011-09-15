@@ -43,13 +43,13 @@ public class Card1_326 extends AbstractSite {
                             new Filter() {
                                 @Override
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0);
+                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, -1);
                                 }
                             }) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             PhysicalCard selectedCard = selectedCards.get(0);
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
+                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, -1));
                         }
                     });
             return Collections.singletonList(action);
