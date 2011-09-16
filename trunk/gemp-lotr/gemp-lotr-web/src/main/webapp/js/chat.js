@@ -7,10 +7,12 @@ var ChatBoxUI = Class.extend({
     talkBoxHeight: 25,
 
     init: function(name, div, url) {
+        var that = this;
         this.name = name;
         this.div = div;
         this.communication = new GempLotrCommunication(url, function() {
-            alert("Chat had a problem communicating with the server, reload the page to continue");
+            that.appendMessage("Chat had a problem communicating with the server, no new messages will be displayed, but your messages still might get sent.", "warningMessage");
+            that.appendMessage("Reload the browser page (press F5) to resume the chat.", "warningMessage");
         });
 
         this.chatMessagesDiv = $("<div class='chatMessages'></div>");

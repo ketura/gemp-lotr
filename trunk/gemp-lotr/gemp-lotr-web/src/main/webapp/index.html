@@ -20,6 +20,15 @@
         .tablePlayer {
             text-align: center;
         }
+
+        .chatMessage {
+            color: #000000;
+        }
+
+        .warningMessage {
+            color: #ff0000;
+        }
+
     </style>
     <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
     <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
@@ -64,10 +73,10 @@
                         var participantId = getUrlParam("participantId");
                         $("#user").append("You are logged in as <b>" + participantId + "</b>, create a table or join one where other player is waiting.");
 
-                        var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server");
-
                         var chat = new ChatBoxUI("default", $("#chat"), "/gemp-lotr/server");
                         chat.setBounds(2, 2, 780 - 4, 200 - 4);
+
+                        var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
                     }
                 });
     </script>

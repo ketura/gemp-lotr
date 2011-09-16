@@ -6,10 +6,11 @@ var GempLotrHallUI = Class.extend({
 
     tablesDiv: null,
 
-    init: function(div, url) {
+    init: function(div, url, chat) {
         this.div = div;
         this.comm = new GempLotrCommunication(url, function() {
-            alert("There was a problem communicating with the server, reload this window to continue.");
+            chat.appendMessage("The game hall had a problem communication with the server, no new updates will be displayed.", "warningMessage");
+            chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
         });
 
         var width = $(div).width();
