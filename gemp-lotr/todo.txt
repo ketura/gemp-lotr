@@ -1,16 +1,23 @@
 TO DO:
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
 18. Add display of site where player is on adventure path.
+21. Scale wounds, burdens, other tokens with the card size.
+22. If skirmish is in progress, the total strength of each side should be displayed.
 16. Add an option to view an ongoing game.
 
 20. Display clock.
 13. Add dead/discard pile displays.
 14. Add hand/deck card count displays.
 19. Add filtering cards to deck-builder.
+24. The events that are played and cards affected should be shown to the players briefly using animations to make it
+ aestheticly pleasing.
+23. Add ghost cards attached to cards they are affecting in case of things (non-possessions) affecting only one card
+ (like skirmish strength bonuses, etc)
+
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-21.
+25.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
