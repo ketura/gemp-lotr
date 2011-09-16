@@ -392,7 +392,7 @@ var GempLotrGameUI = Class.extend({
             } else if (eventType == "MESSAGE") {
                 this.message(gameEvent);
             } else if (eventType == "WARNING") {
-                this.message(gameEvent);
+                this.warning(gameEvent);
             }
         }
         if (gameEvents.length > 0)
