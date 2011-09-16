@@ -135,36 +135,15 @@
 
         $(document).ready(
                 function () {
-
-                    communication = new GempLotrCommunication("/gemp-lotr/server",
-                            function() {
-                                alert("There was a problem communicaiton with server, most likely the game does not exist");
-                            });
-
-                    ui = new GempLotrGameUI(communication);
-
-                    ui.setUpdateState(function() {
-                        communication.updateGameState(function(xml) {
-                            ui.processXml(xml);
-                        });
-                    });
-                    ui.setDecisionFunction(function(decisionId, result) {
-                        communication.gameDecisionMade(decisionId, result, function(xml) {
-                            ui.processXml(xml);
-                        });
-                    });
-                    ui.setGetCardModifiers(function(cardId, func) {
-                        communication.getGameCardModifiers(cardId, func);
-                    });
-                    ui.layoutUI();
+                    ui = new GempLotrGameUI("/gemp-lotr/server");
 
                     $(window).resize(function() {
                         ui.layoutUI();
                     });
 
-                    communication.startGameSession(function(xml) {
-                        ui.processXml(xml);
-                    });
+                    ui.layoutUI();
+
+                    ui.startGameSession();
                 });
     </script>
 
