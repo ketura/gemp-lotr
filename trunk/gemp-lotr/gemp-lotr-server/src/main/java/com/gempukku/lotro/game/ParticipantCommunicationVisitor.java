@@ -10,4 +10,6 @@ public interface ParticipantCommunicationVisitor {
     public void visitAwaitingDecision(AwaitingDecision awaitingDecision);
 
     public void visitGameEvent(GameEvent gameEvent);
+
+    public void visitSkirmishStats(int fpStrength, int shadowStrength);
 }

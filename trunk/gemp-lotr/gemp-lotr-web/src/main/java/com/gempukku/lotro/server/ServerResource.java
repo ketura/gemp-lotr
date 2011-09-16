@@ -517,6 +517,14 @@ public class ServerResource {
         public void visitClock(Map<String, Integer> secondsLeft) {
             _element.appendChild(serializeClocks(_doc, secondsLeft));
         }
+
+        @Override
+        public void visitSkirmishStats(int fpStrength, int shadowStrength) {
+            Element skirmish = _doc.createElement("skirmish");
+            skirmish.setAttribute("fpStrength", String.valueOf(fpStrength));
+            skirmish.setAttribute("shadowStrength", String.valueOf(shadowStrength));
+            _element.appendChild(skirmish);
+        }
     }
 
     private Node serializeClocks(Document doc, Map<String, Integer> secondsLeft) {
