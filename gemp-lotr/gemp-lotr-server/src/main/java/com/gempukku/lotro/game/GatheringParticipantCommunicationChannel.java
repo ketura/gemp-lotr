@@ -104,6 +104,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
         _events.add(new GameEvent(MESSAGE).message(message));
     }
 
+    @Override
+    public void setSite(PhysicalCard card) {
+        _events.add(new GameEvent(PUT_CARD_IN_PLAY).card(card).index(card.getBlueprint().getSiteNumber()));
+    }
+
     public List<GameEvent> consumeGameEvents() {
         List<GameEvent> result = _events;
         _events = new LinkedList<GameEvent>();

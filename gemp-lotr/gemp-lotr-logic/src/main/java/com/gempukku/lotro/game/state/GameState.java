@@ -280,12 +280,17 @@ public class GameState {
     public void addCardToZone(PhysicalCard card, Zone zone) {
         getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone).add((PhysicalCardImpl) card);
         ((PhysicalCardImpl) card).setZone(zone);
-        if (isZonePublic(zone))
+        if (zone == Zone.ADVENTURE_PATH) {
             for (GameStateListener listener : getAllGameStateListeners())
-                listener.cardCreated(card);
-        else if (isZonePrivate(zone))
-            for (GameStateListener listener : getPrivateGameStateListeners(card))
-                listener.cardCreated(card);
+                listener.setSite(card);
+        } else {
+            if (isZonePublic(zone))
+                for (GameStateListener listener : getAllGameStateListeners())
+                    listener.cardCreated(card);
+            else if (isZonePrivate(zone))
+                for (GameStateListener listener : getPrivateGameStateListeners(card))
+                    listener.cardCreated(card);
+        }
     }
 
     private void removeAllTokens(PhysicalCard card) {

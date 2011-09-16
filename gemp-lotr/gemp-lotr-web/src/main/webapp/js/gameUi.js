@@ -8,6 +8,7 @@ var GempLotrGameUI = Class.extend({
     selfPlayerId: null,
     currentPlayerId: null,
     allPlayerIds: null,
+    playerPositions: null,
     cardActionDialog: null,
     smallDialog: null,
     gameStateElem: null,
@@ -395,6 +396,8 @@ var GempLotrGameUI = Class.extend({
                 this.addTokens(gameEvent);
             } else if (eventType == "REMOVE_TOKENS") {
                 this.removeTokens(gameEvent);
+            } else if (eventType == "PLAYER_POSITION") {
+                this.playerPosition(gameEvent);
             } else if (eventType == "MESSAGE") {
                 this.message(gameEvent);
             } else if (eventType == "WARNING") {
@@ -436,6 +439,21 @@ var GempLotrGameUI = Class.extend({
 
     processError: function (xhr, ajaxOptions, thrownError) {
         alert("There was a problem during communication with server");
+    },
+
+    playerPosition: function(element) {
+        var participantId = element.getAttribute("participantId");
+        var position = element.getAttribute("index");
+
+        if (this.playerPositions == null)
+            this.playerPositions = new Array();
+
+        var index = -1;
+        for (var i = 0; i < this.allPlayerIds.length; i++)
+            if (this.allPlayerIds[i] == participantId)
+                this.playerPositions[i] = position;
+
+        this.advPathGroup.setPositions(this.playerPositions);
     },
 
     addTokens: function(element) {
@@ -540,7 +558,11 @@ var GempLotrGameUI = Class.extend({
 
         // TODO finish off the other zones (DISCARD, DEAD)
         if (zone != "DISCARD" && zone != "DEAD") {
-            var card = new Card(blueprintId, zone, cardId, participantId);
+            var card;
+            if (zone == "ADVENTURE_PATH")
+                card = new Card(blueprintId, zone, cardId, participantId, element.getAttribute("index"));
+            else
+                card = new Card(blueprintId, zone, cardId, participantId);
 
             var cardDiv = this.createCardDiv(card);
             $("#main").append(cardDiv);
