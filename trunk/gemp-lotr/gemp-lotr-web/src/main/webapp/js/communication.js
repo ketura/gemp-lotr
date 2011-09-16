@@ -131,5 +131,39 @@ var GempLotrCommunication = Class.extend({
             error: this.failure,
             dataType: "xml"
         });
+    },
+    getHall: function(callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/hall",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    joinTable: function(tableId) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/hall/" + tableId,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    createTable: function() {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/hall",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            error: this.failure,
+            dataType: "xml"
+        });
     }
 });

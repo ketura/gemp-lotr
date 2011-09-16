@@ -33,9 +33,7 @@ public class Card1_196 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && game.getGameState().getHand(playerId).size() >= 3) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard 3 cards from hand to play a [MORIA] Orc from your discard pile.");
-            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
-            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
-            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
+            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true, 3));
             action.addEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC))));
             return Collections.singletonList(action);

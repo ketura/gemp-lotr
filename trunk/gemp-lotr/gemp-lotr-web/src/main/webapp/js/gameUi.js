@@ -155,7 +155,7 @@ var GempLotrGameUI = Class.extend({
             $.cookie("autoAccept", "" + selected, { expires: 365 });
         });
 
-        this.chatBox = new ChatBoxUI("Game" + getUrlParam("gameId"), $("#chatBox"), this.communication);
+        this.chatBox = new ChatBoxUI("Game" + getUrlParam("gameId"), $("#chatBox"), this.communication.url);
 
         $("body").click(
                 function (event) {

@@ -6,10 +6,12 @@ var ChatBoxUI = Class.extend({
     chatTalkDiv: null,
     talkBoxHeight: 25,
 
-    init: function(name, div, communication) {
+    init: function(name, div, url) {
         this.name = name;
         this.div = div;
-        this.communication = communication;
+        this.communication = new GempLotrCommunication(url, function() {
+            alert("Chat had a problem communicating with the server, reload the page to continue");
+        });
 
         this.chatMessagesDiv = $("<div class='chatMessages'></div>");
         this.chatTalkDiv = $("<input class='chatTalk'>");

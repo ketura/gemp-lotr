@@ -20,6 +20,7 @@
     <script type="text/javascript" src="js/inheritance.js"></script>
     <script type="text/javascript" src="js/logging.js"></script>
     <script type="text/javascript" src="js/chat.js"></script>
+    <script type="text/javascript" src="js/hallUi.js"></script>
     <script type="text/javascript" src="js/communication.js"></script>
 
     <script type="text/javascript">
@@ -40,47 +41,17 @@
 
         $(document).ready(
                 function() {
-                    /* attach a submit handler to the form */
-                    $("#createGameForm").submit(function(event) {
+                    var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server");
 
-                        /* stop form from submitting normally */
-                        event.preventDefault();
-
-                        /* get some values from elements on the page: */
-                        var form = $(this);
-
-                        /* Send the data using post and put the results in a div */
-                        $.post("/gemp-lotr/server/createGame", form.serialize(),
-                                function(data) {
-                                    $("#result").empty().append(data);
-                                });
-                    });
-
-                    var comm = new GempLotrCommunication("/gemp-lotr/server",
-                            function() {
-                                alert("There was problem with communication with the server");
-                            });
-
-                    var chat = new ChatBoxUI("default", $("#chat"), comm);
-                    chat.setBounds(2, 2, 800 - 4, 300 - 4);
+                    var chat = new ChatBoxUI("default", $("#chat"), "/gemp-lotr/server");
+                    chat.setBounds(2, 2, 780 - 4, 200 - 4);
                 });
     </script>
 
 </head>
 <body>
 
-<div id="chat" style="width:800px;height:300px;">
-
-</div>
-
-<form action="/" id="createGameForm">
-    <b>Create game:</b><br/>
-    First player name: <input type="text" name="player1"/><br/>
-    Second player name: <input type="text" name="player2"/><br/>
-    <input type="submit" value="Create game"/>
-</form>
-<!-- the result of the search will be rendered inside this div -->
-<div id="result"></div>
-
+<div id="hall" style="position:absolute;left:0px;top:0px;width:780px;height:300px;"></div>
+<div id="chat" style="position:absolute;left:0px;top:300px;width:780px;height:200px;"></div>
 </body>
 </html>
