@@ -71,7 +71,9 @@
                                 });
                     } else {
                         var participantId = getUrlParam("participantId");
-                        $("#user").append("You are logged in as <b>" + participantId + "</b>, create a table or join one where other player is waiting.");
+                        $("#user").append("You are logged in as <b>" + participantId + "</b>.<br/>");
+                        $("#user").append("You may <a href='deckBuild.html?participantId=" + participantId + "'>edit your deck</a>.<br/>");
+                        $("#user").append("Create a table or join one where other player is waiting to start a game.");
 
                         var chat = new ChatBoxUI("default", $("#chat"), "/gemp-lotr/server");
                         chat.setBounds(2, 2, 780 - 4, 200 - 4);
@@ -83,8 +85,8 @@
 
 </head>
 <body>
-<div id="user" style="position:absolute;left:0px;top:0px;width:780px;height:20px;"></div>
-<div id="hall" style="position:absolute;left:0px;top:20px;width:780px;height:300px;"></div>
+<div id="user" style="position:absolute;left:0px;top:0px;width:780px;height:60px;"></div>
+<div id="hall" style="position:absolute;left:0px;top:60px;width:780px;height:260px;"></div>
 <div id="chat" style="position:absolute;left:0px;top:320px;width:780px;height:200px;"></div>
 </body>
 </html>
