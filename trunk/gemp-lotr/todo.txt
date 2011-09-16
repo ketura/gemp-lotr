@@ -1,6 +1,5 @@
 TO DO:
 Before release:
-15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
 
 Next priority:
 13. Add dead/discard pile displays.
@@ -39,3 +38,4 @@ and go with different selection.
 21. Scale wounds, burdens, other tokens with the card size.
 22. If skirmish is in progress, the total strength of each side should be displayed.
 20. Display "chess-clock" for each player.
+15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
