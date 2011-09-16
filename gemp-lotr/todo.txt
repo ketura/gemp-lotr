@@ -1,7 +1,10 @@
 TO DO:
 Before release:
+27. Show list of players in the hall.
 
 Next priority:
+25. Remove all non-essencial alerts, instead add warnings to chat panel.
+26. The game area should display chat from the start.
 13. Add dead/discard pile displays.
 14. Add hand/deck card count displays.
 19. Add filtering cards to deck-builder.
@@ -15,7 +18,7 @@ Optional:
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-25.
+28.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
