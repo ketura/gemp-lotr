@@ -32,38 +32,47 @@ public class HallServer extends AbstractServer {
      * @param playerId
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public synchronized boolean createNewTable(String playerId) {
-        if (isPlayerBusy(playerId))
-            return false;
+    public synchronized void createNewTable(String playerId) throws HallException {
+        LotroDeck lotroDeck = validateUserAndDeck(playerId);
 
         String tableId = String.valueOf(_nextTableId++);
         AwaitingTable table = new AwaitingTable();
         _awaitingTables.put(tableId, table);
-        joinTableAsPlayer(tableId, playerId);
 
-        return true;
+        joinTableInternal(tableId, playerId, table, lotroDeck);
+    }
+
+    private LotroDeck validateUserAndDeck(String playerId) throws HallException {
+        if (isPlayerBusy(playerId))
+            throw new HallException("You can't play more than one game at a time or wait at more than one table");
+
+        LotroDeck lotroDeck = _lotroServer.getParticipantDeck(playerId);
+        if (lotroDeck == null)
+            throw new HallException("You don't have a deck registered yet");
+
+        boolean valid = _lotroFormat.validateDeck(lotroDeck);
+        if (!valid)
+            throw new HallException("Your registered deck is not valid for this format");
+        return lotroDeck;
     }
 
     /**
      * @param playerId
      * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public synchronized boolean joinTableAsPlayer(String tableId, String playerId) {
-        if (isPlayerBusy(playerId))
-            return false;
-
+    public synchronized boolean joinTableAsPlayer(String tableId, String playerId) throws HallException {
         AwaitingTable awaitingTable = _awaitingTables.get(tableId);
         if (awaitingTable == null)
-            return false;
+            throw new HallException("Table is already taken or was removed");
 
-        LotroDeck lotroDeck = _lotroServer.getParticipantDeck(playerId);
-        if (lotroDeck == null)
-            return false;
+        LotroDeck lotroDeck = validateUserAndDeck(playerId);
 
-        boolean valid = _lotroFormat.validateDeck(lotroDeck);
-        if (!valid)
-            return false;
+        joinTableInternal(tableId, playerId, awaitingTable, lotroDeck);
 
+        return true;
+    }
+
+    private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, LotroDeck lotroDeck) {
         boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, lotroDeck));
         if (tableFull) {
             Set<LotroGameParticipant> players = awaitingTable.getPlayers();
@@ -74,7 +83,6 @@ public class HallServer extends AbstractServer {
             _runningTables.put(tableId, gameId);
             _awaitingTables.remove(tableId);
         }
-        return true;
     }
 
     public synchronized void leaveAwaitingTables(String playerId) {
@@ -88,7 +96,16 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    private boolean isPlayerWaiting(String playerId) {
+        for (AwaitingTable awaitingTable : _awaitingTables.values())
+            if (awaitingTable.hasPlayer(playerId))
+                return true;
+        return false;
+    }
+
     public void processTables(String participantId, HallInfoVisitor visitor) {
+        visitor.playerIsWaiting(isPlayerWaiting(participantId));
+
         Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
         for (Map.Entry<String, AwaitingTable> table : copy.entrySet())
             visitor.visitTable(table.getKey(), "Waiting", table.getValue().getPlayerNames());

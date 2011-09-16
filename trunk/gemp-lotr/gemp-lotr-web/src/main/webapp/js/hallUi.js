@@ -1,6 +1,8 @@
 var GempLotrHallUI = Class.extend({
     div : null,
     comm: null,
+    createTableButton: null,
+    leaveTableButton: null,
 
     tablesDiv: null,
 
@@ -22,13 +24,27 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
 
-        var createTableButton = $("<button>Create table</button>");
-        $(createTableButton).button().click(
+        this.createTableButton = $("<button>Create table</button>");
+        $(this.createTableButton).button().click(
                 function() {
-                    that.comm.createTable();
+                    that.createTableButton.hide();
+                    that.comm.createTable(function(xml) {
+                        that.processResponse(xml);
+                    });
                 });
+        this.createTableButton.hide();
 
-        buttonsDiv.append(createTableButton);
+        buttonsDiv.append(this.createTableButton);
+
+        this.leaveTableButton = $("<button>Leave table</button>");
+        $(this.leaveTableButton).button().click(
+                function() {
+                    that.leaveTableButton.hide();
+                    that.comm.leaveTable();
+                });
+        this.leaveTableButton.hide();
+
+        buttonsDiv.append(this.leaveTableButton);
 
         this.div.append(buttonsDiv);
 
@@ -43,10 +59,22 @@ var GempLotrHallUI = Class.extend({
         });
     },
 
+    processResponse: function(xml) {
+        if (xml != null) {
+            var root = xml.documentElement;
+            if (root.tagName == "error") {
+                var message = root.getAttribute("message");
+                alert(message);
+            }
+        }
+    },
+
     processHall: function(xml) {
         var root = xml.documentElement;
-        if (root.tagName == 'hall') {
+        if (root.tagName == "hall") {
             this.tablesDiv.html("");
+
+            var waiting = root.getAttribute("waiting") == "true";
 
             var tables = root.getElementsByTagName("table");
             for (var i = 0; i < tables.length; i++) {
@@ -58,7 +86,7 @@ var GempLotrHallUI = Class.extend({
                 if (playersAttr.length > 0)
                     players = playersAttr.split(",");
 
-                var tableDiv = this.createTableDiv(id, status, players);
+                var tableDiv = this.createTableDiv(id, status, players, waiting);
                 this.tablesDiv.append(tableDiv);
             }
 
@@ -72,6 +100,14 @@ var GempLotrHallUI = Class.extend({
                 location.href = "/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend;
             }
 
+            if (waiting) {
+                this.createTableButton.hide();
+                this.leaveTableButton.show();
+            } else {
+                this.createTableButton.show();
+                this.leaveTableButton.hide();
+            }
+
             var that = this;
 
             setTimeout(function() {
@@ -80,23 +116,27 @@ var GempLotrHallUI = Class.extend({
         }
     },
 
-    createTableDiv: function(id, status, players) {
+    createTableDiv: function(id, status, players, waiting) {
         var tableDiv = $("<div></div>");
         tableDiv.css({ display: "inline-block", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
-        tableDiv.append("<i>" + status + "</i><br/>");
+        tableDiv.append("<div class='tableStatus'>" + status + "</div>");
         tableDiv.append("Players:<br/>");
         for (var i = 0; i < players.length; i++)
-            tableDiv.append(players[i] + "<br/>");
+            tableDiv.append("<div class='tablePlayer'>" + players[i] + "</div>");
 
         if (players.length < 2) {
             var that = this;
 
-            var but = $("<button>Join game</button>");
-            $(but).button().click(
-                    function(event) {
-                        that.comm.joinTable(id);
-                    });
-            tableDiv.append(but);
+            if (!waiting) {
+                var but = $("<button>Join table</button>");
+                $(but).button().click(
+                        function(event) {
+                            that.comm.joinTable(id, function(xml) {
+                                that.processResponse(xml);
+                            });
+                        });
+                tableDiv.append(but);
+            }
         }
 
         return tableDiv;
