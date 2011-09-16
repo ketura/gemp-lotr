@@ -82,7 +82,7 @@ var GempLotrHallUI = Class.extend({
 
     createTableDiv: function(id, status, players) {
         var tableDiv = $("<div></div>");
-        tableDiv.css({ display: "inline", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
+        tableDiv.css({ display: "inline-block", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
         tableDiv.append("<i>" + status + "</i><br/>");
         tableDiv.append("Players:<br/>");
         for (var i = 0; i < players.length; i++)
