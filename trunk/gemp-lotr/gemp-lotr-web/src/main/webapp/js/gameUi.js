@@ -1,8 +1,6 @@
 var GempLotrGameUI = Class.extend({
     padding: 5,
 
-    getCardModifiersFunction: null,
-
     selfPlayerId: null,
     currentPlayerId: null,
     allPlayerIds: null,
@@ -111,8 +109,9 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.css({"border-radius": "7px"});
 
         this.gameStateElem.append("<b>Players:</b><br>");
-        for (var i = 0; i < this.allPlayerIds.length; i++)
-            this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "</div>");
+        for (var i = 0; i < this.allPlayerIds.length; i++) {
+            this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div></div>");
+        }
 
         this.gameStateElem.append("<br>");
 
@@ -435,6 +434,25 @@ var GempLotrGameUI = Class.extend({
         if (skirmish.length > 0) {
             this.fpStrengthDiv.text(skirmish[0].getAttribute("fpStrength"));
             this.shadowStrengthDiv.text(skirmish[0].getAttribute("shadowStrength"));
+        }
+
+        var clocks = element.getElementsByTagName("clocks")[0].getElementsByTagName("clock");
+        for (var i = 0; i < clocks.length; i++) {
+            var clock = clocks[i];
+            var participantId = clock.getAttribute("participantId");
+            var index = -1;
+            for (var plId = 0; plId < this.allPlayerIds.length; plId++)
+                if (this.allPlayerIds[plId] == participantId)
+                    index = plId;
+
+            var value = parseInt(clock.childNodes[0].nodeValue);
+
+            var sign = (value < 0) ? "-" : "";
+            value = Math.abs(value);
+            var minutes = Math.floor(value / 60);
+            var seconds = value % 60;
+
+            $("#clock" + index).text(sign + minutes + ":" + seconds);
         }
 
         if (gameEvents.length > 0)
