@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -12,8 +13,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -46,18 +45,7 @@ public class Card1_307 extends AbstractCompanion {
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
             possibleEffects.add(
-                    new ChooseActiveCardEffect(self.getOwner(), "Choose a companion", Filters.type(CardType.COMPANION)) {
-                        @Override
-                        public String getText() {
-                            return "Remove a wound form a companion";
-                        }
-
-                        @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            action.addEffect(new HealCharacterEffect(self.getOwner(), card));
-                        }
-                    });
-
+                    new ChooseAndHealCharacterEffect(action, self.getOwner(), "Choose a companion", false, Filters.type(CardType.COMPANION)));
             action.addEffect(new ChoiceEffect(action, self.getOwner(), possibleEffects, false));
             return Collections.singletonList(action);
         }
