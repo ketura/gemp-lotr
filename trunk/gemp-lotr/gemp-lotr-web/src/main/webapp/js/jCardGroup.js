@@ -71,11 +71,17 @@ var CardGroup = Class.extend({
 });
 
 var AdvPathCardGroup = CardGroup.extend({
+    positions: null,
+
     init: function(container) {
         this._super(container,
                 function(card) {
                     return (card.zone == "ADVENTURE_PATH");
                 });
+    },
+
+    setPositions: function(positions) {
+        this.positions = positions;
     },
 
     layoutCards: function() {
@@ -87,6 +93,12 @@ var AdvPathCardGroup = CardGroup.extend({
                 cardsToLayout.push($(this));
             }
         });
+
+        cardsToLayout.sort(
+                function(first, second) {
+                    return (first.data("card").siteNumber - second.data("card").siteNumber);
+                }
+        );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -103,6 +115,12 @@ var AdvPathCardGroup = CardGroup.extend({
             var cardElem = cardsToLayout[cardId];
             var cardData = cardsToLayout[cardId].data("card");
             var cardHeight = (cardElem.data("card").getHeightForWidth(this.width));
+
+            cardData.tokens = {};
+            for (var i = 0; this.positions.length; i++)
+                if (this.positions[i] == cardData.siteNumber)
+                    cardData.tokens["" + (i + 1)] = 1;
+
             this.layoutCard(cardElem, x, y, this.width, cardHeight, index);
 
             for (var i = 0; i < cardData.attachedCards.length; i++) {

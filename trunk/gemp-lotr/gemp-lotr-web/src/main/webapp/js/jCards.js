@@ -8,13 +8,16 @@ var Card = Class.extend({
     zone: null,
     cardId: null,
     owner: null,
+    siteNumber: null,
     attachedCards: null,
 
-    init: function(blueprintId, zone, cardId, owner) {
+    init: function(blueprintId, zone, cardId, owner, siteNumber) {
         this.blueprintId = blueprintId;
         this.zone = zone;
         this.cardId = cardId;
         this.owner = owner;
+        if (siteNumber)
+            this.siteNumber = parseInt(siteNumber);
         this.attachedCards = new Array();
         if (blueprintId == "rules") {
             this.imageUrl = "/gemp-lotr/images/rules.png";
