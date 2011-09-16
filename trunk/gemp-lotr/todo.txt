@@ -5,10 +5,10 @@ Before release:
 20. Display "chess-clock" for each player.
 
 Next priority:
-16. Add an option to view an ongoing game.
 13. Add dead/discard pile displays.
 14. Add hand/deck card count displays.
 19. Add filtering cards to deck-builder.
+16. Add an option to view an ongoing game.
 24. The events that are played and cards affected should be shown to the players briefly using animations to make it
  aestheticly pleasing.
 23. Add ghost cards attached to cards they are affecting in case of things (non-possessions) affecting only one card
