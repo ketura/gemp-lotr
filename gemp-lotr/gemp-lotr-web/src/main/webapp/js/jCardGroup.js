@@ -47,7 +47,7 @@ var CardGroup = Class.extend({
         borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 4, height: height - 4});
 
         var maxDimension = Math.max(width, height);
-        var tokenSize = Math.floor(maxDimension / 20) * 2;
+        var tokenSize = Math.floor(maxDimension / 12) * 2;
 
         var tokens = cardElem.data("card").tokens;
         if (tokens != null) {
@@ -64,7 +64,7 @@ var CardGroup = Class.extend({
                     var tokenCount = tokens[token];
 
                     for (var i = 0; i < tokenCount; i++) {
-                        var tokenElem = $("<img src='images/" + token.toLowerCase() + ".png'></img>").css({position: "absolute", left: tokenX + "px", top: (tokenSize / 2) * (1 + i) + "px"});
+                        var tokenElem = $("<img src='images/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: (1 * tokenSize / 2) * (1 + i) + "px"});
                         tokenOverlay.append(tokenElem);
                     }
                     tokenIndex ++;
@@ -101,7 +101,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 function(first, second) {
                     return (first.data("card").siteNumber - second.data("card").siteNumber);
                 }
-        );
+                );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
