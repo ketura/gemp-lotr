@@ -1,13 +1,12 @@
 package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -41,13 +40,7 @@ public class Card1_289 extends AbstractCompanion {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "You may heal a Hobbit ally");
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit ally", Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard hobbitAlly) {
-                            action.addEffect(new HealCharacterEffect(playerId, hobbitAlly));
-                        }
-                    }
-            );
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose a Hobbit ally", false, Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT)));
             return Collections.singletonList(action);
         }
         return null;

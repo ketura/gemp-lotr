@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -43,12 +43,7 @@ public class Card1_343 extends AbstractSite {
                         }
                     });
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose your companion", Filters.owner(playerId), Filters.type(CardType.COMPANION)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard companion) {
-                            action.addEffect(new HealCharacterEffect(playerId, companion));
-                        }
-                    });
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose your companion", false, Filters.owner(playerId), Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;

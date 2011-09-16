@@ -2,14 +2,13 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -35,13 +34,7 @@ public class Card1_220 extends AbstractPermanent {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, (game.getGameState().getCurrentPhase() == Phase.MANEUVER) ? Keyword.MANEUVER : Keyword.SKIRMISH, "Remove (3) to heal a Nazgul.");
             action.addCost(new RemoveTwilightEffect(3));
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard nazgul) {
-                            action.addEffect(
-                                    new HealCharacterEffect(playerId, nazgul));
-                        }
-                    });
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose a Nazgul", false, Filters.race(Race.NAZGUL)));
             return Collections.singletonList(action);
         }
         return null;

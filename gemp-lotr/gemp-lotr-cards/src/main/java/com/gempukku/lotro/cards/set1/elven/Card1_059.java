@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -52,12 +52,7 @@ public class Card1_059 extends AbstractPermanent {
                         protected void cardSelected(PhysicalCard dwarf) {
                             action.addCost(new ExertCharacterEffect(playerId, dwarf));
                             action.addEffect(
-                                    new ChooseActiveCardEffect(playerId, "Choose Elf to heal", Filters.race(Race.ELF)) {
-                                        @Override
-                                        protected void cardSelected(PhysicalCard elf) {
-                                            action.addEffect(new HealCharacterEffect(playerId, elf));
-                                        }
-                                    });
+                                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an Elf", false, Filters.race(Race.ELF)));
                         }
                     });
 
@@ -67,12 +62,7 @@ public class Card1_059 extends AbstractPermanent {
                         protected void cardSelected(PhysicalCard elf) {
                             action.addCost(new ExertCharacterEffect(playerId, elf));
                             action.addEffect(
-                                    new ChooseActiveCardEffect(playerId, "Choose Dwarf to heal", Filters.race(Race.DWARF)) {
-                                        @Override
-                                        protected void cardSelected(PhysicalCard dwarf) {
-                                            action.addEffect(new HealCharacterEffect(playerId, dwarf));
-                                        }
-                                    });
+                                    new ChooseAndHealCharacterEffect(action, playerId, "Choose a Dwarf", false, Filters.race(Race.DWARF)));
                         }
                     });
 
