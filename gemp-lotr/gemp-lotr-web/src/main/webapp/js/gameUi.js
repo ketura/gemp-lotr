@@ -24,6 +24,8 @@ var GempLotrGameUI = Class.extend({
     specialGroup: null,
 
     skirmishGroupDiv: null,
+    fpStrengthDiv: null,
+    shadowStrengthDiv: null,
     skirmishShadowGroup: null,
     skirmishFellowshipGroup: null,
 
@@ -197,21 +199,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: false,
-            width: 400,
-            height: 200
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: false,
+                    width: 400,
+                    height: 200
+                });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: true,
-            width: 600,
-            height: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: true,
+                    width: 600,
+                    height: 300
+                });
 
         var that = this;
 
@@ -223,15 +225,15 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: true,
-            title: "Card information",
-            minHeight: 80,
-            minWidth: 200,
-            width: 600,
-            height: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: true,
+                    title: "Card information",
+                    minHeight: 80,
+                    minWidth: 200,
+                    width: 600,
+                    height: 300
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -302,9 +304,13 @@ var GempLotrGameUI = Class.extend({
                 if (currentPlayerTurn) {
                     this.skirmishShadowGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
                     this.skirmishFellowshipGroup.setBounds(x + 3, y + heightScales[2] * heightPerScale + padding + 3, groupWidth - 6, heightScales[3] * heightPerScale - 6);
+                    this.fpStrengthDiv.css({left: 2 + "px", top: groupWidth - 20 - 2 + "px", width: 20, height: 20});
+                    this.shadowStrengthDiv.css({left: 2 + "px", top: 2 + "px", width: 20, height: 20});
                 } else {
                     this.skirmishFellowshipGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[1] * heightPerScale - 6);
                     this.skirmishShadowGroup.setBounds(x + 3, y + heightScales[1] * heightPerScale + padding + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
+                    this.shadowStrengthDiv.css({left: 2 + "px", top: groupWidth - 20 - 2 + "px", width: 20, height: 20});
+                    this.fpStrengthDiv.css({left: 2 + "px", top: 2 + "px", width: 20, height: 20});
                 }
                 i++;
             }
@@ -395,6 +401,12 @@ var GempLotrGameUI = Class.extend({
                 this.warning(gameEvent);
             }
         }
+        var skirmish = element.getElementsByTagName("skirmish")
+        if (skirmish.length > 0) {
+            this.fpStrengthDiv.text(skirmish[0].getAttribute("fpStrength"));
+            this.shadowStrengthDiv.text(skirmish[1].getAttribute("shadowStrength"));
+        }
+
         if (gameEvents.length > 0)
             this.layoutUI(true);
 
@@ -474,14 +486,21 @@ var GempLotrGameUI = Class.extend({
             $(this).data("card").skirmish = true;
         });
 
+        this.fpStrengthDiv = $("<div class='fpStrength'></div>");
+        this.shadowStrengthDiv = $("<div class='shadowStrength'></div>");
+
         this.skirmishGroupDiv = $("<div class='ui-widget-content skirmish'></div>");
         this.skirmishGroupDiv.css({"border-radius": "7px", "border-color": "#ff0000"});
+        this.skirmishGroupDiv.append(this.fpStrengthDiv);
+        this.skirmishGroupDiv.append(this.shadowStrengthDiv);
         $("#main").append(this.skirmishGroupDiv);
     },
 
     endSkirmish: function() {
         this.skirmishGroupDiv.remove();
         this.skirmishGroupDiv = null;
+        this.fpStrengthDiv = null;
+        this.shadowStrengthDiv = null;
 
         $(".card").each(function() {
             var cardData = $(this).data("card");
@@ -551,7 +570,7 @@ var GempLotrGameUI = Class.extend({
                     if (index != -1)
                         cardData.attachedCards.splice(index, 1);
                 }
-                );
+        );
 
         var card = $(".card:cardId(" + cardId + ")");
         var cardData = card.data("card");
@@ -614,7 +633,7 @@ var GempLotrGameUI = Class.extend({
                         if (index != -1)
                             cardData.attachedCards.splice(index, 1);
                     }
-                    );
+            );
         }
 
         card.remove();
@@ -681,13 +700,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#integerDecision").val());
-            }
-        }
-                );
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#integerDecision").val());
+                    }
+                }
+        );
 
         $("#integerDecision").SpinnerControl({ type: 'range',
             typedata: {
@@ -718,13 +737,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(html)
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-            }
-        }
-                );
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                }
+        );
 
         this.smallDialog.dialog("open");
     },
