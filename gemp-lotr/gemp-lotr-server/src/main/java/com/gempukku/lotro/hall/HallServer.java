@@ -15,7 +15,7 @@ public class HallServer extends AbstractServer {
     private LotroFormat _lotroFormat = new DefaultLotroFormat(true);
 
     private Map<String, AwaitingTable> _awaitingTables = new ConcurrentHashMap<String, AwaitingTable>();
-    private Map<String, String> _runningTables = new ConcurrentHashMap<String, String>();
+    private Map<String, String> _runningTables = Collections.synchronizedMap(new LinkedHashMap<String, String>());
     private int _nextTableId = 1;
 
     private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
@@ -67,11 +67,12 @@ public class HallServer extends AbstractServer {
         boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, lotroDeck));
         if (tableFull) {
             Set<LotroGameParticipant> players = awaitingTable.getPlayers();
-            LotroGameParticipant[] participants = new LotroGameParticipant[players.size()];
+            LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
             String gameId = _lotroServer.createNewGame(new DefaultLotroFormat(true), participants);
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
             lotroGameMediator.startGame();
             _runningTables.put(tableId, gameId);
+            _awaitingTables.remove(tableId);
         }
         return true;
     }
@@ -92,7 +93,7 @@ public class HallServer extends AbstractServer {
         for (Map.Entry<String, AwaitingTable> table : copy.entrySet())
             visitor.visitTable(table.getKey(), "Waiting", table.getValue().getPlayerNames());
 
-        Map<String, String> runningCopy = new HashMap<String, String>(_runningTables);
+        Map<String, String> runningCopy = new LinkedHashMap<String, String>(_runningTables);
         for (Map.Entry<String, String> runningGame : runningCopy.entrySet()) {
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
             if (lotroGameMediator != null)
@@ -134,7 +135,7 @@ public class HallServer extends AbstractServer {
 
         for (String gameId : _runningTables.values()) {
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-            if (lotroGameMediator.getPlayersPlaying().contains(playerId))
+            if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished") && lotroGameMediator.getPlayersPlaying().contains(playerId))
                 return true;
         }
         return false;
