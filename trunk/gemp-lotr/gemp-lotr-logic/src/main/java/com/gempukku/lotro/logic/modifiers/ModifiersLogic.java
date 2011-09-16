@@ -189,7 +189,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             result = modifier.getArcheryTotal(gameState, this, side, result);
         for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
             result = modifier.getArcheryTotal(gameState, this, side, result);
-        return Math.min(0, result);
+        return Math.max(0, result);
     }
 
     @Override
