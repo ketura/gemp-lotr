@@ -1,8 +1,6 @@
 TO DO:
 Before release:
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
-18. Add display of site where player is on adventure path.
-21. Scale wounds, burdens, other tokens with the card size.
 22. If skirmish is in progress, the total strength of each side should be displayed.
 20. Display "chess-clock" for each player.
 
@@ -39,3 +37,5 @@ with Filters.sameCard(...) filter.
 9. Add checkbox option to auto-pass if there is no actions to be played.
 8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
 and go with different selection.
+18. Add display of site where player is on adventure path.
+21. Scale wounds, burdens, other tokens with the card size.
