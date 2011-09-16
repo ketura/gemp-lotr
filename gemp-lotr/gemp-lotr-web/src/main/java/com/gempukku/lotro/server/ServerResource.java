@@ -8,6 +8,7 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -397,17 +398,46 @@ public class ServerResource {
 
     @Path("/hall/{table}")
     @POST
-    public void joinTable(
+    public Document joinTable(
             @PathParam("table") String tableId,
             @FormParam("participantId") String participantId) throws ParserConfigurationException {
-        boolean joined = _hallServer.joinTableAsPlayer(tableId, participantId);
+        try {
+            _hallServer.joinTableAsPlayer(tableId, participantId);
+            return null;
+        } catch (HallException e) {
+            return marshalException(e);
+        }
+    }
+
+    private Document marshalException(HallException e) throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element error = doc.createElement("error");
+        error.setAttribute("message", e.getMessage());
+        doc.appendChild(error);
+        return doc;
     }
 
     @Path("/hall")
     @POST
-    public void createTable(
+    public Document createTable(
             @FormParam("participantId") String participantId) throws ParserConfigurationException {
-        boolean created = _hallServer.createNewTable(participantId);
+        try {
+            _hallServer.createNewTable(participantId);
+            return null;
+        } catch (HallException e) {
+            return marshalException(e);
+        }
+    }
+
+    @Path("/hall/leave")
+    @POST
+    public void leaveTable(
+            @FormParam("participantId") String participantId) throws ParserConfigurationException {
+        _hallServer.leaveAwaitingTables(participantId);
     }
 
     private class SerializeHallInfoVisitor implements HallInfoVisitor {
@@ -417,6 +447,11 @@ public class ServerResource {
         public SerializeHallInfoVisitor(Document doc, Element hall) {
             _doc = doc;
             _hall = hall;
+        }
+
+        @Override
+        public void playerIsWaiting(boolean waiting) {
+            _hall.setAttribute("waiting", String.valueOf(waiting));
         }
 
         @Override

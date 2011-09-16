@@ -144,21 +144,34 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    joinTable: function(tableId) {
+    joinTable: function(tableId, callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall/" + tableId,
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
+            success: callback,
             error: this.failure,
             dataType: "xml"
         });
     },
-    createTable: function() {
+    createTable: function(callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    leaveTable: function() {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/hall/leave",
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
