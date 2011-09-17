@@ -337,13 +337,14 @@ public class ServerResource {
             sendError(Response.Status.NOT_FOUND);
 
         List<ChatMessage> chatMessages = chatRoom.joinUser(participantId);
+        Set<String> usersInRoom = chatRoom.getUsersInRoom();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
         Document doc = documentBuilder.newDocument();
 
-        serializeChatRoomData(room, chatMessages, doc);
+        serializeChatRoomData(room, chatMessages, usersInRoom, doc);
 
         return doc;
     }
@@ -363,6 +364,7 @@ public class ServerResource {
             chatRoom.sendMessage(participantId, StringEscapeUtils.escapeHtml(message));
 
         List<ChatMessage> chatMessages = chatRoom.getPendingMessages(participantId);
+        Set<String> usersInRoom = chatRoom.getUsersInRoom();
 
         if (chatMessages == null)
             sendError(Response.Status.NOT_FOUND);
@@ -372,7 +374,7 @@ public class ServerResource {
 
         Document doc = documentBuilder.newDocument();
 
-        serializeChatRoomData(room, chatMessages, doc);
+        serializeChatRoomData(room, chatMessages, usersInRoom, doc);
 
         return doc;
     }
@@ -480,7 +482,7 @@ public class ServerResource {
         return sb.toString();
     }
 
-    private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Document doc) {
+    private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Set<String> usersInRoom, Document doc) {
         Element chatElem = doc.createElement("chat");
         chatElem.setAttribute("roomName", room);
         doc.appendChild(chatElem);
@@ -491,6 +493,12 @@ public class ServerResource {
             message.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
             message.appendChild(doc.createTextNode(chatMessage.getMessage()));
             chatElem.appendChild(message);
+        }
+
+        for (String userInRoom : usersInRoom) {
+            Element user = doc.createElement("user");
+            user.appendChild(doc.createTextNode(userInRoom));
+            chatElem.appendChild(user);
         }
     }
 
