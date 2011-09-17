@@ -1,14 +1,13 @@
 TO DO:
 Before release:
-27. Show list of players in the hall.
 28. Introduce deck validation for FotR block format.
 29. Player registration and login.
 31. Allow to cancel selection to reset to none-selected and go with different selection if no auto-accept is set or
 multiple choices required.
 
 Next priority:
-25. Remove all non-essencial alerts, instead add warnings to chat panel.
 26. The game area should display chat from the start.
+25. Remove all non-essencial alerts, instead add warnings to chat panel.
 13. Add dead/discard pile displays.
 14. Add hand/deck card count displays.
 19. Add filtering cards to deck-builder.
@@ -46,3 +45,4 @@ with Filters.sameCard(...) filter.
 22. If skirmish is in progress, the total strength of each side should be displayed.
 20. Display "chess-clock" for each player.
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
+27. Show list of players in the hall.
