@@ -31,7 +31,7 @@ public class ChatRoom {
     }
 
     public Set<String> getUsersInRoom() {
-        return new HashSet<String>(_chatRoomListeners.keySet());
+        return new TreeSet<String>(_chatRoomListeners.keySet());
     }
 
     private void shrinkLastMessages() {

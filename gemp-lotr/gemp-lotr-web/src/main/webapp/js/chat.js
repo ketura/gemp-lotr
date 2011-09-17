@@ -4,9 +4,10 @@ var ChatBoxUI = Class.extend({
     communication: null,
     chatMessagesDiv: null,
     chatTalkDiv: null,
+    chatListDiv: null,
     talkBoxHeight: 25,
 
-    init: function(name, div, url) {
+    init: function(name, div, url, showList) {
         var that = this;
         this.name = name;
         this.div = div;
@@ -17,6 +18,10 @@ var ChatBoxUI = Class.extend({
 
         this.chatMessagesDiv = $("<div class='chatMessages'></div>");
         this.chatTalkDiv = $("<input class='chatTalk'>");
+        if (showList) {
+            this.chatListDiv = $("<div class='userList'></div>");
+            this.div.append(this.chatListDiv);
+        }
 
         this.div.append(this.chatMessagesDiv);
         this.div.append(this.chatTalkDiv);
@@ -45,7 +50,13 @@ var ChatBoxUI = Class.extend({
     setBounds: function(x, y, width, height) {
         var talkBoxPadding = 3;
 
-        this.chatMessagesDiv.css({ position: "absolute", left: x + "px", top: y + "px", width: width, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
+        var userListWidth = 150;
+        if (this.chatListDiv == null)
+            userListWidth = 0;
+
+        if (this.chatListDiv != null)
+            this.chatListDiv.css({ position: "absolute", left: x + width - userListWidth + "px", top: y + "px", width: userListWidth, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
+        this.chatMessagesDiv.css({ position: "absolute", left: x + "px", top: y + "px", width: width - userListWidth, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
         this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
     },
 
@@ -68,6 +79,16 @@ var ChatBoxUI = Class.extend({
                 var from = message.getAttribute("from");
                 var text = message.childNodes[0].nodeValue;
                 this.appendMessage("<b>" + from + ":</b> " + text);
+            }
+
+            if (this.chatListDiv != null) {
+                this.chatListDiv.html("");
+                var users = root.getElementsByTagName("user");
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+                    var userName = user.childNodes[0].nodeValue;
+                    this.chatListDiv.append("<div class='chatUser'>" + userName + "</div>");
+                }
             }
 
             var that = this;

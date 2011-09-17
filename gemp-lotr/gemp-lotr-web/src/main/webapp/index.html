@@ -29,6 +29,9 @@
             color: #ff0000;
         }
 
+        .chatUser {
+            color: #ffffff;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
     <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
@@ -75,7 +78,7 @@
                         $("#user").append("You may <a href='deckBuild.html?participantId=" + participantId + "'>edit your deck</a>.<br/>");
                         $("#user").append("Create a table or join one where other player is waiting to start a game.");
 
-                        var chat = new ChatBoxUI("default", $("#chat"), "/gemp-lotr/server");
+                        var chat = new ChatBoxUI("default", $("#chat"), "/gemp-lotr/server", true);
                         chat.setBounds(2, 2, 780 - 4, 200 - 4);
 
                         var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
