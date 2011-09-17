@@ -38,6 +38,10 @@ public class HallServer extends AbstractServer {
             _supportedFormats.put("Modified FotR block", new ModifiedFotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
     }
 
+    public int getTablesCount() {
+        return _awaitingTables.size() + _runningTables.size();
+    }
+
     public Set<String> getSupportedFormats() {
         return new TreeSet<String>(_supportedFormats.keySet());
     }

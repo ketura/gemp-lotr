@@ -453,7 +453,7 @@ var GempLotrGameUI = Class.extend({
                 var minutes = Math.floor(value / 60);
                 var seconds = value % 60;
 
-                $("#clock" + index).text(sign + minutes + ":" + (seconds < 10) ? ("0" + seconds) : seconds);
+                $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
             }
         }
 

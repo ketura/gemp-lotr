@@ -29,6 +29,14 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
 
+        var editDeck = $("<button>Edit deck</button>");
+        editDeck.button().click(
+                function() {
+                    location.href = 'deckBuild.html';
+                });
+
+        buttonsDiv.append(editDeck);
+
         this.supportedFormatsSelect = $("<select></select>");
         this.supportedFormatsSelect.hide();
 
@@ -123,10 +131,10 @@ var GempLotrHallUI = Class.extend({
             if (waiting) {
                 this.supportedFormatsSelect.hide();
                 this.createTableButton.hide();
-                this.leaveTableButton.show();
+                this.leaveTableButton.css("display", "");
             } else {
-                this.supportedFormatsSelect.show();
-                this.createTableButton.show();
+                this.supportedFormatsSelect.css("display", "");
+                this.createTableButton.css("display", "");
                 this.leaveTableButton.hide();
             }
 
