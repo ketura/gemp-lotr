@@ -11,38 +11,18 @@
             font-size: 12px;
         }
 
-        .tableStatus {
-            text-align: center;
-            font-style: italic;
-            font-size: 120%;
-        }
-
-        .tablePlayer {
-            text-align: center;
-        }
-
-        .chatMessage {
-            color: #ffffff;
-        }
-
-        .warningMessage {
-            color: #ff0000;
-        }
-
-        .chatUser {
-            color: #ffffff;
+        .ui-button-text-only .ui-button-text {
+            font-size: 70%;
+            padding: .2em .5em;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
-    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
 
     <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
     <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
 
     <script type="text/javascript" src="js/inheritance.js"></script>
     <script type="text/javascript" src="js/logging.js"></script>
-    <script type="text/javascript" src="js/chat.js"></script>
-    <script type="text/javascript" src="js/hallUi.js"></script>
     <script type="text/javascript" src="js/communication.js"></script>
 
     <script type="text/javascript">
@@ -61,36 +41,68 @@
             return null;
         }
 
+        jQuery.fn.center = function () {
+            this.css("position", "absolute");
+            this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
+            this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
+            return this;
+        };
+
+        var comm = new GempLotrCommunication("/gemp-lotr/server", function() {
+            alert("Unable to contact the server");
+        });
+
+        function processResponse(html) {
+            $("#message").append(html).center();
+            attachEvents();
+        }
+
         $(document).ready(
                 function() {
-                    if (getUrlParam("participantId") == null) {
-                        $("#hall").append("Enter your assigned name and press DONE, you have to open one page for each user you want to use now.<br/>");
-                        $("#hall").append("<input id='name' type='text'> ");
-                        var but = $("<button>DONE</button>");
-                        $("#hall").append(but);
-                        but.click(
-                                function() {
-                                    location.href = "/gemp-lotr/index.html?participantId=" + $("#name").val();
-                                });
-                    } else {
-                        var participantId = getUrlParam("participantId");
-                        $("#user").append("You are logged in as <b>" + participantId + "</b>.<br/>");
-                        $("#user").append("You may <a href='deckBuild.html?participantId=" + participantId + "'>edit your deck</a>.<br/>");
-                        $("#user").append("Create a table or join one where other player is waiting to start a game.");
-
-                        var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
-                        chat.setBounds(2, 2, 780 - 4, 200 - 4);
-
-                        var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
-                    }
+                    comm.getStatus(processResponse);
                 });
+
+        function attachEvents() {
+            var loginButton = $("#loginButton");
+            if (loginButton != null) {
+                loginButton.button().click(
+                        function() {
+                            var login = $("#login").val();
+                            var password = $("#password").val();
+                            $("#message").html("");
+                            comm.login(login, password, processResponse);
+                        });
+            }
+
+            var registerButton = $("#registerButton");
+            if (registerButton != null) {
+                registerButton.button().click(
+                        function() {
+                            var login = $("#login").val();
+                            var password = $("#password").val();
+                            var password2 = $("#password2").val();
+                            if (password != password2) {
+                                alert("Password and Password repeated are different!");
+                            } else {
+                                $("#message").html("");
+                                comm.register(login, password, processResponse);
+                            }
+                        });
+            }
+
+            var clickToRegisterButton = $("#clickToRegister");
+            if (clickToRegisterButton != null) {
+                clickToRegisterButton.button().click(
+                        function() {
+                            $("#message").html("");
+                            comm.getRegistrationForm(processResponse);
+                        });
+            }
+        }
     </script>
 
 </head>
 <body bgcolor="#00000">
-<div id="user" style="position:absolute;left:0px;top:0px;width:780px;height:60px;color:#ffffff;"></div>
-<div id="hall" class="ui-widget-content" style="position:absolute;left:0px;top:60px;width:780px;height:260px;"></div>
-<div id="chat" class="ui-widget-content" style="position:absolute;left:0px;top:320px;width:780px;height:200px;"></div>
+<div id="message" style="color:#ffffff;"></div>
 </body>
 </html>
-17

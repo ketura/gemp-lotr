@@ -35,7 +35,7 @@ import java.util.Set;
 @Path("/")
 public class ServerResource {
     private static final Logger _logger = Logger.getLogger(ServerResource.class);
-    private boolean _test = true;
+    private boolean _test = false;
 
     private HallServer _hallServer;
     private LotroServer _lotroServer;
@@ -62,15 +62,44 @@ public class ServerResource {
 
     @Path("/login")
     @POST
-    public void login(
+    @Produces("text/html")
+    public String login(
             @FormParam("login") String login,
             @FormParam("password") String password,
-            @Context HttpServletRequest request) {
-        _logger.debug("/server/login " + login + ", " + password);
-        if (login == null)
-            sendError(Response.Status.NOT_FOUND);
-        if (password != null && password.equals("test"))
+            @Context HttpServletRequest request) throws Exception {
+        if (_lotroServer.getPlayerDao().loginUser(login, password) != null) {
             logUser(request, login);
+            return "<script>location.href='hall.html';</script>";
+        } else {
+            return "Invalid login or password. Please try again.<br/>" + getLoginHTML();
+        }
+    }
+
+    @Path("/register")
+    @POST
+    @Produces("text/html")
+    public String register(
+            @FormParam("login") String login,
+            @FormParam("password") String password,
+            @Context HttpServletRequest request) throws Exception {
+        if (_lotroServer.getPlayerDao().registerUser(login, password)) {
+            logUser(request, login);
+            return "<script>location.href='hall.html';</script>";
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append("User with this name already exists or your login is invalid.<br/>");
+            sb.append("Login must be between 2-10 characters long, contain only<br/>english letters, numbers or _ (underscore) and - (dash) characters.<br/>");
+            sb.append("Try to <button id='clickToRegister'>register</button> again.");
+            return sb.toString();
+        }
+    }
+
+    private String getLoginHTML() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Login: <input id='login' type='text'><br/>");
+        sb.append("Password: <input id='password' type='password'><br/>");
+        sb.append("<button id='loginButton'>Login</button>");
+        return sb.toString();
     }
 
     @Path("/game/{gameId}")
@@ -419,6 +448,24 @@ public class ServerResource {
         _hallServer.leaveAwaitingTables(participantId);
     }
 
+    @GET
+    @Produces("text/html")
+    public String getStatus(
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        StringBuilder sb = new StringBuilder();
+        participantId = getUserNameIfLogged(request);
+        if (participantId != null) {
+            sb.append("<script>location.href='hall.html';</script>");
+        } else {
+            sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
+            sb.append("<div class='status'>There are currently ").append(_hallServer.getTablesCount()).append(" tables in the Game Hall</div>");
+            sb.append(getLoginHTML());
+        }
+
+        return sb.toString();
+    }
+
     private Document marshalException(HallException e) throws ParserConfigurationException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -609,6 +656,10 @@ public class ServerResource {
 
     private void logUser(HttpServletRequest request, String login) {
         request.getSession().setAttribute("logged", login);
+    }
+
+    private String getUserNameIfLogged(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute("logged");
     }
 
     private String getLoggedUser(HttpServletRequest request) {

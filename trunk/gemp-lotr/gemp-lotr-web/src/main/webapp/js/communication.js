@@ -179,5 +179,57 @@ var GempLotrCommunication = Class.extend({
             error: this.failure,
             dataType: "xml"
         });
+    },
+    getStatus: function(callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "html"
+        });
+    },
+    login: function(login, password, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/login",
+            cache: false,
+            data: {
+                login: login,
+                password: password,
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "html"
+        });
+    },
+    register: function(login, password, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/register",
+            cache: false,
+            data: {
+                login: login,
+                password: password,
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "html"
+        });
+    },
+    getRegistrationForm: function(callback) {
+        $.ajax({
+            type: "POST",
+            url: "/gemp-lotr/registrationForm.html",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: callback,
+            error: this.failure,
+            dataType: "html"
+        });
     }
 });

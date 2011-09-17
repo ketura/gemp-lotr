@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gemp-LotR</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+        }
+
+        .tableStatus {
+            text-align: center;
+            font-style: italic;
+            font-size: 120%;
+        }
+
+        .tablePlayer {
+            text-align: center;
+        }
+
+        .chatMessage {
+            color: #ffffff;
+        }
+
+        .warningMessage {
+            color: #ff0000;
+        }
+
+        .chatUser {
+            color: #ffffff;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+
+    <script type="text/javascript" src="js/inheritance.js"></script>
+    <script type="text/javascript" src="js/logging.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
+    <script type="text/javascript" src="js/hallUi.js"></script>
+    <script type="text/javascript" src="js/communication.js"></script>
+
+    <script type="text/javascript">
+        function getUrlParam(param) {
+            var search = window.location.search.substring(1);
+            if (search.indexOf('&') > -1) {
+                var params = search.split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var key_value = params[i].split('=');
+                    if (key_value[0] == param) return key_value[1];
+                }
+            } else {
+                var params = search.split('=');
+                if (params[0] == param) return params[1];
+            }
+            return null;
+        }
+
+        $(document).ready(
+                function() {
+                    $("#user").append("Create a table or join one where other player is waiting to start a game.");
+
+                    var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
+                    chat.setBounds(2, 2, 780 - 4, 200 - 4);
+
+                    var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
+                });
+    </script>
+
+</head>
+<body bgcolor="#00000">
+<div id="user" style="position:absolute;left:0px;top:0px;width:780px;height:60px;color:#ffffff;"></div>
+<div id="hall" class="ui-widget-content" style="position:absolute;left:0px;top:60px;width:780px;height:260px;"></div>
+<div id="chat" class="ui-widget-content" style="position:absolute;left:0px;top:320px;width:780px;height:200px;"></div>
+</body>
+</html>
+17
