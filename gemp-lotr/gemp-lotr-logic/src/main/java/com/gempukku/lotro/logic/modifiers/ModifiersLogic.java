@@ -292,7 +292,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean isOverwhelmedByStrength(GameState gameState, PhysicalCard card, int strength, int opposingStrength) {
-        boolean result = (opposingStrength > strength * 2);
+        boolean result = (opposingStrength >= strength * 2);
         for (Modifier modifier : getModifiers(ModifierEffect.OVERWHELM_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
                 result = modifier.isOverwhelmedByStrength(gameState, this, card, strength, opposingStrength, result);
