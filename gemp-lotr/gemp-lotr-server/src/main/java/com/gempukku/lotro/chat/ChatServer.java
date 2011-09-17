@@ -9,7 +9,9 @@ public class ChatServer extends AbstractServer {
     private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
 
     public void createChatRoom(String name) {
-        _chatRooms.put(name, new ChatRoomMediator());
+        ChatRoomMediator chatRoom = new ChatRoomMediator();
+        chatRoom.sendMessage("System", "Welcome to room: " + name);
+        _chatRooms.put(name, chatRoom);
     }
 
     public ChatRoomMediator getChatRoom(String name) {

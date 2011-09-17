@@ -78,7 +78,7 @@
                         $("#user").append("You may <a href='deckBuild.html?participantId=" + participantId + "'>edit your deck</a>.<br/>");
                         $("#user").append("Create a table or join one where other player is waiting to start a game.");
 
-                        var chat = new ChatBoxUI("default", $("#chat"), "/gemp-lotr/server", true);
+                        var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
                         chat.setBounds(2, 2, 780 - 4, 200 - 4);
 
                         var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);

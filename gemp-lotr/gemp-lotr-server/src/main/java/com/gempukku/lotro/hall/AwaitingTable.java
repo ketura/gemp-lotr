@@ -1,13 +1,21 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.game.LotroGameParticipant;
+import com.gempukku.lotro.game.formats.LotroFormat;
 
 import java.util.*;
 
 public class AwaitingTable {
+    private String _formatName;
+    private LotroFormat _lotroFormat;
     private Map<String, LotroGameParticipant> _players = new HashMap<String, LotroGameParticipant>();
 
     private int _capacity = 2;
+
+    public AwaitingTable(String formatName, LotroFormat lotroFormat) {
+        _formatName = formatName;
+        _lotroFormat = lotroFormat;
+    }
 
     public boolean addPlayer(LotroGameParticipant player) {
         _players.put(player.getPlayerId(), player);
@@ -29,5 +37,13 @@ public class AwaitingTable {
 
     public Set<LotroGameParticipant> getPlayers() {
         return Collections.unmodifiableSet(new HashSet<LotroGameParticipant>(_players.values()));
+    }
+
+    public String getFormatName() {
+        return _formatName;
+    }
+
+    public LotroFormat getLotroFormat() {
+        return _lotroFormat;
     }
 }

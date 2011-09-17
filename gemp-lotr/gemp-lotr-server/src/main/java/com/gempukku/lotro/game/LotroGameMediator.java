@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;

@@ -8,7 +8,6 @@ public class ChatRoom {
     private Map<String, ChatRoomListener> _chatRoomListeners = new HashMap<String, ChatRoomListener>();
 
     public ChatRoom() {
-        postMessage("System", "Welcome to the room");
     }
 
     public void postMessage(String from, String message) {

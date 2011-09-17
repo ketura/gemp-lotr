@@ -2,7 +2,13 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.DeckInvalidException;
+import com.gempukku.lotro.game.LotroGameMediator;
+import com.gempukku.lotro.game.LotroGameParticipant;
+import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.formats.FotRBlockFormat;
+import com.gempukku.lotro.game.formats.LotroFormat;
+import com.gempukku.lotro.game.formats.ModifiedFotRBlockFormat;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
@@ -12,7 +18,7 @@ public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
     private LotroServer _lotroServer;
 
-    private LotroFormat _lotroFormat = new DefaultLotroFormat(true);
+    private Map<String, LotroFormat> _supportedFormats = new HashMap<String, LotroFormat>();
 
     private Map<String, AwaitingTable> _awaitingTables = new ConcurrentHashMap<String, AwaitingTable>();
     private Map<String, String> _runningTables = Collections.synchronizedMap(new LinkedHashMap<String, String>());
@@ -22,27 +28,39 @@ public class HallServer extends AbstractServer {
 
     private Map<String, Long> _lastVisitedPlayers = Collections.synchronizedMap(new LinkedHashMap<String, Long>());
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer) {
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
-        _chatServer.createChatRoom("default");
+        _chatServer.createChatRoom("Game Hall");
+
+        _supportedFormats.put("FotR block", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+        if (test)
+            _supportedFormats.put("Modified FotR block", new ModifiedFotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+    }
+
+    public Set<String> getSupportedFormats() {
+        return new TreeSet<String>(_supportedFormats.keySet());
     }
 
     /**
      * @param playerId
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public synchronized void createNewTable(String playerId) throws HallException {
-        LotroDeck lotroDeck = validateUserAndDeck(playerId);
+    public synchronized void createNewTable(String format, String playerId) throws HallException {
+        LotroFormat supportedFormat = _supportedFormats.get(format);
+        if (supportedFormat == null)
+            throw new HallException("This format is not supported: " + format);
+
+        LotroDeck lotroDeck = validateUserAndDeck(supportedFormat, playerId);
 
         String tableId = String.valueOf(_nextTableId++);
-        AwaitingTable table = new AwaitingTable();
+        AwaitingTable table = new AwaitingTable(format, supportedFormat);
         _awaitingTables.put(tableId, table);
 
         joinTableInternal(tableId, playerId, table, lotroDeck);
     }
 
-    private LotroDeck validateUserAndDeck(String playerId) throws HallException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, String playerId) throws HallException {
         if (isPlayerBusy(playerId))
             throw new HallException("You can't play more than one game at a time or wait at more than one table");
 
@@ -50,9 +68,11 @@ public class HallServer extends AbstractServer {
         if (lotroDeck == null)
             throw new HallException("You don't have a deck registered yet");
 
-        boolean valid = _lotroFormat.validateDeck(lotroDeck);
-        if (!valid)
-            throw new HallException("Your registered deck is not valid for this format");
+        try {
+            format.validateDeck(lotroDeck);
+        } catch (DeckInvalidException e) {
+            throw new HallException("Your registered deck is not valid for this format: " + e.getMessage());
+        }
         return lotroDeck;
     }
 
@@ -65,7 +85,7 @@ public class HallServer extends AbstractServer {
         if (awaitingTable == null)
             throw new HallException("Table is already taken or was removed");
 
-        LotroDeck lotroDeck = validateUserAndDeck(playerId);
+        LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), playerId);
 
         joinTableInternal(tableId, playerId, awaitingTable, lotroDeck);
 
@@ -77,7 +97,7 @@ public class HallServer extends AbstractServer {
         if (tableFull) {
             Set<LotroGameParticipant> players = awaitingTable.getPlayers();
             LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
-            String gameId = _lotroServer.createNewGame(new DefaultLotroFormat(true), participants);
+            String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), participants);
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
             lotroGameMediator.startGame();
             _runningTables.put(tableId, gameId);
