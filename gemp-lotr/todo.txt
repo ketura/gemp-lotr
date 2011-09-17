@@ -1,6 +1,5 @@
 TO DO:
 Before release:
-29. Player registration and login.
 31. Allow to cancel selection to reset to none-selected and go with different selection if no auto-accept is set or
 multiple choices required.
 
@@ -46,3 +45,4 @@ with Filters.sameCard(...) filter.
 15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
 27. Show list of players in the hall.
 28. Introduce deck validation for FotR block format.
+29. Player registration and login.
