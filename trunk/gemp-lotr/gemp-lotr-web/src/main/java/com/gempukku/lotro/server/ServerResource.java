@@ -35,6 +35,7 @@ import java.util.Set;
 @Path("/")
 public class ServerResource {
     private static final Logger _logger = Logger.getLogger(ServerResource.class);
+    private boolean _test = true;
 
     private HallServer _hallServer;
     private LotroServer _lotroServer;
@@ -50,23 +51,13 @@ public class ServerResource {
             _lotroServer = new LotroServer(_chatServer);
             _lotroServer.startServer();
 
-            _hallServer = new HallServer(_lotroServer, _chatServer);
+            _hallServer = new HallServer(_lotroServer, _chatServer, _test);
             _hallServer.startServer();
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
             exp.printStackTrace();
         }
         _logger.debug("Resource created");
-    }
-
-    private String createGameOnServer(String player1Name, String player2Name) {
-        LotroGameParticipant[] participants = new LotroGameParticipant[2];
-        participants[0] = new LotroGameParticipant(player1Name, _lotroServer.getParticipantDeck(player1Name));
-        participants[1] = new LotroGameParticipant(player2Name, _lotroServer.getParticipantDeck(player2Name));
-
-        String gameId = _lotroServer.createNewGame(new DefaultLotroFormat(true), participants);
-        _lotroServer.getGameById(gameId).startGame();
-        return gameId;
     }
 
     @Path("/login")
@@ -82,41 +73,6 @@ public class ServerResource {
             logUser(request, login);
     }
 
-    @Path("/createGame")
-    @POST
-    @Produces(MediaType.TEXT_HTML)
-    public String createGame(
-            @FormParam("player1") String player1Name,
-            @FormParam("player2") String player2Name) {
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-        Player player1 = playerDao.getPlayer(player1Name);
-        if (player1 == null)
-            return "<b>Error:</b> Can't find user with name: " + player1Name;
-        Player player2 = playerDao.getPlayer(player2Name);
-        if (player2 == null)
-            return "<b>Error:</b> Can't find user with name: " + player2Name;
-
-        if (player1Name.equals(player2Name))
-            return "<b>Error:</b> Can't create game with two same players";
-
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-        Deck deck1 = deckDao.getDeckForPlayer(player1, "default");
-        if (deck1 == null)
-            return "<b>Error:</b> Can't find deck for user with name: " + player1Name + " - <a href='deckBuild.html?participantId=" + player1Name + "'>create deck</a>";
-        Deck deck2 = deckDao.getDeckForPlayer(player2, "default");
-        if (deck2 == null)
-            return "<b>Error:</b> Can't find deck for user with name: " + player2Name + " - <a href='deckBuild.html?participantId=" + player2Name + "'>create deck</a>";
-
-        String gameId = createGameOnServer(player1Name, player2Name);
-
-        return "Game created, open following links in two windows:<br />" +
-                "<a href='game.html?gameId=" + gameId + "&participantId=" + player1Name + "'>" + player1Name + "</a><br />" +
-                "<a href='game.html?gameId=" + gameId + "&participantId=" + player2Name + "'>" + player2Name + "</a><br />" +
-                "If you wish to edit decks, use following links:<br />" +
-                "<a href='deckBuild.html?participantId=" + player1Name + "'>" + player1Name + "</a><br />" +
-                "<a href='deckBuild.html?participantId=" + player2Name + "'>" + player2Name + "</a>";
-    }
-
     @Path("/game/{gameId}")
     @GET
     @Produces(MediaType.APPLICATION_XML)
@@ -124,14 +80,12 @@ public class ServerResource {
             @PathParam("gameId") String gameId,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-//        String participantId = getLoggedUser(request);
+        if (!_test)
+            participantId = getLoggedUser(request);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
 
         if (gameMediator == null)
-            sendError(Response.Status.NOT_FOUND);
-
-        if (participantId == null)
             sendError(Response.Status.NOT_FOUND);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -153,13 +107,11 @@ public class ServerResource {
             @QueryParam("cardId") int cardId,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-//        String participantId = getLoggedUser(request);
+        if (!_test)
+            participantId = getLoggedUser(request);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
-            sendError(Response.Status.NOT_FOUND);
-
-        if (participantId == null)
             sendError(Response.Status.NOT_FOUND);
 
         return gameMediator.produceCardInfo(participantId, cardId);
@@ -174,15 +126,13 @@ public class ServerResource {
             @FormParam("decisionId") Integer decisionId,
             @FormParam("decisionValue") String decisionValue,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-//        String participantId = getLoggedUser(request);
+        if (!_test)
+            participantId = getLoggedUser(request);
 
         long start = System.currentTimeMillis();
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
-            sendError(Response.Status.NOT_FOUND);
-
-        if (participantId == null)
             sendError(Response.Status.NOT_FOUND);
 
         if (decisionId != null)
@@ -199,7 +149,7 @@ public class ServerResource {
         doc.appendChild(update);
 
         long time = System.currentTimeMillis() - start;
-        if (time > 10)
+        if (time > 100)
             _logger.debug("Processing time: " + time);
 
         return doc;
@@ -212,6 +162,9 @@ public class ServerResource {
             @PathParam("deckType") String deckType,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
         PlayerDAO playerDao = _lotroServer.getPlayerDao();
         DeckDAO deckDao = _lotroServer.getDeckDao();
 
@@ -262,7 +215,10 @@ public class ServerResource {
     public Document createDeck(
             @PathParam("deckType") String deckType,
             @FormParam("participantId") String participantId,
-            @FormParam("deckContents") String contents) throws ParserConfigurationException {
+            @FormParam("deckContents") String contents,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
 
         PlayerDAO playerDao = _lotroServer.getPlayerDao();
         DeckDAO deckDao = _lotroServer.getDeckDao();
@@ -297,6 +253,9 @@ public class ServerResource {
             @QueryParam("start") int start,
             @QueryParam("count") int count,
             @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
         if (collectionType == null || !collectionType.equals("default"))
             sendError(Response.Status.NOT_FOUND);
 
@@ -331,7 +290,11 @@ public class ServerResource {
     @Produces(MediaType.APPLICATION_XML)
     public Document getMessages(
             @PathParam("room") String room,
-            @QueryParam("participantId") String participantId) throws ParserConfigurationException {
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
             sendError(Response.Status.NOT_FOUND);
@@ -355,7 +318,11 @@ public class ServerResource {
     public Document postMessage(
             @PathParam("room") String room,
             @FormParam("participantId") String participantId,
-            @FormParam("message") String message) throws ParserConfigurationException {
+            @FormParam("message") String message,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
             sendError(Response.Status.NOT_FOUND);
@@ -383,7 +350,11 @@ public class ServerResource {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getHall(
-            @QueryParam("participantId") String participantId) throws ParserConfigurationException {
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
@@ -392,6 +363,11 @@ public class ServerResource {
         Element hall = doc.createElement("hall");
 
         _hallServer.processTables(participantId, new SerializeHallInfoVisitor(doc, hall));
+        for (String format : _hallServer.getSupportedFormats()) {
+            Element formatElem = doc.createElement("format");
+            formatElem.appendChild(doc.createTextNode(format));
+            hall.appendChild(formatElem);
+        }
 
         doc.appendChild(hall);
 
@@ -402,13 +378,45 @@ public class ServerResource {
     @POST
     public Document joinTable(
             @PathParam("table") String tableId,
-            @FormParam("participantId") String participantId) throws ParserConfigurationException {
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
         try {
             _hallServer.joinTableAsPlayer(tableId, participantId);
             return null;
         } catch (HallException e) {
             return marshalException(e);
         }
+    }
+
+    @Path("/hall")
+    @POST
+    public Document createTable(
+            @FormParam("format") String format,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        try {
+            _hallServer.createNewTable(format, participantId);
+            return null;
+        } catch (HallException e) {
+            return marshalException(e);
+        }
+    }
+
+    @Path("/hall/leave")
+    @POST
+    public void leaveTable(
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        _hallServer.leaveAwaitingTables(participantId);
     }
 
     private Document marshalException(HallException e) throws ParserConfigurationException {
@@ -421,25 +429,6 @@ public class ServerResource {
         error.setAttribute("message", e.getMessage());
         doc.appendChild(error);
         return doc;
-    }
-
-    @Path("/hall")
-    @POST
-    public Document createTable(
-            @FormParam("participantId") String participantId) throws ParserConfigurationException {
-        try {
-            _hallServer.createNewTable(participantId);
-            return null;
-        } catch (HallException e) {
-            return marshalException(e);
-        }
-    }
-
-    @Path("/hall/leave")
-    @POST
-    public void leaveTable(
-            @FormParam("participantId") String participantId) throws ParserConfigurationException {
-        _hallServer.leaveAwaitingTables(participantId);
     }
 
     private class SerializeHallInfoVisitor implements HallInfoVisitor {
@@ -623,7 +612,10 @@ public class ServerResource {
     }
 
     private String getLoggedUser(HttpServletRequest request) {
-        return (String) request.getSession().getAttribute("logged");
+        String loggedUser = (String) request.getSession().getAttribute("logged");
+        if (loggedUser == null)
+            sendError(Response.Status.UNAUTHORIZED);
+        return loggedUser;
     }
 
     private void sendError(Response.Status status) {

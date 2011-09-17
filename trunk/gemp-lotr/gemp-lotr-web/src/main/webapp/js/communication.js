@@ -156,12 +156,13 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    createTable: function(callback) {
+    createTable: function(format, callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall",
             cache: false,
             data: {
+                format: format,
                 participantId: getUrlParam("participantId")},
             success: callback,
             error: this.failure,

@@ -1,6 +1,9 @@
 var GempLotrHallUI = Class.extend({
     div : null,
     comm: null,
+    chat: null,
+    supportedFormatsInitialized: false,
+    supportedFormatsSelect: null,
     createTableButton: null,
     leaveTableButton: null,
 
@@ -9,9 +12,10 @@ var GempLotrHallUI = Class.extend({
     init: function(div, url, chat) {
         this.div = div;
         this.comm = new GempLotrCommunication(url, function() {
-            chat.appendMessage("The game hall had a problem communication with the server, no new updates will be displayed.", "warningMessage");
+            chat.appendMessage("The game hall had a problem communicating with the server, no new updates will be displayed.", "warningMessage");
             chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
         });
+        this.chat = chat;
 
         var width = $(div).width();
         var height = $(div).height();
@@ -25,16 +29,22 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
 
+        this.supportedFormatsSelect = $("<select></select>");
+        this.supportedFormatsSelect.hide();
+
         this.createTableButton = $("<button>Create table</button>");
         $(this.createTableButton).button().click(
                 function() {
+                    that.supportedFormatsSelect.hide();
                     that.createTableButton.hide();
-                    that.comm.createTable(function(xml) {
+                    var format = that.supportedFormatsSelect.val();
+                    that.comm.createTable(format, function(xml) {
                         that.processResponse(xml);
                     });
                 });
         this.createTableButton.hide();
 
+        buttonsDiv.append(this.supportedFormatsSelect);
         buttonsDiv.append(this.createTableButton);
 
         this.leaveTableButton = $("<button>Leave table</button>");
@@ -65,7 +75,7 @@ var GempLotrHallUI = Class.extend({
             var root = xml.documentElement;
             if (root.tagName == "error") {
                 var message = root.getAttribute("message");
-                alert(message);
+                this.chat.appendMessage(message, "warningMessage");
             }
         }
     },
@@ -101,10 +111,21 @@ var GempLotrHallUI = Class.extend({
                 location.href = "/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend;
             }
 
+            if (!this.supportedFormatsInitialized) {
+                var formats = root.getElementsByTagName("format");
+                for (var i = 0; i < formats.length; i++) {
+                    var format = formats[i].childNodes[0].nodeValue;
+                    this.supportedFormatsSelect.append("<option value='" + format + "'>" + format + "</option>");
+                }
+                this.supportedFormatsInitialized = true;
+            }
+
             if (waiting) {
+                this.supportedFormatsSelect.hide();
                 this.createTableButton.hide();
                 this.leaveTableButton.show();
             } else {
+                this.supportedFormatsSelect.show();
                 this.createTableButton.show();
                 this.leaveTableButton.hide();
             }
