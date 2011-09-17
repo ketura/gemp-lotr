@@ -8,19 +8,19 @@
         </layout>
     </appender>
     <appender name="R" class="org.apache.log4j.RollingFileAppender">
-        <param name="file" value="c:/dev/gemp-lotr.log"/>
+        <param name="file" value="i:/dev/gemp-lotr.log"/>
         <param name="MaxFileSize" value="10MB"/>
         <param name="MaxBackupIndex" value="20"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%p %t %c - %m%n"/>
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n"/>
         </layout>
     </appender>
-    <logger name="com.gempukku">
-        <level value="error"/>
-        <appender-ref ref="stdout"/>
+    <logger name="com.gempukku" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="R"/>
     </logger>
     <root>
-        <priority value="debug"/>
+        <level value="error"/>
         <appender-ref ref="R"/>
     </root>
 </log4j:configuration>

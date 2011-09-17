@@ -30,12 +30,12 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        if (_game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
-            Skirmish skirmish = _game.getGameState().getSkirmish();
+        Skirmish skirmish = _game.getGameState().getSkirmish();
+        if (_game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+                && (_game.getGameState().getSkirmish().isCancelled()
+                || skirmish.getFellowshipCharacter() == null || skirmish.getShadowCharacters().size() == 0)) {
             // If the skirmish is cancelled or one side of the skirmish is missing, no more phase actions can be played
-            if (_game.getGameState().getSkirmish().isCancelled()
-                    || skirmish.getFellowshipCharacter() == null || skirmish.getShadowCharacters().size() == 0)
-                _nextProcess = _followingGameProcess;
+            _nextProcess = _followingGameProcess;
         } else {
             String playerId = _playOrder.getNextPlayer();
             GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, playerId);
