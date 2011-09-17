@@ -3,6 +3,8 @@ Before release:
 27. Show list of players in the hall.
 28. Introduce deck validation for FotR block format.
 29. Player registration and login.
+31. Allow to cancel selection to reset to none-selected and go with different selection if no auto-accept is set or
+multiple choices required.
 
 Next priority:
 25. Remove all non-essencial alerts, instead add warnings to chat panel.
@@ -21,7 +23,7 @@ Optional:
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-31.
+32.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
@@ -38,8 +40,7 @@ with Filters.sameCard(...) filter.
 6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
 17. Timeout users from ChatServer the same way they are timed out of GameServer.
 9. Add checkbox option to auto-pass if there is no actions to be played.
-8. Add checkbox option to auto-accept choices on the client, also allow to cancel selection to reset to none-selected
-and go with different selection.
+8. Add checkbox option to auto-accept choices on the client.
 18. Add display of site where player is on adventure path.
 21. Scale wounds, burdens, other tokens with the card size.
 22. If skirmish is in progress, the total strength of each side should be displayed.
