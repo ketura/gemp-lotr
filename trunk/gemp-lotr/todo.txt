@@ -1,6 +1,8 @@
 TO DO:
 Before release:
 27. Show list of players in the hall.
+28. Introduce deck validation for FotR block format.
+29. Player registration and login.
 
 Next priority:
 25. Remove all non-essencial alerts, instead add warnings to chat panel.
@@ -11,14 +13,15 @@ Next priority:
 16. Add an option to watch an ongoing game (spectator).
 24. The events that are played and cards affected should be shown to the players briefly using animations to make it
  aestheticly pleasing.
-23. Add ghost cards attached to cards they are affecting in case of things (non-possessions) affecting only one card
- (like skirmish strength bonuses, etc)
+30. Watching game replay after it's finished and sharing the game replay with others via code.
 
 Optional:
+23. Add ghost cards attached to cards they are affecting in case of things (non-possessions) affecting only one card
+ (like skirmish strength bonuses, etc)
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-28.
+31.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.

@@ -620,7 +620,7 @@ public class ServerResource {
 
     private void sendError(Response.Status status) {
         WebApplicationException webApplicationException = new WebApplicationException(status);
-        _logger.debug("Sending error to user: " + status.getStatusCode(), webApplicationException);
+//        _logger.debug("Sending error to user: " + status.getStatusCode(), webApplicationException);
         throw webApplicationException;
     }
 }
