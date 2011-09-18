@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_254 extends AbstractAttachable {
     public Card1_254() {
-        super(Side.SHADOW, CardType.CONDITION, 0, Culture.SHIRE, null, "Mordor Enraged");
+        super(Side.SHADOW, CardType.CONDITION, 0, Culture.SAURON, null, "Mordor Enraged");
     }
 
     @Override
