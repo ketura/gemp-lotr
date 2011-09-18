@@ -769,6 +769,7 @@ var GempLotrGameUI = Class.extend({
     integerDecision: function(decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
+        var val = 0;
 
         var min = this.getDecisionParameter(decision, "min");
         if (min == null)
@@ -776,6 +777,10 @@ var GempLotrGameUI = Class.extend({
         var max = this.getDecisionParameter(decision, "max");
         if (max == null)
             max = 1000;
+
+        var defaultValue = this.getDecisionParameter(decision, "defaultValue");
+        if (defaultValue != null)
+            val = parseInt(defaultValue);
 
         var that = this;
         this.smallDialog
@@ -796,6 +801,7 @@ var GempLotrGameUI = Class.extend({
                 interval: 1,
                 decimalplaces: 0
             },
+            defaultVal: val,
             width: '50px',
             backColor: "#000000"
         });
