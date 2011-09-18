@@ -21,4 +21,6 @@ public interface LotroGame {
     public void playerWon(String currentPlayerId, String reason);
 
     public void playerLost(String currentPlayerId, String reason);
+
+    public String getWinnerPlayerId();
 }

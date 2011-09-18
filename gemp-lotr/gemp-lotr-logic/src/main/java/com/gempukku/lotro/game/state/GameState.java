@@ -39,17 +39,13 @@ public class GameState {
 
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
 
-    private String _winnerPlayerId;
-    private String _winReason;
-    private Map<String, String> _losers = new HashMap<String, String>();
-
     private int _nextCardId = 0;
 
     private int nextCardId() {
         return _nextCardId++;
     }
 
-    public GameState(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, LotroCardBlueprintLibrary library) {
+    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, LotroCardBlueprintLibrary library) {
         _playerOrder = playerOrder;
         _currentPlayerId = firstPlayer;
         for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {
@@ -63,31 +59,9 @@ public class GameState {
 
             addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
         }
-    }
 
-    public void setWinnerPlayerId(String winnerPlayerId, String reason) {
-        _winnerPlayerId = winnerPlayerId;
-        _winReason = reason;
-        for (GameStateListener listener : getAllGameStateListeners())
-            listener.sendMessage(winnerPlayerId + " is the winner due to: " + reason);
-    }
-
-    public String setLoserPlayerId(String loserPlayerId, String reason) {
-        _losers.put(loserPlayerId, reason);
-        for (GameStateListener listener : getAllGameStateListeners())
-            listener.sendMessage(loserPlayerId + " lost due to: " + reason);
-
-        if (_losers.size() + 1 == _playerOrder.getAllPlayers().size()) {
-            List<String> allPlayers = new LinkedList<String>(_playerOrder.getAllPlayers());
-            allPlayers.removeAll(_losers.keySet());
-            setWinnerPlayerId(allPlayers.get(0), "Last remaining player in game");
-            return allPlayers.get(0);
-        }
-        return null;
-    }
-
-    public String getWinnerPlayerId() {
-        return _winnerPlayerId;
+        for (String playerId : _gameStateListeners.keySet())
+            sendStateToPlayer(playerId);
     }
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
@@ -143,43 +117,39 @@ public class GameState {
     }
 
     private void sendStateToPlayer(String playerId) {
-        GameStateListener listener = _gameStateListeners.get(playerId);
-        listener.setPlayerOrder(_playerOrder.getAllPlayers());
-        if (_currentPlayerId != null)
-            listener.setCurrentPlayerId(_currentPlayerId);
-        if (_currentPhase != null)
-            listener.setCurrentPhase(_currentPhase);
-        listener.setTwilight(_twilightPool);
-        for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
-            listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
+        if (_playerOrder != null) {
+            GameStateListener listener = _gameStateListeners.get(playerId);
+            listener.setPlayerOrder(_playerOrder.getAllPlayers());
+            if (_currentPlayerId != null)
+                listener.setCurrentPlayerId(_currentPlayerId);
+            if (_currentPhase != null)
+                listener.setCurrentPhase(_currentPhase);
+            listener.setTwilight(_twilightPool);
+            for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
+                listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
-        for (List<PhysicalCardImpl> physicalCards : _inPlay.values())
-            for (PhysicalCardImpl physicalCard : physicalCards)
-                listener.cardCreated(physicalCard);
+            for (List<PhysicalCardImpl> physicalCards : _inPlay.values())
+                for (PhysicalCardImpl physicalCard : physicalCards)
+                    listener.cardCreated(physicalCard);
 
-        List<PhysicalCardImpl> hand = _hands.get(playerId);
-        if (hand != null) {
-            for (PhysicalCardImpl physicalCard : hand)
-                listener.cardCreated(physicalCard);
+            List<PhysicalCardImpl> hand = _hands.get(playerId);
+            if (hand != null) {
+                for (PhysicalCardImpl physicalCard : hand)
+                    listener.cardCreated(physicalCard);
+            }
+
+            for (Skirmish assignment : _assignments)
+                listener.addAssignment(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
+
+            if (_skirmish != null)
+                listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
+
+            for (Map.Entry<PhysicalCard, Map<Token, Integer>> physicalCardMapEntry : _cardTokens.entrySet()) {
+                PhysicalCard card = physicalCardMapEntry.getKey();
+                for (Map.Entry<Token, Integer> tokenIntegerEntry : physicalCardMapEntry.getValue().entrySet())
+                    listener.addTokens(card, tokenIntegerEntry.getKey(), tokenIntegerEntry.getValue());
+            }
         }
-
-        for (Skirmish assignment : _assignments)
-            listener.addAssignment(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
-
-        if (_skirmish != null)
-            listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
-
-        for (Map.Entry<PhysicalCard, Map<Token, Integer>> physicalCardMapEntry : _cardTokens.entrySet()) {
-            PhysicalCard card = physicalCardMapEntry.getKey();
-            for (Map.Entry<Token, Integer> tokenIntegerEntry : physicalCardMapEntry.getValue().entrySet())
-                listener.addTokens(card, tokenIntegerEntry.getKey(), tokenIntegerEntry.getValue());
-        }
-
-        for (Map.Entry<String, String> playerLoseReason : _losers.entrySet())
-            listener.sendMessage(playerLoseReason.getKey() + " lost due to: " + playerLoseReason.getValue());
-
-        if (_winnerPlayerId != null)
-            listener.sendMessage(_winnerPlayerId + " is the winner due to: " + _winReason);
     }
 
     private boolean isZonePublic(Zone zone) {

@@ -35,7 +35,7 @@ public class TurnProcedure {
     }
 
     public void carryOutPendingActionsUntilDecisionNeeded() {
-        while (!_userFeedback.hasPendingDecisions() && (_game.getGameState() == null || _game.getGameState().getWinnerPlayerId() == null)) {
+        while (!_userFeedback.hasPendingDecisions() && _game.getWinnerPlayerId() == null) {
             if (_actionStack.isEmpty()) {
                 if (_playedGameProcess) {
                     _gameProcess = _gameProcess.getNextProcess();
