@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,6 +40,7 @@ public class Card1_345 extends AbstractSite {
             action.addCost(new RemoveTwilightEffect(1));
             action.addEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose Shadow weapon to play", Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(),
+                            Filters.side(Side.SHADOW),
                             Filters.or(
                                     Filters.keyword(Keyword.HAND_WEAPON),
                                     Filters.keyword(Keyword.RANGED_WEAPON)),
