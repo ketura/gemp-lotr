@@ -131,7 +131,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringBearerDiv = $("<div>Ring Bearer</div>");
         this.ringBearerDiv.click(
                 function() {
-                    if ($(".card", this.ringBearerDiv).length == 0)
+                    if ($(".card", that.ringBearerDiv).length == 0)
                         that.showPredefinedFilter("keyword:RING_BEARER", that.ringBearerDiv);
                 });
         this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function(card) {
@@ -142,7 +142,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringDiv = $("<div>Ring</div>");
         this.ringDiv.click(
                 function() {
-                    if ($(".card", this.ringDiv).length == 0)
+                    if ($(".card", that.ringDiv).length == 0)
                         that.showPredefinedFilter("cardType:THE_ONE_RING", that.ringDiv);
                 });
         this.ringGroup = new NormalCardGroup(this.ringDiv, function(card) {
