@@ -20,7 +20,8 @@ Optional:
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-32.
+33. When a player stops responding during preparation time of the game, the game is not properly finished.
+34.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
@@ -46,3 +47,4 @@ with Filters.sameCard(...) filter.
 27. Show list of players in the hall.
 28. Introduce deck validation for FotR block format.
 29. Player registration and login.
+32. Created tables do not disappear when the player closes the browser.

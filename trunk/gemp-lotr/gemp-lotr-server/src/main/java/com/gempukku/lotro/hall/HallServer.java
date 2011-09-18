@@ -21,7 +21,7 @@ public class HallServer extends AbstractServer {
     private Map<String, LotroFormat> _supportedFormats = new HashMap<String, LotroFormat>();
 
     private Map<String, AwaitingTable> _awaitingTables = new ConcurrentHashMap<String, AwaitingTable>();
-    private Map<String, String> _runningTables = Collections.synchronizedMap(new LinkedHashMap<String, String>());
+    private Map<String, String> _runningTables = new ConcurrentHashMap<String, String>();
     private int _nextTableId = 1;
 
     private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
@@ -128,6 +128,7 @@ public class HallServer extends AbstractServer {
     }
 
     public void processTables(String participantId, HallInfoVisitor visitor) {
+        _lastVisitedPlayers.put(participantId, System.currentTimeMillis());
         visitor.playerIsWaiting(isPlayerWaiting(participantId));
 
         Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
