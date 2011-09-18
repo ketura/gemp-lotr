@@ -57,7 +57,7 @@ public class TurnProcedure {
                     }
                 }
             }
-            _game.checkWinLoseConditions();
+            _game.checkLoseConditions();
         }
     }
 

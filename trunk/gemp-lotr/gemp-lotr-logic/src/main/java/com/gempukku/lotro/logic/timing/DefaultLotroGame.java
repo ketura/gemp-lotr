@@ -142,7 +142,7 @@ public class DefaultLotroGame implements LotroGame {
     }
 
     @Override
-    public void checkWinLoseConditions() {
+    public void checkLoseConditions() {
         GameState gameState = getGameState();
         if (gameState != null && gameState.getCurrentPhase() != Phase.GAME_SETUP) {
             // Ring-bearer death
@@ -157,12 +157,6 @@ public class DefaultLotroGame implements LotroGame {
                     playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
                     return;
                 }
-            }
-            // Fellowship in regroup at the last site
-            if (getGameState().getCurrentPhase() == Phase.REGROUP
-                    && getGameState().getCurrentSiteNumber() == 9) {
-                playerWon(getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
-                return;
             }
         }
     }
