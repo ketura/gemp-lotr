@@ -683,6 +683,14 @@ var GempLotrGameUI = Class.extend({
 
         this.selfPlayerId = participantId;
 
+        var index = -1;
+        for (var i = 0; i < this.allPlayerIds.length; i++) {
+            if (this.allPlayerIds[i] == this.selfPlayerId)
+                index = i;
+        }
+        if (index == -1)
+            this.selfPlayerId = this.allPlayerIds[0];
+
         this.initializeGameUI();
         this.layoutUI();
     },
