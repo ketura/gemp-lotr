@@ -30,9 +30,17 @@ public class DefaultLotroGame implements LotroGame {
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
     private GameResultListener _gameResultListener;
 
+    private Set<String> _allPlayers;
+
+    private String _winnerPlayerId;
+    private String _winReason;
+    private Map<String, String> _losers = new HashMap<String, String>();
+
     public DefaultLotroGame(Map<String, LotroDeck> decks, UserFeedback userFeedback, GameResultListener gameResultListener, final LotroCardBlueprintLibrary library) {
         _gameResultListener = gameResultListener;
         _actionStack = new ActionStack();
+
+        _allPlayers = decks.keySet();
 
         _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack);
 
@@ -49,11 +57,13 @@ public class DefaultLotroGame implements LotroGame {
             cards.put(playerId, deck);
         }
 
+        _gameState = new GameState();
+
         _turnProcedure = new TurnProcedure(this, decks.keySet(), userFeedback, _actionStack,
                 new PlayerOrderFeedback() {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {
-                        _gameState = new GameState(playerOrder, firstPlayer, cards, library);
+                        _gameState.init(playerOrder, firstPlayer, cards, library);
                         for (Map.Entry<String, GameStateListener> stringGameStateListenerEntry : _gameStateListeners.entrySet())
                             _gameState.addGameStateListener(stringGameStateListenerEntry.getKey(), stringGameStateListenerEntry.getValue());
                         _gameStateListeners = null;
@@ -76,22 +86,33 @@ public class DefaultLotroGame implements LotroGame {
     }
 
     @Override
-    public void playerWon(String currentPlayerId, String reason) {
-        _gameState.setWinnerPlayerId(currentPlayerId, reason);
+    public String getWinnerPlayerId() {
+        return _winnerPlayerId;
+    }
+
+    @Override
+    public void playerWon(String playerId, String reason) {
+        _winnerPlayerId = playerId;
+        _winReason = reason;
+        if (_gameState != null)
+            _gameState.sendMessage(_winnerPlayerId + " is the winner due to: " + reason);
         if (_gameResultListener != null) {
-            Set<String> losers = new HashSet<String>(_gameState.getPlayerOrder().getAllPlayers());
-            losers.remove(currentPlayerId);
-            _gameResultListener.gameFinished(currentPlayerId, losers);
+            Set<String> losers = new HashSet<String>(_allPlayers);
+            losers.remove(_winnerPlayerId);
+            _gameResultListener.gameFinished(_winnerPlayerId, losers, reason);
         }
     }
 
     @Override
-    public void playerLost(String currentPlayerId, String reason) {
-        String winner = _gameState.setLoserPlayerId(currentPlayerId, reason);
-        if (winner != null && _gameResultListener != null) {
-            Set<String> losers = new HashSet<String>(_gameState.getPlayerOrder().getAllPlayers());
-            losers.remove(winner);
-            _gameResultListener.gameFinished(winner, losers);
+    public void playerLost(String playerId, String reason) {
+        _losers.put(playerId, reason);
+        if (_gameState != null)
+            _gameState.sendMessage(playerId + " lst due to: " + reason);
+
+        if (_losers.size() + 1 == _allPlayers.size()) {
+            List<String> allPlayers = new LinkedList<String>(_allPlayers);
+            allPlayers.removeAll(_losers.keySet());
+            playerWon(allPlayers.get(0), "Last remaining player in game");
         }
     }
 

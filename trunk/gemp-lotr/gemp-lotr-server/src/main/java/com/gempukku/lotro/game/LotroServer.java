@@ -111,8 +111,8 @@ public class LotroServer extends AbstractServer {
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
                 new GameResultListener() {
                     @Override
-                    public void gameFinished(String winnerPlayerId, Set<String> loserPlayerIds) {
-                        log.debug("Game finished, winner is: " + winnerPlayerId);
+                    public void gameFinished(String winnerPlayerId, Set<String> loserPlayerIds, String reason) {
+                        log.debug("Game finished, winner is - " + winnerPlayerId + " due to: " + reason);
                         synchronized (_finishedGamesTime) {
                             _finishedGamesTime.put(gameId, new Date());
                         }

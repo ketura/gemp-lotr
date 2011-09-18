@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.Skirmish;
@@ -46,16 +47,15 @@ public class LotroGameMediator {
     }
 
     public String getGameStatus() {
-        if (_lotroGame.getGameState() == null)
-            return "Preparation";
-        if (_lotroGame.getGameState().getWinnerPlayerId() != null)
+        if (_lotroGame.getWinnerPlayerId() != null)
             return "Finished";
+        if (_lotroGame.getGameState().getCurrentPhase() == Phase.GAME_SETUP)
+            return "Preparation";
         return "Playing";
     }
 
     public synchronized String produceCardInfo(String participantId, int cardId) {
         StringBuilder sb = new StringBuilder();
-
 
         PhysicalCard card = _lotroGame.getGameState().findCardById(cardId);
         if (card == null)
@@ -104,7 +104,7 @@ public class LotroGameMediator {
             }
         }
 
-        if (_lotroGame.getGameState() != null && _lotroGame.getGameState().getWinnerPlayerId() == null) {
+        if (_lotroGame.getGameState() != null && _lotroGame.getWinnerPlayerId() == null) {
             for (Map.Entry<String, Long> playerDecision : _decisionQuerySentTimes.entrySet()) {
                 String playerId = playerDecision.getKey();
                 long decisionSent = playerDecision.getValue();
