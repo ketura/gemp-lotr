@@ -12,6 +12,11 @@ public class LotroCardBlueprintLibrary {
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
     public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) {
+        if (blueprintId.endsWith("*"))
+            blueprintId = blueprintId.substring(0, blueprintId.length() - 1);
+        if (blueprintId.endsWith("T"))
+            blueprintId = blueprintId.substring(0, blueprintId.length() - 1);
+
         if (_blueprintMap.containsKey(blueprintId))
             return _blueprintMap.get(blueprintId);
 

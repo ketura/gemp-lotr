@@ -29,7 +29,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.filterDiv = $("<div></div>");
         this.filterDiv.append("<button id='previousPage' style='float: left;'>Previous page</button>");
-        this.filterDiv.append("<button id='nextPage' style='float: right;'>Previous page</button>");
+        this.filterDiv.append("<button id='nextPage' style='float: right;'>Next page</button>");
         this.collectionDiv.append(this.filterDiv);
 
         $("#previousPage").button({
