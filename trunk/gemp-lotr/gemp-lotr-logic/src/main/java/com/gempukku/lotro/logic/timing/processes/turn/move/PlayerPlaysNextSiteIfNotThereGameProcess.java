@@ -6,9 +6,10 @@ import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.PlayCardEffect;
+import com.gempukku.lotro.logic.timing.actions.SimpleEffectAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.SimpleTriggeringGameProcess;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.results.WhenMoveFromResult;
 import com.gempukku.lotro.logic.timing.results.WhenMoveToResult;
 import com.gempukku.lotro.logic.timing.results.WhenMovesResult;
@@ -46,14 +47,25 @@ public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
             gameState.addCardToZone(nextSite, Zone.ADVENTURE_PATH);
             gameState.startAffecting(nextSite, _game.getModifiersEnvironment());
 
+            final PhysicalCard site = nextSite;
+
             _nextProcess =
-                    new SimpleTriggeringGameProcess(_game, new PlayCardResult(nextSite), "Played next site",
-                            new SimpleTriggeringGameProcess(_game, new WhenMoveFromResult(), "Fellowship moved from",
+                    new GameProcess() {
+                        @Override
+                        public void process() {
+                            _game.getActionsEnvironment().addActionToStack(
+                                    new SimpleEffectAction(new PlayCardEffect(site), "Plays next site"));
+                        }
+
+                        @Override
+                        public GameProcess getNextProcess() {
+                            return new SimpleTriggeringGameProcess(_game, new WhenMoveFromResult(), "Fellowship moved from",
                                     new SimpleTriggeringGameProcess(_game, new WhenMovesResult(), "Fellowship moves",
                                             new MovePlayerTokenToNextSiteGameProcess(_game,
                                                     new SimpleTriggeringGameProcess(_game, new WhenMoveToResult(), "Fellowship moved to",
-                                                            _afterMoveGameProcess)))));
-
+                                                            _afterMoveGameProcess))));
+                        }
+                    };
         } else {
             _nextProcess =
                     new SimpleTriggeringGameProcess(_game, new WhenMoveFromResult(), "Fellowship moved from",

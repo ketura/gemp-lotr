@@ -48,3 +48,4 @@ with Filters.sameCard(...) filter.
 32. Created tables do not disappear when the player closes the browser.
 33. When a player stops responding during preparation time of the game, the game is not properly finished.
 19. Add filtering cards to deck-builder.
+
