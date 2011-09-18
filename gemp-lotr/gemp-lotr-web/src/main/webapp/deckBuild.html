@@ -46,8 +46,6 @@
     <script type="text/javascript" src="js/deckBuildingUi.js"></script>
 
     <script type="text/javascript">
-        var ui;
-        var communication;
 
         // TODO: delete - Only for debugging
         function getUrlParam(param) {
@@ -74,7 +72,7 @@
 
         $(document).ready(
                 function() {
-                    ui = new GempLotrDeckBuildingUI();
+                    var ui = new GempLotrDeckBuildingUI();
 
                     $('body').layout({
                         applyDefaultStyles: true,
@@ -86,32 +84,11 @@
 
                     $(".ui-layout-pane").css({"background-color": "#000000"});
 
-                    communication = new GempLotrCommunication("/gemp-lotr/server",
-                            function() {
-                                ui.processError();
-                            });
-
                     $(window).resize(function() {
                         ui.layoutUI();
                     });
 
-                    ui.setLoadCollectionFunc(function(collectionType, filter, start, count) {
-                        communication.getCollection(collectionType, filter, start, count, function(xml) {
-                            ui.displayCollection(xml);
-                        });
-                    });
-
-                    ui.setSaveDeckFunc(function(deckType, contents) {
-                        communication.saveDeck(deckType, contents, function(xml) {
-                            alert("Deck was saved");
-                        });
-                    });
-
                     ui.layoutUI();
-
-                    communication.getDeck("default", function(xml) {
-                        ui.setupDeck(xml);
-                    });
                 });
     </script>
 

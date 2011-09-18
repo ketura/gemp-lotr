@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 
 import java.util.*;
@@ -20,7 +21,8 @@ public class DefaultCardCollection implements CardCollection {
             filter = "";
         String[] filterParams = filter.split(" ");
 
-        List<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", Arrays.asList(CardType.values()), filterParams);
+        List<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
+        List<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
         List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
         Integer siteNumber = getSiteNumber(filterParams);
 
@@ -28,10 +30,11 @@ public class DefaultCardCollection implements CardCollection {
         for (Map.Entry<String, LotroCardBlueprint> stringLotroCardBlueprintEntry : _cards.entrySet()) {
             String blueprintId = stringLotroCardBlueprintEntry.getKey();
             LotroCardBlueprint blueprint = stringLotroCardBlueprintEntry.getValue();
-            if (cardTypes.contains(blueprint.getCardType()))
-                if (containsAllKeywords(blueprint, keywords))
-                    if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
-                        result.put(blueprintId, _cardsCount.get(blueprintId));
+            if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
+                if (cultures == null || cultures.contains(blueprint.getCulture()))
+                    if (containsAllKeywords(blueprint, keywords))
+                        if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
+                            result.put(blueprintId, _cardsCount.get(blueprintId));
         }
         return result;
     }

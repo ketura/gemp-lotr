@@ -1,4 +1,7 @@
 var GempLotrDeckBuildingUI = Class.extend({
+    comm: null,
+
+    collectionType: "default",
     deckDiv: null,
     ringBearerDiv: null,
     ringBearerGroup: null,
@@ -11,53 +14,103 @@ var GempLotrDeckBuildingUI = Class.extend({
     normalCollectionGroup: null,
     specialCollectionDiv: null,
     specialCollectionGroup: null,
-    loadCollectionFunc: null,
-    saveDeckFunc: null,
     selectionFunc: null,
+    pageDiv: null,
     filterDiv: null,
     drawDeckDiv: null,
     drawDeckGroup: null,
     start: 0,
     count: 18,
+    filter: null,
 
     init: function() {
         var that = this;
+
+        this.filter = "cardType:-SITE,THE_ONE_RING";
+
+        this.comm = new GempLotrCommunication("/gemp-lotr/server", that.processError);
 
         this.deckDiv = $("#deckDiv");
 
         this.collectionDiv = $("#collectionDiv");
 
+        this.pageDiv = $("<div></div>");
+        this.pageDiv.append("<button id='previousPage' style='float: left;'>Previous page</button>");
+        this.pageDiv.append("<button id='nextPage' style='float: right;'>Next page</button>");
+        this.pageDiv.append("<div id='countSlider' style='left: 33px; top: 10px; width: 200px;'></div>");
+        this.collectionDiv.append(this.pageDiv);
+
         this.filterDiv = $("<div></div>");
-        this.filterDiv.append("<button id='previousPage' style='float: left;'>Previous page</button>");
-        this.filterDiv.append("<button id='nextPage' style='float: right;'>Next page</button>");
+
+        this.filterDiv.append("<div id='culture'>"
+                + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.gif'/></label>"
+                + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.gif'/></label>"
+                + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.gif'/></label>"
+                + "<input type='checkbox' id='GONDOR'/><label for='GONDOR' id='labelGONDOR'><img src='images/cultures/gondor.gif'/></label>"
+                + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.gif'/></label>"
+                + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.gif'/></label>"
+                + "<input type='checkbox' id='MORIA'/><label for='MORIA' id='labelMORIA'><img src='images/cultures/moria.gif'/></label>"
+                + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.gif'/></label>"
+                + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.gif'/></label>"
+                + "</div>");
+
         this.collectionDiv.append(this.filterDiv);
+
+        $("#culture").buttonset();
+
+        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelSHIRE,#labelISENGARD,#labelMORIA,#labelSAURON,#labelWRAITH").click(
+                function() {
+                    that.filter = that.calculateNormalFilter();
+                    that.start = 0;
+                    that.getCollection();
+                    return true;
+                });
+
+        $("#countSlider").slider({
+            value:18,
+            min: 4,
+            max: 40,
+            step: 1,
+            disabled: true,
+            slide: function(event, ui) {
+                that.start = 0;
+                that.count = ui.value;
+                that.getCollection();
+            }
+        });
 
         $("#previousPage").button({
             text: false,
             icons: {
                 primary: "ui-icon-circle-triangle-w"
-            }
+            },
+            disabled: true
         }).click(
                 function() {
                     $("#previousPage").button("option", "disabled", true);
                     $("#nextPage").button("option", "disabled", true);
+                    $("#countSlider").button("option", "disabled", true);
                     $(".card", that.normalCollectionDiv).remove();
+                    $(".card", that.specialCollectionDiv).remove();
                     that.start -= that.count;
-                    that.loadCollectionFunc("default", "cardType:-SITE,THE_ONE_RING", that.start, that.count);
+                    that.getCollection();
                 });
 
         $("#nextPage").button({
             text: false,
             icons: {
                 primary: "ui-icon-circle-triangle-e"
-            }
+            },
+            disabled: true
         }).click(
                 function() {
                     $("#previousPage").button("option", "disabled", true);
                     $("#nextPage").button("option", "disabled", true);
+                    $("#countSlider").button("option", "disabled", true);
                     $(".card", that.normalCollectionDiv).remove();
+                    $(".card", that.specialCollectionDiv).remove();
                     that.start += that.count;
-                    that.loadCollectionFunc("default", "cardType:-SITE,THE_ONE_RING", that.start, that.count);
+                    that.getCollection();
                 });
 
         this.normalCollectionDiv = $("<div></div>");
@@ -78,8 +131,8 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringBearerDiv = $("<div>Ring Bearer</div>");
         this.ringBearerDiv.click(
                 function() {
-                    $(".card", that.ringBearerDiv).remove();
-                    that.showPredefinedFilter("keyword:RING_BEARER", that.ringBearerDiv);
+                    if ($(".card", this.ringBearerDiv).length == 0)
+                        that.showPredefinedFilter("keyword:RING_BEARER", that.ringBearerDiv);
                 });
         this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function(card) {
             return true;
@@ -89,8 +142,8 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringDiv = $("<div>Ring</div>");
         this.ringDiv.click(
                 function() {
-                    $(".card", that.ringDiv).remove();
-                    that.showPredefinedFilter("cardType:THE_ONE_RING", that.ringDiv);
+                    if ($(".card", this.ringDiv).length == 0)
+                        that.showPredefinedFilter("cardType:THE_ONE_RING", that.ringDiv);
                 });
         this.ringGroup = new NormalCardGroup(this.ringDiv, function(card) {
             return true;
@@ -104,8 +157,8 @@ var GempLotrDeckBuildingUI = Class.extend({
             siteDiv.click(
                     (function (siteNumber, container) {
                         return function() {
-                            $(".card", container).remove();
-                            that.showPredefinedFilter("cardType:SITE siteNumber:" + siteNumber, container);
+                            if ($(".card", container).length == 0)
+                                that.showPredefinedFilter("cardType:SITE siteNumber:" + siteNumber, container);
                         };
                     })(i, siteDiv));
             this.deckDiv.append(siteDiv);
@@ -141,17 +194,52 @@ var GempLotrDeckBuildingUI = Class.extend({
                     var selectedCardElem = tar.parent();
                     if (event.which == 1) {
                         if (event.shiftKey) {
-                            // that.displayCardInfo(selectedCardElem.data("card"));
+                            that.displayCardInfo(selectedCardElem.data("card"));
                         } else  if (selectedCardElem.hasClass("cardInCollection")) {
                             that.selectionFunc(selectedCardElem.data("card").blueprintId);
                         } else if (selectedCardElem.hasClass("cardInDeck")) {
                             that.removeCardFromDeck(selectedCardElem);
                         }
+                        return false;
                     }
                 }
             }
             return false;
         });
+
+        this.infoDialog = $("<div></div>")
+                .dialog({
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300
+        });
+
+        var swipeOptions = {
+            threshold: 20,
+            swipeUp: function (event) {
+                that.infoDialog.prop({ scrollTop: that.infoDialog.prop("scrollHeight") });
+                return false;
+            },
+            swipeDown: function (event) {
+                that.infoDialog.prop({ scrollTop: 0 });
+                return false;
+            }
+        };
+        this.infoDialog.swipe(swipeOptions);
+
+        this.comm.getDeck("default", function(xml) {
+            that.setupDeck(xml);
+        });
+    },
+
+    displayCardInfo: function(card) {
+        this.infoDialog.html("<div style='scroll: auto'><img src='" + card.imageUrl + "'></div>");
+        this.infoDialog.dialog("open");
     },
 
     saveDeck: function() {
@@ -189,7 +277,9 @@ var GempLotrDeckBuildingUI = Class.extend({
                         cards.push($(this).data("card").blueprintId);
                     });
 
-            this.saveDeckFunc("default", "" + cards);
+            this.comm.saveDeck("default", "" + cards, function(xml) {
+                alert("Deck was saved");
+            });
         }
     },
 
@@ -206,14 +296,39 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.normalCollectionDiv.hide();
         this.filterDiv.hide();
         this.specialCollectionDiv.show();
-        this.loadCollectionFunc("default", filter, 0, 18);
+
+        this.filter = filter;
+        this.start = 0;
+        this.getCollection();
         this.selectionFunc = function(blueprintId) {
-            this.addCardToContainer(blueprintId, "special", container);
-            this.specialCollectionDiv.hide();
-            this.normalCollectionDiv.show();
-            this.filterDiv.show();
-            this.selectionFunc = this.addCardToDeck;
+            var cardDiv = this.addCardToContainer(blueprintId, "special", container);
+            cardDiv.addClass("cardInDeck");
+            this.showNormalFilter();
         };
+    },
+
+    showNormalFilter: function() {
+        this.specialCollectionDiv.hide();
+        this.normalCollectionDiv.show();
+        this.filterDiv.show();
+
+        this.filter = this.calculateNormalFilter();
+        this.start = 0;
+        this.getCollection();
+        this.selectionFunc = this.addCardToDeck;
+    },
+
+    calculateNormalFilter: function() {
+        var cultures = new Array();
+        $("label", $("#culture")).each(
+                function() {
+                    if ($(this).hasClass("ui-state-active"))
+                        cultures.push($(this).prop("id").substring(5));
+                });
+        if (cultures.length > 0)
+            return "cardType:-SITE,THE_ONE_RING culture:" + cultures;
+        else
+            return "cardType:-SITE,THE_ONE_RING";
     },
 
     addCardToDeck: function(blueprintId) {
@@ -246,12 +361,11 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.layoutUI();
     },
 
-    setLoadCollectionFunc: function(func) {
-        this.loadCollectionFunc = func;
-    },
-
-    setSaveDeckFunc: function(func) {
-        this.saveDeckFunc = func;
+    getCollection: function() {
+        var that = this;
+        this.comm.getCollection(this.collectionType, this.filter, this.start, this.count, function(xml) {
+            that.displayCollection(xml);
+        });
     },
 
     setupDeck: function(xml) {
@@ -259,11 +373,11 @@ var GempLotrDeckBuildingUI = Class.extend({
         if (root.tagName == "deck") {
             var ringBearer = root.getElementsByTagName("ringBearer");
             if (ringBearer.length == 1) {
-                this.addCardToContainer(ringBearer[0].getAttribute("blueprintId"), "deck", this.ringBearerDiv);
-                this.addCardToContainer(root.getElementsByTagName("ring")[0].getAttribute("blueprintId"), "deck", this.ringDiv);
+                this.addCardToContainer(ringBearer[0].getAttribute("blueprintId"), "deck", this.ringBearerDiv).addClass("cardInDeck");
+                this.addCardToContainer(root.getElementsByTagName("ring")[0].getAttribute("blueprintId"), "deck", this.ringDiv).addClass("cardInDeck");
                 var sites = root.getElementsByTagName("site");
                 for (var i = 0; i < 9; i++)
-                    this.addCardToContainer(sites[i].getAttribute("blueprintId"), "deck", this.siteDivs[i]);
+                    this.addCardToContainer(sites[i].getAttribute("blueprintId"), "deck", this.siteDivs[i]).addClass("cardInDeck");
 
                 var cards = root.getElementsByTagName("card");
                 for (var i = 0; i < cards.length; i++)
@@ -272,7 +386,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 this.layoutUI();
             }
 
-            this.loadCollectionFunc("default", "cardType:-SITE,THE_ONE_RING", this.start, this.count);
+            this.getCollection();
         }
     },
 
@@ -304,11 +418,10 @@ var GempLotrDeckBuildingUI = Class.extend({
             this.normalCollectionGroup.layoutCards();
             this.specialCollectionGroup.layoutCards();
 
-            if (this.normalCollectionDiv.is(":visible")) {
-                $("#previousPage").button("option", "disabled", this.start == 0);
-                var cnt = parseInt(root.getAttribute("count"));
-                $("#nextPage").button("option", "disabled", (this.start + this.count) >= cnt);
-            }
+            $("#previousPage").button("option", "disabled", this.start == 0);
+            var cnt = parseInt(root.getAttribute("count"));
+            $("#nextPage").button("option", "disabled", (this.start + this.count) >= cnt);
+            $("#countSlider").slider("option", "disabled", false);
         }
     },
 
@@ -341,11 +454,12 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.bottomBarDiv.css({ position: "absolute", left: sitesWidth * 2, top: deckHeight - 50, width: deckWidth - sitesWidth * 2, height: 50 });
 
-        this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding * 2, height: collectionHeight - 50 });
-        this.filterDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding, height: 50 });
-        this.specialCollectionDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding * 2, height: collectionHeight });
+        this.filterDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding, height: 50 });
+        this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 100, width: collectionWidth - padding * 2, height: collectionHeight - 100 });
+        this.pageDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding, height: 50 });
+        this.specialCollectionDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding * 2, height: collectionHeight - 50 });
 
-        this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 50);
+        this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 100);
         this.specialCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight);
     },
 

@@ -35,7 +35,7 @@ import java.util.Set;
 @Path("/")
 public class ServerResource {
     private static final Logger _logger = Logger.getLogger(ServerResource.class);
-    private boolean _test = false;
+    private boolean _test = true;
 
     private HallServer _hallServer;
     private LotroServer _lotroServer;

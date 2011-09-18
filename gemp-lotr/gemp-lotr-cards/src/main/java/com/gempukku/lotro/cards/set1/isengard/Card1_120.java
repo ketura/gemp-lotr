@@ -38,14 +38,14 @@ public class Card1_120 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.URUK_HAI), Filters.canExert());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.canExert());
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Uruk-hai", true, Filters.culture(Culture.URUK_HAI), Filters.canExert()));
+                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Uruk-hai", true, Filters.race(Race.URUK_HAI), Filters.canExert()));
         return action;
     }
 
