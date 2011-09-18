@@ -7,7 +7,6 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
-import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.logic.timing.GameResultListener;
@@ -124,7 +123,7 @@ public class LotroServer extends AbstractServer {
         return gameId;
     }
 
-    public Deck validateDeck(String contents) {
+    public LotroDeck validateDeck(String contents) {
         List<String> cards = Arrays.asList(contents.split(","));
         if (cards.size() < 11)
             return null;
@@ -149,7 +148,14 @@ public class LotroServer extends AbstractServer {
             for (String card : cards.subList(11, cards.size()))
                 _lotroCardBlueprintLibrary.getLotroCardBlueprint(card);
 
-            return new Deck(ringBearer, ring, cards.subList(2, 11), cards.subList(11, cards.size()));
+            LotroDeck deck = new LotroDeck();
+            deck.setRingBearer(cards.get(0));
+            deck.setRing(cards.get(1));
+            for (int i = 2; i < 11; i++)
+                deck.addSite(cards.get(i));
+            for (int i = 11; i < cards.size(); i++)
+                deck.addCard(cards.get(i));
+            return deck;
         } catch (IllegalArgumentException exp) {
             return null;
         }
@@ -157,7 +163,7 @@ public class LotroServer extends AbstractServer {
 
     public LotroDeck getParticipantDeck(String participantId) {
         Player player = _playerDao.getPlayer(participantId);
-        Deck deck = _deckDao.getDeckForPlayer(player, "default");
+        LotroDeck deck = _deckDao.getDeckForPlayer(player, "default");
         if (deck == null)
             return null;
 
@@ -166,7 +172,7 @@ public class LotroServer extends AbstractServer {
         lotroDeck.setRingBearer(deck.getRingBearer());
         for (String site : deck.getSites())
             lotroDeck.addSite(site);
-        for (String card : deck.getDeck())
+        for (String card : deck.getAdventureCards())
             lotroDeck.addCard(card);
 
         return lotroDeck;

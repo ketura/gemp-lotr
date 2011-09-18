@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,25 +15,25 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DeckDAO {
     private DbAccess _dbAccess;
 
-    private Map<Integer, Map<String, Deck>> _decks = new ConcurrentHashMap<Integer, Map<String, Deck>>();
+    private Map<Integer, Map<String, LotroDeck>> _decks = new ConcurrentHashMap<Integer, Map<String, LotroDeck>>();
 
     public DeckDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
     }
 
-    public Deck getDeckForPlayer(Player player, String type) {
-        Map<String, Deck> playerDecks = _decks.get(player.getId());
+    public LotroDeck getDeckForPlayer(Player player, String type) {
+        Map<String, LotroDeck> playerDecks = _decks.get(player.getId());
         if (playerDecks != null) {
-            Deck deck = playerDecks.get(type);
+            LotroDeck deck = playerDecks.get(type);
             if (deck != null)
                 return deck;
         }
 
-        Deck deck = getDeckFromDB(player.getId(), type);
+        LotroDeck deck = getDeckFromDB(player.getId(), type);
         if (deck != null) {
-            Map<String, Deck> decksByType = _decks.get(player.getId());
+            Map<String, LotroDeck> decksByType = _decks.get(player.getId());
             if (decksByType == null) {
-                decksByType = new ConcurrentHashMap<String, Deck>();
+                decksByType = new ConcurrentHashMap<String, LotroDeck>();
                 _decks.put(player.getId(), decksByType);
             }
             decksByType.put(type, deck);
@@ -42,22 +42,22 @@ public class DeckDAO {
         return null;
     }
 
-    public void setDeckForPlayer(Player player, String type, Deck deck) {
+    public void setDeckForPlayer(Player player, String type, LotroDeck deck) {
         storeDeckToDB(player.getId(), type, deck);
-        Map<String, Deck> decksByType = _decks.get(player.getId());
+        Map<String, LotroDeck> decksByType = _decks.get(player.getId());
         if (decksByType == null) {
-            decksByType = new ConcurrentHashMap<String, Deck>();
+            decksByType = new ConcurrentHashMap<String, LotroDeck>();
             _decks.put(player.getId(), decksByType);
         }
         decksByType.put(type, deck);
     }
 
-    private void storeDeckToDB(int playerId, String type, Deck deck) {
+    private void storeDeckToDB(int playerId, String type, LotroDeck deck) {
         StringBuilder sb = new StringBuilder();
         sb.append(deck.getRingBearer());
         sb.append(",").append(deck.getRing());
         appendList(sb, deck.getSites());
-        appendList(sb, deck.getDeck());
+        appendList(sb, deck.getAdventureCards());
 
         String contents = sb.toString();
         try {
@@ -73,7 +73,7 @@ public class DeckDAO {
             sb.append("," + card);
     }
 
-    private Deck getDeckFromDB(int playerId, String type) {
+    private LotroDeck getDeckFromDB(int playerId, String type) {
         try {
             String contents = getDeckContentsFromDB(playerId, type);
             if (contents != null) {
@@ -86,9 +86,16 @@ public class DeckDAO {
         }
     }
 
-    private Deck buildDeckFromContents(String contents) {
+    private LotroDeck buildDeckFromContents(String contents) {
         List<String> cardsList = Arrays.asList(contents.split(","));
-        return new Deck(cardsList.get(0), cardsList.get(1), cardsList.subList(2, 11), cardsList.subList(11, cardsList.size()));
+        LotroDeck deck = new LotroDeck();
+        deck.setRingBearer(cardsList.get(0));
+        deck.setRing(cardsList.get(1));
+        for (int i = 2; i < 11; i++)
+            deck.addSite(cardsList.get(i));
+        for (int i = 11; i < cardsList.size(); i++)
+            deck.addCard(cardsList.get(i));
+        return deck;
     }
 
     private void deleteDeckFromDB(int playerId, String type) throws SQLException {
