@@ -53,21 +53,20 @@ public class Card1_091 extends AbstractAttachableFPPossession {
                     });
             action.addEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new ForEachYouSpotDecision(1, "Choose number of pipes new RemoveBurdenEffect(playerId)you wish to spot", game, Filters.keyword(Keyword.PIPE), Integer.MAX_VALUE) {
+                            new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Filters.keyword(Keyword.PIPE), Integer.MAX_VALUE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
                                     int companionsCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
                                     spotCount = Math.min(spotCount, companionsCount);
-                                    for (int i = 0; i < spotCount; i++)
-                                        action.addEffect(
-                                                new ChooseActiveCardsEffect(playerId, "Choose companions", spotCount, spotCount, Filters.type(CardType.COMPANION)) {
-                                                    @Override
-                                                    protected void cardsSelected(List<PhysicalCard> cards) {
-                                                        for (PhysicalCard card : cards)
-                                                            action.addEffect(new HealCharacterEffect(playerId, card));
-                                                    }
-                                                });
+                                    action.addEffect(
+                                            new ChooseActiveCardsEffect(playerId, "Choose companion(s) to heal", spotCount, spotCount, Filters.type(CardType.COMPANION)) {
+                                                @Override
+                                                protected void cardsSelected(List<PhysicalCard> cards) {
+                                                    for (PhysicalCard card : cards)
+                                                        action.addEffect(new HealCharacterEffect(playerId, card));
+                                                }
+                                            });
                                 }
                             }));
             return Collections.singletonList(action);
