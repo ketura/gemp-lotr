@@ -142,7 +142,7 @@ public class HallServer extends AbstractServer {
                 visitor.visitTable(runningGame.getKey(), lotroGameMediator.getGameStatus(), lotroGameMediator.getPlayersPlaying());
         }
 
-        String playerTable = getPlayerTable(participantId);
+        String playerTable = getNonFinishedPlayerTable(participantId);
         if (playerTable != null) {
             String gameId = _runningTables.get(playerTable);
             if (gameId != null) {
@@ -153,7 +153,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public String getPlayerTable(String playerId) {
+    private String getNonFinishedPlayerTable(String playerId) {
         for (Map.Entry<String, AwaitingTable> table : _awaitingTables.entrySet()) {
             if (table.getValue().hasPlayer(playerId))
                 return table.getKey();
@@ -162,7 +162,7 @@ public class HallServer extends AbstractServer {
         for (Map.Entry<String, String> runningTable : _runningTables.entrySet()) {
             String gameId = runningTable.getValue();
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-            if (lotroGameMediator != null)
+            if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished"))
                 if (lotroGameMediator.getPlayersPlaying().contains(playerId))
                     return runningTable.getKey();
         }

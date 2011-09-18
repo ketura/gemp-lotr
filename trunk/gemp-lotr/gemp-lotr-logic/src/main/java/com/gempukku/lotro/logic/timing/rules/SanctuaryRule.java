@@ -32,7 +32,7 @@ public class SanctuaryRule {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
                             DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Sanctuary healing");
-                            action.addEffect(new HealCompanion(game.getGameState().getCurrentPlayerId(), action, 0));
+                            action.addEffect(new HealCompanion(game.getGameState().getCurrentPlayerId(), action, 1));
                             return Collections.singletonList(action);
                         }
                         return null;
