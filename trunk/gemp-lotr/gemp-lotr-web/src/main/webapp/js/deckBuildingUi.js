@@ -176,6 +176,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.bottomBarDiv = $("<div></div>");
         this.bottomBarDiv.append("<button id='saveDeck' style='float: right;'>Save deck</button>");
+        this.bottomBarDiv.append("<div id='deckStats'></div>")
         this.deckDiv.append(this.bottomBarDiv);
         $("#saveDeck").button().click(
                 function() {
@@ -197,8 +198,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                             that.displayCardInfo(selectedCardElem.data("card"));
                         } else  if (selectedCardElem.hasClass("cardInCollection")) {
                             that.selectionFunc(selectedCardElem.data("card").blueprintId);
+                            that.updateDeckStats();
                         } else if (selectedCardElem.hasClass("cardInDeck")) {
                             that.removeCardFromDeck(selectedCardElem);
+                            that.updateDeckStats();
                         }
                         return false;
                     }
@@ -242,7 +245,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.infoDialog.dialog("open");
     },
 
-    saveDeck: function() {
+    getDeckContents: function() {
         var ringBearer = $(".card", this.ringBearerDiv);
         var ring = $(".card", this.ringDiv);
         var site1 = $(".card", this.siteDivs[0]);
@@ -257,7 +260,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         if (ringBearer.length == 0 || ring.length == 0 || site1.length == 0 || site2.length == 0 || site3.length == 0 || site4.length == 0
                 || site5.length == 0 || site6.length == 0 || site7.length == 0 || site8.length == 0 || site9.length == 0) {
-            alert("To save a deck, it must have at least a Ring-Bearer, Ring and all 9 sites set");
+            return null;
         } else {
             var cards = new Array();
             cards.push(ringBearer.data("card").blueprintId);
@@ -277,10 +280,18 @@ var GempLotrDeckBuildingUI = Class.extend({
                         cards.push($(this).data("card").blueprintId);
                     });
 
-            this.comm.saveDeck("default", "" + cards, function(xml) {
+            return "" + cards;
+        }
+    },
+
+    saveDeck: function() {
+        var deckContents = this.getDeckContents();
+        if (deckContents == null)
+            alert("Deck must contain at least Ring-bearer, The One Ring and 9 sites");
+        else
+            this.comm.saveDeck("default", deckContents, function(xml) {
                 alert("Deck was saved");
             });
-        }
     },
 
     addCardToContainer: function(blueprintId, zone, container) {
@@ -350,6 +361,15 @@ var GempLotrDeckBuildingUI = Class.extend({
         }
     },
 
+    updateDeckStats: function() {
+        var deckContents = this.getDeckContents();
+        if (deckContents != null)
+            this.comm.getDeckStats(deckContents,
+                    function(html) {
+                        $("#deckStats").html(html);
+                    });
+    },
+
     removeCardFromDeck: function(cardDiv) {
         var cardData = cardDiv.data("card");
         if (cardData.attachedCards.length > 0) {
@@ -385,6 +405,8 @@ var GempLotrDeckBuildingUI = Class.extend({
 
                 this.layoutUI();
             }
+
+            this.updateDeckStats();
 
             this.getCollection();
         }
@@ -452,7 +474,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.drawDeckDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: padding, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: deckHeight - 2 * padding - 50 });
         this.drawDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) * 2 - padding, deckHeight - 2 * padding - 50);
 
-        this.bottomBarDiv.css({ position: "absolute", left: sitesWidth * 2, top: deckHeight - 50, width: deckWidth - sitesWidth * 2, height: 50 });
+        this.bottomBarDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: deckHeight - 50, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: 50 });
 
         this.filterDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding, height: 50 });
         this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 100, width: collectionWidth - padding * 2, height: collectionHeight - 100 });

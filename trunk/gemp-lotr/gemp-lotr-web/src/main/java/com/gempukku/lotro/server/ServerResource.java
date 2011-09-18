@@ -3,15 +3,17 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
-import com.gempukku.lotro.db.vo.Deck;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
@@ -204,7 +206,7 @@ public class ServerResource {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Deck deck = deckDao.getDeckForPlayer(player, deckType);
+        LotroDeck deck = deckDao.getDeckForPlayer(player, deckType);
         if (deck == null) {
             Document doc = documentBuilder.newDocument();
             Element deckElem = doc.createElement("deck");
@@ -229,7 +231,7 @@ public class ServerResource {
             site.setAttribute("blueprintId", s);
             deckElem.appendChild(site);
         }
-        for (String s : deck.getDeck()) {
+        for (String s : deck.getAdventureCards()) {
             Element card = doc.createElement("card");
             card.setAttribute("blueprintId", s);
             deckElem.appendChild(card);
@@ -256,7 +258,7 @@ public class ServerResource {
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
-        Deck deck = _lotroServer.validateDeck(contents);
+        LotroDeck deck = _lotroServer.validateDeck(contents);
         if (deck == null)
             sendError(Response.Status.BAD_REQUEST);
 
@@ -270,6 +272,48 @@ public class ServerResource {
         doc.appendChild(deckElem);
 
         return doc;
+    }
+
+    @Path("/deck")
+    @POST
+    @Produces("text/html")
+    public String getDeckStats(
+            @FormParam("participantId") String participantId,
+            @FormParam("deckContents") String contents,
+            @Context HttpServletRequest request) {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        LotroDeck deck = _lotroServer.validateDeck(contents);
+        if (deck == null)
+            sendError(Response.Status.BAD_REQUEST);
+
+        int fpCount = 0;
+        int shadowCount = 0;
+        LotroCardBlueprintLibrary library = _lotroServer.getLotroCardBlueprintLibrary();
+        for (String card : deck.getAdventureCards()) {
+            Side side = library.getLotroCardBlueprint(card).getSide();
+            if (side == Side.SHADOW)
+                shadowCount++;
+            else if (side == Side.FREE_PEOPLE)
+                fpCount++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<b>Free People</b>: " + fpCount + ", <b>Shadow</b>: " + shadowCount + "<br/>");
+
+        for (Map.Entry<String, LotroFormat> supportedFormats : _hallServer.getSupportedFormats().entrySet()) {
+            String formatName = supportedFormats.getKey();
+            LotroFormat format = supportedFormats.getValue();
+            try {
+                format.validateDeck(deck);
+                sb.append("<b>" + formatName + "</b>: <font color='green'>valid</font> ");
+            } catch (DeckInvalidException exp) {
+                sb.append("<b>" + formatName + "</b>: <font color='red'>" + exp.getMessage() + "</font> ");
+            }
+        }
+
+        return sb.toString();
     }
 
     @Path("/collection/{collectionType}")
@@ -392,7 +436,7 @@ public class ServerResource {
         Element hall = doc.createElement("hall");
 
         _hallServer.processTables(participantId, new SerializeHallInfoVisitor(doc, hall));
-        for (String format : _hallServer.getSupportedFormats()) {
+        for (String format : _hallServer.getSupportedFormats().keySet()) {
             Element formatElem = doc.createElement("format");
             formatElem.appendChild(doc.createTextNode(format));
             hall.appendChild(formatElem);

@@ -42,8 +42,8 @@ public class HallServer extends AbstractServer {
         return _awaitingTables.size() + _runningTables.size();
     }
 
-    public Set<String> getSupportedFormats() {
-        return new TreeSet<String>(_supportedFormats.keySet());
+    public Map<String, LotroFormat> getSupportedFormats() {
+        return new TreeMap<String, LotroFormat>(_supportedFormats);
     }
 
     /**
