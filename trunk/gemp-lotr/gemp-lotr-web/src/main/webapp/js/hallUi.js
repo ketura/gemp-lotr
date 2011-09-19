@@ -167,6 +167,17 @@ var GempLotrHallUI = Class.extend({
                         });
                 tableDiv.append(but);
             }
+            if (status == "Playing") {
+                var but = $("<button>Watch game</button>");
+                $(but).button().click(
+                        function(event) {
+                            var participantId = getUrlParam("participantId");
+                            var participantIdAppend = "";
+                            if (participantId != null)
+                                participantIdAppend = "&participantId=" + participantId;
+                            location.href = "/gemp-lotr/game.html?gameId=" + id + participantIdAppend;
+                        });
+            }
         }
 
         return tableDiv;
