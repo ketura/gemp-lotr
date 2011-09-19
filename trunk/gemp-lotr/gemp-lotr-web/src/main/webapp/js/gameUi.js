@@ -305,15 +305,19 @@ var GempLotrGameUI = Class.extend({
             this.windowHeight = height;
         }
 
-        var heightScales = [5, 9, 9, 10, 6, 10];
+        var heightScales;
+        if (this.spectatorMode)
+            heightScales = [6, 10, 10, 10, 6];
+        else
+            heightScales = [5, 9, 9, 10, 6, 10];
         var yScales = new Array();
         var scaleTotal = 0;
-        for (var i = 0; i < (this.spectatorMode ? (heightScales.length - 1) : heightScales.length); i++) {
+        for (var i = 0; i < heightScales.length; i++) {
             yScales[i] = scaleTotal;
             scaleTotal += heightScales[i];
         }
 
-        var heightPerScale = (height - (padding * 7)) / scaleTotal;
+        var heightPerScale = (height - (padding * (heightScales.length + 1))) / scaleTotal;
 
         var advPathWidth = Math.min(150, width * 0.1);
         var specialUiWidth = 150;
