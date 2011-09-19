@@ -4,7 +4,6 @@ Before release:
 multiple choices required.
 
 Next priority:
-26. The game area should display chat from the start.
 25. Remove all non-essencial alerts, instead add warnings to chat panel.
 13. Add dead/discard pile displays.
 24. The events that are played and cards affected should be shown to the players briefly using animations to make it
@@ -48,3 +47,4 @@ with Filters.sameCard(...) filter.
 19. Add filtering cards to deck-builder.
 14. Add hand/deck card count displays.
 16. Add an option to watch an ongoing game (spectator).
+26. The game area should display chat from the start.
