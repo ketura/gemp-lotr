@@ -159,6 +159,13 @@ public class GameState {
                 for (Map.Entry<Token, Integer> tokenIntegerEntry : physicalCardMapEntry.getValue().entrySet())
                     listener.addTokens(card, tokenIntegerEntry.getKey(), tokenIntegerEntry.getValue());
             }
+
+            for (String participantId : _playerOrder.getAllPlayers()) {
+                listener.setZoneSize(participantId, Zone.DECK, _decks.get(participantId).size());
+                listener.setZoneSize(participantId, Zone.HAND, _hands.get(participantId).size());
+                listener.setZoneSize(participantId, Zone.DISCARD, _discards.get(participantId).size());
+                listener.setZoneSize(participantId, Zone.DEAD, _deadPiles.get(participantId).size());
+            }
         }
     }
 
