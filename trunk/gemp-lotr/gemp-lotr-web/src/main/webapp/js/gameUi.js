@@ -2,6 +2,7 @@ var GempLotrGameUI = Class.extend({
     padding: 5,
 
     selfPlayerId: null,
+    spectatorMode: null,
     currentPlayerId: null,
     allPlayerIds: null,
     playerPositions: null,
@@ -96,9 +97,12 @@ var GempLotrGameUI = Class.extend({
         this.supportPlayer = new NormalCardGroup($("#main"), function(card) {
             return ((card.zone == "FREE_SUPPORT" || card.zone == "SHADOW_SUPPORT") && card.owner == that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.hand = new NormalCardGroup($("#main"), function(card) {
-            return (card.zone == "HAND");
-        });
+        if (!this.spectatorMode) {
+            this.hand = new NormalCardGroup($("#main"), function(card) {
+                return (card.zone == "HAND");
+            });
+        }
+
 
         this.specialGroup = new NormalCardGroup(this.cardActionDialog, function(card) {
             return (card.zone == "SPECIAL");
@@ -271,7 +275,7 @@ var GempLotrGameUI = Class.extend({
             var heightScales = [5, 9, 9, 10, 6, 10];
             var yScales = new Array();
             var scaleTotal = 0;
-            for (var i = 0; i < heightScales.length; i++) {
+            for (var i = 0; i < (this.spectatorMode ? (heightScales.length - 1) : heightScales.length); i++) {
                 yScales[i] = scaleTotal;
                 scaleTotal += heightScales[i];
             }
@@ -343,7 +347,8 @@ var GempLotrGameUI = Class.extend({
             }
 
             this.supportPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 5 + yScales[4] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[4] * heightPerScale);
-            this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
+            if (!this.spectatorMode)
+                this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
 
             this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: height - padding * 4 - alertHeight - chatHeight});
             this.alert.css({ position: "absolute", left: padding * 2 + advPathWidth, top: height - (padding * 2) - alertHeight - chatHeight, width: specialUiWidth - padding, height: alertHeight });
@@ -663,7 +668,8 @@ var GempLotrGameUI = Class.extend({
         this.charactersOpponent.layoutCards();
         this.supportPlayer.layoutCards();
         this.supportOpponent.layoutCards();
-        this.hand.layoutCards();
+        if (!this.spectatorMode)
+            this.hand.layoutCards();
         this.shadow.layoutCards();
 
         this.skirmishFellowshipGroup.layoutCards();
@@ -688,8 +694,12 @@ var GempLotrGameUI = Class.extend({
             if (this.allPlayerIds[i] == this.selfPlayerId)
                 index = i;
         }
-        if (index == -1)
+        if (index == -1) {
             this.selfPlayerId = this.allPlayerIds[0];
+            this.spectatorMode = true;
+        } else {
+            this.spectatorMode = false;
+        }
 
         this.initializeGameUI();
         this.layoutUI();
