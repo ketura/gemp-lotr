@@ -1,10 +1,12 @@
 var GempLotrGameUI = Class.extend({
     padding: 5,
 
-    selfPlayerId: null,
+    bottomPlayerId: null,
     spectatorMode: null,
+
     currentPlayerId: null,
     allPlayerIds: null,
+
     playerPositions: null,
     cardActionDialog: null,
     smallDialog: null,
@@ -83,19 +85,19 @@ var GempLotrGameUI = Class.extend({
         var that = this;
 
         this.supportOpponent = new NormalCardGroup($("#main"), function(card) {
-            return ((card.zone == "FREE_SUPPORT" || card.zone == "SHADOW_SUPPORT") && card.owner != that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+            return ((card.zone == "FREE_SUPPORT" || card.zone == "SHADOW_SUPPORT") && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.charactersOpponent = new NormalCardGroup($("#main"), function(card) {
-            return (card.zone == "FREE_CHARACTERS" && card.owner != that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+            return (card.zone == "FREE_CHARACTERS" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.shadow = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "SHADOW_CHARACTERS" && card.assign == null && card.skirmish == null);
         });
         this.charactersPlayer = new NormalCardGroup($("#main"), function(card) {
-            return (card.zone == "FREE_CHARACTERS" && card.owner == that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+            return (card.zone == "FREE_CHARACTERS" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.supportPlayer = new NormalCardGroup($("#main"), function(card) {
-            return ((card.zone == "FREE_SUPPORT" || card.zone == "SHADOW_SUPPORT") && card.owner == that.selfPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+            return ((card.zone == "FREE_SUPPORT" || card.zone == "SHADOW_SUPPORT") && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         if (!this.spectatorMode) {
             this.hand = new NormalCardGroup($("#main"), function(card) {
@@ -209,21 +211,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: false,
-            width: 400,
-            height: 200
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: false,
+                    width: 400,
+                    height: 200
+                });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: true,
-            width: 600,
-            height: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: true,
+                    width: 600,
+                    height: 300
+                });
 
         var that = this;
 
@@ -235,15 +237,15 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: true,
-            title: "Card information",
-            minHeight: 80,
-            minWidth: 200,
-            width: 600,
-            height: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: true,
+                    title: "Card information",
+                    minHeight: 80,
+                    minWidth: 200,
+                    width: 600,
+                    height: 300
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -294,7 +296,7 @@ var GempLotrGameUI = Class.extend({
             var charsWidth = width - (advPathWidth + specialUiWidth + padding * 3);
             var charsWidthWithAssignments = 2 * charsWidth / (2 + assignmentsCount);
 
-            var currentPlayerTurn = (this.currentPlayerId == this.selfPlayerId);
+            var currentPlayerTurn = (this.currentPlayerId == this.bottomPlayerId);
 
             this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight);
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);
@@ -446,10 +448,7 @@ var GempLotrGameUI = Class.extend({
             for (var i = 0; i < clocks.length; i++) {
                 var clock = clocks[i];
                 var participantId = clock.getAttribute("participantId");
-                var index = -1;
-                for (var plId = 0; plId < this.allPlayerIds.length; plId++)
-                    if (this.allPlayerIds[plId] == participantId)
-                        index = plId;
+                var index = this.getPlayerIndex(participantId);
 
                 var value = parseInt(clock.childNodes[0].nodeValue);
 
@@ -493,6 +492,13 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
+    getPlayerIndex: function(playerId) {
+        for (var plId = 0; plId < this.allPlayerIds.length; plId++)
+            if (this.allPlayerIds[plId] == playerId)
+                return plId;
+        return -1;
+    },
+
     processError: function (xhr, ajaxOptions, thrownError) {
         alert("There was a problem during communication with server");
     },
@@ -504,10 +510,8 @@ var GempLotrGameUI = Class.extend({
         if (this.playerPositions == null)
             this.playerPositions = new Array();
 
-        var index = -1;
-        for (var i = 0; i < this.allPlayerIds.length; i++)
-            if (this.allPlayerIds[i] == participantId)
-                this.playerPositions[i] = position;
+        var index = this.getPlayerIndex(participantId);
+        this.playerPositions[index] = position;
 
         this.advPathGroup.setPositions(this.playerPositions);
     },
@@ -648,7 +652,7 @@ var GempLotrGameUI = Class.extend({
                     if (index != -1)
                         cardData.attachedCards.splice(index, 1);
                 }
-                );
+        );
 
         var card = $(".card:cardId(" + cardId + ")");
         var cardData = card.data("card");
@@ -687,15 +691,11 @@ var GempLotrGameUI = Class.extend({
         var participantId = element.getAttribute("participantId");
         this.allPlayerIds = element.getAttribute("allParticipantIds").split(",");
 
-        this.selfPlayerId = participantId;
+        this.bottomPlayerId = participantId;
 
-        var index = -1;
-        for (var i = 0; i < this.allPlayerIds.length; i++) {
-            if (this.allPlayerIds[i] == this.selfPlayerId)
-                index = i;
-        }
+        var index = this.getPlayerIndex(this.bottomPlayerId);
         if (index == -1) {
-            this.selfPlayerId = this.allPlayerIds[0];
+            this.bottomPlayerId = this.allPlayerIds[0];
             this.spectatorMode = true;
         } else {
             this.spectatorMode = false;
@@ -724,7 +724,7 @@ var GempLotrGameUI = Class.extend({
                         if (index != -1)
                             cardData.attachedCards.splice(index, 1);
                     }
-                    );
+            );
         }
 
         card.remove();
@@ -745,7 +745,7 @@ var GempLotrGameUI = Class.extend({
 
     turnChange: function(element) {
         var playerId = element.getAttribute("participantId");
-        var playerIndex = $.inArray(playerId, this.allPlayerIds);
+        var playerIndex = this.getPlayerIndex(playerId);
 
         this.currentPlayerId = playerId;
 
@@ -796,13 +796,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#integerDecision").val());
-            }
-        }
-                );
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#integerDecision").val());
+                    }
+                }
+        );
 
         $("#integerDecision").SpinnerControl({ type: 'range',
             typedata: {
@@ -834,13 +834,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(html)
                 .dialog("option", "buttons",
-        {
-            "OK": function() {
-                $(this).dialog("close");
-                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-            }
-        }
-                );
+                {
+                    "OK": function() {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                }
+        );
 
         this.smallDialog.dialog("open");
     },
