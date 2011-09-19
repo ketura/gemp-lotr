@@ -252,7 +252,7 @@ public class Filters {
         };
     }
 
-    public static Filter attachedTo(final PhysicalCard attachment) {
+    public static Filter isAttachedTo(final PhysicalCard attachment) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

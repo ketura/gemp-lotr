@@ -44,7 +44,7 @@ public class Card1_090 extends AbstractAttachableFPPossession {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new KeywordModifier(self, Filters.attachedTo(self), Keyword.ARCHER);
+        return new KeywordModifier(self, Filters.isAttachedTo(self), Keyword.ARCHER);
     }
 
     @Override
