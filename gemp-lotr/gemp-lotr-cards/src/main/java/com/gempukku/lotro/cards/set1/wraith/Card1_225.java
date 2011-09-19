@@ -47,7 +47,7 @@ public class Card1_225 extends AbstractAttachable {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new StrengthModifier(null, null, 2));
         modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-        return new CompositeModifier(self, Filters.isAttachedTo(self), modifiers);
+        return new CompositeModifier(self, Filters.hasAttached(self), modifiers);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Card1_225 extends AbstractAttachable {
             if (skirmish != null
                     && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
                 action.addEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose possession borne by character he is skirmishing", Filters.type(CardType.POSSESSION), Filters.isAttachedTo(skirmish.getFellowshipCharacter())) {
+                        new ChooseActiveCardEffect(playerId, "Choose possession borne by character he is skirmishing", Filters.type(CardType.POSSESSION), Filters.hasAttached(skirmish.getFellowshipCharacter())) {
                             @Override
                             protected void cardSelected(PhysicalCard possession) {
                                 action.addEffect(

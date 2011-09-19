@@ -42,7 +42,7 @@ public class Card1_314 extends AbstractAttachable {
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
-                        Filters.isAttachedTo(self),
+                        Filters.hasAttached(self),
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

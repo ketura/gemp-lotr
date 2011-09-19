@@ -39,7 +39,7 @@ public class Card1_283 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "While at a sanctuary, bearer cannot heal.", Filters.isAttachedTo(self), new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER}) {
+        return new AbstractModifier(self, "While at a sanctuary, bearer cannot heal.", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER}) {
             @Override
             public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
                 if (modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.SANCTUARY))
