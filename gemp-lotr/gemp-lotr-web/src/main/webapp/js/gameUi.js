@@ -117,6 +117,7 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.append("<b>Players:</b><br>");
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div></div>");
+            this.gameStateElem.append("Deck: <div id='deck" + i + "' style='display: inline;'></div> Hand: <div id='hand" + i + "' style='display: inline;'></div> Discard: <div id='discard" + i + "' style='display: inline;'></div> Dead pile: <div id='deadPile" + i + "' style='display: inline;'></div>");
         }
 
         this.gameStateElem.append("<br>");
@@ -431,6 +432,8 @@ var GempLotrGameUI = Class.extend({
                 this.removeTokens(gameEvent);
             } else if (eventType == "PLAYER_POSITION") {
                 this.playerPosition(gameEvent);
+            } else if (eventType == "ZONE_SIZE") {
+                this.zoneSize(gameEvent);
             } else if (eventType == "MESSAGE") {
                 this.message(gameEvent);
             } else if (eventType == "WARNING") {
@@ -501,6 +504,21 @@ var GempLotrGameUI = Class.extend({
 
     processError: function (xhr, ajaxOptions, thrownError) {
         alert("There was a problem during communication with server");
+    },
+
+    zoneSize: function(element) {
+        var playerId = element.getAttribute("participantId");
+        var zone = element.getAttribute("zone");
+        var count = element.getAttribute("count");
+
+        if (zone == "HAND")
+            $("#hand" + this.getPlayerIndex(playerId)).text("" + count);
+        else if (zone == "DISCARD")
+            $("#discard" + this.getPlayerIndex(playerId)).text("" + count);
+        else if (zone == "DEAD")
+            $("#deadPile" + this.getPlayerIndex(playerId)).text("" + count);
+        else if (zone == "DECK")
+            $("#deck" + this.getPlayerIndex(playerId)).text("" + count);
     },
 
     playerPosition: function(element) {

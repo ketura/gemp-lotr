@@ -224,7 +224,8 @@ public class GameState {
     public void removeCardFromZone(PhysicalCard card) {
         Zone zone = card.getZone();
 
-        boolean b = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone).remove(card);
+        List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
+        boolean b = zoneCards.remove(card);
         if (!b)
             throw new RuntimeException("Card was not found in the expected zone");
 
@@ -255,11 +256,18 @@ public class GameState {
         else if (isZonePrivate(zone))
             for (GameStateListener listener : getPrivateGameStateListeners(card))
                 listener.cardRemoved(card);
+
+        if (zone == Zone.DECK || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
     }
 
     public void addCardToZone(PhysicalCard card, Zone zone) {
-        getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone).add((PhysicalCardImpl) card);
+        List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
+        zoneCards.add((PhysicalCardImpl) card);
+
         ((PhysicalCardImpl) card).setZone(zone);
+
         if (zone == Zone.ADVENTURE_PATH) {
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.setSite(card);
@@ -270,6 +278,9 @@ public class GameState {
             else if (isZonePrivate(zone))
                 for (GameStateListener listener : getPrivateGameStateListeners(card))
                     listener.cardCreated(card);
+            if (zone == Zone.DECK || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
+                for (GameStateListener listener : getAllGameStateListeners())
+                    listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
         }
     }
 

@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 
 import java.util.Date;
@@ -107,6 +108,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     @Override
     public void setSite(PhysicalCard card) {
         _events.add(new GameEvent(PUT_CARD_IN_PLAY).card(card).index(card.getBlueprint().getSiteNumber()));
+    }
+
+    @Override
+    public void setZoneSize(String playerId, Zone zone, int size) {
+        _events.add(new GameEvent(ZONE_SIZE).participantId(playerId).zone(zone).count(size));
     }
 
     public List<GameEvent> consumeGameEvents() {
