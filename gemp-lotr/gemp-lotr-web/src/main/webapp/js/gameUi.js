@@ -130,6 +130,15 @@ var GempLotrGameUI = Class.extend({
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div></div>");
             this.gameStateElem.append("Deck: <div id='deck" + i + "' style='display: inline;'></div> Hand: <div id='hand" + i + "' style='display: inline;'></div> Discard: <div id='discard" + i + "' style='display: inline;'></div> Dead pile: <div id='deadPile" + i + "' style='display: inline;'></div>");
+            if (!this.spectatorMode)
+                $("#discard" + i).click(
+                        function() {
+                            that.discardPileDialogs[this.allPlayerIds[i]].dialog("open");
+                        });
+            $("#deadPile" + i).click(
+                    function() {
+                        that.deadPileDialogs[this.allPlayerIds[i]].dialog("open");
+                    });
         }
 
         this.gameStateElem.append("<br>");
