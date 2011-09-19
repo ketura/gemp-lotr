@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.timing.actions.SimpleEffectAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
@@ -35,10 +36,15 @@ public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
         if (nextSite == null) {
             LotroCardBlueprint.Direction nextSiteDirection = gameState.getCurrentSite().getBlueprint().getSiteDirection();
             String playerToPlaySite;
-            if (nextSiteDirection == LotroCardBlueprint.Direction.LEFT)
-                playerToPlaySite = gameState.getPlayerOrder().getClockwisePlayOrder(gameState.getCurrentPlayerId(), false).getNextPlayer();
-            else
-                playerToPlaySite = gameState.getPlayerOrder().getCounterClockwisePlayOrder(gameState.getCurrentPlayerId(), false).getNextPlayer();
+            if (nextSiteDirection == LotroCardBlueprint.Direction.LEFT) {
+                PlayOrder order = gameState.getPlayerOrder().getClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
+                order.getNextPlayer();
+                playerToPlaySite = order.getNextPlayer();
+            } else {
+                PlayOrder order = gameState.getPlayerOrder().getCounterClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
+                order.getNextPlayer();
+                playerToPlaySite = order.getNextPlayer();
+            }
 
             nextSite = Filters.filter(gameState.getAdventureDeck(playerToPlaySite), gameState, _game.getModifiersQuerying(),
                     Filters.siteNumber(nextSiteNumber)).get(0);
