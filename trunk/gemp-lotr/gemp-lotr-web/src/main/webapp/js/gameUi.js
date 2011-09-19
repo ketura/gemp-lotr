@@ -121,7 +121,7 @@ var GempLotrGameUI = Class.extend({
         this.specialGroup = new NormalCardGroup(this.cardActionDialog, function(card) {
             return (card.zone == "SPECIAL");
         }, false);
-        this.specialGroup.setBounds(this.padding, this.padding, this.cardActionDialog.width() + 20, this.cardActionDialog.height() + 20);
+        this.specialGroup.setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
 
         this.gameStateElem = $("<div class='ui-widget-content'></div>");
         this.gameStateElem.css({"border-radius": "7px"});
@@ -129,16 +129,7 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.append("<b>Players:</b><br>");
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div></div>");
-            this.gameStateElem.append("Deck: <div id='deck" + i + "' style='display: inline;'></div> Hand: <div id='hand" + i + "' style='display: inline;'></div> Discard: <div id='discard" + i + "' style='display: inline;'></div> Dead pile: <div id='deadPile" + i + "' style='display: inline;'></div>");
-            if (!this.spectatorMode)
-                $("#discard" + i).click(
-                        function() {
-                            that.discardPileDialogs[this.allPlayerIds[i]].dialog("open");
-                        });
-            $("#deadPile" + i).click(
-                    function() {
-                        that.deadPileDialogs[this.allPlayerIds[i]].dialog("open");
-                    });
+            this.gameStateElem.append("<div id='deck" + i + "' style='display: inline;'></div><div id='hand" + i + "' style='display: inline;'></div><div id='discard" + i + "' style='display: inline;'></div><div id='deadPile" + i + "' style='display: inline;'></div>");
         }
 
         this.gameStateElem.append("<br>");
@@ -154,6 +145,22 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.append("<div class='phase' id='REGROUP'>Regroup</div>");
 
         $("#main").append(this.gameStateElem);
+
+        for (var i = 0; i < this.allPlayerIds.length; i++) {
+            if (!this.spectatorMode)
+                $("#discard" + i).addClass("clickable").click(
+                        (function(index) {
+                            return function() {
+                                that.discardPileDialogs[that.allPlayerIds[index]].dialog("open");
+                            };
+                        })(i));
+            $("#deadPile" + i).addClass("clickable").click(
+                    (function(index) {
+                        return function() {
+                            that.deadPileDialogs[that.allPlayerIds[index]].dialog("open");
+                        };
+                    })(i));
+        }
 
         this.alert = $("<div class='ui-widget-content'></div>");
         this.alert.css({"border-radius": "7px"});
@@ -235,21 +242,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -261,15 +268,15 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    title: "Card information",
-                    minHeight: 80,
-                    minWidth: 200,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -378,6 +385,14 @@ var GempLotrGameUI = Class.extend({
 
             this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: height - padding * 4 - alertHeight - chatHeight});
             this.alert.css({ position: "absolute", left: padding * 2 + advPathWidth, top: height - (padding * 2) - alertHeight - chatHeight, width: specialUiWidth - padding, height: alertHeight });
+
+            for (var playerId in this.discardPileGroups)
+                if (this.discardPileGroups.hasOwnProperty(playerId))
+                    this.discardPileGroups[playerId].layoutCards();
+
+            for (var playerId in this.deadPileGroups)
+                if (this.deadPileGroups.hasOwnProperty(playerId))
+                    this.deadPileGroups[playerId].layoutCards();
         }
         this.tabPane.css({ position: "absolute", left: padding, top: height - padding - chatHeight, width: specialUiWidth + advPathWidth - padding, height: chatHeight - padding});
         this.chatBox.setBounds(4, 4 + 25, specialUiWidth + advPathWidth - 8, chatHeight - 8 - 25);
@@ -535,13 +550,13 @@ var GempLotrGameUI = Class.extend({
         var count = element.getAttribute("count");
 
         if (zone == "HAND")
-            $("#hand" + this.getPlayerIndex(playerId)).text("" + count);
+            $("#hand" + this.getPlayerIndex(playerId)).text("Hand: " + count);
         else if (zone == "DISCARD")
-            $("#discard" + this.getPlayerIndex(playerId)).text("" + count);
+            $("#discard" + this.getPlayerIndex(playerId)).text("Discard: " + count);
         else if (zone == "DEAD")
-            $("#deadPile" + this.getPlayerIndex(playerId)).text("" + count);
-        else if (zone == "DECK")
-            $("#deck" + this.getPlayerIndex(playerId)).text("" + count);
+                $("#deadPile" + this.getPlayerIndex(playerId)).text("Dead pile: " + count);
+            else if (zone == "DECK")
+                    $("#deck" + this.getPlayerIndex(playerId)).text("Deck: " + count);
     },
 
     playerPosition: function(element) {
@@ -695,7 +710,7 @@ var GempLotrGameUI = Class.extend({
                     if (index != -1)
                         cardData.attachedCards.splice(index, 1);
                 }
-        );
+                );
 
         var card = $(".card:cardId(" + cardId + ")");
         var cardData = card.data("card");
@@ -761,8 +776,10 @@ var GempLotrGameUI = Class.extend({
                 return true;
             }, false);
 
+            this.discardPileGroups[participantId].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
+
             discardPileDialog.bind("dialogresize", function() {
-                that.dialogResize(discardPileDialog, this.discardPileGroups[participantId]);
+                that.dialogResize(discardPileDialog, that.discardPileGroups[participantId]);
             });
         }
 
@@ -782,9 +799,11 @@ var GempLotrGameUI = Class.extend({
                 return true;
             }, false);
 
+            this.deadPileGroups[this.allPlayerIds[i]].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
+
             deadPileDialog.bind("dialogresize", (function(dialog, index) {
                 return function() {
-                    that.dialogResize(dialog, this.deadPileGroups[this.allPlayerIds[index]]);
+                    that.dialogResize(dialog, that.deadPileGroups[that.allPlayerIds[index]]);
                 }
             })(deadPileDialog, i));
         }
@@ -812,7 +831,7 @@ var GempLotrGameUI = Class.extend({
                         if (index != -1)
                             cardData.attachedCards.splice(index, 1);
                     }
-            );
+                    );
         }
 
         card.remove();
@@ -884,13 +903,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#integerDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#integerDecision").val());
+            }
+        }
+                );
 
         $("#integerDecision").SpinnerControl({ type: 'range',
             typedata: {
@@ -922,13 +941,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(html)
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+            }
+        }
+                );
 
         this.smallDialog.dialog("open");
     },
@@ -1161,8 +1180,6 @@ var GempLotrGameUI = Class.extend({
 
         this.attachSelectionFunctions(cardIds);
 
-        this.specialGroup.setBounds(10, 10, 547, 188);
-
         $(".ui-dialog-titlebar").show();
         this.cardActionDialog.dialog("open");
     },
@@ -1340,8 +1357,8 @@ var GempLotrGameUI = Class.extend({
     },
 
     dialogResize: function(dialog, group) {
-        var width = dialog.width() + 20;
-        var height = dialog.height() + 20;
+        var width = dialog.width() + 10;
+        var height = dialog.height() + 10;
         group.setBounds(this.padding, this.padding, width - 2 * this.padding, height - 2 * this.padding);
     },
 
