@@ -128,8 +128,8 @@ var GempLotrGameUI = Class.extend({
 
         this.gameStateElem.append("<b>Players:</b><br>");
         for (var i = 0; i < this.allPlayerIds.length; i++) {
-            this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div></div>");
-            this.gameStateElem.append("<div id='deck" + i + "' style='display: inline;'></div><div id='hand" + i + "' style='display: inline;'></div><div id='discard" + i + "' style='display: inline;'></div><div id='deadPile" + i + "' style='display: inline;'></div>");
+            this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div>"
+                    + "<div class='playerStats'><div id='deck" + i + "' style='display: inline;'></div> <div id='hand" + i + "' style='display: inline;'></div> <div id='discard" + i + "' style='display: inline;'></div> <div id='deadPile" + i + "' style='display: inline;'></div></div></div>");
         }
 
         this.gameStateElem.append("<br>");
@@ -146,14 +146,15 @@ var GempLotrGameUI = Class.extend({
 
         $("#main").append(this.gameStateElem);
 
+        if (!this.spectatorMode)
+            $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
+                    (function(index) {
+                        return function() {
+                            that.discardPileDialogs[that.bottomPlayerId].dialog("open");
+                        };
+                    })(i));
+
         for (var i = 0; i < this.allPlayerIds.length; i++) {
-            if (!this.spectatorMode)
-                $("#discard" + i).addClass("clickable").click(
-                        (function(index) {
-                            return function() {
-                                that.discardPileDialogs[that.allPlayerIds[index]].dialog("open");
-                            };
-                        })(i));
             $("#deadPile" + i).addClass("clickable").click(
                     (function(index) {
                         return function() {
