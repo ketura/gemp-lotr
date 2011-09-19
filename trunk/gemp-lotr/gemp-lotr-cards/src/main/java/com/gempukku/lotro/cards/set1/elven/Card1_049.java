@@ -34,7 +34,7 @@ public class Card1_049 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "Streng +1 for each Elf you can spot (limit +3)", Filters.isAttachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
+        return new AbstractModifier(self, "Streng +1 for each Elf you can spot (limit +3)", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
                 int count = Math.min(3, Filters.countActive(gameState, modifiersQuerying, Filters.race(Race.ELF)));

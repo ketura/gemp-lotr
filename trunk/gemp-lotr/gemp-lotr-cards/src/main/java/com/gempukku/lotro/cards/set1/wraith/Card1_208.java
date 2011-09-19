@@ -40,7 +40,7 @@ public class Card1_208 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +2, While at a Plains site, bearer is Strength +2", Filters.isAttachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
+        return new AbstractModifier(self, "Strength +2, While at a Plains site, bearer is Strength +2", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
                 int bonus = (modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.PLAINS)) ? 4 : 2;
