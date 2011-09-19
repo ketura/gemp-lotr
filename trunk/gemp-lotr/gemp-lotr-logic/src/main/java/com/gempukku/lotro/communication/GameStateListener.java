@@ -2,6 +2,7 @@ package com.gempukku.lotro.communication;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 
 import java.util.List;
@@ -38,4 +39,6 @@ public interface GameStateListener {
     public void sendMessage(String message);
 
     public void setSite(PhysicalCard card);
+
+    public void setZoneSize(String playerId, Zone zone, int size);
 }
