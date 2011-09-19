@@ -39,7 +39,7 @@ public class Card1_269 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.attachedTo(self), 2);
+        return new StrengthModifier(self, Filters.isAttachedTo(self), 2);
     }
 
     @Override

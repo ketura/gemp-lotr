@@ -54,7 +54,7 @@ public class Card1_001 extends AbstractAttachable {
         modifiers.add(new KeywordModifier(null, null, Keyword.RING_BEARER));
         modifiers.add(new KeywordModifier(null, null, Keyword.RING_BOUND));
 
-        return new CompositeModifier(self, Filters.attachedTo(self), modifiers);
+        return new CompositeModifier(self, Filters.isAttachedTo(self), modifiers);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class Card1_218 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +2, While you can spot 3 burdens, bearer is damage +1", Filters.attachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER, ModifierEffect.KEYWORD_MODIFIER}) {
+        return new AbstractModifier(self, "Strength +2, While you can spot 3 burdens, bearer is damage +1", Filters.isAttachedTo(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER, ModifierEffect.KEYWORD_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
                 return result + 2;
