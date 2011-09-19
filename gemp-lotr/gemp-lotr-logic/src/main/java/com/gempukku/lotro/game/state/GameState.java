@@ -148,6 +148,16 @@ public class GameState {
                     listener.cardCreated(physicalCard);
             }
 
+            for (List<PhysicalCardImpl> physicalCards : _deadPiles.values())
+                for (PhysicalCardImpl physicalCard : physicalCards)
+                    listener.cardCreated(physicalCard);
+
+            List<PhysicalCardImpl> discard = _discards.get(playerId);
+            if (discard != null) {
+                for (PhysicalCardImpl physicalCard : discard)
+                    listener.cardCreated(physicalCard);
+            }
+
             for (Skirmish assignment : _assignments)
                 listener.addAssignment(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
 
