@@ -7,7 +7,6 @@ Next priority:
 26. The game area should display chat from the start.
 25. Remove all non-essencial alerts, instead add warnings to chat panel.
 13. Add dead/discard pile displays.
-14. Add hand/deck card count displays.
 16. Add an option to watch an ongoing game (spectator).
 24. The events that are played and cards affected should be shown to the players briefly using animations to make it
  aestheticly pleasing.
@@ -48,4 +47,5 @@ with Filters.sameCard(...) filter.
 32. Created tables do not disappear when the player closes the browser.
 33. When a player stops responding during preparation time of the game, the game is not properly finished.
 19. Add filtering cards to deck-builder.
+14. Add hand/deck card count displays.
 
