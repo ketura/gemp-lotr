@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -38,7 +39,7 @@ public class Card1_143 extends AbstractMinion {
                 // That is attached to Companion or Ally
                 Filters.attachedTo(Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))),
                 // In a skirmish with this minion
-                new com.gempukku.lotro.filters.Filter() {
+                new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                         Skirmish skirmish = gameState.getSkirmish();
