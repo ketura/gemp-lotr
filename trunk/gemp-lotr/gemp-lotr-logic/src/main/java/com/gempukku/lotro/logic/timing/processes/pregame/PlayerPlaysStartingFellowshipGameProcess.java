@@ -51,7 +51,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
     }
 
     private AwaitingDecision createChooseNextCharacterDecision(final String playerId, final List<PhysicalCard> possibleCharacters) {
-        return new ArbitraryCardsSelectionDecision(1, "Choose next character or press DONE",
+        return new ArbitraryCardsSelectionDecision(1, "Starting fellowship - Choose next character or press DONE",
                 possibleCharacters, 0, 1) {
             @Override
             public void decisionMade(String result) throws DecisionResultInvalidException {
