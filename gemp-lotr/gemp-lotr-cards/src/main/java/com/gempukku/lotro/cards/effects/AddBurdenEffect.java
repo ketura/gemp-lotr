@@ -11,7 +11,7 @@ public class AddBurdenEffect extends UnrespondableEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Add a burden";
     }
 

@@ -38,7 +38,7 @@ public class ResolveSkirmishAction implements Action {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Resolving skirmish";
     }
 

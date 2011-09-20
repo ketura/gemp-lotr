@@ -44,7 +44,7 @@ public class AssignmentEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return _text;
     }
 

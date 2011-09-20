@@ -22,7 +22,7 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends UnrespondableEffect 
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Put card from deck into hand";
     }
 

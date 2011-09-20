@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 public interface Effect {
     public EffectResult.Type getType();
 
-    public String getText();
+    public String getText(LotroGame game);
 
     public void setFailed();
 

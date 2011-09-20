@@ -26,7 +26,7 @@ public class KillEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Kill " + _card.getBlueprint().getName();
     }
 

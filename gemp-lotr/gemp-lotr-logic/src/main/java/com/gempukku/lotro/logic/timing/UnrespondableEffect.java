@@ -12,7 +12,7 @@ public abstract class UnrespondableEffect implements Effect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return null;
     }
 

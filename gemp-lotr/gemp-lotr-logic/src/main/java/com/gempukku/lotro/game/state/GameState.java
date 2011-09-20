@@ -18,7 +18,9 @@ public class GameState {
     private Map<String, List<PhysicalCardImpl>> _deadPiles = new HashMap<String, List<PhysicalCardImpl>>();
     private Map<String, List<PhysicalCardImpl>> _stacked = new HashMap<String, List<PhysicalCardImpl>>();
 
-    private Map<String, List<PhysicalCardImpl>> _inPlay = new HashMap<String, List<PhysicalCardImpl>>();
+    private List<PhysicalCardImpl> _inPlay = new LinkedList<PhysicalCardImpl>();
+
+    private Map<Integer, PhysicalCardImpl> _allCards = new HashMap<Integer, PhysicalCardImpl>();
 
     private String _currentPlayerId;
     private Phase _currentPhase = Phase.GAME_SETUP;
@@ -48,13 +50,13 @@ public class GameState {
     public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, LotroCardBlueprintLibrary library) {
         _playerOrder = playerOrder;
         _currentPlayerId = firstPlayer;
+
         for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {
             _adventureDecks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _decks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _hands.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _discards.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _deadPiles.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
-            _inPlay.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _stacked.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
 
             addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
@@ -67,10 +69,16 @@ public class GameState {
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
         for (String blueprintId : cards) {
             LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
+
+            int cardId = nextCardId();
+            PhysicalCardImpl physicalCard = new PhysicalCardImpl(cardId, blueprintId, playerId, Zone.DECK, card);
+
             if (card.getCardType() == CardType.SITE)
-                _adventureDecks.get(playerId).add(new PhysicalCardImpl(nextCardId(), blueprintId, playerId, Zone.DECK, card));
+                _adventureDecks.get(playerId).add(physicalCard);
             else
-                _decks.get(playerId).add(new PhysicalCardImpl(nextCardId(), blueprintId, playerId, Zone.DECK, card));
+                _decks.get(playerId).add(physicalCard);
+
+            _allCards.put(physicalCard.getCardId(), physicalCard);
         }
     }
 
@@ -129,18 +137,16 @@ public class GameState {
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
             // First non-attached cards
-            for (List<PhysicalCardImpl> physicalCards : _inPlay.values())
-                for (PhysicalCardImpl physicalCard : physicalCards) {
-                    if (physicalCard.getZone() != Zone.ATTACHED)
-                        listener.cardCreated(physicalCard);
-                }
+            for (PhysicalCardImpl physicalCard : _inPlay) {
+                if (physicalCard.getZone() != Zone.ATTACHED)
+                    listener.cardCreated(physicalCard);
+            }
 
             // Now the attached ones
-            for (List<PhysicalCardImpl> physicalCards : _inPlay.values())
-                for (PhysicalCardImpl physicalCard : physicalCards) {
-                    if (physicalCard.getZone() == Zone.ATTACHED)
-                        listener.cardCreated(physicalCard);
-                }
+            for (PhysicalCardImpl physicalCard : _inPlay) {
+                if (physicalCard.getZone() == Zone.ATTACHED)
+                    listener.cardCreated(physicalCard);
+            }
 
             // Finally the stacked ones
             for (List<PhysicalCardImpl> physicalCards : _stacked.values())
@@ -240,7 +246,7 @@ public class GameState {
         else if (zone == Zone.STACKED)
             return _stacked.get(playerId);
         else
-            return _inPlay.get(playerId);
+            return _inPlay;
     }
 
     public void removeCardFromZone(PhysicalCard card) {
@@ -327,12 +333,10 @@ public class GameState {
     }
 
     public boolean iterateActiveCards(PhysicalCardVisitor physicalCardVisitor) {
-        for (List<PhysicalCardImpl> physicalCards : _inPlay.values()) {
-            for (PhysicalCardImpl physicalCard : physicalCards) {
-                if (isCardInPlayActive(physicalCard))
-                    if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                        return true;
-            }
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (isCardInPlayActive(physicalCard))
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
         }
 
         return false;
@@ -341,8 +345,9 @@ public class GameState {
     public boolean iterateActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
         if (physicalCardVisitor.visitPhysicalCard(getCurrentSite()))
             return true;
-        for (PhysicalCardImpl physicalCard : _inPlay.get(player)) {
-            if (physicalCard.getBlueprint().getSide() != Side.SITE && isCardInPlayActive(physicalCard))
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (physicalCard.getOwner().equals(player)
+                    && physicalCard.getBlueprint().getSide() != Side.SITE && isCardInPlayActive(physicalCard))
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
         }
@@ -366,72 +371,16 @@ public class GameState {
             if (site != null)
                 physicalCardVisitor.visitPhysicalCard(site);
         }
-        for (PhysicalCardImpl physicalCard : _inPlay.get(player)) {
-            if (isCardInPlayActive(physicalCard))
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (physicalCard.getOwner().equals(player) && isCardInPlayActive(physicalCard))
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
         }
         return false;
     }
 
-    private boolean iterateCards(List<PhysicalCardImpl> cards, PhysicalCardVisitor physicalCardVisitor) {
-        for (PhysicalCard card : cards)
-            if (physicalCardVisitor.visitPhysicalCard(card))
-                return true;
-        return false;
-    }
-
-    private boolean iterateCards(Map<String, List<PhysicalCardImpl>> cards, PhysicalCardVisitor physicalCardVisitor) {
-        for (List<PhysicalCardImpl> physicalCardList : cards.values())
-            if (iterateCards(physicalCardList, physicalCardVisitor))
-                return true;
-        return false;
-    }
-
-    public boolean iterateAllCards(PhysicalCardVisitor physicalCardVisitor) {
-        if (iterateCards(_adventureDecks, physicalCardVisitor))
-            return true;
-        if (iterateCards(_deadPiles, physicalCardVisitor))
-            return true;
-        if (iterateCards(_decks, physicalCardVisitor))
-            return true;
-        if (iterateCards(_discards, physicalCardVisitor))
-            return true;
-        if (iterateCards(_hands, physicalCardVisitor))
-            return true;
-        if (iterateCards(_inPlay, physicalCardVisitor))
-            return true;
-        return false;
-    }
-
-    private PhysicalCard findCardIn(int cardId, Map<String, List<PhysicalCardImpl>> cards) {
-        for (List<PhysicalCardImpl> physicalCards : cards.values()) {
-            for (PhysicalCardImpl physicalCard : physicalCards) {
-                if (physicalCard.getCardId() == cardId)
-                    return physicalCard;
-            }
-        }
-        return null;
-    }
-
     public PhysicalCard findCardById(int cardId) {
-        PhysicalCard card = findCardIn(cardId, _adventureDecks);
-        if (card != null)
-            return card;
-        card = findCardIn(cardId, _decks);
-        if (card != null)
-            return card;
-        card = findCardIn(cardId, _hands);
-        if (card != null)
-            return card;
-        card = findCardIn(cardId, _discards);
-        if (card != null)
-            return card;
-        card = findCardIn(cardId, _deadPiles);
-        if (card != null)
-            return card;
-        card = findCardIn(cardId, _inPlay);
-        return card;
+        return _allCards.get(cardId);
     }
 
     public List<? extends PhysicalCard> getHand(String playerId) {
@@ -480,11 +429,9 @@ public class GameState {
 
     public List<PhysicalCard> getAttachedCards(PhysicalCard card) {
         List<PhysicalCard> result = new LinkedList<PhysicalCard>();
-        for (List<PhysicalCardImpl> physicalCardList : _inPlay.values()) {
-            for (PhysicalCardImpl physicalCard : physicalCardList) {
-                if (physicalCard.getAttachedTo() != null && physicalCard.getAttachedTo() == card)
-                    result.add(physicalCard);
-            }
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (physicalCard.getAttachedTo() != null && physicalCard.getAttachedTo() == card)
+                result.add(physicalCard);
         }
         return result;
     }
@@ -600,20 +547,16 @@ public class GameState {
     }
 
     public void startAffectingCardsForCurrentPlayer(ModifiersEnvironment modifiersEnvironment) {
-        for (List<PhysicalCardImpl> physicalCards : _inPlay.values()) {
-            for (PhysicalCardImpl physicalCard : physicalCards) {
-                if (isCardInPlayActive(physicalCard))
-                    startAffecting(physicalCard, modifiersEnvironment);
-            }
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (isCardInPlayActive(physicalCard))
+                startAffecting(physicalCard, modifiersEnvironment);
         }
     }
 
     public void stopAffectingCardsForCurrentPlayer() {
-        for (List<PhysicalCardImpl> physicalCards : _inPlay.values()) {
-            for (PhysicalCardImpl physicalCard : physicalCards) {
-                if (isCardInPlayActive(physicalCard))
-                    stopAffecting(physicalCard);
-            }
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (isCardInPlayActive(physicalCard))
+                stopAffecting(physicalCard);
         }
     }
 
@@ -637,12 +580,10 @@ public class GameState {
     }
 
     public PhysicalCard getSite(int siteNumber) {
-        for (List<PhysicalCardImpl> physicalCards : _inPlay.values()) {
-            for (PhysicalCardImpl physicalCard : physicalCards) {
-                LotroCardBlueprint blueprint = physicalCard.getBlueprint();
-                if (blueprint.getCardType() == CardType.SITE && blueprint.getSiteNumber() == siteNumber)
-                    return physicalCard;
-            }
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            LotroCardBlueprint blueprint = physicalCard.getBlueprint();
+            if (blueprint.getCardType() == CardType.SITE && blueprint.getSiteNumber() == siteNumber)
+                return physicalCard;
         }
         return null;
     }

@@ -3,15 +3,17 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class WoundResult extends EffectResult {
-    private PhysicalCard _card;
+import java.util.List;
 
-    public WoundResult(PhysicalCard card) {
+public class WoundResult extends EffectResult {
+    private List<PhysicalCard> _cards;
+
+    public WoundResult(List<PhysicalCard> cards) {
         super(EffectResult.Type.WOUND);
-        _card = card;
+        _cards = cards;
     }
 
-    public PhysicalCard getWoundedCard() {
-        return _card;
+    public List<PhysicalCard> getWoundedCards() {
+        return _cards;
     }
 }

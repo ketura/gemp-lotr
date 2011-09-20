@@ -44,7 +44,7 @@ public class Card1_073 extends AbstractPermanent {
             possibleChoices.add(
                     new ChooseCardsFromHandEffect(playerId, "Choose Free Peoples artifact or possession", 1, 1, Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.ARTIFACT), Filters.type(CardType.POSSESSION))) {
                         @Override
-                        public String getText() {
+                        public String getText(LotroGame game) {
                             return "Stack a Free Peoples artifact or possession";
                         }
 
@@ -56,7 +56,7 @@ public class Card1_073 extends AbstractPermanent {
             possibleChoices.add(
                     new ChooseArbitraryCardsEffect(playerId, "Choose artifact or possession to play", game.getGameState().getStackedCards(self), Filters.playable(game), 1, 1) {
                         @Override
-                        public String getText() {
+                        public String getText(LotroGame game) {
                             return "Play stacked artifact or possession";
                         }
 

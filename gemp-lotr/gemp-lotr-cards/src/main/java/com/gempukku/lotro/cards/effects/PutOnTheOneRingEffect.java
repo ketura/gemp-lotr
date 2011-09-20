@@ -13,7 +13,7 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Ring-bearer puts on The One Ring";
     }
 

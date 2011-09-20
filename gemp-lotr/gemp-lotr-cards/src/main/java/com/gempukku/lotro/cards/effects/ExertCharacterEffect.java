@@ -27,7 +27,7 @@ public class ExertCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Exert " + _physicalCard.getBlueprint().getName();
     }
 

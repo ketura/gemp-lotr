@@ -52,7 +52,7 @@ public class Card1_137 extends AbstractEvent {
         possibleEffects.add(
                 new ChooseActiveCardsEffect(playerId, "Choose characters to exert", 2, 2, Filters.type(CardType.COMPANION), Filters.canExert()) {
                     @Override
-                    public String getText() {
+                    public String getText(LotroGame game) {
                         return "Exert 2 companions";
                     }
 

@@ -2,13 +2,15 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CancelEffect;
+import com.gempukku.lotro.cards.effects.PreventWoundEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -31,16 +33,33 @@ public class Card1_076 extends AbstractResponseEvent {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+    }
+
+    @Override
     public int getTwilightCost() {
         return 2;
     }
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
-            if (((WoundCharacterEffect) effect).getWoundedCard().getBlueprint().getCardType() == CardType.COMPANION) {
-                PlayEventAction action = new PlayEventAction(self);
-                action.addEffect(new CancelEffect(playerId, effect));
+        if (effect.getType() == EffectResult.Type.WOUND
+                && checkPlayRequirements(playerId, game, self, 0)) {
+            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
+            final List<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeWounded(game);
+
+            if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
+                final PlayEventAction action = new PlayEventAction(self);
+                action.addEffect(
+                        new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
+                            @Override
+                            protected void cardSelected(PhysicalCard companion) {
+                                action.addEffect(
+                                        new PreventWoundEffect(woundEffect, companion));
+                            }
+                        });
                 return Collections.singletonList(action);
             }
         }

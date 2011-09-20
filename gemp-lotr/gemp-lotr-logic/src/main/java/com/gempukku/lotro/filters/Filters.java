@@ -14,20 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Filters {
-    public static boolean canSpotAnywhere(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
-        Filter filter = Filters.and(filters);
-        SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, filter);
-        gameState.iterateAllCards(visitor);
-        return visitor.isSpotted();
-    }
-
-    public static List<PhysicalCard> filterAnywhere(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
-        Filter filter = Filters.and(filters);
-        GetCardsVisitor getCards = new GetCardsVisitor(gameState, modifiersQuerying, filter);
-        gameState.iterateAllCards(getCards);
-        return getCards.getPhysicalCards();
-    }
-
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
         Filter filter = Filters.and(filters);
         SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, filter);
@@ -62,6 +48,8 @@ public class Filters {
         gameState.iterateActiveCards(visitor);
         return visitor.getCounter();
     }
+
+    // Filters available
 
     public static Filter inSkirmish() {
         return new Filter() {

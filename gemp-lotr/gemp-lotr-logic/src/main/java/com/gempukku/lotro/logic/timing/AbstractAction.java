@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.timing;
 
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public abstract class AbstractAction implements Action {
     private PhysicalCard _source;
@@ -17,7 +18,7 @@ public abstract class AbstractAction implements Action {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return _text;
     }
 }

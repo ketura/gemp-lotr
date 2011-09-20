@@ -38,7 +38,7 @@ public class PlayCardEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Play card " + _cardPlayed.getBlueprint().getName();
     }
 

@@ -20,7 +20,7 @@ public class CancelEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        game.getGameState().sendMessage(_playerId + " cancels effect - " + _effect.getText());
+        game.getGameState().sendMessage(_playerId + " cancels effect - " + _effect.getText(game));
         _effect.cancel();
     }
 }

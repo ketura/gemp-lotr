@@ -127,8 +127,7 @@ public class PlayConditions {
 
     public static boolean isWounded(EffectResult effectResult, PhysicalCard character) {
         if (effectResult.getType() == EffectResult.Type.WOUND) {
-            PhysicalCard woundedCard = ((WoundResult) effectResult).getWoundedCard();
-            return (character == woundedCard);
+            return ((WoundResult) effectResult).getWoundedCards().contains(character);
         }
         return false;
     }
