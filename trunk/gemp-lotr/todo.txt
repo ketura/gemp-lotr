@@ -4,7 +4,6 @@ Before release:
 multiple choices required.
 
 Next priority:
-25. Remove all non-essencial alerts, instead add warnings to chat panel.
 24. The events that are played and cards affected should be shown to the players briefly using animations to make it
  aestheticly pleasing.
 30. Watching game replay after it's finished and sharing the game replay with others via code.
@@ -48,3 +47,4 @@ with Filters.sameCard(...) filter.
 16. Add an option to watch an ongoing game (spectator).
 26. The game area should display chat from the start.
 13. Add dead/discard pile displays.
+25. Remove all non-essencial alerts, instead add warnings to chat panel.
