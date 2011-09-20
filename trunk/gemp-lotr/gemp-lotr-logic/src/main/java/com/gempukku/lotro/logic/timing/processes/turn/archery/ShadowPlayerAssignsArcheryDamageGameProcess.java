@@ -36,7 +36,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
 
             if (possibleWoundTargets.size() > 0) {
                 _game.getUserFeedback().sendAwaitingDecision(_playerId,
-                        new CardsSelectionDecision(1, "Choose minion to assign archery wound to", possibleWoundTargets, 1, 1) {
+                        new CardsSelectionDecision(1, "Choose minion to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
