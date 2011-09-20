@@ -41,8 +41,7 @@ public class Card1_318 extends AbstractPermanent {
                     new ChooseActiveCardsEffect(playerId, "Choose Hobbits", 2, 2, Filters.race(Race.HOBBIT), Filters.canExert()) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> cards) {
-                            action.addCost(new ExertCharacterEffect(playerId, cards.get(0)));
-                            action.addCost(new ExertCharacterEffect(playerId, cards.get(1)));
+                            action.addCost(new ExertCharacterEffect(playerId, Filters.in(cards)));
                         }
                     });
             action.addCost(new DiscardCardFromPlayEffect(self, self));

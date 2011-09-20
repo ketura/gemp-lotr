@@ -58,8 +58,7 @@ public class Card1_137 extends AbstractEvent {
 
                     @Override
                     protected void cardsSelected(List<PhysicalCard> cards) {
-                        for (PhysicalCard card : cards)
-                            action.addEffect(new ExertCharacterEffect(playerId, card));
+                        action.addEffect(new ExertCharacterEffect(playerId, Filters.in(cards)));
                     }
                 });
 

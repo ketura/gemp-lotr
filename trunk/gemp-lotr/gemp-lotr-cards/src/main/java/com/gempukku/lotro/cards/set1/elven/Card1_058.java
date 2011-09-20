@@ -2,14 +2,15 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+
+import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -39,19 +40,17 @@ public class Card1_058 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
-                new ChooseActiveCardEffect(playerId, "Exert first Elf", Filters.race(Race.ELF)) {
+                new ChooseActiveCardsEffect(playerId, "Choose elves to exert", 2, 2, Filters.race(Race.ELF), Filters.canExert()) {
                     @Override
-                    protected void cardSelected(final PhysicalCard firstElf) {
-                        action.addCost(new ExertCharacterEffect(playerId, firstElf));
-                        action.addCost(
-                                new ChooseAndExertCharacterEffect(action, playerId, "Exert second Elf", true, Filters.race(Race.ELF), Filters.not(Filters.sameCard(firstElf))));
+                    protected void cardsSelected(List<PhysicalCard> cards) {
+                        action.addCost(new ExertCharacterEffect(playerId, Filters.in(cards)));
                     }
                 });
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard condition) {
-                        action.addEffect(new DiscardCardFromPlayEffect(self, condition));
+
                     }
                 });
         return action;

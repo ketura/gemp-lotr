@@ -41,18 +41,27 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                                 }
                             }));
 
-            _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
-                    new CardsSelectionDecision(1, "Choose companion or ally at home to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
-                        @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                            PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
-                            _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
-                            if (_woundsToAssign > 1)
-                                _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
-                            else
-                                _nextProcess = _followingGameProcess;
-                        }
-                    });
+            if (possibleWoundTargets.size() == 1) {
+                PhysicalCard selectedCard = possibleWoundTargets.get(0);
+                _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
+                if (_woundsToAssign > 1)
+                    _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
+                else
+                    _nextProcess = _followingGameProcess;
+            } else {
+                _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
+                        new CardsSelectionDecision(1, "Choose companion or ally at home to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
+                                _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
+                                if (_woundsToAssign > 1)
+                                    _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
+                                else
+                                    _nextProcess = _followingGameProcess;
+                            }
+                        });
+            }
         } else {
             _nextProcess = _followingGameProcess;
         }
