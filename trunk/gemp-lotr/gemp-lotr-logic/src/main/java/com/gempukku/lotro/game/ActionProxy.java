@@ -10,5 +10,5 @@ import java.util.List;
 public interface ActionProxy {
     public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect);
 
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult);
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults);
 }

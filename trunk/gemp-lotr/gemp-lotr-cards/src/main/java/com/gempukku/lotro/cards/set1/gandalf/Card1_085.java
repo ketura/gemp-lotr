@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.PreventExertEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -10,9 +11,9 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,16 +38,19 @@ public class Card1_085 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalBeforeActions(final String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.EXERT
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            if (((ExertCharacterEffect) effect).getExertedCard().getBlueprint().getCardType() == CardType.COMPANION) {
-                PlayEventAction action = new PlayEventAction(self);
+            final ExertCharacterEffect exertEffect = (ExertCharacterEffect) effect;
+            List<PhysicalCard> exertedCharacters = exertEffect.getCardsToBeExerted(game);
+            if (Filters.filter(exertedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
+                final PlayEventAction action = new PlayEventAction(self);
                 action.addEffect(
-                        new UnrespondableEffect() {
+                        new ChooseActiveCardEffect(playerId, "Choose character", Filters.type(CardType.COMPANION), Filters.in(exertedCharacters)) {
                             @Override
-                            public void doPlayEffect(LotroGame game) {
-                                ((ExertCharacterEffect) effect).prevent();
+                            protected void cardSelected(PhysicalCard card) {
+                                action.addEffect(
+                                        new PreventExertEffect(exertEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

@@ -50,8 +50,8 @@ public class Card1_093 extends AbstractEvent {
             action.addCost(
                     new ExertCharacterEffect(playerId, arwen) {
                         @Override
-                        public EffectResult playEffect(LotroGame game) {
-                            EffectResult effectResult = super.playEffect(game);
+                        public EffectResult[] playEffect(LotroGame game) {
+                            EffectResult[] effectResult = super.playEffect(game);
                             action.addEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.name("Aragorn"), 3), Phase.SKIRMISH));
@@ -63,8 +63,8 @@ public class Card1_093 extends AbstractEvent {
             action.addCost(
                     new ExertCharacterEffect(playerId, aragorn) {
                         @Override
-                        public EffectResult playEffect(LotroGame game) {
-                            EffectResult effectResult = super.playEffect(game);
+                        public EffectResult[] playEffect(LotroGame game) {
+                            EffectResult[] effectResult = super.playEffect(game);
                             action.addEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.name("Arwen"), 3), Phase.SKIRMISH));

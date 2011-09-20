@@ -47,8 +47,8 @@ public class Card1_100 extends AbstractPermanent {
                 action.addCost(
                         new ExertCharacterEffect(playerId, arwen) {
                             @Override
-                            public EffectResult playEffect(LotroGame game) {
-                                EffectResult effectResult = super.playEffect(game);
+                            public EffectResult[] playEffect(LotroGame game) {
+                                EffectResult[] effectResult = super.playEffect(game);
                                 if (aragorn != null)
                                     action.addEffect(new HealCharacterEffect(playerId, aragorn));
                                 return effectResult;
@@ -59,8 +59,8 @@ public class Card1_100 extends AbstractPermanent {
                 action.addCost(
                         new ExertCharacterEffect(playerId, aragorn) {
                             @Override
-                            public EffectResult playEffect(LotroGame game) {
-                                EffectResult effectResult = super.playEffect(game);
+                            public EffectResult[] playEffect(LotroGame game) {
+                                EffectResult[] effectResult = super.playEffect(game);
                                 if (arwen != null)
                                     action.addEffect(new HealCharacterEffect(playerId, arwen));
                                 return effectResult;

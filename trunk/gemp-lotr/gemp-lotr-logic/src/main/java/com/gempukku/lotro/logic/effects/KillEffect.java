@@ -7,13 +7,17 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
 
-public class KillEffect extends AbstractEffect {
-    private PhysicalCard _card;
+import java.util.LinkedList;
+import java.util.List;
 
-    public KillEffect(PhysicalCard card) {
-        _card = card;
+public class KillEffect extends AbstractEffect {
+    private List<PhysicalCard> _cards;
+
+    public KillEffect(List<PhysicalCard> cards) {
+        _cards = cards;
     }
 
     @Override
@@ -21,32 +25,74 @@ public class KillEffect extends AbstractEffect {
         return EffectResult.Type.KILL;
     }
 
-    public PhysicalCard getKilledCard() {
-        return _card;
+    public List<PhysicalCard> getCharactersToBeKilled() {
+        return _cards;
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Kill " + _card.getBlueprint().getName();
+        List<PhysicalCard> cards = getCharactersToBeKilled();
+        return "Kill - " + getAppendedNames(cards);
+    }
+
+    private String getAppendedNames(List<PhysicalCard> cards) {
+        StringBuilder sb = new StringBuilder();
+        for (PhysicalCard card : cards)
+            sb.append(card.getBlueprint().getName() + ", ");
+
+        if (sb.length() == 0)
+            return "none";
+        else
+            return sb.substring(0, sb.length() - 1);
     }
 
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        Zone zone = _card.getZone();
-        return zone == Zone.FREE_CHARACTERS || zone == Zone.FREE_SUPPORT || zone == Zone.SHADOW_CHARACTERS;
+        return true;
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
-        GameState gameState = game.getGameState();
-        gameState.sendMessage(_card.getBlueprint().getName() + " gets killed");
-        gameState.stopAffecting(_card);
-        gameState.removeCardFromZone(_card);
-        if (_card.getBlueprint().getSide() == Side.FREE_PEOPLE)
-            gameState.addCardToZone(_card, Zone.DEAD);
-        else
-            gameState.addCardToZone(_card, Zone.DISCARD);
+    public EffectResult[] playEffect(LotroGame game) {
+        List<PhysicalCard> discardedCards = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> killedCards = new LinkedList<PhysicalCard>();
 
-        return new KillResult(_card);
+        for (PhysicalCard card : _cards) {
+            GameState gameState = game.getGameState();
+            gameState.sendMessage(card.getBlueprint().getName() + " gets killed");
+            gameState.stopAffecting(card);
+            gameState.removeCardFromZone(card);
+            if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
+                killedCards.add(card);
+                gameState.addCardToZone(card, Zone.DEAD);
+            } else {
+                discardedCards.add(card);
+                gameState.addCardToZone(card, Zone.DISCARD);
+            }
+
+            List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
+            for (PhysicalCard attachedCard : attachedCards) {
+                discardedCards.add(attachedCard);
+
+                gameState.stopAffecting(attachedCard);
+                gameState.removeCardFromZone(attachedCard);
+                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+            }
+
+            List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
+            for (PhysicalCard stackedCard : stackedCards) {
+                gameState.removeCardFromZone(stackedCard);
+                gameState.addCardToZone(stackedCard, Zone.DISCARD);
+            }
+        }
+
+        if (killedCards.size() > 0 && discardedCards.size() > 0) {
+            return new EffectResult[]{new KillResult(killedCards), new DiscardCardsFromPlayResult(discardedCards)};
+        } else if (killedCards.size() > 0) {
+            return new EffectResult[]{new KillResult(killedCards)};
+        } else if (discardedCards.size() > 0) {
+            return new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)};
+        } else {
+            return null;
+        }
     }
 }

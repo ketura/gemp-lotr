@@ -40,7 +40,7 @@ public class Card1_265 extends AbstractResponseEvent {
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (effectResult.getType() == EffectResult.Type.KILL
-                    && ((KillResult) effectResult).getKilledCard().getBlueprint().getCardType() == CardType.COMPANION
+                    && Filters.filter(((KillResult) effectResult).getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0
                     && skirmish != null
                     && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC)).size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);

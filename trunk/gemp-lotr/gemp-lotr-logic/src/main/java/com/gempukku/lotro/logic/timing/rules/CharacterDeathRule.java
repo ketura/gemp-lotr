@@ -1,18 +1,18 @@
 package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.logic.actions.DiscardMinionFromPlayAction;
-import com.gempukku.lotro.logic.actions.KillAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,21 +28,24 @@ public class CharacterDeathRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                        List<Action> actions = new LinkedList<Action>();
-
                         GameState gameState = game.getGameState();
+
+                        List<PhysicalCard> deadCharacters = new LinkedList<PhysicalCard>();
 
                         List<PhysicalCard> characters = Filters.filterActive(gameState, game.getModifiersQuerying(),
                                 Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)));
                         for (PhysicalCard character : characters)
                             if (gameState.getWounds(character) >= game.getModifiersQuerying().getVitality(gameState, character))
-                                if (character.getBlueprint().getSide() == Side.FREE_PEOPLE) {
-                                    actions.add(new KillAction(character));
-                                } else {
-                                    actions.add(new DiscardMinionFromPlayAction(character));
-                                }
+                                deadCharacters.add(character);
 
-                        return actions;
+                        if (deadCharacters.size() > 0) {
+                            RequiredTriggerAction action = new RequiredTriggerAction(null, null, "Character death from wounds");
+                            action.addEffect(
+                                    new KillEffect(deadCharacters));
+                            return Collections.singletonList(action);
+                        }
+
+                        return null;
                     }
                 }
         );

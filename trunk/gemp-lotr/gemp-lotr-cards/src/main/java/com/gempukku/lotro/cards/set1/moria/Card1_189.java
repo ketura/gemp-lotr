@@ -45,7 +45,7 @@ public class Card1_189 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (((
                 effectResult.getType() == EffectResult.Type.EXERT
-                        && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((ExertResult) effectResult).getExertedCard(), Keyword.RING_BEARER))
+                        && Filters.filter(((ExertResult) effectResult).getExertedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0)
                 || (
                 effectResult.getType() == EffectResult.Type.WOUND
                         && Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0))

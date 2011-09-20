@@ -28,9 +28,9 @@ public class RemoveBurdenEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         game.getGameState().sendMessage(_playerId + " removes a burden");
         game.getGameState().removeBurdens(1);
-        return new RemoveBurdenResult();
+        return new EffectResult[]{new RemoveBurdenResult()};
     }
 }

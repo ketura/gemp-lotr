@@ -44,7 +44,7 @@ public abstract class UnrespondableEffect implements Effect {
     protected abstract void doPlayEffect(LotroGame game);
 
     @Override
-    public final EffectResult playEffect(LotroGame game) {
+    public final EffectResult[] playEffect(LotroGame game) {
         doPlayEffect(game);
         return null;
     }

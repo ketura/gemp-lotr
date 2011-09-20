@@ -66,7 +66,7 @@ public class WoundCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         List<PhysicalCard> woundedCards = getCardsToBeWounded(game);
 
         for (PhysicalCard woundedCard : woundedCards) {
@@ -74,7 +74,7 @@ public class WoundCharacterEffect extends AbstractEffect {
             game.getGameState().addWound(woundedCard);
         }
 
-        return new WoundResult(woundedCards);
+        return new EffectResult[]{new WoundResult(woundedCards)};
     }
 
     public void prevent(PhysicalCard card) {
