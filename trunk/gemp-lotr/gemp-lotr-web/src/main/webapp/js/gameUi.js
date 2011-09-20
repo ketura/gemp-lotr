@@ -184,7 +184,8 @@ var GempLotrGameUI = Class.extend({
 
     addBottomLeftTabPane: function() {
         var that = this;
-        this.tabPane = $("<div><ul><li><a href='#chatBox'>Chat</a></li><li><a href='#settingsBox'>Settings</a></li></ul><div id='chatBox'></div><div id='settingsBox'></div></div>").tabs();
+        this.tabPane = $("<div><ul><li><a href='#chatBox'>Chat</a></li><li><a href='#settingsBox'>Settings</a></li><li><a href='#gameOptionsBox'>Game options</a></li></ul>"
+                + "<div id='chatBox'></div><div id='settingsBox'></div><div id='gameOptionsBox'></div></div>").tabs();
 
         $("#main").append(this.tabPane);
 
@@ -217,6 +218,12 @@ var GempLotrGameUI = Class.extend({
         });
 
         this.chatBox = new ChatBoxUI("Game" + getUrlParam("gameId"), $("#chatBox"), this.communication.url);
+
+        $("#gameOptionsBox").append("<button id='concedeGame'>Concede game</button>");
+        $("#concedeGame").button().click(
+                function() {
+                    that.communication.concede();
+                });
     },
 
     clickCardFunction: function(event) {
