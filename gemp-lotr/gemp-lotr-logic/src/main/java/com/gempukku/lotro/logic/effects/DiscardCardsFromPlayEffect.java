@@ -16,7 +16,6 @@ import java.util.List;
 public class DiscardCardsFromPlayEffect extends AbstractEffect {
     private PhysicalCard _source;
     private Filter _filter;
-    private List<PhysicalCard> _discardedCards;
 
     public DiscardCardsFromPlayEffect(PhysicalCard source, Filter filter) {
         _source = source;
@@ -41,10 +40,10 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
     @Override
     public EffectResult playEffect(LotroGame game) {
         List<PhysicalCard> cardsToDiscard = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
-        _discardedCards = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> discardedCards = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cardsToDiscard) {
             if (_source == null || game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, _source)) {
-                _discardedCards.add(card);
+                discardedCards.add(card);
 
                 GameState gameState = game.getGameState();
                 gameState.stopAffecting(card);
@@ -53,7 +52,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
 
                 List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
                 for (PhysicalCard attachedCard : attachedCards) {
-                    _discardedCards.add(attachedCard);
+                    discardedCards.add(attachedCard);
 
                     gameState.stopAffecting(attachedCard);
                     gameState.removeCardFromZone(attachedCard);
@@ -68,8 +67,8 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
             }
         }
 
-        if (_source != null && _discardedCards.size() > 0)
+        if (_source != null && discardedCards.size() > 0)
             game.getGameState().sendMessage(_source.getOwner() + " discards multiple cards from play using " + _source.getBlueprint().getName());
-        return new DiscardCardsFromPlayResult(_discardedCards);
+        return new DiscardCardsFromPlayResult(discardedCards);
     }
 }
