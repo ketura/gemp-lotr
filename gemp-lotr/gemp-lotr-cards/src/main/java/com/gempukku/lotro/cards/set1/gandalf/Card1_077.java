@@ -35,8 +35,7 @@ public class Card1_077 extends AbstractEvent {
                 new ChooseActiveCardsEffect(playerId, "Choose companions", 0, Integer.MAX_VALUE, Filters.type(CardType.COMPANION), Filters.canExert()) {
                     @Override
                     protected void cardsSelected(List<PhysicalCard> cards) {
-                        for (PhysicalCard card : cards)
-                            action.addCost(new ExertCharacterEffect(playerId, card));
+                        action.addCost(new ExertCharacterEffect(playerId, Filters.in(cards)));
                         action.addEffect(new RemoveTwilightEffect(cards.size()));
                     }
                 });

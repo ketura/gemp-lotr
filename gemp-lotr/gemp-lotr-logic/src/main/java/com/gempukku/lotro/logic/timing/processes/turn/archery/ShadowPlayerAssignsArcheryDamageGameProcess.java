@@ -35,18 +35,27 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
                     Filters.type(CardType.MINION), Filters.owner(_playerId));
 
             if (possibleWoundTargets.size() > 0) {
-                _game.getUserFeedback().sendAwaitingDecision(_playerId,
-                        new CardsSelectionDecision(1, "Choose minion to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
-                                _game.getActionsEnvironment().addActionToStack(new WoundAction(_playerId, selectedCard, 1));
-                                if (_woundsToAssign > 1)
-                                    _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);
-                                else
-                                    _nextProcess = _followingGameProcess;
-                            }
-                        });
+                if (possibleWoundTargets.size() == 1) {
+                    PhysicalCard selectedCard = possibleWoundTargets.get(0);
+                    _game.getActionsEnvironment().addActionToStack(new WoundAction(_playerId, selectedCard, 1));
+                    if (_woundsToAssign > 1)
+                        _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);
+                    else
+                        _nextProcess = _followingGameProcess;
+                } else {
+                    _game.getUserFeedback().sendAwaitingDecision(_playerId,
+                            new CardsSelectionDecision(1, "Choose minion to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
+                                    _game.getActionsEnvironment().addActionToStack(new WoundAction(_playerId, selectedCard, 1));
+                                    if (_woundsToAssign > 1)
+                                        _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);
+                                    else
+                                        _nextProcess = _followingGameProcess;
+                                }
+                            });
+                }
             } else {
                 _nextProcess = _followingGameProcess;
             }

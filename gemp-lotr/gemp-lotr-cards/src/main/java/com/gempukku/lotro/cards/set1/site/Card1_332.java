@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,14 +31,12 @@ public class Card1_332 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            List<PhysicalCard> hobbits = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION));
-            for (PhysicalCard hobbit : hobbits) {
+
+            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Each Hobbit must exert");
-                action.addEffect(new ExertCharacterEffect(hobbit.getOwner(), hobbit));
-                actions.add(action);
+                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.and(Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))));
+                return Collections.singletonList(action);
             }
-            return actions;
         }
         return null;
     }

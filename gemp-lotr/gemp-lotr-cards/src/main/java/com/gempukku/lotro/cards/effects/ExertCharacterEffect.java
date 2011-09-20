@@ -56,7 +56,7 @@ public class ExertCharacterEffect extends AbstractEffect {
         if (sb.length() == 0)
             return "none";
         else
-            return sb.substring(0, sb.length() - 1);
+            return sb.substring(0, sb.length() - 2);
     }
 
     @Override

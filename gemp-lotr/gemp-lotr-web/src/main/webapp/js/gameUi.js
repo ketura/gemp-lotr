@@ -1115,7 +1115,7 @@ var GempLotrGameUI = Class.extend({
                 });
             }
             if (selectedCardIds.length > 0) {
-                that.alertButtons.append("<button id='ClearSelection'>Clear selection</button>");
+                that.alertButtons.append("<button id='ClearSelection'>Reset choice</button>");
                 that.alertButtons.append("<button id='Done'>Done</button>");
                 $("#Done").button().click(function() {
                     finishChoice();
@@ -1294,7 +1294,7 @@ var GempLotrGameUI = Class.extend({
         var processButtons = function() {
             that.alertButtons.html("");
             if (selectedCardIds.length > 0) {
-                that.alertButtons.append("<button id='ClearSelection'>Clear selection</button>");
+                that.alertButtons.append("<button id='ClearSelection'>Reset choice</button>");
                 $("#ClearSelection").button().click(function() {
                     resetChoice();
                 });

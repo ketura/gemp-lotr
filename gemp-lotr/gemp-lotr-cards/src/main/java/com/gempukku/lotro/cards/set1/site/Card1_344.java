@@ -47,8 +47,7 @@ public class Card1_344 extends AbstractSite {
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
                             protected void cardsSelected(List<PhysicalCard> cards) {
-                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(0)));
-                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(1)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.in(cards)));
                             }
                         });
                 action.addEffect(
@@ -67,8 +66,7 @@ public class Card1_344 extends AbstractSite {
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
                             protected void cardsSelected(List<PhysicalCard> cards) {
-                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(0)));
-                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), cards.get(1)));
+                                action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.in(cards)));
                             }
                         });
 

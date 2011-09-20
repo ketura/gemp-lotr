@@ -44,8 +44,7 @@ public class Card1_239 extends AbstractEvent {
                     new ChooseActiveCardsEffect(game.getGameState().getCurrentPlayerId(), "Choose companions to exert", exertCount, exertCount, Filters.type(CardType.COMPANION), Filters.canExert()) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> companions) {
-                            for (PhysicalCard companion : companions)
-                                action.addEffect(new ExertCharacterEffect(playerId, companion));
+                            action.addEffect(new ExertCharacterEffect(playerId, Filters.in(companions)));
                         }
                     });
         }
