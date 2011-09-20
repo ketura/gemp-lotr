@@ -43,8 +43,12 @@ public class Card1_189 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (((effectResult.getType() == EffectResult.Type.EXERT && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((ExertResult) effectResult).getExertedCard(), Keyword.RING_BEARER))
-                || (effectResult.getType() == EffectResult.Type.WOUND && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((WoundResult) effectResult).getWoundedCard(), Keyword.RING_BEARER)))
+        if (((
+                effectResult.getType() == EffectResult.Type.EXERT
+                        && game.getModifiersQuerying().hasKeyword(game.getGameState(), ((ExertResult) effectResult).getExertedCard(), Keyword.RING_BEARER))
+                || (
+                effectResult.getType() == EffectResult.Type.WOUND
+                        && Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0))
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.addEffect(

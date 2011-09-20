@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
@@ -70,7 +71,7 @@ public class PlayEventAction implements CostToEffectAction {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Play " + _source.getBlueprint().getName();
     }
 

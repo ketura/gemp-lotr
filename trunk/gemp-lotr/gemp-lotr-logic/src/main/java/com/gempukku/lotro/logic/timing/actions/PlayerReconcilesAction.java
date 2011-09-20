@@ -38,7 +38,7 @@ public class PlayerReconcilesAction implements Action {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Player reconciles";
     }
 

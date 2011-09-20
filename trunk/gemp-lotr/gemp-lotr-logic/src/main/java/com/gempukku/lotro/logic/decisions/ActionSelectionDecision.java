@@ -1,15 +1,18 @@
 package com.gempukku.lotro.logic.decisions;
 
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
 
 public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
+    private LotroGame _game;
     private List<? extends Action> _actions;
 
-    public ActionSelectionDecision(int decisionId, String text, List<? extends Action> actions) {
+    public ActionSelectionDecision(LotroGame game, int decisionId, String text, List<? extends Action> actions) {
         super(decisionId, text, AwaitingDecisionType.ACTION_CHOICE);
+        _game = game;
         _actions = actions;
 
         setParam("actionId", getActionIds(actions));
@@ -39,7 +42,7 @@ public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
     private String[] getActionTexts(List<? extends Action> actions) {
         String[] result = new String[actions.size()];
         for (int i = 0; i < result.length; i++)
-            result[i] = actions.get(i).getText();
+            result[i] = actions.get(i).getText(_game);
         return result;
     }
 

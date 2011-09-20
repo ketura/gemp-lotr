@@ -63,8 +63,7 @@ public class Card1_091 extends AbstractAttachableFPPossession {
                                             new ChooseActiveCardsEffect(playerId, "Choose companion(s) to heal", spotCount, spotCount, Filters.type(CardType.COMPANION)) {
                                                 @Override
                                                 protected void cardsSelected(List<PhysicalCard> cards) {
-                                                    for (PhysicalCard card : cards)
-                                                        action.addEffect(new HealCharacterEffect(playerId, card));
+                                                    action.addEffect(new HealCharacterEffect(playerId, Filters.in(cards)));
                                                 }
                                             });
                                 }

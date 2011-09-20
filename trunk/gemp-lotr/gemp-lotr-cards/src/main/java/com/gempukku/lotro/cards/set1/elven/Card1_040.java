@@ -55,11 +55,9 @@ public class Card1_040 extends AbstractAlly {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            List<PhysicalCard> allies = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY), Filters.siteNumber(3));
-
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal every ally whose home is site 3");
-            for (PhysicalCard ally : allies)
-                action.addEffect(new HealCharacterEffect(ally.getOwner(), ally));
+            action.addEffect(
+                    new HealCharacterEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(3))));
 
             return Collections.singletonList(action);
         }

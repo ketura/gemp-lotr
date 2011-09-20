@@ -48,7 +48,7 @@ public class ChoiceEffect extends UnrespondableEffect {
                 _action.addEffect(possibleEffects.get(0));
         } else {
             game.getUserFeedback().sendAwaitingDecision(_choicePlayerId,
-                    new MultipleChoiceAwaitingDecision(1, "Choose effect to use", getEffectsText(possibleEffects)) {
+                    new MultipleChoiceAwaitingDecision(1, "Choose effect to use", getEffectsText(possibleEffects, game)) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
                             if (_addedAsCost)
@@ -60,10 +60,10 @@ public class ChoiceEffect extends UnrespondableEffect {
         }
     }
 
-    private String[] getEffectsText(List<Effect> possibleEffects) {
+    private String[] getEffectsText(List<Effect> possibleEffects, LotroGame game) {
         String[] result = new String[possibleEffects.size()];
         for (int i = 0; i < result.length; i++)
-            result[i] = possibleEffects.get(i).getText();
+            result[i] = possibleEffects.get(i).getText(game);
         return result;
     }
 }

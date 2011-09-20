@@ -49,14 +49,14 @@ public class Card1_161 extends AbstractResponseEvent {
             possibleCosts.add(
                     new ChooseAndExertCharacterEffect(action, playerId, "Choose an Uruk-hai to exert", true, Filters.race(Race.URUK_HAI), Filters.canExert()) {
                         @Override
-                        public String getText() {
+                        public String getText(LotroGame game) {
                             return "Exert an Uruk-hai";
                         }
                     });
             possibleCosts.add(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai to discard", Filters.race(Race.URUK_HAI)) {
                         @Override
-                        public String getText() {
+                        public String getText(LotroGame game) {
                             return "Discard an Uruk-hai";
                         }
 

@@ -89,7 +89,7 @@ public class AttachPermanentAction implements CostToEffectAction {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Attach " + _source.getBlueprint().getName();
     }
 

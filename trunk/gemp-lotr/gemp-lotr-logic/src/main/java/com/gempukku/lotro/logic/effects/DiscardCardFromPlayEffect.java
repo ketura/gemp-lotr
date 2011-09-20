@@ -28,7 +28,7 @@ public class DiscardCardFromPlayEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Discard " + _card.getBlueprint().getName() + " from play";
     }
 

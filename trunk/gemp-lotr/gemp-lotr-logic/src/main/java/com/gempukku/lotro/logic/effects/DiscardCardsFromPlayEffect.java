@@ -29,7 +29,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Discard multiple cards from play";
     }
 

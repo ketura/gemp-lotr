@@ -88,19 +88,12 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public Map<String, List<Action>> getOptionalBeforeTriggers(List<String> players, Effect effect) {
-        Map<String, List<Action>> result = new HashMap<String, List<Action>>();
-        for (String playerId : players) {
-            GatherOptionalBeforeTriggers gatherActions = new GatherOptionalBeforeTriggers(playerId, effect);
+    public List<Action> getOptionalBeforeTriggers(String playerId, Effect effect) {
+        GatherOptionalBeforeTriggers gatherActions = new GatherOptionalBeforeTriggers(playerId, effect);
 
-            _lotroGame.getGameState().iterateActiveCards(playerId, gatherActions);
+        _lotroGame.getGameState().iterateActiveCards(playerId, gatherActions);
 
-            List<Action> gatheredActions = gatherActions.getActions();
-
-            result.put(playerId, gatheredActions);
-        }
-
-        return result;
+        return gatherActions.getActions();
     }
 
     @Override
@@ -130,19 +123,12 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public Map<String, List<Action>> getOptionalAfterTriggers(List<String> players, EffectResult effectResult) {
-        Map<String, List<Action>> result = new HashMap<String, List<Action>>();
-        for (String playerId : players) {
-            GatherOptionalAfterTriggers gatherActions = new GatherOptionalAfterTriggers(playerId, effectResult);
+    public List<Action> getOptionalAfterTriggers(String playerId, EffectResult effectResult) {
+        GatherOptionalAfterTriggers gatherActions = new GatherOptionalAfterTriggers(playerId, effectResult);
 
-            _lotroGame.getGameState().iterateActiveCards(playerId, gatherActions);
+        _lotroGame.getGameState().iterateActiveCards(playerId, gatherActions);
 
-            List<Action> gatheredActions = gatherActions.getActions();
-
-            result.put(playerId, gatheredActions);
-        }
-
-        return result;
+        return gatherActions.getActions();
     }
 
     @Override

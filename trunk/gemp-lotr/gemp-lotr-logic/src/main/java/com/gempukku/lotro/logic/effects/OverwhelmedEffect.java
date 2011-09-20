@@ -23,7 +23,7 @@ public class OverwhelmedEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Character(s) was/where overwhelmed in Skirmish";
     }
 

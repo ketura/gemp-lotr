@@ -3,18 +3,19 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
+import com.gempukku.lotro.cards.effects.PreventWoundEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -46,16 +47,18 @@ public class Card1_173 extends AbstractPermanent {
     @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND) {
-            PhysicalCard woundedCard = ((WoundCharacterEffect) effect).getWoundedCard();
-            if (woundedCard.getBlueprint().getCulture() == Culture.MORIA && woundedCard.getBlueprint().getRace() == Race.ORC) {
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Prevent wound");
+            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
+            final List<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeWounded(game);
+            if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)).size() > 0) {
+                final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Prevent wound");
                 action.addCost(
                         new DiscardCardFromPlayEffect(self, self));
                 action.addEffect(
-                        new UnrespondableEffect() {
+                        new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
                             @Override
-                            public void doPlayEffect(LotroGame game) {
-                                ((WoundCharacterEffect) effect).prevent();
+                            protected void cardSelected(PhysicalCard moriaOrc) {
+                                action.addEffect(
+                                        new PreventWoundEffect(woundEffect, moriaOrc));
                             }
                         });
                 return Collections.singletonList(action);

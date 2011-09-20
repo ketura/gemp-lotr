@@ -50,7 +50,7 @@ public class Card1_206 extends AbstractPermanent {
             possibleEffects.add(
                     new ChooseActiveCardEffect(self.getOwner(), "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.canExert()) {
                         @Override
-                        public String getText() {
+                        public String getText(LotroGame game) {
                             return "Exert a Nazgul";
                         }
 

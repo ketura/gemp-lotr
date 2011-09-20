@@ -56,51 +56,54 @@ public class Card1_002 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(final String playerId, LotroGame lotroGame, Effect effect, final PhysicalCard self) {
-        if (lotroGame.getGameState().getCurrentPhase() == Phase.SKIRMISH
+    public List<? extends Action> getOptionalBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
+        if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && effect.getType() == EffectResult.Type.WOUND
-                && ((WoundCharacterEffect) effect).getWoundedCard() == self.getAttachedTo()) {
-            List<Action> actions = new LinkedList<Action>();
+                && !game.getGameState().isCancelRingText()) {
+            WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
+            if (woundEffect.getCardsToBeWounded(game).contains(self.getAttachedTo())) {
+                List<Action> actions = new LinkedList<Action>();
 
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
-            action.addCost(new CancelEffect(playerId, effect));
-            action.addEffect(new AddBurdenEffect(playerId));
-            action.addEffect(new PutOnTheOneRingEffect());
-            action.addEffect(new AddUntilStartOfPhaseActionProxyEffect(
-                    new AbstractActionProxy() {
-                        @Override
-                        public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                            if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                                    && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Take off The One Ring");
-                                action.addEffect(new TakeOffTheOneRingEffect());
-                                return Collections.singletonList(action);
+                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
+                action.addCost(new PreventWoundEffect(woundEffect, self.getAttachedTo()));
+                action.addEffect(new AddBurdenEffect(playerId));
+                action.addEffect(new PutOnTheOneRingEffect());
+                action.addEffect(new AddUntilStartOfPhaseActionProxyEffect(
+                        new AbstractActionProxy() {
+                            @Override
+                            public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                                if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
+                                        && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
+                                    DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Take off The One Ring");
+                                    action.addEffect(new TakeOffTheOneRingEffect());
+                                    return Collections.singletonList(action);
+                                }
+                                return null;
                             }
-                            return null;
                         }
-                    }
-                    , Phase.REGROUP));
+                        , Phase.REGROUP));
 
-            actions.add(action);
-            return actions;
-        } else {
-            return null;
+                actions.add(action);
+                return actions;
+            }
         }
+        return null;
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND
                 && game.getGameState().isWearingRing()
-                && !game.getGameState().isCancelRingText()
-                && ((WoundCharacterEffect) effect).getWoundedCard() == self.getAttachedTo()) {
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden instead of taking a wound");
-            action.addCost(new CancelEffect(self.getOwner(), effect));
-            action.addEffect(new AddBurdenEffect(self.getOwner()));
-            return actions;
-        } else {
-            return null;
+                && !game.getGameState().isCancelRingText()) {
+            WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
+            if (woundEffect.getCardsToBeWounded(game).contains(self.getAttachedTo())) {
+                List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
+                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden instead of taking a wound");
+                action.addCost(new PreventWoundEffect(woundEffect, self.getAttachedTo()));
+                action.addEffect(new AddBurdenEffect(self.getOwner()));
+                return actions;
+            }
         }
+        return null;
     }
 }

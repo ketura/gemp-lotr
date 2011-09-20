@@ -49,7 +49,7 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
                     playableActions.add(action);
 
             _game.getUserFeedback().sendAwaitingDecision(playerId,
-                    new CardActionSelectionDecision(1, "Choose action to play or Pass", playableActions, true) {
+                    new CardActionSelectionDecision(_game, 1, "Choose action to play or Pass", playableActions, true) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);

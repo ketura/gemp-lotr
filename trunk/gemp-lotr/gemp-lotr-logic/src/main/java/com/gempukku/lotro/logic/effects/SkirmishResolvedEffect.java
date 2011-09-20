@@ -23,7 +23,7 @@ public class SkirmishResolvedEffect extends AbstractEffect {
     }
 
     @Override
-    public String getText() {
+    public String getText(LotroGame game) {
         return "Character(s) won skirmish";
     }
 
