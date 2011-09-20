@@ -51,11 +51,11 @@ public class Card1_183 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)))) {
-            List<PhysicalCard> shadowCharacters = game.getGameState().getSkirmish().getShadowCharacters();
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)))
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Stack winning MORIA Orc on this condition");
             action.addEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(shadowCharacters)) {
+                    new ChooseActiveCardEffect(playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish()) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
                             action.addEffect(new StackCardFromPlayEffect(moriaOrc, self));
