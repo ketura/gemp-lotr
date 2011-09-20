@@ -128,19 +128,24 @@ public class GameState {
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
-            // First non-stacked non-attached cards
+            // First non-attached cards
             for (List<PhysicalCardImpl> physicalCards : _inPlay.values())
                 for (PhysicalCardImpl physicalCard : physicalCards) {
-                    if (physicalCard.getZone() != Zone.ATTACHED && physicalCard.getZone() != Zone.STACKED)
+                    if (physicalCard.getZone() != Zone.ATTACHED)
                         listener.cardCreated(physicalCard);
                 }
 
-            // Now the stacked and attached ones
+            // Now the attached ones
             for (List<PhysicalCardImpl> physicalCards : _inPlay.values())
                 for (PhysicalCardImpl physicalCard : physicalCards) {
-                    if (physicalCard.getZone() == Zone.ATTACHED || physicalCard.getZone() == Zone.STACKED)
+                    if (physicalCard.getZone() == Zone.ATTACHED)
                         listener.cardCreated(physicalCard);
                 }
+
+            // Finally the stacked ones
+            for (List<PhysicalCardImpl> physicalCards : _stacked.values())
+                for (PhysicalCardImpl physicalCard : physicalCards)
+                    listener.cardCreated(physicalCard);
 
             List<PhysicalCardImpl> hand = _hands.get(playerId);
             if (hand != null) {
