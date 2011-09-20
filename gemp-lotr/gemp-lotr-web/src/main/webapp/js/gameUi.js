@@ -1004,24 +1004,9 @@ var GempLotrGameUI = Class.extend({
 
         this.cardActionDialog
                 .html("<div id='arbitraryChoice'></div>")
-                .dialog("option", "title", text)
-                .dialog("option", "buttons", {});
+                .dialog("option", "title", text);
 
-        var finishChoice = function() {
-            that.cardActionDialog.dialog("close");
-            $("#arbitraryChoice").html("");
-            that.clearSelection();
-            that.decisionFunction(id, "" + selectedCardIds);
-        };
-
-        if (min == 0) {
-            this.cardActionDialog.dialog("option", "buttons", {
-                "DONE": function() {
-                    finishChoice();
-                }
-            });
-        }
-
+        // Create the action cards and fill the dialog with them
         for (var i = 0; i < blueprintIds.length; i++) {
             var cardId = cardIds[i];
             var blueprintId = blueprintIds[i];
@@ -1036,32 +1021,58 @@ var GempLotrGameUI = Class.extend({
             $("#arbitraryChoice").append(cardDiv);
         }
 
-        this.selectionFunction = function(cardId) {
-            selectedCardIds.push(cardId);
-
-            if (selectedCardIds.length == min) {
-                this.cardActionDialog.dialog("option", "buttons", {
-                    "DONE": function() {
-                        finishChoice();
-                    }
-                });
-            }
-
-            if (selectedCardIds.length == max) {
-                if (that.settingsAutoAccept) {
-                    finishChoice();
-                } else {
-                    that.clearSelection();
-                    $(".card:cardId(" + cardId + ")").addClass("selectedCard");
-                }
-            } else {
-                $(".card:cardId(" + cardId + ")").removeClass("selectableCard").addClass("selectedCard");
-            }
+        var finishChoice = function() {
+            that.cardActionDialog.dialog("close");
+            $("#arbitraryChoice").html("");
+            that.clearSelection();
+            that.decisionFunction(id, "" + selectedCardIds);
         };
 
-        this.attachSelectionFunctions(selectableCardIds);
+        var resetChoice = function() {
+            that.clearSelection();
+            allowSelection();
+            processButtons();
+        };
 
-        $(".ui-dialog-titlebar").show();
+        var processButtons = function() {
+            var buttons = {};
+            if (selectedCardIds.length > 0)
+                buttons["Clear selection"] = function() {
+                    resetChoice();
+                    processButtons();
+                };
+            if (selectedCardIds.length >= min)
+                buttons["Done"] = function() {
+                    finishChoice();
+                };
+            that.cardActionDialog.dialog("option", "buttons", buttons);
+        };
+
+        var allowSelection = function() {
+            that.selectionFunction = function(cardId) {
+                selectedCardIds.push(cardId);
+
+                if (selectedCardIds.length == max) {
+                    if (that.settingsAutoAccept) {
+                        finishChoice();
+                        return;
+                    } else {
+                        that.clearSelection();
+                        $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+                    }
+                } else {
+                    $(".card:cardId(" + cardId + ")").removeClass("selectableCard").addClass("selectedCard");
+                }
+
+                processButtons();
+            };
+
+            that.attachSelectionFunctions(selectableCardIds);
+        };
+
+        allowSelection();
+        processButtons();
+
         this.cardActionDialog.dialog("open");
         this.arbitraryDialogResize(false);
     },
@@ -1083,48 +1094,80 @@ var GempLotrGameUI = Class.extend({
 
         var selectedCardIds = new Array();
 
+        this.alert.html(text + "<br>");
+
+        var processButtons = function() {
+            $("#Pass").remove();
+            $("#ClearSelection").remove();
+            $("#Done").remove();
+
+            if (selectedCardIds.size() == 0) {
+                that.alert.append("<button id='Pass'>Pass</button>");
+                $("#Pass").button().click(function() {
+                    finishChoice();
+                });
+            }
+            if (selectedCardIds.size() > 0) {
+                that.alert.append("<button id='ClearSelection'>Clear selection</button>");
+                that.alert.append("<button id='Done'>Done</button>");
+                $("#Done").button().click(function() {
+                    finishChoice();
+                });
+                $("#ClearSelection").button().click(function() {
+                    resetChoice();
+                });
+            }
+        };
+
         var finishChoice = function() {
             that.alert.html("");
             that.clearSelection();
             that.decisionFunction(id, "" + selectedCardIds);
         };
 
-        this.alert.html(text + "<br><button id='Pass'>Pass</button>");
-        $("#Pass").button().click(function() {
-            finishChoice();
-        });
-
-        for (var i = 0; i < cardIds.length; i++) {
-            var cardId = cardIds[i];
-            var actionId = actionIds[i];
-            var actionText = actionTexts[i];
-
-
-            var cardIdElem = $(".card:cardId(" + cardId + ")");
-            if (cardIdElem.data("action") == null) {
-                cardIdElem.data("action", new Array());
-            }
-
-            var actions = cardIdElem.data("action");
-            actions.push({ actionId: actionId, actionText: actionText });
-        }
-
-        this.selectionFunction = function(cardId) {
-            var cardIdElem = $(".card:cardId(" + cardId + ")");
-            var actions = cardIdElem.data("action");
-            if (actions.length == 1) {
-                var action = actions[0];
-                selectedCardIds.push(action.actionId);
-                if (this.settingsAutoAccept) {
-                    finishChoice();
-                } else {
-                    that.clearSelection();
-                    $(".card:cardId(" + cardId + ")").addClass("selectedCard");
-                }
-            }
+        var resetChoice = function() {
+            that.clearSelection();
+            allowSelection();
+            processButtons();
         };
 
-        this.attachSelectionFunctions(cardIds);
+        var allowSelection = function() {
+            for (var i = 0; i < cardIds.length; i++) {
+                var cardId = cardIds[i];
+                var actionId = actionIds[i];
+                var actionText = actionTexts[i];
+
+
+                var cardIdElem = $(".card:cardId(" + cardId + ")");
+                if (cardIdElem.data("action") == null) {
+                    cardIdElem.data("action", new Array());
+                }
+
+                var actions = cardIdElem.data("action");
+                actions.push({ actionId: actionId, actionText: actionText });
+            }
+
+            that.selectionFunction = function(cardId) {
+                var cardIdElem = $(".card:cardId(" + cardId + ")");
+                var actions = cardIdElem.data("action");
+                if (actions.length == 1) {
+                    var action = actions[0];
+                    selectedCardIds.push(action.actionId);
+                    if (that.settingsAutoAccept) {
+                        finishChoice();
+                    } else {
+                        that.clearSelection();
+                        $(".card:cardId(" + cardId + ")").addClass("selectedCard");
+                        processButtons();
+                    }
+                }
+            };
+
+            that.attachSelectionFunctions(cardIds);
+        };
+
+        allowSelection();
+        processButtons();
     },
 
     actionChoiceDecision: function (decision) {
@@ -1141,8 +1184,7 @@ var GempLotrGameUI = Class.extend({
 
         this.cardActionDialog
                 .html("<div id='arbitraryChoice'></div>")
-                .dialog("option", "title", text)
-                .dialog("option", "buttons", {});
+                .dialog("option", "title", text);
 
         var cardIds = new Array();
 
