@@ -128,12 +128,12 @@ public class LotroGameMediator {
                     if (currentTime > decisionSent + _playerDecisionTimeoutPeriod)
                         _lotroGame.playerLost(playerId, "Player decision timed-out");
                 }
-            }
 
-            for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
-                String player = playerClock.getKey();
-                if (_maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player) < 0)
-                    _lotroGame.playerLost(player, "Player run out of time");
+                for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
+                    String player = playerClock.getKey();
+                    if (_maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player) < 0)
+                        _lotroGame.playerLost(player, "Player run out of time");
+                }
             }
         } finally {
             _writeLock.unlock();
