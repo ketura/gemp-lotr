@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -43,9 +44,8 @@ public class ResolveSkirmishRule {
                             List<PhysicalCard> losers = skirmishResult.getLosers();
 
                             List<Action> actions = new LinkedList<Action>();
-                            for (PhysicalCard loser : losers) {
-                                actions.add(new WoundAction(loser.getOwner(), loser, dmg));
-                            }
+                            actions.add(new WoundAction(winners.get(0).getOwner(), Filters.in(losers), dmg));
+
                             return actions;
                         } else if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;

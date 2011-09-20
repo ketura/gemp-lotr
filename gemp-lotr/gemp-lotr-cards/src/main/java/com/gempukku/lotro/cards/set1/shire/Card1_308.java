@@ -3,10 +3,8 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
@@ -37,9 +35,8 @@ public class Card1_308 extends AbstractEvent {
         Skirmish skirmish = game.getGameState().getSkirmish();
         if (skirmish != null) {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), skirmish.getFellowshipCharacter(), Keyword.RING_BEARER)) {
-                for (PhysicalCard minion : skirmish.getShadowCharacters()) {
-                    action.addEffect(new WoundCharacterEffect(playerId, minion));
-                }
+                action.addEffect(
+                        new WoundCharacterEffect(playerId, Filters.and(Filters.type(CardType.MINION), Filters.inSkirmish())));
             }
         }
         return action;

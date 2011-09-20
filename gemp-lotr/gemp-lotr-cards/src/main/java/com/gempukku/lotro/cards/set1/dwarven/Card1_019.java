@@ -49,8 +49,9 @@ public class Card1_019 extends AbstractEvent {
                     @Override
                     protected void cardsSelected(List<PhysicalCard> cards) {
                         if (cards.size() == 2) {
-                            action.addEffect(new WoundCharacterEffect(playerId, cards.get(0)));
-                            action.addEffect(new WoundCharacterEffect(playerId, cards.get(1)));
+                            action.addEffect(
+                                    new WoundCharacterEffect(playerId,
+                                            Filters.or(Filters.sameCard(cards.get(0)), Filters.sameCard(cards.get(1)))));
                         } else {
                             action.addEffect(new WoundCharacterEffect(playerId, cards.get(0)));
                             action.addEffect(new WoundCharacterEffect(playerId, cards.get(0)));
