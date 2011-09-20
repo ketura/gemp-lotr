@@ -9,8 +9,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -35,10 +33,8 @@ public class Card1_226 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a Nazgul", true, Filters.race(Race.NAZGUL), Filters.canExert()));
-        List<PhysicalCard> allies = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY));
-        for (PhysicalCard ally : allies)
-            action.addEffect(
-                    new WoundCharacterEffect(playerId, ally));
+        action.addEffect(
+                new WoundCharacterEffect(playerId, Filters.type(CardType.ALLY)));
         return action;
     }
 

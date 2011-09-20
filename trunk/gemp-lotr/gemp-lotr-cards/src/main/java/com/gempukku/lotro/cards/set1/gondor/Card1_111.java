@@ -9,8 +9,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
-import java.util.List;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -29,9 +27,8 @@ public class Card1_111 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a ranger", true, Filters.keyword(Keyword.RANGER), Filters.canExert()));
-        List<PhysicalCard> minions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION));
-        for (PhysicalCard minion : minions)
-            action.addEffect(new WoundCharacterEffect(playerId, minion));
+        action.addEffect(
+                new WoundCharacterEffect(playerId, Filters.type(CardType.MINION)));
 
         return action;
     }
