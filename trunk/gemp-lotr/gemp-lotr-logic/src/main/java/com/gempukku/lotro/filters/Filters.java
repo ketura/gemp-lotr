@@ -63,6 +63,20 @@ public class Filters {
         return visitor.getCounter();
     }
 
+    public static Filter inSkirmish() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                Skirmish skirmish = gameState.getSkirmish();
+                if (skirmish != null) {
+                    return (skirmish.getFellowshipCharacter() == physicalCard)
+                            || skirmish.getShadowCharacters().contains(physicalCard);
+                }
+                return false;
+            }
+        };
+    }
+
     public static Filter notAssigned() {
         return new Filter() {
             @Override
