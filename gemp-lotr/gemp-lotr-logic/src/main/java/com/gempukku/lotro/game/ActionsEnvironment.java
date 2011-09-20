@@ -14,11 +14,11 @@ public interface ActionsEnvironment {
 
     public List<Action> getOptionalBeforeActions(String playerId, Effect effect);
 
-    public List<Action> getRequiredAfterTriggers(EffectResult effectResult);
+    public List<Action> getRequiredAfterTriggers(EffectResult[] effectResults);
 
-    public List<Action> getOptionalAfterTriggers(String playerId, EffectResult effectResult);
+    public List<Action> getOptionalAfterTriggers(String playerId, EffectResult[] effectResults);
 
-    public List<Action> getOptionalAfterActions(String playerId, EffectResult effectResult);
+    public List<Action> getOptionalAfterActions(String playerId, EffectResult[] effectResults);
 
     public void addUntilStartOfPhaseActionProxy(ActionProxy actionProxy, Phase phase);
 

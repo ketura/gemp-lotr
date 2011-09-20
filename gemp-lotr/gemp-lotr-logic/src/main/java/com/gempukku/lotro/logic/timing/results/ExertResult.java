@@ -3,15 +3,17 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class ExertResult extends EffectResult {
-    private PhysicalCard _card;
+import java.util.List;
 
-    public ExertResult(PhysicalCard card) {
+public class ExertResult extends EffectResult {
+    private List<PhysicalCard> _cards;
+
+    public ExertResult(List<PhysicalCard> cards) {
         super(Type.EXERT);
-        _card = card;
+        _cards = cards;
     }
 
-    public PhysicalCard getExertedCard() {
-        return _card;
+    public List<PhysicalCard> getExertedCards() {
+        return _cards;
     }
 }

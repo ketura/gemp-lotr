@@ -39,7 +39,7 @@ public class DiscardCardFromPlayEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         _discardedCards = new LinkedList<PhysicalCard>();
 
         if (_source == null || game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), _card, _source)) {
@@ -67,6 +67,6 @@ public class DiscardCardFromPlayEffect extends AbstractEffect {
                 gameState.addCardToZone(stackedCard, Zone.DISCARD);
             }
         }
-        return new DiscardCardsFromPlayResult(_discardedCards);
+        return new EffectResult[]{new DiscardCardsFromPlayResult(_discardedCards)};
     }
 }

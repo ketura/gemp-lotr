@@ -59,7 +59,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         List<PhysicalCard> cardsToDiscard = getCardsToBeDiscarded(game);
         List<PhysicalCard> discardedCards = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cardsToDiscard) {
@@ -88,6 +88,6 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
 
         if (_source != null && discardedCards.size() > 0)
             game.getGameState().sendMessage(_source.getOwner() + " discards multiple cards from play using " + _source.getBlueprint().getName());
-        return new DiscardCardsFromPlayResult(discardedCards);
+        return new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)};
     }
 }

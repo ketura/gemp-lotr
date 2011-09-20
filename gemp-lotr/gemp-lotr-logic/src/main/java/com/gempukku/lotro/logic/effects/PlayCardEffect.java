@@ -43,7 +43,7 @@ public class PlayCardEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
-        return new PlayCardResult(_cardPlayed, _attachedToCard);
+    public EffectResult[] playEffect(LotroGame game) {
+        return new EffectResult[]{new PlayCardResult(_cardPlayed, _attachedToCard)};
     }
 }

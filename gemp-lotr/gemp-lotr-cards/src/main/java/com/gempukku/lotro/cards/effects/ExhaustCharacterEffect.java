@@ -8,6 +8,8 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
+import java.util.Collections;
+
 public class ExhaustCharacterEffect extends AbstractEffect {
     private String _playerId;
     private CostToEffectAction _action;
@@ -43,7 +45,7 @@ public class ExhaustCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         if (_sendMessage)
             game.getGameState().sendMessage(_playerId + " exhausts " + _physicalCard.getBlueprint().getName());
         game.getGameState().addWound(_physicalCard);
@@ -51,6 +53,6 @@ public class ExhaustCharacterEffect extends AbstractEffect {
             _action.addCost(new ExhaustCharacterEffect(_playerId, _action, _cost, _physicalCard, false));
         else
             _action.addEffect(new ExhaustCharacterEffect(_playerId, _action, _cost, _physicalCard, false));
-        return new ExertResult(_physicalCard);
+        return new EffectResult[]{new ExertResult(Collections.singletonList(_physicalCard))};
     }
 }

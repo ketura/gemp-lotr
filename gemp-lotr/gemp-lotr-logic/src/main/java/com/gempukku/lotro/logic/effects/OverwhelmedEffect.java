@@ -33,8 +33,8 @@ public class OverwhelmedEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
-        return new OverwhelmSkirmishResult(_winners, _losers);
+        return new EffectResult[]{new OverwhelmSkirmishResult(_winners, _losers)};
     }
 }

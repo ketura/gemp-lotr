@@ -29,7 +29,7 @@ public class TriggeringEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
-        return _effectResult;
+    public EffectResult[] playEffect(LotroGame game) {
+        return new EffectResult[]{_effectResult};
     }
 }

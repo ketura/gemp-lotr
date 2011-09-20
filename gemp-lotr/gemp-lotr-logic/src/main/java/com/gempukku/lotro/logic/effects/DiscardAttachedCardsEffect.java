@@ -34,7 +34,7 @@ public class DiscardAttachedCardsEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         List<PhysicalCard> discardedCards = new LinkedList<PhysicalCard>();
         GameState gameState = game.getGameState();
         List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
@@ -45,6 +45,6 @@ public class DiscardAttachedCardsEffect extends AbstractEffect {
             discardedCards.add(attachedCard);
         }
 
-        return new DiscardCardsFromPlayResult(discardedCards);
+        return new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)};
     }
 }

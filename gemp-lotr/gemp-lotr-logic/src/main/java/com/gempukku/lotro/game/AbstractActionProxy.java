@@ -14,7 +14,7 @@ public abstract class AbstractActionProxy implements ActionProxy {
     }
 
     @Override
-    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
         return null;
     }
 }

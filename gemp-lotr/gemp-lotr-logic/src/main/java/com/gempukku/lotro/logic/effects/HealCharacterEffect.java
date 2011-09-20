@@ -71,7 +71,7 @@ public class HealCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         List<PhysicalCard> cardsToHeal = getCardsToBeHealed(game);
 
         for (PhysicalCard cardToHeal : cardsToHeal) {
@@ -79,6 +79,6 @@ public class HealCharacterEffect extends AbstractEffect {
             game.getGameState().removeWound(cardToHeal);
         }
 
-        return new HealResult(cardsToHeal);
+        return new EffectResult[]{new HealResult(cardsToHeal)};
     }
 }

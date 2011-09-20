@@ -17,5 +17,5 @@ public interface Effect {
 
     public boolean canPlayEffect(LotroGame game);
 
-    public EffectResult playEffect(LotroGame game);
+    public EffectResult[] playEffect(LotroGame game);
 }

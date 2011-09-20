@@ -53,9 +53,9 @@ public class Card1_310 extends AbstractCompanion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.KILL) {
-            if (((KillEffect) effect).getKilledCard().getBlueprint().getName().equals("Frodo")) {
+            if (Filters.filter(((KillEffect) effect).getCharactersToBeKilled(), game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo")).size() > 0) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self, Keyword.RESPONSE, "Make Sam the Ring-Bearer");
                 action.addEffect(new MakeRingBearerEffect(self));
                 return Collections.singletonList(action);

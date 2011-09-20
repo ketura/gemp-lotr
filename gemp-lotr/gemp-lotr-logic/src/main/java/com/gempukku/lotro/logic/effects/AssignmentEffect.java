@@ -49,13 +49,13 @@ public class AssignmentEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult playEffect(LotroGame game) {
+    public EffectResult[] playEffect(LotroGame game) {
         game.getGameState().sendMessage(_playerId + " assigns minion(s) to skirmish");
         for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : _assignments.entrySet()) {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             List<PhysicalCard> minions = physicalCardListEntry.getValue();
             game.getGameState().assignToSkirmishes(fpChar, minions);
         }
-        return new AssignmentResult(_assignments);
+        return new EffectResult[]{new AssignmentResult(_assignments)};
     }
 }
