@@ -11,10 +11,7 @@ import com.gempukku.lotro.logic.timing.actions.SystemAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 // Action generates multiple Effects, both costs and result of an action are Effects.
 
@@ -162,7 +159,7 @@ public class TurnProcedure {
         public void doPlayEffect(LotroGame game) {
             if (!_effect.isCancelled()) {
                 final String activePlayer = _playOrder.getNextPlayer();
-                List<Action> possibleActions = _actionMap.get(activePlayer);
+                List<Action> possibleActions = new LinkedList<Action>(_actionMap.get(activePlayer));
                 possibleActions.addAll(_game.getActionsEnvironment().getOptionalBeforeActions(activePlayer, _effect));
 
                 if (possibleActions.size() > 0) {
@@ -211,7 +208,7 @@ public class TurnProcedure {
         @Override
         public void doPlayEffect(LotroGame game) {
             final String activePlayer = _playOrder.getNextPlayer();
-            List<Action> possibleActions = _actionMap.get(activePlayer);
+            List<Action> possibleActions = new LinkedList<Action>(_actionMap.get(activePlayer));
             possibleActions.addAll(_game.getActionsEnvironment().getOptionalAfterActions(activePlayer, _effectResult));
 
             if (possibleActions.size() > 0) {
