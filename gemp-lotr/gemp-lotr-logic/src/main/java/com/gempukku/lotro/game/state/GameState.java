@@ -539,11 +539,13 @@ public class GameState {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
-        return (
-                (card.getAttachedTo() == null || isCardInPlayActive(card.getAttachedTo()))
-                        && (side == Side.SITE
-                        || (card.getOwner().equals(_currentPlayerId) && (side == Side.FREE_PEOPLE || side == Side.RING))
-                        || (!card.getOwner().equals(_currentPlayerId) && (side == Side.SHADOW))));
+        return side == Side.SITE
+                || (
+                card.getAttachedTo() == null &&
+                        ((card.getOwner().equals(_currentPlayerId) && (side == Side.FREE_PEOPLE))
+                                || (!card.getOwner().equals(_currentPlayerId) && (side == Side.SHADOW))))
+                || (
+                card.getAttachedTo() != null && isCardInPlayActive(card.getAttachedTo()));
     }
 
     public void startAffectingCardsForCurrentPlayer(ModifiersEnvironment modifiersEnvironment) {
