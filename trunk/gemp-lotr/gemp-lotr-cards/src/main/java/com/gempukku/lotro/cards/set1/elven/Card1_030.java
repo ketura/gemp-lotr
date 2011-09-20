@@ -10,7 +10,6 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
@@ -35,14 +34,14 @@ public class Card1_030 extends AbstractCompanion {
     @Override
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
         return new StrengthModifier(self,
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        Skirmish activeSkirmish = gameState.getSkirmish();
-                        return (activeSkirmish != null
-                                && activeSkirmish.getFellowshipCharacter().equals(self)
-                                && Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Filters.race(Race.NAZGUL)).size() > 0);
-                    }
-                }, 3);
+                Filters.and(
+                        Filters.sameCard(self),
+                        Filters.inSkirmish(),
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return Filters.canSpot(gameState, modifiersQuerying, Filters.race(Race.NAZGUL), Filters.inSkirmish());
+                            }
+                        }), 3);
     }
 }
