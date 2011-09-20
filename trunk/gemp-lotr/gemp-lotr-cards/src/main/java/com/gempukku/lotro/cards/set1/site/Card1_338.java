@@ -39,7 +39,7 @@ public class Card1_338 extends AbstractSite {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return (self.getData() == null);
+                                return gameState.getCurrentSite() == self && (self.getData() == null);
                             }
                         }), -5);
     }
