@@ -32,7 +32,7 @@ public class Card1_356 extends AbstractSite {
             public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
                 if (side == Side.SHADOW) {
                     int bonus = Math.max(0, Filters.countActive(gameState, modifiersLogic, Filters.type(CardType.COMPANION)) - 4);
-                    return result + bonus;
+                    return result + bonus * 2;
                 }
                 return result;
             }
