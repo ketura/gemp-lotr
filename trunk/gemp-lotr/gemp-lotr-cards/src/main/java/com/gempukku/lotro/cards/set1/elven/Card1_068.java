@@ -28,6 +28,7 @@ import java.util.List;
 public class Card1_068 extends AbstractAttachable {
     public Card1_068() {
         super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, null, "The White Arrows of Lorien");
+        addKeyword(Keyword.TALE);
     }
 
     @Override
