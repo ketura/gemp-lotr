@@ -27,9 +27,30 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
         return EffectResult.Type.DISCARD_FROM_PLAY;
     }
 
+    public List<PhysicalCard> getCardsToBeDiscarded(LotroGame game) {
+        List<PhysicalCard> cardsToDiscard = new LinkedList<PhysicalCard>();
+        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter)) {
+            if (_source == null || game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), physicalCard, _source))
+                cardsToDiscard.add(physicalCard);
+        }
+        return cardsToDiscard;
+    }
+
     @Override
     public String getText(LotroGame game) {
-        return "Discard multiple cards from play";
+        List<PhysicalCard> cards = getCardsToBeDiscarded(game);
+        return "Discard - " + getAppendedNames(cards);
+    }
+
+    private String getAppendedNames(List<PhysicalCard> cards) {
+        StringBuilder sb = new StringBuilder();
+        for (PhysicalCard card : cards)
+            sb.append(card.getBlueprint().getName() + ", ");
+
+        if (sb.length() == 0)
+            return "none";
+        else
+            return sb.substring(0, sb.length() - 1);
     }
 
     @Override
@@ -39,31 +60,29 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
 
     @Override
     public EffectResult playEffect(LotroGame game) {
-        List<PhysicalCard> cardsToDiscard = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
+        List<PhysicalCard> cardsToDiscard = getCardsToBeDiscarded(game);
         List<PhysicalCard> discardedCards = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cardsToDiscard) {
-            if (_source == null || game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, _source)) {
-                discardedCards.add(card);
+            discardedCards.add(card);
 
-                GameState gameState = game.getGameState();
-                gameState.stopAffecting(card);
-                gameState.removeCardFromZone(card);
-                gameState.addCardToZone(card, Zone.DISCARD);
+            GameState gameState = game.getGameState();
+            gameState.stopAffecting(card);
+            gameState.removeCardFromZone(card);
+            gameState.addCardToZone(card, Zone.DISCARD);
 
-                List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
-                for (PhysicalCard attachedCard : attachedCards) {
-                    discardedCards.add(attachedCard);
+            List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
+            for (PhysicalCard attachedCard : attachedCards) {
+                discardedCards.add(attachedCard);
 
-                    gameState.stopAffecting(attachedCard);
-                    gameState.removeCardFromZone(attachedCard);
-                    gameState.addCardToZone(attachedCard, Zone.DISCARD);
-                }
+                gameState.stopAffecting(attachedCard);
+                gameState.removeCardFromZone(attachedCard);
+                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+            }
 
-                List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
-                for (PhysicalCard stackedCard : stackedCards) {
-                    gameState.removeCardFromZone(stackedCard);
-                    gameState.addCardToZone(stackedCard, Zone.DISCARD);
-                }
+            List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
+            for (PhysicalCard stackedCard : stackedCards) {
+                gameState.removeCardFromZone(stackedCard);
+                gameState.addCardToZone(stackedCard, Zone.DISCARD);
             }
         }
 
