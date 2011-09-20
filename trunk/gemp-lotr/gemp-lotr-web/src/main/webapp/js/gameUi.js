@@ -1063,7 +1063,7 @@ var GempLotrGameUI = Class.extend({
 
         $(".ui-dialog-titlebar").show();
         this.cardActionDialog.dialog("open");
-        this.arbitraryDialogResize();
+        this.arbitraryDialogResize(false);
     },
 
     cardActionChoiceDecision: function (decision) {
@@ -1187,6 +1187,8 @@ var GempLotrGameUI = Class.extend({
 
         $(".ui-dialog-titlebar").show();
         this.cardActionDialog.dialog("open");
+
+        this.arbitraryDialogResize(true);
     },
 
     cardSelectionDecision: function(decision) {
@@ -1367,7 +1369,12 @@ var GempLotrGameUI = Class.extend({
         group.setBounds(this.padding, this.padding, width - 2 * this.padding, height - 2 * this.padding);
     },
 
-    arbitraryDialogResize: function() {
-        this.dialogResize(this.cardActionDialog, this.specialGroup);
+    arbitraryDialogResize: function(texts) {
+        if (texts) {
+            var width = this.cardActionDialog.width() + 10;
+            var height = this.cardActionDialog.height() - 10;
+            this.specialGroup.setBounds(this.padding, this.padding, width - 2 * this.padding, height - 2 * this.padding);
+        } else
+            this.dialogResize(this.cardActionDialog, this.specialGroup);
     }
 });

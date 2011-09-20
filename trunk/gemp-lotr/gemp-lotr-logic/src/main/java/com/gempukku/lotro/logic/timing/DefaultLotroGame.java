@@ -107,7 +107,7 @@ public class DefaultLotroGame implements LotroGame {
     public void playerLost(String playerId, String reason) {
         _losers.put(playerId, reason);
         if (_gameState != null)
-            _gameState.sendMessage(playerId + " lst due to: " + reason);
+            _gameState.sendMessage(playerId + " lost due to: " + reason);
 
         if (_losers.size() + 1 == _allPlayers.size()) {
             List<String> allPlayers = new LinkedList<String>(_allPlayers);
