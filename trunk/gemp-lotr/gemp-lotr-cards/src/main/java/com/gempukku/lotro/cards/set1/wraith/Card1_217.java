@@ -30,7 +30,7 @@ public class Card1_217 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
-                new ChooseCardsFromHandEffect(playerId, "Choose an Elf to play", 1, 1, Filters.race(Race.NAZGUL), Filters.playable(game, -2)) {
+                new ChooseCardsFromHandEffect(playerId, "Choose a Nazgul to play", 1, 1, Filters.race(Race.NAZGUL), Filters.playable(game, -2)) {
                     @Override
                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                         PhysicalCard selectedCard = selectedCards.get(0);

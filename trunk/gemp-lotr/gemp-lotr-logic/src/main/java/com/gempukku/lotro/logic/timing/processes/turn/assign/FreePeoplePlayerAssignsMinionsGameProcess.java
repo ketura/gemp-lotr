@@ -37,7 +37,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                     Filters.keyword(Keyword.FIERCE),
                     minionFilter);
 
-        final List<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter);
+        final List<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.notAssigned());
         if (minions.size() > 0) {
             final List<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
