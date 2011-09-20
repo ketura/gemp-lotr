@@ -140,6 +140,16 @@ public class LotroGameMediator {
         }
     }
 
+    public void concede(String playerId) {
+        _writeLock.lock();
+        try {
+            if (_lotroGame.getWinnerPlayerId() == null)
+                _lotroGame.playerLost(playerId, "Concession");
+        } finally {
+            _writeLock.unlock();
+        }
+    }
+
     public void playerAnswered(String lotroGameParticipant, int decisionId, String answer) {
         _writeLock.lock();
         try {

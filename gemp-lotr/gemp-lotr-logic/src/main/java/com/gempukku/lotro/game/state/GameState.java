@@ -285,7 +285,7 @@ public class GameState {
             for (GameStateListener listener : getPrivateGameStateListeners(card))
                 listener.cardRemoved(card);
 
-        if (zone == Zone.DECK || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
+        if ((zone == Zone.DECK && card.getBlueprint().getCardType() != CardType.SITE) || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
     }
@@ -306,7 +306,7 @@ public class GameState {
             else if (isZonePrivate(zone))
                 for (GameStateListener listener : getPrivateGameStateListeners(card))
                     listener.cardCreated(card);
-            if (zone == Zone.DECK || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
+            if ((zone == Zone.DECK && card.getBlueprint().getCardType() != CardType.SITE) || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
                 for (GameStateListener listener : getAllGameStateListeners())
                     listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
         }

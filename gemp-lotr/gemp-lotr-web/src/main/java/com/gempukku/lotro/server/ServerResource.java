@@ -148,6 +148,22 @@ public class ServerResource {
         return gameMediator.produceCardInfo(participantId, cardId);
     }
 
+    @Path("/game/{gameId}/concede")
+    @POST
+    public void concede(
+            @PathParam("gameId") String gameId,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
+        if (gameMediator == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        gameMediator.concede(participantId);
+    }
+
     @Path("/game/{gameId}")
     @POST
     @Produces(MediaType.APPLICATION_XML)

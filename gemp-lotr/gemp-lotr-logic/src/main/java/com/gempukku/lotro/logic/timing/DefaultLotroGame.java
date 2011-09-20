@@ -105,14 +105,16 @@ public class DefaultLotroGame implements LotroGame {
 
     @Override
     public void playerLost(String playerId, String reason) {
-        _losers.put(playerId, reason);
-        if (_gameState != null)
-            _gameState.sendMessage(playerId + " lost due to: " + reason);
+        if (_losers.get(playerId) == null) {
+            _losers.put(playerId, reason);
+            if (_gameState != null)
+                _gameState.sendMessage(playerId + " lost due to: " + reason);
 
-        if (_losers.size() + 1 == _allPlayers.size()) {
-            List<String> allPlayers = new LinkedList<String>(_allPlayers);
-            allPlayers.removeAll(_losers.keySet());
-            playerWon(allPlayers.get(0), "Last remaining player in game");
+            if (_losers.size() + 1 == _allPlayers.size()) {
+                List<String> allPlayers = new LinkedList<String>(_allPlayers);
+                allPlayers.removeAll(_losers.keySet());
+                playerWon(allPlayers.get(0), "Last remaining player in game");
+            }
         }
     }
 

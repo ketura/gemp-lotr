@@ -55,6 +55,17 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    concede: function() {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/game/" + getUrlParam("gameId") + "/concede",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
     getDeck: function(deckType, callback) {
         $.ajax({
             type: "GET",
