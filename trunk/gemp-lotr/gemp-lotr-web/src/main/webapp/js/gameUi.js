@@ -1089,7 +1089,7 @@ var GempLotrGameUI = Class.extend({
             that.decisionFunction(id, "" + selectedCardIds);
         };
 
-        this.alert.html(text + "<br><button id='DONE'>Pass</button>");
+        this.alert.html(text + "<br><button id='Pass'>Pass</button>");
         $("#Pass").button().click(function() {
             finishChoice();
         });
