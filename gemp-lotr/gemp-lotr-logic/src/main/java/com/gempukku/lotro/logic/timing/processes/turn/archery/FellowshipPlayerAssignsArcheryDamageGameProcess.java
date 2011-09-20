@@ -42,7 +42,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                             }));
 
             _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
-                    new CardsSelectionDecision(1, "Choose companion or ally at home to assign archery wound to", possibleWoundTargets, 1, 1) {
+                    new CardsSelectionDecision(1, "Choose companion or ally at home to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
