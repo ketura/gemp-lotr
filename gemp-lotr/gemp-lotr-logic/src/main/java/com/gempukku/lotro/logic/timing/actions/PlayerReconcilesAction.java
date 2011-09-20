@@ -59,7 +59,7 @@ public class PlayerReconcilesAction implements Action {
                                     _effectQueue.add(new DiscardCardFromHandEffect(card));
                             }
                         }));
-            } else {
+            } else if (cardsInHand.size() > 0) {
                 _effectQueue.add(new PlayoutDecisionEffect(_game.getUserFeedback(), _playerId,
                         new CardsSelectionDecision(1, "Reconcile - choose card to discard or press DONE", cardsInHand, 0, 1) {
                             @Override
