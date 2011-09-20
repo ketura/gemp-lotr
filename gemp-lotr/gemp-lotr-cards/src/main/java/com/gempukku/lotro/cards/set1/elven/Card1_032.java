@@ -40,7 +40,7 @@ public class Card1_032 extends AbstractEvent {
                         Skirmish skirmish = game.getGameState().getSkirmish();
                         int bonus = 2;
                         if (skirmish != null) {
-                            if (skirmish.getFellowshipCharacter() == elf && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ARCHER)).size() > 0)
+                            if (skirmish.getFellowshipCharacter() == elf && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION), Filters.keyword(Keyword.ARCHER)))
                                 bonus = 4;
                         }
 
