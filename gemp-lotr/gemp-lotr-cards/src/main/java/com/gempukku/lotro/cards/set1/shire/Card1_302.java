@@ -38,7 +38,7 @@ public class Card1_302 extends AbstractCompanion {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && game.getModifiersQuerying().getVitality(game.getGameState(), self) > 2 + game.getGameState().getWounds(self)
+                && game.getModifiersQuerying().getVitality(game.getGameState(), self) > 2
                 && !isAssigned(game, self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Merry twice to add his strength to another companion.");
             action.addCost(

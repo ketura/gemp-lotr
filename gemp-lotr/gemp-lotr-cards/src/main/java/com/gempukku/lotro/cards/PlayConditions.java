@@ -94,7 +94,7 @@ public class PlayConditions {
     }
 
     public static boolean canExert(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return (gameState.getWounds(card) < modifiersQuerying.getVitality(gameState, card) - 1);
+        return (modifiersQuerying.getVitality(gameState, card) > 1);
     }
 
     public static boolean winsSkirmish(EffectResult effectResult, PhysicalCard character) {

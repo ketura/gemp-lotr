@@ -35,7 +35,7 @@ public class CharacterDeathRule {
                         List<PhysicalCard> characters = Filters.filterActive(gameState, game.getModifiersQuerying(),
                                 Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)));
                         for (PhysicalCard character : characters)
-                            if (gameState.getWounds(character) >= game.getModifiersQuerying().getVitality(gameState, character))
+                            if (game.getModifiersQuerying().getVitality(gameState, character) <= 0)
                                 deadCharacters.add(character);
 
                         if (deadCharacters.size() > 0) {
