@@ -75,6 +75,8 @@ public class PlayerReconcilesAction implements Action {
                                 }
                             }
                         }));
+            } else {
+                _effectQueue.add(new DrawCardEffect(_playerId, 8));
             }
         }
 
