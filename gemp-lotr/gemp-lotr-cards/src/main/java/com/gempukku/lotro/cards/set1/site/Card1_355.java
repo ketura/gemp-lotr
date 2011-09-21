@@ -10,7 +10,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,14 +31,10 @@ public class Card1_355 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER))) {
-            List<PhysicalCard> companions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            for (PhysicalCard companion : companions) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert companion");
-                action.addEffect(new ExertCharacterEffect(companion.getOwner(), companion));
-                actions.add(action);
-            }
-            return actions;
+            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Every companion must exert");
+            action.addEffect(
+                    new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.type(CardType.COMPANION)));
+            return Collections.singletonList(action);
         }
         return null;
     }

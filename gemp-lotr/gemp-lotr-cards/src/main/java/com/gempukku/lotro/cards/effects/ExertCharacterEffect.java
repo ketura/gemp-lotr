@@ -30,9 +30,8 @@ public class ExertCharacterEffect extends AbstractEffect {
 
     public List<PhysicalCard> getCardsToBeExerted(LotroGame game) {
         List<PhysicalCard> cardsToExert = new LinkedList<PhysicalCard>();
-        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter)) {
+        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter, Filters.canExert()))
             cardsToExert.add(physicalCard);
-        }
         cardsToExert.removeAll(_prevented);
         return cardsToExert;
     }
