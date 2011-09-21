@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.PreventWoundEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -45,7 +46,7 @@ public class Card1_173 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
+    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND) {
             final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
             final List<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeWounded(game);
@@ -57,6 +58,8 @@ public class Card1_173 extends AbstractPermanent {
                         new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
                             @Override
                             protected void cardSelected(PhysicalCard moriaOrc) {
+                                action.addEffect(
+                                        new CardAffectsCardEffect(self, moriaOrc));
                                 action.addEffect(
                                         new PreventWoundEffect(woundEffect, moriaOrc));
                             }
