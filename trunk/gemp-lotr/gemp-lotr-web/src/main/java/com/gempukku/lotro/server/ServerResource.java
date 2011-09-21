@@ -553,9 +553,11 @@ public class ServerResource {
         }
 
         @Override
-        public void visitTable(String tableId, String tableStatus, Set<String> playerIds) {
+        public void visitTable(String tableId, String gameId, String tableStatus, Set<String> playerIds) {
             Element table = _doc.createElement("table");
             table.setAttribute("id", tableId);
+            if (gameId != null)
+                table.setAttribute("gameId", gameId);
             table.setAttribute("status", tableStatus);
             table.setAttribute("players", mergeStrings(playerIds));
             _hall.appendChild(table);
