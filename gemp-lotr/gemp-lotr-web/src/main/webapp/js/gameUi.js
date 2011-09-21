@@ -54,11 +54,14 @@ var GempLotrGameUI = Class.extend({
 
     tabPane: null,
 
-    animationEffectDiv: null,
+    animations: null,
 
     init: function(url) {
         log("ui initialized");
         var that = this;
+
+        this.animations = new GameAnimations(this);
+
         this.communication = new GempLotrCommunication("/gemp-lotr/server",
                 function() {
                     that.chatBox.appendMessage("There was a problem communicating with the server, if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
@@ -182,9 +185,6 @@ var GempLotrGameUI = Class.extend({
                     that.clickCardFunction(event);
                 });
 
-        this.animationEffectDiv = $("<div id='animation'></div>");
-        this.animationEffectDiv.hide();
-        $("#main").append(this.animationEffectDiv);
     },
 
     addBottomLeftTabPane: function() {
@@ -517,7 +517,7 @@ var GempLotrGameUI = Class.extend({
             var gameEvent = gameEvents[i];
             var eventType = gameEvent.getAttribute("type");
             if (eventType == "CARD_AFFECTS_CARD") {
-                this.cardAffectsCard(gameEvent);
+                this.animations.cardAffectsCard(gameEvent);
             }
         }
 
@@ -646,58 +646,6 @@ var GempLotrGameUI = Class.extend({
         var message = element.getAttribute("message");
         if (this.chatBox != null)
             this.chatBox.appendMessage(message, "warningMessage");
-    },
-
-    cardAffectsCard: function(element) {
-        var participantId = element.getAttribute("participantId");
-        var blueprintId = element.getAttribute("blueprintId");
-        var targetCardId = element.getAttribute("targetCardId");
-
-        var card = new Card(blueprintId, "ANIMATION", "anim", participantId);
-        var cardDiv = createCardDiv(card.imageUrl);
-        cardDiv.data("card", card);
-
-        this.animationEffectDiv.queue("anim",
-                function(next) {
-                    var targetCard = $(".card:cardId(" + targetCardId + ")");
-                    if (targetCard.length > 0) {
-                        targetCard = targetCard[0];
-                        $("#animation").html(cardDiv);
-                        $("#animation").show();
-                        var targetCardWidth = $(targetCard).width();
-                        var targetCardHeight = $(targetCard).height();
-
-                        var maxDimension = Math.max(targetCardWidth, targetCardHeight);
-
-                        var borderWidth = Math.floor(maxDimension / 30);
-                        var endBorderWidth = Math.floor(maxDimension * 2 / 30);
-                        $("#animation").css({
-                            position: "absolute",
-                            left: $(targetCard).position().left,
-                            top: $(targetCard).position().top,
-                            width: targetCardWidth,
-                            height: targetCardHeight,
-                            "z-index": 100,
-                            opacity: 1});
-                        $("#animation").animate(
-                        {
-                            opacity: 0,
-                            left: "-=" + (targetCardWidth / 2),
-                            top: "-=" + (targetCardHeight / 2),
-                            width: "+=" + targetCardWidth,
-                            height: "+=" + targetCardHeight},
-                        {
-                            duration: 500,
-                            easing: "easeInCubic",
-                            queue: false,
-                            complete: next
-                        });
-                    }
-                }).queue("anim",
-                function(next) {
-                    $("#animation").hide();
-                    next();
-                }).dequeue("anim");
     },
 
     startSkirmish: function(element) {
