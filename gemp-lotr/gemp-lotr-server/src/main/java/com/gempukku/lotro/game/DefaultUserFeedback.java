@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class DefaultUserFeedback implements UserFeedback {
     private Map<String, AwaitingDecision> _awaitingDecisionMap = new HashMap<String, AwaitingDecision>();
+    private Map<String, String> _warnings = new HashMap<String, String>();
 
     public void participantDecided(String playerId) {
         _awaitingDecisionMap.remove(playerId);
@@ -24,8 +25,17 @@ public class DefaultUserFeedback implements UserFeedback {
     }
 
     @Override
+    public void sendWarning(String playerId, String warning) {
+        _warnings.put(playerId, warning);
+    }
+
+    @Override
     public boolean hasPendingDecisions() {
         return _awaitingDecisionMap.size() > 0;
+    }
+
+    public String consumeWarning(String playerId) {
+        return _warnings.remove(playerId);
     }
 
     public Set<String> getUsersPendingDecision() {

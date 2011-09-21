@@ -168,7 +168,7 @@ public class LotroGameMediator {
 
                     } catch (DecisionResultInvalidException decisionResultInvalidException) {
                         // Participant provided wrong answer - send a warning message, and ask again for the same decision
-//                    _userCommunication.sendWarning(lotroGameParticipant, decisionResultInvalidException.getWarningMessage());
+                        _userFeedback.sendWarning(lotroGameParticipant, decisionResultInvalidException.getWarningMessage());
                         _userFeedback.sendAwaitingDecision(lotroGameParticipant, awaitingDecision);
                     }
                 }
@@ -185,6 +185,11 @@ public class LotroGameMediator {
             if (communicationChannel != null) {
                 for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
                     visitor.visitGameEvent(gameEvent);
+
+                String warning = _userFeedback.consumeWarning(participantId);
+                if (warning != null)
+                    visitor.visitGameEvent(new GameEvent(GameEvent.Type.WARNING).message(warning));
+
                 AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
                 if (awaitingDecision != null)
                     visitor.visitAwaitingDecision(awaitingDecision);

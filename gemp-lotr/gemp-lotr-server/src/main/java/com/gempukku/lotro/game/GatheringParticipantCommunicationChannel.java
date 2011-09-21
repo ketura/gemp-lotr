@@ -115,6 +115,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
         _events.add(new GameEvent(ZONE_SIZE).participantId(playerId).zone(zone).count(size));
     }
 
+    @Override
+    public void cardAffectedByCard(PhysicalCard card, PhysicalCard affectedCard) {
+        _events.add(new GameEvent(CARD_AFFECTS_CARD).card(card).targetCardId(affectedCard.getCardId()));
+    }
+
     public List<GameEvent> consumeGameEvents() {
         List<GameEvent> result = _events;
         _events = new LinkedList<GameEvent>();
