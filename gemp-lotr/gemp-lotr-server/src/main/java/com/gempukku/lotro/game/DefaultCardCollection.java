@@ -15,6 +15,15 @@ public class DefaultCardCollection implements CardCollection {
         _cards.put(blueprintId, blueprint);
     }
 
+    public void addPacks(String packId, int count) {
+        _cardsCount.put(packId, count);
+    }
+
+    @Override
+    public Map<String, Integer> getAll() {
+        return Collections.unmodifiableMap(_cardsCount);
+    }
+
     @Override
     public Map<String, Integer> filter(String filter) {
         if (filter == null)
@@ -30,10 +39,10 @@ public class DefaultCardCollection implements CardCollection {
         for (Map.Entry<String, LotroCardBlueprint> stringLotroCardBlueprintEntry : _cards.entrySet()) {
             String blueprintId = stringLotroCardBlueprintEntry.getKey();
             LotroCardBlueprint blueprint = stringLotroCardBlueprintEntry.getValue();
-            if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
-                if (cultures == null || cultures.contains(blueprint.getCulture()))
+            if (cardTypes == null || (blueprint != null && cardTypes.contains(blueprint.getCardType())))
+                if (cultures == null || (blueprint != null && cultures.contains(blueprint.getCulture())))
                     if (containsAllKeywords(blueprint, keywords))
-                        if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
+                        if (siteNumber == null || (blueprint != null && blueprint.getSiteNumber() == siteNumber.intValue()))
                             result.put(blueprintId, _cardsCount.get(blueprintId));
         }
         return result;
@@ -49,7 +58,7 @@ public class DefaultCardCollection implements CardCollection {
 
     private boolean containsAllKeywords(LotroCardBlueprint blueprint, List<Keyword> keywords) {
         for (Keyword keyword : keywords) {
-            if (!blueprint.hasKeyword(keyword))
+            if (blueprint == null || !blueprint.hasKeyword(keyword))
                 return false;
         }
         return true;
@@ -84,10 +93,43 @@ public class DefaultCardCollection implements CardCollection {
         public int compare(String o1, String o2) {
             String[] o1Parts = o1.split("_");
             String[] o2Parts = o2.split("_");
-            if (o1Parts[0].equals(o2Parts[0]))
-                return Integer.parseInt(o1Parts[1]) - Integer.parseInt(o2Parts[1]);
-            else
-                return Integer.parseInt(o1Parts[0]) - Integer.parseInt(o2Parts[0]);
+            if (o1Parts[0].equals(o2Parts[0])) {
+                final int firstNumber = getAvailableNumber(o1Parts[1]);
+                final int secondNumber = getAvailableNumber(o2Parts[1]);
+
+                if (firstNumber != secondNumber)
+                    return firstNumber - secondNumber;
+
+                return compareSameCardNumber(o1Parts[1], o2Parts[1]);
+            } else {
+                return getAvailableNumber(o1Parts[0]) - getAvailableNumber(o2Parts[0]);
+            }
+        }
+
+        private int compareSameCardNumber(String card1, String card2) {
+            if (card1.endsWith("*") && card2.endsWith("*"))
+                return compareNotFoils(card1.substring(0, card1.length() - 1), card2.substring(0, card2.length() - 1));
+            if (card1.endsWith("*"))
+                return -1;
+            if (card2.endsWith("*"))
+                return 1;
+            return compareNotFoils(card1, card2);
+        }
+
+        private int compareNotFoils(String card1, String card2) {
+            return card1.compareTo(card2);
+        }
+
+        private int getAvailableNumber(String str) {
+            return Integer.parseInt(str.substring(0, getFirstNonDigitIndex(str)));
+        }
+
+        private int getFirstNonDigitIndex(String str) {
+            final char[] chars = str.toCharArray();
+            for (int i = 0; i < chars.length; i++)
+                if (!Character.isDigit(chars[i]))
+                    return i;
+            return chars.length;
         }
     }
 }
