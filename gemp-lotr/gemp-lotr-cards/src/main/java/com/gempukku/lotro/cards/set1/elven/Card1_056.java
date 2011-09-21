@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -36,7 +37,7 @@ public class Card1_056 extends AbstractAlly {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert to wound an Uruk-hai");
@@ -45,6 +46,7 @@ public class Card1_056 extends AbstractAlly {
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                         @Override
                         protected void cardSelected(PhysicalCard urukHai) {
+                            action.addEffect(new CardAffectsCardEffect(self, urukHai));
                             action.addEffect(new WoundCharacterEffect(playerId, urukHai));
                         }
                     });

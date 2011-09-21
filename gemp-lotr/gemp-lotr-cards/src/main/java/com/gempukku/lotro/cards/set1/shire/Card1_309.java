@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
@@ -47,8 +48,10 @@ public class Card1_309 extends AbstractAlly {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Rosie Cotton to heal Sam");
             action.addCost(new ExertCharacterEffect(playerId, self));
             PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Sam"));
-            if (sam != null)
+            if (sam != null) {
+                action.addEffect(new CardAffectsCardEffect(self, sam));
                 action.addEffect(new HealCharacterEffect(playerId, sam));
+            }
             return Collections.singletonList(action);
         }
         return null;

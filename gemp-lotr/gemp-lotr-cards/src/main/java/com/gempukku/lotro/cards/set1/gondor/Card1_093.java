@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -52,9 +53,12 @@ public class Card1_093 extends AbstractEvent {
                         @Override
                         public EffectResult[] playEffect(LotroGame game) {
                             EffectResult[] effectResult = super.playEffect(game);
-                            action.addEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.name("Aragorn"), 3), Phase.SKIRMISH));
+                            if (aragorn != null) {
+                                action.addEffect(new CardAffectsCardEffect(self, aragorn));
+                                action.addEffect(
+                                        new AddUntilEndOfPhaseModifierEffect(
+                                                new StrengthModifier(self, Filters.sameCard(aragorn), 3), Phase.SKIRMISH));
+                            }
                             return effectResult;
                         }
                     });
@@ -65,9 +69,12 @@ public class Card1_093 extends AbstractEvent {
                         @Override
                         public EffectResult[] playEffect(LotroGame game) {
                             EffectResult[] effectResult = super.playEffect(game);
-                            action.addEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.name("Arwen"), 3), Phase.SKIRMISH));
+                            if (arwen != null) {
+                                action.addEffect(new CardAffectsCardEffect(self, arwen));
+                                action.addEffect(
+                                        new AddUntilEndOfPhaseModifierEffect(
+                                                new StrengthModifier(self, Filters.sameCard(arwen), 3), Phase.SKIRMISH));
+                            }
                             return effectResult;
                         }
                     });

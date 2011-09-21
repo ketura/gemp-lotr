@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -38,6 +39,7 @@ public class Card1_278 extends AbstractPermanent {
                     new ChooseActiveCardEffect(playerId, "Choose a SAURON Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard sauronOrc) {
+                            action.addEffect(new CardAffectsCardEffect(self, sauronOrc));
                             action.addEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(sauronOrc), 1), Phase.SKIRMISH));

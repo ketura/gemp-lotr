@@ -277,7 +277,7 @@ public class GameState {
 
         if (_skirmish != null) {
             if (_skirmish.getFellowshipCharacter() == card)
-                _skirmish.setFellowshipCharacter(card);
+                _skirmish.setFellowshipCharacter(null);
             _skirmish.getShadowCharacters().remove(card);
         }
 

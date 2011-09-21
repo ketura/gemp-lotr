@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -44,13 +45,14 @@ public class Card1_033 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Wound a minion");
             action.addCost(
                     new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
+                            action.addEffect(new CardAffectsCardEffect(self, minion));
                             action.addEffect(new WoundCharacterEffect(playerId, minion));
                         }
                     }

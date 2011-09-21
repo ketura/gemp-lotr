@@ -21,7 +21,10 @@ public class ChooseAndExertCharacterEffect extends ChooseActiveCardEffect {
     protected void cardSelected(PhysicalCard character) {
         if (_cost)
             _action.addCost(new ExertCharacterEffect(_playerId, character));
-        else
+        else {
+            if (_action.getActionSource() != null)
+                _action.addEffect(new CardAffectsCardEffect(_action.getActionSource(), character));
             _action.addEffect(new ExertCharacterEffect(_playerId, character));
+        }
     }
 }

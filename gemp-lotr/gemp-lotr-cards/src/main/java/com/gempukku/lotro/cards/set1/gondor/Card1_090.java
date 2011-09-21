@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.common.CardType;
@@ -48,7 +49,7 @@ public class Card1_090 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert Aragorn to wound a minion; Aragorn does not add to the fellowship archery total.");
@@ -60,6 +61,7 @@ public class Card1_090 extends AbstractAttachableFPPossession {
                     new ChooseActiveCardEffect(playerId, "Choose minion", Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
+                            action.addEffect(new CardAffectsCardEffect(self, minion));
                             action.addEffect(new WoundCharacterEffect(playerId, minion));
                         }
                     });

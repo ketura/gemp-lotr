@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.PreventExertEffect;
 import com.gempukku.lotro.common.CardType;
@@ -38,7 +39,7 @@ public class Card1_085 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(final String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalBeforeActions(final String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.EXERT
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
             final ExertCharacterEffect exertEffect = (ExertCharacterEffect) effect;
@@ -49,6 +50,7 @@ public class Card1_085 extends AbstractResponseEvent {
                         new ChooseActiveCardEffect(playerId, "Choose character", Filters.type(CardType.COMPANION), Filters.in(exertedCharacters)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
+                                action.addEffect(new CardAffectsCardEffect(self, card));
                                 action.addEffect(
                                         new PreventExertEffect(exertEffect, card));
                             }

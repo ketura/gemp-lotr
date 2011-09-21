@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -36,16 +37,18 @@ public class Card1_287 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.HEAL) {
             final HealCharacterEffect healEffect = (HealCharacterEffect) effect;
             if (Filters.filter(healEffect.getCardsToBeHealed(game), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0) {
-                PlayEventAction action = new PlayEventAction(self);
+                final PlayEventAction action = new PlayEventAction(self);
                 action.addCost(
                         new UnrespondableEffect() {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
-                                healEffect.preventHeal(Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)));
+                                final PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
+                                action.addEffect(new CardAffectsCardEffect(self, ringBearer));
+                                healEffect.preventHeal(ringBearer);
                             }
                         });
                 action.addEffect(

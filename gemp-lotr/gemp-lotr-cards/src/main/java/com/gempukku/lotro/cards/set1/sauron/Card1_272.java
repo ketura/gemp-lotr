@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -43,8 +44,10 @@ public class Card1_272 extends AbstractMinion {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getShadowCharacters().contains(self)) {
                 PhysicalCard fpChar = skirmish.getFellowshipCharacter();
-                if (fpChar != null)
+                if (fpChar != null) {
+                    action.addEffect(new CardAffectsCardEffect(self, fpChar));
                     action.addEffect(new WoundCharacterEffect(playerId, fpChar));
+                }
             }
             return Collections.singletonList(action);
         }

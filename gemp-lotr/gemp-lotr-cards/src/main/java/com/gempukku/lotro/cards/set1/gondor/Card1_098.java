@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -47,6 +48,7 @@ public class Card1_098 extends AbstractAttachableFPPossession {
                     new ChooseActiveCardEffect(playerId, "Choose a Weather condition", Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(PhysicalCard weatherCondition) {
+                            action.addEffect(new CardAffectsCardEffect(self, weatherCondition));
                             action.addEffect(new DiscardCardFromPlayEffect(self, weatherCondition));
                         }
                     });

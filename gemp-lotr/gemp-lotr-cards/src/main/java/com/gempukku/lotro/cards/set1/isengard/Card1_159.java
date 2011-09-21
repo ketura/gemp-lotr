@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -51,6 +52,7 @@ public class Card1_159 extends AbstractPermanent {
                     new ChooseActiveCardEffect(playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners()))) {
                         @Override
                         protected void cardSelected(PhysicalCard winningUrukHai) {
+                            action.addEffect(new CardAffectsCardEffect(self, winningUrukHai));
                             action.addEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(winningUrukHai), Keyword.FIERCE), Phase.REGROUP));

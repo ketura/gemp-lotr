@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -63,6 +64,7 @@ public class Card1_225 extends AbstractAttachable {
                         new ChooseActiveCardEffect(playerId, "Choose possession borne by character he is skirmishing", Filters.type(CardType.POSSESSION), Filters.hasAttached(skirmish.getFellowshipCharacter())) {
                             @Override
                             protected void cardSelected(PhysicalCard possession) {
+                                action.addEffect(new CardAffectsCardEffect(self, possession));
                                 action.addEffect(
                                         new DiscardCardFromPlayEffect(self, possession));
                             }

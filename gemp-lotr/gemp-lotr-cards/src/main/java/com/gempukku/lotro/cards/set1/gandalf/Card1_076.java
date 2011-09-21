@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.PreventWoundEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -44,7 +45,7 @@ public class Card1_076 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND
                 && checkPlayRequirements(playerId, game, self, 0)) {
             final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
@@ -56,6 +57,7 @@ public class Card1_076 extends AbstractResponseEvent {
                         new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
+                                action.addEffect(new CardAffectsCardEffect(self, companion));
                                 action.addEffect(
                                         new PreventWoundEffect(woundEffect, companion));
                             }

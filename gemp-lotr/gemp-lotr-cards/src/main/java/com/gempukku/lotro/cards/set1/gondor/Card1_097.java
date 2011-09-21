@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -43,6 +44,7 @@ public class Card1_097 extends AbstractCompanion {
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
+                            action.addEffect(new CardAffectsCardEffect(self, hobbit));
                             action.addEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));

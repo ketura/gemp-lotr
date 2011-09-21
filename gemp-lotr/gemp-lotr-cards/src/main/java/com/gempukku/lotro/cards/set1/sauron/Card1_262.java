@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -49,6 +50,7 @@ public class Card1_262 extends AbstractMinion {
                     new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
+                            action.addEffect(new CardAffectsCardEffect(self, hobbit));
                             action.addEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self), "Orc Assassin effect"));
                         }
                     });

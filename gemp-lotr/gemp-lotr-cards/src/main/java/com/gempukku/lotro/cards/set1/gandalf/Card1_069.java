@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -47,6 +48,7 @@ public class Card1_069 extends AbstractAlly {
                     new ChooseActiveCardEffect(playerId, "Choose ISENGARD or MORIA condition", Filters.or(Filters.culture(Culture.ISENGARD), Filters.culture(Culture.MORIA)), Filters.type(CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(PhysicalCard condition) {
+                            action.addEffect(new CardAffectsCardEffect(self, condition));
                             action.addEffect(new DiscardCardFromPlayEffect(self, condition));
                         }
                     }

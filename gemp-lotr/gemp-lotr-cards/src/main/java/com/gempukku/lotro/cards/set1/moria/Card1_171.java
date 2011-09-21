@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,12 +26,13 @@ public class Card1_171 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.canExert()), Filters.notAssigned()) {
                     @Override
                     protected void cardSelected(final PhysicalCard companion) {
+                        action.addEffect(new CardAffectsCardEffect(self, companion));
                         action.addEffect(
                                 new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.notAssigned()) {
                                     @Override

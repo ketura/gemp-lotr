@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.common.*;
@@ -58,6 +59,7 @@ public class Card1_183 extends AbstractPermanent {
                     new ChooseActiveCardEffect(playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish()) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
+                            action.addEffect(new CardAffectsCardEffect(self, moriaOrc));
                             action.addEffect(new StackCardFromPlayEffect(moriaOrc, self));
                         }
                     });

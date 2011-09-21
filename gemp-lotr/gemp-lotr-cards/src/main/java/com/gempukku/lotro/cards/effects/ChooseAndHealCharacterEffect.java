@@ -26,9 +26,12 @@ public class ChooseAndHealCharacterEffect extends ChooseActiveCardEffect {
 
     @Override
     protected void cardSelected(PhysicalCard character) {
-        if (_cost)
+        if (_cost) {
             _action.addCost(new HealCharacterEffect(_playerId, character));
-        else
+        } else {
+            if (_action.getActionSource() != null)
+                _action.addEffect(new CardAffectsCardEffect(_action.getActionSource(), character));
             _action.addEffect(new HealCharacterEffect(_playerId, character));
+        }
     }
 }

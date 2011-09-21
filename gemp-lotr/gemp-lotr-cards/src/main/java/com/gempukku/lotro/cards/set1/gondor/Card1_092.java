@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -40,6 +41,7 @@ public class Card1_092 extends AbstractAttachableFPPossession {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.isWounded(effectResult, self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Apply damage prevention");
+            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new CantTakeWoundsModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.SKIRMISH));

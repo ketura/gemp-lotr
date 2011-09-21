@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -34,6 +35,7 @@ public class Card1_003 extends AbstractEvent {
                     protected void cardSelected(PhysicalCard dwarf) {
                         List<PhysicalCard> attachedDwarvenHandWeapons = Filters.filter(game.getGameState().getAttachedCards(dwarf), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.HAND_WEAPON), Filters.culture(Culture.DWARVEN));
                         int bonus = (attachedDwarvenHandWeapons.size() == 0) ? 2 : 3;
+                        action.addEffect(new CardAffectsCardEffect(self, dwarf));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH

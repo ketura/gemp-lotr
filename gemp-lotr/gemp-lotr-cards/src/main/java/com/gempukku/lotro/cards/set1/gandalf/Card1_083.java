@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -37,6 +38,7 @@ public class Card1_083 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
                     protected void cardSelected(PhysicalCard minion) {
+                        action.addEffect(new CardAffectsCardEffect(self, minion));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(minion), -3), Phase.SKIRMISH));

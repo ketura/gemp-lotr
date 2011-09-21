@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -9,6 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 
 import java.util.List;
 
@@ -50,7 +52,9 @@ public class Card1_058 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard condition) {
-
+                        action.addEffect(new CardAffectsCardEffect(self, condition));
+                        action.addEffect(
+                                new DiscardCardFromPlayEffect(self, condition));
                     }
                 });
         return action;

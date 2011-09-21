@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -60,9 +61,11 @@ public class Card1_216 extends AbstractAttachable {
                 final PhysicalCard fpChar = skirmish.getFellowshipCharacter();
                 if (fpChar != null) {
                     final PhysicalCard bladeTip = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"), Filters.owner(playerId), Filters.zone(Zone.SHADOW_SUPPORT));
-                    if (bladeTip != null)
+                    if (bladeTip != null) {
+                        action.addEffect(new CardAffectsCardEffect(self, fpChar));
                         action.addEffect(
                                 new TransferPermanentEffect(bladeTip, fpChar));
+                    }
                 }
             }
             return Collections.singletonList(action);

@@ -2,7 +2,9 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -11,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -47,15 +48,10 @@ public class Card1_094 extends AbstractAttachableFPPossession {
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION)) {
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose companion", false, Filters.type(CardType.COMPANION)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Heal a companion";
-                        }
-
-                        @Override
-                        protected void cardSelected(PhysicalCard companion) {
-                            action.addEffect(new HealCharacterEffect(playerId, companion));
                         }
                     });
 
@@ -68,6 +64,7 @@ public class Card1_094 extends AbstractAttachableFPPossession {
 
                         @Override
                         protected void cardSelected(PhysicalCard shadowCondition) {
+                            action.addEffect(new CardAffectsCardEffect(self, shadowCondition));
                             action.addEffect(new DiscardCardFromPlayEffect(self, shadowCondition));
                         }
                     });

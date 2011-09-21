@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -40,6 +41,7 @@ public class Card1_102 extends AbstractEvent {
                         modifiers.add(new StrengthModifier(null, null, 2));
                         modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
 
+                        action.addEffect(new CardAffectsCardEffect(self, companion));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new CompositeModifier(self, Filters.sameCard(companion), modifiers), Phase.SKIRMISH));

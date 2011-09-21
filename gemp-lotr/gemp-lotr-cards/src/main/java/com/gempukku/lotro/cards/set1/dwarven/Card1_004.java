@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -48,6 +49,7 @@ public class Card1_004 extends AbstractEvent {
                         modifiers.add(new StrengthModifier(null, null, 3));
                         modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
 
+                        action.addEffect(new CardAffectsCardEffect(self, dwarf));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new CompositeModifier(self, Filters.sameCard(dwarf), modifiers), Phase.SKIRMISH));

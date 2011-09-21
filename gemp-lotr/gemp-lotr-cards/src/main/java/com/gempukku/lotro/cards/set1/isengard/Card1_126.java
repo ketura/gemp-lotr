@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,6 +36,7 @@ public class Card1_126 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                     @Override
                     protected void cardSelected(PhysicalCard urukHai) {
+                        action.addEffect(new CardAffectsCardEffect(self, urukHai));
                         action.addEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new KeywordModifier(self, Filters.sameCard(urukHai), Keyword.FIERCE), Phase.REGROUP));

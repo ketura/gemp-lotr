@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -34,6 +35,7 @@ public class Card1_246 extends AbstractEvent {
                 && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC)).size() > 0
                 && skirmish.getFellowshipCharacter() != null) {
             int burdens = game.getGameState().getBurdens();
+            action.addEffect(new CardAffectsCardEffect(self, skirmish.getFellowshipCharacter()));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(skirmish.getFellowshipCharacter()), -burdens), Phase.SKIRMISH));
