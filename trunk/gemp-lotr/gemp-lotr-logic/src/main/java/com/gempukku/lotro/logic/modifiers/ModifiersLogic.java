@@ -236,7 +236,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public int getVitality(GameState gameState, PhysicalCard physicalCard) {
-        int result = physicalCard.getBlueprint().getVitality();
+        int result = physicalCard.getBlueprint().getVitality() - gameState.getWounds(physicalCard);
         for (Modifier modifier : getModifiers(ModifierEffect.VITALITY_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getVitality(gameState, this, physicalCard, result);
