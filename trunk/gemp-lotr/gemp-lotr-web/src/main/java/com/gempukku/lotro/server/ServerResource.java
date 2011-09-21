@@ -182,8 +182,14 @@ public class ServerResource {
         if (gameMediator == null)
             sendError(Response.Status.NOT_FOUND);
 
-        if (decisionId != null)
-            gameMediator.playerAnswered(participantId, decisionId, decisionValue);
+        if (decisionId != null) {
+            try {
+                gameMediator.playerAnswered(participantId, decisionId, decisionValue);
+            } catch (RuntimeException exp) {
+                _logger.error("Error while sending decision", exp);
+                throw exp;
+            }
+        }
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
