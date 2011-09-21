@@ -1,7 +1,5 @@
 TO DO:
 Before release:
-31. Allow to cancel selection to reset to none-selected and go with different selection if no auto-accept is set or
-multiple choices required.
 
 Next priority:
 24. The events that are played and cards affected should be shown to the players briefly using animations to make it
@@ -14,7 +12,7 @@ Optional:
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-34.
+35.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
@@ -48,3 +46,6 @@ with Filters.sameCard(...) filter.
 26. The game area should display chat from the start.
 13. Add dead/discard pile displays.
 25. Remove all non-essencial alerts, instead add warnings to chat panel.
+31. Allow to cancel selection to reset to none-selected and go with different selection if no auto-accept is set or
+multiple choices required.
+34. Player should be able to concede the game at any time.

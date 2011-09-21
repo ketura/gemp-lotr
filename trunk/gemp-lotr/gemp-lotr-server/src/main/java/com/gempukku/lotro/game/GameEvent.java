@@ -15,7 +15,8 @@ public class GameEvent {
         START_SKIRMISH, END_SKIRMISH,
         ADD_TOKENS, REMOVE_TOKENS,
         MESSAGE, WARNING,
-        ZONE_SIZE
+        ZONE_SIZE,
+        CARD_AFFECTS_CARD
     }
 
     private String _message;
