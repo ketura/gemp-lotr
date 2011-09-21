@@ -46,6 +46,11 @@ public class Card1_344 extends AbstractSite {
                 possibleEffects.add(
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
+                            public String getText(LotroGame game) {
+                                return "Exert two non-Gimli companions";
+                            }
+
+                            @Override
                             protected void cardsSelected(List<PhysicalCard> cards) {
                                 action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.in(cards)));
                             }

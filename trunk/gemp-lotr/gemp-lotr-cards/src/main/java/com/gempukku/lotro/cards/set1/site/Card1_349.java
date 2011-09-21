@@ -53,6 +53,12 @@ public class Card1_349 extends AbstractSite {
                                                     && gameState.getTwilightPool() >= (modifiersQuerying.getTwilightCost(gameState, physicalCard) - 6);
                                 }
                             }) {
+
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Play card from hand";
+                        }
+
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             PhysicalCard balrog = selectedCards.get(0);

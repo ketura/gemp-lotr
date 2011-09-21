@@ -47,7 +47,7 @@ public class Card1_346 extends AbstractSite {
                         new ChooseActiveCardsEffect(fpPlayerId, "Choose two companions to exert", 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) {
                             @Override
                             public String getText(LotroGame game) {
-                                return "Exert two other companions";
+                                return "Exert two non-Frodo companions";
                             }
 
                             @Override

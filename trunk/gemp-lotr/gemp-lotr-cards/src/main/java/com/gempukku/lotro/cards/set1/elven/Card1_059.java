@@ -49,6 +49,11 @@ public class Card1_059 extends AbstractPermanent {
             possibleCosts.add(
                     new ChooseActiveCardEffect(playerId, "Choose Dwarf to exert", Filters.race(Race.DWARF)) {
                         @Override
+                        public String getText(LotroGame game) {
+                            return "Exert Dwarf";
+                        }
+
+                        @Override
                         protected void cardSelected(PhysicalCard dwarf) {
                             action.addCost(new ExertCharacterEffect(playerId, dwarf));
                             action.addEffect(
@@ -58,6 +63,11 @@ public class Card1_059 extends AbstractPermanent {
 
             possibleCosts.add(
                     new ChooseActiveCardEffect(playerId, "Choose Elf to exert", Filters.race(Race.ELF)) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert Elf";
+                        }
+
                         @Override
                         protected void cardSelected(PhysicalCard elf) {
                             action.addCost(new ExertCharacterEffect(playerId, elf));

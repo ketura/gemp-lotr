@@ -47,7 +47,7 @@ public class Card1_093 extends AbstractEvent {
         final PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
 
         if (arwen != null) {
-            action.addCost(
+            possibleEffects.add(
                     new ExertCharacterEffect(playerId, arwen) {
                         @Override
                         public EffectResult[] playEffect(LotroGame game) {
@@ -60,7 +60,7 @@ public class Card1_093 extends AbstractEvent {
                     });
         }
         if (aragorn != null) {
-            action.addCost(
+            possibleEffects.add(
                     new ExertCharacterEffect(playerId, aragorn) {
                         @Override
                         public EffectResult[] playEffect(LotroGame game) {
