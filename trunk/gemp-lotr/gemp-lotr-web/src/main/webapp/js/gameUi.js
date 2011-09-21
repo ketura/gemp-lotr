@@ -467,6 +467,8 @@ var GempLotrGameUI = Class.extend({
 
     processGameEventsXml: function(element) {
         var gameEvents = element.getElementsByTagName("gameEvent");
+
+        // First the non-animation things
         for (var i = 0; i < gameEvents.length; i++) {
             var gameEvent = gameEvents[i];
             var eventType = gameEvent.getAttribute("type");
@@ -504,10 +506,21 @@ var GempLotrGameUI = Class.extend({
                 this.message(gameEvent);
             } else if (eventType == "WARNING") {
                 this.warning(gameEvent);
-            } else if (eventType == "CARD_AFFECTS_CARD") {
+            }
+        }
+
+        if (gameEvents.length > 0)
+            this.layoutUI(true);
+
+        // Then the strictly animation events
+        for (var i = 0; i < gameEvents.length; i++) {
+            var gameEvent = gameEvents[i];
+            var eventType = gameEvent.getAttribute("type");
+            if (eventType == "CARD_AFFECTS_CARD") {
                 this.cardAffectsCard(gameEvent);
             }
         }
+
         var skirmish = element.getElementsByTagName("skirmish")
         if (skirmish.length > 0) {
             this.fpStrengthDiv.text(skirmish[0].getAttribute("fpStrength"));
@@ -531,9 +544,6 @@ var GempLotrGameUI = Class.extend({
                 $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
             }
         }
-
-        if (gameEvents.length > 0)
-            this.layoutUI(true);
 
         var decisions = element.getElementsByTagName("decision");
         if (decisions.length == 1) {
