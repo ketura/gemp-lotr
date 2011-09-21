@@ -99,13 +99,14 @@ var GempLotrHallUI = Class.extend({
             for (var i = 0; i < tables.length; i++) {
                 var table = tables[i];
                 var id = table.getAttribute("id");
+                var gameId = table.getAttribute("gameId");
                 var status = table.getAttribute("status");
                 var playersAttr = table.getAttribute("players");
                 var players = new Array();
                 if (playersAttr.length > 0)
                     players = playersAttr.split(",");
 
-                var tableDiv = this.createTableDiv(id, status, players, waiting);
+                var tableDiv = this.createTableDiv(id, gameId, status, players, waiting);
                 this.tablesDiv.append(tableDiv);
             }
 
@@ -146,7 +147,7 @@ var GempLotrHallUI = Class.extend({
         }
     },
 
-    createTableDiv: function(id, status, players, waiting) {
+    createTableDiv: function(id, gameId, status, players, waiting) {
         var tableDiv = $("<div></div>");
         tableDiv.css({ display: "inline-block", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
         tableDiv.append("<div class='tableStatus'>" + status + "</div>");
@@ -177,7 +178,7 @@ var GempLotrHallUI = Class.extend({
                         var participantIdAppend = "";
                         if (participantId != null)
                             participantIdAppend = "&participantId=" + participantId;
-                        location.href = "/gemp-lotr/game.html?gameId=" + id + participantIdAppend;
+                        location.href = "/gemp-lotr/game.html?gameId=" + gameId + participantIdAppend;
                     });
             tableDiv.append(but);
         }
