@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -48,6 +49,7 @@ public class Card1_210 extends AbstractEvent {
                         List<Modifier> modifiers = new LinkedList<Modifier>();
                         modifiers.add(new StrengthModifier(null, null, (burdens >= 6) ? 3 : 1));
                         modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE, (burdens >= 6) ? 2 : 1));
+                        action.addEffect(new CardAffectsCardEffect(self, nazgul));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new CompositeModifier(self, Filters.sameCard(nazgul), modifiers), Phase.SKIRMISH));

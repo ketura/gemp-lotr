@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
@@ -41,6 +42,7 @@ public class Card1_331 extends AbstractSite {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.addCost(new ExertCharacterEffect(playerId, card));
+                            action.addEffect(new CardAffectsCardEffect(self, card));
                             action.addEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));

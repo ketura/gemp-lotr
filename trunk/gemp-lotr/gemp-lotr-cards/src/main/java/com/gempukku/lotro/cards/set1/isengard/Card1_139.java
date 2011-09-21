@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,6 +44,7 @@ public class Card1_139 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                     @Override
                     protected void cardSelected(PhysicalCard urukHai) {
+                        action.addEffect(new CardAffectsCardEffect(self, urukHai));
                         if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
                             List<Modifier> modifiers = new LinkedList<Modifier>();
                             modifiers.add(new StrengthModifier(null, null, 4));

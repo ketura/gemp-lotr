@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -53,6 +54,7 @@ public class Card1_209 extends AbstractPermanent {
                 && self.getZone() == Zone.ATTACHED) {
             boolean ringBearer = game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.RING_BEARER);
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Wound bearer or if bearer is Ring-Bearer, add a burden instead");
+            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             if (ringBearer) {
                 action.addEffect(new AddBurdenEffect(self.getOwner()));
             } else {

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
@@ -46,6 +47,7 @@ public class Card1_293 extends AbstractEvent {
                     @Override
                     protected void cardSelected(PhysicalCard hobbit) {
                         action.addCost(new ExertCharacterEffect(playerId, hobbit));
+                        action.addEffect(new CardAffectsCardEffect(self, hobbit));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));

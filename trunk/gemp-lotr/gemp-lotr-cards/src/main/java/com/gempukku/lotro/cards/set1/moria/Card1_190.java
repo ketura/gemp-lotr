@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -55,6 +56,7 @@ public class Card1_190 extends AbstractAttachable {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert bearer to make him strength +2.");
             action.addCost(
                     new ExertCharacterEffect(playerId, self.getAttachedTo()));
+            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 2), Phase.SKIRMISH));

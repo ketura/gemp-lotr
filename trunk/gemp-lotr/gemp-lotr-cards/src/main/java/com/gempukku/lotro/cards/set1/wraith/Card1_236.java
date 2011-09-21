@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -42,6 +43,7 @@ public class Card1_236 extends AbstractMinion {
                         new ChooseActiveCardEffect(playerId, "Choose a companion (except the Ring-Bearer", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
+                                action.addEffect(new CardAffectsCardEffect(self, companion));
                                 action.addEffect(
                                         new AssignmentEffect(playerId, companion, Collections.singletonList(self), "Ulaire Toldea effect"));
                             }

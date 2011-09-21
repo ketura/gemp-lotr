@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -49,6 +50,7 @@ public class Card1_029 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.race(Race.ELF)) {
                     @Override
                     protected void cardSelected(final PhysicalCard elf) {
+                        action.addEffect(new CardAffectsCardEffect(self, elf));
                         action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
                         action.addEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(

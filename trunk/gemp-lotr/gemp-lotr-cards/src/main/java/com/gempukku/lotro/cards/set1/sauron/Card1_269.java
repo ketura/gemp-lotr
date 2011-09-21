@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.CheckLimitEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -48,6 +49,7 @@ public class Card1_269 extends AbstractAttachable {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Remove (1) to make bearer strength +1 (limit +3).");
             action.addCost(
                     new RemoveTwilightEffect(1));
+            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.addEffect(
                     new CheckLimitEffect(action, self, 3, Phase.SKIRMISH, false,
                             new AddUntilEndOfPhaseModifierEffect(

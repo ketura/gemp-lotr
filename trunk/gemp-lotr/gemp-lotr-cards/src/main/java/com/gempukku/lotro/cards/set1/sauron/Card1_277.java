@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -38,6 +39,7 @@ public class Card1_277 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard fpCondition) {
+                        action.addEffect(new CardAffectsCardEffect(self, fpCondition));
                         action.addEffect(
                                 new DiscardCardFromPlayEffect(self, fpCondition));
                     }

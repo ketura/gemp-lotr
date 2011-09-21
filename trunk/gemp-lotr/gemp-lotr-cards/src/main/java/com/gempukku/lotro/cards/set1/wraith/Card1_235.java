@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,6 +44,7 @@ public class Card1_235 extends AbstractMinion {
                     new ChooseActiveCardEffect(playerId, "Choose a WRAITH minion", Filters.culture(Culture.WRAITH), Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(PhysicalCard wraithMinion) {
+                            action.addEffect(new CardAffectsCardEffect(self, wraithMinion));
                             action.addEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(wraithMinion), Keyword.FIERCE), Phase.REGROUP));

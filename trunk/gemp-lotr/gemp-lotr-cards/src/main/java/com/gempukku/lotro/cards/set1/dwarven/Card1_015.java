@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -44,6 +45,7 @@ public class Card1_015 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Discard Gimli's Helm to prevent all wounds to him");
             action.addCost(new DiscardCardFromPlayEffect(self, self));
+            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.addEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new CantTakeWoundsModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.SKIRMISH));

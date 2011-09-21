@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,8 +34,8 @@ public class Card1_034 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Celeborn to Heal an ELVEN ally");
-            action.addCost(new ExertCharacterEffect(playerId, self));
-            action.addEffect(new ChooseAndHealCharacterEffect(action, playerId, "Choose an ELVEN ally", false, Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
+            action.addEffect(
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an ELVEN ally", false, Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
 
             return Collections.singletonList(action);
         }

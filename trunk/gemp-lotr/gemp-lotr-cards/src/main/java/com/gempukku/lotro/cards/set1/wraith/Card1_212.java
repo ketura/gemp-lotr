@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -36,6 +37,7 @@ public class Card1_212 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
                     @Override
                     protected void cardSelected(PhysicalCard ally) {
+                        action.addEffect(new CardAffectsCardEffect(self, ally));
                         action.addEffect(
                                 new DiscardCardFromPlayEffect(self, ally));
                     }

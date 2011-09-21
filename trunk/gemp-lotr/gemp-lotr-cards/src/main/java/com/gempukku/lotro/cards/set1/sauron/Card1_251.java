@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,7 +33,7 @@ public class Card1_251 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
         int woundCount = companionCount - 5;
@@ -41,6 +42,7 @@ public class Card1_251 extends AbstractEvent {
                     new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
+                            action.addEffect(new CardAffectsCardEffect(self, companion));
                             action.addEffect(
                                     new WoundCharacterEffect(playerId, companion));
                         }

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
@@ -64,6 +65,7 @@ public class Card1_221 extends AbstractAttachable {
                     new ChooseActiveCardEffect(playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(PhysicalCard condition) {
+                            action.addEffect(new CardAffectsCardEffect(self, condition));
                             action.addEffect(
                                     new DiscardCardFromPlayEffect(self, condition));
                         }

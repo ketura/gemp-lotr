@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -48,6 +49,7 @@ public class Card1_109 extends AbstractEvent {
                         modifiers.add(new StrengthModifier(null, null, 2));
                         modifiers.add(new AllyOnCurrentSiteModifier(null, null));
 
+                        action.addEffect(new CardAffectsCardEffect(self, ally));
                         action.addEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new CompositeModifier(self, Filters.sameCard(ally), modifiers), Phase.REGROUP));

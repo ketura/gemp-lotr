@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.common.*;
@@ -24,7 +25,7 @@ public class Card1_113 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose a ranger", true, Filters.keyword(Keyword.RANGER), Filters.canExert()));
@@ -32,6 +33,7 @@ public class Card1_113 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
                     protected void cardSelected(PhysicalCard minion) {
+                        action.addEffect(new CardAffectsCardEffect(self, minion));
                         action.addEffect(new ExhaustCharacterEffect(playerId, action, false, minion));
                     }
                 });

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -37,7 +38,7 @@ public class Card1_224 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && game.getGameState().isWearingRing()
@@ -56,6 +57,7 @@ public class Card1_224 extends AbstractResponseEvent {
                                         @Override
                                         protected void cardSelected(PhysicalCard nazgul) {
                                             PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
+                                            action.addEffect(new CardAffectsCardEffect(self, ringBearer));
                                             action.addEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
                                             game.getGameState().setCancelRingText(true);
                                             game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(

@@ -2,6 +2,8 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -30,15 +32,16 @@ public class Card1_026 extends AbstractEvent {
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
-        PlayEventAction action = new PlayEventAction(self);
+        final PlayEventAction action = new PlayEventAction(self);
         action.addEffect(
                 new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.race(Race.DWARF)) {
                     @Override
                     protected void cardSelected(PhysicalCard dwarf) {
                         GameState gameState = game.getGameState();
                         int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
-                        game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
-                                new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH);
+                        action.addEffect(new CardAffectsCardEffect(self, dwarf));
+                        action.addEffect(
+                                new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH));
                     }
                 }
         );

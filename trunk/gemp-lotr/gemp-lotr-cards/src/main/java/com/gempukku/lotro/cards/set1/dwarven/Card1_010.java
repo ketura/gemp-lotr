@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -46,6 +47,7 @@ public class Card1_010 extends AbstractAttachable {
             return Collections.singletonList(action);
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert bearer at the start of each of your turns");
+            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.addEffect(new ExertCharacterEffect(self.getOwner(), self.getAttachedTo()));
             return Collections.singletonList(action);
         }

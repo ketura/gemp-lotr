@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -34,7 +35,7 @@ public class Card1_231 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
                 && (
@@ -47,6 +48,7 @@ public class Card1_231 extends AbstractMinion {
                     new ChooseActiveCardEffect(playerId, "Choose a companion (except a Ring-Bearer)", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
+                            action.addEffect(new CardAffectsCardEffect(self, companion));
                             action.addEffect(
                                     new WoundCharacterEffect(playerId, companion));
                         }

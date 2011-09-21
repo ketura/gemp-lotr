@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -30,7 +31,7 @@ public class Card1_250 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.addCost(
                 new ChooseAndExertCharacterEffect(action, playerId, "Choose SAURON Orc", true, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert()));
@@ -38,6 +39,7 @@ public class Card1_250 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose a companion (except the Ring-Bearer)", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                     @Override
                     protected void cardSelected(PhysicalCard companion) {
+                        action.addEffect(new CardAffectsCardEffect(self, companion));
                         action.addEffect(
                                 new WoundCharacterEffect(playerId, companion));
                     }

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -41,6 +42,7 @@ public class Card1_175 extends AbstractPermanent {
                 && game.getGameState().getCurrentSiteNumber() >= 4) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exhaust the played companion.");
+            action.addEffect(new CardAffectsCardEffect(self, playCardResult.getPlayedCard()));
             action.addEffect(
                     new ExhaustCharacterEffect(playCardResult.getPlayedCard().getOwner(), action, false, playCardResult.getPlayedCard()));
             return Collections.singletonList(action);

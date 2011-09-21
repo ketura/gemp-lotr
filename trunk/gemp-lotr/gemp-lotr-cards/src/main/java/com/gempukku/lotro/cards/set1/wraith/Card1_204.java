@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -34,6 +35,7 @@ public class Card1_204 extends AbstractEvent {
                     @Override
                     protected void cardSelected(PhysicalCard nazgul) {
                         int bonus = (game.getGameState().isWearingRing()) ? 5 : 2;
+                        action.addEffect(new CardAffectsCardEffect(self, nazgul));
                         action.addEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(nazgul), bonus), Phase.SKIRMISH));
