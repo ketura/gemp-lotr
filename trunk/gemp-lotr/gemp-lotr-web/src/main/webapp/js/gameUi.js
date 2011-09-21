@@ -265,21 +265,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -291,15 +291,15 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    title: "Card information",
-                    minHeight: 80,
-                    minWidth: 200,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -580,9 +580,9 @@ var GempLotrGameUI = Class.extend({
         else if (zone == "DISCARD")
             $("#discard" + this.getPlayerIndex(playerId)).text("Discard: " + count);
         else if (zone == "DEAD")
-            $("#deadPile" + this.getPlayerIndex(playerId)).text("Dead pile: " + count);
-        else if (zone == "DECK")
-            $("#deck" + this.getPlayerIndex(playerId)).text("Deck: " + count);
+                $("#deadPile" + this.getPlayerIndex(playerId)).text("Dead pile: " + count);
+            else if (zone == "DECK")
+                    $("#deck" + this.getPlayerIndex(playerId)).text("Deck: " + count);
     },
 
     playerPosition: function(element) {
@@ -645,6 +645,7 @@ var GempLotrGameUI = Class.extend({
 
         var card = new Card(blueprintId, "ANIMATION", "anim", participantId);
         var cardDiv = createCardDiv(card.imageUrl);
+        cardDiv.data("card", card);
 
         this.animationEffectDiv.queue("anim",
                 function(next) {
@@ -652,21 +653,40 @@ var GempLotrGameUI = Class.extend({
                     if (targetCard.length > 0) {
                         targetCard = targetCard[0];
                         $("#animation").html(cardDiv);
+                        $("#animation").show();
+                        var targetCardWidth = $(targetCard).width();
+                        var targetCardHeight = $(targetCard).height();
+
+                        var maxDimension = Math.max(targetCardWidth, targetCardHeight);
+
+                        var borderWidth = Math.floor(maxDimension / 30);
+                        var endBorderWidth = Math.floor(maxDimension * 2 / 30);
                         $("#animation").css({
                             position: "absolute",
-                            left: targetCard.position().left(),
-                            top: targetCard.position().top,
-                            width: targetCard.width(),
-                            height: targetCard.height(),
-                            "z-index": 100});
-                        $("#animation").show();
-                        $('#animation').animate(
-                                {opacity: 0},
-                                {duration: 500,
-                                    queue: false,
-                                    complete: next
-                                });
+                            left: $(targetCard).position().left,
+                            top: $(targetCard).position().top,
+                            width: targetCardWidth,
+                            height: targetCardHeight,
+                            "z-index": 100,
+                            opacity: 1});
+                        $("#animation").animate(
+                        {
+                            opacity: 0,
+                            left: "-=" + (targetCardWidth / 2),
+                            top: "-=" + (targetCardHeight / 2),
+                            width: "+=" + targetCardWidth,
+                            height: "+=" + targetCardHeight},
+                        {
+                            duration: 500,
+                            easing: "easeInCubic",
+                            queue: false,
+                            complete: next
+                        });
                     }
+                }).queue("anim",
+                function(next) {
+                    $("#animation").hide();
+                    next();
                 }).dequeue("anim");
     },
 
@@ -768,7 +788,7 @@ var GempLotrGameUI = Class.extend({
                     if (index != -1)
                         cardData.attachedCards.splice(index, 1);
                 }
-        );
+                );
 
         var card = $(".card:cardId(" + cardId + ")");
         var cardData = card.data("card");
@@ -889,7 +909,7 @@ var GempLotrGameUI = Class.extend({
                         if (index != -1)
                             cardData.attachedCards.splice(index, 1);
                     }
-            );
+                    );
         }
 
         card.remove();
@@ -961,13 +981,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#integerDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#integerDecision").val());
+            }
+        }
+                );
 
         $("#integerDecision").SpinnerControl({ type: 'range',
             typedata: {
@@ -999,13 +1019,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(html)
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+            }
+        }
+                );
 
         this.smallDialog.dialog("open");
     },
