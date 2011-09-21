@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.game.state.GameState;
@@ -80,14 +80,38 @@ public class LotroGameMediator {
             if (modifiers.size() == 0)
                 sb.append("<br><i>nothing</i>");
 
-            CardType type = card.getBlueprint().getCardType();
-            if (type == CardType.COMPANION || type == CardType.ALLY || type == CardType.MINION) {
-                sb.append("<br><br><b>Effective stats:</b>");
-                sb.append("<br><b>Strength:</b> " + _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card));
-                sb.append("<br><b>Vitality:</b> " + _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card));
-                if (type == CardType.MINION)
-                    sb.append("<br><b>Twilight cost:</b> " + _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card));
+            sb.append("<br><br><b>Effective stats:</b>");
+            try {
+                int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card);
+                sb.append("<br><b>Twilight cost:</b> " + twilightCost);
+            } catch (UnsupportedOperationException exp) {
             }
+            try {
+                int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card);
+                sb.append("<br><b>Strength:</b> " + strength);
+            } catch (UnsupportedOperationException exp) {
+            }
+            try {
+                int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card);
+                sb.append("<br><b>Vitality:</b> " + vitality);
+            } catch (UnsupportedOperationException exp) {
+            }
+
+            StringBuilder keywords = new StringBuilder();
+            for (Keyword keyword : Keyword.values()) {
+                if (keyword.isInfoDisplayable()) {
+                    if (keyword.isMultiples()) {
+                        int count = _lotroGame.getModifiersQuerying().getKeywordCount(_lotroGame.getGameState(), card, keyword);
+                        if (count > 0)
+                            keywords.append(keyword.getHumanReadable() + " +" + count + ", ");
+                    } else {
+                        if (_lotroGame.getModifiersQuerying().hasKeyword(_lotroGame.getGameState(), card, keyword))
+                            keywords.append(keyword.getHumanReadable() + ", ");
+                    }
+                }
+            }
+            if (keywords.length() > 0)
+                sb.append("<br><b>Keywords:</b> " + keywords.substring(0, keywords.length() - 2));
 
             return sb.toString();
         } finally {
