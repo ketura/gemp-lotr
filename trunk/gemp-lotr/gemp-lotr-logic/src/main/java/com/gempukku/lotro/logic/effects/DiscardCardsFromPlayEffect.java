@@ -55,7 +55,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
 
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), _filter);
+        return getCardsToBeDiscarded(game).size() > 0;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class DiscardCardsFromPlayEffect extends AbstractEffect {
         }
 
         if (_source != null && discardedCards.size() > 0)
-            game.getGameState().sendMessage(_source.getOwner() + " discards multiple cards from play using " + _source.getBlueprint().getName());
+            game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + _source.getBlueprint().getName());
         return new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)};
     }
 }
