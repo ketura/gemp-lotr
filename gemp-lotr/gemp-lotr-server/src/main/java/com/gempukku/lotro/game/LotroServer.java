@@ -23,7 +23,6 @@ public class LotroServer extends AbstractServer {
 
     private Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<String, LotroGameMediator>();
 
-
     private final Map<String, Date> _finishedGamesTime = new LinkedHashMap<String, Date>();
     private final long _timeToGameDeath = 1000 * 60 * 5; // 5 minutes
 
