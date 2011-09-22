@@ -247,7 +247,7 @@ var GempLotrCommunication = Class.extend({
     getRegistrationForm: function(callback) {
         $.ajax({
             type: "POST",
-            url: "/gemp-lotr/registrationForm.html",
+            url: "/gemp-lotr/includes/registrationForm.html",
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
