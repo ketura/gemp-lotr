@@ -2,8 +2,6 @@ TO DO:
 Before release:
 
 Next priority:
-24. The events that are played and cards affected should be shown to the players briefly using animations to make it
- aestheticly pleasing.
 30. Watching game replay after it's finished and sharing the game replay with others via code.
 
 Optional:
@@ -49,3 +47,5 @@ with Filters.sameCard(...) filter.
 31. Allow to cancel selection to reset to none-selected and go with different selection if no auto-accept is set or
 multiple choices required.
 34. Player should be able to concede the game at any time.
+24. The events that are played and cards affected should be shown to the players briefly using animations to make it
+ aestheticly pleasing.
