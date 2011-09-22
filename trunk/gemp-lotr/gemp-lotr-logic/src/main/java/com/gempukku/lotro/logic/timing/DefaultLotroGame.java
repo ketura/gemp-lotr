@@ -16,10 +16,13 @@ import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class DefaultLotroGame implements LotroGame {
+    private static final Logger log = Logger.getLogger(DefaultLotroGame.class);
+
     private GameState _gameState;
     private ModifiersLogic _modifiersLogic = new ModifiersLogic();
     private DefaultActionsEnvironment _actionsEnvironment;
@@ -106,6 +109,7 @@ public class DefaultLotroGame implements LotroGame {
     @Override
     public void playerLost(String playerId, String reason) {
         if (_losers.get(playerId) == null) {
+            log.debug("Player " + playerId + " lost due to: " + reason);
             _losers.put(playerId, reason);
             if (_gameState != null)
                 _gameState.sendMessage(playerId + " lost due to: " + reason);

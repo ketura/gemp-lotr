@@ -9,6 +9,7 @@
     <style type="text/css">
         body {
             font-size: 12px;
+            background-color: #000000;
         }
 
         .tableStatus {
@@ -36,6 +37,10 @@
         #disclaimer {
             color: #ffffff;
             font-size: 80%;
+        }
+
+        .ui-tabs-nav li {
+            font-size: 70%;
         }
 
         .ui-button-text-only .ui-button-text {
@@ -74,21 +79,35 @@
 
         $(document).ready(
                 function() {
-                    $("#user").append("Create a table or join one where other player is waiting to start a game.");
+                    //                    $("#user").append("Create a table or join one where other player is waiting to start a game.");
 
                     var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
                     chat.setBounds(2, 2, 780 - 4, 200 - 4);
 
                     var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
+
+                    $("#tabs").tabs();
                 });
     </script>
 
 </head>
-<body bgcolor="#000000">
-<div id="user" style="position:absolute;left:0px;top:0px;width:780px;height:60px;color:#ffffff;"></div>
-<div id="hall" class="ui-widget-content" style="position:absolute;left:0px;top:60px;width:780px;height:260px;"></div>
-<div id="chat" class="ui-widget-content" style="position:absolute;left:0px;top:320px;width:780px;height:200px;"></div>
-<div id="disclaimer" style="position:absolute;left:0px;top:540px;width:780px;height:20px;">
+<body>
+<div id="tabs" width="100%" height="800">
+    <ul>
+        <li><a href="#gameHall">Game Hall</a></li>
+        <li><a href="includes/leagueRules.html">League Rules</a></li>
+        <li><a href="includes/contribute.html">Contribute</a></li>
+        <li><a href="includes/changeLog.html">Change Log</a></li>
+    </ul>
+    <div id="gameHall">
+        <div id="user" style="width:780px;height:60px;"></div>
+        <div id="hall" class="ui-widget-content"
+             style="width:780px;height:260px;"></div>
+        <div id="chat" class="ui-widget-content"
+             style="position:relative;width:780px;height:200px;"></div>
+    </div>
+</div>
+<div id="disclaimer">
     The information presented on this site about LotR TCG, both literal and graphical, is copyrighted by Decipher Inc.
     This website is not produced, endorsed, supported, or affiliated with Decipher.
 </div>
