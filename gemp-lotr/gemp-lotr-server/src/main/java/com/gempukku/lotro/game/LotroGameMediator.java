@@ -149,14 +149,18 @@ public class LotroGameMediator {
                 for (Map.Entry<String, Long> playerDecision : _decisionQuerySentTimes.entrySet()) {
                     String playerId = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();
-                    if (currentTime > decisionSent + _playerDecisionTimeoutPeriod)
+                    if (currentTime > decisionSent + _playerDecisionTimeoutPeriod) {
+                        addTimeSpentOnDecisionToUserClock(playerId);
                         _lotroGame.playerLost(playerId, "Player decision timed-out");
+                    }
                 }
 
                 for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
                     String player = playerClock.getKey();
-                    if (_maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player) < 0)
+                    if (_maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player) < 0) {
+                        addTimeSpentOnDecisionToUserClock(player);
                         _lotroGame.playerLost(player, "Player run out of time");
+                    }
                 }
             }
         } finally {
@@ -167,8 +171,10 @@ public class LotroGameMediator {
     public void concede(String playerId) {
         _writeLock.lock();
         try {
-            if (_lotroGame.getWinnerPlayerId() == null && _playersPlaying.contains(playerId))
+            if (_lotroGame.getWinnerPlayerId() == null && _playersPlaying.contains(playerId)) {
+                addTimeSpentOnDecisionToUserClock(playerId);
                 _lotroGame.playerLost(playerId, "Concession");
+            }
         } finally {
             _writeLock.unlock();
         }
@@ -283,10 +289,12 @@ public class LotroGameMediator {
     }
 
     private void addTimeSpentOnDecisionToUserClock(String participantId) {
-        long queryTime = _decisionQuerySentTimes.remove(participantId);
-        long currentTime = System.currentTimeMillis();
-        long diffSec = (currentTime - queryTime) / 1000;
-        _playerClocks.put(participantId, _playerClocks.get(participantId) + (int) diffSec);
+        Long queryTime = _decisionQuerySentTimes.remove(participantId);
+        if (queryTime != null) {
+            long currentTime = System.currentTimeMillis();
+            long diffSec = (currentTime - queryTime) / 1000;
+            _playerClocks.put(participantId, _playerClocks.get(participantId) + (int) diffSec);
+        }
     }
 
     private int getCurrentUserPendingTime(String participantId) {
