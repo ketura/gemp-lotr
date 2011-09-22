@@ -241,7 +241,7 @@ var GempLotrGameUI = Class.extend({
                     if (event.shiftKey) {
                         this.displayCardInfo(selectedCardElem.data("card"));
                     } else if (selectedCardElem.hasClass("selectableCard"))
-                        this.selectionFunction(selectedCardElem.data("card").cardId);
+                        this.selectionFunction(selectedCardElem.data("card").cardId, event);
                 }
             }
         }
@@ -1182,12 +1182,12 @@ var GempLotrGameUI = Class.extend({
                 actions.push({ actionId: actionId, actionText: actionText });
             }
 
-            that.selectionFunction = function(cardId) {
+            that.selectionFunction = function(cardId, event) {
                 var cardIdElem = $(".card:cardId(" + cardId + ")");
                 var actions = cardIdElem.data("action");
-                if (actions.length == 1) {
-                    var action = actions[0];
-                    selectedCardIds.push(action.actionId);
+
+                var selectActionFunction = function(actionId) {
+                    selectedCardIds.push(actionId);
                     if (that.settingsAutoAccept) {
                         finishChoice();
                     } else {
@@ -1195,6 +1195,13 @@ var GempLotrGameUI = Class.extend({
                         $(".card:cardId(" + cardId + ")").addClass("selectedCard");
                         processButtons();
                     }
+                };
+
+                if (actions.length == 1) {
+                    var action = actions[0];
+                    selectActionFunction(action.actionId);
+                } else {
+                    that.createActionChoiceContextMenu(actions, event, selectActionFunction);
                 }
             };
 
@@ -1203,6 +1210,53 @@ var GempLotrGameUI = Class.extend({
 
         allowSelection();
         processButtons();
+    },
+
+    createActionChoiceContextMenu: function(actions, event, selectActionFunction) {
+        // Remove context menus that may be showing
+        $(".contextMenu").remove();
+
+        var div = $("<ul class='contextMenu'></ul>");
+        for (var i = 0; i < actions.length; i++) {
+            var action = actions[i];
+            var text = action.actionText;
+            div.append("<li><a href='#" + action.actionId + "'>" + text + "</a></li>");
+        }
+
+        $("#main").append(div);
+
+        var x = event.pageX;
+        var y = event.pageY;
+        $(div).css({left: x, top: y}).fadeIn(150);
+
+        $(div).find('A').mouseover(function() {
+            $(div).find('LI.hover').removeClass('hover');
+            $(this).parent().addClass('hover');
+        }).mouseout(function() {
+            $(div).find('LI.hover').removeClass('hover');
+        });
+
+        var getRidOfContextMenu = function() {
+            $(div).remove();
+            $(document).unbind("click", getRidOfContextMenu);
+            return false;
+        };
+
+        // When items are selected
+        $(div).find('A').unbind('click');
+        $(div).find('LI:not(.disabled) A').click(function() {
+            $(document).unbind('click', getRidOfContextMenu);
+            $(".contextMenu").remove();
+
+            var actionId = $(this).attr('href').substr(1);
+            selectActionFunction(actionId);
+            return false;
+        });
+
+        // Hide bindings
+        setTimeout(function() { // Delay for Mozilla
+            $(document).click(getRidOfContextMenu);
+        }, 0);
     },
 
     // Choosing one action to resolve, for example required triggered actions
