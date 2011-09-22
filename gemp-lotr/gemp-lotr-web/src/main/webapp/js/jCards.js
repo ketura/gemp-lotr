@@ -89,3 +89,9 @@ function createCardDiv(image, text) {
 
     return cardDiv;
 }
+
+function createSimpleCardDiv(image) {
+    var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'></div>");
+
+    return cardDiv;
+}

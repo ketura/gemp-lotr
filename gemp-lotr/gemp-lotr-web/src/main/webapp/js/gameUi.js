@@ -85,10 +85,10 @@ var GempLotrGameUI = Class.extend({
 
         this.skirmishShadowGroup = new NormalCardGroup($("#main"), function (card) {
             return card.zone == "SHADOW_CHARACTERS" && card.skirmish == true;
-        });
+        }, false);
         this.skirmishFellowshipGroup = new NormalCardGroup($("#main"), function (card) {
             return (card.zone == "FREE_SUPPORT" || card.zone == "FREE_CHARACTERS") && card.skirmish == true;
-        });
+        }, false);
 
         this.initializeDialogs();
 
@@ -518,10 +518,12 @@ var GempLotrGameUI = Class.extend({
             var eventType = gameEvent.getAttribute("type");
             if (eventType == "CARD_AFFECTS_CARD") {
                 this.animations.cardAffectsCard(gameEvent);
+            } else if (eventType == "EVENT_PLAYED") {
+                this.animations.eventPlayed(gameEvent);
             }
         }
 
-        var skirmish = element.getElementsByTagName("skirmish")
+        var skirmish = element.getElementsByTagName("skirmish");
         if (skirmish.length > 0) {
             this.fpStrengthDiv.text(skirmish[0].getAttribute("fpStrength"));
             this.shadowStrengthDiv.text(skirmish[0].getAttribute("shadowStrength"));
@@ -1407,8 +1409,8 @@ var GempLotrGameUI = Class.extend({
             delete this.shadowAssignGroups[previousCharacterId];
             delete this.freePeopleAssignGroups[previousCharacterId];
 
-            this.assignGroupDivs[this.assignGroupDivs.length - 1].remove();
-            this.assignGroupDivs.splice(this.assignGroupDivs.length - 1, 1);
+            this.assignGroupDivs[0].remove();
+            this.assignGroupDivs.splice(0, 1);
         }
     },
 

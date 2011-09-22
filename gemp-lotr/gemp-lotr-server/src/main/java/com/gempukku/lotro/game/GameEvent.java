@@ -16,7 +16,7 @@ public class GameEvent {
         ADD_TOKENS, REMOVE_TOKENS,
         MESSAGE, WARNING,
         ZONE_SIZE,
-        CARD_AFFECTS_CARD
+        CARD_AFFECTS_CARD, EVENT_PLAYED
     }
 
     private String _message;
