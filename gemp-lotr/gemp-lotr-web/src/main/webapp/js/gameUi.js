@@ -654,9 +654,14 @@ var GempLotrGameUI = Class.extend({
         var cardId = element.getAttribute("cardId");
         var opposingCardIds = element.getAttribute("opposingCardIds").split(",");
 
-        $(".card:cardId(" + opposingCardIds + "," + cardId + ")").each(function() {
+        $(".card:cardId(" + opposingCardIds + ")").each(function() {
             $(this).data("card").skirmish = true;
         });
+
+        if (cardId != null)
+            $(".card:cardId(" + cardId + ")").each(function() {
+                $(this).data("card").skirmish = true;
+            });
 
         this.fpStrengthDiv = $("<div class='fpStrength'></div>");
         this.shadowStrengthDiv = $("<div class='shadowStrength'></div>");
