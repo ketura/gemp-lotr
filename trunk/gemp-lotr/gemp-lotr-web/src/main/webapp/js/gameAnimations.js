@@ -1,40 +1,96 @@
 var GameAnimations = Class.extend({
     game: null,
-    animationEffectDiv: null,
-
+    playEventDuration: 500,
+    cardAffectsCardDuration: 500,
 
     init: function(gameUI) {
         this.game = gameUI;
+    },
 
-        this.animationEffectDiv = $("<div id='animation'></div>");
-        this.animationEffectDiv.hide();
-        $("#main").append(this.animationEffectDiv);
+    eventPlayed: function(element) {
+        var that = this;
+
+        var participantId = element.getAttribute("participantId");
+        var blueprintId = element.getAttribute("blueprintId");
+
+        var card = new Card(blueprintId, "ANIMATION", "anim", participantId);
+        var cardDiv = createSimpleCardDiv(card.imageUrl);
+
+        $("#main").queue(
+                function(next) {
+                    cardDiv.data("card", card);
+                    $("#main").append(cardDiv);
+
+                    var gameWidth = $("#main").width();
+                    var gameHeight = $("#main").height();
+
+                    var cardWidth = card.getWidthForHeight(gameHeight / 2);
+
+                    $(cardDiv).css(
+                    {
+                        position: "absolute",
+                        left: 0,
+                        top: gameHeight / 4,
+                        width: cardWidth,
+                        height: gameHeight / 2,
+                        "z-index": 100,
+                        opacity: 0});
+
+                    $(cardDiv).animate(
+                    {
+                        left: "+=" + (gameWidth - cardWidth)},
+                    {
+                        duration: that.playEventDuration,
+                        easing: "linear",
+                        queue: false,
+                        complete: next});
+                    $(cardDiv).animate(
+                    {
+                        opacity: 1},
+                    {
+                        duration: that.playEventDuration / 2,
+                        easing: "easeOutQuart",
+                        queue: false,
+                        complete: function() {
+                            $(cardDiv).animate(
+                            {
+                                opacity: 0},
+                            {
+                                duration: that.playEventDuration / 2,
+                                easing: "easeInQuart",
+                                queue: false
+                            });
+                        }});
+                }).queue(
+                function(next) {
+                    $(cardDiv).remove();
+                    next();
+                });
     },
 
     cardAffectsCard: function(element) {
+        var that = this;
+
         var participantId = element.getAttribute("participantId");
         var blueprintId = element.getAttribute("blueprintId");
         var targetCardId = element.getAttribute("targetCardId");
 
-        this.animationEffectDiv.queue("anim",
+        var card = new Card(blueprintId, "ANIMATION", "anim", participantId);
+        var cardDiv = createSimpleCardDiv(card.imageUrl);
+
+        $("#main").queue(
                 function(next) {
                     var targetCard = $(".card:cardId(" + targetCardId + ")");
                     if (targetCard.length > 0) {
-                        var card = new Card(blueprintId, "ANIMATION", "anim", participantId);
-                        var cardDiv = createCardDiv(card.imageUrl);
                         cardDiv.data("card", card);
+                        $("#main").append(cardDiv);
 
                         targetCard = targetCard[0];
-                        $("#animation").html(cardDiv);
-                        $("#animation").show();
                         var targetCardWidth = $(targetCard).width();
                         var targetCardHeight = $(targetCard).height();
 
-                        var maxDimension = Math.max(targetCardWidth, targetCardHeight);
-
-                        var borderWidth = Math.floor(maxDimension / 30);
-                        var endBorderWidth = Math.floor(maxDimension * 2 / 30);
-                        $("#animation").css({
+                        $(cardDiv).css(
+                        {
                             position: "absolute",
                             left: $(targetCard).position().left,
                             top: $(targetCard).position().top,
@@ -42,7 +98,7 @@ var GameAnimations = Class.extend({
                             height: targetCardHeight,
                             "z-index": 100,
                             opacity: 1});
-                        $("#animation").animate(
+                        $(cardDiv).animate(
                         {
                             opacity: 0,
                             left: "-=" + (targetCardWidth / 2),
@@ -50,16 +106,17 @@ var GameAnimations = Class.extend({
                             width: "+=" + targetCardWidth,
                             height: "+=" + targetCardHeight},
                         {
-                            duration: 800,
-                            easing: "easeInCubic",
+                            duration: that.cardAffectsCardDuration,
+                            easing: "easeInQuart",
                             queue: false,
-                            complete: next
-                        });
+                            complete: next});
+                    } else {
+                        next();
                     }
-                }).queue("anim",
+                }).queue(
                 function(next) {
-                    $("#animation").hide();
+                    $(cardDiv).remove();
                     next();
-                }).dequeue("anim");
+                });
     }
 });

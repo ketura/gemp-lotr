@@ -43,4 +43,6 @@ public interface GameStateListener {
     public void setZoneSize(String playerId, Zone zone, int size);
 
     public void cardAffectedByCard(PhysicalCard card, PhysicalCard affectedCard);
+
+    public void eventPlayed(PhysicalCard card);
 }

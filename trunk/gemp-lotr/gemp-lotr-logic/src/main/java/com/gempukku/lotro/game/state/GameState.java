@@ -224,6 +224,11 @@ public class GameState {
             listener.cardAffectedByCard(card, affectedCard);
     }
 
+    public void eventPlayed(PhysicalCard card) {
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.eventPlayed(card);
+    }
+
     public void stackCard(PhysicalCard card, PhysicalCard stackOn) {
         ((PhysicalCardImpl) card).stackOn((PhysicalCardImpl) stackOn);
         addCardToZone(card, Zone.STACKED);
