@@ -46,7 +46,10 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
 
     @Override
     public void startSkirmish(PhysicalCard freePeople, List<PhysicalCard> minions) {
-        _events.add(new GameEvent(START_SKIRMISH).cardId(freePeople.getCardId()).opposingCardIds(getCardIds(minions)));
+        GameEvent gameEvent = new GameEvent(START_SKIRMISH).opposingCardIds(getCardIds(minions));
+        if (freePeople != null)
+            gameEvent.cardId(freePeople.getCardId());
+        _events.add(gameEvent);
     }
 
     @Override
