@@ -721,7 +721,7 @@ var GempLotrGameUI = Class.extend({
         else
             card = new Card(blueprintId, zone, cardId, participantId);
 
-        var cardDiv = this.createCardDiv(card);
+        var cardDiv = this.createCardDiv(card, null, card.isFoil());
         if (zone == "DISCARD")
             this.discardPileDialogs[participantId].append(cardDiv);
         else if (zone == "DEAD")
@@ -995,8 +995,8 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog.dialog("open");
     },
 
-    createCardDiv: function(card, text) {
-        var cardDiv = createCardDiv(card.imageUrl, text);
+    createCardDiv: function(card, text, foil) {
+        var cardDiv = createCardDiv(card.imageUrl, text, foil);
         cardDiv.data("card", card);
 
         var that = this;

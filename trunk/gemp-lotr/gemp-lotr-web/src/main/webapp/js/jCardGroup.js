@@ -43,6 +43,8 @@ var CardGroup = Class.extend({
         tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height})
                 .html("");
 
+        $(".foilOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
+
         var maxDimension = Math.max(width, height);
         var borderWidth = Math.floor(maxDimension / 30);
 

@@ -3,6 +3,7 @@ var cardScale = 357 / 497;
 
 var Card = Class.extend({
     blueprintId: null,
+    foil: null,
     horizontal: null,
     imageUrl: null,
     zone: null,
@@ -12,7 +13,14 @@ var Card = Class.extend({
     attachedCards: null,
 
     init: function(blueprintId, zone, cardId, owner, siteNumber) {
+        var len = blueprintId.length;
+        this.foil = blueprintId.substring(len - 1, len) == "*";
+
+        if (this.foil)
+            blueprintId = blueprintId.substring(0, len - 1);
+
         this.blueprintId = blueprintId;
+
         this.zone = zone;
         this.cardId = cardId;
         this.owner = owner;
@@ -35,6 +43,10 @@ var Card = Class.extend({
                 };
             }
         }
+    },
+
+    isFoil: function() {
+        return this.foil;
     },
 
     isHorizontal: function(blueprintId) {
@@ -80,8 +92,13 @@ var Card = Class.extend({
     }
 });
 
-function createCardDiv(image, text) {
+function createCardDiv(image, text, foil) {
     var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
+    if (foil) {
+        var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/holo.jpg' width='100%' height='100%'></div>");
+        cardDiv.append(foilDiv);
+    }
+
     var overlayDiv = $("<div class='tokenOverlay'></div>");
     cardDiv.append(overlayDiv);
     var borderDiv = $("<div class='borderOverlay'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
