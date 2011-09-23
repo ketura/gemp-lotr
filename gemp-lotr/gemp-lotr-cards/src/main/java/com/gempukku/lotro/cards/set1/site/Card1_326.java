@@ -3,18 +3,15 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -34,24 +31,13 @@ public class Card1_326 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert())) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert())
+                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)), Filters.playable(game, -1)).size() > 0) {
             final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert a Hobbit to play a companion or ally; that character's twilight cost is -1.");
             action.addCost(
                     new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit", true, Filters.race(Race.HOBBIT), Filters.canExert()));
             action.addEffect(
-                    new ChooseCardsFromHandEffect(playerId, "Choose companion or ally to play", 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)),
-                            new Filter() {
-                                @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, -1);
-                                }
-                            }) {
-                        @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            PhysicalCard selectedCard = selectedCards.get(0);
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, -1));
-                        }
-                    });
+                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)), -1));
             return Collections.singletonList(action);
         }
         return null;

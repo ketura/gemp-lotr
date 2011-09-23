@@ -33,13 +33,15 @@ public class Card1_234 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
+                // You must be able to play a minion from discard to use this trigger
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION), Filters.playable(game)).size() > 0) {
             OptionalTriggerAction action = new OptionalTriggerAction(self, null, "For each companion over 4, you may play 1 minion from your discard pile.");
             int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
             int minions = Math.min(0, companions - 4);
             for (int i = 0; i < minions; i++) {
                 action.addEffect(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, Filters.type(CardType.MINION)));
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.type(CardType.MINION)));
             }
             return Collections.singletonList(action);
         }

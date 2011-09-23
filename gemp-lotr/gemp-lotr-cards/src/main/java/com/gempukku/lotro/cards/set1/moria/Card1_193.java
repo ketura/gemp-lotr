@@ -37,6 +37,7 @@ public class Card1_193 extends AbstractPermanent {
                 DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Play your discarded weapon from your discard pile (twilight cost -1).");
                 action.addEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId,
+                                game.getGameState().getDiscard(playerId),
                                 Filters.and(
                                         Filters.culture(Culture.MORIA),
                                         Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)),
