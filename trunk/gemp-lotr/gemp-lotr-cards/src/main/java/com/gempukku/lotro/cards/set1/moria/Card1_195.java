@@ -29,11 +29,13 @@ public class Card1_195 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)
+                // You have to be able to play the MORIA possession from your discard pile to use this card
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.POSSESSION), Filters.playable(game, 2)).size() > 0) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Remove (2) to play a [MORIA] possession from your discard pile.");
             action.addCost(new RemoveTwilightEffect(2));
             action.addEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, Filters.and(Filters.culture(Culture.MORIA), Filters.type(CardType.POSSESSION))));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.type(CardType.POSSESSION))));
             return Collections.singletonList(action);
         }
         return null;

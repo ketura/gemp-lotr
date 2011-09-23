@@ -31,11 +31,13 @@ public class Card1_196 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
-                && game.getGameState().getHand(playerId).size() >= 3) {
+                && game.getGameState().getHand(playerId).size() >= 3
+                // You have to be able to play a MORIA Orc from discard to use it
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.playable(game)).size() > 0) {
             DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard 3 cards from hand to play a [MORIA] Orc from your discard pile.");
             action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true, 3));
             action.addEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC))));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC))));
             return Collections.singletonList(action);
         }
         return null;
