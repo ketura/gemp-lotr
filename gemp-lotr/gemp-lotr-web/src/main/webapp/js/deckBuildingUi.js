@@ -296,7 +296,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     addCardToContainer: function(blueprintId, zone, container) {
         var card = new Card(blueprintId, zone, "deck", "player");
-        var cardDiv = createCardDiv(card.imageUrl, null);
+        var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
         cardDiv.data("card", card);
         container.append(cardDiv);
         this.layoutUI();
@@ -428,7 +428,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 var blueprintId = cardElem.getAttribute("blueprintId");
                 var count = cardElem.getAttribute("count");
                 var card = new Card(blueprintId, "collection", "collection" + i, "player");
-                var cardDiv = createCardDiv(card.imageUrl, null);
+                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
                 cardDiv.data("card", card);
                 cardDiv.addClass("cardInCollection");
                 if (this.normalCollectionDiv.is(":visible"))
