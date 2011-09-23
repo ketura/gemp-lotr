@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LotroServer extends AbstractServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
 
-    private LotroCardBlueprintLibrary _lotroCardBlueprintLibrary = new LotroCardBlueprintLibrary();
+    private LotroCardBlueprintLibrary _lotroCardBlueprintLibrary;
 
     private Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<String, LotroGameMediator>();
 
@@ -33,7 +33,8 @@ public class LotroServer extends AbstractServer {
     private DefaultCardCollection _defaultCollection;
     private ChatServer _chatServer;
 
-    public LotroServer(ChatServer chatServer) {
+    public LotroServer(DbAccess dbAccess, LotroCardBlueprintLibrary library, ChatServer chatServer) {
+        _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
         _defaultCollection = new DefaultCardCollection();
         for (int i = 1; i <= 1; i++) {
@@ -52,7 +53,6 @@ public class LotroServer extends AbstractServer {
             }
         }
 
-        DbAccess dbAccess = new DbAccess();
         _playerDao = new PlayerDAO(dbAccess);
         _deckDao = new DeckDAO(dbAccess);
     }

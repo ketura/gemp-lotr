@@ -3,6 +3,7 @@ package com.gempukku.lotro.collection;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.MutableCardCollection;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ public class CollectionSerializer {
         }
     }
 
-    public CardCollection deserializeCollection(InputStream inputStream) throws IOException {
+    public MutableCardCollection deserializeCollection(InputStream inputStream) throws IOException {
         int version = inputStream.read();
         if (version == 0) {
             return deserializeCollectionVer0(new BufferedInputStream(inputStream));
@@ -103,7 +104,7 @@ public class CollectionSerializer {
         }
     }
 
-    private CardCollection deserializeCollectionVer0(BufferedInputStream inputStream) throws IOException {
+    private MutableCardCollection deserializeCollectionVer0(BufferedInputStream inputStream) throws IOException {
         int packBytes = inputStream.read();
 
         DefaultCardCollection collection = new DefaultCardCollection();

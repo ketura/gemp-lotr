@@ -6,26 +6,30 @@ import com.gempukku.lotro.common.Keyword;
 
 import java.util.*;
 
-public class DefaultCardCollection implements CardCollection {
-    private Map<String, Integer> _cardsCount = new TreeMap<String, Integer>();
+public class DefaultCardCollection implements MutableCardCollection {
+    private Map<String, Integer> _counts = new TreeMap<String, Integer>();
     private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>(new CardBlueprintIdComparator());
 
+    @Override
     public void addCards(String blueprintId, LotroCardBlueprint blueprint, int count) {
-        _cardsCount.put(blueprintId, count);
+        if (blueprint == null)
+            throw new IllegalArgumentException("blueprint == null");
+        _counts.put(blueprintId, count);
         _cards.put(blueprintId, blueprint);
     }
 
+    @Override
     public void addPacks(String packId, int count) {
-        _cardsCount.put(packId, count);
+        _counts.put(packId, count);
     }
 
     @Override
     public Map<String, Integer> getAll() {
-        return Collections.unmodifiableMap(_cardsCount);
+        return Collections.unmodifiableMap(_counts);
     }
 
     @Override
-    public Map<String, Integer> filter(String filter) {
+    public Map<String, Item> getItems(String filter) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");
@@ -35,15 +39,22 @@ public class DefaultCardCollection implements CardCollection {
         List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
         Integer siteNumber = getSiteNumber(filterParams);
 
-        Map<String, Integer> result = new LinkedHashMap<String, Integer>();
-        for (Map.Entry<String, LotroCardBlueprint> stringLotroCardBlueprintEntry : _cards.entrySet()) {
-            String blueprintId = stringLotroCardBlueprintEntry.getKey();
-            LotroCardBlueprint blueprint = stringLotroCardBlueprintEntry.getValue();
-            if (cardTypes == null || (blueprint != null && cardTypes.contains(blueprint.getCardType())))
-                if (cultures == null || (blueprint != null && cultures.contains(blueprint.getCulture())))
-                    if (containsAllKeywords(blueprint, keywords))
-                        if (siteNumber == null || (blueprint != null && blueprint.getSiteNumber() == siteNumber.intValue()))
-                            result.put(blueprintId, _cardsCount.get(blueprintId));
+        Map<String, Item> result = new LinkedHashMap<String, Item>();
+
+        for (Map.Entry<String, Integer> itemCount : _counts.entrySet()) {
+            String blueprintId = itemCount.getKey();
+            int count = itemCount.getValue();
+
+            final LotroCardBlueprint blueprint = _cards.get(blueprintId);
+            if (blueprint == null)
+                result.put(blueprintId, new Item(Item.Type.PACK, count));
+            else {
+                if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
+                    if (cultures == null || cultures.contains(blueprint.getCulture()))
+                        if (containsAllKeywords(blueprint, keywords))
+                            if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
+                                result.put(blueprintId, new Item(Item.Type.CARD, count));
+            }
         }
         return result;
     }
