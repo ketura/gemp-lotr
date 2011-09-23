@@ -4,7 +4,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
+import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -33,17 +33,23 @@ public class ChooseAndPlayCardFromHandEffect extends UnrespondableEffect {
     }
 
     @Override
+    public boolean canPlayEffect(LotroGame game) {
+        return getPlayableInHandCards(game).size() > 0;
+    }
+
+    private List<PhysicalCard> getPlayableInHandCards(LotroGame game) {
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+    }
+
+    @Override
     public void doPlayEffect(final LotroGame game) {
-        List<PhysicalCard> discard = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+        List<PhysicalCard> playableInHand = getPlayableInHandCards(game);
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, "Choose a card to play", discard, 1, 1) {
+                new CardsSelectionDecision(1, "Choose a card to play", playableInHand, 1, 1) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
-                        List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                        if (selectedCards.size() > 0) {
-                            PhysicalCard selectedCard = selectedCards.get(0);
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
-                        }
+                        final PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
+                        game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
                     }
                 });
     }
