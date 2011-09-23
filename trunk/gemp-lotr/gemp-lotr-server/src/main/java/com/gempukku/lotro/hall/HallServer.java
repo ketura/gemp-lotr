@@ -2,6 +2,7 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.DeckInvalidException;
 import com.gempukku.lotro.game.LotroGameMediator;
 import com.gempukku.lotro.game.LotroGameParticipant;
@@ -47,6 +48,10 @@ public class HallServer extends AbstractServer {
 
     public Map<String, LotroFormat> getSupportedFormats() {
         return new TreeMap<String, LotroFormat>(_supportedFormats);
+    }
+
+    public Set<League> getRunningLeagues() {
+        return _leagueService.getAllLeagues();
     }
 
     /**
@@ -101,15 +106,18 @@ public class HallServer extends AbstractServer {
 
     private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, LotroDeck lotroDeck) {
         boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, lotroDeck));
-        if (tableFull) {
-            Set<LotroGameParticipant> players = awaitingTable.getPlayers();
-            LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
-            String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), participants);
-            LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-            lotroGameMediator.startGame();
-            _runningTables.put(tableId, gameId);
-            _awaitingTables.remove(tableId);
-        }
+        if (tableFull)
+            createGame(tableId, awaitingTable);
+    }
+
+    private void createGame(String tableId, AwaitingTable awaitingTable) {
+        Set<LotroGameParticipant> players = awaitingTable.getPlayers();
+        LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
+        String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), participants);
+        LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
+        lotroGameMediator.startGame();
+        _runningTables.put(tableId, gameId);
+        _awaitingTables.remove(tableId);
     }
 
     public synchronized void leaveAwaitingTables(String playerId) {
