@@ -4,9 +4,11 @@ import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormat;
@@ -53,13 +55,15 @@ public class ServerResource {
             DbAccess dbAccess = new DbAccess();
             LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
+            CollectionDAO collectionDao = new CollectionDAO(dbAccess, library);
+
             _chatServer = new ChatServer();
             _chatServer.startServer();
 
             _lotroServer = new LotroServer(dbAccess, library, _chatServer);
             _lotroServer.startServer();
 
-            _leagueService = new LeagueService(dbAccess, library);
+            _leagueService = new LeagueService(dbAccess, collectionDao, library);
 
             _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _test);
             _hallServer.startServer();
@@ -480,6 +484,12 @@ public class ServerResource {
             formatElem.appendChild(doc.createTextNode(format));
             hall.appendChild(formatElem);
         }
+        for (League league : _hallServer.getRunningLeagues()) {
+            Element formatElem = doc.createElement("format");
+            formatElem.appendChild(doc.createTextNode(league.getName()));
+            hall.appendChild(formatElem);
+        }
+
 
         doc.appendChild(hall);
 
