@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.formats.FotRBlockFormat;
 import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.game.formats.ModifiedFotRBlockFormat;
+import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
@@ -16,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
+    private LeagueService _leagueService;
     private LotroServer _lotroServer;
 
     private Map<String, LotroFormat> _supportedFormats = new HashMap<String, LotroFormat>();
@@ -28,9 +30,10 @@ public class HallServer extends AbstractServer {
 
     private Map<String, Long> _lastVisitedPlayers = Collections.synchronizedMap(new LinkedHashMap<String, Long>());
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, boolean test) {
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
+        _leagueService = leagueService;
         _chatServer.createChatRoom("Game Hall");
 
         _supportedFormats.put("FotR block", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));

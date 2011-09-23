@@ -4,6 +4,7 @@ import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Player;
@@ -12,6 +13,7 @@ import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
+import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.sun.jersey.spi.resource.Singleton;
@@ -42,18 +44,24 @@ public class ServerResource {
     private HallServer _hallServer;
     private LotroServer _lotroServer;
     private ChatServer _chatServer;
+    private LeagueService _leagueService;
 
     public ServerResource() {
         _logger.debug("starting resource");
 
         try {
+            DbAccess dbAccess = new DbAccess();
+            LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+
             _chatServer = new ChatServer();
             _chatServer.startServer();
 
-            _lotroServer = new LotroServer(_chatServer);
+            _lotroServer = new LotroServer(dbAccess, library, _chatServer);
             _lotroServer.startServer();
 
-            _hallServer = new HallServer(_lotroServer, _chatServer, _test);
+            _leagueService = new LeagueService(dbAccess, library);
+
+            _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _test);
             _hallServer.startServer();
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
@@ -355,7 +363,7 @@ public class ServerResource {
             sendError(Response.Status.NOT_FOUND);
 
         CardCollection collection = _lotroServer.getDefaultCollection();
-        Map<String, Integer> filteredResult = collection.filter(filter);
+        Map<String, CardCollection.Item> filteredResult = collection.getItems(filter);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -367,12 +375,21 @@ public class ServerResource {
         doc.appendChild(collectionElem);
 
         int index = 0;
-        for (Map.Entry<String, Integer> stringIntegerEntry : filteredResult.entrySet()) {
+        for (Map.Entry<String, CardCollection.Item> collectionEntry : filteredResult.entrySet()) {
             if (index >= start && index < start + count) {
-                Element card = doc.createElement("card");
-                card.setAttribute("count", stringIntegerEntry.getValue().toString());
-                card.setAttribute("blueprintId", stringIntegerEntry.getKey());
-                collectionElem.appendChild(card);
+                String blueprintId = collectionEntry.getKey();
+                CardCollection.Item item = collectionEntry.getValue();
+                if (item.getType() == CardCollection.Item.Type.CARD) {
+                    Element card = doc.createElement("card");
+                    card.setAttribute("count", String.valueOf(item.getCount()));
+                    card.setAttribute("blueprintId", blueprintId);
+                    collectionElem.appendChild(card);
+                } else {
+                    Element pack = doc.createElement("pack");
+                    pack.setAttribute("count", String.valueOf(item.getCount()));
+                    pack.setAttribute("blueprintId", blueprintId);
+                    collectionElem.appendChild(pack);
+                }
             }
             index++;
         }
