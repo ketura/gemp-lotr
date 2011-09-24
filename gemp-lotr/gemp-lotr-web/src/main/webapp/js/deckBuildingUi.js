@@ -18,7 +18,8 @@ var GempLotrDeckBuildingUI = Class.extend({
     pageDiv: null,
     filterDiv: null,
     drawDeckDiv: null,
-    drawDeckGroup: null,
+    fpDeckGroup: null,
+    shadowDeckGroup: null,
     start: 0,
     count: 18,
     filter: null,
@@ -169,10 +170,14 @@ var GempLotrDeckBuildingUI = Class.extend({
         }
 
         this.drawDeckDiv = $("<div></div>");
-        this.drawDeckGroup = new NormalCardGroup(this.drawDeckDiv, function(card) {
-            return (card.zone == "deck");
+        this.fpDeckGroup = new NormalCardGroup(this.drawDeckDiv, function(card) {
+            return (card.zone == "FREE_PEOPLE");
         });
-        this.drawDeckGroup.maxCardHeight = 200;
+        this.fpDeckGroup.maxCardHeight = 200;
+        this.shadowDeckGroup = new NormalCardGroup(this.drawDeckDiv, function(card) {
+            return (card.zone == "SHADOW");
+        });
+        this.shadowDeckGroup.maxCardHeight = 200;
 
         this.bottomBarDiv = $("<div></div>");
         this.bottomBarDiv.append("<button id='saveDeck' style='float: right;'>Save deck</button>");
@@ -197,7 +202,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                         if (event.shiftKey) {
                             that.displayCardInfo(selectedCardElem.data("card"));
                         } else  if (selectedCardElem.hasClass("cardInCollection")) {
-                            that.selectionFunc(selectedCardElem.data("card").blueprintId);
+                            that.selectionFunc(selectedCardElem.data("card").blueprintId, selectedCardElem.data("card").zone);
                             that.updateDeckStats();
                         } else if (selectedCardElem.hasClass("cardInDeck")) {
                             that.removeCardFromDeck(selectedCardElem);
@@ -342,7 +347,7 @@ var GempLotrDeckBuildingUI = Class.extend({
             return "cardType:-SITE,THE_ONE_RING";
     },
 
-    addCardToDeck: function(blueprintId) {
+    addCardToDeck: function(blueprintId, side) {
         var that = this;
         var added = false;
         $(".card.cardInDeck", this.drawDeckDiv).each(
@@ -356,7 +361,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     }
                 });
         if (!added) {
-            var div = this.addCardToContainer(blueprintId, "deck", this.drawDeckDiv)
+            var div = this.addCardToContainer(blueprintId, side, this.drawDeckDiv)
             div.addClass("cardInDeck");
         }
     },
@@ -401,7 +406,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
                 var cards = root.getElementsByTagName("card");
                 for (var i = 0; i < cards.length; i++)
-                    this.addCardToDeck(cards[i].getAttribute("blueprintId"));
+                    this.addCardToDeck(cards[i].getAttribute("blueprintId"), cards[i].getAttribute("side"));
 
                 this.layoutUI();
             }
@@ -427,7 +432,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 var cardElem = cards[i];
                 var blueprintId = cardElem.getAttribute("blueprintId");
                 var count = cardElem.getAttribute("count");
-                var card = new Card(blueprintId, "collection", "collection" + i, "player");
+                var card = new Card(blueprintId, cardElem.getAttribute("side"), "collection" + i, "player");
                 var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
                 cardDiv.data("card", card);
                 cardDiv.addClass("cardInCollection");
@@ -472,7 +477,8 @@ var GempLotrDeckBuildingUI = Class.extend({
             this.siteGroups[i].setBounds(0, 0, sitesWidth, rowHeight);
         }
         this.drawDeckDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: padding, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: deckHeight - 2 * padding - 50 });
-        this.drawDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) * 2 - padding, deckHeight - 2 * padding - 50);
+        this.fpDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) * 2 - padding, (deckHeight - 2 * padding - 50) / 2);
+        this.shadowDeckGroup.setBounds(0, (deckHeight - 2 * padding - 50) / 2, deckWidth - (sitesWidth + padding) * 2 - padding, (deckHeight - 2 * padding - 50) / 2);
 
         this.bottomBarDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: deckHeight - 50, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: 50 });
 

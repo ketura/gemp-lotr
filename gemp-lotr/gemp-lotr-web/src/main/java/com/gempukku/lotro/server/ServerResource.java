@@ -43,6 +43,8 @@ public class ServerResource {
     private static final Logger _logger = Logger.getLogger(ServerResource.class);
     private boolean _test = System.getProperty("test") != null;
 
+    private LotroCardBlueprintLibrary _library;
+
     private HallServer _hallServer;
     private LotroServer _lotroServer;
     private ChatServer _chatServer;
@@ -53,17 +55,17 @@ public class ServerResource {
 
         try {
             DbAccess dbAccess = new DbAccess();
-            LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+            _library = new LotroCardBlueprintLibrary();
 
-            CollectionDAO collectionDao = new CollectionDAO(dbAccess, library);
+            CollectionDAO collectionDao = new CollectionDAO(dbAccess, _library);
 
             _chatServer = new ChatServer();
             _chatServer.startServer();
 
-            _lotroServer = new LotroServer(dbAccess, library, _chatServer);
+            _lotroServer = new LotroServer(dbAccess, _library, _chatServer);
             _lotroServer.startServer();
 
-            _leagueService = new LeagueService(dbAccess, collectionDao, library);
+            _leagueService = new LeagueService(dbAccess, collectionDao, _library);
 
             _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _test);
             _hallServer.startServer();
@@ -267,6 +269,7 @@ public class ServerResource {
         }
         for (String s : deck.getAdventureCards()) {
             Element card = doc.createElement("card");
+            card.setAttribute("side", _library.getLotroCardBlueprint(s).getSide().toString());
             card.setAttribute("blueprintId", s);
             deckElem.appendChild(card);
         }
@@ -367,7 +370,7 @@ public class ServerResource {
             sendError(Response.Status.NOT_FOUND);
 
         CardCollection collection = _lotroServer.getDefaultCollection();
-        Map<String, CardCollection.Item> filteredResult = collection.getItems(filter);
+        List<CardCollection.Item> filteredResult = collection.getItems(filter);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -379,14 +382,14 @@ public class ServerResource {
         doc.appendChild(collectionElem);
 
         int index = 0;
-        for (Map.Entry<String, CardCollection.Item> collectionEntry : filteredResult.entrySet()) {
+        for (CardCollection.Item item : filteredResult) {
             if (index >= start && index < start + count) {
-                String blueprintId = collectionEntry.getKey();
-                CardCollection.Item item = collectionEntry.getValue();
+                String blueprintId = item.getBlueprintId();
                 if (item.getType() == CardCollection.Item.Type.CARD) {
                     Element card = doc.createElement("card");
                     card.setAttribute("count", String.valueOf(item.getCount()));
                     card.setAttribute("blueprintId", blueprintId);
+                    card.setAttribute("side", item.getCardBlueprint().getSide().toString());
                     collectionElem.appendChild(card);
                 } else {
                     Element pack = doc.createElement("pack");
