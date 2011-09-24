@@ -49,6 +49,7 @@ public class ServerResource {
     private LotroServer _lotroServer;
     private ChatServer _chatServer;
     private LeagueService _leagueService;
+    private CollectionDAO _collectionDao;
 
     public ServerResource() {
         _logger.debug("starting resource");
@@ -57,17 +58,17 @@ public class ServerResource {
             DbAccess dbAccess = new DbAccess();
             _library = new LotroCardBlueprintLibrary();
 
-            CollectionDAO collectionDao = new CollectionDAO(dbAccess, _library);
-
             _chatServer = new ChatServer();
             _chatServer.startServer();
 
             _lotroServer = new LotroServer(dbAccess, _library, _chatServer);
             _lotroServer.startServer();
 
-            _leagueService = new LeagueService(dbAccess, collectionDao, _library);
+            _collectionDao = new CollectionDAO(dbAccess, _library, _lotroServer.getDefaultCollection());
 
-            _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _test);
+            _leagueService = new LeagueService(dbAccess, _collectionDao, _library);
+
+            _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _collectionDao, _test);
             _hallServer.startServer();
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
@@ -339,9 +340,9 @@ public class ServerResource {
         StringBuilder sb = new StringBuilder();
         sb.append("<b>Free People</b>: " + fpCount + ", <b>Shadow</b>: " + shadowCount + "<br/>");
 
-        for (Map.Entry<String, LotroFormat> supportedFormats : _hallServer.getSupportedFormats().entrySet()) {
-            String formatName = supportedFormats.getKey();
-            LotroFormat format = supportedFormats.getValue();
+        for (Map.Entry<String, String> supportedFormats : _hallServer.getSupportedFormatNames().entrySet()) {
+            String formatName = supportedFormats.getValue();
+            LotroFormat format = _hallServer.getSupportedFormat(supportedFormats.getKey());
             try {
                 format.validateDeck(deck);
                 sb.append("<b>" + formatName + "</b>: <font color='green'>valid</font> ");
@@ -366,10 +367,13 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        if (collectionType == null || !collectionType.equals("default"))
+
+        Player player = _lotroServer.getPlayerDao().getPlayer(participantId);
+
+        CardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType);
+        if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
-        CardCollection collection = _lotroServer.getDefaultCollection();
         List<CardCollection.Item> filteredResult = collection.getItems(filter);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -482,9 +486,10 @@ public class ServerResource {
         Element hall = doc.createElement("hall");
 
         _hallServer.processTables(participantId, new SerializeHallInfoVisitor(doc, hall));
-        for (String format : _hallServer.getSupportedFormats().keySet()) {
+        for (Map.Entry<String, String> format : _hallServer.getSupportedFormatNames().entrySet()) {
             Element formatElem = doc.createElement("format");
-            formatElem.appendChild(doc.createTextNode(format));
+            formatElem.setAttribute("type", format.getKey());
+            formatElem.appendChild(doc.createTextNode(format.getValue()));
             hall.appendChild(formatElem);
         }
         for (League league : _hallServer.getRunningLeagues()) {

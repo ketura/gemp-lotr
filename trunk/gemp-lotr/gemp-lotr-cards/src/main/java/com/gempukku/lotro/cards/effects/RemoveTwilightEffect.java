@@ -12,7 +12,8 @@ public class RemoveTwilightEffect extends UnrespondableEffect {
 
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        return _twilight <= game.getGameState().getTwilightPool();
+        return true;
+//        return _twilight <= game.getGameState().getTwilightPool();
     }
 
     @Override

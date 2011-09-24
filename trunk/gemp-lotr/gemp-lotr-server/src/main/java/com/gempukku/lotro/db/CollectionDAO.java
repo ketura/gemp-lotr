@@ -15,16 +15,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CollectionDAO {
     private DbAccess _dbAccess;
+    private CardCollection _defaultCollection;
     private CollectionSerializer _collectionSerializer;
 
     private Map<Integer, Map<String, CardCollection>> _collections = new ConcurrentHashMap<Integer, Map<String, CardCollection>>();
 
-    public CollectionDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
+    public CollectionDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library, CardCollection defaultCollection) {
         _dbAccess = dbAccess;
+        _defaultCollection = defaultCollection;
         _collectionSerializer = new CollectionSerializer(library);
     }
 
     public CardCollection getCollectionForPlayer(Player player, String type) {
+        if (type == null || type.equals("default"))
+            return _defaultCollection;
         Map<String, CardCollection> playerCollections = _collections.get(player.getId());
         if (playerCollections != null) {
             CardCollection collection = playerCollections.get(type);
@@ -87,13 +91,15 @@ public class CollectionDAO {
     }
 
     public void setCollectionForPlayer(Player player, String type, CardCollection collection) {
-        storeCollectionToDB(player, type, collection);
-        Map<String, CardCollection> collectionsByType = _collections.get(player.getId());
-        if (collectionsByType == null) {
-            collectionsByType = new ConcurrentHashMap<String, CardCollection>();
-            _collections.put(player.getId(), collectionsByType);
+        if (!type.equals("default")) {
+            storeCollectionToDB(player, type, collection);
+            Map<String, CardCollection> collectionsByType = _collections.get(player.getId());
+            if (collectionsByType == null) {
+                collectionsByType = new ConcurrentHashMap<String, CardCollection>();
+                _collections.put(player.getId(), collectionsByType);
+            }
+            collectionsByType.put(type, collection);
         }
-        collectionsByType.put(type, collection);
     }
 
     private void storeCollectionToDB(Player player, String type, CardCollection collection) {

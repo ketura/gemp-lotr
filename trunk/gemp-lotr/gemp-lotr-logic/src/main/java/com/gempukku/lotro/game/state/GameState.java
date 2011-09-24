@@ -617,7 +617,7 @@ public class GameState {
     }
 
     public void removeTwilight(int twilight) {
-        setTwilight(_twilightPool - Math.max(0, twilight));
+        setTwilight(_twilightPool - Math.min(Math.max(0, twilight), _twilightPool));
     }
 
     public void assignToSkirmishes(PhysicalCard fp, List<PhysicalCard> minions) {
