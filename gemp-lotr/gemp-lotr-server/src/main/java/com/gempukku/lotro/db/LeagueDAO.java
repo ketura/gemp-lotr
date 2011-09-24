@@ -8,9 +8,7 @@ import com.gempukku.lotro.game.MutableCardCollection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class LeagueDAO {
     private DbAccess _dbAccess;
@@ -18,21 +16,14 @@ public class LeagueDAO {
 
     private CollectionSerializer _serializer;
 
-    private Set<League> _leagues = new HashSet<League>();
+    private int _dateLoaded;
+    private Set<League> _activeLeagues = new HashSet<League>();
 
     public LeagueDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
         _dbAccess = dbAccess;
         _library = library;
 
         _serializer = new CollectionSerializer(_library);
-
-        try {
-            loadLeagues();
-        } catch (SQLException e) {
-            throw new RuntimeException("Unable to load Leagues", e);
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to load Leagues", e);
-        }
     }
 
     private void loadLeagues() throws SQLException, IOException {
@@ -52,7 +43,7 @@ public class LeagueDAO {
                             try {
                                 MutableCardCollection collection = _serializer.deserializeCollection(inputStream);
 
-                                _leagues.add(new League(id, name, type, collection));
+                                _activeLeagues.add(new League(id, name, type, collection));
                             } finally {
                                 inputStream.close();
                             }
@@ -71,7 +62,31 @@ public class LeagueDAO {
         }
     }
 
-    public Set<League> getAllLeagues() {
-        return Collections.unmodifiableSet(_leagues);
+    private int getCurrentDate() {
+        Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private synchronized void ensureLoadedCurrentLeagues() {
+        int currentDate = getCurrentDate();
+        if (currentDate != _dateLoaded) {
+            try {
+                loadLeagues();
+                _dateLoaded = currentDate;
+            } catch (SQLException e) {
+                throw new RuntimeException("Unable to load Leagues", e);
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to load Leagues", e);
+            }
+        }
+    }
+
+    public Set<League> getActiveLeagues() {
+        if (getCurrentDate() == _dateLoaded)
+            return Collections.unmodifiableSet(_activeLeagues);
+        else {
+            ensureLoadedCurrentLeagues();
+            return Collections.unmodifiableSet(_activeLeagues);
+        }
     }
 }

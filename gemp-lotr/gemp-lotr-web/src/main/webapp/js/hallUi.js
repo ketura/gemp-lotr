@@ -124,7 +124,8 @@ var GempLotrHallUI = Class.extend({
                 var formats = root.getElementsByTagName("format");
                 for (var i = 0; i < formats.length; i++) {
                     var format = formats[i].childNodes[0].nodeValue;
-                    this.supportedFormatsSelect.append("<option value='" + format + "'>" + format + "</option>");
+                    var type = formats[i].getAttribute("type");
+                    this.supportedFormatsSelect.append("<option value='" + type + "'>" + format + "</option>");
                 }
                 this.supportedFormatsInitialized = true;
             }

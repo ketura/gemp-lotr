@@ -22,8 +22,8 @@ public class LeagueService {
         _leagueDao = new LeagueDAO(dbAccess, library);
     }
 
-    public Set<League> getAllLeagues() {
-        return _leagueDao.getAllLeagues();
+    public Set<League> getActiveLeagues() {
+        return _leagueDao.getActiveLeagues();
     }
 
     public CardCollection getLeagueCollection(Player player, String type) {
@@ -37,7 +37,7 @@ public class LeagueService {
     }
 
     private League getLeagueByType(String type) {
-        for (League league : getAllLeagues()) {
+        for (League league : getActiveLeagues()) {
             if (league.getType().equals(type))
                 return league;
         }

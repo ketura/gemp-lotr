@@ -51,7 +51,7 @@ public class ResolveSkirmishRule {
                             return actions;
                         } else if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;
-                            List<PhysicalCard> losers = skirmishResult.getLosers();
+                            List<PhysicalCard> losers = new LinkedList<PhysicalCard>(skirmishResult.getLosers());
 
                             RequiredTriggerAction action = new RequiredTriggerAction(null, null, "Kill overwhelmed characters");
                             action.addEffect(new KillEffect(losers));

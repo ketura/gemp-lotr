@@ -3,7 +3,7 @@ package com.gempukku.lotro.chat;
 import java.util.*;
 
 public class ChatRoom {
-    private int _maxMessageCount = 10;
+    private int _maxMessageHistoryCount = 50;
     private LinkedList<ChatMessage> _lastMessages = new LinkedList<ChatMessage>();
     private Map<String, ChatRoomListener> _chatRoomListeners = new HashMap<String, ChatRoomListener>();
 
@@ -34,7 +34,7 @@ public class ChatRoom {
     }
 
     private void shrinkLastMessages() {
-        while (_lastMessages.size() > _maxMessageCount) {
+        while (_lastMessages.size() > _maxMessageHistoryCount) {
             _lastMessages.removeFirst();
         }
     }

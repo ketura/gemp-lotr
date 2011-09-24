@@ -34,14 +34,14 @@ var Card = Class.extend({
         if (blueprintId == "rules") {
             this.imageUrl = "/gemp-lotr/images/rules.png";
         } else {
-            if (cardCache[blueprintId] != null) {
-                var cardFromCache = cardCache[blueprintId];
+            if (cardCache[this.blueprintId] != null) {
+                var cardFromCache = cardCache[this.blueprintId];
                 this.horizontal = cardFromCache.horizontal;
                 this.imageUrl = cardFromCache.imageUrl;
             } else {
-                this.imageUrl = this.getUrlByBlueprintId(blueprintId);
-                this.horizontal = this.isHorizontal(blueprintId);
-                cardCache[blueprintId] = {
+                this.imageUrl = this.getUrlByBlueprintId(this.blueprintId);
+                this.horizontal = this.isHorizontal(this.blueprintId);
+                cardCache[this.blueprintId] = {
                     imageUrl: this.imageUrl,
                     horizontal: this.horizontal
                 };
