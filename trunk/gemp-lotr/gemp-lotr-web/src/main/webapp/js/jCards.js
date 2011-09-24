@@ -4,6 +4,7 @@ var cardScale = 357 / 497;
 var Card = Class.extend({
     blueprintId: null,
     foil: null,
+    tengwar: null,
     horizontal: null,
     imageUrl: null,
     zone: null,
@@ -13,13 +14,16 @@ var Card = Class.extend({
     attachedCards: null,
 
     init: function(blueprintId, zone, cardId, owner, siteNumber) {
+        this.blueprintId = blueprintId;
+
         var len = blueprintId.length;
         this.foil = blueprintId.substring(len - 1, len) == "*";
-
         if (this.foil)
             blueprintId = blueprintId.substring(0, len - 1);
-
-        this.blueprintId = blueprintId;
+        len = blueprintId.length;
+        this.tengwar = blueprintId.substring(len - 1, len) == "T";
+        if (this.tengwar)
+            blueprintId = blueprintId.substring(0, len - 1);
 
         this.zone = zone;
         this.cardId = cardId;
@@ -43,6 +47,10 @@ var Card = Class.extend({
                 };
             }
         }
+    },
+
+    isTengwar: function() {
+        return this.tengwar;
     },
 
     isFoil: function() {
@@ -70,11 +78,11 @@ var Card = Class.extend({
             setNoStr = setNo;
 
         if (cardNo < 10)
-            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "00" + cardNo + ".jpg";
+            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "00" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
         else if (cardNo < 100)
-            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "0" + cardNo + ".jpg";
+            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "0" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
         else
-            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "" + cardNo + ".jpg";
+            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
     },
 
     getHeightForWidth: function(width) {

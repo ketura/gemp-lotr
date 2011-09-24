@@ -7,8 +7,8 @@ import com.gempukku.lotro.common.Keyword;
 import java.util.*;
 
 public class DefaultCardCollection implements MutableCardCollection {
-    private Map<String, Integer> _counts = new TreeMap<String, Integer>();
-    private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>(new CardBlueprintIdComparator());
+    private Map<String, Integer> _counts = new TreeMap<String, Integer>(new CardBlueprintIdComparator());
+    private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>();
 
     @Override
     public void addCards(String blueprintId, LotroCardBlueprint blueprint, int count) {
@@ -29,7 +29,7 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public Map<String, Item> getItems(String filter) {
+    public List<Item> getItems(String filter) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");
@@ -39,7 +39,7 @@ public class DefaultCardCollection implements MutableCardCollection {
         List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
         Integer siteNumber = getSiteNumber(filterParams);
 
-        Map<String, Item> result = new LinkedHashMap<String, Item>();
+        List<Item> result = new ArrayList<Item>();
 
         for (Map.Entry<String, Integer> itemCount : _counts.entrySet()) {
             String blueprintId = itemCount.getKey();
@@ -47,13 +47,13 @@ public class DefaultCardCollection implements MutableCardCollection {
 
             final LotroCardBlueprint blueprint = _cards.get(blueprintId);
             if (blueprint == null)
-                result.put(blueprintId, new Item(Item.Type.PACK, count));
+                result.add(new Item(Item.Type.PACK, count, blueprintId));
             else {
                 if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                     if (cultures == null || cultures.contains(blueprint.getCulture()))
                         if (containsAllKeywords(blueprint, keywords))
                             if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
-                                result.put(blueprintId, new Item(Item.Type.CARD, count));
+                                result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
             }
         }
         return result;
