@@ -28,7 +28,7 @@ public class Card1_337 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getGameState().getCurrentSite() == self) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Remove (2)");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new RemoveTwilightEffect(2));
             return Collections.singletonList(action);
         }

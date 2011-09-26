@@ -53,7 +53,7 @@ public class Card2_022 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && game.getModifiersQuerying().getVitality(game.getGameState(), self.getAttachedTo()) > 2) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Gandalf twice to cancel a skirmish involving him");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(playerId, self.getAttachedTo()));
             action.appendCost(

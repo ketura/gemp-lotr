@@ -46,7 +46,7 @@ public class Card1_080 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert Ottar to discard up to 3 cards from hand and draw an equal number of cards.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card(s) to discard", game.getGameState().getHand(playerId), 0, 3) {

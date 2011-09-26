@@ -223,4 +223,12 @@ public class ProxyingModifier implements Modifier {
             return modifier.canBeHealed(gameState, modifiersQuerying, card, result);
         return result;
     }
+
+    @Override
+    public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.canLookOrRevealCardsInHand(gameState, modifiersQuerying, playerId);
+        return true;
+    }
 }

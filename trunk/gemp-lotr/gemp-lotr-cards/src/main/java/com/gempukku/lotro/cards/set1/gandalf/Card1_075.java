@@ -66,7 +66,7 @@ public class Card1_075 extends AbstractAttachableFPPossession {
             else
                 keyword = Keyword.REGROUP;
 
-            final ActivateCardAction action = new ActivateCardAction(self, keyword, "Exert Gandalf to reveal an opponent's hand. Remove (1) for each Orc revealed.");
+            final ActivateCardAction action = new ActivateCardAction(self, keyword);
             action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {

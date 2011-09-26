@@ -31,7 +31,7 @@ public class Card1_355 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Every companion must exert");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);

@@ -78,7 +78,7 @@ public class Card1_138 extends AbstractAttachable {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard at the end of the turn");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
 
             return Collections.singletonList(action);

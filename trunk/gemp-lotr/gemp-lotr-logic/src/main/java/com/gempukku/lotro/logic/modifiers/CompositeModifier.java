@@ -228,4 +228,13 @@ public class CompositeModifier implements Modifier {
 
         return result;
     }
+
+    @Override
+    public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        for (Modifier modifier : _modifiers)
+            if (!modifier.canLookOrRevealCardsInHand(gameState, modifiersQuerying, playerId))
+                return false;
+
+        return true;
+    }
 }

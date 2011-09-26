@@ -32,7 +32,7 @@ public class SanctuaryRule {
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
-                            ActivateCardAction action = new ActivateCardAction(null, null, "Sanctuary healing");
+                            ActivateCardAction action = new ActivateCardAction(null, null);
                             action.appendEffect(new HealCompanion(game.getGameState().getCurrentPlayerId(), action, 1));
                             return Collections.singletonList(action);
                         }

@@ -37,7 +37,7 @@ public class Card1_188 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Discard this condition to make your MORIA Orc strength +2.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new DiscardCardsFromPlayCost(self, self));
             action.appendEffect(
@@ -59,7 +59,7 @@ public class Card1_188 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && (game.getGameState().getCurrentSiteNumber() == 4 || game.getGameState().getCurrentSiteNumber() == 5)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add (2) for each Dwarf companion.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
             action.appendEffect(new AddTwilightEffect(dwarfCompanions * 2));
             return Collections.singletonList(action);

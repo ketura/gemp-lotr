@@ -34,7 +34,7 @@ public class Card2_009 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.DWARF))) {
-            final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Discard the top 2 cards from your draw deck to take a DWARVEN event into hand from your discard pile");
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(playerId));
             action.appendCost(

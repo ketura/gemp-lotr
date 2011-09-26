@@ -35,7 +35,7 @@ public class Card1_150 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Free Peoples player must discard the top 2 cards of his draw deck.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             action.appendEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);

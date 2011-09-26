@@ -39,7 +39,7 @@ public class Card1_012 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && game.getGameState().getTwilightPool() < 2) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Add (2) to place a card from hand beneath your draw deck");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
 
             action.appendCost(new AddTwilightEffect(2));
             action.appendEffect(

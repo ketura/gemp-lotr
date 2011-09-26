@@ -58,7 +58,7 @@ public class Card1_095 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Boromir to wound an Orc or Uruk-hai he is skirmishing.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(playerId, self.getAttachedTo()));
             Skirmish skirmish = game.getGameState().getSkirmish();

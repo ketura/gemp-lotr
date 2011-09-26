@@ -38,7 +38,7 @@ public class Card1_344 extends AbstractSite {
             boolean gimliCanExert = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"), Filters.canExert());
             boolean twoOtherCanExert = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) >= 2;
             if (gimliCanExert && twoOtherCanExert) {
-                final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Gimli or 2 other companions must exert.");
+                final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
                 List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
@@ -55,13 +55,13 @@ public class Card1_344 extends AbstractSite {
                 return Collections.singletonList(action);
             }
             if (gimliCanExert) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Gimli must exert");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
                 action.appendEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), gimli));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {
-                final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "2 non-Gimli companions must exert");
+                final RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION)));
                 return Collections.singletonList(action);

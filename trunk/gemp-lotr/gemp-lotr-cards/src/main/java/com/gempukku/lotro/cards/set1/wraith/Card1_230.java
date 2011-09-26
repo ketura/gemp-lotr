@@ -41,7 +41,7 @@ public class Card1_230 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Ulaire Cantea to discard a weapon borne by a character he is skirmishing.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             Skirmish skirmish = game.getGameState().getSkirmish();

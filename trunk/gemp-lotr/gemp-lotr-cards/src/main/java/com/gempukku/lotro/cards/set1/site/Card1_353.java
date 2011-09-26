@@ -30,7 +30,7 @@ public class Card1_353 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard every ally");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, Filters.type(CardType.ALLY)));
             return Collections.singletonList(action);

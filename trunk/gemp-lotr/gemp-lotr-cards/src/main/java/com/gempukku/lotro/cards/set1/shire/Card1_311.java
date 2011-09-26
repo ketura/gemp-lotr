@@ -40,7 +40,7 @@ public class Card1_311 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert Sam to remove a burden.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(new RemoveBurdenEffect(playerId));
             return Collections.singletonList(action);
@@ -52,7 +52,7 @@ public class Card1_311 extends AbstractCompanion {
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.KILL) {
             if (Filters.filter(((KillEffect) effect).getCharactersToBeKilled(), game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo")).size() > 0) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self, Keyword.RESPONSE, "Make Sam the Ring-Bearer");
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(new MakeRingBearerEffect(self));
                 return Collections.singletonList(action);
             }

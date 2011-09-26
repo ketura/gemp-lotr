@@ -37,7 +37,7 @@ public class Card1_254 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Exert bearer to add (1) for each archer companion.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
                     new ExertCharactersCost(playerId, self.getAttachedTo()));
             int archerCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER));

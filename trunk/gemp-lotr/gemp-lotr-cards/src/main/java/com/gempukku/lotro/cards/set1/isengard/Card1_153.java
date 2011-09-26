@@ -39,7 +39,7 @@ public class Card1_153 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 1)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (1) to make this minion strength +1 (limit +3).");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
                     new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,

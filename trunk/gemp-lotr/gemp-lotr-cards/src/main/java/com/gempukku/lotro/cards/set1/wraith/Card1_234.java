@@ -36,7 +36,7 @@ public class Card1_234 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
                 // You must be able to play a minion from discard to use this trigger
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION), Filters.playable(game)).size() > 0) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self, null, "For each companion over 4, you may play 1 minion from your discard pile.");
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
             int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
             int minions = Math.min(0, companions - 4);
             for (int i = 0; i < minions; i++) {

@@ -39,7 +39,7 @@ public class Card1_301 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && game.getGameState().getTwilightPool() < 3) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Add (2) to reveal the top 3 cards of your draw deck. Take all SHIRE cards revealed into hand and discard the rest.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(new AddTwilightEffect(2));
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(playerId, 3) {

@@ -53,7 +53,7 @@ public class Card1_190 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert bearer to make him strength +2.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(playerId, self.getAttachedTo()));
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));

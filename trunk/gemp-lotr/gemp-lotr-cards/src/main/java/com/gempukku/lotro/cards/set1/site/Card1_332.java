@@ -33,7 +33,7 @@ public class Card1_332 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Each Hobbit must exert");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.and(Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))));
                 return Collections.singletonList(action);
             }

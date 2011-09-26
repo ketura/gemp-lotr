@@ -39,7 +39,7 @@ public class Card1_186 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 3)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (3) to make a MORIA Orc strength +2.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {

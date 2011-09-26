@@ -32,7 +32,7 @@ public class Card1_263 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)))
                 && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.SAURON), Filters.race(Race.ORC)))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Each [SAURON] Orc is strength +1 until the regroup phase.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.and(Filters.culture(Culture.SAURON), Filters.race(Race.ORC)), 1), Phase.REGROUP));

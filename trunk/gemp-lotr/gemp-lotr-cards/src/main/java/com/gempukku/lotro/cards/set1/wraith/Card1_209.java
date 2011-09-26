@@ -39,7 +39,7 @@ public class Card1_209 extends AbstractPermanent {
                 && self.getZone() == Zone.SHADOW_SUPPORT
                 && game.getGameState().getSkirmish() != null && game.getGameState().getSkirmish().getFellowshipCharacter() != null
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(game.getGameState().getSkirmish().getFellowshipCharacter()), Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))))) {
-            ActivateCardAction action = new ActivateCardAction(self, null, "Transfer condition to losing character");
+            ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendEffect(
                     new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));
             return Collections.singletonList(action);
@@ -53,7 +53,7 @@ public class Card1_209 extends AbstractPermanent {
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
                 && self.getZone() == Zone.ATTACHED) {
             boolean ringBearer = game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.RING_BEARER);
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Wound bearer or if bearer is Ring-Bearer, add a burden instead");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             if (ringBearer) {
                 action.appendEffect(new AddBurdenEffect(self.getOwner()));

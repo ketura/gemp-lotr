@@ -38,9 +38,7 @@ public class Card1_242 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (3) to reveal " +
-                    "the top card of your draw deck. If it is a [SAURON] card, take it into hand. Otherwise, discard it " +
-                    "and one other card from hand.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(playerId, 1) {

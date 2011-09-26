@@ -58,7 +58,7 @@ public class Card1_221 extends AbstractAttachable {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            final ActivateCardAction action = new ActivateCardAction(self, null, "Exert bearer to discard a Free Peoples condition.");
+            final ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendCost(
                     new ExertCharactersCost(playerId, self.getAttachedTo()));
             action.appendEffect(

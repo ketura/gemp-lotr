@@ -35,7 +35,7 @@ public class Card1_193 extends AbstractPermanent {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             Collection<PhysicalCard> discardedCards = discardResult.getDiscardedCards();
             if (Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(), Filters.zone(Zone.DISCARD), Filters.culture(Culture.MORIA), Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.playable(game, -1)).size() > 0) {
-                ActivateCardAction action = new ActivateCardAction(self, null, "Play your discarded weapon from your discard pile (twilight cost -1).");
+                ActivateCardAction action = new ActivateCardAction(self, null);
                 action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId,
                                 game.getGameState().getDiscard(playerId),

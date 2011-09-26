@@ -42,7 +42,7 @@ public class Card1_069 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Albert Dreary to discard a ISENGARD or MORIA condition.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose ISENGARD or MORIA condition", Filters.or(Filters.culture(Culture.ISENGARD), Filters.culture(Culture.MORIA)), Filters.type(CardType.CONDITION)) {

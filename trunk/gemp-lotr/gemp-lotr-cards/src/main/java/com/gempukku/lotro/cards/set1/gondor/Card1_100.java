@@ -37,7 +37,7 @@ public class Card1_100 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Arwen"), Filters.name("Aragorn")), Filters.canExert())) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Aragorn to heal Arwen, or exert Arwen to heal Aragorn.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
 
             List<ChooseableCost> possibleEffects = new LinkedList<ChooseableCost>();
 

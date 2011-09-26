@@ -49,7 +49,7 @@ public class Card1_016 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.ORC))) {
             String playerId = ((PlayCardResult) effectResult).getPlayedCard().getOwner();
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard the top card of deck");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardTopCardFromDeckEffect(playerId));
             return Collections.singletonList(action);
         }

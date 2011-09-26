@@ -44,7 +44,7 @@ public class Card1_310 extends AbstractCompanion {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Play Bill the Pony from your draw deck.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.and(Filters.name("Bill the Pony"))));
             return Collections.singletonList(action);
@@ -56,7 +56,7 @@ public class Card1_310 extends AbstractCompanion {
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.KILL) {
             if (Filters.filter(((KillEffect) effect).getCharactersToBeKilled(), game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo")).size() > 0) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self, Keyword.RESPONSE, "Make Sam the Ring-Bearer");
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(new MakeRingBearerEffect(self));
                 return Collections.singletonList(action);
             }

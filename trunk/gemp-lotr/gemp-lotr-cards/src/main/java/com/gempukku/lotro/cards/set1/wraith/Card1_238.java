@@ -38,7 +38,7 @@ public class Card1_238 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 1)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY, "Remove (1) to make the fellowship archery total -1.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

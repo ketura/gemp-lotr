@@ -35,7 +35,7 @@ public class Card1_318 extends AbstractPermanent {
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert()) >= 2) {
             Keyword phaseKeyword = (game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) ? Keyword.FELLOWSHIP : Keyword.REGROUP;
-            final ActivateCardAction action = new ActivateCardAction(self, phaseKeyword, "Exert 2 Hobbits and discard Thror's Map to play the fellowship's next site (replacing opponent's site if necessary)");
+            final ActivateCardAction action = new ActivateCardAction(self, phaseKeyword);
             action.appendCost(
                     new ChooseAndExertCharactersCost(action, playerId, 2, 2, Filters.race(Race.HOBBIT), Filters.canExert()));
             action.appendCost(new DiscardCardsFromPlayCost(self, self));

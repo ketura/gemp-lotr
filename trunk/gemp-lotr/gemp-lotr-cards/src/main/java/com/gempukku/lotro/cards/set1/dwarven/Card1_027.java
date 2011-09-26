@@ -39,7 +39,7 @@ public class Card1_027 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Thrarin to allow him to participate in archery fire and skirmished until the regroup phase");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(

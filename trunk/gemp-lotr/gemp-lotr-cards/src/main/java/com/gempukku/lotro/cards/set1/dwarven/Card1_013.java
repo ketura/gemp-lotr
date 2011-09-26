@@ -37,7 +37,7 @@ public class Card1_013 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Gimli to make him strength +2");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
 
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));

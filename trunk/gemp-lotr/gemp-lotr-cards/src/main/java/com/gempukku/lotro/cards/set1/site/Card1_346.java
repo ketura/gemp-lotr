@@ -38,7 +38,7 @@ public class Card1_346 extends AbstractSite {
             boolean frodoCanExert = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"), Filters.canExert());
             boolean twoOtherCanExert = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) >= 2;
             if (frodoCanExert && twoOtherCanExert) {
-                final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Frodo or 2 other companions must exert.");
+                final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
                 List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
@@ -55,13 +55,13 @@ public class Card1_346 extends AbstractSite {
                 return Collections.singletonList(action);
             }
             if (frodoCanExert) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Frodo must exert");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
                 action.appendEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), frodo));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {
-                final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "2 non-Frodo companions must exert");
+                final RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()));
 

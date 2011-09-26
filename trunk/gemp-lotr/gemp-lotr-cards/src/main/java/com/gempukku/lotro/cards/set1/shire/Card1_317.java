@@ -39,7 +39,7 @@ public class Card1_317 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Discard this condition to make each Hobbit companion strength +2 until the regroup phase.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new DiscardCardsFromPlayCost(self, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(

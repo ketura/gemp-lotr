@@ -36,7 +36,7 @@ public class Card2_012 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && game.getGameState().getDeck(playerId).size() >= 3) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Discard the top 3 cards from your draw deck to make a Dwarf strength +1 (limit +3) and, if underground, damage +1 (limit +3)");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(playerId));
             action.appendCost(

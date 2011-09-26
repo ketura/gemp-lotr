@@ -41,7 +41,7 @@ public class Card1_302 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && game.getModifiersQuerying().getVitality(game.getGameState(), self) > 2
                 && !isAssigned(game, self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Merry twice to add his strength to another companion.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             action.appendCost(

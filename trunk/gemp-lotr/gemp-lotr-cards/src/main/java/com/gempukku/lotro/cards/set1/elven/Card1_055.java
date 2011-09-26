@@ -41,7 +41,7 @@ public class Card1_055 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"), Filters.canExert())
                 && opponentsHavingAtLeast7Cards(game, playerId).length > 0) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Galadriel to look at 2 random cards, discard one");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             PhysicalCard galadriel = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"));
             action.appendCost(new ExertCharactersCost(playerId, galadriel));
             action.appendEffect(

@@ -39,7 +39,7 @@ public class Card1_229 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 1)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (1) to make Ulaire Attea strength +1 (limit +5).");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
                     new CheckLimitEffect(action, self, 5, Phase.SKIRMISH,

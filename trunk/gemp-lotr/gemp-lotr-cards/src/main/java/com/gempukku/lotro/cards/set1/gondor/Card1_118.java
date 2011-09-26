@@ -53,7 +53,7 @@ public class Card1_118 extends AbstractEvent {
                                 @Override
                                 public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                                     if (PlayConditions.isWounded(effectResult, aragorn)) {
-                                        ActivateCardAction action = new ActivateCardAction(self, null, "Apply damage prevention");
+                                        ActivateCardAction action = new ActivateCardAction(self, null);
                                         action.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new CantTakeWoundsModifier(self, Filters.sameCard(aragorn)), Phase.SKIRMISH));

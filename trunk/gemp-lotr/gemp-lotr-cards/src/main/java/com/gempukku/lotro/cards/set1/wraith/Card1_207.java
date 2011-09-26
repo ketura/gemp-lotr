@@ -43,7 +43,7 @@ public class Card1_207 extends AbstractPermanent {
                 && self.getZone() == Zone.SHADOW_SUPPORT
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0
                 && game.getGameState().getSkirmish().getFellowshipCharacter() != null) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Transfer this condition to character skirmishing a Nazgul");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendEffect(
                     new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));
             return Collections.singletonList(action);
@@ -66,7 +66,7 @@ public class Card1_207 extends AbstractPermanent {
         if (effect.getType() == EffectResult.Type.REMOVE_BURDEN
                 && self.getZone() == Zone.ATTACHED) {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getStackedOn(), Keyword.RING_BEARER)) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Cancel burden removal");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new CancelEventEffect(self.getOwner(), (PlayEventEffect) effect));
                 return Collections.singletonList(action);

@@ -37,7 +37,7 @@ public class Card1_152 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 2)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Remove (2) to heal an Uruk-hai");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
                     new ChooseAndHealCharacterEffect(action, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)));

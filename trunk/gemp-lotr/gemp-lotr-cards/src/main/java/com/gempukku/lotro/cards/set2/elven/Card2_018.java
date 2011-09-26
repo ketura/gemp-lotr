@@ -55,7 +55,7 @@ public class Card2_018 extends AbstractPermanent {
             final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getCardsToBeAffected(game);
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self, null, "Prevent wound to an Elf");
+                final ActivateCardAction action = new ActivateCardAction(self, null);
                 action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.race(Race.ELF), Filters.in(woundedCharacters)) {
                             @Override

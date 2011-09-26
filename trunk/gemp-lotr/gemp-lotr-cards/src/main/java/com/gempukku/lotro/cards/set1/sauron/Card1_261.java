@@ -46,7 +46,7 @@ public class Card1_261 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
                 && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.EVENT), Filters.keyword(Keyword.REGROUP)))
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, null, "Exert this minion to cancel that event.");
+            ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             action.appendEffect(

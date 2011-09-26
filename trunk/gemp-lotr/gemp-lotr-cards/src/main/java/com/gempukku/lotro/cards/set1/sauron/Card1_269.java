@@ -46,7 +46,7 @@ public class Card1_269 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 1)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (1) to make bearer strength +1 (limit +3).");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));

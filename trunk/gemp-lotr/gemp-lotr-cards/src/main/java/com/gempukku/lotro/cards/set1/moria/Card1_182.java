@@ -54,7 +54,7 @@ public class Card1_182 extends AbstractAttachable {
                 if (killedCard.getBlueprint().getCardType() == CardType.COMPANION
                         && skirmish != null && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
                     int burdens = (killedCard.getBlueprint().getRace() == Race.HOBBIT) ? 2 : 1;
-                    RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add " + burdens + " burden(s)");
+                    RequiredTriggerAction action = new RequiredTriggerAction(self);
                     for (int i = 0; i < burdens; i++)
                         action.appendEffect(new AddBurdenEffect(self.getOwner()));
                     actions.add(action);
