@@ -38,16 +38,11 @@ public class Card2_013 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        if (game.getGameState().getTwilightPool() >= 3) {
-            action.appendEffect(
-                    new PreventableEffect(action,
-                            new DrawCardEffect(playerId, 3),
-                            Arrays.asList(GameUtils.getOpponents(game, playerId)),
-                            new RemoveTwilightEffect(3)));
-        } else {
-            action.appendEffect(
-                    new DrawCardEffect(playerId, 3));
-        }
+        action.appendEffect(
+                new PreventableEffect(action,
+                        new DrawCardEffect(playerId, 3),
+                        Arrays.asList(GameUtils.getOpponents(game, playerId)),
+                        new RemoveTwilightEffect(3)));
         return action;
     }
 
