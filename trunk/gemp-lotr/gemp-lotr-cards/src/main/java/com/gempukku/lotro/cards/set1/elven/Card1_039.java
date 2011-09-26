@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -39,8 +38,7 @@ public class Card1_039 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        action.addCost(new SpotEffect(Filters.race(Race.ELF)));
-        action.addEffect(new RemoveBurdenEffect(playerId));
+        action.appendEffect(new RemoveBurdenEffect(playerId));
         return action;
     }
 }

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -13,9 +13,9 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -58,16 +58,16 @@ public class Card1_221 extends AbstractAttachable {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert bearer to discard a Free Peoples condition.");
-            action.addCost(
-                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, null, "Exert bearer to discard a Free Peoples condition.");
+            action.appendCost(
+                    new ExertCharactersCost(playerId, self.getAttachedTo()));
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(PhysicalCard condition) {
-                            action.addEffect(new CardAffectsCardEffect(self, condition));
-                            action.addEffect(
-                                    new DiscardCardFromPlayEffect(self, condition));
+                            action.appendEffect(new CardAffectsCardEffect(self, condition));
+                            action.appendEffect(
+                                    new DiscardCardsFromPlayEffect(self, condition));
                         }
                     });
             return Collections.singletonList(action);

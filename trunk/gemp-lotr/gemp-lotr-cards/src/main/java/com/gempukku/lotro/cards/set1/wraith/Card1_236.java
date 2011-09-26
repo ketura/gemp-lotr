@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -37,14 +37,14 @@ public class Card1_236 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && game.getGameState().getBurdens() >= 4) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ASSIGNMENT, "Assign a companion (except the Ring-bearer) to skirmish Ulaire Toldea.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT, "Assign a companion (except the Ring-bearer) to skirmish Ulaire Toldea.");
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
-                action.addEffect(
+                action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose a companion (except the Ring-Bearer", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
-                                action.addEffect(new CardAffectsCardEffect(self, companion));
-                                action.addEffect(
+                                action.appendEffect(new CardAffectsCardEffect(self, companion));
+                                action.appendEffect(
                                         new AssignmentEffect(playerId, companion, Collections.singletonList(self), "Ulaire Toldea effect"));
                             }
                         });

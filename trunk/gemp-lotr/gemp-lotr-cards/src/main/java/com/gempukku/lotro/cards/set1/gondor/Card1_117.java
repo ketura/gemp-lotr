@@ -29,7 +29,7 @@ public class Card1_117 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
 
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
                     protected void cardSelected(PhysicalCard gondorCompanion) {
@@ -39,8 +39,8 @@ public class Card1_117 extends AbstractEvent {
                                 && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ROAMING)).size() > 0)
                             bonus = 4;
 
-                        action.addEffect(new CardAffectsCardEffect(self, gondorCompanion));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, gondorCompanion));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(gondorCompanion), bonus), Phase.SKIRMISH));
                     }

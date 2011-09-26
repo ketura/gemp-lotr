@@ -31,7 +31,7 @@ public class Card1_353 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard every ally");
-            action.addEffect(
+            action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, Filters.type(CardType.ALLY)));
             return Collections.singletonList(action);
         }

@@ -34,12 +34,12 @@ public class Card1_083 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
                     protected void cardSelected(PhysicalCard minion) {
-                        action.addEffect(new CardAffectsCardEffect(self, minion));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, minion));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(minion), -3), Phase.SKIRMISH));
                     }

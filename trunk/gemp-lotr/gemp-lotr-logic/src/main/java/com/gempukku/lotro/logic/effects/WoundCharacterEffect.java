@@ -1,41 +1,36 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
-public class WoundCharacterEffect extends AbstractEffect {
+public class WoundCharacterEffect extends AbstractPreventableCardEffect {
     private String _playerId;
-    private final Filter _filter;
-    private Set<PhysicalCard> _prevented = new HashSet<PhysicalCard>();
 
-    public WoundCharacterEffect(String playerId, PhysicalCard card) {
+    public WoundCharacterEffect(String playerId, PhysicalCard... cards) {
+        super(cards);
         _playerId = playerId;
-        _filter = Filters.sameCard(card);
     }
 
-    public WoundCharacterEffect(String playerId, Filter card) {
+    public WoundCharacterEffect(String playerId, Filter filter) {
+        super(filter);
         _playerId = playerId;
-        _filter = card;
     }
 
-    public List<PhysicalCard> getCardsToBeWounded(LotroGame game) {
-        List<PhysicalCard> cardsToWound = new LinkedList<PhysicalCard>();
-        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter)) {
-            if (game.getModifiersQuerying().canTakeWound(game.getGameState(), physicalCard))
-                cardsToWound.add(physicalCard);
-        }
-        cardsToWound.removeAll(_prevented);
-        return cardsToWound;
+    @Override
+    protected Filter getExtraAffectableFilter() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.canTakeWound(gameState, physicalCard);
+            }
+        };
     }
 
     @Override
@@ -45,39 +40,19 @@ public class WoundCharacterEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        List<PhysicalCard> cards = getCardsToBeWounded(game);
+        Collection<PhysicalCard> cards = getCardsToBeAffected(game);
         return "Wound - " + getAppendedNames(cards);
-    }
-
-    private String getAppendedNames(List<PhysicalCard> cards) {
-        StringBuilder sb = new StringBuilder();
-        for (PhysicalCard card : cards)
-            sb.append(card.getBlueprint().getName() + ", ");
-
-        if (sb.length() == 0)
-            return "none";
-        else
-            return sb.substring(0, sb.length() - 2);
-    }
-
-    @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return getCardsToBeWounded(game).size() > 0;
     }
 
     @Override
     public EffectResult[] playEffect(LotroGame game) {
-        List<PhysicalCard> woundedCards = getCardsToBeWounded(game);
+        Collection<PhysicalCard> cardsToWound = getCardsToBeAffected(game);
 
-        for (PhysicalCard woundedCard : woundedCards) {
+        for (PhysicalCard woundedCard : cardsToWound) {
             game.getGameState().sendMessage(_playerId + " wounds " + woundedCard.getBlueprint().getName());
             game.getGameState().addWound(woundedCard);
         }
 
-        return new EffectResult[]{new WoundResult(woundedCards)};
-    }
-
-    public void prevent(PhysicalCard card) {
-        _prevented.add(card);
+        return new EffectResult[]{new WoundResult(cardsToWound)};
     }
 }

@@ -15,8 +15,8 @@ public enum Keyword {
 
     DAMAGE("Damage", true, true), DEFENDER("Defender", true, true), FIERCE("Fierce", true), ARCHER("Archer", true), RANGER("Ranger", true), TRACKER("Tracker", true),
 
-    HAND_WEAPON("Hand Weapon"), ARMOR("Armor"), HELM("Helm"), MOUNT("Mount"), RANGED_WEAPON("Ranged Weapon"), CLOAK("Cloak"), PIPE("Pipe"),
-    PIPEWEED("Pipeweed"), SHIELD("Shield");
+    HAND_WEAPON("Hand Weapon"), ARMOR("Armor"), HELM("Helm"), MOUNT("Mount"), RANGED_WEAPON("Ranged Weapon"),
+    CLOAK("Cloak"), PIPE("Pipe"), PIPEWEED("Pipeweed"), SHIELD("Shield"), BRACERS("Bracers");
 
     private String _humanReadable;
     private boolean _infoDisplayable;

@@ -33,22 +33,22 @@ public class Card1_215 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                         new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Filters.race(Race.NAZGUL), Integer.MAX_VALUE) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotCount = getValidatedResult(result);
-                                action.addEffect(
+                                action.appendEffect(
                                         new RevealTopCardsOfDrawDeckEffect(playerId, spotCount) {
                                             @Override
                                             protected void cardsRevealed(List<PhysicalCard> cards) {
                                                 for (PhysicalCard revealedCard : cards) {
                                                     if (revealedCard.getBlueprint().getCulture() == Culture.WRAITH)
-                                                        action.addEffect(
+                                                        action.appendEffect(
                                                                 new PutCardFromDeckIntoHandOrDiscardEffect(revealedCard));
                                                     else
-                                                        action.addEffect(
+                                                        action.appendEffect(
                                                                 new DiscardCardFromDeckEffect(playerId, revealedCard));
                                                 }
                                             }

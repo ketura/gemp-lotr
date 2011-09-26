@@ -2,13 +2,13 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 
 import java.util.List;
 
-public class SkirmishResolvedEffect extends AbstractEffect {
+public class SkirmishResolvedEffect implements Effect {
     private List<PhysicalCard> _winners;
     private List<PhysicalCard> _losers;
 
@@ -25,11 +25,6 @@ public class SkirmishResolvedEffect extends AbstractEffect {
     @Override
     public String getText(LotroGame game) {
         return "Character(s) won skirmish";
-    }
-
-    @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return true;
     }
 
     @Override

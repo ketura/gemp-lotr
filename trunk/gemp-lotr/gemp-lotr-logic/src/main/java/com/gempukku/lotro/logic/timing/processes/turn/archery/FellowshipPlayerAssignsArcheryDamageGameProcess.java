@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
-import java.util.List;
+import java.util.Collection;
 
 public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProcess {
     private LotroGame _game;
@@ -31,7 +31,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
     public void process() {
         if (_woundsToAssign > 0) {
             final GameState gameState = _game.getGameState();
-            List<PhysicalCard> possibleWoundTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
+            Collection<PhysicalCard> possibleWoundTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
                             Filters.type(CardType.COMPANION),
                             new Filter() {
@@ -41,26 +41,30 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                                 }
                             }));
 
-            if (possibleWoundTargets.size() == 1) {
-                PhysicalCard selectedCard = possibleWoundTargets.get(0);
-                _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
-                if (_woundsToAssign > 1)
-                    _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
-                else
-                    _nextProcess = _followingGameProcess;
+            if (possibleWoundTargets.size() > 0) {
+                if (possibleWoundTargets.size() == 1) {
+                    PhysicalCard selectedCard = possibleWoundTargets.iterator().next();
+                    _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
+                    if (_woundsToAssign > 1)
+                        _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
+                    else
+                        _nextProcess = _followingGameProcess;
+                } else {
+                    _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
+                            new CardsSelectionDecision(1, "Choose companion or ally at home to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
+                                    _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
+                                    if (_woundsToAssign > 1)
+                                        _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
+                                    else
+                                        _nextProcess = _followingGameProcess;
+                                }
+                            });
+                }
             } else {
-                _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
-                        new CardsSelectionDecision(1, "Choose companion or ally at home to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
-                                _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
-                                if (_woundsToAssign > 1)
-                                    _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
-                                else
-                                    _nextProcess = _followingGameProcess;
-                            }
-                        });
+                _nextProcess = _followingGameProcess;
             }
         } else {
             _nextProcess = _followingGameProcess;

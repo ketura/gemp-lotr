@@ -40,7 +40,7 @@ public class Card1_234 extends AbstractMinion {
             int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
             int minions = Math.min(0, companions - 4);
             for (int i = 0; i < minions; i++) {
-                action.addEffect(
+                action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.type(CardType.MINION)));
             }
             return Collections.singletonList(action);

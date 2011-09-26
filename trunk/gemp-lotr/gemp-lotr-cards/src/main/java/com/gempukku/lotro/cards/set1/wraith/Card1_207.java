@@ -2,15 +2,16 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CancelEffect;
+import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
@@ -42,8 +43,8 @@ public class Card1_207 extends AbstractPermanent {
                 && self.getZone() == Zone.SHADOW_SUPPORT
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0
                 && game.getGameState().getSkirmish().getFellowshipCharacter() != null) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Transfer this condition to character skirmishing a Nazgul");
-            action.addEffect(
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Transfer this condition to character skirmishing a Nazgul");
+            action.appendEffect(
                     new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));
             return Collections.singletonList(action);
         }
@@ -66,8 +67,8 @@ public class Card1_207 extends AbstractPermanent {
                 && self.getZone() == Zone.ATTACHED) {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getStackedOn(), Keyword.RING_BEARER)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Cancel burden removal");
-                action.addEffect(
-                        new CancelEffect(self.getOwner(), effect));
+                action.appendEffect(
+                        new CancelEventEffect(self.getOwner(), (PlayEventEffect) effect));
                 return Collections.singletonList(action);
             }
         }

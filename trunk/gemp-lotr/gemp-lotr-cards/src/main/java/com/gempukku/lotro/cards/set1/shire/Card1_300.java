@@ -2,12 +2,12 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -33,12 +33,12 @@ public class Card1_300 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "You may discard up to 2 cards from hand.");
-            action.addEffect(
-                    new ChooseCardsFromHandEffect(playerId, "Choose up to 2 cards to discard from hand", 0, 2, Filters.any()) {
+            action.appendEffect(
+                    new ChooseArbitraryCardsEffect(playerId, "Choose up to 2 cards to discard from hand", game.getGameState().getHand(playerId), 0, 2) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards)
-                                action.addEffect(new DiscardCardFromHandEffect(selectedCard));
+                                action.appendEffect(new DiscardCardFromHandEffect(selectedCard));
                         }
                     });
             return Collections.singletonList(action);

@@ -2,17 +2,14 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
-
-import java.util.List;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -41,20 +38,15 @@ public class Card1_058 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseActiveCardsEffect(playerId, "Choose elves to exert", 2, 2, Filters.race(Race.ELF), Filters.canExert()) {
-                    @Override
-                    protected void cardsSelected(List<PhysicalCard> cards) {
-                        action.addCost(new ExertCharacterEffect(playerId, Filters.in(cards)));
-                    }
-                });
-        action.addEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 2, 2, Filters.race(Race.ELF), Filters.canExert()));
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard condition) {
-                        action.addEffect(new CardAffectsCardEffect(self, condition));
-                        action.addEffect(
-                                new DiscardCardFromPlayEffect(self, condition));
+                        action.appendEffect(new CardAffectsCardEffect(self, condition));
+                        action.appendEffect(
+                                new DiscardCardsFromPlayEffect(self, condition));
                     }
                 });
         return action;

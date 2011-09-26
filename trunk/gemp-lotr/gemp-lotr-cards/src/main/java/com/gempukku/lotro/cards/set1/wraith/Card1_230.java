@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -12,9 +12,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -41,18 +41,18 @@ public class Card1_230 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Ulaire Cantea to discard a weapon borne by a character he is skirmishing.");
-            action.addCost(
-                    new ExertCharacterEffect(playerId, self));
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Ulaire Cantea to discard a weapon borne by a character he is skirmishing.");
+            action.appendCost(
+                    new ExertCharactersCost(playerId, self));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getShadowCharacters().contains(self)) {
-                action.addEffect(
+                action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose a weapon borne by a character he is skirmishing", Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.attachedTo(Filters.sameCard(skirmish.getFellowshipCharacter()))) {
                             @Override
                             protected void cardSelected(PhysicalCard weapon) {
-                                action.addEffect(new CardAffectsCardEffect(self, weapon));
-                                action.addEffect(
-                                        new DiscardCardFromPlayEffect(self, weapon));
+                                action.appendEffect(new CardAffectsCardEffect(self, weapon));
+                                action.appendEffect(
+                                        new DiscardCardsFromPlayEffect(self, weapon));
                             }
                         });
             }

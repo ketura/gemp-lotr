@@ -1,9 +1,11 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.timing.Cost;
+import com.gempukku.lotro.logic.timing.CostResolution;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
-public class RemoveTwilightEffect extends UnrespondableEffect {
+public class RemoveTwilightEffect extends UnrespondableEffect implements Cost {
     private int _twilight;
 
     public RemoveTwilightEffect(int twilight) {
@@ -11,14 +13,18 @@ public class RemoveTwilightEffect extends UnrespondableEffect {
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return true;
-//        return _twilight <= game.getGameState().getTwilightPool();
+    public void doPlayEffect(LotroGame game) {
+        int toRemove = Math.max(game.getGameState().getTwilightPool(), _twilight);
+        game.getGameState().sendMessage(toRemove + " twilight gets removed from twilight pool");
+        game.getGameState().removeTwilight(toRemove);
     }
 
     @Override
-    public void doPlayEffect(LotroGame game) {
-        game.getGameState().sendMessage(_twilight + " twilight gets removed from twilight pool");
-        game.getGameState().removeTwilight(_twilight);
+    public CostResolution playCost(LotroGame game) {
+        int toRemove = Math.max(game.getGameState().getTwilightPool(), _twilight);
+        game.getGameState().sendMessage(toRemove + " twilight gets removed from twilight pool");
+        game.getGameState().removeTwilight(toRemove);
+
+        return new CostResolution(null, toRemove == _twilight);
     }
 }

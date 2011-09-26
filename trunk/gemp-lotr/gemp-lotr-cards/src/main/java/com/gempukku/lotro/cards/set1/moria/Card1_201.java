@@ -28,7 +28,7 @@ public class Card1_201 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                     @Override
                     protected void cardSelected(PhysicalCard moriaOrc) {
@@ -39,8 +39,8 @@ public class Card1_201 extends AbstractEvent {
                                 && skirmish.getShadowCharacters().contains(moriaOrc)) {
                             bonus = 4;
                         }
-                        action.addEffect(new CardAffectsCardEffect(self, moriaOrc));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, moriaOrc));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(moriaOrc), bonus), Phase.SKIRMISH));
                     }

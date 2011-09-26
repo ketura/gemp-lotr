@@ -2,14 +2,14 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -38,15 +38,15 @@ public class Card1_063 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.race(Race.ELF), Filters.canExert()));
-        action.addEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF), Filters.canExert()));
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose SAURON minion, condition or possession", Filters.culture(Culture.SAURON),
                         Filters.or(Filters.type(CardType.MINION), Filters.type(CardType.CONDITION), Filters.type(CardType.POSSESSION))) {
                     @Override
                     protected void cardSelected(PhysicalCard sauronCard) {
-                        action.addEffect(new CardAffectsCardEffect(self, sauronCard));
-                        action.addEffect(new DiscardCardFromPlayEffect(self, sauronCard));
+                        action.appendEffect(new CardAffectsCardEffect(self, sauronCard));
+                        action.appendEffect(new DiscardCardsFromPlayEffect(self, sauronCard));
                     }
                 }
         );

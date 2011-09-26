@@ -23,7 +23,7 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
     @Override
     public void process() {
         GameState gameState = _game.getGameState();
-        PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).get(0);
+        PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).iterator().next();
         gameState.removeCardFromZone(firstSite);
         gameState.addCardToZone(firstSite, Zone.ADVENTURE_PATH);
 

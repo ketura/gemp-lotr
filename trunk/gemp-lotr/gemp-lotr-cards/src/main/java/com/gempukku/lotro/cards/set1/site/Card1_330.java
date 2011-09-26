@@ -31,7 +31,7 @@ public class Card1_330 extends AbstractSite {
     public Modifier getAlwaysOnEffect(final PhysicalCard self) {
         return new AbstractModifier(self, "While only Hobbits are in the fellowship, there are no assignment and skirmish phases at Buckleberry Ferry.", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
-            public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+            public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
                 if (gameState.getCurrentSite() == self
                         && (phase == Phase.ASSIGNMENT || phase == Phase.SKIRMISH)
                         && !Filters.canSpot(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.not(Filters.race(Race.HOBBIT))))

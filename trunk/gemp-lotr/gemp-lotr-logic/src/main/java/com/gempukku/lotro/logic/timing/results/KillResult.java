@@ -3,17 +3,17 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.List;
+import java.util.Set;
 
 public class KillResult extends EffectResult {
-    private List<PhysicalCard> _killedCards;
+    private Set<PhysicalCard> _killedCards;
 
-    public KillResult(List<PhysicalCard> killedCards) {
+    public KillResult(Set<PhysicalCard> killedCards) {
         super(EffectResult.Type.KILL);
         _killedCards = killedCards;
     }
 
-    public List<PhysicalCard> getKilledCards() {
+    public Set<PhysicalCard> getKilledCards() {
         return _killedCards;
     }
 }

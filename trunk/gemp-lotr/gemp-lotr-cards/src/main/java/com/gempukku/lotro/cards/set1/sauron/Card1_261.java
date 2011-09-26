@@ -2,14 +2,15 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CancelEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -45,11 +46,11 @@ public class Card1_261 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
                 && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.EVENT), Filters.keyword(Keyword.REGROUP)))
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert this minion to cancel that event.");
-            action.addCost(
-                    new ExertCharacterEffect(playerId, self));
-            action.addEffect(
-                    new CancelEffect(playerId, effect));
+            ActivateCardAction action = new ActivateCardAction(self, null, "Exert this minion to cancel that event.");
+            action.appendCost(
+                    new ExertCharactersCost(playerId, self));
+            action.appendEffect(
+                    new CancelEventEffect(playerId, (PlayEventEffect) effect));
             return Collections.singletonList(action);
         }
         return null;

@@ -33,8 +33,8 @@ public class Card1_078 extends AbstractEvent {
         int bonus = (game.getGameState().getBurdens() <= 4) ? 4 : 2;
         final PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
         if (gandalf != null) {
-            action.addEffect(new CardAffectsCardEffect(self, gandalf));
-            action.addEffect(
+            action.appendEffect(new CardAffectsCardEffect(self, gandalf));
+            action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(gandalf), bonus), Phase.SKIRMISH));
         }

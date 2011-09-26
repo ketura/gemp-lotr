@@ -2,9 +2,10 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
+import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -41,18 +42,23 @@ public class Card1_036 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose an Elf", true, Filters.race(Race.ELF), Filters.canExert()));
-        action.addEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF), Filters.canExert()));
+        action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         List<? extends PhysicalCard> hand = game.getGameState().getHand(opponentId);
                         int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC)).size();
-                        for (int i = 0; i < orcsCount; i++)
-                            action.addEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false));
+                        action.appendEffect(new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none(), 0, 0) {
+                            @Override
+                            protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                // Do nothing
+                            }
+                        });
+                        action.appendEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, orcsCount));
                     }
                 });
         return action;

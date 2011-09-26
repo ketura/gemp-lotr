@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CancelEffect;
+import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -11,6 +11,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -41,7 +42,7 @@ public class Card1_194 extends AbstractResponseEvent {
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)) >= 3
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(new CancelEffect(playerId, effect));
+            action.appendEffect(new CancelEventEffect(playerId, (PlayEventEffect) effect));
             return Collections.singletonList(action);
         }
         return null;

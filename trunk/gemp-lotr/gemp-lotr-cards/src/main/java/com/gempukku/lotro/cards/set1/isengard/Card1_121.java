@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -13,7 +13,8 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+
+import java.util.Collection;
 
 /**
  * Set: The Fellowship of the Ring
@@ -42,15 +43,17 @@ public class Card1_121 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI), Filters.canExert()) {
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
                     @Override
-                    protected void cardSelected(PhysicalCard urukHai) {
-                        action.addCost(new ExertCharacterEffect(playerId, urukHai));
-                        action.addEffect(new CardAffectsCardEffect(self, urukHai));
-                        action.addEffect(
-                                new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(urukHai), 3), Phase.SKIRMISH));
+                    protected void cardsSelected(Collection<PhysicalCard> urukHai, boolean success) {
+                        super.cardsSelected(urukHai, success);
+                        if (success) {
+                            action.appendEffect(new CardAffectsCardEffect(self, urukHai));
+                            action.appendEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(
+                                            new StrengthModifier(self, Filters.in(urukHai), 3), Phase.SKIRMISH));
+                        }
                     }
                 }
         );

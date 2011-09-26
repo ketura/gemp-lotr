@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -14,7 +14,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
@@ -58,17 +58,17 @@ public class Card1_095 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Boromir to wound an Orc or Uruk-hai he is skirmishing.");
-            action.addCost(
-                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Boromir to wound an Orc or Uruk-hai he is skirmishing.");
+            action.appendCost(
+                    new ExertCharactersCost(playerId, self.getAttachedTo()));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getFellowshipCharacter() == self.getAttachedTo()) {
-                action.addEffect(
+                action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Chose Orc or Uruk-hai in skirmish", Filters.or(Filters.race(Race.ORC), Filters.race(Race.URUK_HAI)), Filters.in(skirmish.getShadowCharacters())) {
                             @Override
                             protected void cardSelected(PhysicalCard minion) {
-                                action.addEffect(new CardAffectsCardEffect(self, minion));
-                                action.addEffect(new WoundCharacterEffect(playerId, minion));
+                                action.appendEffect(new CardAffectsCardEffect(self, minion));
+                                action.appendEffect(new WoundCharacterEffect(playerId, minion));
                             }
                         });
             }

@@ -35,7 +35,7 @@ public class Card1_191 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add (2)");
-            action.addEffect(new AddTwilightEffect(2));
+            action.appendEffect(new AddTwilightEffect(2));
             return Collections.singletonList(action);
         }
         return null;

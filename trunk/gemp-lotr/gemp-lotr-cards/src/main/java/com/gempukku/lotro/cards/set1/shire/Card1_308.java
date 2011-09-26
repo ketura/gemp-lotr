@@ -31,11 +31,11 @@ public class Card1_308 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        action.addCost(new AddBurdenEffect(playerId));
+        action.appendCost(new AddBurdenEffect(playerId));
         Skirmish skirmish = game.getGameState().getSkirmish();
         if (skirmish != null) {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), skirmish.getFellowshipCharacter(), Keyword.RING_BEARER)) {
-                action.addEffect(
+                action.appendEffect(
                         new WoundCharacterEffect(playerId, Filters.and(Filters.type(CardType.MINION), Filters.inSkirmish())));
             }
         }

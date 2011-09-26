@@ -12,7 +12,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -43,13 +43,13 @@ public class Card1_214 extends AbstractResponseEvent {
         if (PlayConditions.canPayForShadowCard(game, self, 0)
                 && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.NAZGUL))) {
             PlayEventAction action = new PlayEventAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
                     new ExertCharacterEffect(playerId, game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())));
             possibleEffects.add(
                     new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
-            action.addEffect(
-                    new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects, false));
+            action.appendEffect(
+                    new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);
         }
         return null;

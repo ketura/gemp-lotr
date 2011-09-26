@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -13,6 +13,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+
+import java.util.Collection;
 
 /**
  * Set: The Fellowship of the Ring
@@ -36,18 +38,20 @@ public class Card1_255 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a SAURON Orc", true, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert()) {
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardSelected(PhysicalCard minion) {
-                        super.cardSelected(minion);
-                        Skirmish skirmish = game.getGameState().getSkirmish();
-                        if (skirmish != null
-                                && skirmish.getShadowCharacters().contains(minion)
-                                && skirmish.getFellowshipCharacter() != null) {
-                            action.addEffect(new CardAffectsCardEffect(self, skirmish.getFellowshipCharacter()));
-                            action.addEffect(
-                                    new WoundCharacterEffect(playerId, skirmish.getFellowshipCharacter()));
+                    protected void cardsSelected(Collection<PhysicalCard> minion, boolean success) {
+                        super.cardsSelected(minion, success);
+                        if (success) {
+                            Skirmish skirmish = game.getGameState().getSkirmish();
+                            if (skirmish != null
+                                    && skirmish.getShadowCharacters().contains(minion)
+                                    && skirmish.getFellowshipCharacter() != null) {
+                                action.appendEffect(new CardAffectsCardEffect(self, skirmish.getFellowshipCharacter()));
+                                action.appendEffect(
+                                        new WoundCharacterEffect(playerId, skirmish.getFellowshipCharacter()));
+                            }
                         }
                     }
                 });

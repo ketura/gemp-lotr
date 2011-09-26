@@ -2,27 +2,25 @@ package com.gempukku.lotro.logic.decisions;
 
 import com.gempukku.lotro.game.PhysicalCard;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public abstract class CardsSelectionDecision extends AbstractAwaitingDecision {
     private List<? extends PhysicalCard> _physicalCards;
     private int _minimum;
     private int _maximum;
 
-    public CardsSelectionDecision(int id, String text, List<? extends PhysicalCard> physicalCard) {
+    public CardsSelectionDecision(int id, String text, Collection<? extends PhysicalCard> physicalCard) {
         this(id, text, physicalCard, 0, physicalCard.size());
     }
 
-    public CardsSelectionDecision(int id, String text, List<? extends PhysicalCard> physicalCards, int minimum, int maximum) {
+    public CardsSelectionDecision(int id, String text, Collection<? extends PhysicalCard> physicalCards, int minimum, int maximum) {
         super(id, text, AwaitingDecisionType.CARD_SELECTION);
-        _physicalCards = physicalCards;
+        _physicalCards = new LinkedList<PhysicalCard>(physicalCards);
         _minimum = minimum;
         _maximum = maximum;
         setParam("min", String.valueOf(minimum));
         setParam("max", String.valueOf(maximum));
-        setParam("cardId", getCardIds(physicalCards));
+        setParam("cardId", getCardIds(_physicalCards));
     }
 
     private String[] getCardIds(List<? extends PhysicalCard> physicalCards) {
@@ -32,10 +30,10 @@ public abstract class CardsSelectionDecision extends AbstractAwaitingDecision {
         return result;
     }
 
-    protected List<PhysicalCard> getSelectedCardsByResponse(String response) throws DecisionResultInvalidException {
+    protected Set<PhysicalCard> getSelectedCardsByResponse(String response) throws DecisionResultInvalidException {
         if (response.equals("")) {
             if (_minimum == 0)
-                return Collections.emptyList();
+                return Collections.emptySet();
             else
                 throw new DecisionResultInvalidException();
         }
@@ -43,7 +41,7 @@ public abstract class CardsSelectionDecision extends AbstractAwaitingDecision {
         if (cardIds.length < _minimum || cardIds.length > _maximum)
             throw new DecisionResultInvalidException();
 
-        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        Set<PhysicalCard> result = new HashSet<PhysicalCard>();
         try {
             for (String cardId : cardIds) {
                 PhysicalCard card = getSelectedCardById(Integer.parseInt(cardId));

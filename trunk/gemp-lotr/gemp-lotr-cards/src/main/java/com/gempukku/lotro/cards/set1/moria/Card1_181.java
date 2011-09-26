@@ -35,11 +35,11 @@ public class Card1_181 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Place a MORIA Orc from your discard pile beneath your draw deck.");
-            action.addEffect(
+            action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose MORIA Orc", game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)), 1, 1) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            action.addEffect(
+                            action.appendEffect(
                                     new PutCardFromDiscardOnBottomOfDeckEffect(selectedCards.get(0)));
                         }
                     });

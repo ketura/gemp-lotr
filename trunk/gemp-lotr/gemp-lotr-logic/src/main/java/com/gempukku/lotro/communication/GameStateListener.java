@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface GameStateListener {
@@ -42,7 +43,7 @@ public interface GameStateListener {
 
     public void setZoneSize(String playerId, Zone zone, int size);
 
-    public void cardAffectedByCard(PhysicalCard card, PhysicalCard affectedCard);
+    public void cardAffectedByCard(PhysicalCard card, Collection<PhysicalCard> affectedCard);
 
     public void eventPlayed(PhysicalCard card);
 }

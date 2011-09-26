@@ -42,7 +42,7 @@ public interface ModifiersQuerying {
 
     public boolean canPlayAction(GameState gameState, Action action);
 
-    public boolean shouldSkipPhase(GameState gameState, Phase phase);
+    public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId);
 
     public boolean isValidFreePlayerAssignments(GameState gameState, Map<PhysicalCard, List<PhysicalCard>> assignments);
 

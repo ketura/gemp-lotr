@@ -2,13 +2,14 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CancelEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -35,11 +36,11 @@ public class Card1_275 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER), Filters.canExert())
                 && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.type(CardType.EVENT), Filters.keyword(Keyword.STEALTH)))) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Exert a SAURON tracker to cancel that event.");
-            action.addCost(
-                    new ChooseAndExertCharacterEffect(action, playerId, "Choose a SAURON tracker", true, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER), Filters.canExert()));
-            action.addEffect(
-                    new CancelEffect(playerId, effect));
+            ActivateCardAction action = new ActivateCardAction(self, null, "Exert a SAURON tracker to cancel that event.");
+            action.appendCost(
+                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER), Filters.canExert()));
+            action.appendEffect(
+                    new CancelEventEffect(playerId, (PlayEventEffect) effect));
             return Collections.singletonList(action);
         }
         return null;

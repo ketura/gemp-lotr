@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -33,14 +33,14 @@ public class Card1_278 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 3)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Remove (3) to make a SAURON Orc strength +1.");
-            action.addCost(new RemoveTwilightEffect(3));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (3) to make a SAURON Orc strength +1.");
+            action.appendCost(new RemoveTwilightEffect(3));
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a SAURON Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard sauronOrc) {
-                            action.addEffect(new CardAffectsCardEffect(self, sauronOrc));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, sauronOrc));
+                            action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(sauronOrc), 1), Phase.SKIRMISH));
                         }

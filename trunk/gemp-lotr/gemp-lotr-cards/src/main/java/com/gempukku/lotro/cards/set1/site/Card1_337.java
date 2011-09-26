@@ -29,7 +29,7 @@ public class Card1_337 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getGameState().getCurrentSite() == self) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Remove (2)");
-            action.addEffect(new RemoveTwilightEffect(2));
+            action.appendEffect(new RemoveTwilightEffect(2));
             return Collections.singletonList(action);
         }
         return null;

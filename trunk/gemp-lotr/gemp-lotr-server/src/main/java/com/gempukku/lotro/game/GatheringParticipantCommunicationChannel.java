@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import static com.gempukku.lotro.game.GameEvent.Type.*;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,8 +119,9 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     }
 
     @Override
-    public void cardAffectedByCard(PhysicalCard card, PhysicalCard affectedCard) {
-        _events.add(new GameEvent(CARD_AFFECTS_CARD).card(card).targetCardId(affectedCard.getCardId()));
+    public void cardAffectedByCard(PhysicalCard card, Collection<PhysicalCard> affectedCard) {
+        // TODO
+//        _events.add(new GameEvent(CARD_AFFECTS_CARD).card(card).targetCardId(affectedCard.getCardId()));
     }
 
     public void eventPlayed(PhysicalCard card) {

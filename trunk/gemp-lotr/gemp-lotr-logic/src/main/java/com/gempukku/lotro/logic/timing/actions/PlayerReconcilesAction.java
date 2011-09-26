@@ -12,9 +12,10 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 public class PlayerReconcilesAction implements Action {
     private LotroGame _game;
@@ -48,13 +49,13 @@ public class PlayerReconcilesAction implements Action {
             _effectQueue = new LinkedList<Effect>();
 
             GameState gameState = _game.getGameState();
-            final List<? extends PhysicalCard> cardsInHand = gameState.getHand(_playerId);
+            final Set<? extends PhysicalCard> cardsInHand = new HashSet<PhysicalCard>(gameState.getHand(_playerId));
             if (cardsInHand.size() > 8) {
                 _effectQueue.add(new PlayoutDecisionEffect(_game.getUserFeedback(), _playerId,
                         new CardsSelectionDecision(1, "Choose cards to discard down to 8", cardsInHand, cardsInHand.size() - 8, cardsInHand.size() - 8) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
-                                List<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                                Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                 for (PhysicalCard card : cards)
                                     _effectQueue.add(new DiscardCardFromHandEffect(card));
                             }
@@ -64,9 +65,9 @@ public class PlayerReconcilesAction implements Action {
                         new CardsSelectionDecision(1, "Reconcile - choose card to discard or press DONE", cardsInHand, 0, 1) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
-                                List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                 if (selectedCards.size() > 0) {
-                                    PhysicalCard cardToDiscard = selectedCards.get(0);
+                                    PhysicalCard cardToDiscard = selectedCards.iterator().next();
                                     _effectQueue.add(new DiscardCardFromHandEffect(cardToDiscard));
                                 }
                                 int cardsInHandAfterDiscard = cardsInHand.size() - selectedCards.size();

@@ -7,15 +7,5 @@ public interface Effect {
 
     public String getText(LotroGame game);
 
-    public void setFailed();
-
-    public boolean isFailed();
-
-    public void cancel();
-
-    public boolean isCancelled();
-
-    public boolean canPlayEffect(LotroGame game);
-
     public EffectResult[] playEffect(LotroGame game);
 }

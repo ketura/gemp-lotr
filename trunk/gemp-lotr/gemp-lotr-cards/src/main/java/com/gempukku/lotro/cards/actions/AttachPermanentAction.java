@@ -6,36 +6,33 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-public class AttachPermanentAction implements CostToEffectAction {
+public class AttachPermanentAction extends AbstractCostToEffectAction {
     private PhysicalCard _source;
 
     private Effect _removeCardEffect;
     private boolean _cardRemoved;
 
-    private Effect _chooseTargetEffect;
+    private ChooseActiveCardEffect _chooseTargetEffect;
     private boolean _targetChosen;
 
     private Iterator<Effect> _preCostIterator;
-
-    private List<Effect> _costs = new ArrayList<Effect>();
-    private int _nextCostIndex;
 
     private Effect _putCardIntoPlayEffect;
     private boolean _cardPutIntoPlay;
 
     private Effect _playCardEffect;
     private boolean _cardPlayed;
-
-    private List<Effect> _effects = new ArrayList<Effect>();
-    private int _nextEffectIndex;
 
     private Effect _discardCardEffect;
     private boolean _cardDiscarded;
@@ -58,9 +55,9 @@ public class AttachPermanentAction implements CostToEffectAction {
 
                         List<Effect> preCostEffects = new LinkedList<Effect>();
                         preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + card.getBlueprint().getName() + " from " + card.getZone().getHumanReadable() + " on " + target.getBlueprint().getName()));
-                        preCostEffects.add(new PayPlayOnTwilightCostEffect(card, target, modifier));
                         if (card.getZone() == Zone.DECK)
                             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
+                        appendCost(new PayPlayOnTwilightCostEffect(card, target, modifier));
 
                         _preCostIterator = preCostEffects.iterator();
 
@@ -68,14 +65,6 @@ public class AttachPermanentAction implements CostToEffectAction {
                     }
                 };
         _discardCardEffect = new PutCardIntoDiscardEffect(card);
-    }
-
-    public void addCost(Effect cost) {
-        _costs.add(cost);
-    }
-
-    public void addEffect(Effect effect) {
-        _effects.add(effect);
     }
 
     @Override
@@ -105,23 +94,14 @@ public class AttachPermanentAction implements CostToEffectAction {
             return _chooseTargetEffect;
         }
 
-        if (!_chooseTargetEffect.isCancelled() && !_chooseTargetEffect.isFailed()) {
+        if (_putCardIntoPlayEffect != null) {
             if (_preCostIterator.hasNext())
                 return _preCostIterator.next();
 
-            boolean anyCostCancelledOrFailed = false;
-            for (int i = 0; i < _nextCostIndex; i++) {
-                Effect cost = _costs.get(i);
-                if (cost.isCancelled() || cost.isFailed())
-                    anyCostCancelledOrFailed = true;
-            }
-
-            if (!anyCostCancelledOrFailed) {
-                if (_nextCostIndex < _costs.size()) {
-                    Effect cost = _costs.get(_nextCostIndex);
-                    _nextCostIndex++;
+            if (!isCostFailed()) {
+                Effect cost = getNextCost();
+                if (cost != null)
                     return cost;
-                }
 
                 if (!_cardPutIntoPlay) {
                     _cardPutIntoPlay = true;
@@ -133,13 +113,9 @@ public class AttachPermanentAction implements CostToEffectAction {
                     return _playCardEffect;
                 }
 
-                if (!_playCardEffect.isCancelled() && !_playCardEffect.isFailed()) {
-                    if (_nextEffectIndex < _effects.size()) {
-                        Effect effect = _effects.get(_nextEffectIndex);
-                        _nextEffectIndex++;
-                        return effect;
-                    }
-                }
+                Effect effect = getNextEffect();
+                if (effect != null)
+                    return effect;
             } else {
                 if (!_cardDiscarded) {
                     _cardDiscarded = true;

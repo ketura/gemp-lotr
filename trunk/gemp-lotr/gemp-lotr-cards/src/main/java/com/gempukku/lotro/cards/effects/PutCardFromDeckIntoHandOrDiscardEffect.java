@@ -17,25 +17,22 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends UnrespondableEffect 
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return _physicalCard.getZone() == Zone.DECK;
-    }
-
-    @Override
     public String getText(LotroGame game) {
         return "Put card from deck into hand";
     }
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _physicalCard.getOwner())) {
-            game.getGameState().sendMessage(_physicalCard.getOwner() + " puts card from deck into his or her hand");
-            game.getGameState().removeCardFromZone(_physicalCard);
-            game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
-        } else {
-            game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + _physicalCard.getBlueprint().getName() + " from deck");
-            game.getGameState().removeCardFromZone(_physicalCard);
-            game.getGameState().addCardToZone(_physicalCard, Zone.DISCARD);
+        if (_physicalCard.getZone() == Zone.DECK) {
+            if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _physicalCard.getOwner())) {
+                game.getGameState().sendMessage(_physicalCard.getOwner() + " puts card from deck into his or her hand");
+                game.getGameState().removeCardFromZone(_physicalCard);
+                game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
+            } else {
+                game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + _physicalCard.getBlueprint().getName() + " from deck");
+                game.getGameState().removeCardFromZone(_physicalCard);
+                game.getGameState().addCardToZone(_physicalCard, Zone.DISCARD);
+            }
         }
     }
 }

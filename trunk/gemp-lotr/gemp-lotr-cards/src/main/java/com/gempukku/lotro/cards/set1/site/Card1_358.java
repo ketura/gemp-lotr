@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -10,9 +11,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -35,16 +34,11 @@ public class Card1_358 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Discard a GONDOR card from hand to heal a GONDOR companion.");
-            action.addCost(
-                    new ChooseCardsFromHandEffect(playerId, "Choose a GONDOR card", 1, 1, Filters.culture(Culture.GONDOR)) {
-                        @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            action.addCost(new DiscardCardFromHandEffect(selectedCards.get(0)));
-                        }
-                    });
-            action.addEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose a GONDOR companion", false, Filters.type(CardType.COMPANION), Filters.culture(Culture.GONDOR)));
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Discard a GONDOR card from hand to heal a GONDOR companion.");
+            action.appendCost(
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR)));
+            action.appendEffect(
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose a GONDOR companion", Filters.type(CardType.COMPANION), Filters.culture(Culture.GONDOR)));
             return Collections.singletonList(action);
         }
         return null;

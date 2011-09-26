@@ -2,15 +2,15 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -41,14 +41,14 @@ public class Card1_068 extends AbstractAttachable {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Exert bearer to make an opponent discard 2 cards at random from hand");
-            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY, "Exert bearer to make an opponent discard 2 cards at random from hand");
+            action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
+            action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override
                         protected void opponentChosen(String opponentId) {
-                            action.addEffect(new DiscardCardAtRandomFromHandEffect(opponentId));
-                            action.addEffect(new DiscardCardAtRandomFromHandEffect(opponentId));
+                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponentId));
+                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponentId));
                         }
                     });
 

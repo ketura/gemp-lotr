@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -34,9 +34,9 @@ public class Card1_196 extends AbstractPermanent {
                 && game.getGameState().getHand(playerId).size() >= 3
                 // You have to be able to play a MORIA Orc from discard to use it
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.playable(game)).size() > 0) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard 3 cards from hand to play a [MORIA] Orc from your discard pile.");
-            action.addCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, true, 3));
-            action.addEffect(
+            ActivateCardAction action = new ActivateCardAction(self, null, "Discard 3 cards from hand to play a [MORIA] Orc from your discard pile.");
+            action.appendCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, 3));
+            action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC))));
             return Collections.singletonList(action);
         }

@@ -30,13 +30,13 @@ public class Card1_204 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)) {
                     @Override
                     protected void cardSelected(PhysicalCard nazgul) {
                         int bonus = (game.getGameState().isWearingRing()) ? 5 : 2;
-                        action.addEffect(new CardAffectsCardEffect(self, nazgul));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, nazgul));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(nazgul), bonus), Phase.SKIRMISH));
                     }

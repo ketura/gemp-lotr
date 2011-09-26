@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -37,8 +36,7 @@ public class Card1_038 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        action.addCost(new SpotEffect(Filters.and(Filters.race(Race.ELF), Filters.keyword(Keyword.ARCHER), Filters.type(CardType.COMPANION))));
-        action.addEffect(new AddUntilEndOfPhaseModifierEffect(
+        action.appendEffect(new AddUntilEndOfPhaseModifierEffect(
                 new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
 
         return action;

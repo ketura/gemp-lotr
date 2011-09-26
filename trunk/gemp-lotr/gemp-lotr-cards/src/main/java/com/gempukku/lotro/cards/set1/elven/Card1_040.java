@@ -2,12 +2,12 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
@@ -44,9 +44,9 @@ public class Card1_040 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert Elrond to draw a card");
-            action.addCost(new ExertCharacterEffect(playerId, self));
-            action.addEffect(new DrawCardEffect(playerId, 1));
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert Elrond to draw a card");
+            action.appendCost(new ExertCharactersCost(playerId, self));
+            action.appendEffect(new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;
@@ -56,7 +56,7 @@ public class Card1_040 extends AbstractAlly {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal every ally whose home is site 3");
-            action.addEffect(
+            action.appendEffect(
                     new HealCharacterEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(3))));
 
             return Collections.singletonList(action);

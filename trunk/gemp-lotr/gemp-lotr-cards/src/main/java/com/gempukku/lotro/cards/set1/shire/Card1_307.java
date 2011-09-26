@@ -13,7 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -42,11 +42,11 @@ public class Card1_307 extends AbstractCompanion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Remove a burder or wound from a companion");
 
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
             possibleEffects.add(
-                    new ChooseAndHealCharacterEffect(action, self.getOwner(), "Choose a companion", false, Filters.type(CardType.COMPANION)));
-            action.addEffect(new ChoiceEffect(action, self.getOwner(), possibleEffects, false));
+                    new ChooseAndHealCharacterEffect(action, self.getOwner(), "Choose a companion", Filters.type(CardType.COMPANION)));
+            action.appendEffect(new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
         }
         return null;

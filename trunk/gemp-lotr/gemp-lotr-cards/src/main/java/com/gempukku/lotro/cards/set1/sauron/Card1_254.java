@@ -2,14 +2,14 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -37,11 +37,11 @@ public class Card1_254 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Exert bearer to add (1) for each archer companion.");
-            action.addCost(
-                    new ExertCharacterEffect(playerId, self.getAttachedTo()));
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Exert bearer to add (1) for each archer companion.");
+            action.appendCost(
+                    new ExertCharactersCost(playerId, self.getAttachedTo()));
             int archerCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER));
-            action.addEffect(
+            action.appendEffect(
                     new AddTwilightEffect(archerCompanions));
             return Collections.singletonList(action);
         }

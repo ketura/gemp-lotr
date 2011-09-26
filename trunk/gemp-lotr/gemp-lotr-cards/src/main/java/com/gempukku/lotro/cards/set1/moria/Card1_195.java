@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -32,9 +32,9 @@ public class Card1_195 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)
                 // You have to be able to play the MORIA possession from your discard pile to use this card
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.POSSESSION), Filters.playable(game, 2)).size() > 0) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Remove (2) to play a [MORIA] possession from your discard pile.");
-            action.addCost(new RemoveTwilightEffect(2));
-            action.addEffect(
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (2) to play a [MORIA] possession from your discard pile.");
+            action.appendCost(new RemoveTwilightEffect(2));
+            action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.type(CardType.POSSESSION))));
             return Collections.singletonList(action);
         }

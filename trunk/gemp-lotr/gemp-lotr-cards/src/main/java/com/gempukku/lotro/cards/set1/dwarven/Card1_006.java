@@ -2,12 +2,11 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 
 /**
@@ -37,15 +36,9 @@ public class Card1_006 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose Dwarf companion", Filters.race(Race.DWARF), Filters.type(CardType.COMPANION), Filters.canExert()) {
-                    @Override
-                    protected void cardSelected(PhysicalCard dwarf) {
-                        action.addCost(new ExertCharacterEffect(playerId, dwarf));
-                        action.addEffect(new DrawCardEffect(playerId, 3));
-                    }
-                }
-        );
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.type(CardType.COMPANION)));
+        action.appendEffect(new DrawCardEffect(playerId, 3));
         return action;
     }
 }

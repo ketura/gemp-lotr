@@ -2,13 +2,13 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -41,15 +41,15 @@ public class Card1_231 extends AbstractMinion {
                 && (
                 Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 6
                         || game.getGameState().getBurdens() >= 5)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert Ulaire Enquea to wound a companion (except the Ring-bearer).");
-            action.addCost(
-                    new ExertCharacterEffect(playerId, self));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Ulaire Enquea to wound a companion (except the Ring-bearer).");
+            action.appendCost(
+                    new ExertCharactersCost(playerId, self));
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a companion (except a Ring-Bearer)", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
-                            action.addEffect(new CardAffectsCardEffect(self, companion));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, companion));
+                            action.appendEffect(
                                     new WoundCharacterEffect(playerId, companion));
                         }
                     });

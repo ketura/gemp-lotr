@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -45,15 +45,15 @@ public class Card1_159 extends AbstractPermanent {
                 && game.getGameState().getTwilightPool() >= 3) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
 
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (3) to make him fierce until the regroup phase.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (3) to make him fierce until the regroup phase.");
 
-            action.addCost(new RemoveTwilightEffect(3));
-            action.addEffect(
+            action.appendCost(new RemoveTwilightEffect(3));
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners()))) {
                         @Override
                         protected void cardSelected(PhysicalCard winningUrukHai) {
-                            action.addEffect(new CardAffectsCardEffect(self, winningUrukHai));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, winningUrukHai));
+                            action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(winningUrukHai), Keyword.FIERCE), Phase.REGROUP));
                         }

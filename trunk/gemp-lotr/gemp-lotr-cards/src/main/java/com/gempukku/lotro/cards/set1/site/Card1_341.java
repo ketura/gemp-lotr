@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -33,10 +33,10 @@ public class Card1_341 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.playable(game)).size() > 0) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Play an Elf to draw a card");
-            action.addCost(
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Play an Elf to draw a card");
+            action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.race(Race.ELF)));
-            action.addEffect(new DrawCardEffect(playerId, 1));
+            action.appendEffect(new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

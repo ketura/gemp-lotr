@@ -34,7 +34,7 @@ public class Card1_032 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
 
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.race(Race.ELF)) {
                     @Override
                     protected void cardSelected(PhysicalCard elf) {
@@ -45,8 +45,8 @@ public class Card1_032 extends AbstractEvent {
                                 bonus = 4;
                         }
 
-                        action.addEffect(new CardAffectsCardEffect(self, elf));
-                        action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), bonus), Phase.SKIRMISH));
+                        action.appendEffect(new CardAffectsCardEffect(self, elf));
+                        action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), bonus), Phase.SKIRMISH));
                     }
                 });
         return action;

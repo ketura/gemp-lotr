@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -38,10 +38,10 @@ public class Card1_222 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Remove (3) to replace the fellowship's site with your version of the same site.");
-            action.addCost(new RemoveTwilightEffect(3));
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (3) to replace the fellowship's site with your version of the same site.");
+            action.appendCost(new RemoveTwilightEffect(3));
             if (!game.getGameState().getCurrentSite().getOwner().equals(playerId))
-                action.addEffect(
+                action.appendEffect(
                         new PlaySiteEffect(playerId, game.getGameState().getCurrentSiteNumber()));
             return Collections.singletonList(action);
         }

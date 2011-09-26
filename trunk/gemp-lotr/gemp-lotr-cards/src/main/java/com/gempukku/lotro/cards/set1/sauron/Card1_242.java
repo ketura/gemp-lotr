@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -38,27 +38,27 @@ public class Card1_242 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Remove (3) to reveal " +
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (3) to reveal " +
                     "the top card of your draw deck. If it is a [SAURON] card, take it into hand. Otherwise, discard it " +
                     "and one other card from hand.");
-            action.addCost(new RemoveTwilightEffect(3));
-            action.addEffect(
+            action.appendCost(new RemoveTwilightEffect(3));
+            action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(playerId, 1) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> cards) {
                             if (cards.size() == 0) {
-                                action.addEffect(
-                                        new ChooseAndDiscardCardsFromHandEffect(action, playerId, false));
+                                action.appendEffect(
+                                        new ChooseAndDiscardCardsFromHandEffect(action, playerId));
                             } else {
                                 PhysicalCard topCard = cards.get(0);
                                 if (topCard.getBlueprint().getCulture() == Culture.SAURON)
-                                    action.addEffect(
+                                    action.appendEffect(
                                             new PutCardFromDeckIntoHandOrDiscardEffect(topCard));
                                 else {
-                                    action.addEffect(
+                                    action.appendEffect(
                                             new DiscardCardFromDeckEffect(playerId, topCard));
-                                    action.addEffect(
-                                            new ChooseAndDiscardCardsFromHandEffect(action, playerId, false));
+                                    action.appendEffect(
+                                            new ChooseAndDiscardCardsFromHandEffect(action, playerId));
                                 }
                             }
                         }

@@ -38,12 +38,12 @@ public class Card1_132 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose possession", Filters.type(CardType.POSSESSION)) {
                     @Override
                     protected void cardSelected(PhysicalCard possession) {
-                        action.addEffect(new CardAffectsCardEffect(self, possession));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, possession));
+                        action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new CancelStrengthBonusModifier(self, Filters.sameCard(possession)), Phase.REGROUP));
                     }

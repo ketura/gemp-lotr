@@ -219,9 +219,9 @@ public class GameState {
         addCardToZone(card, Zone.ATTACHED);
     }
 
-    public void cardAffectsCard(PhysicalCard card, PhysicalCard affectedCard) {
+    public void cardAffectsCard(PhysicalCard card, Collection<PhysicalCard> affectedCards) {
         for (GameStateListener listener : getAllGameStateListeners())
-            listener.cardAffectedByCard(card, affectedCard);
+            listener.cardAffectedByCard(card, affectedCards);
     }
 
     public void eventPlayed(PhysicalCard card) {

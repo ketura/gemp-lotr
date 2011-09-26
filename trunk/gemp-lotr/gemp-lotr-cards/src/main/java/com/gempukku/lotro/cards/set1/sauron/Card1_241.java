@@ -8,7 +8,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+
 
 /**
  * Set: The Fellowship of the Ring
@@ -32,13 +33,13 @@ public class Card1_241 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose an ELVEN condition", Filters.culture(Culture.ELVEN), Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard elvenCondition) {
-                        action.addEffect(new CardAffectsCardEffect(self, elvenCondition));
-                        action.addEffect(
-                                new DiscardCardFromPlayEffect(self, elvenCondition));
+                        action.appendEffect(new CardAffectsCardEffect(self, elvenCondition));
+                        action.appendEffect(
+                                new DiscardCardsFromPlayEffect(self, elvenCondition));
                     }
                 });
         return action;

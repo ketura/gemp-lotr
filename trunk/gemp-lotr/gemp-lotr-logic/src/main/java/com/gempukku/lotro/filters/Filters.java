@@ -10,8 +10,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Filters {
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
@@ -21,14 +20,14 @@ public class Filters {
         return visitor.isSpotted();
     }
 
-    public static List<PhysicalCard> filterActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static Collection<PhysicalCard> filterActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
         Filter filter = Filters.and(filters);
         GetCardsVisitor getCards = new GetCardsVisitor(gameState, modifiersQuerying, filter);
         gameState.iterateActiveCards(getCards);
         return getCards.getPhysicalCards();
     }
 
-    public static List<PhysicalCard> filter(List<? extends PhysicalCard> cards, GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static Collection<PhysicalCard> filter(Collection<? extends PhysicalCard> cards, GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
         Filter filter = Filters.and(filters);
         List<PhysicalCard> result = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cards)
@@ -200,7 +199,7 @@ public class Filters {
         };
     }
 
-    public static Filter in(final List<PhysicalCard> cards) {
+    public static Filter in(final Collection<PhysicalCard> cards) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -303,6 +302,23 @@ public class Filters {
         };
     }
 
+    public static Filter and(final Filter[] filters1, final Filter... filters2) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                for (Filter filter : filters1) {
+                    if (!filter.accepts(gameState, modifiersQuerying, physicalCard))
+                        return false;
+                }
+                for (Filter filter : filters2) {
+                    if (!filter.accepts(gameState, modifiersQuerying, physicalCard))
+                        return false;
+                }
+                return true;
+            }
+        };
+    }
+
     public static Filter or(final Filter... filters) {
         return new Filter() {
             @Override
@@ -351,7 +367,7 @@ public class Filters {
         private ModifiersQuerying _modifiersQuerying;
         private Filter _filter;
 
-        private List<PhysicalCard> _physicalCards = new LinkedList<PhysicalCard>();
+        private Set<PhysicalCard> _physicalCards = new HashSet<PhysicalCard>();
 
         private GetCardsVisitor(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
             _gameState = gameState;
@@ -369,7 +385,7 @@ public class Filters {
             return _physicalCards.size();
         }
 
-        public List<PhysicalCard> getPhysicalCards() {
+        public Set<PhysicalCard> getPhysicalCards() {
             return _physicalCards;
         }
     }

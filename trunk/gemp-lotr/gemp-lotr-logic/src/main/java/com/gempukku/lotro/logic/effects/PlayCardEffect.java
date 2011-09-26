@@ -3,11 +3,11 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
-public class PlayCardEffect extends AbstractEffect {
+public class PlayCardEffect implements Effect {
     private PhysicalCard _cardPlayed;
     private PhysicalCard _attachedToCard;
 
@@ -26,11 +26,6 @@ public class PlayCardEffect extends AbstractEffect {
 
     public PhysicalCard getAttachedTo() {
         return _attachedToCard;
-    }
-
-    @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return true;
     }
 
     @Override

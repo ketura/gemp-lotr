@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
@@ -61,22 +61,22 @@ public class Card1_002 extends AbstractAttachable {
                 && effect.getType() == EffectResult.Type.WOUND
                 && !game.getGameState().isCancelRingText()) {
             WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            if (woundEffect.getCardsToBeWounded(game).contains(self.getAttachedTo())) {
+            if (woundEffect.getCardsToBeAffected(game).contains(self.getAttachedTo())) {
                 List<Action> actions = new LinkedList<Action>();
 
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
-                action.addCost(new PreventWoundEffect(woundEffect, self.getAttachedTo()));
-                action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-                action.addEffect(new AddBurdenEffect(playerId));
-                action.addEffect(new PutOnTheOneRingEffect());
-                action.addEffect(new AddUntilStartOfPhaseActionProxyEffect(
+                ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
+                action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
+                action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
+                action.appendEffect(new AddBurdenEffect(playerId));
+                action.appendEffect(new PutOnTheOneRingEffect());
+                action.appendEffect(new AddUntilStartOfPhaseActionProxyEffect(
                         new AbstractActionProxy() {
                             @Override
                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                                 if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                         && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                    DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Take off The One Ring");
-                                    action.addEffect(new TakeOffTheOneRingEffect());
+                                    ActivateCardAction action = new ActivateCardAction(self, null, "Take off The One Ring");
+                                    action.appendEffect(new TakeOffTheOneRingEffect());
                                     return Collections.singletonList(action);
                                 }
                                 return null;
@@ -97,12 +97,12 @@ public class Card1_002 extends AbstractAttachable {
                 && game.getGameState().isWearingRing()
                 && !game.getGameState().isCancelRingText()) {
             WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            if (woundEffect.getCardsToBeWounded(game).contains(self.getAttachedTo())) {
+            if (woundEffect.getCardsToBeAffected(game).contains(self.getAttachedTo())) {
                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden instead of taking a wound");
-                action.addCost(new PreventWoundEffect(woundEffect, self.getAttachedTo()));
-                action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-                action.addEffect(new AddBurdenEffect(self.getOwner()));
+                action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
+                action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
+                action.appendEffect(new AddBurdenEffect(self.getOwner()));
                 return actions;
             }
         }

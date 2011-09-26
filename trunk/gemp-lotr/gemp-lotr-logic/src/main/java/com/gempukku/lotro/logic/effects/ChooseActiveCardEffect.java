@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 
-import java.util.List;
+import java.util.Collection;
 
 public abstract class ChooseActiveCardEffect extends ChooseActiveCardsEffect {
     public ChooseActiveCardEffect(String playerId, String choiceText, Filter... filters) {
@@ -13,7 +13,8 @@ public abstract class ChooseActiveCardEffect extends ChooseActiveCardsEffect {
     protected abstract void cardSelected(PhysicalCard card);
 
     @Override
-    protected final void cardsSelected(List<PhysicalCard> cards) {
-        cardSelected(cards.get(0));
+    protected final void cardsSelected(Collection<PhysicalCard> cards) {
+        if (cards.size() == 1)
+            cardSelected(cards.iterator().next());
     }
 }

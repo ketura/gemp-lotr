@@ -6,11 +6,12 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,10 +33,10 @@ public class Card1_193 extends AbstractPermanent {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
-            List<PhysicalCard> discardedCards = discardResult.getDiscardedCards();
+            Collection<PhysicalCard> discardedCards = discardResult.getDiscardedCards();
             if (Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(), Filters.zone(Zone.DISCARD), Filters.culture(Culture.MORIA), Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.playable(game, -1)).size() > 0) {
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Play your discarded weapon from your discard pile (twilight cost -1).");
-                action.addEffect(
+                ActivateCardAction action = new ActivateCardAction(self, null, "Play your discarded weapon from your discard pile (twilight cost -1).");
+                action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId,
                                 game.getGameState().getDiscard(playerId),
                                 Filters.and(

@@ -115,7 +115,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
         return result;
     }
 

@@ -2,12 +2,12 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -36,10 +36,10 @@ public class Card1_290 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.not(Filters.sameCard(self)), Filters.canExert())) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert another companion who has the Frodo signet to heal Frodo.");
-            action.addCost(
-                    new ChooseAndExertCharacterEffect(action, playerId, "Choose another companion who has the Frodo signet", true, Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.not(Filters.sameCard(self)), Filters.canExert()));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert another companion who has the Frodo signet to heal Frodo.");
+            action.appendCost(
+                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.not(Filters.sameCard(self))));
+            action.appendEffect(
                     new HealCharacterEffect(playerId, self));
 
             return Collections.singletonList(action);

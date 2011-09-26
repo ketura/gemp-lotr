@@ -51,7 +51,7 @@ public class Card1_189 extends AbstractResponseEvent {
                         && Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0))
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             final PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(
+            action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new ForEachYouSpotDecision(1, "Choose how many MORIA minions you wish to spot", game, Filters.and(Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)), Integer.MAX_VALUE) {
                                 @Override
@@ -63,11 +63,11 @@ public class Card1_189 extends AbstractResponseEvent {
                                     for (PhysicalCard card : deck.subList(0, spotCount)) {
                                         if (card.getBlueprint().getSide() == Side.SHADOW)
                                             shadowCardsCount++;
-                                        action.addEffect(new DiscardCardFromDeckEffect(playerId, card));
+                                        action.appendEffect(new DiscardCardFromDeckEffect(playerId, card));
                                     }
                                     int burdens = Math.min(3, shadowCardsCount);
                                     for (int i = 0; i < burdens; i++)
-                                        action.addEffect(new AddBurdenEffect(playerId));
+                                        action.appendEffect(new AddBurdenEffect(playerId));
                                 }
                             }));
             return Collections.singletonList(action);

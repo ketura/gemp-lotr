@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -42,9 +42,9 @@ public class Card1_022 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose Dwarf to exert", true, Filters.race(Race.DWARF), Filters.canExert()));
-        action.addEffect(new DiscardAndChooseToPutToHandEffect(action, playerId, null, 0));
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.canExert()));
+        action.appendEffect(new DiscardAndChooseToPutToHandEffect(action, playerId, null, 0));
         return action;
     }
 
@@ -71,19 +71,19 @@ public class Card1_022 extends AbstractEvent {
                 _lastCard = card;
             }
             if (card != null && _count < 5) {
-                _action.addEffect(new PlayoutDecisionEffect(game.getUserFeedback(), _player,
+                _action.appendEffect(new PlayoutDecisionEffect(game.getUserFeedback(), _player,
                         new MultipleChoiceAwaitingDecision(1, "Do you want to put " + _lastCard.getBlueprint().getName() + " in your hand?", new String[]{"Yes", "No"}) {
                             @Override
                             protected void validDecisionMade(int index, String result) {
                                 if (result.equals("Yes")) {
-                                    _action.addEffect(new PutCardFromDiscardIntoHandEffect(_lastCard));
+                                    _action.appendEffect(new PutCardFromDiscardIntoHandEffect(_lastCard));
                                 } else {
-                                    _action.addEffect(new DiscardAndChooseToPutToHandEffect(_action, _player, _lastCard, _count + 1));
+                                    _action.appendEffect(new DiscardAndChooseToPutToHandEffect(_action, _player, _lastCard, _count + 1));
                                 }
                             }
                         }));
             } else if (_lastCard != null) {
-                _action.addEffect(new PutCardFromDiscardIntoHandEffect(_lastCard));
+                _action.appendEffect(new PutCardFromDiscardIntoHandEffect(_lastCard));
             }
         }
     }

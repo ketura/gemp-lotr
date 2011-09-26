@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AssignmentEffect extends AbstractEffect {
+public class AssignmentEffect implements Effect {
     private Map<PhysicalCard, List<PhysicalCard>> _assignments;
     private String _text;
     private String _playerId;
@@ -36,11 +36,6 @@ public class AssignmentEffect extends AbstractEffect {
     @Override
     public EffectResult.Type getType() {
         return EffectResult.Type.ASSIGNMENT;
-    }
-
-    @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return true;
     }
 
     @Override

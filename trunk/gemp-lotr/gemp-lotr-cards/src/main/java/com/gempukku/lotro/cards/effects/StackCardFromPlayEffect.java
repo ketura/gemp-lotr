@@ -19,31 +19,28 @@ public class StackCardFromPlayEffect extends UnrespondableEffect {
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return !PlayConditions.nonPlayZone(_card.getZone());
-    }
-
-    @Override
     public void doPlayEffect(LotroGame game) {
-        game.getGameState().stopAffecting(_card);
-        game.getGameState().removeCardFromZone(_card);
+        if (!PlayConditions.nonPlayZone(_card.getZone())) {
+            game.getGameState().stopAffecting(_card);
+            game.getGameState().removeCardFromZone(_card);
 
-        GameState gameState = game.getGameState();
+            GameState gameState = game.getGameState();
 
-        List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
-        for (PhysicalCard attachedCard : attachedCards) {
-            gameState.stopAffecting(attachedCard);
-            gameState.removeCardFromZone(attachedCard);
-            gameState.addCardToZone(attachedCard, Zone.DISCARD);
+            List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
+            for (PhysicalCard attachedCard : attachedCards) {
+                gameState.stopAffecting(attachedCard);
+                gameState.removeCardFromZone(attachedCard);
+                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+            }
+
+            List<PhysicalCard> stackedCards = gameState.getStackedCards(_card);
+            for (PhysicalCard stackedCard : stackedCards) {
+                gameState.removeCardFromZone(stackedCard);
+                gameState.addCardToZone(stackedCard, Zone.DISCARD);
+            }
+
+            game.getGameState().sendMessage(_card.getOwner() + " stacks " + _card.getBlueprint().getName() + " from play on " + _stackOn.getBlueprint().getName());
+            game.getGameState().stackCard(_card, _stackOn);
         }
-
-        List<PhysicalCard> stackedCards = gameState.getStackedCards(_card);
-        for (PhysicalCard stackedCard : stackedCards) {
-            gameState.removeCardFromZone(stackedCard);
-            gameState.addCardToZone(stackedCard, Zone.DISCARD);
-        }
-
-        game.getGameState().sendMessage(_card.getOwner() + " stacks " + _card.getBlueprint().getName() + " from play on " + _stackOn.getBlueprint().getName());
-        game.getGameState().stackCard(_card, _stackOn);
     }
 }

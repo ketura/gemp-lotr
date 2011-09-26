@@ -39,13 +39,13 @@ public class Card1_023 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.DWARF))) {
             final PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(
+            action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override
                         protected void opponentChosen(String opponentId) {
-                            action.addEffect(new DiscardTopCardFromDeckEffect(opponentId));
-                            action.addEffect(new DiscardTopCardFromDeckEffect(opponentId));
-                            action.addEffect(new DiscardTopCardFromDeckEffect(opponentId));
+                            action.appendEffect(new DiscardTopCardFromDeckEffect(opponentId));
+                            action.appendEffect(new DiscardTopCardFromDeckEffect(opponentId));
+                            action.appendEffect(new DiscardTopCardFromDeckEffect(opponentId));
                         }
                     });
             return Collections.singletonList(action);

@@ -48,12 +48,12 @@ public class Card1_033 extends AbstractAttachableFPPossession {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Wound a minion");
-            action.addCost(
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
-                            action.addEffect(new CardAffectsCardEffect(self, minion));
-                            action.addEffect(new WoundCharacterEffect(playerId, minion));
+                            action.appendEffect(new CardAffectsCardEffect(self, minion));
+                            action.appendEffect(new WoundCharacterEffect(playerId, minion));
                         }
                     }
             );

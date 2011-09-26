@@ -2,15 +2,15 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -42,14 +42,14 @@ public class Card1_069 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert Albert Dreary to discard a ISENGARD or MORIA condition.");
-            action.addCost(new ExertCharacterEffect(playerId, self));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Albert Dreary to discard a ISENGARD or MORIA condition.");
+            action.appendCost(new ExertCharactersCost(playerId, self));
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose ISENGARD or MORIA condition", Filters.or(Filters.culture(Culture.ISENGARD), Filters.culture(Culture.MORIA)), Filters.type(CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(PhysicalCard condition) {
-                            action.addEffect(new CardAffectsCardEffect(self, condition));
-                            action.addEffect(new DiscardCardFromPlayEffect(self, condition));
+                            action.appendEffect(new CardAffectsCardEffect(self, condition));
+                            action.appendEffect(new DiscardCardsFromPlayEffect(self, condition));
                         }
                     }
             );

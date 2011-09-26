@@ -177,10 +177,10 @@ public class ProxyingModifier implements Modifier {
     }
 
     @Override
-    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result) {
+    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
         Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
         if (modifier != null)
-            return modifier.shouldSkipPhase(gameState, modifiersQuerying, phase, result);
+            return modifier.shouldSkipPhase(gameState, modifiersQuerying, phase, null, result);
         return result;
     }
 

@@ -41,7 +41,7 @@ public class Card1_179 extends AbstractMinion {
             final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
 
             OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Play a weapon from your discard pile on your [MORIA] Orc.");
-            action.addEffect(
+            action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),
                             Filters.and(
                                     Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)),

@@ -13,7 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
@@ -51,13 +51,13 @@ public class Card1_244 extends AbstractAttachable {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT
                 && ((AssignmentResult) effectResult).getAssignments().containsKey(self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "The Free Peoples player chooses to either discard 3 cards from hand or add a burden");
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
                     new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
             possibleEffects.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 3));
-            action.addEffect(
-                    new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects, false));
+                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), 3));
+            action.appendEffect(
+                    new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);
         }
         return null;

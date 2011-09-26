@@ -5,15 +5,16 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class KillEffect extends AbstractEffect {
+public class KillEffect implements Effect {
     private List<PhysicalCard> _cards;
 
     public KillEffect(List<PhysicalCard> cards) {
@@ -47,14 +48,9 @@ public class KillEffect extends AbstractEffect {
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return true;
-    }
-
-    @Override
     public EffectResult[] playEffect(LotroGame game) {
-        List<PhysicalCard> discardedCards = new LinkedList<PhysicalCard>();
-        List<PhysicalCard> killedCards = new LinkedList<PhysicalCard>();
+        Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> killedCards = new HashSet<PhysicalCard>();
 
         for (PhysicalCard card : _cards) {
             GameState gameState = game.getGameState();

@@ -27,7 +27,7 @@ public class Card1_087 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseAndPlayCardFromDeckEffect(playerId, Filters.and(Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)))));
         return action;
     }

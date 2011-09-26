@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
@@ -10,10 +11,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -37,15 +37,15 @@ public class Card1_188 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Discard this condition to make your MORIA Orc strength +2.");
-            action.addCost(
-                    new DiscardCardFromPlayEffect(self, self));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Discard this condition to make your MORIA Orc strength +2.");
+            action.appendCost(
+                    new DiscardCardsFromPlayCost(self, self));
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose your MORIA Orc", Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
-                            action.addEffect(new CardAffectsCardEffect(self, moriaOrc));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, moriaOrc));
+                            action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(moriaOrc), 2), Phase.SKIRMISH));
                         }
@@ -61,7 +61,7 @@ public class Card1_188 extends AbstractPermanent {
                 && (game.getGameState().getCurrentSiteNumber() == 4 || game.getGameState().getCurrentSiteNumber() == 5)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add (2) for each Dwarf companion.");
             int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
-            action.addEffect(new AddTwilightEffect(dwarfCompanions * 2));
+            action.appendEffect(new AddTwilightEffect(dwarfCompanions * 2));
             return Collections.singletonList(action);
         }
         return null;

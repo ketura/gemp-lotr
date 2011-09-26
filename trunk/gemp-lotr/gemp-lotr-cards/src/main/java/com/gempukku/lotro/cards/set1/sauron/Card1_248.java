@@ -28,7 +28,7 @@ public class Card1_248 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         int sauronMinions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION));
-        action.addEffect(
+        action.appendEffect(
                 new AddTwilightEffect(sauronMinions));
         return action;
     }

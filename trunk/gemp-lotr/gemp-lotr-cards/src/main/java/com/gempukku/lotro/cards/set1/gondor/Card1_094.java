@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
@@ -10,11 +11,11 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -42,13 +43,13 @@ public class Card1_094 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Discard this possession to heal a companion or to remove a Shadow condition from a companion.");
-            action.addCost(
-                    new DiscardCardFromPlayEffect(self, self));
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Discard this possession to heal a companion or to remove a Shadow condition from a companion.");
+            action.appendCost(
+                    new DiscardCardsFromPlayCost(self, self));
 
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose companion", false, Filters.type(CardType.COMPANION)) {
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose companion", Filters.type(CardType.COMPANION)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Heal a companion";
@@ -64,13 +65,13 @@ public class Card1_094 extends AbstractAttachableFPPossession {
 
                         @Override
                         protected void cardSelected(PhysicalCard shadowCondition) {
-                            action.addEffect(new CardAffectsCardEffect(self, shadowCondition));
-                            action.addEffect(new DiscardCardFromPlayEffect(self, shadowCondition));
+                            action.appendEffect(new CardAffectsCardEffect(self, shadowCondition));
+                            action.appendEffect(new DiscardCardsFromPlayEffect(self, shadowCondition));
                         }
                     });
 
-            action.addEffect(
-                    new ChoiceEffect(action, playerId, possibleEffects, false));
+            action.appendEffect(
+                    new ChoiceEffect(action, playerId, possibleEffects));
             return Collections.singletonList(action);
         }
         return null;

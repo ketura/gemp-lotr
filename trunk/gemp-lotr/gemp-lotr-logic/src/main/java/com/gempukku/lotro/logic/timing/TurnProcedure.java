@@ -4,7 +4,7 @@ import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -46,10 +46,7 @@ public class TurnProcedure {
                 Effect effect = _actionStack.getNextEffect();
                 if (effect != null) {
                     if (effect.getType() == null) {
-                        if (effect.canPlayEffect(_game))
-                            effect.playEffect(_game);
-                        else
-                            effect.setFailed();
+                        effect.playEffect(_game);
                     } else {
                         _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
                     }
@@ -80,40 +77,23 @@ public class TurnProcedure {
 
         @Override
         public Effect nextEffect() {
-            if (_effect.isCancelled())
-                return null;
-
-            if (!_checkedPlayability) {
-                boolean canBePlayed = _effect.canPlayEffect(_game);
-                _checkedPlayability = true;
-                if (!canBePlayed) {
-                    _effect.setFailed();
-                    // This finished off this Action
-                    return null;
-                }
-            }
             if (!_checkedIsAboutToRequiredResponses) {
                 _checkedIsAboutToRequiredResponses = true;
                 List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect);
                 if (requiredIsAboutToResponses.size() > 0) {
-                    DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
-                    action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredIsAboutToResponses));
+                    ActivateCardAction action = new ActivateCardAction(null, null, null);
+                    action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredIsAboutToResponses));
                     return new StackActionEffect(action);
                 }
             }
             if (!_checkedIsAboutToOptionalResponses) {
                 _checkedIsAboutToOptionalResponses = true;
-                DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
-                action.addEffect(new PlayoutOptionalBeforeResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect));
+                ActivateCardAction action = new ActivateCardAction(null, null, null);
+                action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect));
                 return new StackActionEffect(action);
             }
             if (!_effectPlayed) {
-                if (_effect.canPlayEffect(_game))
-                    _effectResults = _effect.playEffect(_game);
-                else {
-                    _effect.setFailed();
-                    return null;
-                }
+                _effectResults = _effect.playEffect(_game);
                 _effectPlayed = true;
             }
             if (_effectResults != null) {
@@ -121,15 +101,15 @@ public class TurnProcedure {
                     _checkedRequiredWhenResponses = true;
                     List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(_effectResults);
                     if (requiredResponses.size() > 0) {
-                        DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
-                        action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
+                        ActivateCardAction action = new ActivateCardAction(null, null, null);
+                        action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
                         return new StackActionEffect(action);
                     }
                 }
                 if (!_checkedOptionalWhenResponses) {
                     _checkedOptionalWhenResponses = true;
-                    DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, null);
-                    action.addEffect(
+                    ActivateCardAction action = new ActivateCardAction(null, null, null);
+                    action.appendEffect(
                             new PlayoutOptionalAfterResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect, _effectResults));
                     return new StackActionEffect(action);
                 }
@@ -140,13 +120,13 @@ public class TurnProcedure {
     }
 
     private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect {
-        private DefaultCostToEffectAction _action;
+        private ActivateCardAction _action;
         private Set<PhysicalCard> _cardTriggersUsed;
         private PlayOrder _playOrder;
         private int _passCount;
         private Effect _effect;
 
-        private PlayoutOptionalBeforeResponsesEffect(DefaultCostToEffectAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect) {
+        private PlayoutOptionalBeforeResponsesEffect(ActivateCardAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect) {
             _action = action;
             _cardTriggersUsed = cardTriggersUsed;
             _playOrder = playOrder;
@@ -156,57 +136,55 @@ public class TurnProcedure {
 
         @Override
         public void doPlayEffect(LotroGame game) {
-            if (!_effect.isCancelled()) {
-                final String activePlayer = _playOrder.getNextPlayer();
+            final String activePlayer = _playOrder.getNextPlayer();
 
-                final List<Action> optionalBeforeTriggers = game.getActionsEnvironment().getOptionalBeforeTriggers(activePlayer, _effect);
-                // Remove triggers already resolved
-                final Iterator<Action> triggersIterator = optionalBeforeTriggers.iterator();
-                while (triggersIterator.hasNext())
-                    if (_cardTriggersUsed.contains(triggersIterator.next().getActionSource()))
-                        triggersIterator.remove();
+            final List<Action> optionalBeforeTriggers = game.getActionsEnvironment().getOptionalBeforeTriggers(activePlayer, _effect);
+            // Remove triggers already resolved
+            final Iterator<Action> triggersIterator = optionalBeforeTriggers.iterator();
+            while (triggersIterator.hasNext())
+                if (_cardTriggersUsed.contains(triggersIterator.next().getActionSource()))
+                    triggersIterator.remove();
 
-                final List<Action> optionalBeforeActions = _game.getActionsEnvironment().getOptionalBeforeActions(activePlayer, _effect);
+            final List<Action> optionalBeforeActions = _game.getActionsEnvironment().getOptionalBeforeActions(activePlayer, _effect);
 
-                List<Action> possibleActions = new LinkedList<Action>(optionalBeforeTriggers);
-                possibleActions.addAll(optionalBeforeActions);
+            List<Action> possibleActions = new LinkedList<Action>(optionalBeforeTriggers);
+            possibleActions.addAll(optionalBeforeActions);
 
-                if (possibleActions.size() > 0) {
-                    _game.getUserFeedback().sendAwaitingDecision(activePlayer,
-                            new CardActionSelectionDecision(game, 1, _effect.getText(game) + " - Optional \"is about to\" responses", possibleActions, true) {
-                                @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    Action action = getSelectedAction(result);
-                                    if (action != null) {
-                                        _game.getActionsEnvironment().addActionToStack(action);
-                                        if (optionalBeforeTriggers.contains(action))
-                                            _cardTriggersUsed.add(action.getActionSource());
-                                        _action.addEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect));
-                                    } else {
-                                        if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                                            _action.addEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
-                                        }
+            if (possibleActions.size() > 0) {
+                _game.getUserFeedback().sendAwaitingDecision(activePlayer,
+                        new CardActionSelectionDecision(game, 1, _effect.getText(game) + " - Optional \"is about to\" responses", possibleActions, true) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                Action action = getSelectedAction(result);
+                                if (action != null) {
+                                    _game.getActionsEnvironment().addActionToStack(action);
+                                    if (optionalBeforeTriggers.contains(action))
+                                        _cardTriggersUsed.add(action.getActionSource());
+                                    _action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect));
+                                } else {
+                                    if ((_passCount + 1) < _playOrder.getPlayerCount()) {
+                                        _action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
                                     }
                                 }
-                            });
-                } else {
-                    if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                        _action.addEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
-                    }
+                            }
+                        });
+            } else {
+                if ((_passCount + 1) < _playOrder.getPlayerCount()) {
+                    _action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
                 }
             }
         }
     }
 
     private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect {
-        private DefaultCostToEffectAction _action;
+        private ActivateCardAction _action;
         private Set<PhysicalCard> _cardTriggersUsed;
         private PlayOrder _playOrder;
         private int _passCount;
         private Effect _effect;
         private EffectResult[] _effectResults;
 
-        private PlayoutOptionalAfterResponsesEffect(DefaultCostToEffectAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect, EffectResult[] effectResults) {
+        private PlayoutOptionalAfterResponsesEffect(ActivateCardAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect, EffectResult[] effectResults) {
             _action = action;
             _cardTriggersUsed = cardTriggersUsed;
             _playOrder = playOrder;
@@ -241,28 +219,28 @@ public class TurnProcedure {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalAfterTriggers.contains(action))
                                         _cardTriggersUsed.add(action.getActionSource());
-                                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect, _effectResults));
+                                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect, _effectResults));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                                        _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect, _effectResults));
+                                        _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect, _effectResults));
                                     }
                                 }
                             }
                         });
             } else {
                 if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                    _action.addEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect, _effectResults));
+                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect, _effectResults));
                 }
             }
         }
     }
 
     private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect {
-        private DefaultCostToEffectAction _action;
+        private ActivateCardAction _action;
         private Effect _effect;
         private List<Action> _actions;
 
-        private PlayoutAllActionsIfEffectNotCancelledEffect(DefaultCostToEffectAction action, Effect effect, List<Action> actions) {
+        private PlayoutAllActionsIfEffectNotCancelledEffect(ActivateCardAction action, Effect effect, List<Action> actions) {
             _action = action;
             _effect = effect;
             _actions = actions;
@@ -270,21 +248,19 @@ public class TurnProcedure {
 
         @Override
         public void doPlayEffect(LotroGame game) {
-            if (!_effect.isCancelled()) {
-                if (_actions.size() == 1) {
-                    _game.getActionsEnvironment().addActionToStack(_actions.get(0));
-                } else {
-                    _game.getUserFeedback().sendAwaitingDecision(_game.getGameState().getCurrentPlayerId(),
-                            new ActionSelectionDecision(_game, 1, _effect.getText(game) + " - required responses", _actions) {
-                                @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    Action action = getSelectedAction(result);
-                                    _game.getActionsEnvironment().addActionToStack(action);
-                                    _actions.remove(action);
-                                    _action.addEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(_action, _effect, _actions));
-                                }
-                            });
-                }
+            if (_actions.size() == 1) {
+                _game.getActionsEnvironment().addActionToStack(_actions.get(0));
+            } else {
+                _game.getUserFeedback().sendAwaitingDecision(_game.getGameState().getCurrentPlayerId(),
+                        new ActionSelectionDecision(_game, 1, _effect.getText(game) + " - required responses", _actions) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                Action action = getSelectedAction(result);
+                                _game.getActionsEnvironment().addActionToStack(action);
+                                _actions.remove(action);
+                                _action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(_action, _effect, _actions));
+                            }
+                        });
             }
         }
     }

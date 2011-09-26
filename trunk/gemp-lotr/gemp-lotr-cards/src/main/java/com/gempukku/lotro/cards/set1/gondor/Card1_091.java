@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -11,11 +12,14 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,15 +47,10 @@ public class Card1_091 extends AbstractAttachableFPPossession {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION))) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Discard a pipeweed possession and spot X pipes to heal X companions.");
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose pipeweed", Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard pipeweed) {
-                            action.addCost(new DiscardCardFromPlayEffect(self, pipeweed));
-                        }
-                    });
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Discard a pipeweed possession and spot X pipes to heal X companions.");
+            action.appendCost(
+                    new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION)));
+            action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Filters.keyword(Keyword.PIPE), Integer.MAX_VALUE) {
                                 @Override
@@ -59,11 +58,11 @@ public class Card1_091 extends AbstractAttachableFPPossession {
                                     int spotCount = getValidatedResult(result);
                                     int companionsCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
                                     spotCount = Math.min(spotCount, companionsCount);
-                                    action.addEffect(
+                                    action.appendEffect(
                                             new ChooseActiveCardsEffect(playerId, "Choose companion(s) to heal", spotCount, spotCount, Filters.type(CardType.COMPANION)) {
                                                 @Override
-                                                protected void cardsSelected(List<PhysicalCard> cards) {
-                                                    action.addEffect(new HealCharacterEffect(playerId, Filters.in(cards)));
+                                                protected void cardsSelected(Collection<PhysicalCard> cards) {
+                                                    action.appendEffect(new HealCharacterEffect(playerId, Filters.in(cards)));
                                                 }
                                             });
                                 }

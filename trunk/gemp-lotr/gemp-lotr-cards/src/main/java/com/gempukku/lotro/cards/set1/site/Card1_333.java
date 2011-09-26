@@ -31,8 +31,8 @@ public class Card1_333 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.MINION))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Free Peoples player discards a card from hand");
-            action.addEffect(
-                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false));
+            action.appendEffect(
+                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);
         }
         return null;

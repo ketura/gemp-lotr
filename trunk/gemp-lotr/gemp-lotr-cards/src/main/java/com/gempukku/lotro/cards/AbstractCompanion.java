@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -46,12 +46,12 @@ public abstract class AbstractCompanion extends AbstractPermanent {
 
     protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Discard card to heal");
-            action.addCost(new DiscardCardFromHandEffect(self));
+            ActivateCardAction action = new ActivateCardAction(self, null, "Discard card to heal");
+            action.appendCost(new DiscardCardFromHandEffect(self));
 
             PhysicalCard active = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
             if (active != null)
-                action.addEffect(new HealCharacterEffect(playerId, active));
+                action.appendEffect(new HealCharacterEffect(playerId, active));
 
             return Collections.singletonList(action);
         }

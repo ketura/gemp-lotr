@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -36,9 +36,9 @@ public class Card1_240 extends AbstractMinion {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)
                 && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 2)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Remove (2) to make the Free Peoples player discard a card at random from hand.");
-            action.addCost(new RemoveTwilightEffect(2));
-            action.addEffect(
+            ActivateCardAction action = new ActivateCardAction(self, null, "Remove (2) to make the Free Peoples player discard a card at random from hand.");
+            action.appendCost(new RemoveTwilightEffect(2));
+            action.appendEffect(
                     new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);
         }

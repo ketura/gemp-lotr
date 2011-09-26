@@ -36,7 +36,7 @@ public class Card1_170 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
                     public void doPlayEffect(LotroGame game) {
@@ -49,7 +49,7 @@ public class Card1_170 extends AbstractEvent {
                                 break;
                         }
                         for (PhysicalCard cardToPutIntoHand : cardsToPutIntoHand) {
-                            action.addEffect(
+                            action.appendEffect(
                                     new PutCardFromDeckIntoHandOrDiscardEffect(cardToPutIntoHand));
                         }
                     }

@@ -7,13 +7,14 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.HealCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class SanctuaryRule {
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
-                            DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Sanctuary healing");
-                            action.addEffect(new HealCompanion(game.getGameState().getCurrentPlayerId(), action, 1));
+                            ActivateCardAction action = new ActivateCardAction(null, null, "Sanctuary healing");
+                            action.appendEffect(new HealCompanion(game.getGameState().getCurrentPlayerId(), action, 1));
                             return Collections.singletonList(action);
                         }
                         return null;
@@ -42,10 +43,10 @@ public class SanctuaryRule {
 
     private class HealCompanion extends UnrespondableEffect {
         private String _fpPlayerId;
-        private DefaultCostToEffectAction _action;
+        private ActivateCardAction _action;
         private int _counter;
 
-        private HealCompanion(String fpPlayerId, DefaultCostToEffectAction action, int counter) {
+        private HealCompanion(String fpPlayerId, ActivateCardAction action, int counter) {
             _fpPlayerId = fpPlayerId;
             _action = action;
             _counter = counter;
@@ -53,14 +54,14 @@ public class SanctuaryRule {
 
         @Override
         public void doPlayEffect(LotroGame game) {
-            _action.addEffect(
+            _action.appendEffect(
                     new ChooseActiveCardsEffect(_fpPlayerId, "Sanctuary healing - Choose companion to heal - remaining heals: " + (6 - _counter), 0, 1, Filters.type(CardType.COMPANION)) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> cards) {
+                        protected void cardsSelected(Collection<PhysicalCard> cards) {
                             if (cards.size() > 0) {
-                                _action.addEffect(new HealCharacterEffect(_fpPlayerId, cards.get(0)));
+                                _action.appendEffect(new HealCharacterEffect(_fpPlayerId, cards.iterator().next()));
                                 if (_counter < 5)
-                                    _action.addEffect(new HealCompanion(_fpPlayerId, _action, _counter + 1));
+                                    _action.appendEffect(new HealCompanion(_fpPlayerId, _action, _counter + 1));
                             }
                         }
                     });

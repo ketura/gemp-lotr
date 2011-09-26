@@ -38,13 +38,13 @@ public class Card1_362 extends AbstractSite {
             for (String opponent : opponents) {
                 final String opp = opponent;
                 final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Shadow player may draw a card for each burden.");
-                action.addEffect(
+                action.appendEffect(
                         new PlayoutDecisionEffect(game.getUserFeedback(), opponent,
                                 new MultipleChoiceAwaitingDecision(1, "Do you want to draw a card for each burder?", new String[]{"Yes", "No"}) {
                                     @Override
                                     protected void validDecisionMade(int index, String result) {
                                         if (result.equals("Yes")) {
-                                            action.addEffect(new DrawCardEffect(opp, burdens));
+                                            action.appendEffect(new DrawCardEffect(opp, burdens));
                                         }
                                     }
                                 }));

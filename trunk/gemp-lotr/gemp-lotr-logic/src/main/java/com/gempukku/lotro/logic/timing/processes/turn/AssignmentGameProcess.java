@@ -28,7 +28,7 @@ public class AssignmentGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.ASSIGNMENT))
+        if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.ASSIGNMENT, null))
             return new CanSpotGameProcess(_game, Filters.type(CardType.MINION), new PlayoutSkirmishesGameProcess(_game, new AfterSkirmishesGameProcess(_game)), new RegroupGameProcess(_game));
 
         return new StartOfPhaseGameProcess(_game, Phase.ASSIGNMENT,

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,9 +25,9 @@ public class Card1_111 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a ranger", true, Filters.keyword(Keyword.RANGER), Filters.canExert()));
-        action.addEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.keyword(Keyword.RANGER), Filters.canExert()));
+        action.appendEffect(
                 new WoundCharacterEffect(playerId, Filters.type(CardType.MINION)));
 
         return action;

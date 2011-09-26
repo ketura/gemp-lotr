@@ -1,10 +1,10 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class TriggeringEffect extends AbstractEffect {
+public class TriggeringEffect implements Effect {
     private EffectResult _effectResult;
     private String _text;
 
@@ -21,11 +21,6 @@ public class TriggeringEffect extends AbstractEffect {
     @Override
     public String getText(LotroGame game) {
         return _text;
-    }
-
-    @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return true;
     }
 
     @Override

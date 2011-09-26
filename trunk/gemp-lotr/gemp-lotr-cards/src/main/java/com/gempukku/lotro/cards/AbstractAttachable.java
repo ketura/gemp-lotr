@@ -10,10 +10,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     private int _twilight;
@@ -48,11 +45,11 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
                         if (possessionClass != null) {
                             boolean extraPossessionClass = isExtraPossessionClass();
                             List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
-                            List<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.type(CardType.POSSESSION), Filters.keyword(possessionClass));
+                            Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.type(CardType.POSSESSION), Filters.keyword(possessionClass));
                             if (matchingClassPossessions.size() > 1)
                                 return false;
                             if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&
-                                    !((AbstractAttachable) matchingClassPossessions.get(0).getBlueprint()).isExtraPossessionClass())
+                                    !((AbstractAttachable) matchingClassPossessions.iterator().next().getBlueprint()).isExtraPossessionClass())
                                 return false;
                         }
                         return true;
