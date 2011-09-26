@@ -71,16 +71,15 @@ public class Card1_075 extends AbstractAttachableFPPossession {
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override
-                        protected void opponentChosen(String opponentId) {
+                        protected void opponentChosen(final String opponentId) {
                             action.appendEffect(
                                     new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none(), 0, 0) {
                                         @Override
                                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                            // This is just to reveal the hand
+                                            Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
+                                            action.appendEffect(new RemoveTwilightEffect(orcs.size()));
                                         }
                                     });
-                            Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
-                            action.appendEffect(new RemoveTwilightEffect(orcs.size()));
                         }
                     });
             return Collections.singletonList(action);

@@ -455,6 +455,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return true;
     }
 
+    @Override
+    public boolean canLookOrRevealCardsInHand(GameState gameState, String playerId) {
+        for (Modifier modifier : getModifiers(ModifierEffect.DISCARD_FROM_PLAY_MODIFIER))
+            if (!modifier.canLookOrRevealCardsInHand(gameState, this, playerId))
+                return false;
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
+            if (!modifier.canLookOrRevealCardsInHand(gameState, this, playerId))
+                return false;
+        return true;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

@@ -148,4 +148,9 @@ public abstract class AbstractModifier implements Modifier {
     public int getRoamingPenalty(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         return result;
     }
+
+    @Override
+    public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        return true;
+    }
 }
