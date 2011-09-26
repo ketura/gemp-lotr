@@ -31,17 +31,19 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Unrespo
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
-        Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
+        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
+            List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
+            Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
 
-        game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<PhysicalCard>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                        cardsSelected(selectedCards);
-                    }
-                });
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<PhysicalCard>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            cardsSelected(selectedCards);
+                        }
+                    });
+        }
     }
 
     protected abstract void cardsSelected(List<PhysicalCard> selectedCards);

@@ -56,17 +56,18 @@ public class Card1_120 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (3) and spot X burdens to make the Free Peoples player reveal X cards at random from hand. You may discard 1 revealed card.");
             action.appendCost(new RemoveTwilightEffect(3));
             final String fpPlayer = gameState.getCurrentPlayerId();
-            action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new ArbitraryCardsSelectionDecision(1, "Choose card to discard", GameUtils.getRandomCards(gameState.getHand(fpPlayer), gameState.getBurdens()), 0, 1) {
-                                @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    List<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                                    if (cards.size() > 0)
-                                        action.appendEffect(new DiscardCardFromHandEffect(cards.get(0)));
-                                }
-                            })
-            );
+            if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), fpPlayer)) {
+                action.appendEffect(
+                        new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                new ArbitraryCardsSelectionDecision(1, "Choose card to discard", GameUtils.getRandomCards(gameState.getHand(fpPlayer), gameState.getBurdens()), 0, 1) {
+                                    @Override
+                                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                                        List<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                                        if (cards.size() > 0)
+                                            action.appendEffect(new DiscardCardFromHandEffect(cards.get(0)));
+                                    }
+                                }));
+            }
             return Collections.singletonList(action);
         }
         return null;

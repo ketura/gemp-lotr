@@ -51,4 +51,6 @@ public interface ModifiersQuerying {
     public boolean canBeHealed(GameState gameState, PhysicalCard card);
 
     public boolean canDrawCardAndIncrement(GameState gameState, String playerId);
+
+    public boolean canLookOrRevealCardsInHand(GameState gameState, String playerId);
 }

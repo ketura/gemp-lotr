@@ -68,24 +68,23 @@ public class Card1_313 extends AbstractAttachableFPPossession {
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override
-                        protected void opponentChosen(String opponentId) {
+                        protected void opponentChosen(final String opponentId) {
                             action.appendEffect(
                                     new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none(), 0, 0) {
                                         @Override
                                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                            // This is just to reveal the hand
+                                            Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
+                                            Integer limit = (Integer) self.getData();
+                                            int usedUp = 0;
+                                            if (limit != null)
+                                                usedUp = limit;
+                                            int toRemove = Math.min(4 - usedUp, orcs.size());
+                                            if (toRemove > 0) {
+                                                self.storeData(usedUp + toRemove);
+                                                action.appendEffect(new RemoveTwilightEffect(toRemove));
+                                            }
                                         }
                                     });
-                            Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
-                            Integer limit = (Integer) self.getData();
-                            int usedUp = 0;
-                            if (limit != null)
-                                usedUp = limit;
-                            int toRemove = Math.min(4 - usedUp, orcs.size());
-                            if (toRemove > 0) {
-                                self.storeData(usedUp + toRemove);
-                                action.appendEffect(new RemoveTwilightEffect(toRemove));
-                            }
                         }
                     });
             return Collections.singletonList(action);
