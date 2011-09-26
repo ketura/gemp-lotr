@@ -61,6 +61,15 @@ public class CompositeModifier implements Modifier {
     }
 
     @Override
+    public boolean isKeywordRemoved(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+        for (Modifier modifier : _modifiers)
+            if (modifier.isKeywordRemoved(gameState, modifiersQuerying, physicalCard, keyword))
+                return true;
+
+        return false;
+    }
+
+    @Override
     public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
         for (Modifier modifier : _modifiers)
             result = modifier.hasKeyword(gameState, modifiersQuerying, physicalCard, keyword, result);

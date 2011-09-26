@@ -156,7 +156,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
+        for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                if (modifier.isKeywordRemoved(gameState, this, physicalCard, keyword))
+                    return false;
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                if (modifier.isKeywordRemoved(gameState, this, physicalCard, keyword))
+                    return false;
+        }
+
         boolean result = physicalCard.getBlueprint().hasKeyword(keyword);
+
         for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.hasKeyword(gameState, this, physicalCard, keyword, result);
@@ -170,6 +182,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
+        for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                if (modifier.isKeywordRemoved(gameState, this, physicalCard, keyword))
+                    return 0;
+        }
+        for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                if (modifier.isKeywordRemoved(gameState, this, physicalCard, keyword))
+                    return 0;
+        }
+
         int result = physicalCard.getBlueprint().getKeywordCount(keyword);
         for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))

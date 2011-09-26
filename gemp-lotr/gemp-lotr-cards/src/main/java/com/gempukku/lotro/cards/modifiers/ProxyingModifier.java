@@ -57,6 +57,14 @@ public class ProxyingModifier implements Modifier {
     }
 
     @Override
+    public boolean isKeywordRemoved(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+        Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
+        if (modifier != null)
+            return modifier.isKeywordRemoved(gameState, modifiersQuerying, physicalCard, keyword);
+        return false;
+    }
+
+    @Override
     public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
         Modifier modifier = getProxiedModifier(gameState, modifiersQuerying);
         if (modifier != null)
