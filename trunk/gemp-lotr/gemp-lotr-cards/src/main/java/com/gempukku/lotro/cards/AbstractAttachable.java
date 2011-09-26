@@ -45,7 +45,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
                         if (possessionClass != null) {
                             boolean extraPossessionClass = isExtraPossessionClass();
                             List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
-                            Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.type(CardType.POSSESSION), Filters.keyword(possessionClass));
+                            Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.ARTIFACT)), Filters.keyword(possessionClass));
                             if (matchingClassPossessions.size() > 1)
                                 return false;
                             if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&

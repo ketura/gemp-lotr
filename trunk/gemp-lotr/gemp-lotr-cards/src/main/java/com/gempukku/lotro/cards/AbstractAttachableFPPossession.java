@@ -19,7 +19,11 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
     }
 
     public AbstractAttachableFPPossession(int twilight, Culture culture, Keyword possessionClass, String name, boolean unique) {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, twilight, culture, possessionClass, name, unique);
+        this(twilight, culture, CardType.POSSESSION, possessionClass, name, unique);
+    }
+
+    public AbstractAttachableFPPossession(int twilight, Culture culture, CardType cardType, Keyword possessionClass, String name, boolean unique) {
+        super(Side.FREE_PEOPLE, cardType, twilight, culture, possessionClass, name, unique);
     }
 
     private void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
