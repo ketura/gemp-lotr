@@ -21,13 +21,15 @@ public class PlaySiteEffect extends UnrespondableEffect {
         GameState gameState = game.getGameState();
         PhysicalCard card = gameState.getSite(_siteNumber);
         if (card != null) {
-            gameState.stopAffecting(card);
+            if (gameState.getCurrentSiteNumber() == _siteNumber)
+                gameState.stopAffecting(card);
             gameState.removeCardFromZone(card);
             gameState.addCardToZone(card, Zone.DECK);
         }
         PhysicalCard newSite = Filters.filter(gameState.getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber)).iterator().next();
         gameState.sendMessage(newSite.getOwner() + " plays " + newSite.getBlueprint().getName());
         gameState.addCardToZone(newSite, Zone.ADVENTURE_PATH);
-        gameState.startAffecting(newSite, game.getModifiersEnvironment());
+        if (gameState.getCurrentSiteNumber() == _siteNumber)
+            gameState.startAffecting(newSite, game.getModifiersEnvironment());
     }
 }
