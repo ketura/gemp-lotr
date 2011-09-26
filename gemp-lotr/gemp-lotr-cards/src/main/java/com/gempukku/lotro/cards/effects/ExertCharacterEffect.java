@@ -4,36 +4,28 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
-public class ExertCharacterEffect extends AbstractEffect {
+public class ExertCharacterEffect extends AbstractPreventableCardEffect {
     private String _playerId;
-    private final Filter _filter;
-    private Set<PhysicalCard> _prevented = new HashSet<PhysicalCard>();
 
-    public ExertCharacterEffect(String playerId, PhysicalCard card) {
+    public ExertCharacterEffect(String playerId, PhysicalCard... cards) {
+        super(cards);
         _playerId = playerId;
-        _filter = Filters.sameCard(card);
     }
 
-    public ExertCharacterEffect(String playerId, Filter card) {
+    public ExertCharacterEffect(String playerId, Filter filter) {
+        super(filter);
         _playerId = playerId;
-        _filter = card;
     }
 
-    public List<PhysicalCard> getCardsToBeExerted(LotroGame game) {
-        List<PhysicalCard> cardsToExert = new LinkedList<PhysicalCard>();
-        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter, Filters.canExert()))
-            cardsToExert.add(physicalCard);
-        cardsToExert.removeAll(_prevented);
-        return cardsToExert;
+    @Override
+    protected Filter getExtraAffectableFilter() {
+        return Filters.canExert();
     }
 
     @Override
@@ -43,29 +35,13 @@ public class ExertCharacterEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        List<PhysicalCard> cards = getCardsToBeExerted(game);
+        Collection<PhysicalCard> cards = getCardsToBeAffected(game);
         return "Exert - " + getAppendedNames(cards);
-    }
-
-    private String getAppendedNames(List<PhysicalCard> cards) {
-        StringBuilder sb = new StringBuilder();
-        for (PhysicalCard card : cards)
-            sb.append(card.getBlueprint().getName() + ", ");
-
-        if (sb.length() == 0)
-            return "none";
-        else
-            return sb.substring(0, sb.length() - 2);
-    }
-
-    @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return getCardsToBeExerted(game).size() > 0;
     }
 
     @Override
     public EffectResult[] playEffect(LotroGame game) {
-        List<PhysicalCard> woundedCards = getCardsToBeExerted(game);
+        Collection<PhysicalCard> woundedCards = getCardsToBeAffected(game);
 
         for (PhysicalCard woundedCard : woundedCards) {
             game.getGameState().sendMessage(_playerId + " exerts " + woundedCard.getBlueprint().getName());
@@ -73,9 +49,5 @@ public class ExertCharacterEffect extends AbstractEffect {
         }
 
         return new EffectResult[]{new ExertResult(woundedCards)};
-    }
-
-    public void prevent(PhysicalCard card) {
-        _prevented.add(card);
     }
 }

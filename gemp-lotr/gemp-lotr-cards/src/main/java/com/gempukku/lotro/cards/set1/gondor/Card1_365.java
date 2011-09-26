@@ -34,8 +34,8 @@ public class Card1_365 extends AbstractCompanion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Heal another companion who has the Aragorn signet");
-            action.addEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose companion", false, Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN), Filters.not(Filters.sameCard(self))));
+            action.appendEffect(
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN), Filters.not(Filters.sameCard(self))));
             return Collections.singletonList(action);
         }
         return null;

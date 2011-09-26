@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -10,7 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -46,8 +46,8 @@ public class Card1_134 extends AbstractAttachable {
     @Override
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose ISENGARD minion", true, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()));
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()));
         return action;
     }
 
@@ -57,14 +57,14 @@ public class Card1_134 extends AbstractAttachable {
                 && game.getGameState().getCurrentSite() == self.getAttachedTo()) {
 
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert each Hobbit who moves from this site");
-            action.addEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.and(Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT))));
+            action.appendEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.and(Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT))));
 
             return Collections.singletonList(action);
         }
 
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard at the end of the turn");
-            action.addEffect(new DiscardCardFromPlayEffect(self, self));
+            action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
 
             return Collections.singletonList(action);
         }

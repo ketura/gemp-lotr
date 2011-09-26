@@ -33,7 +33,7 @@ public class Card1_102 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose GONDOR of SHIRE companion bearing a hand weapon", Filters.or(Filters.culture(Culture.GONDOR), Filters.culture(Culture.SHIRE)), Filters.type(CardType.COMPANION), Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))) {
                     @Override
                     protected void cardSelected(PhysicalCard companion) {
@@ -41,8 +41,8 @@ public class Card1_102 extends AbstractEvent {
                         modifiers.add(new StrengthModifier(null, null, 2));
                         modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
 
-                        action.addEffect(new CardAffectsCardEffect(self, companion));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, companion));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new CompositeModifier(self, Filters.sameCard(companion), modifiers), Phase.SKIRMISH));
                     }

@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
@@ -34,10 +34,10 @@ public class Card1_144 extends AbstractPermanent {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.race(Race.URUK_HAI), Filters.owner(playerId)))
                 && game.getGameState().getTwilightPool() >= 1) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (1) to heal him.");
-            action.addCost(new RemoveTwilightEffect(1));
-            action.addEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an Uruk-hai", false, Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())));
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (1) to heal him.");
+            action.appendCost(new RemoveTwilightEffect(1));
+            action.appendEffect(
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())));
             return Collections.singletonList(action);
         }
         return null;

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -30,8 +30,8 @@ public class Card1_130 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION), Filters.owner(self.getOwner())))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert a GANDALF companion or GANDALF ally");
-            action.addEffect(
-                    new ChooseAndExertCharacterEffect(action, self.getOwner(), "Choose GANDALF companion or GANDALF ally", false, Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))));
+            action.appendEffect(
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))));
 
             return Collections.singletonList(action);
         }

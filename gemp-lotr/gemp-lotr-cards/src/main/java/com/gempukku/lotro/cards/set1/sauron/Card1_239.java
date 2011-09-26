@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Set: The Fellowship of the Ring
@@ -40,11 +40,11 @@ public class Card1_239 extends AbstractEvent {
         int exertableCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.canExert());
         int exertCount = Math.min(0, Math.min(companionCount - 4, exertableCompanions));
         if (exertCount > 0) {
-            action.addEffect(
+            action.appendEffect(
                     new ChooseActiveCardsEffect(game.getGameState().getCurrentPlayerId(), "Choose companions to exert", exertCount, exertCount, Filters.type(CardType.COMPANION), Filters.canExert()) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> companions) {
-                            action.addEffect(new ExertCharacterEffect(playerId, Filters.in(companions)));
+                        protected void cardsSelected(Collection<PhysicalCard> companions) {
+                            action.appendEffect(new ExertCharacterEffect(playerId, Filters.in(companions)));
                         }
                     });
         }

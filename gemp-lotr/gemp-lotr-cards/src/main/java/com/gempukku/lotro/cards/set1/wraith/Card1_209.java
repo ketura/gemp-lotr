@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -39,8 +39,8 @@ public class Card1_209 extends AbstractPermanent {
                 && self.getZone() == Zone.SHADOW_SUPPORT
                 && game.getGameState().getSkirmish() != null && game.getGameState().getSkirmish().getFellowshipCharacter() != null
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(game.getGameState().getSkirmish().getFellowshipCharacter()), Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))))) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, null, "Transfer condition to losing character");
-            action.addEffect(
+            ActivateCardAction action = new ActivateCardAction(self, null, "Transfer condition to losing character");
+            action.appendEffect(
                     new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));
             return Collections.singletonList(action);
         }
@@ -54,11 +54,11 @@ public class Card1_209 extends AbstractPermanent {
                 && self.getZone() == Zone.ATTACHED) {
             boolean ringBearer = game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.RING_BEARER);
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Wound bearer or if bearer is Ring-Bearer, add a burden instead");
-            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
+            action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             if (ringBearer) {
-                action.addEffect(new AddBurdenEffect(self.getOwner()));
+                action.appendEffect(new AddBurdenEffect(self.getOwner()));
             } else {
-                action.addEffect(new WoundCharacterEffect(self.getOwner(), self.getAttachedTo()));
+                action.appendEffect(new WoundCharacterEffect(self.getOwner(), self.getAttachedTo()));
             }
             return Collections.singletonList(action);
         }

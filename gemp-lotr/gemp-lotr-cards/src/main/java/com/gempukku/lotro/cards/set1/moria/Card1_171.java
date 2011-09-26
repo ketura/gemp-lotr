@@ -28,16 +28,16 @@ public class Card1_171 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.canExert()), Filters.notAssigned()) {
                     @Override
                     protected void cardSelected(final PhysicalCard companion) {
-                        action.addEffect(new CardAffectsCardEffect(self, companion));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, companion));
+                        action.appendEffect(
                                 new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.notAssigned()) {
                                     @Override
                                     protected void cardSelected(PhysicalCard moriaOrc) {
-                                        action.addEffect(
+                                        action.appendEffect(
                                                 new AssignmentEffect(playerId, companion, Collections.singletonList(moriaOrc), "Frenzy effect"));
                                     }
                                 });

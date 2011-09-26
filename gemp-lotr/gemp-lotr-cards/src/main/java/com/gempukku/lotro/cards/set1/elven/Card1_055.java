@@ -3,15 +3,15 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -41,21 +41,21 @@ public class Card1_055 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"), Filters.canExert())
                 && opponentsHavingAtLeast7Cards(game, playerId).length > 0) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Exert Galadriel to look at 2 random cards, discard one");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Galadriel to look at 2 random cards, discard one");
             PhysicalCard galadriel = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"));
-            action.addCost(new ExertCharacterEffect(playerId, galadriel));
-            action.addEffect(
+            action.appendCost(new ExertCharactersCost(playerId, galadriel));
+            action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new MultipleChoiceAwaitingDecision(1, "Choose opponent with at least 7 cards in hand", opponentsHavingAtLeast7Cards(game, playerId)) {
                                 @Override
                                 protected void validDecisionMade(int index, final String chosenOpponent) {
                                     List<? extends PhysicalCard> hand = game.getGameState().getHand(chosenOpponent);
                                     List<PhysicalCard> randomCardsFromHand = GameUtils.getRandomCards(hand, 2);
-                                    action.addEffect(
+                                    action.appendEffect(
                                             new ChooseArbitraryCardsEffect(playerId, "Choose card to discard", randomCardsFromHand, 1, 1) {
                                                 @Override
                                                 protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                                    action.addEffect(
+                                                    action.appendEffect(
                                                             new DiscardCardFromDeckEffect(chosenOpponent, selectedCards.get(0)));
                                                 }
                                             });

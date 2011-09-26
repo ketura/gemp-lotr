@@ -6,12 +6,16 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Cost;
+import com.gempukku.lotro.logic.timing.CostResolution;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChooseAndPlayCardFromHandEffect extends UnrespondableEffect {
+public class ChooseAndPlayCardFromHandEffect extends UnrespondableEffect implements Cost, ChooseableEffect {
     private String _playerId;
     private Filter _filter;
     private int _twilightModifier;
@@ -32,25 +36,42 @@ public class ChooseAndPlayCardFromHandEffect extends UnrespondableEffect {
         return "Play card from hand";
     }
 
+    private Collection<PhysicalCard> getPlayableInHandCards(LotroGame game) {
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+    }
+
     @Override
     public boolean canPlayEffect(LotroGame game) {
         return getPlayableInHandCards(game).size() > 0;
     }
 
-    private List<PhysicalCard> getPlayableInHandCards(LotroGame game) {
-        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
-    }
-
     @Override
     public void doPlayEffect(final LotroGame game) {
-        List<PhysicalCard> playableInHand = getPlayableInHandCards(game);
+        Collection<PhysicalCard> playableInHand = getPlayableInHandCards(game);
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new CardsSelectionDecision(1, "Choose a card to play", playableInHand, 1, 1) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
-                        final PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
+                        final PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
                         game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
                     }
                 });
+    }
+
+    @Override
+    public CostResolution playCost(final LotroGame game) {
+        Collection<PhysicalCard> playableInHand = getPlayableInHandCards(game);
+        if (playableInHand.size() > 0) {
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new CardsSelectionDecision(1, "Choose a card to play", playableInHand, 1, 1) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            final PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
+                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
+                        }
+                    });
+            return new CostResolution(null, true);
+        }
+        return new CostResolution(null, false);
     }
 }

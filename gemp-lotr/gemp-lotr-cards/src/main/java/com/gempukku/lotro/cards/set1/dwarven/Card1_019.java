@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -14,7 +14,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Set: The Fellowship of the Ring
@@ -43,23 +44,22 @@ public class Card1_019 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose Dwarf to exert", true, Filters.race(Race.DWARF), Filters.canExert()));
-        action.addEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.canExert()));
+        action.appendEffect(
                 new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 1, 2, Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardsSelected(List<PhysicalCard> cards) {
+                    protected void cardsSelected(Collection<PhysicalCard> cards) {
+                        action.appendEffect(new CardAffectsCardEffect(self, cards));
                         if (cards.size() == 2) {
-                            action.addEffect(new CardAffectsCardEffect(self, cards.get(0)));
-                            action.addEffect(new CardAffectsCardEffect(self, cards.get(1)));
-                            action.addEffect(
+
+                            Iterator<PhysicalCard> iterator = cards.iterator();
+                            action.appendEffect(
                                     new WoundCharacterEffect(playerId,
-                                            Filters.or(Filters.sameCard(cards.get(0)), Filters.sameCard(cards.get(1)))));
+                                            Filters.or(Filters.sameCard(iterator.next()), Filters.sameCard(iterator.next()))));
                         } else {
-                            action.addEffect(new CardAffectsCardEffect(self, cards.get(0)));
-                            action.addEffect(new WoundCharacterEffect(playerId, cards.get(0)));
-                            action.addEffect(new CardAffectsCardEffect(self, cards.get(0)));
-                            action.addEffect(new WoundCharacterEffect(playerId, cards.get(0)));
+                            action.appendEffect(new WoundCharacterEffect(playerId, cards.iterator().next()));
+                            action.appendEffect(new WoundCharacterEffect(playerId, cards.iterator().next()));
                         }
                     }
                 }

@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -45,13 +45,13 @@ public class Card1_262 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) >= 2
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ASSIGNMENT, "Make the Free Peoples player assign a Hobbit to skirmish this minion.");
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT, "Make the Free Peoples player assign a Hobbit to skirmish this minion.");
+            action.appendEffect(
                     new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
-                            action.addEffect(new CardAffectsCardEffect(self, hobbit));
-                            action.addEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self), "Orc Assassin effect"));
+                            action.appendEffect(new CardAffectsCardEffect(self, hobbit));
+                            action.appendEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self), "Orc Assassin effect"));
                         }
                     });
             return Collections.singletonList(action);

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,8 +32,8 @@ public class Card1_219 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.race(Race.NAZGUL)))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Exert a Hobbit (except the Ring-Bearer)");
-            action.addEffect(
-                    new ChooseAndExertCharacterEffect(action, playerId, "Choose a Hobbit (except the Ring-Bearer)", false, Filters.race(Race.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))));
+            action.appendEffect(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))));
             return Collections.singletonList(action);
         }
         return null;

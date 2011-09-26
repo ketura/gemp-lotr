@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -44,8 +44,8 @@ public class Card1_279 extends AbstractAttachable {
     @Override
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose SAURON Orc", true, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert()));
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert()));
         return action;
     }
 
@@ -61,7 +61,7 @@ public class Card1_279 extends AbstractAttachable {
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN
                 && self.getData() != null && (!((Boolean) self.getData()))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden");
-            action.addEffect(
+            action.appendEffect(
                     new AddBurdenEffect(self.getOwner()));
             return Collections.singletonList(action);
         }

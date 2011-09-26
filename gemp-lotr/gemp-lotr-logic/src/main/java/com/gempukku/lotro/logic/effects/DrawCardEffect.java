@@ -1,9 +1,10 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class DrawCardEffect extends UnrespondableEffect {
+public class DrawCardEffect implements Effect {
     private String _playerId;
     private int _count;
 
@@ -13,12 +14,17 @@ public class DrawCardEffect extends UnrespondableEffect {
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return game.getGameState().getDeck(_playerId).size() > 0;
+    public String getText(LotroGame game) {
+        return null;
     }
 
     @Override
-    public void doPlayEffect(LotroGame game) {
+    public EffectResult.Type getType() {
+        return null;
+    }
+
+    @Override
+    public EffectResult[] playEffect(LotroGame game) {
         int drawn = 0;
         for (int i = 0; i < _count; i++) {
             if (game.getGameState().getDeck(_playerId).size() > 0 && game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _playerId)) {
@@ -27,5 +33,7 @@ public class DrawCardEffect extends UnrespondableEffect {
             }
         }
         game.getGameState().sendMessage(_playerId + " draws " + drawn + " card(s)");
+
+        return null;
     }
 }

@@ -44,7 +44,7 @@ public class Card1_224 extends AbstractResponseEvent {
                 && game.getGameState().isWearingRing()
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             final PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(
+            action.appendEffect(
                     new UnrespondableEffect() {
                         @Override
                         public void doPlayEffect(final LotroGame game) {
@@ -52,13 +52,13 @@ public class Card1_224 extends AbstractResponseEvent {
                             for (Skirmish assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
 
-                            action.addEffect(
+                            action.appendEffect(
                                     new ChooseActiveCardEffect(playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard nazgul) {
                                             PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                            action.addEffect(new CardAffectsCardEffect(self, ringBearer));
-                                            action.addEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
+                                            action.appendEffect(new CardAffectsCardEffect(self, ringBearer));
+                                            action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
                                             game.getGameState().setCancelRingText(true);
                                             game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
                                                     new AbstractActionProxy() {

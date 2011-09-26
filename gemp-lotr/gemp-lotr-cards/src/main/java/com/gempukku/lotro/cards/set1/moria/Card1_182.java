@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Card1_182 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL) {
             KillResult killResult = (KillResult) effectResult;
-            List<PhysicalCard> killedCards = killResult.getKilledCards();
+            Collection<PhysicalCard> killedCards = killResult.getKilledCards();
             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
             for (PhysicalCard killedCard : killedCards) {
                 Skirmish skirmish = game.getGameState().getSkirmish();
@@ -55,7 +56,7 @@ public class Card1_182 extends AbstractAttachable {
                     int burdens = (killedCard.getBlueprint().getRace() == Race.HOBBIT) ? 2 : 1;
                     RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add " + burdens + " burden(s)");
                     for (int i = 0; i < burdens; i++)
-                        action.addEffect(new AddBurdenEffect(self.getOwner()));
+                        action.appendEffect(new AddBurdenEffect(self.getOwner()));
                     actions.add(action);
                 }
             }

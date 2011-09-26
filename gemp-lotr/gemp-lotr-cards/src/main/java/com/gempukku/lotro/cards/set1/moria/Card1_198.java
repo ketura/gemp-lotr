@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -38,8 +38,8 @@ public class Card1_198 extends AbstractPermanent {
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose MORIA minion to exert", true, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION), Filters.canExert()));
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION), Filters.canExert()));
         return action;
     }
 
@@ -50,8 +50,8 @@ public class Card1_198 extends AbstractPermanent {
                 && siteNumber >= 4 && siteNumber <= 6
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Free Peoples player discards 2 cards at random from hand.");
-            action.addEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
-            action.addEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
+            action.appendEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
+            action.appendEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);
         }
         return null;

@@ -8,7 +8,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+
 
 /**
  * Set: The Fellowship of the Ring
@@ -26,13 +27,13 @@ public class Card1_119 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a roaming minion", Filters.keyword(Keyword.ROAMING), Filters.type(CardType.MINION)) {
                     @Override
                     protected void cardSelected(PhysicalCard roamingMinion) {
-                        action.addEffect(new CardAffectsCardEffect(self, roamingMinion));
-                        action.addEffect(
-                                new DiscardCardFromPlayEffect(self, roamingMinion));
+                        action.appendEffect(new CardAffectsCardEffect(self, roamingMinion));
+                        action.appendEffect(
+                                new DiscardCardsFromPlayEffect(self, roamingMinion));
                     }
                 });
         return action;

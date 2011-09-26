@@ -43,17 +43,17 @@ public class Card1_082 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
         final List<PhysicalCard> cards = new LinkedList<PhysicalCard>(deck.subList(0, Math.min(deck.size(), 2)));
-        action.addEffect(
+        action.appendEffect(
                 new ChooseArbitraryCardsEffect(playerId, "Choose card to put into hand", cards, Math.min(cards.size(), 1), Math.min(cards.size(), 1)) {
                     @Override
                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                         for (PhysicalCard selectedCard : selectedCards) {
-                            action.addEffect(new PutCardFromDeckIntoHandOrDiscardEffect(selectedCard));
+                            action.appendEffect(new PutCardFromDeckIntoHandOrDiscardEffect(selectedCard));
                             cards.remove(selectedCard);
                         }
 
                         for (PhysicalCard remainingCard : cards)
-                            action.addEffect(new DiscardCardFromDeckEffect(playerId, remainingCard));
+                            action.appendEffect(new DiscardCardFromDeckEffect(playerId, remainingCard));
                     }
                 });
         return action;

@@ -42,12 +42,12 @@ public class Card1_169 extends AbstractEvent {
         final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
 
         if (!isFPCharacterAssigned(game.getGameState(), ringBearer)) {
-            action.addEffect(new CardAffectsCardEffect(self, ringBearer));
-            action.addEffect(
+            action.appendEffect(new CardAffectsCardEffect(self, ringBearer));
+            action.appendEffect(
                     new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.notAssigned()) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
-                            action.addEffect(
+                            action.appendEffect(
                                     new AssignmentEffect(playerId, ringBearer, Collections.singletonList(minion), "The End Comes effect"));
                         }
                     });

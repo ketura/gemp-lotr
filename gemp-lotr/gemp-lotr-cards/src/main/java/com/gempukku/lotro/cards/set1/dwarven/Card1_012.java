@@ -3,15 +3,16 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
+import com.gempukku.lotro.cards.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseCardsFromHandEffect;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,14 +39,16 @@ public class Card1_012 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && game.getGameState().getTwilightPool() < 2) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Add (2) to place a card from hand beneath your draw deck");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Add (2) to place a card from hand beneath your draw deck");
 
-            action.addCost(new AddTwilightEffect(2));
-            action.addEffect(
-                    new ChooseCardsFromHandEffect(playerId, "Choose a card to place beneath your draw deck", 1, 1, Filters.zone(Zone.HAND), Filters.owner(playerId)) {
+            action.appendCost(new AddTwilightEffect(2));
+            action.appendEffect(
+                    new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.any()) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            action.addEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCards.get(0)));
+                        protected void cardsSelected(Collection<PhysicalCard> selectedCards) {
+                            for (PhysicalCard selectedCard : selectedCards) {
+                                action.appendEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCard));
+                            }
                         }
                     });
 

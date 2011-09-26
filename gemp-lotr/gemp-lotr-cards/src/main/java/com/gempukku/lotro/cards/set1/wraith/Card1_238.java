@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -38,9 +38,9 @@ public class Card1_238 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 1)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ARCHERY, "Remove (1) to make the fellowship archery total -1.");
-            action.addCost(new RemoveTwilightEffect(1));
-            action.addEffect(
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY, "Remove (1) to make the fellowship archery total -1.");
+            action.appendCost(new RemoveTwilightEffect(1));
+            action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -1), Phase.ARCHERY));
             return Collections.singletonList(action);

@@ -28,14 +28,14 @@ public class Card1_116 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
 
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
                     protected void cardSelected(PhysicalCard gondorCompanion) {
                         boolean isDefender = game.getModifiersQuerying().hasKeyword(game.getGameState(), gondorCompanion, Keyword.DEFENDER);
                         int bonus = isDefender ? 4 : 2;
-                        action.addEffect(new CardAffectsCardEffect(self, gondorCompanion));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, gondorCompanion));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(gondorCompanion), bonus), Phase.SKIRMISH));
                     }

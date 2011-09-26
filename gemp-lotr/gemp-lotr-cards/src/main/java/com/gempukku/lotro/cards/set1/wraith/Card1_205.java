@@ -2,14 +2,14 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -34,27 +34,27 @@ public class Card1_205 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a Nazgul", true, Filters.race(Race.NAZGUL), Filters.canExert()));
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.NAZGUL), Filters.canExert()));
         boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION)));
         if (firstEffect) {
-            action.addEffect(
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION))) {
                         @Override
                         protected void cardSelected(PhysicalCard fpCard) {
-                            action.addEffect(new CardAffectsCardEffect(self, fpCard));
-                            action.addEffect(
-                                    new DiscardCardFromPlayEffect(self, fpCard));
+                            action.appendEffect(new CardAffectsCardEffect(self, fpCard));
+                            action.appendEffect(
+                                    new DiscardCardsFromPlayEffect(self, fpCard));
                         }
                     });
         } else {
-            action.addEffect(
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard fpCard) {
-                            action.addEffect(new CardAffectsCardEffect(self, fpCard));
-                            action.addEffect(
-                                    new DiscardCardFromPlayEffect(self, fpCard));
+                            action.appendEffect(new CardAffectsCardEffect(self, fpCard));
+                            action.appendEffect(
+                                    new DiscardCardsFromPlayEffect(self, fpCard));
                         }
                     });
         }

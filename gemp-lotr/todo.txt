@@ -1,5 +1,6 @@
 TO DO:
 Before release:
+35. Check that all effects check if they are playable before doing anything, otherwise we might be in trouble some day.
 
 Next priority:
 30. Watching game replay after it's finished and sharing the game replay with others via code.
@@ -10,7 +11,7 @@ Optional:
 4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
 final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-35.
+36. Ensure the append and insert cost/effect are used approprietly.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.

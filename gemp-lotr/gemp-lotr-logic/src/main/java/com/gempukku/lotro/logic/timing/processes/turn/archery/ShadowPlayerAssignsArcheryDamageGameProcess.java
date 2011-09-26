@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
-import java.util.List;
+import java.util.Collection;
 
 public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess {
     private LotroGame _game;
@@ -31,12 +31,12 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
     public void process() {
         if (_woundsToAssign > 0) {
             GameState gameState = _game.getGameState();
-            List<PhysicalCard> possibleWoundTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
+            Collection<PhysicalCard> possibleWoundTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.type(CardType.MINION), Filters.owner(_playerId));
 
             if (possibleWoundTargets.size() > 0) {
                 if (possibleWoundTargets.size() == 1) {
-                    PhysicalCard selectedCard = possibleWoundTargets.get(0);
+                    PhysicalCard selectedCard = possibleWoundTargets.iterator().next();
                     _game.getActionsEnvironment().addActionToStack(new WoundAction(_playerId, selectedCard, 1));
                     if (_woundsToAssign > 1)
                         _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);
@@ -47,7 +47,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
                             new CardsSelectionDecision(1, "Choose minion to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    PhysicalCard selectedCard = getSelectedCardsByResponse(result).get(0);
+                                    PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
                                     _game.getActionsEnvironment().addActionToStack(new WoundAction(_playerId, selectedCard, 1));
                                     if (_woundsToAssign > 1)
                                         _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);

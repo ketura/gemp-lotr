@@ -13,7 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -46,13 +46,13 @@ public class Card1_029 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.race(Race.ELF)) {
                     @Override
                     protected void cardSelected(final PhysicalCard elf) {
-                        action.addEffect(new CardAffectsCardEffect(self, elf));
-                        action.addEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, elf));
+                        action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
                                             @Override
@@ -66,9 +66,9 @@ public class Card1_029 extends AbstractEvent {
 
                                                     List<Action> actions = new LinkedList<Action>();
                                                     for (String opponent : opponents) {
-                                                        DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Discard 2 cards at random from hand");
-                                                        action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
-                                                        action.addEffect(new DiscardCardAtRandomFromHandEffect(opponent));
+                                                        ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Discard 2 cards at random from hand");
+                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponent));
+                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponent));
                                                         actions.add(action);
                                                     }
                                                     return actions;

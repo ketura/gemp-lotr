@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.actions;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 
-public class RequiredTriggerAction extends DefaultCostToEffectAction {
+public class RequiredTriggerAction extends ActivateCardAction {
     private PhysicalCard _physicalCard;
 
     public RequiredTriggerAction(PhysicalCard physicalCard, Keyword type, String actionText) {

@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -36,8 +35,7 @@ public class Card1_035 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(new SpotEffect(Filters.race(Race.ELF)));
-        action.addEffect(
+        action.appendEffect(
                 new ChooseAndPlayCardFromDeckEffect(playerId, Filters.keyword(Keyword.TALE)));
         return action;
     }

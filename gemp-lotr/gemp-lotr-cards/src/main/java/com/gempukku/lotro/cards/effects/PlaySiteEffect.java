@@ -25,7 +25,7 @@ public class PlaySiteEffect extends UnrespondableEffect {
             gameState.removeCardFromZone(card);
             gameState.addCardToZone(card, Zone.DECK);
         }
-        PhysicalCard newSite = Filters.filter(gameState.getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber)).get(0);
+        PhysicalCard newSite = Filters.filter(gameState.getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber)).iterator().next();
         gameState.sendMessage(newSite.getOwner() + " plays " + newSite.getBlueprint().getName());
         gameState.addCardToZone(newSite, Zone.ADVENTURE_PATH);
         gameState.startAffecting(newSite, game.getModifiersEnvironment());

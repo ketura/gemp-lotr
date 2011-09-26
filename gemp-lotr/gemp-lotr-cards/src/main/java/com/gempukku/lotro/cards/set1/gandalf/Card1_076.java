@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.PreventWoundEffect;
+import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,17 +50,17 @@ public class Card1_076 extends AbstractResponseEvent {
         if (effect.getType() == EffectResult.Type.WOUND
                 && checkPlayRequirements(playerId, game, self, 0)) {
             final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            final List<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeWounded(game);
+            final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeAffected(game);
 
             if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final PlayEventAction action = new PlayEventAction(self);
-                action.addEffect(
+                action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
-                                action.addEffect(new CardAffectsCardEffect(self, companion));
-                                action.addEffect(
-                                        new PreventWoundEffect(woundEffect, companion));
+                                action.appendEffect(new CardAffectsCardEffect(self, companion));
+                                action.appendEffect(
+                                        new PreventEffect(woundEffect, companion));
                             }
                         });
                 return Collections.singletonList(action);

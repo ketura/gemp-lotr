@@ -47,7 +47,7 @@ public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
             }
 
             nextSite = Filters.filter(gameState.getAdventureDeck(playerToPlaySite), gameState, _game.getModifiersQuerying(),
-                    Filters.siteNumber(nextSiteNumber)).get(0);
+                    Filters.siteNumber(nextSiteNumber)).iterator().next();
 
             gameState.removeCardFromZone(nextSite);
             gameState.addCardToZone(nextSite, Zone.ADVENTURE_PATH);

@@ -49,7 +49,7 @@ public interface Modifier {
 
     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result);
 
-    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, boolean result);
+    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result);
 
     public boolean isValidFreePlayerAssignments(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result);
 

@@ -43,9 +43,9 @@ public class Card1_266 extends AbstractMinion {
                             || game.getModifiersQuerying().hasKeyword(game.getGameState(), playedCard, Keyword.RANGED_WEAPON))
                     ) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add (2)");
-                action.addEffect(
+                action.appendEffect(
                         new AddTwilightEffect(2));
-                action.addEffect(
+                action.appendEffect(
                         new UnrespondableEffect() {
                             @Override
                             public void doPlayEffect(LotroGame game) {

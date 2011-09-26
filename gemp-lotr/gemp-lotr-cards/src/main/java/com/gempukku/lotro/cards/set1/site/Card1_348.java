@@ -2,19 +2,16 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -40,23 +37,9 @@ public class Card1_348 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION))
                 && self.getData() == null) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Play a weather card from your draw deck (limit one per turn).");
-            action.addEffect(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose a weather card to play", Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(),
-                            Filters.keyword(Keyword.WEATHER),
-                            new Filter() {
-                                @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0);
-                                }
-                            }), 1, 1) {
-                        @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            PhysicalCard selectedCard = selectedCards.get(0);
-                            selectedCard.storeData(new Object());
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
-                        }
-                    });
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Play a weather card from your draw deck (limit one per turn).");
+            action.appendEffect(
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.keyword(Keyword.WEATHER)));
             return Collections.singletonList(action);
         }
         return null;

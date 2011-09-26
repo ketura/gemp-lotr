@@ -5,20 +5,22 @@ import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 
-import java.util.List;
+import java.util.Collection;
 
-public class TransferPermanentAction extends DefaultCostToEffectAction {
+public class TransferPermanentAction extends ActivateCardAction {
     public TransferPermanentAction(final PhysicalCard card, LotroGame game, Filter filter) {
         super(card, null, "Transfer " + card.getBlueprint().getName());
 
-        addCost(new ChooseActiveCardsEffect(card.getOwner(), "Choose target to attach to", 1, 1, filter) {
+        appendCost(new PayTwilightCostEffect(card));
+        appendEffect(new ChooseActiveCardsEffect(card.getOwner(), "Choose target to attach to", 1, 1, filter) {
             @Override
-            protected void cardsSelected(List<PhysicalCard> target) {
-                addCost(new PayTwilightCostEffect(card));
-                addCost(new TransferPermanentEffect(card, target.get(0)));
+            protected void cardsSelected(Collection<PhysicalCard> target) {
+                if (target.size() > 0) {
+                    appendEffect(new TransferPermanentEffect(card, target.iterator().next()));
+                }
             }
         });
     }

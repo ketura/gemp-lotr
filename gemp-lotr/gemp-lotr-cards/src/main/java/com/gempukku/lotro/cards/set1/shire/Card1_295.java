@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.cards.modifiers.ProxyingModifier;
 import com.gempukku.lotro.common.*;
@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -93,9 +93,9 @@ public class Card1_295 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && !game.getGameState().getSite(1).getOwner().equals(playerId)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Exert this ally and to replace opponent's site 1 with your site 1.");
-            action.addCost(new ExertCharacterEffect(playerId, self));
-            action.addEffect(new PlaySiteEffect(playerId, 1));
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert this ally and to replace opponent's site 1 with your site 1.");
+            action.appendCost(new ExertCharactersCost(playerId, self));
+            action.appendEffect(new PlaySiteEffect(playerId, 1));
             actions.add(action);
         }
         LotroCardBlueprint copied = getCopied(game, self);

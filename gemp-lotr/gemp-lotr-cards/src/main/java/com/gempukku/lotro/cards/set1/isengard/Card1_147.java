@@ -2,15 +2,15 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCompanionModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -39,14 +39,14 @@ public class Card1_147 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.ASSIGNMENT, "Exert this minion and spot a companion to prevent the opponent from assigning that companion to this minion.");
-            action.addCost(new ExertCharacterEffect(playerId, self));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT, "Exert this minion and spot a companion to prevent the opponent from assigning that companion to this minion.");
+            action.appendCost(new ExertCharactersCost(playerId, self));
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a companion", Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
-                            action.addEffect(new CardAffectsCardEffect(self, companion));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, companion));
+                            action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new PreventMinionBeingAssignedToCompanionModifier(self, Filters.sameCard(companion), Filters.sameCard(self))
                                             , Phase.ASSIGNMENT));

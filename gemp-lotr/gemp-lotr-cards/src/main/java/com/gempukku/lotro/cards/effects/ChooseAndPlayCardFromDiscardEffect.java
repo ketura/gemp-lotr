@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,9 +35,9 @@ public class ChooseAndPlayCardFromDiscardEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(final LotroGame game) {
-        List<PhysicalCard> discard = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+        Collection<PhysicalCard> discard = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, "Choose a card to play", discard, 1, 1) {
+                new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(discard), 1, 1) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

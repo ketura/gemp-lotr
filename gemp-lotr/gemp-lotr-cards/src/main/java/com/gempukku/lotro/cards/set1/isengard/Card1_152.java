@@ -11,7 +11,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -37,10 +37,10 @@ public class Card1_152 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 2)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.MANEUVER, "Remove (2) to heal an Uruk-hai");
-            action.addCost(new RemoveTwilightEffect(2));
-            action.addEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an Uruk-hai", false, Filters.race(Race.URUK_HAI)));
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Remove (2) to heal an Uruk-hai");
+            action.appendCost(new RemoveTwilightEffect(2));
+            action.appendEffect(
+                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)));
 
             return Collections.singletonList(action);
         }

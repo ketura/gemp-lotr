@@ -38,12 +38,12 @@ public class Card1_251 extends AbstractEvent {
         int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
         int woundCount = companionCount - 5;
         for (int i = 0; i < woundCount; i++) {
-            action.addEffect(
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
-                            action.addEffect(new CardAffectsCardEffect(self, companion));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, companion));
+                            action.appendEffect(
                                     new WoundCharacterEffect(playerId, companion));
                         }
                     });

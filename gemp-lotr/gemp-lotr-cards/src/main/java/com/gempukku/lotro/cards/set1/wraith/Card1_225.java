@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -11,9 +11,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -55,18 +55,18 @@ public class Card1_225 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert Ulaire Lemenya to discard a possession borne by a character he is skirmishing.");
-            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Ulaire Lemenya to discard a possession borne by a character he is skirmishing.");
+            action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null
                     && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
-                action.addEffect(
+                action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose possession borne by character he is skirmishing", Filters.type(CardType.POSSESSION), Filters.hasAttached(skirmish.getFellowshipCharacter())) {
                             @Override
                             protected void cardSelected(PhysicalCard possession) {
-                                action.addEffect(new CardAffectsCardEffect(self, possession));
-                                action.addEffect(
-                                        new DiscardCardFromPlayEffect(self, possession));
+                                action.appendEffect(new CardAffectsCardEffect(self, possession));
+                                action.appendEffect(
+                                        new DiscardCardsFromPlayEffect(self, possession));
                             }
                         });
             }

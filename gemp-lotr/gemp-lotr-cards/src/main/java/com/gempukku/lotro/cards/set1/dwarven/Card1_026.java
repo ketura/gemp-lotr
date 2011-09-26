@@ -33,14 +33,14 @@ public class Card1_026 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.race(Race.DWARF)) {
                     @Override
                     protected void cardSelected(PhysicalCard dwarf) {
                         GameState gameState = game.getGameState();
                         int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
-                        action.addEffect(new CardAffectsCardEffect(self, dwarf));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, dwarf));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH));
                     }
                 }

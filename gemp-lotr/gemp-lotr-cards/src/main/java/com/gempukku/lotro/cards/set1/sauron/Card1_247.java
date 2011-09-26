@@ -37,12 +37,12 @@ public class Card1_247 extends AbstractResponseEvent {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
 
             final PlayEventAction action = new PlayEventAction(self);
-            action.addEffect(
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.in(skirmishResult.getWinners())) {
                         @Override
                         protected void cardSelected(PhysicalCard winningSauronOrc) {
-                            action.addEffect(new CardAffectsCardEffect(self, winningSauronOrc));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, winningSauronOrc));
+                            action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(winningSauronOrc), Keyword.FIERCE), Phase.REGROUP));
                         }

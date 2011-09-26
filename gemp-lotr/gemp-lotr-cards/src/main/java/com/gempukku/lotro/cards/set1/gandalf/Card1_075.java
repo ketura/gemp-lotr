@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -15,12 +15,13 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,21 +66,21 @@ public class Card1_075 extends AbstractAttachableFPPossession {
             else
                 keyword = Keyword.REGROUP;
 
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, keyword, "Exert Gandalf to reveal an opponent's hand. Remove (1) for each Orc revealed.");
-            action.addCost(new ExertCharacterEffect(playerId, self.getAttachedTo()));
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, keyword, "Exert Gandalf to reveal an opponent's hand. Remove (1) for each Orc revealed.");
+            action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
+            action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override
                         protected void opponentChosen(String opponentId) {
-                            action.addEffect(
+                            action.appendEffect(
                                     new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none(), 0, 0) {
                                         @Override
                                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                             // This is just to reveal the hand
                                         }
                                     });
-                            List<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
-                            action.addEffect(new RemoveTwilightEffect(orcs.size()));
+                            Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
+                            action.appendEffect(new RemoveTwilightEffect(orcs.size()));
                         }
                     });
             return Collections.singletonList(action);

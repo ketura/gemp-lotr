@@ -43,18 +43,18 @@ public class Card1_296 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentSiteNumber() > 4) {
-            action.addEffect(
+            action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
-                            action.addEffect(new CardAffectsCardEffect(self, hobbit));
-                            action.addEffect(
+                            action.appendEffect(new CardAffectsCardEffect(self, hobbit));
+                            action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));
                         }
                     });
         } else {
-            action.addEffect(
+            action.appendEffect(
                     new CancelSkirmishEffect());
         }
         return action;

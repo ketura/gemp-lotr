@@ -3,15 +3,16 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CancelEffect;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChoiceCost;
+import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.PlayEventEffect;
+import com.gempukku.lotro.logic.timing.ChooseableCost;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -45,31 +46,26 @@ public class Card1_161 extends AbstractResponseEvent {
 
             final PlayEventAction action = new PlayEventAction(self);
 
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
             possibleCosts.add(
-                    new ChooseAndExertCharacterEffect(action, playerId, "Choose an Uruk-hai to exert", true, Filters.race(Race.URUK_HAI), Filters.canExert()) {
+                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI), Filters.canExert()) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert an Uruk-hai";
                         }
                     });
             possibleCosts.add(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai to discard", Filters.race(Race.URUK_HAI)) {
+                    new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard an Uruk-hai";
                         }
-
-                        @Override
-                        protected void cardSelected(PhysicalCard urukHai) {
-                            action.addCost(new DiscardCardFromPlayEffect(self, urukHai));
-                        }
                     });
 
-            action.addCost(
-                    new ChoiceEffect(action, playerId, possibleCosts, true));
+            action.appendCost(
+                    new ChoiceCost(action, playerId, possibleCosts));
 
-            action.addEffect(new CancelEffect(playerId, effect));
+            action.appendEffect(new CancelEventEffect(playerId, (PlayEventEffect) effect));
 
             return Collections.singletonList(action);
         }

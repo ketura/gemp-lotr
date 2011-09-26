@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PutOnTheOneRingResult;
 
-public class PutOnTheOneRingEffect extends AbstractEffect {
+public class PutOnTheOneRingEffect implements ChooseableEffect {
 
     @Override
     public EffectResult.Type getType() {
@@ -24,8 +24,14 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
 
     @Override
     public EffectResult[] playEffect(LotroGame game) {
-        game.getGameState().sendMessage("Ring-bearer puts on The One Ring");
-        game.getGameState().setWearingRing(true);
-        return new EffectResult[]{new PutOnTheOneRingResult()};
+        boolean canPutOnTheRing = !game.getGameState().isWearingRing();
+
+        if (canPutOnTheRing) {
+            game.getGameState().sendMessage("Ring-bearer puts on The One Ring");
+            game.getGameState().setWearingRing(true);
+            return new EffectResult[]{new PutOnTheOneRingResult()};
+        } else {
+            return null;
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class Card1_018 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a Dwarf", true, Filters.race(Race.DWARF), Filters.canExert()));
-        action.addEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.canExert()));
+        action.appendEffect(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                         new MultipleChoiceAwaitingDecision(1, "Choose player", GameUtils.getAllPlayers(game)) {
                             @Override
@@ -61,15 +62,15 @@ public class Card1_018 extends AbstractEvent {
                                 final List<PhysicalCard> topDeckCards = new LinkedList<PhysicalCard>(deck.subList(0, topCards));
 
                                 if (topDeckCards.size() > 0) {
-                                    List<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW));
+                                    Collection<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW));
 
                                     if (shadowCards.size() > 0) {
-                                        action.addEffect(
-                                                new ChooseArbitraryCardsEffect(playerId, "Choose shadow card to discard", shadowCards, 0, 1) {
+                                        action.appendEffect(
+                                                new ChooseArbitraryCardsEffect(playerId, "Choose shadow card to discard", new LinkedList<PhysicalCard>(shadowCards), 0, 1) {
                                                     @Override
                                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                                         if (selectedCards.size() > 0) {
-                                                            action.addEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.get(0)));
+                                                            action.appendEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.get(0)));
                                                             topDeckCards.remove(selectedCards.get(0));
                                                         }
 
@@ -82,7 +83,7 @@ public class Card1_018 extends AbstractEvent {
                                                 });
                                     }
 
-                                    action.addEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
+                                    action.appendEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
                                 }
                             }
                         })
@@ -103,7 +104,7 @@ public class Card1_018 extends AbstractEvent {
 
         @Override
         public void doPlayEffect(final LotroGame game) {
-            _action.addEffect(
+            _action.appendEffect(
                     new ChooseArbitraryCardsEffect(_playerIdDeciding, "Choose card to put on top", _cardsToPutOnTop, 1, 1) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
@@ -111,7 +112,7 @@ public class Card1_018 extends AbstractEvent {
                             game.getGameState().putCardOnTopOfDeck(card);
                             _cardsToPutOnTop.remove(card);
                             if (_cardsToPutOnTop.size() > 0)
-                                _action.addEffect(new ChooseCardToPutOnTop(_action, _playerIdDeciding, _cardsToPutOnTop));
+                                _action.appendEffect(new ChooseCardToPutOnTop(_action, _playerIdDeciding, _cardsToPutOnTop));
                         }
                     }
             );

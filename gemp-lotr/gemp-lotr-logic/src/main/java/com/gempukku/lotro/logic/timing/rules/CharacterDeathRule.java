@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class CharacterDeathRule {
 
                         List<PhysicalCard> deadCharacters = new LinkedList<PhysicalCard>();
 
-                        List<PhysicalCard> characters = Filters.filterActive(gameState, game.getModifiersQuerying(),
+                        Collection<PhysicalCard> characters = Filters.filterActive(gameState, game.getModifiersQuerying(),
                                 Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)));
                         for (PhysicalCard character : characters)
                             if (game.getModifiersQuerying().getVitality(gameState, character) <= 0)
@@ -40,7 +41,7 @@ public class CharacterDeathRule {
 
                         if (deadCharacters.size() > 0) {
                             RequiredTriggerAction action = new RequiredTriggerAction(null, null, "Character death from wounds");
-                            action.addEffect(
+                            action.appendEffect(
                                     new KillEffect(deadCharacters));
                             return Collections.singletonList(action);
                         }

@@ -8,13 +8,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +41,9 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                     Filters.keyword(Keyword.FIERCE),
                     minionFilter);
 
-        final List<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.notAssigned());
+        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.notAssigned());
         if (minions.size() > 0) {
-            final List<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
+            final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
                             Filters.type(CardType.COMPANION),
                             new Filter() {
@@ -59,8 +60,8 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Map<PhysicalCard, List<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                            DefaultCostToEffectAction action = new DefaultCostToEffectAction(null, null, "Shadow player assignments");
-                            action.addEffect(
+                            ActivateCardAction action = new ActivateCardAction(null, null, "Shadow player assignments");
+                            action.appendEffect(
                                     new AssignmentEffect(_playerId, assignments, "Shadow player assignments"));
 
                             _game.getActionsEnvironment().addActionToStack(action);

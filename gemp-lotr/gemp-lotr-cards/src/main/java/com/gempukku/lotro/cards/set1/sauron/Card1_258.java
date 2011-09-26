@@ -36,15 +36,15 @@ public class Card1_258 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Shuffle up to 2 WRAITH cards from your discard pile into your draw deck.");
-            action.addEffect(
+            action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose up to 2 WRAITH cards", game.getGameState().getDiscard(playerId), Filters.culture(Culture.WRAITH), 0, 2) {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
-                                action.addEffect(
+                                action.appendEffect(
                                         new PutCardFromDiscardOnBottomOfDeckEffect(selectedCard));
                             }
-                            action.addEffect(
+                            action.appendEffect(
                                     new ShuffleDeckEffect(playerId));
                         }
                     });

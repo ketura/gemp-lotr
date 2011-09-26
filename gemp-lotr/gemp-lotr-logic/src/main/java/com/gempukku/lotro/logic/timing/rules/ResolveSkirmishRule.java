@@ -54,7 +54,7 @@ public class ResolveSkirmishRule {
                             List<PhysicalCard> losers = new LinkedList<PhysicalCard>(skirmishResult.getLosers());
 
                             RequiredTriggerAction action = new RequiredTriggerAction(null, null, "Kill overwhelmed characters");
-                            action.addEffect(new KillEffect(losers));
+                            action.appendEffect(new KillEffect(losers));
 
                             return Collections.singletonList(action);
                         }

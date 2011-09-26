@@ -2,16 +2,15 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
 import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
@@ -39,32 +38,21 @@ public class Card1_206 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && ((StartOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Draw 1 card");
-            action.addEffect(
+            action.appendEffect(
                     new DrawCardEffect(self.getOwner(), 1));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && ((EndOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert a Nazgul or discard this condition");
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
-                    new ChooseActiveCardEffect(self.getOwner(), "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.canExert()) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Exert a Nazgul";
-                        }
-
-                        @Override
-                        protected void cardSelected(PhysicalCard nazgul) {
-                            action.addEffect(
-                                    new ExertCharacterEffect(self.getOwner(), nazgul));
-                        }
-                    });
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL), Filters.canExert()));
             possibleEffects.add(
-                    new DiscardCardFromPlayEffect(self, self));
+                    new DiscardCardsFromPlayEffect(self, self));
 
-            action.addEffect(
-                    new ChoiceEffect(action, self.getOwner(), possibleEffects, false));
+            action.appendEffect(
+                    new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
         }
         return null;

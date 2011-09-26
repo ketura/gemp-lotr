@@ -38,20 +38,20 @@ public class Card1_294 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
+        action.appendCost(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                         new IntegerAwaitingDecision(1, "Choose how many twilight to add", 0) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 final int twilight = getValidatedResult(result);
-                                action.addCost(new AddTwilightEffect(twilight));
-                                action.addEffect(
+                                action.appendCost(new AddTwilightEffect(twilight));
+                                action.appendEffect(
                                         new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                                             @Override
                                             protected void cardSelected(PhysicalCard hobbit) {
-                                                action.addEffect(new CardAffectsCardEffect(self, hobbit));
+                                                action.appendEffect(new CardAffectsCardEffect(self, hobbit));
                                                 for (int i = 0; i < twilight; i++)
-                                                    action.addEffect(new HealCharacterEffect(playerId, hobbit));
+                                                    action.appendEffect(new HealCharacterEffect(playerId, hobbit));
                                             }
                                         });
                             }

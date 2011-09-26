@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -37,8 +37,8 @@ public class Card1_363 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Play up to 3 trackers from your discard pile; end your Shadow phase.");
-            action.addEffect(
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Play up to 3 trackers from your discard pile; end your Shadow phase.");
+            action.appendEffect(
                     new ChooseTrackerToPlay(action, game, 1, playerId, "Choose tracker to play",
                             new LinkedList<PhysicalCard>(game.getGameState().getDiscard(playerId)),
                             Filters.and(
@@ -55,14 +55,14 @@ public class Card1_363 extends AbstractSite {
     }
 
     private class ChooseTrackerToPlay extends ChooseArbitraryCardsEffect {
-        private DefaultCostToEffectAction _action;
+        private ActivateCardAction _action;
         private LotroGame _game;
         private int _count;
         private String _playerId;
         private String _choiceText;
         private Filter _filter;
 
-        private ChooseTrackerToPlay(DefaultCostToEffectAction action, LotroGame game, int count, String playerId, String choiceText, List<PhysicalCard> cards, Filter filter, int minimum, int maximum) {
+        private ChooseTrackerToPlay(ActivateCardAction action, LotroGame game, int count, String playerId, String choiceText, List<PhysicalCard> cards, Filter filter, int minimum, int maximum) {
             super(playerId, choiceText, cards, filter, minimum, maximum);
             _action = action;
             _game = game;
@@ -81,9 +81,9 @@ public class Card1_363 extends AbstractSite {
                 LinkedList<PhysicalCard> remainingCards = new LinkedList<PhysicalCard>(_game.getGameState().getDiscard(_playerId));
                 remainingCards.remove(selectedCard);
                 if (_count < 3)
-                    _action.addEffect(new ChooseTrackerToPlay(_action, _game, _count + 1, _playerId, _choiceText, remainingCards, _filter, 0, 1));
+                    _action.appendEffect(new ChooseTrackerToPlay(_action, _game, _count + 1, _playerId, _choiceText, remainingCards, _filter, 0, 1));
                 else
-                    _action.addEffect(
+                    _action.appendEffect(
                             new AddUntilEndOfPhaseModifierEffect(
                                     new AbstractModifier(null, "End Shadow Phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                                         @Override
@@ -93,7 +93,7 @@ public class Card1_363 extends AbstractSite {
                                     }, Phase.SHADOW
                             ));
             } else {
-                _action.addEffect(
+                _action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(
                                 new AbstractModifier(null, "End Shadow Phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                                     @Override

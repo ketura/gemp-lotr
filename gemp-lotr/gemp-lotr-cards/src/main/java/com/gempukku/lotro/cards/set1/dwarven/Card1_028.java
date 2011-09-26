@@ -43,15 +43,15 @@ public class Card1_028 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addEffect(
+        action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(playerId, 3) {
                     @Override
                     protected void cardsRevealed(List<PhysicalCard> cards) {
                         for (PhysicalCard card : cards) {
                             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE)
-                                action.addEffect(new PutCardFromDeckIntoHandOrDiscardEffect(card));
+                                action.appendEffect(new PutCardFromDeckIntoHandOrDiscardEffect(card));
                             else
-                                action.addEffect(new DiscardCardFromDeckEffect(playerId, card));
+                                action.appendEffect(new DiscardCardFromDeckEffect(playerId, card));
                         }
                     }
                 });

@@ -1,7 +1,11 @@
 package com.gempukku.lotro.logic.timing;
 
-public interface Cost {
-    public boolean canBePayed();
+import com.gempukku.lotro.game.state.LotroGame;
 
-    public Effect getPayingCostEffect();
+public interface Cost {
+    public EffectResult.Type getType();
+
+    public String getText(LotroGame game);
+
+    public CostResolution playCost(LotroGame game);
 }

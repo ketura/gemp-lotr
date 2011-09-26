@@ -2,19 +2,19 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,21 +40,22 @@ public class Card1_065 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseActiveCardEffect(playerId, "Choose and Elf ally", Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert()) {
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.canExert()) {
                     @Override
-                    protected void cardSelected(PhysicalCard elfAlly) {
-                        action.addCost(new ExertCharacterEffect(playerId, elfAlly));
+                    protected void cardsSelected(Collection<PhysicalCard> elfAlly, boolean success) {
+                        super.cardsSelected(elfAlly, success);
+                        if (success) {
+                            List<Modifier> modifiers = new LinkedList<Modifier>();
+                            modifiers.add(new StrengthModifier(null, null, 3));
+                            modifiers.add(new AllyOnCurrentSiteModifier(null, null));
 
-                        List<Modifier> modifiers = new LinkedList<Modifier>();
-                        modifiers.add(new StrengthModifier(null, null, 3));
-                        modifiers.add(new AllyOnCurrentSiteModifier(null, null));
-
-                        action.addEffect(new CardAffectsCardEffect(self, elfAlly));
-                        action.addEffect(
-                                new AddUntilStartOfPhaseModifierEffect(
-                                        new CompositeModifier(self, Filters.sameCard(elfAlly), modifiers)
-                                        , Phase.REGROUP));
+                            action.appendEffect(new CardAffectsCardEffect(self, elfAlly));
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new CompositeModifier(self, Filters.in(elfAlly), modifiers)
+                                            , Phase.REGROUP));
+                        }
                     }
                 }
         );

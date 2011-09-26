@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,10 +32,10 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Unrespo
     @Override
     public void doPlayEffect(LotroGame game) {
         List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
-        List<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
+        Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
 
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, _text, opponentHand, selectable, Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
+                new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<PhysicalCard>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

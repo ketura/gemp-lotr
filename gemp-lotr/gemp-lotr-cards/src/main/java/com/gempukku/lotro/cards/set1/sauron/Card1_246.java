@@ -35,8 +35,8 @@ public class Card1_246 extends AbstractEvent {
                 && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC)).size() > 0
                 && skirmish.getFellowshipCharacter() != null) {
             int burdens = game.getGameState().getBurdens();
-            action.addEffect(new CardAffectsCardEffect(self, skirmish.getFellowshipCharacter()));
-            action.addEffect(
+            action.appendEffect(new CardAffectsCardEffect(self, skirmish.getFellowshipCharacter()));
+            action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(skirmish.getFellowshipCharacter()), -burdens), Phase.SKIRMISH));
         }

@@ -13,6 +13,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
@@ -30,14 +32,14 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        List<PhysicalCard> possibleCharacters = getPossibleCharacters(_playerId);
+        Collection<PhysicalCard> possibleCharacters = getPossibleCharacters(_playerId);
         if (possibleCharacters.size() == 0)
             _nextProcess = _followingGameProcess;
         else
             _game.getUserFeedback().sendAwaitingDecision(_playerId, createChooseNextCharacterDecision(_playerId, possibleCharacters));
     }
 
-    private List<PhysicalCard> getPossibleCharacters(final String playerId) {
+    private Collection<PhysicalCard> getPossibleCharacters(final String playerId) {
         return Filters.filter(_game.getGameState().getDeck(playerId), _game.getGameState(), _game.getModifiersQuerying(),
                 Filters.type(CardType.COMPANION),
                 new Filter() {
@@ -50,9 +52,9 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                 });
     }
 
-    private AwaitingDecision createChooseNextCharacterDecision(final String playerId, final List<PhysicalCard> possibleCharacters) {
+    private AwaitingDecision createChooseNextCharacterDecision(final String playerId, final Collection<PhysicalCard> possibleCharacters) {
         return new ArbitraryCardsSelectionDecision(1, "Starting fellowship - Choose next character or press DONE",
-                possibleCharacters, 0, 1) {
+                new LinkedList<PhysicalCard>(possibleCharacters), 0, 1) {
             @Override
             public void decisionMade(String result) throws DecisionResultInvalidException {
                 List<PhysicalCard> selectedCharacters = getSelectedCardsByResponse(result);

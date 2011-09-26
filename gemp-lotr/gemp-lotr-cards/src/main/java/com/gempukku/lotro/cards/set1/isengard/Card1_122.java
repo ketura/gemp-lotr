@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,9 +42,9 @@ public class Card1_122 extends AbstractResponseEvent {
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             final PlayEventAction action = new PlayEventAction(self);
             String playedCardName = ((PlayCardResult) effectResult).getPlayedCard().getBlueprint().getName();
-            List<PhysicalCard> cardsInDiscardWithSameName = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name(playedCardName));
+            Collection<PhysicalCard> cardsInDiscardWithSameName = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name(playedCardName));
             for (PhysicalCard physicalCard : cardsInDiscardWithSameName)
-                action.addEffect(new PutCardFromDiscardOnBottomOfDeckEffect(physicalCard));
+                action.appendEffect(new PutCardFromDiscardOnBottomOfDeckEffect(physicalCard));
 
             return Collections.singletonList(action);
         }

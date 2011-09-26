@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -46,12 +46,12 @@ public class Card1_269 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 1)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Remove (1) to make bearer strength +1 (limit +3).");
-            action.addCost(
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (1) to make bearer strength +1 (limit +3).");
+            action.appendCost(
                     new RemoveTwilightEffect(1));
-            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-            action.addEffect(
-                    new CheckLimitEffect(action, self, 3, Phase.SKIRMISH, false,
+            action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
+            action.appendEffect(
+                    new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
                             new AddUntilEndOfPhaseModifierEffect(
                                     new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1), Phase.SKIRMISH)));
             return Collections.singletonList(action);

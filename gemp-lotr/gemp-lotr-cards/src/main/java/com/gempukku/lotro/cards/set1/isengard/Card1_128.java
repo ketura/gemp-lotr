@@ -45,7 +45,7 @@ public class Card1_128 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
 
-        action.addEffect(
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                     @Override
                     protected void cardSelected(PhysicalCard urukHai) {
@@ -53,8 +53,8 @@ public class Card1_128 extends AbstractEvent {
                         modifiers.add(new StrengthModifier(null, null, -1));
                         modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
 
-                        action.addEffect(new CardAffectsCardEffect(self, urukHai));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, urukHai));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new CompositeModifier(self, Filters.sameCard(urukHai), modifiers), Phase.SKIRMISH));
                     }

@@ -8,10 +8,10 @@ public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecisi
     private List<PhysicalCard> _freeCharacters;
     private List<PhysicalCard> _minions;
 
-    public PlayerAssignMinionsDecision(int id, String text, List<PhysicalCard> freeCharacters, List<PhysicalCard> minions) {
+    public PlayerAssignMinionsDecision(int id, String text, Collection<PhysicalCard> freeCharacters, Collection<PhysicalCard> minions) {
         super(id, text, AwaitingDecisionType.ASSIGN_MINIONS);
-        _freeCharacters = freeCharacters;
-        _minions = minions;
+        _freeCharacters = new LinkedList<PhysicalCard>(freeCharacters);
+        _minions = new LinkedList<PhysicalCard>(minions);
         setParam("freeCharacters", getCardIds(_freeCharacters));
         setParam("minions", getCardIds(_minions));
     }

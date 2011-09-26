@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
-import com.gempukku.lotro.cards.effects.PreventExertEffect;
+import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,16 +44,16 @@ public class Card1_085 extends AbstractResponseEvent {
         if (effect.getType() == EffectResult.Type.EXERT
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
             final ExertCharacterEffect exertEffect = (ExertCharacterEffect) effect;
-            List<PhysicalCard> exertedCharacters = exertEffect.getCardsToBeExerted(game);
+            Collection<PhysicalCard> exertedCharacters = exertEffect.getCardsToBeAffected(game);
             if (Filters.filter(exertedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final PlayEventAction action = new PlayEventAction(self);
-                action.addEffect(
+                action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose character", Filters.type(CardType.COMPANION), Filters.in(exertedCharacters)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
-                                action.addEffect(new CardAffectsCardEffect(self, card));
-                                action.addEffect(
-                                        new PreventExertEffect(exertEffect, card));
+                                action.appendEffect(new CardAffectsCardEffect(self, card));
+                                action.appendEffect(
+                                        new PreventEffect(exertEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

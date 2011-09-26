@@ -10,8 +10,9 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.SkirmishGameProcess;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PlayoutSkirmishesGameProcess implements GameProcess {
     private LotroGame _game;
@@ -26,14 +27,14 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.SKIRMISH)) {
+        if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.SKIRMISH, null)) {
             _nextProcess = _followingGameProcess;
         } else {
             final GameState gameState = _game.getGameState();
             List<Skirmish> assignments = gameState.getAssignments();
 
             if (assignments.size() > 0) {
-                List<PhysicalCard> fps = new LinkedList<PhysicalCard>();
+                Set<PhysicalCard> fps = new HashSet<PhysicalCard>();
                 for (Skirmish assignment : assignments)
                     fps.add(assignment.getFellowshipCharacter());
 
@@ -41,7 +42,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                         new CardsSelectionDecision(1, "Choose next skirmish to resolve", fps, 1, 1) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
-                                PhysicalCard fp = getSelectedCardsByResponse(result).get(0);
+                                PhysicalCard fp = getSelectedCardsByResponse(result).iterator().next();
                                 gameState.startSkirmish(fp);
 
                                 _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));

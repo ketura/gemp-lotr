@@ -15,14 +15,11 @@ public class StackCardFromHandEffect extends UnrespondableEffect {
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return _card.getZone() == Zone.HAND;
-    }
-
-    @Override
     public void doPlayEffect(LotroGame game) {
-        game.getGameState().sendMessage(_card.getOwner() + " stacks " + _card.getBlueprint().getName() + " from hand on " + _stackOn.getBlueprint().getName());
-        game.getGameState().removeCardFromZone(_card);
-        game.getGameState().stackCard(_card, _stackOn);
+        if (_card.getZone() == Zone.HAND) {
+            game.getGameState().sendMessage(_card.getOwner() + " stacks " + _card.getBlueprint().getName() + " from hand on " + _stackOn.getBlueprint().getName());
+            game.getGameState().removeCardFromZone(_card);
+            game.getGameState().stackCard(_card, _stackOn);
+        }
     }
 }

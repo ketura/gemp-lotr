@@ -60,7 +60,7 @@ public class Card1_009 extends AbstractAttachableFPPossession {
 
             for (String losingPlayer : losingPlayers) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard top card of deck belonging to  " + losingPlayer);
-                action.addEffect(new DiscardTopCardFromDeckEffect(losingPlayer));
+                action.appendEffect(new DiscardTopCardFromDeckEffect(losingPlayer));
                 actions.add(action);
             }
 

@@ -357,12 +357,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean shouldSkipPhase(GameState gameState, Phase phase) {
+    public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId) {
         boolean result = false;
         for (Modifier modifier : getModifiers(ModifierEffect.ACTION_MODIFIER))
-            result = modifier.shouldSkipPhase(gameState, this, phase, result);
+            result = modifier.shouldSkipPhase(gameState, this, phase, playerId, result);
         for (Modifier modifier : getModifiers(ModifierEffect.ALL_MODIFIER))
-            result = modifier.shouldSkipPhase(gameState, this, phase, result);
+            result = modifier.shouldSkipPhase(gameState, this, phase, playerId, result);
         return result;
     }
 

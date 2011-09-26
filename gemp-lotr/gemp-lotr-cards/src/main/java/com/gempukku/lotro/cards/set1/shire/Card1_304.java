@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -39,14 +39,14 @@ public class Card1_304 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.addCost(
-                new ChooseAndExertCharacterEffect(action, playerId, "Choose a non-Hobbit companion", true, Filters.type(CardType.COMPANION), Filters.not(Filters.race(Race.HOBBIT)), Filters.canExert()));
-        action.addEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.not(Filters.race(Race.HOBBIT)), Filters.canExert()));
+        action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                     @Override
                     protected void cardSelected(PhysicalCard hobbit) {
-                        action.addEffect(new CardAffectsCardEffect(self, hobbit));
-                        action.addEffect(
+                        action.appendEffect(new CardAffectsCardEffect(self, hobbit));
+                        action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));
                     }

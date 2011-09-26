@@ -42,8 +42,8 @@ public class Card1_092 extends AbstractAttachableFPPossession {
         if (PlayConditions.isWounded(effectResult, self.getAttachedTo())
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Apply damage prevention");
-            action.addEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-            action.addEffect(
+            action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
+            action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new CantTakeWoundsModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.SKIRMISH));
             return Collections.singletonList(action);

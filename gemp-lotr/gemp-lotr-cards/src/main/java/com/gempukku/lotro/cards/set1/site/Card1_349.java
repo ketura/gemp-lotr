@@ -10,9 +10,9 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -34,9 +34,9 @@ public class Card1_349 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SHADOW, "Play The Balrog from your draw deck or hand; The Balrog's twilight cost is -6.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Play The Balrog from your draw deck or hand; The Balrog's twilight cost is -6.");
 
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Balrog"), Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(
@@ -47,8 +47,8 @@ public class Card1_349 extends AbstractSite {
             possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Balrog"), -6));
 
-            action.addEffect(
-                    new ChoiceEffect(action, playerId, possibleEffects, false));
+            action.appendEffect(
+                    new ChoiceEffect(action, playerId, possibleEffects));
 
             return Collections.singletonList(action);
         }

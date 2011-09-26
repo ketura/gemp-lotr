@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -29,8 +29,8 @@ public class Card1_325 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.FELLOWSHIP, "Play Gandalf's Cart from your draw deck");
-            action.addEffect(
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Play Gandalf's Cart from your draw deck");
+            action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Gandalf's Cart")));
 
             return Collections.singletonList(action);

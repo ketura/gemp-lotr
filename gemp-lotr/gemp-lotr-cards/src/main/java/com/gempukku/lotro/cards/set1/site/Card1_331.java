@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -12,10 +12,10 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.DefaultCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,16 +36,19 @@ public class Card1_331 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert())) {
-            final DefaultCostToEffectAction action = new DefaultCostToEffectAction(self, Keyword.SKIRMISH, "Exert your companion or minion to make that character strength +2.");
-            action.addCost(
-                    new ChooseActiveCardEffect(playerId, "Choose your companion or minion", Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert()) {
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert your companion or minion to make that character strength +2.");
+            action.appendCost(
+                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert()) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            action.addCost(new ExertCharacterEffect(playerId, card));
-                            action.addEffect(new CardAffectsCardEffect(self, card));
-                            action.addEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));
+                        protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
+                            super.cardsSelected(characters, success);
+                            if (success) {
+                                action.appendEffect(new CardAffectsCardEffect(self, characters));
+                                action.appendEffect(
+                                        new AddUntilEndOfPhaseModifierEffect(
+                                                new StrengthModifier(self, Filters.in(characters), 2), Phase.SKIRMISH));
+
+                            }
                         }
                     });
             return Collections.singletonList(action);
