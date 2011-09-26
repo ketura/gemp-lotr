@@ -560,16 +560,18 @@ public class GameState {
 
     public void startAffectingCardsForCurrentPlayer(ModifiersEnvironment modifiersEnvironment) {
         for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (isCardInPlayActive(physicalCard))
+            if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getSide() != Side.SITE)
                 startAffecting(physicalCard, modifiersEnvironment);
         }
+        startAffecting(getCurrentSite(), modifiersEnvironment);
     }
 
     public void stopAffectingCardsForCurrentPlayer() {
         for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (isCardInPlayActive(physicalCard))
+            if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getSide() != Side.SITE)
                 stopAffecting(physicalCard);
         }
+        stopAffecting(getCurrentSite());
     }
 
     public void startAffecting(PhysicalCard card, ModifiersEnvironment modifiersEnvironment) {
