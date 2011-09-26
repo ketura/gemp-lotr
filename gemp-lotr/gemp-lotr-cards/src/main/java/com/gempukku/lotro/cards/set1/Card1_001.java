@@ -65,7 +65,7 @@ public class Card1_001 extends AbstractAttachable {
             if (woundEffect.getCardsToBeAffected(game).contains(self.getAttachedTo())) {
                 List<Action> actions = new LinkedList<Action>();
 
-                ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE, "Put on The One Ring until the Regroup phase");
+                ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
                 action.appendEffect(new AddBurdenEffect(playerId));
@@ -77,7 +77,7 @@ public class Card1_001 extends AbstractAttachable {
                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                                 if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                         && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                    ActivateCardAction action = new ActivateCardAction(self, null, "Take off The One Ring");
+                                    ActivateCardAction action = new ActivateCardAction(self, null);
                                     action.appendEffect(new TakeOffTheOneRingEffect());
                                     return Collections.singletonList(action);
                                 }
@@ -100,7 +100,7 @@ public class Card1_001 extends AbstractAttachable {
                 && !game.getGameState().isCancelRingText()) {
             WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
             if (woundEffect.getCardsToBeAffected(game).contains(self.getAttachedTo())) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add 2 burdens instead of taking a wound");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
                 action.appendEffect(new AddBurdenEffect(self.getOwner()));

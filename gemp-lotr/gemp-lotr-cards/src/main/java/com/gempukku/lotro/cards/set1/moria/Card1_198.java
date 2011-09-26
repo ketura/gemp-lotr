@@ -49,7 +49,7 @@ public class Card1_198 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && siteNumber >= 4 && siteNumber <= 6
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Free Peoples player discards 2 cards at random from hand.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);

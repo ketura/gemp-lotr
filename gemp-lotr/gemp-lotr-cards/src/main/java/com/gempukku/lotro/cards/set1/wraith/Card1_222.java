@@ -38,7 +38,7 @@ public class Card1_222 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (3) to replace the fellowship's site with your version of the same site.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(new RemoveTwilightEffect(3));
             if (!game.getGameState().getCurrentSite().getOwner().equals(playerId))
                 action.appendEffect(

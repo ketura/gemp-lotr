@@ -41,7 +41,7 @@ public class Card1_092 extends AbstractAttachableFPPossession {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.isWounded(effectResult, self.getAttachedTo())
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Apply damage prevention");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

@@ -44,7 +44,7 @@ public class Card1_160 extends AbstractAttachable {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "The Free Peoples player must discard the top card of his draw deck.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);
         }

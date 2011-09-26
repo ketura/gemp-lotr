@@ -34,7 +34,7 @@ public class Card1_358 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Discard a GONDOR card from hand to heal a GONDOR companion.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR)));
             action.appendEffect(

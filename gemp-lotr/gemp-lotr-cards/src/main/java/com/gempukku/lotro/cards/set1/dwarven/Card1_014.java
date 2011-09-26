@@ -53,7 +53,7 @@ public class Card1_014 extends AbstractAttachableFPPossession {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
-            final OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Wound an Orc");
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Orc to wound", Filters.race(Race.ORC)) {
                         @Override

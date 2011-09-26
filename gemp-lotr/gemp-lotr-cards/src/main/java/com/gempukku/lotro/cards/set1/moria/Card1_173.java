@@ -39,7 +39,7 @@ public class Card1_173 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON))))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add (1)");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new AddTwilightEffect(1));
             return Collections.singletonList(action);
         }
@@ -52,7 +52,7 @@ public class Card1_173 extends AbstractPermanent {
             final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeAffected(game);
             if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self, null, "Prevent wound");
+                final ActivateCardAction action = new ActivateCardAction(self, null);
                 action.appendCost(
                         new DiscardCardsFromPlayCost(self, self));
                 action.appendEffect(

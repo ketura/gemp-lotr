@@ -62,7 +62,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard when Underground");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);
         }

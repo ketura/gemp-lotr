@@ -9,14 +9,12 @@ import com.gempukku.lotro.logic.timing.Effect;
 public class ActivateCardAction extends AbstractCostToEffectAction {
     private PhysicalCard _physicalCard;
     private Keyword _type;
-    private String _text;
 
     private boolean _sentMessage;
 
-    public ActivateCardAction(PhysicalCard physicalCard, Keyword type, String text) {
+    public ActivateCardAction(PhysicalCard physicalCard, Keyword type) {
         _physicalCard = physicalCard;
         _type = type;
-        _text = text;
     }
 
     @Override
@@ -31,7 +29,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
 
     @Override
     public String getText(LotroGame game) {
-        return _text;
+        return "Use " + _physicalCard.getBlueprint().getName();
     }
 
     @Override

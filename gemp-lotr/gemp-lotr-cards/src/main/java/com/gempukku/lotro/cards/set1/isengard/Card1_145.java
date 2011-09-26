@@ -41,7 +41,7 @@ public class Card1_145 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 2)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (2) to make this minion strength +1 for each other Uruk-hai you spot");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
 
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(

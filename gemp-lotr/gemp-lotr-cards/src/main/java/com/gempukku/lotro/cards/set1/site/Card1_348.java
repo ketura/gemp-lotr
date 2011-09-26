@@ -37,7 +37,7 @@ public class Card1_348 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION))
                 && self.getData() == null) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Play a weather card from your draw deck (limit one per turn).");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.keyword(Keyword.WEATHER)));
             return Collections.singletonList(action);

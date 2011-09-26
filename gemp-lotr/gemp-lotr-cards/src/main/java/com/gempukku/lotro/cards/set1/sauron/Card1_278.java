@@ -33,7 +33,7 @@ public class Card1_278 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 3)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Remove (3) to make a SAURON Orc strength +1.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a SAURON Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {

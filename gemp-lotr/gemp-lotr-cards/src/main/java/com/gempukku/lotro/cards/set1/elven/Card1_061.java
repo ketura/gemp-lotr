@@ -29,7 +29,7 @@ public class Card1_061 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.ELVEN), Filters.keyword(Keyword.TALE)))) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Remove a burden");
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new RemoveBurdenEffect(playerId));
             return Collections.singletonList(action);
         }

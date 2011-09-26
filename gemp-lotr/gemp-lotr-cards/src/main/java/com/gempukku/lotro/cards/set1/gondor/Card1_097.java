@@ -38,7 +38,7 @@ public class Card1_097 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert Boromir to make a Hobbit strength +3.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {

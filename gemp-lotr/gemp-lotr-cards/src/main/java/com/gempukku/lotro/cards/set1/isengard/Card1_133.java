@@ -37,7 +37,7 @@ public class Card1_133 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Discard this condition to make an Uruk-hai strength +2.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new DiscardCardsFromPlayCost(self, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {

@@ -42,7 +42,7 @@ public class Card1_266 extends AbstractMinion {
                     game.getModifiersQuerying().hasKeyword(game.getGameState(), playedCard, Keyword.HAND_WEAPON)
                             || game.getModifiersQuerying().hasKeyword(game.getGameState(), playedCard, Keyword.RANGED_WEAPON))
                     ) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add (2)");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new AddTwilightEffect(2));
                 action.appendEffect(

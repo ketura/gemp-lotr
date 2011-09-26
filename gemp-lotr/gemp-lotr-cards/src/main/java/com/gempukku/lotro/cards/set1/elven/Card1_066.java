@@ -42,7 +42,7 @@ public class Card1_066 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Discard this condition to make bearer strength +2");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new DiscardCardsFromPlayCost(self, self));
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(

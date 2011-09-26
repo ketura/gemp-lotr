@@ -54,7 +54,7 @@ public class Card1_249 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.SAURON), Filters.race(Race.ORC)))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard this condition");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

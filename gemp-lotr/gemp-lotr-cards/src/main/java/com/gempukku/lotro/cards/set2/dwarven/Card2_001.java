@@ -39,7 +39,7 @@ public class Card2_001 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.playable(game)).size() > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Discard the top 3 cards from your draw deck to play a [DWARVEN] weapon from your discard pile.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(playerId));
             action.appendCost(

@@ -32,7 +32,7 @@ public class Card1_276 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert())) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Exert a SAURON Orc and remove (2) to draw a card.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
                     new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.canExert()));
             action.appendCost(

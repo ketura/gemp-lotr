@@ -42,7 +42,7 @@ public class Card1_059 extends AbstractPermanent {
                                 Filters.race(Race.ELF),
                                 Filters.race(Race.DWARF)),
                         Filters.canExert()))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Use Shoulder to Shoulder");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
 
             List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
 

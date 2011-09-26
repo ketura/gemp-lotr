@@ -12,7 +12,7 @@ import java.util.Collection;
 
 public class TransferPermanentAction extends ActivateCardAction {
     public TransferPermanentAction(final PhysicalCard card, LotroGame game, Filter filter) {
-        super(card, null, "Transfer " + card.getBlueprint().getName());
+        super(card, null);
 
         appendCost(new PayTwilightCostEffect(card));
         appendEffect(new ChooseActiveCardsEffect(card.getOwner(), "Choose target to attach to", 1, 1, filter) {

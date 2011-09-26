@@ -38,7 +38,7 @@ public class Card1_297 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert this ally to heal another Hobbit ally whose home is site 1.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             action.appendEffect(
@@ -51,7 +51,7 @@ public class Card1_297 extends AbstractAlly {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal this ally");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new HealCharacterEffect(self.getOwner(), self));
             return Collections.singletonList(action);
         }

@@ -33,7 +33,7 @@ public class Card1_034 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert Celeborn to Heal an ELVEN ally");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendEffect(
                     new ChooseAndHealCharacterEffect(action, playerId, "Choose an ELVEN ally", Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
 

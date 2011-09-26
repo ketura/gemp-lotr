@@ -37,14 +37,14 @@ public class Card1_206 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && ((StartOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Draw 1 card");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DrawCardEffect(self.getOwner(), 1));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && ((EndOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
-            final RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert a Nazgul or discard this condition");
+            final RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
                     new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL), Filters.canExert()));

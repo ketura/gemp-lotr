@@ -46,7 +46,7 @@ public class Card1_252 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getGameState().getBurdens() >= 5
                 && game.getGameState().getDeck(game.getGameState().getCurrentPlayerId()).size() == 0) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Corrupt Ring-Bearer");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new CorruptRingBearerEffect());
             return Collections.singletonList(action);

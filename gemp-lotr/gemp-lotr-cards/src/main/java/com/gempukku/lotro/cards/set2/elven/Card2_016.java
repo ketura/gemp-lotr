@@ -51,7 +51,7 @@ public class Card2_016 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard this condition");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

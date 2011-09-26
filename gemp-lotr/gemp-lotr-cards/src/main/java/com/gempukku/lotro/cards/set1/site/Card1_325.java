@@ -29,7 +29,7 @@ public class Card1_325 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Play Gandalf's Cart from your draw deck");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Gandalf's Cart")));
 

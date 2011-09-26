@@ -41,7 +41,7 @@ public class Card1_068 extends AbstractAttachable {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY, "Exert bearer to make an opponent discard 2 cards at random from hand");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
             action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {

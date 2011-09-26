@@ -41,7 +41,7 @@ public class Card1_231 extends AbstractMinion {
                 && (
                 Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 6
                         || game.getGameState().getBurdens() >= 5)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert Ulaire Enquea to wound a companion (except the Ring-bearer).");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             action.appendEffect(

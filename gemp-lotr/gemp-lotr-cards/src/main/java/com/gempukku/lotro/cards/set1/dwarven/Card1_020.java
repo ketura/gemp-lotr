@@ -41,7 +41,7 @@ public class Card1_020 extends AbstractPermanent {
                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
 
                 for (PhysicalCard losingOrc : losingOrcs) {
-                    RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard Orc");
+                    RequiredTriggerAction action = new RequiredTriggerAction(self);
                     action.appendEffect(new CardAffectsCardEffect(self, losingOrc));
                     action.appendEffect(new DiscardCardsFromPlayEffect(self, losingOrc));
                     actions.add(action);
@@ -49,7 +49,7 @@ public class Card1_020 extends AbstractPermanent {
 
                 return actions;
             } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF)).size() > 0) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard this condition if Dwarf loses a skirmish");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
                 return Collections.singletonList(action);
             }

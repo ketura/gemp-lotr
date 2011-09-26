@@ -68,7 +68,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                             if (!_game.getModifiersQuerying().isValidFreePlayerAssignments(_game.getGameState(), assignments))
                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
-                            ActivateCardAction action = new ActivateCardAction(null, null, "Free People player assignments");
+                            ActivateCardAction action = new ActivateCardAction(null, null);
                             action.appendEffect(
                                     new AssignmentEffect(gameState.getCurrentPlayerId(), assignments, "Free People player assignments"));
                             _game.getActionsEnvironment().addActionToStack(action);

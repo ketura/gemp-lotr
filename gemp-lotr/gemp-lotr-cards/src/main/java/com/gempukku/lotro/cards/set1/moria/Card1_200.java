@@ -32,7 +32,7 @@ public class Card1_200 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (3) to reveal the bottom card of your draw deck. If it is a MORIA Orc, take it into hand. Otherwise, discard it.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
                     new UnrespondableEffect() {

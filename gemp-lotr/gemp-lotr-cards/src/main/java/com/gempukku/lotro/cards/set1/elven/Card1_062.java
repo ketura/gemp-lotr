@@ -41,7 +41,7 @@ public class Card1_062 extends AbstractAttachable {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY, "Exert bearer to make the fellowship archery total +1");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
             action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

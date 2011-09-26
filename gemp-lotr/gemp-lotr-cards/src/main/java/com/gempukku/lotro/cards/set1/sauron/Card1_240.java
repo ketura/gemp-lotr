@@ -36,7 +36,7 @@ public class Card1_240 extends AbstractMinion {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)
                 && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 2)) {
-            ActivateCardAction action = new ActivateCardAction(self, null, "Remove (2) to make the Free Peoples player discard a card at random from hand.");
+            ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
                     new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));

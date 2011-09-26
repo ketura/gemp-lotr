@@ -60,7 +60,7 @@ public class Card1_279 extends AbstractAttachable {
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN
                 && self.getData() != null && (!((Boolean) self.getData()))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Add a burden");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddBurdenEffect(self.getOwner()));
             return Collections.singletonList(action);

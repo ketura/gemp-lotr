@@ -37,7 +37,7 @@ public class Card1_235 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Exert Ulaire Otsea to make a WRAITH minion fierce until the regroup phase.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             action.appendEffect(

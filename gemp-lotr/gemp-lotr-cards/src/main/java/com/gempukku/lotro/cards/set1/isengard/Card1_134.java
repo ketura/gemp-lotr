@@ -56,14 +56,14 @@ public class Card1_134 extends AbstractAttachable {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getGameState().getCurrentSite() == self.getAttachedTo()) {
 
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exert each Hobbit who moves from this site");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), Filters.and(Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT))));
 
             return Collections.singletonList(action);
         }
 
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Discard at the end of the turn");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
 
             return Collections.singletonList(action);

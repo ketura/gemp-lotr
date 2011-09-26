@@ -45,7 +45,7 @@ public class Card1_262 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) >= 2
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT, "Make the Free Peoples player assign a Hobbit to skirmish this minion.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             action.appendEffect(
                     new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
                         @Override

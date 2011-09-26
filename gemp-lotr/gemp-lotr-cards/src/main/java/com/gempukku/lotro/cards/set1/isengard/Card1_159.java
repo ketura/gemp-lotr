@@ -45,7 +45,7 @@ public class Card1_159 extends AbstractPermanent {
                 && game.getGameState().getTwilightPool() >= 3) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
 
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE, "If your Uruk-hai wins a skirmish, remove (3) to make him fierce until the regroup phase.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
 
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(

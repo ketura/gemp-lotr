@@ -35,7 +35,7 @@ public class Card2_014 extends AbstractPermanent {
             Collection<PhysicalCard> dwarfCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             for (PhysicalCard dwarfCompanion : dwarfCompanions) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Heal " + dwarfCompanion.getBlueprint().getName());
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
                         new HealCharacterEffect(playerId, dwarfCompanion));
                 actions.add(action);

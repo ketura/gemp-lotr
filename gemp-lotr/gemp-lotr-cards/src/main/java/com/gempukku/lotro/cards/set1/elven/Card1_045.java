@@ -39,7 +39,7 @@ public class Card1_045 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.playable(game, -1000)).size() > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert Galadriel to play an Elf for free");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.race(Race.ELF), -1000));
@@ -51,7 +51,7 @@ public class Card1_045 extends AbstractAlly {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal every ally whose home is site 6");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new HealCharacterEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6))));
 

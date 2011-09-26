@@ -36,7 +36,7 @@ public class Card1_331 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert())) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert your companion or minion to make that character strength +2.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert()) {
                         @Override

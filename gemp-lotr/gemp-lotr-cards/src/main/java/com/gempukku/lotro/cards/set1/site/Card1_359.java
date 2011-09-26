@@ -33,7 +33,7 @@ public class Card1_359 extends AbstractSite {
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC)) >= 5) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Prevent the fellowship from moving again this turn.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendEffect(
                     new AddUntilEndOfTurnModifierEffect(
                             new MoveLimitModifier(self, -1000)));

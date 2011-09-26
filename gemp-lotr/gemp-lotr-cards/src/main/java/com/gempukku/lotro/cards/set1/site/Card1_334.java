@@ -34,7 +34,7 @@ public class Card1_334 extends AbstractSite {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             PhysicalCard attachedTo = playCardResult.getAttachedTo();
             if (attachedTo != null && attachedTo.getBlueprint().getCardType() == CardType.COMPANION) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Draw a card");
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new DrawCardEffect(game.getGameState().getCurrentPlayerId(), 1));
                 return Collections.singletonList(action);
             }

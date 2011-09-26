@@ -36,7 +36,7 @@ public class Card1_183 extends AbstractPermanent {
         List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && Filters.filter(stackedCards, game.getGameState(), game.getModifiersQuerying(), Filters.playable(game)).size() > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, null, "Play an Orc stacked here as if played from hand.");
+            ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose an Orc to play", stackedCards, Filters.playable(game), 1, 1) {
                         @Override
@@ -54,7 +54,7 @@ public class Card1_183 extends AbstractPermanent {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish())) {
-            final ActivateCardAction action = new ActivateCardAction(self, null, "Stack winning MORIA Orc on this condition");
+            final ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish()) {
                         @Override

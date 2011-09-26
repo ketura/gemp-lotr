@@ -40,7 +40,7 @@ public class CharacterDeathRule {
                                 deadCharacters.add(character);
 
                         if (deadCharacters.size() > 0) {
-                            RequiredTriggerAction action = new RequiredTriggerAction(null, null, "Character death from wounds");
+                            RequiredTriggerAction action = new RequiredTriggerAction(null);
                             action.appendEffect(
                                     new KillEffect(deadCharacters));
                             return Collections.singletonList(action);

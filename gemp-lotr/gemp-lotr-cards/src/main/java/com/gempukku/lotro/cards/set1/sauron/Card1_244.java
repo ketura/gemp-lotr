@@ -50,7 +50,7 @@ public class Card1_244 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT
                 && ((AssignmentResult) effectResult).getAssignments().containsKey(self.getAttachedTo())) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "The Free Peoples player chooses to either discard 3 cards from hand or add a burden");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
                     new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));

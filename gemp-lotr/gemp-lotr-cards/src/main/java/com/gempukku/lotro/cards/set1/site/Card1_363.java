@@ -37,7 +37,7 @@ public class Card1_363 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Play up to 3 trackers from your discard pile; end your Shadow phase.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendEffect(
                     new ChooseTrackerToPlay(action, game, 1, playerId, "Choose tracker to play",
                             new LinkedList<PhysicalCard>(game.getGameState().getDiscard(playerId)),

@@ -35,7 +35,7 @@ public class Card2_011 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION), Filters.canExert())
                 && game.getGameState().getDeck(playerId).size() >= 3) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Exert a Dwarf compaion and discard the top 3 cards from your draw deck to discard either a Shadow condition from a Dwarf or a weather condition");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
                     new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.type(CardType.COMPANION)));
             action.appendCost(

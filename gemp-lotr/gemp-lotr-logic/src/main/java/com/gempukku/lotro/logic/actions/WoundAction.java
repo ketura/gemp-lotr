@@ -6,13 +6,13 @@ import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
 public class WoundAction extends ActivateCardAction {
     public WoundAction(String playerId, PhysicalCard card, int wounds) {
-        super(null, null, "Wound character");
+        super(null, null);
         for (int i = 0; i < wounds; i++)
             appendEffect(new WoundCharacterEffect(playerId, card));
     }
 
     public WoundAction(String playerId, Filter filter, int wounds) {
-        super(null, null, "Wound character(s)");
+        super(null, null);
         for (int i = 0; i < wounds; i++)
             appendEffect(new WoundCharacterEffect(playerId, filter));
     }

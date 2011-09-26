@@ -53,7 +53,7 @@ public class Card1_216 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && self.getZone() == Zone.SHADOW_SUPPORT) {
-            ActivateCardAction action = new ActivateCardAction(self, null, "Discard this possession to transfer Blade Tip from your support area or discard pile to a companion bearer is skirmishing.");
+            ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendCost(
                     new DiscardCardsFromPlayCost(self, self));
             Skirmish skirmish = game.getGameState().getSkirmish();

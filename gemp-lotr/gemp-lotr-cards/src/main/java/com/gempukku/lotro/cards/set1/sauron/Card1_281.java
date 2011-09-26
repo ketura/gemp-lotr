@@ -46,7 +46,7 @@ public class Card1_281 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Free Peoples player must exert a companion.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.type(CardType.COMPANION), Filters.canExert()));
             return Collections.singletonList(action);

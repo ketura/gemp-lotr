@@ -45,7 +45,7 @@ public class Card1_270 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH, "Exert this minion to wound a character he is skirmishing.");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             Skirmish skirmish = game.getGameState().getSkirmish();

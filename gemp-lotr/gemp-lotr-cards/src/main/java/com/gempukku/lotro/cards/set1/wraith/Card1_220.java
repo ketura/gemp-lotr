@@ -31,7 +31,7 @@ public class Card1_220 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 3)
                 || PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 3)) {
-            final ActivateCardAction action = new ActivateCardAction(self, (game.getGameState().getCurrentPhase() == Phase.MANEUVER) ? Keyword.MANEUVER : Keyword.SKIRMISH, "Remove (3) to heal a Nazgul.");
+            final ActivateCardAction action = new ActivateCardAction(self, (game.getGameState().getCurrentPhase() == Phase.MANEUVER) ? Keyword.MANEUVER : Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
                     new ChooseAndHealCharacterEffect(action, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)));

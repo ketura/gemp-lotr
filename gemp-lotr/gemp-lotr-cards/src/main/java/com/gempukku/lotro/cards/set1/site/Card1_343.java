@@ -37,7 +37,7 @@ public class Card1_343 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.keyword(Keyword.TALE))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Discard your tale from play or from hand to heal your companion.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.owner(playerId), Filters.keyword(Keyword.TALE)));

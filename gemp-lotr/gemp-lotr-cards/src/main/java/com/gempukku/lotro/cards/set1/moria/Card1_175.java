@@ -41,7 +41,7 @@ public class Card1_175 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.COMPANION))
                 && game.getGameState().getCurrentSiteNumber() >= 4) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Exhaust the played companion.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, playCardResult.getPlayedCard()));
             action.appendEffect(
                     new ExhaustCharacterEffect(playCardResult.getPlayedCard().getOwner(), action, playCardResult.getPlayedCard()));

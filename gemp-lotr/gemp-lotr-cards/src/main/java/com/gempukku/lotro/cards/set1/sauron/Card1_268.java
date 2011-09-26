@@ -33,7 +33,7 @@ public class Card1_268 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self, null, "Make the Free Peoples player discard a card at random from hand.");
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);

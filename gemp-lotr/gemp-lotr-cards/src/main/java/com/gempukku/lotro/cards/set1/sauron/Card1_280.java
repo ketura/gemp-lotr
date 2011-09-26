@@ -32,7 +32,7 @@ public class Card1_280 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "The Free Peoples player discards 2 cards at random from hand.");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
             action.appendEffect(

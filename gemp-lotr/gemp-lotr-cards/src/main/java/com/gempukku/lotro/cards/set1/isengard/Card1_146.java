@@ -36,7 +36,7 @@ public class Card1_146 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
 
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER, "Spot 5 companions to make this minion fierce until the regroup phase");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendEffect(new AddUntilStartOfPhaseModifierEffect(new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));
 
             return Collections.singletonList(action);

@@ -81,14 +81,14 @@ public class TurnProcedure {
                 _checkedIsAboutToRequiredResponses = true;
                 List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect);
                 if (requiredIsAboutToResponses.size() > 0) {
-                    ActivateCardAction action = new ActivateCardAction(null, null, null);
+                    ActivateCardAction action = new ActivateCardAction(null, null);
                     action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredIsAboutToResponses));
                     return new StackActionEffect(action);
                 }
             }
             if (!_checkedIsAboutToOptionalResponses) {
                 _checkedIsAboutToOptionalResponses = true;
-                ActivateCardAction action = new ActivateCardAction(null, null, null);
+                ActivateCardAction action = new ActivateCardAction(null, null);
                 action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect));
                 return new StackActionEffect(action);
             }
@@ -101,14 +101,14 @@ public class TurnProcedure {
                     _checkedRequiredWhenResponses = true;
                     List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(_effectResults);
                     if (requiredResponses.size() > 0) {
-                        ActivateCardAction action = new ActivateCardAction(null, null, null);
+                        ActivateCardAction action = new ActivateCardAction(null, null);
                         action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
                         return new StackActionEffect(action);
                     }
                 }
                 if (!_checkedOptionalWhenResponses) {
                     _checkedOptionalWhenResponses = true;
-                    ActivateCardAction action = new ActivateCardAction(null, null, null);
+                    ActivateCardAction action = new ActivateCardAction(null, null);
                     action.appendEffect(
                             new PlayoutOptionalAfterResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect, _effectResults));
                     return new StackActionEffect(action);

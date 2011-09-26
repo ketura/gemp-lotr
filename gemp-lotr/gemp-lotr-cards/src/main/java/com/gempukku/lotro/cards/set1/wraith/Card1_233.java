@@ -38,7 +38,7 @@ public class Card1_233 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId)))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Exert Ulaire Nelya and spot an opponent's site to replace it with your site of the same number.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
                     new ExertCharactersCost(playerId, self));
             action.appendEffect(

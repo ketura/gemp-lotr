@@ -53,7 +53,7 @@ public class Card1_120 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         final GameState gameState = game.getGameState();
         if (PlayConditions.canUseShadowCardDuringPhase(gameState, Phase.SHADOW, self, 3)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW, "Remove (3) and spot X burdens to make the Free Peoples player reveal X cards at random from hand. You may discard 1 revealed card.");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(new RemoveTwilightEffect(3));
             final String fpPlayer = gameState.getCurrentPlayerId();
             if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), fpPlayer)) {

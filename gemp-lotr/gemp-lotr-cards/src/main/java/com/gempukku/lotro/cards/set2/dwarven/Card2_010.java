@@ -51,7 +51,7 @@ public class Card2_010 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, Phase.ARCHERY, self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY, "Discard this weapon to make the fellowship archery total +1");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
             action.appendCost(
                     new DiscardCardsFromPlayCost(self));
             action.appendEffect(

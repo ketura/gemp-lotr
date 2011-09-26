@@ -31,7 +31,7 @@ public class Card1_054 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Reveal an ELVEN card from hand and place it beneath your draw deck");
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose ELVEN card", game.getGameState().getHand(playerId), Filters.culture(Culture.ELVEN), 1, 1) {
                         @Override

@@ -44,7 +44,7 @@ public class Card1_040 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP, "Exert Elrond to draw a card");
+            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(new ExertCharactersCost(playerId, self));
             action.appendEffect(new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
@@ -55,7 +55,7 @@ public class Card1_040 extends AbstractAlly {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self, null, "Heal every ally whose home is site 3");
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new HealCharacterEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(3))));
 
