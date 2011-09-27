@@ -50,7 +50,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     }
 
     public void startAffectingGame(ModifiersEnvironment modifiersEnvironment) {
-        List<Modifier> modifiers = _blueprint.getAlwaysOnModifiers(this);
+        List<? extends Modifier> modifiers = _blueprint.getAlwaysOnModifiers(this);
         if (modifiers != null) {
             _modifierHooks = new LinkedList<ModifierHook>();
             for (Modifier modifier : modifiers)

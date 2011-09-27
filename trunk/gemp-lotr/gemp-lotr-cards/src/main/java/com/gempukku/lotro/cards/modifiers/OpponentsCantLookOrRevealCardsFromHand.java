@@ -14,9 +14,13 @@ public class OpponentsCantLookOrRevealCardsFromHand extends AbstractModifier {
         _playerId = playerId;
     }
 
+    public OpponentsCantLookOrRevealCardsFromHand(PhysicalCard source) {
+        this(source, null);
+    }
+
     @Override
     public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
-        if (_playerId.equals(playerId))
+        if (_playerId == null || _playerId.equals(playerId))
             return false;
         return true;
     }
