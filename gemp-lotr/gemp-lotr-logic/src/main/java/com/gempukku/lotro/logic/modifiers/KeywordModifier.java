@@ -19,6 +19,12 @@ public class KeywordModifier extends AbstractModifier {
         _count = count;
     }
 
+    public KeywordModifier(PhysicalCard physicalCard, Filter affectFilter, Condition condition, Keyword keyword, int count) {
+        super(physicalCard, "Has " + keyword.getHumanReadable() + ((count > 1) ? (" +" + count) : ""), affectFilter, condition, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
+        _keyword = keyword;
+        _count = count;
+    }
+
     @Override
     public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
         return (result || keyword == _keyword);
