@@ -1,14 +1,15 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.timing.EffectResult;
+
+import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -23,14 +24,13 @@ public class Card1_327 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "While you can spot a ranger, the move limit is +1 for this turn.", null, new ModifierEffect[]{ModifierEffect.MOVE_LIMIT_MODIFIER}) {
-            @Override
-            public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
-                if (Filters.canSpot(gameState, modifiersQuerying, Filters.keyword(Keyword.RANGER)))
-                    return result + 1;
-                return result;
-            }
-        };
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (self.getData() == null
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER))) {
+            self.storeData(new Object());
+            game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                    new MoveLimitModifier(self, 1));
+        }
+        return null;
     }
 }

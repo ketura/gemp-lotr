@@ -10,12 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -37,14 +32,13 @@ public class Card1_102 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose GONDOR of SHIRE companion bearing a hand weapon", Filters.or(Filters.culture(Culture.GONDOR), Filters.culture(Culture.SHIRE)), Filters.type(CardType.COMPANION), Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))) {
                     @Override
                     protected void cardSelected(PhysicalCard companion) {
-                        List<Modifier> modifiers = new LinkedList<Modifier>();
-                        modifiers.add(new StrengthModifier(null, null, 2));
-                        modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-
                         action.appendEffect(new CardAffectsCardEffect(self, companion));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CompositeModifier(self, Filters.sameCard(companion), modifiers), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(companion), 2), Phase.SKIRMISH));
+                        action.appendEffect(
+                                new AddUntilEndOfPhaseModifierEffect(
+                                        new KeywordModifier(self, Filters.sameCard(companion), Keyword.DAMAGE), Phase.SKIRMISH));
                     }
                 }
         );

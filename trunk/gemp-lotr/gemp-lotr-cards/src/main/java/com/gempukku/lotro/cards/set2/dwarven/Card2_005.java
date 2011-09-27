@@ -9,12 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: Mines of Moria
@@ -38,19 +33,14 @@ public class Card2_005 extends AbstractEvent {
                     protected void cardSelected(PhysicalCard dwarf) {
                         boolean has2Weapons = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.attachedTo(Filters.sameCard(dwarf)), Filters.keyword(Keyword.HAND_WEAPON)) == 2;
 
-                        Modifier modifier;
                         if (has2Weapons) {
-                            List<Modifier> modifiers = new LinkedList<Modifier>();
-                            modifiers.add(
-                                    new StrengthModifier(null, null, 4));
-                            modifiers.add(
-                                    new KeywordModifier(null, null, Keyword.DAMAGE));
-
-                            modifier = new CompositeModifier(self, Filters.sameCard(dwarf), modifiers);
+                            action.appendEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), 4), Phase.SKIRMISH));
+                            action.appendEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH));
                         } else
-                            modifier = new StrengthModifier(self, Filters.sameCard(dwarf), 2);
-                        action.appendEffect(
-                                new AddUntilEndOfPhaseModifierEffect(modifier, Phase.SKIRMISH));
+                            action.appendEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), 2), Phase.SKIRMISH));
                     }
                 });
         return action;

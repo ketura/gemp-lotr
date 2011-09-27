@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card1_090 extends AbstractAttachableFPPossession {
     public Card1_090() {
-        super(1, Culture.GONDOR, Keyword.RANGED_WEAPON, "Aragorn's Bow", true);
+        super(1, 0, 0, Culture.GONDOR, Keyword.RANGED_WEAPON, "Aragorn's Bow", true);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Card1_090 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new KeywordModifier(self, Filters.hasAttached(self), Keyword.ARCHER);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, Filters.hasAttached(self), Keyword.ARCHER));
     }
 
     @Override

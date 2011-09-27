@@ -10,12 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -46,13 +41,13 @@ public class Card1_210 extends AbstractEvent {
                     protected void cardSelected(PhysicalCard nazgul) {
                         int burdens = game.getGameState().getBurdens();
 
-                        List<Modifier> modifiers = new LinkedList<Modifier>();
-                        modifiers.add(new StrengthModifier(null, null, (burdens >= 6) ? 3 : 1));
-                        modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE, (burdens >= 6) ? 2 : 1));
                         action.appendEffect(new CardAffectsCardEffect(self, nazgul));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CompositeModifier(self, Filters.sameCard(nazgul), modifiers), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(nazgul), (burdens >= 6) ? 3 : 1), Phase.SKIRMISH));
+                        action.appendEffect(
+                                new AddUntilEndOfPhaseModifierEffect(
+                                        new KeywordModifier(self, Filters.sameCard(nazgul), Keyword.DAMAGE, (burdens >= 6) ? 2 : 1), Phase.SKIRMISH));
                     }
                 });
         return action;

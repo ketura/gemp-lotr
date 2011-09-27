@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.actions.TransferPermanentAction;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -8,22 +10,28 @@ import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractAttachableFPPossession extends AbstractAttachable {
-    public AbstractAttachableFPPossession(int twilight, Culture culture, Keyword possessionClass, String name) {
-        this(twilight, culture, possessionClass, name, false);
+    private int _strength;
+    private int _vitality;
+
+    public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, Keyword possessionClass, String name) {
+        this(twilight, strength, vitality, culture, possessionClass, name, false);
     }
 
-    public AbstractAttachableFPPossession(int twilight, Culture culture, Keyword possessionClass, String name, boolean unique) {
-        this(twilight, culture, CardType.POSSESSION, possessionClass, name, unique);
+    public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, Keyword possessionClass, String name, boolean unique) {
+        this(twilight, strength, vitality, culture, CardType.POSSESSION, possessionClass, name, unique);
     }
 
-    public AbstractAttachableFPPossession(int twilight, Culture culture, CardType cardType, Keyword possessionClass, String name, boolean unique) {
+    public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, CardType cardType, Keyword possessionClass, String name, boolean unique) {
         super(Side.FREE_PEOPLE, cardType, twilight, culture, possessionClass, name, unique);
+        _strength = strength;
+        _vitality = vitality;
     }
 
     private void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
@@ -53,6 +61,30 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), validTransferFilter))
                 actions.add(new TransferPermanentAction(self, game, validTransferFilter));
         }
+    }
+
+    @Override
+    public final List<Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        if (_strength != 0)
+            modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), _strength));
+        if (_vitality != 0)
+            modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), _vitality));
+
+        List<? extends Modifier> extraModifiers = getNonBasicStatsModifiers(self);
+        if (extraModifiers != null)
+            modifiers.addAll(extraModifiers);
+
+        return modifiers;
+    }
+
+    @Override
+    public final Modifier getAlwaysOnModifier(PhysicalCard self) {
+        throw new UnsupportedOperationException("This should not be called");
+    }
+
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return null;
     }
 
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,7 +24,7 @@ import java.util.List;
  */
 public class Card1_112 extends AbstractAttachableFPPossession {
     public Card1_112() {
-        super(1, Culture.GONDOR, Keyword.HAND_WEAPON, "Ranger's Sword", true);
+        super(1, 2, 0, Culture.GONDOR, Keyword.HAND_WEAPON, "Ranger's Sword", true);
     }
 
     @Override
@@ -35,11 +33,7 @@ public class Card1_112 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new StrengthModifier(null, null, 2));
-        modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-
-        return new CompositeModifier(self, Filters.hasAttached(self), modifiers);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE));
     }
 }

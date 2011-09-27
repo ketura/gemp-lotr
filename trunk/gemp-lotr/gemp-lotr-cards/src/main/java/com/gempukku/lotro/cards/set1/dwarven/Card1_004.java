@@ -10,13 +10,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -46,14 +42,13 @@ public class Card1_004 extends AbstractEvent {
                     protected void cardsSelected(Collection<PhysicalCard> dwarf, boolean success) {
                         super.cardsSelected(dwarf, success);
                         if (success) {
-                            List<Modifier> modifiers = new LinkedList<Modifier>();
-                            modifiers.add(new StrengthModifier(null, null, 3));
-                            modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-
                             action.appendEffect(new CardAffectsCardEffect(self, dwarf));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new CompositeModifier(self, Filters.in(dwarf), modifiers), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.in(dwarf), 3), Phase.SKIRMISH));
+                            action.appendEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(
+                                            new KeywordModifier(self, Filters.in(dwarf), Keyword.DAMAGE), Phase.SKIRMISH));
                         }
                     }
                 }

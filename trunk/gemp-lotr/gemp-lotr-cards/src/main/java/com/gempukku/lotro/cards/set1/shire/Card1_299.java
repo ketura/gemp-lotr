@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -9,7 +8,6 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
  * Set: The Fellowship of the Ring
@@ -22,16 +20,11 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_299 extends AbstractAttachableFPPossession {
     public Card1_299() {
-        super(1, Culture.SHIRE, Keyword.HAND_WEAPON, "Hobbit Sword");
+        super(1, 2, 0, Culture.SHIRE, Keyword.HAND_WEAPON, "Hobbit Sword");
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.race(Race.HOBBIT);
-    }
-
-    @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), 2);
     }
 }

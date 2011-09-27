@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -21,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_041 extends AbstractAttachableFPPossession {
     public Card1_041() {
-        super(1, Culture.ELVEN, Keyword.RANGED_WEAPON, "Elven Bow");
+        super(1, 0, 0, Culture.ELVEN, Keyword.RANGED_WEAPON, "Elven Bow");
     }
 
     @Override
@@ -30,7 +33,7 @@ public class Card1_041 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new KeywordModifier(self, Filters.hasAttached(self), Keyword.ARCHER);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, Filters.hasAttached(self), Keyword.ARCHER));
     }
 }

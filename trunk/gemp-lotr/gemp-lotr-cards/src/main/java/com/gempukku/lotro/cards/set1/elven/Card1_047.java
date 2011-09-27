@@ -16,7 +16,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -38,7 +37,7 @@ import java.util.List;
  */
 public class Card1_047 extends AbstractAttachableFPPossession {
     public Card1_047() {
-        super(2, Culture.ELVEN, Keyword.HAND_WEAPON, "Gwemegil", true);
+        super(2, 2, 0, Culture.ELVEN, Keyword.HAND_WEAPON, "Gwemegil", true);
     }
 
     @Override
@@ -73,11 +72,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new StrengthModifier(null, null, 2));
-        modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-
-        return new CompositeModifier(self, Filters.hasAttached(self), modifiers);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE));
     }
 }

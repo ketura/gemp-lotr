@@ -9,6 +9,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -19,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_042 extends AbstractAttachableFPPossession {
     public Card1_042() {
-        super(1, Culture.ELVEN, Keyword.CLOAK, "Elven Cloak");
+        super(1, 0, 0, Culture.ELVEN, Keyword.CLOAK, "Elven Cloak");
     }
 
     @Override
@@ -34,7 +37,7 @@ public class Card1_042 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new ArcheryTotalModifier(self, Side.SHADOW, -1);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new ArcheryTotalModifier(self, Side.SHADOW, -1));
     }
 }

@@ -15,11 +15,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -45,14 +40,15 @@ public class Card1_109 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
                     @Override
                     protected void cardSelected(PhysicalCard ally) {
-                        List<Modifier> modifiers = new LinkedList<Modifier>();
-                        modifiers.add(new StrengthModifier(null, null, 2));
-                        modifiers.add(new AllyOnCurrentSiteModifier(null, null));
-
                         action.appendEffect(new CardAffectsCardEffect(self, ally));
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
-                                        new CompositeModifier(self, Filters.sameCard(ally), modifiers), Phase.REGROUP));
+                                        new StrengthModifier(self, Filters.sameCard(ally), 2)
+                                        , Phase.REGROUP));
+                        action.appendEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new AllyOnCurrentSiteModifier(self, Filters.sameCard(ally))
+                                        , Phase.REGROUP));
                     }
                 }
         );

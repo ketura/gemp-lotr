@@ -2,14 +2,14 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
@@ -35,15 +35,13 @@ public class Card1_142 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "While the Ring-bearer is exhausted or you can spot 5 burdens, the move limit for this turn is -1 (to a minimum of 1)", null, new ModifierEffect[]{ModifierEffect.MOVE_LIMIT_MODIFIER}) {
-            @Override
-            public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
-                String currentPlayerId = gameState.getCurrentPlayerId();
-                if (gameState.getBurdens() >= 5
-                        || !PlayConditions.canExert(gameState, modifiersQuerying, gameState.getRingBearer(currentPlayerId)))
-                    return result - 1;
-                return result;
-            }
-        };
+        return new MoveLimitModifier(self,
+                new Condition() {
+                    @Override
+                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                        return gameState.getBurdens() >= 5
+                                && !PlayConditions.canExert(gameState, modifiersQuerying, gameState.getRingBearer(gameState.getCurrentPlayerId()));
+                    }
+                }, -1);
     }
 }

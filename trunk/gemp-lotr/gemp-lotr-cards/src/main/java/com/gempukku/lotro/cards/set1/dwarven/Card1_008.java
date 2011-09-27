@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -21,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_008 extends AbstractAttachableFPPossession {
     public Card1_008() {
-        super(0, Culture.DWARVEN, Keyword.ARMOR, "Dwarven Armor");
+        super(0, 0, 0, Culture.DWARVEN, Keyword.ARMOR, "Dwarven Armor");
     }
 
     @Override
@@ -30,7 +33,7 @@ public class Card1_008 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new OverwhelmedByMultiplierModifier(self, Filters.hasAttached(self), 3);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new OverwhelmedByMultiplierModifier(self, Filters.hasAttached(self), 3));
     }
 }
