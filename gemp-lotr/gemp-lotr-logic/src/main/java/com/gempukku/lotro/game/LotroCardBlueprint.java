@@ -38,7 +38,7 @@ public interface LotroCardBlueprint {
 
     public int getResistance();
 
-    public List<Modifier> getAlwaysOnModifiers(PhysicalCard self);
+    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self);
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 
