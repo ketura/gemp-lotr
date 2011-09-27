@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -21,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_101 extends AbstractAttachableFPPossession {
     public Card1_101() {
-        super(1, Culture.GONDOR, Keyword.ARMOR, "Coat of Mail");
+        super(1, 0, 0, Culture.GONDOR, Keyword.ARMOR, "Coat of Mail");
     }
 
     @Override
@@ -30,7 +33,7 @@ public class Card1_101 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new OverwhelmedByMultiplierModifier(self, Filters.hasAttached(self), 3);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new OverwhelmedByMultiplierModifier(self, Filters.hasAttached(self), 3));
     }
 }

@@ -10,7 +10,6 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
@@ -37,10 +36,10 @@ public class Card1_166 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public List<Modifier> getAlwaysOnModifiers(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new StrengthModifier(null, null, 3));
-        modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-        return new CompositeModifier(self, Filters.hasAttached(self), modifiers);
+        modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), 3));
+        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE));
+        return modifiers;
     }
 }

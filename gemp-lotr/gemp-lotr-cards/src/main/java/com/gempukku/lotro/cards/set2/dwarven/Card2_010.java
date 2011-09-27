@@ -5,14 +5,12 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -30,7 +28,7 @@ import java.util.List;
  */
 public class Card2_010 extends AbstractAttachableFPPossession {
     public Card2_010() {
-        super(0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Hand Axe");
+        super(0, 1, 0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Hand Axe");
     }
 
     @Override
@@ -41,11 +39,6 @@ public class Card2_010 extends AbstractAttachableFPPossession {
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.race(Race.DWARF);
-    }
-
-    @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), 1);
     }
 
     @Override

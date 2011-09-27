@@ -11,12 +11,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -46,14 +42,14 @@ public class Card1_065 extends AbstractEvent {
                     protected void cardsSelected(Collection<PhysicalCard> elfAlly, boolean success) {
                         super.cardsSelected(elfAlly, success);
                         if (success) {
-                            List<Modifier> modifiers = new LinkedList<Modifier>();
-                            modifiers.add(new StrengthModifier(null, null, 3));
-                            modifiers.add(new AllyOnCurrentSiteModifier(null, null));
-
                             action.appendEffect(new CardAffectsCardEffect(self, elfAlly));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new CompositeModifier(self, Filters.in(elfAlly), modifiers)
+                                            new StrengthModifier(self, Filters.in(elfAlly), 3)
+                                            , Phase.REGROUP));
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new AllyOnCurrentSiteModifier(self, Filters.in(elfAlly))
                                             , Phase.REGROUP));
                         }
                     }

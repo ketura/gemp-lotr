@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -38,13 +37,13 @@ public class Card2_016 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public List<Modifier> getAlwaysOnModifiers(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(null, null, -2));
+                new StrengthModifier(self, Filters.race(Race.URUK_HAI), -2));
         modifiers.add(
-                new RemoveKeywordModifier(null, null, Keyword.DAMAGE));
-        return new CompositeModifier(self, Filters.race(Race.URUK_HAI), modifiers);
+                new RemoveKeywordModifier(self, Filters.race(Race.URUK_HAI), Keyword.DAMAGE));
+        return modifiers;
     }
 
     @Override

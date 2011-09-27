@@ -12,7 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -29,17 +28,12 @@ import java.util.List;
  */
 public class Card2_029 extends AbstractAttachableFPPossession {
     public Card2_029() {
-        super(2, Culture.GANDALF, CardType.ARTIFACT, Keyword.STAFF, "Wizard Staff", false);
+        super(2, 1, 0, Culture.GANDALF, CardType.ARTIFACT, Keyword.STAFF, "Wizard Staff", false);
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.race(Race.WIZARD);
-    }
-
-    @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), 1);
     }
 
     @Override

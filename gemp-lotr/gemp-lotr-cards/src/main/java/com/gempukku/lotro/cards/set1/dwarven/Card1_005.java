@@ -10,12 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -42,13 +37,13 @@ public class Card1_005 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose Dwarf", Filters.race(Race.DWARF)) {
                     @Override
                     protected void cardSelected(PhysicalCard dwarf) {
-                        List<Modifier> modifiers = new LinkedList<Modifier>();
-                        modifiers.add(new StrengthModifier(null, null, 2));
-                        modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
                         action.appendEffect(new CardAffectsCardEffect(self, dwarf));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CompositeModifier(self, Filters.sameCard(dwarf), modifiers), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(dwarf), 2), Phase.SKIRMISH));
+                        action.appendEffect(
+                                new AddUntilEndOfPhaseModifierEffect(
+                                        new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH));
                     }
                 }
         );

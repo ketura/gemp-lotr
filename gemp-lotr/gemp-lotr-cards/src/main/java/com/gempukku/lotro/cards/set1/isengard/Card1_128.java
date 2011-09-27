@@ -10,12 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -49,14 +44,13 @@ public class Card1_128 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                     @Override
                     protected void cardSelected(PhysicalCard urukHai) {
-                        List<Modifier> modifiers = new LinkedList<Modifier>();
-                        modifiers.add(new StrengthModifier(null, null, -1));
-                        modifiers.add(new KeywordModifier(null, null, Keyword.DAMAGE));
-
                         action.appendEffect(new CardAffectsCardEffect(self, urukHai));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CompositeModifier(self, Filters.sameCard(urukHai), modifiers), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(urukHai), -1), Phase.SKIRMISH));
+                        action.appendEffect(
+                                new AddUntilEndOfPhaseModifierEffect(
+                                        new KeywordModifier(self, Filters.sameCard(urukHai), Keyword.DAMAGE), Phase.SKIRMISH));
                     }
                 }
         );

@@ -16,10 +16,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Set: The Fellowship of the Ring
@@ -33,7 +30,7 @@ import java.util.Set;
  */
 public class Card1_009 extends AbstractAttachableFPPossession {
     public Card1_009() {
-        super(0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Dwarven Axe");
+        super(0, 2, 0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Dwarven Axe");
     }
 
     @Override
@@ -42,8 +39,8 @@ public class Card1_009 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), 2);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(self), 2));
     }
 
     @Override

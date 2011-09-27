@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_092 extends AbstractAttachableFPPossession {
     public Card1_092() {
-        super(1, Culture.GONDOR, Keyword.ARMOR, "Armor");
+        super(1, 0, 0, Culture.GONDOR, Keyword.ARMOR, "Armor");
     }
 
     @Override

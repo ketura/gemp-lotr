@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card2_022 extends AbstractAttachableFPPossession {
     public Card2_022() {
-        super(2, Culture.GANDALF, CardType.ARTIFACT, Keyword.STAFF, "Gandalf's Staff", true);
+        super(2, 0, 1, Culture.GANDALF, CardType.ARTIFACT, Keyword.STAFF, "Gandalf's Staff", true);
     }
 
     @Override
@@ -41,12 +41,12 @@ public class Card2_022 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new TwilightCostModifier(self,
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         Filters.culture(Culture.GANDALF),
                         Filters.keyword(Keyword.SPELL)
-                ), -1);
+                ), -1));
     }
 
     @Override

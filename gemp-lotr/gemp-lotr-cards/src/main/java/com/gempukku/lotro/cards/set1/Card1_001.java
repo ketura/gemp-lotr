@@ -16,7 +16,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
-import com.gempukku.lotro.logic.modifiers.CompositeModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -47,14 +46,13 @@ public class Card1_001 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public List<Modifier> getAlwaysOnModifiers(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new StrengthModifier(null, null, 1));
-        modifiers.add(new VitalityModifier(null, null, 1));
-        modifiers.add(new KeywordModifier(null, null, Keyword.RING_BEARER));
-        modifiers.add(new KeywordModifier(null, null, Keyword.RING_BOUND));
-
-        return new CompositeModifier(self, Filters.hasAttached(self), modifiers);
+        modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), 1));
+        modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), 1));
+        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BEARER));
+        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
+        return modifiers;
     }
 
     @Override
