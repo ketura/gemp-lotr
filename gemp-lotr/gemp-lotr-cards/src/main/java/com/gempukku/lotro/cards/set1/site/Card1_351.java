@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
+import com.gempukku.lotro.cards.effects.LookAtOpponentsHandEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -43,12 +43,7 @@ public class Card1_351 extends AbstractSite {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
-                                    new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none(), 0, 0) {
-                                        @Override
-                                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                            // Do nothing, it's just to look at hand
-                                        }
-                                    });
+                                    new LookAtOpponentsHandEffect(playerId, opponentId));
                         }
                     });
             return Collections.singletonList(action);
