@@ -29,6 +29,10 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     private boolean _cardDiscarded;
 
     public PlayEventAction(PhysicalCard card) {
+        this(card, false);
+    }
+
+    public PlayEventAction(PhysicalCard card, boolean requiresRanger) {
         _source = card;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
@@ -41,6 +45,8 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _preCostIterator = preCostEffects.iterator();
 
         _playCardEffect = new PlayEventEffect(card);
+        if (requiresRanger)
+            _playCardEffect.setRequiresRanger(true);
 
         _discardCardEffect = new PutCardIntoDiscardEffect(card);
     }
