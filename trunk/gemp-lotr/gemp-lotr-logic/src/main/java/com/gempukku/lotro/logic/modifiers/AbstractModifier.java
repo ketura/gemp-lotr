@@ -15,12 +15,18 @@ public abstract class AbstractModifier implements Modifier {
     private PhysicalCard _physicalCard;
     private String _text;
     private Filter _affectFilter;
+    private Condition _condition;
     private ModifierEffect[] _effects;
 
     protected AbstractModifier(PhysicalCard source, String text, Filter affectFilter, ModifierEffect[] effects) {
+        this(source, text, affectFilter, null, effects);
+    }
+
+    protected AbstractModifier(PhysicalCard source, String text, Filter affectFilter, Condition condition, ModifierEffect[] effects) {
         _physicalCard = source;
         _text = text;
         _affectFilter = affectFilter;
+        _condition = condition;
         _effects = effects;
     }
 
@@ -41,7 +47,7 @@ public abstract class AbstractModifier implements Modifier {
 
     @Override
     public boolean affectsCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return _affectFilter != null && _affectFilter.accepts(gameState, modifiersQuerying, physicalCard);
+        return (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying)) && (_affectFilter != null && _affectFilter.accepts(gameState, modifiersQuerying, physicalCard));
     }
 
     @Override
