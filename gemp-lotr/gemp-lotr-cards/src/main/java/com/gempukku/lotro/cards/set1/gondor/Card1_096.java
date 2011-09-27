@@ -29,7 +29,7 @@ public class Card1_096 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new OverwhelmedByMultiplierModifier(self, Filters.sameCard(self), 3);
     }
 }

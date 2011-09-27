@@ -32,7 +32,7 @@ public class Card1_030 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
                         Filters.sameCard(self),

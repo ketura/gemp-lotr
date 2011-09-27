@@ -60,7 +60,7 @@ public class Card1_138 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new AbstractModifier(self, "Can't play Skirmish actions", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
             public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {

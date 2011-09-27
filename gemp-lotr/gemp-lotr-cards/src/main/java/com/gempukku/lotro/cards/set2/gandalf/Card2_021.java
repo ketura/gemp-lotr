@@ -32,7 +32,7 @@ public class Card2_021 extends AbstractAlly {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new OpponentsCantLookOrRevealCardsFromHand(self, self.getOwner());
     }
 }

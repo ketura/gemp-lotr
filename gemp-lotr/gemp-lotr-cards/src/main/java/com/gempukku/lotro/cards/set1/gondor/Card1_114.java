@@ -55,7 +55,7 @@ public class Card1_114 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new VitalityModifier(self, Filters.hasAttached(self), 1);
     }
 }

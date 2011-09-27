@@ -37,7 +37,7 @@ public class Card1_261 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new RoamingPenaltyModifier(self, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)), -1);
     }
 

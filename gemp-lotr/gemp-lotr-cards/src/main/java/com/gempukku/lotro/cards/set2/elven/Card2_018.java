@@ -38,7 +38,7 @@ public class Card2_018 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "While you can spot an Elf companion, the minion archery total is -1", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
             @Override
             public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Side side, int result) {

@@ -26,7 +26,7 @@ public class Card1_356 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "For each companion in the fellowship over 4, add 2 to the minion archery total.", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
             @Override
             public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {

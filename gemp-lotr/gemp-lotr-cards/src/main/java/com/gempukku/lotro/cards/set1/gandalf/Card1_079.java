@@ -36,7 +36,7 @@ public class Card1_079 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
                         Filters.type(CardType.COMPANION),

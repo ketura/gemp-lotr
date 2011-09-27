@@ -39,7 +39,7 @@ public class Card1_208 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "Strength +2, While at a Plains site, bearer is Strength +2", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {

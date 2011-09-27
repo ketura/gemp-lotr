@@ -33,7 +33,7 @@ public class Card2_025 extends AbstractAlly {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.or(
                         Filters.keyword(Keyword.SHIELD),

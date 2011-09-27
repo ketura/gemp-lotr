@@ -37,7 +37,7 @@ public class Card1_309 extends AbstractAlly {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, Filters.name("Sam"), 1);
     }
 

@@ -42,7 +42,7 @@ public class Card1_274 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "While there are 3 or more companions in the dead pile, the move limit for this turn is -1 (to a minimum of 1).", Filters.none(), new ModifierEffect[]{ModifierEffect.MOVE_LIMIT_MODIFIER}) {
             @Override
             public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {

@@ -34,7 +34,7 @@ public class Card1_249 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
                         Filters.culture(Culture.SAURON),

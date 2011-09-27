@@ -20,7 +20,7 @@ public class Card1_335 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self, Filters.race(Race.NAZGUL), -1);
     }
 }

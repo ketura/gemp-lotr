@@ -34,7 +34,7 @@ public class Card1_042 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.SHADOW, -1);
     }
 }

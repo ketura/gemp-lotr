@@ -5,6 +5,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierHook;
 import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class PhysicalCardImpl implements PhysicalCard {
     private int _cardId;
     private String _blueprintId;
@@ -15,7 +18,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     private PhysicalCardImpl _attachedTo;
     private PhysicalCardImpl _stackedOn;
 
-    private ModifierHook _modifierHook;
+    private List<ModifierHook> _modifierHooks;
 
     private Object _data;
 
@@ -47,15 +50,19 @@ public class PhysicalCardImpl implements PhysicalCard {
     }
 
     public void startAffectingGame(ModifiersEnvironment modifiersEnvironment) {
-        Modifier modifier = _blueprint.getAlwaysOnEffect(this);
-        if (modifier != null)
-            _modifierHook = modifiersEnvironment.addAlwaysOnModifier(modifier);
+        List<Modifier> modifiers = _blueprint.getAlwaysOnModifiers(this);
+        if (modifiers != null) {
+            _modifierHooks = new LinkedList<ModifierHook>();
+            for (Modifier modifier : modifiers)
+                _modifierHooks.add(modifiersEnvironment.addAlwaysOnModifier(modifier));
+        }
     }
 
     public void stopAffectingGame() {
-        if (_modifierHook != null) {
-            _modifierHook.stop();
-            _modifierHook = null;
+        if (_modifierHooks != null) {
+            for (ModifierHook modifierHook : _modifierHooks)
+                modifierHook.stop();
+            _modifierHooks = null;
         }
     }
 

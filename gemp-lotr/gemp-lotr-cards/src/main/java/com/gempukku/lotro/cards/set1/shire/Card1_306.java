@@ -28,7 +28,7 @@ public class Card1_306 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new CantDiscardFromPlayModifier(self, "Can't be discarded by opponent", Filters.and(Filters.culture(Culture.SHIRE), Filters.keyword(Keyword.TALE)), Filters.not(Filters.owner(self.getOwner())));
     }
 }

@@ -25,7 +25,7 @@ public class Card1_199 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self, Filters.name("Cave Troll of Moria"), -2);
     }
 }

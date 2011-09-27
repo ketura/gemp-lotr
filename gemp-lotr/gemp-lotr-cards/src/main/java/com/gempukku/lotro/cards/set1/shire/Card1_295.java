@@ -14,7 +14,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -48,11 +47,6 @@ public class Card1_295 extends AbstractAlly {
         if (firstActive != null)
             return firstActive.getBlueprint();
         return null;
-    }
-
-    @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
-        return new ProxyingModifier(self, getFilter(self));
     }
 
     @Override

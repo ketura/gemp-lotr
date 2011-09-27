@@ -22,7 +22,7 @@ public class Card1_347 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new KeywordModifier(self,
                 Filters.and(
                         Filters.or(
