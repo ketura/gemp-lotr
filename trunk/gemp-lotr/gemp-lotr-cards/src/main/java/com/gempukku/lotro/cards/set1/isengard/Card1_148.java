@@ -30,7 +30,7 @@ public class Card1_148 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new AbstractModifier(self, "Strength +1 for each other Uruk-hai you can spot", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {

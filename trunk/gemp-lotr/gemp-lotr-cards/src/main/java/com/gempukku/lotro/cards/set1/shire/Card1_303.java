@@ -28,7 +28,7 @@ public class Card1_303 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.hasAttached(Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)))), 2);
     }
 }

@@ -43,7 +43,7 @@ public class Card1_316 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "Spot 2 Hobbit companions to make the shadow number -1 (or spot 4 to make it -2)",
                 Filters.and(
                         Filters.type(CardType.SITE),

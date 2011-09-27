@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,14 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public List<Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+        Modifier modifier = getAlwaysOnModifier(self);
+        if (modifier != null)
+            return Collections.singletonList(modifier);
+        return null;
+    }
+
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return null;
     }
 

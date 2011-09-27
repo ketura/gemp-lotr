@@ -34,7 +34,7 @@ public class Card1_142 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "While the Ring-bearer is exhausted or you can spot 5 burdens, the move limit for this turn is -1 (to a minimum of 1)", null, new ModifierEffect[]{ModifierEffect.MOVE_LIMIT_MODIFIER}) {
             @Override
             public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {

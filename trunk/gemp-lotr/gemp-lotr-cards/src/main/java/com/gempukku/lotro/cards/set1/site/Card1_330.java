@@ -28,7 +28,7 @@ public class Card1_330 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new AbstractModifier(self, "While only Hobbits are in the fellowship, there are no assignment and skirmish phases at Buckleberry Ferry.", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
             public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {

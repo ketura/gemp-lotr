@@ -29,7 +29,7 @@ public class Card1_141 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Filters.keyword(Keyword.ARCHER), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))), -1);
     }
 }

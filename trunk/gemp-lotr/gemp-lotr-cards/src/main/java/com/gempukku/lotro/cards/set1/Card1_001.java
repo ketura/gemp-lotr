@@ -47,7 +47,7 @@ public class Card1_001 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new StrengthModifier(null, null, 1));
         modifiers.add(new VitalityModifier(null, null, 1));

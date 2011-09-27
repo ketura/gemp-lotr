@@ -23,7 +23,7 @@ public class Card1_352 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6)), 3);
     }
 }

@@ -32,7 +32,7 @@ public class Card1_143 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new CancelStrengthBonusModifier(self, Filters.and(
                 // Weapon bonus (Hand or Ranged)
                 Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)),

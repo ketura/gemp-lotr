@@ -32,7 +32,7 @@ public class Card1_174 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnEffect(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new KeywordModifier(self,
                 Filters.and(
                         Filters.sameCard(self),
