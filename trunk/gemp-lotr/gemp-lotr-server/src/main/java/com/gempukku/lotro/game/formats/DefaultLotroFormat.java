@@ -95,16 +95,16 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                 LotroCardBlueprint cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
                 increateCount(cardCountByName, cardBlueprint.getName());
             }
-            for (int count : cardCountByName.values()) {
-                if (count > _maximumSameName)
-                    throw new DeckInvalidException("Deck contains more of the same card than allowed");
+            for (Map.Entry<String, Integer> count : cardCountByName.entrySet()) {
+                if (count.getValue() > _maximumSameName)
+                    throw new DeckInvalidException("Deck contains more of the same card than allowed: " + count.getKey());
             }
 
             // Restricted cards
             for (String name : _restrictedCard) {
                 Integer count = cardCountByName.get(name);
                 if (count != null && count > 1)
-                    throw new DeckInvalidException("Deck contains more than one copy of a restricted card");
+                    throw new DeckInvalidException("Deck contains more than one copy of a restricted card: " + name);
             }
 
         } catch (IllegalArgumentException exp) {
