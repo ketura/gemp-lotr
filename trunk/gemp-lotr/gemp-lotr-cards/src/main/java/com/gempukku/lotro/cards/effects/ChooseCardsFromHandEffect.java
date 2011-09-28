@@ -6,13 +6,15 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.timing.Cost;
+import com.gempukku.lotro.logic.timing.CostResolution;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Set;
 
-public abstract class ChooseCardsFromHandEffect implements Effect {
+public abstract class ChooseCardsFromHandEffect implements Effect, Cost {
     private String _playerId;
     private int _minimum;
     private int _maximum;
@@ -33,6 +35,11 @@ public abstract class ChooseCardsFromHandEffect implements Effect {
     @Override
     public EffectResult.Type getType() {
         return null;
+    }
+
+    @Override
+    public CostResolution playCost(LotroGame game) {
+        return new CostResolution(playEffect(game), true);
     }
 
     @Override
