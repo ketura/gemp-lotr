@@ -1,6 +1,7 @@
 package com.gempukku.lotro.common;
 
 public enum Race {
+    BALROG("Balrog"),
     ELF("Elf"), HOBBIT("Hobbit"), DWARF("Dwarf"), MAN("Man"), WIZARD("Wizard"),
     URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"), TROLL("Troll");
 
