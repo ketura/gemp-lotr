@@ -5,7 +5,10 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +25,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  */
 public class Card1_117 extends AbstractEvent {
     public Card1_117() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Swordarm of the White Tower", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, Culture.GONDOR, "Swordsman of the Northern Kingdom", Phase.SKIRMISH);
     }
 
     @Override
@@ -30,7 +33,7 @@ public class Card1_117 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self, true);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
+                new ChooseActiveCardEffect(playerId, "Choose a Ranger", Filters.keyword(Keyword.RANGER)) {
                     @Override
                     protected void cardSelected(PhysicalCard gondorCompanion) {
                         int bonus = 2;
