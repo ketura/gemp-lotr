@@ -28,6 +28,10 @@ public abstract class ChooseActiveCardsCost implements ChooseableCost {
         _filters = filters;
     }
 
+    protected Filter getExtraFilter() {
+        return Filters.any();
+    }
+
     @Override
     public EffectResult.Type getType() {
         return null;
@@ -40,12 +44,12 @@ public abstract class ChooseActiveCardsCost implements ChooseableCost {
 
     @Override
     public boolean canPlayCost(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), _filters) >= _minimum;
+        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilter())) >= _minimum;
     }
 
     @Override
     public CostResolution playCost(LotroGame game) {
-        Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
+        Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilter()));
 
         boolean success = matchingCards.size() >= _minimum;
 

@@ -37,14 +37,14 @@ public class Card1_162 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.canExert());
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI));
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI), Filters.canExert()));
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
         return action;
     }
 
@@ -54,7 +54,7 @@ public class Card1_162 extends AbstractPermanent {
         if (PlayConditions.winsSkirmish(gameState, game.getModifiersQuerying(), effectResult, Filters.race(Race.URUK_HAI))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
-            possibleEffects.add(new ExertCharacterEffect(gameState.getCurrentPlayerId(), gameState.getRingBearer(gameState.getCurrentPlayerId())));
+            possibleEffects.add(new ExertCharacterEffect(self, gameState.getRingBearer(gameState.getCurrentPlayerId())));
             possibleEffects.add(new AddBurdenEffect(gameState.getCurrentPlayerId()));
 
             action.appendEffect(

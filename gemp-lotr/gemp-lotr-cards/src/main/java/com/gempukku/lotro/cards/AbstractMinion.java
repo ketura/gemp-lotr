@@ -21,21 +21,21 @@ public class AbstractMinion extends AbstractPermanent {
     }
 
     @Override
-    public int getStrength() {
+    public final int getStrength() {
         return _strength;
     }
 
     @Override
-    public int getVitality() {
+    public final int getVitality() {
         return _vitality;
     }
 
     @Override
-    public int getSiteNumber() {
+    public final int getSiteNumber() {
         return _site;
     }
 
-    public Race getRace() {
+    public final Race getRace() {
         return _race;
     }
 }

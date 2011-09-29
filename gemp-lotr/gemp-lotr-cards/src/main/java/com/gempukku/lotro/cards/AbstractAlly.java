@@ -53,17 +53,17 @@ public class AbstractAlly extends AbstractPermanent {
     }
 
     @Override
-    public int getSiteNumber() {
+    public final int getSiteNumber() {
         return _siteNumber;
     }
 
     @Override
-    public int getStrength() {
+    public final int getStrength() {
         return _strength;
     }
 
     @Override
-    public int getVitality() {
+    public final int getVitality() {
         return _vitality;
     }
 

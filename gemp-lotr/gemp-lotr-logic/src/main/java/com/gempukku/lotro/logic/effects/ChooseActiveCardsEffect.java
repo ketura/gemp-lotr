@@ -27,9 +27,13 @@ public abstract class ChooseActiveCardsEffect implements ChooseableEffect {
         _filters = filters;
     }
 
+    protected Filter getExtraFilter() {
+        return Filters.any();
+    }
+
     @Override
     public boolean canPlayEffect(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), _filters) >= _minimum;
+        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilter())) >= _minimum;
     }
 
     @Override
@@ -44,7 +48,7 @@ public abstract class ChooseActiveCardsEffect implements ChooseableEffect {
 
     @Override
     public EffectResult[] playEffect(LotroGame game) {
-        Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
+        Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilter()));
 
         if (matchingCards.size() < _minimum)
             _minimum = matchingCards.size();

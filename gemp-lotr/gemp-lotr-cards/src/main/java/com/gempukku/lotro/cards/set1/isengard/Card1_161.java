@@ -48,7 +48,7 @@ public class Card1_161 extends AbstractResponseEvent {
 
             List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
             possibleCosts.add(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI), Filters.canExert()) {
+                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert an Uruk-hai";

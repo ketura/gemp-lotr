@@ -47,7 +47,7 @@ public class Card1_206 extends AbstractPermanent {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
-                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL), Filters.canExert()));
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL)));
             possibleEffects.add(
                     new DiscardCardsFromPlayEffect(self, self));
 

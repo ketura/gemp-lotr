@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
@@ -35,7 +36,7 @@ public class Card2_027 extends AbstractEvent {
         PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
         List<PhysicalCard> attachedToGandalf = game.getGameState().getAttachedCards(gandalf);
         if (gandalf != null
-                && game.getModifiersQuerying().getVitality(game.getGameState(), gandalf) > 2
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(gandalf))
                 && Filters.filter(attachedToGandalf, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.STAFF)).size() > 0)
             return true;
         return false;

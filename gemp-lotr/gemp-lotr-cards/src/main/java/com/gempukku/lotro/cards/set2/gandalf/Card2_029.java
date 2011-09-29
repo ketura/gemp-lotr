@@ -39,12 +39,12 @@ public class Card2_029 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && game.getModifiersQuerying().getVitality(game.getGameState(), self.getAttachedTo()) > 2) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self.getAttachedTo()))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ExertCharactersCost(playerId, self.getAttachedTo()));
+                    new ExertCharactersCost(self, self.getAttachedTo()));
             action.appendCost(
-                    new ExertCharactersCost(playerId, self.getAttachedTo()));
+                    new ExertCharactersCost(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose minion", Filters.type(CardType.MINION)) {
                         @Override

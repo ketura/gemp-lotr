@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -40,7 +39,7 @@ public class Card1_142 extends AbstractPermanent {
                     @Override
                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                         return gameState.getBurdens() >= 5
-                                && !PlayConditions.canExert(gameState, modifiersQuerying, gameState.getRingBearer(gameState.getCurrentPlayerId()));
+                                && Filters.canSpot(gameState, modifiersQuerying, Filters.keyword(Keyword.RING_BEARER), Filters.exhausted());
                     }
                 }, -1);
     }

@@ -53,7 +53,7 @@ public class Card2_054 extends AbstractAttachable {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), self.getAttachedTo()));
+                    new ExertCharacterEffect(self, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

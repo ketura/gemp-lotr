@@ -33,11 +33,11 @@ public class Card1_318 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert()) >= 2) {
+                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.race(Race.HOBBIT))) {
             Keyword phaseKeyword = (game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) ? Keyword.FELLOWSHIP : Keyword.REGROUP;
             final ActivateCardAction action = new ActivateCardAction(self, phaseKeyword);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 2, 2, Filters.race(Race.HOBBIT), Filters.canExert()));
+                    new ChooseAndExertCharactersCost(action, playerId, 2, 2, Filters.race(Race.HOBBIT)));
             action.appendCost(new DiscardCardsFromPlayCost(self, self));
             action.appendEffect(new PlaySiteEffect(playerId, game.getGameState().getCurrentSiteNumber() + 1));
             return Collections.singletonList(action);

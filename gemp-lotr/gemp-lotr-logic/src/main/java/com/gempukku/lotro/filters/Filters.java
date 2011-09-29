@@ -78,6 +78,15 @@ public class Filters {
         };
     }
 
+    public static Filter exhausted() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getVitality(gameState, physicalCard) == 1;
+            }
+        };
+    }
+
     public static Filter notAssigned() {
         return new Filter() {
             @Override
@@ -181,15 +190,6 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return physicalCard.getBlueprint().getSiteNumber() == siteNumber;
-            }
-        };
-    }
-
-    public static Filter canExert() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (modifiersQuerying.getVitality(gameState, physicalCard) > 1);
             }
         };
     }

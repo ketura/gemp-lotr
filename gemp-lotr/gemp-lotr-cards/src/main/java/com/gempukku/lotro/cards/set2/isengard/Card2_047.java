@@ -49,12 +49,12 @@ public class Card2_047 extends AbstractMinion {
     @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.type(CardType.EVENT))
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             PlayEventEffect playEffect = (PlayEventEffect) effect;
             if (playEffect.isRequiresRanger()) {
                 ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendCost(
-                        new ExertCharactersCost(playerId, self));
+                        new ExertCharactersCost(self, self));
                 action.appendEffect(
                         new CancelEventEffect(playerId, playEffect));
                 return Collections.singletonList(action);

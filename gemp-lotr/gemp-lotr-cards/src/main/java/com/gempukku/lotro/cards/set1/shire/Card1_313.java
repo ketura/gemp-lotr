@@ -48,7 +48,7 @@ public class Card1_313 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             Phase phase = game.getGameState().getCurrentPhase();
             Keyword keyword;
             if (phase == Phase.FELLOWSHIP)
@@ -57,7 +57,7 @@ public class Card1_313 extends AbstractAttachableFPPossession {
                 keyword = Keyword.REGROUP;
 
             final ActivateCardAction action = new ActivateCardAction(self, keyword);
-            action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersCost(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override
