@@ -53,9 +53,9 @@ public class Card1_225 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
-            action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersCost(self, self.getAttachedTo()));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null
                     && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {

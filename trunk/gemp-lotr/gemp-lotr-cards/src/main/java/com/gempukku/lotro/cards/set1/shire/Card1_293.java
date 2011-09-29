@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -37,14 +38,14 @@ public class Card1_293 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.canExert());
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.canExert()) {
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.HOBBIT)) {
                     @Override
                     protected void cardsSelected(Collection<PhysicalCard> hobbit, boolean success) {
                         super.cardsSelected(hobbit, success);

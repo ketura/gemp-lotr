@@ -41,9 +41,9 @@ public class Card1_098 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
-            action.appendCost(new ExertCharactersCost(playerId, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersCost(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a Weather condition", Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION)) {
                         @Override

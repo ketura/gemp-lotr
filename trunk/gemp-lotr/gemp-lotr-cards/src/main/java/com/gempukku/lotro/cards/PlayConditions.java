@@ -98,6 +98,23 @@ public class PlayConditions {
         return canExert(source, gameState, modifiersQuerying, 1, filters);
     }
 
+    public static boolean canExertMultiple(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, final int count, Filter... filters) {
+        final Filter filter = Filters.and(filters);
+        return gameState.iterateActiveCards(
+                new PhysicalCardVisitor() {
+                    private int _exertableCount;
+
+                    @Override
+                    public boolean visitPhysicalCard(PhysicalCard physicalCard) {
+                        if (filter.accepts(gameState, modifiersQuerying, physicalCard)
+                                && (modifiersQuerying.getVitality(gameState, physicalCard) > times)
+                                && modifiersQuerying.canBeExerted(gameState, source, physicalCard))
+                            _exertableCount++;
+                        return _exertableCount >= count;
+                    }
+                });
+    }
+
     public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, Filter... filters) {
         final Filter filter = Filters.and(filters);
         return gameState.iterateActiveCards(

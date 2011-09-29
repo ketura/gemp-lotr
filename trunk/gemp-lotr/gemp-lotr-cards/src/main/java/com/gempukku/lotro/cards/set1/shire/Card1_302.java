@@ -39,13 +39,13 @@ public class Card1_302 extends AbstractCompanion {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && game.getModifiersQuerying().getVitality(game.getGameState(), self) > 2
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self))
                 && !isAssigned(game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ExertCharactersCost(playerId, self));
+                    new ExertCharactersCost(self, self));
             action.appendCost(
-                    new ExertCharactersCost(playerId, self));
+                    new ExertCharactersCost(self, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.sameCard(self))) {
                         @Override

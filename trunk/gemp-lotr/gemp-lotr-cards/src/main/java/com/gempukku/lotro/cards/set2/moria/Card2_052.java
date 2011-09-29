@@ -49,11 +49,11 @@ public class Card2_052 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.playable(game, 2)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
-                    new ExertCharactersCost(playerId, self));
+                    new ExertCharactersCost(self, self));
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(

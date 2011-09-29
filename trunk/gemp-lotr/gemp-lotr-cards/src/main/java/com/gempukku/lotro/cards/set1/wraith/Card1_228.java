@@ -38,10 +38,10 @@ public class Card1_228 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canPayForShadowCard(game, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL), Filters.canExert())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL))) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.NAZGUL), Filters.canExert()));
+                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
             action.appendEffect(
                     new AddBurdenEffect(playerId));
             action.appendEffect(

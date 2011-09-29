@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -39,7 +40,7 @@ public class Card1_124 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert());
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
     }
 
     @Override
@@ -48,10 +49,10 @@ public class Card1_124 extends AbstractEvent {
         String fpPlayer = game.getGameState().getCurrentPlayerId();
 
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canExert()));
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)));
 
         List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
-        possibleEffects.add(new ExertCharacterEffect(playerId, game.getGameState().getRingBearer(fpPlayer)));
+        possibleEffects.add(new ExertCharacterEffect(self, game.getGameState().getRingBearer(fpPlayer)));
         possibleEffects.add(new AddBurdenEffect(playerId));
 
         action.appendEffect(

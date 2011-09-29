@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
@@ -35,16 +36,16 @@ public class Card1_344 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
-            boolean gimliCanExert = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"), Filters.canExert());
-            boolean twoOtherCanExert = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) >= 2;
+            boolean gimliCanExert = PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
+            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION));
             if (gimliCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
                 List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
-                possibleEffects.add(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), gimli));
+                possibleEffects.add(new ExertCharacterEffect(self, gimli));
                 possibleEffects.add(
-                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION), Filters.canExert()) {
+                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION)) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Exert two non-Gimli companions";
@@ -57,7 +58,7 @@ public class Card1_344 extends AbstractSite {
             if (gimliCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
-                action.appendEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), gimli));
+                action.appendEffect(new ExertCharacterEffect(self, gimli));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {

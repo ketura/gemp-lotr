@@ -37,13 +37,13 @@ public class Card1_231 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && (
                 Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 6
                         || game.getGameState().getBurdens() >= 5)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ExertCharactersCost(playerId, self));
+                    new ExertCharactersCost(self, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a companion (except a Ring-Bearer)", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override

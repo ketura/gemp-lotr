@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.common.*;
@@ -26,14 +27,14 @@ public class Card1_084 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"), Filters.canExert());
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"), Filters.canExert());
-        action.appendCost(new ExertCharactersCost(playerId, gandalf));
+        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+        action.appendCost(new ExertCharactersCost(self, gandalf));
         action.appendEffect(
                 new DiscardCardsFromPlayEffect(self, Filters.type(CardType.CONDITION)));
         return action;

@@ -2,14 +2,11 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-
-import java.util.Collection;
 
 /**
  * Set: The Fellowship of the Ring
@@ -37,17 +34,8 @@ public class Card1_239 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
-        int exertableCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.canExert());
-        int exertCount = Math.min(0, Math.min(companionCount - 4, exertableCompanions));
-        if (exertCount > 0) {
-            action.appendEffect(
-                    new ChooseActiveCardsEffect(game.getGameState().getCurrentPlayerId(), "Choose companions to exert", exertCount, exertCount, Filters.type(CardType.COMPANION), Filters.canExert()) {
-                        @Override
-                        protected void cardsSelected(Collection<PhysicalCard> companions) {
-                            action.appendEffect(new ExertCharacterEffect(playerId, Filters.in(companions)));
-                        }
-                    });
-        }
+        action.appendEffect(
+                new ChooseAndExertCharactersEffect(action, playerId, companionCount - 4, companionCount - 4, Filters.type(CardType.COMPANION)));
         return action;
     }
 

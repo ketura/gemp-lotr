@@ -36,7 +36,7 @@ public class Card1_100 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Arwen"), Filters.name("Aragorn")), Filters.canExert())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Arwen"), Filters.name("Aragorn")))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
 
             List<ChooseableCost> possibleEffects = new LinkedList<ChooseableCost>();
@@ -46,7 +46,7 @@ public class Card1_100 extends AbstractPermanent {
 
             if (arwen != null) {
                 possibleEffects.add(
-                        new ExertCharactersCost(playerId, arwen) {
+                        new ExertCharactersCost(self, arwen) {
                             @Override
                             public CostResolution playCost(LotroGame game) {
                                 CostResolution effectResult = super.playCost(game);
@@ -60,7 +60,7 @@ public class Card1_100 extends AbstractPermanent {
             }
             if (aragorn != null) {
                 possibleEffects.add(
-                        new ExertCharactersCost(playerId, aragorn) {
+                        new ExertCharactersCost(self, aragorn) {
                             @Override
                             public CostResolution playCost(LotroGame game) {
                                 CostResolution effectResult = super.playCost(game);

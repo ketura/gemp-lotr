@@ -31,7 +31,7 @@ public class Card1_077 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 0, Integer.MAX_VALUE, Filters.type(CardType.COMPANION), Filters.canExert()) {
+                new ChooseAndExertCharactersCost(action, playerId, 0, Integer.MAX_VALUE, Filters.type(CardType.COMPANION)) {
                     @Override
                     protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
                         super.cardsSelected(characters, success);

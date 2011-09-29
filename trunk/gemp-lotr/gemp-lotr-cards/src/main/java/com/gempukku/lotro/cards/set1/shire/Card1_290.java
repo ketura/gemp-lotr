@@ -35,7 +35,7 @@ public class Card1_290 extends AbstractCompanion {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.not(Filters.sameCard(self)), Filters.canExert())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.not(Filters.sameCard(self)))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
                     new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO), Filters.not(Filters.sameCard(self))));

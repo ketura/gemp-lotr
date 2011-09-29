@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.common.*;
@@ -31,14 +32,14 @@ public class Card1_202 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canExert());
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canExert()));
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.MORIA), Filters.race(Race.ORC)));
         return action;
     }
 

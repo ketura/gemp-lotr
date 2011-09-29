@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
@@ -25,10 +26,16 @@ public class Card1_106 extends AbstractEvent {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER));
+    }
+
+    @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self, true);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.keyword(Keyword.RANGER), Filters.type(CardType.COMPANION), Filters.canExert()));
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.keyword(Keyword.RANGER), Filters.type(CardType.COMPANION)));
         action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
@@ -45,11 +52,5 @@ public class Card1_106 extends AbstractEvent {
     @Override
     public int getTwilightCost() {
         return 0;
-    }
-
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER), Filters.canExert());
     }
 }

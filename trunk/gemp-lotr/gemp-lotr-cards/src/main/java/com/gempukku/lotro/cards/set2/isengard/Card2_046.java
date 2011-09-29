@@ -38,14 +38,14 @@ public class Card2_046 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 1)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 // There has to be playable Uruk-hai in discard pile
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendCost(
-                    new ExertCharactersCost(playerId, self));
+                    new ExertCharactersCost(self, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.race(Race.URUK_HAI)));
             return Collections.singletonList(action);

@@ -35,10 +35,10 @@ public class Card1_331 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId), Filters.canExert()) {
+                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId)) {
                         @Override
                         protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
                             super.cardsSelected(characters, success);

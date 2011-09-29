@@ -1,10 +1,11 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
@@ -12,20 +13,27 @@ import java.util.Collection;
 
 public class ExertCharacterEffect extends AbstractPreventableCardEffect {
     private String _playerId;
+    private PhysicalCard _source;
 
-    public ExertCharacterEffect(String playerId, PhysicalCard... cards) {
+    public ExertCharacterEffect(PhysicalCard source, PhysicalCard... cards) {
         super(cards);
-        _playerId = playerId;
+        _source = source;
     }
 
-    public ExertCharacterEffect(String playerId, Filter filter) {
+    public ExertCharacterEffect(PhysicalCard source, Filter filter) {
         super(filter);
-        _playerId = playerId;
+        _source = source;
     }
 
     @Override
     protected Filter getExtraAffectableFilter() {
-        return Filters.canExert();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.canBeExerted(gameState, _source, physicalCard)
+                        && modifiersQuerying.getVitality(gameState, physicalCard) > 1;
+            }
+        };
     }
 
     @Override
@@ -44,7 +52,7 @@ public class ExertCharacterEffect extends AbstractPreventableCardEffect {
         Collection<PhysicalCard> woundedCards = getCardsToBeAffected(game);
 
         for (PhysicalCard woundedCard : woundedCards) {
-            game.getGameState().sendMessage(_playerId + " exerts " + woundedCard.getBlueprint().getName());
+            game.getGameState().sendMessage(woundedCard.getBlueprint().getName() + " exerts due to " + _source.getBlueprint().getName());
             game.getGameState().addWound(woundedCard);
         }
 

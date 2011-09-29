@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.timing.ChooseableEffect;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,26 +39,21 @@ public class Card1_137 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.canExert());
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI), Filters.canExert()));
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
 
         List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
         possibleEffects.add(
-                new ChooseActiveCardsEffect(playerId, "Choose characters to exert", 2, 2, Filters.type(CardType.COMPANION), Filters.canExert()) {
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.type(CardType.COMPANION)) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Exert 2 companions";
-                    }
-
-                    @Override
-                    protected void cardsSelected(Collection<PhysicalCard> cards) {
-                        action.appendEffect(new ExertCharacterEffect(playerId, Filters.in(cards)));
                     }
                 });
 

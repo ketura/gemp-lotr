@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.gondor;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.PreventEffect;
@@ -40,7 +41,7 @@ public class Card2_034 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION), Filters.canExert())
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION))
                 && checkPlayRequirements(playerId, game, self, 0)) {
             final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
             Collection<PhysicalCard> woundedCards = woundEffect.getCardsToBeAffected(game);

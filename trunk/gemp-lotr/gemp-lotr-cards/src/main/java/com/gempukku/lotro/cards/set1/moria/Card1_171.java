@@ -29,7 +29,7 @@ public class Card1_171 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.canExert()), Filters.notAssigned()) {
+                new ChooseActiveCardEffect(playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.exhausted(), Filters.notAssigned()) {
                     @Override
                     protected void cardSelected(final PhysicalCard companion) {
                         action.appendEffect(new CardAffectsCardEffect(self, companion));

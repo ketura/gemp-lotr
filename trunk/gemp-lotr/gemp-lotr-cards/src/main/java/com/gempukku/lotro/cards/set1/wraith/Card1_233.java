@@ -36,11 +36,11 @@ public class Card1_233 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId)))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
-                    new ExertCharactersCost(playerId, self));
+                    new ExertCharactersCost(self, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose opponent's site", Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId))) {
                         @Override

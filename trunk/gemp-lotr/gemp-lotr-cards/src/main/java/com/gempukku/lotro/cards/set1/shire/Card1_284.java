@@ -38,9 +38,9 @@ public class Card1_284 extends AbstractAlly {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
-            action.appendCost(new ExertCharactersCost(playerId, self));
+            action.appendCost(new ExertCharactersCost(self, self));
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose SHIRE card", game.getGameState().getDiscard(playerId), Filters.culture(Culture.SHIRE), 1, 1) {
                         @Override

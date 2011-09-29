@@ -37,10 +37,10 @@ public class Card1_045 extends AbstractAlly {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.playable(game, -1000)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
-            action.appendCost(new ExertCharactersCost(playerId, self));
+            action.appendCost(new ExertCharactersCost(self, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.race(Race.ELF), -1000));
             return Collections.singletonList(action);

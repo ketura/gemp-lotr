@@ -85,9 +85,9 @@ public class Card1_295 extends AbstractAlly {
         List<Action> actions = new LinkedList<Action>();
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && !game.getGameState().getSite(1).getOwner().equals(playerId)
-                && PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
-            action.appendCost(new ExertCharactersCost(playerId, self));
+            action.appendCost(new ExertCharactersCost(self, self));
             action.appendEffect(new PlaySiteEffect(playerId, 1));
             actions.add(action);
         }

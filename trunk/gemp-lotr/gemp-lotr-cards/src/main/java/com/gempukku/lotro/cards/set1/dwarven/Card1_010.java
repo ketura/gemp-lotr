@@ -48,7 +48,7 @@ public class Card1_010 extends AbstractAttachable {
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-            action.appendEffect(new ExertCharacterEffect(self.getOwner(), self.getAttachedTo()));
+            action.appendEffect(new ExertCharacterEffect(self, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
 

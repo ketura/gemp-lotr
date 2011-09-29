@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
@@ -35,16 +36,16 @@ public class Card1_346 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
-            boolean frodoCanExert = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"), Filters.canExert());
-            boolean twoOtherCanExert = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) >= 2;
+            boolean frodoCanExert = PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
+            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION));
             if (frodoCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
                 List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
-                possibleEffects.add(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), frodo));
+                possibleEffects.add(new ExertCharacterEffect(self, frodo));
                 possibleEffects.add(
-                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()) {
+                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION)) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Exert two non-Frodo companions";
@@ -57,13 +58,13 @@ public class Card1_346 extends AbstractSite {
             if (frodoCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
-                action.appendEffect(new ExertCharacterEffect(game.getGameState().getCurrentPlayerId(), frodo));
+                action.appendEffect(new ExertCharacterEffect(self, frodo));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION), Filters.canExert()));
+                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION)));
 
                 return Collections.singletonList(action);
             }

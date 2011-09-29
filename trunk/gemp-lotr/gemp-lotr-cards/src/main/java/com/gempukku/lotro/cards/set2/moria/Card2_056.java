@@ -41,7 +41,7 @@ public class Card2_056 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"), Filters.canExert())) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
                     new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("The Balrog")));

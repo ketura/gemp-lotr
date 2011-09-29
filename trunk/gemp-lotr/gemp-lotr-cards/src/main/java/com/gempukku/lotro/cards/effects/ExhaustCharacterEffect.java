@@ -39,7 +39,7 @@ public class ExhaustCharacterEffect implements Effect {
 
     @Override
     public EffectResult[] playEffect(LotroGame game) {
-        boolean canExert = PlayConditions.canExert(game.getGameState(), game.getModifiersQuerying(), _physicalCard);
+        boolean canExert = PlayConditions.canExert(_action.getActionSource(), game.getGameState(), game.getModifiersQuerying(), _physicalCard);
         if (canExert) {
             if (_sendMessage)
                 game.getGameState().sendMessage(_playerId + " exhausts " + _physicalCard.getBlueprint().getName());
