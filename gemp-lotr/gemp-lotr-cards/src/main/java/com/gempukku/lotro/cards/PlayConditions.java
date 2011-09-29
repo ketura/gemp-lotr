@@ -7,6 +7,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.PhysicalCardVisitor;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
@@ -93,8 +94,25 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean canExert(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return (modifiersQuerying.getVitality(gameState, card) > 1);
+    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filter... filters) {
+        return canExert(source, gameState, modifiersQuerying, 1, filters);
+    }
+
+    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, Filter... filters) {
+        final Filter filter = Filters.and(filters);
+        return gameState.iterateActiveCards(
+                new PhysicalCardVisitor() {
+                    @Override
+                    public boolean visitPhysicalCard(PhysicalCard physicalCard) {
+                        return filter.accepts(gameState, modifiersQuerying, physicalCard)
+                                && (modifiersQuerying.getVitality(gameState, physicalCard) > times)
+                                && modifiersQuerying.canBeExerted(gameState, source, physicalCard);
+                    }
+                });
+    }
+
+    public static boolean canExert(PhysicalCard source, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return canExert(source, gameState, modifiersQuerying, Filters.sameCard(card));
     }
 
     public static boolean winsSkirmish(EffectResult effectResult, PhysicalCard character) {

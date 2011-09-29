@@ -36,6 +36,8 @@ public interface ModifiersQuerying {
 
     public boolean canTakeWound(GameState gameState, PhysicalCard card);
 
+    public boolean canBeExerted(GameState gameState, PhysicalCard exertionSource, PhysicalCard card);
+
     public boolean isAllyOnCurrentSite(GameState gameState, PhysicalCard card);
 
     public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
