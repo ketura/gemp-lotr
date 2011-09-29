@@ -7,11 +7,11 @@ public enum Keyword {
 
     RING_BOUND("Ring-Bound", true), RING_BEARER("Ring-Bearer", true),
 
-    ROAMING("Roaming", true),
+    ROAMING("Roaming", true), TWILIGHT("Twilight", true),
 
-    WEATHER("Weather"), TALE("Tale"), SPELL("Spell"), SEARCH("Search"), STEALTH("Stealth"), TENTACLE("Tentacle"),
+    WEATHER("Weather", true), TALE("Tale", true), SPELL("Spell", true), SEARCH("Search", true), STEALTH("Stealth", true), TENTACLE("Tentacle", true),
 
-    RIVER("River"), PLAINS("Plains"), UNDERGROUND("Underground"), SANCTUARY("Sanctuary"), FOREST("Forest"), MARSH("Marsh"), MOUNTAIN("Mountain"),
+    RIVER("River", true), PLAINS("Plains", true), UNDERGROUND("Underground", true), SANCTUARY("Sanctuary", true), FOREST("Forest", true), MARSH("Marsh", true), MOUNTAIN("Mountain", true),
 
     DAMAGE("Damage", true, true), DEFENDER("Defender", true, true), FIERCE("Fierce", true), ARCHER("Archer", true), RANGER("Ranger", true), TRACKER("Tracker", true),
 
