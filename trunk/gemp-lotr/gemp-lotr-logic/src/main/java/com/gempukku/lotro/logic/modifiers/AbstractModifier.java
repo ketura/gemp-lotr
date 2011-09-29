@@ -101,6 +101,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canBeExerted(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard exertionSource, PhysicalCard card, boolean result) {
+        return result;
+    }
+
+    @Override
     public boolean isAllyOnCurrentSite(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean allyOnCurrentSite) {
         return allyOnCurrentSite;
     }
