@@ -10,11 +10,11 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.List;
 
-public class PreventMinionBeingAssignedToCompanionModifier extends AbstractModifier {
+public class PreventMinionBeingAssignedToCharacterModifier extends AbstractModifier {
     private Filter _minionFilter;
 
-    public PreventMinionBeingAssignedToCompanionModifier(PhysicalCard source, Filter companionFilter, Filter minionFilter) {
-        super(source, "Is affected by assignment restriction", companionFilter, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER});
+    public PreventMinionBeingAssignedToCharacterModifier(PhysicalCard source, Filter characterFilter, Filter minionFilter) {
+        super(source, "Is affected by assignment restriction", characterFilter, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER});
         _minionFilter = minionFilter;
     }
 

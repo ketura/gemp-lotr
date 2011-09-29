@@ -6,10 +6,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.*;
 
 public class RoamingRule {
     private ModifiersLogic _modifiersLogic;
@@ -27,21 +24,10 @@ public class RoamingRule {
         });
 
         _modifiersLogic.addAlwaysOnModifier(
-                new AbstractModifier(null, "Is Roaming", roamingFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER, ModifierEffect.TWILIGHT_COST_MODIFIER}) {
-                    @Override
-                    public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
-                        if (keyword == Keyword.ROAMING)
-                            return result + 1;
-                        return result;
-                    }
+                new KeywordModifier(null, roamingFilter, Keyword.ROAMING));
 
-                    @Override
-                    public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
-                        if (keyword == Keyword.ROAMING)
-                            return true;
-                        return result;
-                    }
-
+        _modifiersLogic.addAlwaysOnModifier(
+                new AbstractModifier(null, "Roaming twilight cost increase", Filters.keyword(Keyword.ROAMING), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
                     @Override
                     public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int result) {
                         return result + Math.max(0, modifiersLogic.getRoamingPenalty(gameState, physicalCard));
