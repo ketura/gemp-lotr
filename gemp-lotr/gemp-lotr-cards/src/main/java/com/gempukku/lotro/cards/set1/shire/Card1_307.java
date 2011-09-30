@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -45,7 +45,7 @@ public class Card1_307 extends AbstractCompanion {
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
             possibleEffects.add(
-                    new ChooseAndHealCharacterEffect(action, self.getOwner(), Filters.type(CardType.COMPANION)));
+                    new ChooseAndHealCharactersEffect(action, self.getOwner(), Filters.type(CardType.COMPANION)));
             action.appendEffect(new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
         }

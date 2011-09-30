@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ChoiceCost;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -56,7 +56,7 @@ public class Card1_059 extends AbstractPermanent {
                             super.cardsSelected(dwarf, success);
                             if (success) {
                                 action.appendEffect(
-                                        new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.ELF)));
+                                        new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.ELF)));
                             }
                         }
                     });
@@ -73,7 +73,7 @@ public class Card1_059 extends AbstractPermanent {
                             super.cardsSelected(elf, success);
                             if (success) {
                                 action.appendEffect(
-                                        new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.DWARF)));
+                                        new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.DWARF)));
                             }
                         }
                     });

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -38,7 +38,7 @@ public class Card1_358 extends AbstractSite {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR)));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, Filters.type(CardType.COMPANION), Filters.culture(Culture.GONDOR)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION), Filters.culture(Culture.GONDOR)));
             return Collections.singletonList(action);
         }
         return null;

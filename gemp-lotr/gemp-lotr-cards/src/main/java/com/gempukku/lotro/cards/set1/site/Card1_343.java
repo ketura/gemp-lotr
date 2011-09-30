@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ChoiceCost;
 import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -51,7 +51,7 @@ public class Card1_343 extends AbstractSite {
             action.appendCost(
                     new ChoiceCost(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, Filters.owner(playerId), Filters.type(CardType.COMPANION)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.owner(playerId), Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;

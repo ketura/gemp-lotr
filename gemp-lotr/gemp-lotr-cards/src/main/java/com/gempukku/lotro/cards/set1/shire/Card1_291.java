@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ExertCharactersCost;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -41,7 +41,7 @@ public class Card1_291 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersCost(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, Filters.or(Filters.name("Frodo"), Filters.name("Sam"))));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.or(Filters.name("Frodo"), Filters.name("Sam"))));
             return Collections.singletonList(action);
         }
         return null;
