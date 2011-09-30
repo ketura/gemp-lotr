@@ -31,7 +31,7 @@ public class Card1_260 extends AbstractPermanent {
                 new Condition() {
                     @Override
                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.COMPANION)) >= 7;
+                        return Filters.countSpottable(gameState, modifiersQuerying, Filters.type(CardType.COMPANION)) >= 7;
                     }
                 },
                 -1);

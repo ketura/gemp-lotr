@@ -20,11 +20,18 @@ public class Filters {
         return visitor.isSpotted();
     }
 
+    public static int countSpottable(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+        Filter filter = Filters.and(filters);
+        GetCardsMatchingFilterVisitor visitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, filter);
+        gameState.iterateActiveCards(visitor);
+        return modifiersQuerying.getSpotCount(gameState, filter, visitor.getCounter());
+    }
+
     public static Collection<PhysicalCard> filterActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
         Filter filter = Filters.and(filters);
-        GetCardsVisitor getCards = new GetCardsVisitor(gameState, modifiersQuerying, filter);
-        gameState.iterateActiveCards(getCards);
-        return getCards.getPhysicalCards();
+        GetCardsMatchingFilterVisitor getCardsMatchingFilter = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, filter);
+        gameState.iterateActiveCards(getCardsMatchingFilter);
+        return getCardsMatchingFilter.getPhysicalCards();
     }
 
     public static Collection<PhysicalCard> filter(Collection<? extends PhysicalCard> cards, GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
@@ -43,9 +50,9 @@ public class Filters {
     }
 
     public static int countActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
-        GetCardsVisitor visitor = new GetCardsVisitor(gameState, modifiersQuerying, Filters.and(filters));
-        gameState.iterateActiveCards(visitor);
-        return visitor.getCounter();
+        GetCardsMatchingFilterVisitor matchingFilterVisitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, Filters.and(filters));
+        gameState.iterateActiveCards(matchingFilterVisitor);
+        return matchingFilterVisitor.getCounter();
     }
 
     // Filters available
@@ -190,7 +197,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getOwner().equals(playerId);
+                return physicalCard.getOwner() != null && physicalCard.getOwner().equals(playerId);
             }
         };
     }
@@ -272,7 +279,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (physicalCard.getBlueprint().getName().equals(name));
+                return physicalCard.getBlueprint().getName() != null && physicalCard.getBlueprint().getName().equals(name);
             }
         };
     }
@@ -395,14 +402,14 @@ public class Filters {
         }
     }
 
-    private static class GetCardsVisitor extends CompletePhysicalCardVisitor {
+    private static class GetCardsMatchingFilterVisitor extends CompletePhysicalCardVisitor {
         private GameState _gameState;
         private ModifiersQuerying _modifiersQuerying;
         private Filter _filter;
 
         private Set<PhysicalCard> _physicalCards = new HashSet<PhysicalCard>();
 
-        private GetCardsVisitor(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
+        private GetCardsMatchingFilterVisitor(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
             _gameState = gameState;
             _modifiersQuerying = modifiersQuerying;
             _filter = filter;

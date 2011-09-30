@@ -40,7 +40,7 @@ public class Card1_139 extends AbstractEvent {
                     @Override
                     protected void cardSelected(PhysicalCard urukHai) {
                         action.appendEffect(new CardAffectsCardEffect(self, urukHai));
-                        if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
+                        if (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(urukHai), 4), Phase.REGROUP));

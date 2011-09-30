@@ -27,7 +27,8 @@ public class Card1_248 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        int sauronMinions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION));
+        // TODO This should give an option to spot less
+        int sauronMinions = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION));
         action.appendEffect(
                 new AddTwilightEffect(sauronMinions));
         return action;

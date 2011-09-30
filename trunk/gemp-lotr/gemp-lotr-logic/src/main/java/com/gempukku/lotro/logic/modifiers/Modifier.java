@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
@@ -64,4 +65,6 @@ public interface Modifier {
     public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result);
 
     public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
+
+    public int getSpotCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter, int result);
 }

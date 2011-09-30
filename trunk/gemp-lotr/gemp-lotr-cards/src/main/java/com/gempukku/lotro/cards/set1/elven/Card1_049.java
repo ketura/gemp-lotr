@@ -37,7 +37,7 @@ public class Card1_049 extends AbstractAttachable {
         return new AbstractModifier(self, "Strength +1 for each Elf you can spot (limit +3)", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int count = Math.min(3, Filters.countActive(gameState, modifiersQuerying, Filters.race(Race.ELF)));
+                int count = Math.min(3, Filters.countSpottable(gameState, modifiersQuerying, Filters.race(Race.ELF)));
                 return result + count;
             }
         };

@@ -33,7 +33,7 @@ public class Card2_007 extends AbstractCompanion {
         return new AbstractModifier(self, "For each DWARVEN tale you can spot, Gloin is strength +1 (limit +4)", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int bonus = Math.max(4, Filters.countActive(gameState, modifiersQuerying, Filters.culture(Culture.DWARVEN), Filters.keyword(Keyword.TALE)));
+                int bonus = Math.max(4, Filters.countSpottable(gameState, modifiersQuerying, Filters.culture(Culture.DWARVEN), Filters.keyword(Keyword.TALE)));
                 return result + bonus;
             }
         };

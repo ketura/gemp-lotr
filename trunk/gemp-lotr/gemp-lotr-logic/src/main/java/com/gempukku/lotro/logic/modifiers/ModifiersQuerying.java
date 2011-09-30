@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
@@ -55,4 +56,6 @@ public interface ModifiersQuerying {
     public boolean canDrawCardAndIncrement(GameState gameState, String playerId);
 
     public boolean canLookOrRevealCardsInHand(GameState gameState, String playerId);
+
+    public int getSpotCount(GameState gameState, Filter filter, int inPlayCount);
 }

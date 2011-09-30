@@ -32,7 +32,7 @@ public class Card1_163 extends AbstractMinion {
         return new AbstractModifier(self, "For each other MORIA Orc you can spot, Ancient Chieftain is strength +1.", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                return result + Filters.countActive(gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(physicalCard)));
+                return result + Filters.countSpottable(gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(physicalCard)));
             }
         };
     }

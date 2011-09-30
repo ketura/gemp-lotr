@@ -31,7 +31,7 @@ public class Card2_107 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT)) >= 2;
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT)) >= 2;
     }
 
     @Override

@@ -40,7 +40,8 @@ public class Card1_155 extends AbstractMinion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
             action.appendCost(new ExertCharactersCost(self, self));
-            int isengardMinionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
+            // TODO this should give option to player to spot less
+            int isengardMinionCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
             for (int i = 0; i < isengardMinionCount; i++) {
                 action.appendEffect(
                         new UnrespondableEffect() {

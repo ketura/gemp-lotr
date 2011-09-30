@@ -34,7 +34,7 @@ public class Card1_148 extends AbstractMinion {
         return new AbstractModifier(self, "Strength +1 for each other Uruk-hai you can spot", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                return result + Filters.countActive(gameState, modifiersQuerying, Filters.and(Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))));
+                return result + Filters.countSpottable(gameState, modifiersQuerying, Filters.and(Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))));
             }
         };
     }
