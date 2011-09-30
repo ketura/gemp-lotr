@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -37,7 +37,7 @@ public class Card1_144 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())));
             return Collections.singletonList(action);
         }
         return null;

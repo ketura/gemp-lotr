@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -40,7 +40,7 @@ public class Card1_152 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.URUK_HAI)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.URUK_HAI)));
 
             return Collections.singletonList(action);
         }

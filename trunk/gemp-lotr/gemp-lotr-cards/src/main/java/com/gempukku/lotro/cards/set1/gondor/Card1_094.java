@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -49,7 +49,7 @@ public class Card1_094 extends AbstractAttachableFPPossession {
 
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
-                    new ChooseAndHealCharacterEffect(action, playerId, Filters.type(CardType.COMPANION)) {
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Heal a companion";

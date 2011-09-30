@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ExertCharactersCost;
-import com.gempukku.lotro.cards.effects.ChooseAndHealCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -42,7 +42,7 @@ public class Card1_297 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersCost(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)));
             return Collections.singletonList(action);
         }
         return null;
