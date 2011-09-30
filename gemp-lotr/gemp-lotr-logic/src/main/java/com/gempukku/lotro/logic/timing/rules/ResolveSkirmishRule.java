@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.actions.WoundAction;
 import com.gempukku.lotro.logic.effects.KillEffect;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -45,10 +46,13 @@ public class ResolveSkirmishRule {
 
                             List<PhysicalCard> losers = skirmishResult.getLosers();
 
-                            List<Action> actions = new LinkedList<Action>();
-                            actions.add(new WoundAction(winners.get(0).getOwner(), Filters.in(losers), dmg));
+                            RequiredTriggerAction action = new RequiredTriggerAction(null);
+                            for (int i = 0; i < dmg; i++) {
+                                action.appendEffect(
+                                        new WoundCharacterEffect(winners, Filters.in(losers)));
+                            }
 
-                            return actions;
+                            return Collections.singletonList(action);
                         } else if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;
                             List<PhysicalCard> losers = new LinkedList<PhysicalCard>(skirmishResult.getLosers());

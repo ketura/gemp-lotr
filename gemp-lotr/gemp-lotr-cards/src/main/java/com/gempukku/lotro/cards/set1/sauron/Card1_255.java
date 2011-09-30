@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -12,7 +11,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
 import java.util.Collection;
@@ -42,17 +40,12 @@ public class Card1_255 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> minion, boolean success) {
-                        super.cardsSelected(minion, success);
+                    protected void cardsSelected(Collection<PhysicalCard> minions, boolean success) {
+                        super.cardsSelected(minions, success);
                         if (success) {
-                            Skirmish skirmish = game.getGameState().getSkirmish();
-                            if (skirmish != null
-                                    && skirmish.getShadowCharacters().contains(minion)
-                                    && skirmish.getFellowshipCharacter() != null) {
-                                action.appendEffect(new CardAffectsCardEffect(self, skirmish.getFellowshipCharacter()));
-                                action.appendEffect(
-                                        new WoundCharacterEffect(playerId, skirmish.getFellowshipCharacter()));
-                            }
+                            PhysicalCard minion = minions.iterator().next();
+                            action.appendEffect(
+                                    new WoundCharacterEffect(self, Filters.inSkirmishAgainst(Filters.sameCard(minion))));
                         }
                     }
                 });

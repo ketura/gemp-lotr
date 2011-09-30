@@ -35,7 +35,7 @@ public class Card1_223 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
         action.appendEffect(
-                new WoundCharacterEffect(playerId, Filters.and(Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER))));
+                new WoundCharacterEffect(self, Filters.and(Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER))));
         return action;
     }
 

@@ -6,9 +6,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.actions.WoundAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
@@ -44,7 +46,9 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
             if (possibleWoundTargets.size() > 0) {
                 if (possibleWoundTargets.size() == 1) {
                     PhysicalCard selectedCard = possibleWoundTargets.iterator().next();
-                    _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
+                    RequiredTriggerAction action = new RequiredTriggerAction(null);
+                    action.appendEffect(new WoundCharacterEffect((PhysicalCard) null, selectedCard));
+                    _game.getActionsEnvironment().addActionToStack(action);
                     if (_woundsToAssign > 1)
                         _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
                     else
@@ -55,7 +59,9 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
-                                    _game.getActionsEnvironment().addActionToStack(new WoundAction(gameState.getCurrentPlayerId(), selectedCard, 1));
+                                    RequiredTriggerAction action = new RequiredTriggerAction(null);
+                                    action.appendEffect(new WoundCharacterEffect((PhysicalCard) null, selectedCard));
+                                    _game.getActionsEnvironment().addActionToStack(action);
                                     if (_woundsToAssign > 1)
                                         _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
                                     else

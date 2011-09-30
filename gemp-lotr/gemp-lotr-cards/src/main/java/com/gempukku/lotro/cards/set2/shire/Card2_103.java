@@ -41,7 +41,7 @@ public class Card2_103 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.hasAttached(Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)))));
@@ -51,7 +51,7 @@ public class Card2_103 extends AbstractEvent {
                     protected void cardSelected(PhysicalCard card) {
                         action.insertEffect(
                                 new PreventableEffect(action,
-                                        new WoundCharacterEffect(playerId, card),
+                                        new WoundCharacterEffect(self, card),
                                         Collections.singletonList(card.getOwner()),
                                         new RemoveTwilightEffect(3)));
                     }

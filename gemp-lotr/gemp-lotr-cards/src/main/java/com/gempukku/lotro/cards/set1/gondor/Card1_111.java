@@ -35,7 +35,7 @@ public class Card1_111 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.keyword(Keyword.RANGER)));
         action.appendEffect(
-                new WoundCharacterEffect(playerId, Filters.type(CardType.MINION)));
+                new WoundCharacterEffect(self, Filters.type(CardType.MINION)));
 
         return action;
     }

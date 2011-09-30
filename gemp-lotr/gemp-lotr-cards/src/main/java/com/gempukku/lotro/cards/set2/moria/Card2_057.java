@@ -44,9 +44,9 @@ public class Card2_057 extends AbstractResponseEvent {
                     && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"), Filters.hasAttached(Filters.name("Whip of Many Thongs"))).size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
-                        new WoundCharacterEffect(playerId, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
+                        new WoundCharacterEffect(self, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
                 action.appendEffect(
-                        new WoundCharacterEffect(playerId, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
+                        new WoundCharacterEffect(self, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
                 return Collections.singletonList(action);
             }
         }

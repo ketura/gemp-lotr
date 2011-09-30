@@ -58,7 +58,7 @@ public class Card1_209 extends AbstractPermanent {
             if (ringBearer) {
                 action.appendEffect(new AddBurdenEffect(self.getOwner()));
             } else {
-                action.appendEffect(new WoundCharacterEffect(self.getOwner(), self.getAttachedTo()));
+                action.appendEffect(new WoundCharacterEffect(self, self.getAttachedTo()));
             }
             return Collections.singletonList(action);
         }

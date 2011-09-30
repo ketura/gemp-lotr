@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ExertCharactersCost;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -12,10 +12,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -55,17 +52,8 @@ public class Card1_095 extends AbstractAttachableFPPossession {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(self, self.getAttachedTo()));
-            Skirmish skirmish = game.getGameState().getSkirmish();
-            if (skirmish != null && skirmish.getFellowshipCharacter() == self.getAttachedTo()) {
-                action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Chose Orc or Uruk-hai in skirmish", Filters.or(Filters.race(Race.ORC), Filters.race(Race.URUK_HAI)), Filters.in(skirmish.getShadowCharacters())) {
-                            @Override
-                            protected void cardSelected(PhysicalCard minion) {
-                                action.appendEffect(new CardAffectsCardEffect(self, minion));
-                                action.appendEffect(new WoundCharacterEffect(playerId, minion));
-                            }
-                        });
-            }
+            action.appendEffect(
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.race(Race.ORC), Filters.race(Race.URUK_HAI)), Filters.inSkirmishAgainst(Filters.hasAttached(self))));
             return Collections.singletonList(action);
         }
         return null;

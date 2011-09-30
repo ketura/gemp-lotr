@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Set: The Fellowship of the Ring
@@ -53,14 +52,11 @@ public class Card1_019 extends AbstractEvent {
                     protected void cardsSelected(Collection<PhysicalCard> cards) {
                         action.appendEffect(new CardAffectsCardEffect(self, cards));
                         if (cards.size() == 2) {
-
-                            Iterator<PhysicalCard> iterator = cards.iterator();
                             action.appendEffect(
-                                    new WoundCharacterEffect(playerId,
-                                            Filters.or(Filters.sameCard(iterator.next()), Filters.sameCard(iterator.next()))));
+                                    new WoundCharacterEffect(self, Filters.in(cards)));
                         } else {
-                            action.appendEffect(new WoundCharacterEffect(playerId, cards.iterator().next()));
-                            action.appendEffect(new WoundCharacterEffect(playerId, cards.iterator().next()));
+                            action.appendEffect(new WoundCharacterEffect(self, Filters.in(cards)));
+                            action.appendEffect(new WoundCharacterEffect(self, Filters.in(cards)));
                         }
                     }
                 }

@@ -3,13 +3,12 @@ package com.gempukku.lotro.cards.set2.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -39,13 +38,7 @@ public class Card2_093 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersCost(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            action.insertEffect(
-                                    new WoundCharacterEffect(playerId, card));
-                        }
-                    });
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.ALLY)));
             return Collections.singletonList(action);
         }
         return null;

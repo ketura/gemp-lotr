@@ -39,10 +39,10 @@ public class Card2_083 extends AbstractMinion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new WoundCharacterEffect(playerId, Filters.keyword(Keyword.RING_BEARER)));
+                    new WoundCharacterEffect(self, Filters.keyword(Keyword.RING_BEARER)));
             if (game.getGameState().getBurdens() >= 5) {
                 action.appendEffect(
-                        new WoundCharacterEffect(playerId, Filters.keyword(Keyword.RING_BEARER)));
+                        new WoundCharacterEffect(self, Filters.keyword(Keyword.RING_BEARER)));
             }
             return Collections.singletonList(action);
         }

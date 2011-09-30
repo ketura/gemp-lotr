@@ -40,10 +40,10 @@ public class Card2_019 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF)));
         action.appendEffect(
-                new WoundCharacterEffect(playerId, Filters.race(Race.NAZGUL)));
+                new WoundCharacterEffect(self, Filters.race(Race.NAZGUL)));
         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER))
             action.appendEffect(
-                    new WoundCharacterEffect(playerId, Filters.race(Race.NAZGUL)));
+                    new WoundCharacterEffect(self, Filters.race(Race.NAZGUL)));
         return action;
     }
 }
