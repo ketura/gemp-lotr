@@ -42,7 +42,7 @@ public class Card2_118 extends AbstractSite {
                                 new Filter() {
                                     @Override
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return (self.getData() == null);
+                                        return gameState.getCurrentPhase() == Phase.SHADOW && (self.getData() == null);
                                     }
                                 }
                         ), -2));
@@ -51,6 +51,7 @@ public class Card2_118 extends AbstractSite {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ARCHER)))
+                && game.getGameState().getCurrentPhase() == Phase.SHADOW
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
