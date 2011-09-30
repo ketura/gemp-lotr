@@ -681,6 +681,15 @@ public class GameState {
         }
     }
 
+    public PhysicalCard removeBottomDeckCard(String player) {
+        List<PhysicalCardImpl> deck = _decks.get(player);
+        if (deck.size() > 0) {
+            return deck.remove(deck.size() - 1);
+        } else {
+            return null;
+        }
+    }
+
     public void playerDrawsCard(String player) {
         List<PhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
