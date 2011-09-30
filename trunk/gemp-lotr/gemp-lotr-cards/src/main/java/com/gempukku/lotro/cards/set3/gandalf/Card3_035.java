@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card3_035 extends AbstractPermanent {
     public Card3_035() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.FREE_SUPPORT, "Trust Me as you Once Did");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.FREE_SUPPORT, "Trust Me as You Once Did");
     }
 
     @Override
