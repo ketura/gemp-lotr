@@ -27,7 +27,8 @@ public class DiscardCardsFromPlayCost extends AbstractPreventableCardCost {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        Collection<PhysicalCard> cards = getCardsToBeAffected(game);
+        return "Discard - " + getAppendedNames(cards);
     }
 
     @Override
