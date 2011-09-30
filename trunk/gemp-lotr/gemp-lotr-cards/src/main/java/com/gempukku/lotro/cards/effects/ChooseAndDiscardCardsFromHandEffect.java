@@ -75,6 +75,7 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
             for (PhysicalCard card : hand) {
                 _action.appendCost(new DiscardCardFromHandEffect(card));
             }
+            cardsBeingDiscarded(hand);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose card(s) to discard", hand, _minimum, _maximum) {
@@ -84,6 +85,7 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
                             for (PhysicalCard card : cards) {
                                 _action.appendCost(new DiscardCardFromHandEffect(card));
                             }
+                            cardsBeingDiscarded(cards);
                         }
                     });
         }
@@ -102,6 +104,7 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
             for (PhysicalCard card : hand) {
                 _action.insertEffect(new DiscardCardFromHandEffect(card));
             }
+            cardsBeingDiscarded(hand);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose card(s) to discard", hand, _minimum, _maximum) {
@@ -111,10 +114,14 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
                             for (PhysicalCard card : cards) {
                                 _action.insertEffect(new DiscardCardFromHandEffect(card));
                             }
+                            cardsBeingDiscarded(cards);
                         }
                     });
         }
 
         return null;
+    }
+
+    protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded) {
     }
 }
