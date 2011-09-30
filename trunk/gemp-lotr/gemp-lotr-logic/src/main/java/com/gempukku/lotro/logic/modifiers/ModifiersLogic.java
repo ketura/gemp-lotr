@@ -358,6 +358,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canBeAssignedToSkirmish(GameState gameState, PhysicalCard card) {
+        boolean result = true;
+
+        for (Modifier modifier : getModifiers(ModifierEffect.ASSIGNMENT_MODIFIER))
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                result = modifier.canBeAssignedToSkirmish(gameState, this, card, result);
+        return result;
+    }
+
+    @Override
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source) {
         boolean result = true;
         for (Modifier modifier : getModifiers(ModifierEffect.DISCARD_FROM_PLAY_MODIFIER))

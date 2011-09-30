@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -52,26 +49,28 @@ public class Card1_224 extends AbstractResponseEvent {
                             for (Skirmish assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
 
-                            action.appendEffect(
-                                    new ChooseActiveCardEffect(playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL)) {
-                                        @Override
-                                        protected void cardSelected(PhysicalCard nazgul) {
-                                            PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                            action.appendEffect(new CardAffectsCardEffect(self, ringBearer));
-                                            action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
-                                            game.getGameState().setCancelRingText(true);
-                                            game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
-                                                    new AbstractActionProxy() {
-                                                        @Override
-                                                        public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                                            if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                                                                    && lotroGame.getGameState().getCurrentPhase() == Phase.SKIRMISH)
-                                                                game.getGameState().setCancelRingText(false);
-                                                            return null;
-                                                        }
-                                                    }, Phase.REGROUP);
-                                        }
-                                    });
+                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmish()) > 0) {
+                                action.appendEffect(
+                                        new ChooseActiveCardEffect(playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL)) {
+                                            @Override
+                                            protected void cardSelected(PhysicalCard nazgul) {
+                                                PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
+                                                action.appendEffect(new CardAffectsCardEffect(self, ringBearer));
+                                                action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
+                                                game.getGameState().setCancelRingText(true);
+                                                game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
+                                                        new AbstractActionProxy() {
+                                                            @Override
+                                                            public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                                                                if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
+                                                                        && lotroGame.getGameState().getCurrentPhase() == Phase.SKIRMISH)
+                                                                    game.getGameState().setCancelRingText(false);
+                                                                return null;
+                                                            }
+                                                        }, Phase.REGROUP);
+                                            }
+                                        });
+                            }
                         }
                     });
             return Collections.singletonList(action);

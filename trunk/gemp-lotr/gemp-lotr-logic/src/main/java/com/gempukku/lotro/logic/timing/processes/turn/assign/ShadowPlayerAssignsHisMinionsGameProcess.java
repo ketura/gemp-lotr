@@ -52,7 +52,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                                     return modifiersQuerying.isAllyOnCurrentSite(gameState, physicalCard);
                                 }
                             }
-                    ));
+                    ), Filters.canBeAssignedToSkirmish());
 
             _game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {

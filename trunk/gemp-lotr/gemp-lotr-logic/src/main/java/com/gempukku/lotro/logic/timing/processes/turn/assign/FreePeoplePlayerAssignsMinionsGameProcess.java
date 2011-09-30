@@ -48,7 +48,8 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                     return modifiersQuerying.isAllyOnCurrentSite(gameState, physicalCard);
                                 }
-                            }));
+                            }),
+                    Filters.canBeAssignedToSkirmish());
 
             _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {
