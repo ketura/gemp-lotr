@@ -5,15 +5,13 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseCardsFromDiscardEffect;
+import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 import java.util.Collection;
 
@@ -47,26 +45,24 @@ public class Card2_041 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
-        action.appendCost(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                        new IntegerAwaitingDecision(1, "Choose number of burdens to spot", 0, game.getGameState().getBurdens()) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                int numberOfSpotted = getValidatedResult(result);
-                                action.appendEffect(
-                                        new ChooseCardsFromDiscardEffect(playerId, numberOfSpotted, numberOfSpotted, Filters.type(CardType.MINION)) {
-                                            @Override
-                                            protected void cardsSelected(Collection<PhysicalCard> cards) {
-                                                for (PhysicalCard card : cards) {
-                                                    action.appendEffect(
-                                                            new PutCardFromDiscardOnBottomOfDeckEffect(card));
-                                                }
-                                                action.appendEffect(
-                                                        new ShuffleDeckEffect(playerId));
-                                            }
-                                        });
-                            }
-                        }));
+        action.appendEffect(
+                new ForEachBurdenYouSpotEffect(playerId) {
+                    @Override
+                    protected void burdensSpotted(int burdensSpotted) {
+                        action.insertEffect(
+                                new ChooseCardsFromDiscardEffect(playerId, burdensSpotted, burdensSpotted, Filters.type(CardType.MINION)) {
+                                    @Override
+                                    protected void cardsSelected(Collection<PhysicalCard> cards) {
+                                        for (PhysicalCard card : cards) {
+                                            action.appendEffect(
+                                                    new PutCardFromDiscardOnBottomOfDeckEffect(card));
+                                        }
+                                        action.appendEffect(
+                                                new ShuffleDeckEffect(playerId));
+                                    }
+                                });
+                    }
+                });
         return action;
     }
 }
