@@ -1,0 +1,69 @@
+package com.gempukku.lotro.cards.set3.dwarven;
+
+import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * Set: Realms of Elf-lords
+ * Side: Free
+ * Culture: Dwarven
+ * Twilight Cost: 1
+ * Type: Event
+ * Game Text: Fellowship: Reveal a card at random from an opponent's hand. Shuffle up to X [DWARVEN] cards from your
+ * discard pile into your draw deck, where X is the twilight cost of the card revealed.
+ */
+public class Card3_006 extends AbstractEvent {
+    public Card3_006() {
+        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Storm of Argument", Phase.FELLOWSHIP);
+    }
+
+    @Override
+    public int getTwilightCost() {
+        return 1;
+    }
+
+    @Override
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.appendEffect(
+                new ChooseOpponentEffect(playerId) {
+                    @Override
+                    protected void opponentChosen(String opponentId) {
+                        action.insertEffect(
+                                new RevealRandomCardsFromHandEffect(opponentId, 1) {
+                                    @Override
+                                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                                        if (revealedCards.size() > 0) {
+                                            PhysicalCard card = revealedCards.get(0);
+                                            int twilightCost = card.getBlueprint().getTwilightCost();
+                                            action.insertEffect(
+                                                    new ChooseCardsFromDiscardEffect(playerId, 0, twilightCost, Filters.culture(Culture.DWARVEN)) {
+                                                        @Override
+                                                        protected void cardsSelected(Collection<PhysicalCard> cards) {
+                                                            for (PhysicalCard physicalCard : cards) {
+                                                                action.appendEffect(
+                                                                        new PutCardFromDiscardOnBottomOfDeckEffect(physicalCard));
+                                                            }
+                                                            action.appendEffect(
+                                                                    new ShuffleDeckEffect(playerId));
+                                                        }
+                                                    }
+                                            );
+                                        }
+                                    }
+                                });
+                    }
+                });
+        return action;
+    }
+}
