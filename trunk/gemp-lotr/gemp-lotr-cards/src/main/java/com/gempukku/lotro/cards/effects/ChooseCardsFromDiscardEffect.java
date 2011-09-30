@@ -6,13 +6,13 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-public abstract class ChooseCardsFromDiscardEffect implements Effect {
+public abstract class ChooseCardsFromDiscardEffect implements ChooseableEffect {
     private String _playerId;
     private int _minimum;
     private int _maximum;
@@ -33,6 +33,12 @@ public abstract class ChooseCardsFromDiscardEffect implements Effect {
     @Override
     public EffectResult.Type getType() {
         return null;
+    }
+
+    @Override
+    public boolean canPlayEffect(LotroGame game) {
+        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+        return cards.size() >= _minimum;
     }
 
     @Override
