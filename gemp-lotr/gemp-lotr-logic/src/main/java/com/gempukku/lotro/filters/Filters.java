@@ -78,6 +78,16 @@ public class Filters {
         };
     }
 
+    public static Filter canExert(final PhysicalCard source) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getVitality(gameState, physicalCard) > 1
+                        && modifiersQuerying.canBeExerted(gameState, source, physicalCard);
+            }
+        };
+    }
+
     public static Filter exhausted() {
         return new Filter() {
             @Override
