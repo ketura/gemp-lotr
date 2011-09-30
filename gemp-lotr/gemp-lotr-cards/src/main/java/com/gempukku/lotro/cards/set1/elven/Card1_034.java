@@ -35,7 +35,7 @@ public class Card1_034 extends AbstractAlly {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an ELVEN ally", Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
 
             return Collections.singletonList(action);
         }

@@ -45,7 +45,7 @@ public class Card1_307 extends AbstractCompanion {
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
             possibleEffects.add(
-                    new ChooseAndHealCharacterEffect(action, self.getOwner(), "Choose a companion", Filters.type(CardType.COMPANION)));
+                    new ChooseAndHealCharacterEffect(action, self.getOwner(), Filters.type(CardType.COMPANION)));
             action.appendEffect(new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
         }

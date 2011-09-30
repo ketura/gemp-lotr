@@ -41,7 +41,7 @@ public class Card1_291 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersCost(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose Frodo or Sam", Filters.or(Filters.name("Frodo"), Filters.name("Sam"))));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.or(Filters.name("Frodo"), Filters.name("Sam"))));
             return Collections.singletonList(action);
         }
         return null;

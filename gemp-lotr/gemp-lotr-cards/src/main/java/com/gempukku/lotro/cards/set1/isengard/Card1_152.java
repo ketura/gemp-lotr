@@ -40,7 +40,7 @@ public class Card1_152 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.URUK_HAI)));
 
             return Collections.singletonList(action);
         }

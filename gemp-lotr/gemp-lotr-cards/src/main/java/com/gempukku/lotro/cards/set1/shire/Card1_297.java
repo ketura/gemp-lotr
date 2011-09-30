@@ -42,7 +42,7 @@ public class Card1_297 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersCost(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose another Hobbit ally", Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -49,7 +49,7 @@ public class Card1_094 extends AbstractAttachableFPPossession {
 
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose companion", Filters.type(CardType.COMPANION)) {
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.type(CardType.COMPANION)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Heal a companion";

@@ -40,7 +40,7 @@ public class Card1_289 extends AbstractCompanion {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose a Hobbit ally", Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT)));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT)));
             return Collections.singletonList(action);
         }
         return null;
