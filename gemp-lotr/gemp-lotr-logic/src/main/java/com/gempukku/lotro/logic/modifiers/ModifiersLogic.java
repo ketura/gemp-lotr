@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
@@ -390,6 +391,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (!modifier.canLookOrRevealCardsInHand(gameState, this, playerId))
                 return false;
         return true;
+    }
+
+    @Override
+    public int getSpotCount(GameState gameState, Filter filter, int inPlayCount) {
+        int result = inPlayCount;
+        for (Modifier modifier : getModifiers(ModifierEffect.SPOT_MODIFIER))
+            result = modifier.getSpotCount(gameState, this, filter, result);
+        return Math.max(0, result);
     }
 
     private class ModifierHookImpl implements ModifierHook {

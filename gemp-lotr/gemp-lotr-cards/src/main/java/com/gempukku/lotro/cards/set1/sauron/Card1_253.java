@@ -51,7 +51,7 @@ public class Card1_253 extends AbstractPermanent {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.COMPANION)) >= 5;
+                                return Filters.countSpottable(gameState, modifiersQuerying, Filters.type(CardType.COMPANION)) >= 5;
                             }
                         }
                 ), 2);

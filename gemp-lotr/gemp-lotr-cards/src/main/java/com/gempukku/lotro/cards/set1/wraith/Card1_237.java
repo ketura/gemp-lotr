@@ -34,7 +34,7 @@ public class Card1_237 extends AbstractMinion {
         return new AbstractModifier(self, "For each other Nazgul you can spot, The Witch-king is strength +2.", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int otherNazgul = Filters.countActive(gameState, modifiersQuerying, Filters.race(Race.NAZGUL), Filters.not(Filters.sameCard(self)));
+                int otherNazgul = Filters.countSpottable(gameState, modifiersQuerying, Filters.race(Race.NAZGUL), Filters.not(Filters.sameCard(self)));
                 return result + (otherNazgul * 2);
             }
         };

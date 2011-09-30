@@ -164,4 +164,9 @@ public abstract class AbstractModifier implements Modifier {
     public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
         return true;
     }
+
+    @Override
+    public int getSpotCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter, int result) {
+        return result;
+    }
 }

@@ -33,7 +33,7 @@ public class Card1_256 extends AbstractMinion {
         return new AbstractModifier(self, "For each companion you can spot, this minion is strength +1.", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
             @Override
             public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int companions = Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.COMPANION));
+                int companions = Filters.countSpottable(gameState, modifiersQuerying, Filters.type(CardType.COMPANION));
                 return companions + result;
             }
         };

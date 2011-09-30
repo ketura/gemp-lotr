@@ -41,7 +41,7 @@ public class Card2_039 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
-        int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
+        int companions = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
         if (companions >= 6)
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self,
