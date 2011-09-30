@@ -37,7 +37,7 @@ public class Card1_144 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())));
             return Collections.singletonList(action);
         }
         return null;

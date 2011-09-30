@@ -34,7 +34,7 @@ public class Card1_220 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self, (game.getGameState().getCurrentPhase() == Phase.MANEUVER) ? Keyword.MANEUVER : Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.NAZGUL)));
             return Collections.singletonList(action);
         }
         return null;

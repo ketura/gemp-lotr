@@ -56,7 +56,7 @@ public class Card1_059 extends AbstractPermanent {
                             super.cardsSelected(dwarf, success);
                             if (success) {
                                 action.appendEffect(
-                                        new ChooseAndHealCharacterEffect(action, playerId, "Choose an Elf", Filters.race(Race.ELF)));
+                                        new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.ELF)));
                             }
                         }
                     });
@@ -73,7 +73,7 @@ public class Card1_059 extends AbstractPermanent {
                             super.cardsSelected(elf, success);
                             if (success) {
                                 action.appendEffect(
-                                        new ChooseAndHealCharacterEffect(action, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)));
+                                        new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.DWARF)));
                             }
                         }
                     });

@@ -14,8 +14,8 @@ public class ChooseAndHealCharacterEffect extends ChooseActiveCardEffect {
     private CostToEffectAction _action;
     private String _playerId;
 
-    public ChooseAndHealCharacterEffect(CostToEffectAction action, String playerId, String choiceText, Filter... filters) {
-        super(playerId, choiceText, Filters.and(
+    public ChooseAndHealCharacterEffect(CostToEffectAction action, String playerId, Filter... filters) {
+        super(playerId, "Choose character to heal", Filters.and(
                 filters, new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

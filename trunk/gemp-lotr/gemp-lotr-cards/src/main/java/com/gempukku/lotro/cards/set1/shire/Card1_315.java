@@ -28,7 +28,7 @@ public class Card1_315 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndHealCharacterEffect(action, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)));
+                new ChooseAndHealCharacterEffect(action, playerId, Filters.race(Race.HOBBIT)));
         return action;
     }
 

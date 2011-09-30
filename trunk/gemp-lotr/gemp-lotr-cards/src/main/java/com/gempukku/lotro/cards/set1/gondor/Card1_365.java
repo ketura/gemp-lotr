@@ -35,7 +35,7 @@ public class Card1_365 extends AbstractCompanion {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharacterEffect(action, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN), Filters.not(Filters.sameCard(self))));
+                    new ChooseAndHealCharacterEffect(action, playerId, Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN), Filters.not(Filters.sameCard(self))));
             return Collections.singletonList(action);
         }
         return null;
