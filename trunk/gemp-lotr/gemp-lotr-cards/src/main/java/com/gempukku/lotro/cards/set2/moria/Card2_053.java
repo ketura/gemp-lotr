@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set2.moria;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -13,9 +14,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -76,13 +75,7 @@ public class Card2_053 extends AbstractAttachable {
                 && game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose Archer companion", Filters.keyword(Keyword.ARCHER), Filters.type(CardType.COMPANION)) {
-                        @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            action.insertEffect(
-                                    new WoundCharacterEffect(playerId, card));
-                        }
-                    });
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.ARCHER), Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;

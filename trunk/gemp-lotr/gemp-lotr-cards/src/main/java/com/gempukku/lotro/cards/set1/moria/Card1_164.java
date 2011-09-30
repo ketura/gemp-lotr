@@ -2,13 +2,11 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -27,13 +25,7 @@ public class Card1_164 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.race(Race.ELF)) {
-                    @Override
-                    protected void cardSelected(PhysicalCard elf) {
-                        action.appendEffect(new CardAffectsCardEffect(self, elf));
-                        action.appendEffect(new WoundCharacterEffect(playerId, elf));
-                    }
-                });
+                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
         return action;
     }
 

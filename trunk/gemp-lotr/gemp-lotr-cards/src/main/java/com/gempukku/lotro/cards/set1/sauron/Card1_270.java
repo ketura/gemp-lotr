@@ -3,13 +3,11 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.costs.ExertCharactersCost;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -48,14 +46,8 @@ public class Card1_270 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new ExertCharactersCost(self, self));
-            Skirmish skirmish = game.getGameState().getSkirmish();
-            if (skirmish != null && skirmish.getShadowCharacters().contains(self)) {
-                PhysicalCard fpChar = skirmish.getFellowshipCharacter();
-                if (fpChar != null) {
-                    action.appendEffect(new CardAffectsCardEffect(self, fpChar));
-                    action.appendEffect(new WoundCharacterEffect(playerId, fpChar));
-                }
-            }
+            action.appendEffect(
+                    new WoundCharacterEffect(self, Filters.inSkirmishAgainst(Filters.sameCard(self))));
             return Collections.singletonList(action);
         }
         return null;

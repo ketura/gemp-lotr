@@ -9,18 +9,33 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class WoundCharacterEffect extends AbstractPreventableCardEffect {
-    private String _playerId;
+    private Collection<PhysicalCard> _sources;
 
-    public WoundCharacterEffect(String playerId, PhysicalCard... cards) {
+    public WoundCharacterEffect(Collection<PhysicalCard> sources, PhysicalCard... cards) {
         super(cards);
-        _playerId = playerId;
+        _sources = sources;
     }
 
-    public WoundCharacterEffect(String playerId, Filter filter) {
+    public WoundCharacterEffect(Collection<PhysicalCard> sources, Filter filter) {
         super(filter);
-        _playerId = playerId;
+        _sources = sources;
+    }
+
+    public WoundCharacterEffect(PhysicalCard source, PhysicalCard... cards) {
+        super(cards);
+        _sources = Collections.singleton(source);
+    }
+
+    public WoundCharacterEffect(PhysicalCard source, Filter filter) {
+        super(filter);
+        _sources = Collections.singleton(source);
+    }
+
+    public Collection<PhysicalCard> getSources() {
+        return _sources;
     }
 
     @Override
@@ -49,7 +64,10 @@ public class WoundCharacterEffect extends AbstractPreventableCardEffect {
         Collection<PhysicalCard> cardsToWound = getCardsToBeAffected(game);
 
         for (PhysicalCard woundedCard : cardsToWound) {
-            game.getGameState().sendMessage(_playerId + " wounds " + woundedCard.getBlueprint().getName());
+            if (_sources != null)
+                game.getGameState().sendMessage(woundedCard.getBlueprint().getName() + " is wounded by - " + getAppendedNames(_sources));
+            else
+                game.getGameState().sendMessage(woundedCard.getBlueprint().getName() + " is wounded");
             game.getGameState().addWound(woundedCard);
         }
 
