@@ -57,6 +57,16 @@ public class Filters {
 
     // Filters available
 
+    public static Filter weapon() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.HAND_WEAPON)
+                        || modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.RANGED_WEAPON);
+            }
+        };
+    }
+
     public static Filter inSkirmish() {
         return new Filter() {
             @Override
