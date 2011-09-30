@@ -1,18 +1,23 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class TakeOffTheOneRingEffect implements Effect {
+public class TakeOffTheOneRingEffect implements ChooseableEffect {
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Take off The One Ring";
     }
 
     @Override
     public EffectResult.Type getType() {
         return null;
+    }
+
+    @Override
+    public boolean canPlayEffect(LotroGame game) {
+        return game.getGameState().isWearingRing();
     }
 
     @Override
