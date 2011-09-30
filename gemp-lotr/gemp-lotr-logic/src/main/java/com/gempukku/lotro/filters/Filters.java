@@ -57,6 +57,22 @@ public class Filters {
 
     // Filters available
 
+    public static Filter canBeAssignedToSkirmish() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getBlueprint().getSide() == Side.SHADOW) {
+                    for (Skirmish assignment : gameState.getAssignments()) {
+                        if (assignment.getFellowshipCharacter() == physicalCard
+                                || assignment.getShadowCharacters().contains(physicalCard))
+                            return false;
+                    }
+                }
+                return modifiersQuerying.canBeAssignedToSkirmish(gameState, physicalCard);
+            }
+        };
+    }
+
     public static Filter weapon() {
         return new Filter() {
             @Override

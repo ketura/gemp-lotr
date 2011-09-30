@@ -151,6 +151,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canBeAssignedToSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+        return true;
+    }
+
+    @Override
     public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result) {
         return result;
     }

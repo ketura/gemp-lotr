@@ -3,15 +3,10 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
@@ -41,10 +36,10 @@ public class Card1_169 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
 
-        if (!isFPCharacterAssigned(game.getGameState(), ringBearer)) {
+        if (Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmish()).size() > 0) {
             action.appendEffect(new CardAffectsCardEffect(self, ringBearer));
             action.appendEffect(
-                    new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.notAssigned()) {
+                    new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish()) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
                             action.appendEffect(
@@ -53,14 +48,6 @@ public class Card1_169 extends AbstractEvent {
                     });
         }
         return action;
-    }
-
-    private boolean isFPCharacterAssigned(GameState gameState, PhysicalCard card) {
-        for (Skirmish skirmish : gameState.getAssignments()) {
-            if (skirmish.getFellowshipCharacter() == card)
-                return true;
-        }
-        return false;
     }
 
     @Override
