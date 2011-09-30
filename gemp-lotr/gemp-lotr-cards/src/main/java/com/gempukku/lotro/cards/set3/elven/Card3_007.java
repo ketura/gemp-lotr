@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.set3.dwarven;
+package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
