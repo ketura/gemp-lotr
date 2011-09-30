@@ -28,8 +28,8 @@ import java.util.List;
  * Game Text: Plays to your support area. Each time an opponent draws a card (or takes a card into hand) during
  * the Shadow phase, you may remove (1). Maneuver: Exert Gandalf to wound Saruman twice.
  */
-public class Card2_029 extends AbstractPermanent {
-    public Card2_029() {
+public class Card3_029 extends AbstractPermanent {
+    public Card3_029() {
         super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.FREE_SUPPORT, "Betrayal of Isengard");
     }
 
