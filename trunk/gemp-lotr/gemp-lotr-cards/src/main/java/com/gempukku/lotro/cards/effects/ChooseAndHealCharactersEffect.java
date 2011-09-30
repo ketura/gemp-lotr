@@ -21,15 +21,19 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     public ChooseAndHealCharactersEffect(CostToEffectAction action, String playerId, int minimum, int maximum, Filter... filters) {
-        super(playerId, "Choose character(s) to heal", minimum, maximum, Filters.and(
-                filters, new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
-                    }
-                }));
+        super(playerId, "Choose character(s) to heal", minimum, maximum, filters);
         _action = action;
         _playerId = playerId;
+    }
+
+    @Override
+    protected Filter getExtraFilter() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.canBeHealed(gameState, physicalCard);
+            }
+        };
     }
 
     @Override
