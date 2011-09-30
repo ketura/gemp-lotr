@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card3_023 extends AbstractAttachableFPPossession {
     public Card3_023() {
-        super(0, 0, 1, Culture.ELVEN, Keyword.RING, "Nenya", true);
+        super(0, 0, 1, Culture.ELVEN, CardType.ARTIFACT, Keyword.RING, "Nenya", true);
     }
 
     @Override

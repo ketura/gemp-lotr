@@ -158,8 +158,8 @@ public class DefaultLotroGame implements LotroGame {
             } else {
                 // Ring-bearer corruption
                 PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
-                int ringBearerResistance = ringBearer.getBlueprint().getResistance();
-                if (getGameState().getBurdens() >= ringBearerResistance) {
+                int ringBearerResistance = getModifiersQuerying().getResistance(getGameState(), ringBearer);
+                if (ringBearerResistance <= 0) {
                     playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
                     return;
                 }

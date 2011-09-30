@@ -33,6 +33,8 @@ public interface ModifiersQuerying {
 
     public int getVitality(GameState gameState, PhysicalCard physicalCard);
 
+    public int getResistance(GameState gameState, PhysicalCard physicalCard);
+
     public boolean isOverwhelmedByStrength(GameState gameState, PhysicalCard card, int strength, int opposingStrength);
 
     public boolean canTakeWound(GameState gameState, PhysicalCard card);
