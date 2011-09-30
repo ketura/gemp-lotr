@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -50,7 +51,7 @@ public class Card1_120 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         final GameState gameState = game.getGameState();
         if (PlayConditions.canUseShadowCardDuringPhase(gameState, Phase.SHADOW, self, 3)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
@@ -58,15 +59,21 @@ public class Card1_120 extends AbstractPermanent {
             final String fpPlayer = gameState.getCurrentPlayerId();
             if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), fpPlayer)) {
                 action.appendEffect(
-                        new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                                new ArbitraryCardsSelectionDecision(1, "Choose card to discard", GameUtils.getRandomCards(gameState.getHand(fpPlayer), gameState.getBurdens()), 0, 1) {
-                                    @Override
-                                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                                        List<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                                        if (cards.size() > 0)
-                                            action.appendEffect(new DiscardCardFromHandEffect(cards.get(0)));
-                                    }
-                                }));
+                        new ForEachBurdenYouSpotEffect(playerId) {
+                            @Override
+                            protected void burdensSpotted(int burdensSpotted) {
+                                action.insertEffect(
+                                        new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                new ArbitraryCardsSelectionDecision(1, "Choose card to discard", GameUtils.getRandomCards(gameState.getHand(fpPlayer), burdensSpotted), 0, 1) {
+                                                    @Override
+                                                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                        List<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                                                        if (cards.size() > 0)
+                                                            action.appendEffect(new DiscardCardFromHandEffect(cards.get(0)));
+                                                    }
+                                                }));
+                            }
+                        });
             }
             return Collections.singletonList(action);
         }
