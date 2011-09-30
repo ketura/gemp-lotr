@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 public class DrawCardEffect implements Effect {
     private String _playerId;
@@ -34,6 +35,9 @@ public class DrawCardEffect implements Effect {
         }
         game.getGameState().sendMessage(_playerId + " draws " + drawn + " card(s)");
 
-        return null;
+        if (drawn > 0)
+            return new EffectResult[]{new DrawCardOrPutIntoHandResult(_playerId, drawn)};
+        else
+            return null;
     }
 }
