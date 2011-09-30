@@ -12,7 +12,7 @@ public abstract class EffectResult {
         START_OF_TURN,
         END_OF_TURN,
 
-        PLAY,
+        PLAY, DRAW_CARD_OR_PUT_INTO_HAND,
 
         PUT_ON_THE_ONE_RING, REMOVE_BURDEN,
 
