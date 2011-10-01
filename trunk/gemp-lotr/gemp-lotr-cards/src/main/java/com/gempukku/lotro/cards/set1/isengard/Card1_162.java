@@ -55,7 +55,7 @@ public class Card1_162 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
             possibleEffects.add(new ExertCharacterEffect(self, gameState.getRingBearer(gameState.getCurrentPlayerId())));
-            possibleEffects.add(new AddBurdenEffect(gameState.getCurrentPlayerId()));
+            possibleEffects.add(new AddBurdenEffect(self));
 
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));

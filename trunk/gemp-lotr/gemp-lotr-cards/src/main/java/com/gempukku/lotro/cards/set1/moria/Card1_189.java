@@ -42,7 +42,7 @@ public class Card1_189 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (((
                 effectResult.getType() == EffectResult.Type.EXERT
                         && Filters.filter(((ExertResult) effectResult).getExertedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0)
@@ -67,7 +67,7 @@ public class Card1_189 extends AbstractResponseEvent {
                                     }
                                     int burdens = Math.min(3, shadowCardsCount);
                                     for (int i = 0; i < burdens; i++)
-                                        action.appendEffect(new AddBurdenEffect(playerId));
+                                        action.appendEffect(new AddBurdenEffect(self));
                                 }
                             }));
             return Collections.singletonList(action);

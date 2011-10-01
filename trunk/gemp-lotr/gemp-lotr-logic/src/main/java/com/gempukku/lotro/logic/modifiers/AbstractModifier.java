@@ -66,6 +66,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean appliesKeywordModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, Keyword keyword, boolean result) {
+        return result;
+    }
+
+    @Override
     public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         return result;
     }

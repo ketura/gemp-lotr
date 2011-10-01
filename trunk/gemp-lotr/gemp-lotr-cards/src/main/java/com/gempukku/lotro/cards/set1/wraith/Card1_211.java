@@ -33,7 +33,7 @@ public class Card1_211 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self.getOwner()));
+                    new AddBurdenEffect(self));
             return Collections.singletonList(action);
         }
         return null;

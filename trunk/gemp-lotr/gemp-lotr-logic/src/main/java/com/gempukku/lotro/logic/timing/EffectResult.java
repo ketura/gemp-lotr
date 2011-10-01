@@ -14,7 +14,7 @@ public abstract class EffectResult {
 
         PLAY, DRAW_CARD_OR_PUT_INTO_HAND,
 
-        PUT_ON_THE_ONE_RING, REMOVE_BURDEN,
+        PUT_ON_THE_ONE_RING, REMOVE_BURDEN, ADD_BURDEN,
 
         WHEN_MOVE_FROM, WHEN_FELLOWSHIP_MOVES, WHEN_MOVE_TO
     }

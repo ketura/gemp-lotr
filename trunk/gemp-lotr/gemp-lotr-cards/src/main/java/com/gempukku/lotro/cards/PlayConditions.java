@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.PhysicalCardVisitor;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
+import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -163,6 +164,14 @@ public class PlayConditions {
     public static boolean isWounded(EffectResult effectResult, PhysicalCard character) {
         if (effectResult.getType() == EffectResult.Type.WOUND) {
             return ((WoundResult) effectResult).getWoundedCards().contains(character);
+        }
+        return false;
+    }
+
+    public static boolean isGettingWounded(Effect effect, LotroGame game, Filter... filters) {
+        if (effect.getType() == EffectResult.Type.WOUND) {
+            WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
+            return Filters.filter(woundEffect.getCardsToBeAffected(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
         }
         return false;
     }

@@ -42,7 +42,7 @@ public class Card2_068 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("The Balrog")));
         action.appendEffect(
-                new AddBurdenEffect(playerId));
+                new AddBurdenEffect(self));
         return action;
     }
 }
