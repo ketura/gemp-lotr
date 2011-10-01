@@ -43,9 +43,9 @@ public class Card1_228 extends AbstractResponseEvent {
             action.appendCost(
                     new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
             action.appendEffect(
-                    new AddBurdenEffect(playerId));
+                    new AddBurdenEffect(self));
             action.appendEffect(
-                    new AddBurdenEffect(playerId));
+                    new AddBurdenEffect(self));
             return Collections.singletonList(action);
         }
         return null;

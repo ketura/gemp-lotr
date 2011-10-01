@@ -47,7 +47,7 @@ public class Card1_214 extends AbstractResponseEvent {
             possibleEffects.add(
                     new ExertCharacterEffect(self, game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())));
             possibleEffects.add(
-                    new AddBurdenEffect(game.getGameState().getCurrentPlayerId()));
+                    new AddBurdenEffect(self));
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);

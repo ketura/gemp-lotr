@@ -1,27 +1,23 @@
 package com.gempukku.lotro.cards.effects;
 
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.ChooseableCost;
 import com.gempukku.lotro.logic.timing.ChooseableEffect;
 import com.gempukku.lotro.logic.timing.CostResolution;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
 
-public class AddBurdenEffect extends UnrespondableEffect implements ChooseableEffect, ChooseableCost {
-    private String _playerId;
-    private int _count;
+public class AddBurdenEffect implements ChooseableEffect, ChooseableCost {
+    private PhysicalCard _source;
 
-    public AddBurdenEffect(String playerId) {
-        this(playerId, 1);
-    }
-
-    public AddBurdenEffect(String playerId, int count) {
-        _playerId = playerId;
-        _count = count;
+    public AddBurdenEffect(PhysicalCard source) {
+        _source = source;
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Add " + _count + " burden(s)";
+        return "Add burden";
     }
 
     @Override
@@ -35,15 +31,19 @@ public class AddBurdenEffect extends UnrespondableEffect implements ChooseableEf
     }
 
     @Override
-    public CostResolution playCost(LotroGame game) {
-        game.getGameState().sendMessage(_playerId + " adds " + _count + " burden(s)");
-        game.getGameState().addBurdens(_count);
-        return new CostResolution(null, true);
+    public EffectResult.Type getType() {
+        return EffectResult.Type.ADD_BURDEN;
     }
 
     @Override
-    public void doPlayEffect(LotroGame game) {
-        game.getGameState().sendMessage(_playerId + " adds " + _count + " burden(s)");
-        game.getGameState().addBurdens(_count);
+    public CostResolution playCost(LotroGame game) {
+        return new CostResolution(playEffect(game), true);
+    }
+
+    @Override
+    public EffectResult[] playEffect(LotroGame game) {
+        game.getGameState().sendMessage(_source.getBlueprint().getName() + " adds burden");
+        game.getGameState().addBurdens(1);
+        return new EffectResult[]{new AddBurdenResult(_source)};
     }
 }

@@ -48,7 +48,7 @@ public class Card2_094 extends AbstractAttachable {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             for (int i = 0; i < ((DrawCardOrPutIntoHandResult) effectResult).getCount(); i++) {
                 action.appendEffect(
-                        new AddBurdenEffect(self.getOwner()));
+                        new AddBurdenEffect(self));
             }
             return Collections.singletonList(action);
         }

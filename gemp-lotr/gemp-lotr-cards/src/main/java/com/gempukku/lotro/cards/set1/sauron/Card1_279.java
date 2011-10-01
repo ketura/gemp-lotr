@@ -63,7 +63,7 @@ public class Card1_279 extends AbstractAttachable {
                 && self.getData() != null && (!((Boolean) self.getData()))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self.getOwner()));
+                    new AddBurdenEffect(self));
             return Collections.singletonList(action);
         }
         return null;

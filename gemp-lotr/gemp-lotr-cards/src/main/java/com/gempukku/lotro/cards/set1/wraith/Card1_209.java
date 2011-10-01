@@ -56,7 +56,7 @@ public class Card1_209 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             if (ringBearer) {
-                action.appendEffect(new AddBurdenEffect(self.getOwner()));
+                action.appendEffect(new AddBurdenEffect(self));
             } else {
                 action.appendEffect(new WoundCharacterEffect(self, self.getAttachedTo()));
             }

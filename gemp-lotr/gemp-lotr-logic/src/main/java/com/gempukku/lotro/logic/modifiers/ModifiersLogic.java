@@ -182,10 +182,22 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
         int result = physicalCard.getBlueprint().getKeywordCount(keyword);
         for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
-            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier)
+                    && appliesKeywordModifier(gameState, modifier.getSource(), keyword))
                 result = modifier.getKeywordCount(gameState, this, physicalCard, keyword, result);
         }
         return Math.max(0, result);
+    }
+
+    private boolean appliesKeywordModifier(GameState gameState, PhysicalCard modifierSource, Keyword keyword) {
+        if (modifierSource == null)
+            return true;
+        boolean result = true;
+        for (Modifier modifier : getModifiers(ModifierEffect.KEYWORD_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, modifierSource, modifier))
+                result = modifier.appliesKeywordModifier(gameState, this, modifierSource, keyword, result);
+        }
+        return result;
     }
 
     @Override

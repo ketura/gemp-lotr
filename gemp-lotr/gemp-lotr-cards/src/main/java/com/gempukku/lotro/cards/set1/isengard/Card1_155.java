@@ -35,7 +35,7 @@ public class Card1_155 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
@@ -49,7 +49,7 @@ public class Card1_155 extends AbstractMinion {
                             public void doPlayEffect(LotroGame game) {
                                 List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                                 if (deck.size() > 0 && deck.get(0).getBlueprint().getSide() == Side.SHADOW)
-                                    action.appendEffect(new AddBurdenEffect(playerId));
+                                    action.appendEffect(new AddBurdenEffect(self));
                             }
                         });
                 action.appendEffect(new DiscardTopCardFromDeckEffect(playerId));

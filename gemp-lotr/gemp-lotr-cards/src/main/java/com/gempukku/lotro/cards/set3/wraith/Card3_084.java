@@ -1,0 +1,66 @@
+package com.gempukku.lotro.cards.set3.wraith;
+
+import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+
+import java.util.List;
+
+/**
+ * Set: Realms of Elf-lords
+ * Side: Shadow
+ * Culture: Wraith
+ * Twilight Cost: 2
+ * Type: Event
+ * Game Text: Maneuver: Spot a Nazgul to reveal a card at random from the Free Peoples player's hand. Exert a companion
+ * bearing a ranged weapon X times, where X is the twilight cost of the card revealed.
+ */
+public class Card3_084 extends AbstractEvent {
+    public Card3_084() {
+        super(Side.SHADOW, Culture.WRAITH, "They Will Never Stop Hunting You", Phase.MANEUVER);
+    }
+
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL));
+    }
+
+    @Override
+    public int getTwilightCost() {
+        return 2;
+    }
+
+    @Override
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+        final PlayEventAction action = new PlayEventAction(self);
+        action.appendEffect(
+                new RevealRandomCardsFromHandEffect(game.getGameState().getCurrentPlayerId(), 1) {
+                    @Override
+                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                        if (revealedCards.size() > 0) {
+                            PhysicalCard revealedCard = revealedCards.get(0);
+                            final int twilightCost = revealedCard.getBlueprint().getTwilightCost();
+                            if (twilightCost > 0) {
+                                action.appendEffect(
+                                        new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.hasAttached(Filters.keyword(Keyword.RANGED_WEAPON))) {
+                                            @Override
+                                            protected void cardSelected(PhysicalCard card) {
+                                                for (int i = 0; i < twilightCost; i++)
+                                                    action.appendEffect(
+                                                            new ExertCharacterEffect(self, card));
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+        return action;
+    }
+}

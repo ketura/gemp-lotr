@@ -1,0 +1,91 @@
+package com.gempukku.lotro.cards.set3.isengard;
+
+import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.PreventableEffect;
+import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
+import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.Action;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Set: Realms of Elf-lords
+ * Side: Shadow
+ * Culture: Isengard
+ * Twilight Cost: 4
+ * Type: Minion • Wizard
+ * Strength: 8
+ * Vitality: 4
+ * Site: 4
+ * Game Text: Saruman may not take wounds during the archery phase and may not be assigned to a skirmish. Assignment:
+ * Exert Saruman to assign an [ISENGARD] minion to a companion (except the Ring-bearer). That companion may exert
+ * to prevent this.
+ */
+public class Card3_069 extends AbstractMinion {
+    public Card3_069() {
+        super(4, 8, 4, 4, Race.WIZARD, Culture.ISENGARD, "Saruman", true);
+    }
+
+    @Override
+    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(
+                new CantTakeWoundsModifier(self,
+                        Filters.and(
+                                Filters.sameCard(self),
+                                new Filter() {
+                                    @Override
+                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                        return gameState.getCurrentPhase() == Phase.ARCHERY;
+                                    }
+                                })));
+        modifiers.add(
+                new CantBeAssignedToSkirmishModifier(self, Filters.sameCard(self)));
+        return modifiers;
+    }
+
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
+            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
+            action.appendCost(
+                    new ExertCharactersCost(self, self));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish()) {
+                        @Override
+                        protected void cardSelected(final PhysicalCard minion) {
+                            action.appendEffect(
+                                    new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish()) {
+                                        @Override
+                                        protected void cardSelected(PhysicalCard companion) {
+                                            action.appendEffect(
+                                                    new PreventableEffect(
+                                                            action,
+                                                            new AssignmentEffect(playerId, companion, Collections.singletonList(minion), "Assign " + minion.getBlueprint().getName() + " to skirmish " + companion.getBlueprint().getName()),
+                                                            Collections.singletonList(game.getGameState().getCurrentPlayerId()),
+                                                            new ExertCharactersCost(self, companion)));
+                                        }
+                                    });
+                        }
+                    });
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+}

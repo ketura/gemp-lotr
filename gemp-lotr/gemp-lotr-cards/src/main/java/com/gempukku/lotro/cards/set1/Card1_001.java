@@ -66,8 +66,8 @@ public class Card1_001 extends AbstractAttachable {
                 ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(playerId));
-                action.appendEffect(new AddBurdenEffect(playerId));
+                action.appendEffect(new AddBurdenEffect(self));
+                action.appendEffect(new AddBurdenEffect(self));
                 action.appendEffect(new PutOnTheOneRingEffect());
                 action.appendEffect(new AddUntilStartOfPhaseActionProxyEffect(
                         new AbstractActionProxy() {
@@ -101,8 +101,8 @@ public class Card1_001 extends AbstractAttachable {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(self.getOwner()));
-                action.appendEffect(new AddBurdenEffect(self.getOwner()));
+                action.appendEffect(new AddBurdenEffect(self));
+                action.appendEffect(new AddBurdenEffect(self));
                 return Collections.singletonList(action);
             }
         }

@@ -53,7 +53,7 @@ public class Card1_124 extends AbstractEvent {
 
         List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
         possibleEffects.add(new ExertCharacterEffect(self, game.getGameState().getRingBearer(fpPlayer)));
-        possibleEffects.add(new AddBurdenEffect(playerId));
+        possibleEffects.add(new AddBurdenEffect(self));
 
         action.appendEffect(
                 new ChoiceEffect(action, fpPlayer, possibleEffects));
