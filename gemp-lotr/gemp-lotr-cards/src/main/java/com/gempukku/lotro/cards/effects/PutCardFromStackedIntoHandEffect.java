@@ -8,16 +8,16 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
-public class PutCardFromDiscardIntoHandEffect implements Effect {
+public class PutCardFromStackedIntoHandEffect implements Effect {
     private PhysicalCard _card;
 
-    public PutCardFromDiscardIntoHandEffect(PhysicalCard card) {
+    public PutCardFromStackedIntoHandEffect(PhysicalCard card) {
         _card = card;
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Put card from discard into hand";
+        return "Put card from stacked into hand";
     }
 
     @Override
@@ -28,9 +28,9 @@ public class PutCardFromDiscardIntoHandEffect implements Effect {
     @Override
     public EffectResult[] playEffect(LotroGame game) {
         if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _card.getOwner())
-                && _card.getZone() == Zone.DISCARD) {
+                && _card.getZone() == Zone.STACKED) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_card.getOwner() + " puts " + _card.getBlueprint().getName() + " from discard into his or her hand");
+            gameState.sendMessage(_card.getOwner() + " puts " + _card.getBlueprint().getName() + " from stacked on another card into his or her hand");
             gameState.removeCardFromZone(_card);
             gameState.addCardToZone(_card, Zone.HAND);
 
