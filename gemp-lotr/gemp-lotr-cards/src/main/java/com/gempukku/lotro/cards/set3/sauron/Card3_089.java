@@ -1,8 +1,10 @@
 package com.gempukku.lotro.cards.set3.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -14,20 +16,18 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Culture: Sauron
  * Twilight Cost: 0
  * Type: Event
- * Game Text: Search. Shadow: Spot a [SAURON] minion and a Nazgul to make the Free Peoples player discard a card from
- * the top of his or her deck for each burden you can spot.
+ * Game Text: Regroup: Exert a [SAURON] Orc and spot a [GONDOR] companion to add a burden.
  */
-public class Card3_088 extends AbstractEvent {
-    public Card3_088() {
-        super(Side.SHADOW, Culture.SAURON, "Get Off the Road!", Phase.SHADOW);
-        addKeyword(Keyword.SEARCH);
+public class Card3_089 extends AbstractEvent {
+    public Card3_089() {
+        super(Side.SHADOW, Culture.SAURON, "Gleaming in the Snow", Phase.REGROUP);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC))
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION));
     }
 
     @Override
@@ -38,10 +38,10 @@ public class Card3_088 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        int burdens = game.getGameState().getBurdens();
-        for (int i = 0; i < burdens; i++)
-            action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(playerId));
+        action.appendCost(
+                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)));
+        action.appendEffect(
+                new AddBurdenEffect(self));
         return action;
     }
 }
