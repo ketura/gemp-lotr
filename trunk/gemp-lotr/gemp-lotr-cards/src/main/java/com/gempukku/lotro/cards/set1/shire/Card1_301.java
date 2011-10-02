@@ -40,7 +40,7 @@ public class Card1_301 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && game.getGameState().getTwilightPool() < 3) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
-            action.appendCost(new AddTwilightEffect(2));
+            action.appendCost(new AddTwilightEffect(self, 2));
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(playerId, 3) {
                         @Override

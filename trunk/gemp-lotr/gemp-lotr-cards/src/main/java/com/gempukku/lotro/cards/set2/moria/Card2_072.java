@@ -39,7 +39,7 @@ public class Card2_072 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)));
@@ -49,7 +49,7 @@ public class Card2_072 extends AbstractEvent {
                     protected void burdensSpotted(int burdensSpotted) {
                         int addTwilight = Math.min(5, burdensSpotted);
                         action.insertEffect(
-                                new AddTwilightEffect(addTwilight));
+                                new AddTwilightEffect(self, addTwilight));
                     }
                 });
         return action;

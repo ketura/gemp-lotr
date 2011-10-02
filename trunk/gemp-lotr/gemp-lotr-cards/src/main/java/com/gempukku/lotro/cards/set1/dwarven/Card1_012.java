@@ -41,7 +41,7 @@ public class Card1_012 extends AbstractCompanion {
                 && game.getGameState().getTwilightPool() < 2) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
 
-            action.appendCost(new AddTwilightEffect(2));
+            action.appendCost(new AddTwilightEffect(self, 2));
             action.appendEffect(
                     new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.any()) {
                         @Override

@@ -10,9 +10,22 @@ import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
 
 public class AddBurdenEffect implements ChooseableEffect, ChooseableCost {
     private PhysicalCard _source;
+    private boolean _prevented;
 
     public AddBurdenEffect(PhysicalCard source) {
         _source = source;
+    }
+
+    public PhysicalCard getSource() {
+        return _source;
+    }
+
+    public boolean isPrevented() {
+        return _prevented;
+    }
+
+    public void prevent() {
+        _prevented = true;
     }
 
     @Override
@@ -37,13 +50,16 @@ public class AddBurdenEffect implements ChooseableEffect, ChooseableCost {
 
     @Override
     public CostResolution playCost(LotroGame game) {
-        return new CostResolution(playEffect(game), true);
+        return new CostResolution(playEffect(game), !_prevented);
     }
 
     @Override
     public EffectResult[] playEffect(LotroGame game) {
-        game.getGameState().sendMessage(_source.getBlueprint().getName() + " adds burden");
-        game.getGameState().addBurdens(1);
-        return new EffectResult[]{new AddBurdenResult(_source)};
+        if (!_prevented) {
+            game.getGameState().sendMessage(_source.getBlueprint().getName() + " adds burden");
+            game.getGameState().addBurdens(1);
+            return new EffectResult[]{new AddBurdenResult(_source)};
+        }
+        return null;
     }
 }

@@ -41,7 +41,7 @@ public class Card1_044 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF)));
@@ -54,7 +54,7 @@ public class Card1_044 extends AbstractEvent {
                                     @Override
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {
-                                            action.appendEffect(new DiscardCardFromHandEffect(selectedCards.get(0)));
+                                            action.appendEffect(new DiscardCardFromHandEffect(self, selectedCards.get(0)));
                                             action.appendEffect(new DrawCardEffect(playerId, 1));
                                             action.appendEffect(new DrawCardEffect(playerId, 1));
                                         }

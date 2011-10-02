@@ -78,7 +78,7 @@ public class Card1_059 extends AbstractPermanent {
                         }
                     });
 
-            action.appendCost(new AddTwilightEffect(1));
+            action.appendCost(new AddTwilightEffect(self, 1));
             action.appendCost(
                     new ChoiceCost(action, playerId, possibleCosts));
 

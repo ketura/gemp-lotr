@@ -43,7 +43,7 @@ public class Card1_307 extends AbstractCompanion {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
             List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
-            possibleEffects.add(new RemoveBurdenEffect(self.getOwner()));
+            possibleEffects.add(new RemoveBurdenEffect(self));
             possibleEffects.add(
                     new ChooseAndHealCharactersEffect(action, self.getOwner(), Filters.type(CardType.COMPANION)));
             action.appendEffect(new ChoiceEffect(action, self.getOwner(), possibleEffects));

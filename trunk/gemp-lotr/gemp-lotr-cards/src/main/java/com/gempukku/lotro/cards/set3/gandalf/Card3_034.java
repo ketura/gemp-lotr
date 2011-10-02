@@ -40,9 +40,9 @@ public class Card3_034 extends AbstractAttachableFPPossession {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new AddTwilightEffect(3));
+                    new AddTwilightEffect(self, 3));
             action.appendEffect(
-                    new RemoveBurdenEffect(playerId));
+                    new RemoveBurdenEffect(self));
             return Collections.singletonList(action);
         }
         return null;

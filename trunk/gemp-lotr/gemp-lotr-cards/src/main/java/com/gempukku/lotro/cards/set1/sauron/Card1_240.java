@@ -39,7 +39,7 @@ public class Card1_240 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId()));
             return Collections.singletonList(action);
         }
         return null;

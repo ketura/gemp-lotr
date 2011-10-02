@@ -43,7 +43,7 @@ public class Card3_033 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
@@ -62,9 +62,9 @@ public class Card3_033 extends AbstractEvent {
                                                                 protected void validDecisionMade(int index, String result) {
                                                                     if (result.equals("Yes")) {
                                                                         action.appendEffect(
-                                                                                new AddTwilightEffect(revealedCard.getBlueprint().getTwilightCost()));
+                                                                                new AddTwilightEffect(self, revealedCard.getBlueprint().getTwilightCost()));
                                                                         action.appendEffect(
-                                                                                new DiscardCardFromHandEffect(revealedCard));
+                                                                                new DiscardCardFromHandEffect(self, revealedCard));
                                                                     }
                                                                 }
                                                             }));

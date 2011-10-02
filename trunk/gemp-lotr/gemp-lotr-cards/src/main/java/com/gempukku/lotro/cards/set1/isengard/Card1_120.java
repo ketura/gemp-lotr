@@ -51,7 +51,7 @@ public class Card1_120 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         final GameState gameState = game.getGameState();
         if (PlayConditions.canUseShadowCardDuringPhase(gameState, Phase.SHADOW, self, 3)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
@@ -69,7 +69,7 @@ public class Card1_120 extends AbstractPermanent {
                                                     public void decisionMade(String result) throws DecisionResultInvalidException {
                                                         List<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                                         if (cards.size() > 0)
-                                                            action.appendEffect(new DiscardCardFromHandEffect(cards.get(0)));
+                                                            action.appendEffect(new DiscardCardFromHandEffect(self, cards.get(0)));
                                                     }
                                                 }));
                             }

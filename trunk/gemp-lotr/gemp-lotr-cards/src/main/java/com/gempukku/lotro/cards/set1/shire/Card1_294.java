@@ -44,7 +44,7 @@ public class Card1_294 extends AbstractEvent {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 final int twilight = getValidatedResult(result);
-                                action.appendCost(new AddTwilightEffect(twilight));
+                                action.appendCost(new AddTwilightEffect(self, twilight));
                                 action.appendEffect(
                                         new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                                             @Override

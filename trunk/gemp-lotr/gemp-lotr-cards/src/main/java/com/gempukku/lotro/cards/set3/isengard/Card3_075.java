@@ -38,7 +38,7 @@ public class Card3_075 extends AbstractMinion {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Saruman"))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(2));
+                    new AddTwilightEffect(self, 2));
             return Collections.singletonList(action);
         }
         return null;

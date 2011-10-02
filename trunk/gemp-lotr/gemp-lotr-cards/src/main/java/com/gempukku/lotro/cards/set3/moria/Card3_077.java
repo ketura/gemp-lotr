@@ -38,7 +38,7 @@ public class Card3_077 extends AbstractPermanent {
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(2));
+                    new AddTwilightEffect(self, 2));
             return Collections.singletonList(action);
         }
         return null;

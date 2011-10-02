@@ -63,7 +63,7 @@ public class Card3_044 extends AbstractPermanent {
                     }
                 };
                 action.appendCost(
-                        new AddTwilightEffect(1));
+                        new AddTwilightEffect(self, 1));
                 action.appendEffect(
                         new ChooseArbitraryCardsEffect(playerId, "Choose card", stackedCards, 1, 1) {
                             @Override

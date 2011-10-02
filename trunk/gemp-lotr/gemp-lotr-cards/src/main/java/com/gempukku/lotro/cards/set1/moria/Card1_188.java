@@ -61,7 +61,7 @@ public class Card1_188 extends AbstractPermanent {
                 && (game.getGameState().getCurrentSiteNumber() == 4 || game.getGameState().getCurrentSiteNumber() == 5)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
-            action.appendEffect(new AddTwilightEffect(dwarfCompanions * 2));
+            action.appendEffect(new AddTwilightEffect(self, dwarfCompanions * 2));
             return Collections.singletonList(action);
         }
         return null;

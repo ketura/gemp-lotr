@@ -40,7 +40,7 @@ public class Card3_056 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersCost(self, self));
             action.appendEffect(
-                    new AddTwilightEffect(1));
+                    new AddTwilightEffect(self, 1));
             return Collections.singletonList(action);
         }
         return null;
