@@ -64,7 +64,7 @@ public class Card1_287 extends AbstractResponseEvent {
                             }
                         });
                 action.appendEffect(
-                        new RemoveBurdenEffect(playerId));
+                        new RemoveBurdenEffect(self));
                 return Collections.singletonList(action);
             }
         }

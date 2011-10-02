@@ -73,7 +73,7 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
 
         if (hand.size() <= _minimum) {
             for (PhysicalCard card : hand) {
-                _action.appendCost(new DiscardCardFromHandEffect(card));
+                _action.appendCost(new DiscardCardFromHandEffect(_action.getActionSource(), card));
             }
             cardsBeingDiscarded(hand);
         } else {
@@ -83,7 +83,7 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                             for (PhysicalCard card : cards) {
-                                _action.appendCost(new DiscardCardFromHandEffect(card));
+                                _action.appendCost(new DiscardCardFromHandEffect(_action.getActionSource(), card));
                             }
                             cardsBeingDiscarded(cards);
                         }
@@ -102,7 +102,7 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
 
         if (hand.size() <= _minimum) {
             for (PhysicalCard card : hand) {
-                _action.insertEffect(new DiscardCardFromHandEffect(card));
+                _action.insertEffect(new DiscardCardFromHandEffect(_action.getActionSource(), card));
             }
             cardsBeingDiscarded(hand);
         } else {
@@ -112,7 +112,7 @@ public class ChooseAndDiscardCardsFromHandEffect implements ChooseableEffect, Ch
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                             for (PhysicalCard card : cards) {
-                                _action.insertEffect(new DiscardCardFromHandEffect(card));
+                                _action.insertEffect(new DiscardCardFromHandEffect(_action.getActionSource(), card));
                             }
                             cardsBeingDiscarded(cards);
                         }

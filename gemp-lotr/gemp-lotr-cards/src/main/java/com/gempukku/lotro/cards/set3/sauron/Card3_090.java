@@ -44,7 +44,7 @@ public class Card3_090 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)));
         action.appendEffect(
-                new DiscardCardAtRandomFromHandEffect(game.getGameState().getCurrentPlayerId()));
+                new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId()));
         return action;
     }
 }

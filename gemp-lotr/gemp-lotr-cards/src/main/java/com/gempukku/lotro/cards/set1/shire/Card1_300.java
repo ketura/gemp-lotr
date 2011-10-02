@@ -30,7 +30,7 @@ public class Card1_300 extends AbstractPermanent {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
@@ -38,7 +38,7 @@ public class Card1_300 extends AbstractPermanent {
                         @Override
                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards)
-                                action.appendEffect(new DiscardCardFromHandEffect(selectedCard));
+                                action.appendEffect(new DiscardCardFromHandEffect(self, selectedCard));
                         }
                     });
             return Collections.singletonList(action);

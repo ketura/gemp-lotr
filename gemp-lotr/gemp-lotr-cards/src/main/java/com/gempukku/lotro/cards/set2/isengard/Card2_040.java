@@ -45,7 +45,7 @@ public class Card2_040 extends AbstractPermanent {
             for (PhysicalCard exertedShireAlly : exertedShireAllies) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new AddTwilightEffect(1));
+                        new AddTwilightEffect(self, 1));
                 actions.add(action);
             }
             return actions;

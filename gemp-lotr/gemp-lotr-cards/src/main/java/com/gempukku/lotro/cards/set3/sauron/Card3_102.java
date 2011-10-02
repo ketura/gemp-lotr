@@ -52,7 +52,7 @@ public class Card3_102 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int allies = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY));
             action.appendEffect(
-                    new AddTwilightEffect(allies));
+                    new AddTwilightEffect(self, allies));
             return Collections.singletonList(action);
         }
         return null;

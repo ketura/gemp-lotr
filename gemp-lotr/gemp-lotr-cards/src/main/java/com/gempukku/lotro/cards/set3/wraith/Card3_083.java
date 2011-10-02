@@ -37,7 +37,7 @@ public class Card3_083 extends AbstractPermanent {
             int burdens = game.getGameState().getBurdens();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(burdens));
+                    new AddTwilightEffect(self, burdens));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE

@@ -44,7 +44,7 @@ public class Card1_266 extends AbstractMinion {
                     ) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new AddTwilightEffect(2));
+                        new AddTwilightEffect(self, 2));
                 action.appendEffect(
                         new UnrespondableEffect() {
                             @Override

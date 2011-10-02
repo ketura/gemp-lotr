@@ -42,7 +42,7 @@ public class Card1_254 extends AbstractAttachable {
                     new ExertCharactersCost(self, self.getAttachedTo()));
             int archerCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER));
             action.appendEffect(
-                    new AddTwilightEffect(archerCompanions));
+                    new AddTwilightEffect(self, archerCompanions));
             return Collections.singletonList(action);
         }
         return null;

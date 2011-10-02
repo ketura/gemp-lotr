@@ -37,7 +37,7 @@ public class Card1_068 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)) {
@@ -47,8 +47,8 @@ public class Card1_068 extends AbstractAttachable {
                     new ChooseOpponentEffect(playerId) {
                         @Override
                         protected void opponentChosen(String opponentId) {
-                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponentId));
-                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponentId));
+                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponentId));
+                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponentId));
                         }
                     });
 

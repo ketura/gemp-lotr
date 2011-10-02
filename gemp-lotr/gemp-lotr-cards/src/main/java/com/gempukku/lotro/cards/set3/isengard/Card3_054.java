@@ -40,7 +40,7 @@ public class Card3_054 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayCost(self));
             action.appendEffect(
-                    new AddTwilightEffect(3));
+                    new AddTwilightEffect(self, 3));
             return Collections.singletonList(action);
         }
         return null;

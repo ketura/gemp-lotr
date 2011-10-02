@@ -36,7 +36,7 @@ public class Card2_061 extends AbstractMinion {
                 && game.getGameState().getMoveCount() > 1) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(3));
+                    new AddTwilightEffect(self, 3));
             return Collections.singletonList(action);
         }
         return null;

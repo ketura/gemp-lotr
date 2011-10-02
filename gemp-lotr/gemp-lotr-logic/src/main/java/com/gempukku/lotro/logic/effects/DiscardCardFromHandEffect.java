@@ -8,11 +8,14 @@ import com.gempukku.lotro.logic.timing.Cost;
 import com.gempukku.lotro.logic.timing.CostResolution;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardFromHandResult;
 
 public class DiscardCardFromHandEffect implements Effect, Cost {
+    private PhysicalCard _source;
     private PhysicalCard _card;
 
-    public DiscardCardFromHandEffect(PhysicalCard card) {
+    public DiscardCardFromHandEffect(PhysicalCard source, PhysicalCard card) {
+        _source = source;
         _card = card;
     }
 
@@ -23,7 +26,7 @@ public class DiscardCardFromHandEffect implements Effect, Cost {
 
     @Override
     public EffectResult.Type getType() {
-        return null;
+        return EffectResult.Type.DISCARD_FROM_HAND;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class DiscardCardFromHandEffect implements Effect, Cost {
         gameState.removeCardFromZone(_card);
         gameState.addCardToZone(_card, Zone.DISCARD);
 
-        return null;
+        return new EffectResult[]{new DiscardCardFromHandResult(_source, _card)};
     }
 
     @Override
@@ -49,6 +52,6 @@ public class DiscardCardFromHandEffect implements Effect, Cost {
         gameState.removeCardFromZone(_card);
         gameState.addCardToZone(_card, Zone.DISCARD);
 
-        return new CostResolution(null, true);
+        return new CostResolution(new EffectResult[]{new DiscardCardFromHandResult(_source, _card)}, true);
     }
 }

@@ -41,7 +41,7 @@ public class Card3_071 extends AbstractPermanent {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.exhausted())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(3));
+                    new AddTwilightEffect(self, 3));
             return Collections.singletonList(action);
         }
         return null;

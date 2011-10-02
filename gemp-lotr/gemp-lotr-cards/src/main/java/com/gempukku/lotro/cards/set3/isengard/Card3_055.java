@@ -46,7 +46,7 @@ public class Card3_055 extends AbstractAttachable {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(1));
+                    new AddTwilightEffect(self, 1));
             return Collections.singletonList(action);
         }
         return null;

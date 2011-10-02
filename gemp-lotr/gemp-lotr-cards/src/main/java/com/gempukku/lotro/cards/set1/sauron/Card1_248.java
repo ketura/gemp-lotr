@@ -30,7 +30,7 @@ public class Card1_248 extends AbstractEvent {
         // TODO This should give an option to spot less
         int sauronMinions = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION));
         action.appendEffect(
-                new AddTwilightEffect(sauronMinions));
+                new AddTwilightEffect(self, sauronMinions));
         return action;
     }
 

@@ -67,8 +67,8 @@ public class Card1_029 extends AbstractEvent {
                                                     List<Action> actions = new LinkedList<Action>();
                                                     for (String opponent : opponents) {
                                                         ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
-                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponent));
-                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(opponent));
+                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent));
+                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent));
                                                         actions.add(action);
                                                     }
                                                     return actions;

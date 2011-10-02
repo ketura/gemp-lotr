@@ -53,7 +53,7 @@ public class Card1_074 extends AbstractAttachableFPPossession {
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
                                     for (int i = 0; i < spotCount; i++)
-                                        action.appendEffect(new RemoveBurdenEffect(playerId));
+                                        action.appendEffect(new RemoveBurdenEffect(self));
                                 }
                             }));
             return Collections.singletonList(action);
