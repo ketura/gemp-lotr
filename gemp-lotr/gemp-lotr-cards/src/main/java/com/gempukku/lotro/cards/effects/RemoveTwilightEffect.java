@@ -14,7 +14,7 @@ public class RemoveTwilightEffect extends UnrespondableEffect implements Choosea
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        int toRemove = Math.max(game.getGameState().getTwilightPool(), _twilight);
+        int toRemove = Math.min(game.getGameState().getTwilightPool(), _twilight);
         game.getGameState().sendMessage(toRemove + " twilight gets removed from twilight pool");
         game.getGameState().removeTwilight(toRemove);
     }
@@ -26,7 +26,7 @@ public class RemoveTwilightEffect extends UnrespondableEffect implements Choosea
 
     @Override
     public CostResolution playCost(LotroGame game) {
-        int toRemove = Math.max(game.getGameState().getTwilightPool(), _twilight);
+        int toRemove = Math.min(game.getGameState().getTwilightPool(), _twilight);
         game.getGameState().sendMessage(toRemove + " twilight gets removed from twilight pool");
         game.getGameState().removeTwilight(toRemove);
 

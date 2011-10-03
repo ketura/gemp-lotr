@@ -40,7 +40,7 @@ public class PayTwilightCostEffect implements Cost {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " adds " + twilightCost + " to twilight pool");
             return new CostResolution(null, true);
         } else {
-            boolean success = game.getGameState().getTwilightPool() <= twilightCost;
+            boolean success = game.getGameState().getTwilightPool() >= twilightCost;
             twilightCost = Math.min(twilightCost, game.getGameState().getTwilightPool());
             if (twilightCost > 0) {
                 game.getGameState().removeTwilight(twilightCost);
