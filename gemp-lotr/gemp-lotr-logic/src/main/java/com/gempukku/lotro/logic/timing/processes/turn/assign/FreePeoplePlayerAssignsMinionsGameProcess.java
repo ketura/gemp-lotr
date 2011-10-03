@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic.timing.processes.turn.assign;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -66,7 +67,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                 unassignedMinions.removeAll(minionsAssigned);
                             }
 
-                            if (!_game.getModifiersQuerying().isValidFreePlayerAssignments(_game.getGameState(), assignments))
+                            if (!_game.getModifiersQuerying().isValidAssignments(_game.getGameState(), Side.FREE_PEOPLE, assignments))
                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
                             ActivateCardAction action = new ActivateCardAction(null, null);

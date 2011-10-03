@@ -356,14 +356,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean isValidFreePlayerAssignments(GameState gameState, Map<PhysicalCard, List<PhysicalCard>> assignments) {
+    public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments) {
         boolean result = true;
 
         for (Modifier modifier : getModifiers(ModifierEffect.ASSIGNMENT_MODIFIER)) {
-            result = modifier.isValidFreePlayerAssignments(gameState, this, assignments, result);
+            result = modifier.isValidAssignments(gameState, side, this, assignments, result);
             for (Map.Entry<PhysicalCard, List<PhysicalCard>> assignment : assignments.entrySet()) {
                 if (affectsCardWithSkipSet(gameState, assignment.getKey(), modifier))
-                    result = modifier.isValidFreePlayerAssignments(gameState, this, assignment.getKey(), assignment.getValue(), result);
+                    result = modifier.isValidAssignments(gameState, side, this, assignment.getKey(), assignment.getValue(), result);
             }
         }
         return result;

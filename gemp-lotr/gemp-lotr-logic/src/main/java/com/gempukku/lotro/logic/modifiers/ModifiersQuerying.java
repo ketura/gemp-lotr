@@ -49,7 +49,7 @@ public interface ModifiersQuerying {
 
     public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId);
 
-    public boolean isValidFreePlayerAssignments(GameState gameState, Map<PhysicalCard, List<PhysicalCard>> assignments);
+    public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments);
 
     public boolean canBeAssignedToSkirmish(GameState gameState, PhysicalCard card);
 
