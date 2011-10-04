@@ -31,7 +31,7 @@ public class GameEvent {
     private Phase _phase;
     private Integer _count;
     private Token _token;
-    private int[] _opposingCardIds;
+    private int[] _otherCardIds;
 
     public GameEvent(Type type) {
         _type = type;
@@ -86,12 +86,12 @@ public class GameEvent {
         return this;
     }
 
-    public int[] getOpposingCardIds() {
-        return _opposingCardIds;
+    public int[] getOtherCardIds() {
+        return _otherCardIds;
     }
 
-    public GameEvent opposingCardIds(int[] opposingCardIds) {
-        _opposingCardIds = opposingCardIds;
+    public GameEvent otherCardIds(int[] otherCardIds) {
+        _otherCardIds = otherCardIds;
         return this;
     }
 
