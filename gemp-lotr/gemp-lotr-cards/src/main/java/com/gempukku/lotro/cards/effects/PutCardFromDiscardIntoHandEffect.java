@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
@@ -35,7 +36,7 @@ public class PutCardFromDiscardIntoHandEffect extends AbstractEffect {
         if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _card.getOwner())
                 && _card.getZone() == Zone.DISCARD) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_card.getOwner() + " puts " + _card.getBlueprint().getName() + " from discard into his or her hand");
+            gameState.sendMessage(_card.getOwner() + " puts " + GameUtils.getCardLink(_card) + " from discard into his or her hand");
             gameState.removeCardFromZone(_card);
             gameState.addCardToZone(_card, Zone.HAND);
 

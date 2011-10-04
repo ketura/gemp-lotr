@@ -12,6 +12,6 @@ public class OptionalTriggerAction extends ActivateCardAction {
 
     @Override
     protected String getMessage() {
-        return _physicalCard.getBlueprint().getName() + " optional triggered effect is used";
+        return "<div class='cardHint' value='" + _physicalCard.getBlueprintId() + "'>" + _physicalCard.getBlueprint().getName() + "</div> optional triggered effect is used";
     }
 }

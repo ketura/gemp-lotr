@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
@@ -42,7 +43,7 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
                 game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
                 return new FullEffectResult(new EffectResult[]{new DrawCardOrPutIntoHandResult(_physicalCard.getOwner(), 1)}, true, true);
             } else {
-                game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + _physicalCard.getBlueprint().getName() + " from deck");
+                game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + GameUtils.getCardLink(_physicalCard) + " from deck due to Rule of 4");
                 game.getGameState().removeCardFromZone(_physicalCard);
                 game.getGameState().addCardToZone(_physicalCard, Zone.DISCARD);
             }

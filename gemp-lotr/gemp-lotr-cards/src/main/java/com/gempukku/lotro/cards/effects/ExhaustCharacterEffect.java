@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -47,7 +48,7 @@ public class ExhaustCharacterEffect extends AbstractEffect {
         boolean canExert = PlayConditions.canExert(_action.getActionSource(), game.getGameState(), game.getModifiersQuerying(), _physicalCard);
         if (canExert) {
             if (_sendMessage)
-                game.getGameState().sendMessage(_playerId + " exhausts " + _physicalCard.getBlueprint().getName());
+                game.getGameState().sendMessage(_playerId + " exhausts " + GameUtils.getCardLink(_physicalCard));
             game.getGameState().addWound(_physicalCard);
             _action.appendEffect(new ExhaustCharacterEffect(_playerId, _action, _physicalCard, false));
             return new FullEffectResult(new EffectResult[]{new ExertResult(Collections.singleton(_physicalCard))}, true, true);

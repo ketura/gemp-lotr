@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
@@ -54,7 +55,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                                 modifier += filterIntegerEntry.getValue();
 
                         List<Effect> preCostEffects = new LinkedList<Effect>();
-                        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + card.getBlueprint().getName() + " from " + card.getZone().getHumanReadable() + " on " + target.getBlueprint().getName()));
+                        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable() + " on " + GameUtils.getCardLink(target)));
                         if (card.getZone() == Zone.DECK)
                             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
                         appendCost(new PayPlayOnTwilightCostEffect(card, target, modifier));

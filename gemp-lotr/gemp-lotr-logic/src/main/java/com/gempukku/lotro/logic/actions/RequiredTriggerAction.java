@@ -12,6 +12,6 @@ public class RequiredTriggerAction extends ActivateCardAction {
 
     @Override
     protected String getMessage() {
-        return _physicalCard.getBlueprint().getName() + " required triggered effect is used";
+        return "<div class='cardHint' value='" + _physicalCard.getBlueprintId() + "'>" + _physicalCard.getBlueprint().getName() + "</div> required triggered effect is used";
     }
 }

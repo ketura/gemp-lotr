@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
@@ -12,6 +11,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 
 import java.util.Arrays;

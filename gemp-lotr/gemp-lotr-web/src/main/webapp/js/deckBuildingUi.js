@@ -518,13 +518,13 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.bottomBarDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: deckHeight - 50, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: 50 });
 
-        this.filterDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding, height: 50 });
-        this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 100, width: collectionWidth - padding * 2, height: collectionHeight - 100 });
+        this.filterDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding, height: 80 });
+        this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 130, width: collectionWidth - padding * 2, height: collectionHeight - 130 });
         this.pageDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding, height: 50 });
         this.specialCollectionDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding * 2, height: collectionHeight - 50 });
 
-        this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 100);
-        this.specialCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight);
+        this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 130);
+        this.specialCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 50);
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {
