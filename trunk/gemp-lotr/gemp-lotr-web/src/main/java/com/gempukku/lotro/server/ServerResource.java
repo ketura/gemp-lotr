@@ -560,7 +560,7 @@ public class ServerResource {
             sb.append("<script>location.href='hall.html';</script>");
         } else {
             sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
-            sb.append("<div class='status'>There are currently ").append(_hallServer.getTablesCount()).append(" tables in the Game Hall</div>");
+            sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size()).append("</div>");
             sb.append(getLoginHTML());
         }
 
