@@ -41,7 +41,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.pageDiv.append("<div id='countSlider' style='left: 33px; top: 10px; width: 200px;'></div>");
         this.collectionDiv.append(this.pageDiv);
 
-        this.filterDiv = $("<div></div>");
+        this.filterDiv = $("<div id='filtering'></div>");
 
         this.filterDiv.append("<div id='culture'>"
                 + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.gif'/></label>"
