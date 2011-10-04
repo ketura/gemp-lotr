@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
 import com.gempukku.lotro.common.*;
@@ -45,7 +44,6 @@ public class Card1_147 extends AbstractMinion {
                     new ChooseActiveCardEffect(playerId, "Choose a companion", Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
-                            action.appendEffect(new CardAffectsCardEffect(self, companion));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new PreventMinionBeingAssignedToCharacterModifier(self, Side.FREE_PEOPLE, Filters.sameCard(companion), Filters.sameCard(self))

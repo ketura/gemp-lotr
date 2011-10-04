@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -50,7 +49,6 @@ public class Card1_100 extends AbstractPermanent {
                             protected FullEffectResult playEffectReturningResult(LotroGame game) {
                                 FullEffectResult effectResult = super.playEffectReturningResult(game);
                                 if (effectResult.isSuccessful() && aragorn != null) {
-                                    action.appendEffect(new CardAffectsCardEffect(self, aragorn));
                                     action.appendEffect(new HealCharactersEffect(playerId, aragorn));
                                 }
                                 return effectResult;
@@ -64,7 +62,6 @@ public class Card1_100 extends AbstractPermanent {
                             protected FullEffectResult playEffectReturningResult(LotroGame game) {
                                 FullEffectResult effectResult = super.playEffectReturningResult(game);
                                 if (effectResult.isSuccessful() && arwen != null) {
-                                    action.appendEffect(new CardAffectsCardEffect(self, arwen));
                                     action.appendEffect(new HealCharactersEffect(playerId, arwen));
                                 }
                                 return effectResult;    //To change body of overridden methods use File | Settings | File Templates.

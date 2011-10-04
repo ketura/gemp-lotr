@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -41,7 +40,6 @@ public class Card1_247 extends AbstractResponseEvent {
                     new ChooseActiveCardEffect(playerId, "Choose an Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.in(skirmishResult.getWinners())) {
                         @Override
                         protected void cardSelected(PhysicalCard winningSauronOrc) {
-                            action.appendEffect(new CardAffectsCardEffect(self, winningSauronOrc));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(winningSauronOrc), Keyword.FIERCE), Phase.REGROUP));

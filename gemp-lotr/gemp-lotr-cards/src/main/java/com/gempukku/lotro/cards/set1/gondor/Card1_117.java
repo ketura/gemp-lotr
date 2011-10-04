@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -42,7 +41,6 @@ public class Card1_117 extends AbstractEvent {
                                 && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ROAMING)).size() > 0)
                             bonus = 4;
 
-                        action.appendEffect(new CardAffectsCardEffect(self, gondorCompanion));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(gondorCompanion), bonus), Phase.SKIRMISH));

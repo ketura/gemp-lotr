@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -47,7 +46,6 @@ public class Card1_010 extends AbstractAttachable {
             return Collections.singletonList(action);
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(new ExertCharactersEffect(self, self.getAttachedTo()));
             return Collections.singletonList(action);
         }

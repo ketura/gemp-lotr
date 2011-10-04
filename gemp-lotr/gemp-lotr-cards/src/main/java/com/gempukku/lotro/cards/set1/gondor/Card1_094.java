@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -64,7 +63,6 @@ public class Card1_094 extends AbstractAttachableFPPossession {
 
                         @Override
                         protected void cardSelected(PhysicalCard shadowCondition) {
-                            action.appendEffect(new CardAffectsCardEffect(self, shadowCondition));
                             action.appendEffect(new DiscardCardsFromPlayEffect(self, shadowCondition));
                         }
                     });

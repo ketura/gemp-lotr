@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
@@ -49,7 +48,6 @@ public class Card1_309 extends AbstractAlly {
             action.appendCost(new ExertCharactersEffect(self, self));
             PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Sam"));
             if (sam != null) {
-                action.appendEffect(new CardAffectsCardEffect(self, sam));
                 action.appendEffect(new HealCharactersEffect(playerId, sam));
             }
             return Collections.singletonList(action);

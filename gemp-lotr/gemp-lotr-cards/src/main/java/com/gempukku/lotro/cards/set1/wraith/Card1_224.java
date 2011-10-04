@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
@@ -55,7 +54,6 @@ public class Card1_224 extends AbstractResponseEvent {
                                             @Override
                                             protected void cardSelected(PhysicalCard nazgul) {
                                                 PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                                action.appendEffect(new CardAffectsCardEffect(self, ringBearer));
                                                 action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
                                                 game.getGameState().setCancelRingText(true);
                                                 game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(

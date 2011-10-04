@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set2.dwarven;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
@@ -49,8 +48,6 @@ public class Card2_004 extends AbstractAttachable {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self));
-            action.appendEffect(
-                    new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1), Phase.SKIRMISH));

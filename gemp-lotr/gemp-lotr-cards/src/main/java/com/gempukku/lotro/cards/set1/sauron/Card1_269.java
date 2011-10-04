@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.CheckLimitEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -49,7 +48,6 @@ public class Card1_269 extends AbstractAttachable {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
                     new RemoveTwilightEffect(1));
-            action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
                             new AddUntilEndOfPhaseModifierEffect(

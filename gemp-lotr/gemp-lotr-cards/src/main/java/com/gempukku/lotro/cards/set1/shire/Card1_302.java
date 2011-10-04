@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -51,7 +50,6 @@ public class Card1_302 extends AbstractCompanion {
                         @Override
                         protected void cardSelected(PhysicalCard anotherCompanion) {
                             int merryStrength = game.getModifiersQuerying().getStrength(game.getGameState(), self);
-                            action.appendEffect(new CardAffectsCardEffect(self, anotherCompanion));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(anotherCompanion), merryStrength), Phase.SKIRMISH));

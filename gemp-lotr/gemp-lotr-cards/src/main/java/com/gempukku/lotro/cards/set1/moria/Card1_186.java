@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
@@ -45,7 +44,6 @@ public class Card1_186 extends AbstractMinion {
                     new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
-                            action.appendEffect(new CardAffectsCardEffect(self, moriaOrc));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(moriaOrc), 2), Phase.SKIRMISH));

@@ -2,7 +2,10 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -56,7 +59,6 @@ public class Card1_047 extends AbstractAttachableFPPossession {
 
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
-            action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1),

@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -49,7 +48,6 @@ public class Card1_123 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.exhausted()) {
                     @Override
                     protected void cardSelected(PhysicalCard exhaustedCompanion) {
-                        action.appendEffect(new CardAffectsCardEffect(self, exhaustedCompanion));
                         action.appendEffect(new DiscardCardsFromPlayEffect(self, exhaustedCompanion));
                     }
                 }

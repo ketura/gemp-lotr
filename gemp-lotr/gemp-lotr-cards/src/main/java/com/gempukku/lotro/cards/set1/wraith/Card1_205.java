@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +42,6 @@ public class Card1_205 extends AbstractEvent {
                     new ChooseActiveCardEffect(playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION))) {
                         @Override
                         protected void cardSelected(PhysicalCard fpCard) {
-                            action.appendEffect(new CardAffectsCardEffect(self, fpCard));
                             action.appendEffect(
                                     new DiscardCardsFromPlayEffect(self, fpCard));
                         }
@@ -53,7 +51,6 @@ public class Card1_205 extends AbstractEvent {
                     new ChooseActiveCardEffect(playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard fpCard) {
-                            action.appendEffect(new CardAffectsCardEffect(self, fpCard));
                             action.appendEffect(
                                     new DiscardCardsFromPlayEffect(self, fpCard));
                         }
