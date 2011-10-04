@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.Culture;
@@ -47,7 +46,6 @@ public class Card1_286 extends AbstractAlly {
                     new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
-                            action.appendEffect(new CardAffectsCardEffect(self, hobbit));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new OverwhelmedByMultiplierModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));

@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -41,7 +40,6 @@ public class Card1_360 extends AbstractSite {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> minion) {
                             super.cardsSelected(game, minion);    //To change body of overridden methods use File | Settings | File Templates.
-                            action.appendEffect(new CardAffectsCardEffect(self, minion));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.in(minion), Keyword.FIERCE), Phase.REGROUP));

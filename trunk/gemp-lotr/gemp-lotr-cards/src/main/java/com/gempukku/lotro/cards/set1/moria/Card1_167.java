@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.moria;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -35,7 +34,6 @@ public class Card1_167 extends AbstractEvent {
                     @Override
                     protected void cardSelected(PhysicalCard orc) {
                         int bonus = Math.min(4, Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(orc))));
-                        action.appendEffect(new CardAffectsCardEffect(self, orc));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(orc), bonus), Phase.SKIRMISH));

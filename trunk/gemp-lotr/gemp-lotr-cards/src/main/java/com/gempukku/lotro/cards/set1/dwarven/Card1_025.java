@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
@@ -41,7 +40,6 @@ public class Card1_025 extends AbstractResponseEvent {
         if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.DWARF))) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
-            action.appendEffect(new CardAffectsCardEffect(self, skirmishResult.getWinners().get(0)));
             action.appendEffect(new HealCharactersEffect(playerId, skirmishResult.getWinners().get(0)));
             return Collections.singletonList(action);
         }

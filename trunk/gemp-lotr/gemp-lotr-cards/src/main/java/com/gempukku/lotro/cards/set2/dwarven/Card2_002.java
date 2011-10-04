@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,8 +42,6 @@ public class Card2_002 extends AbstractEvent {
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
                         super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
                         if (characters.size() > 0) {
-                            action.appendEffect(
-                                    new CardAffectsCardEffect(self, characters));
                             boolean spotsOrc = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(

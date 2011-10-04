@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -47,7 +46,6 @@ public class Card1_109 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
                     @Override
                     protected void cardSelected(PhysicalCard ally) {
-                        action.appendEffect(new CardAffectsCardEffect(self, ally));
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(ally), 2)

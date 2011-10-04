@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -42,7 +41,6 @@ public class Card1_132 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose possession", Filters.type(CardType.POSSESSION)) {
                     @Override
                     protected void cardSelected(PhysicalCard possession) {
-                        action.appendEffect(new CardAffectsCardEffect(self, possession));
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new CancelStrengthBonusModifier(self, Filters.sameCard(possession)), Phase.REGROUP));

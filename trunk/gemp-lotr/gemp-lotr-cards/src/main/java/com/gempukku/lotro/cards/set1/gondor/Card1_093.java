@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -53,7 +52,6 @@ public class Card1_093 extends AbstractEvent {
                         protected FullEffectResult playEffectReturningResult(LotroGame game) {
                             FullEffectResult effectResult = super.playEffectReturningResult(game);
                             if (effectResult.isSuccessful() && aragorn != null) {
-                                action.appendEffect(new CardAffectsCardEffect(self, aragorn));
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(aragorn), 3), Phase.SKIRMISH));
@@ -69,7 +67,6 @@ public class Card1_093 extends AbstractEvent {
                         protected FullEffectResult playEffectReturningResult(LotroGame game) {
                             FullEffectResult effectResult = super.playEffectReturningResult(game);
                             if (effectResult.isSuccessful() && arwen != null) {
-                                action.appendEffect(new CardAffectsCardEffect(self, arwen));
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(arwen), 3), Phase.SKIRMISH));

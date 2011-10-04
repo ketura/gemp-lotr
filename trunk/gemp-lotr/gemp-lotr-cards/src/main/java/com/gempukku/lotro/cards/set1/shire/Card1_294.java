@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -49,7 +48,6 @@ public class Card1_294 extends AbstractEvent {
                                         new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                                             @Override
                                             protected void cardSelected(PhysicalCard hobbit) {
-                                                action.appendEffect(new CardAffectsCardEffect(self, hobbit));
                                                 for (int i = 0; i < twilight; i++)
                                                     action.appendEffect(new HealCharactersEffect(playerId, hobbit));
                                             }

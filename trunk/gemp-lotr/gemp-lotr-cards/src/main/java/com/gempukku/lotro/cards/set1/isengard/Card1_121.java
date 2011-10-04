@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
@@ -50,7 +49,6 @@ public class Card1_121 extends AbstractEvent {
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> urukHai) {
                         super.cardsSelected(game, urukHai);    //To change body of overridden methods use File | Settings | File Templates.
                         if (urukHai.size() > 0) {
-                            action.appendEffect(new CardAffectsCardEffect(self, urukHai));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.in(urukHai), 3), Phase.SKIRMISH));

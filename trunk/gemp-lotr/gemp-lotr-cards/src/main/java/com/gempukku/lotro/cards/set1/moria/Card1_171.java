@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,7 +31,6 @@ public class Card1_171 extends AbstractEvent {
                 new ChooseActiveCardEffect(playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.exhausted(), Filters.canBeAssignedToSkirmish()) {
                     @Override
                     protected void cardSelected(final PhysicalCard companion) {
-                        action.appendEffect(new CardAffectsCardEffect(self, companion));
                         action.appendEffect(
                                 new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canBeAssignedToSkirmish()) {
                                     @Override
