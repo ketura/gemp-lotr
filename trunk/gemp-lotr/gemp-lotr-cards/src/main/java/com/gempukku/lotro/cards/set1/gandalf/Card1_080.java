@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.cards.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -50,7 +50,7 @@ public class Card1_080 extends AbstractAlly {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose card(s) to discard", game.getGameState().getHand(playerId), 0, 3) {
+                    new ChooseCardsFromHandEffect(playerId, 0, 3, Filters.any()) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             action.appendEffect(new DiscardCardsFromHandEffect(self, selectedCards));
