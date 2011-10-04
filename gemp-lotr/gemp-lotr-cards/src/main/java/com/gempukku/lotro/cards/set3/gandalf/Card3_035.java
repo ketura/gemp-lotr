@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set3.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -36,7 +36,7 @@ public class Card3_035 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("Gandalf")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Chooose a companion", Filters.type(CardType.COMPANION)) {
                         @Override

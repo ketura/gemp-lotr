@@ -2,11 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChoiceCost;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -19,7 +15,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.ChooseableCost;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -52,14 +48,14 @@ public class Card1_047 extends AbstractAttachableFPPossession {
                 || game.getGameState().getHand(playerId).size() >= 2)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
 
-            List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
+            List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, 2));
 
             action.appendCost(
-                    new ChoiceCost(action, playerId, possibleCosts));
+                    new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set2.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -55,9 +55,9 @@ public class Card2_022 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self.getAttachedTo()))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self.getAttachedTo()), Filters.inSkirmish()))
                 action.appendEffect(

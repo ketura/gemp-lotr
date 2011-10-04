@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -55,7 +55,7 @@ public class Card1_225 extends AbstractAttachable {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
-            action.appendCost(new ExertCharactersCost(self, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null
                     && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {

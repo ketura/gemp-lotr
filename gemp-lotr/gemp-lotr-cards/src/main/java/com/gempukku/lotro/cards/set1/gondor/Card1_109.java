@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
@@ -42,7 +42,7 @@ public class Card1_109 extends AbstractEvent {
         PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
 
         final PlayEventAction action = new PlayEventAction(self);
-        action.appendCost(new ExertCharactersCost(self, aragorn));
+        action.appendCost(new ExertCharactersEffect(self, aragorn));
         action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
                     @Override

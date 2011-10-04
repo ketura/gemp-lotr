@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set2.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseCardsFromDiscardEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -48,11 +48,11 @@ public class Card2_024 extends AbstractAlly {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.any()) {
                         @Override
-                        protected void cardsSelected(Collection<PhysicalCard> cards) {
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {
                                 action.appendEffect(
                                         new PutCardFromDiscardOnBottomOfDeckEffect(card));

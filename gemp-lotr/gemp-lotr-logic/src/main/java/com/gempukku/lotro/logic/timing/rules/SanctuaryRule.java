@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -57,9 +57,9 @@ public class SanctuaryRule {
             _action.appendEffect(
                     new ChooseActiveCardsEffect(_fpPlayerId, "Sanctuary healing - Choose companion to heal - remaining heals: " + (6 - _counter), 0, 1, Filters.type(CardType.COMPANION)) {
                         @Override
-                        protected void cardsSelected(Collection<PhysicalCard> cards) {
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             if (cards.size() > 0) {
-                                _action.appendEffect(new HealCharacterEffect(_fpPlayerId, cards.iterator().next()));
+                                _action.appendEffect(new HealCharactersEffect(_fpPlayerId, cards.iterator().next()));
                                 if (_counter < 5)
                                     _action.appendEffect(new HealCompanion(_fpPlayerId, _action, _counter + 1));
                             }

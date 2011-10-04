@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set2.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,11 +38,11 @@ public class Card2_101 extends AbstractAlly {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, 2, Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
                         @Override
-                        protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
-                            super.cardsSelected(characters, success);
-                            if (success) {
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
+                            super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
+                            if (characters.size() > 0) {
                                 PhysicalCard companion = characters.iterator().next();
                                 Skirmish skirmish = game.getGameState().getSkirmish();
                                 if (skirmish != null

@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,9 +39,11 @@ public class Card1_181 extends AbstractMinion {
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose MORIA Orc", game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)), 1, 1) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            action.appendEffect(
-                                    new PutCardFromDiscardOnBottomOfDeckEffect(selectedCards.get(0)));
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            for (PhysicalCard selectedCard : selectedCards) {
+                                action.appendEffect(
+                                        new PutCardFromDiscardOnBottomOfDeckEffect(selectedCard));
+                            }
                         }
                     });
             return Collections.singletonList(action);

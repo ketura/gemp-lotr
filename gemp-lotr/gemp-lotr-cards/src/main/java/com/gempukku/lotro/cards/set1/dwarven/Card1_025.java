@@ -11,7 +11,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
@@ -42,7 +42,7 @@ public class Card1_025 extends AbstractResponseEvent {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, skirmishResult.getWinners().get(0)));
-            action.appendEffect(new HealCharacterEffect(playerId, skirmishResult.getWinners().get(0)));
+            action.appendEffect(new HealCharactersEffect(playerId, skirmishResult.getWinners().get(0)));
             return Collections.singletonList(action);
         }
         return null;

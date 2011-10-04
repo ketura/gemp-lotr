@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AssignmentEffect implements Effect {
+public class AssignmentEffect extends AbstractEffect {
     private Map<PhysicalCard, List<PhysicalCard>> _assignments;
     private String _text;
     private String _playerId;
@@ -44,13 +44,18 @@ public class AssignmentEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return true;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         game.getGameState().sendMessage(_playerId + " assigns minion(s) to skirmish");
         for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : _assignments.entrySet()) {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             List<PhysicalCard> minions = physicalCardListEntry.getValue();
             game.getGameState().assignToSkirmishes(fpChar, minions);
         }
-        return new EffectResult[]{new AssignmentResult(_assignments)};
+        return new FullEffectResult(new EffectResult[]{new AssignmentResult(_assignments)}, true, true);
     }
 }

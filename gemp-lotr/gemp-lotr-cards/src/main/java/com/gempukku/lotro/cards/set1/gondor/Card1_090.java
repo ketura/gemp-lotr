@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -51,7 +51,7 @@ public class Card1_090 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
-            action.appendCost(new ExertCharactersCost(self, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.ARCHERY));

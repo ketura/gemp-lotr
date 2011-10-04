@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -40,7 +40,7 @@ public class Card1_147 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
-            action.appendCost(new ExertCharactersCost(self, self));
+            action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose a companion", Filters.type(CardType.COMPANION)) {
                         @Override

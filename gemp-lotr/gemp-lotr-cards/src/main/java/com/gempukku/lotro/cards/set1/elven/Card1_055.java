@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class Card1_055 extends AbstractPermanent {
                 && opponentsHavingAtLeast7Cards(game, playerId).length > 0) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             PhysicalCard galadriel = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Galadriel"));
-            action.appendCost(new ExertCharactersCost(self, galadriel));
+            action.appendCost(new ExertCharactersEffect(self, galadriel));
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new MultipleChoiceAwaitingDecision(1, "Choose opponent with at least 7 cards in hand", opponentsHavingAtLeast7Cards(game, playerId)) {
@@ -55,9 +56,10 @@ public class Card1_055 extends AbstractPermanent {
                                         action.appendEffect(
                                                 new ChooseArbitraryCardsEffect(playerId, "Choose card to discard", randomCardsFromHand, 1, 1) {
                                                     @Override
-                                                    protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                                        action.appendEffect(
-                                                                new DiscardCardFromDeckEffect(chosenOpponent, selectedCards.get(0)));
+                                                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                                                        for (PhysicalCard selectedCard : selectedCards)
+                                                            action.appendEffect(
+                                                                    new DiscardCardFromDeckEffect(chosenOpponent, selectedCard));
                                                     }
                                                 });
                                     }

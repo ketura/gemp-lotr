@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.KillEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -48,7 +48,7 @@ public class ResolveSkirmishRule {
                             RequiredTriggerAction action = new RequiredTriggerAction(null);
                             for (int i = 0; i < dmg; i++) {
                                 action.appendEffect(
-                                        new WoundCharacterEffect(winners, Filters.in(losers)));
+                                        new WoundCharactersEffect(winners, Filters.in(losers)));
                             }
 
                             return Collections.singletonList(action);

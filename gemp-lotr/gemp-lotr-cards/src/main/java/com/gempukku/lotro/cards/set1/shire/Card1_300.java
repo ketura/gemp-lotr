@@ -8,9 +8,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,9 +37,8 @@ public class Card1_300 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose up to 2 cards to discard from hand", game.getGameState().getHand(playerId), 0, 2) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            for (PhysicalCard selectedCard : selectedCards)
-                                action.appendEffect(new DiscardCardFromHandEffect(self, selectedCard));
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            action.appendEffect(new DiscardCardsFromHandEffect(self, selectedCards));
                         }
                     });
             return Collections.singletonList(action);

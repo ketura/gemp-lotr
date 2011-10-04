@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -13,7 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 
 import java.util.Collection;
 
@@ -45,18 +45,18 @@ public class Card1_019 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
         action.appendEffect(
                 new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 1, 2, Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> cards) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         action.appendEffect(new CardAffectsCardEffect(self, cards));
                         if (cards.size() == 2) {
                             action.appendEffect(
-                                    new WoundCharacterEffect(self, Filters.in(cards)));
+                                    new WoundCharactersEffect(self, Filters.in(cards)));
                         } else {
-                            action.appendEffect(new WoundCharacterEffect(self, Filters.in(cards)));
-                            action.appendEffect(new WoundCharacterEffect(self, Filters.in(cards)));
+                            action.appendEffect(new WoundCharactersEffect(self, Filters.in(cards)));
+                            action.appendEffect(new WoundCharactersEffect(self, Filters.in(cards)));
                         }
                     }
                 }

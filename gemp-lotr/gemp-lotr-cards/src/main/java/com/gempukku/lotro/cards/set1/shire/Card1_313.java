@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -57,7 +57,7 @@ public class Card1_313 extends AbstractAttachableFPPossession {
                 keyword = Keyword.REGROUP;
 
             final ActivateCardAction action = new ActivateCardAction(self, keyword);
-            action.appendCost(new ExertCharactersCost(self, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

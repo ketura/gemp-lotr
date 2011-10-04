@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -39,7 +39,7 @@ public class Card1_050 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
-            action.appendCost(new ExertCharactersCost(self, self));
+            action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self)), Phase.ARCHERY));

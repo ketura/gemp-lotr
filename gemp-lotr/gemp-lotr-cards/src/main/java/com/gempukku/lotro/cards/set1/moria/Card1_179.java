@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -16,6 +15,7 @@ import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class Card1_179 extends AbstractMinion {
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),
                             Filters.and(
-                                    Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)),
+                                    Filters.weapon(),
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -54,9 +54,11 @@ public class Card1_179 extends AbstractMinion {
                                     })
                             , 1, 1) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            PhysicalCard selectedCard = selectedCards.get(0);
-                            game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, additionalAttachmentFilter, 0));
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            if (selectedCards.size() > 0) {
+                                PhysicalCard selectedCard = selectedCards.iterator().next();
+                                game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, additionalAttachmentFilter, 0));
+                            }
                         }
                     });
             return Collections.singletonList(action);

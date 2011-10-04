@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set2.wraith;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
 import com.gempukku.lotro.cards.effects.TakeOffTheOneRingEffect;
 import com.gempukku.lotro.common.*;
@@ -14,8 +14,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,23 +49,13 @@ public class Card2_079 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)));
         action.appendEffect(
-                new ExertCharacterEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                new ExertCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
         action.appendEffect(
-                new Effect() {
+                new UnrespondableEffect() {
                     @Override
-                    public String getText(LotroGame game) {
-                        return null;
-                    }
-
-                    @Override
-                    public EffectResult.Type getType() {
-                        return null;
-                    }
-
-                    @Override
-                    public EffectResult[] playEffect(LotroGame game) {
+                    protected void doPlayEffect(LotroGame game) {
                         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.exhausted())) {
                             action.insertEffect(
                                     new PutOnTheOneRingEffect());
@@ -84,7 +74,6 @@ public class Card2_079 extends AbstractEvent {
                                         }
                                     }, Phase.REGROUP);
                         }
-                        return null;
                     }
                 });
         return action;

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set2.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -42,9 +42,9 @@ public class Card2_029 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self.getAttachedTo()))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose minion", Filters.type(CardType.MINION)) {
                         @Override

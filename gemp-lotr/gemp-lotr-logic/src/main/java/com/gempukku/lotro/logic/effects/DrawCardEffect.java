@@ -1,13 +1,13 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
-public class DrawCardEffect implements Effect {
+public class DrawCardEffect extends AbstractEffect {
     private String _playerId;
-    private int _count;
+    private final int _count;
 
     public DrawCardEffect(String playerId, int count) {
         _playerId = playerId;
@@ -25,7 +25,12 @@ public class DrawCardEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return game.getGameState().getDeck(_playerId).size() >= _count;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         int drawn = 0;
         for (int i = 0; i < _count; i++) {
             if (game.getGameState().getDeck(_playerId).size() > 0 && game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _playerId)) {
@@ -36,8 +41,8 @@ public class DrawCardEffect implements Effect {
         game.getGameState().sendMessage(_playerId + " draws " + drawn + " card(s)");
 
         if (drawn > 0)
-            return new EffectResult[]{new DrawCardOrPutIntoHandResult(_playerId, drawn)};
+            return new FullEffectResult(new EffectResult[]{new DrawCardOrPutIntoHandResult(_playerId, drawn)}, _count == drawn, _count == drawn);
         else
-            return null;
+            return new FullEffectResult(null, false, false);
     }
 }

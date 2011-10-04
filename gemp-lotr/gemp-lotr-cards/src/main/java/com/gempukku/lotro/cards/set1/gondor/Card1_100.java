@@ -2,18 +2,17 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChoiceCost;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.ChooseableCost;
-import com.gempukku.lotro.logic.timing.CostResolution;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -39,20 +38,20 @@ public class Card1_100 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Arwen"), Filters.name("Aragorn")))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
 
-            List<ChooseableCost> possibleEffects = new LinkedList<ChooseableCost>();
+            List<Effect> possibleEffects = new LinkedList<Effect>();
 
             final PhysicalCard arwen = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Arwen"));
             final PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
 
             if (arwen != null) {
                 possibleEffects.add(
-                        new ExertCharactersCost(self, arwen) {
+                        new ExertCharactersEffect(self, arwen) {
                             @Override
-                            public CostResolution playCost(LotroGame game) {
-                                CostResolution effectResult = super.playCost(game);
+                            protected FullEffectResult playEffectReturningResult(LotroGame game) {
+                                FullEffectResult effectResult = super.playEffectReturningResult(game);
                                 if (effectResult.isSuccessful() && aragorn != null) {
                                     action.appendEffect(new CardAffectsCardEffect(self, aragorn));
-                                    action.appendEffect(new HealCharacterEffect(playerId, aragorn));
+                                    action.appendEffect(new HealCharactersEffect(playerId, aragorn));
                                 }
                                 return effectResult;
                             }
@@ -60,21 +59,21 @@ public class Card1_100 extends AbstractPermanent {
             }
             if (aragorn != null) {
                 possibleEffects.add(
-                        new ExertCharactersCost(self, aragorn) {
+                        new ExertCharactersEffect(self, aragorn) {
                             @Override
-                            public CostResolution playCost(LotroGame game) {
-                                CostResolution effectResult = super.playCost(game);
+                            protected FullEffectResult playEffectReturningResult(LotroGame game) {
+                                FullEffectResult effectResult = super.playEffectReturningResult(game);
                                 if (effectResult.isSuccessful() && arwen != null) {
                                     action.appendEffect(new CardAffectsCardEffect(self, arwen));
-                                    action.appendEffect(new HealCharacterEffect(playerId, arwen));
+                                    action.appendEffect(new HealCharactersEffect(playerId, arwen));
                                 }
-                                return effectResult;
+                                return effectResult;    //To change body of overridden methods use File | Settings | File Templates.
                             }
                         });
             }
 
             action.appendCost(
-                    new ChoiceCost(action, playerId, possibleEffects));
+                    new ChoiceEffect(action, playerId, possibleEffects));
             return Collections.singletonList(action);
         }
         return null;

@@ -3,12 +3,12 @@ package com.gempukku.lotro.cards.set2.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 
 /**
  * Set: Mines of Moria
@@ -38,12 +38,12 @@ public class Card2_019 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
         action.appendEffect(
-                new WoundCharacterEffect(self, Filters.race(Race.NAZGUL)));
+                new WoundCharactersEffect(self, Filters.race(Race.NAZGUL)));
         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER))
             action.appendEffect(
-                    new WoundCharacterEffect(self, Filters.race(Race.NAZGUL)));
+                    new WoundCharactersEffect(self, Filters.race(Race.NAZGUL)));
         return action;
     }
 }

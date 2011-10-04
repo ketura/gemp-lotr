@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -38,7 +38,7 @@ public class Card1_312 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)));
         action.appendEffect(new RemoveBurdenEffect(self));
         return action;
     }

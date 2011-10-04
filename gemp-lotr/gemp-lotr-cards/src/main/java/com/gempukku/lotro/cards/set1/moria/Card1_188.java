@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
@@ -14,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -39,7 +39,7 @@ public class Card1_188 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new DiscardCardsFromPlayCost(self, self));
+                    new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose your MORIA Orc", Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                         @Override

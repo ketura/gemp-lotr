@@ -13,7 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
@@ -51,9 +51,9 @@ public class Card1_244 extends AbstractAttachable {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT
                 && ((AssignmentResult) effectResult).getAssignments().containsKey(self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+            List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self));
+                    new AddBurdenEffect(self, 1));
             possibleEffects.add(
                     new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), 3));
             action.appendEffect(

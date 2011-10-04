@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.set2.sauron;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -13,7 +13,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,8 +46,8 @@ public class Card2_088 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)));
-        List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)));
+        List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.ALLY)) {
                     @Override

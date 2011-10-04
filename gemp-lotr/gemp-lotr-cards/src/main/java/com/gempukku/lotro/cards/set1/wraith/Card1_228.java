@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
@@ -41,11 +41,9 @@ public class Card1_228 extends AbstractResponseEvent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL))) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
             action.appendEffect(
-                    new AddBurdenEffect(self));
-            action.appendEffect(
-                    new AddBurdenEffect(self));
+                    new AddBurdenEffect(self, 2));
             return Collections.singletonList(action);
         }
         return null;

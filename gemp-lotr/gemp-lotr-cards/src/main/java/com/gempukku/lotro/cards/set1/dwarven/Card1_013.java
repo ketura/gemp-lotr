@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -39,7 +39,7 @@ public class Card1_013 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
 
-            action.appendCost(new ExertCharactersCost(self, self));
+            action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));
 
             return Collections.singletonList(action);

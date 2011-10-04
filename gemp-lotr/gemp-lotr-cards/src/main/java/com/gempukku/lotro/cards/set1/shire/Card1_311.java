@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.MakeRingBearerEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.*;
@@ -46,7 +46,7 @@ public class Card1_311 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
-            action.appendCost(new ExertCharactersCost(self, self));
+            action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(new RemoveBurdenEffect(self));
             return Collections.singletonList(action);
         }

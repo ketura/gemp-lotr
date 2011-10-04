@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,7 +39,7 @@ public class Card1_089 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, Filters.sameCard(self), Keyword.DEFENDER), Phase.REGROUP));

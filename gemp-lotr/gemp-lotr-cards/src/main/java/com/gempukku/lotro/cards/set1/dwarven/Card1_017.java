@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.*;
@@ -39,16 +39,18 @@ public class Card1_017 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
-            action.appendCost(new ExertCharactersCost(self, self));
+            action.appendCost(new ExertCharactersEffect(self, self));
 
             Collection<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), Filters.type(CardType.EVENT));
 
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to shuffle into draw deck", new LinkedList<PhysicalCard>(discardedDwarvenEvents), 1, 1) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            action.appendEffect(
-                                    new PutCardFromDiscardOnBottomOfDeckEffect(selectedCards.get(0)));
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            for (PhysicalCard selectedCard : selectedCards) {
+                                action.appendEffect(
+                                        new PutCardFromDiscardOnBottomOfDeckEffect(selectedCard));
+                            }
                             action.appendEffect(new ShuffleDeckEffect(playerId));
                         }
                     }

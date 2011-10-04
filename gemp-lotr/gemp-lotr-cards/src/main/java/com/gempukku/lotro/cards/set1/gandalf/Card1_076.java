@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -49,8 +49,8 @@ public class Card1_076 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND
                 && checkPlayRequirements(playerId, game, self, 0)) {
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeAffected(game);
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
 
             if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final PlayEventAction action = new PlayEventAction(self);

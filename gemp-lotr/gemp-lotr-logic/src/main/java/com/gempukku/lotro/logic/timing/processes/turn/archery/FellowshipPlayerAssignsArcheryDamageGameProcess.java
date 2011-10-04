@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
@@ -46,7 +46,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                 if (possibleWoundTargets.size() == 1) {
                     PhysicalCard selectedCard = possibleWoundTargets.iterator().next();
                     RequiredTriggerAction action = new RequiredTriggerAction(null);
-                    action.appendEffect(new WoundCharacterEffect((PhysicalCard) null, selectedCard));
+                    action.appendEffect(new WoundCharactersEffect((PhysicalCard) null, selectedCard));
                     _game.getActionsEnvironment().addActionToStack(action);
                     if (_woundsToAssign > 1)
                         _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);
@@ -59,7 +59,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
                                     RequiredTriggerAction action = new RequiredTriggerAction(null);
-                                    action.appendEffect(new WoundCharacterEffect((PhysicalCard) null, selectedCard));
+                                    action.appendEffect(new WoundCharactersEffect((PhysicalCard) null, selectedCard));
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (_woundsToAssign > 1)
                                         _nextProcess = new FellowshipPlayerAssignsArcheryDamageGameProcess(_game, _woundsToAssign - 1, _followingGameProcess);

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,7 +38,7 @@ public class Card3_060 extends AbstractMinion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             int characterSpot = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
             if (characterSpot >= 5) {
                 action.appendEffect(

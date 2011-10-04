@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -39,7 +39,7 @@ public class Card1_056 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
-            action.appendCost(new ExertCharactersCost(self, self));
+            action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
             return Collections.singletonList(action);

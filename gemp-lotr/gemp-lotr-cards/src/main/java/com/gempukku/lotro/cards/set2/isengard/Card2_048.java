@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set2.isengard;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -51,7 +51,7 @@ public class Card2_048 extends AbstractAttachable {
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)));
         return action;
     }
 
@@ -61,7 +61,7 @@ public class Card2_048 extends AbstractAttachable {
                 && game.getGameState().getCurrentSite() == self) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharacterEffect(self, Filters.type(CardType.COMPANION)));
+                    new ExertCharactersEffect(self, Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
 

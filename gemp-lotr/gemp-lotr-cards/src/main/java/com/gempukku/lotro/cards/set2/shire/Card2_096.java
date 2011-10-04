@@ -2,9 +2,8 @@ package com.gempukku.lotro.cards.set2.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,9 +37,9 @@ public class Card2_096 extends AbstractAlly {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.TALE))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.keyword(Keyword.TALE)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.TALE)));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION), Filters.zone(Zone.SHADOW_SUPPORT)));
             return Collections.singletonList(action);

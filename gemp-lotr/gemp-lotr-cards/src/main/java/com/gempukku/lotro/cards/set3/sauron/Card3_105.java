@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set3.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.common.CardType;
@@ -51,7 +50,7 @@ public class Card3_105 extends AbstractEvent {
                                 return "Discard Bilbo";
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                        new ChooseAndDiscardCardsFromPlayCost(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION))));
+                        new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION))));
         return action;
     }
 }

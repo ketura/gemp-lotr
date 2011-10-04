@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -33,15 +33,13 @@ public class Card3_073 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndDiscardCardsFromPlayCost(action, playerId, 0, Integer.MAX_VALUE, Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, Integer.MAX_VALUE, Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> cards, boolean success) {
-                        super.cardsSelected(cards, success);
-                        if (success) {
-                            int discardedOrcs = cards.size();
-                            action.appendEffect(
-                                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), discardedOrcs, discardedOrcs, Filters.type(CardType.COMPANION)));
-                        }
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+                        super.cardsSelected(game, cards);    //To change body of overridden methods use File | Settings | File Templates.
+                        int discardedOrcs = cards.size();
+                        action.appendEffect(
+                                new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), discardedOrcs, discardedOrcs, Filters.type(CardType.COMPANION)));
                     }
                 });
         return action;

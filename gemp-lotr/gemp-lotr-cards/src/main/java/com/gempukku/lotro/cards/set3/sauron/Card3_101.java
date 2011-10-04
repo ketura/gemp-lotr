@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set3.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,9 +39,9 @@ public class Card3_101 extends AbstractMinion {
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.SAURON), Filters.type(CardType.CONDITION)) > 0) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.SAURON), Filters.type(CardType.CONDITION)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.SAURON), Filters.type(CardType.CONDITION)));
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
             action.appendEffect(

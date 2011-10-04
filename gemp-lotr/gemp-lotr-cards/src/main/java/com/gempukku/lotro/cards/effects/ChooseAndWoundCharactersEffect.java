@@ -1,17 +1,19 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
 
 import java.util.Collection;
 
-public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect implements ChooseableEffect {
+public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
     private CostToEffectAction _action;
 
     public ChooseAndWoundCharactersEffect(CostToEffectAction action, String playerId, int minimum, int maximum, Filter... filters) {
@@ -30,9 +32,9 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect impl
     }
 
     @Override
-    protected void cardsSelected(Collection<PhysicalCard> characters) {
-        if (_action.getActionSource() != null)
-            _action.appendEffect(new CardAffectsCardEffect(_action.getActionSource(), characters));
-        _action.appendEffect(new WoundCharacterEffect(_action.getActionSource(), characters.toArray(new PhysicalCard[characters.size()])));
+    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+        SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+        subAction.appendEffect(new WoundCharactersEffect(_action.getActionSource(), Filters.in(cards)));
+        game.getActionsEnvironment().addActionToStack(subAction);
     }
 }

@@ -2,10 +2,9 @@ package com.gempukku.lotro.cards.set2.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChoiceCost;
-import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -15,10 +14,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.ChooseableCost;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -55,13 +54,13 @@ public class Card2_089 extends AbstractMinion {
             PlayEventEffect playEffect = (PlayEventEffect) effect;
             if (playEffect.isRequiresRanger()) {
                 ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
-                List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
+                List<Effect> possibleCosts = new LinkedList<Effect>();
                 possibleCosts.add(
-                        new ExertCharactersCost(self, self));
+                        new ExertCharactersEffect(self, self));
                 possibleCosts.add(
-                        new DiscardCardsFromPlayCost(self));
+                        new DiscardCardsFromPlayEffect(self));
                 action.appendCost(
-                        new ChoiceCost(action, playerId, possibleCosts));
+                        new ChoiceEffect(action, playerId, possibleCosts));
                 action.appendEffect(
                         new CancelEventEffect(playerId, playEffect));
                 return Collections.singletonList(action);

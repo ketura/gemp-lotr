@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -44,7 +44,7 @@ public class Card3_110 extends AbstractAlly {
             if (addBurdenEffect.getSource().getBlueprint().getSide() == Side.SHADOW) {
                 ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendCost(
-                        new ExertCharactersCost(self, self));
+                        new ExertCharactersEffect(self, self));
                 action.appendEffect(
                         new UnrespondableEffect() {
                             @Override

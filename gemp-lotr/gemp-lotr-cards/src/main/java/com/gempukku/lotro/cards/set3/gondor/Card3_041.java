@@ -2,15 +2,15 @@ package com.gempukku.lotro.cards.set3.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
-import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -37,9 +37,9 @@ public class Card3_041 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
             action.appendCost(
-                    new DiscardCardsFromPlayCost(self));
+                    new DiscardCardsFromPlayEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2), Phase.ARCHERY));

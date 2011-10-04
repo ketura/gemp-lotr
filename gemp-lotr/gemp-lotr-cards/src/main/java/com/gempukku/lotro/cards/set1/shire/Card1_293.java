@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -45,16 +45,14 @@ public class Card1_293 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.HOBBIT)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> hobbit, boolean success) {
-                        super.cardsSelected(hobbit, success);
-                        if (success) {
-                            action.appendEffect(new CardAffectsCardEffect(self, hobbit));
-                            action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.in(hobbit), 3), Phase.SKIRMISH));
-                        }
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> hobbit) {
+                        super.cardsSelected(game, hobbit);
+                        action.appendEffect(new CardAffectsCardEffect(self, hobbit));
+                        action.appendEffect(
+                                new AddUntilEndOfPhaseModifierEffect(
+                                        new StrengthModifier(self, Filters.in(hobbit), 3), Phase.SKIRMISH));
                     }
                 });
         return action;

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -10,7 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
@@ -58,11 +58,11 @@ public class Card3_029 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("Gandalf")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
             action.appendEffect(
-                    new WoundCharacterEffect(self, Filters.name("Saruman")));
+                    new WoundCharactersEffect(self, Filters.name("Saruman")));
             action.appendEffect(
-                    new WoundCharacterEffect(self, Filters.name("Saruman")));
+                    new WoundCharactersEffect(self, Filters.name("Saruman")));
             return Collections.singletonList(action);
         }
         return null;

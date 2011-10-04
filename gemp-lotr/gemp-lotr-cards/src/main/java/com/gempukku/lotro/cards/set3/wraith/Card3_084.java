@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.wraith;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -54,7 +54,7 @@ public class Card3_084 extends AbstractEvent {
                                             protected void cardSelected(PhysicalCard card) {
                                                 for (int i = 0; i < twilightCost; i++)
                                                     action.appendEffect(
-                                                            new ExertCharacterEffect(self, card));
+                                                            new ExertCharactersEffect(self, card));
                                             }
                                         });
                             }

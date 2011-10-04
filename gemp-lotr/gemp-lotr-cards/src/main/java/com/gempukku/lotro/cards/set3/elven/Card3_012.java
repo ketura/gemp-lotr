@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -39,7 +39,7 @@ public class Card3_012 extends AbstractAlly {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new RemoveTwilightEffect(2));
             return Collections.singletonList(action);

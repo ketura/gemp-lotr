@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -47,16 +47,16 @@ public class Card3_014 extends AbstractAlly {
     @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND) {
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            Collection<PhysicalCard> woundedCharacters = woundEffect.getCardsToBeAffected(game);
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             Collection<PhysicalCard> woundSources = woundEffect.getSources();
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)).size() > 0) {
                 if (woundSources != null && Filters.filter(woundSources, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.or(Filters.type(CardType.MINION), Filters.type(CardType.EVENT))).size() > 0) {
                     final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                     action.appendCost(
-                            new ExertCharactersCost(self, self));
+                            new ExertCharactersEffect(self, self));
                     action.appendEffect(
-                            new ChooseActiveCardEffect(playerId, "Choose an Elf to prevent wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
+                            new ChooseActiveCardEffect(playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
                                 @Override
                                 protected void cardSelected(PhysicalCard card) {
                                     action.insertEffect(

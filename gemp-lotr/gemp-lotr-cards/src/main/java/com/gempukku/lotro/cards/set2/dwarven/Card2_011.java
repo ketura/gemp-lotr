@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -37,7 +37,7 @@ public class Card2_011 extends AbstractPermanent {
                 && game.getGameState().getDeck(playerId).size() >= 3) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.type(CardType.COMPANION)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.type(CardType.COMPANION)));
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(playerId));
             action.appendCost(

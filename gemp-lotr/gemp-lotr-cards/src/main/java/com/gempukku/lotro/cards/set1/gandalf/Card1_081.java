@@ -13,6 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Card1_081 extends AbstractEvent {
         action.appendEffect(
                 new ChooseArbitraryCardsEffect(playerId, "Choose cards to put into hand", cards, Math.min(cards.size(), 2), Math.min(cards.size(), 2)) {
                     @Override
-                    protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                         for (PhysicalCard selectedCard : selectedCards) {
                             action.appendEffect(new PutCardFromDeckIntoHandOrDiscardEffect(selectedCard));
                             cards.remove(selectedCard);

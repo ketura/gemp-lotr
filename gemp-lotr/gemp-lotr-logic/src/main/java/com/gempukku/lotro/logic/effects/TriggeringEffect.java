@@ -1,10 +1,10 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class TriggeringEffect implements Effect {
+public class TriggeringEffect extends AbstractSuccessfulEffect {
     private EffectResult _effectResult;
     private String _text;
 

@@ -11,8 +11,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Card1_073 extends AbstractPermanent {
                         || Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.ARTIFACT), Filters.type(CardType.POSSESSION))).size() > 0)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
 
-            List<ChooseableEffect> possibleChoices = new LinkedList<ChooseableEffect>();
+            List<Effect> possibleChoices = new LinkedList<Effect>();
             possibleChoices.add(
                     new ChooseArbitraryCardsEffect(playerId, "Choose Free Peoples artifact or possession", game.getGameState().getHand(playerId), Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.ARTIFACT), Filters.type(CardType.POSSESSION))), 1, 1) {
                         @Override
@@ -48,8 +49,8 @@ public class Card1_073 extends AbstractPermanent {
                         }
 
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            action.appendEffect(new StackCardFromHandEffect(selectedCards.get(0), self));
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            action.appendEffect(new StackCardFromHandEffect(selectedCards.iterator().next(), self));
                         }
                     });
             possibleChoices.add(
@@ -60,8 +61,8 @@ public class Card1_073 extends AbstractPermanent {
                         }
 
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            PhysicalCard selectedCard = selectedCards.get(0);
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            PhysicalCard selectedCard = selectedCards.iterator().next();
                             game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
                         }
                     });

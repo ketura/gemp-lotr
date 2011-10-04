@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set2.wraith;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -41,7 +41,7 @@ public class Card2_080 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("The Witch-king")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("The Witch-king")));
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Filters.keyword(Keyword.TALE), Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON))));
         return action;

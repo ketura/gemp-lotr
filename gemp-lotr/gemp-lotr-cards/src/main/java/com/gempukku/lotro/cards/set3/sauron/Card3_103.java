@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.common.*;
@@ -59,7 +59,7 @@ public class Card3_103 extends AbstractEvent {
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Galadriel")));
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                        new ChooseAndDiscardCardsFromPlayCost(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.race(Race.ELF)) {
+                        new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.race(Race.ELF)) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Discard 2 Elves from play";

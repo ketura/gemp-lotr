@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -42,7 +42,7 @@ public class Card1_068 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
-            action.appendCost(new ExertCharactersCost(self, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -34,7 +34,7 @@ public class Card1_332 extends AbstractSite {
 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new ExertCharacterEffect(self, Filters.and(Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))));
+                action.appendEffect(new ExertCharactersEffect(self, Filters.and(Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))));
                 return Collections.singletonList(action);
             }
         }

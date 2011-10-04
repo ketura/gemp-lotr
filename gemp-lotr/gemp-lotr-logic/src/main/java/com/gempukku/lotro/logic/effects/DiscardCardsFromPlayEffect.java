@@ -45,16 +45,14 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
     @Override
     public String getText(LotroGame game) {
-        Collection<PhysicalCard> cards = getCardsToBeAffected(game);
+        Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
         return "Discard - " + getAppendedNames(cards);
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
-        Collection<PhysicalCard> cardsToDiscard = getCardsToBeAffected(game);
-
+    protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
-        for (PhysicalCard card : cardsToDiscard) {
+        for (PhysicalCard card : cards) {
             discardedCards.add(card);
 
             GameState gameState = game.getGameState();

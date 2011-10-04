@@ -10,7 +10,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
 import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
@@ -45,7 +45,7 @@ public class Card1_206 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && ((EndOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+            List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL)));
             possibleEffects.add(

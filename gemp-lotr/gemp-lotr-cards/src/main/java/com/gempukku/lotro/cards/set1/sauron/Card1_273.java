@@ -44,9 +44,8 @@ public class Card1_273 extends AbstractResponseEvent {
                     && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC)).size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);
                 int burdens = (game.getGameState().isWearingRing()) ? 3 : 1;
-                for (int i = 0; i < burdens; i++)
-                    action.appendEffect(
-                            new AddBurdenEffect(self));
+                action.appendEffect(
+                        new AddBurdenEffect(self, burdens));
                 return Collections.singletonList(action);
             }
         }

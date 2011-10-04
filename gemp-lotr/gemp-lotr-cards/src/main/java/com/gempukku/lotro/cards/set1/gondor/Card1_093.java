@@ -2,10 +2,10 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChoiceCost;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -13,8 +13,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.ChooseableCost;
-import com.gempukku.lotro.logic.timing.CostResolution;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,30 +44,30 @@ public class Card1_093 extends AbstractEvent {
 
         final PlayEventAction action = new PlayEventAction(self);
 
-        List<ChooseableCost> possibleEffects = new LinkedList<ChooseableCost>();
+        List<Effect> possibleEffects = new LinkedList<Effect>();
 
         if (arwen != null) {
             possibleEffects.add(
-                    new ExertCharactersCost(self, arwen) {
+                    new ExertCharactersEffect(self, arwen) {
                         @Override
-                        public CostResolution playCost(LotroGame game) {
-                            CostResolution effectResolution = super.playCost(game);
-                            if (effectResolution.isSuccessful() && aragorn != null) {
+                        protected FullEffectResult playEffectReturningResult(LotroGame game) {
+                            FullEffectResult effectResult = super.playEffectReturningResult(game);
+                            if (effectResult.isSuccessful() && aragorn != null) {
                                 action.appendEffect(new CardAffectsCardEffect(self, aragorn));
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(aragorn), 3), Phase.SKIRMISH));
                             }
-                            return effectResolution;
+                            return effectResult;
                         }
                     });
         }
         if (aragorn != null) {
             possibleEffects.add(
-                    new ExertCharactersCost(self, aragorn) {
+                    new ExertCharactersEffect(self, aragorn) {
                         @Override
-                        public CostResolution playCost(LotroGame game) {
-                            CostResolution effectResult = super.playCost(game);
+                        protected FullEffectResult playEffectReturningResult(LotroGame game) {
+                            FullEffectResult effectResult = super.playEffectReturningResult(game);
                             if (effectResult.isSuccessful() && arwen != null) {
                                 action.appendEffect(new CardAffectsCardEffect(self, arwen));
                                 action.appendEffect(
@@ -81,7 +80,7 @@ public class Card1_093 extends AbstractEvent {
         }
 
         action.appendCost(
-                new ChoiceCost(action, playerId, possibleEffects));
+                new ChoiceEffect(action, playerId, possibleEffects));
         return action;
     }
 

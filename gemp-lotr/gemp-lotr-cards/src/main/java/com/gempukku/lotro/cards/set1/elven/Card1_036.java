@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -46,7 +46,7 @@ public class Card1_036 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override

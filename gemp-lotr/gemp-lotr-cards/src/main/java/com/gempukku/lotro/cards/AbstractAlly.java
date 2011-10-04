@@ -5,8 +5,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -37,11 +37,11 @@ public class AbstractAlly extends AbstractPermanent {
     protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, null);
-            action.appendCost(new DiscardCardFromHandEffect(null, self));
+            action.appendCost(new DiscardCardsFromHandEffect(null, Collections.singleton(self)));
 
             PhysicalCard active = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
             if (active != null)
-                action.appendEffect(new HealCharacterEffect(playerId, active));
+                action.appendEffect(new HealCharactersEffect(playerId, active));
 
             return Collections.singletonList(action);
         }

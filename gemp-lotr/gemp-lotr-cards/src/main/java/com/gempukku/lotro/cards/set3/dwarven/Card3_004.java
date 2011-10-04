@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -33,7 +33,7 @@ public class Card3_004 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.ALLY))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.type(CardType.ALLY)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.type(CardType.ALLY)));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.DWARF), Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);

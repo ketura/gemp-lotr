@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -44,9 +44,9 @@ public class Card3_013 extends AbstractAlly {
                         @Override
                         protected void cardSelected(PhysicalCard ally) {
                             action.insertEffect(
-                                    new HealCharacterEffect(playerId, ally));
+                                    new HealCharactersEffect(playerId, ally));
                             action.insertEffect(
-                                    new HealCharacterEffect(playerId, ally));
+                                    new HealCharactersEffect(playerId, ally));
                         }
                     });
             return Collections.singletonList(action);
@@ -60,9 +60,9 @@ public class Card3_013 extends AbstractAlly {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);

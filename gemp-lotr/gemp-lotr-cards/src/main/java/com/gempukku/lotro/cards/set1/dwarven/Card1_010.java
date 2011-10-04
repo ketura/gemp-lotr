@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -13,7 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -42,13 +42,13 @@ public class Card1_010 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new HealCharacterEffect(self.getOwner(), self.getAttachedTo()));
-            action.appendEffect(new HealCharacterEffect(self.getOwner(), self.getAttachedTo()));
+            action.appendEffect(new HealCharactersEffect(self.getOwner(), self.getAttachedTo()));
+            action.appendEffect(new HealCharactersEffect(self.getOwner(), self.getAttachedTo()));
             return Collections.singletonList(action);
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-            action.appendEffect(new ExertCharacterEffect(self, self.getAttachedTo()));
+            action.appendEffect(new ExertCharactersEffect(self, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
 

@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -40,7 +40,7 @@ public class Card1_058 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 2, 2, Filters.race(Race.ELF)));
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.race(Race.ELF)));
         action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                     @Override

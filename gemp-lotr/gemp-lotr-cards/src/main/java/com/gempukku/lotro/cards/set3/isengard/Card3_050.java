@@ -12,9 +12,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.ChooseableCost;
-import com.gempukku.lotro.logic.timing.CostResolution;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 
@@ -52,31 +49,7 @@ public class Card3_050 extends AbstractEvent {
                     new PreventableEffect(action,
                             new ExhaustCharacterEffect(playerId, action, aragorn),
                             Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                            new ChooseableCost() {
-                                @Override
-                                public boolean canPlayCost(LotroGame game) {
-                                    return true;
-                                }
-
-                                @Override
-                                public String getText(LotroGame game) {
-                                    return "Add 2 burdens";
-                                }
-
-                                @Override
-                                public EffectResult.Type getType() {
-                                    return null;
-                                }
-
-                                @Override
-                                public CostResolution playCost(LotroGame game) {
-                                    action.appendEffect(
-                                            new AddBurdenEffect(self));
-                                    action.appendEffect(
-                                            new AddBurdenEffect(self));
-                                    return new CostResolution(null, true);
-                                }
-                            }));
+                            new AddBurdenEffect(self, 2)));
         return action;
     }
 }

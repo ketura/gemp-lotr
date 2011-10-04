@@ -13,7 +13,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -48,7 +48,7 @@ public class Card3_032 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+        List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
                 new ChooseCardsFromDiscardEffect(playerId, 0, 2, Filters.culture(Culture.GANDALF)) {
                     @Override
@@ -57,7 +57,7 @@ public class Card3_032 extends AbstractEvent {
                     }
 
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> cards) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         for (PhysicalCard card : cards) {
                             action.appendEffect(
                                     new PutCardFromDiscardOnBottomOfDeckEffect(card));
@@ -74,7 +74,7 @@ public class Card3_032 extends AbstractEvent {
                     }
 
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> cards) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         for (PhysicalCard card : cards) {
                             action.appendEffect(
                                     new PutCardFromDiscardOnBottomOfDeckEffect(card));

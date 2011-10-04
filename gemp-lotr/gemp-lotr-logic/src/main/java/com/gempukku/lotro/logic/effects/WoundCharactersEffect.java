@@ -11,25 +11,20 @@ import com.gempukku.lotro.logic.timing.results.WoundResult;
 import java.util.Collection;
 import java.util.Collections;
 
-public class WoundCharacterEffect extends AbstractPreventableCardEffect {
+public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     private Collection<PhysicalCard> _sources;
 
-    public WoundCharacterEffect(Collection<PhysicalCard> sources, PhysicalCard... cards) {
-        super(cards);
-        _sources = sources;
-    }
-
-    public WoundCharacterEffect(Collection<PhysicalCard> sources, Filter filter) {
+    public WoundCharactersEffect(Collection<PhysicalCard> sources, Filter filter) {
         super(filter);
         _sources = sources;
     }
 
-    public WoundCharacterEffect(PhysicalCard source, PhysicalCard... cards) {
+    public WoundCharactersEffect(PhysicalCard source, PhysicalCard... cards) {
         super(cards);
         _sources = Collections.singleton(source);
     }
 
-    public WoundCharacterEffect(PhysicalCard source, Filter filter) {
+    public WoundCharactersEffect(PhysicalCard source, Filter filter) {
         super(filter);
         _sources = Collections.singleton(source);
     }
@@ -55,15 +50,13 @@ public class WoundCharacterEffect extends AbstractPreventableCardEffect {
 
     @Override
     public String getText(LotroGame game) {
-        Collection<PhysicalCard> cards = getCardsToBeAffected(game);
+        Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
         return "Wound - " + getAppendedNames(cards);
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
-        Collection<PhysicalCard> cardsToWound = getCardsToBeAffected(game);
-
-        for (PhysicalCard woundedCard : cardsToWound) {
+    protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+        for (PhysicalCard woundedCard : cards) {
             if (_sources != null)
                 game.getGameState().sendMessage(woundedCard.getBlueprint().getName() + " is wounded by - " + getAppendedNames(_sources));
             else
@@ -71,6 +64,6 @@ public class WoundCharacterEffect extends AbstractPreventableCardEffect {
             game.getGameState().addWound(woundedCard);
         }
 
-        return new EffectResult[]{new WoundResult(cardsToWound)};
+        return new EffectResult[]{new WoundResult(cards)};
     }
 }

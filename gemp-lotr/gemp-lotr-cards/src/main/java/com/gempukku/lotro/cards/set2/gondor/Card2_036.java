@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set2.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -41,7 +41,7 @@ public class Card2_036 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("Aragorn")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")));
         action.appendEffect(
                 new ChooseActiveCardEffect(playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.name("Aragorn"))) {
                     @Override

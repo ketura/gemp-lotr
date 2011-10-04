@@ -2,8 +2,7 @@ package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -61,9 +60,9 @@ public class Card3_061 extends AbstractMinion {
                 && game.getGameState().getWounds(Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) >= 3) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ExertCharacterEffect(self, Filters.type(CardType.COMPANION)));
+                    new ExertCharactersEffect(self, Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;

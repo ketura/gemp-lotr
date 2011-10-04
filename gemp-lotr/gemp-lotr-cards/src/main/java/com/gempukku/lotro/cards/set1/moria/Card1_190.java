@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -53,7 +53,7 @@ public class Card1_190 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

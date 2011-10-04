@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
@@ -47,7 +47,7 @@ public class Card1_285 extends AbstractAttachableFPPossession {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION)));
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Filters.keyword(Keyword.PIPE), Integer.MAX_VALUE) {
@@ -60,7 +60,7 @@ public class Card1_285 extends AbstractAttachableFPPossession {
                                     action.appendEffect(
                                             new ChooseArbitraryCardsEffect(playerId, "Choose tales", new LinkedList<PhysicalCard>(talesInDiscard), shufflableTales, shufflableTales) {
                                                 @Override
-                                                protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                                protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                     for (PhysicalCard selectedCard : selectedCards)
                                                         action.appendEffect(new PutCardFromDiscardOnBottomOfDeckEffect(selectedCard));
                                                     action.appendEffect(new ShuffleDeckEffect(playerId));

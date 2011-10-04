@@ -46,7 +46,7 @@ public class Card3_023 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, 0, 2, Filters.any()) {
                         @Override
-                        protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded) {
+                        protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {
                             int count = cardsBeingDiscarded.size();
                             if (count > 0)
                                 action.appendEffect(

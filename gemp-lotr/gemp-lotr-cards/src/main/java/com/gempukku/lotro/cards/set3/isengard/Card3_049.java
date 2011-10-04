@@ -44,7 +44,7 @@ public class Card3_049 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, 0, 3, Filters.any()) {
                     @Override
-                    protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded) {
+                    protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {
                         int cardsCount = cardsBeingDiscarded.size();
                         action.appendEffect(
                                 new DrawCardEffect(playerId, cardsCount));

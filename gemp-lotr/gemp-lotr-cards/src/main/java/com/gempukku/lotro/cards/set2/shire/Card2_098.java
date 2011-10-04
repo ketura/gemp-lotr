@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.*;
@@ -42,17 +42,17 @@ public class Card2_098 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.type(CardType.COMPANION)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
-                        super.cardsSelected(characters, success);
-                        if (success) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
+                        super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
+                        if (characters.size() > 0) {
                             Signet signet = characters.iterator().next().getBlueprint().getSignet();
                             int count = (signet == Signet.FRODO) ? 2 : 1;
                             action.appendEffect(
                                     new ChooseCardsFromDiscardEffect(playerId, count, count, Filters.side(Side.FREE_PEOPLE)) {
                                         @Override
-                                        protected void cardsSelected(Collection<PhysicalCard> cards) {
+                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                             for (PhysicalCard card : cards) {
                                                 action.insertEffect(
                                                         new PutCardFromDiscardOnBottomOfDeckEffect(card));

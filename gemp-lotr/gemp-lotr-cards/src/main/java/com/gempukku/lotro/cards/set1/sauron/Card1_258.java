@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class Card1_258 extends AbstractMinion {
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose up to 2 WRAITH cards", game.getGameState().getDiscard(playerId), Filters.culture(Culture.WRAITH), 0, 2) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
                                 action.appendEffect(
                                         new PutCardFromDiscardOnBottomOfDeckEffect(selectedCard));

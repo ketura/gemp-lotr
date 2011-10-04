@@ -6,14 +6,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChooseAndPlayCardFromDeckEffect extends UnrespondableEffect implements ChooseableEffect {
+public class ChooseAndPlayCardFromDeckEffect extends AbstractEffect {
     private String _playerId;
     private Filter _filter;
     private int _twilightModifier;
@@ -29,7 +29,12 @@ public class ChooseAndPlayCardFromDeckEffect extends UnrespondableEffect impleme
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
+    public EffectResult.Type getType() {
+        return null;
+    }
+
+    @Override
+    public boolean isPlayableInFull(LotroGame game) {
         return true;
     }
 
@@ -39,7 +44,7 @@ public class ChooseAndPlayCardFromDeckEffect extends UnrespondableEffect impleme
     }
 
     @Override
-    public void doPlayEffect(final LotroGame game) {
+    protected FullEffectResult playEffectReturningResult(final LotroGame game) {
         Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(deck), 0, 1) {
@@ -52,5 +57,6 @@ public class ChooseAndPlayCardFromDeckEffect extends UnrespondableEffect impleme
                         }
                     }
                 });
+        return new FullEffectResult(null, true, true);
     }
 }

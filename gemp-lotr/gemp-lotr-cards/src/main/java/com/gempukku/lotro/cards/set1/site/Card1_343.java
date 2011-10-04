@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChoiceCost;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -14,7 +14,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.ChooseableCost;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,9 +38,9 @@ public class Card1_343 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.keyword(Keyword.TALE))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
-            List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
+            List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.owner(playerId), Filters.keyword(Keyword.TALE)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.keyword(Keyword.TALE)));
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, Filters.keyword(Keyword.TALE)) {
                         @Override
@@ -49,7 +49,7 @@ public class Card1_343 extends AbstractSite {
                         }
                     });
             action.appendCost(
-                    new ChoiceCost(action, playerId, possibleCosts));
+                    new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.owner(playerId), Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);

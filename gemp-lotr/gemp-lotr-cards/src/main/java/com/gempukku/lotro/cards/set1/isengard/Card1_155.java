@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,7 +39,7 @@ public class Card1_155 extends AbstractMinion {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
-            action.appendCost(new ExertCharactersCost(self, self));
+            action.appendCost(new ExertCharactersEffect(self, self));
             // TODO this should give option to player to spot less
             int isengardMinionCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
             for (int i = 0; i < isengardMinionCount; i++) {
@@ -49,7 +49,7 @@ public class Card1_155 extends AbstractMinion {
                             public void doPlayEffect(LotroGame game) {
                                 List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                                 if (deck.size() > 0 && deck.get(0).getBlueprint().getSide() == Side.SHADOW)
-                                    action.appendEffect(new AddBurdenEffect(self));
+                                    action.appendEffect(new AddBurdenEffect(self, 1));
                             }
                         });
                 action.appendEffect(new DiscardTopCardFromDeckEffect(playerId));

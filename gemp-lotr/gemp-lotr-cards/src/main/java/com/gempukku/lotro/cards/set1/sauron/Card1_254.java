@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -39,7 +39,7 @@ public class Card1_254 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             int archerCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.keyword(Keyword.ARCHER));
             action.appendEffect(
                     new AddTwilightEffect(self, archerCompanions));

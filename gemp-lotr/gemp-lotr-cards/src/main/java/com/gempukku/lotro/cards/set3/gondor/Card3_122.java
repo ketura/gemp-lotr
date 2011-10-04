@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class Card3_122 extends AbstractCompanion {
             action.appendCost(
                     new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new HealCharacterEffect(playerId, self));
+                    new HealCharactersEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

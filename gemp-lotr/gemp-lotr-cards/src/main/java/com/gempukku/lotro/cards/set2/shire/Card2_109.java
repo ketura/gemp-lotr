@@ -3,9 +3,8 @@ package com.gempukku.lotro.cards.set2.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseActiveCardsCost;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -17,9 +16,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-
-import java.util.Collection;
 
 /**
  * Set: Mines of Moria
@@ -49,36 +47,33 @@ public class Card2_109 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseActiveCardsCost(playerId, "Choose Sting or Glamdring bearer", 1, 1, Filters.hasAttached(Filters.or(Filters.name("Sting"), Filters.name("Glamdring"))), Filters.canExert(self)) {
+                new ChooseActiveCardEffect(playerId, "Choose Sting or Glamdring bearer", Filters.hasAttached(Filters.or(Filters.name("Sting"), Filters.name("Glamdring"))), Filters.canExert(self)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> cards, boolean success) {
-                        if (success) {
-                            final PhysicalCard bearer = cards.iterator().next();
-                            int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), bearer);
-                            action.insertCost(
-                                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                                            new IntegerAwaitingDecision(1, "Choose how many times to exert", 1, vitality - 1) {
-                                                @Override
-                                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                                    final int exertionCount = getValidatedResult(result);
-                                                    for (int i = 0; i < exertionCount; i++) {
-                                                        action.insertCost(
-                                                                new ExertCharactersCost(self, bearer));
-                                                    }
-                                                    action.appendEffect(
-                                                            new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                                                                    new MultipleChoiceAwaitingDecision(1, "Choose action to perform", new String[]{"Wound " + exertionCount + " Orcs", "Wound " + exertionCount + " Uruk-hai"}) {
-                                                                        @Override
-                                                                        protected void validDecisionMade(int index, String result) {
-                                                                            Filter filter = (index == 0) ? Filters.race(Race.ORC) : Filters.race(Race.URUK_HAI);
-                                                                            action.insertEffect(
-                                                                                    new ChooseAndWoundCharactersEffect(action, playerId, exertionCount, exertionCount, filter));
-                                                                        }
-                                                                    }));
+                    protected void cardSelected(final PhysicalCard bearer) {
+                        int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), bearer);
+                        action.insertCost(
+                                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                        new IntegerAwaitingDecision(1, "Choose how many times to exert", 1, vitality - 1) {
+                                            @Override
+                                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                final int exertionCount = getValidatedResult(result);
+                                                for (int i = 0; i < exertionCount; i++) {
+                                                    action.insertCost(
+                                                            new ExertCharactersEffect(self, bearer));
                                                 }
+                                                action.appendEffect(
+                                                        new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                                new MultipleChoiceAwaitingDecision(1, "Choose action to perform", new String[]{"Wound " + exertionCount + " Orcs", "Wound " + exertionCount + " Uruk-hai"}) {
+                                                                    @Override
+                                                                    protected void validDecisionMade(int index, String result) {
+                                                                        Filter filter = (index == 0) ? Filters.race(Race.ORC) : Filters.race(Race.URUK_HAI);
+                                                                        action.insertEffect(
+                                                                                new ChooseAndWoundCharactersEffect(action, playerId, exertionCount, exertionCount, filter));
+                                                                    }
+                                                                }));
                                             }
-                                    ));
-                        }
+                                        }
+                                ));
                     }
                 });
 

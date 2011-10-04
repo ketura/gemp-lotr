@@ -10,7 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -37,8 +37,8 @@ public class Card2_077 extends AbstractPermanent {
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 1)
                 && effect.getType() == EffectResult.Type.WOUND) {
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            Collection<PhysicalCard> woundedCards = woundEffect.getCardsToBeAffected(game);
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(woundedCards, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendCost(

@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
@@ -11,7 +10,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,9 +45,9 @@ public class Card1_137 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
 
-        List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+        List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.type(CardType.COMPANION)) {
                     @Override

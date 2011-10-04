@@ -3,11 +3,11 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
-public class PlayCardEffect implements Effect {
+public class PlayCardEffect extends AbstractEffect {
     private PhysicalCard _cardPlayed;
     private PhysicalCard _attachedToCard;
 
@@ -39,9 +39,14 @@ public class PlayCardEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return true;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (_cardPlayed.getBlueprint().getCardType() == CardType.EVENT)
             game.getGameState().eventPlayed(_cardPlayed);
-        return new EffectResult[]{new PlayCardResult(_cardPlayed, _attachedToCard)};
+        return new FullEffectResult(new EffectResult[]{new PlayCardResult(_cardPlayed, _attachedToCard)}, true, true);
     }
 }
