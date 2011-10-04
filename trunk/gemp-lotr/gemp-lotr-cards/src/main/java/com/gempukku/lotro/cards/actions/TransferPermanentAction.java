@@ -16,7 +16,7 @@ public class TransferPermanentAction extends ActivateCardAction {
 
         appendCost(new PayTwilightCostEffect(card));
         appendEffect(
-                new ChooseActiveCardsEffect(card.getOwner(), "Choose target to attach to", 1, 1, filter) {
+                new ChooseActiveCardsEffect(null, card.getOwner(), "Choose target to attach to", 1, 1, filter) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> target) {
                         if (target.size() > 0) {

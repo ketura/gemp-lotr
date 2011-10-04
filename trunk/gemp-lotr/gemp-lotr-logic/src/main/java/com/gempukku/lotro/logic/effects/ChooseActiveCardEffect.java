@@ -7,8 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import java.util.Collection;
 
 public abstract class ChooseActiveCardEffect extends ChooseActiveCardsEffect {
-    public ChooseActiveCardEffect(String playerId, String choiceText, Filter... filters) {
-        super(playerId, choiceText, 1, 1, filters);
+    public ChooseActiveCardEffect(PhysicalCard source, String playerId, String choiceText, Filter... filters) {
+        super(source, playerId, choiceText, 1, 1, filters);
     }
 
     protected abstract void cardSelected(PhysicalCard card);

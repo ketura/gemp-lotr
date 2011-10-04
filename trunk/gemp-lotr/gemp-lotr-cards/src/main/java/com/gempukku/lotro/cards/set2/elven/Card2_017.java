@@ -48,7 +48,7 @@ public class Card2_017 extends AbstractResponseEvent {
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
                                     new PreventableEffect(action,
-                                            new ChooseActiveCardEffect(opponentId, "Choose minion to discard", Filters.type(CardType.MINION)) {
+                                            new ChooseActiveCardEffect(self, opponentId, "Choose minion to discard", Filters.type(CardType.MINION)) {
                                                 @Override
                                                 protected void cardSelected(PhysicalCard card) {
                                                     action.appendEffect(

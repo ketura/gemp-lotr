@@ -44,7 +44,7 @@ public class Card1_098 extends AbstractAttachableFPPossession {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Weather condition", Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Weather condition", Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(PhysicalCard weatherCondition) {
                             action.appendEffect(new DiscardCardsFromPlayEffect(self, weatherCondition));

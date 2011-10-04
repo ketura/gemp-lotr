@@ -67,11 +67,11 @@ public class Card3_069 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish()) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish()) {
                         @Override
                         protected void cardSelected(final PhysicalCard minion) {
                             action.appendEffect(
-                                    new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish()) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish()) {
                                         @Override
                                         protected void cardSelected(PhysicalCard companion) {
                                             action.appendEffect(

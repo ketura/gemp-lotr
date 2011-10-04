@@ -42,7 +42,7 @@ public class Card1_304 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.not(Filters.race(Race.HOBBIT))));
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                     @Override
                     protected void cardSelected(PhysicalCard hobbit) {
                         action.appendEffect(

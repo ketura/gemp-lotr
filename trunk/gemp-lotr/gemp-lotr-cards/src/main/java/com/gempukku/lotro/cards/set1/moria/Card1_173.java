@@ -55,7 +55,7 @@ public class Card1_173 extends AbstractPermanent {
                 action.appendCost(
                         new DiscardCardsFromPlayEffect(self, self));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
                             @Override
                             protected void cardSelected(PhysicalCard moriaOrc) {
                                 action.appendEffect(

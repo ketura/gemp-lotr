@@ -22,7 +22,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     public ChooseAndHealCharactersEffect(Action action, String playerId, int minimum, int maximum, Filter... filters) {
-        super(playerId, "Choose character(s) to heal", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose character(s) to heal", minimum, maximum, filters);
         _action = action;
         _playerId = playerId;
     }

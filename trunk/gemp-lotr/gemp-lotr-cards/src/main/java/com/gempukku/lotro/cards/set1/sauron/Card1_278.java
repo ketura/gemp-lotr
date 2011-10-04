@@ -35,7 +35,7 @@ public class Card1_278 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a SAURON Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a SAURON Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard sauronOrc) {
                             action.appendEffect(

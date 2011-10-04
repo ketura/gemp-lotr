@@ -21,7 +21,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, int count, Filter... filters) {
-        super(playerId, "Choose characters to exert", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose characters to exert", minimum, maximum, filters);
         _action = action;
         _count = count;
     }

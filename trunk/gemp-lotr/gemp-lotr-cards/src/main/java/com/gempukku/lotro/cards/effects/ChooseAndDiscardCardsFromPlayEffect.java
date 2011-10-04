@@ -15,7 +15,7 @@ public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect
     private Action _action;
 
     public ChooseAndDiscardCardsFromPlayEffect(Action action, String playerId, int minimum, int maximum, Filter... filters) {
-        super(playerId, "Choose cards to discard", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose cards to discard", minimum, maximum, filters);
         _action = action;
     }
 

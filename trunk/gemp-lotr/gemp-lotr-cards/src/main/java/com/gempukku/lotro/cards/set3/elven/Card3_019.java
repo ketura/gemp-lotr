@@ -60,7 +60,7 @@ public class Card3_019 extends AbstractAttachable {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.inSkirmishAgainst(Filters.name("Aragorn"))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.inSkirmishAgainst(Filters.name("Aragorn"))) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

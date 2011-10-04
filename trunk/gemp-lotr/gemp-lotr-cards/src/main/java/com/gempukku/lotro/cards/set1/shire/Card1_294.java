@@ -45,7 +45,7 @@ public class Card1_294 extends AbstractEvent {
                                 final int twilight = getValidatedResult(result);
                                 action.appendCost(new AddTwilightEffect(self, twilight));
                                 action.appendEffect(
-                                        new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
+                                        new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                                             @Override
                                             protected void cardSelected(PhysicalCard hobbit) {
                                                 for (int i = 0; i < twilight; i++)

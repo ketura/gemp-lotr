@@ -40,7 +40,7 @@ public class Card3_100 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.SAURON), Filters.type(CardType.CONDITION)));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose character skirmishing this minion", Filters.inSkirmishAgainst(Filters.sameCard(self))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose character skirmishing this minion", Filters.inSkirmishAgainst(Filters.sameCard(self))) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

@@ -46,7 +46,7 @@ public class Card1_302 extends AbstractCompanion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.sameCard(self))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.sameCard(self))) {
                         @Override
                         protected void cardSelected(PhysicalCard anotherCompanion) {
                             int merryStrength = game.getModifiersQuerying().getStrength(game.getGameState(), self);

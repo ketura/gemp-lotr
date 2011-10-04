@@ -42,7 +42,7 @@ public class Card1_118 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose Aragorn", Filters.name("Aragorn")) {
+                new ChooseActiveCardEffect(self, playerId, "Choose Aragorn", Filters.name("Aragorn")) {
                     @Override
                     protected void cardSelected(final PhysicalCard card) {
                         action.appendEffect(

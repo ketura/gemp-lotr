@@ -39,7 +39,7 @@ public class Card3_107 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
@@ -52,7 +52,7 @@ public class Card3_107 extends AbstractAttachableFPPossession {
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     final int spotCount = getValidatedResult(result);
                                     action.appendEffect(
-                                            new ChooseActiveCardEffect(playerId, "Choose companion with Frodo signet", Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO)) {
+                                            new ChooseActiveCardEffect(self, playerId, "Choose companion with Frodo signet", Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO)) {
                                                 @Override
                                                 protected void cardSelected(PhysicalCard card) {
                                                     for (int i = 0; i < spotCount; i++)

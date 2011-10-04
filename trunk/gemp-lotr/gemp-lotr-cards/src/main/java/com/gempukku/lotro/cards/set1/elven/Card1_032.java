@@ -34,7 +34,7 @@ public class Card1_032 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.race(Race.ELF)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF)) {
                     @Override
                     protected void cardSelected(PhysicalCard elf) {
                         Skirmish skirmish = game.getGameState().getSkirmish();

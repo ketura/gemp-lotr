@@ -27,7 +27,7 @@ public class Card1_119 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self, true);
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose a roaming minion", Filters.keyword(Keyword.ROAMING), Filters.type(CardType.MINION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a roaming minion", Filters.keyword(Keyword.ROAMING), Filters.type(CardType.MINION)) {
                     @Override
                     protected void cardSelected(PhysicalCard roamingMinion) {
                         action.appendEffect(

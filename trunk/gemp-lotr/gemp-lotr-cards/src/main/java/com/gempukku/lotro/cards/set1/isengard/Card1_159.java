@@ -48,7 +48,7 @@ public class Card1_159 extends AbstractPermanent {
 
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners()))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners()))) {
                         @Override
                         protected void cardSelected(PhysicalCard winningUrukHai) {
                             action.appendEffect(

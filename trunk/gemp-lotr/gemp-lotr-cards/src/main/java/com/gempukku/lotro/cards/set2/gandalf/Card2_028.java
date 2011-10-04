@@ -41,7 +41,7 @@ public class Card2_028 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
-                        new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.appendEffect(

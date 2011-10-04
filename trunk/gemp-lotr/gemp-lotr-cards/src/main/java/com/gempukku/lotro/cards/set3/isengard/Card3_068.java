@@ -75,7 +75,7 @@ public class Card3_068 extends AbstractMinion {
                     new ExertCharactersEffect(self, self));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.race(Race.URUK_HAI)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.race(Race.URUK_HAI)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

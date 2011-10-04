@@ -42,7 +42,7 @@ public class Card1_233 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose opponent's site", Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId))) {
                         @Override
                         protected void cardSelected(PhysicalCard site) {
                             action.appendEffect(new PlaySiteEffect(playerId, site.getBlueprint().getSiteNumber()));

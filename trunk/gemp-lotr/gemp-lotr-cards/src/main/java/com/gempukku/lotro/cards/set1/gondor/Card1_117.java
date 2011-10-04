@@ -32,7 +32,7 @@ public class Card1_117 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self, true);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose a Ranger", Filters.keyword(Keyword.RANGER)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a Ranger", Filters.keyword(Keyword.RANGER)) {
                     @Override
                     protected void cardSelected(PhysicalCard gondorCompanion) {
                         int bonus = 2;

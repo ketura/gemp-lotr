@@ -58,7 +58,7 @@ public class Card1_183 extends AbstractPermanent {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish())) {
             final ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish()) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish()) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
                             action.appendEffect(new StackCardFromPlayEffect(moriaOrc, self));

@@ -45,7 +45,7 @@ public class Card1_123 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)));
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose non Ring-bearer exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.exhausted()) {
+                new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer exhausted companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.exhausted()) {
                     @Override
                     protected void cardSelected(PhysicalCard exhaustedCompanion) {
                         action.appendEffect(new DiscardCardsFromPlayEffect(self, exhaustedCompanion));

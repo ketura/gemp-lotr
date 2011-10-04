@@ -39,7 +39,7 @@ public class Card1_236 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose a companion (except the Ring-Bearer", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish()) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose a companion (except the Ring-Bearer", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish()) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
                                 action.appendEffect(

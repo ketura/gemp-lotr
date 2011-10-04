@@ -39,7 +39,7 @@ public class Card1_205 extends AbstractEvent {
         boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION)));
         if (firstEffect) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION))) {
                         @Override
                         protected void cardSelected(PhysicalCard fpCard) {
                             action.appendEffect(
@@ -48,7 +48,7 @@ public class Card1_205 extends AbstractEvent {
                     });
         } else {
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(PhysicalCard fpCard) {
                             action.appendEffect(

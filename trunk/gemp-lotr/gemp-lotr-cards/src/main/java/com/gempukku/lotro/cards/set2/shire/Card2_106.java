@@ -43,7 +43,7 @@ public class Card2_106 extends AbstractPermanent {
                 action.appendCost(
                         new DiscardCardsFromPlayEffect(self));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose Hobbit", Filters.in(woundedCharacters), Filters.race(Race.HOBBIT)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose Hobbit", Filters.in(woundedCharacters), Filters.race(Race.HOBBIT)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(new PreventEffect(woundEffect, card));

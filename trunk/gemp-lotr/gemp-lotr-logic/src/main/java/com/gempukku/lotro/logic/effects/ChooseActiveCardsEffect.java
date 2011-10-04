@@ -13,13 +13,15 @@ import java.util.Collection;
 import java.util.Set;
 
 public abstract class ChooseActiveCardsEffect extends AbstractEffect {
+    private PhysicalCard _source;
     private final String _playerId;
     private final String _choiceText;
     private final int _minimum;
     private final int _maximum;
     private final Filter[] _filters;
 
-    public ChooseActiveCardsEffect(String playerId, String choiceText, int minimum, int maximum, Filter... filters) {
+    public ChooseActiveCardsEffect(PhysicalCard source, String playerId, String choiceText, int minimum, int maximum, Filter... filters) {
+        _source = source;
         _playerId = playerId;
         _choiceText = choiceText;
         _minimum = minimum;
@@ -55,6 +57,8 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
             minimum = matchingCards.size();
 
         if (matchingCards.size() == minimum) {
+            if (_source != null)
+                game.getGameState().cardAffectsCard(_playerId, _source, matchingCards);
             cardsSelected(game, matchingCards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -62,6 +66,8 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            if (_source != null)
+                                game.getGameState().cardAffectsCard(_playerId, _source, selectedCards);
                             cardsSelected(game, selectedCards);
                         }
                     });

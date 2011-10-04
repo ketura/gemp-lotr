@@ -44,7 +44,7 @@ public class Card1_069 extends AbstractAlly {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose ISENGARD or MORIA condition", Filters.or(Filters.culture(Culture.ISENGARD), Filters.culture(Culture.MORIA)), Filters.type(CardType.CONDITION)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD or MORIA condition", Filters.or(Filters.culture(Culture.ISENGARD), Filters.culture(Culture.MORIA)), Filters.type(CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(PhysicalCard condition) {
                             action.appendEffect(new DiscardCardsFromPlayEffect(self, condition));

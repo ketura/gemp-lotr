@@ -45,7 +45,7 @@ public class Card2_011 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(playerId));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose condition",
+                    new ChooseActiveCardEffect(self, playerId, "Choose condition",
                             Filters.or(
                                     Filters.and(Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION), Filters.attachedTo(Filters.race(Race.DWARF))),
                                     Filters.and(Filters.keyword(Keyword.WEATHER)), Filters.type(CardType.CONDITION))) {

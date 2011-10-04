@@ -38,7 +38,7 @@ public class Card3_035 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Chooose a companion", Filters.type(CardType.COMPANION)) {
+                    new ChooseActiveCardEffect(self, playerId, "Chooose a companion", Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             int gandalfSignet = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), new com.gempukku.lotro.filters.Filter[]{Filters.type(CardType.COMPANION), Filters.signet(Signet.GANDALF)});

@@ -45,7 +45,7 @@ public class Card3_009 extends AbstractPermanent {
                         protected void discardedCard(PhysicalCard card) {
                             if (card.getBlueprint().getCulture() == Culture.ELVEN) {
                                 action.appendEffect(
-                                        new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
+                                        new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
                                             @Override
                                             protected void cardSelected(PhysicalCard minion) {
                                                 action.insertEffect(

@@ -43,7 +43,7 @@ public class Card2_036 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")));
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.name("Aragorn"))) {
+                new ChooseActiveCardEffect(self, playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.name("Aragorn"))) {
                     @Override
                     protected void cardSelected(PhysicalCard card) {
                         int bonus = (card.getBlueprint().getSignet() == Signet.ARAGORN) ? 3 : 2;
