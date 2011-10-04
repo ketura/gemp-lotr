@@ -12,8 +12,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
-import java.util.Collection;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -33,11 +31,8 @@ public class Card1_077 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 0, Integer.MAX_VALUE, Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                        super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
-                        if (characters.size() > 0) {
-                            action.appendEffect(new RemoveTwilightEffect(characters.size()));
-                        }
+                    protected void forEachCardExertedCallback(PhysicalCard character) {
+                        action.appendEffect(new RemoveTwilightEffect(1));
                     }
                 });
         return action;

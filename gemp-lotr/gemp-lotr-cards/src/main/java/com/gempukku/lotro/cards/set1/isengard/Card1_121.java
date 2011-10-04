@@ -14,8 +14,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
-import java.util.Collection;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -46,13 +44,10 @@ public class Card1_121 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> urukHai) {
-                        super.cardsSelected(game, urukHai);    //To change body of overridden methods use File | Settings | File Templates.
-                        if (urukHai.size() > 0) {
-                            action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.in(urukHai), 3), Phase.SKIRMISH));
-                        }
+                    protected void forEachCardExertedCallback(PhysicalCard urukHai) {
+                        action.appendEffect(
+                                new AddUntilEndOfPhaseModifierEffect(
+                                        new StrengthModifier(self, Filters.sameCard(urukHai), 3), Phase.SKIRMISH));
                     }
                 }
         );

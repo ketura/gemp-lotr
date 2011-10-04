@@ -12,8 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 
-import java.util.Collection;
-
 /**
  * Set: Realms of Elf-lords
  * Side: Free
@@ -46,17 +44,13 @@ public class Card3_039 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                        super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
-                        if (characters.size() > 0) {
-                            PhysicalCard gondorCompanion = characters.iterator().next();
-                            action.appendEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(gondorCompanion), 3), Phase.REGROUP));
-                            action.appendEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(gondorCompanion), Keyword.DEFENDER), Phase.REGROUP));
-                        }
+                    protected void forEachCardExertedCallback(PhysicalCard gondorCompanion) {
+                        action.appendEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new StrengthModifier(self, Filters.sameCard(gondorCompanion), 3), Phase.REGROUP));
+                        action.appendEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new KeywordModifier(self, Filters.sameCard(gondorCompanion), Keyword.DEFENDER), Phase.REGROUP));
                     }
                 });
         return action;

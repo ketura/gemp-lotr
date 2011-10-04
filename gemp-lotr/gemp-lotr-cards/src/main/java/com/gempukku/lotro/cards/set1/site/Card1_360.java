@@ -14,7 +14,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,11 +37,10 @@ public class Card1_360 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.type(CardType.MINION)) {
                         @Override
-                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> minion) {
-                            super.cardsSelected(game, minion);    //To change body of overridden methods use File | Settings | File Templates.
+                        protected void forEachCardExertedCallback(PhysicalCard minion) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.in(minion), Keyword.FIERCE), Phase.REGROUP));
+                                            new KeywordModifier(self, Filters.sameCard(minion), Keyword.FIERCE), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);

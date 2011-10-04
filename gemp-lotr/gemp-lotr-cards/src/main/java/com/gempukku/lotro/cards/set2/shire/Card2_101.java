@@ -12,7 +12,6 @@ import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,17 +39,13 @@ public class Card2_101 extends AbstractAlly {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) {
                         @Override
-                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                            super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
-                            if (characters.size() > 0) {
-                                PhysicalCard companion = characters.iterator().next();
-                                Skirmish skirmish = game.getGameState().getSkirmish();
-                                if (skirmish != null
-                                        && skirmish.getFellowshipCharacter() == companion
-                                        && game.getGameState().isFierceSkirmishes()) {
-                                    action.appendEffect(
-                                            new CancelSkirmishEffect());
-                                }
+                        protected void forEachCardExertedCallback(PhysicalCard companion) {
+                            Skirmish skirmish = game.getGameState().getSkirmish();
+                            if (skirmish != null
+                                    && skirmish.getFellowshipCharacter() == companion
+                                    && game.getGameState().isFierceSkirmishes()) {
+                                action.appendEffect(
+                                        new CancelSkirmishEffect());
                             }
                         }
                     });

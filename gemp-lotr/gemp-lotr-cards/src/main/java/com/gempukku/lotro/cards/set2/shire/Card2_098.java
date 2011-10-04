@@ -44,22 +44,19 @@ public class Card2_098 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                        super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
-                        if (characters.size() > 0) {
-                            Signet signet = characters.iterator().next().getBlueprint().getSignet();
-                            int count = (signet == Signet.FRODO) ? 2 : 1;
-                            action.appendEffect(
-                                    new ChooseCardsFromDiscardEffect(playerId, count, count, Filters.side(Side.FREE_PEOPLE)) {
-                                        @Override
-                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-                                            for (PhysicalCard card : cards) {
-                                                action.insertEffect(
-                                                        new PutCardFromDiscardOnBottomOfDeckEffect(card));
-                                            }
+                    protected void forEachCardExertedCallback(PhysicalCard character) {
+                        Signet signet = character.getBlueprint().getSignet();
+                        int count = (signet == Signet.FRODO) ? 2 : 1;
+                        action.appendEffect(
+                                new ChooseCardsFromDiscardEffect(playerId, count, count, Filters.side(Side.FREE_PEOPLE)) {
+                                    @Override
+                                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+                                        for (PhysicalCard card : cards) {
+                                            action.insertEffect(
+                                                    new PutCardFromDiscardOnBottomOfDeckEffect(card));
                                         }
-                                    });
-                        }
+                                    }
+                                });
                     }
                 });
         return action;

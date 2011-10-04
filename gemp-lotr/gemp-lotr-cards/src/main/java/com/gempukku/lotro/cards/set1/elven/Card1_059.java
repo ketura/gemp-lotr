@@ -3,20 +3,17 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -42,43 +39,21 @@ public class Card1_059 extends AbstractPermanent {
                         Filters.race(Race.DWARF)))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
 
-            List<Effect> possibleCosts = new LinkedList<Effect>();
-
-            possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Exert Dwarf";
-                        }
-
-                        @Override
-                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                            super.cardsSelected(game, characters);
-                            if (characters.size() > 0)
-                                action.appendEffect(
-                                        new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.ELF)));
-                        }
-                    });
-
-            possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Exert Elf";
-                        }
-
-                        @Override
-                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                            super.cardsSelected(game, characters);
-                            if (characters.size() > 0)
-                                action.appendEffect(
-                                        new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.DWARF)));
-                        }
-                    });
-
             action.appendCost(new AddTwilightEffect(self, 1));
             action.appendCost(
-                    new ChoiceEffect(action, playerId, possibleCosts));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.race(Race.DWARF), Filters.race(Race.ELF))) {
+                        @Override
+                        protected void forEachCardExertedCallback(PhysicalCard character) {
+                            Filter filter;
+                            if (character.getBlueprint().getRace() == Race.ELF)
+                                filter = Filters.race(Race.DWARF);
+                            else
+                                filter = Filters.race(Race.ELF);
+                            action.appendEffect(
+                                    new ChooseAndHealCharactersEffect(action, playerId, filter));
+                        }
+                    }
+            );
 
             return Collections.singletonList(action);
         }

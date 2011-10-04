@@ -2,19 +2,17 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -36,41 +34,20 @@ public class Card1_100 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Arwen"), Filters.name("Aragorn")))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
-
-            List<Effect> possibleEffects = new LinkedList<Effect>();
-
-            final PhysicalCard arwen = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Arwen"));
-            final PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
-
-            if (arwen != null) {
-                possibleEffects.add(
-                        new ExertCharactersEffect(self, arwen) {
-                            @Override
-                            protected FullEffectResult playEffectReturningResult(LotroGame game) {
-                                FullEffectResult effectResult = super.playEffectReturningResult(game);
-                                if (effectResult.isSuccessful() && aragorn != null) {
-                                    action.appendEffect(new HealCharactersEffect(playerId, aragorn));
-                                }
-                                return effectResult;
-                            }
-                        });
-            }
-            if (aragorn != null) {
-                possibleEffects.add(
-                        new ExertCharactersEffect(self, aragorn) {
-                            @Override
-                            protected FullEffectResult playEffectReturningResult(LotroGame game) {
-                                FullEffectResult effectResult = super.playEffectReturningResult(game);
-                                if (effectResult.isSuccessful() && arwen != null) {
-                                    action.appendEffect(new HealCharactersEffect(playerId, arwen));
-                                }
-                                return effectResult;    //To change body of overridden methods use File | Settings | File Templates.
-                            }
-                        });
-            }
-
             action.appendCost(
-                    new ChoiceEffect(action, playerId, possibleEffects));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.name("Arwen"), Filters.name("Aragorn"))) {
+                        @Override
+                        protected void forEachCardExertedCallback(PhysicalCard character) {
+                            Filter filter;
+                            if (character.getBlueprint().getName().equals("Aragorn"))
+                                filter = Filters.name("Arwen");
+                            else
+                                filter = Filters.name("Aragorn");
+                            action.appendEffect(
+                                    new ChooseAndHealCharactersEffect(action, playerId, filter));
+                        }
+                    }
+            );
             return Collections.singletonList(action);
         }
         return null;
