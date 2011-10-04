@@ -1,17 +1,12 @@
 package com.gempukku.lotro.logic.timing.processes.turn.archery;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
-
-import java.util.Collection;
 
 public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess {
     private LotroGame _game;
@@ -31,43 +26,23 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
     @Override
     public void process() {
         if (_woundsToAssign > 0) {
-            GameState gameState = _game.getGameState();
-            Collection<PhysicalCard> possibleWoundTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
-                    Filters.type(CardType.MINION), Filters.owner(_playerId));
+            Filter filter = Filters.and(Filters.type(CardType.MINION), Filters.owner(_playerId));
 
-            if (possibleWoundTargets.size() > 0) {
-                if (possibleWoundTargets.size() == 1) {
-                    PhysicalCard selectedCard = possibleWoundTargets.iterator().next();
-                    RequiredTriggerAction action = new RequiredTriggerAction(null);
-                    action.appendEffect(new WoundCharactersEffect((PhysicalCard) null, selectedCard));
-                    _game.getActionsEnvironment().addActionToStack(action);
-                    if (_woundsToAssign > 1)
-                        _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);
-                    else
-                        _nextProcess = _followingGameProcess;
-                } else {
-                    _game.getUserFeedback().sendAwaitingDecision(_playerId,
-                            new CardsSelectionDecision(1, "Choose minion to assign archery wound to - remaining wounds: " + _woundsToAssign, possibleWoundTargets, 1, 1) {
-                                @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
-                                    RequiredTriggerAction action = new RequiredTriggerAction(null);
-                                    action.appendEffect(new WoundCharactersEffect((PhysicalCard) null, selectedCard));
-                                    _game.getActionsEnvironment().addActionToStack(action);
-                                    if (_woundsToAssign > 1)
-                                        _nextProcess = new ShadowPlayerAssignsArcheryDamageGameProcess(_game, _playerId, _woundsToAssign - 1, _followingGameProcess);
-                                    else
-                                        _nextProcess = _followingGameProcess;
-                                }
-                            });
-                }
-            } else {
-                _nextProcess = _followingGameProcess;
+            RequiredTriggerAction action = new RequiredTriggerAction(null);
+            for (int i = 0; i < _woundsToAssign; i++) {
+                final int woundsLeft = _woundsToAssign - i;
+                action.appendEffect(
+                        new ChooseAndWoundCharactersEffect(action, _game.getGameState().getCurrentPlayerId(), 1, 1, filter) {
+                            @Override
+                            public String getText(LotroGame game) {
+                                return "Choose minion to assign archery wound to - remaining wounds: " + woundsLeft;
+                            }
+                        });
             }
-        } else {
-            _nextProcess = _followingGameProcess;
-        }
 
+            _game.getActionsEnvironment().addActionToStack(action);
+        }
+        _nextProcess = _followingGameProcess;
     }
 
     @Override

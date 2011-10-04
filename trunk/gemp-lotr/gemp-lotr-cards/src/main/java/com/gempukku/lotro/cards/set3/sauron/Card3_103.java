@@ -3,12 +3,12 @@ package com.gempukku.lotro.cards.set3.sauron;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -64,7 +64,8 @@ public class Card3_103 extends AbstractEvent {
                             public String getText(LotroGame game) {
                                 return "Discard 2 Elves from play";
                             }
-                        }));
+                        }
+                ));
         return action;
     }
 }
