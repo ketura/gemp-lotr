@@ -34,6 +34,7 @@ public class DefaultCardCollection implements MutableCardCollection {
             filter = "";
         String[] filterParams = filter.split(" ");
 
+        String set = getSetNumber(filterParams);
         List<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
         List<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
         List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
@@ -49,14 +50,39 @@ public class DefaultCardCollection implements MutableCardCollection {
             if (blueprint == null)
                 result.add(new Item(Item.Type.PACK, count, blueprintId));
             else {
-                if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
-                    if (cultures == null || cultures.contains(blueprint.getCulture()))
-                        if (containsAllKeywords(blueprint, keywords))
-                            if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
-                                result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
+                if (set == null || blueprintId.startsWith(set + "_"))
+                    if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
+                        if (cultures == null || cultures.contains(blueprint.getCulture()))
+                            if (containsAllKeywords(blueprint, keywords))
+                                if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
+                                    result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
             }
         }
+        Collections.sort(result, new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                if (o1.getType() == o2.getType()) {
+                    if (o1.getType() == Item.Type.PACK)
+                        return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+                    else
+                        return o1.getCardBlueprint().getName().compareTo(o2.getCardBlueprint().getName());
+                } else {
+                    if (o1.getType() == Item.Type.PACK)
+                        return -1;
+                    else
+                        return 1;
+                }
+            }
+        });
         return result;
+    }
+
+    private String getSetNumber(String[] filterParams) {
+        for (String filterParam : filterParams) {
+            if (filterParam.startsWith("set:"))
+                return filterParam.substring("set:".length());
+        }
+        return null;
     }
 
     private Integer getSiteNumber(String[] filterParams) {

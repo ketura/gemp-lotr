@@ -55,17 +55,42 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.gif'/></label>"
                 + "</div>");
 
+        var combos = $("<div></div>");
+
+        combos.append("<select id='set'>"
+                + "<option value=''>All Sets</option>"
+                + "<option value='1'>01 - The Fellowship of the Ring</option>"
+                + "<option value='2'>02 - Mines of Moria</option>"
+                + "<option value='3'>03 - Realms of the Elf-lords</option>"
+                + "</select>");
+
+        combos.append(" <select id='cardType'>"
+                + "<option value=''>All Card Types</option>"
+                + "<option value='COMPANION'>Companions</option>"
+                + "<option value='ALLY'>Allies</option>"
+                + "<option value='MINION'>Minions</option>"
+                + "<option value='POSSESSION'>Possessions</option>"
+                + "<option value='ARTIFACT'>Artifacts</option>"
+                + "<option value='EVENT'>Events</option>"
+                + "<option value='CONDITION'>Conditions</option>"
+                + "</select>");
+        this.filterDiv.append(combos);
+
         this.collectionDiv.append(this.filterDiv);
 
         $("#culture").buttonset();
 
-        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelSHIRE,#labelISENGARD,#labelMORIA,#labelSAURON,#labelWRAITH").click(
-                function() {
-                    that.filter = that.calculateNormalFilter();
-                    that.start = 0;
-                    that.getCollection();
-                    return true;
-                });
+        var filterOut = function() {
+            that.filter = that.calculateNormalFilter();
+            that.start = 0;
+            that.getCollection();
+            return true;
+        };
+
+        $("#set").change(filterOut);
+        $("#cardType").change(filterOut);
+
+        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelSHIRE,#labelISENGARD,#labelMORIA,#labelSAURON,#labelWRAITH").click(filterOut);
 
         $("#countSlider").slider({
             value:18,
@@ -341,10 +366,21 @@ var GempLotrDeckBuildingUI = Class.extend({
                     if ($(this).hasClass("ui-state-active"))
                         cultures.push($(this).prop("id").substring(5));
                 });
-        if (cultures.length > 0)
-            return "cardType:-SITE,THE_ONE_RING culture:" + cultures;
+
+        var setNo = $("#set option:selected").prop("value");
+        if (setNo != "")
+            setNo = " set:" + setNo;
+
+        var cardType = $("#cardType option:selected").prop("value");
+        if (cardType == "")
+            cardType = "cardType:-SITE,THE_ONE_RING";
         else
-            return "cardType:-SITE,THE_ONE_RING";
+            cardType = "cardType:" + cardType;
+
+        if (cultures.length > 0)
+            return cardType + setNo + " culture:" + cultures;
+        else
+            return cardType + setNo;
     },
 
     addCardToDeck: function(blueprintId, side) {
