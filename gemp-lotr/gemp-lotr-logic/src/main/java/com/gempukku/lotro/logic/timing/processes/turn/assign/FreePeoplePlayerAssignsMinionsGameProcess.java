@@ -39,7 +39,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                     Filters.keyword(Keyword.FIERCE),
                     minionFilter);
 
-        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.notAssigned());
+        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish());
         if (minions.size() > 0) {
             final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
