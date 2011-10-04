@@ -21,12 +21,14 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
 
     public WoundCharactersEffect(PhysicalCard source, PhysicalCard... cards) {
         super(cards);
-        _sources = Collections.singleton(source);
+        if (source != null)
+            _sources = Collections.singleton(source);
     }
 
     public WoundCharactersEffect(PhysicalCard source, Filter filter) {
         super(filter);
-        _sources = Collections.singleton(source);
+        if (source != null)
+            _sources = Collections.singleton(source);
     }
 
     public Collection<PhysicalCard> getSources() {

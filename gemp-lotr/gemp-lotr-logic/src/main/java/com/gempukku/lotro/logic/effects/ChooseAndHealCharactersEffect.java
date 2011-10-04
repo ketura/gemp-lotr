@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.effects;
+package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -6,8 +6,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
