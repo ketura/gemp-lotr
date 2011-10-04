@@ -57,7 +57,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
             minimum = matchingCards.size();
 
         if (matchingCards.size() == minimum) {
-            if (_source != null)
+            if (_source != null && matchingCards.size() > 0)
                 game.getGameState().cardAffectsCard(_playerId, _source, matchingCards);
             cardsSelected(game, matchingCards);
         } else {
@@ -66,7 +66,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                            if (_source != null)
+                            if (_source != null && selectedCards.size() > 0)
                                 game.getGameState().cardAffectsCard(_playerId, _source, selectedCards);
                             cardsSelected(game, selectedCards);
                         }

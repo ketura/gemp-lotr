@@ -177,8 +177,11 @@ public class GameState {
 
             for (Map.Entry<PhysicalCard, Map<Token, Integer>> physicalCardMapEntry : _cardTokens.entrySet()) {
                 PhysicalCard card = physicalCardMapEntry.getKey();
-                for (Map.Entry<Token, Integer> tokenIntegerEntry : physicalCardMapEntry.getValue().entrySet())
-                    listener.addTokens(card, tokenIntegerEntry.getKey(), tokenIntegerEntry.getValue());
+                for (Map.Entry<Token, Integer> tokenIntegerEntry : physicalCardMapEntry.getValue().entrySet()) {
+                    Integer count = tokenIntegerEntry.getValue();
+                    if (count != null && count > 0)
+                        listener.addTokens(card, tokenIntegerEntry.getKey(), count);
+                }
             }
 
             for (String participantId : _playerOrder.getAllPlayers()) {
@@ -504,17 +507,15 @@ public class GameState {
             _cardTokens.put(card, tokens);
         }
         Integer currentCount = tokens.get(token);
-        if (currentCount == null)
-            tokens.put(token, count);
-        else {
-            if (currentCount <= count)
-                tokens.remove(token);
-            else
-                tokens.put(token, currentCount - count);
-        }
+        if (currentCount != null) {
+            if (currentCount < count)
+                count = currentCount;
 
-        for (GameStateListener listener : getAllGameStateListeners())
-            listener.removeTokens(card, token, count);
+            tokens.put(token, currentCount - count);
+
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.removeTokens(card, token, count);
+        }
     }
 
     public void setTwilight(int twilight) {
