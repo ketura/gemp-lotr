@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card2_092 extends AbstractPermanent {
     public Card2_092() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Spies of Mordor");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Spies of Mordor");
         addKeyword(Keyword.SEARCH);
     }
 

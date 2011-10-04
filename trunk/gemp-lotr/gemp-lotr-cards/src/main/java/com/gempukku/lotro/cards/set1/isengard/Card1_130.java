@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_130 extends AbstractPermanent {
     public Card1_130() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "No Ordinary Storm");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "No Ordinary Storm");
     }
 
     @Override

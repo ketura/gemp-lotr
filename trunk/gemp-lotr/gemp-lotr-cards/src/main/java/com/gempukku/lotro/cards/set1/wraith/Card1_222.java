@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_222 extends AbstractPermanent {
     public Card1_222() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Paths Seldom Trodden");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Paths Seldom Trodden");
         addKeyword(Keyword.SEARCH);
     }
 

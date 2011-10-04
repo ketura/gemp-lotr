@@ -194,7 +194,7 @@ public class GameState {
     }
 
     private boolean isZonePublic(Zone zone) {
-        return zone == Zone.FREE_CHARACTERS || zone == Zone.FREE_SUPPORT || zone == Zone.SHADOW_CHARACTERS || zone == Zone.SHADOW_SUPPORT
+        return zone == Zone.FREE_CHARACTERS || zone == Zone.SUPPORT || zone == Zone.SHADOW_CHARACTERS || zone == Zone.SUPPORT
                 || zone == Zone.ADVENTURE_PATH || zone == Zone.ATTACHED || zone == Zone.STACKED || zone == Zone.DEAD;
     }
 

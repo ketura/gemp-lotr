@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_263 extends AbstractPermanent {
     public Card1_263() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Orc Banner");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Orc Banner");
     }
 
     @Override

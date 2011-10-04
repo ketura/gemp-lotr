@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_249 extends AbstractPermanent {
     public Card1_249() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Gleaming Spires Will Crumble");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Gleaming Spires Will Crumble");
     }
 
     @Override

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card3_029 extends AbstractPermanent {
     public Card3_029() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.FREE_SUPPORT, "Betrayal of Isengard");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Betrayal of Isengard");
     }
 
     @Override

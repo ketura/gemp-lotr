@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card3_009 extends AbstractPermanent {
     public Card3_009() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.FREE_SUPPORT, "Beren and Luthien");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Beren and Luthien");
         addKeyword(Keyword.TALE);
     }
 

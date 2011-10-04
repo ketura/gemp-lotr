@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_100 extends AbstractPermanent {
     public Card1_100() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.FREE_SUPPORT, "The Choice of Luthien", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "The Choice of Luthien", true);
         addKeyword(Keyword.TALE);
     }
 

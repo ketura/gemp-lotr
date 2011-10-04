@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_079 extends AbstractPermanent {
     public Card1_079() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.FREE_SUPPORT, "The Nine Walkers");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "The Nine Walkers");
     }
 
     @Override

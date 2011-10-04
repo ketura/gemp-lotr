@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_021 extends AbstractPermanent {
     public Card1_021() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Lord of Moria");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Lord of Moria");
     }
 
     @Override

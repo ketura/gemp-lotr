@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_278 extends AbstractPermanent {
     public Card1_278() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Strength Born of Fear");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Strength Born of Fear");
     }
 
     @Override

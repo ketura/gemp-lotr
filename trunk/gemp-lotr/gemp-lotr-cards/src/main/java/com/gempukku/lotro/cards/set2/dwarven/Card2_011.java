@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card2_011 extends AbstractPermanent {
     public Card2_011() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Make Light of Burdens");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Make Light of Burdens");
     }
 
     @Override

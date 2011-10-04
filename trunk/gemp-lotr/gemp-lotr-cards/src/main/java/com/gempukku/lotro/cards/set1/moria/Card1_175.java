@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_175 extends AbstractPermanent {
     public Card1_175() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SHADOW_SUPPORT, "Goblin Domain");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Goblin Domain");
         addKeyword(Keyword.SEARCH);
     }
 

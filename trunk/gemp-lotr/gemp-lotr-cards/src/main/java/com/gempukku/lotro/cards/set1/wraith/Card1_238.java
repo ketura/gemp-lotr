@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_238 extends AbstractPermanent {
     public Card1_238() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Wreathed in Shadow");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Wreathed in Shadow");
     }
 
     @Override

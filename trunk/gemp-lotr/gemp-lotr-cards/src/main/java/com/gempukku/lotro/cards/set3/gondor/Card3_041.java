@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card3_041 extends AbstractPermanent {
     public Card3_041() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.FREE_SUPPORT, "Gondor Bowmen");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Gondor Bowmen");
         addKeyword(Keyword.TALE);
     }
 

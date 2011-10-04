@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_211 extends AbstractPermanent {
     public Card1_211() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Drawn to Its Power");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Drawn to Its Power");
     }
 
     @Override

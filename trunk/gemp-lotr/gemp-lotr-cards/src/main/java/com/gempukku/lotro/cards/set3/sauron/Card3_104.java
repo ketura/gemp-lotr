@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card3_104 extends AbstractPermanent {
     public Card3_104() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Tower of Barad-dur");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Tower of Barad-dur");
     }
 
     @Override

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_242 extends AbstractPermanent {
     public Card1_242() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "The Dark Lord's Summons");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "The Dark Lord's Summons");
         addKeyword(Keyword.SEARCH);
     }
 

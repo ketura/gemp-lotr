@@ -44,7 +44,7 @@ public class Card3_086 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Blade Tip", Filters.name("Blade Tip"), Filters.zone(Zone.SHADOW_SUPPORT), Filters.owner(playerId)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Blade Tip", Filters.name("Blade Tip"), Filters.zone(Zone.SUPPORT), Filters.owner(playerId)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

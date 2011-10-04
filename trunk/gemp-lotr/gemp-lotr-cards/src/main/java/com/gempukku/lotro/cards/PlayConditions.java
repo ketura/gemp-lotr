@@ -23,8 +23,8 @@ import java.util.List;
 
 public class PlayConditions {
     public static boolean nonPlayZone(Zone zone) {
-        return zone != Zone.SHADOW_CHARACTERS && zone != Zone.SHADOW_SUPPORT
-                && zone != Zone.FREE_SUPPORT && zone != Zone.FREE_CHARACTERS
+        return zone != Zone.SHADOW_CHARACTERS && zone != Zone.SUPPORT
+                && zone != Zone.SUPPORT && zone != Zone.FREE_CHARACTERS
                 && zone != Zone.ATTACHED && zone != Zone.ADVENTURE_PATH;
     }
 
@@ -53,11 +53,11 @@ public class PlayConditions {
     }
 
     public static boolean canUseFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.FREE_SUPPORT || self.getZone() == Zone.FREE_CHARACTERS || self.getZone() == Zone.ATTACHED);
+        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.FREE_CHARACTERS || self.getZone() == Zone.ATTACHED);
     }
 
     public static boolean canUseShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SHADOW_SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS || self.getZone() == Zone.ATTACHED)
+        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS || self.getZone() == Zone.ATTACHED)
                 && twilightCost <= gameState.getTwilightPool();
     }
 

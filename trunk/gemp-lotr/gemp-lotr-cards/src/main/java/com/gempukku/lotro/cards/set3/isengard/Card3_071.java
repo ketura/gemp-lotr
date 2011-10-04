@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_071 extends AbstractPermanent {
     public Card3_071() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "Tower of Orthanc");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Tower of Orthanc");
     }
 
     @Override

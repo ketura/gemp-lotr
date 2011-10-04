@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_015 extends AbstractPermanent {
     public Card3_015() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.FREE_SUPPORT, "Forests of Lothlorien");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Forests of Lothlorien");
     }
 
     @Override

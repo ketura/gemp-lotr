@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card3_054 extends AbstractPermanent {
     public Card3_054() {
-        super(Side.SHADOW, 4, CardType.CONDITION, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "Hollowing of Isengard");
+        super(Side.SHADOW, 4, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Hollowing of Isengard");
     }
 
     @Override

@@ -20,6 +20,7 @@ public class GameEvent {
     }
 
     private String _message;
+    private String _side;
     private Type _type;
     private Zone _zone;
     private String _participantId;
@@ -113,8 +114,17 @@ public class GameEvent {
         return this;
     }
 
+    public String getSide() {
+        return _side;
+    }
+
+    public GameEvent side(String side) {
+        _side = side;
+        return this;
+    }
+
     public GameEvent card(PhysicalCard physicalCard) {
-        GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone());
+        GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone()).side(physicalCard.getBlueprint().getSide().name());
         PhysicalCard attachedTo = physicalCard.getAttachedTo();
         if (attachedTo != null)
             gameEvent = gameEvent.targetCardId(attachedTo.getCardId());
