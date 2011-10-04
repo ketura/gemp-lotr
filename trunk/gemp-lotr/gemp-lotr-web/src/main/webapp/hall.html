@@ -80,7 +80,11 @@
 
         $(document).ready(
                 function() {
-                    //                    $("#user").append("Create a table or join one where other player is waiting to start a game.");
+                    $("#latestNews").append("<b>Set 01-03 (whole Fellowship of Rings block) is available to play.</b> "
+                            + "Due to how the cards with \"Player ... may ... to prevent this\" (like Such a Little Thing) work I had to change the rules system. "
+                            + "Because of that, cards that were working fine already, might not be working correctly anymore. "
+                            + "If you find any problems with specific card or rules in general, please report it to me directly or "
+                            + "on the TLHH forums.");
 
                     var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
                     chat.setBounds(2, 2, 780 - 4, 200 - 4);
@@ -101,7 +105,7 @@
         <li><a href="includes/changeLog.html">Change Log</a></li>
     </ul>
     <div id="gameHall">
-        <div id="user" style="width:780px;height:60px;"></div>
+        <div id="latestNews" style="width:780px;height:60px;"></div>
         <div id="hall" class="ui-widget-content"
              style="width:780px;height:260px;"></div>
         <div id="chat" class="ui-widget-content"
