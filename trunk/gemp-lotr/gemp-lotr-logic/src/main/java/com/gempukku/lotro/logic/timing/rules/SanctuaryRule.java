@@ -32,7 +32,7 @@ public class SanctuaryRule {
                             for (int i = 0; i < 5; i++) {
                                 final int remainingHeals = 5 - i;
                                 action.appendEffect(
-                                        new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), Filters.type(CardType.COMPANION)) {
+                                        new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, Filters.type(CardType.COMPANION)) {
                                             @Override
                                             public String getText(LotroGame game) {
                                                 return "Sanctuary healing - Choose companion to heal - remaining heals: " + remainingHeals;
