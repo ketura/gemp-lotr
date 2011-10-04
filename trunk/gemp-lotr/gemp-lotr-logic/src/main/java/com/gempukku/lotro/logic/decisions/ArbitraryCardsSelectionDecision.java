@@ -75,7 +75,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         if (response.equals(""))
             cardIds = new String[0];
         else
-            cardIds = response.split(" ");
+            cardIds = response.split(",");
 
         if (cardIds.length < _minimum || cardIds.length > _maximum)
             throw new DecisionResultInvalidException();
