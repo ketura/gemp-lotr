@@ -39,7 +39,12 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 for (Skirmish assignment : assignments)
                     fps.add(assignment.getFellowshipCharacter());
 
-                RequiredTriggerAction chooseNextSkirmishAction = new RequiredTriggerAction(null);
+                RequiredTriggerAction chooseNextSkirmishAction = new RequiredTriggerAction(null) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Choosing next skirmish to play out";
+                    }
+                };
                 chooseNextSkirmishAction.appendEffect(
                         new ChooseActiveCardEffect(null, gameState.getCurrentPlayerId(), "Choose next skirmish to resolve", Filters.in(fps)) {
                             @Override

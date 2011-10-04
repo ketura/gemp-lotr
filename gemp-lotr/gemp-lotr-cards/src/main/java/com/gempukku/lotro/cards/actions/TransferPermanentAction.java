@@ -25,4 +25,9 @@ public class TransferPermanentAction extends ActivateCardAction {
                     }
                 });
     }
+
+    @Override
+    public String getText(LotroGame game) {
+        return "Transfer " + getActionSource().getBlueprint().getName();
+    }
 }
