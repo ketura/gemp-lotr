@@ -32,7 +32,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
             for (int i = 0; i < _woundsToAssign; i++) {
                 final int woundsLeft = _woundsToAssign - i;
                 action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, _game.getGameState().getCurrentPlayerId(), 1, 1, filter) {
+                        new ChooseAndWoundCharactersEffect(action, _playerId, 1, 1, filter) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Choose minion to assign archery wound to - remaining wounds: " + woundsLeft;
