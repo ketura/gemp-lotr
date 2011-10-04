@@ -1,12 +1,13 @@
 package com.gempukku.lotro.logic.timing.processes.turn.skirmish;
 
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.SkirmishGameProcess;
 
@@ -38,16 +39,17 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 for (Skirmish assignment : assignments)
                     fps.add(assignment.getFellowshipCharacter());
 
-                _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
-                        new CardsSelectionDecision(1, "Choose next skirmish to resolve", fps, 1, 1) {
+                RequiredTriggerAction chooseNextSkirmishAction = new RequiredTriggerAction(null);
+                chooseNextSkirmishAction.appendEffect(
+                        new ChooseActiveCardEffect(null, gameState.getCurrentPlayerId(), "Choose next skirmish to resolve", Filters.in(fps)) {
                             @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                PhysicalCard fp = getSelectedCardsByResponse(result).iterator().next();
-                                gameState.startSkirmish(fp);
+                            protected void cardSelected(PhysicalCard card) {
+                                gameState.startSkirmish(card);
 
                                 _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));
                             }
                         });
+                _game.getActionsEnvironment().addActionToStack(chooseNextSkirmishAction);
             } else {
                 _nextProcess = _followingGameProcess;
             }
