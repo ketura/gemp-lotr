@@ -37,16 +37,17 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                         }
                     });
 
-            RequiredTriggerAction action = new RequiredTriggerAction(null);
+            RequiredTriggerAction action = new RequiredTriggerAction(null) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Archery fire";
+                }
+            };
             for (int i = 0; i < _woundsToAssign; i++) {
                 final int woundsLeft = _woundsToAssign - i;
-                action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, _game.getGameState().getCurrentPlayerId(), 1, 1, filter) {
-                            @Override
-                            public String getText(LotroGame game) {
-                                return "Choose character to assign archery wound to - remaining wounds: " + woundsLeft;
-                            }
-                        });
+                ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, _game.getGameState().getCurrentPlayerId(), 1, 1, filter);
+                woundCharacter.setChoiceText("Choose character to assign archery wound to - remaining wounds: " + woundsLeft);
+                action.appendEffect(woundCharacter);
             }
 
             _game.getActionsEnvironment().addActionToStack(action);

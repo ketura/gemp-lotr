@@ -40,7 +40,12 @@ public class CharacterDeathRule {
                                 deadCharacters.add(character);
 
                         if (deadCharacters.size() > 0) {
-                            RequiredTriggerAction action = new RequiredTriggerAction(null);
+                            RequiredTriggerAction action = new RequiredTriggerAction(null) {
+                                @Override
+                                public String getText(LotroGame game) {
+                                    return "Character(s) death";
+                                }
+                            };
                             action.appendEffect(
                                     new KillEffect(deadCharacters));
                             return Collections.singletonList(action);

@@ -28,16 +28,17 @@ public class SanctuaryRule {
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
-                            RequiredTriggerAction action = new RequiredTriggerAction(null);
+                            RequiredTriggerAction action = new RequiredTriggerAction(null) {
+                                @Override
+                                public String getText(LotroGame game) {
+                                    return "Sanctuary healing";
+                                }
+                            };
                             for (int i = 0; i < 5; i++) {
                                 final int remainingHeals = 5 - i;
-                                action.appendEffect(
-                                        new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, Filters.type(CardType.COMPANION)) {
-                                            @Override
-                                            public String getText(LotroGame game) {
-                                                return "Sanctuary healing - Choose companion to heal - remaining heals: " + remainingHeals;
-                                            }
-                                        });
+                                ChooseAndHealCharactersEffect healEffect = new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, Filters.type(CardType.COMPANION));
+                                healEffect.setChoiceText("Sanctuary healing - Choose companion to heal - remaining heals: " + remainingHeals);
+                                action.appendEffect(healEffect);
                             }
                             return Collections.singletonList(action);
                         }

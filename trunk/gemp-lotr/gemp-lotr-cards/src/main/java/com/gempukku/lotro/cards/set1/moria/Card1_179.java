@@ -37,9 +37,18 @@ public class Card1_179 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
-            final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
+        final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
 
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.weapon(),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
+                        return weapon.checkPlayRequirements(playerId, game, physicalCard, additionalAttachmentFilter, 0);
+                    }
+                }, Filters.playable(game)).size() > 0
+                ) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),

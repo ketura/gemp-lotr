@@ -13,9 +13,9 @@ import java.util.Collection;
 import java.util.Set;
 
 public abstract class ChooseActiveCardsEffect extends AbstractEffect {
-    private PhysicalCard _source;
+    private final PhysicalCard _source;
     private final String _playerId;
-    private final String _choiceText;
+    private String _choiceText;
     private final int _minimum;
     private final int _maximum;
     private final Filter[] _filters;
@@ -27,6 +27,10 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
         _minimum = minimum;
         _maximum = maximum;
         _filters = filters;
+    }
+
+    public void setChoiceText(String choiceText) {
+        _choiceText = choiceText;
     }
 
     protected Filter getExtraFilter() {

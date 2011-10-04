@@ -28,16 +28,17 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
         if (_woundsToAssign > 0) {
             Filter filter = Filters.and(Filters.type(CardType.MINION), Filters.owner(_playerId));
 
-            RequiredTriggerAction action = new RequiredTriggerAction(null);
+            RequiredTriggerAction action = new RequiredTriggerAction(null) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Archery fire";
+                }
+            };
             for (int i = 0; i < _woundsToAssign; i++) {
                 final int woundsLeft = _woundsToAssign - i;
-                action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, _playerId, 1, 1, filter) {
-                            @Override
-                            public String getText(LotroGame game) {
-                                return "Choose minion to assign archery wound to - remaining wounds: " + woundsLeft;
-                            }
-                        });
+                ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, _playerId, 1, 1, filter);
+                woundCharacter.setChoiceText("Choose minion to assign archery wound to - remaining wounds: " + woundsLeft);
+                action.appendEffect(woundCharacter);
             }
 
             _game.getActionsEnvironment().addActionToStack(action);
