@@ -44,7 +44,7 @@ public class Card1_109 extends AbstractEvent {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
+                                new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
                                     @Override
                                     protected void cardSelected(PhysicalCard ally) {
                                         action.appendEffect(

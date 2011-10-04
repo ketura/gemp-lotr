@@ -41,7 +41,7 @@ public class Card1_058 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.race(Race.ELF)));
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard condition) {
                         action.appendEffect(

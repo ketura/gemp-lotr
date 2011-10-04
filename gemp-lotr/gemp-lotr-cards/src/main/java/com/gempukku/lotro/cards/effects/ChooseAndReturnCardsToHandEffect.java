@@ -14,7 +14,7 @@ public class ChooseAndReturnCardsToHandEffect extends ChooseActiveCardsEffect {
     private Action _action;
 
     public ChooseAndReturnCardsToHandEffect(Action action, String playerId, int minimum, int maximum, Filter... filters) {
-        super(playerId, "Choose cards to return to hand", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose cards to return to hand", minimum, maximum, filters);
         _action = action;
     }
 

@@ -43,7 +43,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
         _removeCardEffect = new RemoveCardFromZoneEffect(card);
 
         _chooseTargetEffect =
-                new ChooseActiveCardEffect(card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
+                new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
                     @Override
                     protected void cardSelected(PhysicalCard target) {
                         _putCardIntoPlayEffect = new AttachCardEffect(_source, target);

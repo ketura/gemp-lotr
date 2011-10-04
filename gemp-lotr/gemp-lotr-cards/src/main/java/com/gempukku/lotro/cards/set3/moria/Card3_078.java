@@ -39,7 +39,7 @@ public class Card3_078 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose MORIA minion", Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose MORIA minion", Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)) {
                     @Override
                     protected void cardSelected(PhysicalCard card) {
                         action.appendEffect(

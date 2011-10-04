@@ -54,7 +54,7 @@ public class Card1_076 extends AbstractResponseEvent {
             if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
                                 action.appendEffect(

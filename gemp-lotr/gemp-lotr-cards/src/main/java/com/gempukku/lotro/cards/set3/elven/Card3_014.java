@@ -56,7 +56,7 @@ public class Card3_014 extends AbstractAlly {
                     action.appendCost(
                             new ExertCharactersEffect(self, self));
                     action.appendEffect(
-                            new ChooseActiveCardEffect(playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
+                            new ChooseActiveCardEffect(self, playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
                                 @Override
                                 protected void cardSelected(PhysicalCard card) {
                                     action.insertEffect(

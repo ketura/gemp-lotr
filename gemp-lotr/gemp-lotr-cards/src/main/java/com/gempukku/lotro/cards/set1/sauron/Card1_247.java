@@ -37,7 +37,7 @@ public class Card1_247 extends AbstractResponseEvent {
 
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.in(skirmishResult.getWinners())) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.in(skirmishResult.getWinners())) {
                         @Override
                         protected void cardSelected(PhysicalCard winningSauronOrc) {
                             action.appendEffect(

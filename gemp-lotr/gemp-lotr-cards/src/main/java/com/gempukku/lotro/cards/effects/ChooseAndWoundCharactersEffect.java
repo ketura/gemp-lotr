@@ -17,7 +17,7 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
     private CostToEffectAction _action;
 
     public ChooseAndWoundCharactersEffect(CostToEffectAction action, String playerId, int minimum, int maximum, Filter... filters) {
-        super(playerId, "Choose characters to wound", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose characters to wound", minimum, maximum, filters);
         _action = action;
     }
 

@@ -36,7 +36,7 @@ public class Card1_106 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.RANGER), Filters.type(CardType.COMPANION)));
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose a minion", Filters.type(CardType.MINION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
                     protected void cardSelected(PhysicalCard minion) {
                         action.appendEffect(

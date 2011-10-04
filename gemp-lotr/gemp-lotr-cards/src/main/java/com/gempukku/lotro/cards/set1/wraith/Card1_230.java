@@ -46,7 +46,7 @@ public class Card1_230 extends AbstractMinion {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getShadowCharacters().contains(self)) {
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose a weapon borne by a character he is skirmishing", Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.attachedTo(Filters.sameCard(skirmish.getFellowshipCharacter()))) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose a weapon borne by a character he is skirmishing", Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.attachedTo(Filters.sameCard(skirmish.getFellowshipCharacter()))) {
                             @Override
                             protected void cardSelected(PhysicalCard weapon) {
                                 action.appendEffect(

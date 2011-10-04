@@ -45,7 +45,7 @@ public class Card3_036 extends AbstractPermanent {
                 action.appendCost(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose a companion", Filters.in(woundedCharacters), Filters.type(CardType.COMPANION)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose a companion", Filters.in(woundedCharacters), Filters.type(CardType.COMPANION)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(

@@ -44,7 +44,7 @@ public class Card1_203 extends AbstractResponseEvent {
                     && PlayConditions.canPayForShadowCard(game, self, 0)) {
                 final PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.in(woundEffect.getAffectedCardsMinusPrevented(game))) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.in(woundEffect.getAffectedCardsMinusPrevented(game))) {
                             @Override
                             protected void cardSelected(PhysicalCard nazgul) {
                                 action.appendEffect(

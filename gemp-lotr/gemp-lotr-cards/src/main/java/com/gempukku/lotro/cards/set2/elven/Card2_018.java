@@ -57,7 +57,7 @@ public class Card2_018 extends AbstractPermanent {
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self, null);
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose an Elf", Filters.race(Race.ELF), Filters.in(woundedCharacters)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF), Filters.in(woundedCharacters)) {
                             @Override
                             protected void cardSelected(PhysicalCard elf) {
                                 action.appendEffect(

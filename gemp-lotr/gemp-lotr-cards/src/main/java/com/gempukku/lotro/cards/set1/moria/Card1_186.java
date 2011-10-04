@@ -41,7 +41,7 @@ public class Card1_186 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard moriaOrc) {
                             action.appendEffect(

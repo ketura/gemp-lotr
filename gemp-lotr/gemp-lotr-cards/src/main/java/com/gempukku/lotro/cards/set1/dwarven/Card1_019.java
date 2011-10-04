@@ -46,7 +46,7 @@ public class Card1_019 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
         action.appendEffect(
-                new ChooseActiveCardsEffect(playerId, "Choose Orc(s) to wound", 1, 2, Filters.race(Race.ORC)) {
+                new ChooseActiveCardsEffect(self, playerId, "Choose Orc(s) to wound", 1, 2, Filters.race(Race.ORC)) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         if (cards.size() == 2) {

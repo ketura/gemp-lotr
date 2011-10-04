@@ -50,7 +50,7 @@ public class Card1_224 extends AbstractResponseEvent {
 
                             if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmish()) > 0) {
                                 action.appendEffect(
-                                        new ChooseActiveCardEffect(playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL)) {
+                                        new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL)) {
                                             @Override
                                             protected void cardSelected(PhysicalCard nazgul) {
                                                 PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());

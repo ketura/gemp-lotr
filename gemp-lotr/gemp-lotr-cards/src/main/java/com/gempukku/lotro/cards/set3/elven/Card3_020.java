@@ -49,7 +49,7 @@ public class Card3_020 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Orc", Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

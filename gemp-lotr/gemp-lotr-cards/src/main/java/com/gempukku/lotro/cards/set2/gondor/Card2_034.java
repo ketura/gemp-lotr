@@ -50,7 +50,7 @@ public class Card2_034 extends AbstractResponseEvent {
                 action.appendCost(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose companion", Filters.in(woundedCards), Filters.type(CardType.COMPANION)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.in(woundedCards), Filters.type(CardType.COMPANION)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.appendEffect(

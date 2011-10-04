@@ -46,7 +46,7 @@ public class Card3_031 extends AbstractEvent {
                             new CantBeAssignedToSkirmishModifier(self, Filters.race(Race.HOBBIT)), Phase.REGROUP));
         } else {
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

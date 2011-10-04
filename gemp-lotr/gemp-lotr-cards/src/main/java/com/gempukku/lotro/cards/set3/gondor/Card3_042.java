@@ -49,7 +49,7 @@ public class Card3_042 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Boromir")));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Ally", Filters.type(CardType.ALLY)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Ally", Filters.type(CardType.ALLY)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

@@ -44,7 +44,7 @@ public class Card2_012 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(playerId));
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
                         @Override
                         protected void cardSelected(PhysicalCard dwarf) {
                             action.appendEffect(

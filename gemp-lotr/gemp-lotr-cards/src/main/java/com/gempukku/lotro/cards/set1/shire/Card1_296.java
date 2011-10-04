@@ -43,7 +43,7 @@ public class Card1_296 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentSiteNumber() > 4) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
                             action.appendEffect(

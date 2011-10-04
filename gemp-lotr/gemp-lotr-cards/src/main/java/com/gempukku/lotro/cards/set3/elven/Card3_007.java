@@ -51,7 +51,7 @@ public class Card3_007 extends AbstractCompanion {
                 action.appendCost(
                         new ChooseAndDiscardCardsFromHandEffect(action, playerId, 3));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose character to preventAll wound", Filters.in(woundedCharacters), Filters.keyword(Keyword.RING_BEARER)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose character to preventAll wound", Filters.in(woundedCharacters), Filters.keyword(Keyword.RING_BEARER)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(

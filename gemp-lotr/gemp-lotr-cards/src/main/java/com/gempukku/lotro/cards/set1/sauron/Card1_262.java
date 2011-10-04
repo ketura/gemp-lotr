@@ -46,7 +46,7 @@ public class Card1_262 extends AbstractMinion {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.canBeAssignedToSkirmish())) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             action.appendEffect(
-                    new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION), Filters.canBeAssignedToSkirmish()) {
+                    new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION), Filters.canBeAssignedToSkirmish()) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
                             action.appendEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self), "Orc Assassin effect"));

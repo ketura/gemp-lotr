@@ -47,7 +47,7 @@ public class Card1_085 extends AbstractResponseEvent {
             if (Filters.filter(exertedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose character", Filters.type(CardType.COMPANION), Filters.in(exertedCharacters)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose character", Filters.type(CardType.COMPANION), Filters.in(exertedCharacters)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.appendEffect(

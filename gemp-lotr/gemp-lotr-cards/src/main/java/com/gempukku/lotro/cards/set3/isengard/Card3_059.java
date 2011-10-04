@@ -44,7 +44,7 @@ public class Card3_059 extends AbstractMinion {
                     new RemoveTwilightEffect(2));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose ISENGARD Orc", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

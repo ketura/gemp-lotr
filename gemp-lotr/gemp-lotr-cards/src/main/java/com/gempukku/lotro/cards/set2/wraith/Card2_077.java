@@ -44,7 +44,7 @@ public class Card2_077 extends AbstractPermanent {
                 action.appendCost(
                         new RemoveTwilightEffect(1));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(playerId, "Choose twilight Nazgul", Filters.in(woundedCards), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose twilight Nazgul", Filters.in(woundedCards), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(new PreventEffect(woundEffect, card));

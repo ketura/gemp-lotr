@@ -28,7 +28,7 @@ public class Card1_116 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
                     protected void cardSelected(PhysicalCard gondorCompanion) {
                         boolean isDefender = game.getModifiersQuerying().hasKeyword(game.getGameState(), gondorCompanion, Keyword.DEFENDER);

@@ -37,7 +37,7 @@ public class Card1_169 extends AbstractEvent {
 
         if (Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmish()).size() > 0) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish()) {
+                    new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish()) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
                             action.appendEffect(
