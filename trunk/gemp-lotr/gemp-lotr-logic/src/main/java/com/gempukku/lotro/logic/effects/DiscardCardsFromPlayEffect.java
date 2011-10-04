@@ -5,6 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
@@ -46,7 +47,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     @Override
     public String getText(LotroGame game) {
         Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
-        return "Discard - " + getAppendedNames(cards);
+        return "Discard - " + getAppendedTextNames(cards);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
         }
 
         if (_source != null && discardedCards.size() > 0)
-            game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + _source.getBlueprint().getName());
+            game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + GameUtils.getCardLink(_source));
         return new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)};
     }
 }

@@ -52,6 +52,6 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     }
 
     protected String getMessage() {
-        return _physicalCard.getBlueprint().getName() + " is used";
+        return "<div class='cardHint' value='" + _physicalCard.getBlueprintId() + "'>" + _physicalCard.getBlueprint().getName() + "</div> is used";
     }
 }

@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class StackCardFromPlayEffect extends UnrespondableEffect {
                 gameState.addCardToZone(stackedCard, Zone.DISCARD);
             }
 
-            game.getGameState().sendMessage(_card.getOwner() + " stacks " + _card.getBlueprint().getName() + " from play on " + _stackOn.getBlueprint().getName());
+            game.getGameState().sendMessage(_card.getOwner() + " stacks " + GameUtils.getCardLink(_card) + " from play on " + GameUtils.getCardLink(_stackOn));
             game.getGameState().stackCard(_card, _stackOn);
         }
     }

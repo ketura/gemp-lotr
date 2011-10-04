@@ -244,18 +244,26 @@ var GempLotrGameUI = Class.extend({
                         this.selectionFunction(selectedCardElem.data("card").cardId, event);
                 }
             }
+        } else if (tar.hasClass("cardHint")) {
+            var blueprintId = tar.attr("value");
+            var card = new Card(blueprintId, "SPECIAL", "hint", "");
+            this.displayCard(card);
         }
         return false;
     },
 
-    displayCardInfo: function(card) {
+    displayCard: function(card) {
         this.infoDialog.html("<div style='scroll: auto'><div style='float: left;'><img src='" + card.imageUrl + "'></div><div id='cardEffects'></div></div>");
+
+        this.infoDialog.dialog("open");
+    },
+
+    displayCardInfo: function(card) {
+        this.displayCard(card);
 
         var cardId = card.cardId;
         if (cardId.length < 4 || cardId.substring(0, 4) != "temp")
             this.getCardModifiersFunction(cardId, this.setCardModifiers);
-
-        this.infoDialog.dialog("open");
     },
 
     setCardModifiers: function(html) {

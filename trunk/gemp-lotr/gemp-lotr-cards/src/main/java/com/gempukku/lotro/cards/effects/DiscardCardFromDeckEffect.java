@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class DiscardCardFromDeckEffect extends UnrespondableEffect {
@@ -19,7 +20,7 @@ public class DiscardCardFromDeckEffect extends UnrespondableEffect {
     public void doPlayEffect(LotroGame game) {
         if (game.getGameState().getDeck(_playerId).contains(_card)) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_playerId + " discards " + _card.getBlueprint().getName() + " from his or her deck");
+            gameState.sendMessage(_playerId + " discards " + GameUtils.getCardLink(_card) + " from his or her deck");
             gameState.removeCardFromZone(_card);
             gameState.addCardToZone(_card, Zone.DISCARD);
         }

@@ -41,15 +41,15 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
     @Override
     public String getText(LotroGame game) {
         Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
-        return "Heal - " + getAppendedNames(cards);
+        return "Heal - " + getAppendedTextNames(cards);
     }
 
     @Override
     protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         Collection<PhysicalCard> cardsToHeal = getAffectedCardsMinusPrevented(game);
 
+        game.getGameState().sendMessage(_playerId + " heals " + getAppendedNames(cardsToHeal));
         for (PhysicalCard cardToHeal : cardsToHeal) {
-            game.getGameState().sendMessage(_playerId + " heals " + cardToHeal.getBlueprint().getName());
             game.getGameState().removeWound(cardToHeal);
         }
 

@@ -4,6 +4,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -44,13 +45,14 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     @Override
     public String getText(LotroGame game) {
         Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
-        return "Exert - " + getAppendedNames(cards);
+        return "Exert - " + getAppendedTextNames(cards);
     }
 
     @Override
     protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+        if (cards.size() > 0)
+            game.getGameState().sendMessage(getAppendedNames(cards) + " exert(s) due to " + GameUtils.getCardLink(_source));
         for (PhysicalCard woundedCard : cards) {
-            game.getGameState().sendMessage(woundedCard.getBlueprint().getName() + " exerts due to " + _source.getBlueprint().getName());
             game.getGameState().addWound(woundedCard);
         }
 

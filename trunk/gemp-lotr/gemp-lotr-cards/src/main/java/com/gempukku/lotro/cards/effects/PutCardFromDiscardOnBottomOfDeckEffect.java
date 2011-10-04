@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class PutCardFromDiscardOnBottomOfDeckEffect extends UnrespondableEffect {
@@ -15,7 +16,7 @@ public class PutCardFromDiscardOnBottomOfDeckEffect extends UnrespondableEffect 
     @Override
     public void doPlayEffect(LotroGame game) {
         GameState gameState = game.getGameState();
-        gameState.sendMessage(_physicalCard.getOwner() + " puts " + _physicalCard.getBlueprint().getName() + " from discard on the bottom of deck");
+        gameState.sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from discard on the bottom of deck");
         gameState.removeCardFromZone(_physicalCard);
         gameState.putCardOnBottomOfDeck(_physicalCard);
     }

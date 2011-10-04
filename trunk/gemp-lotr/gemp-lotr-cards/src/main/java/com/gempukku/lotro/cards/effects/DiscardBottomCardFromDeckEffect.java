@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -35,7 +36,7 @@ public class DiscardBottomCardFromDeckEffect extends AbstractEffect {
         if (success) {
             GameState gameState = game.getGameState();
             PhysicalCard card = gameState.removeBottomDeckCard(_playerId);
-            gameState.sendMessage(_playerId + " discards bottom card from his or her deck - " + card.getBlueprint().getName());
+            gameState.sendMessage(_playerId + " discards bottom card from his or her deck - " + GameUtils.getCardLink(card));
             gameState.addCardToZone(card, Zone.DISCARD);
 
             discardedCard(card);

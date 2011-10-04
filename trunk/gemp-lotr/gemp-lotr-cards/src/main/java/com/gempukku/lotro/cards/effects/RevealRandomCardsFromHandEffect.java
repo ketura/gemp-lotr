@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.effects;
 
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.effects;
 
-import com.gempukku.lotro.cards.GameUtils;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 

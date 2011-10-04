@@ -21,7 +21,7 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Discard from hand - " + getAppendedNames(_cards);
+        return "Discard from hand - " + getAppendedTextNames(_cards);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         GameState gameState = game.getGameState();
+        gameState.sendMessage(getAppendedNames(_cards) + " is/are discarded from hand");
         for (PhysicalCard card : _cards) {
-            gameState.sendMessage(card.getOwner() + " discards " + card.getBlueprint().getName() + " from hand");
             gameState.removeCardFromZone(card);
             gameState.addCardToZone(card, Zone.DISCARD);
         }

@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
@@ -33,18 +34,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
     @Override
     public String getText(LotroGame game) {
         List<PhysicalCard> cards = getCharactersToBeKilled();
-        return "Kill - " + getAppendedNames(cards);
-    }
-
-    private String getAppendedNames(List<PhysicalCard> cards) {
-        StringBuilder sb = new StringBuilder();
-        for (PhysicalCard card : cards)
-            sb.append(card.getBlueprint().getName() + ", ");
-
-        if (sb.length() == 0)
-            return "none";
-        else
-            return sb.substring(0, sb.length() - 1);
+        return "Kill - " + getAppendedTextNames(cards);
     }
 
     @Override
@@ -54,7 +44,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
 
         for (PhysicalCard card : _cards) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(card.getBlueprint().getName() + " gets killed");
+            gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
             gameState.stopAffecting(card);
             gameState.removeCardFromZone(card);
             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {

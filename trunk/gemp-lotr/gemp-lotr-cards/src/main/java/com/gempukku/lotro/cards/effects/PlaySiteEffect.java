@@ -5,6 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class PlaySiteEffect extends UnrespondableEffect {
@@ -28,7 +29,7 @@ public class PlaySiteEffect extends UnrespondableEffect {
                 gameState.removeCardFromZone(card);
                 gameState.addCardToZone(card, Zone.DECK);
             }
-            gameState.sendMessage(newSite.getOwner() + " plays " + newSite.getBlueprint().getName());
+            gameState.sendMessage(newSite.getOwner() + " plays " + GameUtils.getCardLink(newSite));
             gameState.addCardToZone(newSite, Zone.ADVENTURE_PATH);
             if (gameState.getCurrentSiteNumber() == _siteNumber)
                 gameState.startAffecting(newSite, game.getModifiersEnvironment());

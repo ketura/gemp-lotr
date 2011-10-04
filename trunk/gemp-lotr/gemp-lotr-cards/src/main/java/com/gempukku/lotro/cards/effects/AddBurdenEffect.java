@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
@@ -47,7 +48,7 @@ public class AddBurdenEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (_prevented < _count) {
             int toAdd = _count - _prevented;
-            game.getGameState().sendMessage(_source.getBlueprint().getName() + " adds " + toAdd + " burden(s)");
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + toAdd + " burden(s)");
             game.getGameState().addBurdens(toAdd);
             return new FullEffectResult(new EffectResult[]{new AddBurdenResult(_source, toAdd)}, true, _prevented == 0);
         }
