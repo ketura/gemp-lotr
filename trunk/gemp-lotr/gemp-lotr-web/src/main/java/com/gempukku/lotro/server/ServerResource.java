@@ -741,15 +741,15 @@ public class ServerResource {
             eventElem.setAttribute("token", gameEvent.getToken().name());
         if (gameEvent.getCount() != null)
             eventElem.setAttribute("count", gameEvent.getCount().toString());
-        if (gameEvent.getOpposingCardIds() != null) {
+        if (gameEvent.getOtherCardIds() != null) {
             StringBuilder sb = new StringBuilder();
             boolean first = true;
-            for (int cardId : gameEvent.getOpposingCardIds()) {
+            for (int cardId : gameEvent.getOtherCardIds()) {
                 if (!first) sb.append(",");
                 sb.append(cardId);
                 first = false;
             }
-            eventElem.setAttribute("opposingCardIds", sb.toString());
+            eventElem.setAttribute("otherCardIds", sb.toString());
         }
         if (gameEvent.getMessage() != null)
             eventElem.setAttribute("message", gameEvent.getMessage());

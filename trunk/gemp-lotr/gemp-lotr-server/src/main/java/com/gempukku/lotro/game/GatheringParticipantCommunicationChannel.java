@@ -29,16 +29,19 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
         _events.add(new GameEvent(PARTICIPANT).participantId(_self).allParticipantIds(participantIds));
     }
 
-    private int[] getCardIds(List<PhysicalCard> minions) {
-        int[] result = new int[minions.size()];
-        for (int i = 0; i < result.length; i++)
-            result[i] = minions.get(i).getCardId();
+    private int[] getCardIds(Collection<PhysicalCard> cards) {
+        int[] result = new int[cards.size()];
+        int index = 0;
+        for (PhysicalCard card : cards) {
+            result[index] = card.getCardId();
+            index++;
+        }
         return result;
     }
 
     @Override
     public void addAssignment(PhysicalCard freePeople, List<PhysicalCard> minions) {
-        _events.add(new GameEvent(ADD_ASSIGNMENT).cardId(freePeople.getCardId()).opposingCardIds(getCardIds(minions)));
+        _events.add(new GameEvent(ADD_ASSIGNMENT).cardId(freePeople.getCardId()).otherCardIds(getCardIds(minions)));
     }
 
     @Override
@@ -48,7 +51,7 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
 
     @Override
     public void startSkirmish(PhysicalCard freePeople, List<PhysicalCard> minions) {
-        GameEvent gameEvent = new GameEvent(START_SKIRMISH).opposingCardIds(getCardIds(minions));
+        GameEvent gameEvent = new GameEvent(START_SKIRMISH).otherCardIds(getCardIds(minions));
         if (freePeople != null)
             gameEvent.cardId(freePeople.getCardId());
         _events.add(gameEvent);
@@ -120,9 +123,8 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     }
 
     @Override
-    public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCard) {
-        // TODO
-//        _events.add(new GameEvent(CARD_AFFECTS_CARD).card(card).targetCardId(affectedCard.getCardId()));
+    public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCards) {
+        _events.add(new GameEvent(CARD_AFFECTS_CARD).participantId(playerPerforming).card(card).otherCardIds(getCardIds(affectedCards)));
     }
 
     public void eventPlayed(PhysicalCard card) {
