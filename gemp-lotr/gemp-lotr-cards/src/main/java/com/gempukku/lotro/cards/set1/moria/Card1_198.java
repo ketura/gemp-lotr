@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_198 extends AbstractPermanent {
     public Card1_198() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SHADOW_SUPPORT, "Through the Misty Mountains");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Through the Misty Mountains");
         addKeyword(Keyword.SEARCH);
     }
 

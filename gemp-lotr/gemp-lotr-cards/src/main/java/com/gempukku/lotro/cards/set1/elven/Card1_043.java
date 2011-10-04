@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card1_043 extends AbstractPermanent {
     public Card1_043() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.FREE_SUPPORT, "Far-seeing Eyes", true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Far-seeing Eyes", true);
     }
 
     @Override

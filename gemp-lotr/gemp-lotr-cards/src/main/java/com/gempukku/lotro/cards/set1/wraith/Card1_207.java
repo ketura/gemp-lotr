@@ -34,13 +34,13 @@ import java.util.List;
  */
 public class Card1_207 extends AbstractPermanent {
     public Card1_207() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Black Breath");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Black Breath");
     }
 
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
-                && self.getZone() == Zone.SHADOW_SUPPORT
+                && self.getZone() == Zone.SUPPORT
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0
                 && game.getGameState().getSkirmish().getFellowshipCharacter() != null) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);

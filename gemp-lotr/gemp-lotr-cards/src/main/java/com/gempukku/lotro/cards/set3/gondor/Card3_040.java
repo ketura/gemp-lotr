@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card3_040 extends AbstractPermanent {
     public Card3_040() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.FREE_SUPPORT, "Citadel of Minas Tirith");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Citadel of Minas Tirith");
     }
 
     @Override

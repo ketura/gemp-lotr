@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card3_005 extends AbstractPermanent {
     public Card3_005() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Song of Durin");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Song of Durin");
         addKeyword(Keyword.TALE);
     }
 

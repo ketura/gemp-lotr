@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card3_083 extends AbstractPermanent {
     public Card3_083() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "The Ring Draws Them", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "The Ring Draws Them", true);
     }
 
     @Override

@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_264 extends AbstractPermanent {
     public Card1_264() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Orc Bowmen");
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Orc Bowmen");
     }
 
     @Override

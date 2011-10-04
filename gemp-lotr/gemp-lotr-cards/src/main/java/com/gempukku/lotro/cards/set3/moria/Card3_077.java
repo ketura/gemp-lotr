@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card3_077 extends AbstractPermanent {
     public Card3_077() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SHADOW_SUPPORT, "Dephts of Moria");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Dephts of Moria");
     }
 
     @Override

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card2_040 extends AbstractPermanent {
     public Card2_040() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "Demands of the Sackville-Bagginses");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Demands of the Sackville-Bagginses");
     }
 
     @Override

@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_316 extends AbstractPermanent {
     public Card1_316() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.FREE_SUPPORT, "A Talent for Not Being Seen", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "A Talent for Not Being Seen", true);
         addKeyword(Keyword.STEALTH);
     }
 

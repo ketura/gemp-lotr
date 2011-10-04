@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card3_052 extends AbstractPermanent {
     public Card3_052() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "A Fell Voice on the Air");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "A Fell Voice on the Air");
     }
 
     @Override

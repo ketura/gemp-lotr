@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card2_023 extends AbstractPermanent {
     public Card2_023() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GANDALF, Zone.FREE_SUPPORT, "Gandalf's Wisdom");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Gandalf's Wisdom");
     }
 
     @Override

@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_061 extends AbstractPermanent {
     public Card1_061() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.FREE_SUPPORT, "Songs of the Blessed Realm");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Songs of the Blessed Realm");
     }
 
     @Override

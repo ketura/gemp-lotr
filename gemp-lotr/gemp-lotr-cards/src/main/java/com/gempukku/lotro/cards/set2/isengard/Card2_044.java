@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card2_044 extends AbstractPermanent {
     public Card2_044() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "No Business of Ours");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "No Business of Ours");
     }
 
     @Override

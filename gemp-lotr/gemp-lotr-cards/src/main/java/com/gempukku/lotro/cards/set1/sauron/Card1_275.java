@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_275 extends AbstractPermanent {
     public Card1_275() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Seeking It Always");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Seeking It Always");
         addKeyword(Keyword.SEARCH);
     }
 

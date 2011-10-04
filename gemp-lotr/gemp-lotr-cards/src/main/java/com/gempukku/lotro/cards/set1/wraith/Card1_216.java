@@ -51,7 +51,7 @@ public class Card1_216 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
-                && self.getZone() == Zone.SHADOW_SUPPORT) {
+                && self.getZone() == Zone.SUPPORT) {
             ActivateCardAction action = new ActivateCardAction(self, null);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
@@ -59,7 +59,7 @@ public class Card1_216 extends AbstractAttachable {
             if (skirmish != null && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
                 final PhysicalCard fpChar = skirmish.getFellowshipCharacter();
                 if (fpChar != null) {
-                    final PhysicalCard bladeTip = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"), Filters.owner(playerId), Filters.zone(Zone.SHADOW_SUPPORT));
+                    final PhysicalCard bladeTip = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"), Filters.owner(playerId), Filters.zone(Zone.SUPPORT));
                     if (bladeTip != null) {
                         action.appendEffect(
                                 new TransferPermanentEffect(bladeTip, fpChar));

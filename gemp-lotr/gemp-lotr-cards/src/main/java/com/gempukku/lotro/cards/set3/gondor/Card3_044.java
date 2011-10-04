@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card3_044 extends AbstractPermanent {
     public Card3_044() {
-        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, Zone.FREE_SUPPORT, "The Shards of Narsil", true);
+        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "The Shards of Narsil", true);
     }
 
     @Override

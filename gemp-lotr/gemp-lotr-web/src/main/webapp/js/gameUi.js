@@ -87,7 +87,7 @@ var GempLotrGameUI = Class.extend({
             return card.zone == "SHADOW_CHARACTERS" && card.skirmish == true;
         }, false);
         this.skirmishFellowshipGroup = new NormalCardGroup($("#main"), function (card) {
-            return (card.zone == "FREE_SUPPORT" || card.zone == "FREE_CHARACTERS") && card.skirmish == true;
+            return (card.zone == "SUPPORT" || card.zone == "FREE_CHARACTERS") && card.skirmish == true;
         }, false);
 
         this.initializeDialogs();
@@ -101,7 +101,7 @@ var GempLotrGameUI = Class.extend({
         var that = this;
 
         this.supportOpponent = new NormalCardGroup($("#main"), function(card) {
-            return ((card.zone == "FREE_SUPPORT" || card.zone == "SHADOW_SUPPORT") && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+            return (card.zone == "SUPPORT" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.charactersOpponent = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
@@ -113,7 +113,7 @@ var GempLotrGameUI = Class.extend({
             return (card.zone == "FREE_CHARACTERS" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.supportPlayer = new NormalCardGroup($("#main"), function(card) {
-            return ((card.zone == "FREE_SUPPORT" || card.zone == "SHADOW_SUPPORT") && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+            return (card.zone == "SUPPORT" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         if (!this.spectatorMode) {
             this.hand = new NormalCardGroup($("#main"), function(card) {

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card2_107 extends AbstractPermanent {
     public Card2_107() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.FREE_SUPPORT, "Not Feared in Sunlight");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Not Feared in Sunlight");
     }
 
     @Override

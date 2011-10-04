@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card2_012 extends AbstractPermanent {
     public Card2_012() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Realm of Dwarrowdelf", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Realm of Dwarrowdelf", true);
     }
 
     @Override

@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_202 extends AbstractPermanent {
     public Card1_202() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MORIA, Zone.SHADOW_SUPPORT, "What Is This New Devilry?");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "What Is This New Devilry?");
         addKeyword(Keyword.SEARCH);
     }
 

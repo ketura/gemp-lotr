@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card3_102 extends AbstractPermanent {
     public Card3_102() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SHADOW_SUPPORT, "Our List of Allies Grows Thin", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Our List of Allies Grows Thin", true);
     }
 
     @Override

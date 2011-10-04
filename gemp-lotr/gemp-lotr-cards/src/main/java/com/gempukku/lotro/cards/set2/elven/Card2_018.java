@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card2_018 extends AbstractPermanent {
     public Card2_018() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.FREE_SUPPORT, "Hosts of the Last Alliance");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Hosts of the Last Alliance");
         addKeyword(Keyword.TALE);
     }
 

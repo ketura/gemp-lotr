@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card3_003 extends AbstractPermanent {
     public Card3_003() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Mines of Khazad-Dum");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Mines of Khazad-Dum");
     }
 
     @Override

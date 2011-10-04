@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card2_056 extends AbstractPermanent {
     public Card2_056() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, Zone.SHADOW_SUPPORT, "Fill With Fear");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Fill With Fear");
     }
 
     @Override

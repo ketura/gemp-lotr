@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card2_014 extends AbstractPermanent {
     public Card2_014() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Till Durin Wakes Again");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Till Durin Wakes Again");
         addKeyword(Keyword.TALE);
     }
 

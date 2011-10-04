@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_024 extends AbstractPermanent {
     public Card1_024() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.FREE_SUPPORT, "Stairs of Khazad-dum");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Stairs of Khazad-dum");
         addKeyword(Keyword.TALE);
     }
 

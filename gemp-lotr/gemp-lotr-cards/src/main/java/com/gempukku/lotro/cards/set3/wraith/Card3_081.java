@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card3_081 extends AbstractPermanent {
     public Card3_081() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Gates of the Dead City");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Gates of the Dead City");
     }
 
     @Override

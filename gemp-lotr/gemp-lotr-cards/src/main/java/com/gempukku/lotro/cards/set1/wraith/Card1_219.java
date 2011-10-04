@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card1_219 extends AbstractPermanent {
     public Card1_219() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "The Nine Servants of Sauron");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "The Nine Servants of Sauron");
         addKeyword(Keyword.SEARCH);
     }
 

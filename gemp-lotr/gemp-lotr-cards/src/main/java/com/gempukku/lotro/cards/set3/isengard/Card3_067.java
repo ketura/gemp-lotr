@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_067 extends AbstractPermanent {
     public Card3_067() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SHADOW_SUPPORT, "The Palanthir of Orthanc", true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "The Palanthir of Orthanc", true);
     }
 
     @Override

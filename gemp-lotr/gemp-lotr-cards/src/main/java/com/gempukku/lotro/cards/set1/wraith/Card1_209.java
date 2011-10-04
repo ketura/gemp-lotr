@@ -29,13 +29,13 @@ import java.util.List;
  */
 public class Card1_209 extends AbstractPermanent {
     public Card1_209() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SHADOW_SUPPORT, "Blade Tip");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Blade Tip");
     }
 
     @Override
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.race(Race.NAZGUL)))
-                && self.getZone() == Zone.SHADOW_SUPPORT
+                && self.getZone() == Zone.SUPPORT
                 && game.getGameState().getSkirmish() != null && game.getGameState().getSkirmish().getFellowshipCharacter() != null
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(game.getGameState().getSkirmish().getFellowshipCharacter()), Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))))) {
             ActivateCardAction action = new ActivateCardAction(self, null);

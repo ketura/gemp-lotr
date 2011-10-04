@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_073 extends AbstractPermanent {
     public Card1_073() {
-        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.GANDALF, Zone.FREE_SUPPORT, "Gandalf's Cart", true);
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.GANDALF, Zone.SUPPORT, "Gandalf's Cart", true);
     }
 
     @Override
