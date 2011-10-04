@@ -12,8 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 
-import java.util.Collection;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -39,14 +37,13 @@ public class Card1_004 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> dwarf) {
-                        super.cardsSelected(game, dwarf);    //To change body of overridden methods use File | Settings | File Templates.
+                    protected void forEachCardExertedCallback(PhysicalCard dwarf) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.in(dwarf), 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(dwarf), 3), Phase.SKIRMISH));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, Filters.in(dwarf), Keyword.DAMAGE), Phase.SKIRMISH));
+                                        new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH));
                     }
                 }
         );

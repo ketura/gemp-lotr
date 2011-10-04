@@ -14,7 +14,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,14 +38,10 @@ public class Card1_331 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId)) {
                         @Override
-                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                            super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
-                            if (characters.size() > 0) {
-                                action.appendEffect(
-                                        new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, Filters.in(characters), 2), Phase.SKIRMISH));
-
-                            }
+                        protected void forEachCardExertedCallback(PhysicalCard character) {
+                            action.appendEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(
+                                            new StrengthModifier(self, Filters.sameCard(character), 2), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);

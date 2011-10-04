@@ -14,8 +14,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
-import java.util.Collection;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -46,11 +44,10 @@ public class Card1_293 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> hobbit) {
-                        super.cardsSelected(game, hobbit);
+                    protected void forEachCardExertedCallback(PhysicalCard hobbit) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.in(hobbit), 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));
                     }
                 });
         return action;

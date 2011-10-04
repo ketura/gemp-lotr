@@ -11,8 +11,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 
-import java.util.Collection;
-
 /**
  * Set: Mines of Moria
  * Side: Free
@@ -39,14 +37,11 @@ public class Card2_002 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-                        super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
-                        if (characters.size() > 0) {
-                            boolean spotsOrc = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
-                            action.appendEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.in(characters), Keyword.DEFENDER, spotsOrc ? 2 : 1), Phase.REGROUP));
-                        }
+                    protected void forEachCardExertedCallback(PhysicalCard character) {
+                        boolean spotsOrc = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
+                        action.appendEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new KeywordModifier(self, Filters.sameCard(character), Keyword.DEFENDER, spotsOrc ? 2 : 1), Phase.REGROUP));
                     }
                 });
         return action;

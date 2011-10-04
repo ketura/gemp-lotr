@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
@@ -37,23 +37,27 @@ public class Card1_109 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
-        PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
-
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.appendCost(new ExertCharactersEffect(self, aragorn));
-        action.appendEffect(
-                new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
+        action.appendCost(
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")) {
                     @Override
-                    protected void cardSelected(PhysicalCard ally) {
+                    protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
-                                new AddUntilStartOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(ally), 2)
-                                        , Phase.REGROUP));
-                        action.appendEffect(
-                                new AddUntilStartOfPhaseModifierEffect(
-                                        new AllyOnCurrentSiteModifier(self, Filters.sameCard(ally))
-                                        , Phase.REGROUP));
+                                new ChooseActiveCardEffect(playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
+                                    @Override
+                                    protected void cardSelected(PhysicalCard ally) {
+                                        action.appendEffect(
+                                                new AddUntilStartOfPhaseModifierEffect(
+                                                        new StrengthModifier(self, Filters.sameCard(ally), 2)
+                                                        , Phase.REGROUP));
+                                        action.appendEffect(
+                                                new AddUntilStartOfPhaseModifierEffect(
+                                                        new AllyOnCurrentSiteModifier(self, Filters.sameCard(ally))
+                                                        , Phase.REGROUP));
+                                    }
+                                }
+                        );
                     }
                 }
         );

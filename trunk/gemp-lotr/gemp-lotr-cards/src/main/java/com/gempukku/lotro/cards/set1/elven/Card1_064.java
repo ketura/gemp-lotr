@@ -12,8 +12,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
-import java.util.Collection;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -45,15 +43,14 @@ public class Card1_064 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(3)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> elfAlly) {
-                        super.cardsSelected(game, elfAlly);    //To change body of overridden methods use File | Settings | File Templates.
+                    protected void forEachCardExertedCallback(PhysicalCard elfAlly) {
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.in(elfAlly), 3)
+                                        new StrengthModifier(self, Filters.sameCard(elfAlly), 3)
                                         , Phase.REGROUP));
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
-                                        new AllyOnCurrentSiteModifier(self, Filters.in(elfAlly))
+                                        new AllyOnCurrentSiteModifier(self, Filters.sameCard(elfAlly))
                                         , Phase.REGROUP));
                     }
                 }

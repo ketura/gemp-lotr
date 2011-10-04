@@ -13,8 +13,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 
-import java.util.Collection;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -40,13 +38,9 @@ public class Card1_255 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> minions) {
-                        super.cardsSelected(game, minions);    //To change body of overridden methods use File | Settings | File Templates.
-                        if (minions.size() > 0) {
-                            PhysicalCard minion = minions.iterator().next();
-                            action.appendEffect(
-                                    new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Filters.sameCard(minion))));
-                        }
+                    protected void forEachCardExertedCallback(PhysicalCard minion) {
+                        action.appendEffect(
+                                new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Filters.sameCard(minion))));
                     }
                 });
         return action;

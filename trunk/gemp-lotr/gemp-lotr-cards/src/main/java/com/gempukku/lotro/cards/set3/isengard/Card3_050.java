@@ -12,6 +12,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 import java.util.Collections;
 
@@ -41,15 +42,19 @@ public class Card3_050 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
-        if (aragorn != null)
-            action.appendEffect(
-                    new PreventableEffect(action,
-                            new ExhaustCharacterEffect(playerId, action, aragorn),
-                            Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                            new AddBurdenEffect(self, 2)));
+        action.appendEffect(
+                new ChooseActiveCardEffect(playerId, "Choose Aragorn", Filters.name("Aragorn")) {
+                    @Override
+                    protected void cardSelected(PhysicalCard aragorn) {
+                        action.appendEffect(
+                                new PreventableEffect(action,
+                                        new ExhaustCharacterEffect(playerId, action, aragorn),
+                                        Collections.singletonList(game.getGameState().getCurrentPlayerId()),
+                                        new AddBurdenEffect(self, 2)));
+                    }
+                });
         return action;
     }
 }
