@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -31,11 +31,11 @@ public class Card1_077 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 0, Integer.MAX_VALUE, Filters.type(CardType.COMPANION)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 0, Integer.MAX_VALUE, Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
-                        super.cardsSelected(characters, success);
-                        if (success) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
+                        super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
+                        if (characters.size() > 0) {
                             action.appendEffect(new RemoveTwilightEffect(characters.size()));
                         }
                     }

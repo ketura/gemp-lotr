@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set3.gondor;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -44,7 +44,7 @@ public class Card3_048 extends AbstractResponseEvent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION))) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, 2, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new TwilightCostModifier(self, Filters.type(CardType.MINION), 1), Phase.REGROUP));

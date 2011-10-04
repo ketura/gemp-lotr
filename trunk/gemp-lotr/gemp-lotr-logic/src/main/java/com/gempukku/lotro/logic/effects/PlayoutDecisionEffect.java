@@ -3,11 +3,10 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.timing.Cost;
-import com.gempukku.lotro.logic.timing.CostResolution;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class PlayoutDecisionEffect extends UnrespondableEffect implements Cost {
+public class PlayoutDecisionEffect extends AbstractSuccessfulEffect {
     private UserFeedback _userFeedback;
     private String _playerId;
     private AwaitingDecision _decision;
@@ -19,13 +18,18 @@ public class PlayoutDecisionEffect extends UnrespondableEffect implements Cost {
     }
 
     @Override
-    public void doPlayEffect(LotroGame game) {
-        _userFeedback.sendAwaitingDecision(_playerId, _decision);
+    public String getText(LotroGame game) {
+        return null;
     }
 
     @Override
-    public CostResolution playCost(LotroGame game) {
+    public EffectResult.Type getType() {
+        return null;
+    }
+
+    @Override
+    public EffectResult[] playEffect(LotroGame game) {
         _userFeedback.sendAwaitingDecision(_playerId, _decision);
-        return new CostResolution(null, true);
+        return null;
     }
 }

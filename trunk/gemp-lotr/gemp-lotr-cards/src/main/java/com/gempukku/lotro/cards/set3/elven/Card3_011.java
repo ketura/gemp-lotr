@@ -51,7 +51,7 @@ public class Card3_011 extends AbstractEvent {
             action.appendEffect(
                     new ChooseAndDiscardCardsFromHandEffect(action, opponent, 1) {
                         @Override
-                        protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded) {
+                        protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {
                             integer.addAndGet(cardsBeingDiscarded.size());
                         }
                     });

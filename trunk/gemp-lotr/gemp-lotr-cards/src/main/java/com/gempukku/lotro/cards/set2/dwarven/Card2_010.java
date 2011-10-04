@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
@@ -11,6 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -46,7 +46,7 @@ public class Card2_010 extends AbstractAttachableFPPossession {
         if (PlayConditions.canPlayCardDuringPhase(game, Phase.ARCHERY, self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
             action.appendCost(
-                    new DiscardCardsFromPlayCost(self));
+                    new DiscardCardsFromPlayEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));

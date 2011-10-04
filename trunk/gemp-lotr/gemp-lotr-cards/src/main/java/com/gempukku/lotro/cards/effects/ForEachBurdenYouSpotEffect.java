@@ -39,4 +39,24 @@ public abstract class ForEachBurdenYouSpotEffect implements Effect {
     }
 
     protected abstract void burdensSpotted(int burdensSpotted);
+
+    @Override
+    public boolean isPlayableInFull(LotroGame game) {
+        return true;
+    }
+
+    @Override
+    public boolean wasSuccessful() {
+        return true;
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return true;
+    }
+
+    @Override
+    public void reset() {
+
+    }
 }

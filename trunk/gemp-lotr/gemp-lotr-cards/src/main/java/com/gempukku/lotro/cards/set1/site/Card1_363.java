@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -73,9 +74,9 @@ public class Card1_363 extends AbstractSite {
         }
 
         @Override
-        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             if (selectedCards.size() > 0) {
-                PhysicalCard selectedCard = selectedCards.get(0);
+                PhysicalCard selectedCard = selectedCards.iterator().next();
                 _game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, _game, selectedCard, 0));
 
                 LinkedList<PhysicalCard> remainingCards = new LinkedList<PhysicalCard>(_game.getGameState().getDiscard(_playerId));

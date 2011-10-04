@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -43,8 +43,8 @@ public class Card1_085 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalBeforeActions(final String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.EXERT
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            final ExertCharacterEffect exertEffect = (ExertCharacterEffect) effect;
-            Collection<PhysicalCard> exertedCharacters = exertEffect.getCardsToBeAffected(game);
+            final ExertCharactersEffect exertEffect = (ExertCharactersEffect) effect;
+            Collection<PhysicalCard> exertedCharacters = exertEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(exertedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(

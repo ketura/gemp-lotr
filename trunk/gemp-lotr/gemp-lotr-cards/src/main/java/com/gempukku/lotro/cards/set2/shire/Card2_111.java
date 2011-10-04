@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.shire;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -41,7 +41,7 @@ public class Card2_111 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("Bilbo")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Bilbo")));
         action.appendEffect(
                 new ChooseAndPlayCardFromDeckEffect(playerId, Filters.race(Race.HOBBIT)));
         return action;

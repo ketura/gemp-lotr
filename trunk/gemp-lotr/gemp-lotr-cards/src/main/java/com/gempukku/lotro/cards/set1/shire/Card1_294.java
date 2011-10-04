@@ -14,7 +14,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
@@ -51,7 +51,7 @@ public class Card1_294 extends AbstractEvent {
                                             protected void cardSelected(PhysicalCard hobbit) {
                                                 action.appendEffect(new CardAffectsCardEffect(self, hobbit));
                                                 for (int i = 0; i < twilight; i++)
-                                                    action.appendEffect(new HealCharacterEffect(playerId, hobbit));
+                                                    action.appendEffect(new HealCharactersEffect(playerId, hobbit));
                                             }
                                         });
                             }

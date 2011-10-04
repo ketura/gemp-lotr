@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -42,9 +42,9 @@ public class Card3_059 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
             action.appendCost(
                     new RemoveTwilightEffect(2));
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose ISENGARD Orc", Filters.in(woundEffect.getCardsToBeAffected(game)), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(playerId, "Choose ISENGARD Orc", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

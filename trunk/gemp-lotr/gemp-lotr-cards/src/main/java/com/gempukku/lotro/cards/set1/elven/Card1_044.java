@@ -3,14 +3,14 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class Card1_044 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override
@@ -54,7 +54,7 @@ public class Card1_044 extends AbstractEvent {
                                     @Override
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {
-                                            action.appendEffect(new DiscardCardFromHandEffect(self, selectedCards.get(0)));
+                                            action.appendEffect(new DiscardCardsFromHandEffect(self, selectedCards));
                                             action.appendEffect(new DrawCardEffect(playerId, 1));
                                             action.appendEffect(new DrawCardEffect(playerId, 1));
                                         }

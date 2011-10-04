@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -37,16 +37,14 @@ public class Card1_360 extends AbstractSite {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.type(CardType.MINION))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.owner(playerId), Filters.type(CardType.MINION)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.type(CardType.MINION)) {
                         @Override
-                        protected void cardsSelected(Collection<PhysicalCard> minion, boolean success) {
-                            super.cardsSelected(minion, success);
-                            if (success) {
-                                action.appendEffect(new CardAffectsCardEffect(self, minion));
-                                action.appendEffect(
-                                        new AddUntilStartOfPhaseModifierEffect(
-                                                new KeywordModifier(self, Filters.in(minion), Keyword.FIERCE), Phase.REGROUP));
-                            }
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> minion) {
+                            super.cardsSelected(game, minion);    //To change body of overridden methods use File | Settings | File Templates.
+                            action.appendEffect(new CardAffectsCardEffect(self, minion));
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new KeywordModifier(self, Filters.in(minion), Keyword.FIERCE), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);

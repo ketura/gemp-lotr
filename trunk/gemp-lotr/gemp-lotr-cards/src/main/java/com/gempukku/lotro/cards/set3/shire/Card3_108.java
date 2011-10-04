@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -43,7 +43,7 @@ public class Card3_108 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.hasAttached(self)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.hasAttached(self)));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ORC), Filters.inSkirmishAgainst(Filters.hasAttached(self))));
             return Collections.singletonList(action);

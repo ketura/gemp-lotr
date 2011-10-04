@@ -9,7 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -39,10 +39,10 @@ public class Card2_083 extends AbstractMinion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new WoundCharacterEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                    new WoundCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
             if (game.getGameState().getBurdens() >= 5) {
                 action.appendEffect(
-                        new WoundCharacterEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                        new WoundCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
             }
             return Collections.singletonList(action);
         }

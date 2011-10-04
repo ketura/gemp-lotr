@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -36,7 +36,7 @@ public class Card1_349 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
 
-            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+            List<Effect> possibleEffects = new LinkedList<Effect>();
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Balrog"), Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(

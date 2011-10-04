@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.actions;
 
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Cost;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public interface CostToEffectAction extends Action {
@@ -10,7 +9,7 @@ public interface CostToEffectAction extends Action {
      *
      * @param cost
      */
-    public void insertCost(Cost... cost);
+    public void insertCost(Effect... cost);
 
     /**
      * Appends the specified cost to the list of the costs. It will be executed after all the other costs currently in
@@ -18,7 +17,7 @@ public interface CostToEffectAction extends Action {
      *
      * @param cost
      */
-    public void appendCost(Cost cost);
+    public void appendCost(Effect cost);
 
     /**
      * Inserts the speicified effects as the next effects to be executer.

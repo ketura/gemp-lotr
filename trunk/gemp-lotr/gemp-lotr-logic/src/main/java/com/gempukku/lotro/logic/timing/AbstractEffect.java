@@ -1,12 +1,18 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.sun.istack.internal.NotNull;
 
-public abstract class AbstractNewEffect implements NewEffect {
+import java.util.Collection;
+
+public abstract class AbstractEffect implements Effect {
     private Boolean _carriedOut;
     private Boolean _successful;
 
-    protected abstract FullEffectResult playEffectReturningResult(LotroGame game);
+    protected abstract
+    @NotNull
+    FullEffectResult playEffectReturningResult(LotroGame game);
 
     @Override
     public final EffectResult[] playEffect(LotroGame game) {
@@ -36,6 +42,17 @@ public abstract class AbstractNewEffect implements NewEffect {
         _successful = null;
     }
 
+    protected final String getAppendedNames(Collection<PhysicalCard> cards) {
+        StringBuilder sb = new StringBuilder();
+        for (PhysicalCard card : cards)
+            sb.append(card.getBlueprint().getName() + ", ");
+
+        if (sb.length() == 0)
+            return "none";
+        else
+            return sb.substring(0, sb.length() - 2);
+    }
+
     protected static class FullEffectResult {
         private EffectResult[] _results;
         private boolean _successful;
@@ -45,6 +62,14 @@ public abstract class AbstractNewEffect implements NewEffect {
             _results = results;
             _successful = successful;
             _carriedOut = carriedOut;
+        }
+
+        public boolean isSuccessful() {
+            return _successful;
+        }
+
+        public boolean isCarriedOut() {
+            return _carriedOut;
         }
     }
 }

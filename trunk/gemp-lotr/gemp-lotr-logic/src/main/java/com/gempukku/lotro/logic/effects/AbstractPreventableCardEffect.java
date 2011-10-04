@@ -4,16 +4,19 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.*;
 
-public abstract class AbstractPreventableCardEffect implements ChooseableEffect {
+public abstract class AbstractPreventableCardEffect extends AbstractEffect {
     private Filter _filter;
     private Set<PhysicalCard> _preventedTargets = new HashSet<PhysicalCard>();
+    private int _requiredTargets;
 
     public AbstractPreventableCardEffect(PhysicalCard... cards) {
         List<PhysicalCard> affectedCards = Arrays.asList(cards);
+        _requiredTargets = affectedCards.size();
         _filter = Filters.in(affectedCards);
     }
 
@@ -27,26 +30,25 @@ public abstract class AbstractPreventableCardEffect implements ChooseableEffect 
         return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter, getExtraAffectableFilter());
     }
 
-    protected final String getAppendedNames(Collection<PhysicalCard> cards) {
-        StringBuilder sb = new StringBuilder();
-        for (PhysicalCard card : cards)
-            sb.append(card.getBlueprint().getName() + ", ");
-
-        if (sb.length() == 0)
-            return "none";
-        else
-            return sb.substring(0, sb.length() - 2);
-    }
-
-    public final Collection<PhysicalCard> getCardsToBeAffected(LotroGame game) {
+    public final Collection<PhysicalCard> getAffectedCardsMinusPrevented(LotroGame game) {
         Collection<PhysicalCard> affectedCards = getAffectedCards(game);
         affectedCards.removeAll(_preventedTargets);
         return affectedCards;
     }
 
     @Override
-    public boolean canPlayEffect(LotroGame game) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), _filter);
+    public boolean isPlayableInFull(LotroGame game) {
+        return getAffectedCardsMinusPrevented(game).size() >= _requiredTargets;
+    }
+
+    protected abstract EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards);
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        Collection<PhysicalCard> affectedCards = getAffectedCards(game);
+        Collection<PhysicalCard> affectedMinusPreventedCards = getAffectedCardsMinusPrevented(game);
+        EffectResult[] results = playoutEffectOn(game, affectedMinusPreventedCards);
+        return new FullEffectResult(results, affectedCards.size() >= _requiredTargets, affectedMinusPreventedCards.size() >= _requiredTargets);
     }
 
     public void preventEffect(PhysicalCard card) {

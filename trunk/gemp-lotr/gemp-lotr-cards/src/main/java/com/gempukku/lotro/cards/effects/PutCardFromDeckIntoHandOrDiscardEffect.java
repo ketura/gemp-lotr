@@ -3,11 +3,11 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
-public class PutCardFromDeckIntoHandOrDiscardEffect implements Effect {
+public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
     private PhysicalCard _physicalCard;
 
     public PutCardFromDeckIntoHandOrDiscardEffect(PhysicalCard physicalCard) {
@@ -29,19 +29,24 @@ public class PutCardFromDeckIntoHandOrDiscardEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return _physicalCard.getZone() == Zone.DECK;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (_physicalCard.getZone() == Zone.DECK) {
             if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _physicalCard.getOwner())) {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " puts card from deck into his or her hand");
                 game.getGameState().removeCardFromZone(_physicalCard);
                 game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
-                return new EffectResult[]{new DrawCardOrPutIntoHandResult(_physicalCard.getOwner(), 1)};
+                return new FullEffectResult(new EffectResult[]{new DrawCardOrPutIntoHandResult(_physicalCard.getOwner(), 1)}, true, true);
             } else {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + _physicalCard.getBlueprint().getName() + " from deck");
                 game.getGameState().removeCardFromZone(_physicalCard);
                 game.getGameState().addCardToZone(_physicalCard, Zone.DISCARD);
             }
         }
-        return null;
+        return new FullEffectResult(null, false, false);
     }
 }

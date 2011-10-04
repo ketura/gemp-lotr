@@ -8,7 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.HealCharacterEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -39,7 +39,7 @@ public class Card2_120 extends AbstractSite {
             for (PhysicalCard hobbitCompanion : hobbitCompanions) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new HealCharacterEffect(playerId, hobbitCompanion));
+                        new HealCharactersEffect(playerId, hobbitCompanion));
                 actions.add(action);
             }
 

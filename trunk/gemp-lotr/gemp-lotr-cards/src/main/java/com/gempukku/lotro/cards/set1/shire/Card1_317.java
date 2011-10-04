@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -11,6 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -40,7 +40,7 @@ public class Card1_317 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
-            action.appendCost(new DiscardCardsFromPlayCost(self, self));
+            action.appendCost(new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.and(Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT)), 2), Phase.REGROUP));

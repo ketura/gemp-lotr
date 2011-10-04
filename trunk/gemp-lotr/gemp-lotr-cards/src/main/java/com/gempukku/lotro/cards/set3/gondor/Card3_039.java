@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set3.gondor;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -44,11 +44,11 @@ public class Card3_039 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
-                        super.cardsSelected(characters, success);
-                        if (success) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
+                        super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
+                        if (characters.size() > 0) {
                             PhysicalCard gondorCompanion = characters.iterator().next();
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(

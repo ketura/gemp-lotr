@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.effects.ExertCharacterEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -33,7 +33,7 @@ public class Card1_355 extends AbstractSite {
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharacterEffect(self, Filters.type(CardType.COMPANION)));
+                    new ExertCharactersEffect(self, Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;

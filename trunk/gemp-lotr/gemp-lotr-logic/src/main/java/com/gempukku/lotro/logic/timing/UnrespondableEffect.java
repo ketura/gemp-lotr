@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic.timing;
 
 import com.gempukku.lotro.game.state.LotroGame;
 
-public abstract class UnrespondableEffect implements Effect {
+public abstract class UnrespondableEffect extends AbstractEffect {
     @Override
     public EffectResult.Type getType() {
         return null;
@@ -16,8 +16,13 @@ public abstract class UnrespondableEffect implements Effect {
     protected abstract void doPlayEffect(LotroGame game);
 
     @Override
-    public final EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return true;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         doPlayEffect(game);
-        return null;
+        return new FullEffectResult(null, true, true);
     }
 }

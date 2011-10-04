@@ -49,7 +49,7 @@ public class Card3_006 extends AbstractEvent {
                                             action.insertEffect(
                                                     new ChooseCardsFromDiscardEffect(playerId, 0, twilightCost, Filters.culture(Culture.DWARVEN)) {
                                                         @Override
-                                                        protected void cardsSelected(Collection<PhysicalCard> cards) {
+                                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                                             for (PhysicalCard physicalCard : cards) {
                                                                 action.appendEffect(
                                                                         new PutCardFromDiscardOnBottomOfDeckEffect(physicalCard));

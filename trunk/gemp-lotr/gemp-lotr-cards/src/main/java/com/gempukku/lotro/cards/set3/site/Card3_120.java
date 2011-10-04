@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -35,7 +35,7 @@ public class Card3_120 extends AbstractSite {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.type(CardType.COMPANION)));
             return Collections.singletonList(action);

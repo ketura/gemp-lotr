@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,15 +38,15 @@ public class Card3_114 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.ALLY))) {
             final AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
             PhysicalCard source = addTwilightEffect.getSource();
-            if (!addTwilightEffect.isPrevented() && source != null && source.getBlueprint().getSide() == Side.SHADOW) {
+            if (!addTwilightEffect.isFullyPrevented() && source != null && source.getBlueprint().getSide() == Side.SHADOW) {
                 ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendCost(
-                        new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.type(CardType.ALLY)));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.type(CardType.ALLY)));
                 action.appendEffect(
                         new UnrespondableEffect() {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
-                                addTwilightEffect.prevent();
+                                addTwilightEffect.preventAll();
                             }
                         });
                 return Collections.singletonList(action);

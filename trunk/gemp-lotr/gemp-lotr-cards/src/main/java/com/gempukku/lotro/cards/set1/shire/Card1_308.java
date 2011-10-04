@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -33,9 +33,9 @@ public class Card1_308 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        action.appendCost(new AddBurdenEffect(self));
+        action.appendCost(new AddBurdenEffect(self, 1));
         action.appendEffect(
-                new WoundCharacterEffect(self, Filters.inSkirmishAgainst(Filters.keyword(Keyword.RING_BEARER))));
+                new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Filters.keyword(Keyword.RING_BEARER))));
         return action;
     }
 }

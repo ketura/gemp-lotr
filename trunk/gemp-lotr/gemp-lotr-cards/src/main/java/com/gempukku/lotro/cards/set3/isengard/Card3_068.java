@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -72,10 +72,10 @@ public class Card3_068 extends AbstractMinion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
+                    new ExertCharactersEffect(self, self));
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
-                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getCardsToBeAffected(game)), Filters.race(Race.URUK_HAI)) {
+                    new ChooseActiveCardEffect(playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.race(Race.URUK_HAI)) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             action.insertEffect(

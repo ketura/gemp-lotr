@@ -6,19 +6,17 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.Cost;
-import com.gempukku.lotro.logic.timing.CostResolution;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Set;
 
-public abstract class ChooseCardsFromHandEffect implements Effect, Cost {
-    private String _playerId;
-    private int _minimum;
-    private int _maximum;
-    private Filter _filter;
+public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
+    private final String _playerId;
+    private final int _minimum;
+    private final int _maximum;
+    private final Filter _filter;
 
     public ChooseCardsFromHandEffect(String playerId, int minimum, int maximum, Filter... filters) {
         _playerId = playerId;
@@ -38,30 +36,34 @@ public abstract class ChooseCardsFromHandEffect implements Effect, Cost {
     }
 
     @Override
-    public CostResolution playCost(LotroGame game) {
-        return new CostResolution(playEffect(game), true);
+    public boolean isPlayableInFull(LotroGame game) {
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter).size() >= _minimum;
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
-        Collection<PhysicalCard> selectableCards = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+    protected FullEffectResult playEffectReturningResult(final LotroGame game) {
+        final Collection<PhysicalCard> selectableCards = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+
+        boolean success = selectableCards.size() >= _minimum;
+
         int minimum = Math.min(_minimum, selectableCards.size());
 
         if (minimum == selectableCards.size())
-            cardsSelected(selectableCards);
+            cardsSelected(game, selectableCards);
         else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose card from hand", selectableCards, minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                            cardsSelected(selectedCards);
+                            cardsSelected(game, selectedCards);
                         }
                     }
             );
         }
-        return null;
+
+        return new FullEffectResult(null, success, success);
     }
 
-    protected abstract void cardsSelected(Collection<PhysicalCard> selectedCards);
+    protected abstract void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards);
 }

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndReturnCardsToHandEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -42,9 +42,9 @@ public class Card3_027 extends AbstractAttachableFPPossession {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION))) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendCost(
-                    new ExertCharactersCost(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION)));
             return Collections.singletonList(action);

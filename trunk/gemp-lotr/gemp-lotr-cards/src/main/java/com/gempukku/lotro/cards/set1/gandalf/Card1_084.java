@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,7 +34,7 @@ public class Card1_084 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
-        action.appendCost(new ExertCharactersCost(self, gandalf));
+        action.appendCost(new ExertCharactersEffect(self, gandalf));
         action.appendEffect(
                 new DiscardCardsFromPlayEffect(self, Filters.type(CardType.CONDITION)));
         return action;

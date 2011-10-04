@@ -4,14 +4,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class LookAtOpponentsHandEffect implements Effect {
+public class LookAtOpponentsHandEffect extends AbstractEffect {
     private String _playerId;
     private String _opponentId;
 
@@ -31,7 +31,12 @@ public class LookAtOpponentsHandEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId);
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
 
@@ -41,7 +46,8 @@ public class LookAtOpponentsHandEffect implements Effect {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                         }
                     });
+            return new FullEffectResult(null, true, true);
         }
-        return null;
+        return new FullEffectResult(null, false, false);
     }
 }

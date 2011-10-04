@@ -2,24 +2,25 @@ package com.gempukku.lotro.logic.decisions;
 
 import com.gempukku.lotro.game.PhysicalCard;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDecision {
-    private List<PhysicalCard> _physicalCards;
-    private List<PhysicalCard> _selectable;
+    private Collection<PhysicalCard> _physicalCards;
+    private Collection<PhysicalCard> _selectable;
     private int _minimum;
     private int _maximum;
 
-    public ArbitraryCardsSelectionDecision(int id, String text, List<PhysicalCard> physicalCard) {
+    public ArbitraryCardsSelectionDecision(int id, String text, Collection<PhysicalCard> physicalCard) {
         this(id, text, physicalCard, 0, physicalCard.size());
     }
 
-    public ArbitraryCardsSelectionDecision(int id, String text, List<PhysicalCard> physicalCards, int minimum, int maximum) {
+    public ArbitraryCardsSelectionDecision(int id, String text, Collection<PhysicalCard> physicalCards, int minimum, int maximum) {
         this(id, text, physicalCards, physicalCards, minimum, maximum);
     }
 
-    public ArbitraryCardsSelectionDecision(int id, String text, List<PhysicalCard> physicalCards, List<PhysicalCard> selectable, int minimum, int maximum) {
+    public ArbitraryCardsSelectionDecision(int id, String text, Collection<PhysicalCard> physicalCards, Collection<PhysicalCard> selectable, int minimum, int maximum) {
         super(id, text, AwaitingDecisionType.ARBITRARY_CARDS);
         _physicalCards = physicalCards;
         _selectable = selectable;
@@ -32,25 +33,41 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         setParam("selectable", getSelectable(physicalCards, selectable));
     }
 
-    private String[] getSelectable(List<PhysicalCard> physicalCards, List<PhysicalCard> selectable) {
+    private String[] getSelectable(Collection<PhysicalCard> physicalCards, Collection<PhysicalCard> selectable) {
         String[] result = new String[physicalCards.size()];
-        for (int i = 0; i < physicalCards.size(); i++)
-            result[i] = String.valueOf(selectable.contains(physicalCards.get(i)));
+        int index = 0;
+        for (PhysicalCard physicalCard : physicalCards) {
+            result[index] = String.valueOf(selectable.contains(physicalCard));
+            index++;
+        }
         return result;
     }
 
-    private String[] getCardIds(List<PhysicalCard> physicalCards) {
+    private String[] getCardIds(Collection<PhysicalCard> physicalCards) {
         String[] result = new String[physicalCards.size()];
         for (int i = 0; i < physicalCards.size(); i++)
             result[i] = "temp" + i;
         return result;
     }
 
-    private String[] getBlueprintIds(List<PhysicalCard> physicalCards) {
+    private String[] getBlueprintIds(Collection<PhysicalCard> physicalCards) {
         String[] result = new String[physicalCards.size()];
-        for (int i = 0; i < physicalCards.size(); i++)
-            result[i] = physicalCards.get(i).getBlueprintId();
+        int index = 0;
+        for (PhysicalCard physicalCard : physicalCards) {
+            result[index] = physicalCard.getBlueprintId();
+            index++;
+        }
         return result;
+    }
+
+    protected PhysicalCard getPhysicalCardByIndex(int index) {
+        int i = 0;
+        for (PhysicalCard physicalCard : _physicalCards) {
+            if (i == index)
+                return physicalCard;
+            i++;
+        }
+        return null;
     }
 
     protected List<PhysicalCard> getSelectedCardsByResponse(String response) throws DecisionResultInvalidException {
@@ -66,7 +83,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         List<PhysicalCard> result = new LinkedList<PhysicalCard>();
         try {
             for (String cardId : cardIds) {
-                PhysicalCard card = _physicalCards.get(Integer.parseInt(cardId.substring(4)));
+                PhysicalCard card = getPhysicalCardByIndex(Integer.parseInt(cardId.substring(4)));
                 if (result.contains(card) || !_selectable.contains(card))
                     throw new DecisionResultInvalidException();
                 result.add(card);

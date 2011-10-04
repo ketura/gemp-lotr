@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -35,7 +35,7 @@ public class Card3_052 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION), Filters.playable(game, -2)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("Saruman")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Saruman")));
             List<? extends PhysicalCard> discard = game.getGameState().getDiscard(playerId);
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, discard, Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION)), -2));

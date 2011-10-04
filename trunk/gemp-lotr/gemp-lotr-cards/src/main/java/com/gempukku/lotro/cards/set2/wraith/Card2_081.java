@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set2.wraith;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
 import com.gempukku.lotro.common.*;
@@ -39,7 +38,7 @@ public class Card2_081 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 2, 2, Filters.race(Race.NAZGUL)));
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.race(Race.NAZGUL)));
         action.appendEffect(
                 new ForEachBurdenYouSpotEffect(playerId) {
                     @Override

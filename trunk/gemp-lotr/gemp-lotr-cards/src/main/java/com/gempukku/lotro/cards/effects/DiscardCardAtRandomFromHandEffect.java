@@ -4,14 +4,15 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.DiscardCardFromHandResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromHandResult;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class DiscardCardAtRandomFromHandEffect implements Effect {
+public class DiscardCardAtRandomFromHandEffect extends AbstractEffect {
     private PhysicalCard _source;
     private String _playerId;
 
@@ -31,7 +32,12 @@ public class DiscardCardAtRandomFromHandEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return game.getGameState().getHand(_playerId).size() > 0;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         GameState gameState = game.getGameState();
         List<? extends PhysicalCard> hand = gameState.getHand(_playerId);
         if (hand.size() > 0) {
@@ -39,8 +45,8 @@ public class DiscardCardAtRandomFromHandEffect implements Effect {
             gameState.sendMessage(_playerId + " randomly discards " + randomCard.getBlueprint().getName());
             gameState.removeCardFromZone(randomCard);
             gameState.addCardToZone(randomCard, Zone.DISCARD);
-            return new EffectResult[]{new DiscardCardFromHandResult(_source, randomCard)};
+            return new FullEffectResult(new EffectResult[]{new DiscardCardsFromHandResult(_source, Collections.singleton(randomCard))}, true, true);
         }
-        return null;
+        return new FullEffectResult(null, false, false);
     }
 }

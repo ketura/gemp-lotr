@@ -10,15 +10,15 @@ import com.gempukku.lotro.logic.timing.results.HealResult;
 
 import java.util.Collection;
 
-public class HealCharacterEffect extends AbstractPreventableCardEffect {
+public class HealCharactersEffect extends AbstractPreventableCardEffect {
     private String _playerId;
 
-    public HealCharacterEffect(String playerId, PhysicalCard... cards) {
+    public HealCharactersEffect(String playerId, PhysicalCard... cards) {
         super(cards);
         _playerId = playerId;
     }
 
-    public HealCharacterEffect(String playerId, Filter filter) {
+    public HealCharactersEffect(String playerId, Filter filter) {
         super(filter);
         _playerId = playerId;
     }
@@ -40,13 +40,13 @@ public class HealCharacterEffect extends AbstractPreventableCardEffect {
 
     @Override
     public String getText(LotroGame game) {
-        Collection<PhysicalCard> cards = getCardsToBeAffected(game);
+        Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
         return "Heal - " + getAppendedNames(cards);
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
-        Collection<PhysicalCard> cardsToHeal = getCardsToBeAffected(game);
+    protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+        Collection<PhysicalCard> cardsToHeal = getAffectedCardsMinusPrevented(game);
 
         for (PhysicalCard cardToHeal : cardsToHeal) {
             game.getGameState().sendMessage(_playerId + " heals " + cardToHeal.getBlueprint().getName());

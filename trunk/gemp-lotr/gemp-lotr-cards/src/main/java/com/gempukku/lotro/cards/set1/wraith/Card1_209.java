@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -56,9 +56,9 @@ public class Card1_209 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
             if (ringBearer) {
-                action.appendEffect(new AddBurdenEffect(self));
+                action.appendEffect(new AddBurdenEffect(self, 1));
             } else {
-                action.appendEffect(new WoundCharacterEffect(self, self.getAttachedTo()));
+                action.appendEffect(new WoundCharactersEffect(self, self.getAttachedTo()));
             }
             return Collections.singletonList(action);
         }

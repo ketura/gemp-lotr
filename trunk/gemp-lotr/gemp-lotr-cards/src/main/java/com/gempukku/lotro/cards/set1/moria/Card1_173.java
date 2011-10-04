@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.AddTwilightEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
@@ -13,7 +12,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -49,12 +49,12 @@ public class Card1_173 extends AbstractPermanent {
     @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND) {
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getCardsToBeAffected(game);
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self, null);
                 action.appendCost(
-                        new DiscardCardsFromPlayCost(self, self));
+                        new DiscardCardsFromPlayEffect(self, self));
                 action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
                             @Override

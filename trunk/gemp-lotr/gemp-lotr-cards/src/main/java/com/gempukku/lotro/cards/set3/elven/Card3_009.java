@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.DiscardBottomCardFromDeckEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -38,7 +38,7 @@ public class Card3_009 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
             action.appendEffect(
                     new DiscardBottomCardFromDeckEffect(playerId) {
                         @Override

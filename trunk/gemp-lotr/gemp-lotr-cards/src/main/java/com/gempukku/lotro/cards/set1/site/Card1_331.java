@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -38,11 +38,11 @@ public class Card1_331 extends AbstractSite {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId)) {
                         @Override
-                        protected void cardsSelected(Collection<PhysicalCard> characters, boolean success) {
-                            super.cardsSelected(characters, success);
-                            if (success) {
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
+                            super.cardsSelected(game, characters);    //To change body of overridden methods use File | Settings | File Templates.
+                            if (characters.size() > 0) {
                                 action.appendEffect(new CardAffectsCardEffect(self, characters));
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(

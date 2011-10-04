@@ -2,13 +2,13 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
 
 import java.util.List;
 
-public class OverwhelmedEffect implements Effect {
+public class OverwhelmedEffect extends AbstractSuccessfulEffect {
     private List<PhysicalCard> _winners;
     private List<PhysicalCard> _losers;
 

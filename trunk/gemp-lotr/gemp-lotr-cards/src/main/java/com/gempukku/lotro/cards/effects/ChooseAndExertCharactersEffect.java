@@ -1,21 +1,29 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
 
-public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect implements ChooseableEffect {
-    private CostToEffectAction _action;
+public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
+    private Action _action;
+    private int _count;
 
-    public ChooseAndExertCharactersEffect(CostToEffectAction action, String playerId, int minimum, int maximum, Filter... filters) {
+    public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, Filter... filters) {
+        this(action, playerId, minimum, maximum, 1, filters);
+    }
+
+    public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, int count, Filter... filters) {
         super(playerId, "Choose characters to exert", minimum, maximum, filters);
         _action = action;
+        _count = count;
     }
 
     @Override
@@ -24,15 +32,16 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect impl
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return modifiersQuerying.canBeExerted(gameState, _action.getActionSource(), physicalCard)
-                        && modifiersQuerying.getVitality(gameState, physicalCard) > 1;
+                        && modifiersQuerying.getVitality(gameState, physicalCard) > _count;
             }
         };
     }
 
     @Override
-    protected void cardsSelected(Collection<PhysicalCard> characters) {
-        if (_action.getActionSource() != null)
-            _action.appendEffect(new CardAffectsCardEffect(_action.getActionSource(), characters));
-        _action.appendEffect(new ExertCharacterEffect(_action.getActionSource(), characters.toArray(new PhysicalCard[characters.size()])));
+    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
+        SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+        for (int i = 0; i < _count; i++)
+            subAction.appendEffect(new ExertCharactersEffect(_action.getActionSource(), Filters.in(characters)));
+        game.getActionsEnvironment().addActionToStack(subAction);
     }
 }

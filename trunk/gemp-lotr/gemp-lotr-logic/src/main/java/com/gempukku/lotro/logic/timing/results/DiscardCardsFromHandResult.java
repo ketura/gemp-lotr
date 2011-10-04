@@ -3,21 +3,23 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class DiscardCardFromHandResult extends EffectResult {
-    private PhysicalCard _source;
-    private PhysicalCard _card;
+import java.util.Collection;
 
-    public DiscardCardFromHandResult(PhysicalCard source, PhysicalCard card) {
+public class DiscardCardsFromHandResult extends EffectResult {
+    private PhysicalCard _source;
+    private Collection<PhysicalCard> _cards;
+
+    public DiscardCardsFromHandResult(PhysicalCard source, Collection<PhysicalCard> cards) {
         super(Type.DISCARD_FROM_HAND);
         _source = source;
-        _card = card;
+        _cards = cards;
     }
 
     public PhysicalCard getSource() {
         return _source;
     }
 
-    public PhysicalCard getDiscardedCard() {
-        return _card;
+    public Collection<PhysicalCard> getDiscardedCards() {
+        return _cards;
     }
 }

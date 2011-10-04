@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class Card3_033 extends AbstractEvent {
                         action.insertEffect(
                                 new RevealRandomCardsFromHandEffect(opponentId, 1) {
                                     @Override
-                                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                                    protected void cardsRevealed(final List<PhysicalCard> revealedCards) {
                                         if (revealedCards.size() > 0) {
                                             final PhysicalCard revealedCard = revealedCards.iterator().next();
                                             action.insertEffect(
@@ -64,7 +64,7 @@ public class Card3_033 extends AbstractEvent {
                                                                         action.appendEffect(
                                                                                 new AddTwilightEffect(self, revealedCard.getBlueprint().getTwilightCost()));
                                                                         action.appendEffect(
-                                                                                new DiscardCardFromHandEffect(self, revealedCard));
+                                                                                new DiscardCardsFromHandEffect(self, revealedCards));
                                                                     }
                                                                 }
                                                             }));

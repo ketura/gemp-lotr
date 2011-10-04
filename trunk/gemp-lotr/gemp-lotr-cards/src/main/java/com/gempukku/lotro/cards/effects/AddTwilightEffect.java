@@ -2,16 +2,14 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Cost;
-import com.gempukku.lotro.logic.timing.CostResolution;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AddTwilightResult;
 
-public class AddTwilightEffect implements Effect, Cost {
+public class AddTwilightEffect extends AbstractEffect {
     private PhysicalCard _source;
-    private boolean _prevented;
     private int _twilight;
+    private int _prevented;
 
     public AddTwilightEffect(PhysicalCard source, int twilight) {
         _source = source;
@@ -32,31 +30,26 @@ public class AddTwilightEffect implements Effect, Cost {
         return EffectResult.Type.ADD_TWILIGHT;
     }
 
-    public void prevent() {
-        _prevented = true;
+    public void preventAll() {
+        _prevented = _twilight;
     }
 
-    public boolean isPrevented() {
-        return _prevented;
-    }
-
-    @Override
-    public EffectResult[] playEffect(LotroGame game) {
-        if (!isPrevented()) {
-            game.getGameState().sendMessage(_twilight + " gets added to the twilight pool");
-            game.getGameState().addTwilight(_twilight);
-            return new EffectResult[]{new AddTwilightResult(_source)};
-        }
-        return null;
+    public boolean isFullyPrevented() {
+        return _prevented == _twilight;
     }
 
     @Override
-    public CostResolution playCost(LotroGame game) {
-        if (!isPrevented()) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return true;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        if (!isFullyPrevented()) {
             game.getGameState().sendMessage(_twilight + " gets added to the twilight pool");
             game.getGameState().addTwilight(_twilight);
-            return new CostResolution(new EffectResult[]{new AddTwilightResult(_source)}, true);
+            return new FullEffectResult(new EffectResult[]{new AddTwilightResult(_source)}, true, _prevented == 0);
         }
-        return new CostResolution(null, true);
+        return new FullEffectResult(null, true, false);
     }
 }

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set2.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -54,7 +54,7 @@ public class Card2_047 extends AbstractMinion {
             if (playEffect.isRequiresRanger()) {
                 ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendCost(
-                        new ExertCharactersCost(self, self));
+                        new ExertCharactersEffect(self, self));
                 action.appendEffect(
                         new CancelEventEffect(playerId, playEffect));
                 return Collections.singletonList(action);

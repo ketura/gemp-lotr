@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.moria;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.common.CardType;
@@ -62,7 +62,7 @@ public class Card3_080 extends AbstractEvent {
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Boromir")));
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                        new ChooseAndDiscardCardsFromPlayCost(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.POSSESSION)) {
+                        new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.POSSESSION)) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Discard 2 Free People possessions";

@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.DiscardCardsFromPlayCost;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndHealCharactersEffect;
@@ -15,7 +14,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -45,9 +44,9 @@ public class Card1_094 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
-                    new DiscardCardsFromPlayCost(self, self));
+                    new DiscardCardsFromPlayEffect(self, self));
 
-            List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+            List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION)) {
                         @Override

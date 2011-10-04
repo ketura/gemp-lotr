@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CardAffectsCardEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
@@ -44,21 +44,19 @@ public class Card1_064 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(3)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF), Filters.type(CardType.ALLY), Filters.siteNumber(3)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> elfAlly, boolean success) {
-                        super.cardsSelected(elfAlly, success);
-                        if (success) {
-                            action.appendEffect(new CardAffectsCardEffect(self, elfAlly));
-                            action.appendEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.in(elfAlly), 3)
-                                            , Phase.REGROUP));
-                            action.appendEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new AllyOnCurrentSiteModifier(self, Filters.in(elfAlly))
-                                            , Phase.REGROUP));
-                        }
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> elfAlly) {
+                        super.cardsSelected(game, elfAlly);    //To change body of overridden methods use File | Settings | File Templates.
+                        action.appendEffect(new CardAffectsCardEffect(self, elfAlly));
+                        action.appendEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new StrengthModifier(self, Filters.in(elfAlly), 3)
+                                        , Phase.REGROUP));
+                        action.appendEffect(
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new AllyOnCurrentSiteModifier(self, Filters.in(elfAlly))
+                                        , Phase.REGROUP));
                     }
                 }
         );

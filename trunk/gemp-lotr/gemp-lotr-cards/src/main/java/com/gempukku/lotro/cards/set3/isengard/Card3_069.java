@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
@@ -65,7 +65,7 @@ public class Card3_069 extends AbstractMinion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             action.appendCost(
-                    new ExertCharactersCost(self, self));
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish()) {
                         @Override
@@ -79,7 +79,7 @@ public class Card3_069 extends AbstractMinion {
                                                             action,
                                                             new AssignmentEffect(playerId, companion, Collections.singletonList(minion), "Assign " + minion.getBlueprint().getName() + " to skirmish " + companion.getBlueprint().getName()),
                                                             Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                                                            new ExertCharactersCost(self, companion)));
+                                                            new ExertCharactersEffect(self, companion)));
                                         }
                                     });
                         }

@@ -4,11 +4,11 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
-public class PutCardFromStackedIntoHandEffect implements Effect {
+public class PutCardFromStackedIntoHandEffect extends AbstractEffect {
     private PhysicalCard _card;
 
     public PutCardFromStackedIntoHandEffect(PhysicalCard card) {
@@ -26,7 +26,12 @@ public class PutCardFromStackedIntoHandEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return _card.getZone() == Zone.STACKED;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _card.getOwner())
                 && _card.getZone() == Zone.STACKED) {
             GameState gameState = game.getGameState();
@@ -34,8 +39,8 @@ public class PutCardFromStackedIntoHandEffect implements Effect {
             gameState.removeCardFromZone(_card);
             gameState.addCardToZone(_card, Zone.HAND);
 
-            return new EffectResult[]{new DrawCardOrPutIntoHandResult(_card.getOwner(), 1)};
+            return new FullEffectResult(new EffectResult[]{new DrawCardOrPutIntoHandResult(_card.getOwner(), 1)}, true, true);
         }
-        return null;
+        return new FullEffectResult(null, false, false);
     }
 }

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.LookAtOpponentsHandEffect;
 import com.gempukku.lotro.common.Keyword;
@@ -36,7 +36,7 @@ public class Card1_351 extends AbstractSite {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.ELF)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
 
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {

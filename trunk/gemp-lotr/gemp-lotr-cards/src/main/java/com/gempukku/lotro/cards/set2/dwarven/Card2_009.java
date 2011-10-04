@@ -42,7 +42,7 @@ public class Card2_009 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.culture(Culture.DWARVEN), Filters.type(CardType.EVENT)) {
                         @Override
-                        protected void cardsSelected(Collection<PhysicalCard> cards) {
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {
                                 action.appendEffect(new PutCardFromDiscardIntoHandEffect(card));
                             }

@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,9 +36,10 @@ public class Card1_054 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose ELVEN card", game.getGameState().getHand(playerId), Filters.culture(Culture.ELVEN), 1, 1) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                            if (selectedCards.size() > 0)
-                                action.appendEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCards.get(0)));
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            for (PhysicalCard selectedCard : selectedCards) {
+                                action.appendEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCard));
+                            }
                         }
                     });
             return Collections.singletonList(action);

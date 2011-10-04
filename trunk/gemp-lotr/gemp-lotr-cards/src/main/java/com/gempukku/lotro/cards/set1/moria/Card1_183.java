@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,9 +41,11 @@ public class Card1_183 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose an Orc to play", stackedCards, Filters.playable(game), 1, 1) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> stackedOrcs) {
-                            PhysicalCard stackedOrc = stackedOrcs.get(0);
-                            game.getActionsEnvironment().addActionToStack(stackedOrc.getBlueprint().getPlayCardAction(playerId, game, stackedOrc, 0));
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> stackedOrcs) {
+                            if (stackedOrcs.size() > 0) {
+                                PhysicalCard stackedOrc = stackedOrcs.iterator().next();
+                                game.getActionsEnvironment().addActionToStack(stackedOrc.getBlueprint().getPlayCardAction(playerId, game, stackedOrc, 0));
+                            }
                         }
                     });
             return Collections.singletonList(action);

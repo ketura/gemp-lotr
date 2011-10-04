@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.DiscardCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -56,8 +56,7 @@ public class PlayerReconcilesAction implements Action {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                                for (PhysicalCard card : cards)
-                                    _effectQueue.add(new DiscardCardFromHandEffect(null, card));
+                                _effectQueue.add(new DiscardCardsFromHandEffect(null, cards));
                             }
                         }));
             } else if (cardsInHand.size() > 0) {
@@ -67,8 +66,7 @@ public class PlayerReconcilesAction implements Action {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                 if (selectedCards.size() > 0) {
-                                    PhysicalCard cardToDiscard = selectedCards.iterator().next();
-                                    _effectQueue.add(new DiscardCardFromHandEffect(null, cardToDiscard));
+                                    _effectQueue.add(new DiscardCardsFromHandEffect(null, selectedCards));
                                 }
                                 int cardsInHandAfterDiscard = cardsInHand.size() - selectedCards.size();
                                 if (cardsInHandAfterDiscard < 8) {

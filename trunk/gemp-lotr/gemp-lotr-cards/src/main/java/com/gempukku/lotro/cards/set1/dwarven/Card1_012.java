@@ -45,7 +45,7 @@ public class Card1_012 extends AbstractCompanion {
             action.appendEffect(
                     new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.any()) {
                         @Override
-                        protected void cardsSelected(Collection<PhysicalCard> selectedCards) {
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
                                 action.appendEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCard));
                             }

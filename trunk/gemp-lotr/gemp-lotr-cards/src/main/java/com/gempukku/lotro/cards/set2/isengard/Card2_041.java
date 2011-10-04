@@ -3,11 +3,7 @@ package com.gempukku.lotro.cards.set2.isengard;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
-import com.gempukku.lotro.cards.effects.ChooseCardsFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -44,7 +40,7 @@ public class Card2_041 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
         action.appendEffect(
                 new ForEachBurdenYouSpotEffect(playerId) {
                     @Override
@@ -52,7 +48,7 @@ public class Card2_041 extends AbstractEvent {
                         action.insertEffect(
                                 new ChooseCardsFromDiscardEffect(playerId, burdensSpotted, burdensSpotted, Filters.type(CardType.MINION)) {
                                     @Override
-                                    protected void cardsSelected(Collection<PhysicalCard> cards) {
+                                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                         for (PhysicalCard card : cards) {
                                             action.appendEffect(
                                                     new PutCardFromDiscardOnBottomOfDeckEffect(card));

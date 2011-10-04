@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.shire;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,7 +39,7 @@ public class Card2_100 extends AbstractPermanent {
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 2, 2, Filters.race(Race.HOBBIT)));
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.race(Race.HOBBIT)));
         return action;
     }
 

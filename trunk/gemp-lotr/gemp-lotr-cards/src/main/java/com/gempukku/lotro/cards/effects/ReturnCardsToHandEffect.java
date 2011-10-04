@@ -6,20 +6,22 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-public class ReturnCardsToHandEffect implements Effect {
+public class ReturnCardsToHandEffect extends AbstractEffect {
     private PhysicalCard _source;
     private Filter _filter;
 
-    public ReturnCardsToHandEffect(PhysicalCard source, PhysicalCard... cards) {
+    public ReturnCardsToHandEffect(PhysicalCard source, Filter filter) {
         _source = source;
-        List<PhysicalCard> affectedCards = Arrays.asList(cards);
-        _filter = Filters.in(affectedCards);
+        _filter = filter;
     }
 
     @Override
@@ -33,7 +35,12 @@ public class ReturnCardsToHandEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return true;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         Collection<PhysicalCard> cardsToReturnToHand = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
 
         Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
@@ -61,8 +68,8 @@ public class ReturnCardsToHandEffect implements Effect {
         }
 
         if (discardedCards.size() > 0)
-            return new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)};
+            return new FullEffectResult(new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)}, true, true);
 
-        return null;
+        return new FullEffectResult(null, true, true);
     }
 }

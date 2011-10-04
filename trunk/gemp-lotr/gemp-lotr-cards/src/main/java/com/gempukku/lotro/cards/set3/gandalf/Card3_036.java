@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -10,7 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -38,12 +38,12 @@ public class Card3_036 extends AbstractPermanent {
         if (effect.getType() == EffectResult.Type.WOUND
                 && game.getGameState().getTwilightPool() >= 4
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            Collection<PhysicalCard> woundedCharacters = woundEffect.getCardsToBeAffected(game);
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendCost(
-                        new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.name("Gandalf")));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
                 action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose a companion", Filters.in(woundedCharacters), Filters.type(CardType.COMPANION)) {
                             @Override

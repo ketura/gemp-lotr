@@ -37,11 +37,7 @@ public class Card2_086 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new AddBurdenEffect(self));
-        action.appendEffect(
-                new AddBurdenEffect(self));
-        action.appendEffect(
-                new AddBurdenEffect(self));
+                new AddBurdenEffect(self, 3));
         return action;
     }
 }

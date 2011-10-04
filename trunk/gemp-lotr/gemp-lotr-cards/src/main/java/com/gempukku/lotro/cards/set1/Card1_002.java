@@ -14,7 +14,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -58,14 +58,14 @@ public class Card1_002 extends AbstractAttachable {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && effect.getType() == EffectResult.Type.WOUND
                 && !game.getGameState().isCancelRingText()) {
-            WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            if (woundEffect.getCardsToBeAffected(game).contains(self.getAttachedTo())) {
+            WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
                 List<Action> actions = new LinkedList<Action>();
 
                 ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
                 action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(self));
+                action.appendEffect(new AddBurdenEffect(self, 1));
                 action.appendEffect(new PutOnTheOneRingEffect());
                 action.appendEffect(new AddUntilStartOfPhaseActionProxyEffect(
                         new AbstractActionProxy() {
@@ -94,13 +94,13 @@ public class Card1_002 extends AbstractAttachable {
         if (effect.getType() == EffectResult.Type.WOUND
                 && game.getGameState().isWearingRing()
                 && !game.getGameState().isCancelRingText()) {
-            WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            if (woundEffect.getCardsToBeAffected(game).contains(self.getAttachedTo())) {
+            WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new CardAffectsCardEffect(self, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(self));
+                action.appendEffect(new AddBurdenEffect(self, 1));
                 return actions;
             }
         }

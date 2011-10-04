@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -44,9 +44,9 @@ public class Card2_057 extends AbstractResponseEvent {
                     && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"), Filters.hasAttached(Filters.name("Whip of Many Thongs"))).size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
-                        new WoundCharacterEffect(self, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
+                        new WoundCharactersEffect(self, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
                 action.appendEffect(
-                        new WoundCharacterEffect(self, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
+                        new WoundCharactersEffect(self, Filters.and(Filters.type(CardType.COMPANION), Filters.inSkirmish())));
                 return Collections.singletonList(action);
             }
         }

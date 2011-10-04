@@ -43,7 +43,7 @@ public class Card3_044 extends AbstractPermanent {
                 action.appendEffect(
                         new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.culture(Culture.GONDOR)) {
                             @Override
-                            protected void cardsSelected(Collection<PhysicalCard> selectedCards) {
+                            protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                 for (PhysicalCard selectedCard : selectedCards) {
                                     action.appendEffect(
                                             new StackCardFromHandEffect(selectedCard, self));
@@ -67,7 +67,7 @@ public class Card3_044 extends AbstractPermanent {
                 action.appendEffect(
                         new ChooseArbitraryCardsEffect(playerId, "Choose card", stackedCards, 1, 1) {
                             @Override
-                            protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                            protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                 for (PhysicalCard selectedCard : selectedCards) {
                                     action.appendEffect(
                                             new PutCardFromStackedIntoHandEffect(selectedCard));

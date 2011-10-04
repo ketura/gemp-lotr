@@ -2,11 +2,7 @@ package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
+import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -19,7 +15,7 @@ import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.ChooseableEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,13 +44,13 @@ public class Card2_015 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.DWARF)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(final String opponentId) {
                         action.insertEffect(new DrawCardEffect(opponentId, 2));
-                        List<ChooseableEffect> possibleEffects = new LinkedList<ChooseableEffect>();
+                        List<Effect> possibleEffects = new LinkedList<Effect>();
                         possibleEffects.add(
                                 new ChooseAndDiscardCardsFromHandEffect(action, opponentId, 2, 2, Filters.side(Side.SHADOW)));
                         possibleEffects.add(
@@ -71,7 +67,7 @@ public class Card2_015 extends AbstractEvent {
         return 1;
     }
 
-    private class SkipNextShadowPhaseChooseableEffect extends AddUntilEndOfTurnModifierEffect implements ChooseableEffect {
+    private class SkipNextShadowPhaseChooseableEffect extends AddUntilEndOfTurnModifierEffect {
         public SkipNextShadowPhaseChooseableEffect(PhysicalCard card, final String opponentId) {
             super(
                     new AbstractModifier(card, "Skip Shadow phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
@@ -86,11 +82,6 @@ public class Card2_015 extends AbstractEvent {
         @Override
         public String getText(LotroGame game) {
             return "Skip your Shadow phase";
-        }
-
-        @Override
-        public boolean canPlayEffect(LotroGame game) {
-            return true;
         }
     }
 }

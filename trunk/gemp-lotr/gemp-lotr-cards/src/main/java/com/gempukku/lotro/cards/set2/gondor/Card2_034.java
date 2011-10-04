@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.gondor;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharacterEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -43,12 +43,12 @@ public class Card2_034 extends AbstractResponseEvent {
         if (effect.getType() == EffectResult.Type.WOUND
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION))
                 && checkPlayRequirements(playerId, game, self, 0)) {
-            final WoundCharacterEffect woundEffect = (WoundCharacterEffect) effect;
-            Collection<PhysicalCard> woundedCards = woundEffect.getCardsToBeAffected(game);
+            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(woundedCards, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
                 final PlayEventAction action = new PlayEventAction(self);
                 action.appendCost(
-                        new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
                 action.appendEffect(
                         new ChooseActiveCardEffect(playerId, "Choose companion", Filters.in(woundedCards), Filters.type(CardType.COMPANION)) {
                             @Override

@@ -28,7 +28,7 @@ public class Card3_116 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == this) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self));
+                    new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);
         }
         return null;

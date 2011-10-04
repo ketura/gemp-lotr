@@ -46,7 +46,7 @@ public class Card2_070 extends AbstractEvent {
         action.appendCost(
                 new ChooseCardsFromHandEffect(playerId, 0, Integer.MAX_VALUE, Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardsSelected(Collection<PhysicalCard> selectedCards) {
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                         int cardsRevealed = selectedCards.size();
                         action.appendEffect(
                                 new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.name("The Balrog"), -2 * cardsRevealed));

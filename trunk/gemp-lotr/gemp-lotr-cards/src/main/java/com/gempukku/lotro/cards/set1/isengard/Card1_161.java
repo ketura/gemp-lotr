@@ -3,16 +3,15 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.costs.ChoiceCost;
-import com.gempukku.lotro.cards.costs.ChooseAndDiscardCardsFromPlayCost;
-import com.gempukku.lotro.cards.costs.ChooseAndExertCharactersCost;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.PlayEventEffect;
-import com.gempukku.lotro.logic.timing.ChooseableCost;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -46,16 +45,16 @@ public class Card1_161 extends AbstractResponseEvent {
 
             final PlayEventAction action = new PlayEventAction(self);
 
-            List<ChooseableCost> possibleCosts = new LinkedList<ChooseableCost>();
+            List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndExertCharactersCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert an Uruk-hai";
                         }
                     });
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromPlayCost(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard an Uruk-hai";
@@ -63,7 +62,7 @@ public class Card1_161 extends AbstractResponseEvent {
                     });
 
             action.appendCost(
-                    new ChoiceCost(action, playerId, possibleCosts));
+                    new ChoiceEffect(action, playerId, possibleCosts));
 
             action.appendEffect(new CancelEventEffect(playerId, (PlayEventEffect) effect));
 
