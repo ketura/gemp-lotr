@@ -59,7 +59,6 @@ public class TurnProcedure {
     private class PlayOutRecognizableEffect extends SystemAction {
         private Effect _effect;
         private EffectResult[] _effectResults;
-        private boolean _checkedPlayability;
         private boolean _checkedIsAboutToRequiredResponses;
         private boolean _checkedIsAboutToOptionalResponses;
         private boolean _effectPlayed;
