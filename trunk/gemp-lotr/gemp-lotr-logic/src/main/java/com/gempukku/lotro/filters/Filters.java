@@ -363,7 +363,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getBlueprint().getCardType() == CardType.SITE && playerId.equals(physicalCard.getSiteController());
+                return physicalCard.getBlueprint().getCardType() == CardType.SITE && playerId.equals(physicalCard.getCardController());
             }
         };
     }

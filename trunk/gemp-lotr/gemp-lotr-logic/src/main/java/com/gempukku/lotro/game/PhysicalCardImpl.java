@@ -12,7 +12,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     private int _cardId;
     private String _blueprintId;
     private String _owner;
-    private String _siteController;
+    private String _cardController;
     private Zone _zone;
     private LotroCardBlueprint _blueprint;
 
@@ -50,13 +50,13 @@ public class PhysicalCardImpl implements PhysicalCard {
         return _owner;
     }
 
-    public void setSiteController(String siteController) {
-        _siteController = siteController;
+    public void setCardController(String siteController) {
+        _cardController = siteController;
     }
 
     @Override
-    public String getSiteController() {
-        return _siteController;
+    public String getCardController() {
+        return _cardController;
     }
 
     public void startAffectingGame(ModifiersEnvironment modifiersEnvironment) {
