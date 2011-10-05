@@ -58,10 +58,14 @@ public class ChooseAndPlayCardFromHandEffect extends AbstractEffect {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             final PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
                             game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
+                            cardChosenCallback(selectedCard);
                         }
                     });
             return new FullEffectResult(null, true, true);
         }
         return new FullEffectResult(null, false, false);
+    }
+
+    protected void cardChosenCallback(PhysicalCard cardChosenToPlay) {
     }
 }
