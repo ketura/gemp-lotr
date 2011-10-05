@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -54,7 +55,8 @@ public class Card4_011 extends AbstractMinion {
 
     @Override
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
-        if (self.getStackedOn().getBlueprint().getCardType() == CardType.SITE
+        if (PlayConditions.canUseStackedShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
+                && self.getStackedOn().getBlueprint().getCardType() == CardType.SITE
                 && playerId.equals(self.getStackedOn().getCardController())
                 && checkPlayRequirements(playerId, game, self, -2)) {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, -2));
