@@ -720,6 +720,8 @@ public class ServerResource {
             eventElem.setAttribute("cardId", gameEvent.getCardId().toString());
         if (gameEvent.getIndex() != null)
             eventElem.setAttribute("index", gameEvent.getIndex().toString());
+        if (gameEvent.getControllerId() != null)
+            eventElem.setAttribute("controllerId", gameEvent.getParticipantId());
         if (gameEvent.getParticipantId() != null)
             eventElem.setAttribute("participantId", gameEvent.getParticipantId());
         if (gameEvent.getAllParticipantIds() != null) {

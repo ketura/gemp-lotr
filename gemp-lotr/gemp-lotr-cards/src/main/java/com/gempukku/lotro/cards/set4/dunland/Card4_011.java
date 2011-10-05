@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.dunland;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -53,7 +54,8 @@ public class Card4_011 extends AbstractMinion {
 
     @Override
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
-        if (playerId.equals(self.getStackedOn().getSiteController())
+        if (self.getStackedOn().getBlueprint().getCardType() == CardType.SITE
+                && playerId.equals(self.getStackedOn().getCardController())
                 && checkPlayRequirements(playerId, game, self, -2)) {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, -2));
         }

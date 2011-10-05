@@ -9,7 +9,7 @@ public interface PhysicalCard {
 
     public String getOwner();
 
-    public String getSiteController();
+    public String getCardController();
 
     public int getCardId();
 

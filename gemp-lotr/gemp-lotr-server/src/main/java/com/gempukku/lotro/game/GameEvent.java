@@ -24,6 +24,7 @@ public class GameEvent {
     private Type _type;
     private Zone _zone;
     private String _participantId;
+    private String _controllerId;
     private List<String> _allParticipantIds;
     private Integer _index;
     private String _blueprintId;
@@ -123,8 +124,19 @@ public class GameEvent {
         return this;
     }
 
+    public String getControllerId() {
+        return _controllerId;
+    }
+
+    public GameEvent controllerId(String controllerId) {
+        _controllerId = controllerId;
+        return this;
+    }
+
     public GameEvent card(PhysicalCard physicalCard) {
         GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone()).side(physicalCard.getBlueprint().getSide().name());
+        if (physicalCard.getCardController() != null)
+            gameEvent = gameEvent.controllerId(physicalCard.getCardController());
         PhysicalCard attachedTo = physicalCard.getAttachedTo();
         if (attachedTo != null)
             gameEvent = gameEvent.targetCardId(attachedTo.getCardId());

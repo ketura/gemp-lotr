@@ -217,6 +217,13 @@ public class GameState {
             listener.cardMoved(card);
     }
 
+    public void takeControlOfCard(String playerId, PhysicalCard card, Zone zone) {
+        ((PhysicalCardImpl) card).setCardController(playerId);
+        ((PhysicalCardImpl) card).setZone(zone);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.cardMoved(card);
+    }
+
     public void attachCard(PhysicalCard card, PhysicalCard attachTo) {
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) attachTo);
         addCardToZone(card, Zone.ATTACHED);
@@ -436,6 +443,10 @@ public class GameState {
         _playerPosition.put(playerId, i);
         for (GameStateListener listener : getAllGameStateListeners())
             listener.setPlayerPosition(playerId, i);
+    }
+
+    public int getPlayerPosition(String playerId) {
+        return _playerPosition.get(playerId);
     }
 
     private int getTokenCount(PhysicalCard physicalCard, Token token) {
