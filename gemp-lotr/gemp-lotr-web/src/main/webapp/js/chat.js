@@ -5,6 +5,7 @@ var ChatBoxUI = Class.extend({
     chatMessagesDiv: null,
     chatTalkDiv: null,
     chatListDiv: null,
+    showTimestamps: false,
     talkBoxHeight: 25,
 
     init: function(name, div, url, showList) {
@@ -70,6 +71,8 @@ var ChatBoxUI = Class.extend({
         this.chatMessagesDiv.prop({ scrollTop: this.chatMessagesDiv.prop("scrollHeight") });
     },
 
+    monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+
     processMessages: function(xml, processAgain) {
         var root = xml.documentElement;
         if (root.tagName == 'chat') {
@@ -78,7 +81,13 @@ var ChatBoxUI = Class.extend({
                 var message = messages[i];
                 var from = message.getAttribute("from");
                 var text = message.childNodes[0].nodeValue;
-                this.appendMessage("<b>" + from + ":</b> " + text);
+                if (this.showTimestamps) {
+                    var date = new Date(message.getAttribute("date"));
+                    var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                    this.appendMessage("<div class='timestamp'>[" + dateStr + "]</div> <b>" + from + ":</b> " + text);
+                } else {
+                    this.appendMessage("<b>" + from + ":</b> " + text);
+                }
             }
 
             if (this.chatListDiv != null) {

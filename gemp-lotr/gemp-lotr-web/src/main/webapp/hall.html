@@ -34,6 +34,11 @@
             color: #ffffff;
         }
 
+        .timestamp {
+            display: inline;
+            color: #cfcfcf;
+        }
+
         #disclaimer {
             color: #ffffff;
             font-size: 80%;
@@ -93,6 +98,7 @@
 
                     var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
                     chat.setBounds(2, 2, 780 - 4, 200 - 4);
+                    chat.showTimestamps = true;
 
                     var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
 
