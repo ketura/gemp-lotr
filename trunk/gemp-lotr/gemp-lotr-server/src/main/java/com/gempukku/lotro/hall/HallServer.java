@@ -62,8 +62,8 @@ public class HallServer extends AbstractServer {
         return Collections.unmodifiableMap(_supportedFormatNames);
     }
 
-    public LotroFormat getSupportedFormat(String type) {
-        return _supportedFormats.get(type);
+    public LotroFormat getSupportedFormat(String formatId) {
+        return _supportedFormats.get(formatId);
     }
 
     public Set<League> getRunningLeagues() {
