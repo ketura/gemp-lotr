@@ -359,6 +359,15 @@ public class Filters {
         };
     }
 
+    public static Filter siteControlled(final String playerId) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getBlueprint().getCardType() == CardType.SITE && playerId.equals(physicalCard.getController());
+            }
+        };
+    }
+
     public static Filter culture(final Culture culture) {
         return new Filter() {
             @Override
