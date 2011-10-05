@@ -23,9 +23,12 @@ public class HallServer extends AbstractServer {
 
     private Map<String, String> _supportedFormatNames = new HashMap<String, String>();
     private Map<String, LotroFormat> _supportedFormats = new HashMap<String, LotroFormat>();
+    private Map<String, String> _formatCollectionIds = new HashMap<String, String>();
 
+    // TODO Reading/writing from/to these maps is done in multiple threads
     private Map<String, AwaitingTable> _awaitingTables = new ConcurrentHashMap<String, AwaitingTable>();
     private Map<String, String> _runningTables = new ConcurrentHashMap<String, String>();
+    private Map<String, String> _runningTableFormatNames = new ConcurrentHashMap<String, String>();
     private int _nextTableId = 1;
 
     private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
@@ -41,9 +44,11 @@ public class HallServer extends AbstractServer {
 
         _supportedFormatNames.put("fotr_block", "FotR Block");
         _supportedFormats.put("fotr_block", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+        _formatCollectionIds.put("fotr_block", "default");
         if (test) {
             _supportedFormatNames.put("m_fotr_block", "Modified FotR Block");
             _supportedFormats.put("m_fotr_block", new ModifiedFotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+            _formatCollectionIds.put("m_fotr_block", "default");
         }
     }
 
@@ -96,7 +101,7 @@ public class HallServer extends AbstractServer {
         }
 
         Player player = _lotroServer.getPlayerDao().getPlayer(playerId);
-        CardCollection collection = _collectionDao.getCollectionForPlayer(player, type);
+        CardCollection collection = _collectionDao.getCollectionForPlayer(player, _formatCollectionIds.get(type));
         // TODO check that player has cards in collection
 
         return lotroDeck;
@@ -131,6 +136,7 @@ public class HallServer extends AbstractServer {
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         lotroGameMediator.startGame();
         _runningTables.put(tableId, gameId);
+        _runningTableFormatNames.put(tableId, awaitingTable.getFormatName());
         _awaitingTables.remove(tableId);
     }
 
@@ -158,13 +164,13 @@ public class HallServer extends AbstractServer {
 
         Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
         for (Map.Entry<String, AwaitingTable> table : copy.entrySet())
-            visitor.visitTable(table.getKey(), null, "Waiting", table.getValue().getPlayerNames());
+            visitor.visitTable(table.getKey(), null, "Waiting", table.getValue().getFormatName(), table.getValue().getPlayerNames());
 
         Map<String, String> runningCopy = new LinkedHashMap<String, String>(_runningTables);
         for (Map.Entry<String, String> runningGame : runningCopy.entrySet()) {
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
             if (lotroGameMediator != null)
-                visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), lotroGameMediator.getPlayersPlaying());
+                visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying());
         }
 
         String playerTable = getNonFinishedPlayerTable(participantId);
@@ -213,8 +219,10 @@ public class HallServer extends AbstractServer {
         // Remove finished games
         HashMap<String, String> copy = new HashMap<String, String>(_runningTables);
         for (Map.Entry<String, String> runningTable : copy.entrySet()) {
-            if (_lotroServer.getGameById(runningTable.getValue()) == null)
+            if (_lotroServer.getGameById(runningTable.getValue()) == null) {
                 _runningTables.remove(runningTable.getKey());
+                _runningTableFormatNames.remove(runningTable.getKey());
+            }
         }
 
         long currentTime = System.currentTimeMillis();
