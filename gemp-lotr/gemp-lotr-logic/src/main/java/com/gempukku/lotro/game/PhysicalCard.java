@@ -9,6 +9,8 @@ public interface PhysicalCard {
 
     public String getOwner();
 
+    public String getController();
+
     public int getCardId();
 
     public LotroCardBlueprint getBlueprint();
