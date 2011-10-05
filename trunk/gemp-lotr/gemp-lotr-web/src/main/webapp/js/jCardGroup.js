@@ -106,7 +106,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 function(first, second) {
                     return (first.data("card").siteNumber - second.data("card").siteNumber);
                 }
-                );
+        );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -129,12 +129,17 @@ var AdvPathCardGroup = CardGroup.extend({
                 if (this.positions[i] == cardData.siteNumber)
                     cardData.tokens["" + (i + 1)] = 1;
 
-            this.layoutCard(cardElem, x, y, this.width, cardHeight, index);
-
-            for (var i = 0; i < cardData.attachedCards.length; i++) {
-                this.layoutCard(cardData.attachedCards[i], x + (this.width - cardHeight) / 2, y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
+            if (cardData.attachedCards.length == 1) {
+                this.layoutCard(cardData.attachedCards[0], x + (this.width - cardHeight) / 2, y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
                 index++;
+            } else {
+                for (var i = 0; i < cardData.attachedCards.length; i++) {
+                    this.layoutCard(cardData.attachedCards[0], x + i * (this.width - cardHeight) / (cardData.attachedCards.length - 1), y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
+                    index++;
+                }
             }
+
+            this.layoutCard(cardElem, x, y, this.width, cardHeight, index);
 
             y += cardHeight + resultPadding;
             index++;
