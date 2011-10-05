@@ -42,14 +42,16 @@ public class HallServer extends AbstractServer {
         _collectionDao = collectionDao;
         _chatServer.createChatRoom("Game Hall");
 
-        _supportedFormatNames.put("fotr_block", "FotR Block");
-        _supportedFormats.put("fotr_block", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
-        _formatCollectionIds.put("fotr_block", "default");
+        addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
         if (test) {
-            _supportedFormatNames.put("m_fotr_block", "Modified FotR Block");
-            _supportedFormats.put("m_fotr_block", new ModifiedFotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
-            _formatCollectionIds.put("m_fotr_block", "default");
+            addFormat("m_fotr_block", "Modified Fellowship block", "default", new ModifiedFotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
         }
+    }
+
+    private void addFormat(String formatCode, String formatName, String formatCollectionId, LotroFormat format) {
+        _supportedFormatNames.put(formatCode, formatName);
+        _formatCollectionIds.put(formatCode, formatCollectionId);
+        _supportedFormats.put(formatCode, format);
     }
 
     public int getTablesCount() {
