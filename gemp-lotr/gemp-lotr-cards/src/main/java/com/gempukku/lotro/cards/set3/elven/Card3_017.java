@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,7 +32,7 @@ import java.util.List;
  */
 public class Card3_017 extends AbstractAlly {
     public Card3_017() {
-        super(3, 6, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", true);
+        super(3, Block.FELLOWSHIP, 6, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", true);
     }
 
     @Override
@@ -59,7 +56,7 @@ public class Card3_017 extends AbstractAlly {
             Collection<PhysicalCard> nextSites = Filters.filter(game.getGameState().getAdventureDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1));
             if (nextSites.size() > 0 && game.getModifiersQuerying().hasKeyword(game.getGameState(), nextSites.iterator().next(), Keyword.FOREST)) {
                 action.appendEffect(
-                        new PlaySiteEffect(playerId, game.getGameState().getCurrentSiteNumber() + 1));
+                        new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             }
             return Collections.singletonList(action);
         }

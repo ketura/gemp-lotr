@@ -13,17 +13,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class AbstractAlly extends AbstractPermanent {
+    private Block _siteBlock;
     private int _siteNumber;
     private int _strength;
     private int _vitality;
     private Race _race;
 
-    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Race race, Culture culture, String name) {
-        this(twilight, siteNumber, strength, vitality, race, culture, name, false);
+    public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name) {
+        this(twilight, siteBlock, siteNumber, strength, vitality, race, culture, name, false);
     }
 
-    public AbstractAlly(int twilight, int siteNumber, int strength, int vitality, Race race, Culture culture, String name, boolean unique) {
+    public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name, boolean unique) {
         super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, Zone.SUPPORT, name, unique);
+        _siteBlock = siteBlock;
         _siteNumber = siteNumber;
         _strength = strength;
         _vitality = vitality;
@@ -50,6 +52,11 @@ public class AbstractAlly extends AbstractPermanent {
 
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         return null;
+    }
+
+    @Override
+    public Block getSiteBlock() {
+        return _siteBlock;
     }
 
     @Override

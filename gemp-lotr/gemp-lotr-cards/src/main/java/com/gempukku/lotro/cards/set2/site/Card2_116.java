@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public class Card2_116 extends AbstractSite {
     public Card2_116() {
-        super("Hobbiton Woods", 1, 0, Direction.LEFT);
+        super("Hobbiton Woods", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 
@@ -36,7 +37,7 @@ public class Card2_116 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT)));
             action.appendEffect(
-                    new PlaySiteEffect(playerId, 2));
+                    new PlaySiteEffect(playerId, Block.FELLOWSHIP, 2));
             return Collections.singletonList(action);
         }
         return null;

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.effects;
 
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -12,7 +13,7 @@ public class PlaySiteEffect extends UnrespondableEffect {
     private String _playerId;
     private int _siteNumber;
 
-    public PlaySiteEffect(String playerId, int siteNumber) {
+    public PlaySiteEffect(String playerId, Block siteBlock, int siteNumber) {
         _playerId = playerId;
         _siteNumber = siteNumber;
     }

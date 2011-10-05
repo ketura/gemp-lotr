@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class Card1_327 extends AbstractSite {
     public Card1_327() {
-        super("Bree Gate", 2, 2, Direction.LEFT);
+        super("Bree Gate", Block.FELLOWSHIP, 2, 2, Direction.LEFT);
     }
 
     @Override

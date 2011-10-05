@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +26,7 @@ import java.util.Map;
  */
 public class Card3_115 extends AbstractSite {
     public Card3_115() {
-        super("Caras Galadhon", 6, 3, Direction.LEFT);
+        super("Caras Galadhon", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
         addKeyword(Keyword.FOREST);
         addKeyword(Keyword.SANCTUARY);
     }

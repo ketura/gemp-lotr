@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -17,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_347 extends AbstractSite {
     public Card1_347() {
-        super("Moria Stairway", 4, 2, Direction.RIGHT);
+        super("Moria Stairway", Block.FELLOWSHIP, 4, 2, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

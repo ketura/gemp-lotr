@@ -321,7 +321,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean isAllyOnCurrentSite(GameState gameState, PhysicalCard card) {
         boolean allyOnCurrentSite = (card.getBlueprint().getCardType() == CardType.ALLY
-                && gameState.getCurrentSiteNumber() == card.getBlueprint().getSiteNumber());
+                && gameState.getCurrentSiteNumber() == card.getBlueprint().getSiteNumber()
+                && gameState.getCurrentSite().getBlueprint().getSiteBlock() == card.getBlueprint().getSiteBlock());
         for (Modifier modifier : getModifiers(ModifierEffect.PRESENCE_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
                 allyOnCurrentSite = modifier.isAllyOnCurrentSite(gameState, this, card, allyOnCurrentSite);

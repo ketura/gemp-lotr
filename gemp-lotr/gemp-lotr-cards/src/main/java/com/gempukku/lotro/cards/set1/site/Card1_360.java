@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class Card1_360 extends AbstractSite {
     public Card1_360() {
-        super("Emyn Muil", 9, 9, Direction.LEFT);
+        super("Emyn Muil", Block.FELLOWSHIP, 9, 9, Direction.LEFT);
     }
 
     @Override

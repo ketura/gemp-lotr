@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class Card1_346 extends AbstractSite {
     public Card1_346() {
-        super("Moria Lake", 4, 3, Direction.RIGHT);
+        super("Moria Lake", Block.FELLOWSHIP, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.MARSH);
     }
 

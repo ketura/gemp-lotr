@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -16,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_335 extends AbstractSite {
     public Card1_335() {
-        super("Weatherhills", 2, 3, Direction.LEFT);
+        super("Weatherhills", Block.FELLOWSHIP, 2, 3, Direction.LEFT);
     }
 
     @Override

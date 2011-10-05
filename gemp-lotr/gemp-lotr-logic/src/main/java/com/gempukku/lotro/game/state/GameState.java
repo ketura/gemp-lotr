@@ -607,6 +607,10 @@ public class GameState {
         return getSite(getCurrentSiteNumber());
     }
 
+    public Block getCurrentSiteBlock() {
+        return getCurrentSite().getBlueprint().getSiteBlock();
+    }
+
     public void increaseMoveCount() {
         _moveCount++;
     }

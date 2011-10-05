@@ -37,7 +37,8 @@ public class Card3_001 extends AbstractAttachable {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
-                && game.getGameState().getCurrentSiteNumber() >= 4) {
+                && game.getGameState().getCurrentSiteNumber() >= 4
+                && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
             action.appendEffect(

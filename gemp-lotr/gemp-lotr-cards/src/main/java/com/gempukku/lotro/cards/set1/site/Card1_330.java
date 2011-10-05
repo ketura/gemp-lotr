@@ -1,10 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -23,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_330 extends AbstractSite {
     public Card1_330() {
-        super("Buckleberry Ferry", 2, 1, Direction.LEFT);
+        super("Buckleberry Ferry", Block.FELLOWSHIP, 2, 1, Direction.LEFT);
         addKeyword(Keyword.RIVER);
     }
 

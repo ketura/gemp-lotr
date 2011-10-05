@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
@@ -43,7 +44,7 @@ public class Card1_048 extends AbstractCompanion {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                 int currentSiteNumber = gameState.getCurrentSiteNumber();
-                                return (currentSiteNumber == 6 || currentSiteNumber == 7 || currentSiteNumber == 8);
+                                return gameState.getCurrentSiteBlock() == Block.FELLOWSHIP && (currentSiteNumber == 6 || currentSiteNumber == 7 || currentSiteNumber == 8);
                             }
                         }), 2);
     }

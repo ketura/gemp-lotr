@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_017 extends AbstractAlly {
     public Card1_017() {
-        super(1, 3, 3, 3, Race.DWARF, Culture.DWARVEN, "Grimir", true);
+        super(1, Block.FELLOWSHIP, 3, 3, 3, Race.DWARF, Culture.DWARVEN, "Grimir", true);
     }
 
     @Override

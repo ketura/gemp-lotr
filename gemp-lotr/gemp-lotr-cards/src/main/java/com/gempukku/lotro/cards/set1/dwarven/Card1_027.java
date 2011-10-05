@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card1_027 extends AbstractAlly {
     public Card1_027() {
-        super(1, 3, 4, 2, Race.DWARF, Culture.DWARVEN, "Thrarin", true);
+        super(1, Block.FELLOWSHIP, 3, 4, 2, Race.DWARF, Culture.DWARVEN, "Thrarin", true);
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_034 extends AbstractAlly {
     public Card1_034() {
-        super(2, 6, 6, 3, Race.ELF, Culture.ELVEN, "Celeborn", true);
+        super(2, Block.FELLOWSHIP, 6, 6, 3, Race.ELF, Culture.ELVEN, "Celeborn", true);
     }
 
     @Override

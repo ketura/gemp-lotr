@@ -115,6 +115,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public Block getSiteBlock() {
+        return null;
+    }
+
+    @Override
     public int getStrength() {
         return 0;
     }

@@ -47,15 +47,17 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
                 validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
                                 Filters.type(CardType.COMPANION),
-                                Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(gameState.getCurrentSiteNumber()))));
-            } else if (attachedTo.getSiteNumber() == gameState.getCurrentSiteNumber()) {
+                                Filters.allyOnHomeSite()));
+            } else if (attachedTo.getSiteNumber() == gameState.getCurrentSiteNumber()
+                    && attachedTo.getSiteBlock() == gameState.getCurrentSite().getBlueprint().getSiteBlock()) {
                 validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
                                 Filters.type(CardType.COMPANION),
-                                Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(gameState.getCurrentSiteNumber()))));
+                                Filters.allyOnHomeSite()));
             } else {
                 validTransferFilter = Filters.and(validTargetFilter,
-                        Filters.type(CardType.ALLY), Filters.siteNumber(attachedTo.getSiteNumber()));
+                        Filters.type(CardType.ALLY), Filters.siteNumber(attachedTo.getSiteNumber()), Filters.siteBlock(attachedTo.getSiteBlock())
+                );
             }
 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), validTransferFilter))

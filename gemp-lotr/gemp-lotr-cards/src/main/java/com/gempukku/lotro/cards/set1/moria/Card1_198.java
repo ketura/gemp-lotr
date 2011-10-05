@@ -48,7 +48,7 @@ public class Card1_198 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         int siteNumber = game.getGameState().getCurrentSiteNumber();
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && siteNumber >= 4 && siteNumber <= 6
+                && siteNumber >= 4 && siteNumber <= 6 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId()));

@@ -73,6 +73,28 @@ public class Filters {
         };
     }
 
+    public static Filter allyOnHomeSite() {
+        return Filters.and(
+                Filters.type(CardType.ALLY),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return physicalCard.getBlueprint().getSiteNumber() == gameState.getCurrentSiteNumber()
+                                && physicalCard.getBlueprint().getSiteBlock() == gameState.getCurrentSite().getBlueprint().getSiteBlock();
+                    }
+                }
+        );
+    }
+
+    public static Filter siteBlock(final Block block) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getBlueprint().getSiteBlock() == block;
+            }
+        };
+    }
+
     public static Filter weapon() {
         return new Filter() {
             @Override

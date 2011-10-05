@@ -25,7 +25,7 @@ import java.util.List;
 public class Card3_120 extends AbstractSite {
     public Card3_120() {
         // TODO Check direction of the site
-        super("Wastes of Emyn Muil", 9, 9, null);
+        super("Wastes of Emyn Muil", Block.FELLOWSHIP, 9, 9, null);
     }
 
     @Override

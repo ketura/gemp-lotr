@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class Card3_117 extends AbstractSite {
     public Card3_117() {
-        super("Gates of Argonath", 8, 8, Direction.RIGHT);
+        super("Gates of Argonath", Block.FELLOWSHIP, 8, 8, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

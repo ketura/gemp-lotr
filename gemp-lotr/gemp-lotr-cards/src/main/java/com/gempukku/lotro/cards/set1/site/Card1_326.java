@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,7 +22,7 @@ import java.util.List;
  */
 public class Card1_326 extends AbstractSite {
     public Card1_326() {
-        super("Westfarthing", 1, 0, Direction.LEFT);
+        super("Westfarthing", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

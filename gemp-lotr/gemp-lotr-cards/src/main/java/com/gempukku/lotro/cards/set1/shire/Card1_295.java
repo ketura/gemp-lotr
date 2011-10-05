@@ -34,11 +34,11 @@ import java.util.List;
  */
 public class Card1_295 extends AbstractAlly {
     public Card1_295() {
-        super(1, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Farmer");
+        super(1, Block.FELLOWSHIP, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Farmer");
     }
 
     private Filter getFilter(PhysicalCard self) {
-        return Filters.and(Filters.type(CardType.SITE), Filters.owner(self.getOwner()), Filters.siteNumber(1));
+        return Filters.and(Filters.type(CardType.SITE), Filters.owner(self.getOwner()), Filters.siteNumber(1), Filters.siteBlock(Block.FELLOWSHIP));
     }
 
     private LotroCardBlueprint getCopied(LotroGame game, PhysicalCard self) {
@@ -84,11 +84,12 @@ public class Card1_295 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+                && game.getGameState().getSite(1).getBlueprint().getSiteBlock() == Block.FELLOWSHIP
                 && !game.getGameState().getSite(1).getOwner().equals(playerId)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(new ExertCharactersEffect(self, self));
-            action.appendEffect(new PlaySiteEffect(playerId, 1));
+            action.appendEffect(new PlaySiteEffect(playerId, Block.FELLOWSHIP, 1));
             actions.add(action);
         }
         LotroCardBlueprint copied = getCopied(game, self);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class Card1_342 extends AbstractSite {
     public Card1_342() {
-        super("Rivendell Waterfall", 3, 0, Direction.RIGHT);
+        super("Rivendell Waterfall", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
         addKeyword(Keyword.SANCTUARY);
     }

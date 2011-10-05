@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game.formats;
 
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -15,13 +16,15 @@ import java.util.Set;
 
 public abstract class DefaultLotroFormat implements LotroFormat {
     private LotroCardBlueprintLibrary _library;
+    private Block _siteBlock;
     private boolean _validateShadowFPCount = true;
     private int _maximumSameName = 4;
     private int _minimumDeckSize = 60;
     private Set<String> _restrictedCard = new HashSet<String>();
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName) {
+    public DefaultLotroFormat(LotroCardBlueprintLibrary library, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName) {
         _library = library;
+        _siteBlock = siteBlock;
         _validateShadowFPCount = validateShadowFPCount;
         _minimumDeckSize = minimumDeckSize;
         _maximumSameName = maximumSameName;
@@ -57,6 +60,8 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                 LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
                 if (siteBlueprint.getCardType() != CardType.SITE)
                     throw new DeckInvalidException("Assigned Site is not really a site");
+                if (siteBlueprint.getSiteBlock() != _siteBlock)
+                    throw new DeckInvalidException("One of the sites is from a different block than the format allows");
             }
 
             if (isOrderedSites()) {

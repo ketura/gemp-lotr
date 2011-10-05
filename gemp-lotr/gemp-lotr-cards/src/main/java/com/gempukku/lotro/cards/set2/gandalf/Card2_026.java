@@ -37,7 +37,7 @@ public class Card2_026 extends AbstractEvent {
         PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
         if (nextSite == null || !nextSite.getOwner().equals(playerId)) {
             action.appendEffect(
-                    new PlaySiteEffect(playerId, game.getGameState().getCurrentSiteNumber() + 1) {
+                    new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1) {
                         @Override
                         public void doPlayEffect(LotroGame game) {
                             super.doPlayEffect(game);

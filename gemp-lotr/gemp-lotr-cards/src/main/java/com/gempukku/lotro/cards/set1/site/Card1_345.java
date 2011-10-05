@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_345 extends AbstractSite {
     public Card1_345() {
-        super("Mithril Mine", 4, 3, Direction.RIGHT);
+        super("Mithril Mine", Block.FELLOWSHIP, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 
