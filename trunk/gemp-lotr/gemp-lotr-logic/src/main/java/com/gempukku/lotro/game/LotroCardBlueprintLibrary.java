@@ -1,6 +1,8 @@
 package com.gempukku.lotro.game;
 
-import java.util.Collection;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,27 @@ public class LotroCardBlueprintLibrary {
                     "", ".dwarven", ".elven", ".gandalf", ".gondor", ".isengard", ".moria", ".wraith", ".sauron", ".shire", ".site"
             };
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
+
+    private Map<String, String> _blueprintMapping = new HashMap<String, String>();
+
+    public LotroCardBlueprintLibrary() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(LotroCardBlueprintLibrary.class.getResourceAsStream("/blueprintMapping.txt"), "UTF-8"));
+            try {
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    String[] split = line.split(",");
+                    _blueprintMapping.put(split[0], split[1]);
+                }
+            } finally {
+                bufferedReader.close();
+            }
+        } catch (IOException exp) {
+            throw new RuntimeException("Problem loading blueprint mapping", exp);
+        }
+
+    }
 
     public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) {
         if (blueprintId.endsWith("*"))
@@ -25,21 +48,24 @@ public class LotroCardBlueprintLibrary {
         return blueprint;
     }
 
-    public void initializeLibrary(String setNo, int maxCardIndex) {
-        for (int i = 1; i <= maxCardIndex; i++) {
-            try {
-                getLotroCardBlueprint(setNo + "_" + i);
-            } catch (IllegalArgumentException exp) {
-                // Ignore
-            }
-        }
-    }
-
-    public Collection<LotroCardBlueprint> getAllLoadedBlueprints() {
-        return _blueprintMap.values();
-    }
-
+    //    public void initializeLibrary(String setNo, int maxCardIndex) {
+//        for (int i = 1; i <= maxCardIndex; i++) {
+//            try {
+//                getLotroCardBlueprint(setNo + "_" + i);
+//            } catch (IllegalArgumentException exp) {
+//                // Ignore
+//            }
+//        }
+//    }
+//
+//    public Collection<LotroCardBlueprint> getAllLoadedBlueprints() {
+//        return _blueprintMap.values();
+//    }
+//
     private LotroCardBlueprint getBlueprint(String blueprintId) {
+        if (_blueprintMapping.containsKey(blueprintId))
+            return getBlueprint(_blueprintMapping.get(blueprintId));
+
         String[] blueprintParts = blueprintId.split("_");
 
         String setNumber = blueprintParts[0];
