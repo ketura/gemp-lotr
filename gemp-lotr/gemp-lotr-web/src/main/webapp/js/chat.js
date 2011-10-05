@@ -73,6 +73,13 @@ var ChatBoxUI = Class.extend({
 
     monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 
+    formatToTwoDigits: function(no) {
+        if (no < 10)
+            return "0" + no;
+        else
+            return no;
+    },
+
     processMessages: function(xml, processAgain) {
         var root = xml.documentElement;
         if (root.tagName == 'chat') {
@@ -82,8 +89,8 @@ var ChatBoxUI = Class.extend({
                 var from = message.getAttribute("from");
                 var text = message.childNodes[0].nodeValue;
                 if (this.showTimestamps) {
-                    var date = new Date(message.getAttribute("date"));
-                    var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                    var date = new Date(parseInt(message.getAttribute("date")));
+                    var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + this.formatToTwoDigits(date.getHours()) + ":" + this.formatToTwoDigits(date.getMinutes()) + ":" + this.formatToTwoDigits(date.getSeconds());
                     this.appendMessage("<div class='timestamp'>[" + dateStr + "]</div> <b>" + from + ":</b> " + text);
                 } else {
                     this.appendMessage("<b>" + from + ":</b> " + text);
