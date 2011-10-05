@@ -51,7 +51,6 @@ var CardGroup = Class.extend({
         var borderOverlay = $(".borderOverlay", cardElem);
         borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 2 * borderWidth, height: height - 2 * borderWidth, "border-width": borderWidth + "px"});
 
-        var maxDimension = Math.max(width, height);
         var tokenSize = Math.floor(maxDimension / 12) * 2;
 
         var tokens = cardElem.data("card").tokens;
