@@ -61,6 +61,11 @@ public class PlayConditions {
                 && twilightCost <= gameState.getTwilightPool();
     }
 
+    public static boolean canUseStackedShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
+        return (phase == null || gameState.getCurrentPhase() == phase) && self.getZone() == Zone.STACKED
+                && twilightCost <= gameState.getTwilightPool();
+    }
+
     public static boolean canUseSiteDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
         return (phase == null || gameState.getCurrentPhase() == phase) && (gameState.getCurrentSite() == self);
     }
