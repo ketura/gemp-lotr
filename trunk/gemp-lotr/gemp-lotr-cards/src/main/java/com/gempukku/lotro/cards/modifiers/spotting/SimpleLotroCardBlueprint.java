@@ -70,6 +70,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return null;
     }

@@ -151,10 +151,10 @@ var GempLotrHallUI = Class.extend({
 
     createTableDiv: function(id, gameId, status, formatName, players, waiting) {
         var tableDiv = $("<div></div>");
-        tableDiv.css({ display: "inline-block", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
+        tableDiv.css({ display: "inline-table", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
         tableDiv.append("<div class='tableFormatName'>" + formatName + "</div>");
         tableDiv.append("<div class='tableStatus'>" + status + "</div>");
-        tableDiv.append("Players:<br/>");
+        tableDiv.append("<hr/>");
         for (var i = 0; i < players.length; i++)
             tableDiv.append("<div class='tablePlayer'>" + players[i] + "</div>");
 
