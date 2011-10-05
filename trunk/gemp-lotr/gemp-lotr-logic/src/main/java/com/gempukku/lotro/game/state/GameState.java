@@ -378,6 +378,14 @@ public class GameState {
         return false;
     }
 
+    public boolean iterateStackedActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
+        for (PhysicalCardImpl physicalCard : _stacked.get(player)) {
+            if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                return true;
+        }
+        return false;
+    }
+
     public boolean iterateActiveCards(String player, PhysicalCardVisitor physicalCardVisitor) {
         for (int i = 1; i <= 9; i++) {
             PhysicalCard site = getSite(i);

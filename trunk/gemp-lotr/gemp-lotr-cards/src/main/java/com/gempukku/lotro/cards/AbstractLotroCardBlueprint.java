@@ -130,6 +130,10 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         return null;
     }
 
+    public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         return null;
