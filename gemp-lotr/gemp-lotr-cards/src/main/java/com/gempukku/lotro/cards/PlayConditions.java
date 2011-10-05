@@ -133,6 +133,10 @@ public class PlayConditions {
         return canExert(source, gameState, modifiersQuerying, Filters.sameCard(card));
     }
 
+    public static boolean controllsSite(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        return Filters.findFirstActive(gameState, modifiersQuerying, Filters.siteControlled(playerId)) != null;
+    }
+
     public static boolean winsSkirmish(EffectResult effectResult, PhysicalCard character) {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
