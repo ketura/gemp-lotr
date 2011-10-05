@@ -362,6 +362,28 @@ public class GameState {
         return false;
     }
 
+    public boolean iterateActiveTextCards(PhysicalCardVisitor physicalCardVisitor) {
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (physicalCard.getBlueprint().getCardType() != CardType.SITE || getCurrentSite() == physicalCard)
+                if (isCardInPlayActive(physicalCard))
+                    if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                        return true;
+        }
+
+        return false;
+    }
+
+    public boolean iterateActiveTextCards(String player, PhysicalCardVisitor physicalCardVisitor) {
+        physicalCardVisitor.visitPhysicalCard(getCurrentSite());
+
+        for (PhysicalCardImpl physicalCard : _inPlay) {
+            if (physicalCard.getBlueprint().getCardType() != CardType.SITE && physicalCard.getOwner().equals(player) && isCardInPlayActive(physicalCard))
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
+        }
+        return false;
+    }
+
     public boolean iterateActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
         if (physicalCardVisitor.visitPhysicalCard(getCurrentSite()))
             return true;
@@ -389,20 +411,6 @@ public class GameState {
         for (PhysicalCardImpl physicalCard : _stacked.get(player)) {
             if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                 return true;
-        }
-        return false;
-    }
-
-    public boolean iterateActiveCards(String player, PhysicalCardVisitor physicalCardVisitor) {
-        for (int i = 1; i <= 9; i++) {
-            PhysicalCard site = getSite(i);
-            if (site != null)
-                physicalCardVisitor.visitPhysicalCard(site);
-        }
-        for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (physicalCard.getOwner().equals(player) && isCardInPlayActive(physicalCard))
-                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                    return true;
         }
         return false;
     }

@@ -61,7 +61,7 @@ public class ServerResource {
             _chatServer = new ChatServer();
             _chatServer.startServer();
 
-            _lotroServer = new LotroServer(dbAccess, _library, _chatServer);
+            _lotroServer = new LotroServer(dbAccess, _library, _chatServer, _test);
             _lotroServer.startServer();
 
             _collectionDao = new CollectionDAO(dbAccess, _library, _lotroServer.getDefaultCollection());
@@ -721,7 +721,7 @@ public class ServerResource {
         if (gameEvent.getIndex() != null)
             eventElem.setAttribute("index", gameEvent.getIndex().toString());
         if (gameEvent.getControllerId() != null)
-            eventElem.setAttribute("controllerId", gameEvent.getParticipantId());
+            eventElem.setAttribute("controllerId", gameEvent.getControllerId());
         if (gameEvent.getParticipantId() != null)
             eventElem.setAttribute("participantId", gameEvent.getParticipantId());
         if (gameEvent.getAllParticipantIds() != null) {

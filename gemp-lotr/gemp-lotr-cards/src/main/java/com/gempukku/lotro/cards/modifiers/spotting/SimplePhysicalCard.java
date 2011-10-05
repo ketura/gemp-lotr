@@ -42,6 +42,11 @@ public class SimplePhysicalCard implements PhysicalCard {
     }
 
     @Override
+    public String getCardController() {
+        return null;
+    }
+
+    @Override
     public PhysicalCard getStackedOn() {
         return null;
     }

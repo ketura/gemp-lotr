@@ -725,6 +725,10 @@ var GempLotrGameUI = Class.extend({
         var cardId = element.getAttribute("cardId");
         var zone = element.getAttribute("zone");
         var targetCardId = element.getAttribute("targetCardId");
+        var controllerId = element.getAttribute("controllerId");
+
+        if (controllerId != null)
+            participantId = controllerId;
 
         var card;
         if (zone == "ADVENTURE_PATH")
@@ -750,6 +754,11 @@ var GempLotrGameUI = Class.extend({
         var cardId = element.getAttribute("cardId");
         var zone = element.getAttribute("zone");
         var targetCardId = element.getAttribute("targetCardId");
+        var participantId = element.getAttribute("participantId");
+        var controllerId = element.getAttribute("controllerId");
+
+        if (controllerId != null)
+            participantId = controllerId;
 
         // Remove from where it was already attached
         $(".card").each(
@@ -770,6 +779,7 @@ var GempLotrGameUI = Class.extend({
         var cardData = card.data("card");
         // move to new zone
         cardData.zone = zone;
+        cardData.owner = participantId;
 
         if (targetCardId != null) {
             // attach to new card if it's attached
