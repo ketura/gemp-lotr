@@ -102,11 +102,12 @@ var GempLotrHallUI = Class.extend({
                 var gameId = table.getAttribute("gameId");
                 var status = table.getAttribute("status");
                 var playersAttr = table.getAttribute("players");
+                var formatName = table.getAttribute("format");
                 var players = new Array();
                 if (playersAttr.length > 0)
                     players = playersAttr.split(",");
 
-                var tableDiv = this.createTableDiv(id, gameId, status, players, waiting);
+                var tableDiv = this.createTableDiv(id, gameId, status, formatName, players, waiting);
                 this.tablesDiv.append(tableDiv);
             }
 
@@ -148,9 +149,10 @@ var GempLotrHallUI = Class.extend({
         }
     },
 
-    createTableDiv: function(id, gameId, status, players, waiting) {
+    createTableDiv: function(id, gameId, status, formatName, players, waiting) {
         var tableDiv = $("<div></div>");
         tableDiv.css({ display: "inline-block", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
+        tableDiv.append("<div class='tableFormatName'>" + formatName + "</div>");
         tableDiv.append("<div class='tableStatus'>" + status + "</div>");
         tableDiv.append("Players:<br/>");
         for (var i = 0; i < players.length; i++)
