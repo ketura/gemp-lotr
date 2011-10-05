@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class Card1_362 extends AbstractSite {
     public Card1_362() {
-        super("Summit of Amon Hen", 9, 8, Direction.LEFT);
+        super("Summit of Amon Hen", Block.FELLOWSHIP, 9, 8, Direction.LEFT);
     }
 
     @Override

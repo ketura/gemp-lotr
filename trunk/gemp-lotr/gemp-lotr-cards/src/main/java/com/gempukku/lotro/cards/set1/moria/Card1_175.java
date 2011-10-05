@@ -38,7 +38,7 @@ public class Card1_175 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.COMPANION))
-                && game.getGameState().getCurrentSiteNumber() >= 4) {
+                && game.getGameState().getCurrentSiteNumber() >= 4 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

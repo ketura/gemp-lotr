@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class Card1_325 extends AbstractSite {
     public Card1_325() {
-        super("Shire Lookout Point", 1, 0, Direction.LEFT);
+        super("Shire Lookout Point", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

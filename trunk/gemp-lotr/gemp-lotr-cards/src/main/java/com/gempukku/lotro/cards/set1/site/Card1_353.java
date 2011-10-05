@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class Card1_353 extends AbstractSite {
     public Card1_353() {
-        super("Anduin Confluence", 7, 6, Direction.RIGHT);
+        super("Anduin Confluence", Block.FELLOWSHIP, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

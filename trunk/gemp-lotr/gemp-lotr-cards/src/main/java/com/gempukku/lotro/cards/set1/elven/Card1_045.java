@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_045 extends AbstractAlly {
     public Card1_045() {
-        super(3, 6, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", true);
+        super(3, Block.FELLOWSHIP, 6, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", true);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Card1_045 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6))));
+                    new HealCharactersEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.siteBlock(Block.FELLOWSHIP))));
 
             return Collections.singletonList(action);
         }

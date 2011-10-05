@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -30,11 +31,11 @@ import java.util.List;
  */
 public class Card1_067 extends AbstractAlly {
     public Card1_067() {
-        super(2, 6, 5, 2, Race.ELF, Culture.ELVEN, "Uruviel", true);
+        super(2, Block.FELLOWSHIP, 6, 5, 2, Race.ELF, Culture.ELVEN, "Uruviel", true);
     }
 
     private Filter getFilter(PhysicalCard self) {
-        return Filters.and(Filters.type(CardType.SITE), Filters.owner(self.getOwner()), Filters.siteNumber(3));
+        return Filters.and(Filters.type(CardType.SITE), Filters.owner(self.getOwner()), Filters.siteNumber(3), Filters.siteBlock(Block.FELLOWSHIP));
     }
 
     private LotroCardBlueprint getCopied(LotroGame game, PhysicalCard self) {

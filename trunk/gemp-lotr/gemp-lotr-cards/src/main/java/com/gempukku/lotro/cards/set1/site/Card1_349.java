@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class Card1_349 extends AbstractSite {
     public Card1_349() {
-        super("The Bridge of Khazad-dum", 5, 6, Direction.LEFT);
+        super("The Bridge of Khazad-dum", Block.FELLOWSHIP, 5, 6, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

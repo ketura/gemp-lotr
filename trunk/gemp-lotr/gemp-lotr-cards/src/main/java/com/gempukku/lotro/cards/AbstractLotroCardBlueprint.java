@@ -116,6 +116,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public Block getSiteBlock() {
+        throw new UnsupportedOperationException("This method should not be called on this card");
+    }
+
+    @Override
     public int getSiteNumber() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }

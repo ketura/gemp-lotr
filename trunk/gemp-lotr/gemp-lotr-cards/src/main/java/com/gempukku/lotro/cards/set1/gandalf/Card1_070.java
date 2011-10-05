@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_070 extends AbstractAlly {
     public Card1_070() {
-        super(0, 1, 1, 2, Race.MAN, Culture.GANDALF, "Barliman Butterbur", true);
+        super(0, Block.FELLOWSHIP, 1, 1, 2, Race.MAN, Culture.GANDALF, "Barliman Butterbur", true);
     }
 
     @Override

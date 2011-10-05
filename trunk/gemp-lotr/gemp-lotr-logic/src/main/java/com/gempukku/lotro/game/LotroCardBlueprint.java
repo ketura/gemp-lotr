@@ -58,6 +58,8 @@ public interface LotroCardBlueprint {
 
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
 
+    public Block getSiteBlock();
+
     public int getSiteNumber();
 
     public Direction getSiteDirection();

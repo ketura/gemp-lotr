@@ -73,7 +73,7 @@ public class Card1_055 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6)), 1);
+        return new StrengthModifier(self, Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.siteBlock(Block.FELLOWSHIP)), 1);
     }
 
     private String[] opponentsHavingAtLeast7Cards(LotroGame game, String currentPlayer) {

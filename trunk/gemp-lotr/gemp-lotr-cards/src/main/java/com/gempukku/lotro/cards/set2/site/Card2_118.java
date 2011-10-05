@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card2_118 extends AbstractSite {
     public Card2_118() {
-        super("Great Chasm", 4, 4, Direction.RIGHT);
+        super("Great Chasm", Block.FELLOWSHIP, 4, 4, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

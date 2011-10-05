@@ -51,7 +51,7 @@ public class Card1_202 extends AbstractPermanent {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getCurrentSiteNumber() >= 5;
+                                return gameState.getCurrentSiteNumber() >= 5 && gameState.getCurrentSiteBlock() == Block.FELLOWSHIP;
                             }
                         }
                 )

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_297 extends AbstractAlly {
     public Card1_297() {
-        super(1, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Party Guest");
+        super(1, Block.FELLOWSHIP, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Party Guest");
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Card1_297 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.ALLY), Filters.race(Race.HOBBIT), Filters.not(Filters.sameCard(self)), Filters.siteNumber(1), Filters.siteBlock(Block.FELLOWSHIP)));
             return Collections.singletonList(action);
         }
         return null;

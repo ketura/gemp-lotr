@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -21,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_356 extends AbstractSite {
     public Card1_356() {
-        super("Anduin Banks", 8, 6, Direction.RIGHT);
+        super("Anduin Banks", Block.FELLOWSHIP, 8, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

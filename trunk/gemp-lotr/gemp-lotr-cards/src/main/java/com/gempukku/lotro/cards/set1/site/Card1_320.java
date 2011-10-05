@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -15,7 +16,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_320 extends AbstractSite {
     public Card1_320() {
-        super("East Road", 1, 0, Direction.LEFT);
+        super("East Road", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

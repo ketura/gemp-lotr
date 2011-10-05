@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set3.elven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,7 +32,7 @@ import java.util.List;
  */
 public class Card3_014 extends AbstractAlly {
     public Card3_014() {
-        super(2, 3, 5, 2, Race.ELF, Culture.ELVEN, "Erestor", true);
+        super(2, Block.FELLOWSHIP, 3, 5, 2, Race.ELF, Culture.ELVEN, "Erestor", true);
     }
 
     @Override

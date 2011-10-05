@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class Card1_359 extends AbstractSite {
     public Card1_359() {
-        super("Shores of Nen Hithoel", 8, 9, Direction.RIGHT);
+        super("Shores of Nen Hithoel", Block.FELLOWSHIP, 8, 9, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

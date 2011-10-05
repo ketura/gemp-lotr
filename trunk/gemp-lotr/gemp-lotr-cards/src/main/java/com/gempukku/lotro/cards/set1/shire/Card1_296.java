@@ -9,6 +9,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
@@ -33,15 +34,13 @@ public class Card1_296 extends AbstractEvent {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && (game.getGameState().getCurrentSiteNumber() > 4 || (fpCharacter != null && fpCharacter.getBlueprint().getRace() == Race.HOBBIT));
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        if (game.getGameState().getCurrentSiteNumber() > 4) {
+        if (game.getGameState().getCurrentSiteNumber() > 4 || game.getGameState().getCurrentSiteBlock() != Block.FELLOWSHIP) {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
@@ -52,8 +51,10 @@ public class Card1_296 extends AbstractEvent {
                         }
                     });
         } else {
-            action.appendEffect(
-                    new CancelSkirmishEffect());
+            final Skirmish skirmish = game.getGameState().getSkirmish();
+            if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getRace() == Race.HOBBIT)
+                action.appendEffect(
+                        new CancelSkirmishEffect());
         }
         return action;
     }

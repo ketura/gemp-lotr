@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class Card3_116 extends AbstractSite {
     public Card3_116() {
-        super("Eregion Hills", 4, 2, Direction.RIGHT);
+        super("Eregion Hills", Block.FELLOWSHIP, 4, 2, Direction.RIGHT);
     }
 
     @Override

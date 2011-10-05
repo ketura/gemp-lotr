@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -23,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card2_025 extends AbstractAlly {
     public Card2_025() {
-        super(1, 3, 4, 2, Race.MAN, Culture.GANDALF, "Jarnsmid", true);
+        super(1, Block.FELLOWSHIP, 3, 4, 2, Race.MAN, Culture.GANDALF, "Jarnsmid", true);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +25,7 @@ import java.util.List;
 public class Card3_119 extends AbstractSite {
     public Card3_119() {
         // TODO Check direction of the site
-        super("House of Elrond", 3, 0, null);
+        super("House of Elrond", Block.FELLOWSHIP, 3, 0, null);
         addKeyword(Keyword.SANCTUARY);
     }
 

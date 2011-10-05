@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_354 extends AbstractSite {
     public Card1_354() {
-        super("Anduin Wilderland", 7, 6, Direction.RIGHT);
+        super("Anduin Wilderland", Block.FELLOWSHIP, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
         addKeyword(Keyword.RIVER);
     }

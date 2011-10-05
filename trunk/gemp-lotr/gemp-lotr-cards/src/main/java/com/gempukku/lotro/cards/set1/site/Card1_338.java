@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class Card1_338 extends AbstractSite {
     public Card1_338() {
-        super("Ford of Bruinen", 3, 0, Direction.RIGHT);
+        super("Ford of Bruinen", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
         addKeyword(Keyword.SANCTUARY);
     }

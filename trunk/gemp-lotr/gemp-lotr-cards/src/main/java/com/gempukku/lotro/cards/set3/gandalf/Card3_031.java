@@ -40,7 +40,7 @@ public class Card3_031 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        if (game.getGameState().getCurrentSiteNumber() <= 5) {
+        if (game.getGameState().getCurrentSiteNumber() <= 5 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new CantBeAssignedToSkirmishModifier(self, Filters.race(Race.HOBBIT)), Phase.REGROUP));

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class Card1_339 extends AbstractSite {
     public Card1_339() {
-        super("Frodo's Bedroom", 3, 0, Direction.RIGHT);
+        super("Frodo's Bedroom", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
         addKeyword(Keyword.SANCTUARY);
     }
 

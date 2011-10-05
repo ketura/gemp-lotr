@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public class Card1_322 extends AbstractSite {
     public Card1_322() {
-        super("Green Dragon Inn", 1, 0, Direction.LEFT);
+        super("Green Dragon Inn", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

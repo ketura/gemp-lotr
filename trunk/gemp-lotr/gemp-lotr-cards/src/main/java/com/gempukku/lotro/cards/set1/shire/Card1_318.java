@@ -39,7 +39,7 @@ public class Card1_318 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.race(Race.HOBBIT)));
             action.appendCost(new DiscardCardsFromPlayEffect(self, self));
-            action.appendEffect(new PlaySiteEffect(playerId, game.getGameState().getCurrentSiteNumber() + 1));
+            action.appendEffect(new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             return Collections.singletonList(action);
         }
         return null;

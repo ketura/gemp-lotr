@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card3_013 extends AbstractAlly {
     public Card3_013() {
-        super(4, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", true);
+        super(4, Block.FELLOWSHIP, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", true);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Card3_013 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.siteNumber(3)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.siteNumber(3), Filters.siteBlock(Block.FELLOWSHIP)) {
                         @Override
                         protected void cardSelected(PhysicalCard ally) {
                             action.insertEffect(

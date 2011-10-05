@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class Card1_344 extends AbstractSite {
     public Card1_344() {
-        super("Dwarrowdelf Chamber", 4, 2, Direction.RIGHT);
+        super("Dwarrowdelf Chamber", Block.FELLOWSHIP, 4, 2, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 
