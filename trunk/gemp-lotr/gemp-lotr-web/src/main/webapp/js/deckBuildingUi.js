@@ -24,6 +24,9 @@ var GempLotrDeckBuildingUI = Class.extend({
     count: 18,
     filter: null,
 
+    filterDirty: false,
+    deckDirty: false,
+
     init: function() {
         var that = this;
 
@@ -43,12 +46,14 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.filterDiv = $("<div id='filtering'></div>");
 
-        this.filterDiv.append("<div id='culture'>"
+        this.filterDiv.append("<div id='culture1'>"
                 + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.gif'/></label>"
                 + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.gif'/></label>"
                 + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.gif'/></label>"
                 + "<input type='checkbox' id='GONDOR'/><label for='GONDOR' id='labelGONDOR'><img src='images/cultures/gondor.gif'/></label>"
                 + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.gif'/></label>"
+                + "</div>");
+        this.filterDiv.append("<div id='culture2'>"
                 + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.gif'/></label>"
                 + "<input type='checkbox' id='MORIA'/><label for='MORIA' id='labelMORIA'><img src='images/cultures/moria.gif'/></label>"
                 + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.gif'/></label>"
@@ -78,7 +83,8 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.collectionDiv.append(this.filterDiv);
 
-        $("#culture").buttonset();
+        $("#culture1").buttonset();
+        $("#culture2").buttonset();
 
         var filterOut = function() {
             that.filter = that.calculateNormalFilter();
@@ -228,10 +234,8 @@ var GempLotrDeckBuildingUI = Class.extend({
                             that.displayCardInfo(selectedCardElem.data("card"));
                         } else  if (selectedCardElem.hasClass("cardInCollection")) {
                             that.selectionFunc(selectedCardElem.data("card").blueprintId, selectedCardElem.data("card").zone);
-                            that.updateDeckStats();
                         } else if (selectedCardElem.hasClass("cardInDeck")) {
                             that.removeCardFromDeck(selectedCardElem);
-                            that.updateDeckStats();
                         }
                         return false;
                     }
@@ -268,6 +272,8 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.comm.getDeck("default", function(xml) {
             that.setupDeck(xml);
         });
+
+        this.checkDeckStatsDirty();
     },
 
     displayCardInfo: function(card) {
@@ -361,7 +367,12 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     calculateNormalFilter: function() {
         var cultures = new Array();
-        $("label", $("#culture")).each(
+        $("label", $("#culture1")).each(
+                function() {
+                    if ($(this).hasClass("ui-state-active"))
+                        cultures.push($(this).prop("id").substring(5));
+                });
+        $("label", $("#culture2")).each(
                 function() {
                     if ($(this).hasClass("ui-state-active"))
                         cultures.push($(this).prop("id").substring(5));
@@ -400,14 +411,34 @@ var GempLotrDeckBuildingUI = Class.extend({
             var div = this.addCardToContainer(blueprintId, side, this.drawDeckDiv)
             div.addClass("cardInDeck");
         }
+
+        this.deckDirty = true;
+    },
+
+    checkDeckStatsDirty: function() {
+        if (this.deckDirty) {
+            this.deckDirty = false;
+            this.updateDeckStats();
+        } else {
+            var that = this;
+            setTimeout(
+                    function() {
+                        that.checkDeckStatsDirty()
+                    }, 100);
+        }
     },
 
     updateDeckStats: function() {
+        var that = this;
         var deckContents = this.getDeckContents();
         if (deckContents != null)
             this.comm.getDeckStats(deckContents,
                     function(html) {
                         $("#deckStats").html(html);
+                        setTimeout(
+                                function() {
+                                    that.checkDeckStatsDirty()
+                                }, 100);
                     });
     },
 
@@ -420,6 +451,8 @@ var GempLotrDeckBuildingUI = Class.extend({
             cardDiv.remove();
         }
         this.layoutUI();
+
+        this.deckDirty = true;
     },
 
     getCollection: function() {
@@ -446,8 +479,6 @@ var GempLotrDeckBuildingUI = Class.extend({
 
                 this.layoutUI();
             }
-
-            this.updateDeckStats();
 
             this.getCollection();
         }
