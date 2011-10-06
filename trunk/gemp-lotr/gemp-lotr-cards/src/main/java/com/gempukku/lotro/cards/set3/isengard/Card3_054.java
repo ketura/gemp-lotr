@@ -38,7 +38,7 @@ public class Card3_054 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self));
+                    new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new AddTwilightEffect(self, 3));
             return Collections.singletonList(action);
