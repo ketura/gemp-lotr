@@ -21,7 +21,7 @@ public class HallServer extends AbstractServer {
     private CollectionDAO _collectionDao;
     private LotroServer _lotroServer;
 
-    private Map<String, String> _supportedFormatNames = new HashMap<String, String>();
+    private Map<String, String> _supportedFormatNames = new LinkedHashMap<String, String>();
     private Map<String, LotroFormat> _supportedFormats = new HashMap<String, LotroFormat>();
     private Map<String, String> _formatCollectionIds = new HashMap<String, String>();
 
