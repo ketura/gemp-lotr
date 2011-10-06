@@ -378,6 +378,15 @@ public class Filters {
         };
     }
 
+    public static Filter siteControlledByShadowPlayer(final String fellowshipPlayer) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getBlueprint().getCardType() == CardType.SITE && physicalCard.getCardController() != null && !physicalCard.getCardController().equals(fellowshipPlayer);
+            }
+        };
+    }
+
     public static Filter siteControlled(final String playerId) {
         return new Filter() {
             @Override
