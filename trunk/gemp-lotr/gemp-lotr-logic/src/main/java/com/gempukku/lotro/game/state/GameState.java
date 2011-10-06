@@ -457,7 +457,7 @@ public class GameState {
         return _playerPosition.get(playerId);
     }
 
-    private int getTokenCount(PhysicalCard physicalCard, Token token) {
+    public int getTokenCount(PhysicalCard physicalCard, Token token) {
         Map<Token, Integer> tokens = _cardTokens.get(physicalCard);
         if (tokens == null)
             return 0;

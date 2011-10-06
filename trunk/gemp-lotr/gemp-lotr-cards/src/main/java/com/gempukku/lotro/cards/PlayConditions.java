@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -211,5 +212,13 @@ public class PlayConditions {
             return filter.accepts(gameState, modifiersQuerying, playedCard);
         }
         return false;
+    }
+
+    public static boolean canRemoveToken(GameState gameState, PhysicalCard from, Token token) {
+        return canRemoveToken(gameState, from, token, 1);
+    }
+
+    public static boolean canRemoveToken(GameState gameState, PhysicalCard from, Token token, int count) {
+        return gameState.getTokenCount(from, token) >= count;
     }
 }
