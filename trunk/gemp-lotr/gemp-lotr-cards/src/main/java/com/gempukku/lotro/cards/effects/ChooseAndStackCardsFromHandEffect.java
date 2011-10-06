@@ -11,25 +11,24 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 
-public class ChooseAndDiscardStackedCardsEffect extends AbstractEffect {
+public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
     private Action _action;
     private String _playerId;
     private int _minimum;
     private int _maximum;
-    private Filter _stackedOnFilter;
-    private Filter _stackedCardFilter;
+    private PhysicalCard _stackOn;
+    private Filter _filter;
 
-    public ChooseAndDiscardStackedCardsEffect(Action action, String playerId, int minimum, int maximum, Filter stackedOnFilter, Filter stackedCardFilter) {
+    public ChooseAndStackCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, Filter filter) {
         _action = action;
         _playerId = playerId;
         _minimum = minimum;
         _maximum = maximum;
-        _stackedOnFilter = stackedOnFilter;
-        _stackedCardFilter = stackedCardFilter;
+        _stackOn = stackOn;
+        _filter = filter;
     }
 
     @Override
@@ -39,35 +38,34 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Discard stacked card";
+        return "Stack card(s) from hand";
     }
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter, Filters.hasStacked(_stackedCardFilter)) > 0;
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter).size() >= _minimum;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        List<PhysicalCard> discardableCards = new LinkedList<PhysicalCard>();
+        Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
 
-        for (PhysicalCard stackedOnCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter))
-            discardableCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), _stackedCardFilter));
+        final boolean success = hand.size() >= _minimum;
 
-        final boolean success = discardableCards.size() >= _minimum;
-
-        if (discardableCards.size() <= _minimum) {
+        if (hand.size() <= _minimum) {
             SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
-            subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), discardableCards));
+            for (PhysicalCard card : hand)
+                subAction.appendEffect(new StackCardFromHandEffect(_action.getActionSource(), card));
             game.getActionsEnvironment().addActionToStack(subAction);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose card(s) to discard", discardableCards, _minimum, _maximum) {
+                    new CardsSelectionDecision(1, "Choose card(s) to stack", hand, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
-                            subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), selectedCards));
+                            for (PhysicalCard card : cards)
+                                subAction.appendEffect(new StackCardFromHandEffect(_action.getActionSource(), card));
                             game.getActionsEnvironment().addActionToStack(subAction);
                         }
                     });
