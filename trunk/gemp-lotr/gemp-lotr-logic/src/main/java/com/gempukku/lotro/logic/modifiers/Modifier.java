@@ -73,4 +73,6 @@ public interface Modifier {
     public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
 
     public int getSpotCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter, int result);
+
+    public boolean hasToMoveIfPossible();
 }

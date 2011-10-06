@@ -184,4 +184,9 @@ public abstract class AbstractModifier implements Modifier {
     public int getSpotCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter, int result) {
         return result;
     }
+
+    @Override
+    public boolean hasToMoveIfPossible() {
+        return false;
+    }
 }
