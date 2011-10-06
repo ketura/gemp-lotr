@@ -37,7 +37,7 @@ public class LotroServer extends AbstractServer {
         _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
         _defaultCollection = new DefaultCardCollection();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= 365; j++) {
                 String blueprintId = i + "_" + j;
                 try {
@@ -49,24 +49,6 @@ public class LotroServer extends AbstractServer {
                         _defaultCollection.addCards(blueprintId, cardBlueprint, 4);
                 } catch (IllegalArgumentException exp) {
 
-                }
-            }
-        }
-
-        if (test) {
-            for (int i = 4; i <= 4; i++) {
-                for (int j = 1; j <= 365; j++) {
-                    String blueprintId = i + "_" + j;
-                    try {
-                        LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                        CardType cardType = cardBlueprint.getCardType();
-                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                            _defaultCollection.addCards(blueprintId, cardBlueprint, 1);
-                        else
-                            _defaultCollection.addCards(blueprintId, cardBlueprint, 4);
-                    } catch (IllegalArgumentException exp) {
-
-                    }
                 }
             }
         }

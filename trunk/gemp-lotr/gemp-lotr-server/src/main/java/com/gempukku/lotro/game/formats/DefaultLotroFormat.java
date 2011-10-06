@@ -21,6 +21,7 @@ public abstract class DefaultLotroFormat implements LotroFormat {
     private int _maximumSameName = 4;
     private int _minimumDeckSize = 60;
     private Set<String> _restrictedCard = new HashSet<String>();
+    private Set<Integer> _validSets = new HashSet<Integer>();
 
     public DefaultLotroFormat(LotroCardBlueprintLibrary library, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName) {
         _library = library;
@@ -32,6 +33,19 @@ public abstract class DefaultLotroFormat implements LotroFormat {
 
     protected void addRestrictedCard(String name) {
         _restrictedCard.add(name);
+    }
+
+    protected void addValidSet(int setNo) {
+        _validSets.add(setNo);
+    }
+
+    private void validateSet(String blueprintId) throws DeckInvalidException {
+        for (int validSet : _validSets)
+            if (blueprintId.startsWith(validSet + "_")
+                    || _library.hasAlternateInSet(blueprintId, validSet))
+                return;
+
+        throw new DeckInvalidException("Deck contains card not valid for this format: " + _library.getLotroCardBlueprint(blueprintId).getName());
     }
 
     @Override
@@ -62,6 +76,15 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                     throw new DeckInvalidException("Assigned Site is not really a site");
                 if (siteBlueprint.getSiteBlock() != _siteBlock)
                     throw new DeckInvalidException("One of the sites is from a different block than the format allows");
+            }
+
+            if (_validSets != null) {
+                validateSet(deck.getRingBearer());
+                validateSet(deck.getRing());
+                for (String site : deck.getSites())
+                    validateSet(site);
+                for (String card : deck.getAdventureCards())
+                    validateSet(card);
             }
 
             if (isOrderedSites()) {
