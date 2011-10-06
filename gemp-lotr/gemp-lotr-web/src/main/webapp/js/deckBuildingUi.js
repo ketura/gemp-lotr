@@ -27,6 +27,8 @@ var GempLotrDeckBuildingUI = Class.extend({
     filterDirty: false,
     deckDirty: false,
 
+    checkDirtyInterval: 300,
+
     init: function() {
         var that = this;
 
@@ -356,6 +358,7 @@ var GempLotrDeckBuildingUI = Class.extend({
             var cardDiv = this.addCardToContainer(blueprintId, "special", container);
             cardDiv.addClass("cardInDeck");
             this.showNormalFilter();
+            this.deckDirty = true;
         };
     },
 
@@ -421,6 +424,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     checkDeckStatsDirty: function() {
+        log("Checking stats");
         if (this.deckDirty) {
             this.deckDirty = false;
             this.updateDeckStats();
@@ -428,23 +432,30 @@ var GempLotrDeckBuildingUI = Class.extend({
             var that = this;
             setTimeout(
                     function() {
-                        that.checkDeckStatsDirty()
-                    }, 100);
+                        that.checkDeckStatsDirty();
+                    }, that.checkDirtyInterval);
         }
     },
 
     updateDeckStats: function() {
         var that = this;
         var deckContents = this.getDeckContents();
-        if (deckContents != null)
+        if (deckContents != null) {
             this.comm.getDeckStats(deckContents,
                     function(html) {
                         $("#deckStats").html(html);
                         setTimeout(
                                 function() {
-                                    that.checkDeckStatsDirty()
-                                }, 100);
+                                    that.checkDeckStatsDirty();
+                                }, that.checkDirtyInterval);
                     });
+        } else {
+            $("#deckStats").html("Deck has no Ring, Ring-bearer or all 9 sites");
+            setTimeout(
+                    function() {
+                        that.checkDeckStatsDirty();
+                    }, that.checkDirtyInterval);
+        }
     },
 
     removeCardFromDeck: function(cardDiv) {
@@ -564,6 +575,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {
-        alert("There was a problem during communication with server");
+        if (thrownError != "abort")
+            alert("There was a problem during communication with server");
     }
 });
