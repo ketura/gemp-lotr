@@ -3,6 +3,7 @@ package com.gempukku.lotro.collection;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -10,19 +11,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-
 public class CollectionSerializerTest {
     @Test
     public void testSerializeDeserialize() throws IOException {
-        DefaultCardCollection collection = new DefaultCardCollection();
+        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+
+        DefaultCardCollection collection = new DefaultCardCollection(library);
         collection.addCards("1_1", null, 2);
         collection.addCards("1_231T", null, 3);
         collection.addCards("1_23*", null, 3);
         collection.addCards("1_237T*", null, 3);
         collection.addPacks("Fellowship of the Ring", 2);
 
-        CollectionSerializer serializer = new CollectionSerializer(new LotroCardBlueprintLibrary());
+        CollectionSerializer serializer = new CollectionSerializer(library);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         serializer.serializeCollection(collection, baos);
