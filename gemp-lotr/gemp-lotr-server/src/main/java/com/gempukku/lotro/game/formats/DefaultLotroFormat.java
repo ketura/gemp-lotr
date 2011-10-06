@@ -78,7 +78,7 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                     throw new DeckInvalidException("One of the sites is from a different block than the format allows");
             }
 
-            if (_validSets != null) {
+            if (_validSets.size() > 0) {
                 validateSet(deck.getRingBearer());
                 validateSet(deck.getRing());
                 for (String site : deck.getSites())

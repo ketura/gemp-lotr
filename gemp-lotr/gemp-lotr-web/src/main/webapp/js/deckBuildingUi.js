@@ -64,9 +64,14 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         combos.append("<select id='set'>"
                 + "<option value=''>All Sets</option>"
+                + "<option value='1,2,3'>Fellowship Block</option>"
                 + "<option value='1'>01 - The Fellowship of the Ring</option>"
                 + "<option value='2'>02 - Mines of Moria</option>"
                 + "<option value='3'>03 - Realms of the Elf-lords</option>"
+                + "<option value='4,5,6'>The Two Towers Block</option>"
+                + "<option value='4'>04 - The Two Towers</option>"
+                + "<option value='5'>05 - Battle of Helm's Deep</option>"
+                + "<option value='6'>06 - Ents of Fangorn</option>"
                 + "</select>");
 
         combos.append(" <select id='cardType'>"

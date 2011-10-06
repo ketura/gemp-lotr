@@ -9,6 +9,11 @@ import java.util.*;
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Integer> _counts = new TreeMap<String, Integer>(new CardBlueprintIdComparator());
     private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>();
+    private LotroCardBlueprintLibrary _library;
+
+    public DefaultCardCollection(LotroCardBlueprintLibrary library) {
+        _library = library;
+    }
 
     @Override
     public void addCards(String blueprintId, LotroCardBlueprint blueprint, int count) {
@@ -34,7 +39,10 @@ public class DefaultCardCollection implements MutableCardCollection {
             filter = "";
         String[] filterParams = filter.split(" ");
 
-        String set = getSetNumber(filterParams);
+        String setStr = getSetNumber(filterParams);
+        String[] sets = null;
+        if (setStr != null)
+            sets = setStr.split(",");
         List<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
         List<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
         List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
@@ -50,7 +58,7 @@ public class DefaultCardCollection implements MutableCardCollection {
             if (blueprint == null)
                 result.add(new Item(Item.Type.PACK, count, blueprintId));
             else {
-                if (set == null || blueprintId.startsWith(set + "_"))
+                if (sets == null || isInSets(blueprintId, sets))
                     if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                         if (cultures == null || cultures.contains(blueprint.getCulture()))
                             if (containsAllKeywords(blueprint, keywords))
@@ -75,6 +83,14 @@ public class DefaultCardCollection implements MutableCardCollection {
             }
         });
         return result;
+    }
+
+    private boolean isInSets(String blueprintId, String[] sets) {
+        for (String set : sets)
+            if (blueprintId.startsWith(set + "_") || _library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
+                return true;
+
+        return false;
     }
 
     private String getSetNumber(String[] filterParams) {

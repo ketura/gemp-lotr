@@ -36,7 +36,7 @@ public class LotroServer extends AbstractServer {
     public LotroServer(DbAccess dbAccess, LotroCardBlueprintLibrary library, ChatServer chatServer, boolean test) {
         _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
-        _defaultCollection = new DefaultCardCollection();
+        _defaultCollection = new DefaultCardCollection(library);
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= 365; j++) {
                 String blueprintId = i + "_" + j;

@@ -107,7 +107,7 @@ public class CollectionSerializer {
     private MutableCardCollection deserializeCollectionVer0(BufferedInputStream inputStream) throws IOException {
         int packBytes = inputStream.read();
 
-        DefaultCardCollection collection = new DefaultCardCollection();
+        DefaultCardCollection collection = new DefaultCardCollection(_library);
 
         byte[] packs = new byte[packBytes];
         int read = inputStream.read(packs);
