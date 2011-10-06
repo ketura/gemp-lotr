@@ -73,9 +73,9 @@ public class LotroGameMediator {
             for (Modifier modifier : modifiers) {
                 PhysicalCard source = modifier.getSource();
                 if (source != null)
-                    sb.append("<br><b>" + source.getBlueprint().getName() + ":</b> " + modifier.getText());
+                    sb.append("<br><b>" + source.getBlueprint().getName() + ":</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying()));
                 else
-                    sb.append("<br><b><i>System</i>:</b> " + modifier.getText());
+                    sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying()));
             }
             if (modifiers.size() == 0)
                 sb.append("<br><i>nothing</i>");
