@@ -161,6 +161,18 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean winsSkirmishAgainst(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter winnerFilter, Filter loserFilter) {
+        EffectResult.Type effectType = effectResult.getType();
+        if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
+            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+            List<PhysicalCard> winners = skirmishResult.getWinners();
+            List<PhysicalCard> losers = skirmishResult.getLosers();
+            return (Filters.filter(winners, gameState, modifiersQuerying, winnerFilter).size() > 0)
+                    && (Filters.filter(losers, gameState, modifiersQuerying, loserFilter).size() > 0);
+        }
+        return false;
+    }
+
     public static boolean losesSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter filter) {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
