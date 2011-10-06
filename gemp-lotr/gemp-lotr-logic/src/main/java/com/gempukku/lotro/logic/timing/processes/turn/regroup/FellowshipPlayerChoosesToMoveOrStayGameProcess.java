@@ -22,20 +22,26 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
     public void process() {
         final GameState gameState = _game.getGameState();
         if (gameState.getMoveCount() < _game.getModifiersQuerying().getMoveLimit(gameState, 2)) {
-            _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
-                    new MultipleChoiceAwaitingDecision(1, "Do you want to make another move?", new String[]{"Yes", "No"}) {
-                        @Override
-                        protected void validDecisionMade(int index, String result) {
-                            if (result.equals("Yes"))
-                                _nextProcess = new MovementGameProcess(_game,
-                                        new EndOfPhaseGameProcess(_game, Phase.REGROUP,
-                                                new ShadowPhasesGameProcess(_game)));
-                            else {
-                                _nextProcess = new PlayerReconcilesGameProcess(_game, gameState.getCurrentPlayerId(),
-                                        new DiscardAllMinionsGameProcess(_game));
+            if (_game.getModifiersQuerying().hasToMoveIfPossible()) {
+                _nextProcess = new MovementGameProcess(_game,
+                        new EndOfPhaseGameProcess(_game, Phase.REGROUP,
+                                new ShadowPhasesGameProcess(_game)));
+            } else {
+                _game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
+                        new MultipleChoiceAwaitingDecision(1, "Do you want to make another move?", new String[]{"Yes", "No"}) {
+                            @Override
+                            protected void validDecisionMade(int index, String result) {
+                                if (result.equals("Yes"))
+                                    _nextProcess = new MovementGameProcess(_game,
+                                            new EndOfPhaseGameProcess(_game, Phase.REGROUP,
+                                                    new ShadowPhasesGameProcess(_game)));
+                                else {
+                                    _nextProcess = new PlayerReconcilesGameProcess(_game, gameState.getCurrentPlayerId(),
+                                            new DiscardAllMinionsGameProcess(_game));
+                                }
                             }
-                        }
-                    });
+                        });
+            }
         } else {
             _nextProcess = new PlayerReconcilesGameProcess(_game, gameState.getCurrentPlayerId(),
                     new DiscardAllMinionsGameProcess(_game));

@@ -434,6 +434,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return Math.max(0, result);
     }
 
+    @Override
+    public boolean hasToMoveIfPossible() {
+        for (Modifier modifier : getModifiers(ModifierEffect.MOVE_LIMIT_MODIFIER))
+            if (modifier.hasToMoveIfPossible())
+                return true;
+
+        return false;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 
