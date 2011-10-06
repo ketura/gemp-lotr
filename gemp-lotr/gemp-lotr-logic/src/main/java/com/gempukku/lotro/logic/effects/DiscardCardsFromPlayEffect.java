@@ -28,6 +28,10 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
         _source = source;
     }
 
+    public PhysicalCard getSource() {
+        return _source;
+    }
+
     @Override
     protected Filter getExtraAffectableFilter() {
         return new Filter() {
