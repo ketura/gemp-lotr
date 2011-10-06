@@ -38,7 +38,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     private Effect _discardCardEffect;
     private boolean _cardDiscarded;
 
-    public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers) {
+    public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
         _source = card;
 
         _removeCardEffect = new RemoveCardFromZoneEffect(card);
@@ -49,7 +49,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                     protected void cardSelected(PhysicalCard target) {
                         _putCardIntoPlayEffect = new AttachCardEffect(_source, target);
 
-                        int modifier = 0;
+                        int modifier = twilightModifier;
                         for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())
                             if (filterIntegerEntry.getKey().accepts(game.getGameState(), game.getModifiersQuerying(), target))
                                 modifier += filterIntegerEntry.getValue();

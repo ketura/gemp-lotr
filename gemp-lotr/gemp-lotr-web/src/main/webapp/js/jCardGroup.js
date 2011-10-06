@@ -133,7 +133,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 index++;
             } else {
                 for (var i = 0; i < cardData.attachedCards.length; i++) {
-                    this.layoutCard(cardData.attachedCards[0], x + i * (this.width - cardHeight) / (cardData.attachedCards.length - 1), y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
+                    this.layoutCard(cardData.attachedCards[i], x + i * (this.width - cardHeight) / (cardData.attachedCards.length - 1), y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
                     index++;
                 }
             }
@@ -208,7 +208,7 @@ var NormalCardGroup = CardGroup.extend({
             var cardWidth = cardData.getWidthForHeight(rowHeight);
             var attachmentWidths = 0;
             for (var i = 0; i < cardData.attachedCards.length; i++)
-                attachmentWidths += cardData.attachedCards[i].data("card").getWidthForHeight(this.height) * 0.2;
+                attachmentWidths += cardData.attachedCards[i].data("card").getWidthForHeight(rowHeight) * 0.2;
             var cardWidthWithAttachments = cardWidth + attachmentWidths;
             totalWidth += cardWidthWithAttachments;
             if (totalWidth > this.width) {
@@ -264,7 +264,7 @@ var NormalCardGroup = CardGroup.extend({
 
             var attachmentWidths = 0;
             for (var i = 0; i < cardData.attachedCards.length; i++)
-                attachmentWidths += cardData.attachedCards[i].data("card").getWidthForHeight(this.height) * 0.2;
+                attachmentWidths += cardData.attachedCards[i].data("card").getWidthForHeight(rowHeight) * 0.2;
             var cardWidthWithAttachments = cardWidth + attachmentWidths;
             if (x + cardWidthWithAttachments > this.width) {
                 row++;
@@ -273,7 +273,7 @@ var NormalCardGroup = CardGroup.extend({
             }
 
             for (var i = 0; i < cardData.attachedCards.length; i++) {
-                var attachedCardWidth = cardData.attachedCards[i].data("card").getWidthForHeight(this.height);
+                var attachedCardWidth = cardData.attachedCards[i].data("card").getWidthForHeight(rowHeight);
                 this.layoutCard(cardData.attachedCards[i], this.x + x, this.y + y, attachedCardWidth, rowHeight, index);
                 x += Math.floor(attachedCardWidth * 0.2);
                 index++;
