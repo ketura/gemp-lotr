@@ -224,6 +224,13 @@ public class GameState {
             listener.cardMoved(card);
     }
 
+    public void loseControlOfCard(PhysicalCard card, Zone zone) {
+        ((PhysicalCardImpl) card).setCardController(null);
+        ((PhysicalCardImpl) card).setZone(zone);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.cardMoved(card);
+    }
+
     public void attachCard(PhysicalCard card, PhysicalCard attachTo) {
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) attachTo);
         addCardToZone(card, Zone.ATTACHED);
