@@ -57,6 +57,15 @@ public class Filters {
 
     // Filters available
 
+    public static Filter hasToken(final Token token) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return gameState.getTokenCount(physicalCard, token) > 0;
+            }
+        };
+    }
+
     public static Filter canBeAssignedToSkirmish() {
         return new Filter() {
             @Override

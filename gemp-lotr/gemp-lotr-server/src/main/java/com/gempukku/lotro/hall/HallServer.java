@@ -7,8 +7,8 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.FotRBlockFormat;
+import com.gempukku.lotro.game.formats.FreeFormat;
 import com.gempukku.lotro.game.formats.LotroFormat;
-import com.gempukku.lotro.game.formats.ModifiedFotRBlockFormat;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -43,9 +43,7 @@ public class HallServer extends AbstractServer {
         _chatServer.createChatRoom("Game Hall");
 
         addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
-        if (test) {
-            addFormat("m_fotr_block", "Modified Fellowship block", "default", new ModifiedFotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
-        }
+        addFormat("whatever", "Format for testing", "default", new FreeFormat(_lotroServer.getLotroCardBlueprintLibrary()));
     }
 
     private void addFormat(String formatCode, String formatName, String formatCollectionId, LotroFormat format) {

@@ -7,6 +7,9 @@ public class FotRBlockFormat extends DefaultLotroFormat {
     public FotRBlockFormat(LotroCardBlueprintLibrary library) {
         super(library, Block.FELLOWSHIP, true, 60, 4);
         addRestrictedCard("Forces of Mordor");
+        addValidSet(1);
+        addValidSet(2);
+        addValidSet(3);
     }
 
     @Override

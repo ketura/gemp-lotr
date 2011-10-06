@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class LotroCardBlueprintLibrary {
@@ -14,6 +16,7 @@ public class LotroCardBlueprintLibrary {
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
     private Map<String, String> _blueprintMapping = new HashMap<String, String>();
+    private Map<String, List<String>> _fullBlueprintMapping = new HashMap<String, List<String>>();
 
     public LotroCardBlueprintLibrary() {
         try {
@@ -24,6 +27,7 @@ public class LotroCardBlueprintLibrary {
                 while ((line = bufferedReader.readLine()) != null) {
                     String[] split = line.split(",");
                     _blueprintMapping.put(split[0], split[1]);
+                    addAlternatives(split[0], split[1]);
                 }
             } finally {
                 bufferedReader.close();
@@ -31,7 +35,30 @@ public class LotroCardBlueprintLibrary {
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading blueprint mapping", exp);
         }
+    }
 
+    private void addAlternatives(String blueprint1, String blueprint2) {
+        addAlternative(blueprint1, blueprint2);
+        addAlternative(blueprint2, blueprint1);
+    }
+
+    private void addAlternative(String from, String to) {
+        List<String> list = _fullBlueprintMapping.get(from);
+        if (list == null) {
+            list = new LinkedList<String>();
+            _fullBlueprintMapping.put(from, list);
+        }
+        list.add(to);
+    }
+
+    public boolean hasAlternateInSet(String blueprintId, int setNo) {
+        List<String> alternatives = _fullBlueprintMapping.get(blueprintId);
+        if (alternatives != null)
+            for (String alternative : alternatives)
+                if (alternative.startsWith(setNo + "_"))
+                    return true;
+
+        return false;
     }
 
     public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) {
@@ -61,7 +88,9 @@ public class LotroCardBlueprintLibrary {
 //    public Collection<LotroCardBlueprint> getAllLoadedBlueprints() {
 //        return _blueprintMap.values();
 //    }
-//
+
+    //
+
     private LotroCardBlueprint getBlueprint(String blueprintId) {
         if (_blueprintMapping.containsKey(blueprintId))
             return getBlueprint(_blueprintMapping.get(blueprintId));
