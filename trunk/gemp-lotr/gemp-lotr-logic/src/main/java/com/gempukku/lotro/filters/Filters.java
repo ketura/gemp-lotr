@@ -439,6 +439,10 @@ public class Filters {
         };
     }
 
+    public static Filter unboundCompanion() {
+        return Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BOUND)));
+    }
+
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
         private GameState _gameState;
         private ModifiersQuerying _modifiersQuerying;
