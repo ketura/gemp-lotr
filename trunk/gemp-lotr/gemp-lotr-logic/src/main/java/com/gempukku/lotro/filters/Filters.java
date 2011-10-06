@@ -269,6 +269,16 @@ public class Filters {
         };
     }
 
+    public static Filter hasStacked(final Filter filter) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                List<PhysicalCard> physicalCardList = gameState.getStackedCards(physicalCard);
+                return (Filters.filter(physicalCardList, gameState, modifiersQuerying, filter).size() > 0);
+            }
+        };
+    }
+
     public static Filter not(final Filter filter) {
         return new Filter() {
             @Override

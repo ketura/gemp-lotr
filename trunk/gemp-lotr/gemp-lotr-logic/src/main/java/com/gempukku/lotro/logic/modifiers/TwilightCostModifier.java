@@ -8,7 +8,11 @@ public class TwilightCostModifier extends AbstractModifier {
     private int _twilightCostModifier;
 
     public TwilightCostModifier(PhysicalCard source, Filter affectFilter, int twilightCostModifier) {
-        super(source, "Twilight cost " + ((twilightCostModifier < 0) ? twilightCostModifier : ("+" + twilightCostModifier)), affectFilter, new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER});
+        this(source, affectFilter, null, twilightCostModifier);
+    }
+
+    public TwilightCostModifier(PhysicalCard source, Filter affectFilter, Condition condition, int twilightCostModifier) {
+        super(source, "Twilight cost " + ((twilightCostModifier < 0) ? twilightCostModifier : ("+" + twilightCostModifier)), affectFilter, condition, new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER});
         _twilightCostModifier = twilightCostModifier;
     }
 
