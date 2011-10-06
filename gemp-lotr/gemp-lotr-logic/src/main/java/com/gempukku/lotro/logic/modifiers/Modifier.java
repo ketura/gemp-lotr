@@ -14,7 +14,7 @@ import java.util.Map;
 public interface Modifier {
     public PhysicalCard getSource();
 
-    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying);
+    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
 
     public ModifierEffect[] getModifierEffects();
 

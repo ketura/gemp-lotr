@@ -36,7 +36,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying) {
+    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         return _text;
     }
 

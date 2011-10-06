@@ -27,8 +27,8 @@ public class StrengthModifier extends AbstractModifier {
     }
 
     @Override
-    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        final int value = _evaluator.evaluateExpression(gameState, modifiersQuerying);
+    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+        final int value = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
         if (value >= 0)
             return "Strength +" + value;
         else
@@ -37,6 +37,6 @@ public class StrengthModifier extends AbstractModifier {
 
     @Override
     public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result + _evaluator.evaluateExpression(gameState, modifiersQuerying);
+        return result + _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
     }
 }
