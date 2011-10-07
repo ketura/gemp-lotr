@@ -349,6 +349,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canHavePlayedOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {
+        for (Modifier modifier : getModifiers(ModifierEffect.TARGET_MODIFIER))
+            if (affectsCardWithSkipSet(gameState, target, modifier))
+                if (!modifier.canHavePlayedOn(gameState, this, playedCard, target))
+                    return false;
+        return true;
+    }
+
+    @Override
+    public boolean canHaveTransferredOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {
+        for (Modifier modifier : getModifiers(ModifierEffect.TARGET_MODIFIER))
+            if (affectsCardWithSkipSet(gameState, target, modifier))
+                if (!modifier.canHaveTransferredOn(gameState, this, playedCard, target))
+                    return false;
+        return true;
+    }
+
+    @Override
     public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId) {
         boolean result = false;
         for (Modifier modifier : getModifiers(ModifierEffect.ACTION_MODIFIER))

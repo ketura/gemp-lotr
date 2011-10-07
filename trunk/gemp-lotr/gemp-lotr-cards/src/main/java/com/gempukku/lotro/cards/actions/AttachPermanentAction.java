@@ -5,12 +5,14 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Iterator;
@@ -44,7 +46,13 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
         _removeCardEffect = new RemoveCardFromZoneEffect(card);
 
         _chooseTargetEffect =
-                new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
+                new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return modifiersQuerying.canHavePlayedOn(gameState, card, physicalCard);
+                            }
+                        }) {
                     @Override
                     protected void cardSelected(PhysicalCard target) {
                         _putCardIntoPlayEffect = new AttachCardEffect(_source, target);

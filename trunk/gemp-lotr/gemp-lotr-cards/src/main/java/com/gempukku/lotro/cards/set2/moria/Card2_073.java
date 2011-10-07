@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -43,6 +44,8 @@ public class Card2_073 extends AbstractMinion {
                 new StrengthModifier(self, Filters.keyword(Keyword.TENTACLE), 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.keyword(Keyword.TENTACLE), Keyword.DAMAGE));
+        modifiers.add(
+                new MayNotBearModifier(self, Filters.sameCard(self), Filters.type(CardType.POSSESSION)));
         return modifiers;
     }
 
@@ -53,12 +56,6 @@ public class Card2_073 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, Filters.and(Filters.type(CardType.MINION), Filters.not(Filters.sameCard(self)), Filters.not(Filters.keyword(Keyword.TENTACLE)))));
-            actions.add(action);
-        }
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.POSSESSION), Filters.attachedTo(Filters.sameCard(self)))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.type(CardType.POSSESSION), Filters.attachedTo(Filters.sameCard(self)))));
             actions.add(action);
         }
         if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.MARSH)) {
