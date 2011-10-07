@@ -47,6 +47,10 @@ public interface ModifiersQuerying {
 
     public boolean canPlayAction(GameState gameState, Action action);
 
+    public boolean canHavePlayedOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
+
+    public boolean canHaveTransferredOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
+
     public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId);
 
     public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments);

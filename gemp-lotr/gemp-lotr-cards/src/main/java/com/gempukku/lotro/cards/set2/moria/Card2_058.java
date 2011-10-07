@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set2.moria;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -13,10 +14,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -49,20 +50,19 @@ public class Card2_058 extends AbstractMinion {
     }
 
     @Override
+    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+        return Collections.singletonList(
+                new MayNotBearModifier(self, Filters.sameCard(self), Filters.type(CardType.POSSESSION)));
+    }
+
+    @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.POSSESSION), Filters.attachedTo(Filters.sameCard(self)))) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.type(CardType.POSSESSION), Filters.attachedTo(Filters.sameCard(self)))));
-            actions.add(action);
-        }
         if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.MARSH)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
-            actions.add(action);
+            return Collections.singletonList(action);
         }
-        return actions;
+        return null;
     }
 }
