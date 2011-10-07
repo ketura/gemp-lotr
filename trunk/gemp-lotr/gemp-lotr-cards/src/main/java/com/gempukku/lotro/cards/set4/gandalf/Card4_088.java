@@ -9,9 +9,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -47,16 +46,10 @@ public class Card4_088 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
-            action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.name("Gandalf"))) {
-                        @Override
-                        protected void cardSelected(PhysicalCard card) {
-                            int tokenCount = game.getGameState().getTokenCount(self, Token.GANDALF);
-                            for (int i = 0; i < tokenCount; i++)
-                                action.insertEffect(
-                                        new WoundCharactersEffect(self, card));
-                        }
-                    });
+            int tokenCount = game.getGameState().getTokenCount(self, Token.GANDALF);
+            if (tokenCount > 0)
+                action.appendEffect(
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, tokenCount, Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.name("Gandalf"))));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);
