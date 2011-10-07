@@ -42,18 +42,28 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                     Filters.keyword(Keyword.FIERCE),
                     minionFilter);
 
-        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish());
+        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.SHADOW));
         if (minions.size() > 0) {
             final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
                             Filters.type(CardType.COMPANION),
-                            new Filter() {
-                                @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return modifiersQuerying.isAllyOnCurrentSite(gameState, physicalCard);
-                                }
-                            }
-                    ), Filters.canBeAssignedToSkirmish());
+                            Filters.and(
+                                    Filters.type(CardType.ALLY),
+                                    Filters.or(
+                                            Filters.and(
+                                                    Filters.siteNumber(gameState.getCurrentSiteNumber()),
+                                                    Filters.siteBlock(gameState.getCurrentSiteBlock())
+                                            ),
+                                            new Filter() {
+                                                @Override
+                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                                    return modifiersQuerying.isAllyParticipateInSkirmishes(gameState, physicalCard);
+                                                }
+                                            }
+                                    )
+                            )
+                    ),
+                    Filters.canBeAssignedToSkirmish(Side.SHADOW));
 
             _game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {

@@ -48,7 +48,9 @@ public interface Modifier {
 
     public boolean canBeExerted(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard source, PhysicalCard card, boolean result);
 
-    public boolean isAllyOnCurrentSite(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean allyOnCurrentSite);
+    public boolean isAllyParticipateInArcheryFire(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card);
+
+    public boolean isAllyParticipateInSkirmishes(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card);
 
     public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Side side, int result);
 
@@ -68,7 +70,7 @@ public interface Modifier {
 
     public boolean isValidAssignments(GameState gameState, Side Side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments, boolean result);
 
-    public boolean canBeAssignedToSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result);
+    public boolean canBeAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card);
 
     public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result);
 

@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
+import com.gempukku.lotro.cards.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -40,7 +40,7 @@ public class Card1_027 extends AbstractAlly {
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new AllyOnCurrentSiteModifier(self, Filters.sameCard(self)), Phase.REGROUP));
+                            new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, Filters.sameCard(self)), Phase.REGROUP));
             return Collections.singletonList(action);
         }
 

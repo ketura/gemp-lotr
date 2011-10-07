@@ -38,7 +38,7 @@ public class Card4_018 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssigned())) {
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.canBeAssignedToSkirmish()) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                             @Override
                             protected void cardSelected(PhysicalCard ally) {
                                 action.appendEffect(

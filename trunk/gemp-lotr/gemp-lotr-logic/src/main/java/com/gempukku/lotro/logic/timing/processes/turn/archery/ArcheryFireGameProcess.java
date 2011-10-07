@@ -36,12 +36,20 @@ public class ArcheryFireGameProcess implements GameProcess {
                 },
                 Filters.or(
                         Filters.type(CardType.COMPANION),
-                        new Filter() {
-                            @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return modifiersQuerying.isAllyOnCurrentSite(gameState, physicalCard);
-                            }
-                        }));
+                        Filters.and(
+                                Filters.type(CardType.ALLY),
+                                Filters.or(
+                                        Filters.and(
+                                                Filters.siteNumber(_game.getGameState().getCurrentSiteNumber()),
+                                                Filters.siteBlock(_game.getGameState().getCurrentSiteBlock()))
+                                ),
+                                new Filter() {
+                                    @Override
+                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                        return modifiersQuerying.isAllyParticipateInArcheryFire(gameState, physicalCard);
+                                    }
+                                }
+                        )));
 
         _fellowshipArcheryTotal = _game.getModifiersQuerying().getArcheryTotal(gameState, Side.FREE_PEOPLE, _fellowshipArcheryTotal);
 
