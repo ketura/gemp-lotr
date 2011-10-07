@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -34,7 +35,7 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
         _vitality = vitality;
     }
 
-    private void appendTransferPossessionAction(List<Action> actions, LotroGame game, PhysicalCard self, Filter validTargetFilter) {
+    private void appendTransferPossessionAction(List<Action> actions, LotroGame game, final PhysicalCard self, Filter validTargetFilter) {
         GameState gameState = game.getGameState();
         if (Filters.canSpot(gameState, game.getModifiersQuerying(), validTargetFilter)
                 && gameState.getCurrentPhase() == Phase.FELLOWSHIP
@@ -59,6 +60,14 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
                         Filters.type(CardType.ALLY), Filters.siteNumber(attachedTo.getSiteNumber()), Filters.siteBlock(attachedTo.getSiteBlock())
                 );
             }
+
+            validTransferFilter = Filters.and(validTransferFilter,
+                    new Filter() {
+                        @Override
+                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            return modifiersQuerying.canHaveTransferredOn(gameState, self, physicalCard);
+                        }
+                    });
 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), validTransferFilter))
                 actions.add(new TransferPermanentAction(self, game, validTransferFilter));
