@@ -68,7 +68,7 @@ var CardGroup = Class.extend({
                     var tokenCount = tokens[token];
 
                     for (var i = 0; i < tokenCount; i++) {
-                        var tokenElem = $("<img src='images/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: (1 * tokenSize / 2) * (1 + i) + "px"});
+                        var tokenElem = $("<img src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: (1 * tokenSize / 2) * (1 + i) + "px"});
                         tokenOverlay.append(tokenElem);
                     }
                     tokenIndex ++;
