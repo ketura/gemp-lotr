@@ -1,8 +1,10 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -38,7 +40,7 @@ public class Card2_075 extends AbstractMinion {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new RemoveKeywordModifier(self, Filters.race(Race.NAZGUL), Keyword.ROAMING));
         modifiers.add(
-                new PreventMinionBeingAssignedToCharacterModifier(self, Side.FREE_PEOPLE, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)), Filters.sameCard(self)));
+                new FreePeoplePlayerMayNotAssignCharacterModifier(self, Filters.sameCard(self)));
         return modifiers;
     }
 
