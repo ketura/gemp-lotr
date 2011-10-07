@@ -28,14 +28,24 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
     public void process() {
         if (_woundsToAssign > 0) {
 
-            Filter filter = Filters.or(
-                    Filters.type(CardType.COMPANION),
-                    new Filter() {
-                        @Override
-                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                            return modifiersQuerying.isAllyOnCurrentSite(gameState, physicalCard);
-                        }
-                    });
+            Filter filter =
+                    Filters.or(
+                            Filters.type(CardType.COMPANION),
+                            Filters.and(
+                                    Filters.type(CardType.ALLY),
+                                    Filters.or(
+                                            Filters.and(
+                                                    Filters.siteNumber(_game.getGameState().getCurrentSiteNumber()),
+                                                    Filters.siteBlock(_game.getGameState().getCurrentSiteBlock()))
+                                    ),
+                                    new Filter() {
+                                        @Override
+                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                            return modifiersQuerying.isAllyParticipateInArcheryFire(gameState, physicalCard);
+                                        }
+                                    }
+                            )
+                    );
 
             RequiredTriggerAction action = new RequiredTriggerAction(null) {
                 @Override

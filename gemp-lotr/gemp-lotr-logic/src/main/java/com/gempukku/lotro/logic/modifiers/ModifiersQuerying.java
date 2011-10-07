@@ -15,20 +15,27 @@ import java.util.Map;
 public interface ModifiersQuerying {
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
 
+    // Keywords
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword);
 
     public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword);
 
+    // Archery
     public int getArcheryTotal(GameState gameState, Side side, int baseArcheryTotal);
+
+    public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
+
 
     public int getMoveLimit(GameState gameState, int baseMoveLimit);
 
+    // Twilight cost
     public int getTwilightCost(GameState gameState, PhysicalCard physicalCard);
 
     public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target);
 
     public int getRoamingPenalty(GameState gameState, PhysicalCard physicalCard);
 
+    // Stats
     public int getStrength(GameState gameState, PhysicalCard physicalCard);
 
     public int getVitality(GameState gameState, PhysicalCard physicalCard);
@@ -37,14 +44,23 @@ public interface ModifiersQuerying {
 
     public boolean isOverwhelmedByStrength(GameState gameState, PhysicalCard card, int strength, int opposingStrength);
 
+    // Wounds/exertions
     public boolean canTakeWound(GameState gameState, PhysicalCard card);
 
     public boolean canBeExerted(GameState gameState, PhysicalCard exertionSource, PhysicalCard card);
 
-    public boolean isAllyOnCurrentSite(GameState gameState, PhysicalCard card);
+    public boolean canBeHealed(GameState gameState, PhysicalCard card);
 
-    public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
+    // Assignments
+    public boolean canBeAssignedToSkirmish(GameState gameState, Side playerSide, PhysicalCard card);
 
+    public boolean isAllyParticipateInSkirmishes(GameState gameState, PhysicalCard card);
+
+    public boolean isAllyParticipateInArcheryFire(GameState gameState, PhysicalCard card);
+
+    public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments);
+
+    // Playing actions
     public boolean canPlayAction(GameState gameState, Action action);
 
     public boolean canHavePlayedOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
@@ -53,13 +69,8 @@ public interface ModifiersQuerying {
 
     public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId);
 
-    public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments);
-
-    public boolean canBeAssignedToSkirmish(GameState gameState, PhysicalCard card);
-
+    // Others
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
-
-    public boolean canBeHealed(GameState gameState, PhysicalCard card);
 
     public boolean canDrawCardAndIncrement(GameState gameState, String playerId);
 

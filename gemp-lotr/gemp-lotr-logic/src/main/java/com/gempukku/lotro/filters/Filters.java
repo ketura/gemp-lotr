@@ -66,7 +66,7 @@ public class Filters {
         };
     }
 
-    public static Filter canBeAssignedToSkirmish() {
+    public static Filter canBeAssignedToSkirmish(final Side sidePlayer) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -77,7 +77,7 @@ public class Filters {
                             return false;
                     }
                 }
-                return modifiersQuerying.canBeAssignedToSkirmish(gameState, physicalCard);
+                return modifiersQuerying.canBeAssignedToSkirmish(gameState, sidePlayer, physicalCard);
             }
         };
     }

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.modifiers;
 
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -13,7 +14,7 @@ public class CantBeAssignedToSkirmishModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeAssignedToSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+    public boolean canBeAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return false;
     }
 }

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.gandalf;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
+import com.gempukku.lotro.cards.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -49,7 +49,7 @@ public class Card4_101 extends AbstractEvent {
                                         new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE, 2), Phase.REGROUP));
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
-                                        new AllyOnCurrentSiteModifier(self, Filters.sameCard(card)), Phase.REGROUP));
+                                        new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, Filters.sameCard(card)), Phase.REGROUP));
                     }
                 });
         return action;

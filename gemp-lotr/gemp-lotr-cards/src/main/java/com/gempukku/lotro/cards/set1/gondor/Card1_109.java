@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.AllyOnCurrentSiteModifier;
+import com.gempukku.lotro.cards.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -53,7 +53,7 @@ public class Card1_109 extends AbstractEvent {
                                                         , Phase.REGROUP));
                                         action.appendEffect(
                                                 new AddUntilStartOfPhaseModifierEffect(
-                                                        new AllyOnCurrentSiteModifier(self, Filters.sameCard(ally))
+                                                        new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, Filters.sameCard(ally))
                                                         , Phase.REGROUP));
                                     }
                                 }

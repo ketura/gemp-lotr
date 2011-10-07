@@ -116,8 +116,13 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean isAllyOnCurrentSite(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean allyOnCurrentSite) {
-        return allyOnCurrentSite;
+    public boolean isAllyParticipateInArcheryFire(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return false;
+    }
+
+    @Override
+    public boolean isAllyParticipateInSkirmishes(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return false;
     }
 
     @Override
@@ -166,7 +171,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canBeAssignedToSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+    public boolean canBeAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return true;
     }
 

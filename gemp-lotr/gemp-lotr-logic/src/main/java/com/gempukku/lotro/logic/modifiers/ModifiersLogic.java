@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.modifiers;
 
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -319,15 +318,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean isAllyOnCurrentSite(GameState gameState, PhysicalCard card) {
-        boolean allyOnCurrentSite = (card.getBlueprint().getCardType() == CardType.ALLY
-                && gameState.getCurrentSiteNumber() == card.getBlueprint().getSiteNumber()
-                && gameState.getCurrentSite().getBlueprint().getSiteBlock() == card.getBlueprint().getSiteBlock());
+    public boolean isAllyParticipateInArcheryFire(GameState gameState, PhysicalCard card) {
         for (Modifier modifier : getModifiers(ModifierEffect.PRESENCE_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
-                allyOnCurrentSite = modifier.isAllyOnCurrentSite(gameState, this, card, allyOnCurrentSite);
+                if (modifier.isAllyParticipateInArcheryFire(gameState, this, card))
+                    return true;
         }
-        return allyOnCurrentSite;
+        return false;
+    }
+
+    @Override
+    public boolean isAllyParticipateInSkirmishes(GameState gameState, PhysicalCard card) {
+        for (Modifier modifier : getModifiers(ModifierEffect.PRESENCE_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                if (modifier.isAllyParticipateInSkirmishes(gameState, this, card))
+                    return true;
+        }
+        return false;
     }
 
     @Override
@@ -389,13 +396,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean canBeAssignedToSkirmish(GameState gameState, PhysicalCard card) {
-        boolean result = true;
-
+    public boolean canBeAssignedToSkirmish(GameState gameState, Side sidePlayer, PhysicalCard card) {
         for (Modifier modifier : getModifiers(ModifierEffect.ASSIGNMENT_MODIFIER))
             if (affectsCardWithSkipSet(gameState, card, modifier))
-                result = modifier.canBeAssignedToSkirmish(gameState, this, card, result);
-        return result;
+                if (!modifier.canBeAssignedToSkirmish(gameState, sidePlayer, this, card))
+                    return false;
+        return true;
     }
 
     @Override
