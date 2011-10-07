@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.elven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -27,11 +28,12 @@ import java.util.List;
  * Vitality: 3
  * Resistance: 6
  * Game Text: To play, spot an Elf.
- * While Pengedhel bears a ranged weapon, he is strength +2 and he does not add to the fellowship archery total.
+ * While Thonnas bears a ranged weapon, each minion skirmishing him is strength -2 and Thonnas does not add to
+ * the fellowship archery total.
  */
-public class Card4_081 extends AbstractCompanion {
-    public Card4_081() {
-        super(2, 6, 3, Culture.ELVEN, Race.ELF, null, "Pengedhel", true);
+public class Card4_086 extends AbstractCompanion {
+    public Card4_086() {
+        super(2, 6, 3, Culture.ELVEN, Race.ELF, null, "Thonnas", true);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class Card4_081 extends AbstractCompanion {
     public List<? extends Modifier> getAlwaysOnModifiers(final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.sameCard(self),
+                new StrengthModifier(self, Filters.and(Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.sameCard(self))),
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
