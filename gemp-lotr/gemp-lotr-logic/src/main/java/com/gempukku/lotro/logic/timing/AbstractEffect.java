@@ -18,8 +18,8 @@ public abstract class AbstractEffect implements Effect {
     @Override
     public final EffectResult[] playEffect(LotroGame game) {
         FullEffectResult fullEffectResult = playEffectReturningResult(game);
-        _carriedOut = fullEffectResult._carriedOut;
-        _successful = fullEffectResult._successful;
+        _carriedOut = fullEffectResult.isCarriedOut();
+        _successful = fullEffectResult.isSuccessful();
         return fullEffectResult._results;
     }
 

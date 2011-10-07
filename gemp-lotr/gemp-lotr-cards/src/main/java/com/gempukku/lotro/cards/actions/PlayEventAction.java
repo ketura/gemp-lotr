@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.actions;
 
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
-import com.gempukku.lotro.cards.effects.PutCardIntoDiscardEffect;
 import com.gempukku.lotro.cards.effects.RemoveCardFromZoneEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.Keyword;
@@ -12,7 +11,9 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
+import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,7 +27,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     private PlayEventEffect _playCardEffect;
     private boolean _cardPlayed;
 
-    private Effect _discardCardEffect;
     private boolean _cardDiscarded;
 
     public PlayEventAction(PhysicalCard card) {
@@ -48,8 +48,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _playCardEffect = new PlayEventEffect(card);
         if (requiresRanger)
             _playCardEffect.setRequiresRanger(true);
-
-        _discardCardEffect = new PutCardIntoDiscardEffect(card);
     }
 
     @Override
@@ -91,7 +89,23 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         if (!_cardDiscarded) {
             _cardDiscarded = true;
-            return _discardCardEffect;
+            return new AbstractSuccessfulEffect() {
+                @Override
+                public String getText(LotroGame game) {
+                    return null;
+                }
+
+                @Override
+                public EffectResult.Type getType() {
+                    return null;
+                }
+
+                @Override
+                public EffectResult[] playEffect(LotroGame game) {
+                    game.getGameState().addCardToZone(_source, _playCardEffect.getTargetZone());
+                    return null;
+                }
+            };
         }
 
         return null;
