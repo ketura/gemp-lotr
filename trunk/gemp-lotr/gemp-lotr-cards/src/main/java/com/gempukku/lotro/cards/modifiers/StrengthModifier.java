@@ -1,7 +1,5 @@
 package com.gempukku.lotro.cards.modifiers;
 
-import com.gempukku.lotro.cards.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -9,6 +7,8 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class StrengthModifier extends AbstractModifier {
     private Evaluator _evaluator;
