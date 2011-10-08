@@ -91,6 +91,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public int getMinionSiteNumber(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
+        return result;
+    }
+
+    @Override
     public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         return result;
     }
