@@ -7,6 +7,8 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,6 +17,14 @@ public class PreventableEffect extends AbstractEffect {
     private Effect _effectToExecute;
     private Iterator<String> _choicePlayers;
     private Effect _preventionCost;
+
+    public PreventableEffect(CostToEffectAction action, Effect effectToExecute, String[] choicePlayers, Effect preventionCost) {
+        this(action, effectToExecute, Arrays.asList(choicePlayers), preventionCost);
+    }
+
+    public PreventableEffect(CostToEffectAction action, Effect effectToExecute, String choicePlayer, Effect preventionCost) {
+        this(action, effectToExecute, Collections.singletonList(choicePlayer), preventionCost);
+    }
 
     public PreventableEffect(CostToEffectAction action, Effect effectToExecute, List<String> choicePlayers, Effect preventionCost) {
         _action = action;
