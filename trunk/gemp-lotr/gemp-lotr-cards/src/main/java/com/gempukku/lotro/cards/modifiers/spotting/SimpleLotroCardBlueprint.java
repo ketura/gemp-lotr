@@ -45,6 +45,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public boolean isAllyAtHome(int siteNumber, Block siteBlock) {
+        return false;
+    }
+
+    @Override
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }

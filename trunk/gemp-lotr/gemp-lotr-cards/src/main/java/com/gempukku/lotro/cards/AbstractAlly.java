@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AbstractAlly extends AbstractPermanent {
     private Block _siteBlock;
-    private int _siteNumber;
+    private int[] _siteNumbers;
     private int _strength;
     private int _vitality;
     private Race _race;
@@ -24,9 +24,17 @@ public class AbstractAlly extends AbstractPermanent {
     }
 
     public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name, boolean unique) {
+        this(twilight, siteBlock, new int[]{siteNumber}, strength, vitality, race, culture, name, unique);
+    }
+
+    public AbstractAlly(int twilight, Block siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name) {
+        this(twilight, siteBlock, siteNumbers, strength, vitality, race, culture, name, false);
+    }
+
+    public AbstractAlly(int twilight, Block siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name, boolean unique) {
         super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, Zone.SUPPORT, name, unique);
         _siteBlock = siteBlock;
-        _siteNumber = siteNumber;
+        _siteNumbers = siteNumbers;
         _strength = strength;
         _vitality = vitality;
         _race = race;
@@ -55,13 +63,13 @@ public class AbstractAlly extends AbstractPermanent {
     }
 
     @Override
-    public Block getSiteBlock() {
-        return _siteBlock;
-    }
-
-    @Override
-    public final int getSiteNumber() {
-        return _siteNumber;
+    public final boolean isAllyAtHome(int siteNumber, Block block) {
+        if (block != _siteBlock)
+            return false;
+        for (int number : _siteNumbers)
+            if (number == siteNumber)
+                return true;
+        return false;
     }
 
     @Override

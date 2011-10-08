@@ -38,6 +38,8 @@ public interface LotroCardBlueprint {
 
     public int getResistance();
 
+    public boolean isAllyAtHome(int siteNumber, Block siteBlock);
+
     public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self);
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
