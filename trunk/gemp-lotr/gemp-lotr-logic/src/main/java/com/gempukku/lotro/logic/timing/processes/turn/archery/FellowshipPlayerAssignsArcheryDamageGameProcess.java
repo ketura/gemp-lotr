@@ -34,16 +34,13 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                             Filters.and(
                                     Filters.type(CardType.ALLY),
                                     Filters.or(
-                                            Filters.and(
-                                                    Filters.siteNumber(_game.getGameState().getCurrentSiteNumber()),
-                                                    Filters.siteBlock(_game.getGameState().getCurrentSiteBlock()))
-                                    ),
-                                    new Filter() {
-                                        @Override
-                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            return modifiersQuerying.isAllyParticipateInArcheryFire(gameState, physicalCard);
-                                        }
-                                    }
+                                            Filters.isAllyAtHome(),
+                                            new Filter() {
+                                                @Override
+                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                                    return modifiersQuerying.isAllyParticipateInArcheryFire(gameState, physicalCard);
+                                                }
+                                            })
                             )
                     );
 

@@ -19,7 +19,7 @@ public class RoamingRule {
         Filter roamingFilter = Filters.and(Filters.type(CardType.MINION), new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (physicalCard.getBlueprint().getSiteNumber() > gameState.getCurrentSiteNumber());
+                return (modifiersQuerying.getMinionSiteNumber(gameState, physicalCard) > gameState.getCurrentSiteNumber());
             }
         });
 

@@ -258,6 +258,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public int getMinionSiteNumber(GameState gameState, PhysicalCard physicalCard) {
+        int result = physicalCard.getBlueprint().getSiteNumber();
+        for (Modifier modifier : getModifiers(ModifierEffect.SITE_NUMBER_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                result = modifier.getMinionSiteNumber(gameState, this, physicalCard, result);
+        }
+        return Math.max(0, result);
+    }
+
+    @Override
     public int getTwilightCost(GameState gameState, PhysicalCard physicalCard) {
         int result = physicalCard.getBlueprint().getTwilightCost();
         for (Modifier modifier : getModifiers(ModifierEffect.TWILIGHT_COST_MODIFIER)) {
