@@ -468,6 +468,10 @@ public class Filters {
         return Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BOUND)));
     }
 
+    public static Filter roamingMinion() {
+        return Filters.and(Filters.type(CardType.MINION), Filters.keyword(Keyword.ROAMING));
+    }
+
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
         private GameState _gameState;
         private ModifiersQuerying _modifiersQuerying;
