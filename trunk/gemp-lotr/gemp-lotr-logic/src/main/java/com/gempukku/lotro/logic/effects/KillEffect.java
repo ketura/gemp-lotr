@@ -51,6 +51,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
                 killedCards.add(card);
                 gameState.addCardToZone(card, Zone.DEAD);
             } else {
+                killedCards.add(card);
                 discardedCards.add(card);
                 gameState.addCardToZone(card, Zone.DISCARD);
             }
