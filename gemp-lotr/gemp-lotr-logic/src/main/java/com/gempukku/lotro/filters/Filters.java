@@ -139,6 +139,15 @@ public class Filters {
         };
     }
 
+    public static Filter canTakeWound() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.canTakeWound(gameState, physicalCard);
+            }
+        };
+    }
+
     public static Filter exhausted() {
         return new Filter() {
             @Override
