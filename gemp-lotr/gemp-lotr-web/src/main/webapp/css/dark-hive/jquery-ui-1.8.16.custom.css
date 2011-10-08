@@ -1289,7 +1289,7 @@ button.ui-button-icons-only {
 }
 
 .ui-button-text-only .ui-button-text {
-    padding: .4em 1em;
+    padding: .2em .3em;
 }
 
 .ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text {
@@ -1345,8 +1345,8 @@ input.ui-button {
 }
 
 .ui-buttonset .ui-button {
-    margin-left: 0;
-    margin-right: -.3em;
+    margin-left: .2em;
+    margin-right: -.2em;
 }
 
 /* workarounds */
