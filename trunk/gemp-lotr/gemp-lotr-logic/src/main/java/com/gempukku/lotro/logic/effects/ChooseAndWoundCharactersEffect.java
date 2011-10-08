@@ -3,11 +3,9 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collection;
 
@@ -27,12 +25,7 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected Filter getExtraFilter() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWound(gameState, physicalCard);
-            }
-        };
+        return Filters.canTakeWound();
     }
 
     @Override
