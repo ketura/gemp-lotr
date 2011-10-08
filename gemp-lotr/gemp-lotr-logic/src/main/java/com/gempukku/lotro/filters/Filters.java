@@ -82,19 +82,6 @@ public class Filters {
         };
     }
 
-    public static Filter allyOnHomeSite() {
-        return Filters.and(
-                Filters.type(CardType.ALLY),
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return physicalCard.getBlueprint().getSiteNumber() == gameState.getCurrentSiteNumber()
-                                && physicalCard.getBlueprint().getSiteBlock() == gameState.getCurrentSite().getBlueprint().getSiteBlock();
-                    }
-                }
-        );
-    }
-
     public static Filter siteBlock(final Block block) {
         return new Filter() {
             @Override
@@ -257,6 +244,17 @@ public class Filters {
                 return physicalCard.getOwner() != null && physicalCard.getOwner().equals(playerId);
             }
         };
+    }
+
+    public static Filter isAllyAtHome() {
+        return Filters.and(
+                Filters.type(CardType.ALLY),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return physicalCard.getBlueprint().isAllyAtHome(gameState.getCurrentSiteNumber(), gameState.getCurrentSiteBlock());
+                    }
+                });
     }
 
     public static Filter siteNumber(final int siteNumber) {
