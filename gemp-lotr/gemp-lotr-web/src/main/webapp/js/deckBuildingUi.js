@@ -53,12 +53,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.png'/></label>"
                 + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.png'/></label>"
                 + "<input type='checkbox' id='GONDOR'/><label for='GONDOR' id='labelGONDOR'><img src='images/cultures/gondor.png'/></label>"
+                + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
                 + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
                 + "</div>");
         this.filterDiv.append("<div id='culture2'>"
                 + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
                 + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png'/></label>"
                 + "<input type='checkbox' id='MORIA'/><label for='MORIA' id='labelMORIA'><img src='images/cultures/moria.png'/></label>"
+                + "<input type='checkbox' id='RAIDER'/><label for='RAIDER' id='labelRAIDER'><img src='images/cultures/raider.png'/></label>"
                 + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
                 + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
                 + "</div>");
@@ -104,7 +106,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         $("#set").change(filterOut);
         $("#cardType").change(filterOut);
 
-        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelSHIRE,#labelDUNLAND,#labelISENGARD,#labelMORIA,#labelSAURON,#labelWRAITH").click(filterOut);
+        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelDUNLAND,#labelISENGARD,#labelMORIA,#labelRAIDER,#labelSAURON,#labelWRAITH").click(filterOut);
 
         $("#countSlider").slider({
             value:18,
