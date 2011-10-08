@@ -32,6 +32,8 @@ public interface LotroCardBlueprint {
 
     public int getTwilightCost();
 
+    public int getCompanionStartingFellowshipModifier();
+
     public int getStrength();
 
     public int getVitality();
