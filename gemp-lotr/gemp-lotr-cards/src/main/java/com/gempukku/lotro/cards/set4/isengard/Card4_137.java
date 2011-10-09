@@ -29,7 +29,7 @@ public class Card4_137 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SHADOW, self)
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
             action.appendCost(
@@ -38,7 +38,7 @@ public class Card4_137 extends AbstractPermanent {
                     new AddTokenEffect(self, self, Token.ISENGARD));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
                 && game.getGameState().getTokenCount(self, Token.ISENGARD) >= 3
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI)) > 0) {
             ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
