@@ -3,5 +3,6 @@ package com.gempukku.lotro.common;
 public enum Token {
     BURDEN, WOUND,
 
-    DUNLAND, DWARVEN, ELVEN, GANDALF, GONDOR
+    DUNLAND, DWARVEN, ELVEN, GANDALF,
+    GONDOR, ISENGARD
 }
