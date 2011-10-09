@@ -130,6 +130,10 @@ public class PlayConditions {
                 });
     }
 
+    public static boolean canPlayFromHand(String playerId, LotroGame game, Filter... filters) {
+        return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
+    }
+
     public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filter... filters) {
         return canExert(source, gameState, modifiersQuerying, 1, filters);
     }
