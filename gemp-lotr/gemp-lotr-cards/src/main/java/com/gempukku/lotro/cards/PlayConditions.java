@@ -101,8 +101,16 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filter... filters) {
-        return canExert(source, gameState, modifiersQuerying, 1, filters);
+    public static boolean canExert(PhysicalCard source, LotroGame game, Filter... filters) {
+        return canExert(source, game.getGameState(), game.getModifiersQuerying(), filters);
+    }
+
+    public static boolean canSpot(LotroGame game, Filter... filters) {
+        return canSpot(game, 1, filters);
+    }
+
+    public static boolean canSpot(LotroGame game, int count, Filter... filters) {
+        return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), filters) >= count;
     }
 
     public static boolean canExertMultiple(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, final int count, Filter... filters) {
@@ -120,6 +128,10 @@ public class PlayConditions {
                         return _exertableCount >= count;
                     }
                 });
+    }
+
+    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filter... filters) {
+        return canExert(source, gameState, modifiersQuerying, 1, filters);
     }
 
     public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, Filter... filters) {
