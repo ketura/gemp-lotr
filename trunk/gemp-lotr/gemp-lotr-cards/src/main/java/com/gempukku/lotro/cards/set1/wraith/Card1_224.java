@@ -3,15 +3,16 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -55,17 +56,9 @@ public class Card1_224 extends AbstractResponseEvent {
                                             protected void cardSelected(PhysicalCard nazgul) {
                                                 PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
                                                 action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
-                                                game.getGameState().setCancelRingText(true);
-                                                game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
-                                                        new AbstractActionProxy() {
-                                                            @Override
-                                                            public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                                                if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                                                                        && lotroGame.getGameState().getCurrentPhase() == Phase.SKIRMISH)
-                                                                    game.getGameState().setCancelRingText(false);
-                                                                return null;
-                                                            }
-                                                        }, Phase.REGROUP);
+                                                action.appendEffect(
+                                                        new AddUntilEndOfPhaseModifierEffect(
+                                                                new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));
                                             }
                                         });
                             }

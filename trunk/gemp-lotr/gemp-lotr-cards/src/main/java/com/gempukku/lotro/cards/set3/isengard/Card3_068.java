@@ -18,9 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -50,6 +48,12 @@ public class Card3_068 extends AbstractMinion {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CantTakeWoundsModifier(self,
+                        new Condition() {
+                            @Override
+                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                return !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            }
+                        },
                         Filters.and(
                                 Filters.sameCard(self),
                                 new Filter() {
@@ -59,7 +63,14 @@ public class Card3_068 extends AbstractMinion {
                                     }
                                 })));
         modifiers.add(
-                new CantBeAssignedToSkirmishModifier(self, Filters.sameCard(self)));
+                new CantBeAssignedToSkirmishModifier(self,
+                        new Condition() {
+                            @Override
+                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                return !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            }
+                        },
+                        Filters.sameCard(self)));
         modifiers.add(
                 new KeywordModifier(self, Filters.race(Race.URUK_HAI), Keyword.FIERCE));
         return modifiers;

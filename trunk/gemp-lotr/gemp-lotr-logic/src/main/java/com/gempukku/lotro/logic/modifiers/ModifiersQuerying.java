@@ -25,7 +25,7 @@ public interface ModifiersQuerying {
 
     public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
 
-
+    // Move limit
     public int getMoveLimit(GameState gameState, int baseMoveLimit);
 
     // Twilight cost
@@ -80,5 +80,5 @@ public interface ModifiersQuerying {
 
     public int getSpotCount(GameState gameState, Filter filter, int inPlayCount);
 
-    public boolean hasToMoveIfPossible();
+    public boolean hasFlagActive(ModifierFlag modifierFlag);
 }

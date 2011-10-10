@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.dunland;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.HasToMoveIfPossibleModifier;
+import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -44,7 +45,7 @@ public class Card4_030 extends AbstractAttachable {
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new HasToMoveIfPossibleModifier(self), Phase.REGROUP));
+                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;
