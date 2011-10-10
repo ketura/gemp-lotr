@@ -105,6 +105,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public int getCompanionStartingFellowshipModifier() {
+        return 0;
+    }
+
+    @Override
     public Side getSide() {
         return null;
     }
