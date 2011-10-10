@@ -146,7 +146,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
+    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
         return result;
     }
 

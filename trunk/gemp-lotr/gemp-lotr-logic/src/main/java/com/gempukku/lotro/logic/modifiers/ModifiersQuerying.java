@@ -63,7 +63,7 @@ public interface ModifiersQuerying {
     public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments);
 
     // Playing actions
-    public boolean canPlayAction(GameState gameState, Action action);
+    public boolean canPlayAction(GameState gameState, String performingPlayer, Action action);
 
     public boolean canHavePlayedOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
 

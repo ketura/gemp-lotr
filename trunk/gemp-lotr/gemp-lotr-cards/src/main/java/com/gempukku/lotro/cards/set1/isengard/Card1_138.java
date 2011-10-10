@@ -64,7 +64,7 @@ public class Card1_138 extends AbstractAttachable {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new AbstractModifier(self, "Can't play Skirmish actions", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
-            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
+            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
                 PhysicalCard actionSource = action.getActionSource();
                 if ((action.getType() == Keyword.SKIRMISH
                         || (actionSource != null && actionSource.getBlueprint().getCardType() == CardType.EVENT && modifiersQuerying.hasKeyword(gameState, actionSource, Keyword.SKIRMISH)))

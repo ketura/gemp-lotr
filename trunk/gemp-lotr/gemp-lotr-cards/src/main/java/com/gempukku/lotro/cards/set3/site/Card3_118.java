@@ -34,7 +34,7 @@ public class Card3_118 extends AbstractSite {
         return Collections.singletonList(
                 new AbstractModifier(self, "Cards may not be played from draw decks or discard piles", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
                         PhysicalCard source = action.getActionSource();
                         if (source != null && (source.getZone() == Zone.DECK || source.getZone() == Zone.DISCARD))
                             return false;
