@@ -56,6 +56,6 @@ public class AssignmentEffect extends AbstractEffect {
             List<PhysicalCard> minions = physicalCardListEntry.getValue();
             game.getGameState().assignToSkirmishes(fpChar, minions);
         }
-        return new FullEffectResult(new EffectResult[]{new AssignmentResult(_assignments)}, true, true);
+        return new FullEffectResult(new EffectResult[]{new AssignmentResult(_playerId, _assignments)}, true, true);
     }
 }
