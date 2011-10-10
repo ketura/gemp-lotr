@@ -44,9 +44,11 @@ public class Card4_166 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
             action.appendCost(
                     new RemoveTwilightEffect(2));
+            final List<String> allPlayers = game.getGameState().getPlayerOrder().getAllPlayers();
+            final String[] players = allPlayers.toArray(new String[allPlayers.size()]);
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose player to reveal top card", game.getGameState().getPlayerOrder().getAllPlayers().toArray(new String[0])) {
+                            new MultipleChoiceAwaitingDecision(1, "Choose player to reveal top card", players) {
                                 @Override
                                 protected void validDecisionMade(int index, String deckId) {
                                     action.insertEffect(
