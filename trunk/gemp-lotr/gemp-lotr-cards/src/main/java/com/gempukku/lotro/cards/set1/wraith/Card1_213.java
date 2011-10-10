@@ -31,12 +31,7 @@ public class Card1_213 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)) {
                     @Override
                     protected void cardSelected(PhysicalCard nazgul) {
-                        boolean notAssigned = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.notAssigned());
-                        if (notAssigned) {
-                            PhysicalCard fpChar = game.getGameState().getSkirmish().getFellowshipCharacter();
-                            if (fpChar != null && game.getModifiersQuerying().hasKeyword(game.getGameState(), fpChar, Keyword.RING_BEARER))
-                                notAssigned = false;
-                        }
+                        boolean notAssigned = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.notAssignedToSkirmish());
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(nazgul), notAssigned ? 2 : 3), Phase.SKIRMISH));
