@@ -102,7 +102,14 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         _lotroGame.getGameState().iterateActivableCards(playerId, gatherActions);
 
-        return gatherActions.getActions();
+        List<Action> result = new LinkedList<Action>();
+
+        for (Action action : gatherActions.getActions()) {
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+                result.add(action);
+        }
+
+        return result;
     }
 
     @Override
@@ -139,7 +146,14 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         _lotroGame.getGameState().iterateActivableCards(playerId, gatherAfterActions);
 
-        return gatherAfterActions.getActions();
+        List<Action> result = new LinkedList<Action>();
+
+        for (Action action : gatherAfterActions.getActions()) {
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+                result.add(action);
+        }
+
+        return result;
     }
 
     @Override
