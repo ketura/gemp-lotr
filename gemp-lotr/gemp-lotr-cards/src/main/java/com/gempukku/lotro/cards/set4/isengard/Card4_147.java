@@ -68,7 +68,6 @@ public class Card4_147 extends AbstractPermanent {
 
                         return result;
                     }
-                }
-        )
+                });
     }
 }
