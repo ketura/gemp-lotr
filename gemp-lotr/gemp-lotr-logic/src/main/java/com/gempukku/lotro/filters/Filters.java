@@ -157,13 +157,19 @@ public class Filters {
         };
     }
 
-    public static Filter notAssigned() {
+    public static Filter notAssignedToSkirmish() {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 for (Skirmish assignment : gameState.getAssignments()) {
                     if (assignment.getFellowshipCharacter() == physicalCard
                             || assignment.getShadowCharacters().contains(physicalCard))
+                        return false;
+                }
+                Skirmish skirmish = gameState.getSkirmish();
+                if (skirmish != null) {
+                    if (skirmish.getFellowshipCharacter() == physicalCard
+                            || skirmish.getShadowCharacters().contains(physicalCard))
                         return false;
                 }
                 return true;
