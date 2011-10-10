@@ -8,19 +8,17 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class DiscardCardFromDeckEffect extends UnrespondableEffect {
-    private String _playerId;
     private PhysicalCard _card;
 
-    public DiscardCardFromDeckEffect(String playerId, PhysicalCard card) {
-        _playerId = playerId;
+    public DiscardCardFromDeckEffect(PhysicalCard card) {
         _card = card;
     }
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        if (game.getGameState().getDeck(_playerId).contains(_card)) {
+        if (game.getGameState().getDeck(_card.getOwner()).contains(_card)) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_playerId + " discards " + GameUtils.getCardLink(_card) + " from his or her deck");
+            gameState.sendMessage(GameUtils.getCardLink(_card) + " gets discarded from deck");
             gameState.removeCardFromZone(_card);
             gameState.addCardToZone(_card, Zone.DISCARD);
         }

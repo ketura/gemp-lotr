@@ -59,7 +59,7 @@ public class Card1_055 extends AbstractPermanent {
                                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                         for (PhysicalCard selectedCard : selectedCards)
                                                             action.appendEffect(
-                                                                    new DiscardCardFromDeckEffect(chosenOpponent, selectedCard));
+                                                                    new DiscardCardFromDeckEffect(selectedCard));
                                                     }
                                                 });
                                     }
