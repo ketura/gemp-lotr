@@ -469,9 +469,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean hasToMoveIfPossible() {
-        for (Modifier modifier : getModifiers(ModifierEffect.MOVE_LIMIT_MODIFIER))
-            if (modifier.hasToMoveIfPossible())
+    public boolean hasFlagActive(ModifierFlag modifierFlag) {
+        for (Modifier modifier : getModifiers(ModifierEffect.SPECIAL_FLAG_MODIFIER))
+            if (modifier.hasFlagActive(modifierFlag))
                 return true;
 
         return false;

@@ -206,7 +206,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean hasToMoveIfPossible() {
+    public boolean hasFlagActive(ModifierFlag modifierFlag) {
         return false;
     }
 }

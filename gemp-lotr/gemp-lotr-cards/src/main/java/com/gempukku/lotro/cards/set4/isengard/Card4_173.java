@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -49,11 +50,18 @@ public class Card4_173 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentPhase() == Phase.ARCHERY;
+                                return gameState.getCurrentPhase() == Phase.ARCHERY && !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         }, Filters.sameCard(self)));
         modifiers.add(
-                new CantBeAssignedToSkirmishModifier(self, Filters.sameCard(self)));
+                new CantBeAssignedToSkirmishModifier(self,
+                        new Condition() {
+                            @Override
+                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                return !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            }
+                        },
+                        Filters.sameCard(self)));
         return modifiers;
     }
 

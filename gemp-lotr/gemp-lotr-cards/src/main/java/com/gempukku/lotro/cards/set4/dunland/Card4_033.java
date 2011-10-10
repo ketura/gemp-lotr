@@ -9,11 +9,15 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -40,7 +44,14 @@ public class Card4_033 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new CantBeAssignedToSkirmishModifier(self, Filters.sameCard(self)));
+                new CantBeAssignedToSkirmishModifier(self,
+                        new Condition() {
+                            @Override
+                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                return !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            }
+                        },
+                        Filters.sameCard(self)));
     }
 
     @Override

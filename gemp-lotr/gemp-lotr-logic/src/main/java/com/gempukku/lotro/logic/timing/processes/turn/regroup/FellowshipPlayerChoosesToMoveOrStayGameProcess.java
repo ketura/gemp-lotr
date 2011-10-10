@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.ShadowPhasesGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.EndOfPhaseGameProcess;
@@ -22,7 +23,7 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
     public void process() {
         final GameState gameState = _game.getGameState();
         if (gameState.getMoveCount() < _game.getModifiersQuerying().getMoveLimit(gameState, 2)) {
-            if (_game.getModifiersQuerying().hasToMoveIfPossible()) {
+            if (_game.getModifiersQuerying().hasFlagActive(ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)) {
                 _nextProcess = new MovementGameProcess(_game,
                         new EndOfPhaseGameProcess(_game, Phase.REGROUP,
                                 new ShadowPhasesGameProcess(_game)));
