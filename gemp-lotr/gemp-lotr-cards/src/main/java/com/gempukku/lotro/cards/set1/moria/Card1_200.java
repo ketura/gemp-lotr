@@ -47,7 +47,7 @@ public class Card1_200 extends AbstractPermanent {
                                             new PutCardFromDeckIntoHandOrDiscardEffect(bottomCard));
                                 } else {
                                     action.appendEffect(
-                                            new DiscardCardFromDeckEffect(playerId, bottomCard));
+                                            new DiscardCardFromDeckEffect(bottomCard));
                                 }
                             }
                         }

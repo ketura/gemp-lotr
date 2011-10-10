@@ -69,7 +69,7 @@ public class Card4_107 extends AbstractAttachable {
                                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                                 for (PhysicalCard selectedCard : selectedCards) {
                                                                     action.insertEffect(
-                                                                            new DiscardCardFromDeckEffect(playerId, selectedCard));
+                                                                            new DiscardCardFromDeckEffect(selectedCard));
                                                                 }
                                                             }
                                                         });
@@ -79,7 +79,7 @@ public class Card4_107 extends AbstractAttachable {
                                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                                 for (PhysicalCard selectedCard : selectedCards) {
                                                                     action.insertEffect(
-                                                                            new DiscardCardFromDeckEffect(playerId, selectedCard));
+                                                                            new DiscardCardFromDeckEffect(selectedCard));
                                                                 }
                                                             }
                                                         });

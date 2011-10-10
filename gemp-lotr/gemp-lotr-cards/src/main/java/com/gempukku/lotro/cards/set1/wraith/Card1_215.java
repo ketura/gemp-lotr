@@ -49,7 +49,7 @@ public class Card1_215 extends AbstractEvent {
                                                                 new PutCardFromDeckIntoHandOrDiscardEffect(revealedCard));
                                                     else
                                                         action.appendEffect(
-                                                                new DiscardCardFromDeckEffect(playerId, revealedCard));
+                                                                new DiscardCardFromDeckEffect(revealedCard));
                                                 }
                                             }
                                         });

@@ -54,7 +54,7 @@ public class Card1_081 extends AbstractEvent {
                         }
 
                         for (PhysicalCard remainingCard : cards)
-                            action.appendEffect(new DiscardCardFromDeckEffect(playerId, remainingCard));
+                            action.appendEffect(new DiscardCardFromDeckEffect(remainingCard));
                     }
                 });
         return action;

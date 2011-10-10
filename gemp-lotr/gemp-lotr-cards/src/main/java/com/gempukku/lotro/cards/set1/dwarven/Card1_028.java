@@ -51,7 +51,7 @@ public class Card1_028 extends AbstractEvent {
                             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE)
                                 action.appendEffect(new PutCardFromDeckIntoHandOrDiscardEffect(card));
                             else
-                                action.appendEffect(new DiscardCardFromDeckEffect(playerId, card));
+                                action.appendEffect(new DiscardCardFromDeckEffect(card));
                         }
                     }
                 });

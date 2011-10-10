@@ -63,7 +63,7 @@ public class Card1_189 extends AbstractResponseEvent {
                                     for (PhysicalCard card : deck.subList(0, spotCount)) {
                                         if (card.getBlueprint().getSide() == Side.SHADOW)
                                             shadowCardsCount++;
-                                        action.appendEffect(new DiscardCardFromDeckEffect(playerId, card));
+                                        action.appendEffect(new DiscardCardFromDeckEffect(card));
                                     }
                                     int burdens = Math.min(3, shadowCardsCount);
                                     action.appendEffect(new AddBurdenEffect(self, burdens));

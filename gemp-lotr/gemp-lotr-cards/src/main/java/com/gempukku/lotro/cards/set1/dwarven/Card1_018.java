@@ -71,7 +71,7 @@ public class Card1_018 extends AbstractEvent {
                                                     @Override
                                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                         if (selectedCards.size() > 0) {
-                                                            action.appendEffect(new DiscardCardFromDeckEffect(chosenPlayerId, selectedCards.iterator().next()));
+                                                            action.appendEffect(new DiscardCardFromDeckEffect(selectedCards.iterator().next()));
                                                             topDeckCards.removeAll(selectedCards);
                                                         }
 

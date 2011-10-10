@@ -46,7 +46,7 @@ public class Card1_301 extends AbstractAlly {
                                 if (card.getBlueprint().getCulture() == Culture.SHIRE)
                                     action.appendEffect(new PutCardFromDeckIntoHandOrDiscardEffect(card));
                                 else
-                                    action.appendEffect(new DiscardCardFromDeckEffect(playerId, card));
+                                    action.appendEffect(new DiscardCardFromDeckEffect(card));
                             }
                         }
                     });

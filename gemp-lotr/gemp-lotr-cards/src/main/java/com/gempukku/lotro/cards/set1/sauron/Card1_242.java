@@ -54,7 +54,7 @@ public class Card1_242 extends AbstractPermanent {
                                             new PutCardFromDeckIntoHandOrDiscardEffect(topCard));
                                 else {
                                     action.appendEffect(
-                                            new DiscardCardFromDeckEffect(playerId, topCard));
+                                            new DiscardCardFromDeckEffect(topCard));
                                     action.appendEffect(
                                             new ChooseAndDiscardCardsFromHandEffect(action, playerId));
                                 }
