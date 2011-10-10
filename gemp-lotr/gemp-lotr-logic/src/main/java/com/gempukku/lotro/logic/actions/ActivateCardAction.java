@@ -3,6 +3,8 @@ package com.gempukku.lotro.logic.actions;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.effects.ActivateCardEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -10,11 +12,16 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     private PhysicalCard _physicalCard;
     private Keyword _type;
 
+    private ActivateCardEffect _activateCardEffect;
+
     private boolean _sentMessage;
+    private boolean _activated;
 
     public ActivateCardAction(PhysicalCard physicalCard, Keyword type) {
         _physicalCard = physicalCard;
         _type = type;
+
+        _activateCardEffect = new ActivateCardEffect(physicalCard);
     }
 
     @Override
@@ -44,14 +51,21 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
             if (cost != null)
                 return cost;
 
-            Effect effect = getNextEffect();
-            if (effect != null)
-                return effect;
+            if (!_activated) {
+                _activated = true;
+                return _activateCardEffect;
+            }
+
+            if (!_activateCardEffect.isCancelled()) {
+                Effect effect = getNextEffect();
+                if (effect != null)
+                    return effect;
+            }
         }
         return null;
     }
 
-    protected String getMessage() {
-        return "<div class='cardHint' value='" + _physicalCard.getBlueprintId() + "'>" + _physicalCard.getBlueprint().getName() + "</div> is used";
+    private String getMessage() {
+        return GameUtils.getCardLink(_physicalCard) + " is used";
     }
 }
