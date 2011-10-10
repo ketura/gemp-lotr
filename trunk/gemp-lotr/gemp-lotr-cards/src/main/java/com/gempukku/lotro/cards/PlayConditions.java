@@ -134,6 +134,10 @@ public class PlayConditions {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
     }
 
+    public static boolean canPlayFromHand(String playerId, LotroGame game, int twilightModifier, Filter... filters) {
+        return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, twilightModifier))).size() > 0;
+    }
+
     public static boolean canPlayFromDiscard(String playerId, LotroGame game, Filter... filters) {
         return Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
     }
