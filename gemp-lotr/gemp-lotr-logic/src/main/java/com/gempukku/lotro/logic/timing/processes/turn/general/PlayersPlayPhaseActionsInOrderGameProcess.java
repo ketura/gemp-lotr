@@ -50,11 +50,11 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
 
             List<Action> playableActions = new LinkedList<Action>();
             for (Action action : actions)
-                if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), action))
+                if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), playerId, action))
                     playableActions.add(action);
 
             for (Action action : stackedVisitor.getActions())
-                if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), action))
+                if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), playerId, action))
                     playableActions.add(action);
 
             _game.getUserFeedback().sendAwaitingDecision(playerId,

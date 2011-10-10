@@ -35,11 +35,11 @@ public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProces
         List<Action> playableActions = new LinkedList<Action>();
 
         for (Action action : visitor.getActions())
-            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), action))
+            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), _playerId, action))
                 playableActions.add(action);
 
         for (Action action : stackedVisitor.getActions())
-            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), action))
+            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), _playerId, action))
                 playableActions.add(action);
 
         _game.getUserFeedback().sendAwaitingDecision(_playerId,

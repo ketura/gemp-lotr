@@ -33,7 +33,7 @@ public class Card3_117 extends AbstractSite {
         return Collections.singletonList(
                 new AbstractModifier(self, "Maneuver events may not be played", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
                         PhysicalCard source = action.getActionSource();
                         if (source != null && source.getBlueprint().getCardType() == CardType.EVENT
                                 && modifiersQuerying.hasKeyword(gameState, source, Keyword.MANEUVER))
