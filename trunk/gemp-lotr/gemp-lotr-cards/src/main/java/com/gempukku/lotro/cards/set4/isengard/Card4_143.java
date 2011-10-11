@@ -45,11 +45,11 @@ public class Card4_143 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                     @Override
                     protected void forEachCardExertedCallback(final PhysicalCard minion) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                                new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion(), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                                     @Override
                                     protected void cardSelected(PhysicalCard companion) {
                                         Race race = companion.getBlueprint().getRace();

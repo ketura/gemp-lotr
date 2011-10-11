@@ -48,10 +48,10 @@ public class Card4_015 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY), Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(PhysicalCard ally) {
                             action.appendEffect(
