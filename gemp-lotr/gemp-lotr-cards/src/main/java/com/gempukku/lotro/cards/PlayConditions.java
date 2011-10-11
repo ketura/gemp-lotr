@@ -230,6 +230,10 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean played(LotroGame game, EffectResult effectResult, Filter... filters) {
+        return played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(filters));
+    }
+
     public static boolean played(GameState gameState, ModifiersQuerying modifiersQuerying, Effect effect, Filter filter) {
         if (effect.getType() == EffectResult.Type.PLAY) {
             PhysicalCard playedCard = ((PlayCardEffect) effect).getPlayedCard();
