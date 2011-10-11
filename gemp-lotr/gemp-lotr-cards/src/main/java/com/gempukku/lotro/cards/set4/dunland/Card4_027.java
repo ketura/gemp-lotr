@@ -8,6 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -42,7 +43,12 @@ public class Card4_027 extends AbstractPermanent {
 
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             for (final PhysicalCard physicalCard : winningDunlandMan) {
-                OptionalTriggerAction action = new OptionalTriggerAction(physicalCard);
+                OptionalTriggerAction action = new OptionalTriggerAction(self) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Make " + GameUtils.getCardLink(physicalCard) + " strength +2 and Fierce";
+                    }
+                };
                 action.appendEffect(
                         new AddUntilStartOfPhaseModifierEffect(
                                 new StrengthModifier(self, Filters.sameCard(physicalCard), 2), Phase.REGROUP));
