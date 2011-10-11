@@ -2,12 +2,16 @@ package com.gempukku.lotro.cards.set3.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.cards.effects.ChooseCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
+import com.gempukku.lotro.cards.effects.StackCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
