@@ -105,6 +105,10 @@ public class PlayConditions {
         return canExert(source, game.getGameState(), game.getModifiersQuerying(), filters);
     }
 
+    public static boolean canExert(PhysicalCard source, LotroGame game, int times, Filter... filters) {
+        return canExert(source, game.getGameState(), game.getModifiersQuerying(), times, filters);
+    }
+
     public static boolean canSpot(LotroGame game, Filter... filters) {
         return canSpot(game, 1, filters);
     }
