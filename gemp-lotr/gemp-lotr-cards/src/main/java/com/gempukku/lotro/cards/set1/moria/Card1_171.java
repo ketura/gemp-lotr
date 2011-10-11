@@ -28,11 +28,11 @@ public class Card1_171 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.exhausted(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.exhausted(), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                     @Override
                     protected void cardSelected(final PhysicalCard companion) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                                new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                                     @Override
                                     protected void cardSelected(PhysicalCard moriaOrc) {
                                         action.appendEffect(

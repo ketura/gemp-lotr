@@ -38,12 +38,12 @@ public class Card4_164 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))
-                && Filters.canBeAssignedToSkirmish(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.and(Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(PhysicalCard companion) {
                             action.insertEffect(

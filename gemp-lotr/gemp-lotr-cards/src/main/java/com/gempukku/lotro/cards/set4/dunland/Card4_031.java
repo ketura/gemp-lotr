@@ -37,11 +37,11 @@ public class Card4_031 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(final PhysicalCard dunlandMan) {
                             action.insertEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard unboundCompanion) {
                                             action.insertEffect(

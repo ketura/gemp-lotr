@@ -43,10 +43,10 @@ public class Card1_262 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION)) >= 2
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
             final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.notAssignedToSkirmish(), Filters.type(CardType.COMPANION), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
                             action.appendEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self), "Orc Assassin effect"));

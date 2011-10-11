@@ -4,5 +4,5 @@ public enum Token {
     BURDEN, WOUND,
 
     DUNLAND, DWARVEN, ELVEN, GANDALF,
-    GONDOR, ISENGARD
+    GONDOR, ISENGARD, RAIDER
 }
