@@ -108,8 +108,16 @@ public class TurnProcedure {
                 if (!_checkedOptionalWhenResponses) {
                     _checkedOptionalWhenResponses = true;
                     ActivateCardAction action = new ActivateCardAction(null, null);
+
+                    Map<String, List<Action>> optionalAfterTriggers = new HashMap<String, List<Action>>();
+                    for (String playerId : _game.getGameState().getPlayerOrder().getAllPlayers()) {
+                        List<Action> actions = new LinkedList<Action>();
+                        actions.addAll(_game.getActionsEnvironment().getOptionalAfterTriggers(playerId, _effectResults));
+                        optionalAfterTriggers.put(playerId, actions);
+                    }
+
                     action.appendEffect(
-                            new PlayoutOptionalAfterResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect, _effectResults));
+                            new PlayoutOptionalAfterResponsesEffect(action, optionalAfterTriggers, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect, _effectResults));
                     return new StackActionEffect(action);
                 }
             }
@@ -177,15 +185,15 @@ public class TurnProcedure {
 
     private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect {
         private ActivateCardAction _action;
-        private Set<PhysicalCard> _cardTriggersUsed;
+        private Map<String, List<Action>> _unplayedAfterTriggers;
         private PlayOrder _playOrder;
         private int _passCount;
         private Effect _effect;
         private EffectResult[] _effectResults;
 
-        private PlayoutOptionalAfterResponsesEffect(ActivateCardAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect, EffectResult[] effectResults) {
+        private PlayoutOptionalAfterResponsesEffect(ActivateCardAction action, Map<String, List<Action>> unplayedAfterTriggers, PlayOrder playOrder, int passCount, Effect effect, EffectResult[] effectResults) {
             _action = action;
-            _cardTriggersUsed = cardTriggersUsed;
+            _unplayedAfterTriggers = unplayedAfterTriggers;
             _playOrder = playOrder;
             _passCount = passCount;
             _effect = effect;
@@ -196,12 +204,15 @@ public class TurnProcedure {
         public void doPlayEffect(LotroGame game) {
             final String activePlayer = _playOrder.getNextPlayer();
 
-            final List<Action> optionalAfterTriggers = game.getActionsEnvironment().getOptionalAfterTriggers(activePlayer, _effectResults);
-            // Remove triggers already resolved
+            final List<Action> optionalAfterTriggers = _unplayedAfterTriggers.get(activePlayer);
+
+            // Remove triggers for cards no longer in play
             final Iterator<Action> triggersIterator = optionalAfterTriggers.iterator();
-            while (triggersIterator.hasNext())
-                if (_cardTriggersUsed.contains(triggersIterator.next().getActionSource()))
+            while (triggersIterator.hasNext()) {
+                final PhysicalCard actionSource = triggersIterator.next().getActionSource();
+                if (!actionSource.getZone().isInPlay())
                     triggersIterator.remove();
+            }
 
             final List<Action> optionalAfterActions = _game.getActionsEnvironment().getOptionalAfterActions(activePlayer, _effectResults);
 
@@ -217,18 +228,18 @@ public class TurnProcedure {
                                 if (action != null) {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalAfterTriggers.contains(action))
-                                        _cardTriggersUsed.add(action.getActionSource());
-                                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect, _effectResults));
+                                        optionalAfterActions.remove(action);
+                                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, 0, _effect, _effectResults));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                                        _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect, _effectResults));
+                                        _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, _passCount + 1, _effect, _effectResults));
                                     }
                                 }
                             }
                         });
             } else {
                 if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect, _effectResults));
+                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, _passCount + 1, _effect, _effectResults));
                 }
             }
         }
