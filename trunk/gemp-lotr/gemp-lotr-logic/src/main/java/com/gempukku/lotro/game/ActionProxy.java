@@ -11,4 +11,6 @@ public interface ActionProxy {
     public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect);
 
     public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults);
+
+    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults);
 }

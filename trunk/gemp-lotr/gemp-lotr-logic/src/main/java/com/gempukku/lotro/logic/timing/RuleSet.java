@@ -21,6 +21,8 @@ public class RuleSet {
 
         new RoamingRule(_modifiersLogic).applyRule();
 
+        new AmbushRule(_actionsEnvironment).applyRule();
+
         new ResolveSkirmishRule(_game, _actionsEnvironment).applyRule();
 
         new CharacterDeathRule(_actionsEnvironment).applyRule();
