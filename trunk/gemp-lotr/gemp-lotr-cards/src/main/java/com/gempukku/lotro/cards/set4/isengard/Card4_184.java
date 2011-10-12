@@ -41,7 +41,7 @@ public class Card4_184 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(

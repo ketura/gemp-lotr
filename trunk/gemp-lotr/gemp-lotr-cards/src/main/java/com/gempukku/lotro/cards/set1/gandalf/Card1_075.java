@@ -53,14 +53,7 @@ public class Card1_075 extends AbstractAttachableFPPossession {
         if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
-            Phase phase = game.getGameState().getCurrentPhase();
-            Keyword keyword;
-            if (phase == Phase.FELLOWSHIP)
-                keyword = Keyword.FELLOWSHIP;
-            else
-                keyword = Keyword.REGROUP;
-
-            final ActivateCardAction action = new ActivateCardAction(self, keyword);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {

@@ -49,7 +49,7 @@ public class Card4_231 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && PlayConditions.canExert(self, game, Filters.culture(Culture.RAIDER), Filters.race(Race.MAN))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendCost(

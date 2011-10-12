@@ -48,7 +48,7 @@ public class Card4_111 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, Filters.culture(Culture.GONDOR)));
             action.appendEffect(

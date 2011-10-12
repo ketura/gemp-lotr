@@ -35,7 +35,7 @@ public class Card3_010 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(

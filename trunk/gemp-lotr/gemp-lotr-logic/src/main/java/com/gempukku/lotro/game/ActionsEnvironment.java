@@ -20,6 +20,8 @@ public interface ActionsEnvironment {
 
     public List<Action> getOptionalAfterActions(String playerId, EffectResult[] effectResults);
 
+    public List<Action> getPhaseActions(String playerId);
+
     public void addUntilStartOfPhaseActionProxy(ActionProxy actionProxy, Phase phase);
 
     public void addUntilEndOfPhaseActionProxy(ActionProxy actionProxy, Phase phase);

@@ -45,7 +45,7 @@ public class Card4_067 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.type(CardType.CONDITION), Filters.hasToken(Token.ELVEN)) > 0) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(

@@ -5,7 +5,10 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -37,7 +40,7 @@ public class Card3_101 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.SAURON), Filters.type(CardType.CONDITION)) > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(

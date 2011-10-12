@@ -36,7 +36,7 @@ public class Card1_257 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 3)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.not(Filters.keyword(Keyword.RING_BEARER))));

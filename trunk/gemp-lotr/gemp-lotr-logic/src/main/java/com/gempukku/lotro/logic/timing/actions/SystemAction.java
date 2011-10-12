@@ -1,6 +1,6 @@
 package com.gempukku.lotro.logic.timing.actions;
 
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
@@ -12,8 +12,12 @@ public abstract class SystemAction implements Action {
     }
 
     @Override
-    public Keyword getType() {
+    public Phase getActionTimeword() {
         return null;
+    }
+
+    @Override
+    public void setActionTimeword(Phase phase) {
     }
 
     @Override

@@ -6,7 +6,10 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -72,7 +75,7 @@ public class Card4_033 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
                         @Override

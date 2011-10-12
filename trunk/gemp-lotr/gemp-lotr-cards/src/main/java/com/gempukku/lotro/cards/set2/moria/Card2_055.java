@@ -46,14 +46,14 @@ public class Card2_055 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId)))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId))) {
                         @Override
                         protected void cardSelected(PhysicalCard card) {
                             int siteNumber = card.getBlueprint().getSiteNumber();
                             if (Filters.filter(game.getGameState().getAdventureDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(siteNumber), Filters.or(Filters.keyword(Keyword.MARSH), Filters.keyword(Keyword.UNDERGROUND))).size() > 0) {
-                                ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+                                ActivateCardAction action = new ActivateCardAction(self);
                                 action.appendEffect(
                                         new PlaySiteEffect(playerId, Block.FELLOWSHIP, siteNumber));
                             }

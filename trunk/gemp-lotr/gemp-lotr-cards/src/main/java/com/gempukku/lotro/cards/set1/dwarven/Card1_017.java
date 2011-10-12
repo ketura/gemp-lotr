@@ -38,7 +38,7 @@ public class Card1_017 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
 
             Collection<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), Filters.type(CardType.EVENT));

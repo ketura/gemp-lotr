@@ -4,7 +4,10 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -41,7 +44,7 @@ public class Card1_309 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
             PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Sam"));
             if (sam != null) {

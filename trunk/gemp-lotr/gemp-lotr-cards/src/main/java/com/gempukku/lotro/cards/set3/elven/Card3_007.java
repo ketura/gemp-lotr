@@ -47,7 +47,7 @@ public class Card3_007 extends AbstractCompanion {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new ChooseAndDiscardCardsFromHandEffect(action, playerId, 3));
                 action.appendEffect(

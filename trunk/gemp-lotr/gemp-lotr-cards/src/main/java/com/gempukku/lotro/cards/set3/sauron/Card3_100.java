@@ -5,7 +5,10 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -36,7 +39,7 @@ public class Card3_100 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.SAURON), Filters.type(CardType.CONDITION)) > 0) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.SAURON), Filters.type(CardType.CONDITION)));
             action.appendEffect(

@@ -48,7 +48,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-        SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+        SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++)
             subAction.appendEffect(new HealCharactersEffect(_playerId, Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);

@@ -36,7 +36,7 @@ public class Card1_275 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER))
                 && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.type(CardType.EVENT), Filters.keyword(Keyword.STEALTH)))) {
-            ActivateCardAction action = new ActivateCardAction(self, null);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER)));
             action.appendEffect(

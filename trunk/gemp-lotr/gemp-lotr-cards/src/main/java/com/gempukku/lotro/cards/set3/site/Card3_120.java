@@ -33,7 +33,7 @@ public class Card3_120 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 4
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)));
             action.appendEffect(

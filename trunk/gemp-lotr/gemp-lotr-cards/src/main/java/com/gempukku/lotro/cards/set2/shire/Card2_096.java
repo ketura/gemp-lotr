@@ -35,7 +35,7 @@ public class Card2_096 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.TALE))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(

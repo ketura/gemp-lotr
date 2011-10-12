@@ -20,7 +20,7 @@ public class ChooseAndReturnCardsToHandEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-        SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+        SubAction subAction = new SubAction(_action);
         subAction.appendEffect(new ReturnCardsToHandEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);
     }

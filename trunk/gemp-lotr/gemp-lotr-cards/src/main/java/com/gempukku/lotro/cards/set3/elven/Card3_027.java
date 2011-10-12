@@ -40,7 +40,7 @@ public class Card3_027 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendCost(

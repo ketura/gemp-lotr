@@ -33,7 +33,7 @@ public class Card4_146 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 0)
                 && PlayConditions.canSpot(game, 2, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.ARCHER))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new AllyParticipatesInArcheryFireModifier(self, Filters.type(CardType.ALLY)), Phase.ARCHERY));

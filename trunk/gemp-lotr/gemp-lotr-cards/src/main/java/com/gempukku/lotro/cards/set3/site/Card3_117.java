@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
@@ -35,8 +36,7 @@ public class Card3_117 extends AbstractSite {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
                         PhysicalCard source = action.getActionSource();
-                        if (source != null && source.getBlueprint().getCardType() == CardType.EVENT
-                                && modifiersQuerying.hasKeyword(gameState, source, Keyword.MANEUVER))
+                        if (source != null && action.getActionTimeword() == Phase.MANEUVER && source.getBlueprint().getCardType() == CardType.EVENT)
                             return false;
                         return result;
                     }

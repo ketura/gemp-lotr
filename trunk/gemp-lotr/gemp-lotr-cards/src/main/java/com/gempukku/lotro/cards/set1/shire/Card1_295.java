@@ -87,7 +87,7 @@ public class Card1_295 extends AbstractAlly {
                 && game.getGameState().getSite(1).getBlueprint().getSiteBlock() == Block.FELLOWSHIP
                 && !game.getGameState().getSite(1).getOwner().equals(playerId)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(new PlaySiteEffect(playerId, Block.FELLOWSHIP, 1));
             actions.add(action);

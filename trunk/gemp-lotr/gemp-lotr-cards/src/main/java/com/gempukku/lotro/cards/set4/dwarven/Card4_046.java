@@ -52,7 +52,7 @@ public class Card4_046 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF))
                 && game.getGameState().getDeck(playerId).size() > 0) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(playerId));
             action.appendEffect(

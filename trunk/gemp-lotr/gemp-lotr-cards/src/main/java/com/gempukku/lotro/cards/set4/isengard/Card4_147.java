@@ -60,10 +60,7 @@ public class Card4_147 extends AbstractPermanent {
                             return result;
                         if (gameState.getCurrentPhase() != Phase.ARCHERY)
                             return result;
-                        if (action.getType() == Keyword.ARCHERY)
-                            return false;
-                        final PhysicalCard actionSource = action.getActionSource();
-                        if (actionSource != null && actionSource.getBlueprint().getCardType() == CardType.EVENT && modifiersQuerying.hasKeyword(gameState, actionSource, Keyword.ARCHERY))
+                        if (action.getActionTimeword() == Phase.ARCHERY)
                             return false;
 
                         return result;

@@ -38,7 +38,7 @@ public class Card1_233 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId)))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(

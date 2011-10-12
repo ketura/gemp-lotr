@@ -53,7 +53,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
         final boolean success = hand.size() >= _minimum;
 
         if (hand.size() <= _minimum) {
-            SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+            SubAction subAction = new SubAction(_action);
             for (PhysicalCard card : hand)
                 subAction.appendEffect(new StackCardFromHandEffect(_action.getActionSource(), card));
             game.getActionsEnvironment().addActionToStack(subAction);
@@ -63,7 +63,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                            SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+                            SubAction subAction = new SubAction(_action);
                             for (PhysicalCard card : cards)
                                 subAction.appendEffect(new StackCardFromHandEffect(_action.getActionSource(), card));
                             game.getActionsEnvironment().addActionToStack(subAction);

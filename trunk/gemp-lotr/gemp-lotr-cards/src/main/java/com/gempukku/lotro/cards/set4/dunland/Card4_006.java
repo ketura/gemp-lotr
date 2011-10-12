@@ -33,7 +33,7 @@ public class Card4_006 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)
                 && game.getGameState().getMoveCount() > 1
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN), Filters.playable(game, 2)).size() > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN))));

@@ -7,7 +7,10 @@ import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -81,7 +84,7 @@ public class Card4_173 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Saruman's Staff"))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(

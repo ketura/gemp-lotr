@@ -39,7 +39,7 @@ public class Card1_045 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.playable(game, -1000)).size() > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.race(Race.ELF), -1000));

@@ -58,7 +58,7 @@ public class Card4_071 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.sameCard(self)), Filters.race(Race.ELF))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(

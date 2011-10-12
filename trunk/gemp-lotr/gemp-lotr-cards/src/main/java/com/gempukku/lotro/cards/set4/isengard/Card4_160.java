@@ -40,7 +40,7 @@ public class Card4_160 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 2)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(

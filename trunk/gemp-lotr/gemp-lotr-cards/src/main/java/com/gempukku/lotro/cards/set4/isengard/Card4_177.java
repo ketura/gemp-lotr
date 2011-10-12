@@ -50,7 +50,7 @@ public class Card4_177 extends AbstractAttachable {
                 && self.getAttachedTo().getBlueprint().getName().equals("Ugluk")
                 && PlayConditions.canExert(self, game, Filters.name("Ugluk"))
                 && PlayConditions.canPlayFromHand(playerId, game, -3, Filters.type(CardType.MINION))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Ugluk")));
             action.appendCost(

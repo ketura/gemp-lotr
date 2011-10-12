@@ -36,7 +36,7 @@ public class Card1_070 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose GANDALF event", game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.GANDALF), Filters.type(CardType.EVENT)), 1, 1) {

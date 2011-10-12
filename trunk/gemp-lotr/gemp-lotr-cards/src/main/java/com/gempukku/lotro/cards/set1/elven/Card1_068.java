@@ -41,7 +41,7 @@ public class Card1_068 extends AbstractAttachable {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.ARCHER)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {

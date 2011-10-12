@@ -68,7 +68,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Map<PhysicalCard, List<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                            ActivateCardAction action = new ActivateCardAction(null, null);
+                            ActivateCardAction action = new ActivateCardAction(null);
                             action.appendEffect(
                                     new AssignmentEffect(_playerId, assignments, "Shadow player assignments"));
 

@@ -40,7 +40,7 @@ public class Card2_077 extends AbstractPermanent {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(woundedCards, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new RemoveTwilightEffect(1));
                 action.appendEffect(

@@ -55,7 +55,7 @@ public class Card4_063 extends AbstractAttachableFPPossession {
                 Collection<PhysicalCard> discardedPossesions = Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(),
                         Filters.type(CardType.POSSESSION), Filters.not(Filters.sameCard(self)), Filters.attachedTo(Filters.hasAttached(self)));
 
-                final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new DiscardCardsFromPlayEffect(self, self));
                 action.appendEffect(

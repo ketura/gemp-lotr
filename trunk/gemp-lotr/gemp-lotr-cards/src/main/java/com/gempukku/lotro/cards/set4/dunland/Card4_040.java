@@ -38,7 +38,7 @@ public class Card4_040 extends AbstractMinion {
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.not(Filters.sameCard(self)), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)))
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(

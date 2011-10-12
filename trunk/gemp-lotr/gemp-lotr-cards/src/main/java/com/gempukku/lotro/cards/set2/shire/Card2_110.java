@@ -3,7 +3,10 @@ package com.gempukku.lotro.cards.set2.shire;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,7 +37,7 @@ public class Card2_110 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Gandalf"), Filters.name("Aragorn")), Filters.playable(game, -2)).size() > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.or(Filters.name("Gandalf"), Filters.name("Aragorn")), -2));
             return Collections.singletonList(action);

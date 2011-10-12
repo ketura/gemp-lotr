@@ -81,7 +81,7 @@ public class Card3_068 extends AbstractMinion {
         if (PlayConditions.isGettingWounded(effect, game, Filters.race(Race.URUK_HAI))
                 && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

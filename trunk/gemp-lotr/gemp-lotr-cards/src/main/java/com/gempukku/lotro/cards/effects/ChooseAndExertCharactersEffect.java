@@ -39,7 +39,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected final void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-        SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+        SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++) {
             subAction.appendEffect(new ExertCharactersEffect(_action.getActionSource(), Filters.in(characters)));
         }

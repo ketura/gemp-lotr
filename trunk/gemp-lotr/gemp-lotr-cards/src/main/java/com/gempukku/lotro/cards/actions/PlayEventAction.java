@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.actions;
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
 import com.gempukku.lotro.cards.effects.RemoveCardFromZoneEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -53,11 +52,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     @Override
     public PhysicalCard getActionSource() {
         return _source;
-    }
-
-    @Override
-    public Keyword getType() {
-        return null;
     }
 
     @Override

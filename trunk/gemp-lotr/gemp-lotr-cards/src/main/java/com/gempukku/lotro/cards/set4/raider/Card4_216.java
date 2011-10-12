@@ -48,7 +48,7 @@ public class Card4_216 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 0)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
+            ActivateCardAction action = new ActivateCardAction(self);
             int count = game.getGameState().getTokenCount(self, Token.RAIDER);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, count, count, Filters.culture(Culture.RAIDER), Filters.keyword(Keyword.ARCHER)));

@@ -49,7 +49,7 @@ public class Card4_133 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(

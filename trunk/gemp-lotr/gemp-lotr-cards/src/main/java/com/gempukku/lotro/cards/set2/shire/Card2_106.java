@@ -39,7 +39,7 @@ public class Card2_106 extends AbstractPermanent {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new DiscardCardsFromPlayEffect(self));
                 action.appendEffect(

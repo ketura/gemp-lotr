@@ -35,7 +35,7 @@ public class Card1_349 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            ActivateCardAction action = new ActivateCardAction(self);
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Balrog"), Filters.playable(game, -6)).size() > 0) {

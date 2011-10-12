@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -30,7 +29,7 @@ public class Card1_325 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.FELLOWSHIP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Gandalf's Cart")));
 

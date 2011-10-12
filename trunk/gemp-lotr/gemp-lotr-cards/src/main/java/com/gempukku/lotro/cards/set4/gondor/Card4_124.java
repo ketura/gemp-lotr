@@ -38,7 +38,7 @@ public class Card4_124 extends AbstractPermanent {
                 Filters.or(
                         Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion()),
                         Filters.and(Filters.culture(Culture.ROHAN), Filters.type(CardType.COMPANION))))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(
                             Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion()),

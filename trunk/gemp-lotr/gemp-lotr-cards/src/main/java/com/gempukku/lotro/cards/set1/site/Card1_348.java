@@ -34,7 +34,7 @@ public class Card1_348 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION))
                 && self.getData() == null) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.keyword(Keyword.WEATHER)));
             return Collections.singletonList(action);

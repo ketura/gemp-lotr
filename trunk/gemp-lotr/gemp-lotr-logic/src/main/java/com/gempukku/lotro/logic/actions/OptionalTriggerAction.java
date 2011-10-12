@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.actions;
 
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -14,11 +13,6 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
 
     public OptionalTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
-    }
-
-    @Override
-    public Keyword getType() {
-        return null;
     }
 
     @Override

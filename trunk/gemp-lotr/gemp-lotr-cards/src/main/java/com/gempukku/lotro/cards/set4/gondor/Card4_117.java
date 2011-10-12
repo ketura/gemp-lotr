@@ -44,12 +44,8 @@ public class Card4_117 extends AbstractCompanion {
                             return result;
                         if (performingPlayer != null && performingPlayer.equals(self.getOwner()))
                             return result;
-                        if (action.getType() == Keyword.SKIRMISH)
+                        if (action.getActionTimeword() == Phase.SKIRMISH)
                             return false;
-                        if (action.getActionSource() != null && action.getActionSource().getBlueprint().getCardType() == CardType.EVENT) {
-                            if (modifiersQuerying.hasKeyword(gameState, action.getActionSource(), Keyword.SKIRMISH))
-                                return false;
-                        }
                         return result;
                     }
                 });

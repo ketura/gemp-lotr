@@ -52,7 +52,7 @@ public class Card1_216 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && self.getZone() == Zone.SUPPORT) {
-            ActivateCardAction action = new ActivateCardAction(self, null);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             Skirmish skirmish = game.getGameState().getSkirmish();

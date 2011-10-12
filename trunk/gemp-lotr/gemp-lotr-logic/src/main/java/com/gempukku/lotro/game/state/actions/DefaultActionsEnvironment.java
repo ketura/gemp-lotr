@@ -10,6 +10,8 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromStackedVisitor;
+import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsVisitor;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -164,6 +166,31 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         }
 
         return result;
+    }
+
+    @Override
+    public List<Action> getPhaseActions(String playerId) {
+        GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_lotroGame, playerId);
+        _lotroGame.getGameState().iterateActivableCards(playerId, visitor);
+
+        GatherPlayableActionsFromStackedVisitor stackedVisitor = new GatherPlayableActionsFromStackedVisitor(_lotroGame, playerId);
+        _lotroGame.getGameState().iterateStackedActivableCards(playerId, stackedVisitor);
+
+        List<Action> playableActions = new LinkedList<Action>();
+
+        for (Action action : visitor.getActions()) {
+            action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+                playableActions.add(action);
+        }
+
+        for (Action action : stackedVisitor.getActions()) {
+            action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+                playableActions.add(action);
+        }
+
+        return playableActions;
     }
 
     @Override

@@ -50,7 +50,7 @@ public class Card4_118 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.hasAttached(self))
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Filters.hasAttached(self)), Filters.or(Filters.race(Race.MAN), Filters.keyword(Keyword.ROAMING))) > 0) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(

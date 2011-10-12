@@ -51,7 +51,7 @@ public class Card1_173 extends AbstractPermanent {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self, null);
+                final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new DiscardCardsFromPlayEffect(self, self));
                 action.appendEffect(
