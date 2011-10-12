@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.actions;
 
 import com.gempukku.lotro.cards.effects.*;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -51,11 +50,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
     @Override
     public PhysicalCard getActionSource() {
         return _source;
-    }
-
-    @Override
-    public Keyword getType() {
-        return null;
     }
 
     @Override

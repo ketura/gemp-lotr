@@ -5,10 +5,7 @@ import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
-import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromStackedVisitor;
-import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsVisitor;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProcess {
@@ -26,21 +23,7 @@ public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProces
 
     @Override
     public void process() {
-        GatherPlayableActionsVisitor visitor = new GatherPlayableActionsVisitor(_game, _playerId);
-        _game.getGameState().iterateActivableCards(_playerId, visitor);
-
-        GatherPlayableActionsFromStackedVisitor stackedVisitor = new GatherPlayableActionsFromStackedVisitor(_game, _playerId);
-        _game.getGameState().iterateStackedActivableCards(_playerId, stackedVisitor);
-
-        List<Action> playableActions = new LinkedList<Action>();
-
-        for (Action action : visitor.getActions())
-            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), _playerId, action))
-                playableActions.add(action);
-
-        for (Action action : stackedVisitor.getActions())
-            if (_game.getModifiersQuerying().canPlayAction(_game.getGameState(), _playerId, action))
-                playableActions.add(action);
+        final List<Action> playableActions = _game.getActionsEnvironment().getPhaseActions(_playerId);
 
         _game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new CardActionSelectionDecision(_game, 1, "Choose action to play or Pass", playableActions, true) {

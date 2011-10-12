@@ -7,7 +7,10 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -64,7 +67,7 @@ public class Card1_029 extends AbstractEvent {
 
                                                     List<Action> actions = new LinkedList<Action>();
                                                     for (String opponent : opponents) {
-                                                        ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+                                                        ActivateCardAction action = new ActivateCardAction(self);
                                                         action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent));
                                                         action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent));
                                                         actions.add(action);

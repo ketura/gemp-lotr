@@ -43,7 +43,7 @@ public class Card1_207 extends AbstractPermanent {
                 && self.getZone() == Zone.SUPPORT
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0
                 && game.getGameState().getSkirmish().getFellowshipCharacter() != null) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));
             return Collections.singletonList(action);

@@ -43,10 +43,7 @@ public class Card4_167 extends AbstractAttachable {
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
                         if (Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Filters.race(Race.URUK_HAI)).size() > 0) {
                             if (performingPlayer.equals(gameState.getCurrentPlayerId())
-                                    && gameState.getCurrentPhase() == Phase.SKIRMISH
-                                    && (action.getType() == Keyword.SKIRMISH
-                                    || (action.getActionSource().getBlueprint().getCardType() == CardType.EVENT
-                                    && modifiersQuerying.hasKeyword(gameState, action.getActionSource(), Keyword.SKIRMISH))))
+                                    && action.getActionTimeword() == Phase.SKIRMISH)
                                 return false;
                         }
                         return result;

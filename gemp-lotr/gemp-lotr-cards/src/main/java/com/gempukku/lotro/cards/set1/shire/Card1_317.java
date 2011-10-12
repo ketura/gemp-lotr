@@ -39,7 +39,7 @@ public class Card1_317 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(

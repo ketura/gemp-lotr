@@ -38,7 +38,7 @@ public class Card4_211 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canPlayFromHand(playerId, game, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.ARCHER))) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SHADOW);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.ARCHER))));
             action.appendEffect(
@@ -47,7 +47,7 @@ public class Card4_211 extends AbstractPermanent {
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 0)
                 && game.getGameState().getTokenCount(self, Token.ISENGARD) >= 2) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.ARCHERY);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.ISENGARD, 2));
             action.appendEffect(

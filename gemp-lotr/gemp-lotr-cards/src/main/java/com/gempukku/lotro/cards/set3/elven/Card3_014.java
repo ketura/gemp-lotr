@@ -3,7 +3,10 @@ package com.gempukku.lotro.cards.set3.elven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -49,7 +52,7 @@ public class Card3_014 extends AbstractAlly {
             Collection<PhysicalCard> woundSources = woundEffect.getSources();
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)).size() > 0) {
                 if (woundSources != null && Filters.filter(woundSources, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.or(Filters.type(CardType.MINION), Filters.type(CardType.EVENT))).size() > 0) {
-                    final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                    final ActivateCardAction action = new ActivateCardAction(self);
                     action.appendCost(
                             new ExertCharactersEffect(self, self));
                     action.appendEffect(

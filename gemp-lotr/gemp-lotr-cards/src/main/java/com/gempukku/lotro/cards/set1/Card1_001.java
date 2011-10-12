@@ -64,7 +64,7 @@ public class Card1_001 extends AbstractAttachable {
             if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
                 List<Action> actions = new LinkedList<Action>();
 
-                ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                ActivateCardAction action = new ActivateCardAction(self);
                 action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new AddBurdenEffect(self, 2));
                 action.appendEffect(new PutOnTheOneRingEffect());
@@ -74,7 +74,7 @@ public class Card1_001 extends AbstractAttachable {
                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                                 if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                         && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                    ActivateCardAction action = new ActivateCardAction(self, null);
+                                    ActivateCardAction action = new ActivateCardAction(self);
                                     action.appendEffect(new TakeOffTheOneRingEffect());
                                     return Collections.singletonList(action);
                                 }

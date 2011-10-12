@@ -53,7 +53,7 @@ public class Card2_089 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.type(CardType.EVENT))) {
             PlayEventEffect playEffect = (PlayEventEffect) effect;
             if (playEffect.isRequiresRanger()) {
-                ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                ActivateCardAction action = new ActivateCardAction(self);
                 List<Effect> possibleCosts = new LinkedList<Effect>();
                 possibleCosts.add(
                         new ExertCharactersEffect(self, self));

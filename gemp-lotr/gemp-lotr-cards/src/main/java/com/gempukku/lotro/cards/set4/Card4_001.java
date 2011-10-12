@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
@@ -69,7 +68,7 @@ public class Card4_001 extends AbstractAttachable {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.SKIRMISH);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddBurdenEffect(self, 1));
             action.appendEffect(
@@ -80,7 +79,7 @@ public class Card4_001 extends AbstractAttachable {
                         public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                             if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                     && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                ActivateCardAction action = new ActivateCardAction(self, null);
+                                ActivateCardAction action = new ActivateCardAction(self);
                                 action.appendEffect(new TakeOffTheOneRingEffect());
                                 return Collections.singletonList(action);
                             }

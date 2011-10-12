@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.actions;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Arrays;
@@ -10,6 +11,18 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     private LinkedList<Effect> _processedCosts = new LinkedList<Effect>();
 
     private LinkedList<Effect> _effects = new LinkedList<Effect>();
+
+    private Phase _actionTimeword;
+
+    @Override
+    public Phase getActionTimeword() {
+        return _actionTimeword;
+    }
+
+    @Override
+    public void setActionTimeword(Phase phase) {
+        _actionTimeword = phase;
+    }
 
     @Override
     public final void appendCost(Effect cost) {

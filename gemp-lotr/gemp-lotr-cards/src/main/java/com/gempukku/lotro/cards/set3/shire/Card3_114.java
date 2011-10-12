@@ -39,7 +39,7 @@ public class Card3_114 extends AbstractPermanent {
             final AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
             PhysicalCard source = addTwilightEffect.getSource();
             if (!addTwilightEffect.isFullyPrevented() && source != null && source.getBlueprint().getSide() == Side.SHADOW) {
-                ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.type(CardType.ALLY)));
                 action.appendEffect(

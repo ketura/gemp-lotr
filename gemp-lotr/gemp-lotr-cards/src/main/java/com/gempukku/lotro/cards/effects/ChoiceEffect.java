@@ -50,7 +50,7 @@ public class ChoiceEffect extends AbstractEffect {
         }
 
         if (possibleEffects.size() == 1) {
-            SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+            SubAction subAction = new SubAction(_action);
             subAction.appendEffect(possibleEffects.get(0));
             game.getActionsEnvironment().addActionToStack(subAction);
         } else {
@@ -58,7 +58,7 @@ public class ChoiceEffect extends AbstractEffect {
                     new MultipleChoiceAwaitingDecision(1, "Choose effect to use", getEffectsText(possibleEffects, game)) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
-                            SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+                            SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(possibleEffects.get(index));
                             game.getActionsEnvironment().addActionToStack(subAction);
                         }

@@ -36,7 +36,7 @@ public class Card1_236 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && game.getGameState().getBurdens() >= 4) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
+            final ActivateCardAction action = new ActivateCardAction(self);
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose a companion (except the Ring-Bearer", Filters.type(CardType.COMPANION), Filters.notAssignedToSkirmish(), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {

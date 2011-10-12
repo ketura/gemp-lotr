@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,7 +38,7 @@ public class Card3_059 extends AbstractMinion {
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 2)
                 && PlayConditions.isGettingWounded(effect, game, Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

@@ -52,7 +52,7 @@ public class Card2_047 extends AbstractMinion {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             PlayEventEffect playEffect = (PlayEventEffect) effect;
             if (playEffect.isRequiresRanger()) {
-                ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+                ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new ExertCharactersEffect(self, self));
                 action.appendEffect(

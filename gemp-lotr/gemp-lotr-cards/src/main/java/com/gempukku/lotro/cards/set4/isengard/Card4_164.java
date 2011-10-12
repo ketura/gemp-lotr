@@ -39,7 +39,7 @@ public class Card4_164 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))
                 && Filters.and(Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.ASSIGNMENT);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(

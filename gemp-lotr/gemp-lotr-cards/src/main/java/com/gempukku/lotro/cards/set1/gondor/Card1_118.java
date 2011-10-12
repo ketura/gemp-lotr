@@ -54,7 +54,7 @@ public class Card1_118 extends AbstractEvent {
                                             @Override
                                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                                                 if (PlayConditions.isWounded(effectResult, card)) {
-                                                    ActivateCardAction action = new ActivateCardAction(self, null);
+                                                    ActivateCardAction action = new ActivateCardAction(self);
                                                     action.appendEffect(
                                                             new AddUntilEndOfPhaseModifierEffect(
                                                                     new CantTakeWoundsModifier(self, Filters.sameCard(card)), Phase.SKIRMISH));

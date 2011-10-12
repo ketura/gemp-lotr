@@ -37,7 +37,7 @@ public class Card1_059 extends AbstractPermanent {
                 Filters.or(
                         Filters.race(Race.ELF),
                         Filters.race(Race.DWARF)))) {
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.MANEUVER);
+            final ActivateCardAction action = new ActivateCardAction(self);
 
             action.appendCost(new AddTwilightEffect(self, 1));
             action.appendCost(

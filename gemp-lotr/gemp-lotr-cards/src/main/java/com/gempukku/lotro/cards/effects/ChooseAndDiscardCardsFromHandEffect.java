@@ -64,7 +64,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
         final boolean success = hand.size() >= _minimum;
 
         if (hand.size() <= _minimum) {
-            SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+            SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), hand));
             game.getActionsEnvironment().addActionToStack(subAction);
             cardsBeingDiscarded(hand, success);
@@ -74,7 +74,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                            SubAction subAction = new SubAction(_action.getActionSource(), _action.getType());
+                            SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), cards));
                             game.getActionsEnvironment().addActionToStack(subAction);
                             cardsBeingDiscarded(cards, success);

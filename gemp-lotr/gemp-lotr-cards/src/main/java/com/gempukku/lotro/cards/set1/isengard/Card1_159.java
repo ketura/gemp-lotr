@@ -44,7 +44,7 @@ public class Card1_159 extends AbstractPermanent {
                 && game.getGameState().getTwilightPool() >= 3) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
 
-            final ActivateCardAction action = new ActivateCardAction(self, Keyword.RESPONSE);
+            final ActivateCardAction action = new ActivateCardAction(self);
 
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(

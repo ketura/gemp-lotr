@@ -44,7 +44,7 @@ public class Card3_061 extends AbstractMinion {
                         if (Filters.canSpot(gameState, modifiersQuerying, Filters.not(Filters.sameCard(self)), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC))) {
                             PhysicalCard actionSource = action.getActionSource();
                             if (actionSource != null
-                                    && action.getType() == Keyword.ARCHERY
+                                    && action.getActionTimeword() == Phase.ARCHERY
                                     && actionSource.getBlueprint().getCardType() != CardType.EVENT)
                                 return false;
                         }
@@ -58,7 +58,7 @@ public class Card3_061 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && game.getGameState().getWounds(Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) >= 3) {
-            ActivateCardAction action = new ActivateCardAction(self, Keyword.REGROUP);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
