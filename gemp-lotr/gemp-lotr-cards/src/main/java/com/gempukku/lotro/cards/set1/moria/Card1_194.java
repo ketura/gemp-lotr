@@ -42,7 +42,7 @@ public class Card1_194 extends AbstractResponseEvent {
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)) >= 3
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             PlayEventAction action = new PlayEventAction(self);
-            action.appendEffect(new CancelEventEffect(playerId, (PlayEventEffect) effect));
+            action.appendEffect(new CancelEventEffect(self, (PlayEventEffect) effect));
             return Collections.singletonList(action);
         }
         return null;

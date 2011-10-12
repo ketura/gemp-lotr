@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
+import com.gempukku.lotro.logic.effects.SendPlayEventMessageEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -37,6 +38,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
         preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable()));
+        preCostEffects.add(new SendPlayEventMessageEffect(card));
         preCostEffects.add(new RemoveCardFromZoneEffect(card));
         appendCost(new PayTwilightCostEffect(card));
         if (card.getZone() == Zone.DECK)

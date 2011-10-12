@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.effects;
 
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
@@ -45,8 +44,6 @@ public class PlayCardEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (_cardPlayed.getBlueprint().getCardType() == CardType.EVENT)
-            game.getGameState().eventPlayed(_cardPlayed);
         return new FullEffectResult(new EffectResult[]{new PlayCardResult(_cardPlayed, _attachedToCard)}, true, true);
     }
 }

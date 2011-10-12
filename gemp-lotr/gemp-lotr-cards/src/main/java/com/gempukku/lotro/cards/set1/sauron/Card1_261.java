@@ -50,7 +50,7 @@ public class Card1_261 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new CancelEventEffect(playerId, (PlayEventEffect) effect));
+                    new CancelEventEffect(self, (PlayEventEffect) effect));
             return Collections.singletonList(action);
         }
         return null;

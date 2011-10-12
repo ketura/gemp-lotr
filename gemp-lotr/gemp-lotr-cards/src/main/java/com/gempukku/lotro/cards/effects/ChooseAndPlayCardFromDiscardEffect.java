@@ -6,13 +6,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChooseAndPlayCardFromDiscardEffect extends UnrespondableEffect {
+public class ChooseAndPlayCardFromDiscardEffect extends AbstractEffect {
     private String _playerId;
     private Filter _filter;
     private int _twilightModifier;
@@ -34,18 +35,36 @@ public class ChooseAndPlayCardFromDiscardEffect extends UnrespondableEffect {
     }
 
     @Override
-    public void doPlayEffect(final LotroGame game) {
-        Collection<PhysicalCard> discard = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
-        game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(discard), 1, 1) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                        if (selectedCards.size() > 0) {
-                            PhysicalCard selectedCard = selectedCards.get(0);
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
+    public boolean isPlayableInFull(LotroGame game) {
+        return getPlayableInDiscard(game).size() > 0;
+    }
+
+    @Override
+    public EffectResult.Type getType() {
+        return null;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(final LotroGame game) {
+        Collection<PhysicalCard> discard = getPlayableInDiscard(game);
+        if (discard.size() > 0) {
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(discard), 1, 1) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            if (selectedCards.size() > 0) {
+                                PhysicalCard selectedCard = selectedCards.get(0);
+                                game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
+                            }
                         }
-                    }
-                });
+                    });
+            return new FullEffectResult(null, true, true);
+        }
+        return new FullEffectResult(null, false, false);
+    }
+
+    private Collection<PhysicalCard> getPlayableInDiscard(LotroGame game) {
+        return Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
     }
 }

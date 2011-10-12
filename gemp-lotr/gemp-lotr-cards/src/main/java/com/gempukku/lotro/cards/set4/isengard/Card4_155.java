@@ -47,7 +47,7 @@ public class Card4_155 extends AbstractResponseEvent {
                 action.appendCost(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Grima")));
                 action.appendEffect(
-                        new CancelActivatedEffect(playerId, activateEffect));
+                        new CancelActivatedEffect(self, activateEffect));
                 return Collections.singletonList(action);
             }
         }
