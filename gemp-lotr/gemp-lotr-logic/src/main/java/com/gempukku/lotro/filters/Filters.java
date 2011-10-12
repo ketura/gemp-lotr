@@ -272,6 +272,17 @@ public class Filters {
         };
     }
 
+    public static Filter isAllyHome(final int siteNumber, final Block siteBlock) {
+        return Filters.and(
+                Filters.type(CardType.ALLY),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return physicalCard.getBlueprint().isAllyAtHome(siteNumber, siteBlock);
+                    }
+                });
+    }
+
     public static Filter isAllyAtHome() {
         return Filters.and(
                 Filters.type(CardType.ALLY),

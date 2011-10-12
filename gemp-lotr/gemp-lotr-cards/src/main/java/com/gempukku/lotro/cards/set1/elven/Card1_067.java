@@ -35,7 +35,7 @@ public class Card1_067 extends AbstractAlly {
     }
 
     private Filter getFilter(PhysicalCard self) {
-        return Filters.and(Filters.type(CardType.SITE), Filters.owner(self.getOwner()), Filters.siteNumber(3), Filters.siteBlock(Block.FELLOWSHIP));
+        return Filters.and(Filters.type(CardType.SITE), Filters.owner(self.getOwner()), Filters.siteNumber(6), Filters.siteBlock(Block.FELLOWSHIP));
     }
 
     private LotroCardBlueprint getCopied(LotroGame game, PhysicalCard self) {

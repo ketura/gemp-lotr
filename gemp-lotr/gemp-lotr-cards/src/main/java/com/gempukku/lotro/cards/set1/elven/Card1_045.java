@@ -53,7 +53,7 @@ public class Card1_045 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.siteBlock(Block.FELLOWSHIP))));
+                    new HealCharactersEffect(self.getOwner(), Filters.and(Filters.type(CardType.ALLY), Filters.isAllyHome(6, Block.FELLOWSHIP))));
 
             return Collections.singletonList(action);
         }
