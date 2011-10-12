@@ -74,7 +74,7 @@ public class Card4_159 extends AbstractAttachable {
                         protected void forEachCardExertedCallback(PhysicalCard minion) {
                             action.appendEffect(
                                     new PreventableEffect(action,
-                                            new AssignmentEffect(playerId, self.getAttachedTo(), Collections.singletonList(minion), "Assigned by card effect"),
+                                            new AssignmentEffect(playerId, self.getAttachedTo(), Collections.singletonList(minion)),
                                             game.getGameState().getCurrentPlayerId(),
                                             new ExertCharactersEffect(self, self.getAttachedTo())));
                         }

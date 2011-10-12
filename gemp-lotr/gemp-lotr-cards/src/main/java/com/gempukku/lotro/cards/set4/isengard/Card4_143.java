@@ -53,7 +53,7 @@ public class Card4_143 extends AbstractEvent {
                                     @Override
                                     protected void cardSelected(PhysicalCard companion) {
                                         Race race = companion.getBlueprint().getRace();
-                                        AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, companion, Collections.singletonList(minion), "Assigned with Brought Back Alive");
+                                        AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, companion, Collections.singletonList(minion));
                                         if (race == Race.HOBBIT) {
                                             action.insertEffect(
                                                     assignmentEffect);

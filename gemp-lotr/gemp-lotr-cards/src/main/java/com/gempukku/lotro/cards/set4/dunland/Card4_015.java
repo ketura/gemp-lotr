@@ -55,7 +55,7 @@ public class Card4_015 extends AbstractMinion {
                         @Override
                         protected void cardSelected(PhysicalCard ally) {
                             action.appendEffect(
-                                    new AssignmentEffect(playerId, ally, Collections.singletonList(self), "Dunlending Ravager effect"));
+                                    new AssignmentEffect(playerId, ally, Collections.singletonList(self)));
                         }
                     });
             return Collections.singletonList(action);

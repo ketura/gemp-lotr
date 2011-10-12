@@ -49,7 +49,7 @@ public class Card1_262 extends AbstractMinion {
                     new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.notAssignedToSkirmish(), Filters.type(CardType.COMPANION), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(PhysicalCard hobbit) {
-                            action.appendEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self), "Orc Assassin effect"));
+                            action.appendEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, Collections.singletonList(self)));
                         }
                     });
             return Collections.singletonList(action);

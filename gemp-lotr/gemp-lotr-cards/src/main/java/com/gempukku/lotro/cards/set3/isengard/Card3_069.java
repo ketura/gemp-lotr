@@ -92,7 +92,7 @@ public class Card3_069 extends AbstractMinion {
                                             action.appendEffect(
                                                     new PreventableEffect(
                                                             action,
-                                                            new AssignmentEffect(playerId, companion, Collections.singletonList(minion), "Assign " + minion.getBlueprint().getName() + " to skirmish " + companion.getBlueprint().getName()),
+                                                            new AssignmentEffect(playerId, companion, Collections.singletonList(minion)),
                                                             Collections.singletonList(game.getGameState().getCurrentPlayerId()),
                                                             new ExertCharactersEffect(self, companion)));
                                         }
