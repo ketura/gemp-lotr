@@ -115,14 +115,14 @@ public class Filters {
         };
     }
 
-    public static Filter inSkirmishAgainst(final Filter againstFilter) {
+    public static Filter inSkirmishAgainst(final Filter... againstFilter) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 Skirmish skirmish = gameState.getSkirmish();
                 if (skirmish != null && skirmish.getFellowshipCharacter() != null) {
                     return (skirmish.getFellowshipCharacter() == physicalCard && Filters.filter(skirmish.getShadowCharacters(), gameState, modifiersQuerying, againstFilter).size() > 0)
-                            || (skirmish.getShadowCharacters().contains(physicalCard) && againstFilter.accepts(gameState, modifiersQuerying, skirmish.getFellowshipCharacter()));
+                            || (skirmish.getShadowCharacters().contains(physicalCard) && Filters.and(againstFilter).accepts(gameState, modifiersQuerying, skirmish.getFellowshipCharacter()));
                 }
                 return false;
             }
