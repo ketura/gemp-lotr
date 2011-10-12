@@ -38,10 +38,10 @@ public class Card1_349 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Balrog"), Filters.playable(game, -6)).size() > 0) {
+            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"), Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.name("Balrog"), -6));
+                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.name("The Balrog"), -6));
             }
 
             // Play from deck

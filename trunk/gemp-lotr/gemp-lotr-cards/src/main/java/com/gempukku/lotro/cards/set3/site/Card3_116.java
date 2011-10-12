@@ -26,7 +26,7 @@ public class Card3_116 extends AbstractSite {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && game.getGameState().getCurrentSite() == this) {
+                && game.getGameState().getCurrentSite() == self) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddBurdenEffect(self, 1));
