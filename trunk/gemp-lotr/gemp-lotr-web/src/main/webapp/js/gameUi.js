@@ -532,10 +532,8 @@ var GempLotrGameUI = Class.extend({
             this.layoutUI(false);
 
         var skirmish = element.getElementsByTagName("skirmish");
-        if (skirmish.length > 0) {
-            this.fpStrengthDiv.text(skirmish[0].getAttribute("fpStrength"));
-            this.shadowStrengthDiv.text(skirmish[0].getAttribute("shadowStrength"));
-        }
+        if (skirmish.length > 0)
+            this.animations.showSkirmishValues(skirmish);
 
         if (this.allPlayerIds != null) {
             var clocks = element.getElementsByTagName("clocks")[0].getElementsByTagName("clock");
@@ -558,28 +556,9 @@ var GempLotrGameUI = Class.extend({
         var decisions = element.getElementsByTagName("decision");
         if (decisions.length == 1) {
             var decision = decisions[0];
-            var decisionType = decision.getAttribute("type");
-            if (decisionType == "INTEGER") {
-                this.integerDecision(decision);
-            } else if (decisionType == "MULTIPLE_CHOICE") {
-                this.multipleChoiceDecision(decision);
-            } else if (decisionType == "ARBITRARY_CARDS") {
-                this.arbitraryCardsDecision(decision);
-            } else if (decisionType == "ACTION_CHOICE") {
-                this.actionChoiceDecision(decision);
-            } else if (decisionType == "CARD_ACTION_CHOICE") {
-                this.cardActionChoiceDecision(decision);
-            } else if (decisionType == "CARD_SELECTION") {
-                this.cardSelectionDecision(decision);
-            } else if (decisionType == "ASSIGN_MINIONS") {
-                this.assignMinionsDecision(decision);
-            }
+            this.animations.processDecision(decision);
         } else {
-            var that = this;
-            setTimeout(
-                    function() {
-                        that.updateGameState();
-                    }, 1000);
+            this.animations.updateGameState();
         }
     },
 

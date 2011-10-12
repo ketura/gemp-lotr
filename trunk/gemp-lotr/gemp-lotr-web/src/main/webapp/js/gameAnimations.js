@@ -390,6 +390,38 @@ var GameAnimations = Class.extend({
             this.game.chatBox.appendMessage(message, "warningMessage");
     },
 
+    showSkirmishValues: function(skirmish) {
+        this.game.fpStrengthDiv.text(skirmish[0].getAttribute("fpStrength"));
+        this.game.shadowStrengthDiv.text(skirmish[0].getAttribute("shadowStrength"));
+    },
+
+    processDecision: function(decision) {
+        var decisionType = decision.getAttribute("type");
+        if (decisionType == "INTEGER") {
+            this.game.integerDecision(decision);
+        } else if (decisionType == "MULTIPLE_CHOICE") {
+            this.game.multipleChoiceDecision(decision);
+        } else if (decisionType == "ARBITRARY_CARDS") {
+            this.game.arbitraryCardsDecision(decision);
+        } else if (decisionType == "ACTION_CHOICE") {
+            this.game.actionChoiceDecision(decision);
+        } else if (decisionType == "CARD_ACTION_CHOICE") {
+            this.game.cardActionChoiceDecision(decision);
+        } else if (decisionType == "CARD_SELECTION") {
+            this.game.cardSelectionDecision(decision);
+        } else if (decisionType == "ASSIGN_MINIONS") {
+            this.game.assignMinionsDecision(decision);
+        }
+    },
+
+    updateGameState: function() {
+        var that = this;
+        setTimeout(
+                function() {
+                    that.game.updateGameState();
+                }, 1000);
+    },
+
     windowResized: function() {
         var that = this;
         $("#main").queue(

@@ -25,6 +25,6 @@ public class Card1_352 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.type(CardType.ALLY), Filters.siteNumber(6), Filters.siteBlock(Block.FELLOWSHIP)), 3);
+        return new StrengthModifier(self, Filters.and(Filters.type(CardType.ALLY), Filters.isAllyHome(6, Block.FELLOWSHIP)), 3);
     }
 }

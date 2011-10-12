@@ -40,7 +40,7 @@ public class Card3_013 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.siteNumber(3), Filters.siteBlock(Block.FELLOWSHIP)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.isAllyHome(3, Block.FELLOWSHIP)) {
                         @Override
                         protected void cardSelected(PhysicalCard ally) {
                             action.insertEffect(

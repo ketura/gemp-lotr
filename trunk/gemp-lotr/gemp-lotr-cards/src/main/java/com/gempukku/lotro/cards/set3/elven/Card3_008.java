@@ -36,8 +36,7 @@ public class Card3_008 extends AbstractCompanion {
                                 Filters.and(
                                         Filters.culture(Culture.ELVEN),
                                         Filters.type(CardType.ALLY),
-                                        Filters.siteNumber(3),
-                                        Filters.siteBlock(Block.FELLOWSHIP)
+                                        Filters.isAllyHome(3, Block.FELLOWSHIP)
                                 ), 3), -3));
     }
 }
