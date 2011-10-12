@@ -483,60 +483,53 @@ var GempLotrGameUI = Class.extend({
     processGameEventsXml: function(element) {
         var gameEvents = element.getElementsByTagName("gameEvent");
 
-        // First the non-animation things
+        // Go through all the events 
         for (var i = 0; i < gameEvents.length; i++) {
             var gameEvent = gameEvents[i];
             var eventType = gameEvent.getAttribute("type");
             if (eventType == "PUT_CARD_IN_PLAY") {
-                this.putCardInPlay(gameEvent);
+                this.animations.putCardInPlay(gameEvent);
             } else if (eventType == "MOVE_CARD_IN_PLAY") {
-                this.moveCardInPlay(gameEvent);
+                this.animations.moveCardInPlay(gameEvent);
             } else if (eventType == "PARTICIPANT") {
                 this.participant(gameEvent);
             } else if (eventType == "REMOVE_CARD_FROM_PLAY") {
-                this.removeCardFromPlay(gameEvent);
+                this.animations.removeCardFromPlay(gameEvent);
             } else if (eventType == "GAME_PHASE_CHANGE") {
-                this.gamePhaseChange(gameEvent);
+                this.animations.gamePhaseChange(gameEvent);
             } else if (eventType == "TWILIGHT_POOL") {
-                this.twilightPool(gameEvent);
+                this.animations.twilightPool(gameEvent);
             } else if (eventType == "TURN_CHANGE") {
-                this.turnChange(gameEvent);
+                this.animations.turnChange(gameEvent);
             } else if (eventType == "ADD_ASSIGNMENT") {
-                this.addAssignment(gameEvent);
+                this.animations.addAssignment(gameEvent);
             } else if (eventType == "REMOVE_ASSIGNMENT") {
-                this.removeAssignment(gameEvent);
+                this.animations.removeAssignment(gameEvent);
             } else if (eventType == "START_SKIRMISH") {
-                this.startSkirmish(gameEvent);
+                this.animations.startSkirmish(gameEvent);
             } else if (eventType == "END_SKIRMISH") {
-                this.endSkirmish();
+                this.animations.endSkirmish();
             } else if (eventType == "ADD_TOKENS") {
-                this.addTokens(gameEvent);
+                this.animations.addTokens(gameEvent);
             } else if (eventType == "REMOVE_TOKENS") {
-                this.removeTokens(gameEvent);
+                this.animations.removeTokens(gameEvent);
             } else if (eventType == "PLAYER_POSITION") {
-                this.playerPosition(gameEvent);
+                this.animations.playerPosition(gameEvent);
             } else if (eventType == "ZONE_SIZE") {
-                this.zoneSize(gameEvent);
+                this.animations.zoneSize(gameEvent);
             } else if (eventType == "MESSAGE") {
-                this.message(gameEvent);
+                this.animations.message(gameEvent);
             } else if (eventType == "WARNING") {
-                this.warning(gameEvent);
-            }
-        }
-
-        if (gameEvents.length > 0)
-            this.layoutUI(false);
-
-        // Then the strictly animation events
-        for (var i = 0; i < gameEvents.length; i++) {
-            var gameEvent = gameEvents[i];
-            var eventType = gameEvent.getAttribute("type");
-            if (eventType == "CARD_AFFECTS_CARD") {
+                this.animations.warning(gameEvent);
+            } else if (eventType == "CARD_AFFECTS_CARD") {
                 this.animations.cardAffectsCard(gameEvent);
             } else if (eventType == "EVENT_PLAYED") {
                 this.animations.eventPlayed(gameEvent);
             }
         }
+
+        if (gameEvents.length > 0)
+            this.layoutUI(false);
 
         var skirmish = element.getElementsByTagName("skirmish");
         if (skirmish.length > 0) {
@@ -595,201 +588,6 @@ var GempLotrGameUI = Class.extend({
             if (this.allPlayerIds[plId] == playerId)
                 return plId;
         return -1;
-    },
-
-    zoneSize: function(element) {
-        var playerId = element.getAttribute("participantId");
-        var zone = element.getAttribute("zone");
-        var count = element.getAttribute("count");
-
-        if (zone == "HAND")
-            $("#hand" + this.getPlayerIndex(playerId)).text("Hand: " + count);
-        else if (zone == "DISCARD")
-            $("#discard" + this.getPlayerIndex(playerId)).text("Discard: " + count);
-        else if (zone == "DEAD")
-                $("#deadPile" + this.getPlayerIndex(playerId)).text("Dead pile: " + count);
-            else if (zone == "DECK")
-                    $("#deck" + this.getPlayerIndex(playerId)).text("Deck: " + count);
-    },
-
-    playerPosition: function(element) {
-        var participantId = element.getAttribute("participantId");
-        var position = element.getAttribute("index");
-
-        if (this.playerPositions == null)
-            this.playerPositions = new Array();
-
-        var index = this.getPlayerIndex(participantId);
-        this.playerPositions[index] = position;
-
-        this.advPathGroup.setPositions(this.playerPositions);
-    },
-
-    addTokens: function(element) {
-        var cardId = element.getAttribute("cardId");
-        var zone = element.getAttribute("zone");
-        var token = element.getAttribute("token");
-        var count = parseInt(element.getAttribute("count"));
-
-        var cardData = $(".card:cardId(" + cardId + ")").data("card");
-        if (cardData.tokens == null)
-            cardData.tokens = {};
-        if (cardData.tokens[token] == null)
-            cardData.tokens[token] = 0;
-        cardData.tokens[token] += count;
-    },
-
-    removeTokens: function(element) {
-        var cardId = element.getAttribute("cardId");
-        var zone = element.getAttribute("zone");
-        var token = element.getAttribute("token");
-        var count = parseInt(element.getAttribute("count"));
-
-        var cardData = $(".card:cardId(" + cardId + ")").data("card");
-        if (cardData.tokens == null)
-            cardData.tokens = {};
-        if (cardData.tokens[token] == null)
-            cardData.tokens[token] = 0;
-        cardData.tokens[token] -= count;
-    },
-
-    message: function(element) {
-        var message = element.getAttribute("message");
-        if (this.chatBox != null)
-            this.chatBox.appendMessage(message, "gameMessage");
-    },
-
-    warning: function(element) {
-        var message = element.getAttribute("message");
-        if (this.chatBox != null)
-            this.chatBox.appendMessage(message, "warningMessage");
-    },
-
-    startSkirmish: function(element) {
-        var cardId = element.getAttribute("cardId");
-        var opposingCardIds = element.getAttribute("otherCardIds").split(",");
-
-        $(".card:cardId(" + opposingCardIds + ")").each(function() {
-            $(this).data("card").skirmish = true;
-        });
-
-        if (cardId != null)
-            $(".card:cardId(" + cardId + ")").each(function() {
-                $(this).data("card").skirmish = true;
-            });
-
-        this.fpStrengthDiv = $("<div class='fpStrength'></div>");
-        this.shadowStrengthDiv = $("<div class='shadowStrength'></div>");
-
-        this.skirmishGroupDiv = $("<div class='ui-widget-content skirmish'></div>");
-        this.skirmishGroupDiv.css({"border-radius": "7px", "border-color": "#ff0000"});
-        this.skirmishGroupDiv.append(this.fpStrengthDiv);
-        this.skirmishGroupDiv.append(this.shadowStrengthDiv);
-        $("#main").append(this.skirmishGroupDiv);
-    },
-
-    endSkirmish: function() {
-        this.skirmishGroupDiv.remove();
-        this.skirmishGroupDiv = null;
-        this.fpStrengthDiv = null;
-        this.shadowStrengthDiv = null;
-
-        $(".card").each(function() {
-            var cardData = $(this).data("card");
-            if (cardData.skirmish == true) {
-                delete cardData.skirmish;
-            }
-        });
-    },
-
-    removeAssignment: function(element) {
-        var cardId = element.getAttribute("cardId");
-
-        var that = this;
-        $(".card").each(function() {
-            var cardData = $(this).data("card");
-            if (cardData.assign == cardId)
-                that.unassignMinion(cardData.cardId);
-        });
-    },
-
-    addAssignment: function(element) {
-        var cardId = element.getAttribute("cardId");
-        var opposingCardIds = element.getAttribute("otherCardIds").split(",");
-
-        for (var i = 0; i < opposingCardIds.length; i++) {
-            if ($(".card:cardId(" + opposingCardIds[i] + ")").data("card").assign != cardId)
-                this.assignMinion(opposingCardIds[i], cardId);
-        }
-    },
-
-    putCardInPlay: function(element) {
-        var participantId = element.getAttribute("participantId");
-        var blueprintId = element.getAttribute("blueprintId");
-        var cardId = element.getAttribute("cardId");
-        var zone = element.getAttribute("zone");
-        var targetCardId = element.getAttribute("targetCardId");
-        var controllerId = element.getAttribute("controllerId");
-
-        if (controllerId != null)
-            participantId = controllerId;
-
-        var card;
-        if (zone == "ADVENTURE_PATH")
-            card = new Card(blueprintId, zone, cardId, participantId, element.getAttribute("index"));
-        else
-            card = new Card(blueprintId, zone, cardId, participantId);
-
-        var cardDiv = this.createCardDiv(card, null, card.isFoil());
-        if (zone == "DISCARD")
-            this.discardPileDialogs[participantId].append(cardDiv);
-        else if (zone == "DEAD")
-            this.deadPileDialogs[participantId].append(cardDiv);
-        else
-            $("#main").append(cardDiv);
-
-        if (targetCardId != null) {
-            var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
-            targetCardData.attachedCards.push(cardDiv);
-        }
-    },
-
-    moveCardInPlay: function(element) {
-        var cardId = element.getAttribute("cardId");
-        var zone = element.getAttribute("zone");
-        var targetCardId = element.getAttribute("targetCardId");
-        var participantId = element.getAttribute("participantId");
-        var controllerId = element.getAttribute("controllerId");
-
-        if (controllerId != null)
-            participantId = controllerId;
-
-        // Remove from where it was already attached
-        $(".card").each(
-                function() {
-                    var cardData = $(this).data("card");
-                    var index = -1;
-                    for (var i = 0; i < cardData.attachedCards.length; i++)
-                        if (cardData.attachedCards[i].data("card").cardId == cardId) {
-                            index = i;
-                            break;
-                        }
-                    if (index != -1)
-                        cardData.attachedCards.splice(index, 1);
-                }
-                );
-
-        var card = $(".card:cardId(" + cardId + ")");
-        var cardData = card.data("card");
-        // move to new zone
-        cardData.zone = zone;
-        cardData.owner = participantId;
-
-        if (targetCardId != null) {
-            // attach to new card if it's attached
-            var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
-            targetCardData.attachedCards.push(card);
-        }
     },
 
     layoutZones: function() {
@@ -878,63 +676,6 @@ var GempLotrGameUI = Class.extend({
 
         this.initializeGameUI();
         this.layoutUI(true);
-    },
-
-    removeCardFromPlay: function(element) {
-        var cardRemovedIds = element.getAttribute("otherCardIds").split(",");
-
-        for (var i = 0; i < cardRemovedIds.length; i++) {
-            var cardId = cardRemovedIds[i];
-            var card = $(".card:cardId(" + cardId + ")");
-
-            if (card != null) {
-                var cardData = card.data("card");
-                if (cardData.zone == "ATTACHED" || cardData.zone == "STACKED") {
-                    $(".card").each(
-                            function() {
-                                var cardData = $(this).data("card");
-                                var index = -1;
-                                for (var i = 0; i < cardData.attachedCards.length; i++)
-                                    if (cardData.attachedCards[i].data("card").cardId == cardId) {
-                                        index = i;
-                                        break;
-                                    }
-                                if (index != -1)
-                                    cardData.attachedCards.splice(index, 1);
-                            }
-                            );
-                }
-
-                card.remove();
-            }
-        }
-    },
-
-    gamePhaseChange: function(element) {
-        var phase = element.getAttribute("phase");
-
-        $(".phase").removeClass("current");
-        $(".phase#" + phase).addClass("current");
-    },
-
-    twilightPool: function(element) {
-        var count = element.getAttribute("count");
-
-        $(".twilightPool").html("" + count);
-    },
-
-    turnChange: function(element) {
-        var playerId = element.getAttribute("participantId");
-        var playerIndex = this.getPlayerIndex(playerId);
-
-        this.currentPlayerId = playerId;
-
-        $(".player").each(function(index) {
-            if (index == playerIndex)
-                $(this).addClass("current");
-            else
-                $(this).removeClass("current");
-        });
     },
 
     getDecisionParameter: function(decision, name) {
