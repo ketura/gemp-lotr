@@ -177,10 +177,10 @@
                     ui = new GempLotrGameUI("/gemp-lotr/server");
 
                     $(window).resize(function() {
-                        ui.layoutUI();
+                        ui.windowResized();
                     });
 
-                    ui.layoutUI();
+                    ui.layoutUI(true);
 
                     ui.startGameSession();
                 });

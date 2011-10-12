@@ -42,8 +42,8 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         GameState gameState = game.getGameState();
         gameState.sendMessage(getAppendedNames(_cards) + " is/are discarded from hand");
+        gameState.removeCardsFromZone(_cards);
         for (PhysicalCard card : _cards) {
-            gameState.removeCardFromZone(card);
             gameState.addCardToZone(card, Zone.DISCARD);
         }
 

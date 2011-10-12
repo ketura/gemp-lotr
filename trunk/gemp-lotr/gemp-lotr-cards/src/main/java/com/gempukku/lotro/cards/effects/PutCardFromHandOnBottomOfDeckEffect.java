@@ -7,6 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
+
 public class PutCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
     private PhysicalCard _physicalCard;
 
@@ -34,7 +36,7 @@ public class PutCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             gameState.sendMessage(_physicalCard.getOwner() + " puts a card from hand on bottom of his or her deck");
-            gameState.removeCardFromZone(_physicalCard);
+            gameState.removeCardsFromZone(Collections.singleton(_physicalCard));
             gameState.putCardOnBottomOfDeck(_physicalCard);
 
             return new FullEffectResult(null, true, true);

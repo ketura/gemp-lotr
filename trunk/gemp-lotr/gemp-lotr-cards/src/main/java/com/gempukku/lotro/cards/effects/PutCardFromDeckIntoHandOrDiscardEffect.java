@@ -8,6 +8,8 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
+import java.util.Collections;
+
 public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
     private PhysicalCard _physicalCard;
 
@@ -39,12 +41,12 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
         if (_physicalCard.getZone() == Zone.DECK) {
             if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _physicalCard.getOwner())) {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " puts card from deck into his or her hand");
-                game.getGameState().removeCardFromZone(_physicalCard);
+                game.getGameState().removeCardsFromZone(Collections.singleton(_physicalCard));
                 game.getGameState().addCardToZone(_physicalCard, Zone.HAND);
                 return new FullEffectResult(new EffectResult[]{new DrawCardOrPutIntoHandResult(_physicalCard.getOwner(), 1)}, true, true);
             } else {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + GameUtils.getCardLink(_physicalCard) + " from deck due to Rule of 4");
-                game.getGameState().removeCardFromZone(_physicalCard);
+                game.getGameState().removeCardsFromZone(Collections.singleton(_physicalCard));
                 game.getGameState().addCardToZone(_physicalCard, Zone.DISCARD);
             }
         }

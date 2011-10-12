@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
+import java.util.Collections;
 import java.util.Map;
 
 public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
@@ -24,7 +25,7 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
     public void process() {
         GameState gameState = _game.getGameState();
         PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).iterator().next();
-        gameState.removeCardFromZone(firstSite);
+        gameState.removeCardsFromZone(Collections.singleton(firstSite));
         gameState.addCardToZone(firstSite, Zone.ADVENTURE_PATH);
 
         for (String playerId : gameState.getPlayerOrder().getAllPlayers())

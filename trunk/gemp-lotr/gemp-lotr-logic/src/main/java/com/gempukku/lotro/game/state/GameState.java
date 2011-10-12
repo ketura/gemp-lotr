@@ -106,7 +106,7 @@ public class GameState {
         String owner = physicalCard.getOwner();
         GameStateListener result = _gameStateListeners.get(owner);
         if (result != null)
-            return Collections.singletonList(result);
+            return Collections.singleton(result);
         else
             return Collections.emptyList();
     }
@@ -200,7 +200,7 @@ public class GameState {
 
     public void transferCard(PhysicalCard card, PhysicalCard transferTo) {
         if (card.getZone() != Zone.ATTACHED) {
-            removeCardFromZone(card);
+            removeCardsFromZone(Collections.singleton(card));
             addCardToZone(card, Zone.ATTACHED);
         }
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) transferTo);
@@ -267,45 +267,63 @@ public class GameState {
             return _inPlay;
     }
 
-    public void removeCardFromZone(PhysicalCard card) {
-        Zone zone = card.getZone();
+    public void removeCardsFromZone(Collection<PhysicalCard> cards) {
+        Map<GameStateListener, Set<PhysicalCard>> listenerCards = new HashMap<GameStateListener, Set<PhysicalCard>>();
 
-        List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
-        boolean b = zoneCards.remove(card);
-        if (!b)
-            throw new RuntimeException("Card was not found in the expected zone");
+        for (PhysicalCard card : cards) {
+            Zone zone = card.getZone();
 
-        if (zone == Zone.ATTACHED)
-            ((PhysicalCardImpl) card).attachTo(null);
+            List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
+            boolean b = zoneCards.remove(card);
+            if (!b)
+                throw new RuntimeException("Card was not found in the expected zone");
 
-        if (zone == Zone.STACKED)
-            ((PhysicalCardImpl) card).stackOn(null);
+            if (zone == Zone.ATTACHED)
+                ((PhysicalCardImpl) card).attachTo(null);
 
-        for (Skirmish assignment : new LinkedList<Skirmish>(_assignments)) {
-            if (assignment.getFellowshipCharacter() == card)
-                removeAssignment(assignment);
-            if (assignment.getShadowCharacters().remove(card))
-                removeAssignment(assignment);
+            if (zone == Zone.STACKED)
+                ((PhysicalCardImpl) card).stackOn(null);
+
+            for (Skirmish assignment : new LinkedList<Skirmish>(_assignments)) {
+                if (assignment.getFellowshipCharacter() == card)
+                    removeAssignment(assignment);
+                if (assignment.getShadowCharacters().remove(card))
+                    removeAssignment(assignment);
+            }
+
+            if (_skirmish != null) {
+                if (_skirmish.getFellowshipCharacter() == card)
+                    _skirmish.setFellowshipCharacter(null);
+                _skirmish.getShadowCharacters().remove(card);
+            }
+
+            removeAllTokens(card);
+
+            if (isZonePublic(zone))
+                for (GameStateListener listener : getAllGameStateListeners()) {
+                    getValue(listenerCards, listener).add(card);
+                }
+            else if (isZonePrivate(zone))
+                for (GameStateListener listener : getPrivateGameStateListeners(card)) {
+                    getValue(listenerCards, listener).add(card);
+                }
+
+            if ((zone == Zone.DECK && card.getBlueprint().getCardType() != CardType.SITE) || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
+                for (GameStateListener listener : getAllGameStateListeners())
+                    listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
         }
 
-        if (_skirmish != null) {
-            if (_skirmish.getFellowshipCharacter() == card)
-                _skirmish.setFellowshipCharacter(null);
-            _skirmish.getShadowCharacters().remove(card);
+        for (Map.Entry<GameStateListener, Set<PhysicalCard>> gameStateListenerSetEntry : listenerCards.entrySet())
+            gameStateListenerSetEntry.getKey().cardsRemoved(gameStateListenerSetEntry.getValue());
+    }
+
+    private Set<PhysicalCard> getValue(Map<GameStateListener, Set<PhysicalCard>> map, GameStateListener listener) {
+        Set<PhysicalCard> result = map.get(listener);
+        if (result == null) {
+            result = new HashSet<PhysicalCard>();
+            map.put(listener, result);
         }
-
-        removeAllTokens(card);
-
-        if (isZonePublic(zone))
-            for (GameStateListener listener : getAllGameStateListeners())
-                listener.cardRemoved(card);
-        else if (isZonePrivate(zone))
-            for (GameStateListener listener : getPrivateGameStateListeners(card))
-                listener.cardRemoved(card);
-
-        if ((zone == Zone.DECK && card.getBlueprint().getCardType() != CardType.SITE) || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
-            for (GameStateListener listener : getAllGameStateListeners())
-                listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
+        return result;
     }
 
     public void addCardToZone(PhysicalCard card, Zone zone) {
@@ -724,7 +742,7 @@ public class GameState {
         List<PhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
             PhysicalCard card = deck.get(0);
-            removeCardFromZone(card);
+            removeCardsFromZone(Collections.singleton(card));
             addCardToZone(card, Zone.HAND);
         }
     }

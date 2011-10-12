@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Set: The Two Towers
@@ -40,11 +41,11 @@ public class Card4_054 extends AbstractEvent {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         for (PhysicalCard card : cards) {
+                            game.getGameState().removeCardsFromZone(game.getGameState().getStackedCards(card));
                             for (PhysicalCard stackedCard : game.getGameState().getStackedCards(card)) {
-                                game.getGameState().removeCardFromZone(stackedCard);
                                 game.getGameState().putCardOnBottomOfDeck(stackedCard);
                             }
-                            game.getGameState().removeCardFromZone(card);
+                            game.getGameState().removeCardsFromZone(Collections.singleton(card));
                             game.getGameState().putCardOnBottomOfDeck(card);
                         }
                         action.appendEffect(

@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.List;
 
 public class StackCardFromPlayEffect extends AbstractEffect {
@@ -38,20 +39,20 @@ public class StackCardFromPlayEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             game.getGameState().stopAffecting(_card);
-            game.getGameState().removeCardFromZone(_card);
+            game.getGameState().removeCardsFromZone(Collections.singleton(_card));
 
             GameState gameState = game.getGameState();
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
             for (PhysicalCard attachedCard : attachedCards) {
                 gameState.stopAffecting(attachedCard);
-                gameState.removeCardFromZone(attachedCard);
+                gameState.removeCardsFromZone(Collections.singleton(attachedCard));
                 gameState.addCardToZone(attachedCard, Zone.DISCARD);
             }
 
             List<PhysicalCard> stackedCards = gameState.getStackedCards(_card);
             for (PhysicalCard stackedCard : stackedCards) {
-                gameState.removeCardFromZone(stackedCard);
+                gameState.removeCardsFromZone(Collections.singleton(stackedCard));
                 gameState.addCardToZone(stackedCard, Zone.DISCARD);
             }
 

@@ -273,21 +273,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -302,15 +302,15 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    title: "Card information",
-                    minHeight: 80,
-                    minWidth: 200,
-                    width: Math.max(600, width * 0.75),
-                    height: Math.max(300, height * 0.75)
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: Math.max(600, width * 0.75),
+            height: Math.max(300, height * 0.75)
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -326,16 +326,20 @@ var GempLotrGameUI = Class.extend({
         this.infoDialog.swipe(swipeOptions);
     },
 
-    layoutUI: function(sizeNotChanged) {
+    windowResized: function() {
+        this.animations.windowResized();
+    },
+
+    layoutUI: function(sizeChanged) {
         var padding = this.padding;
         var width = $(window).width();
         var height = $(window).height();
-        if (sizeNotChanged) {
-            width = this.windowWidth;
-            height = this.windowHeight;
-        } else {
+        if (sizeChanged) {
             this.windowWidth = width;
             this.windowHeight = height;
+        } else {
+            width = this.windowWidth;
+            height = this.windowHeight;
         }
 
         var heightScales;
@@ -521,7 +525,7 @@ var GempLotrGameUI = Class.extend({
         }
 
         if (gameEvents.length > 0)
-            this.layoutUI(true);
+            this.layoutUI(false);
 
         // Then the strictly animation events
         for (var i = 0; i < gameEvents.length; i++) {
@@ -603,9 +607,9 @@ var GempLotrGameUI = Class.extend({
         else if (zone == "DISCARD")
             $("#discard" + this.getPlayerIndex(playerId)).text("Discard: " + count);
         else if (zone == "DEAD")
-            $("#deadPile" + this.getPlayerIndex(playerId)).text("Dead pile: " + count);
-        else if (zone == "DECK")
-            $("#deck" + this.getPlayerIndex(playerId)).text("Deck: " + count);
+                $("#deadPile" + this.getPlayerIndex(playerId)).text("Dead pile: " + count);
+            else if (zone == "DECK")
+                    $("#deck" + this.getPlayerIndex(playerId)).text("Deck: " + count);
     },
 
     playerPosition: function(element) {
@@ -773,7 +777,7 @@ var GempLotrGameUI = Class.extend({
                     if (index != -1)
                         cardData.attachedCards.splice(index, 1);
                 }
-        );
+                );
 
         var card = $(".card:cardId(" + cardId + ")");
         var cardData = card.data("card");
@@ -873,32 +877,37 @@ var GempLotrGameUI = Class.extend({
         }
 
         this.initializeGameUI();
-        this.layoutUI();
+        this.layoutUI(true);
     },
 
     removeCardFromPlay: function(element) {
-        var cardId = element.getAttribute("cardId");
-        var zone = element.getAttribute("zone");
+        var cardRemovedIds = element.getAttribute("otherCardIds").split(",");
 
-        var card = $(".card:cardId(" + cardId + ")");
+        for (var i = 0; i < cardRemovedIds.length; i++) {
+            var cardId = cardRemovedIds[i];
+            var card = $(".card:cardId(" + cardId + ")");
 
-        if (zone == "ATTACHED" || zone == "STACKED") {
-            $(".card").each(
-                    function() {
-                        var cardData = $(this).data("card");
-                        var index = -1;
-                        for (var i = 0; i < cardData.attachedCards.length; i++)
-                            if (cardData.attachedCards[i].data("card").cardId == cardId) {
-                                index = i;
-                                break;
+            if (card != null) {
+                var cardData = card.data("card");
+                if (cardData.zone == "ATTACHED" || cardData.zone == "STACKED") {
+                    $(".card").each(
+                            function() {
+                                var cardData = $(this).data("card");
+                                var index = -1;
+                                for (var i = 0; i < cardData.attachedCards.length; i++)
+                                    if (cardData.attachedCards[i].data("card").cardId == cardId) {
+                                        index = i;
+                                        break;
+                                    }
+                                if (index != -1)
+                                    cardData.attachedCards.splice(index, 1);
                             }
-                        if (index != -1)
-                            cardData.attachedCards.splice(index, 1);
-                    }
-            );
-        }
+                            );
+                }
 
-        card.remove();
+                card.remove();
+            }
+        }
     },
 
     gamePhaseChange: function(element) {
@@ -967,13 +976,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#integerDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#integerDecision").val());
+            }
+        }
+                );
 
         $("#integerDecision").SpinnerControl({ type: 'range',
             typedata: {
@@ -1005,13 +1014,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(html)
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+            }
+        }
+                );
 
         this.smallDialog.dialog("open");
     },
@@ -1260,8 +1269,8 @@ var GempLotrGameUI = Class.extend({
                     $(div).find('LI.hover').removeClass('hover');
                     $(this).parent().addClass('hover');
                 }).mouseout(function() {
-                    $(div).find('LI.hover').removeClass('hover');
-                });
+            $(div).find('LI.hover').removeClass('hover');
+        });
 
         var getRidOfContextMenu = function() {
             $(div).remove();
@@ -1530,7 +1539,7 @@ var GempLotrGameUI = Class.extend({
                 } else {
                     that.unassignMinion(cardId);
                 }
-                that.layoutUI(true);
+                that.layoutUI(false);
                 that.doAssignments(freeCharacters, minions);
             };
 

@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,11 +43,12 @@ public class KillEffect extends AbstractSuccessfulEffect {
         Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
         Set<PhysicalCard> killedCards = new HashSet<PhysicalCard>();
 
+        GameState gameState = game.getGameState();
+
         for (PhysicalCard card : _cards) {
-            GameState gameState = game.getGameState();
             gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
             gameState.stopAffecting(card);
-            gameState.removeCardFromZone(card);
+            gameState.removeCardsFromZone(Collections.singleton(card));
             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
                 killedCards.add(card);
                 gameState.addCardToZone(card, Zone.DEAD);
@@ -61,13 +63,13 @@ public class KillEffect extends AbstractSuccessfulEffect {
                 discardedCards.add(attachedCard);
 
                 gameState.stopAffecting(attachedCard);
-                gameState.removeCardFromZone(attachedCard);
+                gameState.removeCardsFromZone(Collections.singleton(attachedCard));
                 gameState.addCardToZone(attachedCard, Zone.DISCARD);
             }
 
             List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
             for (PhysicalCard stackedCard : stackedCards) {
-                gameState.removeCardFromZone(stackedCard);
+                gameState.removeCardsFromZone(Collections.singleton(stackedCard));
                 gameState.addCardToZone(stackedCard, Zone.DISCARD);
             }
         }

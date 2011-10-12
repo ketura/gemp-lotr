@@ -8,6 +8,8 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
+
 public class PutCardFromHandOnTopOfDeckEffect extends AbstractEffect {
     private PhysicalCard _physicalCard;
 
@@ -35,7 +37,7 @@ public class PutCardFromHandOnTopOfDeckEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             gameState.sendMessage(_physicalCard.getOwner() + " puts a card from hand on top of his or her deck");
-            gameState.removeCardFromZone(_physicalCard);
+            gameState.removeCardsFromZone(Collections.singleton(_physicalCard));
             gameState.putCardOnTopOfDeck(_physicalCard);
             return new FullEffectResult(null, true, true);
         }

@@ -75,10 +75,8 @@ public class Card1_018 extends AbstractEvent {
                                                             topDeckCards.removeAll(selectedCards);
                                                         }
 
-                                                        if (topDeckCards.size() > 0) {
-                                                            for (PhysicalCard topDeckCard : topDeckCards)
-                                                                game.getGameState().removeCardFromZone(topDeckCard);
-                                                        }
+                                                        if (topDeckCards.size() > 0)
+                                                            game.getGameState().removeCardsFromZone(topDeckCards);
                                                     }
                                                 });
                                     }
