@@ -62,7 +62,7 @@ public class Card2_089 extends AbstractMinion {
                 action.appendCost(
                         new ChoiceEffect(action, playerId, possibleCosts));
                 action.appendEffect(
-                        new CancelEventEffect(playerId, playEffect));
+                        new CancelEventEffect(self, playEffect));
                 return Collections.singletonList(action);
             }
         }

@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
@@ -32,18 +33,15 @@ public class Card2_026 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
         if (nextSite == null || !nextSite.getOwner().equals(playerId)) {
             action.appendEffect(
                     new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1) {
                         @Override
-                        public void doPlayEffect(LotroGame game) {
-                            super.doPlayEffect(game);
-                            PhysicalCard nextSiteAfter = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
-                            if (nextSiteAfter != null
-                                    && nextSiteAfter.getOwner().equals(playerId))
+                        protected void sitePlayedCallback(PhysicalCard site) {
+                            if (game.getModifiersQuerying().hasKeyword(game.getGameState(), site, Keyword.UNDERGROUND))
                                 action.appendEffect(
                                         new DrawCardEffect(playerId, 1));
                         }

@@ -42,7 +42,7 @@ public class Card1_115 extends AbstractResponseEvent {
                 if (fpCharacter.getBlueprint().getRace() == Race.MAN
                         && fpCharacter.getBlueprint().getCulture() == Culture.GONDOR) {
                     PlayEventAction action = new PlayEventAction(self);
-                    action.appendEffect(new CancelEventEffect(playerId, (PlayEventEffect) effect));
+                    action.appendEffect(new CancelEventEffect(self, (PlayEventEffect) effect));
                     return Collections.singletonList(action);
                 }
             }

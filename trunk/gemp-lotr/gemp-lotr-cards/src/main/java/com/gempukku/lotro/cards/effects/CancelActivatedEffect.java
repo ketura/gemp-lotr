@@ -1,23 +1,43 @@
 package com.gempukku.lotro.cards.effects;
 
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.ActivateCardEffect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class CancelActivatedEffect extends UnrespondableEffect {
-    private String _playerId;
+public class CancelActivatedEffect extends AbstractEffect {
+    private PhysicalCard _source;
     private ActivateCardEffect _effect;
 
-    public CancelActivatedEffect(String playerId, ActivateCardEffect effect) {
-        _playerId = playerId;
+    public CancelActivatedEffect(PhysicalCard source, ActivateCardEffect effect) {
+        _source = source;
         _effect = effect;
     }
 
     @Override
-    public void doPlayEffect(LotroGame game) {
-        if (!_effect.isCancelled()) {
-            game.getGameState().sendMessage(_playerId + " cancels effect - " + _effect.getText(game));
+    public boolean isPlayableInFull(LotroGame game) {
+        return !_effect.isCancelled();
+    }
+
+    @Override
+    public String getText(LotroGame game) {
+        return "Cancel effect of " + _effect.getText(game);
+    }
+
+    @Override
+    public EffectResult.Type getType() {
+        return null;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        if (isPlayableInFull(game)) {
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " cancels effect - " + _effect.getText(game));
             _effect.cancel();
+            return new FullEffectResult(null, true, true);
         }
+        return new FullEffectResult(null, false, false);
     }
 }

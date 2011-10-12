@@ -68,7 +68,7 @@ public class Card1_207 extends AbstractPermanent {
             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getStackedOn(), Keyword.RING_BEARER)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new CancelEventEffect(self.getOwner(), (PlayEventEffect) effect));
+                        new CancelEventEffect(self, (PlayEventEffect) effect));
                 return Collections.singletonList(action);
             }
         }
