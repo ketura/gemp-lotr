@@ -37,13 +37,13 @@ public class Card1_236 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && game.getGameState().getBurdens() >= 4) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
+            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose a companion (except the Ring-Bearer", Filters.type(CardType.COMPANION), Filters.notAssignedToSkirmish(), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose a companion (except the Ring-Bearer)", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
                                 action.appendEffect(
-                                        new AssignmentEffect(playerId, companion, Collections.singletonList(self)));
+                                        new AssignmentEffect(playerId, companion, self));
                             }
                         });
             }

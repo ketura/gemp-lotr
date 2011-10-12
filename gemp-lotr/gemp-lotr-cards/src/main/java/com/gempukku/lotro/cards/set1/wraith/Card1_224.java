@@ -49,13 +49,13 @@ public class Card1_224 extends AbstractResponseEvent {
                             for (Skirmish assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
 
-                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmish(Side.SHADOW)) > 0) {
+                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) > 0) {
                                 action.appendEffect(
-                                        new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL)) {
+                                        new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                             @Override
                                             protected void cardSelected(PhysicalCard nazgul) {
                                                 PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                                action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul)));
+                                                action.appendEffect(new AssignmentEffect(playerId, ringBearer, nazgul));
                                                 action.appendEffect(
                                                         new AddUntilEndOfPhaseModifierEffect(
                                                                 new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));

@@ -9,8 +9,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
-import java.util.Collections;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -28,15 +26,15 @@ public class Card1_171 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.exhausted(), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.exhausted(), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                     @Override
                     protected void cardSelected(final PhysicalCard companion) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                                new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                     @Override
                                     protected void cardSelected(PhysicalCard moriaOrc) {
                                         action.appendEffect(
-                                                new AssignmentEffect(playerId, companion, Collections.singletonList(moriaOrc)));
+                                                new AssignmentEffect(playerId, companion, moriaOrc));
                                     }
                                 });
                     }
