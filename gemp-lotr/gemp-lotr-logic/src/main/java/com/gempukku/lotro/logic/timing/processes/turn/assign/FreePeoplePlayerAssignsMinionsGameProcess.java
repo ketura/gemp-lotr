@@ -8,7 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
 import com.gempukku.lotro.logic.effects.AssignmentPhaseEffect;
@@ -77,7 +77,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                             if (!_game.getModifiersQuerying().isValidAssignments(_game.getGameState(), Side.FREE_PEOPLE, assignments))
                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
-                            ActivateCardAction action = new ActivateCardAction(null);
+                            SystemQueueAction action = new SystemQueueAction();
                             action.appendEffect(
                                     new AssignmentPhaseEffect(gameState.getCurrentPlayerId(), assignments, "Free People player assignments"));
                             _game.getActionsEnvironment().addActionToStack(action);

@@ -4,7 +4,7 @@ import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -80,14 +80,14 @@ public class TurnProcedure {
                 _checkedIsAboutToRequiredResponses = true;
                 List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect);
                 if (requiredIsAboutToResponses.size() > 0) {
-                    ActivateCardAction action = new ActivateCardAction(null);
+                    SystemQueueAction action = new SystemQueueAction();
                     action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredIsAboutToResponses));
                     return new StackActionEffect(action);
                 }
             }
             if (!_checkedIsAboutToOptionalResponses) {
                 _checkedIsAboutToOptionalResponses = true;
-                ActivateCardAction action = new ActivateCardAction(null);
+                SystemQueueAction action = new SystemQueueAction();
                 action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect));
                 return new StackActionEffect(action);
             }
@@ -100,14 +100,14 @@ public class TurnProcedure {
                     _checkedRequiredWhenResponses = true;
                     List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(_effectResults);
                     if (requiredResponses.size() > 0) {
-                        ActivateCardAction action = new ActivateCardAction(null);
+                        SystemQueueAction action = new SystemQueueAction();
                         action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
                         return new StackActionEffect(action);
                     }
                 }
                 if (!_checkedOptionalWhenResponses) {
                     _checkedOptionalWhenResponses = true;
-                    ActivateCardAction action = new ActivateCardAction(null);
+                    SystemQueueAction action = new SystemQueueAction();
 
                     Map<String, List<Action>> optionalAfterTriggers = new HashMap<String, List<Action>>();
                     for (String playerId : _game.getGameState().getPlayerOrder().getAllPlayers()) {
@@ -127,13 +127,13 @@ public class TurnProcedure {
     }
 
     private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect {
-        private ActivateCardAction _action;
+        private SystemQueueAction _action;
         private Set<PhysicalCard> _cardTriggersUsed;
         private PlayOrder _playOrder;
         private int _passCount;
         private Effect _effect;
 
-        private PlayoutOptionalBeforeResponsesEffect(ActivateCardAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect) {
+        private PlayoutOptionalBeforeResponsesEffect(SystemQueueAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect) {
             _action = action;
             _cardTriggersUsed = cardTriggersUsed;
             _playOrder = playOrder;
@@ -184,14 +184,14 @@ public class TurnProcedure {
     }
 
     private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect {
-        private ActivateCardAction _action;
+        private SystemQueueAction _action;
         private Map<String, List<Action>> _unplayedAfterTriggers;
         private PlayOrder _playOrder;
         private int _passCount;
         private Effect _effect;
         private EffectResult[] _effectResults;
 
-        private PlayoutOptionalAfterResponsesEffect(ActivateCardAction action, Map<String, List<Action>> unplayedAfterTriggers, PlayOrder playOrder, int passCount, Effect effect, EffectResult[] effectResults) {
+        private PlayoutOptionalAfterResponsesEffect(SystemQueueAction action, Map<String, List<Action>> unplayedAfterTriggers, PlayOrder playOrder, int passCount, Effect effect, EffectResult[] effectResults) {
             _action = action;
             _unplayedAfterTriggers = unplayedAfterTriggers;
             _playOrder = playOrder;
@@ -228,7 +228,7 @@ public class TurnProcedure {
                                 if (action != null) {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalAfterTriggers.contains(action))
-                                        optionalAfterActions.remove(action);
+                                        optionalAfterTriggers.remove(action);
                                     _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, 0, _effect, _effectResults));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
@@ -246,11 +246,11 @@ public class TurnProcedure {
     }
 
     private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect {
-        private ActivateCardAction _action;
+        private SystemQueueAction _action;
         private Effect _effect;
         private List<Action> _actions;
 
-        private PlayoutAllActionsIfEffectNotCancelledEffect(ActivateCardAction action, Effect effect, List<Action> actions) {
+        private PlayoutAllActionsIfEffectNotCancelledEffect(SystemQueueAction action, Effect effect, List<Action> actions) {
             _action = action;
             _effect = effect;
             _actions = actions;

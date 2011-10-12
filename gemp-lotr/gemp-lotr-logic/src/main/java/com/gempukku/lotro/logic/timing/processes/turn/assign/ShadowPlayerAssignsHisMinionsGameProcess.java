@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
 import com.gempukku.lotro.logic.effects.AssignmentPhaseEffect;
@@ -68,7 +68,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Map<PhysicalCard, List<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                            ActivateCardAction action = new ActivateCardAction(null);
+                            SystemQueueAction action = new SystemQueueAction();
                             action.appendEffect(
                                     new AssignmentPhaseEffect(_playerId, assignments, "Shadow player assignments"));
 
