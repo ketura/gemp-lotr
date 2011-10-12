@@ -528,9 +528,6 @@ var GempLotrGameUI = Class.extend({
             }
         }
 
-        if (gameEvents.length > 0)
-            this.layoutUI(false);
-
         var skirmish = element.getElementsByTagName("skirmish");
         if (skirmish.length > 0)
             this.animations.showSkirmishValues(skirmish);

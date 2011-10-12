@@ -124,9 +124,11 @@ var AdvPathCardGroup = CardGroup.extend({
             var cardHeight = (cardElem.data("card").getHeightForWidth(this.width));
 
             cardData.tokens = {};
-            for (var i = 0; i < this.positions.length; i++)
-                if (this.positions[i] == cardData.siteNumber)
-                    cardData.tokens["" + (i + 1)] = 1;
+            if (this.positions != null) {
+                for (var i = 0; i < this.positions.length; i++)
+                    if (this.positions[i] == cardData.siteNumber)
+                        cardData.tokens["" + (i + 1)] = 1;
+            }
 
             if (cardData.attachedCards.length == 1) {
                 this.layoutCard(cardData.attachedCards[0], x + (this.width - cardHeight) / 2, y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
