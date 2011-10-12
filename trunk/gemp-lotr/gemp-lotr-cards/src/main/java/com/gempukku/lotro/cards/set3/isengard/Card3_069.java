@@ -82,17 +82,17 @@ public class Card3_069 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(final PhysicalCard minion) {
                             action.appendEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.notAssignedToSkirmish(), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                         @Override
                                         protected void cardSelected(PhysicalCard companion) {
                                             action.appendEffect(
                                                     new PreventableEffect(
                                                             action,
-                                                            new AssignmentEffect(playerId, companion, Collections.singletonList(minion)),
+                                                            new AssignmentEffect(playerId, companion, minion),
                                                             Collections.singletonList(game.getGameState().getCurrentPlayerId()),
                                                             new ExertCharactersEffect(self, companion)));
                                         }

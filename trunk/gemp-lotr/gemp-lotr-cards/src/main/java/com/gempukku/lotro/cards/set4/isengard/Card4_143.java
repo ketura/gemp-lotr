@@ -13,8 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
-import java.util.Collections;
-
 /**
  * Set: The Two Towers
  * Side: Shadow
@@ -45,15 +43,15 @@ public class Card4_143 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                     @Override
                     protected void forEachCardExertedCallback(final PhysicalCard minion) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion(), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                                new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion(), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                     @Override
                                     protected void cardSelected(PhysicalCard companion) {
                                         Race race = companion.getBlueprint().getRace();
-                                        AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, companion, Collections.singletonList(minion));
+                                        AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, companion, minion);
                                         if (race == Race.HOBBIT) {
                                             action.insertEffect(
                                                     assignmentEffect);

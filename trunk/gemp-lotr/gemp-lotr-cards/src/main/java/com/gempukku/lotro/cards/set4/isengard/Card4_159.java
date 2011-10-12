@@ -66,15 +66,15 @@ public class Card4_159 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 2)
-                && PlayConditions.canExert(self, game, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
+                && PlayConditions.canExert(self, game, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard minion) {
                             action.appendEffect(
                                     new PreventableEffect(action,
-                                            new AssignmentEffect(playerId, self.getAttachedTo(), Collections.singletonList(minion)),
+                                            new AssignmentEffect(playerId, self.getAttachedTo(), minion),
                                             game.getGameState().getCurrentPlayerId(),
                                             new ExertCharactersEffect(self, self.getAttachedTo())));
                         }

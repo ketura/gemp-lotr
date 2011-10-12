@@ -9,8 +9,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
-import java.util.Collections;
-
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -35,13 +33,13 @@ public class Card1_169 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
 
-        if (Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.notAssignedToSkirmish(), Filters.canBeAssignedToSkirmish(Side.SHADOW)).size() > 0) {
+        if (Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)).size() > 0) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmish(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
                             action.appendEffect(
-                                    new AssignmentEffect(playerId, ringBearer, Collections.singletonList(minion)));
+                                    new AssignmentEffect(playerId, ringBearer, minion));
                         }
                     });
         }
