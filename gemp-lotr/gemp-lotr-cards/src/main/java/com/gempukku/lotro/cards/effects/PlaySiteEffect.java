@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class PlaySiteEffect extends AbstractEffect {
 
                 if (gameState.getCurrentSiteNumber() == _siteNumber)
                     gameState.stopAffecting(card);
-                gameState.removeCardFromZone(card);
+                gameState.removeCardsFromZone(Collections.singleton(card));
                 gameState.addCardToZone(card, Zone.DECK);
             }
 

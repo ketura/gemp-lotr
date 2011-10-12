@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
+import java.util.Collections;
 import java.util.Map;
 
 public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
@@ -27,12 +28,12 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
         GameState gameState = _game.getGameState();
         for (String playerId : gameState.getPlayerOrder().getAllPlayers()) {
             PhysicalCard ringBearer = Filters.filter(gameState.getDeck(playerId), gameState, _game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).iterator().next();
-            gameState.removeCardFromZone(ringBearer);
+            gameState.removeCardsFromZone(Collections.singleton(ringBearer));
             gameState.addCardToZone(ringBearer, Zone.FREE_CHARACTERS);
             gameState.setRingBearer(ringBearer);
 
             PhysicalCard ring = Filters.filter(gameState.getDeck(playerId), gameState, _game.getModifiersQuerying(), Filters.type(CardType.THE_ONE_RING)).iterator().next();
-            gameState.removeCardFromZone(ring);
+            gameState.removeCardsFromZone(Collections.singleton(ring));
             gameState.attachCard(ring, ringBearer);
 
             gameState.startPlayerTurn(playerId);

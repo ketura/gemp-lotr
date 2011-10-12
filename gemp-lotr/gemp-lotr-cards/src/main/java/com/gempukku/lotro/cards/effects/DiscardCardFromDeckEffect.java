@@ -8,6 +8,8 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
+
 public class DiscardCardFromDeckEffect extends AbstractEffect {
     private PhysicalCard _card;
 
@@ -35,7 +37,7 @@ public class DiscardCardFromDeckEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             gameState.sendMessage(GameUtils.getCardLink(_card) + " gets discarded from deck");
-            gameState.removeCardFromZone(_card);
+            gameState.removeCardsFromZone(Collections.singleton(_card));
             gameState.addCardToZone(_card, Zone.DISCARD);
             return new FullEffectResult(null, true, true);
         }

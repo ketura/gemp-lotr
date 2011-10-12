@@ -10,10 +10,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ReturnCardsToHandEffect extends AbstractEffect {
     private PhysicalCard _source;
@@ -48,7 +45,7 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
             GameState gameState = game.getGameState();
             gameState.stopAffecting(card);
-            gameState.removeCardFromZone(card);
+            gameState.removeCardsFromZone(Collections.singleton(card));
             gameState.addCardToZone(card, Zone.HAND);
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
@@ -56,13 +53,13 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
                 discardedCards.add(attachedCard);
 
                 gameState.stopAffecting(attachedCard);
-                gameState.removeCardFromZone(attachedCard);
+                gameState.removeCardsFromZone(Collections.singleton(attachedCard));
                 gameState.addCardToZone(attachedCard, Zone.DISCARD);
             }
 
             List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
             for (PhysicalCard stackedCard : stackedCards) {
-                gameState.removeCardFromZone(stackedCard);
+                gameState.removeCardsFromZone(Collections.singleton(stackedCard));
                 gameState.addCardToZone(stackedCard, Zone.DISCARD);
             }
         }
