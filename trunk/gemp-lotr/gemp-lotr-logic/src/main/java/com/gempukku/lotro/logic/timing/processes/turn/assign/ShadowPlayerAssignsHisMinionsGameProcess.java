@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
-import com.gempukku.lotro.logic.effects.AssignmentEffect;
+import com.gempukku.lotro.logic.effects.AssignmentPhaseEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
@@ -70,7 +70,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
 
                             ActivateCardAction action = new ActivateCardAction(null);
                             action.appendEffect(
-                                    new AssignmentEffect(_playerId, assignments, "Shadow player assignments"));
+                                    new AssignmentPhaseEffect(_playerId, assignments, "Shadow player assignments"));
 
                             if (!_game.getModifiersQuerying().isValidAssignments(_game.getGameState(), Side.SHADOW, assignments))
                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");

@@ -48,7 +48,7 @@ public class Card4_164 extends AbstractMinion {
                         protected void cardSelected(PhysicalCard companion) {
                             action.insertEffect(
                                     new PreventableEffect(action,
-                                            new AssignmentEffect(playerId, companion, Collections.singletonList(self), "assigned by card effect"),
+                                            new AssignmentEffect(playerId, companion, Collections.singletonList(self)),
                                             game.getGameState().getCurrentPlayerId(),
                                             new ExertCharactersEffect(self, companion)));
                         }

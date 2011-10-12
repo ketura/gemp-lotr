@@ -45,7 +45,7 @@ public class Card4_031 extends AbstractPermanent {
                                         @Override
                                         protected void cardSelected(PhysicalCard unboundCompanion) {
                                             action.insertEffect(
-                                                    new AssignmentEffect(playerId, unboundCompanion, Collections.singletonList(dunlandMan), "Over the Isen effect"));
+                                                    new AssignmentEffect(playerId, unboundCompanion, Collections.singletonList(dunlandMan)));
                                         }
                                     });
                         }

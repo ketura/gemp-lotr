@@ -221,6 +221,14 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean canCardAssignToSkirmish(PhysicalCard source, LotroGame game, PhysicalCard card) {
+        return Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()).accepts(game.getGameState(), game.getModifiersQuerying(), card);
+    }
+
+    public static boolean canCardAssignToSkirmish(PhysicalCard source, LotroGame game, Filter filter) {
+        return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()), filter) > 0;
+    }
+
     public static boolean isWounded(EffectResult effectResult, PhysicalCard character) {
         if (effectResult.getType() == EffectResult.Type.WOUND) {
             return ((WoundResult) effectResult).getWoundedCards().contains(character);

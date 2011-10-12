@@ -43,7 +43,7 @@ public class Card1_236 extends AbstractMinion {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
                                 action.appendEffect(
-                                        new AssignmentEffect(playerId, companion, Collections.singletonList(self), "Ulaire Toldea effect"));
+                                        new AssignmentEffect(playerId, companion, Collections.singletonList(self)));
                             }
                         });
             }

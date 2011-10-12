@@ -41,7 +41,7 @@ public class Card1_169 extends AbstractEvent {
                         @Override
                         protected void cardSelected(PhysicalCard minion) {
                             action.appendEffect(
-                                    new AssignmentEffect(playerId, ringBearer, Collections.singletonList(minion), "The End Comes effect"));
+                                    new AssignmentEffect(playerId, ringBearer, Collections.singletonList(minion)));
                         }
                     });
         }

@@ -55,7 +55,7 @@ public class Card1_224 extends AbstractResponseEvent {
                                             @Override
                                             protected void cardSelected(PhysicalCard nazgul) {
                                                 PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                                action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul), "Return to Its Master effect"));
+                                                action.appendEffect(new AssignmentEffect(playerId, ringBearer, Collections.singletonList(nazgul)));
                                                 action.appendEffect(
                                                         new AddUntilEndOfPhaseModifierEffect(
                                                                 new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));
