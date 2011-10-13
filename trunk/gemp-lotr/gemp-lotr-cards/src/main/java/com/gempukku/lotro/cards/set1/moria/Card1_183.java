@@ -54,7 +54,8 @@ public class Card1_183 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)))
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
+                && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.MORIA), Filters.race(Race.ORC)))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish())) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
