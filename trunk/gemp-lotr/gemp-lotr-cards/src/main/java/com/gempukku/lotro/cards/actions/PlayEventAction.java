@@ -21,6 +21,7 @@ import java.util.List;
 
 public class PlayEventAction extends AbstractCostToEffectAction {
     private PhysicalCard _source;
+    private boolean _requiresRanger;
 
     private Iterator<Effect> _preCostIterator;
 
@@ -35,6 +36,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     public PlayEventAction(PhysicalCard card, boolean requiresRanger) {
         _source = card;
+        _requiresRanger = requiresRanger;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
         preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable()));
@@ -49,6 +51,10 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _playCardEffect = new PlayEventEffect(card);
         if (requiresRanger)
             _playCardEffect.setRequiresRanger(true);
+    }
+
+    public boolean isRequiresRanger() {
+        return _requiresRanger;
     }
 
     @Override
