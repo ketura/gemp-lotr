@@ -146,12 +146,12 @@ var GameAnimations = Class.extend({
     putCardInPlay: function(element, animate) {
         var participantId = element.getAttribute("participantId");
         var cardId = element.getAttribute("cardId");
+        var zone = element.getAttribute("zone");
 
         var that = this;
         $("#main").queue(
                 function(next) {
                     var blueprintId = element.getAttribute("blueprintId");
-                    var zone = element.getAttribute("zone");
                     var targetCardId = element.getAttribute("targetCardId");
                     var controllerId = element.getAttribute("controllerId");
 
@@ -180,7 +180,8 @@ var GameAnimations = Class.extend({
                     next();
                 });
 
-        if (animate && (this.game.spectatorMode || (participantId != this.game.bottomPlayerId))) {
+        if (animate && (this.game.spectatorMode || (participantId != this.game.bottomPlayerId))
+                && zone != "DISCARD" && zone != "DEAD" && zone != "HAND") {
             $("#main").queue(
                     function(next) {
                         that.game.layoutUI(false);
