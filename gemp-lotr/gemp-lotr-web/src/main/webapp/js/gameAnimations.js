@@ -7,138 +7,142 @@ var GameAnimations = Class.extend({
         this.game = gameUI;
     },
 
-    eventPlayed: function(element) {
-        var that = this;
+    eventPlayed: function(element, animate) {
+        if (animate) {
+            var that = this;
 
-        var participantId = element.getAttribute("participantId");
-        var blueprintId = element.getAttribute("blueprintId");
+            var participantId = element.getAttribute("participantId");
+            var blueprintId = element.getAttribute("blueprintId");
 
-        // Play-out game event animation only if it's not the player who initiated it
-        if (this.game.spectatorMode || (participantId != this.game.bottomPlayerId)) {
-            var card = new Card(blueprintId, "ANIMATION", "anim", participantId);
-            var cardDiv = createSimpleCardDiv(card.imageUrl);
+            // Play-out game event animation only if it's not the player who initiated it
+            if (this.game.spectatorMode || (participantId != this.game.bottomPlayerId)) {
+                var card = new Card(blueprintId, "ANIMATION", "anim", participantId);
+                var cardDiv = createSimpleCardDiv(card.imageUrl);
 
-            $("#main").queue(
-                    function(next) {
-                        cardDiv.data("card", card);
-                        $("#main").append(cardDiv);
+                $("#main").queue(
+                        function(next) {
+                            cardDiv.data("card", card);
+                            $("#main").append(cardDiv);
 
-                        var gameWidth = $("#main").width();
-                        var gameHeight = $("#main").height();
+                            var gameWidth = $("#main").width();
+                            var gameHeight = $("#main").height();
 
-                        var cardHeight = (gameHeight / 2);
-                        var cardWidth = card.getWidthForHeight(cardHeight);
+                            var cardHeight = (gameHeight / 2);
+                            var cardWidth = card.getWidthForHeight(cardHeight);
 
-                        $(cardDiv).css(
-                        {
-                            position: "absolute",
-                            left: (gameWidth / 2 - cardWidth / 4),
-                            top: gameHeight * (3 / 8),
-                            width: cardWidth / 2,
-                            height: cardHeight / 2,
-                            "z-index": 100,
-                            opacity: 0});
+                            $(cardDiv).css(
+                                    {
+                                        position: "absolute",
+                                        left: (gameWidth / 2 - cardWidth / 4),
+                                        top: gameHeight * (3 / 8),
+                                        width: cardWidth / 2,
+                                        height: cardHeight / 2,
+                                        "z-index": 100,
+                                        opacity: 0});
 
-                        $(cardDiv).animate(
-                        {
-                            left: "-=" + cardWidth / 4,
-                            top: "-=" + (gameHeight / 8),
-                            width: "+=" + (cardWidth / 2),
-                            height: "+=" + (cardHeight / 2),
-                            opacity: 1},
-                        {
-                            duration: that.playEventDuration / 8,
-                            easing: "linear",
-                            queue: false,
-                            complete: next});
-                    }).queue(
-                    function(next) {
-                        setTimeout(next, that.playEventDuration * (5 / 8));
-                    }).queue(
-                    function(next) {
-                        $(cardDiv).animate(
-                        {
-                            opacity: 0},
-                        {
-                            duration: that.playEventDuration / 4,
-                            easing: "easeOutQuart",
-                            queue: false,
-                            complete: next});
-                    }).queue(
-                    function(next) {
-                        $(cardDiv).remove();
-                        next();
-                    });
+                            $(cardDiv).animate(
+                                    {
+                                        left: "-=" + cardWidth / 4,
+                                        top: "-=" + (gameHeight / 8),
+                                        width: "+=" + (cardWidth / 2),
+                                        height: "+=" + (cardHeight / 2),
+                                        opacity: 1},
+                                    {
+                                        duration: that.playEventDuration / 8,
+                                        easing: "linear",
+                                        queue: false,
+                                        complete: next});
+                        }).queue(
+                        function(next) {
+                            setTimeout(next, that.playEventDuration * (5 / 8));
+                        }).queue(
+                        function(next) {
+                            $(cardDiv).animate(
+                                    {
+                                        opacity: 0},
+                                    {
+                                        duration: that.playEventDuration / 4,
+                                        easing: "easeOutQuart",
+                                        queue: false,
+                                        complete: next});
+                        }).queue(
+                        function(next) {
+                            $(cardDiv).remove();
+                            next();
+                        });
+            }
         }
     },
 
-    cardAffectsCard: function(element) {
-        var that = this;
+    cardAffectsCard: function(element, animate) {
+        if (animate) {
+            var that = this;
 
-        var participantId = element.getAttribute("participantId");
-        var blueprintId = element.getAttribute("blueprintId");
-        var targetCardIds = element.getAttribute("otherCardIds").split(",");
+            var participantId = element.getAttribute("participantId");
+            var blueprintId = element.getAttribute("blueprintId");
+            var targetCardIds = element.getAttribute("otherCardIds").split(",");
 
-        // Play-out card affects card animation only if it's not the player who initiated it
-        if (this.game.spectatorMode || (participantId != this.game.bottomPlayerId)) {
-            $("#main").queue(
-                    function(next) {
-                        for (var i = 0; i < targetCardIds.length; i++) {
-                            var targetCardId = targetCardIds[i];
+            // Play-out card affects card animation only if it's not the player who initiated it
+            if (this.game.spectatorMode || (participantId != this.game.bottomPlayerId)) {
+                $("#main").queue(
+                        function(next) {
+                            for (var i = 0; i < targetCardIds.length; i++) {
+                                var targetCardId = targetCardIds[i];
 
-                            var card = new Card(blueprintId, "ANIMATION", "anim" + i, participantId);
-                            var cardDiv = createSimpleCardDiv(card.imageUrl);
+                                var card = new Card(blueprintId, "ANIMATION", "anim" + i, participantId);
+                                var cardDiv = createSimpleCardDiv(card.imageUrl);
 
-                            var targetCard = $(".card:cardId(" + targetCardId + ")");
-                            if (targetCard.length > 0) {
-                                cardDiv.data("card", card);
-                                $("#main").append(cardDiv);
+                                var targetCard = $(".card:cardId(" + targetCardId + ")");
+                                if (targetCard.length > 0) {
+                                    cardDiv.data("card", card);
+                                    $("#main").append(cardDiv);
 
-                                targetCard = targetCard[0];
-                                var targetCardWidth = $(targetCard).width();
-                                var targetCardHeight = $(targetCard).height();
+                                    targetCard = targetCard[0];
+                                    var targetCardWidth = $(targetCard).width();
+                                    var targetCardHeight = $(targetCard).height();
 
-                                $(cardDiv).css(
-                                {
-                                    position: "absolute",
-                                    left: $(targetCard).position().left,
-                                    top: $(targetCard).position().top,
-                                    width: targetCardWidth,
-                                    height: targetCardHeight,
-                                    "z-index": 100,
-                                    opacity: 1});
-                                $(cardDiv).animate(
-                                {
-                                    opacity: 0,
-                                    left: "-=" + (targetCardWidth / 2),
-                                    top: "-=" + (targetCardHeight / 2),
-                                    width: "+=" + targetCardWidth,
-                                    height: "+=" + targetCardHeight},
-                                {
-                                    duration: that.cardAffectsCardDuration,
-                                    easing: "easeInQuart",
-                                    queue: false,
-                                    complete: null});
-                            }
-
-                            setTimeout(next, that.cardAffectsCardDuration);
-                        }
-                    }).queue(
-                    function(next) {
-                        $(".card").each(
-                                function() {
-                                    var cardData = $(this).data("card");
-                                    if (cardData.zone == "ANIMATION") {
-                                        $(this).remove();
-                                    }
+                                    $(cardDiv).css(
+                                            {
+                                                position: "absolute",
+                                                left: $(targetCard).position().left,
+                                                top: $(targetCard).position().top,
+                                                width: targetCardWidth,
+                                                height: targetCardHeight,
+                                                "z-index": 100,
+                                                opacity: 1});
+                                    $(cardDiv).animate(
+                                            {
+                                                opacity: 0,
+                                                left: "-=" + (targetCardWidth / 2),
+                                                top: "-=" + (targetCardHeight / 2),
+                                                width: "+=" + targetCardWidth,
+                                                height: "+=" + targetCardHeight},
+                                            {
+                                                duration: that.cardAffectsCardDuration,
+                                                easing: "easeInQuart",
+                                                queue: false,
+                                                complete: null});
                                 }
-                                );
-                        next();
-                    });
+
+                                setTimeout(next, that.cardAffectsCardDuration);
+                            }
+                        }).queue(
+                        function(next) {
+                            $(".card").each(
+                                    function() {
+                                        var cardData = $(this).data("card");
+                                        if (cardData.zone == "ANIMATION") {
+                                            $(this).remove();
+                                        }
+                                    }
+                            );
+                            next();
+                        });
+            }
         }
     },
 
-    putCardInPlay: function(element) {
+    putCardInPlay: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -171,13 +175,11 @@ var GameAnimations = Class.extend({
                         targetCardData.attachedCards.push(cardDiv);
                     }
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    moveCardInPlay: function(element) {
+    moveCardInPlay: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -203,7 +205,7 @@ var GameAnimations = Class.extend({
                                 if (index != -1)
                                     cardData.attachedCards.splice(index, 1);
                             }
-                            );
+                    );
 
                     var card = $(".card:cardId(" + cardId + ")");
                     var cardData = card.data("card");
@@ -217,13 +219,11 @@ var GameAnimations = Class.extend({
                         targetCardData.attachedCards.push(card);
                     }
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    removeCardFromPlay: function(element) {
+    removeCardFromPlay: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -248,20 +248,18 @@ var GameAnimations = Class.extend({
                                             if (index != -1)
                                                 cardData.attachedCards.splice(index, 1);
                                         }
-                                        );
+                                );
                             }
 
                             card.remove();
                         }
                     }
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    gamePhaseChange: function(element) {
+    gamePhaseChange: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -274,7 +272,7 @@ var GameAnimations = Class.extend({
                 });
     },
 
-    twilightPool: function(element) {
+    twilightPool: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -286,7 +284,7 @@ var GameAnimations = Class.extend({
                 });
     },
 
-    turnChange: function(element) {
+    turnChange: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -306,7 +304,7 @@ var GameAnimations = Class.extend({
                 });
     },
 
-    addAssignment: function(element) {
+    addAssignment: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -318,13 +316,11 @@ var GameAnimations = Class.extend({
                             that.game.assignMinion(opposingCardIds[i], cardId);
                     }
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    removeAssignment: function(element) {
+    removeAssignment: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -336,13 +332,11 @@ var GameAnimations = Class.extend({
                             that.game.unassignMinion(cardData.cardId);
                     });
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    startSkirmish: function(element) {
+    startSkirmish: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -367,13 +361,11 @@ var GameAnimations = Class.extend({
                     that.game.skirmishGroupDiv.append(that.game.shadowStrengthDiv);
                     $("#main").append(that.game.skirmishGroupDiv);
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    endSkirmish: function() {
+    endSkirmish: function(animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -389,13 +381,11 @@ var GameAnimations = Class.extend({
                         }
                     });
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    addTokens: function(element) {
+    addTokens: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -411,13 +401,11 @@ var GameAnimations = Class.extend({
                         cardData.tokens[token] = 0;
                     cardData.tokens[token] += count;
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    removeTokens: function(element) {
+    removeTokens: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -433,13 +421,11 @@ var GameAnimations = Class.extend({
                         cardData.tokens[token] = 0;
                     cardData.tokens[token] -= count;
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    playerPosition: function(element) {
+    playerPosition: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -454,13 +440,11 @@ var GameAnimations = Class.extend({
 
                     that.game.advPathGroup.setPositions(that.game.playerPositions);
 
-                    that.game.layoutUI(false);
-
                     next();
                 });
     },
 
-    zoneSize: function(element) {
+    zoneSize: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -473,15 +457,15 @@ var GameAnimations = Class.extend({
                     else if (zone == "DISCARD")
                         $("#discard" + that.game.getPlayerIndex(playerId)).text("Discard: " + count);
                     else if (zone == "DEAD")
-                            $("#deadPile" + that.game.getPlayerIndex(playerId)).text("Dead pile: " + count);
-                        else if (zone == "DECK")
-                                $("#deck" + that.game.getPlayerIndex(playerId)).text("Deck: " + count);
+                        $("#deadPile" + that.game.getPlayerIndex(playerId)).text("Dead pile: " + count);
+                    else if (zone == "DECK")
+                        $("#deck" + that.game.getPlayerIndex(playerId)).text("Deck: " + count);
 
                     next();
                 });
     },
 
-    message: function(element) {
+    message: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -493,7 +477,7 @@ var GameAnimations = Class.extend({
                 });
     },
 
-    warning: function(element) {
+    warning: function(element, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -505,7 +489,7 @@ var GameAnimations = Class.extend({
                 });
     },
 
-    showSkirmishValues: function(skirmish) {
+    showSkirmishValues: function(skirmish, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -516,7 +500,7 @@ var GameAnimations = Class.extend({
                 });
     },
 
-    processDecision: function(decision) {
+    processDecision: function(decision, animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -537,11 +521,13 @@ var GameAnimations = Class.extend({
                         that.game.assignMinionsDecision(decision);
                     }
 
+                    that.game.layoutUI(false);
+
                     next();
                 });
     },
 
-    updateGameState: function() {
+    updateGameState: function(animate) {
         var that = this;
         $("#main").queue(
                 function(next) {
@@ -549,6 +535,9 @@ var GameAnimations = Class.extend({
                             function() {
                                 that.game.updateGameState();
                             }, 1000);
+
+                    that.game.layoutUI(false);
+
                     next();
                 });
     },
