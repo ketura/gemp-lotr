@@ -27,7 +27,12 @@ public class PlaySiteEffect extends AbstractEffect {
     }
 
     private PhysicalCard getMatchingSite(LotroGame game) {
-        Collection<PhysicalCard> matching = Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber), Filters.siteBlock(_siteBlock));
+        Collection<PhysicalCard> matching;
+        if (_siteBlock != null) {
+            matching = Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber), Filters.siteBlock(_siteBlock));
+        } else {
+            matching = Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber));
+        }
         if (matching.size() > 0)
             return matching.iterator().next();
         else
