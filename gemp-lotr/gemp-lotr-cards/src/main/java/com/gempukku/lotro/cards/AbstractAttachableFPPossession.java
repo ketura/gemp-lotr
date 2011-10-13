@@ -61,6 +61,7 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
             }
 
             validTransferFilter = Filters.and(validTransferFilter,
+                    Filters.not(Filters.sameCard(self.getAttachedTo())),
                     new Filter() {
                         @Override
                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
