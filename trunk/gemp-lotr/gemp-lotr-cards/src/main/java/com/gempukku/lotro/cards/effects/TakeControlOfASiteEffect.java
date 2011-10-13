@@ -6,10 +6,13 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.Preventable;
 
-public class TakeControlOfASiteEffect extends AbstractEffect {
+public class TakeControlOfASiteEffect extends AbstractEffect implements Preventable {
     private PhysicalCard _source;
     private String _playerId;
+
+    private boolean _prevented;
 
     public TakeControlOfASiteEffect(PhysicalCard source, String playerId) {
         _source = source;
@@ -42,15 +45,26 @@ public class TakeControlOfASiteEffect extends AbstractEffect {
 
     @Override
     public EffectResult.Type getType() {
-        return null;
+        return EffectResult.Type.TAKE_CONTROL_OF_A_SITE;
+    }
+
+    @Override
+    public void prevent() {
+        _prevented = true;
+    }
+
+    @Override
+    public boolean isPrevented() {
+        return _prevented;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         PhysicalCard site = getFirstControllableSite(game);
-        if (site != null) {
+        if (site != null && !_prevented) {
             game.getGameState().takeControlOfCard(_playerId, site, Zone.SUPPORT);
             game.getGameState().sendMessage(_playerId + " took control of " + GameUtils.getCardLink(site));
+            return new FullEffectResult(null, true, true);
         }
         return new FullEffectResult(null, false, false);
     }

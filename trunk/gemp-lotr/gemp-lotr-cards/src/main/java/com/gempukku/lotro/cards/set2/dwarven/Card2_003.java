@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -47,7 +47,7 @@ public class Card2_003 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self));
             action.appendEffect(
-                    new PreventEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
+                    new PreventCardEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

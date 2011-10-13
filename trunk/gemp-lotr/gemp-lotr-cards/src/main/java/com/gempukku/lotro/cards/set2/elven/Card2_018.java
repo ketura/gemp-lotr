@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -61,7 +61,7 @@ public class Card2_018 extends AbstractPermanent {
                             @Override
                             protected void cardSelected(PhysicalCard elf) {
                                 action.appendEffect(
-                                        new PreventEffect(woundEffect, elf));
+                                        new PreventCardEffect(woundEffect, elf));
                             }
                         });
                 return Collections.singletonList(action);

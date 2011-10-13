@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -55,7 +55,7 @@ public class Card3_007 extends AbstractCompanion {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(
-                                        new PreventEffect(woundEffect, card));
+                                        new PreventCardEffect(woundEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

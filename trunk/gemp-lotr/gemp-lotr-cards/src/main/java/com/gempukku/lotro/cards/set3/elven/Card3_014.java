@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -60,7 +60,7 @@ public class Card3_014 extends AbstractAlly {
                                 @Override
                                 protected void cardSelected(PhysicalCard card) {
                                     action.insertEffect(
-                                            new PreventEffect(woundEffect, card));
+                                            new PreventCardEffect(woundEffect, card));
                                 }
                             });
                     return Collections.singletonList(action);

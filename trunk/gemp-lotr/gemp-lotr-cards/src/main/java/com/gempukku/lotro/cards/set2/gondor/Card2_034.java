@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -54,7 +54,7 @@ public class Card2_034 extends AbstractResponseEvent {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.appendEffect(
-                                        new PreventEffect(woundEffect, card));
+                                        new PreventCardEffect(woundEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

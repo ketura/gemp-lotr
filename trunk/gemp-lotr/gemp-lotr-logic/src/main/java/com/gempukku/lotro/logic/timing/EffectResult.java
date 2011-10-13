@@ -14,6 +14,8 @@ public abstract class EffectResult {
         START_OF_TURN,
         END_OF_TURN,
 
+        TAKE_CONTROL_OF_A_SITE,
+
         PLAY, ACTIVATE, DRAW_CARD_OR_PUT_INTO_HAND,
 
         PUT_ON_THE_ONE_RING, REMOVE_BURDEN, ADD_BURDEN,
