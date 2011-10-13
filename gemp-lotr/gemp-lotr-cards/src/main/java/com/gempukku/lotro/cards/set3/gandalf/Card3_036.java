@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set3.gandalf;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -52,7 +52,7 @@ public class Card3_036 extends AbstractPermanent {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(
-                                        new PreventEffect(woundEffect, card));
+                                        new PreventCardEffect(woundEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

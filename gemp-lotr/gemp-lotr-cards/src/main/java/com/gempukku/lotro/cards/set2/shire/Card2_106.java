@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.shire;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -46,7 +46,7 @@ public class Card2_106 extends AbstractPermanent {
                         new ChooseActiveCardEffect(self, playerId, "Choose Hobbit", Filters.in(woundedCharacters), Filters.race(Race.HOBBIT)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
-                                action.insertEffect(new PreventEffect(woundEffect, card));
+                                action.insertEffect(new PreventCardEffect(woundEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

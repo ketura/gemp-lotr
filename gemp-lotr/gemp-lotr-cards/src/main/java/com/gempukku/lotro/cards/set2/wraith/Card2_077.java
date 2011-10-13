@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set2.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -47,7 +47,7 @@ public class Card2_077 extends AbstractPermanent {
                         new ChooseActiveCardEffect(self, playerId, "Choose twilight Nazgul", Filters.in(woundedCards), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)) {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
-                                action.insertEffect(new PreventEffect(woundEffect, card));
+                                action.insertEffect(new PreventCardEffect(woundEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

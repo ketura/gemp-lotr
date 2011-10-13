@@ -64,7 +64,7 @@ public class Card1_002 extends AbstractAttachable {
                 List<Action> actions = new LinkedList<Action>();
 
                 ActivateCardAction action = new ActivateCardAction(self);
-                action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
+                action.appendEffect(new PreventCardEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new AddBurdenEffect(self, 1));
                 action.appendEffect(new PutOnTheOneRingEffect());
                 action.appendEffect(new AddUntilStartOfPhaseActionProxyEffect(
@@ -98,7 +98,7 @@ public class Card1_002 extends AbstractAttachable {
             if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new PreventEffect(woundEffect, self.getAttachedTo()));
+                action.appendEffect(new PreventCardEffect(woundEffect, self.getAttachedTo()));
                 action.appendEffect(new AddBurdenEffect(self, 1));
                 return actions;
             }

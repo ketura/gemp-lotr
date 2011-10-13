@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.dunland;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -70,7 +70,7 @@ public class Card4_019 extends AbstractPermanent {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(
-                                        new PreventEffect(woundEffect, card));
+                                        new PreventCardEffect(woundEffect, card));
                             }
                         });
                 return Collections.singletonList(action);

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -59,7 +59,7 @@ public class Card1_173 extends AbstractPermanent {
                             @Override
                             protected void cardSelected(PhysicalCard moriaOrc) {
                                 action.appendEffect(
-                                        new PreventEffect(woundEffect, moriaOrc));
+                                        new PreventCardEffect(woundEffect, moriaOrc));
                             }
                         });
                 return Collections.singletonList(action);

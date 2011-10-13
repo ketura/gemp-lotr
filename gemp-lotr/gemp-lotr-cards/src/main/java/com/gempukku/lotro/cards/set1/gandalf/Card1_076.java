@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -58,7 +58,7 @@ public class Card1_076 extends AbstractResponseEvent {
                             @Override
                             protected void cardSelected(PhysicalCard companion) {
                                 action.appendEffect(
-                                        new PreventEffect(woundEffect, companion));
+                                        new PreventCardEffect(woundEffect, companion));
                             }
                         });
                 return Collections.singletonList(action);

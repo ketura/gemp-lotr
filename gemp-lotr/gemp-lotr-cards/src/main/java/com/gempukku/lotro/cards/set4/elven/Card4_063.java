@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.effects.PreventEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -63,7 +63,7 @@ public class Card4_063 extends AbstractAttachableFPPossession {
                             @Override
                             protected void cardSelected(PhysicalCard card) {
                                 action.insertEffect(
-                                        new PreventEffect(discardEffect, card));
+                                        new PreventCardEffect(discardEffect, card));
                             }
                         });
                 return Collections.singletonList(action);
