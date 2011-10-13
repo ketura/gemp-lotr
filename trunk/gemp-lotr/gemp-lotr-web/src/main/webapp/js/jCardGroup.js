@@ -37,19 +37,11 @@ var CardGroup = Class.extend({
     },
 
     layoutCard: function(cardElem, x, y, width, height, index) {
-        cardElem.css({position: "absolute", left: x + "px", top: y + "px", width: width, height: height, zIndex: index });
-
-        var tokenOverlay = $(".tokenOverlay", cardElem);
-        tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height})
-                .html("");
-
-        $(".foilOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
+        layoutCardElem(cardElem, x, y, width, height, index);
 
         var maxDimension = Math.max(width, height);
-        var borderWidth = Math.floor(maxDimension / 30);
 
-        var borderOverlay = $(".borderOverlay", cardElem);
-        borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 2 * borderWidth, height: height - 2 * borderWidth, "border-width": borderWidth + "px"});
+        var tokenOverlay = $(".tokenOverlay", cardElem);
 
         var tokenSize = Math.floor(maxDimension / 12) * 2;
 
@@ -290,3 +282,19 @@ var NormalCardGroup = CardGroup.extend({
         return true;
     }
 });
+
+function layoutCardElem(cardElem, x, y, width, height, index) {
+    cardElem.css({position: "absolute", left: x + "px", top: y + "px", width: width, height: height, zIndex: index });
+
+    var tokenOverlay = $(".tokenOverlay", cardElem);
+    tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height})
+            .html("");
+
+    $(".foilOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
+
+    var maxDimension = Math.max(width, height);
+    var borderWidth = Math.floor(maxDimension / 30);
+
+    var borderOverlay = $(".borderOverlay", cardElem);
+    borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 2 * borderWidth, height: height - 2 * borderWidth, "border-width": borderWidth + "px"});
+}
