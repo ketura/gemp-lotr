@@ -1,6 +1,7 @@
 var GameAnimations = Class.extend({
     game: null,
     playEventDuration: 1500,
+    putCardIntoPlayDuration: 1500,
     cardAffectsCardDuration: 1200,
 
     init: function(gameUI) {
@@ -143,12 +144,13 @@ var GameAnimations = Class.extend({
     },
 
     putCardInPlay: function(element, animate) {
+        var participantId = element.getAttribute("participantId");
+        var cardId = element.getAttribute("cardId");
+
         var that = this;
         $("#main").queue(
                 function(next) {
-                    var participantId = element.getAttribute("participantId");
                     var blueprintId = element.getAttribute("blueprintId");
-                    var cardId = element.getAttribute("cardId");
                     var zone = element.getAttribute("zone");
                     var targetCardId = element.getAttribute("targetCardId");
                     var controllerId = element.getAttribute("controllerId");
@@ -177,6 +179,75 @@ var GameAnimations = Class.extend({
 
                     next();
                 });
+
+        if (animate && (this.game.spectatorMode || (participantId != this.game.bottomPlayerId))) {
+            $("#main").queue(
+                    function(next) {
+                        that.game.layoutUI(false);
+
+                        var cardDiv = $(".card:cardId(" + cardId + ")");
+                        var card = cardDiv.data("card");
+
+                        var oldZIndex = cardDiv.css("z-index");
+                        var oldLeft = cardDiv.css("left");
+                        var oldTop = cardDiv.css("top");
+                        var oldWidth = cardDiv.css("width");
+                        var oldHeight = cardDiv.css("height");
+
+                        // Now we begin the animation
+                        var gameWidth = $("#main").width();
+                        var gameHeight = $("#main").height();
+
+                        var cardHeight = (gameHeight / 2);
+                        var cardWidth = card.getWidthForHeight(cardHeight);
+
+                        $(cardDiv).css(
+                                {
+                                    position: "absolute",
+                                    left: (gameWidth / 2 - cardWidth / 4),
+                                    top: gameHeight * (3 / 8),
+                                    width: cardWidth / 2,
+                                    height: cardHeight / 2,
+                                    "z-index": 100,
+                                    opacity: 0});
+
+                        $(cardDiv).animate(
+                                {
+                                    left: "-=" + cardWidth / 4,
+                                    top: "-=" + (gameHeight / 8),
+                                    width: "+=" + (cardWidth / 2),
+                                    height: "+=" + (cardHeight / 2),
+                                    opacity: 1},
+                                {
+                                    duration: that.putCardIntoPlayDuration / 8,
+                                    easing: "linear",
+                                    queue: false,
+                                    complete: null});
+                        $(cardDiv).animate(
+                                { },
+                                {
+                                    duration: that.putCardIntoPlayDuration * (5 / 8),
+                                    easing: "linear",
+                                    complete: null});
+                        $(cardDiv).animate(
+                                {
+                                    left: oldLeft,
+                                    top: oldTop,
+                                    width: oldWidth,
+                                    height: oldHeight},
+                                {
+                                    duration: that.putCardIntoPlayDuration / 4,
+                                    easing: "linear",
+                                    complete: null});
+                        $(cardDiv).animate(
+                                {
+                                    "z-index": oldZIndex},
+                                {
+                                    duration: 0,
+                                    easing: "linear",
+                                    complete: next});
+                    });
+        }
     },
 
     moveCardInPlay: function(element, animate) {
