@@ -29,7 +29,7 @@ public class Card1_117 extends AbstractEvent {
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
-        final PlayEventAction action = new PlayEventAction(self, true);
+        final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a Ranger", Filters.keyword(Keyword.RANGER)) {
