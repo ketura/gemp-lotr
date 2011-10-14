@@ -36,7 +36,7 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return true;
+        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter).size() > 0;
     }
 
     @Override
