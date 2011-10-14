@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.effects.LookAtOpponentsHandEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;

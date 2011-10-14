@@ -2,10 +2,10 @@ package com.gempukku.lotro.cards.set4.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseStackedCardsEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.cards.effects.StackTopCardsFromDeckEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseStackedCardsEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

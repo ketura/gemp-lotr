@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;

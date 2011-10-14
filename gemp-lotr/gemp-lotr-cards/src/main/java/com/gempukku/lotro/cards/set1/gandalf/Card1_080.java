@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;

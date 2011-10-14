@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

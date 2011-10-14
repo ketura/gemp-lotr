@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
