@@ -8,6 +8,8 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DiscardStackedCardsEffect extends AbstractEffect {
     private PhysicalCard _source;
@@ -40,11 +42,18 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         GameState gameState = game.getGameState();
-        gameState.sendMessage(getAppendedNames(_cards) + " is/are discarded from being stacked");
-        gameState.removeCardsFromZone(_cards);
-        for (PhysicalCard card : _cards)
+
+        Set<PhysicalCard> toDiscard = new HashSet<PhysicalCard>();
+        for (PhysicalCard card : _cards) {
+            if (card.getZone() == Zone.STACKED)
+                toDiscard.add(card);
+        }
+
+        gameState.sendMessage(getAppendedNames(toDiscard) + " is/are discarded from being stacked");
+        gameState.removeCardsFromZone(toDiscard);
+        for (PhysicalCard card : toDiscard)
             gameState.addCardToZone(card, Zone.DISCARD);
 
-        return new FullEffectResult(null, true, true);
+        return new FullEffectResult(null, toDiscard.size() == _cards.size(), toDiscard.size() == _cards.size());
     }
 }
