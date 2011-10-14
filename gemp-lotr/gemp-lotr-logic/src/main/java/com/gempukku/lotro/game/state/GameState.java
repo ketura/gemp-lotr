@@ -360,6 +360,21 @@ public class GameState {
         }
     }
 
+    public void shuffleCardsIntoDeck(Collection<PhysicalCard> cards, String playerId) {
+        List<PhysicalCardImpl> zoneCards = _decks.get(playerId);
+
+        for (PhysicalCard card : cards) {
+            zoneCards.add((PhysicalCardImpl) card);
+
+            ((PhysicalCardImpl) card).setZone(Zone.DECK);
+        }
+
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.setZoneSize(playerId, Zone.DECK, zoneCards.size());
+
+        shuffleDeck(playerId);
+    }
+
     public void putCardOnBottomOfDeck(PhysicalCard card) {
         addCardToZone(card, Zone.DECK);
     }
@@ -714,10 +729,6 @@ public class GameState {
         _skirmish = null;
         for (GameStateListener listener : getAllGameStateListeners())
             listener.finishSkirmish();
-    }
-
-    public void playerShufflesDeck(String player) {
-        Collections.shuffle(_decks.get(player));
     }
 
     public PhysicalCard removeTopDeckCard(String player) {

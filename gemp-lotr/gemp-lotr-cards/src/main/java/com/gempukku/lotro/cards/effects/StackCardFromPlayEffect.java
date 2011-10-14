@@ -7,9 +7,11 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class StackCardFromPlayEffect extends AbstractEffect {
     private PhysicalCard _card;
@@ -38,28 +40,42 @@ public class StackCardFromPlayEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            game.getGameState().stopAffecting(_card);
-            game.getGameState().removeCardsFromZone(Collections.singleton(_card));
-
             GameState gameState = game.getGameState();
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
-            for (PhysicalCard attachedCard : attachedCards) {
-                gameState.stopAffecting(attachedCard);
-                gameState.removeCardsFromZone(Collections.singleton(attachedCard));
-                gameState.addCardToZone(attachedCard, Zone.DISCARD);
-            }
-
             List<PhysicalCard> stackedCards = gameState.getStackedCards(_card);
-            for (PhysicalCard stackedCard : stackedCards) {
-                gameState.removeCardsFromZone(Collections.singleton(stackedCard));
-                gameState.addCardToZone(stackedCard, Zone.DISCARD);
-            }
 
-            game.getGameState().sendMessage(_card.getOwner() + " stacks " + GameUtils.getCardLink(_card) + " from play on " + GameUtils.getCardLink(_stackOn));
+            // First stop affecting (card and all attached to it)
+            game.getGameState().stopAffecting(_card);
+
+            for (PhysicalCard attachedCard : attachedCards)
+                gameState.stopAffecting(attachedCard);
+
+            // Then remove from zones (card, attached and stacked on it)
+            Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
+            cardsToRemove.add(_card);
+            cardsToRemove.addAll(attachedCards);
+            discardedCards.addAll(attachedCards);
+            cardsToRemove.addAll(stackedCards);
+
+            gameState.removeCardsFromZone(cardsToRemove);
+
+            // And put them in new zones (attached and stacked to discard, the card gets stacked on)
+            for (PhysicalCard attachedCard : attachedCards)
+                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+
+            for (PhysicalCard stackedCard : stackedCards)
+                gameState.addCardToZone(stackedCard, Zone.DISCARD);
+
+            game.getGameState().sendMessage(GameUtils.getCardLink(_card) + " is stacked on " + GameUtils.getCardLink(_stackOn));
             game.getGameState().stackCard(_card, _stackOn);
 
-            return new FullEffectResult(null, true, true);
+            // Send the result (attached cards get discarded)
+            if (discardedCards.size() > 0)
+                return new FullEffectResult(new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)}, true, true);
+            else
+                return new FullEffectResult(null, true, true);
         }
         return new FullEffectResult(null, false, false);
     }
