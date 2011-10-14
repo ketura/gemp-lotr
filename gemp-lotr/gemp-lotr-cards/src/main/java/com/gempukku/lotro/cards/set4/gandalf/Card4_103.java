@@ -40,7 +40,7 @@ public class Card4_103 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.DISCARD_FROM_PLAY
                 && PlayConditions.canUseFPCardDuringPhase(game.getGameState(), null, self)) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;

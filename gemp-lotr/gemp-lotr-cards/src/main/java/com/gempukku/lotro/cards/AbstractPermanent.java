@@ -4,7 +4,10 @@ import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -52,5 +55,27 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
 
         return getExtraPhaseActions(playerId, game, self);
+    }
+
+    @Override
+    public final List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+        if (self.getZone().isInPlay())
+            return getOptionalInPlayBeforeActions(playerId, game, effect, self);
+        return null;
+    }
+
+    @Override
+    public final List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (self.getZone().isInPlay())
+            return getOptionalInPlayAfterActions(playerId, game, effectResult, self);
+        return null;
+    }
+
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+        return null;
+    }
+
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
     }
 }
