@@ -71,14 +71,6 @@ public class Card1_060 extends AbstractAlly {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        LotroCardBlueprint copied = getCopied(game, self);
-        if (copied != null)
-            return copied.getOptionalBeforeActions(playerId, game, effect, self);
-        return null;
-    }
-
-    @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
