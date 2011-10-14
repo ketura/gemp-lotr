@@ -11,10 +11,10 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.PreventEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,17 +41,13 @@ public class Card3_110 extends AbstractAlly {
         if (effect.getType() == EffectResult.Type.ADD_BURDEN
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
-            if (addBurdenEffect.getSource().getBlueprint().getSide() == Side.SHADOW) {
+            if (!addBurdenEffect.isPrevented()
+                    && addBurdenEffect.getSource().getBlueprint().getSide() == Side.SHADOW) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new ExertCharactersEffect(self, self));
                 action.appendEffect(
-                        new UnrespondableEffect() {
-                            @Override
-                            protected void doPlayEffect(LotroGame game) {
-                                addBurdenEffect.prevent();
-                            }
-                        });
+                        new PreventEffect(addBurdenEffect));
                 return Collections.singletonList(action);
             }
         }
