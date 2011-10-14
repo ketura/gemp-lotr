@@ -47,7 +47,7 @@ public class ResolveSkirmishAction implements Action {
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         if (_effects == null) {
             _effects = resolveSkirmish();
         }

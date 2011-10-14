@@ -33,7 +33,7 @@ public class CancelEventEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (!_effect.isCancelled()) {
+        if (isPlayableInFull(game)) {
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " cancels effect - " + _effect.getText(game));
             _effect.cancel();
             return new FullEffectResult(null, true, true);

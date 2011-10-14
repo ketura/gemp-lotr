@@ -52,9 +52,9 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() > 0)
             game.getGameState().sendMessage(getAppendedNames(cards) + " exert(s) due to " + GameUtils.getCardLink(_source));
-        for (PhysicalCard woundedCard : cards) {
+
+        for (PhysicalCard woundedCard : cards)
             game.getGameState().addWound(woundedCard);
-        }
 
         return new EffectResult[]{new ExertResult(cards)};
     }

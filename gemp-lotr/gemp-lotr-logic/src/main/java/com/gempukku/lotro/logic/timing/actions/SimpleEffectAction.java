@@ -35,7 +35,7 @@ public class SimpleEffectAction implements Action {
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         Effect result = _effect;
         _effect = null;
         return result;

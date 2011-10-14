@@ -1,6 +1,9 @@
 package com.gempukku.lotro.cards.actions;
 
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.cards.effects.AttachCardEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.PayPlayOnTwilightCostEffect;
+import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -12,15 +15,11 @@ import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AttachPermanentAction extends AbstractCostToEffectAction {
-    private PhysicalCard _source;
+    private PhysicalCard _cardToAttach;
 
-    private Effect _removeCardEffect;
     private boolean _cardRemoved;
 
     private ChooseActiveCardEffect _chooseTargetEffect;
@@ -34,15 +33,12 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     private Effect _playCardEffect;
     private boolean _cardPlayed;
 
-    private Effect _discardCardEffect;
     private boolean _cardDiscarded;
 
     private boolean _exertTarget;
 
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
-        _source = card;
-
-        _removeCardEffect = new RemoveCardFromZoneEffect(card);
+        _cardToAttach = card;
 
         _chooseTargetEffect =
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
@@ -53,7 +49,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                                     new ExertCharactersEffect(target, target));
                         }
 
-                        _putCardIntoPlayEffect = new AttachCardEffect(_source, target);
+                        _putCardIntoPlayEffect = new AttachCardEffect(_cardToAttach, target);
 
                         int modifier = twilightModifier;
                         for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())
@@ -71,7 +67,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                         _playCardEffect = new PlayCardEffect(card, target);
                     }
                 };
-        _discardCardEffect = new PutCardIntoDiscardEffect(card);
     }
 
     public void setExertTarget(boolean exertTarget) {
@@ -80,19 +75,19 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
     @Override
     public PhysicalCard getActionSource() {
-        return _source;
+        return _cardToAttach;
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Attach " + _source.getBlueprint().getName();
+        return "Attach " + _cardToAttach.getBlueprint().getName();
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         if (!_cardRemoved) {
             _cardRemoved = true;
-            return _removeCardEffect;
+            game.getGameState().removeCardsFromZone(Collections.singleton(_cardToAttach));
         }
 
         if (!_targetChosen) {
@@ -125,13 +120,13 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
             } else {
                 if (!_cardDiscarded) {
                     _cardDiscarded = true;
-                    return _discardCardEffect;
+                    game.getGameState().addCardToZone(_cardToAttach, Zone.DISCARD);
                 }
             }
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;
-                return _discardCardEffect;
+                game.getGameState().addCardToZone(_cardToAttach, Zone.DISCARD);
             }
         }
 

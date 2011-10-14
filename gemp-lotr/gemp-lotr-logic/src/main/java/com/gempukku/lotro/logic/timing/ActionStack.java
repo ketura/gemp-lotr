@@ -1,5 +1,7 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.game.state.LotroGame;
+
 import java.util.Stack;
 
 public class ActionStack {
@@ -9,9 +11,9 @@ public class ActionStack {
         _actionStack.add(action);
     }
 
-    public Effect getNextEffect() {
+    public Effect getNextEffect(LotroGame game) {
         Action action = _actionStack.peek();
-        Effect effect = action.nextEffect();
+        Effect effect = action.nextEffect(game);
         if (effect != null) {
             return effect;
         } else {

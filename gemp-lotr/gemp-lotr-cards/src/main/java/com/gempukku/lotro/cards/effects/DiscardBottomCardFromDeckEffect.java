@@ -39,14 +39,14 @@ public class DiscardBottomCardFromDeckEffect extends AbstractEffect {
             gameState.sendMessage(_playerId + " discards bottom card from his or her deck - " + GameUtils.getCardLink(card));
             gameState.addCardToZone(card, Zone.DISCARD);
 
-            discardedCard(card);
+            discardedCardCallback(card);
 
             return new FullEffectResult(null, true, true);
         }
         return new FullEffectResult(null, false, false);
     }
 
-    protected void discardedCard(PhysicalCard card) {
+    protected void discardedCardCallback(PhysicalCard card) {
 
     }
 }

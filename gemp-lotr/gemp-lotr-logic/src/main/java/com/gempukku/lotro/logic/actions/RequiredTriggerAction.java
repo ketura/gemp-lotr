@@ -26,7 +26,7 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         if (!_sentMessage && _physicalCard != null) {
             _sentMessage = true;
             return new SendMessageEffect(getMessage());
