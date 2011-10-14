@@ -32,7 +32,7 @@ public class Card2_056 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ShouldSkipPhaseModifier(self,
                         new SpotCondition(Filters.name("The Balrog")), Phase.ARCHERY));

@@ -37,7 +37,8 @@ public class Card1_173 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON))))) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
+                && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON))))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new AddTwilightEffect(self, 1));
             return Collections.singletonList(action);
@@ -47,7 +48,8 @@ public class Card1_173 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
+                && effect.getType() == EffectResult.Type.WOUND) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
             if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)).size() > 0) {

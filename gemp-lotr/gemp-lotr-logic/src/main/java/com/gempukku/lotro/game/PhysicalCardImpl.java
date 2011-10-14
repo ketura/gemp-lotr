@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierHook;
 import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
@@ -59,8 +60,8 @@ public class PhysicalCardImpl implements PhysicalCard {
         return _cardController;
     }
 
-    public void startAffectingGame(ModifiersEnvironment modifiersEnvironment) {
-        List<? extends Modifier> modifiers = _blueprint.getAlwaysOnModifiers(this);
+    public void startAffectingGame(LotroGame game, ModifiersEnvironment modifiersEnvironment) {
+        List<? extends Modifier> modifiers = _blueprint.getAlwaysOnModifiers(game, this);
         if (modifiers != null) {
             _modifierHooks = new LinkedList<ModifierHook>();
             for (Modifier modifier : modifiers)

@@ -28,11 +28,11 @@ public class PlayStartingFellowshipGameProcess implements GameProcess {
             _game.getGameState().startPlayerTurn(nextPlayer);
 
             PhysicalCard ringBearer = _game.getGameState().getRingBearer(nextPlayer);
-            _game.getGameState().startAffecting(ringBearer, _game.getModifiersEnvironment());
+            _game.getGameState().startAffecting(_game, ringBearer, _game.getModifiersEnvironment());
 
             List<PhysicalCard> attachedToRingBearer = _game.getGameState().getAttachedCards(ringBearer);
             for (PhysicalCard physicalCard : attachedToRingBearer)
-                _game.getGameState().startAffecting(physicalCard, _game.getModifiersEnvironment());
+                _game.getGameState().startAffecting(_game, physicalCard, _game.getModifiersEnvironment());
 
             _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_game, nextPlayer, new PlayStartingFellowshipGameProcess(_game, _playOrder));
         } else {

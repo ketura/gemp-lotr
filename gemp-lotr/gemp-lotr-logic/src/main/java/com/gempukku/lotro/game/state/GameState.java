@@ -617,12 +617,12 @@ public class GameState {
                 card.getAttachedTo() != null && isCardInPlayActive(card.getAttachedTo()));
     }
 
-    public void startAffectingCardsForCurrentPlayer(ModifiersEnvironment modifiersEnvironment) {
+    public void startAffectingCardsForCurrentPlayer(LotroGame game, ModifiersEnvironment modifiersEnvironment) {
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getSide() != Side.SITE)
-                startAffecting(physicalCard, modifiersEnvironment);
+                startAffecting(game, physicalCard, modifiersEnvironment);
         }
-        startAffecting(getCurrentSite(), modifiersEnvironment);
+        startAffecting(game, getCurrentSite(), modifiersEnvironment);
     }
 
     public void stopAffectingCardsForCurrentPlayer() {
@@ -633,8 +633,8 @@ public class GameState {
         stopAffecting(getCurrentSite());
     }
 
-    public void startAffecting(PhysicalCard card, ModifiersEnvironment modifiersEnvironment) {
-        ((PhysicalCardImpl) card).startAffectingGame(modifiersEnvironment);
+    public void startAffecting(LotroGame game, PhysicalCard card, ModifiersEnvironment modifiersEnvironment) {
+        ((PhysicalCardImpl) card).startAffectingGame(game, modifiersEnvironment);
     }
 
     public void stopAffecting(PhysicalCard card) {

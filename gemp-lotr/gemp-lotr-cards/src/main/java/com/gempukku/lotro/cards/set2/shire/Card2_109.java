@@ -49,7 +49,7 @@ public class Card2_109 extends AbstractEvent {
         action.appendCost(
                 new ChooseActiveCardEffect(self, playerId, "Choose Sting or Glamdring bearer", Filters.hasAttached(Filters.or(Filters.name("Sting"), Filters.name("Glamdring"))), Filters.canExert(self)) {
                     @Override
-                    protected void cardSelected(LotroGame game, final PhysicalCard bearer) {
+                    protected void cardSelected(final LotroGame game, final PhysicalCard bearer) {
                         int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), bearer);
                         action.insertCost(
                                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

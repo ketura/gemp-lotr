@@ -44,7 +44,7 @@ public class Card2_100 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new TwilightCostModifier(self, Filters.or(Filters.keyword(Keyword.SEARCH), Filters.keyword(Keyword.TRACKER)), 2));
     }

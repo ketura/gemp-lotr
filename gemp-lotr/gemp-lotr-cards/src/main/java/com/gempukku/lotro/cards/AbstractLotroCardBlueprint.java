@@ -84,7 +84,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         Modifier modifier = getAlwaysOnModifier(self);
         if (modifier != null)
             return Collections.singletonList(modifier);

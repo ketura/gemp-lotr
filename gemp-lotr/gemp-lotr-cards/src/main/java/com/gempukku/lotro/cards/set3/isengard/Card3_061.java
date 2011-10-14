@@ -36,7 +36,7 @@ public class Card3_061 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(final PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "While you can spot another [ISENGARD] Orc, no player may use archery special abilities.", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override

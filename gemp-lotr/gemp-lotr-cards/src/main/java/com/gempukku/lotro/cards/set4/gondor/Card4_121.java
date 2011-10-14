@@ -35,7 +35,7 @@ public class Card4_121 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new MinionSiteNumberModifier(self, Filters.and(Filters.race(Race.MAN), Filters.inSkirmish()),
                         new Condition() {

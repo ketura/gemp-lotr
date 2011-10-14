@@ -80,7 +80,7 @@ public class PlaySiteEffect extends AbstractEffect {
             gameState.sendMessage(newSite.getOwner() + " plays " + GameUtils.getCardLink(newSite));
             gameState.addCardToZone(newSite, Zone.ADVENTURE_PATH);
             if (gameState.getCurrentSiteNumber() == _siteNumber)
-                gameState.startAffecting(newSite, game.getModifiersEnvironment());
+                gameState.startAffecting(game, newSite, game.getModifiersEnvironment());
 
             if (controlled != null) {
                 gameState.takeControlOfCard(controlled, newSite, zone);
