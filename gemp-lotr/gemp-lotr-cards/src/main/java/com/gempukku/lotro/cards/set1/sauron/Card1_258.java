@@ -3,8 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleCardsFromDiscardIntoDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -34,19 +33,15 @@ public class Card1_258 extends AbstractMinion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose up to 2 WRAITH cards", game.getGameState().getDiscard(playerId), Filters.culture(Culture.WRAITH), 0, 2) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                            for (PhysicalCard selectedCard : selectedCards) {
-                                action.appendEffect(
-                                        new PutCardFromDiscardOnBottomOfDeckEffect(selectedCard));
-                            }
-                            action.appendEffect(
-                                    new ShuffleDeckEffect(playerId));
+                            action.insertEffect(
+                                    new ShuffleCardsFromDiscardIntoDeckEffect(self, playerId, selectedCards));
                         }
                     });
             return Collections.singletonList(action);
