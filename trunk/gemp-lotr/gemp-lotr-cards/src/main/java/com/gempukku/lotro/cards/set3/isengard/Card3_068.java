@@ -78,7 +78,6 @@ public class Card3_068 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Filters.race(Race.URUK_HAI))
-                && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
