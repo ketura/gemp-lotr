@@ -5,9 +5,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.Preventable;
 import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
 
-public class AddBurdenEffect extends AbstractEffect {
+public class AddBurdenEffect extends AbstractEffect implements Preventable {
     private PhysicalCard _source;
     private int _count;
     private int _prevented;
@@ -21,10 +22,12 @@ public class AddBurdenEffect extends AbstractEffect {
         return _source;
     }
 
-    public boolean isFullyPrevented() {
+    @Override
+    public boolean isPrevented() {
         return _prevented == _count;
     }
 
+    @Override
     public void prevent() {
         _prevented++;
     }
