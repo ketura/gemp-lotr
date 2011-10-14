@@ -4,14 +4,14 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.ShuffleCardsFromPlayOrStackedIntoDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -48,15 +48,15 @@ public class Card4_055 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition", Filters.culture(Culture.DWARVEN), Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard card) {
-                        Set<PhysicalCard> toShuffle = new HashSet<PhysicalCard>();
-                        toShuffle.add(card);
-                        toShuffle.addAll(game.getGameState().getStackedCards(card));
-
                         action.insertEffect(
-                                new ShuffleCardsFromPlayOrStackedIntoDeckEffect(self, playerId, toShuffle));
+                                new ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect(self, playerId, Collections.singleton(card)) {
+                                    @Override
+                                    protected void cardsShuffledCallback(Set<PhysicalCard> cardsShuffled) {
+                                        action.appendEffect(
+                                                new ChooseAndExertCharactersEffect(action, playerId, cardsShuffled.size(), cardsShuffled.size(), Filters.type(CardType.MINION)));
+                                    }
+                                });
 
-                        action.appendEffect(
-                                new ChooseAndExertCharactersEffect(action, playerId, toShuffle.size(), toShuffle.size(), Filters.type(CardType.MINION)));
                     }
                 });
         return action;
