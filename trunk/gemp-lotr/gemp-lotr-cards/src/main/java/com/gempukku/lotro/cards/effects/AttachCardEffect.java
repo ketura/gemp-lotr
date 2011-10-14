@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards.effects;
 
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -18,7 +17,7 @@ public class AttachCardEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return !PlayConditions.nonPlayZone(_targetCard.getZone())
+        return _targetCard.getZone().isInPlay()
                 && game.getModifiersQuerying().canHavePlayedOn(game.getGameState(), _physicalCard, _targetCard);
     }
 

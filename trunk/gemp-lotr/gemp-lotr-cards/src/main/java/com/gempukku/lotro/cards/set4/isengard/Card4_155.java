@@ -42,7 +42,8 @@ public class Card4_155 extends AbstractResponseEvent {
                 && PlayConditions.canExert(self, game, Filters.name("Grima"))) {
             ActivateCardEffect activateEffect = (ActivateCardEffect) effect;
             final PhysicalCard source = activateEffect.getSource();
-            if (Filters.or(Filters.unboundCompanion(), Filters.type(CardType.ALLY)).accepts(game.getGameState(), game.getModifiersQuerying(), source)) {
+            if (!activateEffect.isCancelled()
+                    && Filters.or(Filters.unboundCompanion(), Filters.type(CardType.ALLY)).accepts(game.getGameState(), game.getModifiersQuerying(), source)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendCost(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Grima")));
