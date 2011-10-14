@@ -59,7 +59,7 @@ public class Card2_018 extends AbstractPermanent {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF), Filters.in(woundedCharacters)) {
                             @Override
-                            protected void cardSelected(PhysicalCard elf) {
+                            protected void cardSelected(LotroGame game, PhysicalCard elf) {
                                 action.appendEffect(
                                         new PreventCardEffect(woundEffect, elf));
                             }

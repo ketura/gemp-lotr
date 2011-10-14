@@ -45,7 +45,7 @@ public class Card4_059 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose minion skirmishing unbound companion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.unboundCompanion())) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), -counter.get()), Phase.SKIRMISH));

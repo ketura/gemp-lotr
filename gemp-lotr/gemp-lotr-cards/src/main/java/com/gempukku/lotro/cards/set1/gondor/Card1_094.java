@@ -62,7 +62,7 @@ public class Card1_094 extends AbstractAttachableFPPossession {
                         }
 
                         @Override
-                        protected void cardSelected(PhysicalCard shadowCondition) {
+                        protected void cardSelected(LotroGame game, PhysicalCard shadowCondition) {
                             action.appendEffect(new DiscardCardsFromPlayEffect(self, shadowCondition));
                         }
                     });

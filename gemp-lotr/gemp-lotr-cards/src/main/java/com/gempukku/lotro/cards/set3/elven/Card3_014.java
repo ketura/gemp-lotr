@@ -58,7 +58,7 @@ public class Card3_014 extends AbstractAlly {
                     action.appendEffect(
                             new ChooseActiveCardEffect(self, playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
                                 @Override
-                                protected void cardSelected(PhysicalCard card) {
+                                protected void cardSelected(LotroGame game, PhysicalCard card) {
                                     action.insertEffect(
                                             new PreventCardEffect(woundEffect, card));
                                 }

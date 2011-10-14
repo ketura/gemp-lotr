@@ -45,7 +45,7 @@ public class Card2_036 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.name("Aragorn"))) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = (card.getBlueprint().getSignet() == Signet.ARAGORN) ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

@@ -29,7 +29,7 @@ public class Card1_119 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a roaming minion", Filters.keyword(Keyword.ROAMING), Filters.type(CardType.MINION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard roamingMinion) {
+                    protected void cardSelected(LotroGame game, PhysicalCard roamingMinion) {
                         action.appendEffect(
                                 new DiscardCardsFromPlayEffect(self, roamingMinion));
                     }

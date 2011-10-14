@@ -49,7 +49,7 @@ public class Card1_085 extends AbstractResponseEvent {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose character", Filters.type(CardType.COMPANION), Filters.in(exertedCharacters)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.appendEffect(
                                         new PreventCardEffect(exertEffect, card));
                             }

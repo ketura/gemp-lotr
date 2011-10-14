@@ -52,7 +52,7 @@ public class Card4_028 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
                         @Override
-                        protected void cardSelected(PhysicalCard dunlandMan) {
+                        protected void cardSelected(LotroGame game, PhysicalCard dunlandMan) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new CancelStrengthBonusModifier(self, Filters.and(Filters.type(CardType.POSSESSION), Filters.attachedTo(Filters.inSkirmishAgainst(Filters.sameCard(dunlandMan))))), Phase.SKIRMISH));

@@ -57,7 +57,7 @@ public class Card4_225 extends AbstractMinion {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Filters.keyword(Keyword.EASTERLING)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));
@@ -77,7 +77,7 @@ public class Card4_225 extends AbstractMinion {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Filters.keyword(Keyword.EASTERLING)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(card), 3), Phase.SKIRMISH));
@@ -97,7 +97,7 @@ public class Card4_225 extends AbstractMinion {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Filters.keyword(Keyword.EASTERLING)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(card), 4), Phase.SKIRMISH));

@@ -39,7 +39,7 @@ public class Card1_185 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN ally or DWARVEN condition", Filters.culture(Culture.DWARVEN), Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.CONDITION))) {
                         @Override
-                        protected void cardSelected(PhysicalCard dwarvenCard) {
+                        protected void cardSelected(LotroGame game, PhysicalCard dwarvenCard) {
                             action.appendEffect(new DiscardCardsFromPlayEffect(self, dwarvenCard));
                         }
                     });

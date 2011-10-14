@@ -43,7 +43,7 @@ public class Card4_115 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose minion", Filters.type(CardType.MINION), Filters.canTakeWound()) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         boolean urukHai = (card.getBlueprint().getRace() == Race.URUK_HAI);
                         action.insertEffect(
                                 new WoundCharactersEffect(self, card));

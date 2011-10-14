@@ -54,7 +54,7 @@ public class Card4_111 extends AbstractAttachable {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose Rin-bound Man", Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), 1), Phase.SKIRMISH));

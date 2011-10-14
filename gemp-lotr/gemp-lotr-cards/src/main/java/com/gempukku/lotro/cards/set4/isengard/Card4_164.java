@@ -45,7 +45,7 @@ public class Card4_164 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
-                        protected void cardSelected(PhysicalCard companion) {
+                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
                             action.insertEffect(
                                     new PreventableEffect(action,
                                             new AssignmentEffect(playerId, companion, self),

@@ -37,7 +37,7 @@ public class Card1_169 extends AbstractEvent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose minion to assign Ring-Bearer to", Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
-                        protected void cardSelected(PhysicalCard minion) {
+                        protected void cardSelected(LotroGame game, PhysicalCard minion) {
                             action.appendEffect(
                                     new AssignmentEffect(playerId, ringBearer, minion));
                         }

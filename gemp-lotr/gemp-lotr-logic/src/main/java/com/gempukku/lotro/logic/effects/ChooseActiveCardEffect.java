@@ -11,11 +11,11 @@ public abstract class ChooseActiveCardEffect extends ChooseActiveCardsEffect {
         super(source, playerId, choiceText, 1, 1, filters);
     }
 
-    protected abstract void cardSelected(PhysicalCard card);
+    protected abstract void cardSelected(LotroGame game, PhysicalCard card);
 
     @Override
     protected final void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() == 1)
-            cardSelected(cards.iterator().next());
+            cardSelected(game, cards.iterator().next());
     }
 }

@@ -34,7 +34,7 @@ public class Card4_259 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Easterling", Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW), Filters.keyword(Keyword.EASTERLING)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new PreventableEffect(action,
                                         new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)), card),

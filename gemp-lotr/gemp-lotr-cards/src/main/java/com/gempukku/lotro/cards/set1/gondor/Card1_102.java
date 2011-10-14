@@ -30,7 +30,7 @@ public class Card1_102 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose GONDOR of SHIRE companion bearing a hand weapon", Filters.or(Filters.culture(Culture.GONDOR), Filters.culture(Culture.SHIRE)), Filters.type(CardType.COMPANION), Filters.hasAttached(Filters.keyword(Keyword.HAND_WEAPON))) {
                     @Override
-                    protected void cardSelected(PhysicalCard companion) {
+                    protected void cardSelected(LotroGame game, PhysicalCard companion) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(companion), 2), Phase.SKIRMISH));

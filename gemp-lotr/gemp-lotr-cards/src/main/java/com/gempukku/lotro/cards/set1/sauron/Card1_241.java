@@ -35,7 +35,7 @@ public class Card1_241 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose an ELVEN condition", Filters.culture(Culture.ELVEN), Filters.type(CardType.CONDITION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard elvenCondition) {
+                    protected void cardSelected(LotroGame game, PhysicalCard elvenCondition) {
                         action.appendEffect(
                                 new DiscardCardsFromPlayEffect(self, elvenCondition));
                     }

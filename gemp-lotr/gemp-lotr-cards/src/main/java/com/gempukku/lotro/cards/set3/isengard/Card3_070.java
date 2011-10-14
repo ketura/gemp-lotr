@@ -37,7 +37,7 @@ public class Card3_070 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int countCards = game.getGameState().getHand(playerId).size();
                         int bonus = (countCards < 3) ? 3 : 2;
                         action.insertEffect(

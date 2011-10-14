@@ -53,7 +53,7 @@ public class Card3_007 extends AbstractCompanion {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose character to preventAll wound", Filters.in(woundedCharacters), Filters.keyword(Keyword.RING_BEARER)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new PreventCardEffect(woundEffect, card));
                             }

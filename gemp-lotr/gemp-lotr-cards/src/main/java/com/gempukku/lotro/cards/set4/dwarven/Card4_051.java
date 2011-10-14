@@ -35,7 +35,7 @@ public class Card4_051 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         boolean spotsLegolas = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Legolas"));
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

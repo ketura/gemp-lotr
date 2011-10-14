@@ -61,7 +61,7 @@ public class Card4_063 extends AbstractAttachableFPPossession {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose possession", Filters.in(discardedPossesions)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new PreventCardEffect(discardEffect, card));
                             }

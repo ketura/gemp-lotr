@@ -34,7 +34,7 @@ public class Card1_117 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a Ranger", Filters.keyword(Keyword.RANGER)) {
                     @Override
-                    protected void cardSelected(PhysicalCard gondorCompanion) {
+                    protected void cardSelected(LotroGame game, PhysicalCard gondorCompanion) {
                         int bonus = 2;
                         Skirmish skirmish = game.getGameState().getSkirmish();
                         if (skirmish != null && skirmish.getFellowshipCharacter() == gondorCompanion

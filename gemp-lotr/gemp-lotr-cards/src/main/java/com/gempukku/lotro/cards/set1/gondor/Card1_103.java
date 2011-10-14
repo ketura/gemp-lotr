@@ -29,7 +29,7 @@ public class Card1_103 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard gondorCompanion) {
+                    protected void cardSelected(LotroGame game, PhysicalCard gondorCompanion) {
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new KeywordModifier(self, Filters.sameCard(gondorCompanion), Keyword.DEFENDER), Phase.REGROUP));

@@ -44,7 +44,7 @@ public class Card1_118 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Aragorn", Filters.name("Aragorn")) {
                     @Override
-                    protected void cardSelected(final PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new KeywordModifier(self, Filters.sameCard(card), Keyword.DEFENDER), Phase.REGROUP));

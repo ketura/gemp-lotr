@@ -36,7 +36,7 @@ public class Card1_032 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF)) {
                     @Override
-                    protected void cardSelected(PhysicalCard elf) {
+                    protected void cardSelected(LotroGame game, PhysicalCard elf) {
                         Skirmish skirmish = game.getGameState().getSkirmish();
                         int bonus = 2;
                         if (skirmish != null) {

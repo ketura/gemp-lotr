@@ -30,7 +30,7 @@ public class Card1_116 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard gondorCompanion) {
+                    protected void cardSelected(LotroGame game, PhysicalCard gondorCompanion) {
                         boolean isDefender = game.getModifiersQuerying().hasKeyword(game.getGameState(), gondorCompanion, Keyword.DEFENDER);
                         int bonus = isDefender ? 4 : 2;
                         action.appendEffect(

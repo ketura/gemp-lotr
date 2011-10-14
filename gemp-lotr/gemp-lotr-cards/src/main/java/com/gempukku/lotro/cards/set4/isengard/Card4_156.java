@@ -32,7 +32,7 @@ public class Card4_156 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD tracker", Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus =
                                 (Filters.inSkirmishAgainst(Filters.hasAttached(Filters.keyword(Keyword.SEARCH))).accepts(game.getGameState(), game.getModifiersQuerying(), card)) ? 4 : 2;
                         action.insertEffect(

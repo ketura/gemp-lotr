@@ -37,7 +37,7 @@ public class Card1_212 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
                     @Override
-                    protected void cardSelected(PhysicalCard ally) {
+                    protected void cardSelected(LotroGame game, PhysicalCard ally) {
                         action.appendEffect(
                                 new DiscardCardsFromPlayEffect(self, ally));
                     }

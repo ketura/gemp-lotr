@@ -43,7 +43,7 @@ public class Card4_101 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "choose an Ent ally", Filters.race(Race.ENT), Filters.type(CardType.ALLY)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE, 2), Phase.REGROUP));

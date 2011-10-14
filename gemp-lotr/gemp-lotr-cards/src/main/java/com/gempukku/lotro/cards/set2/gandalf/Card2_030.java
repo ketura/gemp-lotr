@@ -37,7 +37,7 @@ public class Card2_030 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new RemoveKeywordModifier(self, Filters.sameCard(card), Keyword.FIERCE), Phase.REGROUP));

@@ -47,7 +47,7 @@ public class Card4_114 extends AbstractCompanion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Man", Filters.inSkirmishAgainst(Filters.sameCard(self)), Filters.canExert(self)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new ExhaustCharacterEffect(playerId, action, card));
                         }

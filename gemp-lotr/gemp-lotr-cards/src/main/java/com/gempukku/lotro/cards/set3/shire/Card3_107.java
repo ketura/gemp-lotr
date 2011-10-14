@@ -54,7 +54,7 @@ public class Card3_107 extends AbstractAttachableFPPossession {
                                     action.appendEffect(
                                             new ChooseActiveCardEffect(self, playerId, "Choose companion with Frodo signet", Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO)) {
                                                 @Override
-                                                protected void cardSelected(PhysicalCard card) {
+                                                protected void cardSelected(LotroGame game, PhysicalCard card) {
                                                     for (int i = 0; i < spotCount; i++)
                                                         action.insertEffect(
                                                                 new HealCharactersEffect(playerId, card));

@@ -38,7 +38,7 @@ public class Card1_277 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard fpCondition) {
+                    protected void cardSelected(LotroGame game, PhysicalCard fpCondition) {
                         action.appendEffect(
                                 new DiscardCardsFromPlayEffect(self, fpCondition));
                     }

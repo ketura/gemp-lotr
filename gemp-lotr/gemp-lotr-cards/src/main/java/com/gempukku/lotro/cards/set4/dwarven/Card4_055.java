@@ -47,7 +47,7 @@ public class Card4_055 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition", Filters.culture(Culture.DWARVEN), Filters.type(CardType.CONDITION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect(self, playerId, Collections.singleton(card)) {
                                     @Override

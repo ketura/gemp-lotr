@@ -43,7 +43,7 @@ public class Card2_028 extends AbstractEvent {
                 new PreventableEffect(action,
                         new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.appendEffect(
                                         new AddUntilStartOfPhaseModifierEffect(
                                                 new KeywordModifier(self, Filters.sameCard(card), Keyword.DEFENDER), Phase.REGROUP));

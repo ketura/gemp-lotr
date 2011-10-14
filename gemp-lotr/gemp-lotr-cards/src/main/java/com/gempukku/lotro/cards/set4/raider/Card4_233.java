@@ -41,7 +41,7 @@ public class Card4_233 extends AbstractEvent {
                     }
 
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = Math.min(5, game.getGameState().getBurdens());
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
@@ -56,7 +56,7 @@ public class Card4_233 extends AbstractEvent {
                     }
 
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));

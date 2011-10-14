@@ -35,7 +35,7 @@ public class Card1_026 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Dwarf", Filters.race(Race.DWARF)) {
                     @Override
-                    protected void cardSelected(PhysicalCard dwarf) {
+                    protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                         GameState gameState = game.getGameState();
                         int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
                         action.appendEffect(

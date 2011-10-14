@@ -45,7 +45,7 @@ public class Card4_249 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose Ring-bearer", Filters.keyword(Keyword.RING_BEARER)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(new PreventableEffect(action,
                                     new AssignmentEffect(playerId, card, self),
                                     game.getGameState().getCurrentPlayerId(),

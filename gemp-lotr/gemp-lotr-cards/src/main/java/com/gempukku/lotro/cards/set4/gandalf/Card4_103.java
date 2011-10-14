@@ -50,7 +50,7 @@ public class Card4_103 extends AbstractAlly {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose unbound hobbit", Filters.in(discardedHobbits)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new StackCardFromPlayEffect(card, self));
                             }

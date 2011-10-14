@@ -50,7 +50,7 @@ public class Card3_036 extends AbstractPermanent {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose a companion", Filters.in(woundedCharacters), Filters.type(CardType.COMPANION)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new PreventCardEffect(woundEffect, card));
                             }

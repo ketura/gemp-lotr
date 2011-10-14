@@ -47,7 +47,7 @@ public class Card4_184 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose nother Uruk-hai", Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));

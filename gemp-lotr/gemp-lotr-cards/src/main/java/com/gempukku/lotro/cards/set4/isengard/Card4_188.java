@@ -62,7 +62,7 @@ public class Card4_188 extends AbstractMinion {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.canExert(self)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new ExhaustCharacterEffect(playerId, action, card));
                             }

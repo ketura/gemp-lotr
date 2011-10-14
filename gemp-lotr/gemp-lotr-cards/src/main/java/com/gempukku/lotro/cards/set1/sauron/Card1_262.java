@@ -48,7 +48,7 @@ public class Card1_262 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, game.getGameState().getCurrentPlayerId(), "Choose a Hobbit", Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
-                        protected void cardSelected(PhysicalCard hobbit) {
+                        protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
                             action.appendEffect(new AssignmentEffect(hobbit.getOwner(), hobbit, self));
                         }
                     });

@@ -32,7 +32,7 @@ public class Card4_208 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose an ISENGARD tracker", Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = 2 * Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.attachedTo(Filters.inSkirmishAgainst(Filters.sameCard(self))));
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

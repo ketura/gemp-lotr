@@ -42,7 +42,7 @@ public class Card1_186 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                         @Override
-                        protected void cardSelected(PhysicalCard moriaOrc) {
+                        protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(moriaOrc), 2), Phase.SKIRMISH));
