@@ -101,6 +101,10 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean canExertSelf(PhysicalCard self, LotroGame game) {
+        return canExert(self, game, Filters.sameCard(self));
+    }
+
     public static boolean canExert(PhysicalCard source, LotroGame game, Filter... filters) {
         return canExert(source, game.getGameState(), game.getModifiersQuerying(), filters);
     }
