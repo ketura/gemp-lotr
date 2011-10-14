@@ -44,7 +44,7 @@ public class Card2_097 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new CantTakeWoundsModifier(self,
                         Filters.and(

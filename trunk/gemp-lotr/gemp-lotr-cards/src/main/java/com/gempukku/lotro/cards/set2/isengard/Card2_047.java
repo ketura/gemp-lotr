@@ -41,7 +41,7 @@ public class Card2_047 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new RoamingPenaltyModifier(self, Filters.and(Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)), -1));
     }

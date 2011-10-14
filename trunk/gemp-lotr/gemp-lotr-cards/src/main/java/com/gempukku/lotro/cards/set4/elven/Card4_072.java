@@ -35,7 +35,7 @@ public class Card4_072 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new RemoveKeywordModifier(self,
                         Filters.and(Filters.type(CardType.MINION), Filters.wounded()),

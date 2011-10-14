@@ -42,7 +42,7 @@ public class Card4_188 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new CantDiscardFromPlayModifier(self, "Unbound Hobbits may not be discarded", Filters.and(Filters.unboundCompanion(), Filters.race(Race.HOBBIT)), Filters.any()));
     }

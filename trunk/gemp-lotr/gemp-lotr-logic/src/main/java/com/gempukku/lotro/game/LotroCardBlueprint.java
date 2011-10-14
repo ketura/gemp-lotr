@@ -42,7 +42,7 @@ public interface LotroCardBlueprint {
 
     public boolean isAllyAtHome(int siteNumber, Block siteBlock);
 
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self);
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 

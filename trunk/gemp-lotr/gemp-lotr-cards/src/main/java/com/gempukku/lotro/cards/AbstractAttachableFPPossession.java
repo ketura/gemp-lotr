@@ -75,7 +75,7 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
     }
 
     @Override
-    public final List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public final List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         if (_strength != 0)
             modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), _strength));

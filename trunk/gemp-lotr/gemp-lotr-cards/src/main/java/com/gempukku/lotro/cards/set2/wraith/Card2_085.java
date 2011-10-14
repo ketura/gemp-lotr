@@ -41,7 +41,7 @@ public class Card2_085 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "Return to Its Master may not be played", Filters.name("Return to Its Master"), new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override

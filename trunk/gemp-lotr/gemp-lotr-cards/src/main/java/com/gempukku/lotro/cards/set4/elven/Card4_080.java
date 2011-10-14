@@ -39,7 +39,7 @@ public class Card4_080 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(final PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "The twilight cost of each ranged weapon played on Ordulus is -1.", Filters.keyword(Keyword.RANGED_WEAPON), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
                     @Override

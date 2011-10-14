@@ -45,7 +45,7 @@ public class Card2_076 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "Sam's game text does not apply", Filters.name("Sam"), new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override

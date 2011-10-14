@@ -34,7 +34,7 @@ public class Card4_069 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(final PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.name("Legolas"), null,
                         new Evaluator() {

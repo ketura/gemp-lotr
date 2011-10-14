@@ -74,7 +74,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
             if (!_cardPutIntoPlay) {
                 _cardPutIntoPlay = true;
                 game.getGameState().addCardToZone(_permanentPlayed, _zone);
-                game.getGameState().startAffecting(_permanentPlayed, game.getModifiersEnvironment());
+                game.getGameState().startAffecting(game, _permanentPlayed, game.getModifiersEnvironment());
             }
 
             if (!_cardPlayed) {

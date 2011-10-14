@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -45,6 +46,14 @@ public class Card1_295 extends AbstractAlly {
         PhysicalCard firstActive = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), getFilter(self));
         if (firstActive != null)
             return firstActive.getBlueprint();
+        return null;
+    }
+
+    @Override
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        LotroCardBlueprint copied = getCopied(game, self);
+        if (copied != null)
+            return copied.getAlwaysOnModifiers(game, self);
         return null;
     }
 
