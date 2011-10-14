@@ -10,12 +10,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ShuffleCardsFromPlayOrStackedIntoDeckEffect extends AbstractEffect {
+public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEffect {
     private PhysicalCard _source;
     private String _playerDeck;
     private Collection<PhysicalCard> _cards;
 
-    public ShuffleCardsFromPlayOrStackedIntoDeckEffect(PhysicalCard source, String playerDeck, Collection<PhysicalCard> cards) {
+    public ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect(PhysicalCard source, String playerDeck, Collection<PhysicalCard> cards) {
         _source = source;
         _playerDeck = playerDeck;
         _cards = cards;
@@ -43,29 +43,34 @@ public class ShuffleCardsFromPlayOrStackedIntoDeckEffect extends AbstractEffect 
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        Set<PhysicalCard> stacked = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> toShuffleIn = new HashSet<PhysicalCard>();
         Set<PhysicalCard> inPlay = new HashSet<PhysicalCard>();
+
         for (PhysicalCard card : _cards) {
-            if (card.getZone() == Zone.STACKED)
-                stacked.add(card);
-            else if (card.getZone().isInPlay())
+            if (card.getZone().isInPlay()) {
                 inPlay.add(card);
+                toShuffleIn.add(card);
+                toShuffleIn.addAll(game.getGameState().getStackedCards(card));
+            }
         }
 
         for (PhysicalCard physicalCard : inPlay)
             game.getGameState().stopAffecting(physicalCard);
 
-        Set<PhysicalCard> shuffleIn = new HashSet<PhysicalCard>(stacked);
-        shuffleIn.addAll(inPlay);
+        if (toShuffleIn.size() > 0) {
+            game.getGameState().removeCardsFromZone(toShuffleIn);
 
-        if (shuffleIn.size() > 0) {
-            game.getGameState().removeCardsFromZone(shuffleIn);
+            game.getGameState().shuffleCardsIntoDeck(toShuffleIn, _playerDeck);
 
-            game.getGameState().shuffleCardsIntoDeck(shuffleIn, _playerDeck);
+            game.getGameState().sendMessage(getAppendedNames(toShuffleIn) + " is/are shuffled into " + _playerDeck + " deck");
 
-            game.getGameState().sendMessage(getAppendedNames(shuffleIn) + " is/are shuffled into " + _playerDeck + " deck");
+            cardsShuffledCallback(toShuffleIn);
         }
 
-        return new FullEffectResult(null, shuffleIn.size() == _cards.size(), shuffleIn.size() == _cards.size());
+        return new FullEffectResult(null, inPlay.size() == _cards.size(), inPlay.size() == _cards.size());
+    }
+
+    protected void cardsShuffledCallback(Set<PhysicalCard> cardsShuffled) {
+
     }
 }
