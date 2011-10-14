@@ -5,8 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.cards.effects.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.ChooseArbitraryCardsEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleCardsFromDiscardIntoDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -61,9 +60,8 @@ public class Card1_285 extends AbstractAttachableFPPossession {
                                             new ChooseArbitraryCardsEffect(playerId, "Choose tales", new LinkedList<PhysicalCard>(talesInDiscard), shufflableTales, shufflableTales) {
                                                 @Override
                                                 protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                                    for (PhysicalCard selectedCard : selectedCards)
-                                                        action.appendEffect(new PutCardFromDiscardOnBottomOfDeckEffect(selectedCard));
-                                                    action.appendEffect(new ShuffleDeckEffect(playerId));
+                                                    action.insertEffect(
+                                                            new ShuffleCardsFromDiscardIntoDeckEffect(self, playerId, selectedCards));
                                                 }
                                             });
                                 }

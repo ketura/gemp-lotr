@@ -3,7 +3,10 @@ package com.gempukku.lotro.cards.set2.isengard;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.ChooseCardsFromDiscardEffect;
+import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
+import com.gempukku.lotro.cards.effects.ShuffleCardsFromDiscardIntoDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,7 +40,7 @@ public class Card2_041 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
@@ -49,12 +52,8 @@ public class Card2_041 extends AbstractEvent {
                                 new ChooseCardsFromDiscardEffect(playerId, burdensSpotted, burdensSpotted, Filters.type(CardType.MINION)) {
                                     @Override
                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-                                        for (PhysicalCard card : cards) {
-                                            action.appendEffect(
-                                                    new PutCardFromDiscardOnBottomOfDeckEffect(card));
-                                        }
-                                        action.appendEffect(
-                                                new ShuffleDeckEffect(playerId));
+                                        action.insertEffect(
+                                                new ShuffleCardsFromDiscardIntoDeckEffect(self, playerId, cards));
                                     }
                                 });
                     }

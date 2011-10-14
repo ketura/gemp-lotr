@@ -58,11 +58,13 @@ public class ShuffleCardsFromPlayOrStackedIntoDeckEffect extends AbstractEffect 
         Set<PhysicalCard> shuffleIn = new HashSet<PhysicalCard>(stacked);
         shuffleIn.addAll(inPlay);
 
-        game.getGameState().removeCardsFromZone(shuffleIn);
+        if (shuffleIn.size() > 0) {
+            game.getGameState().removeCardsFromZone(shuffleIn);
 
-        game.getGameState().shuffleCardsIntoDeck(shuffleIn, _playerDeck);
+            game.getGameState().shuffleCardsIntoDeck(shuffleIn, _playerDeck);
 
-        game.getGameState().sendMessage(getAppendedNames(shuffleIn) + " is/are shuffled into " + _playerDeck + " deck");
+            game.getGameState().sendMessage(getAppendedNames(shuffleIn) + " is/are shuffled into " + _playerDeck + " deck");
+        }
 
         return new FullEffectResult(null, shuffleIn.size() == _cards.size(), shuffleIn.size() == _cards.size());
     }
