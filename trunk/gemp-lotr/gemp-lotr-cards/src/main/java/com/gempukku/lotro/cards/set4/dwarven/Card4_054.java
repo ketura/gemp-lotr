@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleCardsFromPlayOrStackedIntoDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -13,7 +13,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -34,22 +35,20 @@ public class Card4_054 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardsEffect(self, playerId, "Choose DWARVEN conditions", 0, Integer.MAX_VALUE, Filters.culture(Culture.DWARVEN), Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+                        Set<PhysicalCard> toShuffle = new HashSet<PhysicalCard>();
                         for (PhysicalCard card : cards) {
-                            game.getGameState().removeCardsFromZone(game.getGameState().getStackedCards(card));
-                            for (PhysicalCard stackedCard : game.getGameState().getStackedCards(card)) {
-                                game.getGameState().putCardOnBottomOfDeck(stackedCard);
-                            }
-                            game.getGameState().removeCardsFromZone(Collections.singleton(card));
-                            game.getGameState().putCardOnBottomOfDeck(card);
+                            toShuffle.add(card);
+                            toShuffle.addAll(game.getGameState().getStackedCards(card));
                         }
-                        action.appendEffect(
-                                new ShuffleDeckEffect(playerId));
+
+                        action.insertEffect(
+                                new ShuffleCardsFromPlayOrStackedIntoDeckEffect(self, playerId, toShuffle));
                     }
                 });
         return action;

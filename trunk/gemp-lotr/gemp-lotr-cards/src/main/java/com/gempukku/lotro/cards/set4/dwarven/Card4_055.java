@@ -4,14 +4,15 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleCardsFromPlayOrStackedIntoDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -39,7 +40,7 @@ public class Card4_055 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
@@ -47,20 +48,15 @@ public class Card4_055 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition", Filters.culture(Culture.DWARVEN), Filters.type(CardType.CONDITION)) {
                     @Override
                     protected void cardSelected(PhysicalCard card) {
-                        int count = 0;
-                        game.getGameState().removeCardsFromZone(game.getGameState().getStackedCards(card));
-                        for (PhysicalCard stackedCard : game.getGameState().getStackedCards(card)) {
-                            game.getGameState().putCardOnBottomOfDeck(stackedCard);
-                            count++;
-                        }
-                        game.getGameState().removeCardsFromZone(Collections.singleton(card));
-                        game.getGameState().putCardOnBottomOfDeck(card);
-                        count++;
+                        Set<PhysicalCard> toShuffle = new HashSet<PhysicalCard>();
+                        toShuffle.add(card);
+                        toShuffle.addAll(game.getGameState().getStackedCards(card));
+
+                        action.insertEffect(
+                                new ShuffleCardsFromPlayOrStackedIntoDeckEffect(self, playerId, toShuffle));
 
                         action.appendEffect(
-                                new ShuffleDeckEffect(playerId));
-                        action.appendEffect(
-                                new ChooseAndExertCharactersEffect(action, playerId, count, count, Filters.type(CardType.MINION)));
+                                new ChooseAndExertCharactersEffect(action, playerId, toShuffle.size(), toShuffle.size(), Filters.type(CardType.MINION)));
                     }
                 });
         return action;
