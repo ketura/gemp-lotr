@@ -42,8 +42,7 @@ public class Card1_261 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
-                && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.EVENT), Filters.keyword(Keyword.REGROUP)))
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.EVENT), Filters.keyword(Keyword.REGROUP)))
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

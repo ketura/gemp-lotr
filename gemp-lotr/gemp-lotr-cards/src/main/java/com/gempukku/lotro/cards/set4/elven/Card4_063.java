@@ -45,7 +45,7 @@ public class Card4_063 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
             final DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             Collection<PhysicalCard> discardedCards = discardEffect.getAffectedCardsMinusPrevented(game);

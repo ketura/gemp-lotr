@@ -57,7 +57,7 @@ public class Card1_001 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
+    public List<? extends Action> getOptionalInPlayBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND
                 && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

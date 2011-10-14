@@ -40,7 +40,7 @@ public class Card2_003 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (effect.getType() == EffectResult.Type.WOUND
                 && ((WoundCharactersEffect) effect).getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self);

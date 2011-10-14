@@ -9,6 +9,8 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.*;
 
@@ -117,5 +119,27 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     @Override
     public final int getTwilightCost() {
         return _twilight;
+    }
+
+    @Override
+    public final List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (self.getZone().isInPlay())
+            return getOptionalInPlayAfterActions(playerId, game, effectResult, self);
+        return null;
+    }
+
+    @Override
+    public final List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+        if (self.getZone().isInPlay())
+            return getOptionalInPlayBeforeActions(playerId, game, effect, self);
+        return null;
+    }
+
+    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+        return null;
     }
 }

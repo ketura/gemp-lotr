@@ -49,7 +49,7 @@ public class Card4_188 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL
-                && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 0)
+
                 && PlayConditions.canExert(self, game, 2, Filters.sameCard(self))) {
             KillResult killResult = (KillResult) effectResult;
             if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion(), Filters.race(Race.HOBBIT)).size() > 0) {

@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
@@ -54,9 +53,8 @@ public class Card4_107 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL
-                && PlayConditions.canUseFPCardDuringPhase(game.getGameState(), null, self)) {
+    public List<? extends Action> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (effectResult.getType() == EffectResult.Type.KILL) {
             KillResult killResult = (KillResult) effectResult;
             if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION), Filters.culture(Culture.ISENGARD)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
