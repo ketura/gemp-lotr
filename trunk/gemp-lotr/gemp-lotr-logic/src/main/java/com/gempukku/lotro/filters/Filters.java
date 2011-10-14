@@ -303,12 +303,12 @@ public class Filters {
         };
     }
 
-    public static Filter hasAttached(final Filter filter) {
+    public static Filter hasAttached(final Filter... filters) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 List<PhysicalCard> physicalCardList = gameState.getAttachedCards(physicalCard);
-                return (Filters.filter(physicalCardList, gameState, modifiersQuerying, filter).size() > 0);
+                return (Filters.filter(physicalCardList, gameState, modifiersQuerying, filters).size() > 0);
             }
         };
     }

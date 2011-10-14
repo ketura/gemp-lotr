@@ -2,13 +2,12 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -28,16 +27,9 @@ public class Card1_116 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard gondorCompanion) {
-                        boolean isDefender = game.getModifiersQuerying().hasKeyword(game.getGameState(), gondorCompanion, Keyword.DEFENDER);
-                        int bonus = isDefender ? 4 : 2;
-                        action.appendEffect(
-                                new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(gondorCompanion), bonus), Phase.SKIRMISH));
-                    }
-                });
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
+                        new CardMatchesEvaluator(2, 4, Filters.keyword(Keyword.DEFENDER)),
+                        Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
         return action;
     }
 

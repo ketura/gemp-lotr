@@ -2,14 +2,12 @@ package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.LocationMatchesEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -33,16 +31,9 @@ public class Card1_026 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose Dwarf", Filters.race(Race.DWARF)) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
-                        GameState gameState = game.getGameState();
-                        int bonus = (game.getModifiersQuerying().hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND)) ? 4 : 2;
-                        action.appendEffect(
-                                new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), bonus), Phase.SKIRMISH));
-                    }
-                }
-        );
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
+                        new LocationMatchesEvaluator(2, 4, Filters.keyword(Keyword.UNDERGROUND)),
+                        Filters.race(Race.DWARF)));
         return action;
     }
 }
