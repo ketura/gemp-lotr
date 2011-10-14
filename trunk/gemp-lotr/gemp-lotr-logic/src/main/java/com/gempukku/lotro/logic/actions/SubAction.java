@@ -41,7 +41,7 @@ public class SubAction implements Action {
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         return _effects.poll();
     }
 }

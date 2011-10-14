@@ -43,7 +43,7 @@ public class TurnProcedure {
                     _playedGameProcess = true;
                 }
             } else {
-                Effect effect = _actionStack.getNextEffect();
+                Effect effect = _actionStack.getNextEffect(_game);
                 if (effect != null) {
                     if (effect.getType() == null) {
                         effect.playEffect(_game);
@@ -75,7 +75,7 @@ public class TurnProcedure {
         }
 
         @Override
-        public Effect nextEffect() {
+        public Effect nextEffect(LotroGame game) {
             if (!_checkedIsAboutToRequiredResponses) {
                 _checkedIsAboutToRequiredResponses = true;
                 List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect);

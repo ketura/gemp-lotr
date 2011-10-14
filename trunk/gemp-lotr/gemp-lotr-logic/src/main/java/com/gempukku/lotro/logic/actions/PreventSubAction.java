@@ -51,7 +51,7 @@ public class PreventSubAction implements Action {
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         return _effectQueue.poll();
     }
 

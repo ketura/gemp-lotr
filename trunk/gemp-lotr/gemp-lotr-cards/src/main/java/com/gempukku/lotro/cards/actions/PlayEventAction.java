@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.actions;
 
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
-import com.gempukku.lotro.cards.effects.RemoveCardFromZoneEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -11,17 +10,18 @@ import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.effects.SendPlayEventMessageEffect;
-import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class PlayEventAction extends AbstractCostToEffectAction {
-    private PhysicalCard _source;
+    private PhysicalCard _eventPlayed;
     private boolean _requiresRanger;
+
+    private boolean _cardRemoved;
 
     private Iterator<Effect> _preCostIterator;
 
@@ -35,13 +35,12 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     }
 
     public PlayEventAction(PhysicalCard card, boolean requiresRanger) {
-        _source = card;
+        _eventPlayed = card;
         _requiresRanger = requiresRanger;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
         preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable()));
         preCostEffects.add(new SendPlayEventMessageEffect(card));
-        preCostEffects.add(new RemoveCardFromZoneEffect(card));
         appendCost(new PayTwilightCostEffect(card));
         if (card.getZone() == Zone.DECK)
             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
@@ -59,18 +58,23 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     @Override
     public PhysicalCard getActionSource() {
-        return _source;
+        return _eventPlayed;
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Play " + _source.getBlueprint().getName();
+        return "Play " + _eventPlayed.getBlueprint().getName();
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         if (_preCostIterator.hasNext())
             return _preCostIterator.next();
+
+        if (!_cardRemoved) {
+            _cardRemoved = true;
+            game.getGameState().removeCardsFromZone(Collections.singleton(_eventPlayed));
+        }
 
         if (!isCostFailed()) {
             Effect cost = getNextCost();
@@ -91,23 +95,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         if (!_cardDiscarded) {
             _cardDiscarded = true;
-            return new AbstractSuccessfulEffect() {
-                @Override
-                public String getText(LotroGame game) {
-                    return null;
-                }
-
-                @Override
-                public EffectResult.Type getType() {
-                    return null;
-                }
-
-                @Override
-                public EffectResult[] playEffect(LotroGame game) {
-                    game.getGameState().addCardToZone(_source, _playCardEffect.getTargetZone());
-                    return null;
-                }
-            };
+            game.getGameState().addCardToZone(_eventPlayed, _playCardEffect.getTargetZone());
         }
 
         return null;

@@ -48,7 +48,7 @@ public class PlayerReconcilesAction implements Action {
     }
 
     @Override
-    public Effect nextEffect() {
+    public Effect nextEffect(LotroGame game) {
         if (_effectQueue == null) {
             _effectQueue = new LinkedList<Effect>();
 

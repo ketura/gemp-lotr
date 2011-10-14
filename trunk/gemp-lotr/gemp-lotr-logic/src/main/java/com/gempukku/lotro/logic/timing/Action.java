@@ -13,5 +13,5 @@ public interface Action {
 
     public String getText(LotroGame game);
 
-    public Effect nextEffect();
+    public Effect nextEffect(LotroGame game);
 }
