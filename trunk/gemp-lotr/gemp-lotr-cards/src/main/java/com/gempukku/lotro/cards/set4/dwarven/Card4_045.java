@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set4.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChooseStackedCardsEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseStackedCardsEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

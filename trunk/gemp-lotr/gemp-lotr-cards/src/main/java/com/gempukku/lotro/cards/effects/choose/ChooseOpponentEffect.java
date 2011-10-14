@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.effects;
+package com.gempukku.lotro.cards.effects.choose;
 
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
