@@ -25,7 +25,7 @@ public class AddTokenEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return true;
+        return _target.getZone().isInPlay();
     }
 
     @Override
@@ -40,8 +40,11 @@ public class AddTokenEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        game.getGameState().addTokens(_target, _token, _count);
+        if (isPlayableInFull(game)) {
+            game.getGameState().addTokens(_target, _token, _count);
 
-        return new FullEffectResult(null, true, true);
+            return new FullEffectResult(null, true, true);
+        }
+        return new FullEffectResult(null, false, false);
     }
 }
