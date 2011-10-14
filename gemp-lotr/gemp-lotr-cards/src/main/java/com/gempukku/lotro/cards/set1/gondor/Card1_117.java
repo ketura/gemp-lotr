@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -11,8 +11,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -32,20 +30,9 @@ public class Card1_117 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a Ranger", Filters.keyword(Keyword.RANGER)) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard gondorCompanion) {
-                        int bonus = 2;
-                        Skirmish skirmish = game.getGameState().getSkirmish();
-                        if (skirmish != null && skirmish.getFellowshipCharacter() == gondorCompanion
-                                && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ROAMING)).size() > 0)
-                            bonus = 4;
-
-                        action.appendEffect(
-                                new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(gondorCompanion), bonus), Phase.SKIRMISH));
-                    }
-                });
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
+                        new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Filters.keyword(Keyword.ROAMING))),
+                        Filters.keyword(Keyword.RANGER)));
         return action;
     }
 

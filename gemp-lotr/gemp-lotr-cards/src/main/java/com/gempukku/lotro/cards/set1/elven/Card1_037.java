@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -11,8 +11,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -37,19 +35,9 @@ public class Card1_037 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF)) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard elf) {
-                        Skirmish skirmish = game.getGameState().getSkirmish();
-                        int bonus = 2;
-                        if (skirmish != null) {
-                            if (skirmish.getFellowshipCharacter() == elf && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0)
-                                bonus = 4;
-                        }
-
-                        action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), bonus), Phase.SKIRMISH));
-                    }
-                });
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
+                        new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Filters.race(Race.NAZGUL))),
+                        Filters.race(Race.ELF)));
 
         return action;
     }

@@ -2,14 +2,12 @@ package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
@@ -39,14 +37,7 @@ public class Card1_133 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
-                            action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(urukHai), 2), Phase.SKIRMISH));
-                        }
-                    });
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.race(Race.URUK_HAI)));
 
             return Collections.singletonList(action);
         }
