@@ -43,7 +43,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
         _chooseTargetEffect =
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
                     @Override
-                    protected void cardSelected(PhysicalCard target) {
+                    protected void cardSelected(LotroGame game, PhysicalCard target) {
                         if (_exertTarget) {
                             appendCost(
                                     new ExertCharactersEffect(target, target));

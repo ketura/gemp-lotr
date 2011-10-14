@@ -54,7 +54,7 @@ public class Card4_270 extends AbstractCompanion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a companion", Filters.in(woundEffects.getAffectedCardsMinusPrevented(game)), Filters.unboundCompanion()) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new PreventCardEffect(woundEffects, card));
                         }

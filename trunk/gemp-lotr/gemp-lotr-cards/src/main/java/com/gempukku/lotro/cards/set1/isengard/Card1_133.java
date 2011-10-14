@@ -41,7 +41,7 @@ public class Card1_133 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                         @Override
-                        protected void cardSelected(PhysicalCard urukHai) {
+                        protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(urukHai), 2), Phase.SKIRMISH));

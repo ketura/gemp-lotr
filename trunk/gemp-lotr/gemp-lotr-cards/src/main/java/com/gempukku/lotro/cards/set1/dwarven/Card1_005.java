@@ -35,7 +35,7 @@ public class Card1_005 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Dwarf", Filters.race(Race.DWARF)) {
                     @Override
-                    protected void cardSelected(PhysicalCard dwarf) {
+                    protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(dwarf), 2), Phase.SKIRMISH));

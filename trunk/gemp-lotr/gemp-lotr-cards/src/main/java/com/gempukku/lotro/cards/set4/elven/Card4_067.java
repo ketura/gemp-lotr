@@ -51,7 +51,7 @@ public class Card4_067 extends AbstractCompanion {
             action.appendCost(
                     new ChooseActiveCardEffect(self, playerId, "Choose condition", Filters.owner(playerId), Filters.type(CardType.CONDITION), Filters.hasToken(Token.ELVEN)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertCost(
                                     new RemoveTokenEffect(self, card, Token.ELVEN));
                         }

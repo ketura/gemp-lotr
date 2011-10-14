@@ -52,7 +52,7 @@ public class Card4_057 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion()) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int bonus = Math.min(3, game.getGameState().getTokenCount(self, Token.DWARVEN));
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

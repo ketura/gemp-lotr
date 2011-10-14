@@ -45,7 +45,7 @@ public class Card3_059 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new PreventCardEffect(woundEffect, card));
                         }

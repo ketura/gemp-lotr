@@ -33,7 +33,7 @@ public class Card1_168 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose MORIA orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                     @Override
-                    protected void cardSelected(PhysicalCard moriaOrc) {
+                    protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
                         int bonus = 2;
                         Skirmish skirmish = game.getGameState().getSkirmish();
                         if (skirmish != null && skirmish.getShadowCharacters().contains(moriaOrc)) {

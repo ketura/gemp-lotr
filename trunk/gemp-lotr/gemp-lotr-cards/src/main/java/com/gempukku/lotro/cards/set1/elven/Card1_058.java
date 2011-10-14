@@ -43,7 +43,7 @@ public class Card1_058 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose condition", Filters.type(CardType.CONDITION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard condition) {
+                    protected void cardSelected(LotroGame game, PhysicalCard condition) {
                         action.appendEffect(
                                 new DiscardCardsFromPlayEffect(self, condition));
                     }

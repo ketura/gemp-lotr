@@ -47,7 +47,7 @@ public class Card1_294 extends AbstractEvent {
                                 action.appendEffect(
                                         new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                                             @Override
-                                            protected void cardSelected(PhysicalCard hobbit) {
+                                            protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
                                                 for (int i = 0; i < twilight; i++)
                                                     action.appendEffect(new HealCharactersEffect(playerId, hobbit));
                                             }

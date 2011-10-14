@@ -48,7 +48,7 @@ public class Card1_230 extends AbstractMinion {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose a weapon borne by a character he is skirmishing", Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.attachedTo(Filters.sameCard(skirmish.getFellowshipCharacter()))) {
                             @Override
-                            protected void cardSelected(PhysicalCard weapon) {
+                            protected void cardSelected(LotroGame game, PhysicalCard weapon) {
                                 action.appendEffect(
                                         new DiscardCardsFromPlayEffect(self, weapon));
                             }

@@ -36,7 +36,7 @@ public class Card1_083 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard minion) {
+                    protected void cardSelected(LotroGame game, PhysicalCard minion) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(minion), -3), Phase.SKIRMISH));

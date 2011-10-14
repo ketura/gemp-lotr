@@ -46,7 +46,7 @@ public class Card1_203 extends AbstractResponseEvent {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.in(woundEffect.getAffectedCardsMinusPrevented(game))) {
                             @Override
-                            protected void cardSelected(PhysicalCard nazgul) {
+                            protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
                                 action.appendEffect(
                                         new PreventCardEffect(woundEffect, nazgul));
                             }

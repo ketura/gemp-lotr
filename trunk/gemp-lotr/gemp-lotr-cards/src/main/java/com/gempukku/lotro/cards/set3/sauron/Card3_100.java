@@ -45,7 +45,7 @@ public class Card3_100 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose character skirmishing this minion", Filters.inSkirmishAgainst(Filters.sameCard(self))) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), -1), Phase.SKIRMISH));

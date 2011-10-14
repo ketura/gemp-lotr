@@ -46,7 +46,7 @@ public class Card2_012 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
                         @Override
-                        protected void cardSelected(PhysicalCard dwarf) {
+                        protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                             action.appendEffect(
                                     new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
                                             new AddUntilEndOfPhaseModifierEffect(

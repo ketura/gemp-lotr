@@ -29,7 +29,7 @@ public class Card4_273 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Filters.culture(Culture.ROHAN), Filters.race(Race.MAN)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.VILLAGER)) ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

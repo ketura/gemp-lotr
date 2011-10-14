@@ -61,7 +61,7 @@ public class Card1_225 extends AbstractAttachable {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose possession borne by character he is skirmishing", Filters.type(CardType.POSSESSION), Filters.hasAttached(skirmish.getFellowshipCharacter())) {
                             @Override
-                            protected void cardSelected(PhysicalCard possession) {
+                            protected void cardSelected(LotroGame game, PhysicalCard possession) {
                                 action.appendEffect(
                                         new DiscardCardsFromPlayEffect(self, possession));
                             }

@@ -32,7 +32,7 @@ public class Card4_083 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)) >= 3) ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

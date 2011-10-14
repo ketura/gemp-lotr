@@ -40,7 +40,7 @@ public class Card1_132 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose possession", Filters.type(CardType.POSSESSION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard possession) {
+                    protected void cardSelected(LotroGame game, PhysicalCard possession) {
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new CancelStrengthBonusModifier(self, Filters.sameCard(possession)), Phase.REGROUP));

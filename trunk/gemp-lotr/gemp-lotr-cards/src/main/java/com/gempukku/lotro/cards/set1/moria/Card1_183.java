@@ -61,7 +61,7 @@ public class Card1_183 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.inSkirmish()) {
                         @Override
-                        protected void cardSelected(PhysicalCard moriaOrc) {
+                        protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
                             action.appendEffect(new StackCardFromPlayEffect(moriaOrc, self));
                         }
                     });

@@ -63,7 +63,7 @@ public class Card1_221 extends AbstractAttachable {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
                         @Override
-                        protected void cardSelected(PhysicalCard condition) {
+                        protected void cardSelected(LotroGame game, PhysicalCard condition) {
                             action.appendEffect(
                                     new DiscardCardsFromPlayEffect(self, condition));
                         }

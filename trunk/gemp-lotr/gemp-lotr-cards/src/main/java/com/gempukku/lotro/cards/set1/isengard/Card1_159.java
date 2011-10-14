@@ -50,7 +50,7 @@ public class Card1_159 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners()))) {
                         @Override
-                        protected void cardSelected(PhysicalCard winningUrukHai) {
+                        protected void cardSelected(LotroGame game, PhysicalCard winningUrukHai) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(winningUrukHai), Keyword.FIERCE), Phase.REGROUP));

@@ -32,7 +32,7 @@ public class Card1_204 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)) {
                     @Override
-                    protected void cardSelected(PhysicalCard nazgul) {
+                    protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
                         int bonus = (game.getGameState().isWearingRing()) ? 5 : 2;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

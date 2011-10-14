@@ -40,7 +40,7 @@ public class Card4_209 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.canExert(self)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new ExhaustCharacterEffect(playerId, action, card));
                     }

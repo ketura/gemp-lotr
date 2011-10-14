@@ -50,7 +50,7 @@ public class Card2_017 extends AbstractResponseEvent {
                                     new PreventableEffect(action,
                                             new ChooseActiveCardEffect(self, opponentId, "Choose minion to discard", Filters.type(CardType.MINION)) {
                                                 @Override
-                                                protected void cardSelected(PhysicalCard card) {
+                                                protected void cardSelected(LotroGame game, PhysicalCard card) {
                                                     action.appendEffect(
                                                             new DiscardCardsFromPlayEffect(self, card));
                                                 }

@@ -37,7 +37,7 @@ public class Card1_139 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                     @Override
-                    protected void cardSelected(PhysicalCard urukHai) {
+                    protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
                         if (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(

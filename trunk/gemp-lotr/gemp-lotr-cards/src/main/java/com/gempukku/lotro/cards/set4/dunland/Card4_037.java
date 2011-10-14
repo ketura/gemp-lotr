@@ -44,7 +44,7 @@ public class Card4_037 extends AbstractResponseEvent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.in(winners), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), 4), Phase.REGROUP));

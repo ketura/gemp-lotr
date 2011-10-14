@@ -47,7 +47,7 @@ public class Card3_050 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Aragorn", Filters.name("Aragorn")) {
                     @Override
-                    protected void cardSelected(PhysicalCard aragorn) {
+                    protected void cardSelected(LotroGame game, PhysicalCard aragorn) {
                         action.appendEffect(
                                 new PreventableEffect(action,
                                         new ExhaustCharacterEffect(playerId, action, aragorn),

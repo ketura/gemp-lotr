@@ -47,7 +47,7 @@ public class Card3_009 extends AbstractPermanent {
                                 action.appendEffect(
                                         new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
                                             @Override
-                                            protected void cardSelected(PhysicalCard minion) {
+                                            protected void cardSelected(LotroGame game, PhysicalCard minion) {
                                                 action.insertEffect(
                                                         new AddUntilEndOfPhaseModifierEffect(
                                                                 new StrengthModifier(self, Filters.sameCard(minion), -1), Phase.SKIRMISH));

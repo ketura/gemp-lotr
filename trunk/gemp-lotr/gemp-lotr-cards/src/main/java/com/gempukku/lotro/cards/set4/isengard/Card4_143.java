@@ -49,7 +49,7 @@ public class Card4_143 extends AbstractEvent {
                         action.appendEffect(
                                 new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion(), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                     @Override
-                                    protected void cardSelected(PhysicalCard companion) {
+                                    protected void cardSelected(LotroGame game, PhysicalCard companion) {
                                         Race race = companion.getBlueprint().getRace();
                                         AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, companion, minion);
                                         if (race == Race.HOBBIT) {

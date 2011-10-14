@@ -39,7 +39,7 @@ public class Card4_018 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
-                        protected void cardSelected(PhysicalCard ally) {
+                        protected void cardSelected(LotroGame game, PhysicalCard ally) {
                             action.appendEffect(
                                     new AssignmentEffect(playerId, ally, self));
                         }

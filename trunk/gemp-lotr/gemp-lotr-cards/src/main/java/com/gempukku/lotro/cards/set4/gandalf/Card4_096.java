@@ -37,7 +37,7 @@ public class Card4_096 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.signet(Signet.GANDALF)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new CantTakeWoundsModifier(self, Filters.sameCard(card)), Phase.SKIRMISH));

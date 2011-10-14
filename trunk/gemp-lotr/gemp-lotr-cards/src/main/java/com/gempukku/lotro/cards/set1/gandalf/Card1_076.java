@@ -56,7 +56,7 @@ public class Card1_076 extends AbstractResponseEvent {
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
                             @Override
-                            protected void cardSelected(PhysicalCard companion) {
+                            protected void cardSelected(LotroGame game, PhysicalCard companion) {
                                 action.appendEffect(
                                         new PreventCardEffect(woundEffect, companion));
                             }

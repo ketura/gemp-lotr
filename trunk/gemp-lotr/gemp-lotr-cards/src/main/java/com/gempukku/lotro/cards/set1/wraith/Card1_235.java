@@ -42,7 +42,7 @@ public class Card1_235 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a WRAITH minion", Filters.culture(Culture.WRAITH), Filters.type(CardType.MINION)) {
                         @Override
-                        protected void cardSelected(PhysicalCard wraithMinion) {
+                        protected void cardSelected(LotroGame game, PhysicalCard wraithMinion) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(wraithMinion), Keyword.FIERCE), Phase.REGROUP));

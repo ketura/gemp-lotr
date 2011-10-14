@@ -49,7 +49,7 @@ public class Card4_175 extends AbstractEvent {
                         action.appendEffect(
                                 new ChooseActiveCardEffect(self, playerId, "Choose Uruk-hai", Filters.not(Filters.sameCard(character)), Filters.race(Race.URUK_HAI)) {
                                     @Override
-                                    protected void cardSelected(PhysicalCard card) {
+                                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                                         action.insertEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new StrengthModifier(self, Filters.sameCard(card), 3), Phase.SKIRMISH));

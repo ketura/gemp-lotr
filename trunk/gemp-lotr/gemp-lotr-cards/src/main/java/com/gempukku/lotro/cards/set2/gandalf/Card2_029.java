@@ -48,7 +48,7 @@ public class Card2_029 extends AbstractAttachableFPPossession {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose minion", Filters.type(CardType.MINION)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), -3), Phase.SKIRMISH));

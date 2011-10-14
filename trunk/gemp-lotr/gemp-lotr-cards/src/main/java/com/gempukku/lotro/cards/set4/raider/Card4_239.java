@@ -32,7 +32,7 @@ public class Card4_239 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = (game.getGameState().getBurdens() >= 4) ? 4 : 3;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

@@ -41,7 +41,7 @@ public class Card4_182 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose machine", Filters.keyword(Keyword.MACHINE)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddTokenEffect(self, card, Token.ISENGARD));
                         }

@@ -37,7 +37,7 @@ public class Card2_037 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = (game.getGameState().isFierceSkirmishes()) ? 4 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

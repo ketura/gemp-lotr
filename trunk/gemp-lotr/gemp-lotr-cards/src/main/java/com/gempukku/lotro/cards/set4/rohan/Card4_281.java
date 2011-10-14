@@ -47,7 +47,7 @@ public class Card4_281 extends AbstractAlly {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Filters.culture(Culture.ROHAN), Filters.race(Race.MAN)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));

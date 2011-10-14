@@ -39,7 +39,7 @@ public class Card1_247 extends AbstractResponseEvent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Filters.culture(Culture.SAURON), Filters.race(Race.ORC), Filters.in(skirmishResult.getWinners())) {
                         @Override
-                        protected void cardSelected(PhysicalCard winningSauronOrc) {
+                        protected void cardSelected(LotroGame game, PhysicalCard winningSauronOrc) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(winningSauronOrc), Keyword.FIERCE), Phase.REGROUP));

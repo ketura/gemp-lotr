@@ -48,7 +48,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 chooseNextSkirmishAction.appendEffect(
                         new ChooseActiveCardEffect(null, gameState.getCurrentPlayerId(), "Choose next skirmish to resolve", Filters.in(fps)) {
                             @Override
-                            protected void cardSelected(PhysicalCard card) {
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 gameState.startSkirmish(card);
 
                                 _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));

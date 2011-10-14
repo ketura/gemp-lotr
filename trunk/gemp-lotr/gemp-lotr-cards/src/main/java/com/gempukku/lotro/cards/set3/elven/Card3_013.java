@@ -42,7 +42,7 @@ public class Card3_013 extends AbstractAlly {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.isAllyHome(3, Block.FELLOWSHIP)) {
                         @Override
-                        protected void cardSelected(PhysicalCard ally) {
+                        protected void cardSelected(LotroGame game, PhysicalCard ally) {
                             action.insertEffect(
                                     new HealCharactersEffect(playerId, ally));
                             action.insertEffect(

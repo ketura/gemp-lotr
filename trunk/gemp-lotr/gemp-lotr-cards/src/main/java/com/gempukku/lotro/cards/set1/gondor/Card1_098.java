@@ -46,7 +46,7 @@ public class Card1_098 extends AbstractAttachableFPPossession {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Weather condition", Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION)) {
                         @Override
-                        protected void cardSelected(PhysicalCard weatherCondition) {
+                        protected void cardSelected(LotroGame game, PhysicalCard weatherCondition) {
                             action.appendEffect(new DiscardCardsFromPlayEffect(self, weatherCondition));
                         }
                     });

@@ -42,7 +42,7 @@ public class Card4_003 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new KeywordModifier(self, Filters.sameCard(card), Keyword.FIERCE), Phase.REGROUP));

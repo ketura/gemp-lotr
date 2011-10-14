@@ -40,7 +40,7 @@ public class Card3_035 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Chooose a companion", Filters.type(CardType.COMPANION)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int gandalfSignet = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), new com.gempukku.lotro.filters.Filter[]{Filters.type(CardType.COMPANION), Filters.signet(Signet.GANDALF)});
                             int bonus = Math.min(3, gandalfSignet);
                             action.insertEffect(

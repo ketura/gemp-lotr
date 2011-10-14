@@ -45,7 +45,7 @@ public class Card1_286 extends AbstractAlly {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
                         @Override
-                        protected void cardSelected(PhysicalCard hobbit) {
+                        protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new OverwhelmedByMultiplierModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));

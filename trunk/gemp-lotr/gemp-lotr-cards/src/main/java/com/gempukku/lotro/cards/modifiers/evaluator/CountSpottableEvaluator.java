@@ -8,14 +8,20 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class CountSpottableEvaluator implements Evaluator {
-    private Filter _filter;
+    private Filter[] _filters;
+    private int _limit;
 
-    public CountSpottableEvaluator(Filter filter) {
-        _filter = filter;
+    public CountSpottableEvaluator(Filter... filters) {
+        this(Integer.MAX_VALUE, filters);
+    }
+
+    public CountSpottableEvaluator(int limit, Filter... filters) {
+        _filters = filters;
+        _limit = limit;
     }
 
     @Override
     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return Filters.countSpottable(gameState, modifiersQuerying, _filter);
+        return Math.min(_limit, Filters.countSpottable(gameState, modifiersQuerying, _filters));
     }
 }

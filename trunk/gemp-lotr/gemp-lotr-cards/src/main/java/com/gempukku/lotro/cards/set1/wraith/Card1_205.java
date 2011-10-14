@@ -41,7 +41,7 @@ public class Card1_205 extends AbstractEvent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION))) {
                         @Override
-                        protected void cardSelected(PhysicalCard fpCard) {
+                        protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
                             action.appendEffect(
                                     new DiscardCardsFromPlayEffect(self, fpCard));
                         }
@@ -50,7 +50,7 @@ public class Card1_205 extends AbstractEvent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
-                        protected void cardSelected(PhysicalCard fpCard) {
+                        protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
                             action.appendEffect(
                                     new DiscardCardsFromPlayEffect(self, fpCard));
                         }

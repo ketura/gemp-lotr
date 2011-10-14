@@ -34,7 +34,7 @@ public class Card4_066 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
                     @Override
-                    protected void cardSelected(PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int wounds = game.getGameState().getWounds(card);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

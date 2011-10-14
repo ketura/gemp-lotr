@@ -50,7 +50,7 @@ public class Card3_042 extends AbstractAttachableFPPossession {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Ally", Filters.type(CardType.ALLY)) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), 3), Phase.REGROUP));

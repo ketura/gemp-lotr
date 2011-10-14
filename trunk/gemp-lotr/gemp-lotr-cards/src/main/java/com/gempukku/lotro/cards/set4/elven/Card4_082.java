@@ -52,7 +52,7 @@ public class Card4_082 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
                         @Override
-                        protected void cardSelected(PhysicalCard card) {
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int bonus = -game.getGameState().getTokenCount(self, Token.ELVEN);
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

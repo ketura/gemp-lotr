@@ -53,7 +53,7 @@ public class Card1_224 extends AbstractResponseEvent {
                                 action.appendEffect(
                                         new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Filters.race(Race.NAZGUL), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                             @Override
-                                            protected void cardSelected(PhysicalCard nazgul) {
+                                            protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
                                                 PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
                                                 action.appendEffect(new AssignmentEffect(playerId, ringBearer, nazgul));
                                                 action.appendEffect(
