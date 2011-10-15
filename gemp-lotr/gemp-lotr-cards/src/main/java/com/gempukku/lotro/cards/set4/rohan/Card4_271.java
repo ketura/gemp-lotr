@@ -40,7 +40,7 @@ public class Card4_271 extends AbstractCompanion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Filters.sameCard(self))
-                && Filters.exhausted().accepts(game.getGameState(), game.getModifiersQuerying(), self)
+                && Filters.exhausted.accepts(game.getGameState(), game.getModifiersQuerying(), self)
                 && game.getGameState().getHand(playerId).size() >= 2) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

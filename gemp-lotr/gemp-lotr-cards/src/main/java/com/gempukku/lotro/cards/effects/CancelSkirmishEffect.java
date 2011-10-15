@@ -30,7 +30,7 @@ public class CancelSkirmishEffect extends AbstractEffect {
     public boolean isPlayableInFull(LotroGame game) {
         return game.getGameState().getSkirmish() != null
                 && !game.getGameState().getSkirmish().isCancelled()
-                && (_involvementFilter == null || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish(), _involvementFilter) > 0);
+                && (_involvementFilter == null || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, _involvementFilter) > 0);
     }
 
     @Override

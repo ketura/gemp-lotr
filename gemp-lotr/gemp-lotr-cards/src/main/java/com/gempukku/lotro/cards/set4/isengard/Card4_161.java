@@ -37,7 +37,7 @@ public class Card4_161 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion()) {
+                new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(

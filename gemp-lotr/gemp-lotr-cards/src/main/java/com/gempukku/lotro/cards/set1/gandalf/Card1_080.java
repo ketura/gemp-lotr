@@ -50,7 +50,7 @@ public class Card1_080 extends AbstractAlly {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseCardsFromHandEffect(playerId, 0, 3, Filters.any()) {
+                    new ChooseCardsFromHandEffect(playerId, 0, 3, Filters.any) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             action.appendEffect(new DiscardCardsFromHandEffect(self, selectedCards));

@@ -42,7 +42,7 @@ public class Card3_049 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndDiscardCardsFromHandEffect(action, playerId, 0, 3, Filters.any()) {
+                new ChooseAndDiscardCardsFromHandEffect(action, playerId, 0, 3, Filters.any) {
                     @Override
                     protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {
                         int cardsCount = cardsBeingDiscarded.size();

@@ -30,7 +30,7 @@ public class Card3_072 extends AbstractPermanent {
         return Collections.singletonList(
                 new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
                         Filters.and(
-                                Filters.weapon(),
+                                Filters.weapon,
                                 Filters.attachedTo(Filters.inSkirmishAgainst(Filters.and(Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC))))
                         )));
     }

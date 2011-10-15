@@ -28,6 +28,6 @@ public class Card1_303 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.hasAttached(Filters.weapon())), 2);
+        return new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.hasAttached(Filters.weapon)), 2);
     }
 }

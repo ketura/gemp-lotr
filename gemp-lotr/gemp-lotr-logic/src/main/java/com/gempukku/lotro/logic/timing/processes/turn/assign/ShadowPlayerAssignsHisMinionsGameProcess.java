@@ -50,7 +50,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                             Filters.and(
                                     Filters.type(CardType.ALLY),
                                     Filters.or(
-                                            Filters.isAllyAtHome(),
+                                            Filters.allyAtHome,
                                             new Filter() {
                                                 @Override
                                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

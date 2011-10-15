@@ -41,7 +41,7 @@ public class Card4_117 extends AbstractCompanion {
                 new AbstractModifier(self, "Can't play skimirhs events or skirmish special abilities", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
-                        if (!Filters.inSkirmish().accepts(gameState, modifiersQuerying, self))
+                        if (!Filters.inSkirmish.accepts(gameState, modifiersQuerying, self))
                             return result;
                         if (performingPlayer != null && performingPlayer.equals(self.getOwner()))
                             return result;

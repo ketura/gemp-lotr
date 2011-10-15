@@ -58,7 +58,7 @@ public class Card4_041 extends AbstractAttachableFPPossession {
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)));
             possibleCosts.add(
-                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)), Filters.any()));
+                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)), Filters.any));
 
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));

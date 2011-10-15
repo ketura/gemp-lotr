@@ -42,7 +42,7 @@ public class Card4_154 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))
-                && PlayConditions.canSpot(game, Filters.unboundCompanion(),
+                && PlayConditions.canSpot(game, Filters.unboundCompanion,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -53,7 +53,7 @@ public class Card4_154 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), new Filter() {
+                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion, new Filter() {
                         @Override
                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                             return gameState.getAttachedCards(physicalCard).size() >= 3;

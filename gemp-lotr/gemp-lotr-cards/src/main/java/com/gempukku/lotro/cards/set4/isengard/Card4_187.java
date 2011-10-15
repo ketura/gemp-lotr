@@ -39,7 +39,7 @@ public class Card4_187 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.inSkirmish()),
+                new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.inSkirmish),
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
@@ -47,7 +47,7 @@ public class Card4_187 extends AbstractMinion {
                             }
                         }, 3));
         modifiers.add(
-                new KeywordModifier(self, Filters.and(Filters.sameCard(self), Filters.inSkirmish()),
+                new KeywordModifier(self, Filters.and(Filters.sameCard(self), Filters.inSkirmish),
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {

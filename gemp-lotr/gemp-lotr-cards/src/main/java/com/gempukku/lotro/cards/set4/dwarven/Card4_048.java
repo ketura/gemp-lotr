@@ -37,6 +37,6 @@ public class Card4_048 extends AbstractCompanion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.sameCard(self), null,
-                        new CountSpottableEvaluator(Filters.and(Filters.unboundCompanion(), Filters.race(Race.HOBBIT)))));
+                        new CountSpottableEvaluator(Filters.and(Filters.unboundCompanion, Filters.race(Race.HOBBIT)))));
     }
 }

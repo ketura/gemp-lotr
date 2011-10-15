@@ -21,7 +21,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
     private int _maximum;
 
     public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<? extends PhysicalCard> cards, int minimum, int maximum) {
-        this(playerId, choiceText, cards, Filters.any(), minimum, maximum);
+        this(playerId, choiceText, cards, Filters.any, minimum, maximum);
     }
 
     public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<? extends PhysicalCard> cards, Filter filter, int minimum, int maximum) {

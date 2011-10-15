@@ -38,7 +38,7 @@ public class Card4_209 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.ARCHER)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.canExert(self)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion, Filters.canExert(self)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(

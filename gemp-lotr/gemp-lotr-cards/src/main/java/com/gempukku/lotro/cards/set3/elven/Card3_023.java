@@ -44,7 +44,7 @@ public class Card3_023 extends AbstractAttachableFPPossession {
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 0, 2, Filters.any()) {
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 0, 2, Filters.any) {
                         @Override
                         protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {
                             int count = cardsBeingDiscarded.size();

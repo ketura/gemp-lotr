@@ -31,7 +31,7 @@ public class Card4_282 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new CountSpottableEvaluator(3, Filters.culture(Culture.ROHAN), Filters.race(Race.MAN)),
-                        Filters.unboundCompanion()));
+                        Filters.unboundCompanion));
         return action;
     }
 

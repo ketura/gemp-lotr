@@ -77,7 +77,7 @@ public class Filters {
 
     public static Filter canBeAssignedToSkirmishByEffect(final Side sidePlayer) {
         return Filters.and(
-                Filters.notAssignedToSkirmish(),
+                notAssignedToSkirmish,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -111,23 +111,33 @@ public class Filters {
         };
     }
 
-    public static Filter weapon() {
-        return Filters.or(Filters.possessionClass(PossessionClass.HAND_WEAPON), Filters.possessionClass(PossessionClass.RANGED_WEAPON));
-    }
+    public static final Filter weapon = Filters.or(Filters.possessionClass(PossessionClass.HAND_WEAPON), Filters.possessionClass(PossessionClass.RANGED_WEAPON));
 
-    public static Filter inSkirmish() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                Skirmish skirmish = gameState.getSkirmish();
-                if (skirmish != null) {
-                    return (skirmish.getFellowshipCharacter() == physicalCard)
-                            || skirmish.getShadowCharacters().contains(physicalCard);
-                }
-                return false;
+    public static final Filter inSkirmish = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            Skirmish skirmish = gameState.getSkirmish();
+            if (skirmish != null) {
+                return (skirmish.getFellowshipCharacter() == physicalCard)
+                        || skirmish.getShadowCharacters().contains(physicalCard);
             }
-        };
-    }
+            return false;
+        }
+    };
+
+    public static final Filter canTakeWound = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.canTakeWound(gameState, physicalCard);
+        }
+    };
+
+    public static final Filter exhausted = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.getVitality(gameState, physicalCard) == 1;
+        }
+    };
 
     public static Filter inSkirmishAgainst(final Filter... againstFilter) {
         return new Filter() {
@@ -153,43 +163,23 @@ public class Filters {
         };
     }
 
-    public static Filter canTakeWound() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWound(gameState, physicalCard);
+    public static final Filter notAssignedToSkirmish = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            for (Skirmish assignment : gameState.getAssignments()) {
+                if (assignment.getFellowshipCharacter() == physicalCard
+                        || assignment.getShadowCharacters().contains(physicalCard))
+                    return false;
             }
-        };
-    }
-
-    public static Filter exhausted() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.getVitality(gameState, physicalCard) == 1;
+            Skirmish skirmish = gameState.getSkirmish();
+            if (skirmish != null) {
+                if (skirmish.getFellowshipCharacter() == physicalCard
+                        || skirmish.getShadowCharacters().contains(physicalCard))
+                    return false;
             }
-        };
-    }
-
-    public static Filter notAssignedToSkirmish() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                for (Skirmish assignment : gameState.getAssignments()) {
-                    if (assignment.getFellowshipCharacter() == physicalCard
-                            || assignment.getShadowCharacters().contains(physicalCard))
-                        return false;
-                }
-                Skirmish skirmish = gameState.getSkirmish();
-                if (skirmish != null) {
-                    if (skirmish.getFellowshipCharacter() == physicalCard
-                            || skirmish.getShadowCharacters().contains(physicalCard))
-                        return false;
-                }
-                return true;
-            }
-        };
-    }
+            return true;
+        }
+    };
 
     public static Filter playable(final LotroGame game) {
         return new Filter() {
@@ -209,32 +199,26 @@ public class Filters {
         };
     }
 
-    public static Filter any() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return true;
-            }
-        };
-    }
+    public static final Filter any = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return true;
+        }
+    };
 
-    public static Filter none() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return false;
-            }
-        };
-    }
+    public static final Filter none = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return false;
+        }
+    };
 
-    public static Filter isUnique() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getBlueprint().isUnique();
-            }
-        };
-    }
+    public static final Filter unique = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.getBlueprint().isUnique();
+        }
+    };
 
     public static Filter signet(final Signet signet) {
         return new Filter() {
@@ -286,16 +270,14 @@ public class Filters {
                 });
     }
 
-    public static Filter isAllyAtHome() {
-        return Filters.and(
-                Filters.type(CardType.ALLY),
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return physicalCard.getBlueprint().isAllyAtHome(gameState.getCurrentSiteNumber(), gameState.getCurrentSiteBlock());
-                    }
-                });
-    }
+    public static final Filter allyAtHome = Filters.and(
+            Filters.type(CardType.ALLY),
+            new Filter() {
+                @Override
+                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    return physicalCard.getBlueprint().isAllyAtHome(gameState.getCurrentSiteNumber(), gameState.getCurrentSiteBlock());
+                }
+            });
 
     public static Filter siteNumber(final int siteNumber) {
         return new Filter() {
@@ -362,14 +344,12 @@ public class Filters {
         };
     }
 
-    public static Filter wounded() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return gameState.getWounds(physicalCard) > 0;
-            }
-        };
-    }
+    public static final Filter wounded = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return gameState.getWounds(physicalCard) > 0;
+        }
+    };
 
     public static Filter cardId(final int cardId) {
         return new Filter() {
@@ -495,13 +475,9 @@ public class Filters {
         };
     }
 
-    public static Filter unboundCompanion() {
-        return Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BOUND)));
-    }
-
-    public static Filter roamingMinion() {
-        return Filters.and(Filters.type(CardType.MINION), Filters.keyword(Keyword.ROAMING));
-    }
+    public static final Filter unboundCompanion = Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BOUND)));
+    public static final Filter roaminMinion = Filters.and(Filters.type(CardType.MINION), Filters.keyword(Keyword.ROAMING));
+    public static final Filter mounted = Filters.hasAttached(Filters.possessionClass(PossessionClass.MOUNT));
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
         private GameState _gameState;

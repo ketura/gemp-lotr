@@ -5,7 +5,10 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +34,7 @@ public class Card4_279 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canSpot(game, 2, Filters.hasAttached(Filters.possessionClass(PossessionClass.MOUNT)), Filters.culture(Culture.ROHAN), Filters.race(Race.MAN));
+                && PlayConditions.canSpot(game, 2, Filters.mounted, Filters.culture(Culture.ROHAN), Filters.race(Race.MAN));
     }
 
     @Override

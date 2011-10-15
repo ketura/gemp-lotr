@@ -43,7 +43,7 @@ public class Card4_059 extends AbstractEvent {
                     }
                 });
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose minion skirmishing unbound companion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.unboundCompanion())) {
+                new ChooseActiveCardEffect(self, playerId, "Choose minion skirmishing unbound companion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.unboundCompanion)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(

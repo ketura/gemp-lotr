@@ -37,7 +37,7 @@ public class Card4_153 extends AbstractMinion {
                         Filters.and(
                                 Filters.hasAttached(Filters.and(Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION))),
                                 Filters.or(
-                                        Filters.unboundCompanion(),
+                                        Filters.unboundCompanion,
                                         Filters.type(CardType.ALLY)
                                 )), -1));
     }

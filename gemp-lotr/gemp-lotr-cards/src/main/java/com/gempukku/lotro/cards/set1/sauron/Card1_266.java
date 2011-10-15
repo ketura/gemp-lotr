@@ -38,7 +38,7 @@ public class Card1_266 extends AbstractMinion {
             PhysicalCard playedCard = playCardResult.getPlayedCard();
             if (playCardResult.getAttachedTo() == self
                     && self.getData() == null
-                    && Filters.weapon().accepts(game.getGameState(), game.getModifiersQuerying(), playedCard)
+                    && Filters.weapon.accepts(game.getGameState(), game.getModifiersQuerying(), playedCard)
                     ) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(

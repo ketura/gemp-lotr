@@ -59,7 +59,7 @@ public class Card3_019 extends AbstractAttachable {
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")));
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 2, 2, Filters.any()));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 2, 2, Filters.any));
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(

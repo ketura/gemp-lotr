@@ -38,7 +38,7 @@ public class Card4_198 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL
-                && Filters.inSkirmish().accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             KillResult killResult = (KillResult) effectResult;
             final Collection<PhysicalCard> killedFPs = Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)));
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();

@@ -56,7 +56,7 @@ public class Card4_263 extends AbstractAttachableFPPossession {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && Filters.inSkirmish().accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(self, Filters.and(Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.hasAttached(self)))));

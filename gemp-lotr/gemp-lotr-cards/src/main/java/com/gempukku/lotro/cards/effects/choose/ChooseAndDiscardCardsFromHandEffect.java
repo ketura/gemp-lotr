@@ -35,7 +35,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
     }
 
     public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, int count) {
-        this(action, playerId, count, Filters.any());
+        this(action, playerId, count, Filters.any);
     }
 
     public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId) {

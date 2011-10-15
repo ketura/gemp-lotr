@@ -31,6 +31,6 @@ public class Card3_098 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.hasAttached(Filters.weapon())), 2));
+                new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.hasAttached(Filters.weapon)), 2));
     }
 }

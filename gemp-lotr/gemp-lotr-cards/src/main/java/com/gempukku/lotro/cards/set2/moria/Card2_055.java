@@ -37,7 +37,7 @@ public class Card2_055 extends AbstractPermanent {
                         Filters.and(
                                 Filters.culture(Culture.MORIA),
                                 Filters.type(CardType.MINION),
-                                Filters.isUnique()
+                                Filters.unique
                         ), 1));
     }
 

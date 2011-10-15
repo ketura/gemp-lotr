@@ -36,7 +36,7 @@ public class Card4_135 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR Man", Filters.culture(Culture.GONDOR), Filters.race(Race.MAN)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        boolean isAgainstRoaming = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.roamingMinion(), Filters.inSkirmishAgainst(Filters.sameCard(card))) > 0;
+                        boolean isAgainstRoaming = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.roaminMinion, Filters.inSkirmishAgainst(Filters.sameCard(card))) > 0;
                         int bonus = isAgainstRoaming ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

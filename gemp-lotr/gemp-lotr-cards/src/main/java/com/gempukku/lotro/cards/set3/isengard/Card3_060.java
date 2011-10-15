@@ -45,7 +45,7 @@ public class Card3_060 extends AbstractMinion {
                         new DiscardCardsFromPlayEffect(self, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.POSSESSION))));
             } else {
                 action.appendEffect(
-                        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.weapon()));
+                        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.weapon));
             }
             return Collections.singletonList(action);
         }

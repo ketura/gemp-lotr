@@ -41,7 +41,7 @@ public class Card4_228 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
             AssignmentResult result = (AssignmentResult) effectResult;
             for (Map.Entry<PhysicalCard, List<PhysicalCard>> oneAssignment : result.getAssignments().entrySet()) {
-                if (oneAssignment.getValue().contains(self) && Filters.unboundCompanion().accepts(game.getGameState(), game.getModifiersQuerying(), oneAssignment.getKey())) {
+                if (oneAssignment.getValue().contains(self) && Filters.unboundCompanion.accepts(game.getGameState(), game.getModifiersQuerying(), oneAssignment.getKey())) {
                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                     action.appendCost(
                             new ExertCharactersEffect(self, self));

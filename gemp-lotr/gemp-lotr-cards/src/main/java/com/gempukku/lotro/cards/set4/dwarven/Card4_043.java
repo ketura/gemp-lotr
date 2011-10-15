@@ -29,7 +29,7 @@ public class Card4_043 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN condition", Filters.culture(Culture.DWARVEN), Filters.type(CardType.CONDITION), Filters.hasStacked(Filters.any())) {
+                new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN condition", Filters.culture(Culture.DWARVEN), Filters.type(CardType.CONDITION), Filters.hasStacked(Filters.any)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
