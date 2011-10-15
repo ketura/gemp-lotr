@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
@@ -22,7 +22,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Maneuver: Exert a [SAURON] minion to make the Free Peoples player discard a card at random from his
  * or her hand.
  */
-public class Card3_090 extends AbstractEvent {
+public class Card3_090 extends AbstractOldEvent {
     public Card3_090() {
         super(Side.SHADOW, Culture.SAURON, "Hand of Sauron", Phase.MANEUVER);
     }

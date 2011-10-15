@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
@@ -25,7 +25,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Search. Response: If a stealth event is played, spot 3 [MORIA] minions to cancel that event.
  */
-public class Card1_194 extends AbstractResponseEvent {
+public class Card1_194 extends AbstractResponseOldEvent {
     public Card1_194() {
         super(Side.SHADOW, Culture.MORIA, "Relentless");
         addKeyword(Keyword.SEARCH);

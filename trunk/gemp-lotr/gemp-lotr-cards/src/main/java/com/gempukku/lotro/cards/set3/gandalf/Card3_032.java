@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ShuffleCardsFromDiscardIntoDeckEffect;
@@ -27,7 +27,7 @@ import java.util.List;
  * Game Text: Spell. Fellowship: Spot Gandalf to shuffle up to 2 [GANDALF] or up to 2 [SHIRE] cards from your discard
  * pile into your draw deck.
  */
-public class Card3_032 extends AbstractEvent {
+public class Card3_032 extends AbstractOldEvent {
     public Card3_032() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Fireworks", Phase.FELLOWSHIP);
         addKeyword(Keyword.SPELL);

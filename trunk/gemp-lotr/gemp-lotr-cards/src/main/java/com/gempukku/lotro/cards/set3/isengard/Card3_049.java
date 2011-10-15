@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
@@ -22,7 +22,7 @@ import java.util.Collection;
  * Type: Event
  * Game Text: Shadow: Spot an [ISENGARD] minion to discard up to 3 cards from hand and draw an equal number of cards.
  */
-public class Card3_049 extends AbstractEvent {
+public class Card3_049 extends AbstractOldEvent {
     public Card3_049() {
         super(Side.SHADOW, Culture.ISENGARD, "Abandoning Reason for Madness", Phase.SHADOW);
     }

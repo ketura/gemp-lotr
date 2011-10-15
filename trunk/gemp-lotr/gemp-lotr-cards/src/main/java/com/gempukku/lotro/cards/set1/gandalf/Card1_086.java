@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -22,7 +22,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Spell. Fellowship: Spot Gandalf to reveal an opponent's hand.
  */
-public class Card1_086 extends AbstractEvent {
+public class Card1_086 extends AbstractOldEvent {
     public Card1_086() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Treachery Deeper Than You Know", Phase.FELLOWSHIP);
         addKeyword(Keyword.SPELL);

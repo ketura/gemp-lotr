@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Search. Skirmish: Spot 2 [SHIRE] companions to make a [MORIA] minion damage +1.
  */
-public class Card3_078 extends AbstractEvent {
+public class Card3_078 extends AbstractOldEvent {
     public Card3_078() {
         super(Side.SHADOW, Culture.MORIA, "Hide and Seek", Phase.SKIRMISH);
         addKeyword(Keyword.SEARCH);

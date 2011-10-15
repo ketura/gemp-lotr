@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
@@ -32,7 +32,7 @@ import java.util.List;
  * Game Text: Fellowship: Exert a Dwarf to reveal the top 3 cards of any draw deck. You may discard 1 Shadow card
  * revealed. Return the rest in any order.
  */
-public class Card1_018 extends AbstractEvent {
+public class Card1_018 extends AbstractOldEvent {
     public Card1_018() {
         super(Side.FREE_PEOPLE, Culture.DWARVEN, "Halls of My Home", Phase.FELLOWSHIP);
     }

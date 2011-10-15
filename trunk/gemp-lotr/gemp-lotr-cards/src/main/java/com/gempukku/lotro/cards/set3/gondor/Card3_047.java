@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Maneuver: Exert Aragorn to make each companion with the Aragorn signet damage +1 until the regroup phase.
  */
-public class Card3_047 extends AbstractEvent {
+public class Card3_047 extends AbstractOldEvent {
     public Card3_047() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Voice of Rauros", Phase.MANEUVER);
     }

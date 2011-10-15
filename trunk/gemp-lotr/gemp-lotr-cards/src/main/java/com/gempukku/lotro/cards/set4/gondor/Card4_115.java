@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Maneuver: Exert a [GONDOR] Man to wound a minion once (or twice if that minion is an Uruk-hai).
  */
-public class Card4_115 extends AbstractEvent {
+public class Card4_115 extends AbstractOldEvent {
     public Card4_115() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Defend It and Hope", Phase.MANEUVER);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Type: Event
  * Game Text: Archery: Spot a [MORIA] Orc and a [SAURON] Orc to wound an archer.
  */
-public class Card3_079 extends AbstractEvent {
+public class Card3_079 extends AbstractOldEvent {
     public Card3_079() {
         super(Side.SHADOW, Culture.MORIA, "Malice", Phase.ARCHERY);
     }

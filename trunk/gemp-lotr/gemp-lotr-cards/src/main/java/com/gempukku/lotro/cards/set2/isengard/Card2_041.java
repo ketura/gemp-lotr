@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
@@ -23,7 +23,7 @@ import java.util.Collection;
  * Game Text: Shadow: Exert an Uruk-hai and spot X burdens to shuffle X minions from your discard pile into your draw
  * deck.
  */
-public class Card2_041 extends AbstractEvent {
+public class Card2_041 extends AbstractOldEvent {
     public Card2_041() {
         super(Side.SHADOW, Culture.ISENGARD, "Evil Afoot", Phase.SHADOW);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Maneuver: Exert an [ISENGARD] minion to make the Free Peoples player exert X companions, where X is
  * the number of these races you can spot in the fellowship: Dwarf, Elf, Man, and Wizard.
  */
-public class Card3_063 extends AbstractEvent {
+public class Card3_063 extends AbstractOldEvent {
     public Card3_063() {
         super(Side.SHADOW, Culture.ISENGARD, "One of You Must Do This", Phase.MANEUVER);
     }

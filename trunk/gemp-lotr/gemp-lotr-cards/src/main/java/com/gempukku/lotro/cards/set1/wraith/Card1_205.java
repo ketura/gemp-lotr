@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Game Text: Maneuver: Exert a Nazgul to discard a Free Peoples possession or Free Peoples condition. If you can spot
  * no such card, discard an ally or companion (except the Ring-bearer) instead.
  */
-public class Card1_205 extends AbstractEvent {
+public class Card1_205 extends AbstractOldEvent {
     public Card1_205() {
         super(Side.SHADOW, Culture.WRAITH, "Beauty Is Fading", Phase.MANEUVER);
     }

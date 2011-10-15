@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Skirmish: Spot 3 [DUNLAND] minions or a site you control to make a [DUNLAND] Man fierce until the regroup phase.
  */
-public class Card4_003 extends AbstractEvent {
+public class Card4_003 extends AbstractOldEvent {
     public Card4_003() {
         super(Side.SHADOW, Culture.DUNLAND, "Anger", Phase.SKIRMISH);
     }

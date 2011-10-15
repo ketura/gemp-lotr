@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Maneuver: Spot a ranger to discard a roaming minion.
  */
-public class Card1_119 extends AbstractEvent {
+public class Card1_119 extends AbstractOldEvent {
     public Card1_119() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "What Are They?", Phase.MANEUVER);
     }

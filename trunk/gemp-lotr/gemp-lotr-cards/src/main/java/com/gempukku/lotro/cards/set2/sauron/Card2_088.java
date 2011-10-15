@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -26,7 +26,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Maneuver: Exert a [SAURON] Orc to discard an ally (or 2 [ELVEN] allies).
  */
-public class Card2_088 extends AbstractEvent {
+public class Card2_088 extends AbstractOldEvent {
     public Card2_088() {
         super(Side.SHADOW, Culture.SAURON, "Memory of Many Things");
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -27,7 +27,7 @@ import java.util.List;
  * Game Text: Response: If a companion or ally is killed, exert an [ISENGARD] minion to add a burden (or 2 burdens
  * if Aragorn, Gandalf, or Theoden is killed).
  */
-public class Card4_141 extends AbstractResponseEvent {
+public class Card4_141 extends AbstractResponseOldEvent {
     public Card4_141() {
         super(Side.SHADOW, Culture.ISENGARD, "Beyond Dark Mountains");
     }

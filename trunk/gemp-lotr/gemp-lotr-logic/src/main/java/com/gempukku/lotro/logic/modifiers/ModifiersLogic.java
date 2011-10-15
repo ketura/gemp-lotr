@@ -442,7 +442,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean canDrawCardAndIncrement(GameState gameState, String playerId) {
         if (gameState.getCurrentPlayerId().equals(playerId)) {
-            if (gameState.getCurrentPhase() != Phase.FELLOWSHIP || _drawnThisPhaseCount < 4) {
+            if (gameState.getCurrentPhase() != Phase.FELLOWSHIP)
+                return true;
+            if (gameState.getCurrentPhase() == Phase.FELLOWSHIP && _drawnThisPhaseCount < 4) {
                 _drawnThisPhaseCount++;
                 return true;
             } else {

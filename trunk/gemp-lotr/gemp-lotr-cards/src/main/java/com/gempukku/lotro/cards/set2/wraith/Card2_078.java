@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Spot a twilight Nazgul to add a burden.
  */
-public class Card2_078 extends AbstractEvent {
+public class Card2_078 extends AbstractOldEvent {
     public Card2_078() {
         super(Side.SHADOW, Culture.WRAITH, "It Wants to be Found", Phase.MANEUVER);
     }

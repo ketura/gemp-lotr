@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.Culture;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Skirmish: Add 1 burden to wound each minion skirmishing the Ring-bearer.
  */
-public class Card1_308 extends AbstractEvent {
+public class Card1_308 extends AbstractOldEvent {
     public Card1_308() {
         super(Side.FREE_PEOPLE, Culture.SHIRE, "Power According to His Stature", Phase.SKIRMISH);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  * Type: Event
  * Game Text: Tale. Maneuver: Spot a [GONDOR] companion to make the twilight cost of each maneuver event +2.
  */
-public class Card3_045 extends AbstractEvent {
+public class Card3_045 extends AbstractOldEvent {
     public Card3_045() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Some Who Resisted", Phase.MANEUVER);
         addKeyword(Keyword.TALE);

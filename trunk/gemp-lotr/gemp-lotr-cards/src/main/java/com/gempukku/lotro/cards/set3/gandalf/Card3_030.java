@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Spell. Maneuver: Spot Gandalf and 4 twilight tokens to discard all Shadow conditions.
  */
-public class Card3_030 extends AbstractEvent {
+public class Card3_030 extends AbstractOldEvent {
     public Card3_030() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Deep in Thought", Phase.MANEUVER);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Shadow: Exert a [SAURON] Orc to discard a Free Peoples condition.
  */
-public class Card1_277 extends AbstractEvent {
+public class Card1_277 extends AbstractOldEvent {
     public Card1_277() {
         super(Side.SHADOW, Culture.SAURON, "Shadow's Reach", Phase.SHADOW);
     }

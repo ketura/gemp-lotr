@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Exert an Uruk-hai to exert X unbound companions, where X is the number of sites you control.
  */
-public class Card4_163 extends AbstractEvent {
+public class Card4_163 extends AbstractOldEvent {
     public Card4_163() {
         super(Side.SHADOW, Culture.ISENGARD, "No Dawn for Men", Phase.MANEUVER);
     }

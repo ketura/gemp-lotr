@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Game Text: Skirmish: Spot 3 burdens to make a Nazgul strength +1 and damage +1, or spot 6 burdens to make a Nazgul
  * strength +3 and damage +2.
  */
-public class Card1_210 extends AbstractEvent {
+public class Card1_210 extends AbstractOldEvent {
     public Card1_210() {
         super(Side.SHADOW, Culture.WRAITH, "Dark Whispers", Phase.SKIRMISH);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Skirmish: Exert an Elf to make a minion skirmishing that Elf strength -3.
  */
-public class Card4_070 extends AbstractEvent {
+public class Card4_070 extends AbstractOldEvent {
     public Card4_070() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Flashing Steel", Phase.SKIRMISH);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.effects.AddTwilightEffect;
  * Type: Event
  * Game Text: Skirmish: Spot a [RAIDER] Man skirmishing a Ring-bound companion to add a burden.
  */
-public class Card4_235 extends AbstractEvent {
+public class Card4_235 extends AbstractOldEvent {
     public Card4_235() {
         super(Side.SHADOW, Culture.RAIDER, "Gathering to the Summons", Phase.SKIRMISH);
     }

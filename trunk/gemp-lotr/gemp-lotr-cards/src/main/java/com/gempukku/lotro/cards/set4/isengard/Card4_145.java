@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -23,7 +23,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Archery: Exert an [ISENGARD] archer to make the minion archery total +1 and the fellowship archery
  * total -1.
  */
-public class Card4_145 extends AbstractEvent {
+public class Card4_145 extends AbstractOldEvent {
     public Card4_145() {
         super(Side.SHADOW, Culture.ISENGARD, "Cloud of Arrows", Phase.ARCHERY);
     }

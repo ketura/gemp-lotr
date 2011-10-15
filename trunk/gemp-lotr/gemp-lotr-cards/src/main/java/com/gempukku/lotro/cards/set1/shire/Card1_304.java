@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Skirmish: Exert a companion (except a Hobbit) to make a Hobbit strength +3.
  */
-public class Card1_304 extends AbstractEvent {
+public class Card1_304 extends AbstractOldEvent {
     public Card1_304() {
         super(Side.FREE_PEOPLE, Culture.SHIRE, "Noble Intentions", Phase.SKIRMISH);
     }

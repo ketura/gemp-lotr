@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -21,7 +21,7 @@ import java.util.List;
  * Game Text: Tale. Maneuver: Spot a [GONDOR] companion to reveal a card at random from an opponent's hand. Heal
  * X companions, where X is the twilight cost of the card revealed.
  */
-public class Card3_043 extends AbstractEvent {
+public class Card3_043 extends AbstractOldEvent {
     public Card3_043() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Might of Numenor", Phase.MANEUVER);
         addKeyword(Keyword.TALE);

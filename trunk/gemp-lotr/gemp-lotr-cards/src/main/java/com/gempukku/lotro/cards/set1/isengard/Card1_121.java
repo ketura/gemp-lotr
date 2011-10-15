@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -22,7 +22,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Exert an Uruk-hai to make it strength +3.
  */
-public class Card1_121 extends AbstractEvent {
+public class Card1_121 extends AbstractOldEvent {
     public Card1_121() {
         super(Side.SHADOW, Culture.ISENGARD, "Bred for Battle", Phase.SKIRMISH);
     }

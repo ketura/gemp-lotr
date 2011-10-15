@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
@@ -24,7 +24,7 @@ import java.util.Arrays;
  * Game Text: Spell. Maneuver: Spot Gandalf to make a companion defender +1 until the regroup phase. Any Shadow player
  * may remove (3) to prevent this.
  */
-public class Card2_028 extends AbstractEvent {
+public class Card2_028 extends AbstractOldEvent {
     public Card2_028() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Wielder of the Flame", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);

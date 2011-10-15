@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Regroup: Exert a [RAIDER] Man to add a burden for each companion over 4. The Free Peoples player may
  * discard 2 companions (except the Ring-bearer) to prevent this.
  */
-public class Card4_240 extends AbstractEvent {
+public class Card4_240 extends AbstractOldEvent {
     public Card4_240() {
         super(Side.SHADOW, Culture.RAIDER, "New Fear", Phase.REGROUP);
     }

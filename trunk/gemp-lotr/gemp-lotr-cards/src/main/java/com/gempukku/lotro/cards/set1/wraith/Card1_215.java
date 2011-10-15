@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
@@ -24,7 +24,7 @@ import java.util.List;
  * Game Text: Search. Shadow: Spot X Nazgul to reveal the top X cards of your draw deck. Take into your hand all
  * [WRAITH] cards revealed and discard the rest.
  */
-public class Card1_215 extends AbstractEvent {
+public class Card1_215 extends AbstractOldEvent {
     public Card1_215() {
         super(Side.SHADOW, Culture.WRAITH, "The Master's Will", Phase.SHADOW);
         addKeyword(Keyword.SEARCH);

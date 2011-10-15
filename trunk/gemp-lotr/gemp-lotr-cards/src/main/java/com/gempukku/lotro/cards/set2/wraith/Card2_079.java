@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -29,7 +29,7 @@ import java.util.List;
  * Game Text: Maneuver: Exert a twilight Nazgul to exert the Ring-bearer. If the Ring-bearer is then exhausted, he puts
  * on The One Ring until the regroup phase.
  */
-public class Card2_079 extends AbstractEvent {
+public class Card2_079 extends AbstractOldEvent {
     public Card2_079() {
         super(Side.SHADOW, Culture.WRAITH, "Resistance Becomes Unbearable");
     }

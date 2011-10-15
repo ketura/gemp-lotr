@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Exert 2 Nazgul and spot X burdens to exert X companions.
  */
-public class Card2_081 extends AbstractEvent {
+public class Card2_081 extends AbstractOldEvent {
     public Card2_081() {
         super(Side.SHADOW, Culture.WRAITH, "They Will Find the Ring", Phase.MANEUVER);
     }

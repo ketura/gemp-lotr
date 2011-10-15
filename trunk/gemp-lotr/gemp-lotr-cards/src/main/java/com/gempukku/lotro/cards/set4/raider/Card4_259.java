@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Game Text: Assignment: Assign an Easterling to the Ring-bearer. The Free Peoples player may add a burden
  * to prevent this.
  */
-public class Card4_259 extends AbstractEvent {
+public class Card4_259 extends AbstractOldEvent {
     public Card4_259() {
         super(Side.SHADOW, Culture.RAIDER, "Vision From Afar", Phase.ASSIGNMENT);
     }

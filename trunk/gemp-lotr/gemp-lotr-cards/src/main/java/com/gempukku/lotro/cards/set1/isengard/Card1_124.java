@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -25,7 +25,7 @@ import java.util.List;
  * Game Text: Spell. Weather. Maneuver: Exert a [ISENGARD] minion to make the opponent choose to either exert the
  * Ring-bearer or add a burden.
  */
-public class Card1_124 extends AbstractEvent {
+public class Card1_124 extends AbstractOldEvent {
     public Card1_124() {
         super(Side.SHADOW, Culture.ISENGARD, "Cruel Caradhras", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);

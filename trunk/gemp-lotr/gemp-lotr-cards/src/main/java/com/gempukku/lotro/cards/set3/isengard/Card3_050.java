@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
@@ -25,7 +25,7 @@ import java.util.Collections;
  * Game Text: Maneuver: Spot an [ISENGARD] minion to exhaust Aragorn. The Free Peoples player may add 2 burdens
  * to prevent this.
  */
-public class Card3_050 extends AbstractEvent {
+public class Card3_050 extends AbstractOldEvent {
     public Card3_050() {
         super(Side.SHADOW, Culture.ISENGARD, "Can You Protect Me From Yourself?", Phase.MANEUVER);
     }

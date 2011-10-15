@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Game Text: Skirmish: Make an Uruk-hai strength +2, or spot 5 companions to make an Uruk-hai strength +4 and fierce
  * until the regroup phase.
  */
-public class Card1_139 extends AbstractEvent {
+public class Card1_139 extends AbstractOldEvent {
     public Card1_139() {
         super(Side.SHADOW, Culture.ISENGARD, "Savagery to Match Their Numbers", Phase.SKIRMISH);
     }

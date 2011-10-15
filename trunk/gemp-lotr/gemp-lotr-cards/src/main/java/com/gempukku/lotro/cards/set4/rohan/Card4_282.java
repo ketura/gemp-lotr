@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Make an unbound companion strength +1 for each [ROHAN] Man you spot (limit +3).
  */
-public class Card4_282 extends AbstractEvent {
+public class Card4_282 extends AbstractOldEvent {
     public Card4_282() {
         super(Side.FREE_PEOPLE, Culture.ROHAN, "An Honorable Charge", Phase.SKIRMISH);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Skirmish: Exert a Dwarf to make that Dwarf strength +3 and damage +1.
  */
-public class Card1_004 extends AbstractEvent {
+public class Card1_004 extends AbstractOldEvent {
     public Card1_004() {
         super(Side.FREE_PEOPLE, Culture.DWARVEN, "Battle Fury", Phase.SKIRMISH);
     }

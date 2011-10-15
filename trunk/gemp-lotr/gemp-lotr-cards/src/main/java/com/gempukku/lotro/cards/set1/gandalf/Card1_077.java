@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship: Exert X companions to remove (X).
  */
-public class Card1_077 extends AbstractEvent {
+public class Card1_077 extends AbstractOldEvent {
     public Card1_077() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Let Folly Be Our Cloak", Phase.FELLOWSHIP);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Maneuver: Exert an Elf to wound each Nazgul once (or twice if at a river).
  */
-public class Card2_019 extends AbstractEvent {
+public class Card2_019 extends AbstractOldEvent {
     public Card2_019() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Release the Angry Flood", Phase.MANEUVER);
     }

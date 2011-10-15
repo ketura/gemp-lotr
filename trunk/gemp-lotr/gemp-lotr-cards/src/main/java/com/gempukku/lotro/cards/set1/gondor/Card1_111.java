@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Regroup: Exert a ranger companion to wound every minion.
  */
-public class Card1_111 extends AbstractEvent {
+public class Card1_111 extends AbstractOldEvent {
     public Card1_111() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Pursuir Just Behind", Phase.REGROUP);
     }

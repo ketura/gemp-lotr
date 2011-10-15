@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Maneuver: Make a [GONDOR] companion defender +1 until the regroup phase.
  */
-public class Card1_103 extends AbstractEvent {
+public class Card1_103 extends AbstractOldEvent {
     public Card1_103() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Elendil's Valor", Phase.MANEUVER);
     }

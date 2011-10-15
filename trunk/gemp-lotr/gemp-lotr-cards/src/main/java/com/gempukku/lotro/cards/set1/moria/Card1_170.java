@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.common.*;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: Shadow: Spot a Hobbit (except the Ring-bearer) to reveal cards from the top of your draw deck until you
  * reveal one that is not a [MORIA] minion. Take the revealed cards into hand.
  */
-public class Card1_170 extends AbstractEvent {
+public class Card1_170 extends AbstractOldEvent {
     public Card1_170() {
         super(Side.SHADOW, Culture.MORIA, "Fool of a Took!", Phase.SHADOW);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  * Type: Event
  * Game Text: Spell. Maneuver: Exert Gandalf to wound each minion who has strength of 6 or less.
  */
-public class Card4_098 extends AbstractEvent {
+public class Card4_098 extends AbstractOldEvent {
     public Card4_098() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Mithrandir, Mithrandir!", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Type: Event
  * Game Text: Skirmish: Exert X Elf companions to make a minion skirmishing an unbound companion strength -X.
  */
-public class Card4_059 extends AbstractEvent {
+public class Card4_059 extends AbstractOldEvent {
     public Card4_059() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Arrow and Blade", Phase.SKIRMISH);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Skirmish: Exert an Uruk-hai who is not assigned to a skirmish to make another Uruk-hai strength +3.
  */
-public class Card4_175 extends AbstractEvent {
+public class Card4_175 extends AbstractOldEvent {
     public Card4_175() {
         super(Side.SHADOW, Culture.ISENGARD, "Still They Came", Phase.SKIRMISH);
     }

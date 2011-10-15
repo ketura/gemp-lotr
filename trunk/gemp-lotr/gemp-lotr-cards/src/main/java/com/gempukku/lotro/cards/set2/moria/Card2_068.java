@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Exert The Balrog to add a burden.
  */
-public class Card2_068 extends AbstractEvent {
+public class Card2_068 extends AbstractOldEvent {
     public Card2_068() {
         super(Side.SHADOW, Culture.MORIA, "Must Do Without Hope", Phase.MANEUVER);
     }

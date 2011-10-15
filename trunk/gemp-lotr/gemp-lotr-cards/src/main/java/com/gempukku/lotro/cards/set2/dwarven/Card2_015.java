@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -33,7 +33,7 @@ import java.util.List;
  * Game Text: Fellowship: Exert a Dwarf to make an opponent draw 2 cards. That player then chooses to either discard
  * 2 Shadow cards from hand or skip his or her next Shadow phase.
  */
-public class Card2_015 extends AbstractEvent {
+public class Card2_015 extends AbstractOldEvent {
     public Card2_015() {
         super(Side.FREE_PEOPLE, Culture.DWARVEN, "What Are We Waiting For?", Phase.FELLOWSHIP);
     }

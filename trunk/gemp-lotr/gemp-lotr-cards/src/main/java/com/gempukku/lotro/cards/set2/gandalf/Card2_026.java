@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.common.Culture;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.effects.DrawCardEffect;
  * Game Text: Fellowship or Regroup: Spot Gandalf to play the fellowship's next site (replacing opponent's site if
  * necessary). Draw a card if you play an underground site.
  */
-public class Card2_026 extends AbstractEvent {
+public class Card2_026 extends AbstractOldEvent {
     public Card2_026() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Speak \"Friend\" and Enter", Phase.FELLOWSHIP, Phase.REGROUP);
     }

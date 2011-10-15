@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gondor;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
@@ -28,7 +28,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a companion is about to take a wound, exert a [GONDOR] companion to prevent that wound.
  */
-public class Card2_034 extends AbstractResponseEvent {
+public class Card2_034 extends AbstractResponseOldEvent {
     public Card2_034() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Gondor Will See It Done");
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.game.state.Skirmish;
  * Type: Event
  * Game Text: Tale. Skirmish: Exert an Elf at a river or forest to cancel a skirmish involving that Elf.
  */
-public class Card3_028 extends AbstractEvent {
+public class Card3_028 extends AbstractOldEvent {
     public Card3_028() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Voice of Nimrodel", Phase.SKIRMISH);
         addKeyword(Keyword.TALE);

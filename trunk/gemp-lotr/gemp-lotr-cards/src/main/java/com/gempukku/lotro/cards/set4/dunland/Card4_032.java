@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
@@ -26,7 +26,7 @@ import java.util.List;
  * Game Text: Response: If your [DUNLAND] Man wins a skirmish, discard all Free Peoples cards borne by the companion
  * or ally he was skirmishing.
  */
-public class Card4_032 extends AbstractResponseEvent {
+public class Card4_032 extends AbstractResponseOldEvent {
     public Card4_032() {
         super(Side.SHADOW, Culture.DUNLAND, "Ravage the Defeated");
     }

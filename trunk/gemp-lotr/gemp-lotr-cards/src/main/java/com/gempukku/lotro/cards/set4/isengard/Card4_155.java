@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelActivatedEffect;
@@ -26,7 +26,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a special ability of an ally or unbound companion is used, exert Grima to cancel that action.
  */
-public class Card4_155 extends AbstractResponseEvent {
+public class Card4_155 extends AbstractResponseOldEvent {
     public Card4_155() {
         super(Side.SHADOW, Culture.ISENGARD, "Haunting Her Steps");
     }

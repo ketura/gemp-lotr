@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Game Text: Maneuver: Spot an Elf to make each opponent discard a card from his or her hand. Draw a card for each
  * card discarded in this way.
  */
-public class Card3_011 extends AbstractEvent {
+public class Card3_011 extends AbstractOldEvent {
     public Card3_011() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Cast It Into the Fire!", Phase.MANEUVER);
     }

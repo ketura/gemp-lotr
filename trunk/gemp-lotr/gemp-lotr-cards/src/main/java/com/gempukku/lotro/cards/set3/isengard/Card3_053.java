@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.effects.DrawCardEffect;
  * Type: Event
  * Game Text: Shadow: Spot an Uruk-hai and a [MORIA] minion to draw 3 cards.
  */
-public class Card3_053 extends AbstractEvent {
+public class Card3_053 extends AbstractOldEvent {
     public Card3_053() {
         super(Side.SHADOW, Culture.ISENGARD, "Hate and Anger", Phase.SHADOW);
     }

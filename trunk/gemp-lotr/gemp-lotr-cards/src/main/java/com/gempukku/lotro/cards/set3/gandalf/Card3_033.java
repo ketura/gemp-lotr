@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -26,7 +26,7 @@ import java.util.List;
  * Game Text: Maneuver: Spot Gandalf to reveal a card at random from an opponent's hand. You may add (X) to discard
  * that card, where X is the twilight cost of the card revealed.
  */
-public class Card3_033 extends AbstractEvent {
+public class Card3_033 extends AbstractOldEvent {
     public Card3_033() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "His First Serious Check", Phase.MANEUVER);
     }
