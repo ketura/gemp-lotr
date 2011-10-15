@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -18,7 +19,7 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
     private final int _maximum;
     private final Filter _filter;
 
-    public ChooseCardsFromHandEffect(String playerId, int minimum, int maximum, Filter... filters) {
+    public ChooseCardsFromHandEffect(String playerId, int minimum, int maximum, Filterable... filters) {
         _playerId = playerId;
         _minimum = minimum;
         _maximum = maximum;
