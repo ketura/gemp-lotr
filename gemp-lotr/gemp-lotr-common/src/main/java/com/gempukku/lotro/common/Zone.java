@@ -1,6 +1,6 @@
 package com.gempukku.lotro.common;
 
-public enum Zone {
+public enum Zone implements Filterable {
     FREE_CHARACTERS("play", true), SUPPORT("play", true), SHADOW_CHARACTERS("play", true),
     ADVENTURE_PATH("play", true),
     HAND("hand", false), DECK("deck", false), ATTACHED("play", true), STACKED("stacked", false),

@@ -58,7 +58,7 @@ public class Card3_005 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self));
+                    new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, Filters.culture(Culture.MORIA), Filters.type(CardType.CONDITION)));
             return Collections.singletonList(action);

@@ -39,7 +39,7 @@ public class Card3_041 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self));
+                    new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2), Phase.ARCHERY));

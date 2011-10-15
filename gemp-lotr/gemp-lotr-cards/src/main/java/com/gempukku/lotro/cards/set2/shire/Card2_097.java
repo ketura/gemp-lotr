@@ -66,7 +66,7 @@ public class Card2_097 extends AbstractAttachable {
             possibleCosts.add(
                     new ExertCharactersEffect(self, self.getAttachedTo()));
             possibleCosts.add(
-                    new DiscardCardsFromPlayEffect(self));
+                    new DiscardCardsFromPlayEffect(self, self));
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(

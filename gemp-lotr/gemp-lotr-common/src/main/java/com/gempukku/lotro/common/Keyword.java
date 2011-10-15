@@ -1,6 +1,6 @@
 package com.gempukku.lotro.common;
 
-public enum Keyword {
+public enum Keyword implements Filterable {
     SUPPORT_AREA("Support Area"),
 
     SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"), ASSIGNMENT("Assignment"), REGROUP("Regroup"),

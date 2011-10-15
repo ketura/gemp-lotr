@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -113,11 +110,11 @@ public class PlayConditions {
         return canExert(source, game.getGameState(), game.getModifiersQuerying(), times, filters);
     }
 
-    public static boolean canSpot(LotroGame game, Filter... filters) {
+    public static boolean canSpot(LotroGame game, Filterable... filters) {
         return canSpot(game, 1, filters);
     }
 
-    public static boolean canSpot(LotroGame game, int count, Filter... filters) {
+    public static boolean canSpot(LotroGame game, int count, Filterable... filters) {
         return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), filters) >= count;
     }
 

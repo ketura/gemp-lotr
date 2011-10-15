@@ -40,7 +40,7 @@ public class Card2_106 extends AbstractPermanent {
             if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new DiscardCardsFromPlayEffect(self));
+                        new DiscardCardsFromPlayEffect(self, self));
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose Hobbit", Filters.in(woundedCharacters), Filters.race(Race.HOBBIT)) {
                             @Override

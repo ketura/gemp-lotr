@@ -45,7 +45,7 @@ public class Card2_003 extends AbstractAttachableFPPossession {
                 && ((WoundCharactersEffect) effect).getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self));
+                    new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new PreventCardEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);

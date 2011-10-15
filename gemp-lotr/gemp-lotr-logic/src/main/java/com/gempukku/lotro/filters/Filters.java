@@ -13,28 +13,28 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.*;
 
 public class Filters {
-    public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         Filter filter = Filters.and(filters);
         SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, filter);
         gameState.iterateActiveCards(visitor);
         return visitor.isSpotted();
     }
 
-    public static int countSpottable(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static int countSpottable(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         Filter filter = Filters.and(filters);
         GetCardsMatchingFilterVisitor visitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, filter);
         gameState.iterateActiveCards(visitor);
         return modifiersQuerying.getSpotCount(gameState, filter, visitor.getCounter());
     }
 
-    public static Collection<PhysicalCard> filterActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static Collection<PhysicalCard> filterActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         Filter filter = Filters.and(filters);
         GetCardsMatchingFilterVisitor getCardsMatchingFilter = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, filter);
         gameState.iterateActiveCards(getCardsMatchingFilter);
         return getCardsMatchingFilter.getPhysicalCards();
     }
 
-    public static Collection<PhysicalCard> filter(Collection<? extends PhysicalCard> cards, GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static Collection<PhysicalCard> filter(Collection<? extends PhysicalCard> cards, GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         Filter filter = Filters.and(filters);
         List<PhysicalCard> result = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : cards)
@@ -432,7 +432,42 @@ public class Filters {
         };
     }
 
-    public static Filter and(final Filter... filters) {
+    public static Filter and(final Filterable... filters) {
+        Filter[] filtersInt = new Filter[filters.length];
+        for (int i = 0; i < filtersInt.length; i++)
+            filtersInt[i] = changeToFilter(filters[i]);
+        return andInternal(filtersInt);
+    }
+
+    public static Filter or(final Filterable... filters) {
+        Filter[] filtersInt = new Filter[filters.length];
+        for (int i = 0; i < filtersInt.length; i++)
+            filtersInt[i] = changeToFilter(filters[i]);
+        return orInternal(filtersInt);
+    }
+
+    private static Filter changeToFilter(Filterable filter) {
+        if (filter instanceof Filter)
+            return (Filter) filter;
+        else if (filter instanceof Culture)
+            return Filters.culture((Culture) filter);
+        else if (filter instanceof Keyword)
+            return Filters.keyword((Keyword) filter);
+        else if (filter instanceof PossessionClass)
+            return Filters.possessionClass((PossessionClass) filter);
+        else if (filter instanceof Race)
+            return Filters.race((Race) filter);
+        else if (filter instanceof Side)
+            return Filters.side((Side) filter);
+        else if (filter instanceof Signet)
+            return Filters.signet((Signet) filter);
+        else if (filter instanceof Zone)
+            return Filters.zone((Zone) filter);
+        else
+            throw new IllegalArgumentException("Unknown type of filterable: " + filter);
+    }
+
+    private static Filter andInternal(final Filter... filters) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -462,7 +497,7 @@ public class Filters {
         };
     }
 
-    public static Filter or(final Filter... filters) {
+    private static Filter orInternal(final Filter... filters) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
