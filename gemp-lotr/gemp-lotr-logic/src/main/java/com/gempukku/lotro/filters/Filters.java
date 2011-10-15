@@ -449,6 +449,8 @@ public class Filters {
     private static Filter changeToFilter(Filterable filter) {
         if (filter instanceof Filter)
             return (Filter) filter;
+        else if (filter instanceof CardType)
+            return Filters.type((CardType) filter);
         else if (filter instanceof Culture)
             return Filters.culture((Culture) filter);
         else if (filter instanceof Keyword)
