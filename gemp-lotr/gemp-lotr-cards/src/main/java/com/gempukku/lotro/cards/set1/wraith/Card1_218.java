@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_218 extends AbstractAttachable {
     public Card1_218() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.WRAITH, Keyword.HAND_WEAPON, "Nazgul Sword");
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.WRAITH, PossessionClass.HAND_WEAPON, "Nazgul Sword");
     }
 
     @Override

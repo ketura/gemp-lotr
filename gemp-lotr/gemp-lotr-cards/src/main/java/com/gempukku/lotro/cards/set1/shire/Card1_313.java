@@ -7,8 +7,8 @@ import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card1_313 extends AbstractAttachableFPPossession {
     public Card1_313() {
-        super(1, 2, 0, Culture.SHIRE, Keyword.HAND_WEAPON, "Sting", true);
+        super(1, 2, 0, Culture.SHIRE, PossessionClass.HAND_WEAPON, "Sting", true);
     }
 
     @Override

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -38,9 +38,7 @@ public class Card1_266 extends AbstractMinion {
             PhysicalCard playedCard = playCardResult.getPlayedCard();
             if (playCardResult.getAttachedTo() == self
                     && self.getData() == null
-                    && (
-                    game.getModifiersQuerying().hasKeyword(game.getGameState(), playedCard, Keyword.HAND_WEAPON)
-                            || game.getModifiersQuerying().hasKeyword(game.getGameState(), playedCard, Keyword.RANGED_WEAPON))
+                    && Filters.weapon().accepts(game.getGameState(), game.getModifiersQuerying(), playedCard)
                     ) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(

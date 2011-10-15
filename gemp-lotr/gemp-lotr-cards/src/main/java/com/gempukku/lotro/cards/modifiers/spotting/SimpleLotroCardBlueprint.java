@@ -50,6 +50,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public PossessionClass getPossessionClass() {
+        return null;
+    }
+
+    @Override
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card2_074 extends AbstractAttachable {
     public Card2_074() {
-        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, Keyword.HAND_WEAPON, "Whip of Many Thongs", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, PossessionClass.HAND_WEAPON, "Whip of Many Thongs", true);
     }
 
     @Override
@@ -53,9 +53,9 @@ public class Card2_074 extends AbstractAttachable {
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1,
                             Filters.or(
-                                    Filters.keyword(Keyword.HELM),
-                                    Filters.keyword(Keyword.SHIELD),
-                                    Filters.keyword(Keyword.ARMOR)),
+                                    Filters.possessionClass(PossessionClass.HELM),
+                                    Filters.possessionClass(PossessionClass.SHIELD),
+                                    Filters.possessionClass(PossessionClass.ARMOR)),
                             Filters.attachedTo(
                                     Filters.inSkirmishAgainst(Filters.hasAttached(self)))));
             return Collections.singletonList(action);

@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card4_174 extends AbstractAttachable {
     public Card4_174() {
-        super(Side.SHADOW, CardType.ARTIFACT, 2, Culture.ISENGARD, Keyword.STAFF, "Saruman's Staff", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 2, Culture.ISENGARD, PossessionClass.STAFF, "Saruman's Staff", true);
     }
 
     @Override

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card3_107 extends AbstractAttachableFPPossession {
     public Card3_107() {
-        super(1, 0, 0, Culture.SHIRE, Keyword.PIPE, "Frodo's Pipe", true);
+        super(1, 0, 0, Culture.SHIRE, PossessionClass.PIPE, "Frodo's Pipe", true);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Card3_107 extends AbstractAttachableFPPossession {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION)));
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                            new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Filters.keyword(Keyword.PIPE), Integer.MAX_VALUE) {
+                            new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Filters.possessionClass(PossessionClass.PIPE), Integer.MAX_VALUE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     final int spotCount = getValidatedResult(result);

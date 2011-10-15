@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_208 extends AbstractAttachable {
     public Card1_208() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.WRAITH, Keyword.MOUNT, "Black Steed");
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.WRAITH, PossessionClass.MOUNT, "Black Steed");
     }
 
     @Override

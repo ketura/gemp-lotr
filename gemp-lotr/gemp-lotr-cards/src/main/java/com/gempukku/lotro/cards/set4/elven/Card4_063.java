@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_063 extends AbstractAttachableFPPossession {
     public Card4_063() {
-        super(1, 0, 0, Culture.ELVEN, Keyword.BROOCH, "Elven Brooch");
+        super(1, 0, 0, Culture.ELVEN, PossessionClass.BROOCH, "Elven Brooch");
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Card2_027 extends AbstractEvent {
         List<PhysicalCard> attachedToGandalf = game.getGameState().getAttachedCards(gandalf);
         if (gandalf != null
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(gandalf))
-                && Filters.filter(attachedToGandalf, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.STAFF)).size() > 0)
+                && Filters.filter(attachedToGandalf, game.getGameState(), game.getModifiersQuerying(), Filters.possessionClass(PossessionClass.STAFF)).size() > 0)
             return true;
         return false;
     }
@@ -45,7 +45,7 @@ public class Card2_027 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.STAFF), Filters.attachedTo(Filters.name("Gandalf"))));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.possessionClass(PossessionClass.STAFF), Filters.attachedTo(Filters.name("Gandalf"))));
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
         action.appendCost(

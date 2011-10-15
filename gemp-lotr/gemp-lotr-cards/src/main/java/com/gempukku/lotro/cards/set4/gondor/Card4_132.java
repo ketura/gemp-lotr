@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_132 extends AbstractAttachableFPPossession {
     public Card4_132() {
-        super(1, 2, 0, Culture.GONDOR, Keyword.HAND_WEAPON, "Ranger's Sword", true);
+        super(1, 2, 0, Culture.GONDOR, PossessionClass.HAND_WEAPON, "Ranger's Sword", true);
     }
 
     @Override

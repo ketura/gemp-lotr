@@ -10,6 +10,7 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -36,7 +37,7 @@ import java.util.List;
  */
 public class Card1_047 extends AbstractAttachableFPPossession {
     public Card1_047() {
-        super(2, 2, 0, Culture.ELVEN, Keyword.HAND_WEAPON, "Gwemegil", true);
+        super(2, 2, 0, Culture.ELVEN, PossessionClass.HAND_WEAPON, "Gwemegil", true);
     }
 
     @Override

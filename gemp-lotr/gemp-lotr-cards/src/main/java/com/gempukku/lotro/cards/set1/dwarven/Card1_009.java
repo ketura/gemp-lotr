@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class Card1_009 extends AbstractAttachableFPPossession {
     public Card1_009() {
-        super(0, 2, 0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Dwarven Axe");
+        super(0, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Dwarven Axe");
     }
 
     @Override

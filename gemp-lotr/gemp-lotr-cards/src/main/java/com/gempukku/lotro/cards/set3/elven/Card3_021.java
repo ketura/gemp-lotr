@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set3.elven;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card3_021 extends AbstractAttachableFPPossession {
     public Card3_021() {
-        super(1, 1, 0, Culture.ELVEN, Keyword.HAND_WEAPON, "Long-knives of Legolas", true);
+        super(1, 1, 0, Culture.ELVEN, PossessionClass.HAND_WEAPON, "Long-knives of Legolas", true);
     }
 
     @Override

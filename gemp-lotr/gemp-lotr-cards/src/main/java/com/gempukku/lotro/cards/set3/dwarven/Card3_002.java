@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.KeywordSpotModifier;
+import com.gempukku.lotro.cards.modifiers.PossessionClassSpotModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_002 extends AbstractAttachable {
     public Card3_002() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, 1, Culture.DWARVEN, Keyword.PIPE, "Gimli's Pipe", true);
+        super(Side.FREE_PEOPLE, CardType.POSSESSION, 1, Culture.DWARVEN, PossessionClass.PIPE, "Gimli's Pipe", true);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Card3_002 extends AbstractAttachable {
                     new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordSpotModifier(self, Keyword.PIPE), Phase.FELLOWSHIP));
+                            new PossessionClassSpotModifier(self, PossessionClass.PIPE), Phase.FELLOWSHIP));
             return Collections.singletonList(action);
         }
         return null;

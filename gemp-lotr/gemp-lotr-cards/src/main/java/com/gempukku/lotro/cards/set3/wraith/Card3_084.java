@@ -49,7 +49,7 @@ public class Card3_084 extends AbstractEvent {
                             final int twilightCost = revealedCard.getBlueprint().getTwilightCost();
                             if (twilightCost > 0) {
                                 action.appendEffect(
-                                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.hasAttached(Filters.keyword(Keyword.RANGED_WEAPON))) {
+                                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.hasAttached(Filters.possessionClass(PossessionClass.RANGED_WEAPON))) {
                                             @Override
                                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                                 for (int i = 0; i < twilightCost; i++)

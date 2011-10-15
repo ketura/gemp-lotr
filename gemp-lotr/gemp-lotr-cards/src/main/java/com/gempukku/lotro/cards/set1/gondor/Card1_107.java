@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_107 extends AbstractAttachableFPPossession {
     public Card1_107() {
-        super(1, 0, 0, Culture.GONDOR, Keyword.SHIELD, "Great Shield");
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.SHIELD, "Great Shield");
     }
 
     @Override

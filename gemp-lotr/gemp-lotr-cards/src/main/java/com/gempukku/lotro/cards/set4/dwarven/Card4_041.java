@@ -7,10 +7,7 @@ import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,7 +34,7 @@ import java.util.List;
  */
 public class Card4_041 extends AbstractAttachableFPPossession {
     public Card4_041() {
-        super(2, 2, 0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Axe of Erebor", true);
+        super(2, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Axe of Erebor", true);
     }
 
     @Override

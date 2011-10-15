@@ -7,8 +7,8 @@ import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card4_112 extends AbstractAttachableFPPossession {
     public Card4_112() {
-        super(1, 0, 0, Culture.GONDOR, Keyword.GAUNTLETS, "Boromir's Gauntlets", true);
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.GAUNTLETS, "Boromir's Gauntlets", true);
     }
 
     @Override

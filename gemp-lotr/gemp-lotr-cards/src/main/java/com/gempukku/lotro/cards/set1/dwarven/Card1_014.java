@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card1_014 extends AbstractAttachableFPPossession {
     public Card1_014() {
-        super(2, 2, 0, Culture.DWARVEN, Keyword.HAND_WEAPON, "Gimli's Battle Axe", true);
+        super(2, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Gimli's Battle Axe", true);
     }
 
     @Override

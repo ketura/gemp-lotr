@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
@@ -29,6 +28,6 @@ public class Card1_303 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.hasAttached(Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)))), 2);
+        return new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.hasAttached(Filters.weapon())), 2);
     }
 }

@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -50,7 +50,7 @@ public class Card4_086 extends AbstractCompanion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(Filters.keyword(Keyword.RANGED_WEAPON))) > 0;
+                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(Filters.possessionClass(PossessionClass.RANGED_WEAPON))) > 0;
                             }
                         }, 2));
         modifiers.add(
@@ -58,7 +58,7 @@ public class Card4_086 extends AbstractCompanion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(Filters.keyword(Keyword.RANGED_WEAPON))) > 0;
+                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(Filters.possessionClass(PossessionClass.RANGED_WEAPON))) > 0;
                             }
                         }));
         return modifiers;

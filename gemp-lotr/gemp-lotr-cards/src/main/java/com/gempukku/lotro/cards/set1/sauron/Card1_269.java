@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_269 extends AbstractAttachable {
     public Card1_269() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.SAURON, Keyword.HAND_WEAPON, "Orc Scimitar");
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.SAURON, PossessionClass.HAND_WEAPON, "Orc Scimitar");
     }
 
     @Override

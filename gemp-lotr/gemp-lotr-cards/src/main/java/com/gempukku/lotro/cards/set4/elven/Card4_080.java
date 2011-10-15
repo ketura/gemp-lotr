@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -41,7 +41,7 @@ public class Card4_080 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "The twilight cost of each ranged weapon played on Ordulus is -1.", Filters.keyword(Keyword.RANGED_WEAPON), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
+                new AbstractModifier(self, "The twilight cost of each ranged weapon played on Ordulus is -1.", Filters.possessionClass(PossessionClass.RANGED_WEAPON), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
                     @Override
                     public int getPlayOnTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target, int result) {
                         if (target == self)

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card1_042 extends AbstractAttachableFPPossession {
     public Card1_042() {
-        super(1, 0, 0, Culture.ELVEN, Keyword.CLOAK, "Elven Cloak");
+        super(1, 0, 0, Culture.ELVEN, PossessionClass.CLOAK, "Elven Cloak");
     }
 
     @Override

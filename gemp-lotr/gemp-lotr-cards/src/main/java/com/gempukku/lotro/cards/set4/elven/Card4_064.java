@@ -8,8 +8,8 @@ import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card4_064 extends AbstractAttachableFPPossession {
     public Card4_064() {
-        super(1, 1, 0, Culture.ELVEN, Keyword.HAND_WEAPON, "Elven Sword");
+        super(1, 1, 0, Culture.ELVEN, PossessionClass.HAND_WEAPON, "Elven Sword");
     }
 
     @Override

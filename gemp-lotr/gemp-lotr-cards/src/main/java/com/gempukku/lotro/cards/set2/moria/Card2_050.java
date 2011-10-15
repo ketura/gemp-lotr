@@ -2,10 +2,7 @@ package com.gempukku.lotro.cards.set2.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +24,7 @@ import java.util.List;
  */
 public class Card2_050 extends AbstractAttachable {
     public Card2_050() {
-        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, Keyword.HAND_WEAPON, "The Balrog's Sword", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, PossessionClass.HAND_WEAPON, "The Balrog's Sword", true);
     }
 
     @Override

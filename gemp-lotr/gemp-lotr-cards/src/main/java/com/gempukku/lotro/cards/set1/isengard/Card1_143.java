@@ -35,7 +35,7 @@ public class Card1_143 extends AbstractMinion {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new CancelStrengthBonusModifier(self, Filters.and(
                 // Weapon bonus (Hand or Ranged)
-                Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)),
+                Filters.weapon(),
                 // That is attached to Companion or Ally
                 Filters.attachedTo(Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))),
                 // In a skirmish with this minion

@@ -2,7 +2,10 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,14 +36,14 @@ public class Card1_193 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             Collection<PhysicalCard> discardedCards = discardResult.getDiscardedCards();
-            if (Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(), Filters.zone(Zone.DISCARD), Filters.culture(Culture.MORIA), Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.playable(game, -1)).size() > 0) {
+            if (Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(), Filters.zone(Zone.DISCARD), Filters.culture(Culture.MORIA), Filters.weapon(), Filters.playable(game, -1)).size() > 0) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId,
                                 game.getGameState().getDiscard(playerId),
                                 Filters.and(
                                         Filters.culture(Culture.MORIA),
-                                        Filters.or(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)),
+                                        Filters.weapon(),
                                         Filters.in(discardedCards)), -1));
                 return Collections.singletonList(action);
             }
