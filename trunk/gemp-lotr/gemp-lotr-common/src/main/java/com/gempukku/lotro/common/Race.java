@@ -1,6 +1,6 @@
 package com.gempukku.lotro.common;
 
-public enum Race {
+public enum Race implements Filterable {
     BALROG("Balrog"), CREATURE("Creature"),
     ELF("Elf"), HOBBIT("Hobbit"), DWARF("Dwarf"), MAN("Man"), WIZARD("Wizard"),
     URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"), TROLL("Troll"), ENT("Ent");

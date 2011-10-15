@@ -57,7 +57,7 @@ public class Card2_089 extends AbstractMinion {
                 possibleCosts.add(
                         new ExertCharactersEffect(self, self));
                 possibleCosts.add(
-                        new DiscardCardsFromPlayEffect(self));
+                        new DiscardCardsFromPlayEffect(self, self));
                 action.appendCost(
                         new ChoiceEffect(action, playerId, possibleCosts));
                 action.appendEffect(

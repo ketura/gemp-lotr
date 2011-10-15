@@ -54,7 +54,7 @@ public class Card2_108 extends AbstractAttachable {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self));
+                    new DiscardCardsFromPlayEffect(self, self));
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
