@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.effects.choose;
 
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -17,11 +17,11 @@ public class ChooseAndAddUntilEOPStrengthBonusEffect extends ChooseActiveCardEff
     private PhysicalCard _source;
     private Evaluator _bonusEvaluator;
 
-    public ChooseAndAddUntilEOPStrengthBonusEffect(CostToEffectAction action, PhysicalCard source, String playerId, int bonus, Filter... selectionFilter) {
+    public ChooseAndAddUntilEOPStrengthBonusEffect(CostToEffectAction action, PhysicalCard source, String playerId, int bonus, Filterable... selectionFilter) {
         this(action, source, playerId, new ConstantEvaluator(bonus), selectionFilter);
     }
 
-    public ChooseAndAddUntilEOPStrengthBonusEffect(CostToEffectAction action, PhysicalCard source, String playerId, Evaluator bonusEvaluator, Filter... selectionFilter) {
+    public ChooseAndAddUntilEOPStrengthBonusEffect(CostToEffectAction action, PhysicalCard source, String playerId, Evaluator bonusEvaluator, Filterable... selectionFilter) {
         super(source, playerId, "Choose character", selectionFilter);
         _action = action;
         _source = source;

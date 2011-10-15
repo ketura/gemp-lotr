@@ -433,17 +433,20 @@ public class Filters {
     }
 
     public static Filter and(final Filterable... filters) {
-        Filter[] filtersInt = new Filter[filters.length];
-        for (int i = 0; i < filtersInt.length; i++)
-            filtersInt[i] = changeToFilter(filters[i]);
+        Filter[] filtersInt = convertToFilters(filters);
         return andInternal(filtersInt);
     }
 
     public static Filter or(final Filterable... filters) {
+        Filter[] filtersInt = convertToFilters(filters);
+        return orInternal(filtersInt);
+    }
+
+    private static Filter[] convertToFilters(Filterable... filters) {
         Filter[] filtersInt = new Filter[filters.length];
         for (int i = 0; i < filtersInt.length; i++)
             filtersInt[i] = changeToFilter(filters[i]);
-        return orInternal(filtersInt);
+        return filtersInt;
     }
 
     private static Filter changeToFilter(Filterable filter) {
@@ -482,15 +485,17 @@ public class Filters {
         };
     }
 
-    public static Filter and(final Filter[] filters1, final Filter... filters2) {
+    public static Filter and(final Filterable[] filters1, final Filterable... filters2) {
+        final Filter[] newFilters1 = convertToFilters(filters1);
+        final Filter[] newFilters2 = convertToFilters(filters2);
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                for (Filter filter : filters1) {
+                for (Filter filter : newFilters1) {
                     if (!filter.accepts(gameState, modifiersQuerying, physicalCard))
                         return false;
                 }
-                for (Filter filter : filters2) {
+                for (Filter filter : newFilters2) {
                     if (!filter.accepts(gameState, modifiersQuerying, physicalCard))
                         return false;
                 }
