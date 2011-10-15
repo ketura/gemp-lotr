@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.DrawCardEffect;
  * Type: Event
  * Game Text: Fellowship: Exert a Dwarf companion to draw 3 cards.
  */
-public class Card1_006 extends AbstractEvent {
+public class Card1_006 extends AbstractOldEvent {
     public Card1_006() {
         super(Side.FREE_PEOPLE, Culture.DWARVEN, "Delving", Phase.FELLOWSHIP);
     }

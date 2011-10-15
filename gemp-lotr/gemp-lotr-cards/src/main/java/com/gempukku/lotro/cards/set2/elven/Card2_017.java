@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.elven;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
@@ -26,7 +26,7 @@ import java.util.List;
  * Game Text: Response: If an Elf archer wins a skirmish, make an opponent choose a minion to discard. That opponent
  * may remove (3) to prevent this.
  */
-public class Card2_017 extends AbstractResponseEvent {
+public class Card2_017 extends AbstractResponseOldEvent {
     public Card2_017() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Dismay Our Enemiers");
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -24,7 +24,7 @@ import java.util.List;
  * Game Text: Search. Maneuver: Exert an Uruk-hai to make the opponent choose to either exert 2 companions or make the
  * Ring-bearer put on The One Ring until the regroup phase.
  */
-public class Card1_137 extends AbstractEvent {
+public class Card1_137 extends AbstractOldEvent {
     public Card1_137() {
         super(Side.SHADOW, Culture.ISENGARD, "Saruman's Reach", Phase.MANEUVER);
         addKeyword(Keyword.SEARCH);

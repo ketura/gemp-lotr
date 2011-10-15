@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.common.*;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
  * Type: Event
  * Game Text: Tale. Fellowship: Draw a card for each Elf companion you spot.
  */
-public class Card4_058 extends AbstractEvent {
+public class Card4_058 extends AbstractOldEvent {
     public Card4_058() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Alliance Reforged", Phase.FELLOWSHIP);
         addKeyword(Keyword.TALE);

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -27,7 +27,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
  * Type: Event
  * Game Text: Maneuver: Spot Sting or Glamdring and exert its bearer X times to wound X Orcs or X Uruk-hai.
  */
-public class Card2_109 extends AbstractEvent {
+public class Card2_109 extends AbstractOldEvent {
     public Card2_109() {
         super(Side.FREE_PEOPLE, Culture.SHIRE, "Orc-bane", Phase.MANEUVER);
     }

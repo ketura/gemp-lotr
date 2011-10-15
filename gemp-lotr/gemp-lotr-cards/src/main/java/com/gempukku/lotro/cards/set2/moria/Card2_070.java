@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
@@ -23,7 +23,7 @@ import java.util.Collection;
  * Game Text: Shadow: Reveal any number of [MORIA] Orcs from your hand to play The Balrog. Its twilight cost is -2 for
  * each Orc revealed.
  */
-public class Card2_070 extends AbstractEvent {
+public class Card2_070 extends AbstractOldEvent {
     public Card2_070() {
         super(Side.SHADOW, Culture.MORIA, "Power and Terror", Phase.SHADOW);
     }

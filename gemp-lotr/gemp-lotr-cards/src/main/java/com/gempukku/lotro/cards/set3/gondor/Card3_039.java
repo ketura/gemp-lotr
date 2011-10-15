@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Game Text: Tale. Maneuver: Exert a [GONDOR] companion to make that companion strength +3 and defender +1 until
  * the regroup phase.
  */
-public class Card3_039 extends AbstractEvent {
+public class Card3_039 extends AbstractOldEvent {
     public Card3_039() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Banner of the White Tree", Phase.MANEUVER);
         addKeyword(Keyword.TALE);

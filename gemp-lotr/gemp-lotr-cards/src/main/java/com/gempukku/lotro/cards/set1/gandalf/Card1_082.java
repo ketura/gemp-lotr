@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
@@ -26,7 +26,7 @@ import java.util.List;
  * Game Text: Spell. Fellowship: If the twilight pool has fewer than 2 twilight tokens, spot Gandalf to look at the top
  * 2 cards of your draw deck. Take one into hand and discard the other.
  */
-public class Card1_082 extends AbstractEvent {
+public class Card1_082 extends AbstractOldEvent {
     public Card1_082() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Risk a Little Light", Phase.FELLOWSHIP);
         addKeyword(Keyword.SPELL);

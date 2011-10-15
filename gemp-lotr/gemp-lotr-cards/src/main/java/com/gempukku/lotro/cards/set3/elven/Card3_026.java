@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship or Maneuver: Exert an Elf to discard an [ISENGARD] possession or [ISENGARD] artifact.
  */
-public class Card3_026 extends AbstractEvent {
+public class Card3_026 extends AbstractOldEvent {
     public Card3_026() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Something Draws Near", Phase.FELLOWSHIP, Phase.MANEUVER);
     }

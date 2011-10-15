@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
@@ -26,7 +26,7 @@ import java.util.List;
  * Game Text: Fellowship: Exert an Elf to reveal an opponent's hand. That player discards a card from hand for each Orc
  * revealed.
  */
-public class Card1_036 extends AbstractEvent {
+public class Card1_036 extends AbstractOldEvent {
     public Card1_036() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Curse Their Foul Feet!", Phase.FELLOWSHIP);
     }

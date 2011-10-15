@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Shadow: Spot a [SAURON] Orc to discard an [ELVEN] condition.
  */
-public class Card1_241 extends AbstractEvent {
+public class Card1_241 extends AbstractOldEvent {
     public Card1_241() {
         super(Side.SHADOW, Culture.SAURON, "Curse From Mordor", Phase.SHADOW);
     }

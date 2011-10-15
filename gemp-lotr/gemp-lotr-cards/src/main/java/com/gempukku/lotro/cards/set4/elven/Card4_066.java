@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Skirmish: Make a minion skirmishing an Elf strength -2 for each wound on that minion.
  */
-public class Card4_066 extends AbstractEvent {
+public class Card4_066 extends AbstractOldEvent {
     public Card4_066() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Feathered", Phase.SKIRMISH);
     }

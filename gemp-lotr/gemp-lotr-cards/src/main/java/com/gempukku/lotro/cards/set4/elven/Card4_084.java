@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
@@ -22,7 +22,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Skirmish or Regroup: Spot 3 Elf companions to liberate a site or exert a minion.
  */
-public class Card4_084 extends AbstractEvent {
+public class Card4_084 extends AbstractOldEvent {
     public Card4_084() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Sword-wall", Phase.SKIRMISH, Phase.REGROUP);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Maneuver: Exert an Elf to discard a [SAURON] minion, a [SAURON] condition, or a [SAURON] possession.
  */
-public class Card1_063 extends AbstractEvent {
+public class Card1_063 extends AbstractOldEvent {
     public Card1_063() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Stand Against Darkness", Phase.MANEUVER);
     }

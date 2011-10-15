@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Exert The Witch-king to discard a tale or weapon.
  */
-public class Card2_080 extends AbstractEvent {
+public class Card2_080 extends AbstractOldEvent {
     public Card2_080() {
         super(Side.SHADOW, Culture.WRAITH, "Stricken Dumb", Phase.MANEUVER);
     }

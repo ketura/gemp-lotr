@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Archery: Spot an Elf archer companion to make the fellowship archery total +1.
  */
-public class Card1_038 extends AbstractEvent {
+public class Card1_038 extends AbstractOldEvent {
     public Card1_038() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Double Shot", Phase.ARCHERY);
     }

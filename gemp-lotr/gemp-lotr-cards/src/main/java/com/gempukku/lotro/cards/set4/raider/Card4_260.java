@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Type: Event
  * Game Text: Skirmish: Wound a companion or ally skirmishing a [RAIDER] Man.
  */
-public class Card4_260 extends AbstractEvent {
+public class Card4_260 extends AbstractOldEvent {
     public Card4_260() {
         super(Side.SHADOW, Culture.RAIDER, "Whirling Strike", Phase.SKIRMISH);
     }

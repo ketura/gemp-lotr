@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Regroup: Spot a ranger to remove (4).
  */
-public class Card1_088 extends AbstractEvent {
+public class Card1_088 extends AbstractOldEvent {
     public Card1_088() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "An Able Guide", Phase.REGROUP);
     }

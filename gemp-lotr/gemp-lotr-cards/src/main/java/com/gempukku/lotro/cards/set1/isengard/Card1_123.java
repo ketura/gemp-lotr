@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Game Text: Spell. Weather. Maneuver: Exert a [ISENGARD] minion and spot 5 companions to discard an exhausted
  * companion (except the Ring-bearer).
  */
-public class Card1_123 extends AbstractEvent {
+public class Card1_123 extends AbstractOldEvent {
     public Card1_123() {
         super(Side.SHADOW, Culture.ISENGARD, "Caradhras Has Not Forgiven Us", Phase.MANEUVER);
         addKeyword(Keyword.WEATHER);

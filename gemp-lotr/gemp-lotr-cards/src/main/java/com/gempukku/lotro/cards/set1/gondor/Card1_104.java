@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -22,7 +22,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Exert a ranger to make each roaming minion strength -3 until the regroup phase.
  */
-public class Card1_104 extends AbstractEvent {
+public class Card1_104 extends AbstractOldEvent {
     public Card1_104() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Eregion's Trails", Phase.MANEUVER);
     }

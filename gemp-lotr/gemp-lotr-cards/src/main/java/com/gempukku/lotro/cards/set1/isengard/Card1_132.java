@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Maneuver: Spot an Uruk-hai to cancel the strength bonus from a possession until the regroup phase.
  */
-public class Card1_132 extends AbstractEvent {
+public class Card1_132 extends AbstractOldEvent {
     public Card1_132() {
         super(Side.SHADOW, Culture.ISENGARD, "Parry", Phase.MANEUVER);
     }

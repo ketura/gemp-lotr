@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.common.Culture;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Fellowship or Regroup: Spot a ranger to play the fellowship's next site (replacing opponent's site if
  * necessary).
  */
-public class Card1_110 extends AbstractEvent {
+public class Card1_110 extends AbstractOldEvent {
     public Card1_110() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Pathfinder", Phase.FELLOWSHIP, Phase.REGROUP);
     }

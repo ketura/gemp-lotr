@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -25,7 +25,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a [DUNLAND] Man wins a skirmish, make him fierce and strength +4 until the regroup phase.
  */
-public class Card4_037 extends AbstractResponseEvent {
+public class Card4_037 extends AbstractResponseOldEvent {
     public Card4_037() {
         super(Side.SHADOW, Culture.DUNLAND, "War Cry of Dunland");
     }

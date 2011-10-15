@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Skirmish: Make an Elf strength +2 (or +3 if you spot 3 Elf companions).
  */
-public class Card4_083 extends AbstractEvent {
+public class Card4_083 extends AbstractOldEvent {
     public Card4_083() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Supporting Fire", Phase.SKIRMISH);
     }

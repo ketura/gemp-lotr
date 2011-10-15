@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Spell. Regroup: Exert Gandalf to discard up to 2 wounded minions.
  */
-public class Card4_102 extends AbstractEvent {
+public class Card4_102 extends AbstractOldEvent {
     public Card4_102() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Task Was Not Done", Phase.REGROUP);
         addKeyword(Keyword.SPELL);

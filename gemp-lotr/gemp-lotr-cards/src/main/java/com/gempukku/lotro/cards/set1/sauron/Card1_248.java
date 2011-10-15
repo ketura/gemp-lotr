@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.AddTwilightEffect;
  * Type: Event
  * Game Text: Shadow: Spot X [SAURON] minions to add (X).
  */
-public class Card1_248 extends AbstractEvent {
+public class Card1_248 extends AbstractOldEvent {
     public Card1_248() {
         super(Side.SHADOW, Culture.SAURON, "Forces of Mordor", Phase.SHADOW);
     }

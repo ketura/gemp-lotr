@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Skirmish: Make a [ROHAN] Man strength +2 (or +3 if you spot a villager).
  */
-public class Card4_273 extends AbstractEvent {
+public class Card4_273 extends AbstractOldEvent {
     public Card4_273() {
         super(Side.FREE_PEOPLE, Culture.ROHAN, "Fight for the Villagers", Phase.SKIRMISH);
     }

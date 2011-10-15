@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: Shadow: Spot a [MORIA] minion to reveal a card at random from the Free Peoples player's hand. Add (X),
  * where X is the twilight cost of the card revealed.
  */
-public class Card3_076 extends AbstractEvent {
+public class Card3_076 extends AbstractOldEvent {
     public Card3_076() {
         super(Side.SHADOW, Culture.MORIA, "Dangerous Gamble", Phase.SHADOW);
     }

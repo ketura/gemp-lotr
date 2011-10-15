@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Make a [MORIA] Orc strength +2 (or +4 if skirmishing a Dwarf).
  */
-public class Card1_168 extends AbstractEvent {
+public class Card1_168 extends AbstractOldEvent {
     public Card1_168() {
         super(Side.SHADOW, Culture.MORIA, "Drums in the Deep", Phase.SKIRMISH);
     }

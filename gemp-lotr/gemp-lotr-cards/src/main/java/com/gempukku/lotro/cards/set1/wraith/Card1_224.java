@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -29,7 +29,7 @@ import java.util.List;
  * Game Text: Response: If the Ring-bearer wears The One Ring at the end of a skirmish phase, cancel all remaining
  * assignments and assign a Nazgul to skirmish the Ring-bearer; The One Ring's game text does not apply during this skirmish.
  */
-public class Card1_224 extends AbstractResponseEvent {
+public class Card1_224 extends AbstractResponseOldEvent {
     public Card1_224() {
         super(Side.SHADOW, Culture.WRAITH, "Return to Its Master");
     }

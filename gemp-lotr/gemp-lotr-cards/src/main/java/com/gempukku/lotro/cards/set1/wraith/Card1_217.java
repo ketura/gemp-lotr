@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Shadow: Play a Nazgul. His twilight cost is -2.
  */
-public class Card1_217 extends AbstractEvent {
+public class Card1_217 extends AbstractOldEvent {
     public Card1_217() {
         super(Side.SHADOW, Culture.WRAITH, "Morgul Gates", Phase.SHADOW);
     }

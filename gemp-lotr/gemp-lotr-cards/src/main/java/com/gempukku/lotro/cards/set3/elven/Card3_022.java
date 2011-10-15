@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
  * Type: Event
  * Game Text: Fellowship or Regroup: Spot Elrond (or 2 [ELVEN] allies) to heal a companion or ally.
  */
-public class Card3_022 extends AbstractEvent {
+public class Card3_022 extends AbstractOldEvent {
     public Card3_022() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Master of Healing", Phase.FELLOWSHIP, Phase.REGROUP);
     }

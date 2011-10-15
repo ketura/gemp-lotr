@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
@@ -22,7 +22,7 @@ import java.util.Collection;
  * Game Text: Fellowship: Exert a companion to place a Free Peoples card from your discard pile beneath your draw deck
  * (or 2 Free Peoples cards if that companion has the Frodo signet).
  */
-public class Card2_098 extends AbstractEvent {
+public class Card2_098 extends AbstractOldEvent {
     public Card2_098() {
         super(Side.FREE_PEOPLE, Culture.SHIRE, "Dear Friends", Phase.FELLOWSHIP);
     }

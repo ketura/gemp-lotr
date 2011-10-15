@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Exert a Ring-bound Man to cancel a skirmish involving a roaming minion.
  */
-public class Card4_113 extends AbstractEvent {
+public class Card4_113 extends AbstractOldEvent {
     public Card4_113() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Curse Them", Phase.SKIRMISH);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
@@ -26,7 +26,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a Nazgul is about to take a wound, prevent that wound.
  */
-public class Card1_203 extends AbstractResponseEvent {
+public class Card1_203 extends AbstractResponseOldEvent {
     public Card1_203() {
         super(Side.SHADOW, Culture.WRAITH, "All Blades Perish");
     }

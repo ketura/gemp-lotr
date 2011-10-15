@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship: Exert a Hobbit companion to remove a burden.
  */
-public class Card1_312 extends AbstractEvent {
+public class Card1_312 extends AbstractOldEvent {
     public Card1_312() {
         super(Side.FREE_PEOPLE, Culture.SHIRE, "Sorry About Everything", Phase.FELLOWSHIP);
     }

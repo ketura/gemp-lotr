@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
@@ -23,7 +23,7 @@ import java.util.Arrays;
  * Game Text: Spell.
  * Skirmish: Spot Gandalf to prevent all wounds to him. Any Shadow player may make you wound a minion to prevent this.
  */
-public class Card4_097 extends AbstractEvent {
+public class Card4_097 extends AbstractOldEvent {
     public Card4_097() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Long I Fell", Phase.SKIRMISH);
         addKeyword(Keyword.SPELL);

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.Culture;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Shadow: Play a [MORIA] Orc from your discard pile.
  */
-public class Card1_187 extends AbstractEvent {
+public class Card1_187 extends AbstractOldEvent {
     public Card1_187() {
         super(Side.SHADOW, Culture.MORIA, "Host of Thousands", Phase.SHADOW);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Game Text: Search. Maneuver: Spot a [SAURON] Orc and 6 companions to wound a companion (except the Ring-bearer).
  * Do this once for each companion over 5.
  */
-public class Card1_251 extends AbstractEvent {
+public class Card1_251 extends AbstractOldEvent {
     public Card1_251() {
         super(Side.SHADOW, Culture.SAURON, "A Host Avails Little", Phase.MANEUVER);
         addKeyword(Keyword.SEARCH);

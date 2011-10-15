@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Skirmish: Make a [DUNLAND] Man strength +2 (or +4 if at a sanctuary).
  */
-public class Card4_007 extends AbstractEvent {
+public class Card4_007 extends AbstractOldEvent {
     public Card4_007() {
         super(Side.SHADOW, Culture.DUNLAND, "Dark Fury", Phase.SKIRMISH);
     }

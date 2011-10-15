@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.CardType;
@@ -27,7 +27,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Spell. Response: If a companion is about to take a wound, spot Gandalf to prevent that wound.
  */
-public class Card1_076 extends AbstractResponseEvent {
+public class Card1_076 extends AbstractResponseOldEvent {
     public Card1_076() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Intimidate");
         addKeyword(Keyword.SPELL);

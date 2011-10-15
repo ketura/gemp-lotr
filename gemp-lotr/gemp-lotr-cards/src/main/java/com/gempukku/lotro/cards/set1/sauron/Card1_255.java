@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Skirmish: Exert a [SAURON] Orc to wound a character he is skirmishing.
  */
-public class Card1_255 extends AbstractEvent {
+public class Card1_255 extends AbstractOldEvent {
     public Card1_255() {
         super(Side.SHADOW, Culture.SAURON, "Mordor's Strength", Phase.SKIRMISH);
     }

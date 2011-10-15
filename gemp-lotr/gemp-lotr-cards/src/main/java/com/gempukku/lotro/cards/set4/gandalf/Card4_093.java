@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
  * Type: Event
  * Game Text: Fellowship: Spot Gandalf to heal an unbound companion twice.
  */
-public class Card4_093 extends AbstractEvent {
+public class Card4_093 extends AbstractOldEvent {
     public Card4_093() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Have Patience", Phase.FELLOWSHIP);
     }

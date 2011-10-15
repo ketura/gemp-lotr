@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.effects.DrawCardEffect;
  * Type: Event
  * Game Text: Shadow: Exert a [SAURON] Orc and spot X burdens to draw X cards (limit 5).
  */
-public class Card2_087 extends AbstractEvent {
+public class Card2_087 extends AbstractOldEvent {
     public Card2_087() {
         super(Side.SHADOW, Culture.SAURON, "The Eye of Sauron", Phase.SHADOW);
     }

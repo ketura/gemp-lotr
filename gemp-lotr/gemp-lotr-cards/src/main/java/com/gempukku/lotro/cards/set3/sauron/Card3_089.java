@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.sauron;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Regroup: Exert a [SAURON] Orc and spot a [GONDOR] companion to add a burden.
  */
-public class Card3_089 extends AbstractEvent {
+public class Card3_089 extends AbstractOldEvent {
     public Card3_089() {
         super(Side.SHADOW, Culture.SAURON, "Gleaming in the Snow", Phase.REGROUP);
     }

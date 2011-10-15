@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Maneuver: Exert an Elf ally whose home is site 6. Until the regroup phase, that ally is strength +3 and
  * participates in archery fire and skirmishes.
  */
-public class Card1_065 extends AbstractEvent {
+public class Card1_065 extends AbstractOldEvent {
     public Card1_065() {
         super(Side.FREE_PEOPLE, Culture.ELVEN, "Swan-ship of the Galadhrim", Phase.MANEUVER);
     }

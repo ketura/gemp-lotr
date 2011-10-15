@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -24,7 +24,7 @@ import java.util.List;
  * Game Text: Skirmish: Make a Southron strength +1 for each burden you spot (limit +5), or make a [RAIDER] Man
  * strength +2.
  */
-public class Card4_233 extends AbstractEvent {
+public class Card4_233 extends AbstractOldEvent {
     public Card4_233() {
         super(Side.SHADOW, Culture.RAIDER, "Fearless", Phase.SKIRMISH);
     }

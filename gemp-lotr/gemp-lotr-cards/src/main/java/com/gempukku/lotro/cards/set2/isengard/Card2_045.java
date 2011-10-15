@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.isengard;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: Response: If the Ring-bearer puts on The One Ring, spot an [ISENGARD] minion to make the Free Peoples
  * player discard the top 5 cards of his or her draw deck.
  */
-public class Card2_045 extends AbstractResponseEvent {
+public class Card2_045 extends AbstractResponseOldEvent {
     public Card2_045() {
         super(Side.SHADOW, Culture.ISENGARD, "Too Much Attention");
     }

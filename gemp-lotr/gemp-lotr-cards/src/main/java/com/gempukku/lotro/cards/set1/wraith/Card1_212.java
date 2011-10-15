@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Search. Maneuver: Exert your Nazgul to discard an ally.
  */
-public class Card1_212 extends AbstractEvent {
+public class Card1_212 extends AbstractOldEvent {
     public Card1_212() {
         super(Side.SHADOW, Culture.WRAITH, "Fear", Phase.MANEUVER);
         addKeyword(Keyword.SEARCH);

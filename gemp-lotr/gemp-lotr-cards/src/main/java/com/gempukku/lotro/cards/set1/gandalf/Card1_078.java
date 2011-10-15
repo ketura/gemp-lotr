@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Spell. Skirmish: Make Gandalf strength +2 (or +4 if there are 4 or fewer burdens on the Ring-bearer).
  */
-public class Card1_078 extends AbstractEvent {
+public class Card1_078 extends AbstractOldEvent {
     public Card1_078() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Mysterious Wizard", Phase.SKIRMISH);
         addKeyword(Keyword.SPELL);

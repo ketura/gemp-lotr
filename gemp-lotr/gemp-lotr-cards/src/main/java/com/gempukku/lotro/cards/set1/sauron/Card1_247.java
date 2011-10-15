@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -24,7 +24,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a [SAURON] Orc wins a skirmish, make that Orc fierce until the regroup phase.
  */
-public class Card1_247 extends AbstractResponseEvent {
+public class Card1_247 extends AbstractResponseOldEvent {
     public Card1_247() {
         super(Side.SHADOW, Culture.SAURON, "Enheartened Foe");
     }

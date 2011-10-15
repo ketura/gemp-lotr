@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Game Text: Skirmish: Exert Aragorn to make another companion strength +2 (or +3 if that companion has the Aragorn
  * signet).
  */
-public class Card2_036 extends AbstractEvent {
+public class Card2_036 extends AbstractOldEvent {
     public Card2_036() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "No Mere Ranger", Phase.SKIRMISH);
     }

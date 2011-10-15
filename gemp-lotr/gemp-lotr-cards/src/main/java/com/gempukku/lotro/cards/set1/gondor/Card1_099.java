@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -25,7 +25,7 @@ import java.util.List;
  * Type: Event
  * Game Text: Regroup: Exert a ranger to make an opponent shuffle his hand into his draw deck and draw 8 cards.
  */
-public class Card1_099 extends AbstractEvent {
+public class Card1_099 extends AbstractOldEvent {
     public Card1_099() {
         super(Side.FREE_PEOPLE, Culture.GONDOR, "Change of Plans", Phase.REGROUP);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Maneuver: Exert a Nazgul to wound every ally.
  */
-public class Card1_226 extends AbstractEvent {
+public class Card1_226 extends AbstractOldEvent {
     public Card1_226() {
         super(Side.SHADOW, Culture.WRAITH, "Their Power Is in Terror", Phase.MANEUVER);
     }

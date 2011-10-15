@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect;
@@ -23,7 +23,7 @@ import java.util.Set;
  * Game Text: Regroup: Exert a Dwarf to shuffle a [DWARVEN] condition (and all cards stacked on it) into your draw deck.
  * Exert a minion for each card shuffled into your draw deck.
  */
-public class Card4_055 extends AbstractEvent {
+public class Card4_055 extends AbstractOldEvent {
     public Card4_055() {
         super(Side.FREE_PEOPLE, Culture.DWARVEN, "Restless Axe", Phase.REGROUP);
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Assignment: Assign an exhausted companion (except the Ring-bearer) to skirmish a [MORIA] Orc.
  */
-public class Card1_171 extends AbstractEvent {
+public class Card1_171 extends AbstractOldEvent {
     public Card1_171() {
         super(Side.SHADOW, Culture.MORIA, "Frenzy", Phase.ASSIGNMENT);
     }

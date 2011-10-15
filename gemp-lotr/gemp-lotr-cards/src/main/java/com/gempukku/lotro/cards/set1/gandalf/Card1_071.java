@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship: Spot Gandalf, a Dwarf, and an Elf to make the move limit for this turn +1.
  */
-public class Card1_071 extends AbstractEvent {
+public class Card1_071 extends AbstractOldEvent {
     public Card1_071() {
         super(Side.FREE_PEOPLE, Culture.GANDALF, "Durin's Secret", Phase.FELLOWSHIP);
     }

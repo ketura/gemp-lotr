@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.moria;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -25,7 +25,7 @@ import java.util.Collections;
  * Game Text: Maneuver: Spot a [MORIA] minion to wound Boromir 3 times. The Free Peoples player may discard 2 Free
  * Peoples possessions to prevent this.
  */
-public class Card3_080 extends AbstractEvent {
+public class Card3_080 extends AbstractOldEvent {
     public Card3_080() {
         super(Side.SHADOW, Culture.MORIA, "Such a Little Thing", Phase.MANEUVER);
     }

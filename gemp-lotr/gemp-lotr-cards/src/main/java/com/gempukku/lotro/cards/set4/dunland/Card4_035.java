@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Maneuver: Spot 2 sites you control to make each of your [DUNLAND] Men fierce until the regroup phase.
  */
-public class Card4_035 extends AbstractEvent {
+public class Card4_035 extends AbstractOldEvent {
     public Card4_035() {
         super(Side.SHADOW, Culture.DUNLAND, "Wake of Destruction", Phase.MANEUVER);
     }

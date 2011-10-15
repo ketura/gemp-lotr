@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.sauron;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
@@ -25,7 +25,7 @@ import java.util.List;
  * Game Text: Response: If the Ring-bearer puts on The One Ring, spot a [SAURON] minion to make the Free Peoples player
  * discard his or her hand.
  */
-public class Card2_091 extends AbstractResponseEvent {
+public class Card2_091 extends AbstractResponseOldEvent {
     public Card2_091() {
         super(Side.SHADOW, Culture.SAURON, "Southern Spies");
     }

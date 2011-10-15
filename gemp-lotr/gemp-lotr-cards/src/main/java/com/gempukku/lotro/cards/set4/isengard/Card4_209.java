@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Archery: Discard 2 [ISENGARD] archers to exhaust an unbound companion.
  */
-public class Card4_209 extends AbstractEvent {
+public class Card4_209 extends AbstractOldEvent {
     public Card4_209() {
         super(Side.SHADOW, Culture.ISENGARD, "Volley Fire", Phase.ARCHERY);
     }

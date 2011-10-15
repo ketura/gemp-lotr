@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
@@ -25,7 +25,7 @@ import java.util.Collections;
  * Game Text: Maneuver: Spot a Nazgul to wound Gandalf twice. The Free Peoples player may discard 2 [GANDALF] cards
  * from hand to prevent this.
  */
-public class Card3_085 extends AbstractEvent {
+public class Card3_085 extends AbstractOldEvent {
     public Card3_085() {
         super(Side.SHADOW, Culture.WRAITH, "Too Great and Terrible", Phase.MANEUVER);
     }

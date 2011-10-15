@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Game Text: Skirmish: Make a Nazgul strength +2 (or +3 if the Ring-bearer is assigned to a skirmish that has not
  * resolved).
  */
-public class Card1_213 extends AbstractEvent {
+public class Card1_213 extends AbstractOldEvent {
     public Card1_213() {
         super(Side.SHADOW, Culture.WRAITH, "Frozen by Fear", Phase.SKIRMISH);
     }
