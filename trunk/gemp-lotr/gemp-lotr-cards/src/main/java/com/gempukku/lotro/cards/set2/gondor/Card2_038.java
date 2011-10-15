@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card2_038 extends AbstractAttachableFPPossession {
     public Card2_038() {
-        super(1, 0, 0, Culture.GONDOR, Keyword.SHIELD, "Shield of Boromir", true);
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.SHIELD, "Shield of Boromir", true);
     }
 
     @Override

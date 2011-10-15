@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card4_263 extends AbstractAttachableFPPossession {
     public Card4_263() {
-        super(1, 0, 0, Culture.ROHAN, Keyword.MOUNT, "Brego", true);
+        super(1, 0, 0, Culture.ROHAN, PossessionClass.MOUNT, "Brego", true);
     }
 
     @Override

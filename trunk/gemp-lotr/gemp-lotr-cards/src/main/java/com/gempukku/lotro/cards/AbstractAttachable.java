@@ -16,21 +16,19 @@ import java.util.*;
 
 public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     private int _twilight;
-    private Keyword _possessionClass;
+    private PossessionClass _possessionClass;
 
-    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, Keyword possessionClass, String name) {
+    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, PossessionClass possessionClass, String name) {
         this(side, cardType, twilight, culture, possessionClass, name, false);
     }
 
-    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, Keyword possessionClass, String name, boolean unique) {
+    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, PossessionClass possessionClass, String name, boolean unique) {
         super(side, cardType, culture, name, unique);
         _twilight = twilight;
         _possessionClass = possessionClass;
-        if (_possessionClass != null)
-            addKeyword(_possessionClass);
     }
 
-    public Keyword getPossessionClass() {
+    public PossessionClass getPossessionClass() {
         return _possessionClass;
     }
 
@@ -43,11 +41,11 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        Keyword possessionClass = getPossessionClass();
+                        PossessionClass possessionClass = getPossessionClass();
                         if (possessionClass != null) {
                             boolean extraPossessionClass = isExtraPossessionClass();
                             List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
-                            Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.ARTIFACT)), Filters.keyword(possessionClass));
+                            Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.ARTIFACT)), Filters.possessionClass(possessionClass));
                             if (matchingClassPossessions.size() > 1)
                                 return false;
                             if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&

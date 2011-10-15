@@ -49,9 +49,9 @@ public class Card2_039 extends AbstractEvent {
                                     Filters.side(Side.FREE_PEOPLE),
                                     Filters.type(CardType.POSSESSION),
                                     Filters.or(
-                                            Filters.keyword(Keyword.ARMOR),
-                                            Filters.keyword(Keyword.HELM),
-                                            Filters.keyword(Keyword.SHIELD)
+                                            Filters.possessionClass(PossessionClass.ARMOR),
+                                            Filters.possessionClass(PossessionClass.HELM),
+                                            Filters.possessionClass(PossessionClass.SHIELD)
                                     ))));
         else
             action.appendEffect(
@@ -59,9 +59,9 @@ public class Card2_039 extends AbstractEvent {
                             action, playerId, 1, 1,
                             Filters.type(CardType.POSSESSION),
                             Filters.or(
-                                    Filters.keyword(Keyword.ARMOR),
-                                    Filters.keyword(Keyword.HELM),
-                                    Filters.keyword(Keyword.SHIELD)
+                                    Filters.possessionClass(PossessionClass.ARMOR),
+                                    Filters.possessionClass(PossessionClass.HELM),
+                                    Filters.possessionClass(PossessionClass.SHIELD)
                             )));
         return action;
     }

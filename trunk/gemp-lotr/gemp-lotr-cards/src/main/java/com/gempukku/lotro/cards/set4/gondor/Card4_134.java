@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class Card4_134 extends AbstractAttachableFPPossession {
     public Card4_134() {
-        super(1, 2, 0, Culture.GONDOR, Keyword.HAND_WEAPON, "Sword of Gondor");
+        super(1, 2, 0, Culture.GONDOR, PossessionClass.HAND_WEAPON, "Sword of Gondor");
     }
 
     @Override

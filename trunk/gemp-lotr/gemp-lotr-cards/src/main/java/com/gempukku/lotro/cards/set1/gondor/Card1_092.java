@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_092 extends AbstractAttachableFPPossession {
     public Card1_092() {
-        super(1, 0, 0, Culture.GONDOR, Keyword.ARMOR, "Armor");
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.ARMOR, "Armor");
     }
 
     @Override

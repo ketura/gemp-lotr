@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_278 extends AbstractAttachableFPPossession {
     public Card4_278() {
-        super(1, 0, 0, Culture.ROHAN, Keyword.ARMOR, "Heavy Chain");
+        super(1, 0, 0, Culture.ROHAN, PossessionClass.ARMOR, "Heavy Chain");
     }
 
     @Override

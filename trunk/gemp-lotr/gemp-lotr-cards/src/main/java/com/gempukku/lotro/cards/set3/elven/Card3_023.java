@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card3_023 extends AbstractAttachableFPPossession {
     public Card3_023() {
-        super(0, 0, 1, Culture.ELVEN, CardType.ARTIFACT, Keyword.RING, "Nenya", true);
+        super(0, 0, 1, Culture.ELVEN, CardType.ARTIFACT, PossessionClass.RING, "Nenya", true);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_033 extends AbstractAttachableFPPossession {
     public Card1_033() {
-        super(1, 1, 0, Culture.ELVEN, Keyword.RANGED_WEAPON, "Bow of the Galadhrim", true);
+        super(1, 1, 0, Culture.ELVEN, PossessionClass.RANGED_WEAPON, "Bow of the Galadhrim", true);
     }
 
     @Override

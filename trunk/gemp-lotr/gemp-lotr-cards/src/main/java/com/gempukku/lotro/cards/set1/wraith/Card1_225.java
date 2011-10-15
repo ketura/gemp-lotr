@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_225 extends AbstractAttachable {
     public Card1_225() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, Keyword.HAND_WEAPON, "Sword of Minas Morgul", true);
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.HAND_WEAPON, "Sword of Minas Morgul", true);
     }
 
     @Override

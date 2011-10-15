@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.dwarven;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card2_003 extends AbstractAttachableFPPossession {
     public Card2_003() {
-        super(1, 1, 0, Culture.DWARVEN, Keyword.BRACERS, "Dwarven Bracers");
+        super(1, 1, 0, Culture.DWARVEN, PossessionClass.BRACERS, "Dwarven Bracers");
     }
 
     @Override

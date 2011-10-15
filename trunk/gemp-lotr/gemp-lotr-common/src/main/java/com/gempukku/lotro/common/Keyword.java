@@ -14,13 +14,11 @@ public enum Keyword {
     RIVER("River", true), PLAINS("Plains", true), UNDERGROUND("Underground", true), SANCTUARY("Sanctuary", true), FOREST("Forest", true), MARSH("Marsh", true), MOUNTAIN("Mountain", true),
     BATTLEGROUND("Battleground", true),
 
+    PIPEWEED("Pipeweed"),
+
     DAMAGE("Damage", true, true), DEFENDER("Defender", true, true), AMBUSH("Ambush", true, true), FIERCE("Fierce", true), ARCHER("Archer", true),
     UNHASTY("Unhasty", true), RANGER("Ranger", true), TRACKER("Tracker", true), VILLAGER("Villager", true), MACHINE("Machine", true),
-    SOUTHRON("Southron", true), EASTERLING("Easterling", true), VALIANT("Valiant", true),
-
-    HAND_WEAPON("Hand Weapon"), ARMOR("Armor"), HELM("Helm"), MOUNT("Mount"), RANGED_WEAPON("Ranged Weapon"),
-    CLOAK("Cloak"), PIPE("Pipe"), PIPEWEED("Pipeweed"), SHIELD("Shield"), BRACERS("Bracers"), STAFF("Staff"), RING("Ring"),
-    BROOCH("Brooch"), GAUNTLETS("Gauntlets");
+    SOUTHRON("Southron", true), EASTERLING("Easterling", true), VALIANT("Valiant", true);
 
     private String _humanReadable;
     private boolean _infoDisplayable;

@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -30,7 +31,7 @@ public class Card1_347 extends AbstractSite {
                                 Filters.type(CardType.COMPANION),
                                 Filters.type(CardType.MINION)),
                         Filters.hasAttached(
-                                Filters.keyword(Keyword.HAND_WEAPON))
+                                Filters.possessionClass(PossessionClass.HAND_WEAPON))
                 ), Keyword.DAMAGE);
     }
 }

@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -34,7 +35,7 @@ import java.util.Map;
  */
 public class Card1_031 extends AbstractAttachableFPPossession {
     public Card1_031() {
-        super(2, 2, 0, Culture.ELVEN, Keyword.MOUNT, "Asfaloth", true);
+        super(2, 2, 0, Culture.ELVEN, PossessionClass.MOUNT, "Asfaloth", true);
     }
 
     @Override

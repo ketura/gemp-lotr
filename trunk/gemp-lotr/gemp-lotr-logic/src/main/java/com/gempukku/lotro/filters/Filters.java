@@ -57,6 +57,15 @@ public class Filters {
 
     // Filters available
 
+    public static Filter possessionClass(final PossessionClass possessionClass) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getBlueprint().getPossessionClass() == possessionClass;
+            }
+        };
+    }
+
     public static Filter hasToken(final Token token) {
         return new Filter() {
             @Override
@@ -103,13 +112,7 @@ public class Filters {
     }
 
     public static Filter weapon() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.HAND_WEAPON)
-                        || modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.RANGED_WEAPON);
-            }
-        };
+        return Filters.or(Filters.possessionClass(PossessionClass.HAND_WEAPON), Filters.possessionClass(PossessionClass.RANGED_WEAPON));
     }
 
     public static Filter inSkirmish() {

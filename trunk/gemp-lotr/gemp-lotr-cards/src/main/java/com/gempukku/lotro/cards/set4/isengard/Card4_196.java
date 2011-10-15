@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card4_196 extends AbstractAttachable {
     public Card4_196() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.ISENGARD, Keyword.HAND_WEAPON, "Uruk Spear");
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.ISENGARD, PossessionClass.HAND_WEAPON, "Uruk Spear");
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Card4_196 extends AbstractAttachable {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.hasAttached(self)));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.FREE_PEOPLE), Filters.keyword(Keyword.MOUNT)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.FREE_PEOPLE), Filters.possessionClass(PossessionClass.MOUNT)));
             return Collections.singletonList(action);
         }
         return null;

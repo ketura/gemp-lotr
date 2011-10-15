@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.gandalf;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,10 +37,10 @@ public class Card2_025 extends AbstractAlly {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.or(
-                        Filters.keyword(Keyword.SHIELD),
-                        Filters.keyword(Keyword.ARMOR),
-                        Filters.keyword(Keyword.HELM),
-                        Filters.keyword(Keyword.HAND_WEAPON)
+                        Filters.possessionClass(PossessionClass.SHIELD),
+                        Filters.possessionClass(PossessionClass.ARMOR),
+                        Filters.possessionClass(PossessionClass.HELM),
+                        Filters.possessionClass(PossessionClass.HAND_WEAPON)
                 ), 1);
     }
 }

@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card3_108 extends AbstractAttachableFPPossession {
     public Card3_108() {
-        super(0, 1, 0, Culture.SHIRE, Keyword.HAND_WEAPON, "Frying Pan");
+        super(0, 1, 0, Culture.SHIRE, PossessionClass.HAND_WEAPON, "Frying Pan");
     }
 
     @Override

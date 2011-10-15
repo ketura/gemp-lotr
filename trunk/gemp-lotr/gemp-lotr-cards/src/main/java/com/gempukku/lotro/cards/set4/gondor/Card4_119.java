@@ -2,10 +2,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +22,7 @@ import java.util.List;
  */
 public class Card4_119 extends AbstractAttachableFPPossession {
     public Card4_119() {
-        super(0, 0, 0, Culture.GONDOR, Keyword.CLOAK, "Faramir's Cloak", true);
+        super(0, 0, 0, Culture.GONDOR, PossessionClass.CLOAK, "Faramir's Cloak", true);
     }
 
     @Override

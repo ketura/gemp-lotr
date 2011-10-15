@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set2.shire;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +25,7 @@ import java.util.List;
  */
 public class Card2_105 extends AbstractAttachableFPPossession {
     public Card2_105() {
-        super(2, 0, 0, Culture.SHIRE, CardType.ARTIFACT, Keyword.ARMOR, "Mithril-coat", true);
+        super(2, 0, 0, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.ARMOR, "Mithril-coat", true);
     }
 
     @Override
@@ -42,7 +39,7 @@ public class Card2_105 extends AbstractAttachableFPPossession {
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.SHADOW, -1));
         modifiers.add(
-                new CancelStrengthBonusModifier(self, Filters.and(Filters.and(Filters.keyword(Keyword.HAND_WEAPON), Filters.keyword(Keyword.RANGED_WEAPON)), Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self))))));
+                new CancelStrengthBonusModifier(self, Filters.and(Filters.weapon(), Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self))))));
         modifiers.add(
                 new RemoveKeywordModifier(self, Filters.inSkirmishAgainst(Filters.hasAttached(self)), Keyword.DAMAGE));
         return modifiers;

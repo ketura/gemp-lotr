@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_247 extends AbstractAttachable {
     public Card4_247() {
-        super(Side.SHADOW, CardType.POSSESSION, 3, Culture.RAIDER, Keyword.RANGED_WEAPON, "Southron Bow");
+        super(Side.SHADOW, CardType.POSSESSION, 3, Culture.RAIDER, PossessionClass.RANGED_WEAPON, "Southron Bow");
     }
 
     @Override

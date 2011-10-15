@@ -68,6 +68,8 @@ public interface LotroCardBlueprint {
 
     public int getSiteNumber();
 
+    public PossessionClass getPossessionClass();
+
     public Direction getSiteDirection();
 
     public enum Direction {
