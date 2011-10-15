@@ -21,7 +21,7 @@ public class DrawCardEffect extends AbstractEffect {
 
     @Override
     public EffectResult.Type getType() {
-        return null;
+        return EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND;
     }
 
     @Override
