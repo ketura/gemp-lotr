@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.effects.choose;
 
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -17,11 +18,11 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     private Action _action;
     private int _count;
 
-    public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, Filter... filters) {
+    public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         this(action, playerId, minimum, maximum, 1, filters);
     }
 
-    public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, int count, Filter... filters) {
+    public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, int count, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose characters to exert", minimum, maximum, filters);
         _action = action;
         _count = count;
