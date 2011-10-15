@@ -34,7 +34,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
     }
 
     protected Filter getExtraFilter() {
-        return Filters.any();
+        return Filters.any;
     }
 
     @Override

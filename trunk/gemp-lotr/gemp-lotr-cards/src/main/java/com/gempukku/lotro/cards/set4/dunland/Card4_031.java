@@ -41,7 +41,7 @@ public class Card4_031 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard dunlandMan) {
                             action.insertEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion(), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, PhysicalCard unboundCompanion) {
                                             action.insertEffect(

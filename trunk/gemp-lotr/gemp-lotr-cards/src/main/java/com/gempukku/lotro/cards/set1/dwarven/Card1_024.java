@@ -29,11 +29,11 @@ public class Card1_024 extends AbstractPermanent {
         return new StrengthModifier(self,
                 Filters.and(
                         Filters.race(Race.DWARF),
-                        Filters.inSkirmish(),
+                        Filters.inSkirmish,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION), Filters.inSkirmish());
+                                return Filters.canSpot(gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION), Filters.inSkirmish);
                             }
                         }), 1);
     }

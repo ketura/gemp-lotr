@@ -43,7 +43,7 @@ public class Card1_012 extends AbstractCompanion {
 
             action.appendCost(new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.any()) {
+                    new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.any) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {

@@ -56,7 +56,7 @@ public class Card2_079 extends AbstractEvent {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.exhausted())) {
+                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.exhausted)) {
                             action.insertEffect(
                                     new PutOnTheOneRingEffect());
                             game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(

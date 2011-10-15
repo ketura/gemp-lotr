@@ -39,11 +39,11 @@ public class Card2_006 extends AbstractCompanion {
         return new StrengthModifier(self,
                 Filters.and(
                         Filters.sameCard(self),
-                        Filters.inSkirmish(),
+                        Filters.inSkirmish,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.race(Race.URUK_HAI), Filters.inSkirmish());
+                                return Filters.canSpot(gameState, modifiersQuerying, Filters.race(Race.URUK_HAI), Filters.inSkirmish);
                             }
                         }), 3);
     }

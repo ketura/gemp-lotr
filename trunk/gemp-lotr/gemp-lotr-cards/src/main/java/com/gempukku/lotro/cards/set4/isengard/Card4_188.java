@@ -43,7 +43,7 @@ public class Card4_188 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new CantDiscardFromPlayModifier(self, "Unbound Hobbits may not be discarded", Filters.and(Filters.unboundCompanion(), Filters.race(Race.HOBBIT)), Filters.any()));
+                new CantDiscardFromPlayModifier(self, "Unbound Hobbits may not be discarded", Filters.and(Filters.unboundCompanion, Filters.race(Race.HOBBIT)), Filters.any));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Card4_188 extends AbstractMinion {
 
                 && PlayConditions.canExert(self, game, 2, Filters.sameCard(self))) {
             KillResult killResult = (KillResult) effectResult;
-            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion(), Filters.race(Race.HOBBIT)).size() > 0) {
+            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Filters.race(Race.HOBBIT)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new ExertCharactersEffect(self, self));

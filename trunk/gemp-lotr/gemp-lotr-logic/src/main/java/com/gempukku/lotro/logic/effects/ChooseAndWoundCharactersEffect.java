@@ -25,7 +25,7 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected Filter getExtraFilter() {
-        return Filters.canTakeWound();
+        return Filters.canTakeWound;
     }
 
     @Override

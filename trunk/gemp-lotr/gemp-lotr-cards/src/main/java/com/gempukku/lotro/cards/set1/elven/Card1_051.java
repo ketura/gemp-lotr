@@ -37,7 +37,7 @@ public class Card1_051 extends AbstractCompanion {
         return new StrengthModifier(self,
                 Filters.and(
                         Filters.sameCard(self),
-                        Filters.inSkirmish(),
+                        Filters.inSkirmish,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

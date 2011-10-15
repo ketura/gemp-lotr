@@ -38,8 +38,8 @@ public class Card2_112 extends AbstractPermanent {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.name("Frodo"), Filters.not(Filters.exhausted()))
-                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.name("Sam"), Filters.not(Filters.exhausted()));
+                                return Filters.canSpot(gameState, modifiersQuerying, Filters.name("Frodo"), Filters.not(Filters.exhausted))
+                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.name("Sam"), Filters.not(Filters.exhausted));
                             }
                         }, 1));
     }

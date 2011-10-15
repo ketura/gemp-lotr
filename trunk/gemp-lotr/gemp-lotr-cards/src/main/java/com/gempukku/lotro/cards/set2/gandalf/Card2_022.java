@@ -56,7 +56,7 @@ public class Card2_022 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ExertCharactersEffect(self, self.getAttachedTo()));
 
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self.getAttachedTo()), Filters.inSkirmish()))
+            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self.getAttachedTo()), Filters.inSkirmish))
                 action.appendEffect(
                         new CancelSkirmishEffect());
             return Collections.singletonList(action);

@@ -42,7 +42,7 @@ public class Card2_038 extends AbstractAttachableFPPossession {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ArcheryTotalModifier(self, Side.SHADOW, -1));
         modifiers.add(
-                new CancelStrengthBonusModifier(self, Filters.and(Filters.attachedTo(Filters.and(Filters.type(CardType.MINION), Filters.inSkirmish())),
+                new CancelStrengthBonusModifier(self, Filters.and(Filters.attachedTo(Filters.and(Filters.type(CardType.MINION), Filters.inSkirmish)),
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

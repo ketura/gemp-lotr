@@ -43,7 +43,7 @@ public class Card4_134 extends AbstractAttachableFPPossession {
                                 Filters.inSkirmishAgainst(
                                         Filters.or(
                                                 Filters.race(Race.MAN),
-                                                Filters.roamingMinion()
+                                                Filters.roaminMinion
                                         )
                                 )
                         ), Keyword.DAMAGE));

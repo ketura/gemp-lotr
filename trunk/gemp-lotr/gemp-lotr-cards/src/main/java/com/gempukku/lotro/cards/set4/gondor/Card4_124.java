@@ -36,12 +36,12 @@ public class Card4_124 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(),
                 Filters.or(
-                        Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion()),
+                        Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion),
                         Filters.and(Filters.culture(Culture.ROHAN), Filters.type(CardType.COMPANION))))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(
-                            Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion()),
+                            Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion),
                             Filters.and(Filters.culture(Culture.ROHAN), Filters.type(CardType.COMPANION)))) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
@@ -50,7 +50,7 @@ public class Card4_124 extends AbstractPermanent {
                             if (culture == Culture.GONDOR)
                                 filter = Filters.and(Filters.culture(Culture.ROHAN), Filters.type(CardType.COMPANION));
                             else
-                                filter = Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion());
+                                filter = Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion);
 
                             action.appendEffect(
                                     new ChooseActiveCardEffect(self, playerId, "Choose companion", filter) {

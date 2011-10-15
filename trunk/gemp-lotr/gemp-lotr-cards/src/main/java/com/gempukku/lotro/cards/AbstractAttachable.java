@@ -71,7 +71,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     @Override
     public final boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return checkPlayRequirements(playerId, game, self, Filters.any(), twilightModifier);
+        return checkPlayRequirements(playerId, game, self, Filters.any, twilightModifier);
     }
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
@@ -99,7 +99,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     @Override
     public final AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return getPlayCardAction(playerId, game, self, Filters.any(), twilightModifier);
+        return getPlayCardAction(playerId, game, self, Filters.any, twilightModifier);
     }
 
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {

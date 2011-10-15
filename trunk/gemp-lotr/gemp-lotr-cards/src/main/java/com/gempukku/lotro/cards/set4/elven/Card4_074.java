@@ -44,7 +44,7 @@ public class Card4_074 extends AbstractCompanion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion()) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             final int bonus = (card.getBlueprint().getName().equals("Gimli")) ? -2 : -1;

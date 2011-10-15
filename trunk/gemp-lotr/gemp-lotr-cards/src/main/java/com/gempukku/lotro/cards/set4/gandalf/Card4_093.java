@@ -33,7 +33,7 @@ public class Card4_093 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, Filters.unboundCompanion()));
+                new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, Filters.unboundCompanion));
         return action;
     }
 

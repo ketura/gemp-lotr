@@ -49,7 +49,7 @@ public class Card4_249 extends AbstractMinion {
                             action.insertEffect(new PreventableEffect(action,
                                     new AssignmentEffect(playerId, card, self),
                                     game.getGameState().getCurrentPlayerId(),
-                                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.unboundCompanion())));
+                                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.unboundCompanion)));
                         }
                     });
             return Collections.singletonList(action);

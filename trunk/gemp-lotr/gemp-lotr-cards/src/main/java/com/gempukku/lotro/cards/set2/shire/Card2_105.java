@@ -39,7 +39,7 @@ public class Card2_105 extends AbstractAttachableFPPossession {
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.SHADOW, -1));
         modifiers.add(
-                new CancelStrengthBonusModifier(self, Filters.and(Filters.weapon(), Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self))))));
+                new CancelStrengthBonusModifier(self, Filters.and(Filters.weapon, Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self))))));
         modifiers.add(
                 new RemoveKeywordModifier(self, Filters.inSkirmishAgainst(Filters.hasAttached(self)), Keyword.DAMAGE));
         return modifiers;

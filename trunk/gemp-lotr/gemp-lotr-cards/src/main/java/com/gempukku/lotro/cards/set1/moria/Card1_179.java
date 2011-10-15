@@ -40,7 +40,7 @@ public class Card1_179 extends AbstractMinion {
         final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
 
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.weapon(),
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.weapon,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -53,7 +53,7 @@ public class Card1_179 extends AbstractMinion {
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),
                             Filters.and(
-                                    Filters.weapon(),
+                                    Filters.weapon,
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

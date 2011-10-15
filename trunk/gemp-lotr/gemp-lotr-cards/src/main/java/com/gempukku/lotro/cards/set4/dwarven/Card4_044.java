@@ -38,7 +38,7 @@ public class Card4_044 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ChooseCardsFromDiscardEffect(self.getOwner(), 1, 1, Filters.any()) {
+                    new ChooseCardsFromDiscardEffect(self.getOwner(), 1, 1, Filters.any) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {

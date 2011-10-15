@@ -41,7 +41,7 @@ public class Card4_270 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.unboundCompanion())
+        if (PlayConditions.isGettingWounded(effect, game, Filters.unboundCompanion)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
             final WoundCharactersEffect woundEffects = (WoundCharactersEffect) effect;
 
@@ -51,7 +51,7 @@ public class Card4_270 extends AbstractCompanion {
             action.appendCost(
                     new AddTwilightEffect(self, 1));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a companion", Filters.in(woundEffects.getAffectedCardsMinusPrevented(game)), Filters.unboundCompanion()) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a companion", Filters.in(woundEffects.getAffectedCardsMinusPrevented(game)), Filters.unboundCompanion) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
