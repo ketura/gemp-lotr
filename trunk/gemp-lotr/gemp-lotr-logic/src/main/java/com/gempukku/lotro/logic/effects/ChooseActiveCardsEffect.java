@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -18,9 +19,9 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
     private String _choiceText;
     private final int _minimum;
     private final int _maximum;
-    private final Filter[] _filters;
+    private final Filterable[] _filters;
 
-    public ChooseActiveCardsEffect(PhysicalCard source, String playerId, String choiceText, int minimum, int maximum, Filter... filters) {
+    public ChooseActiveCardsEffect(PhysicalCard source, String playerId, String choiceText, int minimum, int maximum, Filterable... filters) {
         _source = source;
         _playerId = playerId;
         _choiceText = choiceText;
