@@ -44,8 +44,8 @@ public class Card4_192 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.race(Race.URUK_HAI),
-                            -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self)))));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))), Filters.race(Race.URUK_HAI)
+                    ));
             return Collections.singletonList(action);
         }
         return null;

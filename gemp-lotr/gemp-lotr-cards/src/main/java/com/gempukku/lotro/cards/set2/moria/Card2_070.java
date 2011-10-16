@@ -49,7 +49,7 @@ public class Card2_070 extends AbstractOldEvent {
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                         int cardsRevealed = selectedCards.size();
                         action.appendEffect(
-                                new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.name("The Balrog"), -2 * cardsRevealed));
+                                new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2 * cardsRevealed, Filters.name("The Balrog")));
                     }
                 });
         return action;
