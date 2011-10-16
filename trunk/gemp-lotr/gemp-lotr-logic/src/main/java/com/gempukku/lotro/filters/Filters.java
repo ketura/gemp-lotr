@@ -49,7 +49,7 @@ public class Filters {
         return visitor.getCard();
     }
 
-    public static int countActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static int countActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         GetCardsMatchingFilterVisitor matchingFilterVisitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, Filters.and(filters));
         gameState.iterateActiveCards(matchingFilterVisitor);
         return matchingFilterVisitor.getCounter();
