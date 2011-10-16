@@ -44,7 +44,7 @@ public class HallServer extends AbstractServer {
         _chatServer.createChatRoom("Game Hall");
 
         addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
-        addFormat("ttt_block", "The Two Towers block", "default", new TTTBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+        addFormat("ttt_block", "Two Towers block", "default", new TTTBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
         addFormat("whatever", "Format for testing", "default", new FreeFormat(_lotroServer.getLotroCardBlueprintLibrary()));
     }
 
