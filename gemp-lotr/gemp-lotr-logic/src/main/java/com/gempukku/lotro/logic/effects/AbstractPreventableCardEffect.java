@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,8 +21,8 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
         _filter = Filters.in(affectedCards);
     }
 
-    public AbstractPreventableCardEffect(Filter filter) {
-        _filter = filter;
+    public AbstractPreventableCardEffect(Filterable... filter) {
+        _filter = Filters.and(filter);
     }
 
     protected abstract Filter getExtraAffectableFilter();
