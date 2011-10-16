@@ -182,7 +182,7 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean winsSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter filter) {
+    public static boolean winsSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filterable... filter) {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
