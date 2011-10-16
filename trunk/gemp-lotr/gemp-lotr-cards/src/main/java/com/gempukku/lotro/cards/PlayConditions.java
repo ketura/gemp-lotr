@@ -147,6 +147,10 @@ public class PlayConditions {
         return Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
     }
 
+    public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, final PhysicalCard card) {
+        return game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, source);
+    }
+
     public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filterable... filters) {
         return canExert(source, gameState, modifiersQuerying, 1, filters);
     }

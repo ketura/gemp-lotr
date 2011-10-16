@@ -267,6 +267,18 @@ public class GameState {
             return _inPlay;
     }
 
+    public void removeFromSkirmish(PhysicalCard card) {
+        if (_skirmish.getFellowshipCharacter() == card) {
+            _skirmish.setFellowshipCharacter(null);
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.removeFromSkirmish(card);
+        }
+        if (_skirmish.getShadowCharacters().remove(card)) {
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.removeFromSkirmish(card);
+        }
+    }
+
     public void removeCardsFromZone(Collection<PhysicalCard> cards) {
         Map<GameStateListener, Set<PhysicalCard>> listenerCards = new HashMap<GameStateListener, Set<PhysicalCard>>();
 
@@ -291,11 +303,8 @@ public class GameState {
                     removeAssignment(assignment);
             }
 
-            if (_skirmish != null) {
-                if (_skirmish.getFellowshipCharacter() == card)
-                    _skirmish.setFellowshipCharacter(null);
-                _skirmish.getShadowCharacters().remove(card);
-            }
+            if (_skirmish != null)
+                removeFromSkirmish(card);
 
             removeAllTokens(card);
 

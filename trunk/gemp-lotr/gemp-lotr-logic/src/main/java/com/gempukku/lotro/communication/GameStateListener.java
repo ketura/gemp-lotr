@@ -31,6 +31,8 @@ public interface GameStateListener {
 
     public void startSkirmish(PhysicalCard fp, List<PhysicalCard> minions);
 
+    public void removeFromSkirmish(PhysicalCard card);
+
     public void finishSkirmish();
 
     public void addTokens(PhysicalCard card, Token token, int count);

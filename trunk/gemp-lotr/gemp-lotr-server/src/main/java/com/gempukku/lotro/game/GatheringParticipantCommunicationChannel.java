@@ -57,6 +57,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     }
 
     @Override
+    public void removeFromSkirmish(PhysicalCard card) {
+        _events.add(new GameEvent(REMOVE_FROM_SKIRMISH).card(card));
+    }
+
+    @Override
     public void finishSkirmish() {
         _events.add(new GameEvent(END_SKIRMISH));
     }

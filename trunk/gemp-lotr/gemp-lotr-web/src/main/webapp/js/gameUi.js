@@ -507,6 +507,8 @@ var GempLotrGameUI = Class.extend({
                 this.animations.removeAssignment(gameEvent, animate);
             } else if (eventType == "START_SKIRMISH") {
                 this.animations.startSkirmish(gameEvent, animate);
+            } else if (eventType == "REMOVE_FROM_SKIRMISH") {
+                this.animations.removeFromSkirmish(gameEvent, animate);
             } else if (eventType == "END_SKIRMISH") {
                 this.animations.endSkirmish(animate);
             } else if (eventType == "ADD_TOKENS") {
