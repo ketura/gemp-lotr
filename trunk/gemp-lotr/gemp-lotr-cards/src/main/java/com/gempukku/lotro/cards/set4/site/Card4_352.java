@@ -35,11 +35,11 @@ public class Card4_352 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && game.getGameState().getTwilightPool() >= 2
                 && PlayConditions.canSpot(game, Filters.owner(playerId), Race.URUK_HAI)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
