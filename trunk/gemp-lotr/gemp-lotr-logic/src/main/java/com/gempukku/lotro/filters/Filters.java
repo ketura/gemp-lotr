@@ -139,7 +139,7 @@ public class Filters {
         }
     };
 
-    public static Filter inSkirmishAgainst(final Filter... againstFilter) {
+    public static Filter inSkirmishAgainst(final Filterable... againstFilter) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
