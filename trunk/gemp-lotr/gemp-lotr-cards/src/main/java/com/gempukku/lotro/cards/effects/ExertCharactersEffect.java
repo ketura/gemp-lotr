@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.effects;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -21,7 +22,7 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
         _source = source;
     }
 
-    public ExertCharactersEffect(PhysicalCard source, Filter filter) {
+    public ExertCharactersEffect(PhysicalCard source, Filterable... filter) {
         super(filter);
         _source = source;
     }
