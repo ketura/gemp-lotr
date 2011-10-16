@@ -452,6 +452,20 @@ var GameAnimations = Class.extend({
                 });
     },
 
+    removeFromSkirmish: function(element, animate) {
+        var that = this;
+        $("#main").queue(
+                function(next) {
+                    var cardId = element.getAttribute("cardId");
+
+                    $(".card:cardId(" + cardId + ")").each(function() {
+                        $(this).data("card").skirmish = false;
+                    });
+
+                    next();
+                });
+    },
+
     endSkirmish: function(animate) {
         var that = this;
         $("#main").queue(
