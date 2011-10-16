@@ -60,6 +60,10 @@ public interface ModifiersQuerying {
 
     public boolean isAllyParticipateInArcheryFire(GameState gameState, PhysicalCard card);
 
+    public boolean isAllyPreventedFromParticipatingInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card);
+
+    public boolean isAllyPreventedFromParticipatingInArcheryFire(GameState gameState, PhysicalCard card);
+
     public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments);
 
     // Playing actions
