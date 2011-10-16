@@ -46,7 +46,7 @@ public class Card1_349 extends AbstractSite {
 
             // Play from deck
             possibleEffects.add(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("The Balrog"), -6));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, -6, Filters.name("The Balrog")));
 
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));

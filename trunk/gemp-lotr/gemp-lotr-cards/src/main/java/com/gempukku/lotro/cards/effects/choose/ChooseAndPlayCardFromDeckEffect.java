@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -15,14 +15,14 @@ import java.util.List;
 
 public class ChooseAndPlayCardFromDeckEffect extends AbstractEffect {
     private String _playerId;
-    private Filter _filter;
+    private Filterable[] _filter;
     private int _twilightModifier;
 
-    public ChooseAndPlayCardFromDeckEffect(String playerId, Filter filter) {
-        this(playerId, filter, 0);
+    public ChooseAndPlayCardFromDeckEffect(String playerId, Filterable... filter) {
+        this(playerId, 0, filter);
     }
 
-    public ChooseAndPlayCardFromDeckEffect(String playerId, Filter filter, int twilightModifier) {
+    public ChooseAndPlayCardFromDeckEffect(String playerId, int twilightModifier, Filterable... filter) {
         _playerId = playerId;
         _filter = filter;
         _twilightModifier = twilightModifier;
@@ -45,7 +45,7 @@ public class ChooseAndPlayCardFromDeckEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+        Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_filter, Filters.playable(game, _twilightModifier)));
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(deck), 0, 1) {
                     @Override
