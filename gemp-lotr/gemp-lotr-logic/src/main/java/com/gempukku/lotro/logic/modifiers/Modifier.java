@@ -54,6 +54,10 @@ public interface Modifier {
 
     public boolean isAllyParticipateInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card);
 
+    public boolean isAllyPreventedFromParticipatingInArcheryFire(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card);
+
+    public boolean isAllyPreventedFromParticipatingInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card);
+
     public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Side side, int result);
 
     public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result);

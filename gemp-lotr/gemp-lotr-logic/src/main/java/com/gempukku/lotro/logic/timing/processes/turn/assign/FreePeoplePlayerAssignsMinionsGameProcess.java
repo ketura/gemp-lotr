@@ -47,7 +47,14 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                             Filters.and(
                                     Filters.type(CardType.ALLY),
                                     Filters.or(
-                                            Filters.allyAtHome,
+                                            Filters.and(
+                                                    Filters.allyAtHome,
+                                                    new Filter() {
+                                                        @Override
+                                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                                            return !modifiersQuerying.isAllyPreventedFromParticipatingInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
+                                                        }
+                                                    }),
                                             new Filter() {
                                                 @Override
                                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

@@ -348,6 +348,26 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean isAllyPreventedFromParticipatingInArcheryFire(GameState gameState, PhysicalCard card) {
+        for (Modifier modifier : getModifiers(ModifierEffect.PRESENCE_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                if (modifier.isAllyPreventedFromParticipatingInArcheryFire(gameState, this, card))
+                    return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isAllyPreventedFromParticipatingInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card) {
+        for (Modifier modifier : getModifiers(ModifierEffect.PRESENCE_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, card, modifier))
+                if (modifier.isAllyPreventedFromParticipatingInSkirmishes(gameState, sidePlayer, this, card))
+                    return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card) {
         boolean result = true;
         for (Modifier modifier : getModifiers(ModifierEffect.ARCHERY_MODIFIER))
