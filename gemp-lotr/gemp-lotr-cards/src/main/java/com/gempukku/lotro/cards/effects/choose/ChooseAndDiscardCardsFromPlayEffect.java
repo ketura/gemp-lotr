@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -14,7 +14,7 @@ import java.util.Collection;
 public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect {
     private Action _action;
 
-    public ChooseAndDiscardCardsFromPlayEffect(Action action, String playerId, int minimum, int maximum, Filter... filters) {
+    public ChooseAndDiscardCardsFromPlayEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose cards to discard", minimum, maximum, filters);
         _action = action;
     }
