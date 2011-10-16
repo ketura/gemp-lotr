@@ -41,7 +41,7 @@ public class Card1_349 extends AbstractSite {
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"), Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.name("The Balrog"), -6));
+                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -6, Filters.name("The Balrog")));
             }
 
             // Play from deck

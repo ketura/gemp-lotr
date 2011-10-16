@@ -42,7 +42,7 @@ public class Card1_045 extends AbstractAlly {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.race(Race.ELF), -1000));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -1000, Filters.race(Race.ELF)));
             return Collections.singletonList(action);
         }
         return null;

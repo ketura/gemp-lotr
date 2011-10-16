@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -18,11 +19,11 @@ public class ChooseAndPlayCardFromHandEffect extends AbstractEffect {
     private Filter _filter;
     private int _twilightModifier;
 
-    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, Filter filter) {
-        this(playerId, cardsInHandAtStart, filter, 0);
+    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, Filterable... filter) {
+        this(playerId, cardsInHandAtStart, 0, filter);
     }
 
-    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, Filter filter, int twilightModifier) {
+    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, int twilightModifier, Filterable... filter) {
         _playerId = playerId;
         // Card has to be in hand when you start playing the card (we need to copy the collection)
         _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(cardsInHandAtStart)));
