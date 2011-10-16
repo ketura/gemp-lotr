@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.FotRBlockFormat;
 import com.gempukku.lotro.game.formats.FreeFormat;
 import com.gempukku.lotro.game.formats.LotroFormat;
+import com.gempukku.lotro.game.formats.TTTBlockFormat;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -43,6 +44,7 @@ public class HallServer extends AbstractServer {
         _chatServer.createChatRoom("Game Hall");
 
         addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+        addFormat("ttt_block", "The Two Towers block", "default", new TTTBlockFormat(_lotroServer.getLotroCardBlueprintLibrary()));
         addFormat("whatever", "Format for testing", "default", new FreeFormat(_lotroServer.getLotroCardBlueprintLibrary()));
     }
 
