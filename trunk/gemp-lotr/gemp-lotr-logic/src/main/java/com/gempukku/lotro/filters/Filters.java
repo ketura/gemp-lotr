@@ -387,11 +387,11 @@ public class Filters {
         };
     }
 
-    public static Filter attachedTo(final Filter filter) {
+    public static Filter attachedTo(final Filterable... filters) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getAttachedTo() != null && filter.accepts(gameState, modifiersQuerying, physicalCard.getAttachedTo());
+                return physicalCard.getAttachedTo() != null && Filters.and(filters).accepts(gameState, modifiersQuerying, physicalCard.getAttachedTo());
             }
         };
     }
