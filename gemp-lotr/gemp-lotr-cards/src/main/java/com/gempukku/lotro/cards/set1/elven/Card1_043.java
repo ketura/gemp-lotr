@@ -36,7 +36,7 @@ public class Card1_043 extends AbstractPermanent {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
-                                    new ChooseAndDiscardCardsFromHandEffect(action, opponentId));
+                                    new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true));
                         }
                     });
             return Collections.singletonList(action);

@@ -51,7 +51,7 @@ public class Card3_104 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.any));
+                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), true, 1, 1, Filters.any));
             return Collections.singletonList(action);
         }
         return null;

@@ -43,10 +43,10 @@ public class Card1_343 extends AbstractSite {
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.keyword(Keyword.TALE)));
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, Filters.keyword(Keyword.TALE)) {
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Filters.keyword(Keyword.TALE)) {
                         @Override
                         public String getText(LotroGame game) {
-                            return "Discard Tale from hands";
+                            return "Discard Tale from hand";
                         }
                     });
             action.appendCost(

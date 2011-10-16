@@ -36,7 +36,7 @@ public class Card3_091 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)));
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
             return Collections.singletonList(action);
         }
         return null;

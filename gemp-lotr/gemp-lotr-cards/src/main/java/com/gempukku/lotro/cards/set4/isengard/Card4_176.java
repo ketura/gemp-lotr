@@ -41,9 +41,9 @@ public class Card4_176 extends AbstractMinion {
         modifiers.add(
                 new RoamingPenaltyModifier(self, Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)), -2));
         modifiers.add(
-                new StrengthModifier(self, Filters.sameCard(self), new SpotCondition(Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)), 2), 3));
+                new StrengthModifier(self, Filters.sameCard(self), new SpotCondition(2, Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER))), 3));
         modifiers.add(
-                new KeywordModifier(self, Filters.sameCard(self), new SpotCondition(Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)), 3), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.sameCard(self), new SpotCondition(3, Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER))), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }

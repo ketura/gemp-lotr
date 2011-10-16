@@ -33,7 +33,7 @@ public class Card1_358 extends AbstractSite {
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR)));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, 1, Filters.culture(Culture.GONDOR)));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION), Filters.culture(Culture.GONDOR)));
             return Collections.singletonList(action);

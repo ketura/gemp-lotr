@@ -50,7 +50,7 @@ public class Card4_179 extends AbstractMinion {
         modifiers.add(
                 new StrengthModifier(self, Filters.sameCard(self), new SpotCondition(Filters.siteControlled(self.getOwner()), Filters.keyword(Keyword.BATTLEGROUND)), 6));
         modifiers.add(
-                new CantTakeWoundsModifier(self, new SpotCondition(Filters.and(Filters.siteControlled(self.getOwner()), Filters.keyword(Keyword.BATTLEGROUND)), 2), Filters.sameCard(self)));
+                new CantTakeWoundsModifier(self, new SpotCondition(2, Filters.and(Filters.siteControlled(self.getOwner()), Filters.keyword(Keyword.BATTLEGROUND))), Filters.sameCard(self)));
         return modifiers;
     }
 }

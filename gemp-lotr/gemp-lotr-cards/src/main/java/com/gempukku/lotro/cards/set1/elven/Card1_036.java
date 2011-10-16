@@ -59,7 +59,7 @@ public class Card1_036 extends AbstractOldEvent {
                                 // Do nothing
                             }
                         });
-                        action.appendEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, orcsCount));
+                        action.appendEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true, orcsCount));
                     }
                 });
         return action;

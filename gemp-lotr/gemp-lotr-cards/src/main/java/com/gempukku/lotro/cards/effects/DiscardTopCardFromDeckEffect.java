@@ -9,10 +9,14 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class DiscardTopCardFromDeckEffect extends AbstractEffect {
+    private PhysicalCard _source;
     private String _playerId;
+    private boolean _forced;
 
-    public DiscardTopCardFromDeckEffect(String playerId) {
+    public DiscardTopCardFromDeckEffect(PhysicalCard source, String playerId, boolean forced) {
+        _source = source;
         _playerId = playerId;
+        _forced = forced;
     }
 
     @Override
@@ -27,13 +31,13 @@ public class DiscardTopCardFromDeckEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getDeck(_playerId).size() > 0;
+        return game.getGameState().getDeck(_playerId).size() > 0
+                && (!_forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game.getGameState(), _playerId, _source));
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        boolean success = game.getGameState().getDeck(_playerId).size() > 0;
-        if (success) {
+        if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             PhysicalCard card = gameState.removeTopDeckCard(_playerId);
             gameState.sendMessage(_playerId + " discards top card from his or her deck - " + GameUtils.getCardLink(card));

@@ -50,7 +50,7 @@ public class Card1_242 extends AbstractPermanent {
                         protected void cardsRevealed(List<PhysicalCard> cards) {
                             if (cards.size() == 0) {
                                 action.appendEffect(
-                                        new ChooseAndDiscardCardsFromHandEffect(action, playerId));
+                                        new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
                             } else {
                                 PhysicalCard topCard = cards.get(0);
                                 if (topCard.getBlueprint().getCulture() == Culture.SAURON)
@@ -60,7 +60,7 @@ public class Card1_242 extends AbstractPermanent {
                                     action.appendEffect(
                                             new DiscardCardFromDeckEffect(topCard));
                                     action.appendEffect(
-                                            new ChooseAndDiscardCardsFromHandEffect(action, playerId));
+                                            new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
                                 }
                             }
                         }

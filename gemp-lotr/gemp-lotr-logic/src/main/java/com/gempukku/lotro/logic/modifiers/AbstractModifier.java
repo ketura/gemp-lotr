@@ -201,6 +201,16 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canDiscardCardsFromHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public boolean canDiscardCardsFromTopOfDeck(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
     public int getSpotCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter, int result) {
         return result;
     }

@@ -34,9 +34,9 @@ public class Card1_280 extends AbstractMinion {
         if (PlayConditions.winsSkirmish(effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId()));
+                    new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));
             action.appendEffect(
-                    new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId()));
+                    new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));
             return Collections.singletonList(action);
         }
         return null;

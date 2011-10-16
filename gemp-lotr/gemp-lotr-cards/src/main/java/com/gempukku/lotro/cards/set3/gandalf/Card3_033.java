@@ -48,7 +48,7 @@ public class Card3_033 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override
-                    protected void opponentChosen(String opponentId) {
+                    protected void opponentChosen(final String opponentId) {
                         action.insertEffect(
                                 new RevealRandomCardsFromHandEffect(opponentId, 1) {
                                     @Override
@@ -64,7 +64,7 @@ public class Card3_033 extends AbstractOldEvent {
                                                                         action.appendEffect(
                                                                                 new AddTwilightEffect(self, revealedCard.getBlueprint().getTwilightCost()));
                                                                         action.appendEffect(
-                                                                                new DiscardCardsFromHandEffect(self, revealedCards));
+                                                                                new DiscardCardsFromHandEffect(self, opponentId, revealedCards, true));
                                                                     }
                                                                 }
                                                             }));

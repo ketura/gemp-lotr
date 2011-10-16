@@ -16,10 +16,12 @@ import java.util.Random;
 public class DiscardCardAtRandomFromHandEffect extends AbstractEffect {
     private PhysicalCard _source;
     private String _playerId;
+    private boolean _forced;
 
-    public DiscardCardAtRandomFromHandEffect(PhysicalCard source, String playerId) {
+    public DiscardCardAtRandomFromHandEffect(PhysicalCard source, String playerId, boolean forced) {
         _source = source;
         _playerId = playerId;
+        _forced = forced;
     }
 
     @Override
@@ -34,14 +36,15 @@ public class DiscardCardAtRandomFromHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getHand(_playerId).size() > 0;
+        return game.getGameState().getHand(_playerId).size() > 0
+                && (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _source));
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        GameState gameState = game.getGameState();
-        List<? extends PhysicalCard> hand = gameState.getHand(_playerId);
-        if (hand.size() > 0) {
+        if (isPlayableInFull(game)) {
+            GameState gameState = game.getGameState();
+            List<? extends PhysicalCard> hand = gameState.getHand(_playerId);
             PhysicalCard randomCard = hand.get(new Random().nextInt(hand.size()));
             gameState.sendMessage(_playerId + " randomly discards " + GameUtils.getCardLink(randomCard));
             gameState.removeCardsFromZone(Collections.singleton(randomCard));

@@ -41,7 +41,7 @@ public class Card3_088 extends AbstractOldEvent {
         int burdens = game.getGameState().getBurdens();
         for (int i = 0; i < burdens; i++)
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(playerId));
+                    new DiscardTopCardFromDeckEffect(self, playerId, true));
         return action;
     }
 }

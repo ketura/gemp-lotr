@@ -56,7 +56,7 @@ public class Card2_015 extends AbstractOldEvent {
                         action.insertEffect(new DrawCardEffect(opponentId, 2));
                         List<Effect> possibleEffects = new LinkedList<Effect>();
                         possibleEffects.add(
-                                new ChooseAndDiscardCardsFromHandEffect(action, opponentId, 2, 2, Filters.side(Side.SHADOW)));
+                                new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false, 2, 2, Filters.side(Side.SHADOW)));
                         possibleEffects.add(
                                 new SkipNextShadowPhaseChooseableEffect(self, opponentId));
                         action.appendEffect(

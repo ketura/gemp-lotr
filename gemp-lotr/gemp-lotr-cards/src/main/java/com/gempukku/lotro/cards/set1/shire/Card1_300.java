@@ -31,14 +31,14 @@ public class Card1_300 extends AbstractPermanent {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose up to 2 cards to discard from hand", game.getGameState().getHand(playerId), 0, 2) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                            action.appendEffect(new DiscardCardsFromHandEffect(self, selectedCards));
+                            action.appendEffect(new DiscardCardsFromHandEffect(self, playerId, selectedCards, false));
                         }
                     });
             return Collections.singletonList(action);

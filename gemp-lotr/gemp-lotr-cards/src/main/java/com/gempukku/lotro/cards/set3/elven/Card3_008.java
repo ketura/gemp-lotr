@@ -34,10 +34,10 @@ public class Card3_008 extends AbstractCompanion {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.sameCard(self)),
                         new SpotCondition(
-                                Filters.and(
+                                3, Filters.and(
                                         Filters.culture(Culture.ELVEN),
                                         Filters.type(CardType.ALLY),
                                         Filters.isAllyHome(3, Block.FELLOWSHIP)
-                                ), 3), -3));
+                                )), -3));
     }
 }

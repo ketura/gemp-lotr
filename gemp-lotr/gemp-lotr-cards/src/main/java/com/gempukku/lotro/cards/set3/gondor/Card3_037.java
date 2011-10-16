@@ -36,7 +36,7 @@ public class Card3_037 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.TALE)).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.TALE))));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Filters.and(Filters.culture(Culture.GONDOR), Filters.keyword(Keyword.TALE))));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
                         @Override

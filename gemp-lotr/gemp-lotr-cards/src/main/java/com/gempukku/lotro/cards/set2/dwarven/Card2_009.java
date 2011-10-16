@@ -36,9 +36,9 @@ public class Card2_009 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.DWARF))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(playerId));
+                    new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(playerId));
+                    new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.culture(Culture.DWARVEN), Filters.type(CardType.EVENT)) {
                         @Override

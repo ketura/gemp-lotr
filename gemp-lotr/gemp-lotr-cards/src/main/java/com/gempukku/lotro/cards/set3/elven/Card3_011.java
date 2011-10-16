@@ -49,7 +49,7 @@ public class Card3_011 extends AbstractOldEvent {
         final AtomicInteger integer = new AtomicInteger(0);
         for (String opponent : opponents) {
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromHandEffect(action, opponent, 1) {
+                    new ChooseAndDiscardCardsFromHandEffect(action, opponent, true, 1) {
                         @Override
                         protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {
                             integer.addAndGet(cardsBeingDiscarded.size());

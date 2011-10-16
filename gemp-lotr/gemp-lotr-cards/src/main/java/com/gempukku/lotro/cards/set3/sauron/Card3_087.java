@@ -53,7 +53,7 @@ public class Card3_087 extends AbstractOldEvent {
                             PhysicalCard revealedCard = revealedCards.get(0);
                             int twilightCost = revealedCard.getBlueprint().getTwilightCost();
                             action.appendEffect(
-                                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), twilightCost));
+                                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), true, twilightCost));
                         }
                     }
                 });

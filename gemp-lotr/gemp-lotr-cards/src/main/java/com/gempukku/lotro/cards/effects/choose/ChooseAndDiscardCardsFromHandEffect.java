@@ -18,28 +18,30 @@ import java.util.Set;
 public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
     private Action _action;
     private String _playerId;
+    private boolean _forced;
     private int _minimum;
     private int _maximum;
     private Filter _filter;
 
-    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, Filter filter) {
+    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int minimum, int maximum, Filter filter) {
         _action = action;
         _playerId = playerId;
+        _forced = forced;
         _minimum = minimum;
         _maximum = maximum;
         _filter = filter;
     }
 
-    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, int count, Filter filter) {
-        this(action, playerId, count, count, filter);
+    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int count, Filter filter) {
+        this(action, playerId, forced, count, count, filter);
     }
 
-    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, int count) {
-        this(action, playerId, count, Filters.any);
+    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int count) {
+        this(action, playerId, forced, count, Filters.any);
     }
 
-    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId) {
-        this(action, playerId, 1);
+    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced) {
+        this(action, playerId, forced, 1);
     }
 
     @Override
@@ -59,13 +61,16 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
+        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _action.getActionSource()))
+            return new FullEffectResult(null, false, false);
+
         Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
 
         final boolean success = hand.size() >= _minimum;
 
         if (hand.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
-            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), hand));
+            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, hand, _forced));
             game.getActionsEnvironment().addActionToStack(subAction);
             cardsBeingDiscarded(hand, success);
         } else {
@@ -75,7 +80,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
-                            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), cards));
+                            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, cards, _forced));
                             game.getActionsEnvironment().addActionToStack(subAction);
                             cardsBeingDiscarded(cards, success);
                         }

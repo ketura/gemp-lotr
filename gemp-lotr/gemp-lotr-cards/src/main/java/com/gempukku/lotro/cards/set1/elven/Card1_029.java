@@ -68,8 +68,8 @@ public class Card1_029 extends AbstractOldEvent {
                                                     List<Action> actions = new LinkedList<Action>();
                                                     for (String opponent : opponents) {
                                                         ActivateCardAction action = new ActivateCardAction(self);
-                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent));
-                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent));
+                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent, true));
+                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent, true));
                                                         actions.add(action);
                                                     }
                                                     return actions;

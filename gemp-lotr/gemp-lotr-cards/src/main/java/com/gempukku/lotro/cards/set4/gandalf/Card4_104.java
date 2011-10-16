@@ -42,7 +42,7 @@ public class Card4_104 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, 1, Filters.unboundCompanion));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, 1, Filters.unboundCompanion));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.unboundCompanion));
             return Collections.singletonList(action);

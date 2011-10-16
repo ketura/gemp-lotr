@@ -44,10 +44,10 @@ public class Card4_022 extends AbstractMinion {
                 });
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)),
-                        new SpotCondition(Filters.siteControlled(self.getOwner()), 3), Keyword.FIERCE, 1));
+                        new SpotCondition(3, Filters.siteControlled(self.getOwner())), Keyword.FIERCE, 1));
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)),
-                        new SpotCondition(Filters.siteControlled(self.getOwner()), 4), Keyword.DAMAGE, 1));
+                        new SpotCondition(4, Filters.siteControlled(self.getOwner())), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }

@@ -456,8 +456,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canLookOrRevealCardsInHand(GameState gameState, String playerId) {
-        for (Modifier modifier : getModifiers(ModifierEffect.DISCARD_FROM_PLAY_MODIFIER))
+        for (Modifier modifier : getModifiers(ModifierEffect.LOOK_OR_REVEAL_MODIFIER))
             if (!modifier.canLookOrRevealCardsInHand(gameState, this, playerId))
+                return false;
+        return true;
+    }
+
+    @Override
+    public boolean canDiscardCardsFromHand(GameState gameState, String playerId, PhysicalCard source) {
+        for (Modifier modifier : getModifiers(ModifierEffect.DISCARD_NOT_FROM_PLAY))
+            if (!modifier.canDiscardCardsFromHand(gameState, this, playerId, source))
+                return false;
+        return true;
+    }
+
+    @Override
+    public boolean canDiscardCardsFromTopOfDeck(GameState gameState, String playerId, PhysicalCard source) {
+        for (Modifier modifier : getModifiers(ModifierEffect.DISCARD_NOT_FROM_PLAY))
+            if (!modifier.canDiscardCardsFromTopOfDeck(gameState, this, playerId, source))
                 return false;
         return true;
     }

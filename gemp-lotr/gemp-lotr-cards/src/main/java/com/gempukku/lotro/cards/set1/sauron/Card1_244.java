@@ -66,7 +66,7 @@ public class Card1_244 extends AbstractAttachable {
             possibleEffects.add(
                     new AddBurdenEffect(self, 1));
             possibleEffects.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), 3));
+                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 3));
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);

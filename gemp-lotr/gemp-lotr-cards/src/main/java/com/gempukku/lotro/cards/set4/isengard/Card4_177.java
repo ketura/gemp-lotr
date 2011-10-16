@@ -54,7 +54,7 @@ public class Card4_177 extends AbstractAttachable {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Ugluk")));
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, Filters.type(CardType.MINION)));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Filters.type(CardType.MINION)));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.type(CardType.MINION), -3));
             return Collections.singletonList(action);

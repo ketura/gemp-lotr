@@ -39,11 +39,11 @@ public class Card2_011 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF), Filters.type(CardType.COMPANION)));
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(playerId));
+                    new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(playerId));
+                    new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(playerId));
+                    new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose condition",
                             Filters.or(
