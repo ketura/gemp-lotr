@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -27,6 +28,8 @@ import java.util.List;
 public class Card4_347 extends AbstractSite {
     public Card4_347() {
         super("Deep of Helm", Block.TWO_TOWERS, 5, 6, Direction.LEFT);
+        addKeyword(Keyword.PLAINS);
+        addKeyword(Keyword.BATTLEGROUND);
     }
 
     @Override
