@@ -50,7 +50,7 @@ public class Card4_111 extends AbstractAttachable {
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 1, Filters.culture(Culture.GONDOR)));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Filters.culture(Culture.GONDOR)));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose Rin-bound Man", Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND)) {
                         @Override

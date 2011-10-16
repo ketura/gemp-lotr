@@ -41,7 +41,7 @@ public class Card4_056 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new DiscardTopCardFromDeckEffect(playerId));
+                new DiscardTopCardFromDeckEffect(self, playerId, false));
         action.appendEffect(
                 new DrawCardEffect(playerId, 2));
         return action;

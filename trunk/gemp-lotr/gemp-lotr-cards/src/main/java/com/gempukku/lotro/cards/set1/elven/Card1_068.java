@@ -47,8 +47,8 @@ public class Card1_068 extends AbstractAttachable {
                     new ChooseOpponentEffect(playerId) {
                         @Override
                         protected void opponentChosen(String opponentId) {
-                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponentId));
-                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponentId));
+                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponentId, true));
+                            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponentId, true));
                         }
                     });
 

@@ -60,7 +60,7 @@ public class PlayerReconcilesAction implements Action {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                                _effectQueue.add(new DiscardCardsFromHandEffect(null, cards));
+                                _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, cards, false));
                             }
                         }));
             } else if (cardsInHand.size() > 0) {
@@ -70,7 +70,7 @@ public class PlayerReconcilesAction implements Action {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                 if (selectedCards.size() > 0) {
-                                    _effectQueue.add(new DiscardCardsFromHandEffect(null, selectedCards));
+                                    _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, selectedCards, false));
                                 }
                                 int cardsInHandAfterDiscard = cardsInHand.size() - selectedCards.size();
                                 if (cardsInHandAfterDiscard < 8) {

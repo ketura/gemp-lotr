@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set2.sauron;
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -11,9 +10,11 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -42,7 +43,7 @@ public class Card2_091 extends AbstractResponseOldEvent {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION))) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), Integer.MAX_VALUE));
+                    new DiscardCardsFromHandEffect(self, game.getGameState().getCurrentPlayerId(), new HashSet<PhysicalCard>(game.getGameState().getHand(game.getGameState().getCurrentPlayerId())), true));
             return Collections.singletonList(action);
         }
         return null;

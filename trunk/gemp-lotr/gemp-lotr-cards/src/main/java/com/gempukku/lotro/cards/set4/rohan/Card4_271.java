@@ -44,7 +44,7 @@ public class Card4_271 extends AbstractCompanion {
                 && game.getGameState().getHand(playerId).size() >= 2) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 2));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
                     new PreventCardEffect((WoundCharactersEffect) effect, self));
             return Collections.singletonList(action);

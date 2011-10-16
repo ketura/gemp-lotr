@@ -50,7 +50,7 @@ public class Card1_016 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.ORC))) {
             String playerId = ((PlayCardResult) effectResult).getPlayedCard().getOwner();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new DiscardTopCardFromDeckEffect(playerId));
+            action.appendEffect(new DiscardTopCardFromDeckEffect(self, playerId, true));
             return Collections.singletonList(action);
         }
         return null;

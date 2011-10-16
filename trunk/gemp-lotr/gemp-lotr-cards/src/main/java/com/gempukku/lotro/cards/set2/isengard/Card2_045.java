@@ -40,15 +40,15 @@ public class Card2_045 extends AbstractResponseOldEvent {
                 && checkPlayRequirements(playerId, game, self, 0)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
 
             return Collections.singletonList(action);
         }

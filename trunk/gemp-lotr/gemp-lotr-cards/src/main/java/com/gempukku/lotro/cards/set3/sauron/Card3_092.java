@@ -51,7 +51,7 @@ public class Card3_092 extends AbstractOldEvent {
             cardsCount++;
         for (int i = 0; i < cardsCount; i++)
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(game.getGameState().getCurrentPlayerId()));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
 
         return action;
     }

@@ -51,8 +51,8 @@ public class Card1_198 extends AbstractPermanent {
                 && siteNumber >= 4 && siteNumber <= 6 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId()));
-            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId()));
+            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));
+            action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));
             return Collections.singletonList(action);
         }
         return null;

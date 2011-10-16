@@ -78,6 +78,10 @@ public interface ModifiersQuerying {
 
     public boolean canLookOrRevealCardsInHand(GameState gameState, String playerId);
 
+    public boolean canDiscardCardsFromHand(GameState gameState, String playerId, PhysicalCard source);
+
+    public boolean canDiscardCardsFromTopOfDeck(GameState gameState, String playerId, PhysicalCard source);
+
     public int getSpotCount(GameState gameState, Filter filter, int inPlayCount);
 
     public boolean hasFlagActive(ModifierFlag modifierFlag);

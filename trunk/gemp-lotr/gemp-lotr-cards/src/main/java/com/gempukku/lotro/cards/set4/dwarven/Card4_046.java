@@ -54,7 +54,7 @@ public class Card4_046 extends AbstractPermanent {
                 && game.getGameState().getDeck(playerId).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(playerId));
+                    new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
                     new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Filters.side(Side.FREE_PEOPLE)) {
                         @Override

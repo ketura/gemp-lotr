@@ -47,7 +47,7 @@ public abstract class AbstractCompanion extends AbstractPermanent {
     protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new DiscardCardsFromHandEffect(null, Collections.singleton(self)));
+            action.appendCost(new DiscardCardsFromHandEffect(null, playerId, Collections.singleton(self), false));
 
             PhysicalCard active = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()));
             if (active != null)

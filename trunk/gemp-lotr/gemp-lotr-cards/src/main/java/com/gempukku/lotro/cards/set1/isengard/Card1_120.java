@@ -69,7 +69,7 @@ public class Card1_120 extends AbstractPermanent {
                                                     public void decisionMade(String result) throws DecisionResultInvalidException {
                                                         List<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                                         if (cards.size() > 0)
-                                                            action.appendEffect(new DiscardCardsFromHandEffect(self, cards));
+                                                            action.appendEffect(new DiscardCardsFromHandEffect(self, fpPlayer, cards, true));
                                                     }
                                                 }));
                             }

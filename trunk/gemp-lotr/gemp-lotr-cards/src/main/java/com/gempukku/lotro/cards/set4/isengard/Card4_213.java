@@ -37,7 +37,7 @@ public class Card4_213 extends AbstractPermanent {
                 && game.getGameState().getHand(playerId).size() >= 2) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, 2));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)) {
                         @Override

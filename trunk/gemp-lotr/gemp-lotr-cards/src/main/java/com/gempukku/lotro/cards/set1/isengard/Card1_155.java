@@ -54,7 +54,7 @@ public class Card1_155 extends AbstractMinion {
                                     action.appendEffect(new AddBurdenEffect(self, 1));
                             }
                         });
-                action.appendEffect(new DiscardTopCardFromDeckEffect(playerId));
+                action.appendEffect(new DiscardTopCardFromDeckEffect(self, playerId, false));
             }
             return Collections.singletonList(action);
         }

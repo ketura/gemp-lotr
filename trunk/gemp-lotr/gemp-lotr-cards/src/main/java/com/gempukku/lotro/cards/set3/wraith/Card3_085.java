@@ -60,7 +60,7 @@ public class Card3_085 extends AbstractOldEvent {
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                        new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.culture(Culture.GANDALF))));
+                        new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 2, 2, Filters.culture(Culture.GANDALF))));
         return action;
     }
 }

@@ -40,7 +40,7 @@ public class Card4_162 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new DiscardCardsFromHandEffect(self, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE))));
+                new DiscardCardsFromHandEffect(self, playerId, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE)), false));
         action.appendEffect(
                 new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.culture(Culture.ISENGARD)) {
                     @Override
