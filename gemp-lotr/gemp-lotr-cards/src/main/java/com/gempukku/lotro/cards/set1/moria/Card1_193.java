@@ -41,10 +41,10 @@ public class Card1_193 extends AbstractPermanent {
                 action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId,
                                 game.getGameState().getDiscard(playerId),
-                                Filters.and(
+                                -1, Filters.and(
                                         Filters.culture(Culture.MORIA),
                                         Filters.weapon,
-                                        Filters.in(discardedCards)), -1));
+                                        Filters.in(discardedCards))));
                 return Collections.singletonList(action);
             }
         }

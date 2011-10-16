@@ -102,11 +102,11 @@ public class PlayConditions {
         return canExert(self, game, Filters.sameCard(self));
     }
 
-    public static boolean canExert(PhysicalCard source, LotroGame game, Filter... filters) {
+    public static boolean canExert(PhysicalCard source, LotroGame game, Filterable... filters) {
         return canExert(source, game.getGameState(), game.getModifiersQuerying(), filters);
     }
 
-    public static boolean canExert(PhysicalCard source, LotroGame game, int times, Filter... filters) {
+    public static boolean canExert(PhysicalCard source, LotroGame game, int times, Filterable... filters) {
         return canExert(source, game.getGameState(), game.getModifiersQuerying(), times, filters);
     }
 
@@ -118,7 +118,7 @@ public class PlayConditions {
         return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), filters) >= count;
     }
 
-    public static boolean canExertMultiple(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, final int count, Filter... filters) {
+    public static boolean canExertMultiple(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, final int count, Filterable... filters) {
         final Filter filter = Filters.and(filters);
         return gameState.iterateActiveCards(
                 new PhysicalCardVisitor() {
@@ -143,15 +143,15 @@ public class PlayConditions {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, twilightModifier))).size() > 0;
     }
 
-    public static boolean canPlayFromDiscard(String playerId, LotroGame game, Filter... filters) {
+    public static boolean canPlayFromDiscard(String playerId, LotroGame game, Filterable... filters) {
         return Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
     }
 
-    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filterable... filters) {
         return canExert(source, gameState, modifiersQuerying, 1, filters);
     }
 
-    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, Filter... filters) {
+    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, Filterable... filters) {
         final Filter filter = Filters.and(filters);
         return gameState.iterateActiveCards(
                 new PhysicalCardVisitor() {

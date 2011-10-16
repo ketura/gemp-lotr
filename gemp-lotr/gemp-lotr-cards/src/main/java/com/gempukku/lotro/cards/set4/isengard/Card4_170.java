@@ -41,7 +41,7 @@ public class Card4_170 extends AbstractPermanent {
                 for (int i = 0; i < count; i++) {
                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                     action.appendEffect(
-                            new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Filters.type(CardType.MINION), Filters.culture(Culture.ISENGARD)), -2));
+                            new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), -2, Filters.and(Filters.type(CardType.MINION), Filters.culture(Culture.ISENGARD))));
                     optionalTriggers.add(action);
                 }
 
