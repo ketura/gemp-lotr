@@ -37,6 +37,8 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
     private boolean _exertTarget;
 
+    private PhysicalCard _target;
+
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
         _cardToAttach = card;
 
@@ -44,6 +46,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard target) {
+                        _target = target;
                         if (_exertTarget) {
                             appendCost(
                                     new ExertCharactersEffect(target, target));
@@ -67,6 +70,10 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                         _playCardEffect = new PlayCardEffect(card, target);
                     }
                 };
+    }
+
+    public PhysicalCard getTarget() {
+        return _target;
     }
 
     public void setExertTarget(boolean exertTarget) {
