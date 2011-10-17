@@ -29,6 +29,7 @@ public class GameState {
     private int _moveCount;
     private boolean _fierceSkirmishes;
     private boolean _wearingRing;
+    private boolean _consecutiveAction;
 
     private Map<String, Integer> _playerPosition = new HashMap<String, Integer>();
     private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
@@ -79,6 +80,14 @@ public class GameState {
 
             _allCards.put(physicalCard.getCardId(), physicalCard);
         }
+    }
+
+    public boolean isConsecutiveAction() {
+        return _consecutiveAction;
+    }
+
+    public void setConsecutiveAction(boolean consecutiveAction) {
+        _consecutiveAction = consecutiveAction;
     }
 
     public void setWearingRing(boolean wearingRing) {

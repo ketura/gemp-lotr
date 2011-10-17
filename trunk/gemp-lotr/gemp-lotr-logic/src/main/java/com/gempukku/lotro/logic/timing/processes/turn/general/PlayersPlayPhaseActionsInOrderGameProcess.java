@@ -35,7 +35,13 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
             // If the skirmish is cancelled or one side of the skirmish is missing, no more phase actions can be played
             _nextProcess = _followingGameProcess;
         } else {
-            String playerId = _playOrder.getNextPlayer();
+            String playerId;
+            if (_game.getGameState().isConsecutiveAction()) {
+                playerId = _playOrder.getLastPlayer();
+                _game.getGameState().setConsecutiveAction(false);
+            } else {
+                playerId = _playOrder.getNextPlayer();
+            }
 
             final List<Action> playableActions = _game.getActionsEnvironment().getPhaseActions(playerId);
 
