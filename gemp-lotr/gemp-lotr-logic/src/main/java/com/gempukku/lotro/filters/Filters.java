@@ -67,10 +67,14 @@ public class Filters {
     }
 
     public static Filter hasToken(final Token token) {
+        return hasToken(token, 1);
+    }
+
+    public static Filter hasToken(final Token token, final int count) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return gameState.getTokenCount(physicalCard, token) > 0;
+                return gameState.getTokenCount(physicalCard, token) >= count;
             }
         };
     }

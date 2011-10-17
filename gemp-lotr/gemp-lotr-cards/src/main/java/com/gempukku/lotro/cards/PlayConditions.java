@@ -291,6 +291,10 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean canRemoveTokens(LotroGame game, Token token, int count, Filterable... fromFilters) {
+        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasToken(token, count))).size() > 0;
+    }
+
     public static boolean canRemoveToken(GameState gameState, PhysicalCard from, Token token) {
         return canRemoveToken(gameState, from, token, 1);
     }
