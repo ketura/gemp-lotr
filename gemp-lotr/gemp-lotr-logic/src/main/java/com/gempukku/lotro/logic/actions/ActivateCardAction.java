@@ -17,8 +17,6 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
 
     public ActivateCardAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
-
-        _activateCardEffect = new ActivateCardEffect(physicalCard);
     }
 
     @Override
@@ -45,6 +43,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
 
             if (!_activated) {
                 _activated = true;
+                _activateCardEffect = new ActivateCardEffect(_physicalCard, getActionTimeword());
                 return _activateCardEffect;
             }
 

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -8,11 +9,17 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class ActivateCardEffect extends AbstractEffect {
     private PhysicalCard _source;
+    private Phase _actionTimeword;
 
     private boolean _cancelled;
 
-    public ActivateCardEffect(PhysicalCard source) {
+    public ActivateCardEffect(PhysicalCard source, Phase actionTimeword) {
         _source = source;
+        _actionTimeword = actionTimeword;
+    }
+
+    public Phase getActionTimeword() {
+        return _actionTimeword;
     }
 
     @Override
