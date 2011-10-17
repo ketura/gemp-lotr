@@ -4,17 +4,21 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.CancelActivatedEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ActivateCardEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,6 +35,16 @@ import java.util.List;
 public class Card5_064 extends AbstractAttachable {
     public Card5_064() {
         super(Side.SHADOW, CardType.POSSESSION, 4, Culture.ISENGARD, PossessionClass.MOUNT, "War-warg");
+    }
+
+    @Override
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(
+                new StrengthModifier(self, Filters.hasAttached(self), 4));
+        modifiers.add(
+                new VitalityModifier(self, Filters.hasAttached(self), 2));
+        return modifiers;
     }
 
     @Override
