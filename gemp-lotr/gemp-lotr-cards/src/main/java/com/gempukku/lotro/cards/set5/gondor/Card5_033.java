@@ -7,7 +7,6 @@ import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,25 +27,20 @@ import java.util.List;
  * Culture: Gondor
  * Twilight Cost: 1
  * Type: Condition
- * Strength: -2
- * Vitality: -1
+ * Strength: -3
  * Game Text: Fortification. Plays to your support area. Skirmish: Exert a [GONDOR] Man or spot 3 knights to transfer
  * this condition from your support area to a minion skirmishing a [GONDOR] Man.
  */
-public class Card5_032 extends AbstractPermanent {
-    public Card5_032() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Citadel of the Stars", true);
+public class Card5_033 extends AbstractPermanent {
+    public Card5_033() {
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "City Wall");
         addKeyword(Keyword.FORTIFICATION);
     }
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), -2));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), -1));
-        return modifiers;
+        return Collections.singletonList(
+                new StrengthModifier(self, Filters.hasAttached(self), -3));
     }
 
     @Override
