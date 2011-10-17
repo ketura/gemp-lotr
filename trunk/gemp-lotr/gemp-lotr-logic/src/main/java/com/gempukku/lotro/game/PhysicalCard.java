@@ -1,8 +1,9 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
 
-public interface PhysicalCard {
+public interface PhysicalCard extends Filterable {
     public Zone getZone();
 
     public String getBlueprintId();

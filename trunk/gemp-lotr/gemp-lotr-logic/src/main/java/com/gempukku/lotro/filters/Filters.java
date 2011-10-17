@@ -471,6 +471,8 @@ public class Filters {
     private static Filter changeToFilter(Filterable filter) {
         if (filter instanceof Filter)
             return (Filter) filter;
+        else if (filter instanceof PhysicalCard)
+            return Filters.sameCard((PhysicalCard) filter);
         else if (filter instanceof CardType)
             return Filters.type((CardType) filter);
         else if (filter instanceof Culture)
