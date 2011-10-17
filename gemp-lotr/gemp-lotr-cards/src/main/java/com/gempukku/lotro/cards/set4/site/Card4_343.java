@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.modifiers.LocationCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;

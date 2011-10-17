@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.modifiers;
+package com.gempukku.lotro.cards.modifiers.conditions;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
