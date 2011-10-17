@@ -118,6 +118,10 @@ public class PlayConditions {
         return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), filters) >= count;
     }
 
+    public static boolean canExertMultiple(PhysicalCard source, LotroGame game, int times, int count, Filterable... filters) {
+        return canExertMultiple(source, game.getGameState(), game.getModifiersQuerying(), times, count, filters);
+    }
+
     public static boolean canExertMultiple(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, final int count, Filterable... filters) {
         final Filter filter = Filters.and(filters);
         return gameState.iterateActiveCards(
