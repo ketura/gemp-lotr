@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Game Text: Spell. Maneuver: Spot 3 twilight tokens and exert Gandalf to wound a minion twice.
  */
 public class Card5_018 extends AbstractEvent {
-    public card5_018() {
+    public Card5_018() {
         super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Fury of the White Raider", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);
     }
