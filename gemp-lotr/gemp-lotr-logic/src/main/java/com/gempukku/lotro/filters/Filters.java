@@ -181,6 +181,21 @@ public class Filters {
         }
     };
 
+    public static final Filter assignedAgainst(final Filterable... againstFilters) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                for (Skirmish skirmish : gameState.getAssignments()) {
+                    if (skirmish.getFellowshipCharacter() == physicalCard)
+                        return Filters.filter(skirmish.getShadowCharacters(), gameState, modifiersQuerying, againstFilters).size() > 0;
+                    else if (skirmish.getShadowCharacters().contains(physicalCard) && skirmish.getFellowshipCharacter() != null)
+                        return Filters.and(againstFilters).accepts(gameState, modifiersQuerying, skirmish.getFellowshipCharacter());
+                }
+                return false;
+            }
+        };
+    }
+
     public static Filter playable(final LotroGame game) {
         return new Filter() {
             @Override
