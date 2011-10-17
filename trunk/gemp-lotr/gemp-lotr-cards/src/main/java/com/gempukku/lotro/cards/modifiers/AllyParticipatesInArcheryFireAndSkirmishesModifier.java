@@ -24,7 +24,7 @@ public class AllyParticipatesInArcheryFireAndSkirmishesModifier extends Abstract
     }
 
     @Override
-    public boolean isAllyParticipateInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public boolean isParticipateInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         boolean unhasty = modifiersQuerying.hasKeyword(gameState, card, Keyword.UNHASTY);
         return sidePlayer == Side.SHADOW
                 || !unhasty || _source.getBlueprint().getCulture() == Culture.GANDALF;

@@ -323,11 +323,11 @@ public class Filters {
         };
     }
 
-    public static Filter not(final Filter filter) {
+    public static Filter not(final Filterable... filters) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return !filter.accepts(gameState, modifiersQuerying, physicalCard);
+                return !Filters.and(filters).accepts(gameState, modifiersQuerying, physicalCard);
             }
         };
     }

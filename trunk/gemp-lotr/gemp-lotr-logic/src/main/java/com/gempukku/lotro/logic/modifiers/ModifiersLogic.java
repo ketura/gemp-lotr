@@ -338,10 +338,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean isAllyParticipateInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card) {
+    public boolean isParticipateInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card) {
         for (Modifier modifier : getModifiers(ModifierEffect.PRESENCE_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
-                if (modifier.isAllyParticipateInSkirmishes(gameState, sidePlayer, this, card))
+                if (modifier.isParticipateInSkirmishes(gameState, sidePlayer, this, card))
                     return true;
         }
         return false;
