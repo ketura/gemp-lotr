@@ -369,7 +369,7 @@ public class GameState {
         }
     }
 
-    public void shuffleCardsIntoDeck(Collection<PhysicalCard> cards, String playerId) {
+    public void shuffleCardsIntoDeck(Collection<? extends PhysicalCard> cards, String playerId) {
         List<PhysicalCardImpl> zoneCards = _decks.get(playerId);
 
         for (PhysicalCard card : cards) {
