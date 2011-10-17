@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.modifiers;
 
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,7 +20,8 @@ public class ParticipatesInSkirmishesModifier extends AbstractModifier {
 
     @Override
     public boolean isParticipateInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        boolean unhasty = modifiersQuerying.hasKeyword(gameState, card, Keyword.UNHASTY);
         return sidePlayer == Side.SHADOW
-                || _source.getBlueprint().getCulture() == Culture.GANDALF;
+                || !unhasty || _source.getBlueprint().getCulture() == Culture.GANDALF;
     }
 }
