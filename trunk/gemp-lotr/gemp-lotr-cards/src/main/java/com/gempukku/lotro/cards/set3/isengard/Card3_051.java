@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card3_051 extends AbstractOldEvent {
     public Card3_051() {
-        super(Side.FREE_PEOPLE, Culture.ISENGARD, "Coming for the Ring", Phase.REGROUP);
+        super(Side.SHADOW, Culture.ISENGARD, "Coming for the Ring", Phase.REGROUP);
     }
 
     @Override
