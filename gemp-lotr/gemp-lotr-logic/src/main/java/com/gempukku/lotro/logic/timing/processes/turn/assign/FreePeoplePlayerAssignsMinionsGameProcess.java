@@ -43,7 +43,18 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
         if (minions.size() > 0) {
             final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
-                            Filters.type(CardType.COMPANION),
+                            Filters.and(
+                                    Filters.type(CardType.COMPANION),
+                                    Filters.or(
+                                            Filters.not(Keyword.UNHASTY),
+                                            new Filter() {
+                                                @Override
+                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                                    return modifiersQuerying.isParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
+                                                }
+                                            }
+                                    )
+                            ),
                             Filters.and(
                                     Filters.type(CardType.ALLY),
                                     Filters.or(
@@ -58,7 +69,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                             new Filter() {
                                                 @Override
                                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                    return modifiersQuerying.isAllyParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
+                                                    return modifiersQuerying.isParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
                                                 }
                                             }
                                     )

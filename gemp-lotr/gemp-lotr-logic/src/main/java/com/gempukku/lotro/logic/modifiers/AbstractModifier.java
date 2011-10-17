@@ -128,7 +128,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean isAllyParticipateInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public boolean isParticipateInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return false;
     }
 
