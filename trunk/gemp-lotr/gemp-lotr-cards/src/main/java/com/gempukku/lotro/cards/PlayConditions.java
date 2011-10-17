@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardVisitor;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -263,6 +264,14 @@ public class PlayConditions {
         if (effect.getType() == EffectResult.Type.WOUND) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             return Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
+    public static boolean isGettingDiscarded(Effect effect, LotroGame game, Filterable... filters) {
+        if (effect.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
+            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
+            return Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
         }
         return false;
     }
