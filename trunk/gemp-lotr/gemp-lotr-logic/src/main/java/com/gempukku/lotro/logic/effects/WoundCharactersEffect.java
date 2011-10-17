@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -14,7 +15,7 @@ import java.util.Collections;
 public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     private Collection<PhysicalCard> _sources;
 
-    public WoundCharactersEffect(Collection<PhysicalCard> sources, Filter filter) {
+    public WoundCharactersEffect(Collection<PhysicalCard> sources, Filterable... filter) {
         super(filter);
         _sources = sources;
     }
@@ -25,7 +26,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
             _sources = Collections.singleton(source);
     }
 
-    public WoundCharactersEffect(PhysicalCard source, Filter filter) {
+    public WoundCharactersEffect(PhysicalCard source, Filterable... filter) {
         super(filter);
         if (source != null)
             _sources = Collections.singleton(source);
