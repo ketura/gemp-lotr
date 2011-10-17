@@ -1,9 +1,11 @@
 package com.gempukku.lotro.logic.modifiers;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
@@ -18,14 +20,14 @@ public abstract class AbstractModifier implements Modifier {
     private Condition _condition;
     private ModifierEffect[] _effects;
 
-    protected AbstractModifier(PhysicalCard source, String text, Filter affectFilter, ModifierEffect[] effects) {
+    protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, ModifierEffect[] effects) {
         this(source, text, affectFilter, null, effects);
     }
 
-    protected AbstractModifier(PhysicalCard source, String text, Filter affectFilter, Condition condition, ModifierEffect[] effects) {
+    protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, Condition condition, ModifierEffect[] effects) {
         _physicalCard = source;
         _text = text;
-        _affectFilter = affectFilter;
+        _affectFilter = Filters.and(affectFilter);
         _condition = condition;
         _effects = effects;
     }

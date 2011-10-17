@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.modifiers;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -8,8 +10,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 public class LocationCondition implements Condition {
     private Filter _filter;
 
-    public LocationCondition(Filter filter) {
-        _filter = filter;
+    public LocationCondition(Filterable... filters) {
+        _filter = Filters.and(filters);
     }
 
     @Override
