@@ -20,13 +20,18 @@ public class ChatRoom {
     }
 
     public void joinChatRoom(String playerId, ChatRoomListener listener) {
+        boolean wasInRoom = _chatRoomListeners.containsKey(playerId);
         _chatRoomListeners.put(playerId, listener);
         for (ChatMessage lastMessage : _lastMessages)
             listener.messageReceived(lastMessage);
+        if (!wasInRoom)
+            postMessage("System", playerId + " joined the room");
     }
 
     public void partChatRoom(String playerId) {
-        _chatRoomListeners.remove(playerId);
+        boolean wasInRoom = (_chatRoomListeners.remove(playerId) != null);
+        if (wasInRoom)
+            postMessage("System", playerId + " left the room");
     }
 
     public Set<String> getUsersInRoom() {
