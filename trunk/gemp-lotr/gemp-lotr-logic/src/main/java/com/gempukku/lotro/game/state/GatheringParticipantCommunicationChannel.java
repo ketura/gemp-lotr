@@ -1,8 +1,9 @@
-package com.gempukku.lotro.game;
+package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.Collection;
@@ -10,7 +11,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.gempukku.lotro.game.GameEvent.Type.*;
+import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
