@@ -82,13 +82,13 @@ public abstract class DefaultLotroFormat implements LotroFormat {
             if (deck.getSites() == null)
                 throw new DeckInvalidException("Deck doesn't have sites");
             if (deck.getSites().size() != 9)
-                throw new DeckInvalidException("Deck doesn't have exactly nine sites");
+                throw new DeckInvalidException("Deck doesn't have nine sites");
             for (String site : deck.getSites()) {
                 LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
                 if (siteBlueprint.getCardType() != CardType.SITE)
                     throw new DeckInvalidException("Card assigned as Site is not really a site");
                 if (siteBlueprint.getSiteBlock() != _siteBlock)
-                    throw new DeckInvalidException("Site is not from the block used: " + siteBlueprint.getName());
+                    throw new DeckInvalidException("Invalid site: " + siteBlueprint.getName());
             }
 
             if (_validSets.size() > 0) {
