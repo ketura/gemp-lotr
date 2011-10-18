@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class GameEvent {
         START_SKIRMISH, REMOVE_FROM_SKIRMISH, END_SKIRMISH,
         ADD_TOKENS, REMOVE_TOKENS,
         MESSAGE, WARNING,
-        ZONE_SIZE,
+        GAME_STATS,
         CARD_AFFECTS_CARD, EVENT_PLAYED
     }
 
@@ -34,6 +35,7 @@ public class GameEvent {
     private Integer _count;
     private Token _token;
     private int[] _otherCardIds;
+    private GameStats _gameStats;
 
     public GameEvent(Type type) {
         _type = type;
@@ -50,6 +52,15 @@ public class GameEvent {
 
     public Type getType() {
         return _type;
+    }
+
+    public GameStats getGameStats() {
+        return _gameStats;
+    }
+
+    public GameEvent gameStats(GameStats gameStats) {
+        _gameStats = gameStats;
+        return this;
     }
 
     public Zone getZone() {

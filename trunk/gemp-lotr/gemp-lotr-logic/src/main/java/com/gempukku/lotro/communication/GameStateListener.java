@@ -2,8 +2,8 @@ package com.gempukku.lotro.communication;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,9 +43,9 @@ public interface GameStateListener {
 
     public void setSite(PhysicalCard card);
 
-    public void setZoneSize(String playerId, Zone zone, int size);
-
     public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCard);
 
     public void eventPlayed(PhysicalCard card);
+
+    public void sendGameStats(GameStats gameStats);
 }

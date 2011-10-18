@@ -5,6 +5,7 @@ import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.*;
 
@@ -183,13 +184,6 @@ public class GameState {
                         listener.addTokens(card, tokenIntegerEntry.getKey(), count);
                 }
             }
-
-            for (String participantId : _playerOrder.getAllPlayers()) {
-                listener.setZoneSize(participantId, Zone.DECK, _decks.get(participantId).size());
-                listener.setZoneSize(participantId, Zone.HAND, _hands.get(participantId).size());
-                listener.setZoneSize(participantId, Zone.DISCARD, _discards.get(participantId).size());
-                listener.setZoneSize(participantId, Zone.DEAD, _deadPiles.get(participantId).size());
-            }
         }
     }
 
@@ -325,10 +319,6 @@ public class GameState {
                 for (GameStateListener listener : getPrivateGameStateListeners(card)) {
                     getValue(listenerCards, listener).add(card);
                 }
-
-            if ((zone == Zone.DECK && card.getBlueprint().getCardType() != CardType.SITE) || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
-                for (GameStateListener listener : getAllGameStateListeners())
-                    listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
         }
 
         for (Map.Entry<GameStateListener, Set<PhysicalCard>> gameStateListenerSetEntry : listenerCards.entrySet())
@@ -360,9 +350,6 @@ public class GameState {
             else if (isZonePrivate(zone))
                 for (GameStateListener listener : getPrivateGameStateListeners(card))
                     listener.cardCreated(card);
-            if ((zone == Zone.DECK && card.getBlueprint().getCardType() != CardType.SITE) || zone == Zone.HAND || zone == Zone.DISCARD || zone == Zone.DEAD)
-                for (GameStateListener listener : getAllGameStateListeners())
-                    listener.setZoneSize(card.getOwner(), zone, zoneCards.size());
         }
     }
 
@@ -386,9 +373,6 @@ public class GameState {
 
             ((PhysicalCardImpl) card).setZone(Zone.DECK);
         }
-
-        for (GameStateListener listener : getAllGameStateListeners())
-            listener.setZoneSize(playerId, Zone.DECK, zoneCards.size());
 
         shuffleDeck(playerId);
     }
@@ -779,5 +763,10 @@ public class GameState {
     public void shuffleDeck(String player) {
         List<PhysicalCardImpl> deck = _decks.get(player);
         Collections.shuffle(deck);
+    }
+
+    public void sendGameStats(GameStats gameStats) {
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.sendGameStats(gameStats);
     }
 }

@@ -4,6 +4,7 @@ import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
@@ -17,6 +18,7 @@ import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
+import com.gempukku.lotro.logic.timing.GameStats;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -665,14 +667,6 @@ public class ServerResource {
         public void visitClock(Map<String, Integer> secondsLeft) {
             _element.appendChild(serializeClocks(_doc, secondsLeft));
         }
-
-        @Override
-        public void visitSkirmishStats(int fpStrength, int shadowStrength) {
-            Element skirmish = _doc.createElement("skirmish");
-            skirmish.setAttribute("fpStrength", String.valueOf(fpStrength));
-            skirmish.setAttribute("shadowStrength", String.valueOf(shadowStrength));
-            _element.appendChild(skirmish);
-        }
     }
 
     private Node serializeClocks(Document doc, Map<String, Integer> secondsLeft) {
@@ -756,6 +750,28 @@ public class ServerResource {
         }
         if (gameEvent.getMessage() != null)
             eventElem.setAttribute("message", gameEvent.getMessage());
+        if (gameEvent.getGameStats() != null) {
+            GameStats gameStats = gameEvent.getGameStats();
+            eventElem.setAttribute("fellowshipArchery", String.valueOf(gameStats.getFellowshipArchery()));
+            eventElem.setAttribute("shadowArchery", String.valueOf(gameStats.getShadowArchery()));
+
+            eventElem.setAttribute("fellowshipStrength", String.valueOf(gameStats.getFellowshipSkirmishStrength()));
+            eventElem.setAttribute("shadowStrength", String.valueOf(gameStats.getShadowSkirmishStrength()));
+
+            eventElem.setAttribute("moveLimit", String.valueOf(gameStats.getMoveLimit()));
+            eventElem.setAttribute("moveCount", String.valueOf(gameStats.getMoveCount()));
+
+            for (Map.Entry<String, Map<Zone, Integer>> playerZoneSizes : gameStats.getZoneSizes().entrySet()) {
+                final Element playerZonesElem = doc.createElement("playerZones");
+
+                playerZonesElem.setAttribute("name", playerZoneSizes.getKey());
+
+                for (Map.Entry<Zone, Integer> zoneSizes : playerZoneSizes.getValue().entrySet())
+                    playerZonesElem.setAttribute(zoneSizes.getKey().name(), zoneSizes.getValue().toString());
+
+                eventElem.appendChild(playerZonesElem);
+            }
+        }
 
         return eventElem;
     }

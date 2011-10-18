@@ -23,11 +23,14 @@ public class TurnProcedure {
     private ActionStack _actionStack;
     private GameProcess _gameProcess;
     private boolean _playedGameProcess;
+    private GameStats _gameStats;
 
     public TurnProcedure(LotroGame lotroGame, Set<String> players, final UserFeedback userFeedback, ActionStack actionStack, final PlayerOrderFeedback playerOrderFeedback) {
         _userFeedback = userFeedback;
         _game = lotroGame;
         _actionStack = actionStack;
+
+        _gameStats = new GameStats();
 
         _gameProcess = new BiddingGameProcess(players, lotroGame, playerOrderFeedback);
     }
@@ -40,6 +43,8 @@ public class TurnProcedure {
                     _playedGameProcess = false;
                 } else {
                     _gameProcess.process();
+                    if (_gameStats.updateGameStats(_game))
+                        _game.getGameState().sendGameStats(_gameStats);
                     _playedGameProcess = true;
                 }
             } else {
@@ -47,6 +52,8 @@ public class TurnProcedure {
                 if (effect != null) {
                     if (effect.getType() == null) {
                         effect.playEffect(_game);
+                        if (_gameStats.updateGameStats(_game))
+                            _game.getGameState().sendGameStats(_gameStats);
                     } else {
                         _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
                     }
@@ -93,6 +100,8 @@ public class TurnProcedure {
             }
             if (!_effectPlayed) {
                 _effectResults = _effect.playEffect(_game);
+                if (_gameStats.updateGameStats(_game))
+                    _game.getGameState().sendGameStats(_gameStats);
                 _effectPlayed = true;
             }
             if (_effectResults != null) {

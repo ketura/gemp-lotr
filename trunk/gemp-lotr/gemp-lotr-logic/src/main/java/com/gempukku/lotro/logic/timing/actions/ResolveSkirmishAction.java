@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.effects.OverwhelmedEffect;
 import com.gempukku.lotro.logic.effects.SkirmishResolvedEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -63,23 +64,21 @@ public class ResolveSkirmishAction implements Action {
 
         final GameState gameState = _game.getGameState();
 
-        PhysicalCard fp = _skirmish.getFellowshipCharacter();
-        int fpStrength = 0;
-        if (fp != null)
-            fpStrength = _game.getModifiersQuerying().getStrength(gameState, fp);
+        int fpStrength = RuleUtils.getFellowshipSkirmishStrength(_game);
+        int shadowStrength = RuleUtils.getShadowSkirmishStrength(_game);
 
-        int shadowStrength = 0;
-        for (PhysicalCard minion : _skirmish.getShadowCharacters())
-            shadowStrength += _game.getModifiersQuerying().getStrength(gameState, minion);
+        final PhysicalCard fellowshipCharacter = _skirmish.getFellowshipCharacter();
 
-        if (_game.getModifiersQuerying().isOverwhelmedByStrength(gameState, fp, fpStrength, shadowStrength))
-            effects.add(new OverwhelmedEffect(_skirmish.getShadowCharacters(), fpList(fp)));
+        final List<PhysicalCard> shadowCharacters = _skirmish.getShadowCharacters();
+
+        if (_game.getModifiersQuerying().isOverwhelmedByStrength(gameState, fellowshipCharacter, fpStrength, shadowStrength))
+            effects.add(new OverwhelmedEffect(shadowCharacters, fpList(fellowshipCharacter)));
         else if (shadowStrength >= fpStrength)
-            effects.add(new SkirmishResolvedEffect(_skirmish.getShadowCharacters(), fpList(fp)));
+            effects.add(new SkirmishResolvedEffect(shadowCharacters, fpList(fellowshipCharacter)));
         else if (fpStrength >= 2 * shadowStrength)
-            effects.add(new OverwhelmedEffect(fpList(fp), _skirmish.getShadowCharacters()));
+            effects.add(new OverwhelmedEffect(fpList(fellowshipCharacter), shadowCharacters));
         else
-            effects.add(new SkirmishResolvedEffect(fpList(fp), _skirmish.getShadowCharacters()));
+            effects.add(new SkirmishResolvedEffect(fpList(fellowshipCharacter), shadowCharacters));
 
         effects.add(new UnrespondableEffect() {
             @Override
