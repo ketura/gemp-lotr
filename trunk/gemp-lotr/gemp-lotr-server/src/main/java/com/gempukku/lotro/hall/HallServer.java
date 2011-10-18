@@ -170,13 +170,13 @@ public class HallServer extends AbstractServer {
 
         Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
         for (Map.Entry<String, AwaitingTable> table : copy.entrySet())
-            visitor.visitTable(table.getKey(), null, "Waiting", table.getValue().getFormatName(), table.getValue().getPlayerNames());
+            visitor.visitTable(table.getKey(), null, "Waiting", table.getValue().getFormatName(), table.getValue().getPlayerNames(), null);
 
         Map<String, String> runningCopy = new LinkedHashMap<String, String>(_runningTables);
         for (Map.Entry<String, String> runningGame : runningCopy.entrySet()) {
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
             if (lotroGameMediator != null)
-                visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying());
+                visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
         }
 
         String playerTable = getNonFinishedPlayerTable(participantId);

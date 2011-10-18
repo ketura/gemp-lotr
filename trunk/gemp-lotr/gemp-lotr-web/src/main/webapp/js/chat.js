@@ -90,12 +90,16 @@ var ChatBoxUI = Class.extend({
                 var message = messages[i];
                 var from = message.getAttribute("from");
                 var text = message.childNodes[0].nodeValue;
+
+                var msgClass = "chatMessage";
+                if (from == "System")
+                    msgClass = "systemMessage";
                 if (this.showTimestamps) {
                     var date = new Date(parseInt(message.getAttribute("date")));
                     var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + this.formatToTwoDigits(date.getHours()) + ":" + this.formatToTwoDigits(date.getMinutes()) + ":" + this.formatToTwoDigits(date.getSeconds());
-                    this.appendMessage("<div class='timestamp'>[" + dateStr + "]</div> <b>" + from + ":</b> " + text);
+                    this.appendMessage("<div class='timestamp'>[" + dateStr + "]</div> <b>" + from + ":</b> " + text, msgClass);
                 } else {
-                    this.appendMessage("<b>" + from + ":</b> " + text);
+                    this.appendMessage("<b>" + from + ":</b> " + text, msgClass);
                 }
             }
 
