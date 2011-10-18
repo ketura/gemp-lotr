@@ -20,7 +20,8 @@ public class LotroGameMediator {
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
     private Set<String> _playersPlaying = new HashSet<String>();
 
-    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
+    private final int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
+    //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
     private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
     private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
 
