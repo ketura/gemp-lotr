@@ -40,6 +40,7 @@ public class GameState {
     private List<Assignment> _assignments = new LinkedList<Assignment>();
     private Skirmish _skirmish = null;
 
+    private Map<String, GatheringParticipantCommunicationChannel> _recordinglisteners = new HashMap<String, GatheringParticipantCommunicationChannel>();
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
 
     private int _nextCardId = 0;
@@ -62,6 +63,9 @@ public class GameState {
 
             addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
         }
+
+        for (String playerId : playerOrder.getAllPlayers())
+            _recordinglisteners.put(playerId, new GatheringParticipantCommunicationChannel(playerId));
 
         for (String playerId : _gameStateListeners.keySet())
             sendStateToPlayer(playerId);
@@ -114,15 +118,19 @@ public class GameState {
 
     private Collection<GameStateListener> getPrivateGameStateListeners(PhysicalCard physicalCard) {
         String owner = physicalCard.getOwner();
+        Set<GameStateListener> listeners = new HashSet<GameStateListener>();
         GameStateListener result = _gameStateListeners.get(owner);
         if (result != null)
-            return Collections.singleton(result);
-        else
-            return Collections.emptyList();
+            listeners.add(result);
+
+        listeners.add(_recordinglisteners.get(owner));
+        return listeners;
     }
 
     private Collection<GameStateListener> getAllGameStateListeners() {
-        return _gameStateListeners.values();
+        Set<GameStateListener> allListeners = new HashSet<GameStateListener>(_gameStateListeners.values());
+        allListeners.addAll(_recordinglisteners.values());
+        return allListeners;
     }
 
     private void sendStateToPlayer(String playerId) {
