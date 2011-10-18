@@ -4,6 +4,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -15,14 +16,16 @@ import java.util.List;
 public abstract class RevealAndChooseCardsFromOpponentHandEffect extends UnrespondableEffect {
     private String _playerId;
     private String _opponentId;
+    private PhysicalCard _source;
     private String _text;
     private Filter _selectionFilter;
     private int _minChosen;
     private int _maxChosen;
 
-    protected RevealAndChooseCardsFromOpponentHandEffect(String playerId, String opponentId, String text, Filter selectionFilter, int minChosen, int maxChosen) {
+    protected RevealAndChooseCardsFromOpponentHandEffect(String playerId, String opponentId, PhysicalCard source, String text, Filter selectionFilter, int minChosen, int maxChosen) {
         _playerId = playerId;
         _opponentId = opponentId;
+        _source = source;
         _text = text;
         _selectionFilter = selectionFilter;
         _minChosen = minChosen;
@@ -33,6 +36,7 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Unrespo
     public void doPlayEffect(LotroGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _opponentId + " hand - " + getAppendedNames(opponentHand));
             Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
 
             game.getUserFeedback().sendAwaitingDecision(_playerId,

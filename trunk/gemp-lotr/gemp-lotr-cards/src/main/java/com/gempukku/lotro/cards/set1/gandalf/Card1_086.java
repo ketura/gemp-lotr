@@ -35,14 +35,14 @@ public class Card1_086 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         action.appendEffect(
-                                new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none, 0, 0) {
+                                new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
                                     @Override
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         // Do nothing, just revealing
