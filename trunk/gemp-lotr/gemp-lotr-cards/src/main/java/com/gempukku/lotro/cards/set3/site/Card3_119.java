@@ -24,8 +24,7 @@ import java.util.List;
  */
 public class Card3_119 extends AbstractSite {
     public Card3_119() {
-        // TODO Check direction of the site
-        super("House of Elrond", Block.FELLOWSHIP, 3, 0, null);
+        super("House of Elrond", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
         addKeyword(Keyword.SANCTUARY);
     }
 

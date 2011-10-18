@@ -34,19 +34,19 @@ public class Card3_111 extends AbstractAlly {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.DISCARD_FROM_HAND) {
             DiscardCardsFromHandResult discardCardsResult = (DiscardCardsFromHandResult) effectResult;
-
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-            for (PhysicalCard discardedCard : discardCardsResult.getDiscardedCards()) {
-                // TODO This should only work if Shadow card makes you discard the card...
-                PhysicalCard source = discardCardsResult.getSource();
-                if (source != null && source.getBlueprint().getSide() == Side.SHADOW) {
-                    OptionalTriggerAction action = new OptionalTriggerAction(self);
-                    action.appendEffect(
-                            new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Filters.type(CardType.MINION), Filters.and(Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION)))));
-                    actions.add(action);
+            if (discardCardsResult.isForced()) {
+                List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
+                for (PhysicalCard discardedCard : discardCardsResult.getDiscardedCards()) {
+                    PhysicalCard source = discardCardsResult.getSource();
+                    if (source != null && source.getBlueprint().getSide() == Side.SHADOW) {
+                        OptionalTriggerAction action = new OptionalTriggerAction(self);
+                        action.appendEffect(
+                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Filters.type(CardType.MINION), Filters.and(Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION)))));
+                        actions.add(action);
+                    }
                 }
+                return actions;
             }
-            return actions;
         }
         return null;
     }
