@@ -62,7 +62,7 @@ public class DefaultCardCollection implements MutableCardCollection {
                     if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                         if (cultures == null || cultures.contains(blueprint.getCulture()))
                             if (containsAllKeywords(blueprint, keywords))
-                                if (siteNumber == null || blueprint.getSiteNumber() == siteNumber.intValue())
+                                if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
                                     result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
             }
         }
