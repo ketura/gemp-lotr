@@ -86,10 +86,10 @@ public class GameState {
     private int _charsCount = _possibleChars.length();
 
     private String randomUid() {
-        int length = 10;
+        int length = 16;
         char[] chars = new char[length];
         Random rnd = new Random();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < length; i++)
             chars[i] = _possibleChars.charAt(rnd.nextInt(_charsCount));
 
         return new String(chars);
@@ -118,6 +118,8 @@ public class GameState {
                 for (GameEvent gameEvent : gameEvents) {
                     gameReplay.appendChild(serializer.serializeEvent(doc, gameEvent));
                 }
+
+                doc.appendChild(gameReplay);
 
                 // Prepare the DOM document for writing
                 Source source = new DOMSource(doc);

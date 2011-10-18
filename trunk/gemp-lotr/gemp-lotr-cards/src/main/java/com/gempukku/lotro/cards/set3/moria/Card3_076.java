@@ -43,7 +43,7 @@ public class Card3_076 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new RevealRandomCardsFromHandEffect(game.getGameState().getCurrentPlayerId(), 1) {
+                new RevealRandomCardsFromHandEffect(playerId, game.getGameState().getCurrentPlayerId(), self, 1) {
                     @Override
                     protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                         if (revealedCards.size() > 0) {

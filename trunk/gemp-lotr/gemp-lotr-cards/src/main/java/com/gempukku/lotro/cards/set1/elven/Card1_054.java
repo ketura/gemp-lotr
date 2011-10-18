@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
+import com.gempukku.lotro.cards.effects.RevealCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -30,7 +31,7 @@ public class Card1_054 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
@@ -38,6 +39,7 @@ public class Card1_054 extends AbstractPermanent {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
+                                action.appendEffect(new RevealCardEffect(self, selectedCard));
                                 action.appendEffect(new PutCardFromHandOnBottomOfDeckEffect(selectedCard));
                             }
                         }

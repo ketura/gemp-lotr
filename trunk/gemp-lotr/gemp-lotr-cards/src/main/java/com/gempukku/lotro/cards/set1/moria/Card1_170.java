@@ -34,7 +34,7 @@ public class Card1_170 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new UnrespondableEffect() {
@@ -47,6 +47,9 @@ public class Card1_170 extends AbstractOldEvent {
                             LotroCardBlueprint blueprint = physicalCard.getBlueprint();
                             if (blueprint.getCulture() != Culture.MORIA || blueprint.getCardType() != CardType.MINION)
                                 break;
+                        }
+                        for (PhysicalCard physicalCard : cardsToPutIntoHand) {
+
                         }
                         for (PhysicalCard cardToPutIntoHand : cardsToPutIntoHand) {
                             action.appendEffect(

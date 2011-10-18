@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.moria;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.RevealCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -41,12 +42,14 @@ public class Card2_070 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseCardsFromHandEffect(playerId, 0, Integer.MAX_VALUE, Filters.culture(Culture.MORIA), Filters.race(Race.ORC)) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                        action.appendEffect(
+                                new RevealCardEffect(self, selectedCards));
                         int cardsRevealed = selectedCards.size();
                         action.appendEffect(
                                 new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2 * cardsRevealed, Filters.name("The Balrog")));

@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.cards.effects.RevealCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,7 +31,7 @@ public class Card1_200 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
@@ -41,6 +42,8 @@ public class Card1_200 extends AbstractPermanent {
                             List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                             if (deck.size() > 0) {
                                 PhysicalCard bottomCard = deck.get(deck.size() - 1);
+                                action.appendEffect(
+                                        new RevealCardEffect(self, bottomCard));
                                 if (bottomCard.getBlueprint().getCulture() == Culture.MORIA
                                         && bottomCard.getBlueprint().getRace() == Race.ORC) {
                                     action.appendEffect(

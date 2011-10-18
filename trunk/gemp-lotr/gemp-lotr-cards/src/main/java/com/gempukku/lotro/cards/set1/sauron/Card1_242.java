@@ -45,7 +45,7 @@ public class Card1_242 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new RevealTopCardsOfDrawDeckEffect(playerId, 1) {
+                    new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> cards) {
                             if (cards.size() == 0) {

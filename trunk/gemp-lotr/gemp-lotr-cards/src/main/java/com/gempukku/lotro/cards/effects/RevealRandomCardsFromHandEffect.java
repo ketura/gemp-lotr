@@ -9,11 +9,15 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.List;
 
 public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
-    private String _playerId;
+    private PhysicalCard _source;
     private int _count;
+    private String _actingPlayer;
+    private String _playerHand;
 
-    protected RevealRandomCardsFromHandEffect(String playerId, int count) {
-        _playerId = playerId;
+    protected RevealRandomCardsFromHandEffect(String actingPlayer, String handOfPlayer, PhysicalCard source, int count) {
+        _actingPlayer = actingPlayer;
+        _playerHand = handOfPlayer;
+        _source = source;
         _count = count;
     }
 
@@ -29,14 +33,21 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        List<PhysicalCard> randomCards = GameUtils.getRandomCards(game.getGameState().getHand(_playerId), _count);
-        cardsRevealed(randomCards);
-        return new FullEffectResult(null, randomCards.size() == _count, randomCards.size() == _count);
+        if (_actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _playerHand)) {
+            List<PhysicalCard> randomCards = GameUtils.getRandomCards(game.getGameState().getHand(_playerHand), _count);
+            if (randomCards.size() > 0)
+                game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from " + _playerHand + " hand at random - " + getAppendedNames(randomCards));
+            cardsRevealed(randomCards);
+            return new FullEffectResult(null, randomCards.size() == _count, randomCards.size() == _count);
+        }
+        return new FullEffectResult(null, false, false);
     }
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getHand(_playerId).size() >= _count;
+        if (game.getGameState().getHand(_playerHand).size() < _count)
+            return false;
+        return _actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _playerHand);
     }
 
     protected abstract void cardsRevealed(List<PhysicalCard> revealedCards);

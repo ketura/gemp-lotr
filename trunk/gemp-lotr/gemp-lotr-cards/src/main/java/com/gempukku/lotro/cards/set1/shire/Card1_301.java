@@ -42,7 +42,7 @@ public class Card1_301 extends AbstractAlly {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new RevealTopCardsOfDrawDeckEffect(playerId, 3) {
+                    new RevealTopCardsOfDrawDeckEffect(self, playerId, 3) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {

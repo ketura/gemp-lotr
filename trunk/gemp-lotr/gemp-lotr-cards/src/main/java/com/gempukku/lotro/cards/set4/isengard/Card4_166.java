@@ -52,7 +52,7 @@ public class Card4_166 extends AbstractPermanent {
                                 @Override
                                 protected void validDecisionMade(int index, String deckId) {
                                     action.insertEffect(
-                                            new RevealTopCardsOfDrawDeckEffect(deckId, 1) {
+                                            new RevealTopCardsOfDrawDeckEffect(self, deckId, 1) {
                                                 @Override
                                                 protected void cardsRevealed(List<PhysicalCard> cards) {
                                                     if (cards.size() > 0) {

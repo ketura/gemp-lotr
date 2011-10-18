@@ -53,7 +53,7 @@ public class Card4_107 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends Action> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL) {
             KillResult killResult = (KillResult) effectResult;
             if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION), Filters.culture(Culture.ISENGARD)).size() > 0) {
@@ -65,7 +65,7 @@ public class Card4_107 extends AbstractAttachable {
                             @Override
                             protected void opponentChosen(final String opponentId) {
                                 action.insertEffect(
-                                        new RevealTopCardsOfDrawDeckEffect(opponentId, 10) {
+                                        new RevealTopCardsOfDrawDeckEffect(self, opponentId, 10) {
                                             @Override
                                             protected void cardsRevealed(final List<PhysicalCard> cards) {
                                                 action.appendEffect(
