@@ -56,6 +56,7 @@ public class EndEffectsAndActionsRule {
                                         @Override
                                         public void doPlayEffect(LotroGame game) {
                                             _modifiersLogic.removeEndOfTurn();
+                                            _actionsEnvironment.removeEndOfTurnActionProxies();
                                         }
                                     }, "Remove effects"
                             ));

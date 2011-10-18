@@ -69,35 +69,37 @@ public class Card1_001 extends AbstractAttachable {
                 action.appendEffect(new AddBurdenEffect(self, 2));
                 action.appendEffect(new PutOnTheOneRingEffect());
                 if (game.getGameState().getCurrentPhase() == Phase.REGROUP) {
-                    action.appendEffect(new AddUntilEndOfPhaseActionProxyEffect(
-                            new AbstractActionProxy() {
-                                @Override
-                                public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                    if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                                            && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                        ActivateCardAction action = new ActivateCardAction(self);
-                                        action.appendEffect(new TakeOffTheOneRingEffect());
-                                        return Collections.singletonList(action);
+                    action.appendEffect(
+                            new AddUntilEndOfTurnActionProxyEffect(
+                                    new AbstractActionProxy() {
+                                        @Override
+                                        public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                                            if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
+                                                    && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
+                                                ActivateCardAction action = new ActivateCardAction(null);
+                                                action.appendEffect(new TakeOffTheOneRingEffect());
+                                                return Collections.singletonList(action);
+                                            }
+                                            return null;
+                                        }
                                     }
-                                    return null;
-                                }
-                            }
-                            , Phase.REGROUP));
+                            ));
                 } else {
-                    action.appendEffect(new AddUntilStartOfPhaseActionProxyEffect(
-                            new AbstractActionProxy() {
-                                @Override
-                                public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                    if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                                            && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                        ActivateCardAction action = new ActivateCardAction(self);
-                                        action.appendEffect(new TakeOffTheOneRingEffect());
-                                        return Collections.singletonList(action);
+                    action.appendEffect(
+                            new AddUntilEndOfTurnActionProxyEffect(
+                                    new AbstractActionProxy() {
+                                        @Override
+                                        public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                                            if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
+                                                    && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
+                                                ActivateCardAction action = new ActivateCardAction(null);
+                                                action.appendEffect(new TakeOffTheOneRingEffect());
+                                                return Collections.singletonList(action);
+                                            }
+                                            return null;
+                                        }
                                     }
-                                    return null;
-                                }
-                            }
-                            , Phase.REGROUP));
+                            ));
                 }
 
                 actions.add(action);

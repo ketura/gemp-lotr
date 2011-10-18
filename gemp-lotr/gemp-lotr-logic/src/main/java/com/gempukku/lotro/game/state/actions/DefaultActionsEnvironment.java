@@ -24,6 +24,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     private List<ActionProxy> _actionProxies = new LinkedList<ActionProxy>();
     private Map<Phase, List<ActionProxy>> _untilStartOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
     private Map<Phase, List<ActionProxy>> _untilEndOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
+    private List<ActionProxy> _untilEndOfTurnActionProxies = new LinkedList<ActionProxy>();
 
     public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
@@ -50,6 +51,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         }
     }
 
+    public void removeEndOfTurnActionProxies() {
+        _actionProxies.removeAll(_untilEndOfTurnActionProxies);
+        _untilEndOfTurnActionProxies.clear();
+    }
+
     @Override
     public void addUntilStartOfPhaseActionProxy(ActionProxy actionProxy, Phase phase) {
         _actionProxies.add(actionProxy);
@@ -70,6 +76,12 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             _untilEndOfPhaseActionProxies.put(phase, list);
         }
         list.add(actionProxy);
+    }
+
+    @Override
+    public void addUntilEndOfTurnActionProxy(ActionProxy actionProxy) {
+        _actionProxies.add(actionProxy);
+        _untilEndOfTurnActionProxies.add(actionProxy);
     }
 
     @Override

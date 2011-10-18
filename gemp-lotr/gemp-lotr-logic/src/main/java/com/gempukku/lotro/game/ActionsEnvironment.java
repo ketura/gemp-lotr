@@ -26,5 +26,7 @@ public interface ActionsEnvironment {
 
     public void addUntilEndOfPhaseActionProxy(ActionProxy actionProxy, Phase phase);
 
+    public void addUntilEndOfTurnActionProxy(ActionProxy actionProxy);
+
     public void addActionToStack(Action action);
 }
