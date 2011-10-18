@@ -1,10 +1,12 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -32,7 +34,7 @@ public interface LotroCardBlueprint {
 
     public int getTwilightCost();
 
-    public int getCompanionStartingFellowshipModifier();
+    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
 
     public int getStrength();
 

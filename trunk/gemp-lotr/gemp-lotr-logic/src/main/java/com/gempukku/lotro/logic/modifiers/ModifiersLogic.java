@@ -270,6 +270,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public int getTwilightCost(GameState gameState, PhysicalCard physicalCard) {
         int result = physicalCard.getBlueprint().getTwilightCost();
+        result += physicalCard.getBlueprint().getTwilightCostModifier(gameState, this, physicalCard);
         for (Modifier modifier : getModifiers(ModifierEffect.TWILIGHT_COST_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                 result = modifier.getTwilightCost(gameState, this, physicalCard, result);

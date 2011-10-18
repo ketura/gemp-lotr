@@ -4,11 +4,14 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,8 +34,10 @@ public class Card4_265 extends AbstractCompanion {
     }
 
     @Override
-    public int getCompanionStartingFellowshipModifier() {
-        return -1;
+    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+        if (gameState.getCurrentPhase() == Phase.GAME_SETUP)
+            return -1;
+        return 0;
     }
 
     @Override
