@@ -63,9 +63,11 @@ var GempLotrGameUI = Class.extend({
         this.animations = new GameAnimations(this);
 
         this.communication = new GempLotrCommunication("/gemp-lotr/server",
-                function() {
-                    that.chatBox.appendMessage("There was a problem communicating with the server, if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
-                    that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
+                function(xhr, ajaxOptions, thrownError) {
+                    if (thrownError != "abort") {
+                        that.chatBox.appendMessage("There was a problem communicating with the server, if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
+                        that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
+                    }
                 });
 
         $.expr[':'].cardId = function(obj, index, meta, stack) {
