@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.effects.choose;
 
 import com.gempukku.lotro.cards.effects.ReturnCardsToHandEffect;
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -14,7 +14,7 @@ import java.util.Collection;
 public class ChooseAndReturnCardsToHandEffect extends ChooseActiveCardsEffect {
     private Action _action;
 
-    public ChooseAndReturnCardsToHandEffect(Action action, String playerId, int minimum, int maximum, Filter... filters) {
+    public ChooseAndReturnCardsToHandEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose cards to return to hand", minimum, maximum, filters);
         _action = action;
     }
