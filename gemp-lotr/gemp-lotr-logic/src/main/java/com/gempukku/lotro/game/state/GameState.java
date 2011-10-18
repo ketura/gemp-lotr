@@ -6,7 +6,18 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.logic.timing.GameStats;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.util.*;
 
 public class GameState {
@@ -40,7 +51,7 @@ public class GameState {
     private List<Assignment> _assignments = new LinkedList<Assignment>();
     private Skirmish _skirmish = null;
 
-    private Map<String, GatheringParticipantCommunicationChannel> _recordinglisteners = new HashMap<String, GatheringParticipantCommunicationChannel>();
+    private Map<String, GatheringParticipantCommunicationChannel> _recordingListeners = new HashMap<String, GatheringParticipantCommunicationChannel>();
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
 
     private int _nextCardId = 0;
@@ -65,10 +76,62 @@ public class GameState {
         }
 
         for (String playerId : playerOrder.getAllPlayers())
-            _recordinglisteners.put(playerId, new GatheringParticipantCommunicationChannel(playerId));
+            _recordingListeners.put(playerId, new GatheringParticipantCommunicationChannel(playerId));
 
         for (String playerId : _gameStateListeners.keySet())
             sendStateToPlayer(playerId);
+    }
+
+    private String _possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    private int _charsCount = _possibleChars.length();
+
+    private String randomUid() {
+        int length = 10;
+        char[] chars = new char[length];
+        Random rnd = new Random();
+        for (int i = 0; i < 10; i++)
+            chars[i] = _possibleChars.charAt(rnd.nextInt(_charsCount));
+
+        return new String(chars);
+    }
+
+    public void gameFinished() {
+        File gameReplayFolder = new File("i:\\gemp-lotr\\replay");
+        gameReplayFolder.mkdirs();
+        for (Map.Entry<String, GatheringParticipantCommunicationChannel> playerRecordings : _recordingListeners.entrySet()) {
+            String playerId = playerRecordings.getKey();
+            File playerReplayFolder = new File(gameReplayFolder, playerId);
+            playerReplayFolder.mkdir();
+            File replayFile;
+            do {
+                replayFile = new File(playerReplayFolder, randomUid() + ".xml");
+            } while (replayFile.exists());
+
+            final List<GameEvent> gameEvents = playerRecordings.getValue().consumeGameEvents();
+
+            try {
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                Document doc = documentBuilder.newDocument();
+                Element gameReplay = doc.createElement("gameReplay");
+                EventSerializer serializer = new EventSerializer();
+                for (GameEvent gameEvent : gameEvents) {
+                    gameReplay.appendChild(serializer.serializeEvent(doc, gameEvent));
+                }
+
+                // Prepare the DOM document for writing
+                Source source = new DOMSource(doc);
+
+                // Prepare the output file
+                Result result = new StreamResult(replayFile);
+
+                // Write the DOM document to the file
+                Transformer xformer = TransformerFactory.newInstance().newTransformer();
+                xformer.transform(source, result);
+            } catch (Exception exp) {
+
+            }
+        }
     }
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
@@ -123,13 +186,13 @@ public class GameState {
         if (result != null)
             listeners.add(result);
 
-        listeners.add(_recordinglisteners.get(owner));
+        listeners.add(_recordingListeners.get(owner));
         return listeners;
     }
 
     private Collection<GameStateListener> getAllGameStateListeners() {
         Set<GameStateListener> allListeners = new HashSet<GameStateListener>(_gameStateListeners.values());
-        allListeners.addAll(_recordinglisteners.values());
+        allListeners.addAll(_recordingListeners.values());
         return allListeners;
     }
 
