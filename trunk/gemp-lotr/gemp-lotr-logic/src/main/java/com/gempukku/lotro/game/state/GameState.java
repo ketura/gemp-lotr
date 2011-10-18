@@ -278,10 +278,9 @@ public class GameState {
     }
 
     public void transferCard(PhysicalCard card, PhysicalCard transferTo) {
-        if (card.getZone() != Zone.ATTACHED) {
-            removeCardsFromZone(Collections.singleton(card));
-            addCardToZone(card, Zone.ATTACHED);
-        }
+        if (card.getZone() != Zone.ATTACHED)
+            ((PhysicalCardImpl) card).setZone(Zone.ATTACHED);
+
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) transferTo);
         for (GameStateListener listener : getAllGameStateListeners())
             listener.cardMoved(card);
