@@ -67,7 +67,11 @@ public class RuleUtils {
         if (game.getGameState().getSkirmish() == null)
             return 0;
 
-        return game.getModifiersQuerying().getStrength(game.getGameState(), game.getGameState().getSkirmish().getFellowshipCharacter());
+        PhysicalCard fpChar = game.getGameState().getSkirmish().getFellowshipCharacter();
+        if (fpChar == null)
+            return 0;
+
+        return game.getModifiersQuerying().getStrength(game.getGameState(), fpChar);
     }
 
     public static int getShadowSkirmishStrength(LotroGame game) {
