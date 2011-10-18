@@ -75,8 +75,11 @@ public class GameState {
             addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
         }
 
-        for (String playerId : playerOrder.getAllPlayers())
-            _recordingListeners.put(playerId, new GatheringParticipantCommunicationChannel(playerId));
+        for (String playerId : playerOrder.getAllPlayers()) {
+            GatheringParticipantCommunicationChannel listener = new GatheringParticipantCommunicationChannel(playerId);
+            listener.setPlayerOrder(playerOrder.getAllPlayers());
+            _recordingListeners.put(playerId, listener);
+        }
 
         for (String playerId : _gameStateListeners.keySet())
             sendStateToPlayer(playerId);

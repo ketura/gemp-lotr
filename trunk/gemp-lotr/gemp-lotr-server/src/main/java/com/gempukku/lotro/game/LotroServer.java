@@ -36,7 +36,7 @@ public class LotroServer extends AbstractServer {
         _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
         _defaultCollection = new DefaultCardCollection(library);
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 6; i++) {
             for (int j = 1; j <= 365; j++) {
                 String blueprintId = i + "_" + j;
                 try {
