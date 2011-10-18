@@ -108,8 +108,9 @@ var GempLotrHallUI = Class.extend({
                 var players = new Array();
                 if (playersAttr.length > 0)
                     players = playersAttr.split(",");
+                var winner = table.getAttribute("winner");
 
-                var tableDiv = this.createTableDiv(id, gameId, status, formatName, players, waiting);
+                var tableDiv = this.createTableDiv(id, gameId, status, formatName, players, waiting, winner);
                 this.tablesDiv.append(tableDiv);
             }
 
@@ -151,14 +152,20 @@ var GempLotrHallUI = Class.extend({
         }
     },
 
-    createTableDiv: function(id, gameId, status, formatName, players, waiting) {
+    createTableDiv: function(id, gameId, status, formatName, players, waiting, winner) {
         var tableDiv = $("<div></div>");
         tableDiv.css({ display: "inline-table", width: "120px", height: "120px", margin: "5px", "background-color": "#333300", color: "#ffffff"});
         tableDiv.append("<div class='tableFormatName'>" + formatName + "</div>");
         tableDiv.append("<div class='tableStatus'>" + status + "</div>");
         tableDiv.append("<hr/>");
-        for (var i = 0; i < players.length; i++)
-            tableDiv.append("<div class='tablePlayer'>" + players[i] + "</div>");
+        for (var i = 0; i < players.length; i++) {
+            if (winner == players[i])
+                tableDiv.append("<div class='tablePlayer winningPlayer'>" + players[i] + "</div>");
+            else if (winner != null)
+                tableDiv.append("<div class='tablePlayer losingPlayer'>" + players[i] + "</div>");
+            else
+                tableDiv.append("<div class='tablePlayer'>" + players[i] + "</div>");
+        }
 
         if (players.length < 2) {
             var that = this;

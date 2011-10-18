@@ -595,7 +595,7 @@ public class ServerResource {
         }
 
         @Override
-        public void visitTable(String tableId, String gameId, String tableStatus, String formatName, Set<String> playerIds) {
+        public void visitTable(String tableId, String gameId, String tableStatus, String formatName, Set<String> playerIds, String winner) {
             Element table = _doc.createElement("table");
             table.setAttribute("id", tableId);
             if (gameId != null)
@@ -603,6 +603,8 @@ public class ServerResource {
             table.setAttribute("status", tableStatus);
             table.setAttribute("format", formatName);
             table.setAttribute("players", mergeStrings(playerIds));
+            if (winner != null)
+                table.setAttribute("winner", winner);
             _hall.appendChild(table);
         }
 

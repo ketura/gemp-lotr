@@ -47,6 +47,10 @@ public class LotroGameMediator {
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, gameResultListener, library);
     }
 
+    public String getWinner() {
+        return _lotroGame.getWinnerPlayerId();
+    }
+
     public Set<String> getPlayersPlaying() {
         return Collections.unmodifiableSet(_playersPlaying);
     }
