@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic.timing;
 
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayerOrder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,13 +62,16 @@ public class GameStats {
         }
 
         Map<String, Map<Zone, Integer>> newZoneSizes = new HashMap<String, Map<Zone, Integer>>();
-        for (String player : game.getGameState().getPlayerOrder().getAllPlayers()) {
-            final HashMap<Zone, Integer> playerZoneSizes = new HashMap<Zone, Integer>();
-            playerZoneSizes.put(Zone.HAND, game.getGameState().getHand(player).size());
-            playerZoneSizes.put(Zone.DECK, game.getGameState().getDeck(player).size());
-            playerZoneSizes.put(Zone.DISCARD, game.getGameState().getDiscard(player).size());
-            playerZoneSizes.put(Zone.DEAD, game.getGameState().getDeadPile(player).size());
-            newZoneSizes.put(player, playerZoneSizes);
+        PlayerOrder playerOrder = game.getGameState().getPlayerOrder();
+        if (playerOrder != null) {
+            for (String player : playerOrder.getAllPlayers()) {
+                final HashMap<Zone, Integer> playerZoneSizes = new HashMap<Zone, Integer>();
+                playerZoneSizes.put(Zone.HAND, game.getGameState().getHand(player).size());
+                playerZoneSizes.put(Zone.DECK, game.getGameState().getDeck(player).size());
+                playerZoneSizes.put(Zone.DISCARD, game.getGameState().getDiscard(player).size());
+                playerZoneSizes.put(Zone.DEAD, game.getGameState().getDeadPile(player).size());
+                newZoneSizes.put(player, playerZoneSizes);
+            }
         }
 
         if (!newZoneSizes.equals(_zoneSizes)) {
