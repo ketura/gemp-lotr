@@ -122,7 +122,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     startChat: function(room, callback) {
-        $.ajaxq("chat", {
+        $.ajax({
             type: "GET",
             url: this.url + "/chat/" + room,
             cache: false,
@@ -134,7 +134,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     updateChat: function(room, callback) {
-        $.ajaxq("chat", {
+        $.ajax({
             type: "POST",
             url: this.url + "/chat/" + room,
             cache: false,
@@ -146,7 +146,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     sendChatMessage: function(room, message, callback) {
-        $.ajaxq("chat", {
+        $.ajax({
             type: "POST",
             url: this.url + "/chat/" + room,
             cache: false,
