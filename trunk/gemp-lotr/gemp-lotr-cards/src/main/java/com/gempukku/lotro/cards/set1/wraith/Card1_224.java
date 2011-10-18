@@ -8,8 +8,8 @@ import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
@@ -45,8 +45,8 @@ public class Card1_224 extends AbstractResponseOldEvent {
                     new UnrespondableEffect() {
                         @Override
                         public void doPlayEffect(final LotroGame game) {
-                            List<Skirmish> assignments = new LinkedList<Skirmish>(game.getGameState().getAssignments());
-                            for (Skirmish assignment : assignments)
+                            List<Assignment> assignments = new LinkedList<Assignment>(game.getGameState().getAssignments());
+                            for (Assignment assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
 
                             if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) > 0) {

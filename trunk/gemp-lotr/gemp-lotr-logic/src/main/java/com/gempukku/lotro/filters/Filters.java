@@ -5,6 +5,7 @@ import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardVisitor;
+import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
@@ -95,7 +96,7 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 if (physicalCard.getBlueprint().getSide() == Side.SHADOW) {
-                    for (Skirmish assignment : gameState.getAssignments()) {
+                    for (Assignment assignment : gameState.getAssignments()) {
                         if (assignment.getFellowshipCharacter() == physicalCard
                                 || assignment.getShadowCharacters().contains(physicalCard))
                             return false;
@@ -170,7 +171,7 @@ public class Filters {
     public static final Filter notAssignedToSkirmish = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            for (Skirmish assignment : gameState.getAssignments()) {
+            for (Assignment assignment : gameState.getAssignments()) {
                 if (assignment.getFellowshipCharacter() == physicalCard
                         || assignment.getShadowCharacters().contains(physicalCard))
                     return false;
@@ -189,11 +190,11 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                for (Skirmish skirmish : gameState.getAssignments()) {
-                    if (skirmish.getFellowshipCharacter() == physicalCard)
-                        return Filters.filter(skirmish.getShadowCharacters(), gameState, modifiersQuerying, againstFilters).size() > 0;
-                    else if (skirmish.getShadowCharacters().contains(physicalCard) && skirmish.getFellowshipCharacter() != null)
-                        return Filters.and(againstFilters).accepts(gameState, modifiersQuerying, skirmish.getFellowshipCharacter());
+                for (Assignment assignment : gameState.getAssignments()) {
+                    if (assignment.getFellowshipCharacter() == physicalCard)
+                        return Filters.filter(assignment.getShadowCharacters(), gameState, modifiersQuerying, againstFilters).size() > 0;
+                    else if (assignment.getShadowCharacters().contains(physicalCard) && assignment.getFellowshipCharacter() != null)
+                        return Filters.and(againstFilters).accepts(gameState, modifiersQuerying, assignment.getFellowshipCharacter());
                 }
                 return false;
             }

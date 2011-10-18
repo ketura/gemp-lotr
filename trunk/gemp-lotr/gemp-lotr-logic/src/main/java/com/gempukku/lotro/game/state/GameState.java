@@ -37,7 +37,7 @@ public class GameState {
 
     private Map<String, PhysicalCard> _ringBearers = new HashMap<String, PhysicalCard>();
 
-    private List<Skirmish> _assignments = new LinkedList<Skirmish>();
+    private List<Assignment> _assignments = new LinkedList<Assignment>();
     private Skirmish _skirmish = null;
 
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
@@ -170,7 +170,7 @@ public class GameState {
                     listener.cardCreated(physicalCard);
             }
 
-            for (Skirmish assignment : _assignments)
+            for (Assignment assignment : _assignments)
                 listener.addAssignment(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
 
             if (_skirmish != null)
@@ -299,7 +299,7 @@ public class GameState {
             if (zone == Zone.STACKED)
                 ((PhysicalCardImpl) card).stackOn(null);
 
-            for (Skirmish assignment : new LinkedList<Skirmish>(_assignments)) {
+            for (Assignment assignment : new LinkedList<Assignment>(_assignments)) {
                 if (assignment.getFellowshipCharacter() == card)
                     removeAssignment(assignment);
                 if (assignment.getShadowCharacters().remove(card))
@@ -688,37 +688,37 @@ public class GameState {
     }
 
     public void assignToSkirmishes(PhysicalCard fp, List<PhysicalCard> minions) {
-        Skirmish assignment = findAssignment(fp);
+        Assignment assignment = findAssignment(fp);
         if (assignment != null)
             assignment.getShadowCharacters().addAll(minions);
         else
-            _assignments.add(new Skirmish(fp, new LinkedList<PhysicalCard>(minions)));
+            _assignments.add(new Assignment(fp, new LinkedList<PhysicalCard>(minions)));
 
         for (GameStateListener listener : getAllGameStateListeners())
             listener.addAssignment(fp, minions);
     }
 
-    public void removeAssignment(Skirmish skirmish) {
-        _assignments.remove(skirmish);
+    public void removeAssignment(Assignment assignment) {
+        _assignments.remove(assignment);
         for (GameStateListener listener : getAllGameStateListeners())
-            listener.removeAssignment(skirmish.getFellowshipCharacter());
+            listener.removeAssignment(assignment.getFellowshipCharacter());
     }
 
-    public List<Skirmish> getAssignments() {
+    public List<Assignment> getAssignments() {
         return _assignments;
     }
 
-    private Skirmish findAssignment(PhysicalCard fp) {
-        for (Skirmish assignment : _assignments)
+    private Assignment findAssignment(PhysicalCard fp) {
+        for (Assignment assignment : _assignments)
             if (assignment.getFellowshipCharacter() == fp)
                 return assignment;
         return null;
     }
 
     public void startSkirmish(PhysicalCard fp) {
-        Skirmish skirmish = findAssignment(fp);
-        removeAssignment(skirmish);
-        _skirmish = skirmish;
+        Assignment assignment = findAssignment(fp);
+        removeAssignment(assignment);
+        _skirmish = new Skirmish(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
         for (GameStateListener listener : getAllGameStateListeners())
             listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
     }

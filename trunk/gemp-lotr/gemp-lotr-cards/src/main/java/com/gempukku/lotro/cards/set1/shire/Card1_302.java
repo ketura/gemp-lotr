@@ -9,7 +9,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -39,7 +38,7 @@ public class Card1_302 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self))
-                && !isAssigned(game, self)) {
+                && Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
@@ -60,14 +59,4 @@ public class Card1_302 extends AbstractCompanion {
         return null;
     }
 
-    private boolean isAssigned(LotroGame game, PhysicalCard self) {
-        for (Skirmish skirmish : game.getGameState().getAssignments()) {
-            if (skirmish.getFellowshipCharacter() == self)
-                return true;
-        }
-        if (game.getGameState().getSkirmish().getFellowshipCharacter() == self)
-            return true;
-
-        return false;
-    }
 }
