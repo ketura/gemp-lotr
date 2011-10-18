@@ -7,6 +7,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.DeckInvalidException;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.HashMap;
@@ -19,17 +20,24 @@ public abstract class DefaultLotroFormat implements LotroFormat {
     private Block _siteBlock;
     private boolean _validateShadowFPCount = true;
     private int _maximumSameName = 4;
+    private boolean _mulliganRule;
     private int _minimumDeckSize = 60;
     private Set<String> _bannedCards = new HashSet<String>();
     private Set<String> _restrictedCards = new HashSet<String>();
     private Set<Integer> _validSets = new HashSet<Integer>();
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName) {
+    public DefaultLotroFormat(LotroCardBlueprintLibrary library, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule) {
         _library = library;
         _siteBlock = siteBlock;
         _validateShadowFPCount = validateShadowFPCount;
         _minimumDeckSize = minimumDeckSize;
         _maximumSameName = maximumSameName;
+        _mulliganRule = mulliganRule;
+    }
+
+    @Override
+    public boolean hasMulliganRule() {
+        return _mulliganRule;
     }
 
     protected void addBannedCard(String baseBlueprintId) {

@@ -7,7 +7,7 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.formats.LotroFormat;
+import com.gempukku.lotro.game.LotroFormat;
 
 import java.util.Set;
 

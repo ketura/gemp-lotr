@@ -1,7 +1,7 @@
 package com.gempukku.lotro.hall;
 
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.LotroGameParticipant;
-import com.gempukku.lotro.game.formats.LotroFormat;
 
 import java.util.*;
 

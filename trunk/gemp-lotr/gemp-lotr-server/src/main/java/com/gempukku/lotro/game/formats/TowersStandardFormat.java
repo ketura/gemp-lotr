@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 public class TowersStandardFormat extends DefaultLotroFormat {
     public TowersStandardFormat(LotroCardBlueprintLibrary library) {
-        super(library, Block.TWO_TOWERS, true, 60, 4);
+        super(library, Block.TWO_TOWERS, true, 60, 4, true);
 
         addBannedCard("1_40");
         addBannedCard("1_45");

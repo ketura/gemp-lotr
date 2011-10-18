@@ -44,6 +44,6 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
     @Override
     public GameProcess getNextProcess() {
         GameState gameState = _game.getGameState();
-        return new PlayStartingFellowshipGameProcess(_game, gameState.getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
+        return new PlayStartingFellowshipGameProcess(_game, gameState.getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false), _firstPlayer);
     }
 }

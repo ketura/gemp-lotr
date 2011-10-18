@@ -8,7 +8,7 @@ public class LeagueFormat extends DefaultLotroFormat {
     private boolean _orderedSites;
 
     public LeagueFormat(LotroCardBlueprintLibrary library, boolean orderedSites) {
-        super(library, Block.FELLOWSHIP, true, 60, Integer.MAX_VALUE);
+        super(library, Block.FELLOWSHIP, true, 60, Integer.MAX_VALUE, true);
         _orderedSites = orderedSites;
     }
 

@@ -10,12 +10,14 @@ import java.util.List;
 public class PlayStartingFellowshipGameProcess implements GameProcess {
     private LotroGame _game;
     private PlayOrder _playOrder;
+    private String _firstPlayer;
 
     private GameProcess _nextProcess;
 
-    public PlayStartingFellowshipGameProcess(LotroGame game, PlayOrder playOrder) {
+    public PlayStartingFellowshipGameProcess(LotroGame game, PlayOrder playOrder, String firstPlayer) {
         _game = game;
         _playOrder = playOrder;
+        _firstPlayer = firstPlayer;
     }
 
     @Override
@@ -34,9 +36,9 @@ public class PlayStartingFellowshipGameProcess implements GameProcess {
             for (PhysicalCard physicalCard : attachedToRingBearer)
                 _game.getGameState().startAffecting(_game, physicalCard, _game.getModifiersEnvironment());
 
-            _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_game, nextPlayer, new PlayStartingFellowshipGameProcess(_game, _playOrder));
+            _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_game, nextPlayer, new PlayStartingFellowshipGameProcess(_game, _playOrder, _firstPlayer));
         } else {
-            _nextProcess = new PlayersDrawEightCardsGameProcess(_game);
+            _nextProcess = new PlayersDrawEightCardsGameProcess(_game, _firstPlayer);
         }
     }
 
