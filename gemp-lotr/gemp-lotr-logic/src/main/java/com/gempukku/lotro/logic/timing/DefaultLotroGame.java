@@ -7,6 +7,7 @@ import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.ActionsEnvironment;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,6 +32,7 @@ public class DefaultLotroGame implements LotroGame {
     private ActionStack _actionStack;
 
     private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
+    private LotroFormat _format;
     private GameResultListener _gameResultListener;
 
     private Set<String> _allPlayers;
@@ -39,7 +41,8 @@ public class DefaultLotroGame implements LotroGame {
     private String _winReason;
     private Map<String, String> _losers = new HashMap<String, String>();
 
-    public DefaultLotroGame(Map<String, LotroDeck> decks, UserFeedback userFeedback, GameResultListener gameResultListener, final LotroCardBlueprintLibrary library) {
+    public DefaultLotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, GameResultListener gameResultListener, final LotroCardBlueprintLibrary library) {
+        _format = format;
         _gameResultListener = gameResultListener;
         _actionStack = new ActionStack();
 
@@ -78,6 +81,11 @@ public class DefaultLotroGame implements LotroGame {
 
         RuleSet ruleSet = new RuleSet(this, _actionsEnvironment, _modifiersLogic);
         ruleSet.applyRuleSet();
+    }
+
+    @Override
+    public LotroFormat getFormat() {
+        return _format;
     }
 
     public void startGame() {

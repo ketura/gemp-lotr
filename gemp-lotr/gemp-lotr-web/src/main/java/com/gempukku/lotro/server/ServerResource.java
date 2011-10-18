@@ -12,7 +12,6 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;

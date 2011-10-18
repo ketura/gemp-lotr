@@ -2,7 +2,6 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -42,7 +41,7 @@ public class LotroGameMediator {
             _playerClocks.put(participantId, 0);
             _playersPlaying.add(participantId);
         }
-        _lotroGame = new DefaultLotroGame(decks, _userFeedback, gameResultListener, library);
+        _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, gameResultListener, library);
     }
 
     public Set<String> getPlayersPlaying() {

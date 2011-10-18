@@ -8,7 +8,6 @@ import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.Player;
-import com.gempukku.lotro.game.formats.LotroFormat;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;

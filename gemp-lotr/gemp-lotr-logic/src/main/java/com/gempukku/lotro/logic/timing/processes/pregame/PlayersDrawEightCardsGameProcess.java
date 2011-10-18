@@ -7,9 +7,11 @@ import com.gempukku.lotro.logic.timing.processes.turn.StartOfTurnGameProcess;
 
 public class PlayersDrawEightCardsGameProcess implements GameProcess {
     private LotroGame _game;
+    private String _firstPlayer;
 
-    public PlayersDrawEightCardsGameProcess(LotroGame game) {
+    public PlayersDrawEightCardsGameProcess(LotroGame game, String firstPlayer) {
         _game = game;
+        _firstPlayer = firstPlayer;
     }
 
     @Override
@@ -24,6 +26,9 @@ public class PlayersDrawEightCardsGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new StartOfTurnGameProcess(_game);
+        if (_game.getFormat().hasMulliganRule())
+            return new MulliganProcess(_game, _game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
+        else
+            return new StartOfTurnGameProcess(_game);
     }
 }
