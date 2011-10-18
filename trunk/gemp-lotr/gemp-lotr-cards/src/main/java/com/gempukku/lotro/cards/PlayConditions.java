@@ -160,6 +160,10 @@ public class PlayConditions {
         return game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, source);
     }
 
+    public static boolean canSelfDiscard(PhysicalCard source, LotroGame game) {
+        return canBeDiscarded(source, game, source);
+    }
+
     public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, final Filterable... filters) {
         return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(filters,
                 new Filter() {
