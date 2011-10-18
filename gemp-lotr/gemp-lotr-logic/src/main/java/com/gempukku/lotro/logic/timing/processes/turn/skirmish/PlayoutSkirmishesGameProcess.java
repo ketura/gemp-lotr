@@ -3,9 +3,9 @@ package com.gempukku.lotro.logic.timing.processes.turn.skirmish;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
@@ -32,11 +32,11 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
             _nextProcess = _followingGameProcess;
         } else {
             final GameState gameState = _game.getGameState();
-            List<Skirmish> assignments = gameState.getAssignments();
+            List<Assignment> assignments = gameState.getAssignments();
 
             if (assignments.size() > 0) {
                 Set<PhysicalCard> fps = new HashSet<PhysicalCard>();
-                for (Skirmish assignment : assignments)
+                for (Assignment assignment : assignments)
                     fps.add(assignment.getFellowshipCharacter());
 
                 RequiredTriggerAction chooseNextSkirmishAction = new RequiredTriggerAction(null) {

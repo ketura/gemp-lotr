@@ -5,9 +5,9 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
@@ -41,17 +41,17 @@ public class Card3_115 extends AbstractSite {
                         for (Map.Entry<PhysicalCard, List<PhysicalCard>> minionsAssignedToCharacter : assignments.entrySet()) {
                             PhysicalCard fp = minionsAssignedToCharacter.getKey();
                             List<PhysicalCard> minions = minionsAssignedToCharacter.getValue();
-                            List<Skirmish> skirmishes = gameState.getAssignments();
-                            if (countMinionsCurrentlyAssignedToFPChar(skirmishes, fp) + minions.size() > 1)
+                            List<Assignment> alreadyAssigned = gameState.getAssignments();
+                            if (countMinionsCurrentlyAssignedToFPChar(alreadyAssigned, fp) + minions.size() > 1)
                                 return false;
                         }
                         return result;
                     }
 
-                    private int countMinionsCurrentlyAssignedToFPChar(List<Skirmish> skirmishes, PhysicalCard fp) {
-                        for (Skirmish skirmish : skirmishes) {
-                            if (skirmish.getFellowshipCharacter() == fp)
-                                return skirmish.getShadowCharacters().size();
+                    private int countMinionsCurrentlyAssignedToFPChar(List<Assignment> assignments, PhysicalCard fp) {
+                        for (Assignment assignment : assignments) {
+                            if (assignment.getFellowshipCharacter() == fp)
+                                return assignment.getShadowCharacters().size();
                         }
                         return 0;
                     }
