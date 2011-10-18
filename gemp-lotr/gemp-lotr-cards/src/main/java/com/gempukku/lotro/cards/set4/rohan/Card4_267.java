@@ -1,8 +1,6 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -38,15 +36,10 @@ public class Card4_267 extends AbstractCompanion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        twilightModifier -= (PlayConditions.canSpot(game, Filters.culture(Culture.ROHAN), Filters.race(Race.MAN))) ? 1 : 0;
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier);
-    }
-
-    @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        twilightModifier -= (PlayConditions.canSpot(game, Filters.culture(Culture.ROHAN), Filters.race(Race.MAN))) ? 1 : 0;
-        return super.getPlayCardAction(playerId, game, self, twilightModifier);
+    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+        if (Filters.canSpot(gameState, modifiersQuerying, Filters.culture(Culture.ROHAN), Filters.race(Race.MAN)))
+            return -1;
+        return 0;
     }
 
     @Override

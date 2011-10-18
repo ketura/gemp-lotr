@@ -3,10 +3,12 @@ package com.gempukku.lotro.cards;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -121,11 +123,6 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public int getCompanionStartingFellowshipModifier() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
-    }
-
-    @Override
     public Block getSiteBlock() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }
@@ -133,6 +130,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     @Override
     public int getSiteNumber() {
         throw new UnsupportedOperationException("This method should not be called on this card");
+    }
+
+    @Override
+    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+        return 0;
     }
 
     @Override

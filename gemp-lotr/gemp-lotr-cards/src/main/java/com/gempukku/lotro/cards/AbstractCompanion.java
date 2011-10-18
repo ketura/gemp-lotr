@@ -77,9 +77,4 @@ public abstract class AbstractCompanion extends AbstractPermanent {
     public int getResistance() {
         return 6;
     }
-
-    @Override
-    public int getCompanionStartingFellowshipModifier() {
-        return 0;
-    }
 }
