@@ -46,7 +46,12 @@ public class Card5_079 extends AbstractPermanent {
                         }
                     });
             possibleEffects.add(
-                    new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.POSSESSION));
+                    new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.POSSESSION) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Take a ROHAN possession into hand from your discard pile";
+                        }
+                    });
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
             action.appendEffect(
