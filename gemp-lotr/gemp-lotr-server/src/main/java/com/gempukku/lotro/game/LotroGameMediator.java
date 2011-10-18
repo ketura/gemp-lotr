@@ -3,8 +3,6 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.formats.LotroFormat;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -230,23 +228,6 @@ public class LotroGameMediator {
                     secondsLeft.put(player, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
                 }
                 visitor.visitClock(secondsLeft);
-
-                GameState gameState = _lotroGame.getGameState();
-                if (gameState != null) {
-                    Skirmish skirmish = gameState.getSkirmish();
-                    if (skirmish != null) {
-                        int fpStrength = 0;
-                        PhysicalCard fpChar = skirmish.getFellowshipCharacter();
-                        if (fpChar != null)
-                            fpStrength = _lotroGame.getModifiersQuerying().getStrength(gameState, fpChar);
-
-                        int minionStrength = 0;
-                        for (PhysicalCard minion : skirmish.getShadowCharacters())
-                            minionStrength += _lotroGame.getModifiersQuerying().getStrength(gameState, minion);
-
-                        visitor.visitSkirmishStats(fpStrength, minionStrength);
-                    }
-                }
             } else {
                 visitor.visitGameEvent(new GameEvent(GameEvent.Type.WARNING).message("Your browser was inactive for too long, please refresh your browser window to continue playing"));
             }
