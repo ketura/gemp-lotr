@@ -44,7 +44,7 @@ public class Card1_028 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new RevealTopCardsOfDrawDeckEffect(playerId, 3) {
+                new RevealTopCardsOfDrawDeckEffect(self, playerId, 3) {
                     @Override
                     protected void cardsRevealed(List<PhysicalCard> cards) {
                         for (PhysicalCard card : cards) {

@@ -43,7 +43,7 @@ public class Card3_006 extends AbstractOldEvent {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         action.insertEffect(
-                                new RevealRandomCardsFromHandEffect(opponentId, 1) {
+                                new RevealRandomCardsFromHandEffect(playerId, opponentId, self, 1) {
                                     @Override
                                     protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                         if (revealedCards.size() > 0) {

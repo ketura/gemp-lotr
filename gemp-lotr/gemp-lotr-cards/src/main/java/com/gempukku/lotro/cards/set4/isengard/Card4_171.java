@@ -57,7 +57,7 @@ public class Card4_171 extends AbstractAttachable {
             if (killEffect.getCharactersToBeKilled().contains(self.getAttachedTo())) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new RevealTopCardsOfDrawDeckEffect(game.getGameState().getCurrentPlayerId(), 10) {
+                        new RevealTopCardsOfDrawDeckEffect(self, game.getGameState().getCurrentPlayerId(), 10) {
                             @Override
                             protected void cardsRevealed(final List<PhysicalCard> cards) {
                                 action.appendEffect(

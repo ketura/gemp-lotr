@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
+import com.gempukku.lotro.cards.effects.RevealCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
@@ -43,7 +44,7 @@ public class Card2_024 extends AbstractAlly {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -53,6 +54,8 @@ public class Card2_024 extends AbstractAlly {
                     new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.any) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+                            action.appendEffect(
+                                    new RevealCardEffect(self, cards));
                             for (PhysicalCard card : cards) {
                                 action.appendEffect(
                                         new PutCardFromDiscardOnBottomOfDeckEffect(card));

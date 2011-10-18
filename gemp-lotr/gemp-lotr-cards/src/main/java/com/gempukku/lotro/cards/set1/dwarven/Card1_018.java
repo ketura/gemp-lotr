@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.Culture;
@@ -49,7 +50,7 @@ public class Card1_018 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
@@ -58,34 +59,35 @@ public class Card1_018 extends AbstractOldEvent {
                         new MultipleChoiceAwaitingDecision(1, "Choose player", GameUtils.getAllPlayers(game)) {
                             @Override
                             protected void validDecisionMade(int index, final String chosenPlayerId) {
-                                List<? extends PhysicalCard> deck = game.getGameState().getDeck(chosenPlayerId);
-                                int topCards = Math.min(deck.size(), 3);
-                                final List<PhysicalCard> topDeckCards = new LinkedList<PhysicalCard>(deck.subList(0, topCards));
+                                action.insertEffect(
+                                        new RevealTopCardsOfDrawDeckEffect(self, chosenPlayerId, 3) {
+                                            @Override
+                                            protected void cardsRevealed(final List<PhysicalCard> topDeckCards) {
+                                                if (topDeckCards.size() > 0) {
+                                                    Collection<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW));
 
-                                if (topDeckCards.size() > 0) {
-                                    Collection<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.SHADOW));
+                                                    if (shadowCards.size() > 0) {
+                                                        action.appendEffect(
+                                                                new ChooseArbitraryCardsEffect(playerId, "Choose shadow card to discard", new LinkedList<PhysicalCard>(shadowCards), 0, 1) {
+                                                                    @Override
+                                                                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                                                                        if (selectedCards.size() > 0) {
+                                                                            action.appendEffect(new DiscardCardFromDeckEffect(selectedCards.iterator().next()));
+                                                                            topDeckCards.removeAll(selectedCards);
+                                                                        }
 
-                                    if (shadowCards.size() > 0) {
-                                        action.appendEffect(
-                                                new ChooseArbitraryCardsEffect(playerId, "Choose shadow card to discard", new LinkedList<PhysicalCard>(shadowCards), 0, 1) {
-                                                    @Override
-                                                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                                        if (selectedCards.size() > 0) {
-                                                            action.appendEffect(new DiscardCardFromDeckEffect(selectedCards.iterator().next()));
-                                                            topDeckCards.removeAll(selectedCards);
-                                                        }
-
-                                                        if (topDeckCards.size() > 0)
-                                                            game.getGameState().removeCardsFromZone(topDeckCards);
+                                                                        if (topDeckCards.size() > 0)
+                                                                            game.getGameState().removeCardsFromZone(topDeckCards);
+                                                                    }
+                                                                });
                                                     }
-                                                });
-                                    }
 
-                                    action.appendEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
-                                }
+                                                    action.appendEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
+                                                }
+                                            }
+                                        });
                             }
-                        })
-        );
+                        }));
         return action;
     }
 

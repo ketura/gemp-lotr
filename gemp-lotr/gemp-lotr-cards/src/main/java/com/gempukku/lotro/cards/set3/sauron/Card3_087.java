@@ -46,7 +46,7 @@ public class Card3_087 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)));
         action.appendEffect(
-                new RevealRandomCardsFromHandEffect(game.getGameState().getCurrentPlayerId(), 1) {
+                new RevealRandomCardsFromHandEffect(playerId, game.getGameState().getCurrentPlayerId(), self, 1) {
                     @Override
                     protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                         if (revealedCards.size() > 0) {

@@ -42,7 +42,7 @@ public class Card3_067 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new RevealRandomCardsFromHandEffect(game.getGameState().getCurrentPlayerId(), 1) {
+                    new RevealRandomCardsFromHandEffect(playerId, game.getGameState().getCurrentPlayerId(), self, 1) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             for (PhysicalCard revealedCard : revealedCards) {

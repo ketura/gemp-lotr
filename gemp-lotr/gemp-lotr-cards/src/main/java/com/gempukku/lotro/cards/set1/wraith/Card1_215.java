@@ -31,7 +31,7 @@ public class Card1_215 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
@@ -40,7 +40,7 @@ public class Card1_215 extends AbstractOldEvent {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotCount = getValidatedResult(result);
                                 action.appendEffect(
-                                        new RevealTopCardsOfDrawDeckEffect(playerId, spotCount) {
+                                        new RevealTopCardsOfDrawDeckEffect(self, playerId, spotCount) {
                                             @Override
                                             protected void cardsRevealed(List<PhysicalCard> cards) {
                                                 for (PhysicalCard revealedCard : cards) {
