@@ -25,8 +25,7 @@ import java.util.List;
  */
 public class Card3_118 extends AbstractSite {
     public Card3_118() {
-        // TODO Check direction of the site
-        super("The Great River", Block.FELLOWSHIP, 7, 6, null);
+        super("The Great River", Block.FELLOWSHIP, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 
