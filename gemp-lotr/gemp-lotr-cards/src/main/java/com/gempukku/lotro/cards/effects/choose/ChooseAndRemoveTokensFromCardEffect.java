@@ -20,11 +20,22 @@ public class ChooseAndRemoveTokensFromCardEffect extends ChooseActiveCardEffect 
 
     @Override
     protected Filter getExtraFilter() {
-        return Filters.hasToken(_token, _count);
+        if (_token != null)
+            return Filters.hasToken(_token, _count);
+        else
+            return Filters.hasAnyTokens(_count);
     }
 
     @Override
     protected void cardSelected(LotroGame game, PhysicalCard card) {
-        game.getGameState().removeTokens(card, _token, _count);
+        if (_token != null)
+            game.getGameState().removeTokens(card, _token, _count);
+        else
+            for (Token token : Token.values()) {
+                if (game.getGameState().getTokenCount(card, token) > 0) {
+                    game.getGameState().removeTokens(card, token, _count);
+                    break;
+                }
+            }
     }
 }

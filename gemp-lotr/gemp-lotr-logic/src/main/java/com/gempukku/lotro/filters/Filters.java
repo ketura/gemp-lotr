@@ -67,6 +67,19 @@ public class Filters {
         };
     }
 
+    public static Filter hasAnyTokens(final int count) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                for (Token token : Token.values()) {
+                    if (gameState.getTokenCount(physicalCard, token) >= count)
+                        return true;
+                }
+                return false;
+            }
+        };
+    }
+
     public static Filter hasToken(final Token token) {
         return hasToken(token, 1);
     }
