@@ -20,7 +20,8 @@ public abstract class DefaultLotroFormat implements LotroFormat {
     private boolean _validateShadowFPCount = true;
     private int _maximumSameName = 4;
     private int _minimumDeckSize = 60;
-    private Set<String> _restrictedCard = new HashSet<String>();
+    private Set<String> _bannedCards = new HashSet<String>();
+    private Set<String> _restrictedCards = new HashSet<String>();
     private Set<Integer> _validSets = new HashSet<Integer>();
 
     public DefaultLotroFormat(LotroCardBlueprintLibrary library, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName) {
@@ -31,8 +32,12 @@ public abstract class DefaultLotroFormat implements LotroFormat {
         _maximumSameName = maximumSameName;
     }
 
-    protected void addRestrictedCard(String name) {
-        _restrictedCard.add(name);
+    protected void addBannedCard(String baseBlueprintId) {
+        _bannedCards.add(baseBlueprintId);
+    }
+
+    protected void addRestrictedCard(String baseBlueprintId) {
+        _restrictedCards.add(baseBlueprintId);
     }
 
     protected void addValidSet(int setNo) {
@@ -45,7 +50,7 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                     || _library.hasAlternateInSet(blueprintId, validSet))
                 return;
 
-        throw new DeckInvalidException("Deck contains card not valid for this format: " + _library.getLotroCardBlueprint(blueprintId).getName());
+        throw new DeckInvalidException("Deck contains card not from valid set: " + _library.getLotroCardBlueprint(blueprintId).getName());
     }
 
     @Override
@@ -56,14 +61,14 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                 throw new DeckInvalidException("Deck doesn't have a Ring-bearer");
             LotroCardBlueprint ringBearer = _library.getLotroCardBlueprint(deck.getRingBearer());
             if (!ringBearer.hasKeyword(Keyword.RING_BEARER))
-                throw new DeckInvalidException("Assigned Ring-bearer can not bear the ring");
+                throw new DeckInvalidException("Card assigned as Ring-bearer can not bear the ring");
 
             // Ring
             if (deck.getRing() == null)
                 throw new DeckInvalidException("Deck doesn't have a Ring");
             LotroCardBlueprint ring = _library.getLotroCardBlueprint(deck.getRing());
             if (ring.getCardType() != CardType.THE_ONE_RING)
-                throw new DeckInvalidException("Assigned Ring is not The One Ring");
+                throw new DeckInvalidException("Card assigned as Ring is not The One Ring");
 
             // Sites
             if (deck.getSites() == null)
@@ -73,9 +78,9 @@ public abstract class DefaultLotroFormat implements LotroFormat {
             for (String site : deck.getSites()) {
                 LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
                 if (siteBlueprint.getCardType() != CardType.SITE)
-                    throw new DeckInvalidException("Assigned Site is not really a site");
+                    throw new DeckInvalidException("Card assigned as Site is not really a site");
                 if (siteBlueprint.getSiteBlock() != _siteBlock)
-                    throw new DeckInvalidException("One of the sites is from a different block than the format allows");
+                    throw new DeckInvalidException("Site is not from the block used: " + siteBlueprint.getName());
             }
 
             if (_validSets.size() > 0) {
@@ -92,14 +97,14 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                 for (String site : deck.getSites()) {
                     LotroCardBlueprint blueprint = _library.getLotroCardBlueprint(site);
                     if (sites[blueprint.getSiteNumber() - 1])
-                        throw new DeckInvalidException("Deck has multiple of the same site number");
+                        throw new DeckInvalidException("Deck has multiple of the same site number: " + blueprint.getSiteNumber());
                     sites[blueprint.getSiteNumber() - 1] = true;
                 }
             }
 
             // Deck
             if (deck.getAdventureCards().size() < _minimumDeckSize)
-                throw new DeckInvalidException("Deck contains below minimum number of cards");
+                throw new DeckInvalidException("Deck contains below minimum number of cards: " + deck.getAdventureCards().size() + "<" + _minimumDeckSize);
             if (_validateShadowFPCount) {
                 int shadow = 0;
                 int fp = 0;
@@ -118,10 +123,12 @@ public abstract class DefaultLotroFormat implements LotroFormat {
 
             // Card count in deck and Ring-bearer
             Map<String, Integer> cardCountByName = new HashMap<String, Integer>();
+            Map<String, Integer> cardCountByBaseBlueprintId = new HashMap<String, Integer>();
             cardCountByName.put(ringBearer.getName(), 1);
             for (String blueprintId : deck.getAdventureCards()) {
                 LotroCardBlueprint cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
                 increateCount(cardCountByName, cardBlueprint.getName());
+                increateCount(cardCountByBaseBlueprintId, _library.getBaseBlueprintId(blueprintId));
             }
             for (Map.Entry<String, Integer> count : cardCountByName.entrySet()) {
                 if (count.getValue() > _maximumSameName)
@@ -129,10 +136,17 @@ public abstract class DefaultLotroFormat implements LotroFormat {
             }
 
             // Restricted cards
-            for (String name : _restrictedCard) {
-                Integer count = cardCountByName.get(name);
+            for (String blueprintId : _restrictedCards) {
+                Integer count = cardCountByBaseBlueprintId.get(blueprintId);
                 if (count != null && count > 1)
-                    throw new DeckInvalidException("Deck contains more than one copy of a restricted card: " + name);
+                    throw new DeckInvalidException("Deck contains more than one copy of an R-listed card: " + blueprintId);
+            }
+
+            // Banned cards
+            for (String blueprintId : _bannedCards) {
+                Integer count = cardCountByBaseBlueprintId.get(blueprintId);
+                if (count != null && count > 0)
+                    throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + blueprintId);
             }
 
         } catch (IllegalArgumentException exp) {

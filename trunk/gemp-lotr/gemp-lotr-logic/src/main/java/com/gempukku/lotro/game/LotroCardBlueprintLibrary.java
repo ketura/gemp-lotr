@@ -37,6 +37,14 @@ public class LotroCardBlueprintLibrary {
         }
     }
 
+    public String getBaseBlueprintId(String blueprintId) {
+        blueprintId = stripBlueprintModifiers(blueprintId);
+        String base = _blueprintMapping.get(blueprintId);
+        if (base != null)
+            return base;
+        return blueprintId;
+    }
+
     private void addAlternatives(String blueprint1, String blueprint2) {
         addAlternative(blueprint1, blueprint2);
         addAlternative(blueprint2, blueprint1);
@@ -62,10 +70,7 @@ public class LotroCardBlueprintLibrary {
     }
 
     public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) {
-        if (blueprintId.endsWith("*"))
-            blueprintId = blueprintId.substring(0, blueprintId.length() - 1);
-        if (blueprintId.endsWith("T"))
-            blueprintId = blueprintId.substring(0, blueprintId.length() - 1);
+        blueprintId = stripBlueprintModifiers(blueprintId);
 
         if (_blueprintMap.containsKey(blueprintId))
             return _blueprintMap.get(blueprintId);
@@ -73,6 +78,14 @@ public class LotroCardBlueprintLibrary {
         LotroCardBlueprint blueprint = getBlueprint(blueprintId);
         _blueprintMap.put(blueprintId, blueprint);
         return blueprint;
+    }
+
+    private String stripBlueprintModifiers(String blueprintId) {
+        if (blueprintId.endsWith("*"))
+            blueprintId = blueprintId.substring(0, blueprintId.length() - 1);
+        if (blueprintId.endsWith("T"))
+            blueprintId = blueprintId.substring(0, blueprintId.length() - 1);
+        return blueprintId;
     }
 
     //    public void initializeLibrary(String setNo, int maxCardIndex) {
