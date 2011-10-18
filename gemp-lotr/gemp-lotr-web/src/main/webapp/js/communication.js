@@ -8,7 +8,7 @@ var GempLotrCommunication = Class.extend({
     },
 
     startGameSession: function(callback) {
-        $.ajaxq("gameState", {
+        $.ajax({
             type: "GET",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
@@ -19,7 +19,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     updateGameState: function(callback) {
-        $.ajaxq("gameState", {
+        $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
@@ -30,8 +30,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     getGameCardModifiers: function(cardId, callback) {
-        $.ajaxq("gameCardModifiers");
-        $.ajaxq("gameCardModifiers", {
+        $.ajax({
             type: "GET",
             url: this.url + "/game/" + getUrlParam("gameId") + "/cardInfo",
             cache: false,
@@ -43,7 +42,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     gameDecisionMade: function(decisionId, response, callback) {
-        $.ajaxq("gameState", {
+        $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
@@ -57,7 +56,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     concede: function() {
-        $.ajaxq("gameState", {
+        $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId") + "/concede",
             cache: false,
@@ -68,7 +67,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     getDeck: function(deckType, callback) {
-        $.ajaxq("deck", {
+        $.ajax({
             type: "GET",
             url: this.url + "/deck/" + deckType,
             cache: false,
@@ -80,7 +79,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     getCollection: function(collectionType, filter, start, count, callback) {
-        $.ajaxq("collection", {
+        $.ajax({
             type: "GET",
             url: this.url + "/collection/" + collectionType,
             cache: false,
@@ -95,7 +94,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     saveDeck: function(deckType, contents, callback) {
-        $.ajaxq("deck", {
+        $.ajax({
             type: "POST",
             url: this.url + "/deck/" + deckType,
             cache: false,
@@ -108,8 +107,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     getDeckStats: function(contents, callback) {
-        $.ajaxq("deckStats");
-        $.ajaxq("deckStats", {
+        $.ajax({
             type: "POST",
             url: this.url + "/deck",
             cache: false,
@@ -122,7 +120,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     startChat: function(room, callback) {
-        $.ajaxq("chat", {
+        $.ajax({
             type: "GET",
             url: this.url + "/chat/" + room,
             cache: false,
@@ -134,7 +132,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     updateChat: function(room, callback) {
-        $.ajaxq("chat", {
+        $.ajax({
             type: "POST",
             url: this.url + "/chat/" + room,
             cache: false,
@@ -146,7 +144,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     sendChatMessage: function(room, message, callback) {
-        $.ajaxq("chat", {
+        $.ajax({
             type: "POST",
             url: this.url + "/chat/" + room,
             cache: false,
@@ -159,7 +157,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     getHall: function(callback) {
-        $.ajaxq("hall", {
+        $.ajax({
             type: "GET",
             url: this.url + "/hall",
             cache: false,
@@ -171,7 +169,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     joinTable: function(tableId, callback) {
-        $.ajaxq("hall", {
+        $.ajax({
             type: "POST",
             url: this.url + "/hall/" + tableId,
             cache: false,
@@ -183,7 +181,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     createTable: function(format, callback) {
-        $.ajaxq("hall", {
+        $.ajax({
             type: "POST",
             url: this.url + "/hall",
             cache: false,
@@ -196,7 +194,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     leaveTable: function() {
-        $.ajaxq("hall", {
+        $.ajax({
             type: "POST",
             url: this.url + "/hall/leave",
             cache: false,
@@ -207,7 +205,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     getStatus: function(callback) {
-        $.ajaxq("status", {
+        $.ajax({
             type: "GET",
             url: this.url + "/",
             cache: false,
@@ -219,7 +217,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     login: function(login, password, callback) {
-        $.ajaxq("login", {
+        $.ajax({
             type: "POST",
             url: this.url + "/login",
             cache: false,
@@ -233,7 +231,7 @@ var GempLotrCommunication = Class.extend({
         });
     },
     register: function(login, password, callback) {
-        $.ajaxq("register", {
+        $.ajax({
             type: "POST",
             url: this.url + "/register",
             cache: false,
