@@ -46,7 +46,7 @@ public class Card1_075 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
@@ -57,7 +57,7 @@ public class Card1_075 extends AbstractAttachableFPPossession {
                         @Override
                         protected void opponentChosen(final String opponentId) {
                             action.appendEffect(
-                                    new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, "Opponent's hand", Filters.none, 0, 0) {
+                                    new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
                                         @Override
                                         protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                             Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
