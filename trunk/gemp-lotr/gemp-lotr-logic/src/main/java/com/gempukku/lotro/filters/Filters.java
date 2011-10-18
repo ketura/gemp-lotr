@@ -469,6 +469,8 @@ public class Filters {
     }
 
     private static Filter changeToFilter(Filterable filter) {
+        if (filter == null)
+            return null;
         if (filter instanceof Filter)
             return (Filter) filter;
         else if (filter instanceof PhysicalCard)
