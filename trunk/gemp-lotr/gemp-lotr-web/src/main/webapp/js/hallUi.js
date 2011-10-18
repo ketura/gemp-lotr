@@ -11,9 +11,11 @@ var GempLotrHallUI = Class.extend({
 
     init: function(div, url, chat) {
         this.div = div;
-        this.comm = new GempLotrCommunication(url, function() {
-            chat.appendMessage("The game hall had a problem communicating with the server, no new updates will be displayed.", "warningMessage");
-            chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
+        this.comm = new GempLotrCommunication(url, function(xhr, ajaxOptions, thrownError) {
+            if (thrownError != "abort") {
+                chat.appendMessage("The game hall had a problem communicating with the server, no new updates will be displayed.", "warningMessage");
+                chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
+            }
         });
         this.chat = chat;
 
