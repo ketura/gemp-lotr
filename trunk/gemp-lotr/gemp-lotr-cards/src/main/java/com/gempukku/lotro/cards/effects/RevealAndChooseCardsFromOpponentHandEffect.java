@@ -4,16 +4,19 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class RevealAndChooseCardsFromOpponentHandEffect extends UnrespondableEffect {
+public abstract class RevealAndChooseCardsFromOpponentHandEffect extends AbstractEffect {
+    private Action _action;
     private String _playerId;
     private String _opponentId;
     private PhysicalCard _source;
@@ -22,7 +25,8 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Unrespo
     private int _minChosen;
     private int _maxChosen;
 
-    protected RevealAndChooseCardsFromOpponentHandEffect(String playerId, String opponentId, PhysicalCard source, String text, Filter selectionFilter, int minChosen, int maxChosen) {
+    protected RevealAndChooseCardsFromOpponentHandEffect(Action action, String playerId, String opponentId, PhysicalCard source, String text, Filter selectionFilter, int minChosen, int maxChosen) {
+        _action = action;
         _playerId = playerId;
         _opponentId = opponentId;
         _source = source;
@@ -33,10 +37,21 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Unrespo
     }
 
     @Override
-    public void doPlayEffect(LotroGame game) {
+    public boolean isPlayableInFull(LotroGame game) {
+        return (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId))
+                && game.getGameState().getHand(_opponentId).size() >= _minChosen;
+    }
+
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
-            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _opponentId + " hand - " + getAppendedNames(opponentHand));
+
+            SubAction subAction = new SubAction(_action);
+            subAction.appendEffect(
+                    new RevealCardsFromHandEffect(_source, _opponentId, opponentHand));
+            game.getActionsEnvironment().addActionToStack(subAction);
+
             Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
 
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -47,7 +62,19 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Unrespo
                             cardsSelected(selectedCards);
                         }
                     });
+            return new FullEffectResult(null, true, true);
         }
+        return new FullEffectResult(null, false, false);
+    }
+
+    @Override
+    public String getText(LotroGame game) {
+        return null;
+    }
+
+    @Override
+    public EffectResult.Type getType() {
+        return null;
     }
 
     protected abstract void cardsSelected(List<PhysicalCard> selectedCards);

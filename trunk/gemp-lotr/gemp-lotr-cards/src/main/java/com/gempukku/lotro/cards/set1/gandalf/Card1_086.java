@@ -42,7 +42,7 @@ public class Card1_086 extends AbstractOldEvent {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         action.appendEffect(
-                                new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
+                                new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
                                     @Override
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         // Do nothing, just revealing
