@@ -1,17 +1,11 @@
 TO DO:
 Before release:
-35. Check that all effects check if they are playable before doing anything, otherwise we might be in trouble some day.
 
 Next priority:
 30. Watching game replay after it's finished and sharing the game replay with others via code.
 
 Optional:
-23. Add ghost cards attached to cards they are affecting in case of things (non-possessions) affecting only one card
- (like skirmish strength bonuses, etc)
-4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
-final methods were possible to avoid implementation errors on new cards added.
 10. Add active/all cards switch to the user interface.
-36. Ensure the append and insert cost/effect are used approprietly.
 
 DONE:
 1. Introduce AbstractPermanent into Blueprint hierarchy.
@@ -50,108 +44,9 @@ multiple choices required.
 34. Player should be able to concede the game at any time.
 24. The events that are played and cards affected should be shown to the players briefly using animations to make it
  aestheticly pleasing.
-
-
-
-24-Sep-2011 22:10:19 com.sun.jersey.spi.container.ContainerResponse mapMappableContainerException
-SEVERE: The RuntimeException could not be mapped to a response, re-throwing to the HTTP container
-java.util.ConcurrentModificationException
-        at java.util.LinkedList$ListItr.checkForComodification(LinkedList.java:761)
-        at java.util.LinkedList$ListItr.next(LinkedList.java:696)
-        at com.gempukku.lotro.logic.effects.KillEffect.playEffect(KillEffect.java:59)
-        at com.gempukku.lotro.logic.timing.TurnProcedure$PlayOutRecognizableEffect.nextEffect(TurnProcedure.java:112)
-        at com.gempukku.lotro.logic.timing.ActionStack.getNextEffect(ActionStack.java:14)
-        at com.gempukku.lotro.logic.timing.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:46
-)
-        at com.gempukku.lotro.logic.timing.DefaultLotroGame.carryOutPendingActionsUntilDecisionNeeded(DefaultLotroGame.j
-ava:88)
-        at com.gempukku.lotro.game.LotroGameMediator.playerAnswered(LotroGameMediator.java:196)
-        at com.gempukku.lotro.server.ServerResource.gameEvent(ServerResource.java:187)
-        at sun.reflect.GeneratedMethodAccessor33.invoke(Unknown Source)
-        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
-        at java.lang.reflect.Method.invoke(Method.java:597)
-        at com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60)
-        at com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$TypeOutInvoker._dispa
-tch(AbstractResourceMethodDispatchProvider.java:185)
-        at com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDisp
-atcher.java:75)
-        at com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:288)
-        at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)
-        at com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108)
-        at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)
-        at com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1469)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1400)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1349)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1339)
-        at com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:416)
-        at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:537)
-        at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:699)
-        at javax.servlet.http.HttpServlet.service(HttpServlet.java:722)
-        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:304)
-        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:224)
-        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:175)
-        at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:462)
-        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:164)
-        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
-        at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:851)
-        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
-        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:405)
-        at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:278)
-        at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:515)
-        at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:302)
-        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
-        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
-        at java.lang.Thread.run(Thread.java:662)
-24-Sep-2011 22:10:19 org.apache.catalina.core.StandardWrapperValve invoke
-SEVERE: Servlet.service() for servlet [jersey] in context with path [/gemp-lotr] threw exception
-java.util.ConcurrentModificationException
-        at java.util.LinkedList$ListItr.checkForComodification(LinkedList.java:761)
-        at java.util.LinkedList$ListItr.next(LinkedList.java:696)
-        at com.gempukku.lotro.logic.effects.KillEffect.playEffect(KillEffect.java:59)
-        at com.gempukku.lotro.logic.timing.TurnProcedure$PlayOutRecognizableEffect.nextEffect(TurnProcedure.java:112)
-        at com.gempukku.lotro.logic.timing.ActionStack.getNextEffect(ActionStack.java:14)
-        at com.gempukku.lotro.logic.timing.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:46
-)
-        at com.gempukku.lotro.logic.timing.DefaultLotroGame.carryOutPendingActionsUntilDecisionNeeded(DefaultLotroGame.j
-ava:88)
-        at com.gempukku.lotro.game.LotroGameMediator.playerAnswered(LotroGameMediator.java:196)
-        at com.gempukku.lotro.server.ServerResource.gameEvent(ServerResource.java:187)
-        at sun.reflect.GeneratedMethodAccessor33.invoke(Unknown Source)
-        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
-        at java.lang.reflect.Method.invoke(Method.java:597)
-        at com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60)
-        at com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$TypeOutInvoker._dispa
-tch(AbstractResourceMethodDispatchProvider.java:185)
-        at com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDisp
-atcher.java:75)
-        at com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:288)
-        at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)
-        at com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108)
-        at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)
-        at com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1469)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1400)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1349)
-        at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1339)
-        at com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:416)
-        at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:537)
-        at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:699)
-        at javax.servlet.http.HttpServlet.service(HttpServlet.java:722)
-        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:304)
-        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
-        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:224)
-        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:175)
-        at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:462)
-        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:164)
-        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
-        at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:851)
-        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
-        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:405)
-        at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:278)
-        at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:515)
-        at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:302)
-        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
-        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
-        at java.lang.Thread.run(Thread.java:662)
+23. Add ghost cards attached to cards they are affecting in case of things (non-possessions) affecting only one card
+ (like skirmish strength bonuses, etc)
+4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
+final methods were possible to avoid implementation errors on new cards added.
+36. Ensure the append and insert cost/effect are used approprietly.
+35. Check that all effects check if they are playable before doing anything, otherwise we might be in trouble some day.
