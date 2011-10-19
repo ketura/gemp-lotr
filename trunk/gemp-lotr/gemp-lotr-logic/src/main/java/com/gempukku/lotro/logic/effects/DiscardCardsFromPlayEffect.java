@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,8 +21,8 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
         _source = source;
     }
 
-    public DiscardCardsFromPlayEffect(PhysicalCard source, Filter filter) {
-        super(filter);
+    public DiscardCardsFromPlayEffect(PhysicalCard source, Filterable... filters) {
+        super(filters);
         _source = source;
     }
 
