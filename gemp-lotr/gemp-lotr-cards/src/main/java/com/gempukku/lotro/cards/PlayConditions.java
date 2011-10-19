@@ -203,6 +203,10 @@ public class PlayConditions {
         return Filters.findFirstActive(gameState, modifiersQuerying, Filters.siteControlled(playerId)) != null;
     }
 
+    public static boolean winsSkirmish(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        return winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, filters);
+    }
+
     public static boolean winsSkirmish(EffectResult effectResult, PhysicalCard character) {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
