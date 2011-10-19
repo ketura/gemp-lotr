@@ -268,7 +268,7 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean isGettingWounded(Effect effect, LotroGame game, Filter... filters) {
+    public static boolean isGettingWounded(Effect effect, LotroGame game, Filterable... filters) {
         if (effect.getType() == EffectResult.Type.WOUND) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             return Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
