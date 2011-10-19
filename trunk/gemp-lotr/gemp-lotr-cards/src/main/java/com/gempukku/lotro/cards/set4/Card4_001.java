@@ -2,7 +2,10 @@ package com.gempukku.lotro.cards.set4;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
+import com.gempukku.lotro.cards.effects.TakeOffTheOneRingEffect;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.CardType;
@@ -10,7 +13,6 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -24,7 +26,6 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -73,21 +74,6 @@ public class Card4_001 extends AbstractAttachable {
                     new AddBurdenEffect(self, 1));
             action.appendEffect(
                     new PutOnTheOneRingEffect());
-            action.appendEffect(
-                    new AddUntilEndOfTurnActionProxyEffect(
-                            new AbstractActionProxy() {
-                                @Override
-                                public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                    if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                                            && ((StartOfPhaseResult) effectResult).getPhase() == Phase.REGROUP) {
-                                        ActivateCardAction action = new ActivateCardAction(null);
-                                        action.appendEffect(new TakeOffTheOneRingEffect());
-                                        return Collections.singletonList(action);
-                                    }
-                                    return null;
-                                }
-                            }
-                    ));
             return Collections.singletonList(action);
         }
         return null;
@@ -105,6 +91,18 @@ public class Card4_001 extends AbstractAttachable {
                 action.appendEffect(new AddBurdenEffect(self, 1));
                 return Collections.singletonList(action);
             }
+        }
+        return null;
+    }
+
+    @Override
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (game.getGameState().getCurrentPhase() == Phase.REGROUP
+                && game.getGameState().isWearingRing()
+                && effectResult.getType() == EffectResult.Type.START_OF_PHASE) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(new TakeOffTheOneRingEffect());
+            return Collections.singletonList(action);
         }
         return null;
     }
