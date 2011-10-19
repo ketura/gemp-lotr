@@ -50,7 +50,7 @@ public class Card1_044 extends AbstractOldEvent {
                     @Override
                     protected void opponentChosen(final String opponentId) {
                         action.appendEffect(
-                                new RevealAndChooseCardsFromOpponentHandEffect(playerId, opponentId, self, "Choose an ISENGARD minion", Filters.and(Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)), 0, 1) {
+                                new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Choose an ISENGARD minion", Filters.and(Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)), 0, 1) {
                                     @Override
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {
