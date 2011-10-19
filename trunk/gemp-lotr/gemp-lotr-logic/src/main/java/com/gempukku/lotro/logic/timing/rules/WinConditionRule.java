@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -24,7 +25,8 @@ public class WinConditionRule {
                     public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect) {
                         if (effect.getType() == EffectResult.Type.START_OF_PHASE
                                 && lotroGame.getGameState().getCurrentPhase() == Phase.REGROUP
-                                && lotroGame.getGameState().getCurrentSiteNumber() == 9)
+                                && lotroGame.getGameState().getCurrentSiteNumber() == 9
+                                && !lotroGame.getModifiersQuerying().hasFlagActive(ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE))
                             lotroGame.playerWon(lotroGame.getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
                         return null;
                     }
