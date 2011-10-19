@@ -15,6 +15,12 @@ var ChatBoxUI = Class.extend({
         this.div = div;
         this.communication = new GempLotrCommunication(url, function(xhr, ajaxOptions, thrownError) {
             if (thrownError != "abort") {
+                if (xhr != null) {
+                    if (xhr.status == 401) {
+                        that.appendMessage("Chat problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
+                        return;
+                    }
+                }
                 that.appendMessage("Chat had a problem communicating with the server, no new messages will be displayed, but your messages still might get sent.", "warningMessage");
                 that.appendMessage("Reload the browser page (press F5) to resume the chat.", "warningMessage");
             }
