@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class EventSerializer {
     public Node serializeEvent(Document doc, GameEvent gameEvent) {
-        Element eventElem = doc.createElement("gameEvent");
+        Element eventElem = doc.createElement("ge");
         eventElem.setAttribute("type", gameEvent.getType().name());
         if (gameEvent.getBlueprintId() != null)
             eventElem.setAttribute("blueprintId", gameEvent.getBlueprintId());

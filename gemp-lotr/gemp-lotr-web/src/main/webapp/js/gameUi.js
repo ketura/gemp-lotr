@@ -225,6 +225,7 @@ var GempLotrGameUI = Class.extend({
         });
 
         this.chatBox = new ChatBoxUI("Game" + getUrlParam("gameId"), $("#chatBox"), this.communication.url);
+        this.chatBox.chatUpdateInterval = 3000;
 
         $("#gameOptionsBox").append("<button id='concedeGame'>Concede game</button>");
         $("#concedeGame").button().click(
@@ -483,51 +484,51 @@ var GempLotrGameUI = Class.extend({
     },
 
     processGameEventsXml: function(element, animate) {
-        var gameEvents = element.getElementsByTagName("gameEvent");
+        var gameEvents = element.getElementsByTagName("ge");
 
         // Go through all the events 
         for (var i = 0; i < gameEvents.length; i++) {
             var gameEvent = gameEvents[i];
             var eventType = gameEvent.getAttribute("type");
-            if (eventType == "PUT_CARD_IN_PLAY") {
+            if (eventType == "PCIP") {
                 this.animations.putCardInPlay(gameEvent, animate);
-            } else if (eventType == "MOVE_CARD_IN_PLAY") {
+            } else if (eventType == "MCIP") {
                 this.animations.moveCardInPlay(gameEvent, animate);
-            } else if (eventType == "PARTICIPANT") {
+            } else if (eventType == "P") {
                 this.participant(gameEvent);
-            } else if (eventType == "REMOVE_CARD_FROM_PLAY") {
+            } else if (eventType == "RCFP") {
                 this.animations.removeCardFromPlay(gameEvent, animate);
-            } else if (eventType == "GAME_PHASE_CHANGE") {
+            } else if (eventType == "GPC") {
                 this.animations.gamePhaseChange(gameEvent, animate);
-            } else if (eventType == "TWILIGHT_POOL") {
+            } else if (eventType == "TP") {
                 this.animations.twilightPool(gameEvent, animate);
-            } else if (eventType == "TURN_CHANGE") {
+            } else if (eventType == "TC") {
                 this.animations.turnChange(gameEvent, animate);
-            } else if (eventType == "ADD_ASSIGNMENT") {
+            } else if (eventType == "AA") {
                 this.animations.addAssignment(gameEvent, animate);
-            } else if (eventType == "REMOVE_ASSIGNMENT") {
+            } else if (eventType == "RA") {
                 this.animations.removeAssignment(gameEvent, animate);
-            } else if (eventType == "START_SKIRMISH") {
+            } else if (eventType == "SS") {
                 this.animations.startSkirmish(gameEvent, animate);
-            } else if (eventType == "REMOVE_FROM_SKIRMISH") {
+            } else if (eventType == "RFS") {
                 this.animations.removeFromSkirmish(gameEvent, animate);
-            } else if (eventType == "END_SKIRMISH") {
+            } else if (eventType == "ES") {
                 this.animations.endSkirmish(animate);
-            } else if (eventType == "ADD_TOKENS") {
+            } else if (eventType == "AT") {
                 this.animations.addTokens(gameEvent, animate);
-            } else if (eventType == "REMOVE_TOKENS") {
+            } else if (eventType == "RT") {
                 this.animations.removeTokens(gameEvent, animate);
-            } else if (eventType == "PLAYER_POSITION") {
+            } else if (eventType == "PP") {
                 this.animations.playerPosition(gameEvent, animate);
-            } else if (eventType == "GAME_STATS") {
+            } else if (eventType == "GS") {
                 this.animations.gameStats(gameEvent, animate);
-            } else if (eventType == "MESSAGE") {
+            } else if (eventType == "M") {
                 this.animations.message(gameEvent, animate);
-            } else if (eventType == "WARNING") {
+            } else if (eventType == "W") {
                 this.animations.warning(gameEvent, animate);
-            } else if (eventType == "CARD_AFFECTS_CARD") {
+            } else if (eventType == "CAC") {
                 this.animations.cardAffectsCard(gameEvent, animate);
-            } else if (eventType == "EVENT_PLAYED") {
+            } else if (eventType == "EP") {
                 this.animations.eventPlayed(gameEvent, animate);
             }
         }

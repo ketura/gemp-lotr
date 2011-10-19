@@ -27,7 +27,7 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
         List<String> participantIds = new LinkedList<String>();
         for (String participant : participants)
             participantIds.add(participant);
-        _events.add(new GameEvent(PARTICIPANT).participantId(_self).allParticipantIds(participantIds));
+        _events.add(new GameEvent(P).participantId(_self).allParticipantIds(participantIds));
     }
 
     private int[] getCardIds(Collection<PhysicalCard> cards) {
@@ -42,17 +42,17 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
 
     @Override
     public void addAssignment(PhysicalCard freePeople, List<PhysicalCard> minions) {
-        _events.add(new GameEvent(ADD_ASSIGNMENT).cardId(freePeople.getCardId()).otherCardIds(getCardIds(minions)));
+        _events.add(new GameEvent(AA).cardId(freePeople.getCardId()).otherCardIds(getCardIds(minions)));
     }
 
     @Override
     public void removeAssignment(PhysicalCard freePeople) {
-        _events.add(new GameEvent(REMOVE_ASSIGNMENT).cardId(freePeople.getCardId()));
+        _events.add(new GameEvent(RA).cardId(freePeople.getCardId()));
     }
 
     @Override
     public void startSkirmish(PhysicalCard freePeople, List<PhysicalCard> minions) {
-        GameEvent gameEvent = new GameEvent(START_SKIRMISH).otherCardIds(getCardIds(minions));
+        GameEvent gameEvent = new GameEvent(SS).otherCardIds(getCardIds(minions));
         if (freePeople != null)
             gameEvent.cardId(freePeople.getCardId());
         _events.add(gameEvent);
@@ -60,82 +60,82 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
 
     @Override
     public void removeFromSkirmish(PhysicalCard card) {
-        _events.add(new GameEvent(REMOVE_FROM_SKIRMISH).card(card));
+        _events.add(new GameEvent(RFS).card(card));
     }
 
     @Override
     public void finishSkirmish() {
-        _events.add(new GameEvent(END_SKIRMISH));
+        _events.add(new GameEvent(ES));
     }
 
     @Override
     public void setCurrentPhase(Phase phase) {
-        _events.add(new GameEvent(GAME_PHASE_CHANGE).phase(phase));
+        _events.add(new GameEvent(GPC).phase(phase));
     }
 
     @Override
     public void cardCreated(PhysicalCard card) {
-        _events.add(new GameEvent(PUT_CARD_IN_PLAY).card(card));
+        _events.add(new GameEvent(PCIP).card(card));
     }
 
     @Override
     public void cardMoved(PhysicalCard card) {
-        _events.add(new GameEvent(MOVE_CARD_IN_PLAY).card(card));
+        _events.add(new GameEvent(MCIP).card(card));
     }
 
     @Override
     public void cardsRemoved(Collection<PhysicalCard> cards) {
-        _events.add(new GameEvent(REMOVE_CARD_FROM_PLAY).otherCardIds(getCardIds(cards)));
+        _events.add(new GameEvent(RCFP).otherCardIds(getCardIds(cards)));
     }
 
     @Override
     public void setPlayerPosition(String participant, int position) {
-        _events.add(new GameEvent(PLAYER_POSITION).participantId(participant).index(position));
+        _events.add(new GameEvent(PP).participantId(participant).index(position));
     }
 
     @Override
     public void setTwilight(int twilightPool) {
-        _events.add(new GameEvent(TWILIGHT_POOL).count(twilightPool));
+        _events.add(new GameEvent(TP).count(twilightPool));
     }
 
     @Override
     public void setCurrentPlayerId(String currentPlayerId) {
-        _events.add(new GameEvent(TURN_CHANGE).participantId(currentPlayerId));
+        _events.add(new GameEvent(TC).participantId(currentPlayerId));
     }
 
     @Override
     public void addTokens(PhysicalCard card, Token token, int count) {
-        _events.add(new GameEvent(ADD_TOKENS).card(card).token(token).count(count));
+        _events.add(new GameEvent(AT).card(card).token(token).count(count));
     }
 
     @Override
     public void removeTokens(PhysicalCard card, Token token, int count) {
-        _events.add(new GameEvent(REMOVE_TOKENS).card(card).token(token).count(count));
+        _events.add(new GameEvent(RT).card(card).token(token).count(count));
     }
 
     @Override
     public void sendMessage(String message) {
-        _events.add(new GameEvent(MESSAGE).message(message));
+        _events.add(new GameEvent(M).message(message));
     }
 
     @Override
     public void setSite(PhysicalCard card) {
-        _events.add(new GameEvent(PUT_CARD_IN_PLAY).card(card).index(card.getBlueprint().getSiteNumber()));
+        _events.add(new GameEvent(PCIP).card(card).index(card.getBlueprint().getSiteNumber()));
     }
 
     @Override
     public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCards) {
-        _events.add(new GameEvent(CARD_AFFECTS_CARD).participantId(playerPerforming).card(card).otherCardIds(getCardIds(affectedCards)));
+        _events.add(new GameEvent(CAC).participantId(playerPerforming).card(card).otherCardIds(getCardIds(affectedCards)));
     }
 
     @Override
     public void eventPlayed(PhysicalCard card) {
-        _events.add(new GameEvent(EVENT_PLAYED).card(card));
+        _events.add(new GameEvent(EP).card(card));
     }
 
     @Override
     public void sendGameStats(GameStats gameStats) {
-        _events.add(new GameEvent(GAME_STATS).gameStats(gameStats.makeACopy()));
+        _events.add(new GameEvent(GS).gameStats(gameStats.makeACopy()));
     }
 
     public List<GameEvent> consumeGameEvents() {
