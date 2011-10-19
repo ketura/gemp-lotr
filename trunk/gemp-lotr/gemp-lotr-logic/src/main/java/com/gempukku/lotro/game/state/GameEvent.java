@@ -11,14 +11,14 @@ import java.util.List;
 
 public class GameEvent {
     public enum Type {
-        PARTICIPANT, GAME_PHASE_CHANGE, TURN_CHANGE, PLAYER_POSITION, TWILIGHT_POOL,
-        PUT_CARD_IN_PLAY, MOVE_CARD_IN_PLAY, REMOVE_CARD_FROM_PLAY,
-        ADD_ASSIGNMENT, REMOVE_ASSIGNMENT,
-        START_SKIRMISH, REMOVE_FROM_SKIRMISH, END_SKIRMISH,
-        ADD_TOKENS, REMOVE_TOKENS,
-        MESSAGE, WARNING,
-        GAME_STATS,
-        CARD_AFFECTS_CARD, EVENT_PLAYED
+        P, GPC, TC, PP, TP,
+        PCIP, MCIP, RCFP,
+        AA, RA,
+        SS, RFS, ES,
+        AT, RT,
+        M, W,
+        GS,
+        CAC, EP
     }
 
     private String _message;

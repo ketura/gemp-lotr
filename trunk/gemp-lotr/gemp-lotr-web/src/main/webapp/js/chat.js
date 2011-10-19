@@ -7,6 +7,7 @@ var ChatBoxUI = Class.extend({
     chatListDiv: null,
     showTimestamps: false,
     talkBoxHeight: 25,
+    chatUpdateInterval: 1000,
 
     init: function(name, div, url, showList) {
         var that = this;
@@ -118,7 +119,7 @@ var ChatBoxUI = Class.extend({
             if (processAgain)
                 setTimeout(function() {
                     that.updateChatMessages();
-                }, 1000);
+                }, that.chatUpdateInterval);
         }
     },
 

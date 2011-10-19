@@ -222,7 +222,7 @@ public class LotroGameMediator {
 
                 String warning = _userFeedback.consumeWarning(participantId);
                 if (warning != null)
-                    visitor.visitGameEvent(new GameEvent(GameEvent.Type.WARNING).message(warning));
+                    visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
 
                 AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
                 if (awaitingDecision != null)
@@ -235,7 +235,7 @@ public class LotroGameMediator {
                 }
                 visitor.visitClock(secondsLeft);
             } else {
-                visitor.visitGameEvent(new GameEvent(GameEvent.Type.WARNING).message("Your browser was inactive for too long, please refresh your browser window to continue playing"));
+                visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message("Your browser was inactive for too long, please refresh your browser window to continue playing"));
             }
         } finally {
             _readLock.unlock();
