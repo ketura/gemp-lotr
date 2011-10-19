@@ -50,7 +50,8 @@ public class AssignmentPhaseEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        game.getGameState().sendMessage(_playerId + " assigns minion(s) to skirmish");
+        if (_assignments.size() > 0)
+            game.getGameState().sendMessage(_playerId + " assigns characters to skirmish");
         for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : _assignments.entrySet()) {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             List<PhysicalCard> minions = physicalCardListEntry.getValue();

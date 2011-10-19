@@ -63,7 +63,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractEffect {
             game.getActionsEnvironment().addActionToStack(subAction);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose card(s) to discard", discardableCards, _minimum, _maximum) {
+                    new CardsSelectionDecision(1, "Choose cards to discard", discardableCards, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

@@ -38,7 +38,8 @@ public class DrawCardEffect extends AbstractEffect {
                 drawn++;
             }
         }
-        game.getGameState().sendMessage(_playerId + " draws " + drawn + " card(s)");
+        if (drawn > 0)
+            game.getGameState().sendMessage(_playerId + " draws " + drawn + " card" + ((drawn > 1) ? "s" : ""));
 
         if (drawn > 0)
             return new FullEffectResult(new EffectResult[]{new DrawCardOrPutIntoHandResult(_playerId, drawn)}, _count == drawn, _count == drawn);

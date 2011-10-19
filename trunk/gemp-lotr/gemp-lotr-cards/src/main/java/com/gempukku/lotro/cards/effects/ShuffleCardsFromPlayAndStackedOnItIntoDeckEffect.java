@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -62,7 +63,7 @@ public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEf
 
             game.getGameState().shuffleCardsIntoDeck(toShuffleIn, _playerDeck);
 
-            game.getGameState().sendMessage(getAppendedNames(toShuffleIn) + " is/are shuffled into " + _playerDeck + " deck");
+            game.getGameState().sendMessage(getAppendedNames(toShuffleIn) + " " + GameUtils.be(toShuffleIn) + " shuffled into " + _playerDeck + " deck");
 
             cardsShuffledCallback(toShuffleIn);
         }

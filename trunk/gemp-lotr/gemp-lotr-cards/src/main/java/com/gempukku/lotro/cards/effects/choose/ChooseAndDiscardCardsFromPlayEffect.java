@@ -21,7 +21,7 @@ public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect
 
     @Override
     public String getText(LotroGame game) {
-        return "Choose card(s) to discard from play";
+        return null;
     }
 
     @Override

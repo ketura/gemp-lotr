@@ -39,7 +39,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Stack card(s) from hand";
+        return null;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
             game.getActionsEnvironment().addActionToStack(subAction);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose card(s) to stack", hand, _minimum, _maximum) {
+                    new CardsSelectionDecision(1, "Choose cards to stack", hand, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
