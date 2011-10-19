@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.set5.rohan;
+package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;

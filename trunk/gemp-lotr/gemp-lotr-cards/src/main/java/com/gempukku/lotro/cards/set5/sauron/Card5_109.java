@@ -1,9 +1,9 @@
-package com.gempukku.lotro.cards.set5.rohan;
+package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -28,12 +28,12 @@ import java.util.List;
  * Strength: 6
  * Vitality: 2
  * Site: 6
- * Game Text: Tracker. The site number of each [SAURON] Orc is -1. When you play this minion, you may exert him
- * and remove (2) to draw a card.
+ * Game Text: Tracker. The site number of each [SAURON] Orc is -1. When you play this minion you may exert him
+ * and discard 2 cards from hand to draw a card.
  */
-public class Card5_108 extends AbstractMinion {
-    public Card5_108() {
-        super(2, 6, 2, 6, Race.ORC, Culture.SAURON, "Orc Pursuer");
+public class Card5_109 extends AbstractMinion {
+    public Card5_109() {
+        super(2, 6, 2, 6, Race.ORC, Culture.SAURON, "Orc Runner");
         addKeyword(Keyword.TRACKER);
     }
 
@@ -47,12 +47,12 @@ public class Card5_108 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, self)
                 && PlayConditions.canSelfExert(self, game)
-                && game.getGameState().getTwilightPool() >= 2) {
+                && game.getGameState().getHand(playerId).size() >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new RemoveTwilightEffect(2));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
                     new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);

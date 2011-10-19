@@ -1,7 +1,9 @@
-package com.gempukku.lotro.cards.set5.rohan;
+package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -19,27 +21,30 @@ import java.util.List;
  * Set: Battle of Helm's Deep
  * Side: Shadow
  * Culture: Sauron
- * Twilight Cost: 3
+ * Twilight Cost: 2
  * Type: Minion • Orc
- * Strength: 9
- * Vitality: 3
+ * Strength: 7
+ * Vitality: 2
  * Site: 6
- * Game Text: When you play this minion, you may spot a [SAURON] condition to draw a card for each site you control
- * (limit 3).
+ * Game Text: When you play a [SAURON] condition, you may exert this minion and remove (2) to draw a card.
  */
-public class Card5_103 extends AbstractMinion {
-    public Card5_103() {
-        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Orc Captain");
+public class Card5_097 extends AbstractMinion {
+    public Card5_097() {
+        super(2, 7, 2, 6, Race.ORC, Culture.SAURON, "Gate Soldier");
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
-                && PlayConditions.canSpot(game, Culture.SAURON, CardType.CONDITION)) {
+        if (PlayConditions.played(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION)
+                && PlayConditions.canSelfExert(self, game)
+                && game.getGameState().getTwilightPool() >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int sitesControlled = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId));
+            action.appendCost(
+                    new ExertCharactersEffect(self, self));
+            action.appendCost(
+                    new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new DrawCardEffect(playerId, Math.min(3, sitesControlled)));
+                    new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;
