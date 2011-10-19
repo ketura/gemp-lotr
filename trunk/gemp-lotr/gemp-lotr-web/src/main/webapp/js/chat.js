@@ -19,6 +19,10 @@ var ChatBoxUI = Class.extend({
                     if (xhr.status == 401) {
                         that.appendMessage("Chat problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
                         return;
+                    } else {
+                        that.appendMessage("Chat had a problem communicating with the server (" + xhr.status + "), no new messages will be displayed, but your messages still might get sent.", "warningMessage");
+                        that.appendMessage("Reload the browser page (press F5) to resume the chat.", "warningMessage");
+                        return;
                     }
                 }
                 that.appendMessage("Chat had a problem communicating with the server, no new messages will be displayed, but your messages still might get sent.", "warningMessage");
