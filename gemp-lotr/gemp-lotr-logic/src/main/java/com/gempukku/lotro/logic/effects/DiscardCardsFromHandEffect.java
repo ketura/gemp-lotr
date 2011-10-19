@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromHandResult;
@@ -56,7 +57,8 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
                 if (card.getZone() == Zone.HAND)
                     discardedCards.add(card);
 
-            gameState.sendMessage(getAppendedNames(discardedCards) + " is/are discarded from hand");
+            if (discardedCards.size() > 0)
+                gameState.sendMessage(getAppendedNames(discardedCards) + " " + GameUtils.be(discardedCards) + " discarded from hand");
             gameState.removeCardsFromZone(discardedCards);
             for (PhysicalCard card : discardedCards)
                 gameState.addCardToZone(card, Zone.DISCARD);

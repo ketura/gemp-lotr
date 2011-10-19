@@ -26,7 +26,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     public ChooseAndHealCharactersEffect(Action action, String playerId, int minimum, int maximum, int count, Filterable... filters) {
-        super(action.getActionSource(), playerId, "Choose character(s) to heal", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose characters to heal", minimum, maximum, filters);
         _action = action;
         _playerId = playerId;
         _count = count;
@@ -44,7 +44,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Choose character(s) to heal";
+        return null;
     }
 
     @Override

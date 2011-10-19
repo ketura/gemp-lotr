@@ -51,7 +51,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Discard card(s) from hand";
+        return null;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
             cardsBeingDiscarded(hand, success);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose card(s) to discard", hand, _minimum, _maximum) {
+                    new CardsSelectionDecision(1, "Choose cards to discard", hand, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);

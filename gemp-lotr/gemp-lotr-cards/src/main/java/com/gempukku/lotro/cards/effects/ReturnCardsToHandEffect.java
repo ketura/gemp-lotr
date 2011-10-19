@@ -26,7 +26,8 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Return card(s) to hand";
+        Collection<PhysicalCard> cards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
+        return "Return " + getAppendedNames(cards) + " to hand";
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -49,7 +50,8 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
                 toDiscard.add(card);
         }
 
-        gameState.sendMessage(getAppendedNames(toDiscard) + " is/are discarded from being stacked");
+        if (toDiscard.size() > 0)
+            gameState.sendMessage(getAppendedNames(toDiscard) + " " + GameUtils.be(toDiscard) + " discarded from being stacked");
         gameState.removeCardsFromZone(toDiscard);
         for (PhysicalCard card : toDiscard)
             gameState.addCardToZone(card, Zone.DISCARD);

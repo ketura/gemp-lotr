@@ -5,6 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
@@ -61,9 +62,9 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() > 0)
             if (_sources != null)
-                game.getGameState().sendMessage(getAppendedNames(cards) + " is/are wounded by - " + getAppendedNames(_sources));
+                game.getGameState().sendMessage(getAppendedNames(cards) + " " + GameUtils.be(cards) + " wounded by - " + getAppendedNames(_sources));
             else
-                game.getGameState().sendMessage(getAppendedNames(cards) + " get(s) wounded");
+                game.getGameState().sendMessage(getAppendedNames(cards) + " " + GameUtils.be(cards) + " wounded");
 
         for (PhysicalCard woundedCard : cards) {
             game.getGameState().addWound(woundedCard);
