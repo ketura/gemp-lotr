@@ -1,15 +1,20 @@
-package com.gempukku.lotro.cards.set5.rohan;
+package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -25,12 +30,12 @@ import java.util.List;
  * Strength: 11
  * Vitality: 3
  * Site: 6
- * Game Text: Tracker. The site number of each [SAURON] Orc is -3. Maneuver: Exert Orc Patrol twice and spot another
- * [SAURON] Orc to discard a condition.
+ * Game Text: Tracker. The site number of each [SAURON] Orc is -3. Shadow: Exert Grishnakh twice and spot another
+ * [SAURON] Orc to draw 3 cards. The Free Peoples player may add 2 burdens to prevent this.
  */
-public class Card5_107 extends AbstractMinion {
-    public Card5_107() {
-        super(4, 11, 3, 6, Race.ORC, Culture.SAURON, "Orc Patrol", true);
+public class Card5_100 extends AbstractMinion {
+    public Card5_100() {
+        super(4, 11, 3, 6, Race.ORC, Culture.SAURON, "Grishnakh", true);
         addKeyword(Keyword.TRACKER);
     }
 
@@ -42,7 +47,7 @@ public class Card5_107 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfExert(self, 2, game)
                 && PlayConditions.canSpot(game, Culture.SAURON, Race.ORC, Filters.not(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -51,7 +56,10 @@ public class Card5_107 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));
+                    new PreventableEffect(action,
+                            new DrawCardEffect(playerId, 3),
+                            game.getGameState().getCurrentPlayerId(),
+                            new AddBurdenEffect(self, 2)));
             return Collections.singletonList(action);
         }
         return null;
