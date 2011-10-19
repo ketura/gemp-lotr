@@ -23,7 +23,7 @@ public class RevealCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Reveal cards from hand";
     }
 
     @Override
