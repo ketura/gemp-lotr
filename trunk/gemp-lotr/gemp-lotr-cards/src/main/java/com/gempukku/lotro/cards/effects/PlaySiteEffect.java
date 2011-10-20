@@ -71,21 +71,17 @@ public class PlaySiteEffect extends AbstractEffect {
                     zone = card.getZone();
                 stacked = new LinkedList<PhysicalCard>(gameState.getStackedCards(card));
 
-                if (gameState.getCurrentSiteNumber() == _siteNumber)
-                    gameState.stopAffecting(card);
                 gameState.removeCardsFromZone(Collections.singleton(card));
-                gameState.addCardToZone(card, Zone.DECK);
+                gameState.addCardToZone(game, card, Zone.DECK);
             }
 
             gameState.sendMessage(newSite.getOwner() + " plays " + GameUtils.getCardLink(newSite));
-            gameState.addCardToZone(newSite, Zone.ADVENTURE_PATH);
-            if (gameState.getCurrentSiteNumber() == _siteNumber)
-                gameState.startAffecting(game, newSite, game.getModifiersEnvironment());
+            gameState.addCardToZone(game, newSite, Zone.ADVENTURE_PATH);
 
             if (controlled != null) {
                 gameState.takeControlOfCard(controlled, newSite, zone);
                 for (PhysicalCard physicalCard : stacked)
-                    gameState.stackCard(physicalCard, newSite);
+                    gameState.stackCard(game, physicalCard, newSite);
             }
 
             sitePlayedCallback(newSite);

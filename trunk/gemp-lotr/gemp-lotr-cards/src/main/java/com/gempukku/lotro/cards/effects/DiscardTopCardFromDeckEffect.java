@@ -41,7 +41,7 @@ public class DiscardTopCardFromDeckEffect extends AbstractEffect {
             GameState gameState = game.getGameState();
             PhysicalCard card = gameState.removeTopDeckCard(_playerId);
             gameState.sendMessage(_playerId + " discards top card from his or her deck - " + GameUtils.getCardLink(card));
-            gameState.addCardToZone(card, Zone.DISCARD);
+            gameState.addCardToZone(game, card, Zone.DISCARD);
 
             return new FullEffectResult(null, true, true);
         }

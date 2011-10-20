@@ -45,12 +45,6 @@ public class StackCardFromPlayEffect extends AbstractEffect {
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(_card);
             List<PhysicalCard> stackedCards = gameState.getStackedCards(_card);
 
-            // First stop affecting (card and all attached to it)
-            game.getGameState().stopAffecting(_card);
-
-            for (PhysicalCard attachedCard : attachedCards)
-                gameState.stopAffecting(attachedCard);
-
             // Then remove from zones (card, attached and stacked on it)
             Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
             Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
@@ -63,13 +57,13 @@ public class StackCardFromPlayEffect extends AbstractEffect {
 
             // And put them in new zones (attached and stacked to discard, the card gets stacked on)
             for (PhysicalCard attachedCard : attachedCards)
-                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+                gameState.addCardToZone(game, attachedCard, Zone.DISCARD);
 
             for (PhysicalCard stackedCard : stackedCards)
-                gameState.addCardToZone(stackedCard, Zone.DISCARD);
+                gameState.addCardToZone(game, stackedCard, Zone.DISCARD);
 
             game.getGameState().sendMessage(GameUtils.getCardLink(_card) + " is stacked on " + GameUtils.getCardLink(_stackOn));
-            game.getGameState().stackCard(_card, _stackOn);
+            game.getGameState().stackCard(game, _card, _stackOn);
 
             // Send the result (attached cards get discarded)
             if (discardedCards.size() > 0)

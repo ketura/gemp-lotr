@@ -52,7 +52,7 @@ public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
                     Filters.siteNumber(nextSiteNumber)).iterator().next();
 
             gameState.removeCardsFromZone(Collections.singleton(nextSite));
-            gameState.addCardToZone(nextSite, Zone.ADVENTURE_PATH);
+            gameState.addCardToZone(_game, nextSite, Zone.ADVENTURE_PATH);
 
             final PhysicalCard site = nextSite;
 

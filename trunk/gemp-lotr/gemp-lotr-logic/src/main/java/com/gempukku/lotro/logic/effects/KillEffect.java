@@ -47,30 +47,28 @@ public class KillEffect extends AbstractSuccessfulEffect {
 
         for (PhysicalCard card : _cards) {
             gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
-            gameState.stopAffecting(card);
             gameState.removeCardsFromZone(Collections.singleton(card));
             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
                 killedCards.add(card);
-                gameState.addCardToZone(card, Zone.DEAD);
+                gameState.addCardToZone(game, card, Zone.DEAD);
             } else {
                 killedCards.add(card);
                 discardedCards.add(card);
-                gameState.addCardToZone(card, Zone.DISCARD);
+                gameState.addCardToZone(game, card, Zone.DISCARD);
             }
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
             for (PhysicalCard attachedCard : attachedCards) {
                 discardedCards.add(attachedCard);
 
-                gameState.stopAffecting(attachedCard);
                 gameState.removeCardsFromZone(Collections.singleton(attachedCard));
-                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+                gameState.addCardToZone(game, attachedCard, Zone.DISCARD);
             }
 
             List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
             for (PhysicalCard stackedCard : stackedCards) {
                 gameState.removeCardsFromZone(Collections.singleton(stackedCard));
-                gameState.addCardToZone(stackedCard, Zone.DISCARD);
+                gameState.addCardToZone(game, stackedCard, Zone.DISCARD);
             }
         }
 

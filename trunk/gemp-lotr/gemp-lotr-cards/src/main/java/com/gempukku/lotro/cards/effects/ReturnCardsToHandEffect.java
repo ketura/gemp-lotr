@@ -66,20 +66,17 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
         // Now do the actual things
         GameState gameState = game.getGameState();
-        // Stop affecting
-        for (PhysicalCard card : stoppedAffecting)
-            gameState.stopAffecting(card);
 
         // Remove from their zone
         gameState.removeCardsFromZone(removedFromZone);
 
         // Add cards to hand
         for (PhysicalCard card : cardsToReturnToHand)
-            gameState.addCardToZone(card, Zone.HAND);
+            gameState.addCardToZone(game, card, Zone.HAND);
 
         // Add discarded to discard
         for (PhysicalCard card : discardedFromPlay)
-            gameState.addCardToZone(card, Zone.DISCARD);
+            gameState.addCardToZone(game, card, Zone.DISCARD);
 
         if (discardedFromPlay.size() > 0)
             return new FullEffectResult(new EffectResult[]{new DiscardCardsFromPlayResult(discardedFromPlay)}, true, true);

@@ -67,7 +67,7 @@ public class Card1_022 extends AbstractOldEvent {
             final GameState gameState = game.getGameState();
             PhysicalCard card = gameState.removeTopDeckCard(_player);
             if (card != null) {
-                gameState.addCardToZone(card, Zone.DISCARD);
+                gameState.addCardToZone(game, card, Zone.DISCARD);
                 gameState.addTwilight(1);
                 _lastCard = card;
             }

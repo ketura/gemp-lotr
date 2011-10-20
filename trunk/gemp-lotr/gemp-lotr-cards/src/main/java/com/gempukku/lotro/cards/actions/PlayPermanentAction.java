@@ -73,8 +73,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
             if (!_cardPutIntoPlay) {
                 _cardPutIntoPlay = true;
-                game.getGameState().addCardToZone(_permanentPlayed, _zone);
-                game.getGameState().startAffecting(game, _permanentPlayed, game.getModifiersEnvironment());
+                game.getGameState().addCardToZone(game, _permanentPlayed, _zone);
             }
 
             if (!_cardPlayed) {
@@ -88,7 +87,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;
-                game.getGameState().addCardToZone(_permanentPlayed, Zone.DISCARD);
+                game.getGameState().addCardToZone(game, _permanentPlayed, Zone.DISCARD);
             }
         }
 
