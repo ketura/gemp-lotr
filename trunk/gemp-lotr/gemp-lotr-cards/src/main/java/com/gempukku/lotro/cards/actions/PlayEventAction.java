@@ -30,6 +30,8 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     private boolean _cardDiscarded;
 
+    private boolean _skipDiscardCard;
+
     public PlayEventAction(PhysicalCard card) {
         this(card, false);
     }
@@ -54,6 +56,10 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     public boolean isRequiresRanger() {
         return _requiresRanger;
+    }
+
+    public void skipDiscardPart() {
+        _skipDiscardCard = true;
     }
 
     @Override
@@ -93,7 +99,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
             }
         }
 
-        if (!_cardDiscarded) {
+        if (!_cardDiscarded && !_skipDiscardCard) {
             _cardDiscarded = true;
             final Zone targetZone = _playCardEffect.getTargetZone();
             if (targetZone != null)
