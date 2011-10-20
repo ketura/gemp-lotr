@@ -20,9 +20,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -56,7 +54,7 @@ public class Card6_011 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
@@ -66,43 +64,9 @@ public class Card6_011 extends AbstractEvent {
                             protected void validDecisionMade(int index, String result) {
                                 action.skipDiscardPart();
                                 if (index == 0)
-                                    action.insertEffect(
-                                            new AbstractSuccessfulEffect() {
-                                                @Override
-                                                public String getText(LotroGame game) {
-                                                    return null;
-                                                }
-
-                                                @Override
-                                                public EffectResult.Type getType() {
-                                                    return null;
-                                                }
-
-                                                @Override
-                                                public EffectResult[] playEffect(LotroGame game) {
-                                                    game.getGameState().putCardOnTopOfDeck(self);
-                                                    return null;
-                                                }
-                                            });
+                                    game.getGameState().putCardOnTopOfDeck(self);
                                 else
-                                    action.insertEffect(
-                                            new AbstractSuccessfulEffect() {
-                                                @Override
-                                                public String getText(LotroGame game) {
-                                                    return null;
-                                                }
-
-                                                @Override
-                                                public EffectResult.Type getType() {
-                                                    return null;
-                                                }
-
-                                                @Override
-                                                public EffectResult[] playEffect(LotroGame game) {
-                                                    game.getGameState().putCardOnBottomOfDeck(self);
-                                                    return null;
-                                                }
-                                            });
+                                    game.getGameState().putCardOnBottomOfDeck(self);
                             }
                         }) {
                     @Override
@@ -124,7 +88,6 @@ public class Card6_011 extends AbstractEvent {
                                         new MultipleChoiceAwaitingDecision(1, "Where to put selected card?", new String[]{"Top of deck", "Bottom of deck"}) {
                                             @Override
                                             protected void validDecisionMade(int index, String result) {
-
                                                 if (index == 0)
                                                     for (PhysicalCard selectedCard : selectedCards)
                                                         action.insertEffect(

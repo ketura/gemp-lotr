@@ -42,6 +42,8 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
         _cardToAttach = card;
 
+        final Zone zone = card.getZone();
+
         _chooseTargetEffect =
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
                     @Override
@@ -60,8 +62,8 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                                 modifier += filterIntegerEntry.getValue();
 
                         List<Effect> preCostEffects = new LinkedList<Effect>();
-                        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable() + " on " + GameUtils.getCardLink(target)));
-                        if (card.getZone() == Zone.DECK)
+                        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + zone.getHumanReadable() + " on " + GameUtils.getCardLink(target)));
+                        if (zone == Zone.DECK)
                             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
                         appendCost(new PayPlayOnTwilightCostEffect(card, target, modifier));
 
