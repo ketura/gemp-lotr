@@ -58,6 +58,15 @@ public class Filters {
 
     // Filters available
 
+    public static Filter lessStrengthThan(final PhysicalCard card) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getStrength(gameState, physicalCard) < modifiersQuerying.getStrength(gameState, card);
+            }
+        };
+    }
+
     public static Filter possessionClass(final PossessionClass possessionClass) {
         return new Filter() {
             @Override
