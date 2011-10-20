@@ -68,6 +68,11 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return _eventPlayed;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return "Play " + _eventPlayed.getBlueprint().getName();
     }

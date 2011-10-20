@@ -26,6 +26,11 @@ public class SubAction implements Action {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return _action.getActionAttachedToCard();
+    }
+
+    @Override
     public Phase getActionTimeword() {
         return _action.getActionTimeword();
     }

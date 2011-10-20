@@ -30,7 +30,7 @@ public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
     private String[] getCardIds(List<? extends Action> actions) {
         String[] result = new String[actions.size()];
         for (int i = 0; i < result.length; i++) {
-            PhysicalCard physicalCard = actions.get(i).getActionSource();
+            PhysicalCard physicalCard = actions.get(i).getActionAttachedToCard();
             if (physicalCard != null)
                 result[i] = String.valueOf(physicalCard.getBlueprintId());
             else

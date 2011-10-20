@@ -21,6 +21,11 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return _physicalCard;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return null;
     }

@@ -52,6 +52,11 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return _permanentPlayed;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return "Play " + _permanentPlayed.getBlueprint().getName();
     }

@@ -7,6 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 public interface Action {
     public PhysicalCard getActionSource();
 
+    public PhysicalCard getActionAttachedToCard();
+
     public void setActionTimeword(Phase phase);
 
     public Phase getActionTimeword();

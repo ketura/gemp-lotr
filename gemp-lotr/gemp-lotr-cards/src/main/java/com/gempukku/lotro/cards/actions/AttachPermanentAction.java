@@ -88,6 +88,11 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return _cardToAttach;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return "Attach " + _cardToAttach.getBlueprint().getName();
     }

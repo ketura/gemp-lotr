@@ -32,7 +32,7 @@ public abstract class CardActionSelectionDecision extends AbstractAwaitingDecisi
     private String[] getCardIds(List<? extends Action> actions) {
         String[] result = new String[actions.size()];
         for (int i = 0; i < result.length; i++)
-            result[i] = String.valueOf(actions.get(i).getActionSource().getCardId());
+            result[i] = String.valueOf(actions.get(i).getActionAttachedToCard().getCardId());
         return result;
     }
 

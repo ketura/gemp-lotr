@@ -8,16 +8,27 @@ import com.gempukku.lotro.logic.timing.Effect;
 
 public class OptionalTriggerAction extends AbstractCostToEffectAction {
     private PhysicalCard _physicalCard;
+    private PhysicalCard _actionAttachedToCard;
 
     private boolean _sentMessage;
 
     public OptionalTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
+        _actionAttachedToCard = physicalCard;
+    }
+
+    public void setActionAttachedToCard(PhysicalCard actionAttachedToCard) {
+        _actionAttachedToCard = actionAttachedToCard;
     }
 
     @Override
     public PhysicalCard getActionSource() {
         return _physicalCard;
+    }
+
+    @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return _actionAttachedToCard;
     }
 
     @Override
