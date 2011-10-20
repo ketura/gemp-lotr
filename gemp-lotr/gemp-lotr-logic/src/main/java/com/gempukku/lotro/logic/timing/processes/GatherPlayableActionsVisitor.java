@@ -22,8 +22,14 @@ public class GatherPlayableActionsVisitor extends CompletePhysicalCardVisitor {
     @Override
     protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
         List<? extends Action> list = physicalCard.getBlueprint().getPhaseActions(_playerId, _game, physicalCard);
-        if (list != null)
-            _actions.addAll(list);
+        if (list != null) {
+            for (Action action : list) {
+                if (action != null)
+                    _actions.add(action);
+                else
+                    System.out.println("Null action from: " + physicalCard.getBlueprint().getName());
+            }
+        }
     }
 
     public List<? extends Action> getActions() {
