@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.modifiers;
 
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
@@ -13,11 +13,11 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 public class MinionSiteNumberModifier extends AbstractModifier {
     private Evaluator _evaluator;
 
-    public MinionSiteNumberModifier(PhysicalCard source, Filter affectFilter, Condition condition, int modifier) {
+    public MinionSiteNumberModifier(PhysicalCard source, Filterable affectFilter, Condition condition, int modifier) {
         this(source, affectFilter, condition, new ConstantEvaluator(modifier));
     }
 
-    public MinionSiteNumberModifier(PhysicalCard source, Filter affectFilter, Condition condition, Evaluator evaluator) {
+    public MinionSiteNumberModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
         super(source, null, affectFilter, condition, new ModifierEffect[]{ModifierEffect.SITE_NUMBER_MODIFIER});
         _evaluator = evaluator;
     }
