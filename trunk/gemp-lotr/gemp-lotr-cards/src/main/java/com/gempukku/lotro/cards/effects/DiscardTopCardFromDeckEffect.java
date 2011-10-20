@@ -40,11 +40,16 @@ public class DiscardTopCardFromDeckEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             PhysicalCard card = gameState.removeTopDeckCard(_playerId);
+            cardDiscardedCallback(card);
             gameState.sendMessage(_playerId + " discards top card from his or her deck - " + GameUtils.getCardLink(card));
             gameState.addCardToZone(game, card, Zone.DISCARD);
 
             return new FullEffectResult(null, true, true);
         }
         return new FullEffectResult(null, false, false);
+    }
+
+    protected void cardDiscardedCallback(PhysicalCard card) {
+
     }
 }
