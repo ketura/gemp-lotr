@@ -12,6 +12,11 @@ public abstract class SystemAction implements Action {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        throw new UnsupportedOperationException("System action has no action source");
+    }
+
+    @Override
     public Phase getActionTimeword() {
         return null;
     }

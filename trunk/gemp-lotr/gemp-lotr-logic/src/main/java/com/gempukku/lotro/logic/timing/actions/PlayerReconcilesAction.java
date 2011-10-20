@@ -43,6 +43,11 @@ public class PlayerReconcilesAction implements Action {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return null;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return "Player reconciles";
     }

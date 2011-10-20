@@ -43,6 +43,11 @@ public class ResolveSkirmishAction implements Action {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return null;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return "Resolving skirmish";
     }

@@ -30,6 +30,11 @@ public class SimpleEffectAction implements Action {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return null;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return _text;
     }

@@ -25,6 +25,11 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return _physicalCard;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return "Use " + _physicalCard.getBlueprint().getName();
     }

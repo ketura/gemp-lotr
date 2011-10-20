@@ -11,6 +11,11 @@ public class SystemQueueAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public PhysicalCard getActionAttachedToCard() {
+        return null;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return null;
     }
