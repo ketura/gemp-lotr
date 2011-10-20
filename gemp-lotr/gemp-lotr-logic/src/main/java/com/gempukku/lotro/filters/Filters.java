@@ -71,8 +71,9 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                for (Token token : Token.values()) {
-                    if (gameState.getTokenCount(physicalCard, token) >= count)
+                Map<Token, Integer> tokens = gameState.getTokens(physicalCard);
+                for (Integer integer : tokens.values()) {
+                    if (integer >= count)
                         return true;
                 }
                 return false;

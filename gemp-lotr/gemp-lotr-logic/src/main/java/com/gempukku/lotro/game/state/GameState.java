@@ -596,6 +596,13 @@ public class GameState {
         return _playerPosition.get(playerId);
     }
 
+    public Map<Token, Integer> getTokens(PhysicalCard card) {
+        Map<Token, Integer> map = _cardTokens.get(card);
+        if (map == null)
+            return Collections.emptyMap();
+        return Collections.unmodifiableMap(map);
+    }
+
     public int getTokenCount(PhysicalCard physicalCard, Token token) {
         Map<Token, Integer> tokens = _cardTokens.get(physicalCard);
         if (tokens == null)
