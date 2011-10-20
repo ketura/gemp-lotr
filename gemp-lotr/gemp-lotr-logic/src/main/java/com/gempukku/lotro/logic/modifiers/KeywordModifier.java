@@ -4,25 +4,38 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class KeywordModifier extends AbstractModifier {
     private Keyword _keyword;
-    private int _count;
+    private Evaluator _evaluator;
 
     public KeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Keyword keyword) {
         this(physicalCard, affectFilter, keyword, 1);
     }
 
     public KeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Keyword keyword, int count) {
-        super(physicalCard, "Has " + keyword.getHumanReadable() + ((count > 1) ? (" +" + count) : ""), affectFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
-        _keyword = keyword;
-        _count = count;
+        this(physicalCard, affectFilter, null, keyword, count);
     }
 
     public KeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Condition condition, Keyword keyword, int count) {
-        super(physicalCard, "Has " + keyword.getHumanReadable() + ((count > 1) ? (" +" + count) : ""), affectFilter, condition, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
+        this(physicalCard, affectFilter, condition, keyword, new ConstantEvaluator(count));
+    }
+
+    public KeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Condition condition, Keyword keyword, Evaluator evaluator) {
+        super(physicalCard, null, affectFilter, condition, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
         _keyword = keyword;
-        _count = count;
+        _evaluator = evaluator;
+    }
+
+    @Override
+    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+        if (_keyword.isMultiples()) {
+            int count = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
+            return _keyword.getHumanReadable() + " +" + count;
+        }
+        return _keyword.getHumanReadable();
     }
 
     @Override
@@ -33,7 +46,7 @@ public class KeywordModifier extends AbstractModifier {
     @Override
     public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
         if (keyword == _keyword)
-            return result + _count;
+            return result + _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
         else
             return result;
     }
