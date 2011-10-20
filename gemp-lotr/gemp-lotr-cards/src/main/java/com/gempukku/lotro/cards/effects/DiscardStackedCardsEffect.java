@@ -54,7 +54,7 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
             gameState.sendMessage(getAppendedNames(toDiscard) + " " + GameUtils.be(toDiscard) + " discarded from being stacked");
         gameState.removeCardsFromZone(toDiscard);
         for (PhysicalCard card : toDiscard)
-            gameState.addCardToZone(card, Zone.DISCARD);
+            gameState.addCardToZone(game, card, Zone.DISCARD);
 
         return new FullEffectResult(null, toDiscard.size() == _cards.size(), toDiscard.size() == _cards.size());
     }

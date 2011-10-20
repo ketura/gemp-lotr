@@ -37,7 +37,7 @@ public class DiscardBottomCardFromDeckEffect extends AbstractEffect {
             GameState gameState = game.getGameState();
             PhysicalCard card = gameState.removeBottomDeckCard(_playerId);
             gameState.sendMessage(_playerId + " discards bottom card from his or her deck - " + GameUtils.getCardLink(card));
-            gameState.addCardToZone(card, Zone.DISCARD);
+            gameState.addCardToZone(game, card, Zone.DISCARD);
 
             discardedCardCallback(card);
 

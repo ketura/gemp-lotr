@@ -127,13 +127,13 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
             } else {
                 if (!_cardDiscarded) {
                     _cardDiscarded = true;
-                    game.getGameState().addCardToZone(_cardToAttach, Zone.DISCARD);
+                    game.getGameState().addCardToZone(game, _cardToAttach, Zone.DISCARD);
                 }
             }
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;
-                game.getGameState().addCardToZone(_cardToAttach, Zone.DISCARD);
+                game.getGameState().addCardToZone(game, _cardToAttach, Zone.DISCARD);
             }
         }
 

@@ -35,8 +35,7 @@ public class AttachCardEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
-            gameState.attachCard(_physicalCard, _targetCard);
-            gameState.startAffecting(game, _physicalCard, game.getModifiersEnvironment());
+            gameState.attachCard(game, _physicalCard, _targetCard);
             return new FullEffectResult(null, true, true);
         }
         return new FullEffectResult(null, false, false);

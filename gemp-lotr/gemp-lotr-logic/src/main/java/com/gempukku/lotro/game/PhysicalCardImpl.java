@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierHook;
-import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +20,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     private PhysicalCardImpl _stackedOn;
 
     private List<ModifierHook> _modifierHooks;
+    private List<ModifierHook> _modifierHooksStacked;
 
     private Object _data;
 
@@ -60,12 +60,12 @@ public class PhysicalCardImpl implements PhysicalCard {
         return _cardController;
     }
 
-    public void startAffectingGame(LotroGame game, ModifiersEnvironment modifiersEnvironment) {
+    public void startAffectingGame(LotroGame game) {
         List<? extends Modifier> modifiers = _blueprint.getAlwaysOnModifiers(game, this);
         if (modifiers != null) {
             _modifierHooks = new LinkedList<ModifierHook>();
             for (Modifier modifier : modifiers)
-                _modifierHooks.add(modifiersEnvironment.addAlwaysOnModifier(modifier));
+                _modifierHooks.add(game.getModifiersEnvironment().addAlwaysOnModifier(modifier));
         }
     }
 
@@ -74,6 +74,23 @@ public class PhysicalCardImpl implements PhysicalCard {
             for (ModifierHook modifierHook : _modifierHooks)
                 modifierHook.stop();
             _modifierHooks = null;
+        }
+    }
+
+    public void startAffectingGameStacked(LotroGame game) {
+        List<? extends Modifier> modifiers = _blueprint.getStackedOnModifiers(game, this);
+        if (modifiers != null) {
+            _modifierHooksStacked = new LinkedList<ModifierHook>();
+            for (Modifier modifier : modifiers)
+                _modifierHooksStacked.add(game.getModifiersEnvironment().addAlwaysOnModifier(modifier));
+        }
+    }
+
+    public void stopAffectingGameStacked() {
+        if (_modifierHooksStacked != null) {
+            for (ModifierHook modifierHook : _modifierHooksStacked)
+                modifierHook.stop();
+            _modifierHooksStacked = null;
         }
     }
 

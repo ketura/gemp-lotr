@@ -95,7 +95,9 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         if (!_cardDiscarded) {
             _cardDiscarded = true;
-            game.getGameState().addCardToZone(_eventPlayed, _playCardEffect.getTargetZone());
+            final Zone targetZone = _playCardEffect.getTargetZone();
+            if (targetZone != null)
+                game.getGameState().addCardToZone(game, _eventPlayed, targetZone);
         }
 
         return null;

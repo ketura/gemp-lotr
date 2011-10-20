@@ -48,7 +48,7 @@ public class DiscardCardAtRandomFromHandEffect extends AbstractEffect {
             PhysicalCard randomCard = hand.get(new Random().nextInt(hand.size()));
             gameState.sendMessage(_playerId + " randomly discards " + GameUtils.getCardLink(randomCard));
             gameState.removeCardsFromZone(Collections.singleton(randomCard));
-            gameState.addCardToZone(randomCard, Zone.DISCARD);
+            gameState.addCardToZone(game, randomCard, Zone.DISCARD);
             return new FullEffectResult(new EffectResult[]{new DiscardCardsFromHandResult(_source, Collections.singleton(randomCard), _forced)}, true, true);
         }
         return new FullEffectResult(null, false, false);

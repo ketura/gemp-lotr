@@ -59,23 +59,21 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
             discardedCards.add(card);
 
             GameState gameState = game.getGameState();
-            gameState.stopAffecting(card);
             gameState.removeCardsFromZone(Collections.singleton(card));
-            gameState.addCardToZone(card, Zone.DISCARD);
+            gameState.addCardToZone(game, card, Zone.DISCARD);
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
             for (PhysicalCard attachedCard : attachedCards) {
                 discardedCards.add(attachedCard);
 
-                gameState.stopAffecting(attachedCard);
                 gameState.removeCardsFromZone(Collections.singleton(attachedCard));
-                gameState.addCardToZone(attachedCard, Zone.DISCARD);
+                gameState.addCardToZone(game, attachedCard, Zone.DISCARD);
             }
 
             List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
             for (PhysicalCard stackedCard : stackedCards) {
                 gameState.removeCardsFromZone(Collections.singleton(stackedCard));
-                gameState.addCardToZone(stackedCard, Zone.DISCARD);
+                gameState.addCardToZone(game, stackedCard, Zone.DISCARD);
             }
         }
 

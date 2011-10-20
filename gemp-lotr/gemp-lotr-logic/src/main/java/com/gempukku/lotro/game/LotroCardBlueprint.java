@@ -46,6 +46,8 @@ public interface LotroCardBlueprint {
 
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self);
 
+    public List<? extends Modifier> getStackedOnModifiers(LotroGame game, PhysicalCard self);
+
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 
     public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);

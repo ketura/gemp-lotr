@@ -41,7 +41,7 @@ public class StackTopCardsFromDeckEffect extends AbstractEffect {
             for (int i = 0; i < _count; i++) {
                 final PhysicalCard card = game.getGameState().removeTopDeckCard(_playerId);
                 if (card != null) {
-                    game.getGameState().stackCard(card, _target);
+                    game.getGameState().stackCard(game, card, _target);
                     stacked++;
                 }
             }

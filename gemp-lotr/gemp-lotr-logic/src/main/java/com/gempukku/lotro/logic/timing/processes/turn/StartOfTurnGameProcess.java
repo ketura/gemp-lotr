@@ -21,7 +21,7 @@ public class StartOfTurnGameProcess implements GameProcess {
 
         String nextPlayer = playOrder.getNextPlayer();
         _game.getGameState().startPlayerTurn(nextPlayer);
-        _game.getGameState().startAffectingCardsForCurrentPlayer(_game, _game.getModifiersEnvironment());
+        _game.getGameState().startAffectingCardsForCurrentPlayer(_game);
 
         _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new StartOfTurnResult(), "Start of turn"), "Start of turn"));
     }
