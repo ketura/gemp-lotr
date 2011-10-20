@@ -50,5 +50,6 @@ public class Card6_039 extends AbstractPermanent {
                     });
             return Collections.singletonList(action);
         }
+        return null;
     }
 }
