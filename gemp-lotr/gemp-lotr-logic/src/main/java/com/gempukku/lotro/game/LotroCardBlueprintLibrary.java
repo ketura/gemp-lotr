@@ -11,7 +11,7 @@ import java.util.Map;
 public class LotroCardBlueprintLibrary {
     private String[] _packageNames =
             new String[]{
-                    "", ".dwarven", ".dunland", ".elven", ".gandalf", ".gondor", ".isengard", ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site"
+                    "", ".dwarven", ".dunland", ".elven", ".gandalf", ".gollum", ".gondor", ".isengard", ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site"
             };
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
