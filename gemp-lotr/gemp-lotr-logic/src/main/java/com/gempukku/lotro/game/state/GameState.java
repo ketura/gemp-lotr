@@ -398,6 +398,8 @@ public class GameState {
                 for (GameStateListener listener : getPrivateGameStateListeners(card)) {
                     getValue(listenerCards, listener).add(card);
                 }
+
+            ((PhysicalCardImpl) card).setZone(null);
         }
 
         for (Map.Entry<GameStateListener, Set<PhysicalCard>> gameStateListenerSetEntry : listenerCards.entrySet())
@@ -423,6 +425,9 @@ public class GameState {
             zoneCards.add((PhysicalCardImpl) card);
         else
             zoneCards.add(0, (PhysicalCardImpl) card);
+
+        if (card.getZone() != null)
+            throw new RuntimeException("Card was in " + card.getZone() + " when tried to add to zone: " + zone);
 
         ((PhysicalCardImpl) card).setZone(zone);
 
@@ -860,7 +865,7 @@ public class GameState {
     public PhysicalCard removeTopDeckCard(String player) {
         List<PhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
-            final PhysicalCard topDeckCard = deck.remove(0);
+            final PhysicalCard topDeckCard = deck.get(0);
             removeCardsFromZone(Collections.singleton(topDeckCard));
             return topDeckCard;
         } else {
@@ -871,7 +876,7 @@ public class GameState {
     public PhysicalCard removeBottomDeckCard(String player) {
         List<PhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
-            final PhysicalCard topDeckCard = deck.remove(deck.size() - 1);
+            final PhysicalCard topDeckCard = deck.get(deck.size() - 1);
             removeCardsFromZone(Collections.singleton(topDeckCard));
             return topDeckCard;
         } else {
