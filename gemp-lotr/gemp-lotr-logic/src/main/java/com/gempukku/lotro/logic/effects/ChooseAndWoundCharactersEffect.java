@@ -35,5 +35,10 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
         for (int i = 0; i < _count; i++)
             subAction.appendEffect(new WoundCharactersEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);
+        woundedCardsCallback(cards);
+    }
+
+    protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
+
     }
 }
