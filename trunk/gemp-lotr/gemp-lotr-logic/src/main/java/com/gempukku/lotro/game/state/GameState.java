@@ -304,6 +304,11 @@ public class GameState {
         addCardToZone(game, card, Zone.ATTACHED);
     }
 
+    public void stackCard(LotroGame game, PhysicalCard card, PhysicalCard stackOn) {
+        ((PhysicalCardImpl) card).stackOn((PhysicalCardImpl) stackOn);
+        addCardToZone(game, card, Zone.STACKED);
+    }
+
     public void cardAffectsCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCards) {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.cardAffectedByCard(playerPerforming, card, affectedCards);
@@ -312,11 +317,6 @@ public class GameState {
     public void eventPlayed(PhysicalCard card) {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.eventPlayed(card);
-    }
-
-    public void stackCard(LotroGame game, PhysicalCard card, PhysicalCard stackOn) {
-        ((PhysicalCardImpl) card).stackOn((PhysicalCardImpl) stackOn);
-        addCardToZone(game, card, Zone.STACKED);
     }
 
     public void setRingBearer(PhysicalCard card) {

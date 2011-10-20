@@ -55,6 +55,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<input type='checkbox' id='GONDOR'/><label for='GONDOR' id='labelGONDOR'><img src='images/cultures/gondor.png'/></label>"
                 + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
                 + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
+                + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
                 + "</div>");
         this.filterDiv.append("<div id='culture2'>"
                 + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
@@ -106,7 +107,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         $("#set").change(filterOut);
         $("#cardType").change(filterOut);
 
-        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelDUNLAND,#labelISENGARD,#labelMORIA,#labelRAIDER,#labelSAURON,#labelWRAITH").click(filterOut);
+        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMORIA,#labelRAIDER,#labelSAURON,#labelWRAITH").click(filterOut);
 
         $("#countSlider").slider({
             value:18,
