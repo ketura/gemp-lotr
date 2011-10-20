@@ -4,8 +4,6 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
@@ -18,26 +16,24 @@ import java.util.List;
 
 /**
  * Set: Ents of Fangorn
- * Side: Free
+ * Side: Shadow
  * Culture: Gollum
  * Twilight Cost: 0
  * Type: Event
- * Game Text: Response: If Smeagol wins a skirmish, add a burden to discard a minion.
+ * Game Text: Response: If Gollum wins a skirmish, add a burden.
  */
-public class Card6_038 extends AbstractResponseEvent {
-    public Card6_038() {
-        super(Side.FREE_PEOPLE, 0, Culture.GOLLUM, "Don't Follow the Lights");
+public class Card6_042 extends AbstractResponseEvent {
+    public Card6_042() {
+        super(Side.SHADOW, 0, Culture.GOLLUM, "Nasty, Foul Hobbitses");
     }
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.name("Smeagol"))
+        if (PlayConditions.winsSkirmish(game, effectResult, Filters.name("Gollum"))
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             PlayEventAction action = new PlayEventAction(self);
-            action.appendCost(
-                    new AddBurdenEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
+                    new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);
         }
         return null;
