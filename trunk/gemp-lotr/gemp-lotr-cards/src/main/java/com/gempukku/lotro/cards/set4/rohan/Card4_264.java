@@ -14,7 +14,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.PreventEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,20 +36,18 @@ public class Card4_264 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.TAKE_CONTROL_OF_A_SITE) {
+        if (PlayConditions.isTakingControlOfSite(effect, game, Filters.any)
+                && PlayConditions.canSelfExert(self, game)
+                && PlayConditions.canExert(self, game, Keyword.VILLAGER)) {
             TakeControlOfASiteEffect takeControlEffect = (TakeControlOfASiteEffect) effect;
-            if (!takeControlEffect.isPrevented()
-                    && PlayConditions.canExert(self, game, Filters.sameCard(self))
-                    && PlayConditions.canExert(self, game, Filters.keyword(Keyword.VILLAGER))) {
-                ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new ExertCharactersEffect(self, self));
-                action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.VILLAGER)));
-                action.appendEffect(
-                        new PreventEffect(takeControlEffect));
-                return Collections.singletonList(action);
-            }
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new ExertCharactersEffect(self, self));
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.VILLAGER)));
+            action.appendEffect(
+                    new PreventEffect(takeControlEffect));
+            return Collections.singletonList(action);
         }
         return null;
     }

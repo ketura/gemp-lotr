@@ -15,6 +15,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -56,7 +57,7 @@ public class Card5_041 extends AbstractEvent {
                     }
 
                     @Override
-                    public EffectResult.Type getType() {
+                    public Effect.Type getType() {
                         return null;
                     }
 
@@ -86,7 +87,7 @@ public class Card5_041 extends AbstractEvent {
         }
 
         @Override
-        public EffectResult.Type getType() {
+        public Effect.Type getType() {
             return null;
         }
 

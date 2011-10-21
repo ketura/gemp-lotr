@@ -17,7 +17,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -52,7 +51,7 @@ public class Card4_171 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(final LotroGame game, Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.KILL) {
+        if (PlayConditions.isGettingKilled(effect, game, self.getAttachedTo())) {
             KillEffect killEffect = (KillEffect) effect;
             if (killEffect.getCharactersToBeKilled().contains(self.getAttachedTo())) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);

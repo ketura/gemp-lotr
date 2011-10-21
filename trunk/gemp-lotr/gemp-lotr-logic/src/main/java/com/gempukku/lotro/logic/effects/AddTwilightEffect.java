@@ -3,10 +3,12 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.Preventable;
 import com.gempukku.lotro.logic.timing.results.AddTwilightResult;
 
-public class AddTwilightEffect extends AbstractEffect {
+public class AddTwilightEffect extends AbstractEffect implements Preventable {
     private PhysicalCard _source;
     private int _twilight;
     private int _prevented;
@@ -26,16 +28,18 @@ public class AddTwilightEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.ADD_TWILIGHT;
+    public Effect.Type getType() {
+        return Effect.Type.BEFORE_ADD_TWILIGHT;
     }
 
-    public void preventAll() {
-        _prevented = _twilight;
-    }
-
-    public boolean isFullyPrevented() {
+    @Override
+    public boolean isPrevented() {
         return _prevented == _twilight;
+    }
+
+    @Override
+    public void prevent() {
+        _prevented = _twilight;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class AddTwilightEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (!isFullyPrevented()) {
+        if (!isPrevented()) {
             game.getGameState().sendMessage(_twilight + " gets added to the twilight pool");
             game.getGameState().addTwilight(_twilight);
             return new FullEffectResult(new EffectResult[]{new AddTwilightResult(_source)}, true, _prevented == 0);

@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Preventable;
 
 public class TakeControlOfASiteEffect extends AbstractEffect implements Preventable {
@@ -17,6 +17,10 @@ public class TakeControlOfASiteEffect extends AbstractEffect implements Preventa
     public TakeControlOfASiteEffect(PhysicalCard source, String playerId) {
         _source = source;
         _playerId = playerId;
+    }
+
+    public PhysicalCard getSource() {
+        return _source;
     }
 
     @Override
@@ -44,8 +48,8 @@ public class TakeControlOfASiteEffect extends AbstractEffect implements Preventa
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.TAKE_CONTROL_OF_A_SITE;
+    public Effect.Type getType() {
+        return Type.BEFORE_TAKE_CONTROL_OF_A_SITE;
     }
 
     @Override

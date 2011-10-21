@@ -5,6 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.HealResult;
 
@@ -34,8 +35,8 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.HEAL;
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

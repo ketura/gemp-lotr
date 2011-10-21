@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic.timing.processes.turn.general;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.TriggeringEffect;
+import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.timing.actions.SimpleEffectAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
@@ -20,7 +20,7 @@ public class EndOfPhaseGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(new EndOfPhaseResult(_phase), "End of " + _phase + " phase"), "End of " + _phase + " phase"));
+        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringResultEffect(new EndOfPhaseResult(_phase), "End of " + _phase + " phase"), "End of " + _phase + " phase"));
     }
 
     @Override

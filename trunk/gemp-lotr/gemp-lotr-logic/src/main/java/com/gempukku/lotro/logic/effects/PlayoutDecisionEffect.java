@@ -4,6 +4,7 @@ import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class PlayoutDecisionEffect extends AbstractSuccessfulEffect {
@@ -23,7 +24,7 @@ public class PlayoutDecisionEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

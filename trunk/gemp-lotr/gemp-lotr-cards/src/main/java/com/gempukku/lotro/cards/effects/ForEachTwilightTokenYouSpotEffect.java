@@ -18,7 +18,7 @@ public abstract class ForEachTwilightTokenYouSpotEffect implements Effect {
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

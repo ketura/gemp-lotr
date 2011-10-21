@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
@@ -39,8 +40,8 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.EXERT;
+    public Effect.Type getType() {
+        return Type.BEFORE_EXERT;
     }
 
     @Override

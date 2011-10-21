@@ -11,9 +11,8 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ActivateCardEffect;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,20 +36,16 @@ public class Card4_155 extends AbstractResponseOldEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.ACTIVATE
+    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (PlayConditions.activated(game, effectResult, Filters.or(CardType.ALLY, Filters.unboundCompanion))
                 && PlayConditions.canExert(self, game, Filters.name("Grima"))) {
-            ActivateCardEffect activateEffect = (ActivateCardEffect) effect;
-            final PhysicalCard source = activateEffect.getSource();
-            if (!activateEffect.isCancelled()
-                    && Filters.or(Filters.unboundCompanion, Filters.type(CardType.ALLY)).accepts(game.getGameState(), game.getModifiersQuerying(), source)) {
-                PlayEventAction action = new PlayEventAction(self);
-                action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Grima")));
-                action.appendEffect(
-                        new CancelActivatedEffect(self, activateEffect));
-                return Collections.singletonList(action);
-            }
+            ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
+            PlayEventAction action = new PlayEventAction(self);
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Grima")));
+            action.appendEffect(
+                    new CancelActivatedEffect(self, activateEffect));
+            return Collections.singletonList(action);
         }
         return null;
     }

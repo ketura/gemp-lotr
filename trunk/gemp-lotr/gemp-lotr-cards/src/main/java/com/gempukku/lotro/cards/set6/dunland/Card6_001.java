@@ -52,33 +52,31 @@ public class Card6_001 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
+        if (PlayConditions.isGettingWounded(effect, game, Culture.DUNLAND, Race.MAN)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
-            if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Race.MAN).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                List<Effect> possibleCosts = new LinkedList<Effect>();
-                possibleCosts.add(
-                        new DiscardCardsFromPlayEffect(self, self));
-                possibleCosts.add(
-                        new RemoveTokenEffect(self, self, Token.DUNLAND) {
-                            @Override
-                            public String getText(LotroGame game) {
-                                return "Remove DUNLAND token";
-                            }
-                        });
-                action.appendCost(
-                        new ChoiceEffect(action, playerId, possibleCosts));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Culture.DUNLAND, Race.MAN, Filters.in(cardsToBeWounded)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard dunlandMan) {
-                                action.appendEffect(
-                                        new PreventCardEffect(woundEffect, dunlandMan));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            List<Effect> possibleCosts = new LinkedList<Effect>();
+            possibleCosts.add(
+                    new DiscardCardsFromPlayEffect(self, self));
+            possibleCosts.add(
+                    new RemoveTokenEffect(self, self, Token.DUNLAND) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Remove DUNLAND token";
+                        }
+                    });
+            action.appendCost(
+                    new ChoiceEffect(action, playerId, possibleCosts));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Culture.DUNLAND, Race.MAN, Filters.in(cardsToBeWounded)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard dunlandMan) {
+                            action.appendEffect(
+                                    new PreventCardEffect(woundEffect, dunlandMan));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

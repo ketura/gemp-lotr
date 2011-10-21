@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set5.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -39,24 +39,22 @@ public class Card5_076 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND
+        if (PlayConditions.isGettingWounded(effect, game, Keyword.SOUTHRON)
                 && game.getGameState().getTwilightPool() >= 3) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
-            if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Keyword.SOUTHRON).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new RemoveTwilightEffect(3));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose Southron", Keyword.SOUTHRON, Filters.in(cardsToBeWounded)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard southron) {
-                                action.appendEffect(
-                                        new PreventCardEffect(woundEffect, southron));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new RemoveTwilightEffect(3));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose Southron", Keyword.SOUTHRON, Filters.in(cardsToBeWounded)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard southron) {
+                            action.appendEffect(
+                                    new PreventCardEffect(woundEffect, southron));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

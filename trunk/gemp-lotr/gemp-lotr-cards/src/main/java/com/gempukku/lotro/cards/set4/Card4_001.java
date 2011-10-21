@@ -81,16 +81,14 @@ public class Card4_001 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND
+        if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
                 && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new PreventCardEffect(woundEffect, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(self, 1));
-                return Collections.singletonList(action);
-            }
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(new PreventCardEffect(woundEffect, self.getAttachedTo()));
+            action.appendEffect(new AddBurdenEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

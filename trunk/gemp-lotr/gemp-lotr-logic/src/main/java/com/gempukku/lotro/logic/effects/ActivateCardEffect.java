@@ -5,17 +5,25 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 
 public class ActivateCardEffect extends AbstractEffect {
     private PhysicalCard _source;
     private Phase _actionTimeword;
 
-    private boolean _cancelled;
+    private ActivateCardResult _activateCardResult;
 
     public ActivateCardEffect(PhysicalCard source, Phase actionTimeword) {
         _source = source;
         _actionTimeword = actionTimeword;
+
+        _activateCardResult = new ActivateCardResult(_source, _actionTimeword);
+    }
+
+    public ActivateCardResult getActivateCardResult() {
+        return _activateCardResult;
     }
 
     public Phase getActionTimeword() {
@@ -23,8 +31,8 @@ public class ActivateCardEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.ACTIVATE;
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override
@@ -41,16 +49,8 @@ public class ActivateCardEffect extends AbstractEffect {
         return true;
     }
 
-    public boolean isCancelled() {
-        return _cancelled;
-    }
-
-    public void cancel() {
-        _cancelled = true;
-    }
-
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        return new FullEffectResult(null, true, true);
+        return new FullEffectResult(new EffectResult[]{_activateCardResult}, true, true);
     }
 }

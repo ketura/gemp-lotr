@@ -52,7 +52,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
                 return _activateCardEffect;
             }
 
-            if (!_activateCardEffect.isCancelled()) {
+            if (!_activateCardEffect.getActivateCardResult().isEffectCancelled()) {
                 Effect effect = getNextEffect();
                 if (effect != null)
                     return effect;

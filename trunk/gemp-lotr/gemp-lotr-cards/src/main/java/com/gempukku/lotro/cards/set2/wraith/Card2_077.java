@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,23 +33,21 @@ public class Card2_077 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 1)
-                && effect.getType() == EffectResult.Type.WOUND) {
+        if (PlayConditions.isGettingWounded(effect, game, Race.NAZGUL, Keyword.TWILIGHT)
+                && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 1)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);
-            if (Filters.filter(woundedCards, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new RemoveTwilightEffect(1));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose twilight Nazgul", Filters.in(woundedCards), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                action.insertEffect(new PreventCardEffect(woundEffect, card));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new RemoveTwilightEffect(1));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose twilight Nazgul", Filters.in(woundedCards), Filters.race(Race.NAZGUL), Filters.keyword(Keyword.TWILIGHT)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.insertEffect(new PreventCardEffect(woundEffect, card));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

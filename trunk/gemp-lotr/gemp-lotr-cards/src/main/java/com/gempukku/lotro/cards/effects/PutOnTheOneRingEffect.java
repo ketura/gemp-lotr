@@ -2,14 +2,15 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PutOnTheOneRingResult;
 
 public class PutOnTheOneRingEffect extends AbstractEffect {
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.PUT_ON_THE_ONE_RING;
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -41,21 +40,19 @@ public class Card4_103 extends AbstractAlly {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
+        if (PlayConditions.isGettingDiscarded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             Collection<PhysicalCard> discardedHobbits = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Filters.race(Race.HOBBIT));
-            if (discardedHobbits.size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose unbound hobbit", Filters.in(discardedHobbits)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                action.insertEffect(
-                                        new StackCardFromPlayEffect(card, self));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose unbound hobbit", Filters.in(discardedHobbits)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.insertEffect(
+                                    new StackCardFromPlayEffect(card, self));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

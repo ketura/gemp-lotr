@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -44,23 +44,21 @@ public class Card6_035 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
+        if (PlayConditions.isGettingWounded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
-            if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, Filters.unboundCompanion).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose unbound Hobbit", Race.HOBBIT, Filters.unboundCompanion, Filters.in(cardsToBeWounded)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard unboundHobbit) {
-                                action.appendEffect(
-                                        new PreventCardEffect(woundEffect, unboundHobbit));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new DiscardCardsFromPlayEffect(self, self));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose unbound Hobbit", Race.HOBBIT, Filters.unboundCompanion, Filters.in(cardsToBeWounded)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard unboundHobbit) {
+                            action.appendEffect(
+                                    new PreventCardEffect(woundEffect, unboundHobbit));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

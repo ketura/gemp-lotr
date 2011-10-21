@@ -7,10 +7,6 @@ public class PlayCardResult extends EffectResult {
     private PhysicalCard _playedCard;
     private PhysicalCard _attachedTo;
 
-    public PlayCardResult(PhysicalCard playedCard) {
-        this(playedCard, null);
-    }
-
     public PlayCardResult(PhysicalCard playedCard, PhysicalCard attachedTo) {
         super(EffectResult.Type.PLAY);
         _playedCard = playedCard;

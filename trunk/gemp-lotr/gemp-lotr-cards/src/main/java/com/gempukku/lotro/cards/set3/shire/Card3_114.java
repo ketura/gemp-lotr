@@ -9,9 +9,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
+import com.gempukku.lotro.logic.effects.PreventEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,23 +32,15 @@ public class Card3_114 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.ADD_TWILIGHT
+        if (PlayConditions.isAddingTwilight(effect, game, Side.SHADOW)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.ALLY))) {
             final AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
-            PhysicalCard source = addTwilightEffect.getSource();
-            if (!addTwilightEffect.isFullyPrevented() && source != null && source.getBlueprint().getSide() == Side.SHADOW) {
-                ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.type(CardType.ALLY)));
-                action.appendEffect(
-                        new UnrespondableEffect() {
-                            @Override
-                            protected void doPlayEffect(LotroGame game) {
-                                addTwilightEffect.preventAll();
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.type(CardType.ALLY)));
+            action.appendEffect(
+                    new PreventEffect(addTwilightEffect));
+            return Collections.singletonList(action);
         }
         return null;
     }

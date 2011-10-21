@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.CardType;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -46,23 +46,21 @@ public class Card1_076 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND
+        if (PlayConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && checkPlayRequirements(playerId, game, self, 0)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
 
-            if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
-                final PlayEventAction action = new PlayEventAction(self);
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard companion) {
-                                action.appendEffect(
-                                        new PreventCardEffect(woundEffect, companion));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final PlayEventAction action = new PlayEventAction(self);
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                            action.appendEffect(
+                                    new PreventCardEffect(woundEffect, companion));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Block;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -45,26 +45,21 @@ public class Card3_014 extends AbstractAlly {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
+        if (PlayConditions.isGettingWoundedBy(effect, game, Filters.and(Culture.SAURON, Filters.or(CardType.MINION, CardType.EVENT)), Race.ELF)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
-            Collection<PhysicalCard> woundSources = woundEffect.getSources();
-            if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)).size() > 0) {
-                if (woundSources != null && Filters.filter(woundSources, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.or(Filters.type(CardType.MINION), Filters.type(CardType.EVENT))).size() > 0) {
-                    final ActivateCardAction action = new ActivateCardAction(self);
-                    action.appendCost(
-                            new ExertCharactersEffect(self, self));
-                    action.appendEffect(
-                            new ChooseActiveCardEffect(self, playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
-                                @Override
-                                protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                    action.insertEffect(
-                                            new PreventCardEffect(woundEffect, card));
-                                }
-                            });
-                    return Collections.singletonList(action);
-                }
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new ExertCharactersEffect(self, self));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.insertEffect(
+                                    new PreventCardEffect(woundEffect, card));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

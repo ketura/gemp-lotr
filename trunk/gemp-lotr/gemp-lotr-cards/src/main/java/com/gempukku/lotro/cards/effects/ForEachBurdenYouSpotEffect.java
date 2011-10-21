@@ -18,7 +18,7 @@ public abstract class ForEachBurdenYouSpotEffect implements Effect {
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

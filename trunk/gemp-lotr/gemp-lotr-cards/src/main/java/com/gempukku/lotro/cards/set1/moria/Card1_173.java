@@ -46,23 +46,21 @@ public class Card1_173 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
+        if (PlayConditions.isGettingWounded(effect, game, Culture.MORIA, Race.ORC)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
-            if (Filters.filter(cardsToBeWounded, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
-                                action.appendEffect(
-                                        new PreventCardEffect(woundEffect, moriaOrc));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new DiscardCardsFromPlayEffect(self, self));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
+                            action.appendEffect(
+                                    new PreventCardEffect(woundEffect, moriaOrc));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

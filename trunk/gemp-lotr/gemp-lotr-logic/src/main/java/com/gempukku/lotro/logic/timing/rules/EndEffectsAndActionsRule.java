@@ -6,7 +6,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.actions.SimpleEffectAction;
@@ -27,8 +26,8 @@ public class EndEffectsAndActionsRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredBeforeTriggers(final LotroGame lotroGame, Effect effect) {
-                        if (effect.getType() == EffectResult.Type.START_OF_PHASE)
+                    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE)
                             return Collections.<Action>singletonList(new SimpleEffectAction(
                                     new UnrespondableEffect() {
                                         @Override
@@ -39,7 +38,7 @@ public class EndEffectsAndActionsRule {
                                         }
                                     }, "Remove effects"
                             ));
-                        else if (effect.getType() == EffectResult.Type.END_OF_PHASE)
+                        else if (effectResult.getType() == EffectResult.Type.END_OF_PHASE)
                             return Collections.<Action>singletonList(new SimpleEffectAction(
                                     new UnrespondableEffect() {
                                         @Override
@@ -50,7 +49,7 @@ public class EndEffectsAndActionsRule {
                                         }
                                     }, "Remove effects"
                             ));
-                        else if (effect.getType() == EffectResult.Type.END_OF_TURN)
+                        else if (effectResult.getType() == EffectResult.Type.END_OF_TURN)
                             return Collections.<Action>singletonList(new SimpleEffectAction(
                                     new UnrespondableEffect() {
                                         @Override

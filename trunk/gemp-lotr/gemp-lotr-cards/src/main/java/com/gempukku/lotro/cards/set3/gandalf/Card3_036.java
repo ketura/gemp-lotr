@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,25 +36,23 @@ public class Card3_036 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND
+        if (PlayConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && game.getGameState().getTwilightPool() >= 4
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
-            if (Filters.filter(woundedCharacters, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose a companion", Filters.in(woundedCharacters), Filters.type(CardType.COMPANION)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                action.insertEffect(
-                                        new PreventCardEffect(woundEffect, card));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose a companion", Filters.in(woundedCharacters), Filters.type(CardType.COMPANION)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.insertEffect(
+                                    new PreventCardEffect(woundEffect, card));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }
