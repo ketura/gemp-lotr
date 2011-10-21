@@ -168,14 +168,18 @@ public class PlayConditions {
         return canBeDiscarded(source, game, source);
     }
 
-    public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, final Filterable... filters) {
+    public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, int count, final Filterable... filters) {
         return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(filters,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                         return modifiersQuerying.canBeDiscardedFromPlay(gameState, physicalCard, source);
                     }
-                })) > 0;
+                })) >= count;
+    }
+
+    public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, final Filterable... filters) {
+        return canBeDiscarded(source, game, 1, filters);
     }
 
     public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filterable... filters) {
