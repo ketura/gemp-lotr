@@ -42,13 +42,13 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
         return getAffectedCardsMinusPrevented(game).size() >= _requiredTargets;
     }
 
-    protected abstract EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards);
+    protected abstract Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards);
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         Collection<PhysicalCard> affectedCards = getAffectedCards(game);
         Collection<PhysicalCard> affectedMinusPreventedCards = getAffectedCardsMinusPrevented(game);
-        EffectResult[] results = playoutEffectOn(game, affectedMinusPreventedCards);
+        Collection<? extends EffectResult> results = playoutEffectOn(game, affectedMinusPreventedCards);
         return new FullEffectResult(results, affectedCards.size() >= _requiredTargets, affectedMinusPreventedCards.size() >= _requiredTargets);
     }
 

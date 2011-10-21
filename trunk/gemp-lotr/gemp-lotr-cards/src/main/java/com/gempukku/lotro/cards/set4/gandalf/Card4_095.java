@@ -13,6 +13,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class Card4_095 extends AbstractResponseOldEvent {
                         }
 
                         @Override
-                        public EffectResult[] playEffect(LotroGame game) {
+                        public Collection<? extends EffectResult> playEffect(LotroGame game) {
                             ((PlayEventResult) effectResult).setTargetZone(Zone.HAND);
                             return null;
                         }

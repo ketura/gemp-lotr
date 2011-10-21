@@ -5,6 +5,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
+
 public abstract class ForEachBurdenYouSpotEffect implements Effect {
     private String _playerId;
 
@@ -23,7 +25,7 @@ public abstract class ForEachBurdenYouSpotEffect implements Effect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         int burdens = game.getGameState().getBurdens();
         if (burdens == 0)
             burdensSpotted(0);

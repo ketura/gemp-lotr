@@ -62,7 +62,7 @@ public class Card5_041 extends AbstractEvent {
                     }
 
                     @Override
-                    public EffectResult[] playEffect(LotroGame game) {
+                    public Collection<? extends EffectResult> playEffect(LotroGame game) {
                         game.getActionsEnvironment().addActionToStack(subAction);
                         return null;
                     }
@@ -92,7 +92,7 @@ public class Card5_041 extends AbstractEvent {
         }
 
         @Override
-        public EffectResult[] playEffect(final LotroGame game) {
+        public Collection<? extends EffectResult> playEffect(final LotroGame game) {
             final Filter additionalAttachmentFilter = Filters.and(CardType.COMPANION, Signet.ARAGORN);
 
             _subAction.appendEffect(

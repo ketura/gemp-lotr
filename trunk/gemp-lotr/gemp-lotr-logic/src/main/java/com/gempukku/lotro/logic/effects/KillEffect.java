@@ -12,10 +12,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class KillEffect extends AbstractSuccessfulEffect {
     private List<PhysicalCard> _cards;
@@ -40,7 +37,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
         Set<PhysicalCard> killedCards = new HashSet<PhysicalCard>();
 
@@ -74,11 +71,11 @@ public class KillEffect extends AbstractSuccessfulEffect {
         }
 
         if (killedCards.size() > 0 && discardedCards.size() > 0) {
-            return new EffectResult[]{new KillResult(killedCards), new DiscardCardsFromPlayResult(discardedCards)};
+            return Arrays.asList(new KillResult(killedCards), new DiscardCardsFromPlayResult(discardedCards));
         } else if (killedCards.size() > 0) {
-            return new EffectResult[]{new KillResult(killedCards)};
+            return Arrays.asList(new KillResult(killedCards));
         } else if (discardedCards.size() > 0) {
-            return new EffectResult[]{new DiscardCardsFromPlayResult(discardedCards)};
+            return Arrays.asList(new DiscardCardsFromPlayResult(discardedCards));
         } else {
             return null;
         }

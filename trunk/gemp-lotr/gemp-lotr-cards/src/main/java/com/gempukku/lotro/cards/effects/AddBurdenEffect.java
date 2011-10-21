@@ -5,9 +5,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.Preventable;
 import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
+
+import java.util.Collections;
 
 public class AddBurdenEffect extends AbstractEffect implements Preventable {
     private PhysicalCard _source;
@@ -58,7 +59,7 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
             int toAdd = _count - _prevented;
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + toAdd + " burden" + ((toAdd > 1) ? "s" : ""));
             game.getGameState().addBurdens(toAdd);
-            return new FullEffectResult(new EffectResult[]{new AddBurdenResult(_source, toAdd)}, true, _prevented == 0);
+            return new FullEffectResult(Collections.singleton(new AddBurdenResult(_source, toAdd)), true, _prevented == 0);
         }
         return new FullEffectResult(null, true, false);
     }

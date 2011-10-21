@@ -5,6 +5,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ActionsEnvironment {
@@ -14,11 +15,11 @@ public interface ActionsEnvironment {
 
     public List<Action> getOptionalBeforeActions(String playerId, Effect effect);
 
-    public List<Action> getRequiredAfterTriggers(EffectResult[] effectResults);
+    public List<Action> getRequiredAfterTriggers(Collection<? extends EffectResult> effectResults);
 
-    public List<Action> getOptionalAfterTriggers(String playerId, EffectResult[] effectResults);
+    public List<Action> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults);
 
-    public List<Action> getOptionalAfterActions(String playerId, EffectResult[] effectResults);
+    public List<Action> getOptionalAfterActions(String playerId, Collection<? extends EffectResult> effectResults);
 
     public List<Action> getPhaseActions(String playerId);
 

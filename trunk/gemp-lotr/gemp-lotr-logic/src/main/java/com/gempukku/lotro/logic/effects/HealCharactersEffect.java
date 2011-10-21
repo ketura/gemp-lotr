@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.HealResult;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class HealCharactersEffect extends AbstractPreventableCardEffect {
     private String _playerId;
@@ -46,7 +47,7 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+    protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         Collection<PhysicalCard> cardsToHeal = getAffectedCardsMinusPrevented(game);
 
         if (cardsToHeal.size() > 0) {
@@ -55,7 +56,7 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
                 game.getGameState().removeWound(cardToHeal);
             }
 
-            return new EffectResult[]{new HealResult(cardsToHeal)};
+            return Collections.singleton(new HealResult(cardsToHeal));
         }
         return null;
     }

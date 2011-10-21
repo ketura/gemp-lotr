@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.actions.PlayerReconcilesAction;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class Card4_075 extends AbstractAttachableFPPossession {
                         }
 
                         @Override
-                        public EffectResult[] playEffect(LotroGame game) {
+                        public Collection<? extends EffectResult> playEffect(LotroGame game) {
                             game.getActionsEnvironment().addActionToStack(
                                     new PlayerReconcilesAction(game, playerId));
                             return null;

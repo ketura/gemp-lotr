@@ -5,6 +5,8 @@ import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
+
 public class SetUpConsecutiveActionEffect extends AbstractSuccessfulEffect {
     @Override
     public String getText(LotroGame game) {
@@ -17,7 +19,7 @@ public class SetUpConsecutiveActionEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         game.getGameState().setConsecutiveAction(true);
         return null;
     }

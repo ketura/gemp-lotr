@@ -4,8 +4,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
+
+import java.util.Collections;
 
 public class PlayCardEffect extends AbstractEffect {
     private PhysicalCard _cardPlayed;
@@ -45,6 +46,6 @@ public class PlayCardEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        return new FullEffectResult(new EffectResult[]{new PlayCardResult(_cardPlayed, _attachedToCard)}, true, true);
+        return new FullEffectResult(Collections.singleton(new PlayCardResult(_cardPlayed, _attachedToCard)), true, true);
     }
 }

@@ -8,6 +8,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class OverwhelmedEffect extends AbstractSuccessfulEffect {
@@ -30,8 +32,8 @@ public class OverwhelmedEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
-        return new EffectResult[]{new OverwhelmSkirmishResult(_winners, _losers)};
+        return Collections.singleton(new OverwhelmSkirmishResult(_winners, _losers));
     }
 }

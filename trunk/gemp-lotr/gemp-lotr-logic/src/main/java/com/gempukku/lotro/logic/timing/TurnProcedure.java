@@ -59,7 +59,7 @@ public class TurnProcedure {
 
     private class PlayOutRecognizableEffect extends SystemAction {
         private Effect _effect;
-        private EffectResult[] _effectResults;
+        private Collection<? extends EffectResult> _effectResults;
         private boolean _checkedIsAboutToRequiredResponses;
         private boolean _checkedIsAboutToOptionalResponses;
         private boolean _effectPlayed;
@@ -192,9 +192,9 @@ public class TurnProcedure {
         private PlayOrder _playOrder;
         private int _passCount;
         private Effect _effect;
-        private EffectResult[] _effectResults;
+        private Collection<? extends EffectResult> _effectResults;
 
-        private PlayoutOptionalAfterResponsesEffect(SystemQueueAction action, Map<String, List<Action>> unplayedAfterTriggers, PlayOrder playOrder, int passCount, Effect effect, EffectResult[] effectResults) {
+        private PlayoutOptionalAfterResponsesEffect(SystemQueueAction action, Map<String, List<Action>> unplayedAfterTriggers, PlayOrder playOrder, int passCount, Effect effect, Collection<? extends EffectResult> effectResults) {
             _action = action;
             _unplayedAfterTriggers = unplayedAfterTriggers;
             _playOrder = playOrder;

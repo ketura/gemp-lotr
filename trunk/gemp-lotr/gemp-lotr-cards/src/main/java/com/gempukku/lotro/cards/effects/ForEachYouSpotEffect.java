@@ -9,6 +9,8 @@ import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
+
 public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
     private String _playerId;
     private Filterable[] _filters;
@@ -29,7 +31,7 @@ public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new ForEachYouSpotDecision(1, "Choose how many you wish to spot", game, Filters.and(_filters), Integer.MAX_VALUE) {
                     @Override
