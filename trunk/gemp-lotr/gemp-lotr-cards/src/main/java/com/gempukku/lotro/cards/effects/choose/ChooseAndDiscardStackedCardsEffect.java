@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.effects.choose;
 
 import com.gempukku.lotro.cards.effects.DiscardStackedCardsEffect;
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -21,10 +21,10 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractEffect {
     private String _playerId;
     private int _minimum;
     private int _maximum;
-    private Filter _stackedOnFilter;
-    private Filter _stackedCardFilter;
+    private Filterable _stackedOnFilter;
+    private Filterable _stackedCardFilter;
 
-    public ChooseAndDiscardStackedCardsEffect(Action action, String playerId, int minimum, int maximum, Filter stackedOnFilter, Filter stackedCardFilter) {
+    public ChooseAndDiscardStackedCardsEffect(Action action, String playerId, int minimum, int maximum, Filterable stackedOnFilter, Filterable stackedCardFilter) {
         _action = action;
         _playerId = playerId;
         _minimum = minimum;
