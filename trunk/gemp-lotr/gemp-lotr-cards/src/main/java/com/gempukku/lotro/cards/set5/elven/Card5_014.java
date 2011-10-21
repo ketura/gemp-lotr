@@ -38,9 +38,19 @@ public class Card5_014 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new ChooseAndHealCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));
+                new ChooseAndHealCharactersEffect(action, playerId, 1, 1, CardType.COMPANION) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Heal a companion";
+                    }
+                });
         possibleEffects.add(
-                new LiberateASiteEffect(self));
+                new LiberateASiteEffect(self) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Liberate a site";
+                    }
+                });
 
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));

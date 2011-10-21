@@ -64,9 +64,19 @@ public class Card1_244 extends AbstractAttachable {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self, 1) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Add a burden";
+                        }
+                    });
             possibleEffects.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 3));
+                    new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 3) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard 3 cards from hand";
+                        }
+                    });
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);

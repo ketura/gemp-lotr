@@ -56,9 +56,19 @@ public class Card2_015 extends AbstractOldEvent {
                         action.insertEffect(new DrawCardEffect(opponentId, 2));
                         List<Effect> possibleEffects = new LinkedList<Effect>();
                         possibleEffects.add(
-                                new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false, 2, 2, Filters.side(Side.SHADOW)));
+                                new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false, 2, 2, Filters.side(Side.SHADOW)) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Discard 2 Shadow cards";
+                                    }
+                                });
                         possibleEffects.add(
-                                new SkipNextShadowPhaseChooseableEffect(self, opponentId));
+                                new SkipNextShadowPhaseChooseableEffect(self, opponentId) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Skip next Shadow phase";
+                                    }
+                                });
                         action.appendEffect(
                                 new ChoiceEffect(action, opponentId, possibleEffects));
                     }

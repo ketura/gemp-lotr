@@ -46,12 +46,22 @@ public class Card5_030 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentPhase() == Phase.SHADOW) {
             List<Effect> possibleEffects = new LinkedList<Effect>();
+            possibleEffects.add(
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Gollum")) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Play Gollum from your draw deck";
+                        }
+                    });
             if (PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Gollum"))) {
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Gollum")));
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Gollum")) {
+                            @Override
+                            public String getText(LotroGame game) {
+                                return "Play Gollum from your discard pile";
+                            }
+                        });
             }
-            possibleEffects.add(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Gollum")));
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
         } else {

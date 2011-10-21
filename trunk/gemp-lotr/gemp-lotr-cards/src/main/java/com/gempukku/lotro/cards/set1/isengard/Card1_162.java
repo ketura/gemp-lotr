@@ -54,8 +54,18 @@ public class Card1_162 extends AbstractPermanent {
         if (PlayConditions.winsSkirmish(gameState, game.getModifiersQuerying(), effectResult, Filters.race(Race.URUK_HAI))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(new ExertCharactersEffect(self, gameState.getRingBearer(gameState.getCurrentPlayerId())));
-            possibleEffects.add(new AddBurdenEffect(self, 1));
+            possibleEffects.add(new ExertCharactersEffect(self, gameState.getRingBearer(gameState.getCurrentPlayerId())) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Exert the Ring-bearer";
+                }
+            });
+            possibleEffects.add(new AddBurdenEffect(self, 1) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Add a burden";
+                }
+            });
 
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));

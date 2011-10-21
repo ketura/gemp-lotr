@@ -45,9 +45,19 @@ public class Card1_214 extends AbstractResponseOldEvent {
             PlayEventAction action = new PlayEventAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ExertCharactersEffect(self, game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())));
+                    new ExertCharactersEffect(self, game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert the Ring-bearer";
+                        }
+                    });
             possibleEffects.add(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self, 1) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Add a burden";
+                        }
+                    });
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);

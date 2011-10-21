@@ -52,8 +52,18 @@ public class Card1_124 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)));
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
-        possibleEffects.add(new ExertCharactersEffect(self, game.getGameState().getRingBearer(fpPlayer)));
-        possibleEffects.add(new AddBurdenEffect(self, 1));
+        possibleEffects.add(new ExertCharactersEffect(self, game.getGameState().getRingBearer(fpPlayer)) {
+            @Override
+            public String getText(LotroGame game) {
+                return "Exert Ring-bearer";
+            }
+        });
+        possibleEffects.add(new AddBurdenEffect(self, 1) {
+            @Override
+            public String getText(LotroGame game) {
+                return "Add a burden";
+            }
+        });
 
         action.appendEffect(
                 new ChoiceEffect(action, fpPlayer, possibleEffects));

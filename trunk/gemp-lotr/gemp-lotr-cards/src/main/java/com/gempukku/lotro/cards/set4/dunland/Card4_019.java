@@ -57,9 +57,19 @@ public class Card4_019 extends AbstractPermanent {
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new RemoveTwilightEffect(2));
+                    new RemoveTwilightEffect(2) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Remove (2)";
+                        }
+                    });
             possibleCosts.add(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new DiscardCardsFromPlayEffect(self, self) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard this possession";
+                        }
+                    });
 
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));

@@ -44,12 +44,17 @@ public class Card1_346 extends AbstractSite {
 
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Frodo"));
                 List<Effect> possibleEffects = new LinkedList<Effect>();
-                possibleEffects.add(new ExertCharactersEffect(self, frodo));
+                possibleEffects.add(new ExertCharactersEffect(self, frodo) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Exert Frodo";
+                    }
+                });
                 possibleEffects.add(
                         new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Frodo")), Filters.type(CardType.COMPANION)) {
                             @Override
                             public String getText(LotroGame game) {
-                                return "Exert two non-Frodo companions";
+                                return "Exert 2 other companions";
                             }
                         });
                 action.appendEffect(

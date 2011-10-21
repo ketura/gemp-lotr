@@ -41,12 +41,22 @@ public class Card1_349 extends AbstractSite {
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"), Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -6, Filters.name("The Balrog")));
+                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -6, Filters.name("The Balrog")) {
+                            @Override
+                            public String getText(LotroGame game) {
+                                return "Play The Balrog from hand";
+                            }
+                        });
             }
 
             // Play from deck
             possibleEffects.add(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, -6, Filters.name("The Balrog")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, -6, Filters.name("The Balrog")) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Play The Balrog from deck";
+                        }
+                    });
 
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));

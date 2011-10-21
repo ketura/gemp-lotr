@@ -43,9 +43,19 @@ public class Card1_307 extends AbstractCompanion {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(new RemoveBurdenEffect(self));
+            possibleEffects.add(new RemoveBurdenEffect(self) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Remove a burden";
+                }
+            });
             possibleEffects.add(
-                    new ChooseAndHealCharactersEffect(action, self.getOwner(), Filters.type(CardType.COMPANION)));
+                    new ChooseAndHealCharactersEffect(action, self.getOwner(), Filters.type(CardType.COMPANION)) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Heal a companion";
+                        }
+                    });
             action.appendEffect(new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
         }
