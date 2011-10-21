@@ -60,9 +60,19 @@ public class Card5_015 extends AbstractCompanion {
             ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert an unbound Hobbit";
+                        }
+                    });
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard 2 cards from hand";
+                        }
+                    });
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
