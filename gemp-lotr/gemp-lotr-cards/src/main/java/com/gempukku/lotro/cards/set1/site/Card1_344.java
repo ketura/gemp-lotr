@@ -44,12 +44,17 @@ public class Card1_344 extends AbstractSite {
 
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
                 List<Effect> possibleEffects = new LinkedList<Effect>();
-                possibleEffects.add(new ExertCharactersEffect(self, gimli));
+                possibleEffects.add(new ExertCharactersEffect(self, gimli) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Exert Gimli";
+                    }
+                });
                 possibleEffects.add(
                         new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION)) {
                             @Override
                             public String getText(LotroGame game) {
-                                return "Exert two non-Gimli companions";
+                                return "Exert 2 other companions";
                             }
                         });
                 action.appendEffect(

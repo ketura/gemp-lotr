@@ -58,12 +58,17 @@ public class Card6_001 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new DiscardCardsFromPlayEffect(self, self) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard this condition";
+                        }
+                    });
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.DUNLAND) {
                         @Override
                         public String getText(LotroGame game) {
-                            return "Remove DUNLAND token";
+                            return "Remove a DUNLAND token from here";
                         }
                     });
             action.appendCost(

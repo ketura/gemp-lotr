@@ -39,9 +39,19 @@ public class Card5_006 extends AbstractEvent {
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new DrawCardEffect(playerId, 1));
+                new DrawCardEffect(playerId, 1) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Draw a card";
+                    }
+                });
         possibleEffects.add(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.DWARVEN, CardType.CONDITION));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.DWARVEN, CardType.CONDITION) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Play a DWARVEN condition from your discard pile";
+                    }
+                });
 
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));

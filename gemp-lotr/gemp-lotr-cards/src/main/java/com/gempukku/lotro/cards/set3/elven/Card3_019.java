@@ -57,9 +57,19 @@ public class Card3_019 extends AbstractAttachable {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert Aragorn";
+                        }
+                    });
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2, 2, Filters.any));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2, 2, Filters.any) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard 2 cards from hand";
+                        }
+                    });
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(

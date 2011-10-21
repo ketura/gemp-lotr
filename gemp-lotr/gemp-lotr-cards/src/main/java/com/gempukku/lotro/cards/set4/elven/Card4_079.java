@@ -51,9 +51,19 @@ public class Card4_079 extends AbstractResponseOldEvent {
 
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(
-                        new LiberateASiteEffect(self));
+                        new LiberateASiteEffect(self) {
+                            @Override
+                            public String getText(LotroGame game) {
+                                return "Liberate a site";
+                            }
+                        });
                 possibleEffects.add(
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)));
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)) {
+                            @Override
+                            public String getText(LotroGame game) {
+                                return "Wound a minion";
+                            }
+                        });
 
                 action.appendEffect(
                         new ChoiceEffect(action, playerId, possibleEffects));

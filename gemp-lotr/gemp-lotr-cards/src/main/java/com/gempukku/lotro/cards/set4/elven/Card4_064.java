@@ -53,9 +53,19 @@ public class Card4_064 extends AbstractAttachableFPPossession {
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(self, self.getAttachedTo()) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert bearer";
+                        }
+                    });
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard 2 cards from hand";
+                        }
+                    });
 
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));

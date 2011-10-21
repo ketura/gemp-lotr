@@ -55,12 +55,17 @@ public class Card6_010 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new DiscardCardsFromPlayEffect(self, self) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard this condition";
+                        }
+                    });
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.DWARVEN) {
                         @Override
                         public String getText(LotroGame game) {
-                            return "Remove DWARVEN token from here";
+                            return "Remove a DWARVEN token from here";
                         }
                     });
             action.appendCost(

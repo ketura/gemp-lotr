@@ -56,9 +56,19 @@ public class Card4_041 extends AbstractAttachableFPPossession {
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard DWARVEN condition";
+                        }
+                    });
             possibleCosts.add(
-                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)), Filters.any));
+                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)), Filters.any) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard a card stacked on a DWARVEN condition";
+                        }
+                    });
 
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));

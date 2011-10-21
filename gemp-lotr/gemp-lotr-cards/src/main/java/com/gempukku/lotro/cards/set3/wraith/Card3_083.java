@@ -45,9 +45,19 @@ public class Card3_083 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL)));
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL)) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert a Nazgul";
+                        }
+                    });
             possibleEffects.add(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new DiscardCardsFromPlayEffect(self, self) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard this condition";
+                        }
+                    });
             action.appendEffect(
                     new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
