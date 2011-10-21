@@ -9,12 +9,17 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class DiscardStackedCardsEffect extends AbstractEffect {
     private PhysicalCard _source;
     private Collection<PhysicalCard> _cards;
+
+    public DiscardStackedCardsEffect(PhysicalCard source, PhysicalCard card) {
+        this(source, Collections.singleton(card));
+    }
 
     public DiscardStackedCardsEffect(PhysicalCard source, Collection<PhysicalCard> cards) {
         _source = source;
