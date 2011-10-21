@@ -13,6 +13,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     private String _playerId;
@@ -51,13 +52,13 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+    protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() > 0)
             game.getGameState().sendMessage(getAppendedNames(cards) + " exert" + GameUtils.s(cards) + " due to " + GameUtils.getCardLink(_source));
 
         for (PhysicalCard woundedCard : cards)
             game.getGameState().addWound(woundedCard);
 
-        return new EffectResult[]{new ExertResult(cards)};
+        return Collections.singleton(new ExertResult(cards));
     }
 }

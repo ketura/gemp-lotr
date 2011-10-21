@@ -16,7 +16,7 @@ public abstract class AbstractEffect implements Effect {
     FullEffectResult playEffectReturningResult(LotroGame game);
 
     @Override
-    public final EffectResult[] playEffect(LotroGame game) {
+    public final Collection<? extends EffectResult> playEffect(LotroGame game) {
         FullEffectResult fullEffectResult = playEffectReturningResult(game);
         _carriedOut = fullEffectResult.isCarriedOut();
         _successful = fullEffectResult.isSuccessful();
@@ -66,11 +66,11 @@ public abstract class AbstractEffect implements Effect {
     }
 
     protected static class FullEffectResult {
-        private EffectResult[] _results;
+        private Collection<? extends EffectResult> _results;
         private boolean _successful;
         private boolean _carriedOut;
 
-        public FullEffectResult(EffectResult[] results, boolean successful, boolean carriedOut) {
+        public FullEffectResult(Collection<? extends EffectResult> results, boolean successful, boolean carriedOut) {
             _results = results;
             _successful = successful;
             _carriedOut = carriedOut;

@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 import java.util.Collections;
@@ -43,7 +42,7 @@ public class PutCardFromDiscardIntoHandEffect extends AbstractEffect {
             gameState.removeCardsFromZone(Collections.singleton(_card));
             gameState.addCardToZone(game, _card, Zone.HAND);
 
-            return new FullEffectResult(new EffectResult[]{new DrawCardOrPutIntoHandResult(_card.getOwner(), 1)}, true, true);
+            return new FullEffectResult(Collections.singleton(new DrawCardOrPutIntoHandResult(_card.getOwner(), 1)), true, true);
         }
         return new FullEffectResult(null, false, false);
     }

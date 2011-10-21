@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
@@ -49,7 +48,7 @@ public class AssignmentEffect extends AbstractEffect {
             game.getGameState().assignToSkirmishes(_fpChar, Collections.singletonList(_minion));
 
             final Map<PhysicalCard, List<PhysicalCard>> assignments = Collections.singletonMap(_fpChar, Collections.singletonList(_minion));
-            return new FullEffectResult(new EffectResult[]{new AssignmentResult(_playerId, assignments)}, true, true);
+            return new FullEffectResult(Collections.singleton(new AssignmentResult(_playerId, assignments)), true, true);
         }
         return new FullEffectResult(null, false, false);
     }

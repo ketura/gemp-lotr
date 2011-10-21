@@ -7,6 +7,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class SkirmishResolvedEffect extends AbstractSuccessfulEffect {
@@ -29,8 +31,8 @@ public class SkirmishResolvedEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         game.getGameState().sendMessage("Skirmish finishes with a normal win");
-        return new EffectResult[]{new NormalSkirmishResult(_winners, _losers)};
+        return Collections.singleton(new NormalSkirmishResult(_winners, _losers));
     }
 }

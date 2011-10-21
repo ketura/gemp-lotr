@@ -3,8 +3,9 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PutOnTheOneRingResult;
+
+import java.util.Collections;
 
 public class PutOnTheOneRingEffect extends AbstractEffect {
 
@@ -30,7 +31,7 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
         if (canPutOnTheRing) {
             game.getGameState().sendMessage("Ring-bearer puts on The One Ring");
             game.getGameState().setWearingRing(true);
-            return new FullEffectResult(new EffectResult[]{new PutOnTheOneRingResult()}, true, true);
+            return new FullEffectResult(Collections.singleton(new PutOnTheOneRingResult()), true, true);
         } else {
             return new FullEffectResult(null, false, false);
         }

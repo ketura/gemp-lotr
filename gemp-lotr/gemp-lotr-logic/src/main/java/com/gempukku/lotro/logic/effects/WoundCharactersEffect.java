@@ -60,7 +60,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    protected EffectResult[] playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+    protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() > 0)
             if (_sources != null)
                 game.getGameState().sendMessage(getAppendedNames(cards) + " " + GameUtils.be(cards) + " wounded by - " + getAppendedNames(_sources));
@@ -71,6 +71,6 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
             game.getGameState().addWound(woundedCard);
         }
 
-        return new EffectResult[]{new WoundResult(cards)};
+        return Collections.singleton(new WoundResult(cards));
     }
 }

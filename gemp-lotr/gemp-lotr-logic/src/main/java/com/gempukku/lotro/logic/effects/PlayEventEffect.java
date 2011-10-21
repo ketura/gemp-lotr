@@ -2,8 +2,9 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayEventResult;
+
+import java.util.Collections;
 
 public class PlayEventEffect extends PlayCardEffect {
     private boolean _requiresRanger;
@@ -21,6 +22,6 @@ public class PlayEventEffect extends PlayCardEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        return new FullEffectResult(new EffectResult[]{_playEventResult}, true, true);
+        return new FullEffectResult(Collections.singleton(_playEventResult), true, true);
     }
 }

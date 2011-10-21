@@ -34,7 +34,7 @@ public class RevealCardEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult[] playEffect(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         if (_cards.size() > 0)
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards - " + getAppendedNames(_cards));
         return null;
