@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class SetUpConsecutiveActionEffect extends AbstractSuccessfulEffect {
@@ -11,7 +12,7 @@ public class SetUpConsecutiveActionEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

@@ -4,7 +4,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.Effect;
 
 public class RemoveCharacterFromSkirmishEffect extends AbstractEffect {
     private PhysicalCard _source;
@@ -26,7 +26,7 @@ public class RemoveCharacterFromSkirmishEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

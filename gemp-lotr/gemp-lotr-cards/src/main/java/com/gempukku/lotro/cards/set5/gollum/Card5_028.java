@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -93,7 +94,7 @@ public class Card5_028 extends AbstractCompanion {
         }
 
         @Override
-        public EffectResult.Type getType() {
+        public Effect.Type getType() {
             return null;
         }
 
@@ -106,17 +107,17 @@ public class Card5_028 extends AbstractCompanion {
             } else if (_cards.size() > 1) {
                 game.getUserFeedback().sendAwaitingDecision(
                         _playerId, new ArbitraryCardsSelectionDecision(1, "Choose card to put on bottom of deck", _cards, 1, 1) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                                if (selectedCards.size() == 1) {
-                                    PhysicalCard card = selectedCards.iterator().next();
-                                    _cards.remove(card);
-                                    game.getGameState().removeCardsFromZone(Collections.singleton(card));
-                                    game.getGameState().putCardOnBottomOfDeck(card);
-                                }
-                            }
-                        });
+                    @Override
+                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                        final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                        if (selectedCards.size() == 1) {
+                            PhysicalCard card = selectedCards.iterator().next();
+                            _cards.remove(card);
+                            game.getGameState().removeCardsFromZone(Collections.singleton(card));
+                            game.getGameState().putCardOnBottomOfDeck(card);
+                        }
+                    }
+                });
             }
             return null;
         }

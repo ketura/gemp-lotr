@@ -53,6 +53,8 @@ public interface ModifiersQuerying {
 
     public boolean canBeHealed(GameState gameState, PhysicalCard card);
 
+    public boolean canRemoveBurden(GameState gameState, PhysicalCard source);
+
     // Assignments
     public boolean canBeAssignedToSkirmish(GameState gameState, Side playerSide, PhysicalCard card);
 

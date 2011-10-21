@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -28,7 +28,7 @@ public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEf
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

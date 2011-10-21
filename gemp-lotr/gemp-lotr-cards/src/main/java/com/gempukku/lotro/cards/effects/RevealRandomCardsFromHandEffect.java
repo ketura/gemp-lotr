@@ -4,6 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.RevealCardsFromHandResult;
 
@@ -28,8 +29,8 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.REVEAL_CARDS_FROM_HAND;
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

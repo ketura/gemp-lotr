@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 
 public abstract class UnrespondableEffect extends AbstractEffect {
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

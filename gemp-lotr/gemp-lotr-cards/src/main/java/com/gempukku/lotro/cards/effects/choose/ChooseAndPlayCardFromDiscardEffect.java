@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -41,7 +41,7 @@ public class ChooseAndPlayCardFromDiscardEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

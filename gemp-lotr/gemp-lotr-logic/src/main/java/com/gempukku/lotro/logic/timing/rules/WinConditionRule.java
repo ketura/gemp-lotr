@@ -6,7 +6,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public class WinConditionRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect) {
-                        if (effect.getType() == EffectResult.Type.START_OF_PHASE
+                    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
+                        if (effectResults.getType() == EffectResult.Type.START_OF_PHASE
                                 && lotroGame.getGameState().getCurrentPhase() == Phase.REGROUP
                                 && lotroGame.getGameState().getCurrentSiteNumber() == 9
                                 && !lotroGame.getModifiersQuerying().hasFlagActive(ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE))

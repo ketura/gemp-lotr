@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 
@@ -18,8 +19,8 @@ public class SkirmishResolvedEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.RESOLVE_SKIRMISH;
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

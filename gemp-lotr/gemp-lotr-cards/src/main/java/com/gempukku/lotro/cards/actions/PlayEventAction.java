@@ -49,9 +49,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         _preCostIterator = preCostEffects.iterator();
 
-        _playCardEffect = new PlayEventEffect(card);
-        if (requiresRanger)
-            _playCardEffect.setRequiresRanger(true);
+        _playCardEffect = new PlayEventEffect(card, requiresRanger);
     }
 
     public boolean isRequiresRanger() {
@@ -97,7 +95,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
                 return _playCardEffect;
             }
 
-            if (!_playCardEffect.isCancelled()) {
+            if (!_playCardEffect.getPlayEventResult().isEventCancelled()) {
                 Effect effect = getNextEffect();
                 if (effect != null)
                     return effect;
@@ -106,7 +104,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         if (!_cardDiscarded && !_skipDiscardCard) {
             _cardDiscarded = true;
-            final Zone targetZone = _playCardEffect.getTargetZone();
+            final Zone targetZone = _playCardEffect.getPlayEventResult().getTargetZone();
             if (targetZone != null)
                 game.getGameState().addCardToZone(game, _eventPlayed, targetZone);
         }

@@ -13,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.PreventEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,18 +36,15 @@ public class Card3_110 extends AbstractAlly {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.ADD_BURDEN
+        if (PlayConditions.isAddingBurden(effect, game, Side.SHADOW)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
-            if (!addBurdenEffect.isPrevented()
-                    && addBurdenEffect.getSource().getBlueprint().getSide() == Side.SHADOW) {
-                ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new ExertCharactersEffect(self, self));
-                action.appendEffect(
-                        new PreventEffect(addBurdenEffect));
-                return Collections.singletonList(action);
-            }
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new ExertCharactersEffect(self, self));
+            action.appendEffect(
+                    new PreventEffect(addBurdenEffect));
+            return Collections.singletonList(action);
         }
         return null;
     }

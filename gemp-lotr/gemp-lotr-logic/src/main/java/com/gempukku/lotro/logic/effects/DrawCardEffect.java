@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
@@ -20,8 +21,8 @@ public class DrawCardEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND;
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

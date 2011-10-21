@@ -11,11 +11,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ActivateCardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -53,12 +52,11 @@ public class Card5_064 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.ACTIVATE) {
-            ActivateCardEffect activateEffect = (ActivateCardEffect) effect;
+    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (PlayConditions.activated(game, effectResult, Filters.any)) {
+            ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
             if (Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                     && activateEffect.getActionTimeword() == Phase.SKIRMISH
-                    && !activateEffect.isCancelled()
                     && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(

@@ -50,13 +50,7 @@ public class TurnProcedure {
             } else {
                 Effect effect = _actionStack.getNextEffect(_game);
                 if (effect != null) {
-                    if (effect.getType() == null) {
-                        effect.playEffect(_game);
-                        if (_gameStats.updateGameStats(_game))
-                            _game.getGameState().sendGameStats(_gameStats);
-                    } else {
-                        _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
-                    }
+                    _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
                 }
             }
             _game.checkLoseConditions();

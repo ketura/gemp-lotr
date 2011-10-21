@@ -3,6 +3,12 @@ package com.gempukku.lotro.logic.timing;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public interface Effect {
+    public enum Type {
+        BEFORE_WOUND, BEFORE_EXERT, BEFORE_ADD_BURDENS, BEFORE_DISCARD_FROM_PLAY,
+        BEFORE_ADD_TWILIGHT, BEFORE_KILLED, BEFORE_HEALED,
+        BEFORE_TAKE_CONTROL_OF_A_SITE
+    }
+
     /**
      * Returns the text tha represents this effect. This text might be displayed
      * to the user.
@@ -18,7 +24,7 @@ public interface Effect {
      *
      * @return
      */
-    public EffectResult.Type getType();
+    public Effect.Type getType();
 
     /**
      * Checks wheather this effect can be played in full. This is required to check

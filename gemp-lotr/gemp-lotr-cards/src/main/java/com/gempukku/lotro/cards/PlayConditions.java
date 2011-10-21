@@ -1,5 +1,8 @@
 package com.gempukku.lotro.cards;
 
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -8,12 +11,11 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardVisitor;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.PlayCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
@@ -276,16 +278,82 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean isTakingControlOfSite(Effect effect, LotroGame game, Filterable... sourceFilters) {
+        if (effect.getType() == Effect.Type.BEFORE_TAKE_CONTROL_OF_A_SITE) {
+            TakeControlOfASiteEffect takeControlOfASiteEffect = (TakeControlOfASiteEffect) effect;
+            return !takeControlOfASiteEffect.isPrevented() && Filters.and(sourceFilters).accepts(game.getGameState(), game.getModifiersQuerying(), takeControlOfASiteEffect.getSource());
+        }
+        return false;
+    }
+
+    public static boolean isAddingBurden(Effect effect, LotroGame game, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_ADD_BURDENS) {
+            AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
+            return !addBurdenEffect.isPrevented() && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addBurdenEffect.getSource());
+        }
+        return false;
+    }
+
+    public static boolean isAddingTwilight(Effect effect, LotroGame game, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_ADD_TWILIGHT) {
+            AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
+            return !addTwilightEffect.isPrevented() && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addTwilightEffect.getSource());
+        }
+        return false;
+    }
+
+    public static boolean isGettingHealed(Effect effect, LotroGame game, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_HEALED) {
+            HealCharactersEffect healEffect = (HealCharactersEffect) effect;
+            return Filters.filter(healEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
+    public static boolean isGettingKilled(Effect effect, LotroGame game, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_KILLED) {
+            KillEffect killEffect = (KillEffect) effect;
+            return Filters.filter(killEffect.getCharactersToBeKilled(), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
+    public static boolean isGettingWoundedBy(Effect effect, LotroGame game, Filterable sourceFilter, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_WOUND) {
+            WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            if (woundEffect.getSources() != null && Filters.filter(woundEffect.getSources(), game.getGameState(), game.getModifiersQuerying(), sourceFilter).size() > 0)
+                return Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
+    public static boolean isGettingExerted(Effect effect, LotroGame game, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_EXERT) {
+            ExertCharactersEffect woundEffect = (ExertCharactersEffect) effect;
+            return Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
     public static boolean isGettingWounded(Effect effect, LotroGame game, Filterable... filters) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
+        if (effect.getType() == Effect.Type.BEFORE_WOUND) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             return Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
         }
         return false;
     }
 
+    public static boolean isGettingDiscardedBy(Effect effect, LotroGame game, Filterable sourceFilter, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_DISCARD_FROM_PLAY) {
+            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
+            if (discardEffect.getSource() != null && Filters.and(sourceFilter).accepts(game.getGameState(), game.getModifiersQuerying(), discardEffect.getSource()))
+                return Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
     public static boolean isGettingDiscarded(Effect effect, LotroGame game, Filterable... filters) {
-        if (effect.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
+        if (effect.getType() == Effect.Type.BEFORE_DISCARD_FROM_PLAY) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             return Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
         }
@@ -300,20 +368,16 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean played(LotroGame game, EffectResult effectResult, Filterable... filters) {
-        return played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(filters));
-    }
-
-    public static boolean played(LotroGame game, Effect effect, Filterable... filters) {
-        return played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(filters));
-    }
-
-    public static boolean played(GameState gameState, ModifiersQuerying modifiersQuerying, Effect effect, Filter filter) {
-        if (effect.getType() == EffectResult.Type.PLAY) {
-            PhysicalCard playedCard = ((PlayCardEffect) effect).getPlayedCard();
-            return filter.accepts(gameState, modifiersQuerying, playedCard);
+    public static boolean activated(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.ACTIVATE) {
+            PhysicalCard source = ((ActivateCardResult) effectResult).getSource();
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), source);
         }
         return false;
+    }
+
+    public static boolean played(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        return played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(filters));
     }
 
     public static boolean canRemoveTokens(LotroGame game, Token token, int count, Filterable... fromFilters) {

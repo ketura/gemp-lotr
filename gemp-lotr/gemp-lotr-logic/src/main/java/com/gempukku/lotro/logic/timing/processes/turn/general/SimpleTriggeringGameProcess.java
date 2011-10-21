@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.timing.processes.turn.general;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.TriggeringEffect;
+import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.actions.SimpleEffectAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
@@ -21,7 +21,7 @@ public class SimpleTriggeringGameProcess implements GameProcess {
 
     @Override
     public void process() {
-        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringEffect(_effectResult, _text), _text));
+        _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringResultEffect(_effectResult, _text), _text));
     }
 
     @Override

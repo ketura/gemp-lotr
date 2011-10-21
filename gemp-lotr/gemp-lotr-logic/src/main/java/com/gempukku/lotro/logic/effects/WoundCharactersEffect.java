@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
 
@@ -48,8 +49,8 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.WOUND;
+    public Effect.Type getType() {
+        return Type.BEFORE_WOUND;
     }
 
     @Override

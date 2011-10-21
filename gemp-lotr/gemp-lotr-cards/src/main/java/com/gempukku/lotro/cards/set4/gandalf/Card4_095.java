@@ -8,10 +8,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,9 +38,8 @@ public class Card4_095 extends AbstractResponseOldEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
-                && PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.culture(Culture.GANDALF), Filters.type(CardType.EVENT)))
+    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, final EffectResult effectResult, PhysicalCard self) {
+        if (PlayConditions.played(game, effectResult, Culture.GANDALF, CardType.EVENT)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.name("Gandalf"))) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
@@ -53,13 +52,13 @@ public class Card4_095 extends AbstractResponseOldEvent {
                         }
 
                         @Override
-                        public EffectResult.Type getType() {
+                        public Effect.Type getType() {
                             return null;
                         }
 
                         @Override
                         public EffectResult[] playEffect(LotroGame game) {
-                            ((PlayEventEffect) effect).setTargetZone(Zone.HAND);
+                            ((PlayEventResult) effectResult).setTargetZone(Zone.HAND);
                             return null;
                         }
                     }

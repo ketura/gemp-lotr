@@ -11,8 +11,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,8 +39,8 @@ public class Card1_161 extends AbstractResponseOldEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.type(CardType.EVENT), Filters.keyword(Keyword.STEALTH)))
+    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (PlayConditions.played(game, effectResult, CardType.EVENT, Filters.keyword(Keyword.STEALTH))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI))
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
 
@@ -64,7 +65,7 @@ public class Card1_161 extends AbstractResponseOldEvent {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
 
-            action.appendEffect(new CancelEventEffect(self, (PlayEventEffect) effect));
+            action.appendEffect(new CancelEventEffect(self, (PlayEventResult) effectResult));
 
             return Collections.singletonList(action);
         }

@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.actions.PlayerReconcilesAction;
 
@@ -58,7 +59,7 @@ public class Card4_075 extends AbstractAttachableFPPossession {
                         }
 
                         @Override
-                        public EffectResult.Type getType() {
+                        public Effect.Type getType() {
                             return null;
                         }
 

@@ -6,6 +6,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
@@ -23,7 +24,7 @@ public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
+    public Effect.Type getType() {
         return null;
     }
 

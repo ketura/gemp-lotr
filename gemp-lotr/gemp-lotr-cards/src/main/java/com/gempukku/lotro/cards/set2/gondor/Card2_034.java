@@ -14,7 +14,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -40,25 +39,23 @@ public class Card2_034 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND
+        if (PlayConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION))
                 && checkPlayRequirements(playerId, game, self, 0)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);
-            if (Filters.filter(woundedCards, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0) {
-                final PlayEventAction action = new PlayEventAction(self);
-                action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.in(woundedCards), Filters.type(CardType.COMPANION)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                action.appendEffect(
-                                        new PreventCardEffect(woundEffect, card));
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+            final PlayEventAction action = new PlayEventAction(self);
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.in(woundedCards), Filters.type(CardType.COMPANION)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.appendEffect(
+                                    new PreventCardEffect(woundEffect, card));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

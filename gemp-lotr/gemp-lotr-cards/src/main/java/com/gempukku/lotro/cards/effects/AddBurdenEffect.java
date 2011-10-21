@@ -4,6 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.Preventable;
 import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
@@ -47,8 +48,8 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.ADD_BURDEN;
+    public Effect.Type getType() {
+        return Type.BEFORE_ADD_BURDENS;
     }
 
     @Override

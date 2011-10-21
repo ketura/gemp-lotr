@@ -9,8 +9,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.effects.PlayEventEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,15 +34,15 @@ public class Card1_115 extends AbstractResponseOldEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effect, Filters.and(Filters.type(CardType.EVENT), Filters.keyword(Keyword.SKIRMISH)))) {
+    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (PlayConditions.played(game, effectResult, CardType.EVENT, Filters.keyword(Keyword.SKIRMISH))) {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null) {
                 PhysicalCard fpCharacter = skirmish.getFellowshipCharacter();
                 if (fpCharacter.getBlueprint().getRace() == Race.MAN
                         && fpCharacter.getBlueprint().getCulture() == Culture.GONDOR) {
                     PlayEventAction action = new PlayEventAction(self);
-                    action.appendEffect(new CancelEventEffect(self, (PlayEventEffect) effect));
+                    action.appendEffect(new CancelEventEffect(self, (PlayEventResult) effectResult));
                     return Collections.singletonList(action);
                 }
             }

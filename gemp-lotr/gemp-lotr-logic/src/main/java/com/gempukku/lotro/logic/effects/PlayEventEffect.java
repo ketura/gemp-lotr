@@ -1,38 +1,26 @@
 package com.gempukku.lotro.logic.effects;
 
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 public class PlayEventEffect extends PlayCardEffect {
-    private boolean _cancelled;
     private boolean _requiresRanger;
-    private Zone _targetZone = Zone.DISCARD;
+    private PlayEventResult _playEventResult;
 
-    public PlayEventEffect(PhysicalCard cardPlayed) {
+    public PlayEventEffect(PhysicalCard cardPlayed, boolean requiresRanger) {
         super(cardPlayed);
-    }
-
-    public boolean isRequiresRanger() {
-        return _requiresRanger;
-    }
-
-    public void setRequiresRanger(boolean requiresRanger) {
         _requiresRanger = requiresRanger;
+        _playEventResult = new PlayEventResult(getPlayedCard(), _requiresRanger);
     }
 
-    public void cancel() {
-        _cancelled = true;
+    public PlayEventResult getPlayEventResult() {
+        return _playEventResult;
     }
 
-    public boolean isCancelled() {
-        return _cancelled;
-    }
-
-    public void setTargetZone(Zone zone) {
-        _targetZone = zone;
-    }
-
-    public Zone getTargetZone() {
-        return _targetZone;
+    @Override
+    protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        return new FullEffectResult(new EffectResult[]{_playEventResult}, true, true);
     }
 }

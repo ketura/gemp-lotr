@@ -6,7 +6,6 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,12 +23,12 @@ public class ChoiceEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

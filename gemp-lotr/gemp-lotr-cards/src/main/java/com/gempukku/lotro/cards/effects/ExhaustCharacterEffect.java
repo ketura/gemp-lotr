@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
@@ -29,8 +30,8 @@ public class ExhaustCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return EffectResult.Type.EXHAUST;
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

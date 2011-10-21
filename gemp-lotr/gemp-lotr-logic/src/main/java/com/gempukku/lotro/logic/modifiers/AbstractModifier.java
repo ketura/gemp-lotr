@@ -203,6 +203,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canRemoveBurden(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
     public int getRoamingPenalty(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
         return result;
     }

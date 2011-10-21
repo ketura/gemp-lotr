@@ -2,20 +2,21 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class TriggeringEffect extends AbstractSuccessfulEffect {
+public class TriggeringResultEffect extends AbstractSuccessfulEffect {
     private EffectResult _effectResult;
     private String _text;
 
-    public TriggeringEffect(EffectResult effectResult, String text) {
+    public TriggeringResultEffect(EffectResult effectResult, String text) {
         _effectResult = effectResult;
         _text = text;
     }
 
     @Override
-    public EffectResult.Type getType() {
-        return _effectResult.getType();
+    public Effect.Type getType() {
+        return null;
     }
 
     @Override

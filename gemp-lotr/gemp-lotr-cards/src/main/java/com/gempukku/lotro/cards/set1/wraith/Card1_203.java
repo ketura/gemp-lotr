@@ -13,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,22 +37,20 @@ public class Card1_203 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (effect.getType() == EffectResult.Type.WOUND) {
+        if (PlayConditions.isGettingWounded(effect, game, Race.NAZGUL)
+                && PlayConditions.canPayForShadowCard(game, self, 0)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            if (Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0
-                    && PlayConditions.canPayForShadowCard(game, self, 0)) {
-                final PlayEventAction action = new PlayEventAction(self);
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.in(woundEffect.getAffectedCardsMinusPrevented(game))) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
-                                action.appendEffect(
-                                        new PreventCardEffect(woundEffect, nazgul));
-                            }
+            final PlayEventAction action = new PlayEventAction(self);
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL), Filters.in(woundEffect.getAffectedCardsMinusPrevented(game))) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
+                            action.appendEffect(
+                                    new PreventCardEffect(woundEffect, nazgul));
                         }
-                );
-                return Collections.singletonList(action);
-            }
+                    }
+            );
+            return Collections.singletonList(action);
         }
         return null;
     }
