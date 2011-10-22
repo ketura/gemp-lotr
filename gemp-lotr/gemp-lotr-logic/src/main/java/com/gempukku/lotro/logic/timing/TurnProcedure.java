@@ -50,7 +50,10 @@ public class TurnProcedure {
             } else {
                 Effect effect = _actionStack.getNextEffect(_game);
                 if (effect != null) {
-                    _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
+                    if (effect instanceof RulesEffect)
+                        effect.playEffect(_game);
+                    else
+                        _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
                 }
             }
             _game.checkLoseConditions();
@@ -129,7 +132,7 @@ public class TurnProcedure {
         }
     }
 
-    private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect {
+    private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect implements RulesEffect {
         private SystemQueueAction _action;
         private Set<PhysicalCard> _cardTriggersUsed;
         private PlayOrder _playOrder;
@@ -186,7 +189,7 @@ public class TurnProcedure {
         }
     }
 
-    private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect {
+    private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect implements RulesEffect {
         private SystemQueueAction _action;
         private Map<String, List<Action>> _unplayedAfterTriggers;
         private PlayOrder _playOrder;
@@ -248,7 +251,7 @@ public class TurnProcedure {
         }
     }
 
-    private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect {
+    private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect implements RulesEffect {
         private SystemQueueAction _action;
         private Effect _effect;
         private List<Action> _actions;
@@ -278,7 +281,7 @@ public class TurnProcedure {
         }
     }
 
-    private class StackActionEffect extends UnrespondableEffect {
+    private class StackActionEffect extends UnrespondableEffect implements RulesEffect {
         private Action _action;
 
         private StackActionEffect(Action action) {
