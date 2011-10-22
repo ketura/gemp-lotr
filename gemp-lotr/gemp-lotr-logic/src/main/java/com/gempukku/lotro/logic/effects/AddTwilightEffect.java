@@ -25,7 +25,7 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Add (4)";
     }
 
     @Override
