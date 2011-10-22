@@ -41,6 +41,10 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean canDiscardFromHand(LotroGame game, String playerId, int count, Filterable... cardFilter) {
+        return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), cardFilter).size() >= count;
+    }
+
     public static boolean canDiscardCardsFromHandToPlay(PhysicalCard source, LotroGame game, String playerId, int count, Filterable... cardFilter) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(cardFilter, Filters.not(source))).size() >= count;
     }
