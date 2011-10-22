@@ -4,7 +4,8 @@ public enum Token {
     BURDEN, WOUND,
 
     DUNLAND(Culture.DUNLAND), DWARVEN(Culture.DWARVEN), ELVEN(Culture.ELVEN), GANDALF(Culture.GANDALF),
-    GONDOR(Culture.GONDOR), ISENGARD(Culture.ISENGARD), RAIDER(Culture.RAIDER), ROHAN(Culture.ROHAN), SHIRE(Culture.SHIRE);
+    GONDOR(Culture.GONDOR), ISENGARD(Culture.ISENGARD), RAIDER(Culture.RAIDER), ROHAN(Culture.ROHAN), SHIRE(Culture.SHIRE),
+    WRAITH(Culture.WRAITH);
 
     private Culture _culture;
 
