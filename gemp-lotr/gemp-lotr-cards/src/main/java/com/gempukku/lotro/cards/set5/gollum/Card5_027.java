@@ -47,7 +47,7 @@ public class Card5_027 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && PlayConditions.canBeDiscarded(self, game, self)) {
+                && PlayConditions.canDiscardFromPlay(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
