@@ -84,7 +84,7 @@ public class PlayConditions {
         return (!blueprint.isUnique()
                 || (
                 !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))
-                        && (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0)));
+                        && (self.getZone() == Zone.DEAD || (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0))));
     }
 
     private static int getTotalCompanions(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
@@ -93,7 +93,10 @@ public class PlayConditions {
     }
 
     public static boolean checkRuleOfNine(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9);
+        if (self.getZone() == Zone.DEAD)
+            return (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) <= 9);
+        else
+            return (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9);
     }
 
     public static boolean canHealByDiscarding(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
@@ -160,6 +163,10 @@ public class PlayConditions {
 
     public static boolean canPlayFromHand(String playerId, LotroGame game, int twilightModifier, Filterable... filters) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, twilightModifier))).size() > 0;
+    }
+
+    public static boolean canPlayFromDeadPile(String playerId, LotroGame game, Filterable... filters) {
+        return Filters.filter(game.getGameState().getDeadPile(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
     }
 
     public static boolean canPlayFromDiscard(String playerId, LotroGame game, Filterable... filters) {
