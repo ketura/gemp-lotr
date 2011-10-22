@@ -31,7 +31,7 @@ public class Card5_021 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canBeDiscarded(self, game, Filters.name("Smeagol"));
+                && PlayConditions.canDiscardFromPlay(self, game, Filters.name("Smeagol"));
     }
 
     @Override

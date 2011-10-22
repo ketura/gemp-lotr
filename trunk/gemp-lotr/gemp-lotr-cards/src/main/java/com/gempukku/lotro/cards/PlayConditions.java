@@ -170,15 +170,15 @@ public class PlayConditions {
         return Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, modifier))).size() > 0;
     }
 
-    public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, final PhysicalCard card) {
+    public static boolean canDiscardFromPlay(final PhysicalCard source, LotroGame game, final PhysicalCard card) {
         return game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, source);
     }
 
     public static boolean canSelfDiscard(PhysicalCard source, LotroGame game) {
-        return canBeDiscarded(source, game, source);
+        return canDiscardFromPlay(source, game, source);
     }
 
-    public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, int count, final Filterable... filters) {
+    public static boolean canDiscardFromPlay(final PhysicalCard source, LotroGame game, int count, final Filterable... filters) {
         return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(filters,
                 new Filter() {
                     @Override
@@ -188,8 +188,8 @@ public class PlayConditions {
                 })) >= count;
     }
 
-    public static boolean canBeDiscarded(final PhysicalCard source, LotroGame game, final Filterable... filters) {
-        return canBeDiscarded(source, game, 1, filters);
+    public static boolean canDiscardFromPlay(final PhysicalCard source, LotroGame game, final Filterable... filters) {
+        return canDiscardFromPlay(source, game, 1, filters);
     }
 
     public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filterable... filters) {

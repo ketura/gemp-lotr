@@ -49,7 +49,7 @@ public class Card5_114 extends AbstractAttachable {
         if (PlayConditions.activated(game, effectResult, Filters.any)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
             if (activateEffect.getActionTimeword() == Phase.REGROUP
-                    && PlayConditions.canBeDiscarded(self, game, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum")))) {
+                    && PlayConditions.canDiscardFromPlay(self, game, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum")))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum"))));
