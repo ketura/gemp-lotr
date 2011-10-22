@@ -13,4 +13,12 @@ public enum Culture implements Filterable {
     public String getHumanReadable() {
         return _humanReadable;
     }
+
+    public static Culture findCultureByHumanReadable(String humanReadable) {
+        for (Culture culture : values()) {
+            if (culture.getHumanReadable().equals(humanReadable))
+                return culture;
+        }
+        return null;
+    }
 }
