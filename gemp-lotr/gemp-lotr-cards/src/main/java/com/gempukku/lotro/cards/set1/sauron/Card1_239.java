@@ -34,8 +34,9 @@ public class Card1_239 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
-        action.appendEffect(
-                new ChooseAndExertCharactersEffect(action, playerId, companionCount - 4, companionCount - 4, Filters.type(CardType.COMPANION)));
+        for (int i = 0; i < companionCount - 4; i++)
+            action.appendEffect(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.COMPANION)));
         return action;
     }
 

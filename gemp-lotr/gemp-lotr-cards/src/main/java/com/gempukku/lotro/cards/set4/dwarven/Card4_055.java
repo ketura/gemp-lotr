@@ -52,8 +52,9 @@ public class Card4_055 extends AbstractOldEvent {
                                 new ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect(self, playerId, Collections.singleton(card)) {
                                     @Override
                                     protected void cardsShuffledCallback(Set<PhysicalCard> cardsShuffled) {
-                                        action.appendEffect(
-                                                new ChooseAndExertCharactersEffect(action, playerId, cardsShuffled.size(), cardsShuffled.size(), Filters.type(CardType.MINION)));
+                                        for (int i = 0; i < cardsShuffled.size(); i++)
+                                            action.appendEffect(
+                                                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)));
                                     }
                                 });
 

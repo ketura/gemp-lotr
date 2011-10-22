@@ -50,8 +50,9 @@ public class Card4_216 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int count = game.getGameState().getTokenCount(self, Token.RAIDER);
-            action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, count, count, Filters.culture(Culture.RAIDER), Filters.keyword(Keyword.ARCHER)));
+            for (int i = 0; i < count; i++)
+                action.appendEffect(
+                        new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.RAIDER), Filters.keyword(Keyword.ARCHER)));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

@@ -37,8 +37,9 @@ public class Card4_364 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, Race.HOBBIT, Filters.unboundCompanion)) {
             int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, Filters.unboundCompanion);
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, count, count, CardType.MINION));
+            for (int i = 0; i < count; i++)
+                action.appendEffect(
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

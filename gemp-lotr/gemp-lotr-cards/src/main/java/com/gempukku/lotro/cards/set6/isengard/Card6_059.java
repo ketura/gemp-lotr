@@ -46,8 +46,9 @@ public class Card6_059 extends AbstractAttachable {
         if (PlayConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int sitesControlled = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(self.getOwner()));
-            action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), sitesControlled, sitesControlled, CardType.COMPANION));
+            for (int i = 0; i < sitesControlled; i++)
+                action.appendEffect(
+                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

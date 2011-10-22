@@ -46,9 +46,10 @@ public class Card4_126 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            int tokens = game.getGameState().getTokenCount(self, Token.GONDOR);
-            action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, playerId, tokens, tokens, Filters.type(CardType.MINION)));
+            int tokens = Math.min(3, game.getGameState().getTokenCount(self, Token.GONDOR));
+            for (int i = 0; i < tokens; i++)
+                action.appendEffect(
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

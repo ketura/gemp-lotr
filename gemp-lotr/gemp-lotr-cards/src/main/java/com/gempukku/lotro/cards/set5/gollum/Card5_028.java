@@ -68,9 +68,9 @@ public class Card5_028 extends AbstractCompanion {
                                 action.appendEffect(
                                         new PutCardsOnBottomInAnyOrderEffect(game, playerId, cards));
                             game.getActionsEnvironment().addActionToStack(subAction);
-                            if (shadowCards > 0)
+                            for (int i = 0; i < shadowCards; i++)
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, shadowCards, shadowCards, CardType.MINION));
+                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
                         }
                     });
             return Collections.singletonList(action);
@@ -108,17 +108,17 @@ public class Card5_028 extends AbstractCompanion {
             } else if (_cards.size() > 1) {
                 game.getUserFeedback().sendAwaitingDecision(
                         _playerId, new ArbitraryCardsSelectionDecision(1, "Choose card to put on bottom of deck", _cards, 1, 1) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                        if (selectedCards.size() == 1) {
-                            PhysicalCard card = selectedCards.iterator().next();
-                            _cards.remove(card);
-                            game.getGameState().removeCardsFromZone(Collections.singleton(card));
-                            game.getGameState().putCardOnBottomOfDeck(card);
-                        }
-                    }
-                });
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                if (selectedCards.size() == 1) {
+                                    PhysicalCard card = selectedCards.iterator().next();
+                                    _cards.remove(card);
+                                    game.getGameState().removeCardsFromZone(Collections.singleton(card));
+                                    game.getGameState().putCardOnBottomOfDeck(card);
+                                }
+                            }
+                        });
             }
             return null;
         }
