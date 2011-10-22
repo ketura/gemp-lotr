@@ -61,12 +61,11 @@ public class Card4_033 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
             int dunlandManCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN));
-            if (dunlandManCount > 0) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            for (int i = 0; i < dunlandManCount; i++)
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), dunlandManCount, dunlandManCount, Filters.type(CardType.COMPANION)));
-                return Collections.singletonList(action);
-            }
+                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.type(CardType.COMPANION)));
+            return Collections.singletonList(action);
         }
         return null;
     }

@@ -37,8 +37,9 @@ public class Card6_087 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Race.NAZGUL, Filters.not(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int count = new CountCulturesEvaluator(2, 1, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
-            action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, CardType.COMPANION, Keyword.RING_BOUND));
+            for (int i = 0; i < count; i++)
+                action.appendEffect(
+                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION, Keyword.RING_BOUND));
             return Collections.singletonList(action);
         }
         return null;

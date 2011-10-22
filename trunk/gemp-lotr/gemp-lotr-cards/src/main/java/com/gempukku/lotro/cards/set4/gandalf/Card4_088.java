@@ -47,9 +47,9 @@ public class Card4_088 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             int tokenCount = game.getGameState().getTokenCount(self, Token.GANDALF);
-            if (tokenCount > 0)
+            for (int i = 0; i < tokenCount; i++)
                 action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, tokenCount, Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.name("Gandalf"))));
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.name("Gandalf"))));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);
