@@ -34,12 +34,12 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected Filter getExtraFilter() {
-        return new Filter() {
+        return Filters.and(Filters.wounded, new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return modifiersQuerying.canBeHealed(gameState, physicalCard);
             }
-        };
+        });
     }
 
     @Override
