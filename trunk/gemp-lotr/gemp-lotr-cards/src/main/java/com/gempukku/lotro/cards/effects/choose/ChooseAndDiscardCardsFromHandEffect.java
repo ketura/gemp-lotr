@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -21,19 +21,19 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
     private boolean _forced;
     private int _minimum;
     private int _maximum;
-    private Filter _filter;
+    private Filterable[] _filter;
 
-    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int minimum, int maximum, Filter filter) {
+    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int minimum, int maximum, Filterable... filters) {
         _action = action;
         _playerId = playerId;
         _forced = forced;
         _minimum = minimum;
         _maximum = maximum;
-        _filter = filter;
+        _filter = filters;
     }
 
-    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int count, Filter filter) {
-        this(action, playerId, forced, count, count, filter);
+    public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int count, Filterable... filters) {
+        this(action, playerId, forced, count, count, filters);
     }
 
     public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, int count) {
