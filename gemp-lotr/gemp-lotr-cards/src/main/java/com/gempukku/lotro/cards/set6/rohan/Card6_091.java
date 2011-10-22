@@ -39,7 +39,7 @@ public class Card6_091 extends AbstractPermanent {
                         protected void cardsToBeDiscardedCallback(Collection<PhysicalCard> cards) {
                             Set<PhysicalCard> affectedCharacters = new HashSet<PhysicalCard>();
                             for (PhysicalCard card : cards)
-                                affectedCharacters.add(card.getAttachedTo())
+                                affectedCharacters.add(card.getAttachedTo());
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new OverwhelmedByMultiplierModifier(self, Filters.in(affectedCharacters), 3), Phase.SKIRMISH));
