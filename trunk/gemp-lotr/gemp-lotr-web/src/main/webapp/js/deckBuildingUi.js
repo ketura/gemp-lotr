@@ -280,7 +280,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         };
         this.infoDialog.swipe(swipeOptions);
 
-        this.comm.getDeck("default", function(xml) {
+        this.comm.getDeck("Default", function(xml) {
             that.setupDeck(xml);
         });
 
@@ -336,7 +336,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         if (deckContents == null)
             alert("Deck must contain at least Ring-bearer, The One Ring and 9 sites");
         else
-            this.comm.saveDeck("default", deckContents, function(xml) {
+            this.comm.saveDeck("Default", deckContents, function(xml) {
                 alert("Deck was saved");
             });
     },

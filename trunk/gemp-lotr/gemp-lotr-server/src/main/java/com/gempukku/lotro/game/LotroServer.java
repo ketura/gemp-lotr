@@ -159,9 +159,9 @@ public class LotroServer extends AbstractServer {
         }
     }
 
-    public LotroDeck getParticipantDeck(String participantId) {
+    public LotroDeck getParticipantDeck(String participantId, String deckName) {
         Player player = _playerDao.getPlayer(participantId);
-        LotroDeck deck = _deckDao.getDeckForPlayer(player, "default");
+        LotroDeck deck = _deckDao.getDeckForPlayer(player, deckName);
         if (deck == null)
             return null;
 
