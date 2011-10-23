@@ -17,7 +17,7 @@ public class ActionStack {
         if (effect != null) {
             return effect;
         } else {
-            _actionStack.pop();
+            _actionStack.remove(_actionStack.lastIndexOf(action));
             return null;
         }
     }
