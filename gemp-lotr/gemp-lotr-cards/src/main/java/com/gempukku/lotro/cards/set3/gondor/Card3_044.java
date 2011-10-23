@@ -38,12 +38,8 @@ public class Card3_044 extends AbstractPermanent {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Stack a GONDOR card from hand here";
-                    }
-                };
+                final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Stack a GONDOR card from hand here");
                 action.appendEffect(
                         new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.culture(Culture.GONDOR)) {
                             @Override
@@ -60,12 +56,8 @@ public class Card3_044 extends AbstractPermanent {
 
             List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
             if (stackedCards.size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Add (1) to take card stacked here into hand";
-                    }
-                };
+                final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Add (1) to take card stacked here into hand");
                 action.appendCost(
                         new AddTwilightEffect(self, 1));
                 action.appendEffect(

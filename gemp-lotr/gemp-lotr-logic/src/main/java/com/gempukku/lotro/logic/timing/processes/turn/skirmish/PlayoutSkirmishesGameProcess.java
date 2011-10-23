@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.SkirmishGameProcess;
@@ -39,12 +39,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 for (Assignment assignment : assignments)
                     fps.add(assignment.getFellowshipCharacter());
 
-                RequiredTriggerAction chooseNextSkirmishAction = new RequiredTriggerAction(null) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Choosing next skirmish to play out";
-                    }
-                };
+                SystemQueueAction chooseNextSkirmishAction = new SystemQueueAction();
                 chooseNextSkirmishAction.appendEffect(
                         new ChooseActiveCardEffect(null, gameState.getCurrentPlayerId(), "Choose next skirmish to resolve", Filters.in(fps)) {
                             @Override

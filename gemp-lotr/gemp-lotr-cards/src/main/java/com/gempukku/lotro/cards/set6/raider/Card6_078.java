@@ -42,12 +42,8 @@ public class Card6_078 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
             if (game.getGameState().getBurdens() >= 2) {
-                ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Make an Easterling Str +1";
-                    }
-                };
+                ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Make an Easterling Str +1");
                 action.appendCost(
                         new ExertCharactersEffect(self, self));
                 action.appendEffect(
@@ -55,12 +51,8 @@ public class Card6_078 extends AbstractMinion {
                 actions.add(action);
             }
             if (game.getGameState().getBurdens() >= 4) {
-                ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Make an Easterling Str +2";
-                    }
-                };
+                ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Make an Easterling Str +2");
                 action.appendCost(
                         new ExertCharactersEffect(self, self));
                 action.appendEffect(
@@ -68,12 +60,8 @@ public class Card6_078 extends AbstractMinion {
                 actions.add(action);
             }
             if (game.getGameState().getBurdens() >= 6) {
-                ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Make an Easterling Str +3";
-                    }
-                };
+                ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Make an Easterling Str +3");
                 action.appendCost(
                         new ExertCharactersEffect(self, self));
                 action.appendEffect(

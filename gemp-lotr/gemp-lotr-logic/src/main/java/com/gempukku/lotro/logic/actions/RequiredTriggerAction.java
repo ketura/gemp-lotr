@@ -11,8 +11,11 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
 
     private boolean _sentMessage;
 
+    private String _text;
+
     public RequiredTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
+        _text = "Required trigger from " + GameUtils.getCardLink(_physicalCard);
     }
 
     @Override
@@ -25,9 +28,13 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
         return _physicalCard;
     }
 
+    public void setText(String text) {
+        _text = text;
+    }
+
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return _text;
     }
 
     @Override

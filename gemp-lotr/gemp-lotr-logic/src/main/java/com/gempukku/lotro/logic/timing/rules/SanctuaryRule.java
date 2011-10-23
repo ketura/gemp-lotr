@@ -28,12 +28,8 @@ public class SanctuaryRule {
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
-                            RequiredTriggerAction action = new RequiredTriggerAction(null) {
-                                @Override
-                                public String getText(LotroGame game) {
-                                    return "Sanctuary healing";
-                                }
-                            };
+                            RequiredTriggerAction action = new RequiredTriggerAction(game.getGameState().getCurrentSite());
+                            action.setText("Sanctuary healing");
                             for (int i = 0; i < 5; i++) {
                                 final int remainingHeals = 5 - i;
                                 ChooseAndHealCharactersEffect healEffect = new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, Filters.type(CardType.COMPANION));

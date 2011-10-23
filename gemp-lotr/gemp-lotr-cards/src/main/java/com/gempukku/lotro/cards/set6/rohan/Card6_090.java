@@ -42,12 +42,8 @@ public class Card6_090 extends AbstractAttachableFPPossession {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Exert a minion";
-                }
-            };
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.setText("Exert a minion");
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);
@@ -59,12 +55,8 @@ public class Card6_090 extends AbstractAttachableFPPossession {
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
                 && PlayConditions.canSelfDiscard(self, game)) {
-            ActivateCardAction action = new ActivateCardAction(self) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Discard this to liberate a site";
-                }
-            };
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.setText("Discard this to liberate a site");
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(

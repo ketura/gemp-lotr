@@ -11,10 +11,13 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
     private PhysicalCard _actionAttachedToCard;
 
     private boolean _sentMessage;
+    private String _text;
 
     public OptionalTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         _actionAttachedToCard = physicalCard;
+
+        _text = "Optional trigger from " + GameUtils.getCardLink(_physicalCard);
     }
 
     public void setActionAttachedToCard(PhysicalCard actionAttachedToCard) {
@@ -31,9 +34,13 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
         return _actionAttachedToCard;
     }
 
+    public void setText(String text) {
+        _text = text;
+    }
+
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return _text;
     }
 
     @Override

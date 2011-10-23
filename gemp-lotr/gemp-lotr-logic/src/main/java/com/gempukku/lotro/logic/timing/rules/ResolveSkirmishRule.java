@@ -45,12 +45,8 @@ public class ResolveSkirmishRule {
 
                             List<PhysicalCard> losers = skirmishResult.getLosers();
 
-                            RequiredTriggerAction action = new RequiredTriggerAction(null) {
-                                @Override
-                                public String getText(LotroGame game) {
-                                    return "Resolving skirmish";
-                                }
-                            };
+                            RequiredTriggerAction action = new RequiredTriggerAction(null);
+                            action.setText("Resolving skirmish");
                             for (int i = 0; i < dmg; i++) {
                                 action.appendEffect(
                                         new WoundCharactersEffect(winners, Filters.in(losers)));
@@ -61,12 +57,8 @@ public class ResolveSkirmishRule {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;
                             List<PhysicalCard> losers = new LinkedList<PhysicalCard>(skirmishResult.getLosers());
 
-                            RequiredTriggerAction action = new RequiredTriggerAction(null) {
-                                @Override
-                                public String getText(LotroGame game) {
-                                    return "Resolving skirmish";
-                                }
-                            };
+                            RequiredTriggerAction action = new RequiredTriggerAction(null);
+                            action.setText("Resolving skirmish");
                             action.appendEffect(new KillEffect(losers));
 
                             return Collections.singletonList(action);

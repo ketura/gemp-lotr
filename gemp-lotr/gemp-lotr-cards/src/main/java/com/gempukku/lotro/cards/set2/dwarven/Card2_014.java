@@ -36,12 +36,8 @@ public class Card2_014 extends AbstractPermanent {
             Collection<PhysicalCard> dwarfCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             for (final PhysicalCard dwarfCompanion : dwarfCompanions) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Heal " + GameUtils.getCardLink(dwarfCompanion);
-                    }
-                };
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.setText("Heal " + GameUtils.getCardLink(dwarfCompanion));
                 action.appendEffect(
                         new HealCharactersEffect(playerId, dwarfCompanion));
                 actions.add(action);

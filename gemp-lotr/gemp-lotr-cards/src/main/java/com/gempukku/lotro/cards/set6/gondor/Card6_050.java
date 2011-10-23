@@ -42,12 +42,8 @@ public class Card6_050 extends AbstractCompanion {
         List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canRemoveTokens(game, Token.ELVEN, 1, Filters.any)) {
-            final ActivateCardAction action = new ActivateCardAction(self) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Remove ELVEN token...";
-                }
-            };
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.setText("Remove ELVEN token...");
             action.appendCost(
                     new ChooseAndRemoveTokensFromCardEffect(self, playerId, Token.ELVEN, 1, Filters.any));
             action.appendEffect(
@@ -63,12 +59,8 @@ public class Card6_050 extends AbstractCompanion {
         }
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canRemoveTokens(game, Token.DWARVEN, 1, Filters.any)) {
-            final ActivateCardAction action = new ActivateCardAction(self) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Remove DWARVEN token...";
-                }
-            };
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.setText("Remove DWARVEN token...");
             action.appendCost(
                     new ChooseAndRemoveTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
             action.appendEffect(

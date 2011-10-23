@@ -15,8 +15,11 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     private boolean _sentMessage;
     private boolean _activated;
 
+    private String _text;
+
     public ActivateCardAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
+        _text = "Use " + _physicalCard.getBlueprint().getName();
     }
 
     @Override
@@ -29,9 +32,13 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
         return _physicalCard;
     }
 
+    public void setText(String text) {
+        _text = text;
+    }
+
     @Override
     public String getText(LotroGame game) {
-        return "Use " + _physicalCard.getBlueprint().getName();
+        return _text;
     }
 
     @Override

@@ -34,12 +34,8 @@ public class AmbushRule {
                                     for (PhysicalCard minion : minions) {
                                         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), minion, Keyword.AMBUSH)) {
                                             final int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), minion, Keyword.AMBUSH);
-                                            OptionalTriggerAction action = new OptionalTriggerAction(minion) {
-                                                @Override
-                                                public String getText(LotroGame game) {
-                                                    return "Ambush - add " + count;
-                                                }
-                                            };
+                                            OptionalTriggerAction action = new OptionalTriggerAction(minion);
+                                            action.setText("Ambush - add " + count);
                                             action.appendEffect(
                                                     new AddTwilightEffect(minion, count));
                                             actions.add(action);

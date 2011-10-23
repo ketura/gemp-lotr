@@ -6,7 +6,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
@@ -51,12 +51,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                             )
                     );
 
-            RequiredTriggerAction action = new RequiredTriggerAction(null) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Archery fire";
-                }
-            };
+            SystemQueueAction action = new SystemQueueAction();
             for (int i = 0; i < _woundsToAssign; i++) {
                 final int woundsLeft = _woundsToAssign - i;
                 ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, _game.getGameState().getCurrentPlayerId(), 1, 1, filter);
