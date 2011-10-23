@@ -42,7 +42,7 @@ public class Card1_331 extends AbstractSite {
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(character), 2), Phase.SKIRMISH));
+                                            new StrengthModifier(self, character, 2), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);

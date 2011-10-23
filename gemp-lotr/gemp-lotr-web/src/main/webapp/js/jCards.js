@@ -70,6 +70,10 @@ var Card = Class.extend({
             return (cardNo >= 115 && cardNo <= 120);
         if (setNo == 4)
             return (cardNo >= 323 && cardNo <= 363);
+        if (setNo == 5)
+            return (cardNo >= 118 && cardNo <= 120);
+        if (setNo == 6)
+            return (cardNo >= 115 && cardNo <= 120);
     },
 
     getUrlByBlueprintId: function(blueprintId) {
