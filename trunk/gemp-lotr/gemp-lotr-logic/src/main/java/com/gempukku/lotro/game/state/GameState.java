@@ -363,9 +363,10 @@ public class GameState {
             Zone zone = card.getZone();
 
             if (zone.isInPlay())
-                stopAffecting(card);
-            else if (zone == Zone.STACKED)
-                stopAffectingStacked(card);
+                if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.GAME_SETUP && getCurrentSite() == card))
+                    stopAffecting(card);
+                else if (zone == Zone.STACKED)
+                    stopAffectingStacked(card);
 
             List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
             boolean b = zoneCards.remove(card);
@@ -444,7 +445,7 @@ public class GameState {
         }
 
         if (zone.isInPlay()) {
-            if (zone != Zone.ADVENTURE_PATH || _currentPhase != Phase.GAME_SETUP)
+            if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.GAME_SETUP && getCurrentSite() == card))
                 startAffecting(game, card);
         } else if (zone == Zone.STACKED)
             startAffectingStacked(game, card);
