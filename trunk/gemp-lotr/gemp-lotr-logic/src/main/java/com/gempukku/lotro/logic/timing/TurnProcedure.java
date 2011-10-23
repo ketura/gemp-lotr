@@ -101,7 +101,7 @@ public class TurnProcedure {
                     _game.getGameState().sendGameStats(_gameStats);
                 _effectPlayed = true;
             }
-            if (_effectResults != null) {
+            if (_effectResults != null && _effectResults.size() > 0) {
                 if (!_checkedRequiredWhenResponses) {
                     _checkedRequiredWhenResponses = true;
                     List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(_effectResults);
