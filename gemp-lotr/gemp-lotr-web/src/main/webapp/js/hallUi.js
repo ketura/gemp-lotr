@@ -58,7 +58,7 @@ var GempLotrHallUI = Class.extend({
                     that.supportedFormatsSelect.hide();
                     that.createTableButton.hide();
                     var format = that.supportedFormatsSelect.val();
-                    that.comm.createTable(format, function(xml) {
+                    that.comm.createTable(format, "Default", function(xml) {
                         that.processResponse(xml);
                     });
                 });
@@ -184,7 +184,7 @@ var GempLotrHallUI = Class.extend({
                 var but = $("<button>Join table</button>");
                 $(but).button().click(
                         function(event) {
-                            that.comm.joinTable(id, function(xml) {
+                            that.comm.joinTable(id, "Default", function(xml) {
                                 that.processResponse(xml);
                             });
                         });

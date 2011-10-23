@@ -78,12 +78,12 @@ public class HallServer extends AbstractServer {
      * @param playerId
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public synchronized void createNewTable(String type, String playerId) throws HallException {
+    public synchronized void createNewTable(String type, String playerId, String deckName) throws HallException {
         LotroFormat supportedFormat = _supportedFormats.get(type);
         if (supportedFormat == null)
             throw new HallException("This format is not supported: " + type);
 
-        LotroDeck lotroDeck = validateUserAndDeck(type, supportedFormat, playerId);
+        LotroDeck lotroDeck = validateUserAndDeck(type, supportedFormat, playerId, deckName);
 
         String tableId = String.valueOf(_nextTableId++);
         AwaitingTable table = new AwaitingTable(type, _supportedFormatNames.get(type), supportedFormat);
@@ -92,11 +92,11 @@ public class HallServer extends AbstractServer {
         joinTableInternal(tableId, playerId, table, lotroDeck);
     }
 
-    private LotroDeck validateUserAndDeck(String type, LotroFormat format, String playerId) throws HallException {
+    private LotroDeck validateUserAndDeck(String type, LotroFormat format, String playerId, String deckName) throws HallException {
         if (isPlayerBusy(playerId))
             throw new HallException("You can't play more than one game at a time or wait at more than one table");
 
-        LotroDeck lotroDeck = _lotroServer.getParticipantDeck(playerId);
+        LotroDeck lotroDeck = _lotroServer.getParticipantDeck(playerId, deckName);
         if (lotroDeck == null)
             throw new HallException("You don't have a deck registered yet");
 
@@ -117,12 +117,12 @@ public class HallServer extends AbstractServer {
      * @param playerId
      * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public synchronized boolean joinTableAsPlayer(String tableId, String playerId) throws HallException {
+    public synchronized boolean joinTableAsPlayer(String tableId, String playerId, String deckName) throws HallException {
         AwaitingTable awaitingTable = _awaitingTables.get(tableId);
         if (awaitingTable == null)
             throw new HallException("Table is already taken or was removed");
 
-        LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getFormatType(), awaitingTable.getLotroFormat(), playerId);
+        LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getFormatType(), awaitingTable.getLotroFormat(), playerId, deckName);
 
         joinTableInternal(tableId, playerId, awaitingTable, lotroDeck);
 

@@ -66,13 +66,14 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    getDeck: function(deckType, callback) {
+    getDeck: function(deckName, callback) {
         $.ajax({
             type: "GET",
-            url: this.url + "/deck/" + deckType,
+            url: this.url + "/deck",
             cache: false,
             data: {
-                participantId: getUrlParam("participantId")},
+                participantId: getUrlParam("participantId"),
+                deckName: deckName},
             success: callback,
             error: this.failure,
             dataType: "xml"
@@ -93,15 +94,42 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    saveDeck: function(deckType, contents, callback) {
+    saveDeck: function(deckName, contents, callback) {
         $.ajax({
             type: "POST",
-            url: this.url + "/deck/" + deckType,
+            url: this.url + "/deck",
             cache: false,
             data: {
                 participantId: getUrlParam("participantId"),
+                deckName: deckName,
                 deckContents: contents},
             success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    renameDeck: function(oldDeckName, deckName, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/deck/rename",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                oldDeckName: oldDeckName,
+                deckName: deckName},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    deleteDeck: function(deckName) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/deck/delete",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                deckName: deckName},
             error: this.failure,
             dataType: "xml"
         });
@@ -109,7 +137,7 @@ var GempLotrCommunication = Class.extend({
     getDeckStats: function(contents, callback) {
         $.ajax({
             type: "POST",
-            url: this.url + "/deck",
+            url: this.url + "/deck/stats",
             cache: false,
             data: {
                 participantId: getUrlParam("participantId"),
@@ -168,25 +196,27 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    joinTable: function(tableId, callback) {
+    joinTable: function(tableId, deckName, callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall/" + tableId,
             cache: false,
             data: {
+                deckName: deckName,
                 participantId: getUrlParam("participantId")},
             success: callback,
             error: this.failure,
             dataType: "xml"
         });
     },
-    createTable: function(format, callback) {
+    createTable: function(format, deckName, callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall",
             cache: false,
             data: {
                 format: format,
+                deckName: deckName,
                 participantId: getUrlParam("participantId")},
             success: callback,
             error: this.failure,

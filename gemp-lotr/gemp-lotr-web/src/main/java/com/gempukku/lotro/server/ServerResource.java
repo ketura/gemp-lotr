@@ -224,11 +224,11 @@ public class ServerResource {
         return doc;
     }
 
-    @Path("/deck/{deckType}")
+    @Path("/deck")
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getDeck(
-            @PathParam("deckType") String deckType,
+            @QueryParam("deckName") String deckName,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         if (!_test)
@@ -241,16 +241,100 @@ public class ServerResource {
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-        LotroDeck deck = deckDao.getDeckForPlayer(player, deckType);
+        LotroDeck deck = deckDao.getDeckForPlayer(player, deckName);
         if (deck == null) {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = documentBuilder.newDocument();
             Element deckElem = doc.createElement("deck");
             doc.appendChild(deckElem);
             return doc;
         }
+
+        return serializeDeck(deck);
+    }
+
+    @Path("/deck")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document saveDeck(
+            @FormParam("deckName") String deckName,
+            @FormParam("participantId") String participantId,
+            @FormParam("deckContents") String contents,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+        DeckDAO deckDao = _lotroServer.getDeckDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        LotroDeck deck = _lotroServer.validateDeck(contents);
+        if (deck == null)
+            sendError(Response.Status.BAD_REQUEST);
+
+        deckDao.saveDeckForPlayer(player, deckName, deck);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+        Element deckElem = doc.createElement("ok");
+        doc.appendChild(deckElem);
+
+        return doc;
+    }
+
+    @Path("/deck/rename")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document renameDeck(
+            @FormParam("oldDeckName") String oldDeckName,
+            @FormParam("deckName") String deckName,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+        DeckDAO deckDao = _lotroServer.getDeckDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        LotroDeck deck = deckDao.renameDeck(player, oldDeckName, deckName);
+        if (deck == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        return serializeDeck(deck);
+    }
+
+    @Path("/deck/delete")
+    @POST
+    public void deleteDeck(
+            @FormParam("deckName") String deckName,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+        DeckDAO deckDao = _lotroServer.getDeckDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        deckDao.deleteDeckForPlayer(player, deckName);
+    }
+
+    private Document serializeDeck(LotroDeck deck) throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
         Document doc = documentBuilder.newDocument();
         Element deckElem = doc.createElement("deck");
@@ -279,41 +363,7 @@ public class ServerResource {
         return doc;
     }
 
-    @Path("/deck/{deckType}")
-    @POST
-    @Produces(MediaType.APPLICATION_XML)
-    public Document createDeck(
-            @PathParam("deckType") String deckType,
-            @FormParam("participantId") String participantId,
-            @FormParam("deckContents") String contents,
-            @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
-
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        Player player = playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        LotroDeck deck = _lotroServer.validateDeck(contents);
-        if (deck == null)
-            sendError(Response.Status.BAD_REQUEST);
-
-        deckDao.setDeckForPlayer(player, deckType, deck);
-
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-        Document doc = documentBuilder.newDocument();
-        Element deckElem = doc.createElement("ok");
-        doc.appendChild(deckElem);
-
-        return doc;
-    }
-
-    @Path("/deck")
+    @Path("/deck/stats")
     @POST
     @Produces("text/html")
     public String getDeckStats(
@@ -509,13 +559,14 @@ public class ServerResource {
     @POST
     public Document joinTable(
             @PathParam("table") String tableId,
+            @FormParam("deckName") String deckName,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         if (!_test)
             participantId = getLoggedUser(request);
 
         try {
-            _hallServer.joinTableAsPlayer(tableId, participantId);
+            _hallServer.joinTableAsPlayer(tableId, participantId, deckName);
             return null;
         } catch (HallException e) {
             return marshalException(e);
@@ -526,13 +577,14 @@ public class ServerResource {
     @POST
     public Document createTable(
             @FormParam("format") String format,
+            @FormParam("deckName") String deckName,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         if (!_test)
             participantId = getLoggedUser(request);
 
         try {
-            _hallServer.createNewTable(format, participantId);
+            _hallServer.createNewTable(format, participantId, deckName);
             return null;
         } catch (HallException e) {
             return marshalException(e);

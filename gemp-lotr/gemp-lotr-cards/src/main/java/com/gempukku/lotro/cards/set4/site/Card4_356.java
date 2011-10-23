@@ -36,7 +36,7 @@ public class Card4_356 extends AbstractSite {
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-                                return Math.max(0, Filters.countActive(game.getGameState(), modifiersQuerying, Filters.unboundCompanion) - 3);
+                                return 2 * Math.max(0, Filters.countActive(game.getGameState(), modifiersQuerying, Filters.unboundCompanion) - 3);
                             }
                         }));
     }

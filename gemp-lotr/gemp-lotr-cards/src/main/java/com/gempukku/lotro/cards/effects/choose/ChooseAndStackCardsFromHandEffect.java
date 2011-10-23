@@ -56,7 +56,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
         if (hand.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
             for (PhysicalCard card : hand)
-                subAction.appendEffect(new StackCardFromHandEffect(_action.getActionSource(), card));
+                subAction.appendEffect(new StackCardFromHandEffect(card, _stackOn));
             game.getActionsEnvironment().addActionToStack(subAction);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -66,7 +66,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
                             for (PhysicalCard card : cards)
-                                subAction.appendEffect(new StackCardFromHandEffect(_action.getActionSource(), card));
+                                subAction.appendEffect(new StackCardFromHandEffect(card, _stackOn));
                             game.getActionsEnvironment().addActionToStack(subAction);
                         }
                     });
