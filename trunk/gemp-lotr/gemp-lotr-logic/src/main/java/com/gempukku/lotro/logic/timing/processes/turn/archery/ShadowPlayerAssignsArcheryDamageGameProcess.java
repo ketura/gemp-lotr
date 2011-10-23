@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
@@ -28,12 +28,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
         if (_woundsToAssign > 0) {
             Filter filter = Filters.and(Filters.type(CardType.MINION), Filters.owner(_playerId));
 
-            RequiredTriggerAction action = new RequiredTriggerAction(null) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Archery fire";
-                }
-            };
+            SystemQueueAction action = new SystemQueueAction();
             for (int i = 0; i < _woundsToAssign; i++) {
                 final int woundsLeft = _woundsToAssign - i;
                 ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, _playerId, 1, 1, filter);

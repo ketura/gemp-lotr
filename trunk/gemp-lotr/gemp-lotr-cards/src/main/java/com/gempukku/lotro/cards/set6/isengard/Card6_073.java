@@ -46,12 +46,8 @@ public class Card6_073 extends AbstractPermanent {
                 List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
                 final Collection<PhysicalCard> discardedOrcs = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Race.ORC);
                 for (final PhysicalCard discardedOrc : discardedOrcs) {
-                    OptionalTriggerAction action = new OptionalTriggerAction(self) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Stack " + GameUtils.getCardLink(discardedOrc);
-                        }
-                    };
+                    OptionalTriggerAction action = new OptionalTriggerAction(self);
+                    action.setText("Stack " + GameUtils.getCardLink(discardedOrc));
                     action.appendEffect(
                             new StackCardFromPlayEffect(discardedOrc, self));
                     actions.add(action);

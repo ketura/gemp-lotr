@@ -43,12 +43,8 @@ public class Card4_027 extends AbstractPermanent {
 
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             for (final PhysicalCard physicalCard : winningDunlandMan) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Make " + GameUtils.getCardLink(physicalCard) + " strength +2 and Fierce";
-                    }
-                };
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.setText("Make " + GameUtils.getCardLink(physicalCard) + " strength +2 and Fierce");
                 action.appendEffect(
                         new AddUntilStartOfPhaseModifierEffect(
                                 new StrengthModifier(self, Filters.sameCard(physicalCard), 2), Phase.REGROUP));

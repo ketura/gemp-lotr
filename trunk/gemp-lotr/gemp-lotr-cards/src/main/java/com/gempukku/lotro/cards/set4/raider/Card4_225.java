@@ -46,12 +46,8 @@ public class Card4_225 extends AbstractMinion {
             List<Action> actions = new LinkedList<Action>();
 
             if (game.getGameState().getBurdens() >= 2) {
-                final ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Make Easterling strength +2";
-                    }
-                };
+                final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Make Easterling strength +2");
                 action.appendCost(
                         new RemoveTwilightEffect(2));
                 action.appendEffect(
@@ -66,12 +62,8 @@ public class Card4_225 extends AbstractMinion {
                 actions.add(action);
             }
             if (game.getGameState().getBurdens() >= 4) {
-                final ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Make Easterling strength +3";
-                    }
-                };
+                final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Make Easterling strength +3");
                 action.appendCost(
                         new RemoveTwilightEffect(2));
                 action.appendEffect(
@@ -86,12 +78,8 @@ public class Card4_225 extends AbstractMinion {
                 actions.add(action);
             }
             if (game.getGameState().getBurdens() >= 6) {
-                final ActivateCardAction action = new ActivateCardAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Make Easterling strength +4";
-                    }
-                };
+                final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Make Easterling strength +4");
                 action.appendCost(
                         new RemoveTwilightEffect(2));
                 action.appendEffect(

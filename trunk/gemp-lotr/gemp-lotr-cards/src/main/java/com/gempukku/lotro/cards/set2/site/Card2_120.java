@@ -39,12 +39,8 @@ public class Card2_120 extends AbstractSite {
 
             Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION));
             for (final PhysicalCard hobbitCompanion : hobbitCompanions) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Heal " + GameUtils.getCardLink(hobbitCompanion);
-                    }
-                };
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.setText("Heal " + GameUtils.getCardLink(hobbitCompanion));
                 action.appendEffect(
                         new HealCharactersEffect(playerId, hobbitCompanion));
                 actions.add(action);
