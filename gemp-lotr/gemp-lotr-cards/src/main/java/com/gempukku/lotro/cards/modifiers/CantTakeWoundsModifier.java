@@ -18,7 +18,7 @@ public class CantTakeWoundsModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canTakeWound(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, boolean result) {
+    public boolean canTakeWound(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int woundsAlreadyTaken) {
         return false;
     }
 }

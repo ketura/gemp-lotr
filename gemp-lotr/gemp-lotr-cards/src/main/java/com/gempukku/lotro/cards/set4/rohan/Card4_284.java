@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -12,11 +11,9 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -40,25 +37,16 @@ public class Card4_284 extends AbstractAttachableFPPossession {
 
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
-        return Collections.singletonList(
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(
                 new CantTakeWoundsModifier(self,
                         Filters.and(
                                 Filters.hasAttached(self),
                                 Filters.name("Theoden"),
                                 Filters.not(Filters.inSkirmish)
                         )));
-    }
-
-    @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.isWounded(effectResult, self.getAttachedTo())
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
-                    new AddUntilEndOfPhaseModifierEffect(
-                            new CantTakeWoundsModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.SKIRMISH));
-            return Collections.singletonList(action);
-        }
-        return null;
+        modifiers.add(
+                new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, Filters.hasAttached(self)));
+        return modifiers;
     }
 }

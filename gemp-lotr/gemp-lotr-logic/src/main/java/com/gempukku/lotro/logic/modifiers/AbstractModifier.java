@@ -113,12 +113,12 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canTakeWound(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean result) {
-        return result;
+    public boolean canTakeWound(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int woundsAlreadyTaken) {
+        return true;
     }
 
     @Override
-    public boolean canBeExerted(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard exertionSource, PhysicalCard card, boolean result) {
+    public boolean canBeExerted(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard exertionSource, PhysicalCard card, boolean result) {
         return result;
     }
 

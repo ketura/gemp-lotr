@@ -2,24 +2,20 @@ package com.gempukku.lotro.cards.set4.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.CantTakeMoreThanXWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -37,25 +33,11 @@ public class Card4_120 extends AbstractPermanent {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WOUND
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && game.getGameState().getCurrentSiteNumber() == 6
-                && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS) {
-            WoundResult woundResult = (WoundResult) effectResult;
-            Collection<PhysicalCard> woundedRingBounds = Filters.filter(woundResult.getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND));
-
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            for (PhysicalCard woundedRingBound : woundedRingBounds) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new AddUntilEndOfPhaseModifierEffect(
-                                new CantTakeWoundsModifier(self, Filters.sameCard(woundedRingBound)), Phase.SKIRMISH));
-                actions.add(action);
-            }
-            return actions;
-        }
-        return null;
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1,
+                        new LocationCondition(Filters.siteNumber(6), Filters.siteBlock(Block.TWO_TOWERS)),
+                        Race.MAN, Keyword.RING_BOUND));
     }
 
     @Override

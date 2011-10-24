@@ -2,8 +2,7 @@ package com.gempukku.lotro.cards.set5.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -11,9 +10,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,15 +39,8 @@ public class Card5_010 extends AbstractCompanion {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.isWounded(effectResult, self)
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
-                    new AddUntilEndOfPhaseModifierEffect(
-                            new CantTakeWoundsModifier(self, new SpotCondition(CardType.MINION, Filters.wounded, Filters.inSkirmishAgainst(Filters.sameCard(self))), Filters.sameCard(self.getAttachedTo())), Phase.SKIRMISH));
-            return Collections.singletonList(action);
-        }
-        return null;
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, self, Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)));
     }
 }
