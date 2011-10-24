@@ -34,11 +34,11 @@ public class Card4_210 extends AbstractOldEvent {
                         boolean controlsSite = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) > 0;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, 2), Phase.SKIRMISH));
                         if (controlsSite)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(self), Keyword.DAMAGE), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE), Phase.SKIRMISH));
                     }
                 });
         return action;
