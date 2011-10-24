@@ -15,7 +15,8 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
 
     public RequiredTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
-        _text = "Required trigger from " + GameUtils.getCardLink(_physicalCard);
+        if (physicalCard != null)
+            _text = "Required trigger from " + GameUtils.getCardLink(_physicalCard);
     }
 
     @Override

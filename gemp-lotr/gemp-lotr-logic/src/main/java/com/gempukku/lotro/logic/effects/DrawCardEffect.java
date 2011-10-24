@@ -18,7 +18,7 @@ public class DrawCardEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Draw " + _count + " card(s)";
     }
 
     @Override

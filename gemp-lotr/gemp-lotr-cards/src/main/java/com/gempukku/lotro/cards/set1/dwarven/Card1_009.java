@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
@@ -12,11 +11,13 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Set: The Fellowship of the Ring
@@ -36,11 +37,6 @@ public class Card1_009 extends AbstractAttachableFPPossession {
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.race(Race.DWARF);
-    }
-
-    @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
-        return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(self), 2));
     }
 
     @Override

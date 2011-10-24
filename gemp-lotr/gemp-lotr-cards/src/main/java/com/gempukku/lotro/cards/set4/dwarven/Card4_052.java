@@ -42,7 +42,7 @@ public class Card4_052 extends AbstractPermanent {
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
                                 PhysicalCard finalCount = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name("Final Count"));
                                 if (finalCount != null)
-                                    return Math.min(3, Math.max(gameState.getTokenCount(self, Token.DWARVEN), gameState.getTokenCount(finalCount, Token.ELVEN)));
+                                    return Math.min(3, Math.min(gameState.getTokenCount(self, Token.DWARVEN), gameState.getTokenCount(finalCount, Token.ELVEN)));
                                 return 0;
                             }
                         }));
