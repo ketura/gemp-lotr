@@ -5,17 +5,25 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public class PreventCardEffect extends UnrespondableEffect {
     private AbstractPreventableCardEffect _effect;
-    private PhysicalCard _card;
+    private Collection<PhysicalCard> _cards;
 
     public PreventCardEffect(AbstractPreventableCardEffect effect, PhysicalCard card) {
+        this(effect, Collections.singleton(card));
+    }
+
+    public PreventCardEffect(AbstractPreventableCardEffect effect, Collection<PhysicalCard> cards) {
         _effect = effect;
-        _card = card;
+        _cards = cards;
     }
 
     @Override
     protected void doPlayEffect(LotroGame game) {
-        _effect.preventEffect(_card);
+        for (PhysicalCard card : _cards)
+            _effect.preventEffect(card);
     }
 }

@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
+import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -40,8 +40,8 @@ public class Card4_097 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
-                        new AddUntilEndOfPhaseModifierEffect(
-                                new CantTakeWoundsModifier(self, Filters.name("Gandalf")), Phase.SKIRMISH) {
+                        new AddUntilEndOfPhaseActionProxyEffect(
+                                new PreventAllWoundsActionProxy(self, Filters.name("Gandalf")), Phase.SKIRMISH) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Prevent all wounds to Gandalf";

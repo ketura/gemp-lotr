@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
+import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,8 +39,8 @@ public class Card4_096 extends AbstractOldEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
-                                new AddUntilEndOfPhaseModifierEffect(
-                                        new CantTakeWoundsModifier(self, Filters.sameCard(card)), Phase.SKIRMISH));
+                                new AddUntilEndOfPhaseActionProxyEffect(
+                                        new PreventAllWoundsActionProxy(self, card), Phase.SKIRMISH));
                     }
                 });
         return action;
