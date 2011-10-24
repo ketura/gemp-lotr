@@ -38,37 +38,49 @@ public class KillEffect extends AbstractSuccessfulEffect {
 
     @Override
     public Collection<? extends EffectResult> playEffect(LotroGame game) {
+        GameState gameState = game.getGameState();
+
+        for (PhysicalCard card : _cards)
+            gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
+
+        // For result
         Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
         Set<PhysicalCard> killedCards = new HashSet<PhysicalCard>();
 
-        GameState gameState = game.getGameState();
+        // Prepare the moves
+        Set<PhysicalCard> toRemoveFromZone = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> toAddToDeadPile = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> toAddToDiscard = new HashSet<PhysicalCard>();
 
         for (PhysicalCard card : _cards) {
-            gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
-            gameState.removeCardsFromZone(Collections.singleton(card));
+            toRemoveFromZone.add(card);
+
             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
                 killedCards.add(card);
-                gameState.addCardToZone(game, card, Zone.DEAD);
+                toAddToDeadPile.add(card);
             } else {
                 killedCards.add(card);
                 discardedCards.add(card);
-                gameState.addCardToZone(game, card, Zone.DISCARD);
+                toAddToDiscard.add(card);
             }
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
-            for (PhysicalCard attachedCard : attachedCards) {
-                discardedCards.add(attachedCard);
-
-                gameState.removeCardsFromZone(Collections.singleton(attachedCard));
-                gameState.addCardToZone(game, attachedCard, Zone.DISCARD);
-            }
+            discardedCards.addAll(attachedCards);
+            toRemoveFromZone.addAll(attachedCards);
+            toAddToDiscard.addAll(attachedCards);
 
             List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
-            for (PhysicalCard stackedCard : stackedCards) {
-                gameState.removeCardsFromZone(Collections.singleton(stackedCard));
-                gameState.addCardToZone(game, stackedCard, Zone.DISCARD);
-            }
+            toRemoveFromZone.addAll(stackedCards);
+            toAddToDiscard.addAll(stackedCards);
         }
+
+        gameState.removeCardsFromZone(toRemoveFromZone);
+
+        for (PhysicalCard deadCard : toAddToDeadPile)
+            gameState.addCardToZone(game, deadCard, Zone.DEAD);
+
+        for (PhysicalCard discardedCard : toAddToDiscard)
+            gameState.addCardToZone(game, discardedCard, Zone.DISCARD);
 
         if (killedCards.size() > 0 && discardedCards.size() > 0) {
             return Arrays.asList(new KillResult(killedCards), new DiscardCardsFromPlayResult(discardedCards));
