@@ -285,13 +285,13 @@ var GempLotrDeckBuildingUI = Class.extend({
         };
         this.infoDialog.swipe(swipeOptions);
 
-        this.comm.getDecks(function(xml) {
-            that.setupDeckList(xml);
-        });
-        this.getCollection();
-        //        this.comm.getDeck("Default", function(xml) {
-        //            that.setupDeck(xml);
+        //        this.comm.getDecks(function(xml) {
+        //            that.setupDeckList(xml);
         //        });
+        //        this.getCollection();
+        this.comm.getDeck("Default", function(xml) {
+            that.setupDeck(xml);
+        });
 
         this.checkDeckStatsDirty();
     },
