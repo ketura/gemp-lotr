@@ -38,7 +38,7 @@ public class Card5_036 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.GONDOR, CardType.CONDITION));
             action.appendEffect(
-                    new HealCharactersEffect(playerId, self));
+                    new HealCharactersEffect(self, self));
             return Collections.singletonList(action);
         }
         return null;

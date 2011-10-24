@@ -49,7 +49,7 @@ public class Card5_091 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new HealCharactersEffect(playerId, self.getAttachedTo()));
+                    new HealCharactersEffect(self, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

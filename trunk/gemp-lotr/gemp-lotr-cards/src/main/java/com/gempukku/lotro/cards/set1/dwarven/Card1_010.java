@@ -41,8 +41,8 @@ public class Card1_010 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new HealCharactersEffect(self.getOwner(), self.getAttachedTo()));
-            action.appendEffect(new HealCharactersEffect(self.getOwner(), self.getAttachedTo()));
+            action.appendEffect(new HealCharactersEffect(self, self.getAttachedTo()));
+            action.appendEffect(new HealCharactersEffect(self, self.getAttachedTo()));
             return Collections.singletonList(action);
         } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);

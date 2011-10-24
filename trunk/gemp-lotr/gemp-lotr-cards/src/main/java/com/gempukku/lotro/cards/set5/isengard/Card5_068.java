@@ -40,7 +40,7 @@ public class Card5_068 extends AbstractEvent {
                                         new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));
                         if (isMounted)
                             action.appendEffect(
-                                    new HealCharactersEffect(playerId, card));
+                                    new HealCharactersEffect(self, card));
                     }
                 });
         return action;

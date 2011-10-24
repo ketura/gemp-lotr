@@ -48,7 +48,7 @@ public class Card5_094 extends AbstractPermanent {
                                             new StrengthModifier(self, Filters.sameCard(card), 3), Phase.SKIRMISH));
                             if (atPlains)
                                 action.appendEffect(
-                                        new HealCharactersEffect(playerId, card));
+                                        new HealCharactersEffect(self, card));
                         }
                     });
             return Collections.singletonList(action);

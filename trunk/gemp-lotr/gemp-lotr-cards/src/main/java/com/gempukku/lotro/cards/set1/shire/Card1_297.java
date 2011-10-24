@@ -52,7 +52,7 @@ public class Card1_297 extends AbstractAlly {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new HealCharactersEffect(self.getOwner(), self));
+            action.appendEffect(new HealCharactersEffect(self, self));
             return Collections.singletonList(action);
         }
         return null;

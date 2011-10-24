@@ -5,6 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -14,16 +15,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class HealCharactersEffect extends AbstractPreventableCardEffect {
-    private String _playerId;
+    private PhysicalCard _source;
 
-    public HealCharactersEffect(String playerId, PhysicalCard... cards) {
+    public HealCharactersEffect(PhysicalCard source, PhysicalCard... cards) {
         super(cards);
-        _playerId = playerId;
+        _source = source;
     }
 
-    public HealCharactersEffect(String playerId, Filter filter) {
+    public HealCharactersEffect(PhysicalCard source, Filter filter) {
         super(filter);
-        _playerId = playerId;
+        _source = source;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
         Collection<PhysicalCard> cardsToHeal = getAffectedCardsMinusPrevented(game);
 
         if (cardsToHeal.size() > 0) {
-            game.getGameState().sendMessage(_playerId + " heals " + getAppendedNames(cardsToHeal));
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " heals " + getAppendedNames(cardsToHeal));
             for (PhysicalCard cardToHeal : cardsToHeal) {
                 game.getGameState().removeWound(cardToHeal);
             }

@@ -43,7 +43,7 @@ public class Card6_015 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self.getOwner(), self));
+                    new HealCharactersEffect(self, self));
             return Collections.singletonList(action);
         }
         return null;

@@ -39,7 +39,7 @@ public class Card2_014 extends AbstractPermanent {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.setText("Heal " + GameUtils.getCardLink(dwarfCompanion));
                 action.appendEffect(
-                        new HealCharactersEffect(playerId, dwarfCompanion));
+                        new HealCharactersEffect(self, dwarfCompanion));
                 actions.add(action);
             }
             return actions;

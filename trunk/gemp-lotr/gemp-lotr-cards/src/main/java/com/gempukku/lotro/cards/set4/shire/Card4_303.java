@@ -58,7 +58,7 @@ public class Card4_303 extends AbstractAttachableFPPossession {
                 action.appendEffect(
                         new RemoveBurdenEffect(self));
                 action.appendEffect(
-                        new HealCharactersEffect(playerId, self.getAttachedTo()));
+                        new HealCharactersEffect(self, self.getAttachedTo()));
             }
             return Collections.singletonList(action);
         }
