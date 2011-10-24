@@ -3,9 +3,37 @@ var GameAnimations = Class.extend({
     playEventDuration: 1500,
     putCardIntoPlayDuration: 1500,
     cardAffectsCardDuration: 1200,
+    cardActivatedDuration: 1200,
 
     init: function(gameUI) {
         this.game = gameUI;
+    },
+
+    cardActivated: function(element, animate) {
+        if (animate) {
+            var that = this;
+
+            var participantId = element.getAttribute("participantId");
+            var cardId = element.getAttribute("cardId");
+
+            // Play-out game event animation only if it's not the player who initiated it
+            if (this.game.spectatorMode || (participantId != this.game.bottomPlayerId)) {
+                var cardDiv = $(".card:cardId(" + cardId + ")");
+                if (cardDiv != null) {
+                    $("#main").queue(
+                            function(next) {
+                                $(".borderOverlay", cardDiv)
+                                        .animate({borderColor: "#ffffff"}, that.cardActivatedDuration / 6)
+                                        .animate({borderColor: "#000000"}, that.cardActivatedDuration / 6)
+                                        .animate({borderColor: "#ffffff"}, that.cardActivatedDuration / 6)
+                                        .animate({borderColor: "#000000"}, that.cardActivatedDuration / 6)
+                                        .animate({borderColor: "#ffffff"}, that.cardActivatedDuration / 6)
+                                        .animate({borderColor: "#000000"}, that.cardActivatedDuration / 6);
+                                setTimeout(next, that.cardActivatedDuration);
+                            });
+                }
+            }
+        }
     },
 
     eventPlayed: function(element, animate) {

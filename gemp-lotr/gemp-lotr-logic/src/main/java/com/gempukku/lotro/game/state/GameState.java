@@ -319,6 +319,11 @@ public class GameState {
             listener.eventPlayed(card);
     }
 
+    public void activatedCard(String playerPerforming, PhysicalCard card) {
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.cardActivated(playerPerforming, card);
+    }
+
     public void setRingBearer(PhysicalCard card) {
         _ringBearers.put(card.getOwner(), card);
     }

@@ -43,9 +43,11 @@ public interface GameStateListener {
 
     public void setSite(PhysicalCard card);
 
+    public void sendGameStats(GameStats gameStats);
+
     public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCard);
 
     public void eventPlayed(PhysicalCard card);
 
-    public void sendGameStats(GameStats gameStats);
+    public void cardActivated(String playerPerforming, PhysicalCard card);
 }
