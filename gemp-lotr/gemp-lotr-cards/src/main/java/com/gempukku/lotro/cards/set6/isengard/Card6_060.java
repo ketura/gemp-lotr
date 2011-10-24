@@ -2,10 +2,10 @@ package com.gempukku.lotro.cards.set6.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveTokensFromCardEffect;
-import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -69,8 +69,8 @@ public class Card6_060 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new AddUntilStartOfPhaseModifierEffect(
-                            new CantTakeWoundsModifier(self, Race.URUK_HAI), Phase.ASSIGNMENT));
+                    new AddUntilStartOfPhaseActionProxyEffect(
+                            new PreventAllWoundsActionProxy(self, Race.URUK_HAI), Phase.ASSIGNMENT));
             return Collections.singletonList(action);
         }
         return null;

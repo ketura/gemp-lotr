@@ -2,11 +2,11 @@ package com.gempukku.lotro.cards.set4.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
+import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
 import com.gempukku.lotro.cards.effects.StackCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -56,8 +56,8 @@ public class Card4_047 extends AbstractPermanent {
                                         }
                                     });
                             action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new CantTakeWoundsModifier(self, Filters.sameCard(character)), Phase.SKIRMISH));
+                                    new AddUntilEndOfPhaseActionProxyEffect(
+                                            new PreventAllWoundsActionProxy(self, character), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);
