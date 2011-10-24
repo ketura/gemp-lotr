@@ -16,7 +16,7 @@ public class VitalityModifier extends AbstractModifier {
     }
 
     @Override
-    public int getVitality(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result + _modifier;
+    public int getVitalityModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return _modifier;
     }
 }

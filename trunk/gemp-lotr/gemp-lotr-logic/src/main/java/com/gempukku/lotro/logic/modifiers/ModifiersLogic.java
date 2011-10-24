@@ -233,7 +233,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         for (Modifier modifier : getModifiers(ModifierEffect.STRENGTH_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier)
                     && appliesStrengthModifier(gameState, modifier.getSource()))
-                result = modifier.getStrengthModifier(gameState, this, physicalCard);
+                result += modifier.getStrengthModifier(gameState, this, physicalCard);
         }
         return Math.max(0, result);
     }
@@ -241,12 +241,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     private boolean appliesStrengthModifier(GameState gameState, PhysicalCard modifierSource) {
         if (modifierSource == null)
             return true;
-        boolean result = true;
         for (Modifier modifier : getModifiers(ModifierEffect.STRENGTH_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, modifierSource, modifier))
-                result = modifier.appliesStrengthModifier(gameState, this, modifierSource, result);
+                if (!modifier.appliesStrengthModifier(gameState, this, modifierSource))
+                    return false;
         }
-        return result;
+        return true;
     }
 
     @Override
@@ -254,7 +254,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         int result = physicalCard.getBlueprint().getVitality() - gameState.getWounds(physicalCard);
         for (Modifier modifier : getModifiers(ModifierEffect.VITALITY_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
-                result = modifier.getVitality(gameState, this, physicalCard, result);
+                result += modifier.getVitalityModifier(gameState, this, physicalCard);
         }
         return Math.max(0, result);
     }
