@@ -285,11 +285,19 @@ var GempLotrDeckBuildingUI = Class.extend({
         };
         this.infoDialog.swipe(swipeOptions);
 
-        this.comm.getDeck("Default", function(xml) {
-            that.setupDeck(xml);
+        this.comm.getDecks(function(xml) {
+            that.setupDeckList(xml);
         });
+        this.getCollection();
+        //        this.comm.getDeck("Default", function(xml) {
+        //            that.setupDeck(xml);
+        //        });
 
         this.checkDeckStatsDirty();
+    },
+
+    setupDeckList: function(xml) {
+
     },
 
     displayCardInfo: function(card) {
@@ -485,6 +493,16 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.comm.getCollection(this.collectionType, this.filter, this.start, this.count, function(xml) {
             that.displayCollection(xml);
         });
+    },
+
+    clearDeck: function() {
+        this.ringBearerDiv.html("");
+        this.ringDiv.html("");
+        for (var i = 0; i < 9; i++)
+            this.siteDivs[i].html("");
+        this.drawDeckDiv.html("");
+
+        this.layoutUI();
     },
 
     setupDeck: function(xml) {
