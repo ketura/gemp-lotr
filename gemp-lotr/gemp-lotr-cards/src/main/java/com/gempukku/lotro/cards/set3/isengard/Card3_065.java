@@ -32,7 +32,7 @@ public class Card3_065 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(self))) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -45,7 +45,7 @@ public class Card3_065 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
-                                    new ExhaustCharacterEffect(playerId, action, card));
+                                    new ExhaustCharacterEffect(self, action, card));
                         }
                     });
             return Collections.singletonList(action);

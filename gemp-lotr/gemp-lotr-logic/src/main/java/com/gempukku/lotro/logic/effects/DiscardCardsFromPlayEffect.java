@@ -50,7 +50,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     @Override
     public String getText(LotroGame game) {
         Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
-        return "Discard - " + getAppendedTextNames(cards);
+        return "Discard " + getAppendedTextNames(cards);
     }
 
     @Override

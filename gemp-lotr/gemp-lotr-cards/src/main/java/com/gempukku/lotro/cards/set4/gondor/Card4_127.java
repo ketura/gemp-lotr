@@ -41,7 +41,7 @@ public class Card4_127 extends AbstractCompanion {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -52,7 +52,7 @@ public class Card4_127 extends AbstractCompanion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
-                                    new ExhaustCharacterEffect(playerId, action, card));
+                                    new ExhaustCharacterEffect(self, action, card));
                         }
                     });
             return Collections.singletonList(action);

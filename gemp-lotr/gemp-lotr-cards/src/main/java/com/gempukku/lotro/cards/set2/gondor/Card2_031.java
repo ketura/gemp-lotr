@@ -50,7 +50,7 @@ public class Card2_031 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExhaustCharacterEffect(self.getOwner(), action, ((PlayCardResult) effectResult).getPlayedCard()));
+                    new ExhaustCharacterEffect(self, action, ((PlayCardResult) effectResult).getPlayedCard()));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE

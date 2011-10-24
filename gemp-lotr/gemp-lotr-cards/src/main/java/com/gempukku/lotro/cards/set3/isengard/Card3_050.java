@@ -50,7 +50,7 @@ public class Card3_050 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard aragorn) {
                         action.appendEffect(
                                 new PreventableEffect(action,
-                                        new ExhaustCharacterEffect(playerId, action, aragorn),
+                                        new ExhaustCharacterEffect(self, action, aragorn),
                                         Collections.singletonList(game.getGameState().getCurrentPlayerId()),
                                         new AddBurdenEffect(self, 2)));
                     }

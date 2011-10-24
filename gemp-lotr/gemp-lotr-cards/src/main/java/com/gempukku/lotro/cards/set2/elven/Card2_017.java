@@ -5,13 +5,12 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -48,11 +47,10 @@ public class Card2_017 extends AbstractResponseOldEvent {
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
                                     new PreventableEffect(action,
-                                            new ChooseActiveCardEffect(self, opponentId, "Choose minion to discard", Filters.type(CardType.MINION)) {
+                                            new ChooseAndDiscardCardsFromPlayEffect(action, opponentId, 1, 1, CardType.MINION) {
                                                 @Override
-                                                protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                                    action.appendEffect(
-                                                            new DiscardCardsFromPlayEffect(self, card));
+                                                public String getText(LotroGame game) {
+                                                    return "Choose minion to discard";
                                                 }
                                             },
                                             Collections.singletonList(opponentId),

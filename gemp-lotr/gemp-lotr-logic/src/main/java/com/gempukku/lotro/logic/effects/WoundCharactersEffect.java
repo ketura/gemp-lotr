@@ -56,7 +56,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     @Override
     public String getText(LotroGame game) {
         Collection<PhysicalCard> cards = getAffectedCardsMinusPrevented(game);
-        return "Wound - " + getAppendedTextNames(cards);
+        return "Wound " + getAppendedTextNames(cards);
     }
 
     @Override
