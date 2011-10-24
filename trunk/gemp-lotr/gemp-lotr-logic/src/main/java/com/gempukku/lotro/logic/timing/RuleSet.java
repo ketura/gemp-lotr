@@ -30,5 +30,7 @@ public class RuleSet {
         new SanctuaryRule(_actionsEnvironment).applyRule();
 
         new WinConditionRule(_actionsEnvironment).applyRule();
+
+        new FrodoAndSamRule(_modifiersLogic).applyRule();
     }
 }
