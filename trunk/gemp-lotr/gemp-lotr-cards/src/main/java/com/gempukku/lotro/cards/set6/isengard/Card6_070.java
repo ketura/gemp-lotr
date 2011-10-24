@@ -36,7 +36,7 @@ public class Card6_070 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsFromStacked(final String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsFromStacked(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseStackedShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 2)
                 && self.getStackedOn().getBlueprint().getCulture() == Culture.ISENGARD) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -49,7 +49,7 @@ public class Card6_070 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
-                                    new ExhaustCharacterEffect(playerId, action, card));
+                                    new ExhaustCharacterEffect(self, action, card));
                         }
                     });
             return Collections.singletonList(action);

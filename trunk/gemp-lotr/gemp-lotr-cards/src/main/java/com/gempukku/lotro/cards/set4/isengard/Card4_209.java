@@ -33,7 +33,7 @@ public class Card4_209 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.ARCHER)));
@@ -42,7 +42,7 @@ public class Card4_209 extends AbstractOldEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
-                                new ExhaustCharacterEffect(playerId, action, card));
+                                new ExhaustCharacterEffect(self, action, card));
                     }
                 });
         return action;

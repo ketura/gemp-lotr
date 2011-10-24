@@ -47,7 +47,7 @@ public class Card4_188 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL
 
                 && PlayConditions.canExert(self, game, 2, Filters.sameCard(self))) {
@@ -63,7 +63,7 @@ public class Card4_188 extends AbstractMinion {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
-                                        new ExhaustCharacterEffect(playerId, action, card));
+                                        new ExhaustCharacterEffect(self, action, card));
                             }
                         });
                 return Collections.singletonList(action);

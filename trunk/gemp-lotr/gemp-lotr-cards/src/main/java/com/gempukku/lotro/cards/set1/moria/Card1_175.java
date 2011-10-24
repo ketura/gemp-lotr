@@ -42,7 +42,7 @@ public class Card1_175 extends AbstractPermanent {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExhaustCharacterEffect(playCardResult.getPlayedCard().getOwner(), action, playCardResult.getPlayedCard()));
+                    new ExhaustCharacterEffect(self, action, playCardResult.getPlayedCard()));
             return Collections.singletonList(action);
         }
         return null;

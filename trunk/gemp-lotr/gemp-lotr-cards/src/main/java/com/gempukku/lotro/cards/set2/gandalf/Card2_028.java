@@ -48,6 +48,11 @@ public class Card2_028 extends AbstractOldEvent {
                                         new AddUntilStartOfPhaseModifierEffect(
                                                 new KeywordModifier(self, Filters.sameCard(card), Keyword.DEFENDER), Phase.REGROUP));
                             }
+
+                            @Override
+                            public String getText(LotroGame game) {
+                                return "Make a companion Defender +1";
+                            }
                         },
                         Arrays.asList(GameUtils.getOpponents(game, playerId)),
                         new RemoveTwilightEffect(3)));
