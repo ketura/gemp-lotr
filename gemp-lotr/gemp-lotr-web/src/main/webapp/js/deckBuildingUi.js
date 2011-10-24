@@ -78,8 +78,8 @@ var GempLotrDeckBuildingUI = Class.extend({
                         var newDeckName = prompt("Enter the name of the deck", "");
                         if (newDeckName == null)
                             return;
-                        if (newDeckName.length < 3 || newDeckName.length > 20)
-                            alert("Deck name has to have at least 3 characters and at most 20 characters.");
+                        if (newDeckName.length < 3 || newDeckName.length > 40)
+                            alert("Deck name has to have at least 3 characters and at most 40 characters.");
                         else {
                             that.deckName = newDeckName;
                             $("#openedDeck").html(newDeckName);
@@ -95,8 +95,8 @@ var GempLotrDeckBuildingUI = Class.extend({
                     var newDeckName = prompt("Enter new name for the deck", "");
                     if (newDeckName == null)
                         return;
-                    if (newDeckName.length < 3 || newDeckName.length > 20)
-                        alert("Deck name has to have at least 3 characters and at most 20 characters.");
+                    if (newDeckName.length < 3 || newDeckName.length > 40)
+                        alert("Deck name has to have at least 3 characters and at most 40 characters.");
                     else {
                         var oldDeckName = that.deckName;
                         that.deckName = newDeckName;
