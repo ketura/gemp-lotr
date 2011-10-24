@@ -38,7 +38,7 @@ public class Card6_104 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
-                && PlayConditions.canSelfDiscard(self, game)) {
+                && PlayConditions.canSelfExert(self, game)) {
             int x = new CountCulturesEvaluator(2, 1, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

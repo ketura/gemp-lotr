@@ -42,7 +42,7 @@ public class Card4_069 extends AbstractPermanent {
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
                                 PhysicalCard myAxeIsNotched = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name("My Axe Is Notched"));
                                 if (myAxeIsNotched != null)
-                                    return Math.min(3, Math.max(gameState.getTokenCount(self, Token.ELVEN), gameState.getTokenCount(myAxeIsNotched, Token.DWARVEN)));
+                                    return Math.min(3, Math.min(gameState.getTokenCount(self, Token.ELVEN), gameState.getTokenCount(myAxeIsNotched, Token.DWARVEN)));
                                 return 0;
                             }
                         }));
