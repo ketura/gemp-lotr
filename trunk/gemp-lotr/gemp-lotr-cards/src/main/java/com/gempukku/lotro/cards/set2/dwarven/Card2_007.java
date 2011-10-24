@@ -1,16 +1,13 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: Mines of Moria
@@ -30,12 +27,6 @@ public class Card2_007 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "For each DWARVEN tale you can spot, Gloin is strength +1 (limit +4)", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
-            @Override
-            public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int bonus = Math.max(4, Filters.countSpottable(gameState, modifiersQuerying, Filters.culture(Culture.DWARVEN), Filters.keyword(Keyword.TALE)));
-                return result + bonus;
-            }
-        };
+        return new StrengthModifier(self, self, null, new CountSpottableEvaluator(4, Culture.DWARVEN, Keyword.TALE));
     }
 }

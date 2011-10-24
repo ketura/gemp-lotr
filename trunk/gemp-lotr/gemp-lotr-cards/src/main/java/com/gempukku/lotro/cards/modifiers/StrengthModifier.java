@@ -36,7 +36,7 @@ public class StrengthModifier extends AbstractModifier {
     }
 
     @Override
-    public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result + _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+    public int getStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
     }
 }

@@ -1,16 +1,15 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: The Fellowship of the Ring
@@ -31,12 +30,6 @@ public class Card1_237 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new AbstractModifier(self, "For each other Nazgul you can spot, The Witch-king is strength +2.", Filters.sameCard(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
-            @Override
-            public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int otherNazgul = Filters.countSpottable(gameState, modifiersQuerying, Filters.race(Race.NAZGUL), Filters.not(Filters.sameCard(self)));
-                return result + (otherNazgul * 2);
-            }
-        };
+        return new StrengthModifier(self, self, null, new MultiplyEvaluator(2, new CountSpottableEvaluator(Race.NAZGUL, Filters.not(self))));
     }
 }

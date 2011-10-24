@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,14 +38,13 @@ public class Card1_208 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +2, While at a Plains site, bearer is Strength +2", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER}) {
-            @Override
-            public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                int bonus = (modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.PLAINS)) ? 4 : 2;
-                return result + bonus;
-            }
-        };
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(
+                new StrengthModifier(self, Filters.hasAttached(self), 2));
+        modifiers.add(
+                new StrengthModifier(self, Filters.hasAttached(self), new LocationCondition(Keyword.PLAINS), 2));
+        return modifiers;
     }
 
     @Override
