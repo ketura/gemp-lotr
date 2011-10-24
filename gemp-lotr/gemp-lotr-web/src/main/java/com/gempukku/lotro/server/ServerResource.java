@@ -426,9 +426,9 @@ public class ServerResource {
             LotroFormat format = _hallServer.getSupportedFormat(supportedFormats.getKey());
             try {
                 format.validateDeck(deck);
-                sb.append("<b>" + formatName + "</b>: <font color='green'>valid</font> ");
+                sb.append("<b>" + formatName + "</b>: <font color='green'>valid</font><br/>");
             } catch (DeckInvalidException exp) {
-                sb.append("<b>" + formatName + "</b>: <font color='red'>" + exp.getMessage() + "</font> ");
+                sb.append("<b>" + formatName + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
             }
         }
 
