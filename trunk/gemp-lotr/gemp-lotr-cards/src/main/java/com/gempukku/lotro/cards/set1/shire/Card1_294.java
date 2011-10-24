@@ -6,14 +6,12 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
@@ -45,13 +43,7 @@ public class Card1_294 extends AbstractOldEvent {
                                 final int twilight = getValidatedResult(result);
                                 action.appendCost(new AddTwilightEffect(self, twilight));
                                 action.appendEffect(
-                                        new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
-                                            @Override
-                                            protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
-                                                for (int i = 0; i < twilight; i++)
-                                                    action.appendEffect(new HealCharactersEffect(playerId, hobbit));
-                                            }
-                                        });
+                                        new ChooseAndHealCharactersEffect(action, playerId, 1, 1, twilight, Race.HOBBIT));
                             }
                         }));
         return action;

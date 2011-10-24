@@ -11,8 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -52,14 +51,7 @@ public class Card3_107 extends AbstractAttachableFPPossession {
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     final int spotCount = getValidatedResult(result);
                                     action.appendEffect(
-                                            new ChooseActiveCardEffect(self, playerId, "Choose companion with Frodo signet", Filters.type(CardType.COMPANION), Filters.signet(Signet.FRODO)) {
-                                                @Override
-                                                protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                                    for (int i = 0; i < spotCount; i++)
-                                                        action.insertEffect(
-                                                                new HealCharactersEffect(playerId, card));
-                                                }
-                                            });
+                                            new ChooseAndHealCharactersEffect(action, playerId, 1, 1, spotCount, CardType.COMPANION, Signet.FRODO));
                                 }
                             }));
             return Collections.singletonList(action);

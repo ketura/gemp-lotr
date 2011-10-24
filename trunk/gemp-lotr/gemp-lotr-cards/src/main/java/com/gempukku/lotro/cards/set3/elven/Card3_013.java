@@ -9,9 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -40,15 +38,7 @@ public class Card3_013 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.isAllyHome(3, Block.FELLOWSHIP)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard ally) {
-                            action.insertEffect(
-                                    new HealCharactersEffect(playerId, ally));
-                            action.insertEffect(
-                                    new HealCharactersEffect(playerId, ally));
-                        }
-                    });
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, Filters.type(CardType.ALLY), Filters.isAllyHome(3, Block.FELLOWSHIP)));
             return Collections.singletonList(action);
         }
         return null;

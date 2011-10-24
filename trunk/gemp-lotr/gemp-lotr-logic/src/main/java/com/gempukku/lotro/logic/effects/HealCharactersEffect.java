@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -27,12 +28,14 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
 
     @Override
     protected Filter getExtraAffectableFilter() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canBeHealed(gameState, physicalCard);
-            }
-        };
+        return Filters.and(
+                Filters.wounded,
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    }
+                });
     }
 
     @Override

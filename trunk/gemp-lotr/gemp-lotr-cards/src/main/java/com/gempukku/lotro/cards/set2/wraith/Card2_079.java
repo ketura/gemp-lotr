@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card2_079 extends AbstractOldEvent {
     public Card2_079() {
-        super(Side.SHADOW, Culture.WRAITH, "Resistance Becomes Unbearable");
+        super(Side.SHADOW, Culture.WRAITH, "Resistance Becomes Unbearable", Phase.MANEUVER);
     }
 
     @Override
