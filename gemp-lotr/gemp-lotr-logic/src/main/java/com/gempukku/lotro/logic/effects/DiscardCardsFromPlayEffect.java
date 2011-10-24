@@ -56,27 +56,26 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     @Override
     protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+
+        Set<PhysicalCard> toMoveFromZoneToDiscard = new HashSet<PhysicalCard>();
+
+        GameState gameState = game.getGameState();
+
         for (PhysicalCard card : cards) {
             discardedCards.add(card);
-
-            GameState gameState = game.getGameState();
-            gameState.removeCardsFromZone(Collections.singleton(card));
-            gameState.addCardToZone(game, card, Zone.DISCARD);
+            toMoveFromZoneToDiscard.add(card);
 
             List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
-            for (PhysicalCard attachedCard : attachedCards) {
-                discardedCards.add(attachedCard);
-
-                gameState.removeCardsFromZone(Collections.singleton(attachedCard));
-                gameState.addCardToZone(game, attachedCard, Zone.DISCARD);
-            }
+            discardedCards.addAll(attachedCards);
+            toMoveFromZoneToDiscard.addAll(attachedCards);
 
             List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
-            for (PhysicalCard stackedCard : stackedCards) {
-                gameState.removeCardsFromZone(Collections.singleton(stackedCard));
-                gameState.addCardToZone(game, stackedCard, Zone.DISCARD);
-            }
+            toMoveFromZoneToDiscard.addAll(stackedCards);
         }
+
+        gameState.removeCardsFromZone(toMoveFromZoneToDiscard);
+        for (PhysicalCard card : toMoveFromZoneToDiscard)
+            gameState.addCardToZone(game, card, Zone.DISCARD);
 
         if (_source != null && discardedCards.size() > 0)
             game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + GameUtils.getCardLink(_source));

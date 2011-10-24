@@ -49,6 +49,7 @@ var GempLotrHallUI = Class.extend({
                 });
 
         buttonsDiv.append(editDeck);
+        buttonsDiv.append(" | ");
 
         this.supportedFormatsSelect = $("<select></select>");
         this.supportedFormatsSelect.hide();
