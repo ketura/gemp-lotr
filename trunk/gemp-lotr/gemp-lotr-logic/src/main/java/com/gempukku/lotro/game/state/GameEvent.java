@@ -18,7 +18,7 @@ public class GameEvent {
         AT, RT,
         M, W,
         GS,
-        CAC, EP
+        CAC, EP, CA
     }
 
     private String _message;

@@ -540,6 +540,8 @@ var GempLotrGameUI = Class.extend({
                 this.animations.cardAffectsCard(gameEvent, animate);
             } else if (eventType == "EP") {
                 this.animations.eventPlayed(gameEvent, animate);
+            } else if (eventType == "CA") {
+                this.animations.cardActivated(gameEvent, animate);
             }
         }
 

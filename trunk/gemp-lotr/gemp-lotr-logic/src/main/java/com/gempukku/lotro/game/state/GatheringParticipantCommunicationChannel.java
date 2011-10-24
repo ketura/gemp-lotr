@@ -4,14 +4,13 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
+import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
@@ -124,8 +123,13 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     }
 
     @Override
+    public void sendGameStats(GameStats gameStats) {
+        _events.add(new GameEvent(GS).gameStats(gameStats.makeACopy()));
+    }
+
+    @Override
     public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCards) {
-        _events.add(new GameEvent(CAC).participantId(playerPerforming).card(card).otherCardIds(getCardIds(affectedCards)));
+        _events.add(new GameEvent(CAC).card(card).participantId(playerPerforming).otherCardIds(getCardIds(affectedCards)));
     }
 
     @Override
@@ -134,8 +138,8 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     }
 
     @Override
-    public void sendGameStats(GameStats gameStats) {
-        _events.add(new GameEvent(GS).gameStats(gameStats.makeACopy()));
+    public void cardActivated(String playerPerforming, PhysicalCard card) {
+        _events.add(new GameEvent(CA).card(card).participantId(playerPerforming));
     }
 
     public List<GameEvent> consumeGameEvents() {
