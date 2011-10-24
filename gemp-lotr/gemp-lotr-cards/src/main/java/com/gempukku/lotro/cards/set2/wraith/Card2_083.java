@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -38,6 +39,8 @@ public class Card2_083 extends AbstractMinion {
         if (PlayConditions.winsSkirmish(effectResult, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendCost(
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new WoundCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
             if (game.getGameState().getBurdens() >= 5) {
