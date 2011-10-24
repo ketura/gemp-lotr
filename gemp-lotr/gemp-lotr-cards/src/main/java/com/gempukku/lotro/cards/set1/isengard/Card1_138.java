@@ -61,12 +61,12 @@ public class Card1_138 extends AbstractAttachable {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new AbstractModifier(self, "Can't play Skirmish actions", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
-            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                 if (action.getActionTimeword() == Phase.SKIRMISH
                         && gameState.getCurrentSite() == self.getAttachedTo()) {
                     return false;
                 }
-                return result;
+                return true;
             }
         };
     }

@@ -6,7 +6,11 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class RoamingRule {
     private ModifiersLogic _modifiersLogic;
@@ -27,11 +31,12 @@ public class RoamingRule {
                 new KeywordModifier(null, roamingFilter, Keyword.ROAMING));
 
         _modifiersLogic.addAlwaysOnModifier(
-                new AbstractModifier(null, "Roaming twilight cost increase", Filters.keyword(Keyword.ROAMING), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
-                    @Override
-                    public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int result) {
-                        return result + Math.max(0, modifiersLogic.getRoamingPenalty(gameState, physicalCard));
-                    }
-                });
+                new TwilightCostModifier(null, Filters.keyword(Keyword.ROAMING), null,
+                        new Evaluator() {
+                            @Override
+                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                                return modifiersQuerying.getRoamingPenalty(gameState, self);
+                            }
+                        }));
     }
 }

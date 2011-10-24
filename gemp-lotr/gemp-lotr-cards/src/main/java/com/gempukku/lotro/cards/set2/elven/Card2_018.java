@@ -3,18 +3,16 @@ package com.gempukku.lotro.cards.set2.elven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
@@ -38,14 +36,7 @@ public class Card2_018 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "While you can spot an Elf companion, the minion archery total is -1", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
-            @Override
-            public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Side side, int result) {
-                if (Filters.canSpot(gameState, modifiersQuerying, Filters.race(Race.ELF), Filters.type(CardType.COMPANION)))
-                    return result - 1;
-                return result;
-            }
-        };
+        return new ArcheryTotalModifier(self, Side.SHADOW, new SpotCondition(Race.ELF, CardType.COMPANION), -1);
     }
 
     @Override

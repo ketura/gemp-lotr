@@ -30,12 +30,12 @@ public class Card1_356 extends AbstractSite {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "For each companion in the fellowship over 4, add 2 to the minion archery total.", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
             @Override
-            public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
+            public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersLogic, Side side) {
                 if (side == Side.SHADOW) {
                     int bonus = Math.max(0, Filters.countActive(gameState, modifiersLogic, Filters.type(CardType.COMPANION)) - 4);
-                    return result + bonus * 2;
+                    return bonus * 2;
                 }
-                return result;
+                return 0;
             }
         };
     }

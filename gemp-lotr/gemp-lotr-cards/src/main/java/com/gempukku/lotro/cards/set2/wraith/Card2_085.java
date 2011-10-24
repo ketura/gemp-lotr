@@ -45,11 +45,11 @@ public class Card2_085 extends AbstractMinion {
         return Collections.singletonList(
                 new AbstractModifier(self, "Return to Its Master may not be played", Filters.name("Return to Its Master"), new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         PhysicalCard actionSource = action.getActionSource();
                         if (actionSource != null && actionSource.getBlueprint().getName().equals("Return to Its Master"))
                             return false;
-                        return result;
+                        return true;
                     }
                 });
     }

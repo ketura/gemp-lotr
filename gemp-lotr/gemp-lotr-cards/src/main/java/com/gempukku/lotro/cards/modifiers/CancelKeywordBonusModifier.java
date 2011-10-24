@@ -17,9 +17,9 @@ public class CancelKeywordBonusModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean appliesKeywordModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, Keyword keyword, boolean result) {
+    public boolean appliesKeywordModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, Keyword keyword) {
         if (keyword == _keyword)
             return false;
-        return result;
+        return true;
     }
 }

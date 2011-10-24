@@ -39,15 +39,15 @@ public class KeywordModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
-        return (result || keyword == _keyword);
+    public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+        return (keyword == _keyword);
     }
 
     @Override
-    public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
+    public int getKeywordCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
         if (keyword == _keyword)
-            return result + _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+            return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
         else
-            return result;
+            return 0;
     }
 }

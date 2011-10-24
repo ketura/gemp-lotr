@@ -32,7 +32,7 @@ public class TwilightCostModifier extends AbstractModifier {
     }
 
     @Override
-    public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int result) {
-        return result + _evaluator.evaluateExpression(gameState, modifiersLogic, physicalCard);
+    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard) {
+        return _evaluator.evaluateExpression(gameState, modifiersLogic, physicalCard);
     }
 }

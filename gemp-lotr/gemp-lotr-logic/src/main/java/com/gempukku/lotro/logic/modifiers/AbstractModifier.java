@@ -58,18 +58,18 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
-        return result;
+    public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+        return false;
     }
 
     @Override
-    public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
-        return result;
+    public int getKeywordCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+        return 0;
     }
 
     @Override
-    public boolean appliesKeywordModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, Keyword keyword, boolean result) {
-        return result;
+    public boolean appliesKeywordModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, Keyword keyword) {
+        return true;
     }
 
     @Override
@@ -88,28 +88,28 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public int getResistance(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result;
+    public int getResistanceModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
     }
 
     @Override
-    public int getMinionSiteNumber(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result;
+    public int getMinionSiteNumberModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
     }
 
     @Override
-    public int getTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result;
+    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
     }
 
     @Override
-    public int getPlayOnTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target, int result) {
-        return result;
+    public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
+        return 0;
     }
 
     @Override
-    public boolean isOverwhelmedByStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int strength, int opposingStrength, boolean result) {
-        return result;
+    public boolean isOverwhelmedByStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int strength, int opposingStrength) {
+        return true;
     }
 
     @Override
@@ -118,8 +118,8 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canBeExerted(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard exertionSource, PhysicalCard card, boolean result) {
-        return result;
+    public boolean canBeExerted(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard exertionSource, PhysicalCard card) {
+        return true;
     }
 
     @Override
@@ -143,23 +143,23 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Side side, int result) {
-        return result;
+    public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Side side) {
+        return 0;
     }
 
     @Override
-    public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
-        return result;
+    public int getMoveLimitModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
+        return 0;
     }
 
     @Override
-    public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
-        return result;
+    public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return true;
     }
 
     @Override
-    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
-        return result;
+    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+        return true;
     }
 
     @Override
@@ -173,18 +173,18 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
-        return result;
+    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
+        return false;
     }
 
     @Override
-    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
-        return result;
+    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions) {
+        return true;
     }
 
     @Override
-    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments, boolean result) {
-        return result;
+    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments) {
+        return true;
     }
 
     @Override
@@ -193,13 +193,13 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result) {
-        return result;
+    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source) {
+        return true;
     }
 
     @Override
-    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
-        return result;
+    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return true;
     }
 
     @Override
@@ -208,8 +208,8 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public int getRoamingPenalty(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result;
+    public int getRoamingPenaltyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
     }
 
     @Override
@@ -228,8 +228,8 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public int getSpotCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter, int result) {
-        return result;
+    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
+        return 0;
     }
 
     @Override

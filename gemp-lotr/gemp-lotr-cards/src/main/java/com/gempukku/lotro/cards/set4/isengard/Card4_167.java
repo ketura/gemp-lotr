@@ -40,13 +40,13 @@ public class Card4_167 extends AbstractAttachable {
         return Collections.singletonList(
                 new AbstractModifier(self, null, null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         if (Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Filters.race(Race.URUK_HAI)).size() > 0) {
                             if (performingPlayer.equals(gameState.getCurrentPlayerId())
                                     && action.getActionTimeword() == Phase.SKIRMISH)
                                 return false;
                         }
-                        return result;
+                        return true;
                     }
                 });
     }

@@ -43,7 +43,7 @@ public class Card4_261 extends AbstractPermanent {
         return Collections.singletonList(
                 new AbstractModifier(self, null, null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         final PhysicalCard actionSource = action.getActionSource();
 
                         if (actionSource != null
@@ -55,7 +55,7 @@ public class Card4_261 extends AbstractPermanent {
                                         new ChooseAndWoundCharactersEffect(playEventAction, performingPlayer, 1, 1, Filters.type(CardType.COMPANION)));
                         }
 
-                        return result;
+                        return true;
                     }
                 });
     }

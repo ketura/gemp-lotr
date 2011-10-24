@@ -49,12 +49,12 @@ public class Card2_076 extends AbstractAttachable {
         return Collections.singletonList(
                 new AbstractModifier(self, "Sam's game text does not apply", Filters.name("Sam"), new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         PhysicalCard actionSource = action.getActionSource();
                         if (actionSource != null
                                 && actionSource.getBlueprint().getName().equals("Sam"))
                             return false;
-                        return result;
+                        return true;
                     }
                 });
     }

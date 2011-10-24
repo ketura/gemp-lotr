@@ -18,7 +18,7 @@ public class DoesNotAddToArcheryTotalModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, boolean result) {
+    public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return false;
     }
 }

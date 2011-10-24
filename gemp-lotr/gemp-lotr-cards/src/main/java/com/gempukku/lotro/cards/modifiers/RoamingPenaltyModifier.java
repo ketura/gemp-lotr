@@ -16,7 +16,7 @@ public class RoamingPenaltyModifier extends AbstractModifier {
     }
 
     @Override
-    public int getRoamingPenalty(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result + _modifier;
+    public int getRoamingPenaltyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return _modifier;
     }
 }

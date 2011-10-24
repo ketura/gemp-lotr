@@ -22,10 +22,10 @@ public class PreventMinionBeingAssignedToCharacterModifier extends AbstractModif
     }
 
     @Override
-    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions, boolean result) {
+    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions) {
         if ((_side == null || side == _side) && Filters.filter(minions, gameState, modifiersQuerying, _minionFilter).size() > 0)
             return false;
 
-        return result;
+        return true;
     }
 }

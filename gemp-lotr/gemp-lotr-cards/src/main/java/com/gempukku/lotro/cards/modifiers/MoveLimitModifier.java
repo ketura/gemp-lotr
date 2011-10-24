@@ -22,9 +22,9 @@ public class MoveLimitModifier extends AbstractModifier {
     }
 
     @Override
-    public int getMoveLimit(GameState gameState, ModifiersQuerying modifiersQuerying, int result) {
+    public int getMoveLimitModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
         if (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying))
-            return result + _moveLimitModifier;
-        return result;
+            return _moveLimitModifier;
+        return 0;
     }
 }

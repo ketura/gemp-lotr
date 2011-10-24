@@ -43,10 +43,10 @@ public class Card2_102 extends AbstractCompanion {
         return Collections.singletonList(
                 new AbstractModifier(self, "The cost of each artifact, possession, and [SHIRE] tale played on Frodo  is -1.", Filters.or(Filters.type(CardType.ARTIFACT), Filters.type(CardType.POSSESSION), Filters.and(Filters.culture(Culture.SHIRE), Filters.keyword(Keyword.TALE))), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
                     @Override
-                    public int getPlayOnTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target, int result) {
+                    public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
                         if (target == self)
-                            return result - 1;
-                        return result;
+                            return -1;
+                        return 0;
                     }
                 });
     }

@@ -29,11 +29,11 @@ public class Card1_354 extends AbstractSite {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new AbstractModifier(self, "Skip archery phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
-            public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
+            public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
                 if (phase == Phase.ARCHERY
                         && gameState.getCurrentSite() == self)
                     return true;
-                return result;
+                return false;
             }
         };
     }
