@@ -73,8 +73,8 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result;
+    public int getStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
     }
 
     @Override

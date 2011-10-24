@@ -1,16 +1,18 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotBurdensCondition;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -32,26 +34,12 @@ public class Card1_218 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "Strength +2, While you can spot 3 burdens, bearer is damage +1", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER, ModifierEffect.KEYWORD_MODIFIER}) {
-            @Override
-            public int getStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-                return result + 2;
-            }
-
-            @Override
-            public int getKeywordCount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, int result) {
-                if (keyword == Keyword.DAMAGE && gameState.getBurdens() >= 3)
-                    return result + 1;
-                return result;
-            }
-
-            @Override
-            public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword, boolean result) {
-                if (keyword == Keyword.DAMAGE && gameState.getBurdens() >= 3)
-                    return true;
-                return result;
-            }
-        };
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(
+                new StrengthModifier(self, Filters.hasAttached(self), 2));
+        modifiers.add(
+                new KeywordModifier(self, Filters.hasAttached(self), new SpotBurdensCondition(3), Keyword.DAMAGE, 1));
+        return modifiers;
     }
 }

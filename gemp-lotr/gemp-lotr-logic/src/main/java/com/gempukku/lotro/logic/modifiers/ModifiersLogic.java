@@ -233,7 +233,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         for (Modifier modifier : getModifiers(ModifierEffect.STRENGTH_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, physicalCard, modifier)
                     && appliesStrengthModifier(gameState, modifier.getSource()))
-                result = modifier.getStrength(gameState, this, physicalCard, result);
+                result = modifier.getStrengthModifier(gameState, this, physicalCard);
         }
         return Math.max(0, result);
     }
