@@ -138,7 +138,7 @@ public class HallServer extends AbstractServer {
     private void createGame(String tableId, AwaitingTable awaitingTable) {
         Set<LotroGameParticipant> players = awaitingTable.getPlayers();
         LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
-        String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), participants);
+        String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), awaitingTable.getFormatName(), participants);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         lotroGameMediator.startGame();
         _runningTables.put(tableId, gameId);

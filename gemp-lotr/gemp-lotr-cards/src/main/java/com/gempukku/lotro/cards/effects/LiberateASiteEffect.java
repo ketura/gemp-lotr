@@ -36,9 +36,9 @@ public class LiberateASiteEffect extends AbstractEffect {
         for (String playerId : game.getGameState().getPlayerOrder().getAllPlayers())
             maxUnoccupiedSite = Math.min(maxUnoccupiedSite, game.getGameState().getPlayerPosition(playerId) - 1);
 
-        for (int i = maxUnoccupiedSite; i >= 1; i++) {
+        for (int i = maxUnoccupiedSite; i >= 1; i--) {
             PhysicalCard site = game.getGameState().getSite(i);
-            if (site.getCardController() != null
+            if (site != null && site.getCardController() != null
                     && !site.getCardController().equals(game.getGameState().getCurrentPlayerId()))
                 return site;
         }
