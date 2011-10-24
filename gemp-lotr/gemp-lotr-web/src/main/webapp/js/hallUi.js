@@ -4,6 +4,7 @@ var GempLotrHallUI = Class.extend({
     chat: null,
     supportedFormatsInitialized: false,
     supportedFormatsSelect: null,
+    decksSelect: null,
     createTableButton: null,
     leaveTableButton: null,
 
@@ -41,7 +42,7 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
 
-        var editDeck = $("<button>Edit deck</button>");
+        var editDeck = $("<button>Edit decks</button>");
         editDeck.button().click(
                 function() {
                     location.href = 'deckBuild.html';
@@ -58,13 +59,19 @@ var GempLotrHallUI = Class.extend({
                     that.supportedFormatsSelect.hide();
                     that.createTableButton.hide();
                     var format = that.supportedFormatsSelect.val();
-                    that.comm.createTable(format, "Default", function(xml) {
-                        that.processResponse(xml);
-                    });
+                    var deck = that.decksSelect.val();
+                    if (deck != null)
+                        that.comm.createTable(format, deck, function(xml) {
+                            that.processResponse(xml);
+                        });
                 });
         this.createTableButton.hide();
 
+        this.decksSelect = $("<select></select>");
+        this.decksSelect.hide();
+
         buttonsDiv.append(this.supportedFormatsSelect);
+        buttonsDiv.append(this.decksSelect);
         buttonsDiv.append(this.createTableButton);
 
         this.leaveTableButton = $("<button>Leave table</button>");
@@ -80,6 +87,7 @@ var GempLotrHallUI = Class.extend({
         this.div.append(buttonsDiv);
 
         this.updateHall();
+        this.updateDecks();
     },
 
     updateHall: function() {
@@ -90,6 +98,13 @@ var GempLotrHallUI = Class.extend({
         });
     },
 
+    updateDecks: function() {
+        var that = this;
+        this.comm.getDecks(function(xml) {
+            that.processDecks(xml);
+        });
+    },
+
     processResponse: function(xml) {
         if (xml != null) {
             var root = xml.documentElement;
@@ -97,6 +112,23 @@ var GempLotrHallUI = Class.extend({
                 var message = root.getAttribute("message");
                 this.chat.appendMessage(message, "warningMessage");
             }
+        }
+    },
+
+    processDecks: function(xml) {
+        var root = xml.documentElement;
+        if (root.tagName == "decks") {
+            this.decksSelect.html("");
+            var decks = root.getElementsByTagName("deck");
+            for (var i = 0; i < decks.length; i++) {
+                var deck = decks[i];
+                var deckName = decks[i].childNodes[0].nodeValue;
+                var deckElem = $("<option></option>");
+                deckElem.attr("value", deckName);
+                deckElem.html(deckName);
+                this.decksSelect.append(deckElem);
+            }
+            this.decksSelect.css("display", "");
         }
     },
 
@@ -146,10 +178,12 @@ var GempLotrHallUI = Class.extend({
 
             if (waiting) {
                 this.supportedFormatsSelect.hide();
+                this.decksSelect.hide();
                 this.createTableButton.hide();
                 this.leaveTableButton.css("display", "");
             } else {
                 this.supportedFormatsSelect.css("display", "");
+                this.decksSelect.css("display", "");
                 this.createTableButton.css("display", "");
                 this.leaveTableButton.hide();
             }
@@ -184,9 +218,11 @@ var GempLotrHallUI = Class.extend({
                 var but = $("<button>Join table</button>");
                 $(but).button().click(
                         function(event) {
-                            that.comm.joinTable(id, "Default", function(xml) {
-                                that.processResponse(xml);
-                            });
+                            var deck = that.decksSelect.val();
+                            if (deck != null)
+                                that.comm.joinTable(id, deck, function(xml) {
+                                    that.processResponse(xml);
+                                });
                         });
                 tableDiv.append(but);
             }
