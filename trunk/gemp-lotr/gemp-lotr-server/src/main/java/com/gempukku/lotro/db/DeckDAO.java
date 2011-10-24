@@ -7,9 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DeckDAO {
@@ -21,24 +19,16 @@ public class DeckDAO {
         _dbAccess = dbAccess;
     }
 
-    public synchronized LotroDeck getDeckForPlayer(Player player, String name) {
+    public LotroDeck getDeckForPlayer(Player player, String name) {
         Map<String, LotroDeck> lotroDeckMap = getPlayerDecks(player);
-        LotroDeck deck = lotroDeckMap.get(name);
-        if (deck != null)
-            return deck;
-
-        deck = getDeckFromDB(player.getId(), name);
-        if (deck != null) {
-            lotroDeckMap.put(name, deck);
-            return deck;
-        }
-        return null;
+        return lotroDeckMap.get(name);
     }
 
     public synchronized void saveDeckForPlayer(Player player, String name, LotroDeck deck) {
-        storeDeckToDB(player, name, deck);
-        Map<String, LotroDeck> decksByName = getPlayerDecks(player);
-        decksByName.put(name, deck);
+        final Map<String, LotroDeck> playerDecks = getPlayerDecks(player);
+        boolean newDeck = !playerDecks.containsKey(name);
+        storeDeckToDB(player.getId(), name, deck, newDeck);
+        playerDecks.put(name, deck);
     }
 
     public synchronized void deleteDeckForPlayer(Player player, String name) {
@@ -47,7 +37,7 @@ public class DeckDAO {
             Map<String, LotroDeck> map = getPlayerDecks(player);
             map.remove(name);
         } catch (SQLException exp) {
-            throw new RuntimeException("Unable to store player deck to DB", exp);
+            throw new RuntimeException("Unable to delete player deck from DB", exp);
         }
     }
 
@@ -61,16 +51,54 @@ public class DeckDAO {
         return deck;
     }
 
+    public Set<String> getPlayerDeckNames(Player player) {
+        return Collections.unmodifiableSet(getPlayerDecks(player).keySet());
+    }
+
     private Map<String, LotroDeck> getPlayerDecks(Player player) {
         Map<String, LotroDeck> decksByName = _decks.get(player.getId());
-        if (decksByName == null) {
-            decksByName = new ConcurrentHashMap<String, LotroDeck>();
-            _decks.put(player.getId(), decksByName);
-        }
+        if (decksByName == null)
+            decksByName = loadPlayerDecks(player);
         return decksByName;
     }
 
-    private void storeDeckToDB(Player player, String name, LotroDeck deck) {
+    private Map<String, LotroDeck> loadPlayerDecks(Player player) {
+        try {
+            return loadPlayerDecksFromDB(player.getId());
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to load player decks from DB", exp);
+        }
+    }
+
+    private Map<String, LotroDeck> loadPlayerDecksFromDB(int playerId) throws SQLException {
+        Connection connection = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("select name, contents from deck where player_id=?");
+            try {
+                statement.setInt(1, playerId);
+                ResultSet rs = statement.executeQuery();
+                try {
+                    Map<String, LotroDeck> result = new HashMap<String, LotroDeck>();
+                    while (rs.next()) {
+                        String name = rs.getString(1);
+                        String contents = rs.getString(2);
+
+                        result.put(name, buildDeckFromContents(contents));
+                    }
+                    return result;
+                } finally {
+                    rs.close();
+                }
+            } finally {
+                statement.close();
+            }
+        } finally {
+            connection.close();
+        }
+
+    }
+
+    private void storeDeckToDB(int playerId, String name, LotroDeck deck, boolean newDeck) {
         StringBuilder sb = new StringBuilder();
         sb.append(deck.getRingBearer());
         sb.append(",").append(deck.getRing());
@@ -79,11 +107,10 @@ public class DeckDAO {
 
         String contents = sb.toString();
         try {
-            LotroDeck oldDeck = getDeckForPlayer(player, name);
-            if (oldDeck != null)
-                updateDeckInDB(player.getId(), name, contents);
+            if (newDeck)
+                storeDeckInDB(playerId, name, contents);
             else
-                storeDeckInDB(player.getId(), name, contents);
+                updateDeckInDB(playerId, name, contents);
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to store player deck to DB", exp);
         }
