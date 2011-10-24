@@ -13,7 +13,7 @@ public class CancelStrengthBonusModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean appliesStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, boolean result) {
+    public boolean appliesStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource) {
         return false;
     }
 }
