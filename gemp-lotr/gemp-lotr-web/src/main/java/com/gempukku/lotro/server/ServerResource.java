@@ -34,9 +34,7 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Singleton
 @Path("/")
@@ -221,6 +219,38 @@ public class ServerResource {
         if (time > 100)
             _logger.debug("Processing time: " + time);
 
+        return doc;
+    }
+
+    @Path("/deck/list")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document listDecks(
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+        DeckDAO deckDao = _lotroServer.getDeckDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        List<String> names = new ArrayList<String>(deckDao.getPlayerDeckNames(player));
+        Collections.sort(names);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document doc = documentBuilder.newDocument();
+        Element decksElem = doc.createElement("decks");
+        for (String name : names) {
+            Element deckElem = doc.createElement("deck");
+            deckElem.appendChild(doc.createTextNode(name));
+            decksElem.appendChild(deckElem);
+        }
+        doc.appendChild(decksElem);
         return doc;
     }
 
