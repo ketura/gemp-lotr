@@ -35,7 +35,7 @@ public class Card5_084 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Theoden")));
         action.appendEffect(
-                new HealCharactersEffect(playerId, Filters.and(CardType.COMPANION, Filters.not(Filters.name("Theoden")), Signet.THÉODEN)));
+                new HealCharactersEffect(self, Filters.and(CardType.COMPANION, Filters.not(Filters.name("Theoden")), Signet.THÉODEN)));
         return action;
     }
 }

@@ -35,9 +35,9 @@ public class Card5_117 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Smeagol")));
         action.appendEffect(
-                new HealCharactersEffect(playerId, Filters.and(Race.HOBBIT, Keyword.RING_BOUND)));
+                new HealCharactersEffect(self, Filters.and(Race.HOBBIT, Keyword.RING_BOUND)));
         action.appendEffect(
-                new HealCharactersEffect(playerId, Filters.and(Race.HOBBIT, Keyword.RING_BOUND)));
+                new HealCharactersEffect(self, Filters.and(Race.HOBBIT, Keyword.RING_BOUND)));
         return action;
     }
 }

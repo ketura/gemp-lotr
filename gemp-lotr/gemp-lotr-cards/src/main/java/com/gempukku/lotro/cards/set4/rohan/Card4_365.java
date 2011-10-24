@@ -95,7 +95,7 @@ public class Card4_365 extends AbstractCompanion {
         @Override
         protected void doPlayEffect(LotroGame game) {
             _action.appendEffect(
-                    new HealCharactersEffect(_action.getActionSource().getOwner(), _attachPermanentAction.getTarget()));
+                    new HealCharactersEffect(_action.getActionSource(), _attachPermanentAction.getTarget()));
         }
     }
 }

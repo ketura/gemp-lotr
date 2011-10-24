@@ -42,7 +42,7 @@ public class Card2_120 extends AbstractSite {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.setText("Heal " + GameUtils.getCardLink(hobbitCompanion));
                 action.appendEffect(
-                        new HealCharactersEffect(playerId, hobbitCompanion));
+                        new HealCharactersEffect(self, hobbitCompanion));
                 actions.add(action);
             }
 

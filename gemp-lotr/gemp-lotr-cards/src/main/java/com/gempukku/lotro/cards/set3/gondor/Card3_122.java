@@ -38,7 +38,7 @@ public class Card3_122 extends AbstractCompanion {
             action.appendCost(
                     new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new HealCharactersEffect(playerId, self));
+                    new HealCharactersEffect(self, self));
             return Collections.singletonList(action);
         }
         return null;

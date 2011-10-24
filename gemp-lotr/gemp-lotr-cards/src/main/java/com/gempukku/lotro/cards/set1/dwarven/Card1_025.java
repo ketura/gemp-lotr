@@ -40,7 +40,7 @@ public class Card1_025 extends AbstractResponseOldEvent {
         if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.DWARF))) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
-            action.appendEffect(new HealCharactersEffect(playerId, skirmishResult.getWinners().get(0)));
+            action.appendEffect(new HealCharactersEffect(self, skirmishResult.getWinners().get(0)));
             return Collections.singletonList(action);
         }
         return null;

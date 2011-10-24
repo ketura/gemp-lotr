@@ -33,7 +33,7 @@ public class Card4_344 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(game.getGameState().getCurrentPlayerId(),
+                    new HealCharactersEffect(self,
                             Filters.and(
                                     Filters.or(CardType.COMPANION, CardType.ALLY),
                                     Filters.mounted)));

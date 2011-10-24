@@ -48,7 +48,7 @@ public class Card1_309 extends AbstractAlly {
             action.appendCost(new ExertCharactersEffect(self, self));
             PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Sam"));
             if (sam != null) {
-                action.appendEffect(new HealCharactersEffect(playerId, sam));
+                action.appendEffect(new HealCharactersEffect(self, sam));
             }
             return Collections.singletonList(action);
         }

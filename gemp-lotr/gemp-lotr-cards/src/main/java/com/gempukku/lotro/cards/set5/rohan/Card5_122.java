@@ -53,7 +53,7 @@ public class Card5_122 extends AbstractCompanion {
                         }
                     });
             action.appendEffect(
-                    new HealCharactersEffect(playerId, self));
+                    new HealCharactersEffect(self, self));
             return Collections.singletonList(action);
         }
         return null;
