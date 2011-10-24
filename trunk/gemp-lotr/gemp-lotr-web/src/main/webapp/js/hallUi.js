@@ -42,7 +42,7 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
 
-        var editDeck = $("<button>Edit decks</button>");
+        var editDeck = $("<button>Deck builder</button>");
         editDeck.button().click(
                 function() {
                     location.href = 'deckBuild.html';
@@ -57,6 +57,7 @@ var GempLotrHallUI = Class.extend({
         $(this.createTableButton).button().click(
                 function() {
                     that.supportedFormatsSelect.hide();
+                    that.decksSelect.hide();
                     that.createTableButton.hide();
                     var format = that.supportedFormatsSelect.val();
                     var deck = that.decksSelect.val();

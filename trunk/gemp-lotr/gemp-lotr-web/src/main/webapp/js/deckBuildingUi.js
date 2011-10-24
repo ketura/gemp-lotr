@@ -226,6 +226,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.shadowDeckGroup.maxCardHeight = 200;
 
         this.bottomBarDiv = $("<div></div>");
+        this.bottomBarDiv.css({overflow: "auto"});
         this.bottomBarDiv.append("<button id='saveDeck' style='float: right;'>Save deck</button>");
         this.bottomBarDiv.append("<div id='deckStats'></div>")
         this.deckDiv.append(this.bottomBarDiv);
@@ -261,15 +262,15 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    title: "Card information",
-                    minHeight: 80,
-                    minWidth: 200,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -544,7 +545,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     layoutUI: function() {
-        var manageHeight = 20;
+        var manageHeight = 30;
 
         var padding = 5;
         var collectionWidth = this.collectionDiv.width();
@@ -557,9 +558,11 @@ var GempLotrDeckBuildingUI = Class.extend({
         var sitesWidth = Math.floor(1.5 * deckHeight / 5);
         sitesWidth = Math.min(sitesWidth, 150);
 
+        this.manageDecksDiv.css({position: "absolute", left: padding, top: padding, width: deckWidth, height: manageHeight});
+
         this.ringBearerDiv.css({ position: "absolute", left: padding, top: manageHeight + 2 * padding, width: Math.floor((sitesWidth - padding) / 2), height: rowHeight });
         this.ringBearerGroup.setBounds(0, 0, Math.floor((sitesWidth - padding) / 2), rowHeight);
-        this.ringDiv.css({ position: "absolute", left: Math.floor((sitesWidth + 3 * padding) / 2), top: manageHeight + 2 * padding, width: Math.floor(sitesWidth - padding / 2), height: rowHeight });
+        this.ringDiv.css({ position: "absolute", left: Math.floor((sitesWidth + 3 * padding) / 2), top: manageHeight + 2 * padding, width: Math.floor((sitesWidth - padding) / 2), height: rowHeight });
         this.ringGroup.setBounds(0, 0, Math.floor((sitesWidth - padding) / 2), rowHeight);
         for (var i = 0; i < 4; i++) {
             this.siteDivs[i].css({ position: "absolute", left: padding, top: manageHeight + 2 * padding + (rowHeight + padding) * (i + 1), width: sitesWidth, height: rowHeight });
@@ -573,7 +576,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.fpDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) * 2 - padding, (deckHeight - 2 * padding - 50) / 2);
         this.shadowDeckGroup.setBounds(0, (deckHeight - 2 * padding - 50) / 2, deckWidth - (sitesWidth + padding) * 2 - padding, (deckHeight - 2 * padding - 50) / 2);
 
-        this.bottomBarDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: deckHeight - 50, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: 50 });
+        this.bottomBarDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: manageHeight + padding + deckHeight - 50, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: 50 });
 
         this.filterDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding, height: 80 });
         this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 130, width: collectionWidth - padding * 2, height: collectionHeight - 130 });
