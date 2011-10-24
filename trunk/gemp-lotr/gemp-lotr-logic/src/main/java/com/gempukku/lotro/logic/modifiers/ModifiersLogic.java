@@ -22,6 +22,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     private Map<Phase, Map<PhysicalCard, LimitCounter>> _counters = new HashMap<Phase, Map<PhysicalCard, LimitCounter>>();
 
     private int _drawnThisPhaseCount = 0;
+    private Map<Integer, Integer> _woundsPerPhaseMap = new HashMap<Integer, Integer>();
 
     @Override
     public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase) {
@@ -36,6 +37,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             limitCounterMap.put(card, limitCounter);
         }
         return limitCounter;
+    }
+
+    @Override
+    public void addedWound(PhysicalCard card) {
+        final int cardId = card.getCardId();
+        final Integer previousWounds = _woundsPerPhaseMap.get(cardId);
+        if (previousWounds == null)
+            _woundsPerPhaseMap.put(cardId, 1);
+        else
+            _woundsPerPhaseMap.put(cardId, previousWounds + 1);
     }
 
     private List<Modifier> getEffectModifiers(ModifierEffect modifierEffect) {
@@ -88,6 +99,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             counterMap.clear();
 
         _drawnThisPhaseCount = 0;
+        _woundsPerPhaseMap.clear();
     }
 
     public void removeStartOfPhase(Phase phase) {
@@ -310,12 +322,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canTakeWound(GameState gameState, PhysicalCard card) {
-        boolean result = true;
         for (Modifier modifier : getModifiers(ModifierEffect.WOUND_MODIFIER)) {
-            if (affectsCardWithSkipSet(gameState, card, modifier))
-                result = modifier.canTakeWound(gameState, this, card, result);
+            if (affectsCardWithSkipSet(gameState, card, modifier)) {
+                Integer woundsTaken = _woundsPerPhaseMap.get(card.getCardId());
+                if (woundsTaken == null)
+                    woundsTaken = 0;
+                if (!modifier.canTakeWound(gameState, this, card, woundsTaken))
+                    return false;
+            }
         }
-        return result;
+        return true;
     }
 
     @Override

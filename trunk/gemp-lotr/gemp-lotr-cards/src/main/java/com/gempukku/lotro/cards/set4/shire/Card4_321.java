@@ -1,24 +1,14 @@
 package com.gempukku.lotro.cards.set4.shire;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
-import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.EffectResult;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Set: The Two Towers
@@ -48,20 +38,8 @@ public class Card4_321 extends AbstractEvent {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard hobbit) {
                             action.insertEffect(
-                                    new AddUntilEndOfPhaseActionProxyEffect(
-                                            new AbstractActionProxy() {
-                                                @Override
-                                                public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
-                                                    if (PlayConditions.isWounded(effectResults, hobbit)) {
-                                                        RequiredTriggerAction action = new RequiredTriggerAction(self);
-                                                        action.appendEffect(
-                                                                new AddUntilEndOfPhaseModifierEffect(
-                                                                        new CantTakeWoundsModifier(self, Filters.sameCard(hobbit)), Phase.SKIRMISH));
-                                                        return Collections.singletonList(action);
-                                                    }
-                                                    return null;
-                                                }
-                                            }, Phase.SKIRMISH));
+                                    new AddUntilEndOfPhaseModifierEffect(
+                                            new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, hobbit), Phase.SKIRMISH));
                         }
                     });
         }
