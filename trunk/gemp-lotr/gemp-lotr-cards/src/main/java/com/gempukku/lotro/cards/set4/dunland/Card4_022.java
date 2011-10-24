@@ -37,7 +37,7 @@ public class Card4_022 extends AbstractMinion {
         modifiers.add(
                 new AbstractModifier(self, "Skip the archery phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
+                    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
                         return phase == Phase.ARCHERY
                                 && Filters.countSpottable(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner())) >= 2;
                     }

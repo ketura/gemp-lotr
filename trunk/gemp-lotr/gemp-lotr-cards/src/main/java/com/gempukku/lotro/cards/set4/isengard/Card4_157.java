@@ -63,10 +63,10 @@ public class Card4_157 extends AbstractAttachable {
         modifiers.add(
                 new AbstractModifier(self, null, null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         if (action.getActionSource() == self.getAttachedTo())
                             return false;
-                        return result;
+                        return true;
                     }
                 });
         return modifiers;

@@ -1,14 +1,11 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 /**
  * Set: The Fellowship of the Ring
@@ -25,14 +22,6 @@ public class Card1_192 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "While you can spot a MORIA archer, the fellowship archery total is -1.", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
-            @Override
-            public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
-                if (side == Side.FREE_PEOPLE
-                        && Filters.canSpot(gameState, modifiersLogic, Filters.culture(Culture.MORIA), Filters.keyword(Keyword.ARCHER)))
-                    return result - 1;
-                return result;
-            }
-        };
+        return new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new SpotCondition(Culture.MORIA, Keyword.ARCHER), -1);
     }
 }

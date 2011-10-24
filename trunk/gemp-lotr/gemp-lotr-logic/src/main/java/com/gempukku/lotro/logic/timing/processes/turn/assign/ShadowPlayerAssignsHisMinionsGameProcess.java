@@ -61,7 +61,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                                             new Filter() {
                                                 @Override
                                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                    return modifiersQuerying.isParticipateInSkirmishes(gameState, Side.SHADOW, physicalCard);
+                                                    return modifiersQuerying.isAllowedToParticipateInSkirmishes(gameState, Side.SHADOW, physicalCard);
                                                 }
                                             }
                                     )

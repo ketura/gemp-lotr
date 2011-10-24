@@ -16,9 +16,9 @@ public class CantDiscardFromPlayModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source, boolean result) {
+    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source) {
         if (_sourceFilter.accepts(gameState, modifiersQuerying, source))
             return false;
-        return result;
+        return true;
     }
 }

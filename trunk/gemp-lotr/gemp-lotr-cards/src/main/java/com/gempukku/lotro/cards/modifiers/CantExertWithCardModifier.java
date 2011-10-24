@@ -16,9 +16,9 @@ public class CantExertWithCardModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeExerted(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source, PhysicalCard card, boolean result) {
+    public boolean canBeExerted(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source, PhysicalCard card) {
         if (_preventExertWithFilter.accepts(gameState, modifiersQuerying, source))
             return false;
-        return result;
+        return true;
     }
 }

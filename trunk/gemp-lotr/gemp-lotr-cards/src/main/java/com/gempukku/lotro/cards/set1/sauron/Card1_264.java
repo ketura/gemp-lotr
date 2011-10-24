@@ -27,11 +27,11 @@ public class Card1_264 extends AbstractPermanent {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "While you can spot a SAURON Orc, add 1 to the minion archery total.", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
             @Override
-            public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
+            public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersLogic, Side side) {
                 if (side == Side.SHADOW
                         && Filters.canSpot(gameState, modifiersLogic, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)))
-                    return result + 1;
-                return result;
+                    return 1;
+                return 0;
             }
         };
     }

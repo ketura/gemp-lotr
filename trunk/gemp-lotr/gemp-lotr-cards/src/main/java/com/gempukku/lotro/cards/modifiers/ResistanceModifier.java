@@ -16,7 +16,7 @@ public class ResistanceModifier extends AbstractModifier {
     }
 
     @Override
-    public int getResistance(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result + _modifier;
+    public int getResistanceModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return _modifier;
     }
 }

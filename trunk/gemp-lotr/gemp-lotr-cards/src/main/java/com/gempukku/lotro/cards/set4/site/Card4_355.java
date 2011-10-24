@@ -34,10 +34,10 @@ public class Card4_355 extends AbstractSite {
         return Collections.singletonList(
                 new AbstractModifier(self, null, null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         if (action.getActionTimeword() == Phase.SKIRMISH)
                             return false;
-                        return result;
+                        return true;
                     }
                 });
     }

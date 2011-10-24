@@ -19,7 +19,7 @@ public class PossessionClassSpotModifier extends AbstractModifier {
     }
 
     @Override
-    public int getSpotCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter, int result) {
+    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
         if (filter.accepts(gameState, modifiersQuerying,
                 new SimplePhysicalCard(
                         new SimpleLotroCardBlueprint() {
@@ -28,7 +28,7 @@ public class PossessionClassSpotModifier extends AbstractModifier {
                                 return _possessionClass;
                             }
                         })))
-            return result + 1;
-        return result;
+            return 1;
+        return 0;
     }
 }

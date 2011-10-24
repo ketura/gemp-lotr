@@ -37,10 +37,10 @@ public class ArcheryTotalModifier extends AbstractModifier {
     }
 
     @Override
-    public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Side side, int result) {
+    public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Side side) {
         if (side == _side && ((_condition == null) || (_condition.isFullfilled(gameState, modifiersQuerying))))
-            return result + _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
+            return _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
         else
-            return result;
+            return 0;
     }
 }

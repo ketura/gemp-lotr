@@ -32,7 +32,7 @@ public class MinionSiteNumberModifier extends AbstractModifier {
     }
 
     @Override
-    public int getMinionSiteNumber(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int result) {
-        return result + _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+    public int getMinionSiteNumberModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
     }
 }

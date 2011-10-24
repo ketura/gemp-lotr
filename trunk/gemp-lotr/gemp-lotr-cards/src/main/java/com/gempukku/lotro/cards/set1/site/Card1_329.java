@@ -29,11 +29,11 @@ public class Card1_329 extends AbstractSite {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "Stealth events may not be played", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
             @Override
-            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                 PhysicalCard actionSourceCard = action.getActionSource();
                 if (actionSourceCard != null && actionSourceCard.getBlueprint().getCardType() == CardType.EVENT && modifiersQuerying.hasKeyword(gameState, actionSourceCard, Keyword.STEALTH))
                     return false;
-                return result;
+                return true;
             }
         };
     }

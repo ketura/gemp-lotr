@@ -55,15 +55,15 @@ public class Card4_147 extends AbstractPermanent {
         return Collections.singletonList(
                 new AbstractModifier(self, null, null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         if (!performingPlayer.equals(gameState.getCurrentPlayerId()))
-                            return result;
+                            return true;
                         if (gameState.getCurrentPhase() != Phase.ARCHERY)
-                            return result;
+                            return true;
                         if (action.getActionTimeword() == Phase.ARCHERY)
                             return false;
 
-                        return result;
+                        return true;
                     }
                 });
     }

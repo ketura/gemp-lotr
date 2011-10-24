@@ -30,12 +30,12 @@ public class Card1_357 extends AbstractSite {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "For each minion archer at Brown Lands, the minion archery total is +1 (limit +4).", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
             @Override
-            public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
+            public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersLogic, Side side) {
                 if (side == Side.SHADOW) {
                     int bonus = Math.min(Filters.countActive(gameState, modifiersLogic, Filters.type(CardType.MINION), Filters.keyword(Keyword.ARCHER)), 4);
-                    return bonus + result;
+                    return bonus;
                 }
-                return result;
+                return 0;
             }
         };
     }

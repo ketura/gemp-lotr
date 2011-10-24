@@ -31,12 +31,12 @@ public class Card2_023 extends AbstractPermanent {
                         Filters.type(CardType.POSSESSION),
                         Filters.type(CardType.ARTIFACT)), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
             @Override
-            public int getPlayOnTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target, int result) {
+            public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
                 if (physicalCard.getBlueprint().getCardType() == CardType.POSSESSION || physicalCard.getBlueprint().getCardType() == CardType.ARTIFACT) {
                     if (target.getBlueprint().getName().equals("Gandalf") || target.getBlueprint().getSignet() == Signet.GANDALF)
-                        return result - 1;
+                        return -1;
                 }
-                return result;
+                return 0;
             }
         };
     }

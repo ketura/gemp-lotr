@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 /**
  * Set: The Fellowship of the Ring
@@ -32,14 +30,6 @@ public class Card1_172 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new AbstractModifier(self, "While you can spot another MORIA Orc, the fellowship archery total is -6.", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
-            @Override
-            public int getArcheryTotal(GameState gameState, ModifiersQuerying modifiersLogic, Side side, int result) {
-                if (side == Side.FREE_PEOPLE
-                        && Filters.canSpot(gameState, modifiersLogic, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(self))))
-                    return result - 6;
-                return result;
-            }
-        };
+        return new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new SpotCondition(Culture.MORIA, Race.ORC, Filters.not(self)), -6);
     }
 }

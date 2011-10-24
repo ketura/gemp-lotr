@@ -50,7 +50,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                             new Filter() {
                                                 @Override
                                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                    return modifiersQuerying.isParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
+                                                    return modifiersQuerying.isAllowedToParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
                                                 }
                                             }
                                     )
@@ -69,7 +69,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                             new Filter() {
                                                 @Override
                                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                    return modifiersQuerying.isParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
+                                                    return modifiersQuerying.isAllowedToParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
                                                 }
                                             }
                                     )

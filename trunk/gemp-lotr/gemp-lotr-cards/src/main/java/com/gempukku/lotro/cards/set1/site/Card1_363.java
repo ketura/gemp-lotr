@@ -89,7 +89,7 @@ public class Card1_363 extends AbstractSite {
                             new AddUntilEndOfPhaseModifierEffect(
                                     new AbstractModifier(null, "End Shadow Phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                                         @Override
-                                        public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                                        public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                                             return false;
                                         }
                                     }, Phase.SHADOW
@@ -99,7 +99,7 @@ public class Card1_363 extends AbstractSite {
                         new AddUntilEndOfPhaseModifierEffect(
                                 new AbstractModifier(null, "End Shadow Phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                                     @Override
-                                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action, boolean result) {
+                                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                                         return false;
                                     }
                                 }, Phase.SHADOW

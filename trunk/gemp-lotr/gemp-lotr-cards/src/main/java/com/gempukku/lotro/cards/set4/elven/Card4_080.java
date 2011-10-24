@@ -43,10 +43,10 @@ public class Card4_080 extends AbstractCompanion {
         return Collections.singletonList(
                 new AbstractModifier(self, "The twilight cost of each ranged weapon played on Ordulus is -1.", Filters.possessionClass(PossessionClass.RANGED_WEAPON), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
                     @Override
-                    public int getPlayOnTwilightCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target, int result) {
+                    public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
                         if (target == self)
-                            return result - 1;
-                        return result;
+                            return -1;
+                        return 0;
                     }
                 });
     }

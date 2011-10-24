@@ -45,7 +45,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                                             new Filter() {
                                                 @Override
                                                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                    return modifiersQuerying.isAllyParticipateInArcheryFire(gameState, physicalCard);
+                                                    return modifiersQuerying.isAllyAllowedToParticipateInArcheryFire(gameState, physicalCard);
                                                 }
                                             })
                             )

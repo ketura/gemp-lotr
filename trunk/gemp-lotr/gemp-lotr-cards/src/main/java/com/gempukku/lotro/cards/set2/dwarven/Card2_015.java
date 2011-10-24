@@ -86,7 +86,7 @@ public class Card2_015 extends AbstractOldEvent {
             super(
                     new AbstractModifier(card, "Skip Shadow phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                         @Override
-                        public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
+                        public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
                             return phase == Phase.SHADOW && opponentId.equals(playerId);
                         }
                     }

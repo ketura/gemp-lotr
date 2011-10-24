@@ -42,10 +42,10 @@ public class Card2_051 extends AbstractMinion {
         return Collections.singletonList(
                 new AbstractModifier(self, "Skip archery phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
                     @Override
-                    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId, boolean result) {
+                    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
                         if (phase == Phase.ARCHERY)
                             return true;
-                        return result;
+                        return false;
                     }
                 }
         );

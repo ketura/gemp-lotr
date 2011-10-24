@@ -58,9 +58,9 @@ public interface ModifiersQuerying {
     // Assignments
     public boolean canBeAssignedToSkirmish(GameState gameState, Side playerSide, PhysicalCard card);
 
-    public boolean isParticipateInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card);
+    public boolean isAllowedToParticipateInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card);
 
-    public boolean isAllyParticipateInArcheryFire(GameState gameState, PhysicalCard card);
+    public boolean isAllyAllowedToParticipateInArcheryFire(GameState gameState, PhysicalCard card);
 
     public boolean isAllyPreventedFromParticipatingInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card);
 

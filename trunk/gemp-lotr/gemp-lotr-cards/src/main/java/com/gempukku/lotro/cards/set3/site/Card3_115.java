@@ -37,7 +37,7 @@ public class Card3_115 extends AbstractSite {
         return Collections.singletonList(
                 new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER}) {
                     @Override
-                    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments, boolean result) {
+                    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments) {
                         for (Map.Entry<PhysicalCard, List<PhysicalCard>> minionsAssignedToCharacter : assignments.entrySet()) {
                             PhysicalCard fp = minionsAssignedToCharacter.getKey();
                             List<PhysicalCard> minions = minionsAssignedToCharacter.getValue();
@@ -45,7 +45,7 @@ public class Card3_115 extends AbstractSite {
                             if (countMinionsCurrentlyAssignedToFPChar(alreadyAssigned, fp) + minions.size() > 1)
                                 return false;
                         }
-                        return result;
+                        return true;
                     }
 
                     private int countMinionsCurrentlyAssignedToFPChar(List<Assignment> assignments, PhysicalCard fp) {
