@@ -4,13 +4,14 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
-import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
@@ -83,8 +84,8 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     }
 
     @Override
-    public void cardsRemoved(Collection<PhysicalCard> cards) {
-        _events.add(new GameEvent(RCFP).otherCardIds(getCardIds(cards)));
+    public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards) {
+        _events.add(new GameEvent(RCFP).otherCardIds(getCardIds(cards)).participantId(playerPerforming));
     }
 
     @Override

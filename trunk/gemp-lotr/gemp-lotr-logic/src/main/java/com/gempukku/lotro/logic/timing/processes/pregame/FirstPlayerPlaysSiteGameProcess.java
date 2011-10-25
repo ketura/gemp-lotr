@@ -25,7 +25,7 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
     public void process() {
         GameState gameState = _game.getGameState();
         PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).iterator().next();
-        gameState.removeCardsFromZone(Collections.singleton(firstSite));
+        gameState.removeCardsFromZone(null, Collections.singleton(firstSite));
         gameState.addCardToZone(_game, firstSite, Zone.ADVENTURE_PATH);
 
         for (String playerId : gameState.getPlayerOrder().getAllPlayers())

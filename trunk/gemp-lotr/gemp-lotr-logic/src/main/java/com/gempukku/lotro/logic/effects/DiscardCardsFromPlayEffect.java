@@ -73,7 +73,12 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
             toMoveFromZoneToDiscard.addAll(stackedCards);
         }
 
-        gameState.removeCardsFromZone(toMoveFromZoneToDiscard);
+        String sourcePlayer = null;
+        if (_source != null)
+            sourcePlayer = _source.getOwner();
+
+        gameState.removeCardsFromZone(sourcePlayer, toMoveFromZoneToDiscard);
+
         for (PhysicalCard card : toMoveFromZoneToDiscard)
             gameState.addCardToZone(game, card, Zone.DISCARD);
 

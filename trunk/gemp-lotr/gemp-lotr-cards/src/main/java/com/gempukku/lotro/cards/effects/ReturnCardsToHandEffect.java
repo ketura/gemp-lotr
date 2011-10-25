@@ -65,7 +65,7 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
         GameState gameState = game.getGameState();
 
         // Remove from their zone
-        gameState.removeCardsFromZone(removedFromZone);
+        gameState.removeCardsFromZone(_source.getOwner(), removedFromZone);
 
         // Add cards to hand
         for (PhysicalCard card : cardsToReturnToHand)

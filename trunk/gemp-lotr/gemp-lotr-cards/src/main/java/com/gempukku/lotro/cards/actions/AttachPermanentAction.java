@@ -101,7 +101,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     public Effect nextEffect(LotroGame game) {
         if (!_cardRemoved) {
             _cardRemoved = true;
-            game.getGameState().removeCardsFromZone(Collections.singleton(_cardToAttach));
+            game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
         }
 
         if (!_targetChosen) {

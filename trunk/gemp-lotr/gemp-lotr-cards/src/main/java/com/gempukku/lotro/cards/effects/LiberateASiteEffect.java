@@ -52,7 +52,7 @@ public class LiberateASiteEffect extends AbstractEffect {
         if (siteToLiberate != null) {
 
             List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(siteToLiberate);
-            game.getGameState().removeCardsFromZone(stackedCards);
+            game.getGameState().removeCardsFromZone(_source.getOwner(), stackedCards);
             for (PhysicalCard stackedCard : stackedCards)
                 game.getGameState().addCardToZone(game, stackedCard, Zone.DISCARD);
 

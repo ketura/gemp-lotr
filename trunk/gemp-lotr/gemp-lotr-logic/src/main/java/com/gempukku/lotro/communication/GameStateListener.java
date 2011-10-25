@@ -13,7 +13,7 @@ public interface GameStateListener {
 
     public void cardMoved(PhysicalCard card);
 
-    public void cardsRemoved(Collection<PhysicalCard> cards);
+    public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards);
 
     public void setPlayerOrder(List<String> playerIds);
 

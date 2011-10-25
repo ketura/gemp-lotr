@@ -33,7 +33,7 @@ public class TransferToSupportEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            game.getGameState().removeCardsFromZone(Collections.singleton(_card));
+            game.getGameState().removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             game.getGameState().addCardToZone(game, _card, Zone.SUPPORT);
             return new FullEffectResult(null, true, true);
         }
