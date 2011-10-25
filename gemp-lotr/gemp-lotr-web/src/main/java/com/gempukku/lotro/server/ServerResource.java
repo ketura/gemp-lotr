@@ -31,9 +31,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
 import java.util.*;
 
 @Singleton
@@ -116,6 +118,33 @@ public class ServerResource {
         sb.append("Password: <input id='password' type='password'><br/>");
         sb.append("<button id='loginButton'>Login</button>");
         return sb.toString();
+    }
+
+    @Path("/replay/{replayId}")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public StreamingOutput getReplay(
+            @PathParam("replayId") String replayId) throws ParserConfigurationException {
+        File gameReplayFolder = new File("i:\\gemp-lotr\\replay");
+        if (replayId.contains("."))
+            sendError(Response.Status.NOT_FOUND);
+        final File replayFile = new File(gameReplayFolder, replayId);
+        if (!replayFile.exists() || !replayFile.isFile())
+            sendError(Response.Status.NOT_FOUND);
+
+        return new StreamingOutput() {
+            @Override
+            public void write(OutputStream outputStream) throws IOException, WebApplicationException {
+                InputStream is = new FileInputStream(replayFile);
+                try {
+                    byte[] bytes = new byte[1024];
+                    int count = is.read(bytes);
+                    outputStream.write(bytes, 0, count);
+                } finally {
+                    is.close();
+                }
+            }
+        };
     }
 
     @Path("/game/{gameId}")
