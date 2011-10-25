@@ -725,7 +725,7 @@ public class GameState {
         return _fierceSkirmishes;
     }
 
-    private boolean isCardInPlayActive(PhysicalCard card) {
+    public boolean isCardInPlayActive(PhysicalCard card) {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
