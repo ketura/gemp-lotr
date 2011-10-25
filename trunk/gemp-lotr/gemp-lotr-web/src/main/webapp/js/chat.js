@@ -31,30 +31,34 @@ var ChatBoxUI = Class.extend({
         });
 
         this.chatMessagesDiv = $("<div class='chatMessages'></div>");
-        this.chatTalkDiv = $("<input class='chatTalk'>");
-        if (showList) {
-            this.chatListDiv = $("<div class='userList'></div>");
-            this.div.append(this.chatListDiv);
-        }
-
         this.div.append(this.chatMessagesDiv);
-        this.div.append(this.chatTalkDiv);
 
         var that = this;
 
-        this.communication.startChat(this.name, function(xml) {
-            that.processMessages(xml, true);
-        });
-
-        this.chatTalkDiv.bind("keypress", function(e) {
-            var code = (e.keyCode ? e.keyCode : e.which);
-            if (code == 13) {
-                var value = $(this).val();
-                that.sendMessage(value);
-                that.appendMessage("<b>Me:</b> " + that.escapeHtml(value));
-                $(this).val("");
+        if (this.name != null) {
+            this.chatTalkDiv = $("<input class='chatTalk'>");
+            if (showList) {
+                this.chatListDiv = $("<div class='userList'></div>");
+                this.div.append(this.chatListDiv);
             }
-        });
+            this.div.append(this.chatTalkDiv);
+
+            this.communication.startChat(this.name, function(xml) {
+                that.processMessages(xml, true);
+            });
+
+            this.chatTalkDiv.bind("keypress", function(e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 13) {
+                    var value = $(this).val();
+                    that.sendMessage(value);
+                    that.appendMessage("<b>Me:</b> " + that.escapeHtml(value));
+                    $(this).val("");
+                }
+            });
+        } else {
+            this.talkBoxHeight = 0;
+        }
     },
 
     escapeHtml: function(text) {
