@@ -13,6 +13,7 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     private LinkedList<Effect> _effects = new LinkedList<Effect>();
 
     private Phase _actionTimeword;
+    private String _performingPlayer;
 
     @Override
     public Phase getActionTimeword() {
@@ -22,6 +23,16 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     @Override
     public void setActionTimeword(Phase phase) {
         _actionTimeword = phase;
+    }
+
+    @Override
+    public void setPerformingPlayer(String playerId) {
+        _performingPlayer = playerId;
+    }
+
+    @Override
+    public String getPerformingPlayer() {
+        return _performingPlayer;
     }
 
     @Override

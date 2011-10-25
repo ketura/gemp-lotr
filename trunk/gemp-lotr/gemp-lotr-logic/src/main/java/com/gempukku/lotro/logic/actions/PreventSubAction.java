@@ -51,6 +51,16 @@ public class PreventSubAction implements Action {
     }
 
     @Override
+    public String getPerformingPlayer() {
+        return _action.getPerformingPlayer();
+    }
+
+    @Override
+    public void setPerformingPlayer(String playerId) {
+        _action.setPerformingPlayer(playerId);
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return null;
     }

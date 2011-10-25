@@ -7,9 +7,13 @@ import com.gempukku.lotro.game.state.LotroGame;
 public interface Action {
     public PhysicalCard getActionSource();
 
+    public void setActionTimeword(Phase phase);
+
     public PhysicalCard getActionAttachedToCard();
 
-    public void setActionTimeword(Phase phase);
+    public void setPerformingPlayer(String playerId);
+
+    public String getPerformingPlayer();
 
     public Phase getActionTimeword();
 

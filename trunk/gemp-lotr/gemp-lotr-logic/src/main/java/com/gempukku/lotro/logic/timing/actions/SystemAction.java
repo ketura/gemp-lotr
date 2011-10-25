@@ -26,6 +26,15 @@ public abstract class SystemAction implements Action {
     }
 
     @Override
+    public void setPerformingPlayer(String playerId) {
+    }
+
+    @Override
+    public String getPerformingPlayer() {
+        return null;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         throw new UnsupportedOperationException("System action has no text");
     }

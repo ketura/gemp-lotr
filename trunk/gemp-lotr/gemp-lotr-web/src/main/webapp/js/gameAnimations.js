@@ -4,6 +4,7 @@ var GameAnimations = Class.extend({
     putCardIntoPlayDuration: 1500,
     cardAffectsCardDuration: 1200,
     cardActivatedDuration: 1200,
+    removeCardFromPlayDuration: 600,
 
     init: function(gameUI) {
         this.game = gameUI;
@@ -23,12 +24,12 @@ var GameAnimations = Class.extend({
                     $("#main").queue(
                             function(next) {
                                 $(".borderOverlay", cardDiv)
-                                        .animate({borderColor: "#ffffff"}, that.cardActivatedDuration / 6)
-                                        .animate({borderColor: "#000000"}, that.cardActivatedDuration / 6)
-                                        .animate({borderColor: "#ffffff"}, that.cardActivatedDuration / 6)
-                                        .animate({borderColor: "#000000"}, that.cardActivatedDuration / 6)
-                                        .animate({borderColor: "#ffffff"}, that.cardActivatedDuration / 6)
-                                        .animate({borderColor: "#000000"}, that.cardActivatedDuration / 6);
+                                        .switchClass("borderOverlay", "highlightBorderOverlay", that.cardActivatedDuration / 6)
+                                        .switchClass("highlightBorderOverlay", "borderOverlay", that.cardActivatedDuration / 6)
+                                        .switchClass("borderOverlay", "highlightBorderOverlay", that.cardActivatedDuration / 6)
+                                        .switchClass("highlightBorderOverlay", "borderOverlay", that.cardActivatedDuration / 6)
+                                        .switchClass("borderOverlay", "highlightBorderOverlay", that.cardActivatedDuration / 6)
+                                        .switchClass("highlightBorderOverlay", "borderOverlay", that.cardActivatedDuration / 6);
                                 setTimeout(next, that.cardActivatedDuration);
                             });
                 }
@@ -205,6 +206,8 @@ var GameAnimations = Class.extend({
                         targetCardData.attachedCards.push(cardDiv);
                     }
 
+                    that.game.layoutUI(false);
+
                     next();
                 });
 
@@ -214,8 +217,6 @@ var GameAnimations = Class.extend({
 
             $("#main").queue(
                     function(next) {
-                        that.game.layoutUI(false);
-
                         var cardDiv = $(".card:cardId(" + cardId + ")");
                         var card = cardDiv.data("card");
                         var pos = cardDiv.position();
@@ -340,6 +341,21 @@ var GameAnimations = Class.extend({
 
     removeCardFromPlay: function(element, animate) {
         var that = this;
+        if (animate) {
+            $("#main").queue(
+                    function(next) {
+                        var cardRemovedIds = element.getAttribute("otherCardIds").split(",");
+                        $(".card:cardId(" + cardRemovedIds + ")")
+                                .animate(
+                        {
+                            opacity: 0},
+                        {
+                            duration: that.removeCardFromPlayDuration,
+                            easing: "easeOutQuart",
+                            queue: false});
+                        setTimeout(next, that.removeCardFromPlayDuration);
+                    });
+        }
         $("#main").queue(
                 function(next) {
                     var cardRemovedIds = element.getAttribute("otherCardIds").split(",");
