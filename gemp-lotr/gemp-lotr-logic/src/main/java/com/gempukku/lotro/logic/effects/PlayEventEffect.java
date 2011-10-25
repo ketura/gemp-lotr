@@ -24,7 +24,6 @@ public class PlayEventEffect extends PlayCardEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        game.getGameState().removeCardsFromZone(_cardPlayed.getOwner(), Collections.singleton(_cardPlayed));
         return new FullEffectResult(Collections.singleton(_playEventResult), true, true);
     }
 }

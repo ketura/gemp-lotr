@@ -79,6 +79,8 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
             if (!_cardPutIntoPlay) {
                 _cardPutIntoPlay = true;
+                if (_permanentPlayed.getZone() != null)
+                    game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
                 game.getGameState().addCardToZone(game, _permanentPlayed, _zone);
             }
 
@@ -93,6 +95,8 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;
+                if (_permanentPlayed.getZone() != null)
+                    game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.DISCARD);
             }
         }
