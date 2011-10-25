@@ -1,17 +1,14 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: The Fellowship of the Ring
@@ -28,15 +25,6 @@ public class Card1_357 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "For each minion archer at Brown Lands, the minion archery total is +1 (limit +4).", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
-            @Override
-            public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersLogic, Side side) {
-                if (side == Side.SHADOW) {
-                    int bonus = Math.min(Filters.countActive(gameState, modifiersLogic, Filters.type(CardType.MINION), Filters.keyword(Keyword.ARCHER)), 4);
-                    return bonus;
-                }
-                return 0;
-            }
-        };
+        return new ArcheryTotalModifier(self, Side.SHADOW, null, new CountActiveEvaluator(4, CardType.MINION, Keyword.ARCHER));
     }
 }

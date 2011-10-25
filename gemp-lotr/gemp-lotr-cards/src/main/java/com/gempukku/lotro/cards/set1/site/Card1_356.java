@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: The Fellowship of the Ring
@@ -28,15 +26,6 @@ public class Card1_356 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "For each companion in the fellowship over 4, add 2 to the minion archery total.", null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER}) {
-            @Override
-            public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersLogic, Side side) {
-                if (side == Side.SHADOW) {
-                    int bonus = Math.max(0, Filters.countActive(gameState, modifiersLogic, Filters.type(CardType.COMPANION)) - 4);
-                    return bonus * 2;
-                }
-                return 0;
-            }
-        };
+        return new ArcheryTotalModifier(self, Side.SHADOW, null, new MultiplyEvaluator(2, new CountActiveEvaluator(4, null, CardType.COMPANION)));
     }
 }

@@ -3,14 +3,15 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
+import com.gempukku.lotro.cards.modifiers.CantHealModifier;
 import com.gempukku.lotro.cards.modifiers.CantRemoveBurdensModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -49,12 +50,7 @@ public class Card1_207 extends AbstractPermanent {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new AbstractModifier(self, "Burdens and wounds may not be removed from bearer.", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER}) {
-                    @Override
-                    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-                        return false;
-                    }
-                });
+                new CantHealModifier(self, Filters.hasAttached(self)));
         modifiers.add(
                 new CantRemoveBurdensModifier(self, new SpotCondition(Keyword.RING_BEARER, Filters.hasAttached(self)), Filters.any));
         return modifiers;

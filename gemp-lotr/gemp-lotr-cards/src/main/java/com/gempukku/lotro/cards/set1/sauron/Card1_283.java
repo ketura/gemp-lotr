@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.modifiers.CantHealModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: The Fellowship of the Ring
@@ -39,13 +37,6 @@ public class Card1_283 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "While at a sanctuary, bearer cannot heal.", Filters.hasAttached(self), new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER}) {
-            @Override
-            public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-                if (modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.SANCTUARY))
-                    return false;
-                return true;
-            }
-        };
+        return new CantHealModifier(self, new LocationCondition(Keyword.SANCTUARY), Filters.hasAttached(self));
     }
 }

@@ -1,15 +1,17 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,13 +37,7 @@ public class Card4_022 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new AbstractModifier(self, "Skip the archery phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
-                    @Override
-                    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
-                        return phase == Phase.ARCHERY
-                                && Filters.countSpottable(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner())) >= 2;
-                    }
-                });
+                new ShouldSkipPhaseModifier(self, new SpotCondition(2, Filters.siteControlled(self.getOwner())), Phase.ARCHERY));
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)),
                         new SpotCondition(3, Filters.siteControlled(self.getOwner())), Keyword.FIERCE, 1));
