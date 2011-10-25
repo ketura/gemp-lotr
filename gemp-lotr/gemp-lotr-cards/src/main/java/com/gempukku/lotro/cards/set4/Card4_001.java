@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
 import com.gempukku.lotro.cards.effects.TakeOffTheOneRingEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
