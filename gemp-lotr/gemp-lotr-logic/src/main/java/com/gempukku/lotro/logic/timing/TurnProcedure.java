@@ -35,6 +35,10 @@ public class TurnProcedure {
         _gameProcess = new BiddingGameProcess(players, lotroGame, playerOrderFeedback);
     }
 
+    public GameStats getGameStats() {
+        return _gameStats;
+    }
+
     public void carryOutPendingActionsUntilDecisionNeeded() {
         while (!_userFeedback.hasPendingDecisions() && _game.getWinnerPlayerId() == null) {
             if (_actionStack.isEmpty()) {

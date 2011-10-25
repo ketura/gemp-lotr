@@ -31,7 +31,6 @@ public class DefaultLotroGame implements LotroGame {
     private TurnProcedure _turnProcedure;
     private ActionStack _actionStack;
 
-    private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
     private LotroFormat _format;
     private GameResultListener _gameResultListener;
 
@@ -69,11 +68,8 @@ public class DefaultLotroGame implements LotroGame {
                 new PlayerOrderFeedback() {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {
-                        _gameState.init(playerOrder, firstPlayer, cards, library);
-                        for (Map.Entry<String, GameStateListener> stringGameStateListenerEntry : _gameStateListeners.entrySet())
-                            _gameState.addGameStateListener(stringGameStateListenerEntry.getKey(), stringGameStateListenerEntry.getValue());
-                        _gameStateListeners = null;
-
+                        final GameStats gameStats = _turnProcedure.getGameStats();
+                        _gameState.init(playerOrder, firstPlayer, cards, library, gameStats);
                     }
                 }
         );
@@ -177,21 +173,11 @@ public class DefaultLotroGame implements LotroGame {
         }
     }
 
-    public ActionStack getActionStack() {
-        return _actionStack;
-    }
-
     public void addGameStateListener(String playerId, GameStateListener gameStateListener) {
-        if (_gameState != null)
-            _gameState.addGameStateListener(playerId, gameStateListener);
-        else
-            _gameStateListeners.put(playerId, gameStateListener);
+        _gameState.addGameStateListener(playerId, gameStateListener, _turnProcedure.getGameStats());
     }
 
     public void removeGameStateListener(String playerId, GameStateListener gameStateListener) {
-        if (_gameState != null)
-            _gameState.removeGameStateListener(playerId, gameStateListener);
-        else
-            _gameStateListeners.remove(playerId);
+        _gameState.removeGameStateListener(playerId, gameStateListener);
     }
 }
