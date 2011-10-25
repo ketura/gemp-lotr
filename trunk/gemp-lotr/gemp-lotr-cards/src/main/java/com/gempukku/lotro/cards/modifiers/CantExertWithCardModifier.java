@@ -11,7 +11,7 @@ public class CantExertWithCardModifier extends AbstractModifier {
     private Filter _preventExertWithFilter;
 
     public CantExertWithCardModifier(PhysicalCard source, Filter affectFilter, Filter preventExertWithFilter) {
-        super(source, "Affected by exertion preventing effect", affectFilter, new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER});
+        super(source, "Affected by exertion preventing effect", affectFilter, ModifierEffect.WOUND_MODIFIER);
         _preventExertWithFilter = preventExertWithFilter;
     }
 

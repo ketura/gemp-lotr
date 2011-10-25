@@ -11,7 +11,7 @@ public class RoamingPenaltyModifier extends AbstractModifier {
     private int _modifier;
 
     public RoamingPenaltyModifier(PhysicalCard source, Filter affectFilter, int modifier) {
-        super(source, "Roaming penalty " + ((modifier > 0) ? ("+" + modifier) : modifier), affectFilter, new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER});
+        super(source, "Roaming penalty " + ((modifier > 0) ? ("+" + modifier) : modifier), affectFilter, ModifierEffect.TWILIGHT_COST_MODIFIER);
         _modifier = modifier;
     }
 

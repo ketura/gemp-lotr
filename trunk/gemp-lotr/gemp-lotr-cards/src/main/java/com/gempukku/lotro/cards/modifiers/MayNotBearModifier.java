@@ -11,7 +11,7 @@ public class MayNotBearModifier extends AbstractModifier {
     private Filter _unbearableCardFilter;
 
     public MayNotBearModifier(PhysicalCard source, Filter affectFilter, Filter unbearableCardFilter) {
-        super(source, "Affected by \"may not bear\" limitation", affectFilter, new ModifierEffect[]{ModifierEffect.TARGET_MODIFIER});
+        super(source, "Affected by \"may not bear\" limitation", affectFilter, ModifierEffect.TARGET_MODIFIER);
         _unbearableCardFilter = unbearableCardFilter;
     }
 

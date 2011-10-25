@@ -10,11 +10,11 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CantTakeWoundsModifier extends AbstractModifier {
     public CantTakeWoundsModifier(PhysicalCard source, Filterable affectFilter) {
-        super(source, "Can't take wounds", affectFilter, new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER});
+        super(source, "Can't take wounds", affectFilter, ModifierEffect.WOUND_MODIFIER);
     }
 
     public CantTakeWoundsModifier(PhysicalCard source, Condition condition, Filterable affectFilter) {
-        super(source, "Can't take wounds", affectFilter, condition, new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER});
+        super(source, "Can't take wounds", affectFilter, condition, ModifierEffect.WOUND_MODIFIER);
     }
 
     @Override

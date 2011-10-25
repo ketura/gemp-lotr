@@ -14,7 +14,7 @@ public class PossessionClassSpotModifier extends AbstractModifier {
     private PossessionClass _possessionClass;
 
     public PossessionClassSpotModifier(PhysicalCard source, PossessionClass possessionClass) {
-        super(source, "Spotting modifier", null, new ModifierEffect[]{ModifierEffect.SPOT_MODIFIER});
+        super(source, "Spotting modifier", null, ModifierEffect.SPOT_MODIFIER);
         _possessionClass = possessionClass;
     }
 

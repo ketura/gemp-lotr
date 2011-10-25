@@ -14,7 +14,7 @@ public class KeywordSpotModifier extends AbstractModifier {
     private Keyword _keyword;
 
     public KeywordSpotModifier(PhysicalCard source, Keyword keyword) {
-        super(source, "Spotting modifier", null, new ModifierEffect[]{ModifierEffect.SPOT_MODIFIER});
+        super(source, "Spotting modifier", null, ModifierEffect.SPOT_MODIFIER);
         _keyword = keyword;
     }
 

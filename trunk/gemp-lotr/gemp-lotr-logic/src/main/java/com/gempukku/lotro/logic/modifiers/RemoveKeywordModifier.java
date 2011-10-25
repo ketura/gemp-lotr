@@ -9,12 +9,12 @@ public class RemoveKeywordModifier extends AbstractModifier {
     private Keyword _keyword;
 
     public RemoveKeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Keyword keyword) {
-        super(physicalCard, "Loses " + keyword.getHumanReadable() + "keyword(s)", affectFilter, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
+        super(physicalCard, "Loses " + keyword.getHumanReadable() + "keyword(s)", affectFilter, ModifierEffect.KEYWORD_MODIFIER);
         _keyword = keyword;
     }
 
     public RemoveKeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Condition condition, Keyword keyword) {
-        super(physicalCard, "Loses " + keyword.getHumanReadable() + "keyword(s)", affectFilter, condition, new ModifierEffect[]{ModifierEffect.KEYWORD_MODIFIER});
+        super(physicalCard, "Loses " + keyword.getHumanReadable() + "keyword(s)", affectFilter, condition, ModifierEffect.KEYWORD_MODIFIER);
         _keyword = keyword;
     }
 

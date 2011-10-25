@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CancelStrengthBonusModifier extends AbstractModifier {
     public CancelStrengthBonusModifier(PhysicalCard source, Filter affectFilter) {
-        super(source, "Cancel strength bonus", affectFilter, new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER});
+        super(source, "Cancel strength bonus", affectFilter, ModifierEffect.STRENGTH_MODIFIER);
     }
 
     @Override

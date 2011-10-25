@@ -16,7 +16,7 @@ public class PreventMinionBeingAssignedToCharacterModifier extends AbstractModif
     private Filterable _minionFilter;
 
     public PreventMinionBeingAssignedToCharacterModifier(PhysicalCard source, Side side, Filterable characterFilter, Filterable minionFilter) {
-        super(source, "Is affected by assignment restriction", characterFilter, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER});
+        super(source, "Is affected by assignment restriction", characterFilter, ModifierEffect.ASSIGNMENT_MODIFIER);
         _side = side;
         _minionFilter = minionFilter;
     }

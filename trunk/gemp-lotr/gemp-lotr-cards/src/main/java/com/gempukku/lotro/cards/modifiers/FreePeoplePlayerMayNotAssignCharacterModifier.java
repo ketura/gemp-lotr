@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class FreePeoplePlayerMayNotAssignCharacterModifier extends AbstractModifier {
     public FreePeoplePlayerMayNotAssignCharacterModifier(PhysicalCard source, Filter affectFilter) {
-        super(source, "Free people player may not assign character to skirmish", affectFilter, null, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER});
+        super(source, "Free people player may not assign character to skirmish", affectFilter, null, ModifierEffect.ASSIGNMENT_MODIFIER);
     }
 
     @Override

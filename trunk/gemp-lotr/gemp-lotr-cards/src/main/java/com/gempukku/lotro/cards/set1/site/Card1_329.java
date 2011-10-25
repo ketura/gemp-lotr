@@ -27,7 +27,7 @@ public class Card1_329 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "Stealth events may not be played", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
+        return new AbstractModifier(self, "Stealth events may not be played", null, ModifierEffect.ACTION_MODIFIER) {
             @Override
             public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                 PhysicalCard actionSourceCard = action.getActionSource();

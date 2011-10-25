@@ -11,7 +11,7 @@ public class ResistanceModifier extends AbstractModifier {
     private int _modifier;
 
     public ResistanceModifier(PhysicalCard source, Filter affectFilter, int modifier) {
-        super(source, "Resistance " + ((modifier < 0) ? modifier : ("+" + modifier)), affectFilter, new ModifierEffect[]{ModifierEffect.RESISTANCE_MODIFIER});
+        super(source, "Resistance " + ((modifier < 0) ? modifier : ("+" + modifier)), affectFilter, ModifierEffect.RESISTANCE_MODIFIER);
         _modifier = modifier;
     }
 

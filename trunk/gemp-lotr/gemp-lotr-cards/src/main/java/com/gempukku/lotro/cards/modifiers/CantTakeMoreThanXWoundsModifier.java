@@ -26,7 +26,7 @@ public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                         return phase == null || gameState.getCurrentPhase() == phase;
                     }
-                }), condition, new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER});
+                }), condition, ModifierEffect.WOUND_MODIFIER);
         _phase = phase;
         _count = count;
     }

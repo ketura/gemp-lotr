@@ -11,11 +11,11 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CantBeAssignedToSkirmishModifier extends AbstractModifier {
     public CantBeAssignedToSkirmishModifier(PhysicalCard source, Filter affectFilter) {
-        super(source, "Can't be assigned to skirmish", affectFilter, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER});
+        super(source, "Can't be assigned to skirmish", affectFilter, ModifierEffect.ASSIGNMENT_MODIFIER);
     }
 
     public CantBeAssignedToSkirmishModifier(PhysicalCard source, Condition condition, Filter affectFilter) {
-        super(source, "Can't be assigned to skirmish", affectFilter, condition, new ModifierEffect[]{ModifierEffect.ASSIGNMENT_MODIFIER});
+        super(source, "Can't be assigned to skirmish", affectFilter, condition, ModifierEffect.ASSIGNMENT_MODIFIER);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class Card4_117 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "Can't play skimirhs events or skirmish special abilities", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
+                new AbstractModifier(self, "Can't play skimirhs events or skirmish special abilities", null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         if (!Filters.inSkirmish.accepts(gameState, modifiersQuerying, self))

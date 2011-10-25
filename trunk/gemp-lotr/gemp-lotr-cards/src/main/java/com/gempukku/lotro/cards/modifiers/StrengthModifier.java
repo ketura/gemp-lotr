@@ -22,7 +22,7 @@ public class StrengthModifier extends AbstractModifier {
     }
 
     public StrengthModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
-        super(source, null, affectFilter, condition, new ModifierEffect[]{ModifierEffect.STRENGTH_MODIFIER});
+        super(source, null, affectFilter, condition, ModifierEffect.STRENGTH_MODIFIER);
         _evaluator = evaluator;
     }
 

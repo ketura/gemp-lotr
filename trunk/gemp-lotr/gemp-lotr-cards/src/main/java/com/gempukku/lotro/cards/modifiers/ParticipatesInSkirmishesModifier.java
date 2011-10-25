@@ -14,7 +14,7 @@ public class ParticipatesInSkirmishesModifier extends AbstractModifier {
     private PhysicalCard _source;
 
     public ParticipatesInSkirmishesModifier(PhysicalCard source, Filter affectFilter) {
-        super(source, "Can participate in skirmishes", affectFilter, new ModifierEffect[]{ModifierEffect.PRESENCE_MODIFIER});
+        super(source, "Can participate in skirmishes", affectFilter, ModifierEffect.PRESENCE_MODIFIER);
         _source = source;
     }
 

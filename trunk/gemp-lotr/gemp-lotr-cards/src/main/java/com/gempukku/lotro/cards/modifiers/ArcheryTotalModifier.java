@@ -24,7 +24,7 @@ public class ArcheryTotalModifier extends AbstractModifier {
     }
 
     public ArcheryTotalModifier(PhysicalCard source, Side side, Condition condition, Evaluator evaluator) {
-        super(source, null, null, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER});
+        super(source, null, null, ModifierEffect.ARCHERY_MODIFIER);
         _side = side;
         _condition = condition;
         _evaluator = evaluator;

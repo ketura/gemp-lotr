@@ -11,7 +11,7 @@ public class VitalityModifier extends AbstractModifier {
     private int _modifier;
 
     public VitalityModifier(PhysicalCard source, Filter affectFilter, int modifier) {
-        super(source, "Vitality " + ((modifier < 0) ? modifier : ("+" + modifier)), affectFilter, new ModifierEffect[]{ModifierEffect.VITALITY_MODIFIER});
+        super(source, "Vitality " + ((modifier < 0) ? modifier : ("+" + modifier)), affectFilter, ModifierEffect.VITALITY_MODIFIER);
         _modifier = modifier;
     }
 

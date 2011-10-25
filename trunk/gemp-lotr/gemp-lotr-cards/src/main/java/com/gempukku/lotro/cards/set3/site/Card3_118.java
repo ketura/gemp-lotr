@@ -32,7 +32,7 @@ public class Card3_118 extends AbstractSite {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "Cards may not be played from draw decks or discard piles", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
+                new AbstractModifier(self, "Cards may not be played from draw decks or discard piles", null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         PhysicalCard source = action.getActionSource();

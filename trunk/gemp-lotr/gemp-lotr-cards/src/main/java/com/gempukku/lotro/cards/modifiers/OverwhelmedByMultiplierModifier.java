@@ -16,7 +16,7 @@ public class OverwhelmedByMultiplierModifier extends AbstractModifier {
     }
 
     public OverwhelmedByMultiplierModifier(PhysicalCard source, Filter affectFilter, Condition condition, int multiplier) {
-        super(source, "Cannot be overwhelmed unless his strength is *" + multiplier, affectFilter, condition, new ModifierEffect[]{ModifierEffect.OVERWHELM_MODIFIER});
+        super(source, "Cannot be overwhelmed unless his strength is *" + multiplier, affectFilter, condition, ModifierEffect.OVERWHELM_MODIFIER);
         _multiplier = multiplier;
     }
 

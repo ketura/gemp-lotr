@@ -16,7 +16,7 @@ public interface Modifier {
 
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
 
-    public ModifierEffect[] getModifierEffects();
+    public ModifierEffect getModifierEffect();
 
     public boolean affectsCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
