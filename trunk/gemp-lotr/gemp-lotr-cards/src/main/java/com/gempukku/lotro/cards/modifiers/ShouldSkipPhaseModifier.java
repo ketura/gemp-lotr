@@ -14,12 +14,16 @@ public class ShouldSkipPhaseModifier extends AbstractModifier {
     private String _playerId;
 
     public ShouldSkipPhaseModifier(PhysicalCard source, Phase phase) {
-        super(source, "Skip " + phase.toString() + " phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER});
-        _phase = phase;
+        this(source, null, phase);
     }
 
     public ShouldSkipPhaseModifier(PhysicalCard source, Condition condition, Phase phase) {
+        this(source, null, condition, phase);
+    }
+
+    public ShouldSkipPhaseModifier(PhysicalCard source, String playerId, Condition condition, Phase phase) {
         super(source, "Skip " + phase.toString() + " phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER});
+        _playerId = playerId;
         _condition = condition;
         _phase = phase;
     }

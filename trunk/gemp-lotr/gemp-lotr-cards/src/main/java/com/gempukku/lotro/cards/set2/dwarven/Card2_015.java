@@ -7,18 +7,15 @@ import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -84,13 +81,7 @@ public class Card2_015 extends AbstractOldEvent {
     private class SkipNextShadowPhaseChooseableEffect extends AddUntilEndOfTurnModifierEffect {
         public SkipNextShadowPhaseChooseableEffect(PhysicalCard card, final String opponentId) {
             super(
-                    new AbstractModifier(card, "Skip Shadow phase", null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
-                        @Override
-                        public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
-                            return phase == Phase.SHADOW && opponentId.equals(playerId);
-                        }
-                    }
-            );
+                    new ShouldSkipPhaseModifier(card, opponentId, null, Phase.SHADOW));
         }
 
         @Override
