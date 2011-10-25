@@ -322,8 +322,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                             that.displayCardInfo(selectedCardElem.data("card"));
                         } else if (selectedCardElem.hasClass("cardInCollection")) {
                             that.selectionFunc(selectedCardElem.data("card").blueprintId, selectedCardElem.data("card").zone);
+                            that.layoutUI(false);
                         } else if (selectedCardElem.hasClass("cardInDeck")) {
                             that.removeCardFromDeck(selectedCardElem);
+                            that.layoutUI(false);
                         }
                         return false;
                     }
@@ -450,7 +452,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
         cardDiv.data("card", card);
         container.append(cardDiv);
-        this.layoutUI();
         return cardDiv;
     },
 
@@ -520,7 +521,6 @@ var GempLotrDeckBuildingUI = Class.extend({
                         var attDiv = that.addCardToContainer(blueprintId, "attached", that.drawDeckDiv);
                         cardData.attachedCards.push(attDiv);
                         added = true;
-                        that.layoutUI();
                     }
                 });
         if (!added) {
@@ -574,7 +574,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         } else {
             cardDiv.remove();
         }
-        this.layoutUI();
 
         this.deckDirty = true;
     },
