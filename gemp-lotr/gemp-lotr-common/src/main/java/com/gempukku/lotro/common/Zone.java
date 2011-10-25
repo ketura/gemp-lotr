@@ -3,7 +3,7 @@ package com.gempukku.lotro.common;
 public enum Zone implements Filterable {
     FREE_CHARACTERS("play", true), SUPPORT("play", true), SHADOW_CHARACTERS("play", true),
     ADVENTURE_PATH("play", true),
-    HAND("hand", false), DECK("deck", false), ATTACHED("play", true), STACKED("stacked", false),
+    HAND("hand", false), VOID("void", false), DECK("deck", false), ATTACHED("play", true), STACKED("stacked", false),
     DISCARD("discard", false), DEAD("dead pile", false);
 
     private String _humanReadable;

@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
@@ -14,7 +13,7 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     private Direction _siteDirection;
 
     public AbstractSite(String name, Block block, int siteNumber, int twilight, Direction siteDirection) {
-        super(Side.SITE, CardType.SITE, null, name);
+        super(null, CardType.SITE, null, name);
         _block = block;
         _siteNumber = siteNumber;
         _twilight = twilight;

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -11,6 +12,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.actions.SystemAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
+import com.gempukku.lotro.logic.timing.results.InitiativeChangeResult;
 
 import java.util.*;
 
@@ -37,6 +39,16 @@ public class TurnProcedure {
 
     public GameStats getGameStats() {
         return _gameStats;
+    }
+
+    private EffectResult getOptionalInitiativeChangeResult() {
+        Side oldSide = _game.getGameState().getInitiativeSide();
+        if (!_game.getModifiersQuerying().hasInitiative(_game.getGameState(), oldSide)) {
+            Side newSide = (oldSide == Side.SHADOW) ? Side.FREE_PEOPLE : Side.SHADOW;
+            _game.getGameState().setInitiativeSide(newSide);
+            return new InitiativeChangeResult(newSide);
+        }
+        return null;
     }
 
     public void carryOutPendingActionsUntilDecisionNeeded() {
@@ -100,7 +112,20 @@ public class TurnProcedure {
                 return new StackActionEffect(action);
             }
             if (!_effectPlayed) {
-                _effectResults = _effect.playEffect(_game);
+                final Collection<? extends EffectResult> effectResults = _effect.playEffect(_game);
+                List<EffectResult> results = new LinkedList<EffectResult>();
+                if (effectResults != null)
+                    results.addAll(effectResults);
+
+                // check for changing initiative, ugly but it's a sort of state based effect and not a trigger, just
+                // results in maybe generating a trigger along with others that might happen at the same time (discard
+                // cards, play cards, draw cards, etc)
+                EffectResult initiativeEffectResult = getOptionalInitiativeChangeResult();
+                if (initiativeEffectResult != null)
+                    results.add(initiativeEffectResult);
+
+                _effectResults = results;
+
                 if (_gameStats.updateGameStats(_game))
                     _game.getGameState().sendGameStats(_gameStats);
                 _effectPlayed = true;

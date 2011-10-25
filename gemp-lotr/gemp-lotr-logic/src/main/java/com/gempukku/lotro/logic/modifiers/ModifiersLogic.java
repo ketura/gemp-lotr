@@ -528,6 +528,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean hasInitiative(GameState gameState, Side side) {
+        int freePeopleInitiativeHandSize = gameState.getHand(gameState.getCurrentPlayerId()).size()
+                + gameState.getVoid(gameState.getCurrentPlayerId()).size();
+        if (side == Side.SHADOW)
+            return freePeopleInitiativeHandSize < 4;
+        else
+            return freePeopleInitiativeHandSize >= 4;
+    }
+
+    @Override
     public int getSpotCount(GameState gameState, Filter filter, int inPlayCount) {
         int result = inPlayCount;
         for (Modifier modifier : getModifiers(ModifierEffect.SPOT_MODIFIER))

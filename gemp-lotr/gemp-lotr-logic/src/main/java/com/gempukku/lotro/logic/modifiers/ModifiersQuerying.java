@@ -88,6 +88,8 @@ public interface ModifiersQuerying {
 
     public boolean canDiscardCardsFromTopOfDeck(GameState gameState, String playerId, PhysicalCard source);
 
+    public boolean hasInitiative(GameState gameState, Side side);
+
     public int getSpotCount(GameState gameState, Filter filter, int inPlayCount);
 
     public boolean hasFlagActive(ModifierFlag modifierFlag);
