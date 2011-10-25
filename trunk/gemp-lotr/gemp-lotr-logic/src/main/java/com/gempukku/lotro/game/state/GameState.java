@@ -47,6 +47,8 @@ public class GameState {
     private Side _initiativeSide;
 
     private Map<String, Integer> _playerPosition = new HashMap<String, Integer>();
+    private Map<String, Integer> _playerThreats = new HashMap<String, Integer>();
+
     private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
 
     private Map<String, PhysicalCard> _ringBearers = new HashMap<String, PhysicalCard>();
@@ -83,6 +85,8 @@ public class GameState {
             GatheringParticipantCommunicationChannel listener = new GatheringParticipantCommunicationChannel(playerId);
             listener.setPlayerOrder(playerOrder.getAllPlayers());
             _recordingListeners.put(playerId, listener);
+
+            _playerThreats.put(playerId, 0);
         }
 
         for (String playerId : _gameStateListeners.keySet())
@@ -610,6 +614,16 @@ public class GameState {
             listener.setPlayerPosition(playerId, i);
     }
 
+    public void addThreats(String playerId, int count) {
+        _playerThreats.put(playerId, _playerThreats.get(playerId) + count);
+    }
+
+    public void removeThreats(String playerId, int count) {
+        final int oldThreats = _playerThreats.get(playerId);
+        count = Math.min(count, oldThreats);
+        _playerThreats.put(playerId, oldThreats - count);
+    }
+
     public void movePlayerToNextSite(LotroGame game) {
         final String currentPlayerId = getCurrentPlayerId();
         final int oldPlayerPosition = getPlayerPosition(currentPlayerId);
@@ -670,6 +684,10 @@ public class GameState {
 
     public int getBurdens() {
         return getTokenCount(_ringBearers.get(getCurrentPlayerId()), Token.BURDEN);
+    }
+
+    public int getThreats() {
+        return _playerThreats.get(getCurrentPlayerId());
     }
 
     public void removeBurdens(int burdens) {
