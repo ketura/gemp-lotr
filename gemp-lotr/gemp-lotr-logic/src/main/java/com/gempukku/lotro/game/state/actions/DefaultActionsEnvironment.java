@@ -104,7 +104,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         _lotroGame.getGameState().iterateActiveTextCards(playerId, gatherActions);
 
-        return gatherActions.getActions();
+        List<Action> actionList = gatherActions.getActions();
+        for (Action action : actionList)
+            action.setPerformingPlayer(playerId);
+
+        return actionList;
     }
 
     @Override
@@ -116,6 +120,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> result = new LinkedList<Action>();
 
         for (Action action : gatherActions.getActions()) {
+            action.setPerformingPlayer(playerId);
             if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
                 result.add(action);
         }
@@ -158,6 +163,9 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             }
         }
 
+        for (Action gatheredAction : gatheredActions)
+            gatheredAction.setPerformingPlayer(playerId);
+
         return gatheredActions;
     }
 
@@ -170,6 +178,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> result = new LinkedList<Action>();
 
         for (Action action : gatherAfterActions.getActions()) {
+            action.setPerformingPlayer(playerId);
             if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
                 result.add(action);
         }
@@ -189,12 +198,14 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         for (Action action : visitor.getActions()) {
             action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
+            action.setPerformingPlayer(playerId);
             if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
                 playableActions.add(action);
         }
 
         for (Action action : stackedVisitor.getActions()) {
             action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
+            action.setPerformingPlayer(playerId);
             if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
                 playableActions.add(action);
         }

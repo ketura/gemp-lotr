@@ -47,7 +47,7 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
     public Effect nextEffect(LotroGame game) {
         if (!_sentMessage && _physicalCard != null) {
             _sentMessage = true;
-            game.getGameState().activatedCard(_physicalCard.getOwner(), _physicalCard);
+            game.getGameState().activatedCard(getPerformingPlayer(), _physicalCard);
             return new SendMessageEffect(getMessage());
         }
 

@@ -38,6 +38,15 @@ public class ResolveSkirmishAction implements Action {
     }
 
     @Override
+    public String getPerformingPlayer() {
+        return null;
+    }
+
+    @Override
+    public void setPerformingPlayer(String playerId) {
+    }
+
+    @Override
     public PhysicalCard getActionSource() {
         return null;
     }
