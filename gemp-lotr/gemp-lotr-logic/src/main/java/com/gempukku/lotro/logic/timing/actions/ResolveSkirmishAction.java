@@ -7,10 +7,12 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.OverwhelmedEffect;
 import com.gempukku.lotro.logic.effects.SkirmishResolvedEffect;
+import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.results.SkirmishAboutToEndResult;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -93,6 +95,8 @@ public class ResolveSkirmishAction implements Action {
             effects.add(new OverwhelmedEffect(fpList(fellowshipCharacter), shadowCharacters));
         else
             effects.add(new SkirmishResolvedEffect(fpList(fellowshipCharacter), shadowCharacters));
+
+        effects.add(new TriggeringResultEffect(new SkirmishAboutToEndResult(), "Skirmish about to end"));
 
         effects.add(new UnrespondableEffect() {
             @Override

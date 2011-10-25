@@ -1,6 +1,5 @@
 TO DO:
 Critical:
-- Fix "Final Cry"
 
 Next priority:
 30. Watching game replay after it's finished and sharing the game replay with others via code.
