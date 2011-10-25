@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -40,6 +37,7 @@ public class Card4_271 extends AbstractCompanion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Filters.sameCard(self))
+                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && Filters.exhausted.accepts(game.getGameState(), game.getModifiersQuerying(), self)
                 && game.getGameState().getHand(playerId).size() >= 2) {
             ActivateCardAction action = new ActivateCardAction(self);

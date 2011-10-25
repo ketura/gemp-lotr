@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -66,58 +67,61 @@ public class LotroGameMediator {
     public String produceCardInfo(String participantId, int cardId) {
         _readLock.lock();
         try {
-            StringBuilder sb = new StringBuilder();
-
             PhysicalCard card = _lotroGame.getGameState().findCardById(cardId);
-            if (card == null)
+            if (card == null || card.getZone() == null)
                 return null;
 
-            sb.append("<b>Affecting card:</b>");
-            Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
-            for (Modifier modifier : modifiers) {
-                PhysicalCard source = modifier.getSource();
-                if (source != null)
-                    sb.append("<br><b>" + source.getBlueprint().getName() + ":</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
-                else
-                    sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
-            }
-            if (modifiers.size() == 0)
-                sb.append("<br><i>nothing</i>");
+            if (card.getZone().isInPlay() || card.getZone() == Zone.HAND) {
+                StringBuilder sb = new StringBuilder();
 
-            sb.append("<br><br><b>Effective stats:</b>");
-            try {
-                int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card);
-                sb.append("<br><b>Twilight cost:</b> " + twilightCost);
-            } catch (UnsupportedOperationException exp) {
-            }
-            try {
-                int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card);
-                sb.append("<br><b>Strength:</b> " + strength);
-            } catch (UnsupportedOperationException exp) {
-            }
-            try {
-                int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card);
-                sb.append("<br><b>Vitality:</b> " + vitality);
-            } catch (UnsupportedOperationException exp) {
-            }
+                sb.append("<b>Affecting card:</b>");
+                Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
+                for (Modifier modifier : modifiers) {
+                    PhysicalCard source = modifier.getSource();
+                    if (source != null)
+                        sb.append("<br><b>" + source.getBlueprint().getName() + ":</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
+                    else
+                        sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
+                }
+                if (modifiers.size() == 0)
+                    sb.append("<br><i>nothing</i>");
 
-            StringBuilder keywords = new StringBuilder();
-            for (Keyword keyword : Keyword.values()) {
-                if (keyword.isInfoDisplayable()) {
-                    if (keyword.isMultiples()) {
-                        int count = _lotroGame.getModifiersQuerying().getKeywordCount(_lotroGame.getGameState(), card, keyword);
-                        if (count > 0)
-                            keywords.append(keyword.getHumanReadable() + " +" + count + ", ");
-                    } else {
-                        if (_lotroGame.getModifiersQuerying().hasKeyword(_lotroGame.getGameState(), card, keyword))
-                            keywords.append(keyword.getHumanReadable() + ", ");
+                sb.append("<br><br><b>Effective stats:</b>");
+                try {
+                    int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card);
+                    sb.append("<br><b>Twilight cost:</b> " + twilightCost);
+                } catch (UnsupportedOperationException exp) {
+                }
+                try {
+                    int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card);
+                    sb.append("<br><b>Strength:</b> " + strength);
+                } catch (UnsupportedOperationException exp) {
+                }
+                try {
+                    int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card);
+                    sb.append("<br><b>Vitality:</b> " + vitality);
+                } catch (UnsupportedOperationException exp) {
+                }
+
+                StringBuilder keywords = new StringBuilder();
+                for (Keyword keyword : Keyword.values()) {
+                    if (keyword.isInfoDisplayable()) {
+                        if (keyword.isMultiples()) {
+                            int count = _lotroGame.getModifiersQuerying().getKeywordCount(_lotroGame.getGameState(), card, keyword);
+                            if (count > 0)
+                                keywords.append(keyword.getHumanReadable() + " +" + count + ", ");
+                        } else {
+                            if (_lotroGame.getModifiersQuerying().hasKeyword(_lotroGame.getGameState(), card, keyword))
+                                keywords.append(keyword.getHumanReadable() + ", ");
+                        }
                     }
                 }
+                if (keywords.length() > 0)
+                    sb.append("<br><b>Keywords:</b> " + keywords.substring(0, keywords.length() - 2));
+                return sb.toString();
+            } else {
+                return null;
             }
-            if (keywords.length() > 0)
-                sb.append("<br><b>Keywords:</b> " + keywords.substring(0, keywords.length() - 2));
-
-            return sb.toString();
         } finally {
             _readLock.unlock();
         }
