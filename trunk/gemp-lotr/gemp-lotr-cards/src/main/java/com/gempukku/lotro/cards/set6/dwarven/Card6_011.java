@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnTopOfDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -20,6 +19,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;

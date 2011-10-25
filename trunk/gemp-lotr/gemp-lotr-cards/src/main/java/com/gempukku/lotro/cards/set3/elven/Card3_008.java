@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,9 +35,9 @@ public class Card3_008 extends AbstractCompanion {
                 new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.sameCard(self)),
                         new SpotCondition(
                                 3, Filters.and(
-                                        Filters.culture(Culture.ELVEN),
-                                        Filters.type(CardType.ALLY),
-                                        Filters.isAllyHome(3, Block.FELLOWSHIP)
-                                )), -3));
+                                Filters.culture(Culture.ELVEN),
+                                Filters.type(CardType.ALLY),
+                                Filters.isAllyHome(3, Block.FELLOWSHIP)
+                        )), -3));
     }
 }
