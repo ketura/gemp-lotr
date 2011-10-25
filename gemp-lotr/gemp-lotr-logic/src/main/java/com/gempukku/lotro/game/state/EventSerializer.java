@@ -75,6 +75,15 @@ public class EventSerializer {
 
                 eventElem.appendChild(playerZonesElem);
             }
+
+            StringBuilder charStr = new StringBuilder();
+            for (Map.Entry<Integer, Integer> characters : gameStats.getCharStrengths().entrySet()) {
+                charStr.append("," + characters.getKey() + "=" + characters.getValue());
+            }
+            if (charStr.length() > 0)
+                charStr.delete(0, 1);
+
+            eventElem.setAttribute("charStrengths", charStr.toString());
         }
 
         return eventElem;
