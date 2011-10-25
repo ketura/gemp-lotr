@@ -18,6 +18,16 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    getReplay: function(replayId, callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/replay/" + replayId,
+            cache: false,
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
     updateGameState: function(callback) {
         $.ajax({
             type: "POST",

@@ -181,7 +181,9 @@
 
         $(document).ready(
                 function () {
-                    ui = new GempLotrGameUI("/gemp-lotr/server");
+                    var replay = getUrlParam("replayId");
+
+                    ui = new GempLotrGameUI("/gemp-lotr/server", replay != null);
 
                     $(window).resize(function() {
                         ui.windowResized();
@@ -189,7 +191,10 @@
 
                     ui.layoutUI(true);
 
-                    ui.startGameSession();
+                    if (replay == null)
+                        ui.startGameSession();
+                    else
+                        ui.startReplaySession(replay);
                 });
     </script>
 
