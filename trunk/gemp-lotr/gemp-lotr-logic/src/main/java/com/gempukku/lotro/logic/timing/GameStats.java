@@ -1,9 +1,13 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayerOrder;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +22,7 @@ public class GameStats {
     private int _shadowSkirmishStrength;
 
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<String, Map<Zone, Integer>>();
+    private Map<Integer, Integer> _charStrengths = new HashMap<Integer, Integer>();
 
     /**
      * @return If the stats have changed
@@ -79,6 +84,15 @@ public class GameStats {
             _zoneSizes = newZoneSizes;
         }
 
+        Map<Integer, Integer> newCharStrengths = new HashMap<Integer, Integer>();
+        for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION)))
+            newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game.getGameState(), character));
+
+        if (!newCharStrengths.equals(_charStrengths)) {
+            changed = true;
+            _charStrengths = newCharStrengths;
+        }
+
         return changed;
     }
 
@@ -107,7 +121,11 @@ public class GameStats {
     }
 
     public Map<String, Map<Zone, Integer>> getZoneSizes() {
-        return _zoneSizes;
+        return Collections.unmodifiableMap(_zoneSizes);
+    }
+
+    public Map<Integer, Integer> getCharStrengths() {
+        return Collections.unmodifiableMap(_charStrengths);
     }
 
     public GameStats makeACopy() {
@@ -119,6 +137,7 @@ public class GameStats {
         copy._shadowArchery = _shadowArchery;
         copy._shadowSkirmishStrength = _shadowSkirmishStrength;
         copy._zoneSizes = _zoneSizes;
+        copy._charStrengths = _charStrengths;
         return copy;
     }
 }
