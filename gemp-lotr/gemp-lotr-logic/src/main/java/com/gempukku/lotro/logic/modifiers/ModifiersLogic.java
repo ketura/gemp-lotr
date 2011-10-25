@@ -319,7 +319,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                 if (!modifier.isOverwhelmedByStrength(gameState, this, card, strength, opposingStrength))
                     return false;
         }
-        return (opposingStrength >= strength * 2);
+        return (opposingStrength >= strength * 2) && (opposingStrength != 0);
     }
 
     @Override
