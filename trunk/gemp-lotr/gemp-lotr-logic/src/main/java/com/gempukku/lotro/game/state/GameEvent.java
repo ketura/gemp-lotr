@@ -146,7 +146,7 @@ public class GameEvent {
     }
 
     public GameEvent card(PhysicalCard physicalCard) {
-        GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone()).side(physicalCard.getBlueprint().getSide().name());
+        GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone());
         if (physicalCard.getCardController() != null)
             gameEvent = gameEvent.controllerId(physicalCard.getCardController());
         PhysicalCard attachedTo = physicalCard.getAttachedTo();

@@ -126,9 +126,16 @@ public class ServerResource {
     public StreamingOutput getReplay(
             @PathParam("replayId") String replayId) throws ParserConfigurationException {
         File gameReplayFolder = new File("i:\\gemp-lotr\\replay");
+        if (!replayId.contains("$"))
+            sendError(Response.Status.NOT_FOUND);
         if (replayId.contains("."))
             sendError(Response.Status.NOT_FOUND);
-        final File replayFile = new File(gameReplayFolder, replayId);
+
+        String[] split = replayId.split("\\$");
+        if (split.length != 2)
+            sendError(Response.Status.NOT_FOUND);
+
+        final File replayFile = new File(new File(gameReplayFolder, split[0]), split[1] + ".xml");
         if (!replayFile.exists() || !replayFile.isFile())
             sendError(Response.Status.NOT_FOUND);
 
@@ -138,8 +145,9 @@ public class ServerResource {
                 InputStream is = new FileInputStream(replayFile);
                 try {
                     byte[] bytes = new byte[1024];
-                    int count = is.read(bytes);
-                    outputStream.write(bytes, 0, count);
+                    int count;
+                    while ((count = is.read(bytes)) != -1)
+                        outputStream.write(bytes, 0, count);
                 } finally {
                     is.close();
                 }
