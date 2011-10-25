@@ -59,7 +59,7 @@ public class GameState {
         return _nextCardId++;
     }
 
-    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, LotroCardBlueprintLibrary library) {
+    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, LotroCardBlueprintLibrary library, GameStats gameStats) {
         _playerOrder = playerOrder;
         _currentPlayerId = firstPlayer;
 
@@ -81,7 +81,7 @@ public class GameState {
         }
 
         for (String playerId : _gameStateListeners.keySet())
-            sendStateToPlayer(playerId);
+            sendStateToPlayer(playerId, gameStats);
     }
 
     private String _possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -174,9 +174,9 @@ public class GameState {
         return _playerOrder;
     }
 
-    public void addGameStateListener(String playerId, GameStateListener gameStateListener) {
+    public void addGameStateListener(String playerId, GameStateListener gameStateListener, GameStats gameStats) {
         _gameStateListeners.put(playerId, gameStateListener);
-        sendStateToPlayer(playerId);
+        sendStateToPlayer(playerId, gameStats);
     }
 
     public void removeGameStateListener(String playerId, GameStateListener gameStateListener) {
@@ -200,7 +200,7 @@ public class GameState {
         return allListeners;
     }
 
-    private void sendStateToPlayer(String playerId) {
+    private void sendStateToPlayer(String playerId, GameStats gameStats) {
         if (_playerOrder != null) {
             GameStateListener listener = _gameStateListeners.get(playerId);
             listener.setPlayerOrder(_playerOrder.getAllPlayers());
@@ -259,6 +259,8 @@ public class GameState {
                         listener.addTokens(card, tokenIntegerEntry.getKey(), count);
                 }
             }
+
+            listener.sendGameStats(gameStats);
         }
     }
 
