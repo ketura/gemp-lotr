@@ -14,7 +14,7 @@ public class AllyParticipatesInArcheryFireAndSkirmishesModifier extends Abstract
     private PhysicalCard _source;
 
     public AllyParticipatesInArcheryFireAndSkirmishesModifier(PhysicalCard source, Filter affectFilter) {
-        super(source, "Can participate in archery and skirmishes", affectFilter, new ModifierEffect[]{ModifierEffect.PRESENCE_MODIFIER});
+        super(source, "Can participate in archery and skirmishes", affectFilter, ModifierEffect.PRESENCE_MODIFIER);
         _source = source;
     }
 

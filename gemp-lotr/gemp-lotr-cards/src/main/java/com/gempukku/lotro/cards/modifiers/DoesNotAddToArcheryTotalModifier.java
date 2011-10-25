@@ -14,7 +14,7 @@ public class DoesNotAddToArcheryTotalModifier extends AbstractModifier {
     }
 
     public DoesNotAddToArcheryTotalModifier(PhysicalCard source, Filter affectFilter, Condition condition) {
-        super(source, "Does not add to archery total", affectFilter, condition, new ModifierEffect[]{ModifierEffect.ARCHERY_MODIFIER});
+        super(source, "Does not add to archery total", affectFilter, condition, ModifierEffect.ARCHERY_MODIFIER);
     }
 
     @Override

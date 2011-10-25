@@ -18,18 +18,18 @@ public abstract class AbstractModifier implements Modifier {
     private String _text;
     private Filter _affectFilter;
     private Condition _condition;
-    private ModifierEffect[] _effects;
+    private ModifierEffect _effect;
 
-    protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, ModifierEffect[] effects) {
-        this(source, text, affectFilter, null, effects);
+    protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, ModifierEffect effect) {
+        this(source, text, affectFilter, null, effect);
     }
 
-    protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, Condition condition, ModifierEffect[] effects) {
+    protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, Condition condition, ModifierEffect effect) {
         _physicalCard = source;
         _text = text;
         _affectFilter = (affectFilter != null) ? Filters.and(affectFilter) : null;
         _condition = condition;
-        _effects = effects;
+        _effect = effect;
     }
 
     @Override
@@ -43,8 +43,8 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public ModifierEffect[] getModifierEffects() {
-        return _effects;
+    public ModifierEffect getModifierEffect() {
+        return _effect;
     }
 
     @Override

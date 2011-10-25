@@ -41,7 +41,7 @@ public class Card2_102 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "The cost of each artifact, possession, and [SHIRE] tale played on Frodo  is -1.", Filters.or(Filters.type(CardType.ARTIFACT), Filters.type(CardType.POSSESSION), Filters.and(Filters.culture(Culture.SHIRE), Filters.keyword(Keyword.TALE))), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
+                new AbstractModifier(self, "The cost of each artifact, possession, and [SHIRE] tale played on Frodo  is -1.", Filters.or(Filters.type(CardType.ARTIFACT), Filters.type(CardType.POSSESSION), Filters.and(Filters.culture(Culture.SHIRE), Filters.keyword(Keyword.TALE))), ModifierEffect.TWILIGHT_COST_MODIFIER) {
                     @Override
                     public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
                         if (target == self)

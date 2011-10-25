@@ -54,7 +54,7 @@ public class Card1_316 extends AbstractPermanent {
                                 return gameState.getCurrentSite() == physicalCard;
                             }
                         }
-                ), new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER}) {
+                ), ModifierEffect.TWILIGHT_COST_MODIFIER) {
             @Override
             public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 int hobbitsCount = Filters.countSpottable(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT));

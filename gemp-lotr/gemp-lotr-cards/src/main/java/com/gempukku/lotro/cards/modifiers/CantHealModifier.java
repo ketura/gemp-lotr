@@ -15,7 +15,7 @@ public class CantHealModifier extends AbstractModifier {
     }
 
     public CantHealModifier(PhysicalCard source, Condition condition, Filterable... affectFilters) {
-        super(source, "Can't be healed", Filters.and(affectFilters), condition, new ModifierEffect[]{ModifierEffect.WOUND_MODIFIER});
+        super(source, "Can't be healed", Filters.and(affectFilters), condition, ModifierEffect.WOUND_MODIFIER);
     }
 
     @Override

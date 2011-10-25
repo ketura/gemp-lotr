@@ -38,7 +38,7 @@ public class Card4_167 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, null, null, new ModifierEffect[]{ModifierEffect.ACTION_MODIFIER}) {
+                new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         if (Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Filters.race(Race.URUK_HAI)).size() > 0) {

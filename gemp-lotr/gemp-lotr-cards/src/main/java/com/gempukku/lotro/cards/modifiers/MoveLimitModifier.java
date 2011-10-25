@@ -16,7 +16,7 @@ public class MoveLimitModifier extends AbstractModifier {
     }
 
     public MoveLimitModifier(PhysicalCard source, Condition condition, int moveLimitModifier) {
-        super(source, "Move limit " + ((moveLimitModifier < 0) ? moveLimitModifier : ("+" + moveLimitModifier)), null, new ModifierEffect[]{ModifierEffect.MOVE_LIMIT_MODIFIER});
+        super(source, "Move limit " + ((moveLimitModifier < 0) ? moveLimitModifier : ("+" + moveLimitModifier)), null, ModifierEffect.MOVE_LIMIT_MODIFIER);
         _condition = condition;
         _moveLimitModifier = moveLimitModifier;
     }

@@ -18,7 +18,7 @@ public class MinionSiteNumberModifier extends AbstractModifier {
     }
 
     public MinionSiteNumberModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
-        super(source, null, affectFilter, condition, new ModifierEffect[]{ModifierEffect.SITE_NUMBER_MODIFIER});
+        super(source, null, affectFilter, condition, ModifierEffect.SITE_NUMBER_MODIFIER);
         _evaluator = evaluator;
     }
 

@@ -18,7 +18,7 @@ public class TwilightCostModifier extends AbstractModifier {
     }
 
     public TwilightCostModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
-        super(source, null, affectFilter, condition, new ModifierEffect[]{ModifierEffect.TWILIGHT_COST_MODIFIER});
+        super(source, null, affectFilter, condition, ModifierEffect.TWILIGHT_COST_MODIFIER);
         _evaluator = evaluator;
     }
 

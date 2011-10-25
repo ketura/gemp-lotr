@@ -75,9 +75,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     private void addModifier(Modifier modifier) {
-        ModifierEffect[] modifierEffects = modifier.getModifierEffects();
-        for (ModifierEffect modifierEffect : modifierEffects)
-            getEffectModifiers(modifierEffect).add(modifier);
+        ModifierEffect modifierEffect = modifier.getModifierEffect();
+        getEffectModifiers(modifierEffect).add(modifier);
     }
 
     private List<Modifier> getModifiers(ModifierEffect modifierEffect) {

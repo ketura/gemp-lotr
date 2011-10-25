@@ -13,7 +13,7 @@ public class AllyMayNotParticipateInArcheryFireAndSkirmishesModifier extends Abs
     private PhysicalCard _source;
 
     public AllyMayNotParticipateInArcheryFireAndSkirmishesModifier(PhysicalCard source, Condition condition, Filter affectFilter) {
-        super(source, "May not participate in archery fire and skirmishes", affectFilter, condition, new ModifierEffect[]{ModifierEffect.PRESENCE_MODIFIER});
+        super(source, "May not participate in archery fire and skirmishes", affectFilter, condition, ModifierEffect.PRESENCE_MODIFIER);
         _source = source;
     }
 

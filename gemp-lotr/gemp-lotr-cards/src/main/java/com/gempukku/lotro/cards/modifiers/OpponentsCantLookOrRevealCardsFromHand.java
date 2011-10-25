@@ -10,7 +10,7 @@ public class OpponentsCantLookOrRevealCardsFromHand extends AbstractModifier {
     private String _playerId;
 
     public OpponentsCantLookOrRevealCardsFromHand(PhysicalCard source, String playerId) {
-        super(source, "Opponents can't look or reveal cards from hand", null, new ModifierEffect[]{ModifierEffect.LOOK_OR_REVEAL_MODIFIER});
+        super(source, "Opponents can't look or reveal cards from hand", null, ModifierEffect.LOOK_OR_REVEAL_MODIFIER);
         _playerId = playerId;
     }
 

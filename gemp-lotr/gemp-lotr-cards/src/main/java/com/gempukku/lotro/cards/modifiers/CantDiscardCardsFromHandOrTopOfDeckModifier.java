@@ -15,7 +15,7 @@ public class CantDiscardCardsFromHandOrTopOfDeckModifier extends AbstractModifie
     private String _playerId;
 
     public CantDiscardCardsFromHandOrTopOfDeckModifier(PhysicalCard source, Condition condition, String playerId, Filterable... discardSourceAffected) {
-        super(source, null, null, new ModifierEffect[]{ModifierEffect.DISCARD_NOT_FROM_PLAY});
+        super(source, null, null, ModifierEffect.DISCARD_NOT_FROM_PLAY);
         _condition = condition;
         _playerId = playerId;
         _discardSourceAffected = discardSourceAffected;

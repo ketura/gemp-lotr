@@ -11,7 +11,7 @@ public class MayNotBePlayedOnModifier extends AbstractModifier {
     private Filter _unplayableCardFilter;
 
     public MayNotBePlayedOnModifier(PhysicalCard source, Filter affectFilter, Filter unplayableCardFilter) {
-        super(source, "Affected by \"may not be played\" limitation", affectFilter, new ModifierEffect[]{ModifierEffect.TARGET_MODIFIER});
+        super(source, "Affected by \"may not be played\" limitation", affectFilter, ModifierEffect.TARGET_MODIFIER);
         _unplayableCardFilter = unplayableCardFilter;
     }
 
