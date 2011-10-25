@@ -10,7 +10,6 @@ import com.gempukku.lotro.cards.modifiers.StrengthModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,7 +38,7 @@ import java.util.List;
  */
 public class Card1_002 extends AbstractAttachable {
     public Card1_002() {
-        super(Side.RING, CardType.THE_ONE_RING, 0, null, null, "The One Ring", true);
+        super(null, CardType.THE_ONE_RING, 0, null, null, "The One Ring", true);
     }
 
     @Override

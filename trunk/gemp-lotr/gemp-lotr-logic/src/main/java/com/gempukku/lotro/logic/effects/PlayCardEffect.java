@@ -13,7 +13,7 @@ public class PlayCardEffect extends AbstractEffect {
     private PhysicalCard _attachedToCard;
 
     public PlayCardEffect(PhysicalCard cardPlayed) {
-        _cardPlayed = cardPlayed;
+        this(cardPlayed, null);
     }
 
     public PlayCardEffect(PhysicalCard cardPlayed, PhysicalCard attachedToCard) {
@@ -46,6 +46,7 @@ public class PlayCardEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        game.getGameState().removeCardsFromZone(_cardPlayed.getOwner(), Collections.singleton(_cardPlayed));
         return new FullEffectResult(Collections.singleton(new PlayCardResult(_cardPlayed, _attachedToCard)), true, true);
     }
 }

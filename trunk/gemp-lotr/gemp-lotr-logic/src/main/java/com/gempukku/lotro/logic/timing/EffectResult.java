@@ -19,7 +19,8 @@ public abstract class EffectResult {
         PUT_ON_THE_ONE_RING, REMOVE_BURDEN, ADD_BURDEN,
 
         WHEN_MOVE_FROM, WHEN_FELLOWSHIP_MOVES, WHEN_MOVE_TO,
-        REVEAL_CARDS_FROM_HAND
+        REVEAL_CARDS_FROM_HAND,
+        INITIATIVE_CHANGE
     }
 
     private Type _type;

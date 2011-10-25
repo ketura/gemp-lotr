@@ -29,6 +29,8 @@ public class GameState {
     private Map<String, List<PhysicalCardImpl>> _deadPiles = new HashMap<String, List<PhysicalCardImpl>>();
     private Map<String, List<PhysicalCardImpl>> _stacked = new HashMap<String, List<PhysicalCardImpl>>();
 
+    private Map<String, List<PhysicalCardImpl>> _voids = new HashMap<String, List<PhysicalCardImpl>>();
+
     private List<PhysicalCardImpl> _inPlay = new LinkedList<PhysicalCardImpl>();
 
     private Map<Integer, PhysicalCardImpl> _allCards = new HashMap<Integer, PhysicalCardImpl>();
@@ -41,6 +43,8 @@ public class GameState {
     private boolean _fierceSkirmishes;
     private boolean _wearingRing;
     private boolean _consecutiveAction;
+
+    private Side _initiativeSide;
 
     private Map<String, Integer> _playerPosition = new HashMap<String, Integer>();
     private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
@@ -67,6 +71,7 @@ public class GameState {
             _adventureDecks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _decks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _hands.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
+            _voids.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _discards.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _deadPiles.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
             _stacked.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
@@ -95,6 +100,14 @@ public class GameState {
             chars[i] = _possibleChars.charAt(rnd.nextInt(_charsCount));
 
         return new String(chars);
+    }
+
+    public void setInitiativeSide(Side initiativeSide) {
+        _initiativeSide = initiativeSide;
+    }
+
+    public Side getInitiativeSide() {
+        return _initiativeSide;
     }
 
     public void gameFinished() {
@@ -345,6 +358,8 @@ public class GameState {
             return _deadPiles.get(playerId);
         else if (zone == Zone.HAND)
             return _hands.get(playerId);
+        else if (zone == Zone.VOID)
+            return _voids.get(playerId);
         else if (zone == Zone.STACKED)
             return _stacked.get(playerId);
         else
@@ -527,7 +542,7 @@ public class GameState {
             return true;
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (physicalCard.getOwner().equals(player)
-                    && physicalCard.getBlueprint().getSide() != Side.SITE && isCardInPlayActive(physicalCard))
+                    && physicalCard.getBlueprint().getCardType() != CardType.SITE && isCardInPlayActive(physicalCard))
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
         }
@@ -559,6 +574,10 @@ public class GameState {
 
     public List<? extends PhysicalCard> getHand(String playerId) {
         return Collections.unmodifiableList(_hands.get(playerId));
+    }
+
+    public List<? extends PhysicalCard> getVoid(String playerId) {
+        return Collections.unmodifiableList(_voids.get(playerId));
     }
 
     public List<? extends PhysicalCard> getDeck(String playerId) {
@@ -731,7 +750,7 @@ public class GameState {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
-        return side == Side.SITE
+        return card.getBlueprint().getCardType() == CardType.SITE
                 || (
                 card.getAttachedTo() == null &&
                         ((card.getOwner().equals(_currentPlayerId) && (side == Side.FREE_PEOPLE))
@@ -743,7 +762,7 @@ public class GameState {
     public void startAffectingCardsForCurrentPlayer(LotroGame game) {
         // Active non-sites are affecting
         for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getSide() != Side.SITE)
+            if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getCardType() != CardType.SITE)
                 startAffecting(game, physicalCard);
         }
 
@@ -759,7 +778,7 @@ public class GameState {
 
     public void stopAffectingCardsForCurrentPlayer() {
         for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getSide() != Side.SITE)
+            if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getCardType() != CardType.SITE)
                 stopAffecting(physicalCard);
         }
 
