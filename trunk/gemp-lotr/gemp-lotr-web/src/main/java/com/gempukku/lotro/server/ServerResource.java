@@ -511,7 +511,9 @@ public class ServerResource {
                     Element card = doc.createElement("card");
                     card.setAttribute("count", String.valueOf(item.getCount()));
                     card.setAttribute("blueprintId", blueprintId);
-                    card.setAttribute("side", item.getCardBlueprint().getSide().toString());
+                    Side side = item.getCardBlueprint().getSide();
+                    if (side != null)
+                        card.setAttribute("side", side.toString());
                     collectionElem.appendChild(card);
                 } else {
                     Element pack = doc.createElement("pack");
