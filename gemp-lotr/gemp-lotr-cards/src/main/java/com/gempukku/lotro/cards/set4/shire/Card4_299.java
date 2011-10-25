@@ -62,7 +62,7 @@ public class Card4_299 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(Filters.sameCard(self.getAttachedTo()))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(Race.HOBBIT, CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;
