@@ -44,7 +44,7 @@ public class Card4_365 extends AbstractCompanion {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             final Filter additionalAttachmentFilter = Filters.and(Culture.ROHAN, CardType.COMPANION);
-            if (Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION,
+            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION,
                     new Filter() {
                         @Override
                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -55,7 +55,7 @@ public class Card4_365 extends AbstractCompanion {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new CheckLimitEffect(action, self, 1, Phase.FELLOWSHIP,
-                                new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),
+                                new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getHand(playerId),
                                         Filters.and(
                                                 CardType.POSSESSION,
                                                 new Filter() {
