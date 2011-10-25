@@ -54,7 +54,7 @@ public class StackCardFromPlayEffect extends AbstractEffect {
             discardedCards.addAll(attachedCards);
             cardsToRemove.addAll(stackedCards);
 
-            gameState.removeCardsFromZone(cardsToRemove);
+            gameState.removeCardsFromZone(_card.getOwner(), cardsToRemove);
 
             // And put them in new zones (attached and stacked to discard, the card gets stacked on)
             for (PhysicalCard attachedCard : attachedCards)

@@ -22,7 +22,7 @@ public class StackCardFromHandEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             game.getGameState().sendMessage(_card.getOwner() + " stacks " + GameUtils.getCardLink(_card) + " from hand on " + GameUtils.getCardLink(_stackOn));
-            game.getGameState().removeCardsFromZone(Collections.singleton(_card));
+            game.getGameState().removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             game.getGameState().stackCard(game, _card, _stackOn);
             return new FullEffectResult(null, true, true);
         }

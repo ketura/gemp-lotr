@@ -74,7 +74,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
             toAddToDiscard.addAll(stackedCards);
         }
 
-        gameState.removeCardsFromZone(toRemoveFromZone);
+        gameState.removeCardsFromZone(null, toRemoveFromZone);
 
         for (PhysicalCard deadCard : toAddToDeadPile)
             gameState.addCardToZone(game, deadCard, Zone.DEAD);

@@ -77,7 +77,7 @@ public class Card1_018 extends AbstractOldEvent {
                                                                         }
 
                                                                         if (topDeckCards.size() > 0)
-                                                                            game.getGameState().removeCardsFromZone(topDeckCards);
+                                                                            game.getGameState().removeCardsFromZone(playerId, topDeckCards);
                                                                     }
                                                                 });
                                                     }

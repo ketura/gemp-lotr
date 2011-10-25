@@ -68,7 +68,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
         if (!_cardRemoved) {
             _cardRemoved = true;
-            game.getGameState().removeCardsFromZone(Collections.singleton(_permanentPlayed));
+            game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
         }
 
         if (!isCostFailed()) {

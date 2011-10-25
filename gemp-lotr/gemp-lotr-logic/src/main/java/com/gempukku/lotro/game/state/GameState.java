@@ -361,7 +361,7 @@ public class GameState {
         }
     }
 
-    public void removeCardsFromZone(Collection<PhysicalCard> cards) {
+    public void removeCardsFromZone(String playerPerforming, Collection<PhysicalCard> cards) {
         Map<GameStateListener, Set<PhysicalCard>> listenerCards = new HashMap<GameStateListener, Set<PhysicalCard>>();
 
         for (PhysicalCard card : cards) {
@@ -409,7 +409,7 @@ public class GameState {
         }
 
         for (Map.Entry<GameStateListener, Set<PhysicalCard>> gameStateListenerSetEntry : listenerCards.entrySet())
-            gameStateListenerSetEntry.getKey().cardsRemoved(gameStateListenerSetEntry.getValue());
+            gameStateListenerSetEntry.getKey().cardsRemoved(playerPerforming, gameStateListenerSetEntry.getValue());
     }
 
     private Set<PhysicalCard> getValue(Map<GameStateListener, Set<PhysicalCard>> map, GameStateListener listener) {
@@ -879,7 +879,7 @@ public class GameState {
         List<PhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
             final PhysicalCard topDeckCard = deck.get(0);
-            removeCardsFromZone(Collections.singleton(topDeckCard));
+            removeCardsFromZone(null, Collections.singleton(topDeckCard));
             return topDeckCard;
         } else {
             return null;
@@ -890,7 +890,7 @@ public class GameState {
         List<PhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
             final PhysicalCard topDeckCard = deck.get(deck.size() - 1);
-            removeCardsFromZone(Collections.singleton(topDeckCard));
+            removeCardsFromZone(null, Collections.singleton(topDeckCard));
             return topDeckCard;
         } else {
             return null;
@@ -901,7 +901,7 @@ public class GameState {
         List<PhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
             PhysicalCard card = deck.get(0);
-            removeCardsFromZone(Collections.singleton(card));
+            removeCardsFromZone(null, Collections.singleton(card));
             addCardToZone(null, card, Zone.HAND);
         }
     }

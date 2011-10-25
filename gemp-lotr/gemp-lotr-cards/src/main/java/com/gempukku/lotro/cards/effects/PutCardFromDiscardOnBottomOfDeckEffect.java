@@ -27,7 +27,7 @@ public class PutCardFromDiscardOnBottomOfDeckEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             gameState.sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from discard on the bottom of deck");
-            gameState.removeCardsFromZone(Collections.singleton(_physicalCard));
+            gameState.removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
             gameState.putCardOnBottomOfDeck(_physicalCard);
             return new FullEffectResult(null, true, true);
         }

@@ -60,7 +60,10 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
 
             if (discardedCards.size() > 0)
                 gameState.sendMessage(getAppendedNames(discardedCards) + " " + GameUtils.be(discardedCards) + " discarded from hand");
-            gameState.removeCardsFromZone(discardedCards);
+            String sourcePlayer = null;
+            if (_source != null)
+                sourcePlayer = _source.getOwner();
+            gameState.removeCardsFromZone(sourcePlayer, discardedCards);
             for (PhysicalCard card : discardedCards)
                 gameState.addCardToZone(game, card, Zone.DISCARD);
 

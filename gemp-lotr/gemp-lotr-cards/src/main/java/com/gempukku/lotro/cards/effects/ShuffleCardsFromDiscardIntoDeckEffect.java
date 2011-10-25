@@ -51,7 +51,7 @@ public class ShuffleCardsFromDiscardIntoDeckEffect extends AbstractEffect {
         }
 
         if (toShuffleIn.size() > 0) {
-            game.getGameState().removeCardsFromZone(toShuffleIn);
+            game.getGameState().removeCardsFromZone(_source.getOwner(), toShuffleIn);
 
             game.getGameState().shuffleCardsIntoDeck(toShuffleIn, _playerDeck);
 

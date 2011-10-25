@@ -34,7 +34,7 @@ public class MulliganProcess implements GameProcess {
                             if (result.equals("Yes")) {
                                 final GameState gameState = _game.getGameState();
                                 Set<PhysicalCard> hand = new HashSet<PhysicalCard>(gameState.getHand(nextPlayer));
-                                gameState.removeCardsFromZone(hand);
+                                gameState.removeCardsFromZone(nextPlayer, hand);
                                 for (PhysicalCard card : hand)
                                     gameState.addCardToZone(_game, card, Zone.DECK);
 

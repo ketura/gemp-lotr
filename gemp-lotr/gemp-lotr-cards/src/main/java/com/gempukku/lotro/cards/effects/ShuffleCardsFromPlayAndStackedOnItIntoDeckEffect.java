@@ -56,7 +56,7 @@ public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEf
         }
 
         if (toShuffleIn.size() > 0) {
-            game.getGameState().removeCardsFromZone(toShuffleIn);
+            game.getGameState().removeCardsFromZone(_source.getOwner(), toShuffleIn);
 
             game.getGameState().shuffleCardsIntoDeck(toShuffleIn, _playerDeck);
 
