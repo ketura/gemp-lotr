@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public abstract class ChooseCardsFromDiscardEffect extends AbstractEffect {
@@ -50,9 +51,11 @@ public abstract class ChooseCardsFromDiscardEffect extends AbstractEffect {
 
         int minimum = Math.min(_minimum, cards.size());
 
-        if (cards.size() == minimum)
+        if (_maximum == 0) {
+            cardsSelected(game, Collections.<PhysicalCard>emptySet());
+        } else if (cards.size() == minimum) {
             cardsSelected(game, cards);
-        else {
+        } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new ArbitraryCardsSelectionDecision(1, "Choose card from discard", new LinkedList<PhysicalCard>(cards), minimum, _maximum) {
                         @Override
