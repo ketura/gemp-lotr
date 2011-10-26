@@ -60,7 +60,7 @@ var CardGroup = Class.extend({
                     var tokenCount = tokens[token];
 
                     for (var i = 0; i < tokenCount; i++) {
-                        var tokenElem = $("<img src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: (1 * tokenSize / 2) * (1 + i) + "px"});
+                        var tokenElem = $("<img class='token' src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: (1 * tokenSize / 2) * (1 + i) + "px"});
                         tokenOverlay.append(tokenElem);
                     }
                     tokenIndex ++;
@@ -97,7 +97,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 function(first, second) {
                     return (first.data("card").siteNumber - second.data("card").siteNumber);
                 }
-                );
+        );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -287,8 +287,9 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
     cardElem.css({position: "absolute", left: x + "px", top: y + "px", width: width, height: height, zIndex: index });
 
     var tokenOverlay = $(".tokenOverlay", cardElem);
-    tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height})
-            .html("");
+    tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
+    // Remove all existing tokens
+    (".token",tokenOverlay).remove();
 
     $(".foilOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
 
@@ -297,4 +298,8 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
 
     var borderOverlay = $(".borderOverlay", cardElem);
     borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 2 * borderWidth, height: height - 2 * borderWidth, "border-width": borderWidth + "px"});
+    var sizeListeners = cardElem.data("sizeListeners");
+    if (sizeListeners != null)
+        for (var i = 0; i < sizeListeners.length; i++)
+            sizeListeners[i].sizeChanged(width, height);
 }
