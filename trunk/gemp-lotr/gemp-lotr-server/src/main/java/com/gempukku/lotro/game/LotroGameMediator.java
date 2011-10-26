@@ -166,7 +166,7 @@ public class LotroGameMediator {
                 // User can always reconnect and establish a new channel
                 GatheringParticipantCommunicationChannel channel = playerChannels.getValue();
                 if (currentTime > channel.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {
-                    _lotroGame.removeGameStateListener(playerId, channel);
+                    _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
                 }
             }

@@ -71,6 +71,9 @@ public class GameState {
 
         for (String playerId : playerOrder.getAllPlayers())
             _playerThreats.put(playerId, 0);
+
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.setPlayerOrder(playerOrder.getAllPlayers());
     }
 
     public void setInitiativeSide(Side initiativeSide) {
@@ -122,7 +125,7 @@ public class GameState {
         sendStateToPlayer(playerId, gameStateListener, gameStats);
     }
 
-    public void removeGameStateListener(String playerId, GameStateListener gameStateListener) {
+    public void removeGameStateListener(GameStateListener gameStateListener) {
         _gameStateListeners.remove(gameStateListener);
     }
 
@@ -292,9 +295,6 @@ public class GameState {
                 throw new RuntimeException("Card was not found in the expected zone");
         }
 
-        for (GameStateListener listener : getAllGameStateListeners())
-            listener.cardsRemoved(playerPerforming, cards);
-
         for (PhysicalCard card : cards) {
             Zone zone = card.getZone();
 
@@ -324,12 +324,19 @@ public class GameState {
                 removeFromSkirmish(card);
 
             removeAllTokens(card);
+        }
 
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.cardsRemoved(playerPerforming, cards);
+
+        for (PhysicalCard card : cards) {
             ((PhysicalCardImpl) card).setZone(null);
         }
     }
 
-    private Set<PhysicalCard> getValue(Map<GameStateListener, Set<PhysicalCard>> map, GameStateListener listener) {
+    private Set<PhysicalCard> getValue
+            (Map<GameStateListener, Set<PhysicalCard>> map, GameStateListener
+                    listener) {
         Set<PhysicalCard> result = map.get(listener);
         if (result == null) {
             result = new HashSet<PhysicalCard>();
