@@ -301,5 +301,5 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
     var sizeListeners = cardElem.data("sizeListeners");
     if (sizeListeners != null)
         for (var i = 0; i < sizeListeners.length; i++)
-            sizeListeners[i].sizeChanged(width, height);
+            sizeListeners[i].sizeChanged(cardElem, width, height);
 }

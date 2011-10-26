@@ -780,11 +780,11 @@ var GempLotrGameUI = Class.extend({
 
         var sizeListeners = new Array();
         sizeListeners[0] = {
-            sizeChanged: function(width, height) {
-                if (cardDiv.data("card").strength != null)
-                    cardStrengthDiv.css({position: "absolute", left: width - 30 - 2 + "px", top: height - 30 - 2 + "px", width: 30, height: 30, display: ""});
+            sizeChanged: function(cardElem, width, height) {
+                if (cardElem.data("card").strength != null)
+                    $(".cardStrength", cardElem).css({position: "absolute", left: width - 30 - 2 + "px", top: height - 30 - 2 + "px", width: 30, height: 30, display: ""});
                 else
-                    cardStrengthDiv.css({position: "absolute", left: width - 30 - 2 + "px", top: height - 30 - 2 + "px", width: 30, height: 30, display: "none"});
+                    $(".cardStrength", cardElem).css({position: "absolute", left: width - 30 - 2 + "px", top: height - 30 - 2 + "px", width: 30, height: 30, display: "none"});
             }
         };
 
