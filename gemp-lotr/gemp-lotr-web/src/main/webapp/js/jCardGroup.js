@@ -43,25 +43,36 @@ var CardGroup = Class.extend({
 
         var tokenOverlay = $(".tokenOverlay", cardElem);
 
-        var tokenSize = Math.floor(maxDimension / 12) * 2;
+        var tokenSize = Math.floor(maxDimension / 13) * 2;
 
         var tokens = cardElem.data("card").tokens;
         if (tokens != null) {
-            var tokenTypesCount = 0;
+            var tokenInColumnMax = 10;
+            var tokenColumns = 0;
 
             for (var token in tokens)
-                if (tokens.hasOwnProperty(token) && tokens[token] > 0)
-                    tokenTypesCount++;
+                if (tokens.hasOwnProperty(token) && tokens[token] > 0) {
+                    tokenColumns += (1 + Math.floor((tokens[token] - 1) / tokenInColumnMax));
+                }
 
             var tokenIndex = 1;
             for (var token in tokens)
                 if (tokens.hasOwnProperty(token) && tokens[token] > 0) {
-                    var tokenX = (tokenIndex * (width / (tokenTypesCount + 1))) - (tokenSize / 2);
                     var tokenCount = tokens[token];
 
+                    var tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2);
+                    var tokenInColumnIndex = 0;
                     for (var i = 0; i < tokenCount; i++) {
-                        var tokenElem = $("<img class='token' src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: (1 * tokenSize / 2) * (1 + i) + "px"});
+                        var tokenY = Math.floor((maxDimension / 13) * (1 + tokenInColumnIndex));
+
+                        var tokenElem = $("<img class='token' src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: tokenY + "px"});
                         tokenOverlay.append(tokenElem);
+                        tokenInColumnIndex++;
+                        if (tokenInColumnIndex == tokenInColumnMax) {
+                            tokenInColumnIndex = 0;
+                            tokenIndex++;
+                            tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2)
+                        }
                     }
                     tokenIndex ++;
                 }
