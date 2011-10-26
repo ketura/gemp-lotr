@@ -781,9 +781,14 @@ var GempLotrGameUI = Class.extend({
         var cardDiv = createCardDiv(card.imageUrl, text, foil);
 
         var tokenOverlay = $(".tokenOverlay", cardDiv);
+
         var cardStrengthDiv = $("<div class='cardStrength'></div>");
         cardStrengthDiv.css({display: "none"});
         tokenOverlay.append(cardStrengthDiv);
+
+        var cardVitalityDiv = $("<div class='cardVitality'></div>");
+        cardVitalityDiv.css({display: "none"});
+        tokenOverlay.append(cardVitalityDiv);
 
         cardDiv.data("card", card);
 
@@ -797,7 +802,8 @@ var GempLotrGameUI = Class.extend({
                 var fontPerc = (size * 7) + "%";
                 var borderRadius = Math.ceil(size / 5) + "px";
 
-                $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: borderWidth * 1.4 + "px", top: maxDimension * 0.64 + "px", width: size, height: size});
+                $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: borderWidth * 1.45 + "px", top: maxDimension * 0.64 + "px", width: size, height: size});
+                $(".cardVitality", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: borderWidth * 1.45 + "px", top: maxDimension * 0.645 + size + "px", width: size, height: size});
             }
         };
 

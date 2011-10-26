@@ -39,7 +39,7 @@ public class Card4_116 extends AbstractCompanion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentPhase() == Phase.GAME_SETUP;
+                                return gameState.getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP;
                             }
                         }, -1));
         modifiers.add(

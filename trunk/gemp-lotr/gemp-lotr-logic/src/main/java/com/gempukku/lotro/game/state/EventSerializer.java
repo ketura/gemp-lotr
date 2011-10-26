@@ -76,15 +76,17 @@ public class EventSerializer {
                 eventElem.appendChild(playerZonesElem);
             }
 
+            Map<Integer, Integer> charVitalities = gameStats.getCharVitalities();
+
             StringBuilder charStr = new StringBuilder();
             for (Map.Entry<Integer, Integer> characters : gameStats.getCharStrengths().entrySet()) {
-                charStr.append("," + characters.getKey() + "=" + characters.getValue());
+                charStr.append("," + characters.getKey() + "=" + characters.getValue() + "|" + charVitalities.get(characters.getKey()));
             }
             if (charStr.length() > 0)
                 charStr.delete(0, 1);
 
             if (charStr.length() > 0)
-                eventElem.setAttribute("charStrengths", charStr.toString());
+                eventElem.setAttribute("charStats", charStr.toString());
         }
 
         return eventElem;
