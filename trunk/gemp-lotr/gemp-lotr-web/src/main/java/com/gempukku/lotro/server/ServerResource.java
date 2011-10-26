@@ -8,6 +8,7 @@ import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
@@ -35,7 +36,9 @@ import javax.ws.rs.core.StreamingOutput;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.*;
 
 @Singleton
@@ -125,34 +128,85 @@ public class ServerResource {
     @Produces(MediaType.APPLICATION_XML)
     public StreamingOutput getReplay(
             @PathParam("replayId") String replayId) throws ParserConfigurationException {
-        File gameReplayFolder = new File("i:\\gemp-lotr\\replay");
         if (!replayId.contains("$"))
             sendError(Response.Status.NOT_FOUND);
         if (replayId.contains("."))
             sendError(Response.Status.NOT_FOUND);
 
-        String[] split = replayId.split("\\$");
+        final String[] split = replayId.split("\\$");
         if (split.length != 2)
-            sendError(Response.Status.NOT_FOUND);
-
-        final File replayFile = new File(new File(gameReplayFolder, split[0]), split[1] + ".xml");
-        if (!replayFile.exists() || !replayFile.isFile())
             sendError(Response.Status.NOT_FOUND);
 
         return new StreamingOutput() {
             @Override
             public void write(OutputStream outputStream) throws IOException, WebApplicationException {
-                InputStream is = new FileInputStream(replayFile);
+                final InputStream recordedGame = _lotroServer.getGameRecording(split[0], split[1]);
+                if (recordedGame == null)
+                    sendError(Response.Status.NOT_FOUND);
                 try {
                     byte[] bytes = new byte[1024];
                     int count;
-                    while ((count = is.read(bytes)) != -1)
+                    while ((count = recordedGame.read(bytes)) != -1)
                         outputStream.write(bytes, 0, count);
                 } finally {
-                    is.close();
+                    recordedGame.close();
                 }
             }
         };
+    }
+
+    @Path("/gameHistory/{playerId}")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getGameHistory(
+            @PathParam("playerId") String playerId,
+            @QueryParam("start") int start,
+            @QueryParam("count") int count,
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        if (start < 0 || count < 1 || count > 100)
+            sendError(Response.Status.BAD_REQUEST);
+
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        final List<GameHistoryEntry> playerGameHistory = _lotroServer.getPlayerGameHistory(player, start, count);
+        int recordCount = _lotroServer.getPlayerGameHistoryRecordCount(player);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document doc = documentBuilder.newDocument();
+        Element gameHistory = doc.createElement("gameHistory");
+        gameHistory.setAttribute("count", String.valueOf(recordCount));
+        gameHistory.setAttribute("playerId", participantId);
+
+        for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
+            Element historyEntry = doc.createElement("historyEntry");
+            historyEntry.setAttribute("winner", gameHistoryEntry.getWinner());
+            historyEntry.setAttribute("loser", gameHistoryEntry.getLoser());
+
+            historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
+            historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
+
+            if (gameHistoryEntry.getWinner().equals(participantId))
+                historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getWinnerRecording());
+            else if (gameHistoryEntry.getLoser().equals(participantId))
+                historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getLoserRecording());
+
+            historyEntry.setAttribute("startTime", String.valueOf(gameHistoryEntry.getStartTime().getTime()));
+            historyEntry.setAttribute("endTime", String.valueOf(gameHistoryEntry.getEndTime().getTime()));
+
+            gameHistory.appendChild(historyEntry);
+        }
+
+        doc.appendChild(gameHistory);
+        return doc;
     }
 
     @Path("/game/{gameId}")
@@ -843,9 +897,7 @@ public class ServerResource {
         return loggedUser;
     }
 
-    private void sendError(Response.Status status) {
-        WebApplicationException webApplicationException = new WebApplicationException(status);
-//        _logger.debug("Sending error to user: " + status.getStatusCode(), webApplicationException);
-        throw webApplicationException;
+    private void sendError(Response.Status status) throws WebApplicationException {
+        throw new WebApplicationException(status);
     }
 }
