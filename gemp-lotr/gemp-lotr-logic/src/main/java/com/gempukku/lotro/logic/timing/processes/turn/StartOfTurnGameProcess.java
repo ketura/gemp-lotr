@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.turn;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
@@ -20,6 +21,7 @@ public class StartOfTurnGameProcess implements GameProcess {
         playOrder.getNextPlayer();
 
         String nextPlayer = playOrder.getNextPlayer();
+        _game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
         _game.getGameState().startPlayerTurn(nextPlayer);
         _game.getGameState().startAffectingCardsForCurrentPlayer(_game);
 

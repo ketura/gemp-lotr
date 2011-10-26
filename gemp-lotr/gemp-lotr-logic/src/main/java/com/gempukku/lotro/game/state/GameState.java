@@ -673,7 +673,8 @@ public class GameState {
         }
 
         // Current site is affecting
-        startAffecting(game, getCurrentSite());
+        if (_currentPhase != Phase.GAME_SETUP)
+            startAffecting(game, getCurrentSite());
 
         // Stacked cards on active cards are stack-affecting
         for (List<PhysicalCardImpl> stackedCards : _stacked.values())
