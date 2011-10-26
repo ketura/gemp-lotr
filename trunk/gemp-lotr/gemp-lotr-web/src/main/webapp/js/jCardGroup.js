@@ -97,7 +97,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 function(first, second) {
                     return (first.data("card").siteNumber - second.data("card").siteNumber);
                 }
-        );
+                );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -289,7 +289,7 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
     var tokenOverlay = $(".tokenOverlay", cardElem);
     tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
     // Remove all existing tokens
-    (".token",tokenOverlay).remove();
+    $(".token", tokenOverlay).remove();
 
     $(".foilOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
 

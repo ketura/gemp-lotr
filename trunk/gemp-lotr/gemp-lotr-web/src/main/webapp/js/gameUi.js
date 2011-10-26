@@ -292,21 +292,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -321,15 +321,15 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    title: "Card information",
-                    minHeight: 80,
-                    minWidth: 200,
-                    width: Math.max(600, width * 0.75),
-                    height: Math.max(300, height * 0.75)
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: "Card information",
+            minHeight: 80,
+            minWidth: 200,
+            width: Math.max(600, width * 0.75),
+            height: Math.max(300, height * 0.75)
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -720,13 +720,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(text + "<br /><input id='integerDecision' type='text' value='0'>")
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#integerDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#integerDecision").val());
+            }
+        }
+                );
 
         $("#integerDecision").SpinnerControl({ type: 'range',
             typedata: {
@@ -758,13 +758,13 @@ var GempLotrGameUI = Class.extend({
         this.smallDialog
                 .html(html)
                 .dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        $(this).dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                }
-        );
+        {
+            "OK": function() {
+                $(this).dialog("close");
+                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+            }
+        }
+                );
 
         this.smallDialog.dialog("open");
     },
@@ -781,10 +781,17 @@ var GempLotrGameUI = Class.extend({
         var sizeListeners = new Array();
         sizeListeners[0] = {
             sizeChanged: function(cardElem, width, height) {
+                var maxDimension = Math.max(width, height);
+                var borderWidth = Math.floor(maxDimension / 30);
+
+                var size = Math.floor(maxDimension / 5);
+                var fontPerc = (size * 7) + "%";
+                var borderRadius = Math.ceil(size / 5) + "px";
+
                 if (cardElem.data("card").strength != null)
-                    $(".cardStrength", cardElem).css({position: "absolute", left: width - 30 - 2 + "px", top: height - 30 - 2 + "px", width: 30, height: 30, display: ""});
+                    $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: width - size - borderWidth - 2 + "px", top: height - size - borderWidth - 2 + "px", width: size, height: size, display: ""});
                 else
-                    $(".cardStrength", cardElem).css({position: "absolute", left: width - 30 - 2 + "px", top: height - 30 - 2 + "px", width: 30, height: 30, display: "none"});
+                    $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: width - size - borderWidth - 2 + "px", top: height - size - borderWidth - 2 + "px", width: size, height: size, display: "none"});
             }
         };
 
@@ -1030,8 +1037,8 @@ var GempLotrGameUI = Class.extend({
                     $(div).find('LI.hover').removeClass('hover');
                     $(this).parent().addClass('hover');
                 }).mouseout(function() {
-                    $(div).find('LI.hover').removeClass('hover');
-                });
+            $(div).find('LI.hover').removeClass('hover');
+        });
 
         var getRidOfContextMenu = function() {
             $(div).remove();

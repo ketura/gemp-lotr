@@ -83,7 +83,8 @@ public class EventSerializer {
             if (charStr.length() > 0)
                 charStr.delete(0, 1);
 
-            eventElem.setAttribute("charStrengths", charStr.toString());
+            if (charStr.length() > 0)
+                eventElem.setAttribute("charStrengths", charStr.toString());
         }
 
         return eventElem;
