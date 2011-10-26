@@ -5,18 +5,7 @@ import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.timing.GameStats;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
 import java.util.*;
 
 public class GameState {
@@ -56,8 +45,7 @@ public class GameState {
     private List<Assignment> _assignments = new LinkedList<Assignment>();
     private Skirmish _skirmish = null;
 
-    private Map<String, GatheringParticipantCommunicationChannel> _recordingListeners = new HashMap<String, GatheringParticipantCommunicationChannel>();
-    private Map<String, GameStateListener> _gameStateListeners = new HashMap<String, GameStateListener>();
+    private Set<GameStateListener> _gameStateListeners = new HashSet<GameStateListener>();
 
     private int _nextCardId = 0;
 
@@ -81,29 +69,8 @@ public class GameState {
             addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
         }
 
-        for (String playerId : playerOrder.getAllPlayers()) {
-            GatheringParticipantCommunicationChannel listener = new GatheringParticipantCommunicationChannel(playerId);
-            listener.setPlayerOrder(playerOrder.getAllPlayers());
-            _recordingListeners.put(playerId, listener);
-
+        for (String playerId : playerOrder.getAllPlayers())
             _playerThreats.put(playerId, 0);
-        }
-
-        for (String playerId : _gameStateListeners.keySet())
-            sendStateToPlayer(playerId, gameStats);
-    }
-
-    private String _possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    private int _charsCount = _possibleChars.length();
-
-    private String randomUid() {
-        int length = 16;
-        char[] chars = new char[length];
-        Random rnd = new Random();
-        for (int i = 0; i < length; i++)
-            chars[i] = _possibleChars.charAt(rnd.nextInt(_charsCount));
-
-        return new String(chars);
     }
 
     public void setInitiativeSide(Side initiativeSide) {
@@ -112,47 +79,6 @@ public class GameState {
 
     public Side getInitiativeSide() {
         return _initiativeSide;
-    }
-
-    public void gameFinished() {
-        File gameReplayFolder = new File("i:\\gemp-lotr\\replay");
-        gameReplayFolder.mkdirs();
-        for (Map.Entry<String, GatheringParticipantCommunicationChannel> playerRecordings : _recordingListeners.entrySet()) {
-            String playerId = playerRecordings.getKey();
-            File playerReplayFolder = new File(gameReplayFolder, playerId);
-            playerReplayFolder.mkdir();
-            File replayFile;
-            do {
-                replayFile = new File(playerReplayFolder, randomUid() + ".xml");
-            } while (replayFile.exists());
-
-            final List<GameEvent> gameEvents = playerRecordings.getValue().consumeGameEvents();
-
-            try {
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-                Document doc = documentBuilder.newDocument();
-                Element gameReplay = doc.createElement("gameReplay");
-                EventSerializer serializer = new EventSerializer();
-                for (GameEvent gameEvent : gameEvents) {
-                    gameReplay.appendChild(serializer.serializeEvent(doc, gameEvent));
-                }
-
-                doc.appendChild(gameReplay);
-
-                // Prepare the DOM document for writing
-                Source source = new DOMSource(doc);
-
-                // Prepare the output file
-                Result result = new StreamResult(replayFile);
-
-                // Write the DOM document to the file
-                Transformer xformer = TransformerFactory.newInstance().newTransformer();
-                xformer.transform(source, result);
-            } catch (Exception exp) {
-
-            }
-        }
     }
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
@@ -192,34 +118,20 @@ public class GameState {
     }
 
     public void addGameStateListener(String playerId, GameStateListener gameStateListener, GameStats gameStats) {
-        _gameStateListeners.put(playerId, gameStateListener);
-        sendStateToPlayer(playerId, gameStats);
+        _gameStateListeners.add(gameStateListener);
+        sendStateToPlayer(playerId, gameStateListener, gameStats);
     }
 
     public void removeGameStateListener(String playerId, GameStateListener gameStateListener) {
-        _gameStateListeners.remove(playerId);
-    }
-
-    private Collection<GameStateListener> getPrivateGameStateListeners(PhysicalCard physicalCard) {
-        String owner = physicalCard.getOwner();
-        Set<GameStateListener> listeners = new HashSet<GameStateListener>();
-        GameStateListener result = _gameStateListeners.get(owner);
-        if (result != null)
-            listeners.add(result);
-
-        listeners.add(_recordingListeners.get(owner));
-        return listeners;
+        _gameStateListeners.remove(gameStateListener);
     }
 
     private Collection<GameStateListener> getAllGameStateListeners() {
-        Set<GameStateListener> allListeners = new HashSet<GameStateListener>(_gameStateListeners.values());
-        allListeners.addAll(_recordingListeners.values());
-        return allListeners;
+        return Collections.unmodifiableSet(_gameStateListeners);
     }
 
-    private void sendStateToPlayer(String playerId, GameStats gameStats) {
+    private void sendStateToPlayer(String playerId, GameStateListener listener, GameStats gameStats) {
         if (_playerOrder != null) {
-            GameStateListener listener = _gameStateListeners.get(playerId);
             listener.setPlayerOrder(_playerOrder.getAllPlayers());
             if (_currentPlayerId != null)
                 listener.setCurrentPlayerId(_currentPlayerId);
@@ -279,15 +191,6 @@ public class GameState {
 
             listener.sendGameStats(gameStats);
         }
-    }
-
-    private boolean isZonePublic(Zone zone) {
-        return zone == Zone.FREE_CHARACTERS || zone == Zone.SUPPORT || zone == Zone.SHADOW_CHARACTERS || zone == Zone.SUPPORT
-                || zone == Zone.ADVENTURE_PATH || zone == Zone.ATTACHED || zone == Zone.STACKED || zone == Zone.DEAD;
-    }
-
-    private boolean isZonePrivate(Zone zone) {
-        return zone == Zone.DISCARD || zone == Zone.HAND;
     }
 
     public void sendMessage(String message) {
@@ -383,7 +286,14 @@ public class GameState {
     }
 
     public void removeCardsFromZone(String playerPerforming, Collection<PhysicalCard> cards) {
-        Map<GameStateListener, Set<PhysicalCard>> listenerCards = new HashMap<GameStateListener, Set<PhysicalCard>>();
+        for (PhysicalCard card : cards) {
+            List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), card.getZone());
+            if (!zoneCards.contains(card))
+                throw new RuntimeException("Card was not found in the expected zone");
+        }
+
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.cardsRemoved(playerPerforming, cards);
 
         for (PhysicalCard card : cards) {
             Zone zone = card.getZone();
@@ -395,9 +305,7 @@ public class GameState {
                     stopAffectingStacked(card);
 
             List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
-            boolean b = zoneCards.remove(card);
-            if (!b)
-                throw new RuntimeException("Card was not found in the expected zone");
+            zoneCards.remove(card);
 
             if (zone == Zone.ATTACHED)
                 ((PhysicalCardImpl) card).attachTo(null);
@@ -417,20 +325,8 @@ public class GameState {
 
             removeAllTokens(card);
 
-            if (isZonePublic(zone))
-                for (GameStateListener listener : getAllGameStateListeners()) {
-                    getValue(listenerCards, listener).add(card);
-                }
-            else if (isZonePrivate(zone))
-                for (GameStateListener listener : getPrivateGameStateListeners(card)) {
-                    getValue(listenerCards, listener).add(card);
-                }
-
             ((PhysicalCardImpl) card).setZone(null);
         }
-
-        for (Map.Entry<GameStateListener, Set<PhysicalCard>> gameStateListenerSetEntry : listenerCards.entrySet())
-            gameStateListenerSetEntry.getKey().cardsRemoved(playerPerforming, gameStateListenerSetEntry.getValue());
     }
 
     private Set<PhysicalCard> getValue(Map<GameStateListener, Set<PhysicalCard>> map, GameStateListener listener) {
@@ -462,12 +358,8 @@ public class GameState {
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.setSite(card);
         } else {
-            if (isZonePublic(zone))
-                for (GameStateListener listener : getAllGameStateListeners())
-                    listener.cardCreated(card);
-            else if (isZonePrivate(zone))
-                for (GameStateListener listener : getPrivateGameStateListeners(card))
-                    listener.cardCreated(card);
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.cardCreated(card);
         }
 
         if (zone.isInPlay()) {

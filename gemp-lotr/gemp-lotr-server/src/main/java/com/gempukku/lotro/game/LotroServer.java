@@ -108,7 +108,8 @@ public class LotroServer extends AbstractServer {
         ChatRoomMediator room = _chatServer.createChatRoom(chatRoomName);
         room.sendMessage("System", "You're starting a game of " + formatName);
 
-        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
+        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary);
+        lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override
                     public void gameFinished(String winnerPlayerId, Set<String> loserPlayerIds, String reason) {

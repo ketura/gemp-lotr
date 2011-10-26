@@ -6,10 +6,7 @@ import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.GameStats;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
@@ -75,7 +72,8 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
 
     @Override
     public void cardCreated(PhysicalCard card) {
-        _events.add(new GameEvent(PCIP).card(card));
+        if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
+            _events.add(new GameEvent(PCIP).card(card));
     }
 
     @Override
@@ -85,7 +83,13 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
 
     @Override
     public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards) {
-        _events.add(new GameEvent(RCFP).otherCardIds(getCardIds(cards)).participantId(playerPerforming));
+        Set<PhysicalCard> removedCardsVisibleByPlayer = new HashSet<PhysicalCard>();
+        for (PhysicalCard card : cards) {
+            if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
+                removedCardsVisibleByPlayer.add(card);
+        }
+
+        _events.add(new GameEvent(RCFP).otherCardIds(getCardIds(removedCardsVisibleByPlayer)).participantId(playerPerforming));
     }
 
     @Override
