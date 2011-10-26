@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
@@ -55,10 +56,13 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
         boolean success = possibleCards.size() >= _minimum;
 
         int minimum = _minimum;
+
         if (possibleCards.size() < minimum)
             minimum = possibleCards.size();
 
-        if (possibleCards.size() == minimum) {
+        if (_maximum == 0) {
+            cardsSelected(game, Collections.<PhysicalCard>emptySet());
+        } else if (possibleCards.size() == minimum) {
             cardsSelected(game, possibleCards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
