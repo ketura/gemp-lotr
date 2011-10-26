@@ -334,17 +334,6 @@ public class GameState {
         }
     }
 
-    private Set<PhysicalCard> getValue
-            (Map<GameStateListener, Set<PhysicalCard>> map, GameStateListener
-                    listener) {
-        Set<PhysicalCard> result = map.get(listener);
-        if (result == null) {
-            result = new HashSet<PhysicalCard>();
-            map.put(listener, result);
-        }
-        return result;
-    }
-
     public void addCardToZone(LotroGame game, PhysicalCard card, Zone zone) {
         addCardToZone(game, card, zone, true);
     }
