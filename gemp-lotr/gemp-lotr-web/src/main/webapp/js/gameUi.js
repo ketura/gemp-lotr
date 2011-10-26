@@ -31,6 +31,8 @@ var GempLotrGameUI = Class.extend({
     deadPileDialogs: null,
     deadPileGroups: null,
 
+    statsDiv: null,
+
     skirmishGroupDiv: null,
     fpStrengthDiv: null,
     shadowStrengthDiv: null,
@@ -195,11 +197,15 @@ var GempLotrGameUI = Class.extend({
 
         $("#main").append(this.alertBox);
 
+        this.statsDiv = $("<div class='ui-widget-content stats'></div>");
+        this.statsDiv.css({"border-radius": "7px"});
+        this.statsDiv.append("<div class='fpArchery'></div> <div class='shadowArchery'></div> <div class='move'></div>");
+        $("#main").append(this.statsDiv);
+
         $("body").click(
                 function (event) {
                     that.clickCardFunction(event);
                 });
-
     },
 
     addBottomLeftTabPane: function() {
@@ -390,7 +396,9 @@ var GempLotrGameUI = Class.extend({
         var currentPlayerTurn = (this.currentPlayerId == this.bottomPlayerId);
 
         if (this.advPathGroup != null) {
-            this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight);
+            this.statsDiv.css({position: "absolute", left: padding + "px", top: height - (padding * 2) - chatHeight - 34 + "px", width: advPathWidth, height: 34});
+
+            this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);
 
             this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, currentPlayerTurn ? charsWidth : charsWidthWithAssignments, heightScales[1] * heightPerScale);
