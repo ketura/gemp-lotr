@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic.timing.processes.pregame;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,6 +40,7 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
             gameState.startPlayerTurn(playerId);
             gameState.addBurdens(_bids.get(playerId));
         }
+        gameState.setCurrentPhase(Phase.PLAY_STARTING_FELLOWSHIP);
     }
 
     @Override

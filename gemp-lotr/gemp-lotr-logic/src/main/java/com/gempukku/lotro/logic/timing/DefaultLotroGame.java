@@ -171,7 +171,7 @@ public class DefaultLotroGame implements LotroGame {
     @Override
     public void checkLoseConditions() {
         GameState gameState = getGameState();
-        if (gameState != null && gameState.getCurrentPhase() != Phase.GAME_SETUP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS) {
+        if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {
             // Ring-bearer death
             if (!Filters.canSpot(gameState, getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
                 playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is dead");

@@ -43,7 +43,7 @@ public class Card5_031 extends AbstractCompanion {
                         Filters.and(
                                 Filters.not(Filters.sameCard(self)),
                                 Keyword.KNIGHT
-                        ), new PhaseCondition(Phase.GAME_SETUP), -1));
+                        ), new PhaseCondition(Phase.PLAY_STARTING_FELLOWSHIP), -1));
     }
 
     @Override

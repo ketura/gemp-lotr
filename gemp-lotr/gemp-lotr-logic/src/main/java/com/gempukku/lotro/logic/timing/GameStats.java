@@ -23,6 +23,7 @@ public class GameStats {
 
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<String, Map<Zone, Integer>>();
     private Map<Integer, Integer> _charStrengths = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> _charVitalities = new HashMap<Integer, Integer>();
 
     /**
      * @return If the stats have changed
@@ -85,12 +86,20 @@ public class GameStats {
         }
 
         Map<Integer, Integer> newCharStrengths = new HashMap<Integer, Integer>();
-        for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION)))
+        Map<Integer, Integer> newCharVitalities = new HashMap<Integer, Integer>();
+        for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
             newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game.getGameState(), character));
+            newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game.getGameState(), character));
+        }
 
         if (!newCharStrengths.equals(_charStrengths)) {
             changed = true;
             _charStrengths = newCharStrengths;
+        }
+
+        if (!newCharVitalities.equals(_charVitalities)) {
+            changed = true;
+            _charVitalities = newCharVitalities;
         }
 
         return changed;
@@ -128,6 +137,10 @@ public class GameStats {
         return Collections.unmodifiableMap(_charStrengths);
     }
 
+    public Map<Integer, Integer> getCharVitalities() {
+        return _charVitalities;
+    }
+
     public GameStats makeACopy() {
         GameStats copy = new GameStats();
         copy._fellowshipArchery = _fellowshipArchery;
@@ -138,6 +151,7 @@ public class GameStats {
         copy._shadowSkirmishStrength = _shadowSkirmishStrength;
         copy._zoneSizes = _zoneSizes;
         copy._charStrengths = _charStrengths;
+        copy._charVitalities = _charVitalities;
         return copy;
     }
 }

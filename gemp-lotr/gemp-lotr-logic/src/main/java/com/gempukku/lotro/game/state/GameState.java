@@ -25,7 +25,7 @@ public class GameState {
     private Map<Integer, PhysicalCardImpl> _allCards = new HashMap<Integer, PhysicalCardImpl>();
 
     private String _currentPlayerId;
-    private Phase _currentPhase = Phase.GAME_SETUP;
+    private Phase _currentPhase = Phase.PUT_RING_BEARER;
     private int _twilightPool;
 
     private int _moveCount;
@@ -299,7 +299,7 @@ public class GameState {
             Zone zone = card.getZone();
 
             if (zone.isInPlay())
-                if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.GAME_SETUP && getCurrentSite() == card))
+                if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == card))
                     stopAffecting(card);
                 else if (zone == Zone.STACKED)
                     stopAffectingStacked(card);
@@ -358,11 +358,13 @@ public class GameState {
                 listener.cardCreated(card);
         }
 
-        if (zone.isInPlay()) {
-            if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.GAME_SETUP && getCurrentSite() == card))
-                startAffecting(game, card);
-        } else if (zone == Zone.STACKED)
-            startAffectingStacked(game, card);
+        if (_currentPhase != Phase.PUT_RING_BEARER) {
+            if (zone.isInPlay()) {
+                if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == card))
+                    startAffecting(game, card);
+            } else if (zone == Zone.STACKED)
+                startAffectingStacked(game, card);
+        }
     }
 
     private void removeAllTokens(PhysicalCard card) {
@@ -673,7 +675,7 @@ public class GameState {
         }
 
         // Current site is affecting
-        if (_currentPhase != Phase.GAME_SETUP)
+        if (_currentPhase != Phase.PLAY_STARTING_FELLOWSHIP)
             startAffecting(game, getCurrentSite());
 
         // Stacked cards on active cards are stack-affecting
