@@ -7,12 +7,16 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
+import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,8 +34,10 @@ public class LotroServer extends AbstractServer {
 
     private PlayerDAO _playerDao;
     private DeckDAO _deckDao;
+    private GameHistoryDAO _gameHistoryDao;
     private DefaultCardCollection _defaultCollection;
     private ChatServer _chatServer;
+    private GameRecorder _gameRecorder;
 
     public LotroServer(DbAccess dbAccess, LotroCardBlueprintLibrary library, ChatServer chatServer, boolean test) {
         _lotroCardBlueprintLibrary = library;
@@ -55,6 +61,22 @@ public class LotroServer extends AbstractServer {
 
         _playerDao = new PlayerDAO(dbAccess);
         _deckDao = new DeckDAO(dbAccess);
+
+        _gameHistoryDao = new GameHistoryDAO(dbAccess);
+
+        _gameRecorder = new GameRecorder(_gameHistoryDao);
+    }
+
+    public InputStream getGameRecording(String playerId, String gameId) throws IOException {
+        return _gameRecorder.getRecordedGame(playerId, gameId);
+    }
+
+    public List<GameHistoryEntry> getPlayerGameHistory(Player player, int start, int count) {
+        return _gameHistoryDao.getGameHistoryForPlayer(player, start, count);
+    }
+
+    public int getPlayerGameHistoryRecordCount(Player player) {
+        return _gameHistoryDao.getGameHistoryForPlayerCount(player);
     }
 
     public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary() {
@@ -112,13 +134,24 @@ public class LotroServer extends AbstractServer {
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override
-                    public void gameFinished(String winnerPlayerId, Set<String> loserPlayerIds, String reason) {
-                        log.debug("Game finished, winner is - " + winnerPlayerId + " due to: " + reason);
+                    public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                        log.debug("Game finished, winner is - " + winnerPlayerId + " due to: " + winReason);
                         synchronized (_finishedGamesTime) {
                             _finishedGamesTime.put(gameId, new Date());
                         }
                     }
                 });
+        final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator);
+        lotroGameMediator.addGameResultListener(
+                new GameResultListener() {
+                    @Override
+                    public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                        final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
+
+                        gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
+                    }
+                }
+        );
 
         _runningGames.put(gameId, lotroGameMediator);
         _nextGameId++;

@@ -3,6 +3,7 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -46,16 +47,14 @@ public class LotroGameMediator {
         }
 
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
+    }
 
-        final HashMap<String, GatheringParticipantCommunicationChannel> recordingChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
-        for (String playerId : _playersPlaying) {
-            final GatheringParticipantCommunicationChannel playerRecording = new GatheringParticipantCommunicationChannel(playerId);
-            _lotroGame.addGameStateListener(playerId, playerRecording);
-            recordingChannels.put(playerId, playerRecording);
-        }
+    public void addGameStateListener(String playerId, GameStateListener listener) {
+        _lotroGame.addGameStateListener(playerId, listener);
+    }
 
-        _lotroGame.addGameResultListener(
-                new GameRecording(recordingChannels));
+    public void removeGameStateListener(GameStateListener listener) {
+        _lotroGame.removeGameStateListener(listener);
     }
 
     public void addGameResultListener(GameResultListener listener) {
