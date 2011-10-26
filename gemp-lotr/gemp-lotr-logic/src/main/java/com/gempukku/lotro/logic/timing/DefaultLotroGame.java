@@ -183,7 +183,7 @@ public class DefaultLotroGame implements LotroGame {
         _gameState.addGameStateListener(playerId, gameStateListener, _turnProcedure.getGameStats());
     }
 
-    public void removeGameStateListener(String playerId, GameStateListener gameStateListener) {
-        _gameState.removeGameStateListener(playerId, gameStateListener);
+    public void removeGameStateListener(GameStateListener gameStateListener) {
+        _gameState.removeGameStateListener(gameStateListener);
     }
 }
