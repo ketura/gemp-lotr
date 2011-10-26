@@ -67,40 +67,40 @@ var GameAnimations = Class.extend({
                             var cardWidth = card.getWidthForHeight(cardHeight);
 
                             $(cardDiv).css(
-                            {
-                                position: "absolute",
-                                left: (gameWidth / 2 - cardWidth / 4),
-                                top: gameHeight * (3 / 8),
-                                width: cardWidth / 2,
-                                height: cardHeight / 2,
-                                "z-index": 100,
-                                opacity: 0});
+                                    {
+                                        position: "absolute",
+                                        left: (gameWidth / 2 - cardWidth / 4),
+                                        top: gameHeight * (3 / 8),
+                                        width: cardWidth / 2,
+                                        height: cardHeight / 2,
+                                        "z-index": 100,
+                                        opacity: 0});
 
                             $(cardDiv).animate(
-                            {
-                                left: "-=" + cardWidth / 4,
-                                top: "-=" + (gameHeight / 8),
-                                width: "+=" + (cardWidth / 2),
-                                height: "+=" + (cardHeight / 2),
-                                opacity: 1},
-                            {
-                                duration: that.getAnimationLength(that.playEventDuration / 8),
-                                easing: "linear",
-                                queue: false,
-                                complete: next});
+                                    {
+                                        left: "-=" + cardWidth / 4,
+                                        top: "-=" + (gameHeight / 8),
+                                        width: "+=" + (cardWidth / 2),
+                                        height: "+=" + (cardHeight / 2),
+                                        opacity: 1},
+                                    {
+                                        duration: that.getAnimationLength(that.playEventDuration / 8),
+                                        easing: "linear",
+                                        queue: false,
+                                        complete: next});
                         }).queue(
                         function(next) {
                             setTimeout(next, that.getAnimationLength(that.playEventDuration * (5 / 8)));
                         }).queue(
                         function(next) {
                             $(cardDiv).animate(
-                            {
-                                opacity: 0},
-                            {
-                                duration: that.getAnimationLength(that.playEventDuration / 4),
-                                easing: "easeOutQuart",
-                                queue: false,
-                                complete: next});
+                                    {
+                                        opacity: 0},
+                                    {
+                                        duration: that.getAnimationLength(that.playEventDuration / 4),
+                                        easing: "easeOutQuart",
+                                        queue: false,
+                                        complete: next});
                         }).queue(
                         function(next) {
                             $(cardDiv).remove();
@@ -138,26 +138,26 @@ var GameAnimations = Class.extend({
                                     var targetCardHeight = $(targetCard).height();
 
                                     $(cardDiv).css(
-                                    {
-                                        position: "absolute",
-                                        left: $(targetCard).position().left,
-                                        top: $(targetCard).position().top,
-                                        width: targetCardWidth,
-                                        height: targetCardHeight,
-                                        "z-index": 100,
-                                        opacity: 1});
+                                            {
+                                                position: "absolute",
+                                                left: $(targetCard).position().left,
+                                                top: $(targetCard).position().top,
+                                                width: targetCardWidth,
+                                                height: targetCardHeight,
+                                                "z-index": 100,
+                                                opacity: 1});
                                     $(cardDiv).animate(
-                                    {
-                                        opacity: 0,
-                                        left: "-=" + (targetCardWidth / 2),
-                                        top: "-=" + (targetCardHeight / 2),
-                                        width: "+=" + targetCardWidth,
-                                        height: "+=" + targetCardHeight},
-                                    {
-                                        duration: that.getAnimationLength(that.cardAffectsCardDuration),
-                                        easing: "easeInQuart",
-                                        queue: false,
-                                        complete: null});
+                                            {
+                                                opacity: 0,
+                                                left: "-=" + (targetCardWidth / 2),
+                                                top: "-=" + (targetCardHeight / 2),
+                                                width: "+=" + targetCardWidth,
+                                                height: "+=" + targetCardHeight},
+                                            {
+                                                duration: that.getAnimationLength(that.cardAffectsCardDuration),
+                                                easing: "easeInQuart",
+                                                queue: false,
+                                                complete: null});
                                 }
 
                                 setTimeout(next, that.getAnimationLength(that.cardAffectsCardDuration));
@@ -171,7 +171,7 @@ var GameAnimations = Class.extend({
                                             $(this).remove();
                                         }
                                     }
-                                    );
+                            );
                             next();
                         });
             }
@@ -247,29 +247,29 @@ var GameAnimations = Class.extend({
                         var cardWidth = card.getWidthForHeight(cardHeight);
 
                         $(cardDiv).css(
-                        {
-                            position: "absolute",
-                            left: (gameWidth / 2 - cardWidth / 4),
-                            top: gameHeight * (3 / 8),
-                            width: cardWidth / 2,
-                            height: cardHeight / 2,
-                            "z-index": 100,
-                            opacity: 0});
+                                {
+                                    position: "absolute",
+                                    left: (gameWidth / 2 - cardWidth / 4),
+                                    top: gameHeight * (3 / 8),
+                                    width: cardWidth / 2,
+                                    height: cardHeight / 2,
+                                    "z-index": 100,
+                                    opacity: 0});
 
                         $(cardDiv).animate(
-                        {
-                            opacity: 1},
-                        {
-                            duration: that.getAnimationLength(that.putCardIntoPlayDuration / 8),
-                            easing: "linear",
-                            step: function(now, fx) {
-                                layoutCardElem(cardDiv,
-                                        (gameWidth / 2 - cardWidth / 4) - now * (cardWidth / 4),
-                                        gameHeight * (3 / 8) - now * (gameHeight / 8),
-                                        cardWidth / 2 + now * (cardWidth / 2),
-                                        cardHeight / 2 + now * (cardHeight / 2), 100);
-                            },
-                            complete: next});
+                                {
+                                    opacity: 1},
+                                {
+                                    duration: that.getAnimationLength(that.putCardIntoPlayDuration / 8),
+                                    easing: "linear",
+                                    step: function(now, fx) {
+                                        layoutCardElem(cardDiv,
+                                                (gameWidth / 2 - cardWidth / 4) - now * (cardWidth / 4),
+                                                gameHeight * (3 / 8) - now * (gameHeight / 8),
+                                                cardWidth / 2 + now * (cardWidth / 2),
+                                                cardHeight / 2 + now * (cardHeight / 2), 100);
+                                    },
+                                    complete: next});
                     }).queue(
                     function(next) {
                         setTimeout(next, that.getAnimationLength(that.putCardIntoPlayDuration * (5 / 8)));
@@ -284,20 +284,20 @@ var GameAnimations = Class.extend({
                         var startHeight = cardDiv.height();
 
                         $(cardDiv).animate(
-                        {
-                            left: oldValues["left"]},
-                        {
-                            duration: that.getAnimationLength(that.putCardIntoPlayDuration / 4),
-                            easing: "linear",
-                            step: function(now, fx) {
-                                var state = fx.state;
-                                layoutCardElem(cardDiv,
-                                        startLeft + (oldValues["left"] - startLeft) * state,
-                                        startTop + (oldValues["top"] - startTop) * state,
-                                        startWidth + (oldValues["width"] - startWidth) * state,
-                                        startHeight + (oldValues["height"] - startHeight) * state, 100);
-                            },
-                            complete: next});
+                                {
+                                    left: oldValues["left"]},
+                                {
+                                    duration: that.getAnimationLength(that.putCardIntoPlayDuration / 4),
+                                    easing: "linear",
+                                    step: function(now, fx) {
+                                        var state = fx.state;
+                                        layoutCardElem(cardDiv,
+                                                startLeft + (oldValues["left"] - startLeft) * state,
+                                                startTop + (oldValues["top"] - startTop) * state,
+                                                startWidth + (oldValues["width"] - startWidth) * state,
+                                                startHeight + (oldValues["height"] - startHeight) * state, 100);
+                                    },
+                                    complete: next});
                     }).queue(
                     function(next) {
                         var cardDiv = $(".card:cardId(" + cardId + ")");
@@ -333,7 +333,7 @@ var GameAnimations = Class.extend({
                                 if (index != -1)
                                     cardData.attachedCards.splice(index, 1);
                             }
-                            );
+                    );
 
                     var card = $(".card:cardId(" + cardId + ")");
                     var cardData = card.data("card");
@@ -369,12 +369,12 @@ var GameAnimations = Class.extend({
                     function(next) {
                         $(".card:cardId(" + cardRemovedIds + ")")
                                 .animate(
-                        {
-                            opacity: 0},
-                        {
-                            duration: that.getAnimationLength(that.removeCardFromPlayDuration),
-                            easing: "easeOutQuart",
-                            queue: false});
+                                {
+                                    opacity: 0},
+                                {
+                                    duration: that.getAnimationLength(that.removeCardFromPlayDuration),
+                                    easing: "easeOutQuart",
+                                    queue: false});
                         setTimeout(next, that.getAnimationLength(that.removeCardFromPlayDuration));
                     });
         }
@@ -399,7 +399,7 @@ var GameAnimations = Class.extend({
                                             if (index != -1)
                                                 cardData.attachedCards.splice(index, 1);
                                         }
-                                        );
+                                );
                             }
 
                             card.remove();
@@ -684,6 +684,17 @@ var GameAnimations = Class.extend({
         }
         $("#main").queue(
                 function(next) {
+                    var charStrengths = element.getAttribute("charStrengths");
+                    if (charStrengths != null) {
+                        var charStrengthsArr = charStrengths.split(",");
+                        for (var i = 0; i < charStrengthsArr.length; i++) {
+                            var cardStrength = charStrengthsArr[i].split("=");
+                            var cardDiv = $(".card:cardId(" + cardStrength[0] + ")");
+                            cardDiv.data("card").strength = cardStrength[1];
+                            $(".cardStrength", cardDiv).html(cardStrength[1]).css({display: ""});
+                        }
+                    }
+
                     var playerZones = element.getElementsByTagName("playerZones");
                     for (var i = 0; i < playerZones.length; i++) {
                         var playerZone = playerZones[i];

@@ -12,6 +12,7 @@ var Card = Class.extend({
     owner: null,
     siteNumber: null,
     attachedCards: null,
+    strength: null,
 
     init: function(blueprintId, zone, cardId, owner, siteNumber) {
         this.blueprintId = blueprintId;
