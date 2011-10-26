@@ -32,7 +32,6 @@ public class DefaultLotroGame implements LotroGame {
     private ActionStack _actionStack;
 
     private LotroFormat _format;
-    private GameResultListener _gameResultListener;
 
     private Set<String> _allPlayers;
 
@@ -40,9 +39,10 @@ public class DefaultLotroGame implements LotroGame {
     private String _winReason;
     private Map<String, String> _losers = new HashMap<String, String>();
 
-    public DefaultLotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, GameResultListener gameResultListener, final LotroCardBlueprintLibrary library) {
+    private Set<GameResultListener> _gameResultListeners = new HashSet<GameResultListener>();
+
+    public DefaultLotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
         _format = format;
-        _gameResultListener = gameResultListener;
         _actionStack = new ActionStack();
 
         _allPlayers = decks.keySet();
@@ -79,6 +79,14 @@ public class DefaultLotroGame implements LotroGame {
         ruleSet.applyRuleSet();
     }
 
+    public void addGameResultListener(GameResultListener listener) {
+        _gameResultListeners.add(listener);
+    }
+
+    public void removeGameResultListener(GameResultListener listener) {
+        _gameResultListeners.remove(listener);
+    }
+
     @Override
     public LotroFormat getFormat() {
         return _format;
@@ -103,12 +111,10 @@ public class DefaultLotroGame implements LotroGame {
         _winReason = reason;
         if (_gameState != null)
             _gameState.sendMessage(_winnerPlayerId + " is the winner due to: " + reason);
-        if (_gameState != null)
-            _gameState.gameFinished();
-        if (_gameResultListener != null) {
+        for (GameResultListener gameResultListener : _gameResultListeners) {
             Set<String> losers = new HashSet<String>(_allPlayers);
             losers.remove(_winnerPlayerId);
-            _gameResultListener.gameFinished(_winnerPlayerId, losers, reason);
+            gameResultListener.gameFinished(_winnerPlayerId, losers, reason);
         }
     }
 

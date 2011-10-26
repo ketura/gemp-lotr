@@ -32,12 +32,11 @@ public class LotroGameMediator {
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
     private ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
 
-    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, GameResultListener gameResultListener) {
+    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library) {
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
-        _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
 
         for (LotroGameParticipant participant : participants) {
             String participantId = participant.getPlayerId();
@@ -45,7 +44,26 @@ public class LotroGameMediator {
             _playerClocks.put(participantId, 0);
             _playersPlaying.add(participantId);
         }
-        _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, gameResultListener, library);
+
+        _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
+
+        final HashMap<String, GatheringParticipantCommunicationChannel> recordingChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
+        for (String playerId : _playersPlaying) {
+            final GatheringParticipantCommunicationChannel playerRecording = new GatheringParticipantCommunicationChannel(playerId);
+            _lotroGame.addGameStateListener(playerId, playerRecording);
+            recordingChannels.put(playerId, playerRecording);
+        }
+
+        _lotroGame.addGameResultListener(
+                new GameRecording(recordingChannels));
+    }
+
+    public void addGameResultListener(GameResultListener listener) {
+        _lotroGame.addGameResultListener(listener);
+    }
+
+    public void removeGameResultListener(GameResultListener listener) {
+        _lotroGame.removeGameResultListener(listener);
     }
 
     public String getWinner() {
