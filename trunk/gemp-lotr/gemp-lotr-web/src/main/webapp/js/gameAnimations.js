@@ -697,6 +697,15 @@ var GameAnimations = Class.extend({
                         }
                     }
 
+                    var fellowshipArchery = element.getAttribute("fellowshipArchery");
+                    var shadowArchery = element.getAttribute("shadowArchery");
+                    var moveCount = element.getAttribute("moveCount");
+                    var moveLimit = element.getAttribute("moveLimit");
+
+                    $(".fpArchery").html(fellowshipArchery);
+                    $(".shadowArchery").html(shadowArchery);
+                    $(".move").html(moveCount + "/" + moveLimit);
+
                     var playerZones = element.getElementsByTagName("playerZones");
                     for (var i = 0; i < playerZones.length; i++) {
                         var playerZone = playerZones[i];
