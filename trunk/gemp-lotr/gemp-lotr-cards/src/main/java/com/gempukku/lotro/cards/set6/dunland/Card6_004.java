@@ -11,6 +11,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -34,20 +36,26 @@ public class Card6_004 extends AbstractMinion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, 2, Culture.DUNLAND, Race.MAN, Filters.not(self))) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new PreventableEffect(action,
                             new TakeControlOfASiteEffect(self, playerId),
                             game.getGameState().getCurrentPlayerId(),
-                            new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 2) {
+                            new PreventableEffect.PreventionCost() {
                                 @Override
-                                public String getText(LotroGame game) {
-                                    return "Discard 2 cards from hand";
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                    return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 2) {
+                                        @Override
+                                        public String getText(LotroGame game) {
+                                            return "Discard 2 cards from hand";
+                                        }
+                                    };
                                 }
-                            }));
+                            }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

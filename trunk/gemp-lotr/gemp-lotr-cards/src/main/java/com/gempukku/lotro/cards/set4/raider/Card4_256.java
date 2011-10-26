@@ -9,8 +9,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,16 +45,22 @@ public class Card4_256 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSpot(game, 7, Filters.type(CardType.COMPANION))
                 && PlayConditions.canCardAssignToSkirmish(self, game, self)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new PreventableEffect(action,
                             new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)), self),
                             game.getGameState().getCurrentPlayerId(),
-                            new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)))));
+                            new PreventableEffect.PreventionCost() {
+                                @Override
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String fpPlayerId) {
+                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)));
+                                }
+                            }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

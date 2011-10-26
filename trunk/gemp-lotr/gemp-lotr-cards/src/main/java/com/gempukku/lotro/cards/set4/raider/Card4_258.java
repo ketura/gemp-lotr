@@ -9,9 +9,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +38,7 @@ public class Card4_258 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))
                 && PlayConditions.canSpot(game, 5, Filters.type(CardType.COMPANION))) {
@@ -47,7 +49,13 @@ public class Card4_258 extends AbstractMinion {
                     new PreventableEffect(action,
                             new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)), self),
                             game.getGameState().getCurrentPlayerId(),
-                            new AddTwilightEffect(self, 4)));
+                            new PreventableEffect.PreventionCost() {
+                                @Override
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                    return new AddTwilightEffect(self, 4);
+                                }
+                            }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

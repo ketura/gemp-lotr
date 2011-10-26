@@ -14,6 +14,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.timing.Effect;
 
 /**
  * Set: Battle of Helm's Deep
@@ -47,7 +49,13 @@ public class Card5_021 extends AbstractEvent {
                                 return "Discard a minion";
                             }
                         }, GameUtils.getOpponents(game, playerId),
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION)));
+                        new PreventableEffect.PreventionCost() {
+                            @Override
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new ChooseAndExertCharactersEffect(subAction, playerId, 1, 1, 2, CardType.MINION);
+                            }
+                        }
+                ));
         return action;
     }
 }

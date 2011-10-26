@@ -14,9 +14,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +48,7 @@ public class Card5_100 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfExert(self, 2, game)
                 && PlayConditions.canSpot(game, Culture.SAURON, Race.ORC, Filters.not(self))) {
@@ -59,7 +61,13 @@ public class Card5_100 extends AbstractMinion {
                     new PreventableEffect(action,
                             new DrawCardEffect(playerId, 3),
                             game.getGameState().getCurrentPlayerId(),
-                            new AddBurdenEffect(self, 2)));
+                            new PreventableEffect.PreventionCost() {
+                                @Override
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                    return new AddBurdenEffect(self, 2);
+                                }
+                            }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

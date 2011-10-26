@@ -56,9 +56,4 @@ public abstract class ForEachTwilightTokenYouSpotEffect implements Effect {
     public boolean wasCarriedOut() {
         return true;
     }
-
-    @Override
-    public void reset() {
-
-    }
 }

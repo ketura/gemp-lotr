@@ -11,8 +11,10 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 /**
  * Set: The Two Towers
@@ -39,7 +41,13 @@ public class Card4_259 extends AbstractOldEvent {
                                 new PreventableEffect(action,
                                         new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)), card),
                                         game.getGameState().getCurrentPlayerId(),
-                                        new AddBurdenEffect(self, 1)));
+                                        new PreventableEffect.PreventionCost() {
+                                            @Override
+                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                return new AddBurdenEffect(self, 1);
+                                            }
+                                        }
+                                ));
                     }
                 });
         return action;

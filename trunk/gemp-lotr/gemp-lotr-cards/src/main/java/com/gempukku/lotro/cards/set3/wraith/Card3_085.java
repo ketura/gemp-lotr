@@ -11,7 +11,9 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -60,7 +62,13 @@ public class Card3_085 extends AbstractOldEvent {
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                        new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 2, 2, Filters.culture(Culture.GANDALF))));
+                        new PreventableEffect.PreventionCost() {
+                            @Override
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 2, 2, Filters.culture(Culture.GANDALF));
+                            }
+                        }
+                ));
         return action;
     }
 }

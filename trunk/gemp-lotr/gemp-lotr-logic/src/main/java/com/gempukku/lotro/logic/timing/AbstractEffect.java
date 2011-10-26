@@ -37,12 +37,6 @@ public abstract class AbstractEffect implements Effect {
         return _successful;
     }
 
-    @Override
-    public void reset() {
-        _carriedOut = null;
-        _successful = null;
-    }
-
     protected final String getAppendedTextNames(Collection<PhysicalCard> cards) {
         StringBuilder sb = new StringBuilder();
         for (PhysicalCard card : cards)

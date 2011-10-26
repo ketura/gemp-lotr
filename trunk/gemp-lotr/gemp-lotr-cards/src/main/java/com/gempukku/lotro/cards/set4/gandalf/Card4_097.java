@@ -10,7 +10,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Arrays;
 
@@ -36,8 +38,8 @@ public class Card4_097 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayEventAction action = new PlayEventAction(self);
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
                         new AddUntilEndOfPhaseActionProxyEffect(
@@ -48,10 +50,15 @@ public class Card4_097 extends AbstractOldEvent {
                             }
                         },
                         Arrays.asList(GameUtils.getOpponents(game, playerId)),
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)) {
+                        new PreventableEffect.PreventionCost() {
                             @Override
-                            public String getText(LotroGame game) {
-                                return "Make fellowship player wound a minion";
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String shadowPlayerId) {
+                                return new ChooseAndWoundCharactersEffect(subAction, playerId, 1, 1, Filters.type(CardType.MINION)) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Make fellowship player wound a minion";
+                                    }
+                                };
                             }
                         }
                 ));

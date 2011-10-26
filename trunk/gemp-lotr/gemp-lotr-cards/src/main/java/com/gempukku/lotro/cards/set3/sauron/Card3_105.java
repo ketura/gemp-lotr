@@ -11,6 +11,8 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 
@@ -40,8 +42,8 @@ public class Card3_105 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayEventAction action = new PlayEventAction(self);
+    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+        final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.name("Bilbo")) {
@@ -50,7 +52,13 @@ public class Card3_105 extends AbstractOldEvent {
                                 return "Discard Bilbo";
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                        new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION))));
+                        new PreventableEffect.PreventionCost() {
+                            @Override
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION));
+                            }
+                        }
+                ));
         return action;
     }
 }

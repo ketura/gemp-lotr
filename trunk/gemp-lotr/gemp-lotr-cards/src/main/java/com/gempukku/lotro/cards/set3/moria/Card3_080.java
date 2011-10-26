@@ -11,7 +11,9 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -62,10 +64,15 @@ public class Card3_080 extends AbstractOldEvent {
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Boromir")));
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                        new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.POSSESSION)) {
+                        new PreventableEffect.PreventionCost() {
                             @Override
-                            public String getText(LotroGame game) {
-                                return "Discard 2 Free People possessions";
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.POSSESSION)) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Discard 2 Free People possessions";
+                                    }
+                                };
                             }
                         }
                 ));

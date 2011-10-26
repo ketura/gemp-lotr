@@ -56,9 +56,4 @@ public abstract class ForEachBurdenYouSpotEffect implements Effect {
     public boolean wasCarriedOut() {
         return true;
     }
-
-    @Override
-    public void reset() {
-
-    }
 }

@@ -11,7 +11,9 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 /**
@@ -52,7 +54,13 @@ public class Card5_003 extends AbstractEvent {
                                 return "Shuffle hand into draw deck and draw 8 cards";
                             }
                         }, game.getGameState().getCurrentPlayerId(),
-                        new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 3)));
+                        new PreventableEffect.PreventionCost() {
+                            @Override
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 3);
+                            }
+                        }
+                ));
         return action;
     }
 }
