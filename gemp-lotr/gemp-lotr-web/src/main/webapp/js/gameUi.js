@@ -784,14 +784,14 @@ var GempLotrGameUI = Class.extend({
                 var maxDimension = Math.max(width, height);
                 var borderWidth = Math.floor(maxDimension / 30);
 
-                var size = Math.floor(maxDimension / 5);
+                var size = Math.floor(maxDimension / 10);
                 var fontPerc = (size * 7) + "%";
                 var borderRadius = Math.ceil(size / 5) + "px";
 
                 if (cardElem.data("card").strength != null)
-                    $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: width - size - borderWidth - 2 + "px", top: height - size - borderWidth - 2 + "px", width: size, height: size, display: ""});
+                    $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: borderWidth * 1.4 + "px", top: maxDimension * 0.64 + "px", width: size, height: size, display: ""});
                 else
-                    $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: width - size - borderWidth - 2 + "px", top: height - size - borderWidth - 2 + "px", width: size, height: size, display: "none"});
+                    $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: borderWidth * 1.4 + "px", top: maxDimension * 0.64 + "px", width: size, height: size, display: "none"});
             }
         };
 
