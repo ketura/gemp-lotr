@@ -43,9 +43,4 @@ public abstract class AbstractSuccessfulEffect implements Effect {
         else
             return sb.substring(0, sb.length() - 2);
     }
-
-    @Override
-    public void reset() {
-
-    }
 }

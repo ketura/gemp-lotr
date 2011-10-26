@@ -10,8 +10,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 /**
  * Set: The Two Towers
@@ -49,7 +51,7 @@ public class Card4_143 extends AbstractOldEvent {
                         action.appendEffect(
                                 new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                     @Override
-                                    protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                                    protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                                         Race race = companion.getBlueprint().getRace();
                                         AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, companion, minion);
                                         if (race == Race.HOBBIT) {
@@ -59,7 +61,13 @@ public class Card4_143 extends AbstractOldEvent {
                                             action.insertEffect(
                                                     new PreventableEffect(action,
                                                             assignmentEffect, game.getGameState().getCurrentPlayerId(),
-                                                            new ExertCharactersEffect(self, companion)));
+                                                            new PreventableEffect.PreventionCost() {
+                                                                @Override
+                                                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                                    return new ExertCharactersEffect(self, companion);
+                                                                }
+                                                            }
+                                                    ));
                                         }
                                     }
                                 });

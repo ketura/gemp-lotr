@@ -10,8 +10,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 
@@ -53,7 +55,13 @@ public class Card2_103 extends AbstractOldEvent {
                                 new PreventableEffect(action,
                                         new WoundCharactersEffect(self, card),
                                         Collections.singletonList(card.getOwner()),
-                                        new RemoveTwilightEffect(3)));
+                                        new PreventableEffect.PreventionCost() {
+                                            @Override
+                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                return new RemoveTwilightEffect(3);
+                                            }
+                                        }
+                                ));
                     }
                 });
         return action;

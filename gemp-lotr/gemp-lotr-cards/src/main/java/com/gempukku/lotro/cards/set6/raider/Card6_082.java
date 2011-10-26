@@ -9,7 +9,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 /**
  * Set: Ents of Fangorn
@@ -32,7 +34,7 @@ public class Card6_082 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
@@ -43,7 +45,13 @@ public class Card6_082 extends AbstractEvent {
                             }
                         },
                         game.getGameState().getCurrentPlayerId(),
-                        new AddTwilightEffect(self, 4)));
+                        new PreventableEffect.PreventionCost() {
+                            @Override
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new AddTwilightEffect(self, 4);
+                            }
+                        }
+                ));
         return action;
     }
 }

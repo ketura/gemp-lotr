@@ -11,8 +11,10 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,12 +49,18 @@ public class Card5_089 extends AbstractAttachableFPPossession {
                     new PreventableEffect(action,
                             new CancelSkirmishEffect(self.getAttachedTo()),
                             GameUtils.getOpponents(game, playerId),
-                            new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmish) {
+                            new PreventableEffect.PreventionCost() {
                                 @Override
-                                public String getText(LotroGame game) {
-                                    return "Exert minion in skirmish";
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                    return new ChooseAndExertCharactersEffect(subAction, playerId, 1, 1, CardType.MINION, Filters.inSkirmish) {
+                                        @Override
+                                        public String getText(LotroGame game) {
+                                            return "Exert minion in skirmish";
+                                        }
+                                    };
                                 }
-                            }));
+                            }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

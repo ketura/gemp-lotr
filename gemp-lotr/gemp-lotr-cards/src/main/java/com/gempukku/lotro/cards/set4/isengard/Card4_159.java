@@ -13,10 +13,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -76,7 +78,13 @@ public class Card4_159 extends AbstractAttachable {
                                     new PreventableEffect(action,
                                             new AssignmentEffect(playerId, self.getAttachedTo(), minion),
                                             game.getGameState().getCurrentPlayerId(),
-                                            new ExertCharactersEffect(self, self.getAttachedTo())));
+                                            new PreventableEffect.PreventionCost() {
+                                                @Override
+                                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                    return new ExertCharactersEffect(self, self.getAttachedTo());
+                                                }
+                                            }
+                                    ));
                         }
                     });
             action.appendCost(

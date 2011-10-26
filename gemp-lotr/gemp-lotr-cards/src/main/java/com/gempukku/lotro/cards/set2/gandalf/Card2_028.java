@@ -10,8 +10,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Arrays;
 
@@ -55,7 +57,13 @@ public class Card2_028 extends AbstractOldEvent {
                             }
                         },
                         Arrays.asList(GameUtils.getOpponents(game, playerId)),
-                        new RemoveTwilightEffect(3)));
+                        new PreventableEffect.PreventionCost() {
+                            @Override
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new RemoveTwilightEffect(3);
+                            }
+                        }
+                ));
         return action;
     }
 

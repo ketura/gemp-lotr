@@ -14,8 +14,10 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +62,13 @@ public class Card4_300 extends AbstractAttachable {
                     new PreventableEffect(action,
                             new CancelSkirmishEffect(Filters.hasAttached(self)),
                             GameUtils.getOpponents(game, playerId),
-                            new RemoveTwilightEffect(1)));
+                            new PreventableEffect.PreventionCost() {
+                                @Override
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                    return new RemoveTwilightEffect(1);
+                                }
+                            }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

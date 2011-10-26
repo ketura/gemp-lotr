@@ -9,9 +9,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,12 +47,18 @@ public class Card4_164 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                        protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                             action.insertEffect(
                                     new PreventableEffect(action,
                                             new AssignmentEffect(playerId, companion, self),
                                             game.getGameState().getCurrentPlayerId(),
-                                            new ExertCharactersEffect(self, companion)));
+                                            new PreventableEffect.PreventionCost() {
+                                                @Override
+                                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                    return new ExertCharactersEffect(self, companion);
+                                                }
+                                            }
+                                    ));
                         }
                     });
             return Collections.singletonList(action);

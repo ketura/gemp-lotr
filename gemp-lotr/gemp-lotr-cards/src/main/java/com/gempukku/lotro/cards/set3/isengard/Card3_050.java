@@ -12,7 +12,9 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 
@@ -52,7 +54,13 @@ public class Card3_050 extends AbstractOldEvent {
                                 new PreventableEffect(action,
                                         new ExhaustCharacterEffect(self, action, aragorn),
                                         Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-                                        new AddBurdenEffect(self, 2)));
+                                        new PreventableEffect.PreventionCost() {
+                                            @Override
+                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                return new AddBurdenEffect(self, 2);
+                                            }
+                                        }
+                                ));
                     }
                 });
         return action;

@@ -62,10 +62,4 @@ public interface Effect {
      * @return
      */
     public boolean wasCarriedOut();
-
-    /**
-     * Resets the history and any state this effect might have, to be able to be
-     * played again (for example multiple players trying to prevent the same effect.
-     */
-    public void reset();
 }
