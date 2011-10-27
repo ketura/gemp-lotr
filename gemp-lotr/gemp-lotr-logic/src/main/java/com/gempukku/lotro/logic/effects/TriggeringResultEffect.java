@@ -9,17 +9,23 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class TriggeringResultEffect extends AbstractSuccessfulEffect {
+    private Type _effectType;
     private EffectResult _effectResult;
     private String _text;
 
     public TriggeringResultEffect(EffectResult effectResult, String text) {
+        this(null, effectResult, text);
+    }
+
+    public TriggeringResultEffect(Effect.Type effectType, EffectResult effectResult, String text) {
+        _effectType = effectType;
         _effectResult = effectResult;
         _text = text;
     }
 
     @Override
     public Effect.Type getType() {
-        return null;
+        return _effectType;
     }
 
     @Override
