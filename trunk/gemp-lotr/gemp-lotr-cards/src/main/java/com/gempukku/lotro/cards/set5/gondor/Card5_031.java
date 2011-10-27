@@ -2,14 +2,13 @@ package com.gempukku.lotro.cards.set5.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.AssignmentEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
@@ -54,13 +53,7 @@ public class Card5_031 extends AbstractCompanion {
                 Filters.and(CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION)))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.insertCost(
-                                    new AssignmentEffect(playerId, self, card));
-                        }
-                    });
+                    new ChooseAndAssignMinionToCompanionEffect(action, playerId, self, CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION)));
             action.appendEffect(
                     new HealCharactersEffect(self, self));
             return Collections.singletonList(action);

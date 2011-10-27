@@ -71,7 +71,7 @@ public class Card4_159 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, self.getAttachedTo())) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard minion) {
                             action.appendEffect(

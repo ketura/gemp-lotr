@@ -29,7 +29,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     @Override
-    protected Filter getExtraFilter() {
+    protected Filter getExtraFilter(LotroGame game) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

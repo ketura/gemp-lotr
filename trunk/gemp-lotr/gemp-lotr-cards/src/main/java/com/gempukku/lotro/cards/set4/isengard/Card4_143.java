@@ -49,7 +49,7 @@ public class Card4_143 extends AbstractOldEvent {
                     @Override
                     protected void forEachCardExertedCallback(final PhysicalCard minion) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                                new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion, Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, minion)) {
                                     @Override
                                     protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                                         Race race = companion.getBlueprint().getRace();

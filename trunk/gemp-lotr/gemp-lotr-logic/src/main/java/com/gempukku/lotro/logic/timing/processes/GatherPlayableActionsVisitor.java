@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.timing.processes;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -21,9 +22,18 @@ public class GatherPlayableActionsVisitor extends CompletePhysicalCardVisitor {
 
     @Override
     protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-        List<? extends Action> list = physicalCard.getBlueprint().getPhaseActions(_playerId, _game, physicalCard);
-        if (list != null) {
-            for (Action action : list) {
+        List<? extends Action> normalActions = physicalCard.getBlueprint().getPhaseActions(_playerId, _game, physicalCard);
+        if (normalActions != null) {
+            for (Action action : normalActions) {
+                if (action != null)
+                    _actions.add(action);
+                else
+                    System.out.println("Null action from: " + physicalCard.getBlueprint().getName());
+            }
+        }
+        final List<? extends ActivateCardAction> extraActions = _game.getModifiersQuerying().getExtraPhaseActions(_game.getGameState(), physicalCard);
+        if (extraActions != null) {
+            for (Action action : extraActions) {
                 if (action != null)
                     _actions.add(action);
                 else

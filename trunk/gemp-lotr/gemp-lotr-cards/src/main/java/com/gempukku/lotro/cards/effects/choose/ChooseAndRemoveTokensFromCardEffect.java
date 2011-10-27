@@ -19,7 +19,7 @@ public class ChooseAndRemoveTokensFromCardEffect extends ChooseActiveCardEffect 
     }
 
     @Override
-    protected Filter getExtraFilter() {
+    protected Filter getExtraFilter(LotroGame game) {
         if (_token != null)
             return Filters.hasToken(_token, _count);
         else

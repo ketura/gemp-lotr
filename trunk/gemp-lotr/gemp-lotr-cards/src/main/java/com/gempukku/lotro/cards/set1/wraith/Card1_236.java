@@ -2,13 +2,12 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignCharacterToMinionEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.AssignmentEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -39,13 +38,7 @@ public class Card1_236 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose a companion (except the Ring-Bearer)", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard companion) {
-                                action.appendEffect(
-                                        new AssignmentEffect(playerId, companion, self));
-                            }
-                        });
+                        new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
             }
             return Collections.singletonList(action);
         }

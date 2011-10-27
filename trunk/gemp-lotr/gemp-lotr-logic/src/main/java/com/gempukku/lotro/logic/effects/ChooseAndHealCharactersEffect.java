@@ -33,7 +33,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     @Override
-    protected Filter getExtraFilter() {
+    protected Filter getExtraFilter(LotroGame game) {
         return Filters.and(
                 Filters.wounded,
                 new Filter() {

@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.*;
@@ -428,6 +429,21 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (modifier.shouldSkipPhase(gameState, this, phase, playerId))
                 return true;
         return false;
+    }
+
+    @Override
+    public List<? extends ActivateCardAction> getExtraPhaseActions(GameState gameState, PhysicalCard target) {
+        List<ActivateCardAction> activateCardActions = new LinkedList<ActivateCardAction>();
+
+        for (Modifier modifier : getModifiers(ModifierEffect.EXTRA_ACTION_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, target, modifier)) {
+                List<? extends ActivateCardAction> actions = modifier.getExtraPhaseAction(gameState, this, target);
+                if (actions != null)
+                    activateCardActions.addAll(actions);
+            }
+        }
+
+        return activateCardActions;
     }
 
     @Override

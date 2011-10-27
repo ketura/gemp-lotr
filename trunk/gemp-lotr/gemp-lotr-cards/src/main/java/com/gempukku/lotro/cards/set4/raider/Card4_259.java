@@ -33,8 +33,9 @@ public class Card4_259 extends AbstractOldEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
+        final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose Easterling", Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW), Filters.keyword(Keyword.EASTERLING)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose Easterling", Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, ringBearer), Filters.keyword(Keyword.EASTERLING)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
