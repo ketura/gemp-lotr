@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -86,7 +87,7 @@ public class PlaySiteEffect extends AbstractEffect {
             }
 
             sitePlayedCallback(newSite);
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(Collections.singleton(new PlayCardResult(newSite, null)), true, true);
         }
         return new FullEffectResult(null, false, false);
     }
