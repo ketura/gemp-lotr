@@ -58,6 +58,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
             for (PhysicalCard card : hand)
                 subAction.appendEffect(new StackCardFromHandEffect(card, _stackOn));
             game.getActionsEnvironment().addActionToStack(subAction);
+            stackFromHandCallback(hand);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose cards to stack", hand, _minimum, _maximum) {
@@ -68,10 +69,15 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
                             for (PhysicalCard card : cards)
                                 subAction.appendEffect(new StackCardFromHandEffect(card, _stackOn));
                             game.getActionsEnvironment().addActionToStack(subAction);
+                            stackFromHandCallback(cards);
                         }
                     });
         }
 
         return new FullEffectResult(null, success, success);
+    }
+
+    public void stackFromHandCallback(Collection<PhysicalCard> cardsStacked) {
+
     }
 }
