@@ -108,7 +108,7 @@ public class DefaultLotroGame implements LotroGame {
     public void playerWon(String playerId, String reason) {
         // Any remaining players have lost
         Set<String> losers = new HashSet<String>(_allPlayers);
-        losers.removeAll(losers);
+        losers.removeAll(_losers.keySet());
         losers.remove(playerId);
 
         for (String loser : losers)
