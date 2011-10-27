@@ -75,8 +75,16 @@ public class PlayConditions {
                 && twilightCost <= gameState.getTwilightPool();
     }
 
+    public static boolean canUseStackedFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
+        return (phase == null || gameState.getCurrentPhase() == phase) && self.getZone() == Zone.STACKED;
+    }
+
     public static boolean canUseSiteDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
         return (phase == null || gameState.getCurrentPhase() == phase) && (gameState.getCurrentSite() == self);
+    }
+
+    public static boolean stackedOn(PhysicalCard card, LotroGame game, Filterable... filters) {
+        return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), card.getStackedOn());
     }
 
     public static boolean checkUniqueness(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
