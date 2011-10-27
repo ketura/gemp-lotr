@@ -552,7 +552,8 @@ var GameAnimations = Class.extend({
                     var cardId = element.getAttribute("cardId");
 
                     $(".card:cardId(" + cardId + ")").each(function() {
-                        $(this).data("card").skirmish = false;
+                        var cardData = $(this).data("card");
+                        delete cardData.skirmish;
                     });
 
                     next();

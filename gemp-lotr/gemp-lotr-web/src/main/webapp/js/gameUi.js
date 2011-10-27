@@ -396,7 +396,7 @@ var GempLotrGameUI = Class.extend({
         var currentPlayerTurn = (this.currentPlayerId == this.bottomPlayerId);
 
         if (this.advPathGroup != null) {
-            this.statsDiv.css({position: "absolute", left: padding + "px", top: height - (padding * 2) - chatHeight - 34 + "px", width: advPathWidth, height: 34});
+            this.statsDiv.css({position: "absolute", left: padding + "px", top: height - (padding * 2) - chatHeight - 34 + "px", width: advPathWidth - 4 , height: 30});
 
             this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);

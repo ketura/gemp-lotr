@@ -685,6 +685,11 @@ public class GameState {
                     startAffectingStacked(game, stackedCard);
     }
 
+    public void reapplyAffectingForCard(LotroGame game, PhysicalCard card) {
+        ((PhysicalCardImpl) card).stopAffectingGame();
+        ((PhysicalCardImpl) card).startAffectingGame(game);
+    }
+
     public void stopAffectingCardsForCurrentPlayer() {
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getCardType() != CardType.SITE)
