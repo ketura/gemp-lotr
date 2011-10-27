@@ -2,11 +2,11 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
@@ -30,13 +30,7 @@ public class Card1_171 extends AbstractOldEvent {
                     @Override
                     protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
-                                    @Override
-                                    protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
-                                        action.appendEffect(
-                                                new AssignmentEffect(playerId, companion, moriaOrc));
-                                    }
-                                });
+                                new ChooseAndAssignMinionToCompanionEffect(action, playerId, companion, Culture.MORIA, Race.ORC));
                     }
                 }
         );

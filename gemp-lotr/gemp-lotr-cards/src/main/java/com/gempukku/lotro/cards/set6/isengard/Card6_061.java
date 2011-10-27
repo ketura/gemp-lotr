@@ -2,14 +2,13 @@ package com.gempukku.lotro.cards.set6.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.AssignmentEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -56,13 +55,7 @@ public class Card6_061 extends AbstractAttachable {
                 && Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ISENGARD minion", Culture.ISENGARD, CardType.MINION, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW), Filters.lessStrengthThan(self.getAttachedTo())) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.insertEffect(
-                                    new AssignmentEffect(playerId, self.getAttachedTo(), card));
-                        }
-                    });
+                    new ChooseAndAssignMinionToCompanionEffect(action, playerId, self.getAttachedTo(), Culture.ISENGARD, CardType.MINION, Filters.lessStrengthThan(self.getAttachedTo())));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

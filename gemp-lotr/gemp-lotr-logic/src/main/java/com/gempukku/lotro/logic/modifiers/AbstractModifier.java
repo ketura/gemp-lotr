@@ -8,6 +8,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
@@ -160,6 +161,11 @@ public abstract class AbstractModifier implements Modifier {
     @Override
     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
         return true;
+    }
+
+    @Override
+    public List<? extends ActivateCardAction> getExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return null;
     }
 
     @Override

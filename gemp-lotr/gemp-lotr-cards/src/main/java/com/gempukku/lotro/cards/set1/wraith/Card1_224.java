@@ -4,13 +4,13 @@ import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -55,7 +55,8 @@ public class Card1_224 extends AbstractResponseOldEvent {
                                             @Override
                                             protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
                                                 PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                                action.appendEffect(new AssignmentEffect(playerId, ringBearer, nazgul));
+                                                action.appendEffect(
+                                                        new ChooseAndAssignMinionToCompanionEffect(action, playerId, ringBearer, Race.NAZGUL));
                                                 action.appendEffect(
                                                         new AddUntilEndOfPhaseModifierEffect(
                                                                 new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));

@@ -139,6 +139,23 @@ public class Filters {
         };
     }
 
+    public static Filter canBeAssignedToSkirmishByEffectAgainst(final Side sidePlayer, final PhysicalCard against) {
+        return Filters.and(
+                canBeAssignedToSkirmishByEffect(sidePlayer),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        if (against.getBlueprint().getSide() == physicalCard.getBlueprint().getSide())
+                            return false;
+
+                        if (against.getBlueprint().getSide() == Side.FREE_PEOPLE)
+                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(against, Collections.singletonList(physicalCard)));
+                        else
+                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(physicalCard, Collections.singletonList(against)));
+                    }
+                });
+    }
+
     public static Filter siteBlock(final Block block) {
         return new Filter() {
             @Override

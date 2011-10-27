@@ -2,13 +2,12 @@ package com.gempukku.lotro.cards.set4.dunland;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignCharacterToMinionEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.AssignmentEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -37,13 +36,7 @@ public class Card4_018 extends AbstractMinion {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard ally) {
-                            action.appendEffect(
-                                    new AssignmentEffect(playerId, ally, self));
-                        }
-                    });
+                    new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;
