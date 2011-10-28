@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.set7.dwarven;
+package com.gempukku.lotro.cards.set7.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
