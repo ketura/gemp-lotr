@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,10 +46,11 @@ public class Card6_021 extends AbstractAttachableFPPossession {
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, playerId, false) {
                         @Override
-                        protected void cardDiscardedCallback(PhysicalCard card) {
-                            if (card.getBlueprint().getCulture() == Culture.ELVEN)
-                                action.appendEffect(
-                                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+                        protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                            for (PhysicalCard card : cards)
+                                if (card.getBlueprint().getCulture() == Culture.ELVEN)
+                                    action.appendEffect(
+                                            new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
                         }
                     });
             return Collections.singletonList(action);

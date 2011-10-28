@@ -15,6 +15,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,10 +52,11 @@ public class Card6_022 extends AbstractCompanion {
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, playerId, false) {
                         @Override
-                        protected void cardDiscardedCallback(PhysicalCard card) {
-                            if (card.getBlueprint().getCulture() == Culture.ELVEN)
-                                action.appendEffect(
-                                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -2, CardType.MINION, Filters.inSkirmishAgainst(self)));
+                        protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                            for (PhysicalCard card : cards)
+                                if (card.getBlueprint().getCulture() == Culture.ELVEN)
+                                    action.appendEffect(
+                                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -2, CardType.MINION, Filters.inSkirmishAgainst(self)));
                         }
                     });
             return Collections.singletonList(action);
