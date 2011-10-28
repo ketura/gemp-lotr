@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,7 +23,7 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
         _source = source;
     }
 
-    public HealCharactersEffect(PhysicalCard source, Filter filter) {
+    public HealCharactersEffect(PhysicalCard source, Filterable... filter) {
         super(filter);
         _source = source;
     }
