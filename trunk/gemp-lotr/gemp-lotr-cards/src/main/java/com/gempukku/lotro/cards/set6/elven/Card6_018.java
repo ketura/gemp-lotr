@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,10 +57,11 @@ public class Card6_018 extends AbstractAlly {
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, playerId, false) {
                         @Override
-                        protected void cardDiscardedCallback(PhysicalCard card) {
-                            if (card.getBlueprint().getSide() == Side.SHADOW)
-                                action.appendEffect(
-                                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -3, CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
+                        protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                            for (PhysicalCard card : cards)
+                                if (card.getBlueprint().getSide() == Side.SHADOW)
+                                    action.appendEffect(
+                                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -3, CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
                         }
                     });
             return Collections.singletonList(action);

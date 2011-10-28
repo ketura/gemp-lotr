@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,22 +60,23 @@ public class Card6_015 extends AbstractAlly {
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, playerId, false) {
                         @Override
-                        protected void cardDiscardedCallback(final PhysicalCard card) {
-                            if (card.getBlueprint().getCulture() == Culture.ELVEN) {
-                                action.appendEffect(
-                                        new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                                                new MultipleChoiceAwaitingDecision(1, "do you want to take " + GameUtils.getCardLink(card) + " into hand and heal an Elf companion?", new String[]{"Yes", "No"}) {
-                                                    @Override
-                                                    protected void validDecisionMade(int index, String result) {
-                                                        if (result.equals("Yes")) {
-                                                            action.appendEffect(
-                                                                    new PutCardFromDiscardIntoHandEffect(card));
-                                                            action.appendEffect(
-                                                                    new ChooseAndHealCharactersEffect(action, playerId, Race.ELF, CardType.COMPANION));
+                        protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                            for (final PhysicalCard card : cards)
+                                if (card.getBlueprint().getCulture() == Culture.ELVEN) {
+                                    action.appendEffect(
+                                            new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                    new MultipleChoiceAwaitingDecision(1, "do you want to take " + GameUtils.getCardLink(card) + " into hand and heal an Elf companion?", new String[]{"Yes", "No"}) {
+                                                        @Override
+                                                        protected void validDecisionMade(int index, String result) {
+                                                            if (result.equals("Yes")) {
+                                                                action.appendEffect(
+                                                                        new PutCardFromDiscardIntoHandEffect(card));
+                                                                action.appendEffect(
+                                                                        new ChooseAndHealCharactersEffect(action, playerId, Race.ELF, CardType.COMPANION));
+                                                            }
                                                         }
-                                                    }
-                                                }));
-                            }
+                                                    }));
+                                }
                         }
                     });
             return Collections.singletonList(action);
