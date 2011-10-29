@@ -49,7 +49,7 @@ public class GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, start_date, end_date from game_history where winner=? or loser=? order by end_date deck limit ?, ?");
+                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
                 try {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
