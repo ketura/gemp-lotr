@@ -266,6 +266,15 @@ var GempLotrGameUI = Class.extend({
 
     clickCardFunction: function(event) {
         var tar = $(event.target);
+
+        if (tar.hasClass("cardHint")) {
+            var blueprintId = tar.attr("value");
+            var card = new Card(blueprintId, "SPECIAL", "hint", "");
+            this.displayCard(card, false);
+            event.stopPropagation();
+            return false;
+        }
+
         if (!this.successfulDrag && this.infoDialog.dialog("isOpen")) {
             this.infoDialog.dialog("close");
             event.stopPropagation();
@@ -287,13 +296,8 @@ var GempLotrGameUI = Class.extend({
                 }
             }
             return false;
-        } else if (tar.hasClass("cardHint")) {
-            var blueprintId = tar.attr("value");
-            var card = new Card(blueprintId, "SPECIAL", "hint", "");
-            this.displayCard(card);
-            event.stopPropagation();
-            return false;
         }
+
         return true;
     },
 
@@ -334,13 +338,13 @@ var GempLotrGameUI = Class.extend({
         return true;
     },
 
-    displayCard: function(card) {
+    displayCard: function(card, extraSpace) {
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'><div style='float: left;'><img src='" + card.imageUrl + "'></div><div id='cardEffects'></div></div>");
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
 
-        var horSpace = 200 + 30;
+        var horSpace = (extraSpace ? 200 : 0) + 30;
         var vertSpace = 45;
 
         if (card.horizontal) {
@@ -354,10 +358,14 @@ var GempLotrGameUI = Class.extend({
     },
 
     displayCardInfo: function(card) {
-        this.displayCard(card);
-
+        var showModifiers = false;
         var cardId = card.cardId;
         if (!this.replayMode && (cardId.length < 4 || cardId.substring(0, 4) != "temp"))
+            showModifiers = true;
+
+        this.displayCard(card, showModifiers);
+
+        if (showModifiers)
             this.getCardModifiersFunction(cardId, this.setCardModifiers);
     },
 
