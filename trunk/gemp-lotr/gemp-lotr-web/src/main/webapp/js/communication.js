@@ -7,12 +7,15 @@ var GempLotrCommunication = Class.extend({
         this.failure = failure;
     },
 
-    startGameSession: function(callback) {
+    getGameHistory: function(start, count, callback) {
         $.ajax({
             type: "GET",
-            url: this.url + "/game/" + getUrlParam("gameId"),
+            url: this.url + "/gameHistory",
             cache: false,
-            data: { participantId: getUrlParam("participantId") },
+            data: {
+                start: start,
+                count: count,
+                participantId: getUrlParam("participantId") },
             success: callback,
             error: this.failure,
             dataType: "xml"
@@ -23,6 +26,17 @@ var GempLotrCommunication = Class.extend({
             type: "GET",
             url: this.url + "/replay/" + replayId,
             cache: false,
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    startGameSession: function(callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/game/" + getUrlParam("gameId"),
+            cache: false,
+            data: { participantId: getUrlParam("participantId") },
             success: callback,
             error: this.failure,
             dataType: "xml"

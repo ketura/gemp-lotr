@@ -155,11 +155,10 @@ public class ServerResource {
         };
     }
 
-    @Path("/gameHistory/{playerId}")
+    @Path("/gameHistory")
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getGameHistory(
-            @PathParam("playerId") String playerId,
             @QueryParam("start") int start,
             @QueryParam("count") int count,
             @QueryParam("participantId") String participantId,
@@ -194,9 +193,9 @@ public class ServerResource {
             historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
             historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
 
-            if (gameHistoryEntry.getWinner().equals(participantId))
+            if (gameHistoryEntry.getWinner().equals(participantId) && gameHistoryEntry.getWinnerRecording() != null)
                 historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getWinnerRecording());
-            else if (gameHistoryEntry.getLoser().equals(participantId))
+            else if (gameHistoryEntry.getLoser().equals(participantId) && gameHistoryEntry.getLoserRecording() != null)
                 historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getLoserRecording());
 
             historyEntry.setAttribute("startTime", String.valueOf(gameHistoryEntry.getStartTime().getTime()));

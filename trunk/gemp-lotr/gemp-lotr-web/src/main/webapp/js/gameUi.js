@@ -67,7 +67,7 @@ var GempLotrGameUI = Class.extend({
 
         this.animations = new GameAnimations(this);
 
-        this.communication = new GempLotrCommunication("/gemp-lotr/server",
+        this.communication = new GempLotrCommunication(url,
                 function(xhr, ajaxOptions, thrownError) {
                     if (thrownError != "abort") {
                         if (xhr != null) {
@@ -642,20 +642,23 @@ var GempLotrGameUI = Class.extend({
         }
 
         if (this.allPlayerIds != null) {
-            var clocks = element.getElementsByTagName("clocks")[0].getElementsByTagName("clock");
-            for (var i = 0; i < clocks.length; i++) {
-                var clock = clocks[i];
-                var participantId = clock.getAttribute("participantId");
-                var index = this.getPlayerIndex(participantId);
+            var clocksXml = element.getElementsByTagName("clocks");
+            if (clocksXml.length > 0) {
+                var clocks = clocksXml[0].getElementsByTagName("clock");
+                for (var i = 0; i < clocks.length; i++) {
+                    var clock = clocks[i];
+                    var participantId = clock.getAttribute("participantId");
+                    var index = this.getPlayerIndex(participantId);
 
-                var value = parseInt(clock.childNodes[0].nodeValue);
+                    var value = parseInt(clock.childNodes[0].nodeValue);
 
-                var sign = (value < 0) ? "-" : "";
-                value = Math.abs(value);
-                var minutes = Math.floor(value / 60);
-                var seconds = value % 60;
+                    var sign = (value < 0) ? "-" : "";
+                    value = Math.abs(value);
+                    var minutes = Math.floor(value / 60);
+                    var seconds = value % 60;
 
-                $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
+                    $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
+                }
             }
         }
 
