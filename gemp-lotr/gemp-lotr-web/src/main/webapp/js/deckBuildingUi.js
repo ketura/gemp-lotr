@@ -339,16 +339,15 @@ var GempLotrDeckBuildingUI = Class.extend({
             return false;
         });
 
+        var width = $(window).width();
+        var height = $(window).height();
+
         this.infoDialog = $("<div></div>")
                 .dialog({
             autoOpen: false,
             closeOnEscape: true,
-            resizable: true,
-            title: "Card information",
-            minHeight: 80,
-            minWidth: 200,
-            width: Math.max(600, width * 0.75),
-            height: Math.max(300, height * 0.75)
+            resizable: false,
+            title: "Card information"
         });
 
         var swipeOptions = {
@@ -395,7 +394,21 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     displayCardInfo: function(card) {
+        this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'><img src='" + card.imageUrl + "'></div>");
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
+
+        var horSpace = 30;
+        var vertSpace = 45;
+
+        if (card.horizontal) {
+            // 500x360
+            this.infoDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(360 + vertSpace, windowHeight)});
+        } else {
+            // 360x500
+            this.infoDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight)});
+        }
         this.infoDialog.dialog("open");
     },
 
