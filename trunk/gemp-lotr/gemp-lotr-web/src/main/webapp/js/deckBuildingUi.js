@@ -362,6 +362,12 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     clickCardFunction: function(event) {
         var tar = $(event.target);
+        if (!this.successfulDrag && this.infoDialog.dialog("isOpen")) {
+            this.infoDialog.dialog("close");
+            event.stopPropagation();
+            return false;
+        }
+
         if (tar.hasClass("actionArea")) {
             tar = tar.parent();
             if (tar.hasClass("borderOverlay")) {
@@ -377,9 +383,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                             this.removeCardFromDeck(selectedCardElem);
                             this.layoutUI(false);
                         }
-                        return false;
+                        event.stopPropagation();
                     }
                 }
+                return false;
             }
         }
         return true;
@@ -417,7 +424,6 @@ var GempLotrDeckBuildingUI = Class.extend({
             this.dragCardData = null;
             this.dragStartX = null;
             this.dragStartY = null;
-
             return false;
         }
         return true;
