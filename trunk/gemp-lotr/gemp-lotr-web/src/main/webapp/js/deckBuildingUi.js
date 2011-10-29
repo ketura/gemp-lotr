@@ -316,28 +316,18 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.selectionFunc = this.addCardToDeck;
 
-        $("body").click(function (event) {
-            var tar = $(event.target);
-            if (tar.hasClass("actionArea")) {
-                tar = tar.parent();
-                if (tar.hasClass("borderOverlay")) {
-                    var selectedCardElem = tar.parent();
-                    if (event.which == 1) {
-                        if (event.shiftKey) {
-                            that.displayCardInfo(selectedCardElem.data("card"));
-                        } else if (selectedCardElem.hasClass("cardInCollection")) {
-                            that.selectionFunc(selectedCardElem.data("card").blueprintId, selectedCardElem.data("card").zone);
-                            that.layoutUI(false);
-                        } else if (selectedCardElem.hasClass("cardInDeck")) {
-                            that.removeCardFromDeck(selectedCardElem);
-                            that.layoutUI(false);
-                        }
-                        return false;
-                    }
-                }
-            }
-            return false;
-        });
+        $("body").click(
+                function (event) {
+                    return that.clickCardFunction(event);
+                });
+        $("body").mousedown(
+                function (event) {
+                    return that.dragStartCardFunction(event);
+                });
+        $("body").mouseup(
+                function (event) {
+                    return that.dragStopCardFunction(event);
+                });
 
         var width = $(window).width();
         var height = $(window).height();
@@ -368,6 +358,69 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.getCollection();
 
         this.checkDeckStatsDirty();
+    },
+
+    clickCardFunction: function(event) {
+        var tar = $(event.target);
+        if (tar.hasClass("actionArea")) {
+            tar = tar.parent();
+            if (tar.hasClass("borderOverlay")) {
+                var selectedCardElem = tar.parent();
+                if (event.which == 1) {
+                    if (!this.successfulDrag) {
+                        if (event.shiftKey) {
+                            this.displayCardInfo(selectedCardElem.data("card"));
+                        } else if (selectedCardElem.hasClass("cardInCollection")) {
+                            this.selectionFunc(selectedCardElem.data("card").blueprintId, selectedCardElem.data("card").zone);
+                            this.layoutUI(false);
+                        } else if (selectedCardElem.hasClass("cardInDeck")) {
+                            this.removeCardFromDeck(selectedCardElem);
+                            this.layoutUI(false);
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    },
+
+    dragCardData: null,
+    dragStartX: null,
+    dragStartY: null,
+    successfulDrag: null,
+
+    dragStartCardFunction: function(event) {
+        this.successfulDrag = false;
+        var tar = $(event.target);
+        if (tar.hasClass("actionArea")) {
+            tar = tar.parent();
+            if (tar.hasClass("borderOverlay")) {
+                var selectedCardElem = tar.parent();
+                if (event.which == 1) {
+                    this.dragCardData = selectedCardElem.data("card");
+                    this.dragStartX = event.clientX;
+                    this.dragStartY = event.clientY;
+                    return false;
+                }
+            }
+        }
+        return true;
+    },
+
+    dragStopCardFunction: function(event) {
+        if (this.dragCardData != null) {
+            if (this.dragStartY - event.clientY >= 20) {
+                this.displayCardInfo(this.dragCardData);
+                this.successfulDrag = true;
+            }
+            this.dragCardData = null;
+            this.dragStartX = null;
+            this.dragStartY = null;
+
+            return false;
+        }
+        return true;
     },
 
     loadDecks: function() {
