@@ -347,8 +347,8 @@ var GempLotrDeckBuildingUI = Class.extend({
             title: "Card information",
             minHeight: 80,
             minWidth: 200,
-            width: 600,
-            height: 300
+            width: Math.max(600, width * 0.75),
+            height: Math.max(300, height * 0.75)
         });
 
         var swipeOptions = {
