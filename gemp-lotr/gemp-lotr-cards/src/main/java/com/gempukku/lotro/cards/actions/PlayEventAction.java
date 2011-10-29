@@ -8,8 +8,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.PlayEventEffect;
-import com.gempukku.lotro.logic.effects.SendMessageEffect;
-import com.gempukku.lotro.logic.effects.SendPlayEventMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -41,8 +39,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _requiresRanger = requiresRanger;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
-        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable()));
-        preCostEffects.add(new SendPlayEventMessageEffect(card));
         appendCost(new PayTwilightCostEffect(card));
         if (card.getZone() == Zone.DECK)
             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
@@ -77,14 +73,16 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     @Override
     public Effect nextEffect(LotroGame game) {
-        if (_preCostIterator.hasNext())
-            return _preCostIterator.next();
-
         if (!_cardRemoved) {
             _cardRemoved = true;
+            game.getGameState().sendMessage(_eventPlayed.getOwner() + " plays " + GameUtils.getCardLink(_eventPlayed) + " from " + _eventPlayed.getZone().getHumanReadable());
             game.getGameState().removeCardsFromZone(_eventPlayed.getOwner(), Collections.singleton(_eventPlayed));
             game.getGameState().addCardToZone(game, _eventPlayed, Zone.VOID);
+            game.getGameState().eventPlayed(_eventPlayed);
         }
+
+        if (_preCostIterator.hasNext())
+            return _preCostIterator.next();
 
         if (!isCostFailed()) {
             Effect cost = getNextCost();
