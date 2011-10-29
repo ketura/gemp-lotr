@@ -266,6 +266,12 @@ var GempLotrGameUI = Class.extend({
 
     clickCardFunction: function(event) {
         var tar = $(event.target);
+        if (!this.successfulDrag && this.infoDialog.dialog("isOpen")) {
+            this.infoDialog.dialog("close");
+            event.stopPropagation();
+            return false;
+        }
+
         if (tar.hasClass("actionArea")) {
             tar = tar.parent();
             if (tar.hasClass("borderOverlay")) {
@@ -276,14 +282,16 @@ var GempLotrGameUI = Class.extend({
                             this.displayCardInfo(selectedCardElem.data("card"));
                         } else if (selectedCardElem.hasClass("selectableCard"))
                             this.selectionFunction(selectedCardElem.data("card").cardId, event);
-                        return false;
+                        event.stopPropagation();
                     }
                 }
             }
+            return false;
         } else if (tar.hasClass("cardHint")) {
             var blueprintId = tar.attr("value");
             var card = new Card(blueprintId, "SPECIAL", "hint", "");
             this.displayCard(card);
+            event.stopPropagation();
             return false;
         }
         return true;
@@ -321,15 +329,27 @@ var GempLotrGameUI = Class.extend({
             this.dragCardData = null;
             this.dragStartX = null;
             this.dragStartY = null;
-
             return false;
         }
         return true;
     },
 
     displayCard: function(card) {
+        this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'><div style='float: left;'><img src='" + card.imageUrl + "'></div><div id='cardEffects'></div></div>");
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
 
+        var horSpace = 200 + 30;
+        var vertSpace = 45;
+
+        if (card.horizontal) {
+            // 500x360
+            this.infoDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(360 + vertSpace, windowHeight)});
+        } else {
+            // 360x500
+            this.infoDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight)});
+        }
         this.infoDialog.dialog("open");
     },
 
@@ -379,12 +399,8 @@ var GempLotrGameUI = Class.extend({
                 .dialog({
             autoOpen: false,
             closeOnEscape: true,
-            resizable: true,
-            title: "Card information",
-            minHeight: 80,
-            minWidth: 200,
-            width: Math.max(600, width * 0.75),
-            height: Math.max(300, height * 0.75)
+            resizable: false,
+            title: "Card information"
         });
 
         var swipeOptions = {
