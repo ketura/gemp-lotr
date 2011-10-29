@@ -204,7 +204,15 @@ var GempLotrGameUI = Class.extend({
 
         $("body").click(
                 function (event) {
-                    that.clickCardFunction(event);
+                    return that.clickCardFunction(event);
+                });
+        $("body").mousedown(
+                function (event) {
+                    return that.dragStartCardFunction(event);
+                });
+        $("body").mouseup(
+                function (event) {
+                    return that.dragStopCardFunction(event);
                 });
     },
 
@@ -263,18 +271,60 @@ var GempLotrGameUI = Class.extend({
             if (tar.hasClass("borderOverlay")) {
                 var selectedCardElem = tar.parent();
                 if (event.which == 1) {
-                    if (event.shiftKey) {
-                        this.displayCardInfo(selectedCardElem.data("card"));
-                    } else if (selectedCardElem.hasClass("selectableCard"))
-                        this.selectionFunction(selectedCardElem.data("card").cardId, event);
+                    if (!this.successfulDrag) {
+                        if (event.shiftKey) {
+                            this.displayCardInfo(selectedCardElem.data("card"));
+                        } else if (selectedCardElem.hasClass("selectableCard"))
+                            this.selectionFunction(selectedCardElem.data("card").cardId, event);
+                        return false;
+                    }
                 }
             }
         } else if (tar.hasClass("cardHint")) {
             var blueprintId = tar.attr("value");
             var card = new Card(blueprintId, "SPECIAL", "hint", "");
             this.displayCard(card);
+            return false;
         }
-        return false;
+        return true;
+    },
+
+    dragCardData: null,
+    dragStartX: null,
+    dragStartY: null,
+    successfulDrag: null,
+
+    dragStartCardFunction: function(event) {
+        this.successfulDrag = false;
+        var tar = $(event.target);
+        if (tar.hasClass("actionArea")) {
+            tar = tar.parent();
+            if (tar.hasClass("borderOverlay")) {
+                var selectedCardElem = tar.parent();
+                if (event.which == 1) {
+                    this.dragCardData = selectedCardElem.data("card");
+                    this.dragStartX = event.clientX;
+                    this.dragStartY = event.clientY;
+                    return false;
+                }
+            }
+        }
+        return true;
+    },
+
+    dragStopCardFunction: function(event) {
+        if (this.dragCardData != null) {
+            if (this.dragStartY - event.clientY >= 20) {
+                this.displayCardInfo(this.dragCardData);
+                this.successfulDrag = true;
+            }
+            this.dragCardData = null;
+            this.dragStartX = null;
+            this.dragStartY = null;
+
+            return false;
+        }
+        return true;
     },
 
     displayCard: function(card) {
