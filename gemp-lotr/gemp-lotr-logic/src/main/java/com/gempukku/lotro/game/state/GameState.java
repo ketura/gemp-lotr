@@ -277,14 +277,20 @@ public class GameState {
     }
 
     public void removeFromSkirmish(PhysicalCard card) {
+        removeFromSkirmish(card, true);
+    }
+
+    private void removeFromSkirmish(PhysicalCard card, boolean notify) {
         if (_skirmish.getFellowshipCharacter() == card) {
             _skirmish.setFellowshipCharacter(null);
-            for (GameStateListener listener : getAllGameStateListeners())
-                listener.removeFromSkirmish(card);
+            if (notify)
+                for (GameStateListener listener : getAllGameStateListeners())
+                    listener.removeFromSkirmish(card);
         }
         if (_skirmish.getShadowCharacters().remove(card)) {
-            for (GameStateListener listener : getAllGameStateListeners())
-                listener.removeFromSkirmish(card);
+            if (notify)
+                for (GameStateListener listener : getAllGameStateListeners())
+                    listener.removeFromSkirmish(card);
         }
     }
 
@@ -321,7 +327,7 @@ public class GameState {
             }
 
             if (_skirmish != null)
-                removeFromSkirmish(card);
+                removeFromSkirmish(card, false);
 
             removeAllTokens(card);
         }
