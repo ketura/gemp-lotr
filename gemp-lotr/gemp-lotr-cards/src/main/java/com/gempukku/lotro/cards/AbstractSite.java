@@ -4,7 +4,12 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+
+import java.util.List;
 
 public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     private int _siteNumber;
@@ -48,5 +53,15 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     @Override
     public int getTwilightCost() {
         return _twilight;
+    }
+
+    @Override
+    public List<ActivateCardAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+        return null;
     }
 }
