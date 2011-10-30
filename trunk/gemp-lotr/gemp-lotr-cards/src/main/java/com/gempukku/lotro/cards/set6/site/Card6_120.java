@@ -12,7 +12,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class Card6_120 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), null, self)
                 && PlayConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId))
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
