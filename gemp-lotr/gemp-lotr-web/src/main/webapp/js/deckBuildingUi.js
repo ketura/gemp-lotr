@@ -175,6 +175,8 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<option value='ARTIFACT'>Artifacts</option>"
                 + "<option value='EVENT'>Events</option>"
                 + "<option value='CONDITION'>Conditions</option>"
+                + "<option value='POSSESSION,ARTIFACT'>Items</option>"
+                + "<option value='COMPANION,ALLY,MINION'>Characters</option>"
                 + "</select>");
         this.filterDiv.append(combos);
 
