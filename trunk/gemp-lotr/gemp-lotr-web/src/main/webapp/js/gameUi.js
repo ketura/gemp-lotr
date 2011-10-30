@@ -667,7 +667,8 @@ var GempLotrGameUI = Class.extend({
             var decision = decisions[0];
             this.animations.processDecision(decision, animate);
         } else {
-            this.animations.updateGameState(animate);
+            if (!this.replayMode)
+                this.animations.updateGameState(animate);
         }
     },
 
