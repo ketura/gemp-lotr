@@ -46,7 +46,7 @@ public class Card5_059 extends AbstractAttachable {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 4));
+                new StrengthModifier(self, Filters.hasAttached(self), 5));
         modifiers.add(
                 new VitalityModifier(self, Filters.hasAttached(self), 3));
         modifiers.add(
