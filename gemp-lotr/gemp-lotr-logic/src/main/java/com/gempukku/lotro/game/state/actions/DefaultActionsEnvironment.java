@@ -6,12 +6,14 @@ import com.gempukku.lotro.game.ActionsEnvironment;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromStackedVisitor;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsVisitor;
+import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 
 import java.util.*;
 
@@ -135,12 +137,18 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _lotroGame.getGameState().iterateActiveTextCards(gatherActions);
 
         List<Action> gatheredActions = gatherActions.getActions();
+        CharacterDeathRule characterDeathRule = new CharacterDeathRule();
+        List<RequiredTriggerAction> killEffects = characterDeathRule.getKillEffects(_lotroGame);
+        if (killEffects != null)
+            gatheredActions.addAll(killEffects);
 
-        for (ActionProxy actionProxy : _actionProxies) {
-            for (EffectResult effectResult : effectResults) {
-                List<? extends Action> actions = actionProxy.getRequiredAfterTriggers(_lotroGame, effectResult);
-                if (actions != null)
-                    gatheredActions.addAll(actions);
+        if (effectResults != null) {
+            for (ActionProxy actionProxy : _actionProxies) {
+                for (EffectResult effectResult : effectResults) {
+                    List<? extends Action> actions = actionProxy.getRequiredAfterTriggers(_lotroGame, effectResult);
+                    if (actions != null)
+                        gatheredActions.addAll(actions);
+                }
             }
         }
 
@@ -155,11 +163,13 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         final List<Action> gatheredActions = gatherActions.getActions();
 
-        for (ActionProxy actionProxy : _actionProxies) {
-            for (EffectResult effectResult : effectResults) {
-                List<? extends Action> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
-                if (actions != null)
-                    gatheredActions.addAll(actions);
+        if (effectResults != null) {
+            for (ActionProxy actionProxy : _actionProxies) {
+                for (EffectResult effectResult : effectResults) {
+                    List<? extends Action> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
+                    if (actions != null)
+                        gatheredActions.addAll(actions);
+                }
             }
         }
 

@@ -112,6 +112,7 @@ public class TurnProcedure {
                 return new StackActionEffect(action);
             }
             if (!_effectPlayed) {
+                _effectPlayed = true;
                 final Collection<? extends EffectResult> effectResults = _effect.playEffect(_game);
                 List<EffectResult> results = new LinkedList<EffectResult>();
                 if (effectResults != null)
@@ -128,18 +129,17 @@ public class TurnProcedure {
 
                 if (_gameStats.updateGameStats(_game))
                     _game.getGameState().sendGameStats(_gameStats);
-                _effectPlayed = true;
+            }
+            if (!_checkedRequiredWhenResponses) {
+                _checkedRequiredWhenResponses = true;
+                List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(_effectResults);
+                if (requiredResponses.size() > 0) {
+                    SystemQueueAction action = new SystemQueueAction();
+                    action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
+                    return new StackActionEffect(action);
+                }
             }
             if (_effectResults != null && _effectResults.size() > 0) {
-                if (!_checkedRequiredWhenResponses) {
-                    _checkedRequiredWhenResponses = true;
-                    List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(_effectResults);
-                    if (requiredResponses.size() > 0) {
-                        SystemQueueAction action = new SystemQueueAction();
-                        action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, _effect, requiredResponses));
-                        return new StackActionEffect(action);
-                    }
-                }
                 if (!_checkedOptionalWhenResponses) {
                     _checkedOptionalWhenResponses = true;
                     SystemQueueAction action = new SystemQueueAction();
