@@ -40,15 +40,18 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                     fps.add(assignment.getFellowshipCharacter());
 
                 SystemQueueAction chooseNextSkirmishAction = new SystemQueueAction();
-                chooseNextSkirmishAction.appendEffect(
-                        new ChooseActiveCardEffect(null, gameState.getCurrentPlayerId(), "Choose next skirmish to resolve", Filters.in(fps)) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                gameState.startSkirmish(card);
+                ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, gameState.getCurrentPlayerId(), "Choose next skirmish to resolve", Filters.in(fps)) {
+                    @Override
+                    protected void cardSelected(LotroGame game, PhysicalCard card) {
+                        gameState.startSkirmish(card);
 
-                                _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));
-                            }
-                        });
+                        _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));
+                    }
+                };
+                chooseNextSkirmish.setShortcut(false);
+
+                chooseNextSkirmishAction.appendEffect(chooseNextSkirmish);
+
                 _game.getActionsEnvironment().addActionToStack(chooseNextSkirmishAction);
             } else {
                 _nextProcess = _followingGameProcess;

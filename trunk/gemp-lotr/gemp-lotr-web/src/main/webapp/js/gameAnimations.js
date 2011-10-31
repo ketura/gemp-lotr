@@ -724,8 +724,17 @@ var GameAnimations = Class.extend({
                         $("#deadPile" + that.game.getPlayerIndex(playerId)).text("Dead pile: " + dead);
                         $("#deck" + that.game.getPlayerIndex(playerId)).text("Deck: " + deck);
                     }
-                    if (that.game.fpStrengthDiv != null)
+                    if (that.game.fpStrengthDiv != null) {
                         that.game.fpStrengthDiv.text(element.getAttribute("fellowshipStrength"));
+                        var fpOverwhelmed = element.getAttribute("fpOverwhelmed");
+                        if (fpOverwhelmed != null) {
+                            if (fpOverwhelmed == "true") {
+                                that.game.fpStrengthDiv.addClass("overwhelmed");
+                            } else {
+                                that.game.fpStrengthDiv.removeClass("overwhelmed");
+                            }
+                        }
+                    }
                     if (that.game.shadowStrengthDiv != null)
                         that.game.shadowStrengthDiv.text(element.getAttribute("shadowStrength"));
 

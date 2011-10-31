@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.PlayerOrder;
 
 import java.util.Collections;
@@ -20,6 +21,8 @@ public class GameStats {
 
     private int _fellowshipSkirmishStrength;
     private int _shadowSkirmishStrength;
+
+    private boolean _fpOverwhelmed;
 
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<String, Map<Zone, Integer>>();
     private Map<Integer, Integer> _charStrengths = new HashMap<Integer, Integer>();
@@ -65,6 +68,21 @@ public class GameStats {
         if (newShadowStrength != _shadowSkirmishStrength) {
             changed = true;
             _shadowSkirmishStrength = newShadowStrength;
+        }
+
+        boolean newFpOverwhelmed = false;
+        Skirmish skirmish = game.getGameState().getSkirmish();
+        if (skirmish != null) {
+            PhysicalCard fpChar = skirmish.getFellowshipCharacter();
+            if (fpChar != null) {
+                int multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game.getGameState(), fpChar);
+                if (newFellowshipStrength * multiplier <= newShadowStrength && newShadowStrength != 0)
+                    newFpOverwhelmed = true;
+            }
+        }
+        if (newFpOverwhelmed != _fpOverwhelmed) {
+            changed = true;
+            _fpOverwhelmed = newFpOverwhelmed;
         }
 
         Map<String, Map<Zone, Integer>> newZoneSizes = new HashMap<String, Map<Zone, Integer>>();
@@ -129,6 +147,10 @@ public class GameStats {
         return _shadowSkirmishStrength;
     }
 
+    public boolean isFpOverwhelmed() {
+        return _fpOverwhelmed;
+    }
+
     public Map<String, Map<Zone, Integer>> getZoneSizes() {
         return Collections.unmodifiableMap(_zoneSizes);
     }
@@ -149,6 +171,7 @@ public class GameStats {
         copy._moveLimit = _moveLimit;
         copy._shadowArchery = _shadowArchery;
         copy._shadowSkirmishStrength = _shadowSkirmishStrength;
+        copy._fpOverwhelmed = _fpOverwhelmed;
         copy._zoneSizes = _zoneSizes;
         copy._charStrengths = _charStrengths;
         copy._charVitalities = _charVitalities;

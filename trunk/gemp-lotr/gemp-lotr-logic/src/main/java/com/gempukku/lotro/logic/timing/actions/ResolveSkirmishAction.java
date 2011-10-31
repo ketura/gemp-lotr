@@ -87,7 +87,9 @@ public class ResolveSkirmishAction implements Action {
 
         final List<PhysicalCard> shadowCharacters = _skirmish.getShadowCharacters();
 
-        if (_game.getModifiersQuerying().isOverwhelmedByStrength(gameState, fellowshipCharacter, fpStrength, shadowStrength))
+        int multiplier = _game.getModifiersQuerying().getOverwhelmMultiplier(gameState, fellowshipCharacter);
+
+        if (fpStrength * multiplier <= shadowStrength && shadowStrength != 0)
             effects.add(new OverwhelmedEffect(shadowCharacters, fpList(fellowshipCharacter)));
         else if (shadowStrength >= fpStrength)
             effects.add(new SkirmishResolvedEffect(shadowCharacters, fpList(fellowshipCharacter)));

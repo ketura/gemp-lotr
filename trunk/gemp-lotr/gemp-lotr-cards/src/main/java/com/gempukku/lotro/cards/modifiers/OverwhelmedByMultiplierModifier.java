@@ -21,8 +21,7 @@ public class OverwhelmedByMultiplierModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean isOverwhelmedByStrength(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int strength, int opposingStrength) {
-        return (opposingStrength >= strength * _multiplier) && (opposingStrength != 0);
+    public int getOverwhelmMultiplier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return _multiplier;
     }
-
 }
