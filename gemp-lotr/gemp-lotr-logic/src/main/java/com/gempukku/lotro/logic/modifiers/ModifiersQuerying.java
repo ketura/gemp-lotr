@@ -45,7 +45,7 @@ public interface ModifiersQuerying {
 
     public int getMinionSiteNumber(GameState gameState, PhysicalCard physicalCard);
 
-    public boolean isOverwhelmedByStrength(GameState gameState, PhysicalCard card, int strength, int opposingStrength);
+    public int getOverwhelmMultiplier(GameState gameState, PhysicalCard card);
 
     // Wounds/exertions
     public boolean canTakeWound(GameState gameState, PhysicalCard card);

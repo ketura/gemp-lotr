@@ -109,8 +109,8 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean isOverwhelmedByStrength(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, int strength, int opposingStrength) {
-        return true;
+    public int getOverwhelmMultiplier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
     }
 
     @Override

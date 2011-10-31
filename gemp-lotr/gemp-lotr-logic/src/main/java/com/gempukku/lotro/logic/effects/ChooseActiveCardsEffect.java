@@ -21,6 +21,8 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
     private final int _maximum;
     private final Filterable[] _filters;
 
+    private boolean _shortcut = true;
+
     public ChooseActiveCardsEffect(PhysicalCard source, String playerId, String choiceText, int minimum, int maximum, Filterable... filters) {
         _source = source;
         _playerId = playerId;
@@ -28,6 +30,10 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
         _minimum = minimum;
         _maximum = maximum;
         _filters = filters;
+    }
+
+    public void setShortcut(boolean shortcut) {
+        _shortcut = shortcut;
     }
 
     public void setChoiceText(String choiceText) {
@@ -61,7 +67,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
         if (matchingCards.size() < minimum)
             minimum = matchingCards.size();
 
-        if (matchingCards.size() == minimum) {
+        if (_shortcut && matchingCards.size() == minimum) {
             if (_source != null && matchingCards.size() > 0)
                 game.getGameState().cardAffectsCard(_playerId, _source, matchingCards);
             cardsSelected(game, matchingCards);
