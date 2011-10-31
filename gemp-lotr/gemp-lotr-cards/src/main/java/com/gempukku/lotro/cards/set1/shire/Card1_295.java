@@ -75,7 +75,7 @@ public class Card1_295 extends AbstractAlly {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.siteNumber(1)))
+        if (PlayConditions.played(game, effectResult, CardType.SITE, Filters.siteNumber(1)))
             game.getGameState().reapplyAffectingForCard(game, self);
 
         LotroCardBlueprint copied = getCopied(game, self);
