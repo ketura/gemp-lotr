@@ -51,9 +51,7 @@ public abstract class AbstractOldEvent extends AbstractLotroCardBlueprint {
     @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (_playableInPhases != null) {
-            Side side = self.getBlueprint().getSide();
-            if ((side == Side.FREE_PEOPLE && PlayConditions.canPlayCardDuringPhase(game, _playableInPhases, self))
-                    || (side == Side.SHADOW && PlayConditions.canPlayCardDuringPhase(game, _playableInPhases, self))) {
+            if (PlayConditions.canPlayCardDuringPhase(game, _playableInPhases, self)) {
                 if (checkPlayRequirements(playerId, game, self, 0))
                     return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
             }
