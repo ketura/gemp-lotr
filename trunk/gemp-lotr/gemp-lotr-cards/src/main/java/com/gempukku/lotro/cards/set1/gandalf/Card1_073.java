@@ -45,6 +45,11 @@ public class Card1_073 extends AbstractPermanent {
             possibleChoices.add(
                     new ChooseCardsFromHandEffect(playerId, 1, 1, Side.FREE_PEOPLE, Filters.or(CardType.ARTIFACT, CardType.POSSESSION)) {
                         @Override
+                        public String getText(LotroGame game) {
+                            return "Stack a card from hand on this";
+                        }
+
+                        @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard card : selectedCards)
                                 action.appendEffect(new StackCardFromHandEffect(card, self));
