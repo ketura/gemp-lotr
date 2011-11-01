@@ -20,4 +20,8 @@ public interface Action {
     public String getText(LotroGame game);
 
     public Effect nextEffect(LotroGame game);
+
+    public boolean wasSuccessful();
+
+    public boolean wasCarriedOut();
 }

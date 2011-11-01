@@ -114,4 +114,14 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         return null;
     }
+
+    @Override
+    public boolean wasSuccessful() {
+        return _cardPlayed && _playCardEffect.wasSuccessful() && !_playCardEffect.getPlayEventResult().isEventCancelled();
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return _cardPlayed && _playCardEffect.wasCarriedOut() && !_playCardEffect.getPlayEventResult().isEventCancelled();
+    }
 }
