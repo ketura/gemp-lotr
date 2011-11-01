@@ -27,7 +27,13 @@ public class KillEffect extends AbstractSuccessfulEffect {
     }
 
     public List<PhysicalCard> getCharactersToBeKilled() {
-        return _cards;
+        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        for (PhysicalCard card : _cards) {
+            if (card.getZone().isInPlay())
+                result.add(card);
+        }
+
+        return result;
     }
 
     @Override
@@ -38,9 +44,11 @@ public class KillEffect extends AbstractSuccessfulEffect {
 
     @Override
     public Collection<? extends EffectResult> playEffect(LotroGame game) {
+        List<PhysicalCard> toBeKilled = getCharactersToBeKilled();
+
         GameState gameState = game.getGameState();
 
-        for (PhysicalCard card : _cards)
+        for (PhysicalCard card : toBeKilled)
             gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
 
         // For result
@@ -52,7 +60,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
         Set<PhysicalCard> toAddToDeadPile = new HashSet<PhysicalCard>();
         Set<PhysicalCard> toAddToDiscard = new HashSet<PhysicalCard>();
 
-        for (PhysicalCard card : _cards) {
+        for (PhysicalCard card : toBeKilled) {
             toRemoveFromZone.add(card);
 
             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
