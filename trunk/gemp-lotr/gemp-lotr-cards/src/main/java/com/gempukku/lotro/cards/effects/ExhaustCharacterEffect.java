@@ -6,14 +6,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 
-public class ExhaustCharacterEffect extends AbstractEffect {
+public class ExhaustCharacterEffect extends AbstractSubActionEffect {
     private PhysicalCard _source;
     private Action _action;
     private Filterable[] _filters;
@@ -35,7 +35,7 @@ public class ExhaustCharacterEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Exhaust " + getAppendedNames(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters));
+        return "Exhaust " + GameUtils.getAppendedNames(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters));
     }
 
     @Override
@@ -44,15 +44,15 @@ public class ExhaustCharacterEffect extends AbstractEffect {
     }
 
     @Override
-    protected FullEffectResult playEffectReturningResult(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(new InfiniteExertionEffect(_source, subAction, _filters));
-        game.getActionsEnvironment().addActionToStack(subAction);
+        processSubAction(game, subAction);
         final Collection<PhysicalCard> cards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
         if (cards.size() > 0)
-            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " exhausts " + getAppendedNames(cards));
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " exhausts " + GameUtils.getAppendedNames(cards));
 
-        return new FullEffectResult(null, false, false);
+        return null;
     }
 
     private class InfiniteExertionEffect extends ExertCharactersEffect {

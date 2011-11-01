@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.StackCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -42,15 +43,11 @@ public class Card1_073 extends AbstractPermanent {
 
             List<Effect> possibleChoices = new LinkedList<Effect>();
             possibleChoices.add(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose Free Peoples artifact or possession", game.getGameState().getHand(playerId), Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.ARTIFACT), Filters.type(CardType.POSSESSION))), 1, 1) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Stack a Free Peoples artifact or possession";
-                        }
-
+                    new ChooseCardsFromHandEffect(playerId, 1, 1, Side.FREE_PEOPLE, Filters.or(CardType.ARTIFACT, CardType.POSSESSION)) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                            action.appendEffect(new StackCardFromHandEffect(selectedCards.iterator().next(), self));
+                            for (PhysicalCard card : selectedCards)
+                                action.appendEffect(new StackCardFromHandEffect(card, self));
                         }
                     });
             possibleChoices.add(

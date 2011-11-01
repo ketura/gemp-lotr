@@ -7,15 +7,16 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class RevealAndChooseCardsFromOpponentHandEffect extends AbstractEffect {
+public abstract class RevealAndChooseCardsFromOpponentHandEffect extends AbstractSubActionEffect {
     private Action _action;
     private String _playerId;
     private String _opponentId;
@@ -43,14 +44,14 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
     }
 
     @Override
-    protected FullEffectResult playEffectReturningResult(LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(LotroGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
 
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(
                     new RevealCardsFromHandEffect(_source, _opponentId, opponentHand));
-            game.getActionsEnvironment().addActionToStack(subAction);
+            processSubAction(game, subAction);
 
             Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
 
@@ -62,9 +63,8 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
                             cardsSelected(selectedCards);
                         }
                     });
-            return new FullEffectResult(null, true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return null;
     }
 
     @Override

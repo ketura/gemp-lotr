@@ -7,17 +7,19 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChooseAndPlayCardFromHandEffect extends AbstractEffect {
+public class ChooseAndPlayCardFromHandEffect implements Effect {
     private String _playerId;
     private Filter _filter;
     private int _twilightModifier;
+    private Action _playCardAction;
 
     public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, Filterable... filter) {
         this(playerId, cardsInHandAtStart, 0, filter);
@@ -49,8 +51,11 @@ public class ChooseAndPlayCardFromHandEffect extends AbstractEffect {
         return null;
     }
 
+    protected void cardChosenCallback(PhysicalCard cardChosenToPlay) {
+    }
+
     @Override
-    protected FullEffectResult playEffectReturningResult(final LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
         Collection<PhysicalCard> playableInHand = getPlayableInHandCards(game);
         if (playableInHand.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -58,15 +63,22 @@ public class ChooseAndPlayCardFromHandEffect extends AbstractEffect {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             final PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
+                            _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier);
+                            game.getActionsEnvironment().addActionToStack(_playCardAction);
                             cardChosenCallback(selectedCard);
                         }
                     });
-            return new FullEffectResult(null, true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return null;
     }
 
-    protected void cardChosenCallback(PhysicalCard cardChosenToPlay) {
+    @Override
+    public boolean wasSuccessful() {
+        return _playCardAction != null && _playCardAction.wasSuccessful();
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return _playCardAction != null && _playCardAction.wasCarriedOut();
     }
 }
