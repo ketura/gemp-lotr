@@ -33,7 +33,7 @@ public class Card4_348 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Saruman")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.saruman));
             return Collections.singletonList(action);
         }
         return null;

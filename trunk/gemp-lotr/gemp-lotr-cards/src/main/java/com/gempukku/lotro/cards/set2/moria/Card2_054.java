@@ -34,12 +34,12 @@ public class Card2_054 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.balrog);
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Gandalf");
+        return Filters.gandalf;
     }
 
     @Override

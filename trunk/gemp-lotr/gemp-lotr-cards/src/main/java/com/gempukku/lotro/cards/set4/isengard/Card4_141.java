@@ -46,7 +46,7 @@ public class Card4_141 extends AbstractResponseOldEvent {
             if (killedChars.size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);
 
-                boolean hasSpecific = Filters.filter(killedChars, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Aragorn"), Filters.name("Gandalf"), Filters.name("Theoden"))).size() > 0;
+                boolean hasSpecific = Filters.filter(killedChars, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.aragorn, Filters.gandalf, Filters.name("Theoden"))).size() > 0;
                 action.appendEffect(
                         new AddBurdenEffect(self, hasSpecific ? 2 : 1));
                 return Collections.singletonList(action);

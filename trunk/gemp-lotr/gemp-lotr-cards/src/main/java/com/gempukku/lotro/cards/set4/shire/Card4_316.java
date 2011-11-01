@@ -44,7 +44,7 @@ public class Card4_316 extends AbstractCompanion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isAddingBurden(effect, game, Side.SHADOW)
-                && PlayConditions.canSpot(game, Filters.name("Frodo"))
+                && PlayConditions.canSpot(game, Filters.frodo)
                 && PlayConditions.canSelfExert(self, game)) {
             final AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);
@@ -64,7 +64,7 @@ public class Card4_316 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, Filters.name("Frodo"))) {
+        if (PlayConditions.isGettingKilled(effect, game, Filters.frodo)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new MakeRingBearerEffect(self));
             return Collections.singletonList(action);

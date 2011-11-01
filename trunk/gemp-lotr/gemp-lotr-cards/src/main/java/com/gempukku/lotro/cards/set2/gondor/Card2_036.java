@@ -34,16 +34,16 @@ public class Card2_036 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.aragorn);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.name("Aragorn"))) {
+                new ChooseActiveCardEffect(self, playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.aragorn)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = (card.getBlueprint().getSignet() == Signet.ARAGORN) ? 3 : 2;

@@ -27,19 +27,19 @@ public class Card6_009 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game, 2, Filters.name("Gimli"));
+                && PlayConditions.canExert(self, game, 2, Filters.gimli);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Gimli")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gimli));
         action.appendEffect(
                 new AddUntilStartOfPhaseModifierEffect(
                         new StrengthModifier(self,
                                 Filters.or(
-                                        Filters.name("Gimli"),
+                                        Filters.gimli,
                                         Filters.and(
                                                 Race.ELF,
                                                 CardType.COMPANION)

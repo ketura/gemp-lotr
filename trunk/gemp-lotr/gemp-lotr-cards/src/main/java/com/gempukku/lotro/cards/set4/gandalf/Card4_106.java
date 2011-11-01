@@ -31,7 +31,7 @@ public class Card4_106 extends AbstractOldEvent {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.race(Race.MAN))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF))
-                && PlayConditions.canPlayFromDeadPile(playerId, game, Filters.name("Gandalf"));
+                && PlayConditions.canPlayFromDeadPile(playerId, game, Filters.gandalf);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Card4_106 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndPlayCardFromDeadPileEffect(playerId, game.getGameState().getDeadPile(playerId), Filters.name("Gandalf")));
+                new ChooseAndPlayCardFromDeadPileEffect(playerId, game.getGameState().getDeadPile(playerId), Filters.gandalf));
         return action;
     }
 }

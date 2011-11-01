@@ -33,7 +33,7 @@ public class Card4_088 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.name("Gandalf"))) {
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.gandalf)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.GANDALF));
@@ -49,7 +49,7 @@ public class Card4_088 extends AbstractPermanent {
             int tokenCount = game.getGameState().getTokenCount(self, Token.GANDALF);
             for (int i = 0; i < tokenCount; i++)
                 action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.name("Gandalf"))));
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.gandalf)));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

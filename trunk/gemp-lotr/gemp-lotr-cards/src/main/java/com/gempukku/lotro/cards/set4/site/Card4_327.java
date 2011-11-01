@@ -36,7 +36,7 @@ public class Card4_327 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.unboundCompanion));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Gimli")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.gimli));
             return Collections.singletonList(action);
         }
         return null;

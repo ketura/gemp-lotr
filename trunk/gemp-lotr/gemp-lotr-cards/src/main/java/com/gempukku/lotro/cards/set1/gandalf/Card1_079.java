@@ -32,7 +32,7 @@ public class Card1_079 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
     }
 
     @Override

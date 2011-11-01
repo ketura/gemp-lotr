@@ -26,7 +26,7 @@ public class Card4_320 extends AbstractEvent {
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        boolean spotGandalf = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+        boolean spotGandalf = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndHealCharactersEffect(action, playerId, 1, 1, spotGandalf ? 2 : 1, Race.HOBBIT, Filters.unboundCompanion));

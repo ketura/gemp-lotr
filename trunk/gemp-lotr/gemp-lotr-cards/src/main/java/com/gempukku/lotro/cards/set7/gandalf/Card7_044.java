@@ -36,7 +36,7 @@ public class Card7_044 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.name("Gandalf")));
+                    new HealCharactersEffect(self, Filters.gandalf));
             return Collections.singletonList(action);
         }
         return null;

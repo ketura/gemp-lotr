@@ -37,7 +37,7 @@ public class Card2_057 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.SKIRMISH_ABOUT_TO_END
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(),
-                Filters.name("The Balrog"), Filters.hasAttached(Filters.name("Whip of Many Thongs"))).size() > 0) {
+                Filters.balrog, Filters.hasAttached(Filters.name("Whip of Many Thongs"))).size() > 0) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new WoundCharactersEffect(self, CardType.COMPANION, Filters.inSkirmish));

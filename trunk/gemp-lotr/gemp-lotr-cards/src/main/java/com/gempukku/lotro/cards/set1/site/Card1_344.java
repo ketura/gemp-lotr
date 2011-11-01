@@ -37,12 +37,12 @@ public class Card1_344 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
-            boolean gimliCanExert = PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
-            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION));
+            boolean gimliCanExert = PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
+            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.gimli), Filters.type(CardType.COMPANION));
             if (gimliCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
-                PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
+                PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(new ExertCharactersEffect(self, gimli) {
                     @Override
@@ -51,7 +51,7 @@ public class Card1_344 extends AbstractSite {
                     }
                 });
                 possibleEffects.add(
-                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION)) {
+                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.gimli), Filters.type(CardType.COMPANION)) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Exert 2 other companions";
@@ -63,14 +63,14 @@ public class Card1_344 extends AbstractSite {
             }
             if (gimliCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gimli"));
+                PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
                 action.appendEffect(new ExertCharactersEffect(self, gimli));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.name("Gimli")), Filters.type(CardType.COMPANION)));
+                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.gimli), Filters.type(CardType.COMPANION)));
                 return Collections.singletonList(action);
             }
         }

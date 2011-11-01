@@ -29,7 +29,7 @@ public class Card2_080 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("The Witch-king"));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.witchKing);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Card2_080 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("The Witch-king")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.witchKing));
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Filters.keyword(Keyword.TALE), Filters.weapon)));
         return action;

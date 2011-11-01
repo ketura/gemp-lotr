@@ -31,14 +31,14 @@ public class Card7_033 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game, 2, Filters.name("Gandalf"));
+                && PlayConditions.canExert(self, game, 2, Filters.gandalf);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Gandalf")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gandalf));
         action.appendEffect(
                 new RemoveThreatsEffect(self, Integer.MAX_VALUE));
         action.appendEffect(

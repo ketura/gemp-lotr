@@ -29,21 +29,21 @@ public class Card1_093 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Aragorn"), Filters.name("Arwen")));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.aragorn, Filters.arwen));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.name("Arwen"), Filters.name("Aragorn"))) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.arwen, Filters.aragorn)) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         Filter filter;
                         if (character.getBlueprint().getName().equals("Aragorn"))
-                            filter = Filters.name("Arwen");
+                            filter = Filters.arwen;
                         else
-                            filter = Filters.name("Aragorn");
+                            filter = Filters.aragorn;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, filter, 3), Phase.SKIRMISH));

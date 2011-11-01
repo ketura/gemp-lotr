@@ -41,23 +41,23 @@ public class Card3_019 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Arwen"));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.arwen);
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Aragorn");
+        return Filters.aragorn;
     }
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && (PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"))
+                && (PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.aragorn)
                 || game.getGameState().getHand(playerId).size() >= 2)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert Aragorn";
@@ -73,7 +73,7 @@ public class Card3_019 extends AbstractAttachable {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.inSkirmishAgainst(Filters.name("Aragorn"))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.inSkirmishAgainst(Filters.aragorn)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

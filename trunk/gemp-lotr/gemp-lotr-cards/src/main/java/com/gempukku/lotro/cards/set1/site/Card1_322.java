@@ -36,7 +36,7 @@ public class Card1_322 extends AbstractSite {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT)));
 
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Sam")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.sam));
 
             return Collections.singletonList(action);
         }

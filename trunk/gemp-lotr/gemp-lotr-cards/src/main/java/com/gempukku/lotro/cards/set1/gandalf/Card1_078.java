@@ -30,7 +30,7 @@ public class Card1_078 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         int bonus = (game.getGameState().getBurdens() <= 4) ? 4 : 2;
-        final PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+        final PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
         if (gandalf != null) {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

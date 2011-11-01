@@ -35,8 +35,8 @@ public class Card6_110 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canSpot(game, Filters.name("Sam"))
-                && PlayConditions.canSpot(game, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum")));
+                && PlayConditions.canSpot(game, Filters.sam)
+                && PlayConditions.canSpot(game, Filters.gollumOrSmeagol);
     }
 
     @Override

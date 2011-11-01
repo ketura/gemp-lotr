@@ -38,10 +38,10 @@ public class Card1_349 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"), Filters.playable(game, -6)).size() > 0) {
+            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.balrog, Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -6, Filters.name("The Balrog")) {
+                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -6, Filters.balrog) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Play The Balrog from hand";
@@ -51,7 +51,7 @@ public class Card1_349 extends AbstractSite {
 
             // Play from deck
             possibleEffects.add(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, -6, Filters.name("The Balrog")) {
+                    new ChooseAndPlayCardFromDeckEffect(playerId, -6, Filters.balrog) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Play The Balrog from deck";

@@ -35,7 +35,7 @@ public class Card5_027 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Smeagol");
+        return Filters.smeagol;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Card5_027 extends AbstractAttachable {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Smeagol", Filters.name("Smeagol")) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Smeagol", Filters.smeagol) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

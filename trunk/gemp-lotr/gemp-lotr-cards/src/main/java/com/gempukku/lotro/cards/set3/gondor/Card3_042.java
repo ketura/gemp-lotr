@@ -36,17 +36,17 @@ public class Card3_042 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Boromir");
+        return Filters.boromir;
     }
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Boromir"))
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.boromir)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Boromir")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.boromir));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Ally", Filters.type(CardType.ALLY)) {
                         @Override

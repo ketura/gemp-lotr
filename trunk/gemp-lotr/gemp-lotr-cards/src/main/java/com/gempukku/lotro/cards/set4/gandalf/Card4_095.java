@@ -41,10 +41,10 @@ public class Card4_095 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, final EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, Culture.GANDALF, CardType.EVENT)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.name("Gandalf"))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.gandalf)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Gandalf")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gandalf));
             action.appendEffect(
                     new AbstractSuccessfulEffect() {
                         @Override

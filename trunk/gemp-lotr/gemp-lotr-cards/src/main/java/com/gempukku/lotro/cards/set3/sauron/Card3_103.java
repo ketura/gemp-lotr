@@ -54,11 +54,11 @@ public class Card3_103 extends AbstractOldEvent {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Galadriel")));
+                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.galadriel));
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Galadriel")));
+                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.galadriel));
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Galadriel")));
+                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.galadriel));
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
                         new PreventableEffect.PreventionCost() {

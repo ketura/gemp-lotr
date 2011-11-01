@@ -29,7 +29,7 @@ public class Card6_036 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.inSkirmishAgainst(Filters.name("Gandalf"))) {
+                new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.inSkirmishAgainst(Filters.gandalf)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int wounds = 0;

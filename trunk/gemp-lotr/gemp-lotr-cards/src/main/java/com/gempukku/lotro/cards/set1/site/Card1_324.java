@@ -33,7 +33,7 @@ public class Card1_324 extends AbstractSite {
             action.appendCost(new AddBurdenEffect(self, 1));
 
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Aragorn")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.aragorn));
 
             return Collections.singletonList(action);
         }

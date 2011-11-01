@@ -46,7 +46,7 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     @Override
     protected Map<Filter, Integer> getAttachCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
         Map<Filter, Integer> costModifiers = new HashMap<Filter, Integer>();
-        costModifiers.put(Filters.name("Arwen"), -2);
+        costModifiers.put(Filters.arwen, -2);
         return costModifiers;
     }
 

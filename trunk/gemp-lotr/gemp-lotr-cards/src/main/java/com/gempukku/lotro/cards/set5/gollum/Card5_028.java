@@ -54,10 +54,10 @@ public class Card5_028 extends AbstractCompanion {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
-                && PlayConditions.canExert(self, game, 2, Filters.or(Filters.name("Gollum"), Filters.name("Smeagol")))) {
+                && PlayConditions.canExert(self, game, 2, Filters.gollumOrSmeagol)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.or(Filters.name("Gollum"), Filters.name("Smeagol"))));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gollumOrSmeagol));
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 4) {
                         @Override

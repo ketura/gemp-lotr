@@ -27,7 +27,7 @@ public class Card3_047 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.aragorn);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Card3_047 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn));
         action.appendEffect(
                 new AddUntilStartOfPhaseModifierEffect(
                         new KeywordModifier(self, Filters.and(Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN)), Keyword.DAMAGE), Phase.REGROUP));

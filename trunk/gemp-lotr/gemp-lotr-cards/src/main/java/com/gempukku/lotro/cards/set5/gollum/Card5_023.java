@@ -34,16 +34,16 @@ public class Card5_023 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Smeagol");
+        return Filters.smeagol;
     }
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
-                && PlayConditions.canExert(self, game, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum")))) {
+                && PlayConditions.canExert(self, game, Filters.gollumOrSmeagol)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum"))));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gollumOrSmeagol));
             action.appendEffect(
                     new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             return Collections.singletonList(action);

@@ -34,7 +34,7 @@ public class Card6_077 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.name("The Balrog"), new LocationCondition(Filters.or(Filters.siteNumber(2), Filters.siteNumber(3)), Filters.siteBlock(Block.TWO_TOWERS)), -3));
+                new TwilightCostModifier(self, Filters.balrog, new LocationCondition(Filters.or(Filters.siteNumber(2), Filters.siteNumber(3)), Filters.siteBlock(Block.TWO_TOWERS)), -3));
     }
 
     @Override

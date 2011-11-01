@@ -36,7 +36,7 @@ public class Card1_082 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
                 && game.getGameState().getTwilightPool() < 2
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
     }
 
     @Override
