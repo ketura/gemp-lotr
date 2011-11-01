@@ -119,6 +119,11 @@ public class LotroGameMediator {
                     sb.append("<br><b>Vitality:</b> " + vitality);
                 } catch (UnsupportedOperationException exp) {
                 }
+                try {
+                    int siteNumber = _lotroGame.getModifiersQuerying().getMinionSiteNumber(_lotroGame.getGameState(), card);
+                    sb.append("<br><b>Site number:</b> " + siteNumber);
+                } catch (UnsupportedOperationException exp) {
+                }
 
                 StringBuilder keywords = new StringBuilder();
                 for (Keyword keyword : Keyword.values()) {
