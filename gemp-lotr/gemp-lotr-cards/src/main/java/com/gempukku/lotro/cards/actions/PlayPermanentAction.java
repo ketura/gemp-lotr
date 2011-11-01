@@ -103,4 +103,14 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
         return null;
     }
+
+    @Override
+    public boolean wasSuccessful() {
+        return _cardPlayed && _playCardEffect.wasSuccessful();
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return _cardPlayed && _playCardEffect.wasCarriedOut();
+    }
 }

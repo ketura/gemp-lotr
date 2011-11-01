@@ -38,4 +38,14 @@ public abstract class SystemAction implements Action {
     public String getText(LotroGame game) {
         throw new UnsupportedOperationException("System action has no text");
     }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return true;
+    }
+
+    @Override
+    public boolean wasSuccessful() {
+        return true;
+    }
 }

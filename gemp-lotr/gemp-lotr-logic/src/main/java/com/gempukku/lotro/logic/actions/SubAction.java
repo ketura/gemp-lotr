@@ -11,6 +11,7 @@ import java.util.LinkedList;
 public class SubAction implements Action {
     private Action _action;
     private LinkedList<Effect> _effects = new LinkedList<Effect>();
+    private LinkedList<Effect> _processedEffects = new LinkedList<Effect>();
 
     public SubAction(Action action) {
         _action = action;
@@ -57,6 +58,33 @@ public class SubAction implements Action {
 
     @Override
     public Effect nextEffect(LotroGame game) {
-        return _effects.poll();
+        final Effect effect = _effects.poll();
+        if (effect != null)
+            _processedEffects.add(effect);
+        return effect;
+    }
+
+    @Override
+    public boolean wasSuccessful() {
+        if (!_effects.isEmpty())
+            return false;
+        for (Effect effect : _processedEffects) {
+            if (!effect.wasSuccessful())
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        if (!_effects.isEmpty())
+            return false;
+        for (Effect effect : _processedEffects) {
+            if (!effect.wasCarriedOut())
+                return false;
+        }
+
+        return true;
     }
 }
