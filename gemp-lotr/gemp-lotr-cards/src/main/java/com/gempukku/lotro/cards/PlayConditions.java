@@ -156,6 +156,10 @@ public class PlayConditions {
         return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - game.getGameState().getThreats() >= count;
     }
 
+    public static boolean canRemoveThreat(LotroGame game, PhysicalCard card, int count) {
+        return game.getGameState().getThreats() >= count;
+    }
+
     public static boolean canExertMultiple(PhysicalCard source, LotroGame game, int times, int count, Filterable... filters) {
         return canExertMultiple(source, game.getGameState(), game.getModifiersQuerying(), times, count, filters);
     }
