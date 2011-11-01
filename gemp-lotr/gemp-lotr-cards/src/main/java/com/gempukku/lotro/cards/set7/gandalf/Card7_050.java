@@ -33,13 +33,13 @@ public class Card7_050 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.name("Gandalf"));
+                && PlayConditions.canExert(self, game, Filters.gandalf);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
-        int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf")));
+        int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf));
         action.appendCost(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                         new IntegerAwaitingDecision(1, "Choose how many times you wish to exert Gandalf", 0, vitality - 1) {
@@ -47,7 +47,7 @@ public class Card7_050 extends AbstractEvent {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int exertCount = getValidatedResult(result);
                                 action.insertCost(
-                                        new ChooseAndExertCharactersEffect(action, playerId, exertCount, exertCount, Filters.name("Gandalf")));
+                                        new ChooseAndExertCharactersEffect(action, playerId, exertCount, exertCount, Filters.gandalf));
                                 action.appendEffect(
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, exertCount, CardType.MINION) {
                                             @Override

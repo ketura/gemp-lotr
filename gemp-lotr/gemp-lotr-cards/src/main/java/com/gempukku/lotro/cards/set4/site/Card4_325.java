@@ -34,7 +34,7 @@ public class Card4_325 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.unboundCompanion));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Legolas")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.legolas));
             return Collections.singletonList(action);
         }
         return null;

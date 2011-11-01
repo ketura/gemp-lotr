@@ -27,7 +27,7 @@ public class Card5_018 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.name("Gandalf"))
+                && PlayConditions.canExert(self, game, Filters.gandalf)
                 && game.getGameState().getTwilightPool() >= 3;
     }
 
@@ -35,7 +35,7 @@ public class Card5_018 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION));
         return action;

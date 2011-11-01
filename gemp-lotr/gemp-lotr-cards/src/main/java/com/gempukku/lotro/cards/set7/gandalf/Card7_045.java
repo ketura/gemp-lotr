@@ -34,7 +34,7 @@ public class Card7_045 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canSpot(game, Filters.name("Gandalf"))
+                && PlayConditions.canSpot(game, Filters.gandalf)
                 && PlayConditions.canAddThreat(game, self, 3);
     }
 
@@ -42,9 +42,9 @@ public class Card7_045 extends AbstractPermanent {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new KeywordModifier(self, Filters.name("Gandalf"), Keyword.DEFENDER, 1));
+                new KeywordModifier(self, Filters.gandalf, Keyword.DEFENDER, 1));
         modifiers.add(
-                new CantTakeWoundsModifier(self, Filters.name("Gandalf")));
+                new CantTakeWoundsModifier(self, Filters.gandalf));
         return modifiers;
     }
 

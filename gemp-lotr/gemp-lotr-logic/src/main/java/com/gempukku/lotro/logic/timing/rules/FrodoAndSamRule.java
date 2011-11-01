@@ -14,6 +14,6 @@ public class FrodoAndSamRule {
 
     public void applyRule() {
         _modifiersLogic.addAlwaysOnModifier(
-                new KeywordModifier(null, Filters.or(Filters.name("Frodo"), Filters.name("Sam")), Keyword.RING_BOUND));
+                new KeywordModifier(null, Filters.or(Filters.frodo, Filters.sam), Keyword.RING_BOUND));
     }
 }

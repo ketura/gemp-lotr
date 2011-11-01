@@ -31,8 +31,8 @@ public class Card7_043 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
                 &&
-                (PlayConditions.canExert(self, game, 3, Filters.name("Gandalf"))
-                        || (PlayConditions.hasInitiative(game, Side.FREE_PEOPLE) && PlayConditions.canExert(self, game, 2, Filters.name("Gandalf"))));
+                (PlayConditions.canExert(self, game, 3, Filters.gandalf)
+                        || (PlayConditions.hasInitiative(game, Side.FREE_PEOPLE) && PlayConditions.canExert(self, game, 2, Filters.gandalf)));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Card7_043 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         int exertCount = (game.getGameState().getInitiativeSide() == Side.FREE_PEOPLE) ? 2 : 3;
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, exertCount, Filters.name("Gandalf")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, exertCount, Filters.gandalf));
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose companion whose culture should get the strength bonus", Filters.unboundCompanion, Filters.not(Culture.GANDALF)) {
                     @Override

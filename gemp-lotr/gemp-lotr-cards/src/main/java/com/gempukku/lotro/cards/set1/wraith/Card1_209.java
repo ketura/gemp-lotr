@@ -36,7 +36,7 @@ public class Card1_209 extends AbstractPermanent {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.race(Race.NAZGUL)))
                 && self.getZone() == Zone.SUPPORT
                 && game.getGameState().getSkirmish() != null && game.getGameState().getSkirmish().getFellowshipCharacter() != null
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(game.getGameState().getSkirmish().getFellowshipCharacter()), Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(game.getGameState().getSkirmish().getFellowshipCharacter()), Filters.not(Filters.hasAttached(Filters.name(getName()))))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));

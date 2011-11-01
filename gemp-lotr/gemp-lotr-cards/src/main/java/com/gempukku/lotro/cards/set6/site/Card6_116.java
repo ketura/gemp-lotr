@@ -31,10 +31,10 @@ public class Card6_116 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && PlayConditions.canExert(self, game, 2, Filters.name("Aragorn"))) {
+                && PlayConditions.canExert(self, game, 2, Filters.aragorn)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Aragorn")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.aragorn));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, CardType.COMPANION, Signet.ARAGORN));
             return Collections.singletonList(action);

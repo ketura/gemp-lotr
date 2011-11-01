@@ -40,12 +40,12 @@ public class Card5_111 extends AbstractCompanion {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Smeagol"))) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Filters.smeagol)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddBurdenEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Smeagol")));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.smeagol));
             return Collections.singletonList(action);
         }
         return null;

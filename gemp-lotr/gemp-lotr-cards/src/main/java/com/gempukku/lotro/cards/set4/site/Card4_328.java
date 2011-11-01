@@ -36,7 +36,7 @@ public class Card4_328 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.unboundCompanion));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Aragorn")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.aragorn));
             return Collections.singletonList(action);
         }
         return null;

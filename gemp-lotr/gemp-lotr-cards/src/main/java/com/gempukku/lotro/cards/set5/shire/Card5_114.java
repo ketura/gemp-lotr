@@ -35,7 +35,7 @@ public class Card5_114 extends AbstractAttachable {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Sam");
+        return Filters.sam;
     }
 
     @Override
@@ -49,10 +49,10 @@ public class Card5_114 extends AbstractAttachable {
         if (PlayConditions.activated(game, effectResult, Filters.any)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
             if (activateEffect.getActionTimeword() == Phase.REGROUP
-                    && PlayConditions.canDiscardFromPlay(self, game, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum")))) {
+                    && PlayConditions.canDiscardFromPlay(self, game, Filters.gollumOrSmeagol)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Filters.name("Smeagol"), Filters.name("Gollum"))));
+                        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.gollumOrSmeagol));
                 action.appendEffect(
                         new CancelActivatedEffect(self, activateEffect));
                 return Collections.singletonList(action);

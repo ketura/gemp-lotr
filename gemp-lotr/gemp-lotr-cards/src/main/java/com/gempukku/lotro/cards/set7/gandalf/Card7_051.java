@@ -29,20 +29,20 @@ public class Card7_051 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.name("Gandalf"));
+                && PlayConditions.canExert(self, game, Filters.gandalf);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, final int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
         action.appendEffect(
                 new ForEachTwilightTokenYouSpotEffect(playerId) {
                     @Override
                     protected void twilightTokensSpotted(int twilightTokens) {
                         action.insertEffect(
-                                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, twilightTokens, Filters.name("Gandalf")));
+                                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, twilightTokens, Filters.gandalf));
                     }
                 });
         return action;

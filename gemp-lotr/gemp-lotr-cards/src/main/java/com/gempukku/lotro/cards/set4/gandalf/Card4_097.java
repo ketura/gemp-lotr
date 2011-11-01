@@ -34,7 +34,7 @@ public class Card4_097 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Card4_097 extends AbstractOldEvent {
         action.appendEffect(
                 new PreventableEffect(action,
                         new AddUntilEndOfPhaseActionProxyEffect(
-                                new PreventAllWoundsActionProxy(self, Filters.name("Gandalf")), Phase.SKIRMISH) {
+                                new PreventAllWoundsActionProxy(self, Filters.gandalf), Phase.SKIRMISH) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Prevent all wounds to Gandalf";

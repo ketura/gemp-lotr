@@ -39,7 +39,7 @@ public class Card4_041 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Gimli");
+        return Filters.gimli;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Card4_041 extends AbstractAttachableFPPossession {
 
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.name("Gimli"), 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.gimli, 1), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;

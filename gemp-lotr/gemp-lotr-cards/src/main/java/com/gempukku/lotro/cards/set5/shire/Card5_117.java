@@ -26,14 +26,14 @@ public class Card5_117 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Smeagol"));
+                && PlayConditions.canPlayFromDiscard(playerId, game, Filters.smeagol);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Smeagol")));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.smeagol));
         action.appendEffect(
                 new HealCharactersEffect(self, Filters.and(Race.HOBBIT, Keyword.RING_BOUND)));
         action.appendEffect(

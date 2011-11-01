@@ -34,12 +34,12 @@ public class Card2_112 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.or(Filters.name("Frodo"), Filters.name("Sam")),
+                new StrengthModifier(self, Filters.or(Filters.frodo, Filters.sam),
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.name("Frodo"), Filters.not(Filters.exhausted))
-                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.name("Sam"), Filters.not(Filters.exhausted));
+                                return Filters.canSpot(gameState, modifiersQuerying, Filters.frodo, Filters.not(Filters.exhausted))
+                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.sam, Filters.not(Filters.exhausted));
                             }
                         }, 1));
     }

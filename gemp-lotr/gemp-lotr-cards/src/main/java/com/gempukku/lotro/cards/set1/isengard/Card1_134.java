@@ -35,7 +35,7 @@ public class Card1_134 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name("Saruman's Chill"))));
+        return Filters.and(Filters.type(CardType.SITE), Filters.not(Filters.hasAttached(Filters.name(getName()))));
     }
 
     @Override

@@ -34,13 +34,13 @@ public class Card4_091 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Gandalf");
+        return Filters.gandalf;
     }
 
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new KeywordModifier(self, Filters.name("Gandalf"),
+                new KeywordModifier(self, Filters.gandalf,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {

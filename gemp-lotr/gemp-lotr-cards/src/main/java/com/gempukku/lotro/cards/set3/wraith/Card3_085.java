@@ -57,9 +57,9 @@ public class Card3_085 extends AbstractOldEvent {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
                             }
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
                         new PreventableEffect.PreventionCost() {

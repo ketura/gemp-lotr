@@ -37,7 +37,7 @@ public class Card1_309 extends AbstractAlly {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.name("Sam"), 1);
+        return new StrengthModifier(self, Filters.sam, 1);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Card1_309 extends AbstractAlly {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
-            PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Sam"));
+            PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.sam);
             if (sam != null) {
                 action.appendEffect(new HealCharactersEffect(self, sam));
             }

@@ -32,7 +32,7 @@ public class Card2_027 extends AbstractOldEvent {
         if (!super.checkPlayRequirements(playerId, game, self, twilightModifier))
             return false;
 
-        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
         List<PhysicalCard> attachedToGandalf = game.getGameState().getAttachedCards(gandalf);
         if (gandalf != null
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(gandalf))
@@ -45,13 +45,13 @@ public class Card2_027 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.possessionClass(PossessionClass.STAFF), Filters.attachedTo(Filters.name("Gandalf"))));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.possessionClass(PossessionClass.STAFF), Filters.attachedTo(Filters.gandalf)));
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
 
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"), Filters.inSkirmish))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf, Filters.inSkirmish))
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(
                             action, playerId, 1, 1, Filters.type(CardType.MINION), Filters.inSkirmish));

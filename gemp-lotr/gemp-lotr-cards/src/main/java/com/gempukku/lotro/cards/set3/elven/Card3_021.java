@@ -30,7 +30,7 @@ public class Card3_021 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Legolas");
+        return Filters.legolas;
     }
 
     @Override

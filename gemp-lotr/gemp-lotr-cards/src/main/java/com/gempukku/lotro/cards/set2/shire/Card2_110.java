@@ -36,10 +36,10 @@ public class Card2_110 extends AbstractCompanion {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Gandalf"), Filters.name("Aragorn")), Filters.playable(game, -2)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.gandalf, Filters.aragorn), Filters.playable(game, -2)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2, Filters.or(Filters.name("Gandalf"), Filters.name("Aragorn"))));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2, Filters.or(Filters.gandalf, Filters.aragorn)));
             return Collections.singletonList(action);
         }
         return null;

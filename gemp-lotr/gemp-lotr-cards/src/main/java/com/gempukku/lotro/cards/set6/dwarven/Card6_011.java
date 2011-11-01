@@ -44,7 +44,7 @@ public class Card6_011 extends AbstractEvent {
     @Override
     public List<? extends Modifier> getStackedOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.name("Gimli"),
+                new StrengthModifier(self, Filters.gimli,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {

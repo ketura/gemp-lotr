@@ -35,16 +35,16 @@ public class Card2_056 extends AbstractPermanent {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ShouldSkipPhaseModifier(self,
-                        new SpotCondition(Filters.name("The Balrog")), Phase.ARCHERY));
+                        new SpotCondition(Filters.balrog), Phase.ARCHERY));
     }
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("The Balrog"))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.balrog)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("The Balrog")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.balrog));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.possessionClass(PossessionClass.RANGED_WEAPON)));
             return Collections.singletonList(action);

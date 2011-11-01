@@ -36,7 +36,7 @@ public class Card4_052 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.name("Gimli"), null,
+                new StrengthModifier(self, Filters.gimli, null,
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
@@ -50,7 +50,7 @@ public class Card4_052 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.name("Gimli"))) {
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.gimli)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.DWARVEN));

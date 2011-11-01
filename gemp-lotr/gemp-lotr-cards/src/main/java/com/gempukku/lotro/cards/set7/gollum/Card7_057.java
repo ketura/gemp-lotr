@@ -33,7 +33,7 @@ public class Card7_057 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.or(Filters.name("Gollum"), Filters.name("Smeagol")))) {
+        if (PlayConditions.played(game, effectResult, Filters.gollumOrSmeagol)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddThreatsEffect(self.getOwner(), self, 1));
@@ -50,7 +50,7 @@ public class Card7_057 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ReturnCardsToHandEffect(self, Filters.name("Gollum")));
+                    new ReturnCardsToHandEffect(self, Filters.gollum));
             return Collections.singletonList(action);
         }
         return null;

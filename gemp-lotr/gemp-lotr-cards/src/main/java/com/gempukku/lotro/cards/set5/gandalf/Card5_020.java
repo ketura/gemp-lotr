@@ -32,14 +32,14 @@ public class Card5_020 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.name("Gandalf"));
+                && PlayConditions.canExert(self, game, Filters.gandalf);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
         action.appendEffect(
                 new PreventableEffect(action,
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, Side.SHADOW, CardType.POSSESSION) {

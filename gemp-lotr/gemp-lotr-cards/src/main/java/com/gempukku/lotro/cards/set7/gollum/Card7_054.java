@@ -35,9 +35,9 @@ public class Card7_054 extends AbstractEvent {
                     protected void cardsToBeDiscardedCallback(Collection<PhysicalCard> cards) {
                         int count = cards.size();
                         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
-                                new StrengthModifier(self, Filters.name("Smeagol"), count * 3), Phase.SKIRMISH);
+                                new StrengthModifier(self, Filters.smeagol, count * 3), Phase.SKIRMISH);
                         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
-                                new KeywordModifier(self, Filters.name("Smeagol"), Keyword.DAMAGE, count), Phase.SKIRMISH);
+                                new KeywordModifier(self, Filters.smeagol, Keyword.DAMAGE, count), Phase.SKIRMISH);
                     }
                 });
         return action;

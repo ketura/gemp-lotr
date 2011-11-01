@@ -52,15 +52,15 @@ public class Card5_115 extends AbstractCompanion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.name("Frodo"))
-                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.name("Smeagol"));
+                                return Filters.canSpot(gameState, modifiersQuerying, Filters.frodo)
+                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.smeagol);
                             }
                         }, 3));
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, Filters.name("Frodo"))) {
+        if (PlayConditions.isGettingKilled(effect, game, Filters.frodo)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new MakeRingBearerEffect(self));
             return Collections.singletonList(action);

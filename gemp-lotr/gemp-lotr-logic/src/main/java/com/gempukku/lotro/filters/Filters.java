@@ -165,6 +165,25 @@ public class Filters {
         };
     }
 
+    public static final Filter saruman = Filters.name("Saruman");
+    public static final Filter witchKing = Filters.name("The Witch-king");
+    public static final Filter balrog = Filters.name("The Balrog");
+
+    public static final Filter gollum = Filters.name("Gollum");
+    public static final Filter smeagol = Filters.name("Smeagol");
+    public static final Filter gollumOrSmeagol = Filters.or(gollum, smeagol);
+
+    public static final Filter aragorn = Filters.name("Aragorn");
+    public static final Filter gandalf = Filters.name("Gandalf");
+    public static final Filter gimli = Filters.name("Gimli");
+    public static final Filter arwen = Filters.name("Arwen");
+    public static final Filter legolas = Filters.name("Legolas");
+    public static final Filter boromir = Filters.name("Boromir");
+    public static final Filter frodo = Filters.name("Frodo");
+    public static final Filter sam = Filters.name("Sam");
+
+    public static final Filter galadriel = Filters.name("Galadriel");
+
     public static final Filter weapon = Filters.or(Filters.possessionClass(PossessionClass.HAND_WEAPON), Filters.possessionClass(PossessionClass.RANGED_WEAPON));
 
     public static final Filter inSkirmish = new Filter() {

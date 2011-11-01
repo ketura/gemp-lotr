@@ -32,17 +32,17 @@ public class Card1_100 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.name("Arwen"), Filters.name("Aragorn")))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.arwen, Filters.aragorn))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.name("Arwen"), Filters.name("Aragorn"))) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.arwen, Filters.aragorn)) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             Filter filter;
                             if (character.getBlueprint().getName().equals("Aragorn"))
-                                filter = Filters.name("Arwen");
+                                filter = Filters.arwen;
                             else
-                                filter = Filters.name("Aragorn");
+                                filter = Filters.aragorn;
                             action.appendEffect(
                                     new ChooseAndHealCharactersEffect(action, playerId, filter));
                         }

@@ -36,7 +36,7 @@ public class Card6_109 extends AbstractAttachable {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Frodo");
+        return Filters.frodo;
     }
 
     @Override

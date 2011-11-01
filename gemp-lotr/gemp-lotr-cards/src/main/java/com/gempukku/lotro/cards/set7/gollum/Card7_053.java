@@ -35,14 +35,14 @@ public class Card7_053 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleCosts = new LinkedList<Effect>();
         possibleCosts.add(
-                new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Gollum")) {
+                new ChooseAndPlayCardFromDeckEffect(playerId, Filters.gollum) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Play Gollum from your deck";
                     }
                 });
         possibleCosts.add(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Gollum")) {
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.gollum) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Play Gollum from your discard pile";

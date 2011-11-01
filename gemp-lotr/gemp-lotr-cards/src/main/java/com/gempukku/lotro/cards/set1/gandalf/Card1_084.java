@@ -27,13 +27,13 @@ public class Card1_084 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
-        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"));
+        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
         action.appendCost(new ExertCharactersEffect(self, gandalf));
         action.appendEffect(
                 new DiscardCardsFromPlayEffect(self, Filters.type(CardType.CONDITION)));

@@ -32,11 +32,11 @@ public class Card7_034 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.name("Gandalf"))
-                && PlayConditions.canExert(self, game, Filters.name("Gandalf"))) {
+        if (PlayConditions.winsSkirmish(game, effectResult, Filters.gandalf)
+                && PlayConditions.canExert(self, game, Filters.gandalf)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
             action.appendEffect(
                     new DrawCardEffect(playerId, 2));
             return Collections.singletonList(action);

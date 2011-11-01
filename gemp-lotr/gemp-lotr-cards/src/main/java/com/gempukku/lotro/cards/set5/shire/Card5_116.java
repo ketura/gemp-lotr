@@ -35,18 +35,18 @@ public class Card5_116 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Frodo");
+        return Filters.frodo;
     }
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && PlayConditions.canExert(self, game, Filters.name("Frodo"))) {
+                && PlayConditions.canExert(self, game, Filters.frodo)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Frodo")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.frodo));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Smeagol or Gollum", Filters.or(Filters.name("Smeagol"), Filters.name("Gollum"))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Smeagol or Gollum", Filters.gollumOrSmeagol) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             if (card.getBlueprint().getName().equals("Smeagol"))

@@ -31,12 +31,12 @@ public class Card7_055 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canDiscardFromHand(game, playerId, 3, Filters.any)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Smeagol"))) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Filters.smeagol)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Smeagol")));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.smeagol));
             return Collections.singletonList(action);
         }
         return null;

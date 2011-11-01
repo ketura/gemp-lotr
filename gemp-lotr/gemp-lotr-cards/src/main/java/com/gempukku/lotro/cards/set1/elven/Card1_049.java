@@ -27,7 +27,7 @@ public class Card1_049 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.GONDOR), Filters.race(Race.MAN), Filters.not(Filters.hasAttached(Filters.name("The Last Alliance of Elves and Men"))));
+        return Filters.and(Filters.culture(Culture.GONDOR), Filters.race(Race.MAN), Filters.not(Filters.hasAttached(Filters.name(getName()))));
     }
 
     @Override

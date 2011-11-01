@@ -33,14 +33,14 @@ public class Card1_109 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Aragorn"));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.aragorn);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Aragorn")) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(

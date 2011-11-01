@@ -31,14 +31,14 @@ public class Card6_041 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier)
-                && PlayConditions.canExert(self, game, 3, Filters.name("Gollum"));
+                && PlayConditions.canExert(self, game, 3, Filters.gollum);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 3, Filters.name("Gollum")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 3, Filters.gollum));
         action.appendEffect(
                 new WoundCharactersEffect(self, CardType.COMPANION));
         action.appendEffect(

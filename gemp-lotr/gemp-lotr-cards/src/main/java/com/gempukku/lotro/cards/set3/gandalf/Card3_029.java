@@ -55,14 +55,14 @@ public class Card3_029 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.name("Gandalf"))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.gandalf)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
             action.appendEffect(
-                    new WoundCharactersEffect(self, Filters.name("Saruman")));
+                    new WoundCharactersEffect(self, Filters.saruman));
             action.appendEffect(
-                    new WoundCharactersEffect(self, Filters.name("Saruman")));
+                    new WoundCharactersEffect(self, Filters.saruman));
             return Collections.singletonList(action);
         }
         return null;

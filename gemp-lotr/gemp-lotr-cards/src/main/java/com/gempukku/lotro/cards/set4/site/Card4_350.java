@@ -29,6 +29,6 @@ public class Card4_350 extends AbstractSite {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.sameCard(self), new SpotCondition(Filters.name("Aragorn")), -2));
+                new TwilightCostModifier(self, Filters.sameCard(self), new SpotCondition(Filters.aragorn), -2));
     }
 }

@@ -31,11 +31,11 @@ public class Card7_060 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
-                && PlayConditions.canDiscardFromPlay(self, game, Filters.name("Gollum"))
+                && PlayConditions.canDiscardFromPlay(self, game, Filters.gollum)
                 && PlayConditions.canRemoveThreat(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.name("Gollum")));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.gollum));
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(

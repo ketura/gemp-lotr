@@ -45,7 +45,7 @@ public class Card6_029 extends AbstractAttachable {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Race.ENT, Filters.not(Filters.hasAttached(Filters.name("Ent Moot"))));
+        return Filters.and(Race.ENT, Filters.not(Filters.hasAttached(Filters.name(getName()))));
     }
 
     @Override

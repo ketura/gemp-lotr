@@ -37,12 +37,12 @@ public class Card7_032 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, CardType.EVENT)
-                && PlayConditions.canExert(self, game, Filters.name("Gandalf"))) {
+                && PlayConditions.canExert(self, game, Filters.gandalf)) {
             PlayEventResult playEventResult = (PlayEventResult) effectResult;
 
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new RemoveTwilightEffect(2));

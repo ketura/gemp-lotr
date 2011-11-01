@@ -31,7 +31,7 @@ public class Card6_038 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.name("Smeagol"))
+        if (PlayConditions.winsSkirmish(game, effectResult, Filters.smeagol)
                 && PlayConditions.canPayForShadowCard(game, self, 0)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(

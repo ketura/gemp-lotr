@@ -40,7 +40,7 @@ public class Card4_105 extends AbstractOldEvent {
                         int bonus = Math.min(5, twilightTokens);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.name("Gandalf"), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.gandalf, bonus), Phase.SKIRMISH));
                     }
                 });
         return action;

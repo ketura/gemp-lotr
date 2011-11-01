@@ -36,13 +36,13 @@ public class Card7_008 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Gimli");
+        return Filters.gimli;
     }
 
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)
-                && PlayConditions.isGettingWounded(effect, game, Filters.name("Gimli"))
+                && PlayConditions.isGettingWounded(effect, game, Filters.gimli)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
 
@@ -50,7 +50,7 @@ public class Card7_008 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Gimli", Filters.name("Gimli")) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Gimli", Filters.gimli) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
