@@ -38,25 +38,11 @@ public abstract class AbstractEffect implements Effect {
     }
 
     protected final String getAppendedTextNames(Collection<PhysicalCard> cards) {
-        StringBuilder sb = new StringBuilder();
-        for (PhysicalCard card : cards)
-            sb.append(card.getBlueprint().getName() + ", ");
-
-        if (sb.length() == 0)
-            return "none";
-        else
-            return sb.substring(0, sb.length() - 2);
+        return GameUtils.getAppendedTextNames(cards);
     }
 
     protected final String getAppendedNames(Collection<PhysicalCard> cards) {
-        StringBuilder sb = new StringBuilder();
-        for (PhysicalCard card : cards)
-            sb.append(GameUtils.getCardLink(card) + ", ");
-
-        if (sb.length() == 0)
-            return "none";
-        else
-            return sb.substring(0, sb.length() - 2);
+        return GameUtils.getAppendedNames(cards);
     }
 
     protected static class FullEffectResult {

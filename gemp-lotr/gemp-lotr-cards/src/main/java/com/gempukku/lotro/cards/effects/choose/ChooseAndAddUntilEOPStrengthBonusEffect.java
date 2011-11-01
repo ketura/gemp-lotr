@@ -1,12 +1,10 @@
 package com.gempukku.lotro.cards.effects.choose;
 
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
@@ -30,10 +28,10 @@ public class ChooseAndAddUntilEOPStrengthBonusEffect extends ChooseActiveCardEff
 
     @Override
     protected void cardSelected(LotroGame game, PhysicalCard card) {
-        SubAction action = new SubAction(_action);
-        action.appendEffect(
-                new AddUntilEndOfPhaseModifierEffect(
-                        new StrengthModifier(_source, Filters.sameCard(card), null, _bonusEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), card)), game.getGameState().getCurrentPhase()));
-        game.getActionsEnvironment().addActionToStack(action);
+        final int bonus = _bonusEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), card);
+        final StrengthModifier modifier = new StrengthModifier(_source, card, null, bonus);
+        final Phase phase = game.getGameState().getCurrentPhase();
+
+        game.getModifiersEnvironment().addUntilEndOfPhaseModifier(modifier, phase);
     }
 }

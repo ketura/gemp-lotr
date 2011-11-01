@@ -7,16 +7,19 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChooseAndPlayCardFromDeadPileEffect extends AbstractEffect {
+public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
     private String _playerId;
     private Filter _filter;
     private int _twilightModifier;
+    private Action _playCardAction;
 
     public ChooseAndPlayCardFromDeadPileEffect(String playerId, List<? extends PhysicalCard> cardsInDeadPileAtStart, Filterable... filter) {
         this(playerId, cardsInDeadPileAtStart, 0, filter);
@@ -44,8 +47,12 @@ public class ChooseAndPlayCardFromDeadPileEffect extends AbstractEffect {
         return null;
     }
 
+    private Collection<PhysicalCard> getPlayableInDeadPile(LotroGame game) {
+        return Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+    }
+
     @Override
-    protected FullEffectResult playEffectReturningResult(final LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
         Collection<PhysicalCard> deadPile = getPlayableInDeadPile(game);
         if (deadPile.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -55,16 +62,22 @@ public class ChooseAndPlayCardFromDeadPileEffect extends AbstractEffect {
                             List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             if (selectedCards.size() > 0) {
                                 PhysicalCard selectedCard = selectedCards.get(0);
-                                game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier));
+                                _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier);
+                                game.getActionsEnvironment().addActionToStack(_playCardAction);
                             }
                         }
                     });
-            return new FullEffectResult(null, true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return null;
     }
 
-    private Collection<PhysicalCard> getPlayableInDeadPile(LotroGame game) {
-        return Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+    @Override
+    public boolean wasSuccessful() {
+        return _playCardAction != null && _playCardAction.wasSuccessful();
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return _playCardAction != null && _playCardAction.wasCarriedOut();
     }
 }

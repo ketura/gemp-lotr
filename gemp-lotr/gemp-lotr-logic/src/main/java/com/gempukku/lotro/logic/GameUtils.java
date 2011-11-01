@@ -38,4 +38,26 @@ public class GameUtils {
     public static String getCardLink(PhysicalCard card) {
         return "<div class='cardHint' value='" + card.getBlueprintId() + "'>" + card.getBlueprint().getName() + "</div>";
     }
+
+    public static String getAppendedTextNames(Collection<PhysicalCard> cards) {
+        StringBuilder sb = new StringBuilder();
+        for (PhysicalCard card : cards)
+            sb.append(card.getBlueprint().getName() + ", ");
+
+        if (sb.length() == 0)
+            return "none";
+        else
+            return sb.substring(0, sb.length() - 2);
+    }
+
+    public static final String getAppendedNames(Collection<PhysicalCard> cards) {
+        StringBuilder sb = new StringBuilder();
+        for (PhysicalCard card : cards)
+            sb.append(GameUtils.getCardLink(card) + ", ");
+
+        if (sb.length() == 0)
+            return "none";
+        else
+            return sb.substring(0, sb.length() - 2);
+    }
 }
