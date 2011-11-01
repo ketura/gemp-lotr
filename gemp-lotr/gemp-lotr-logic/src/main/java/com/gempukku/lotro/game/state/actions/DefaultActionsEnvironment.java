@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromDiscardVisitor;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromStackedVisitor;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsVisitor;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
@@ -203,6 +204,9 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         GatherPlayableActionsFromStackedVisitor stackedVisitor = new GatherPlayableActionsFromStackedVisitor(_lotroGame, playerId);
         _lotroGame.getGameState().iterateStackedActivableCards(playerId, stackedVisitor);
+
+        GatherPlayableActionsFromDiscardVisitor discardVisitor = new GatherPlayableActionsFromDiscardVisitor(_lotroGame, playerId);
+        _lotroGame.getGameState().iterateDiscardActivableCards(playerId, discardVisitor);
 
         List<Action> playableActions = new LinkedList<Action>();
 

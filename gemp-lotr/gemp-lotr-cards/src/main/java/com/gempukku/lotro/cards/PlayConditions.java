@@ -75,6 +75,10 @@ public class PlayConditions {
                 && twilightCost <= gameState.getTwilightPool();
     }
 
+    public static boolean isPhase(LotroGame game, Phase phase) {
+        return (game.getGameState().getCurrentPhase() == phase);
+    }
+
     public static boolean canUseStackedFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
         return (phase == null || gameState.getCurrentPhase() == phase) && self.getZone() == Zone.STACKED;
     }

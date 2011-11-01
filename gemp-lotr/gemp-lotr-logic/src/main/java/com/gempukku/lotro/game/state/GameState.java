@@ -462,8 +462,20 @@ public class GameState {
 
     public boolean iterateStackedActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
         for (PhysicalCardImpl physicalCard : _stacked.get(player)) {
-            if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                return true;
+            Side playerSide = player.equals(getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW;
+            if (physicalCard.getBlueprint().getSide() == playerSide)
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
+        }
+        return false;
+    }
+
+    public boolean iterateDiscardActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
+        for (PhysicalCardImpl physicalCard : _discards.get(player)) {
+            Side playerSide = player.equals(getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW;
+            if (physicalCard.getBlueprint().getSide() == playerSide)
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
         }
         return false;
     }
