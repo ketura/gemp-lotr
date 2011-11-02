@@ -62,6 +62,9 @@ public class EventSerializer {
             eventElem.setAttribute("fellowshipStrength", String.valueOf(gameStats.getFellowshipSkirmishStrength()));
             eventElem.setAttribute("shadowStrength", String.valueOf(gameStats.getShadowSkirmishStrength()));
 
+            eventElem.setAttribute("fellowshipDamageBonus", String.valueOf(gameStats.getFellowshipSkirmishDamageBonus()));
+            eventElem.setAttribute("shadowDamageBonus", String.valueOf(gameStats.getShadowSkirmishDamageBonus()));
+
             eventElem.setAttribute("fpOverwhelmed", String.valueOf(gameStats.isFpOverwhelmed()));
 
             eventElem.setAttribute("moveLimit", String.valueOf(gameStats.getMoveLimit()));

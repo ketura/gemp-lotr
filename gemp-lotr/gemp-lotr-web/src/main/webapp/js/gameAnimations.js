@@ -526,12 +526,16 @@ var GameAnimations = Class.extend({
                         });
 
                     that.game.fpStrengthDiv = $("<div class='fpStrength'></div>");
+                    that.game.fpDamageBonusDiv = $("<div class='fpDamageBonus'></div>");
                     that.game.shadowStrengthDiv = $("<div class='shadowStrength'></div>");
+                    that.game.shadowDamageBonusDiv = $("<div class='shadowDamageBonus'></div>");
 
                     that.game.skirmishGroupDiv = $("<div class='ui-widget-content skirmish'></div>");
                     that.game.skirmishGroupDiv.css({"border-radius": "7px", "border-color": "#ff0000"});
                     that.game.skirmishGroupDiv.append(that.game.fpStrengthDiv);
+                    that.game.skirmishGroupDiv.append(that.game.fpDamageBonusDiv);
                     that.game.skirmishGroupDiv.append(that.game.shadowStrengthDiv);
+                    that.game.skirmishGroupDiv.append(that.game.shadowDamageBonusDiv);
                     $("#main").append(that.game.skirmishGroupDiv);
 
                     next();
@@ -734,9 +738,28 @@ var GameAnimations = Class.extend({
                                 that.game.fpStrengthDiv.removeClass("overwhelmed");
                             }
                         }
+
+                        var damageBonus = element.getAttribute("fellowshipDamageBonus");
+                        if (damageBonus != null) {
+                            that.game.fpDamageBonusDiv.text("+" + damageBonus);
+                            if (damageBonus == 0)
+                                that.game.fpDamageBonusDiv.css({visibility: "hidden"});
+                            else
+                                that.game.fpDamageBonusDiv.css({visibility: "visible"});
+                        }
                     }
-                    if (that.game.shadowStrengthDiv != null)
+                    if (that.game.shadowStrengthDiv != null) {
                         that.game.shadowStrengthDiv.text(element.getAttribute("shadowStrength"));
+
+                        var damageBonus = element.getAttribute("shadowDamageBonus");
+                        if (damageBonus != null) {
+                            that.game.shadowDamageBonusDiv.text("+" + damageBonus);
+                            if (damageBonus == 0)
+                                that.game.shadowDamageBonusDiv.css({visibility: "hidden"});
+                            else
+                                that.game.shadowDamageBonusDiv.css({visibility: "visible"});
+                        }
+                    }
 
                     next();
                 });
