@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.ExtraFilters;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.Culture;
@@ -9,10 +10,8 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -40,28 +39,13 @@ public class Card1_179 extends AbstractMinion {
         final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.race(Race.ORC));
 
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.weapon,
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
-                        return weapon.checkPlayRequirements(playerId, game, physicalCard, additionalAttachmentFilter, 0);
-                    }
-                }, Filters.playable(game)).size() > 0
-                ) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Filters.weapon, ExtraFilters.attachableTo(game, additionalAttachmentFilter))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),
                             Filters.and(
                                     Filters.weapon,
-                                    new Filter() {
-                                        @Override
-                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
-                                            return weapon.checkPlayRequirements(playerId, game, physicalCard, additionalAttachmentFilter, 0);
-                                        }
-                                    })
-                            , 1, 1) {
+                                    ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 1, 1) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             if (selectedCards.size() > 0) {
