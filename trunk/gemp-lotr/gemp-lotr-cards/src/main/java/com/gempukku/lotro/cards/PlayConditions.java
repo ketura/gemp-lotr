@@ -240,6 +240,11 @@ public class PlayConditions {
                 });
     }
 
+    public static boolean startOfPhase(LotroGame game, EffectResult effectResult, Phase phase) {
+        return (effectResult.getType() == EffectResult.Type.START_OF_PHASE
+                && game.getGameState().getCurrentPhase() == phase);
+    }
+
     public static boolean canExert(PhysicalCard source, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return canExert(source, gameState, modifiersQuerying, Filters.sameCard(card));
     }
