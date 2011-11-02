@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
@@ -33,6 +34,6 @@ public class Card3_096 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, self, null, new CountSpottableEvaluator(Side.FREE_PEOPLE, Filters.attachedTo(Filters.inSkirmishAgainst(self)))));
+                new StrengthModifier(self, Filters.inSkirmishAgainst(self), null, new NegativeEvaluator(new CountSpottableEvaluator(Side.FREE_PEOPLE, Filters.attachedTo(Filters.inSkirmishAgainst(self))))));
     }
 }
