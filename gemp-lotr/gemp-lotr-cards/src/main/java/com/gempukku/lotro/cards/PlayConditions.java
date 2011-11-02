@@ -15,10 +15,7 @@ import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
+import com.gempukku.lotro.logic.timing.results.*;
 
 import java.util.List;
 
@@ -308,6 +305,22 @@ public class PlayConditions {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             return (Filters.filter(skirmishResult.getLosers(), gameState, modifiersQuerying, loserFilter).size() > 0)
                     && Filters.filter(skirmishResult.getWinners(), gameState, modifiersQuerying, winnerFilter).size() > 0;
+        }
+        return false;
+    }
+
+    public static boolean addedBurden(LotroGame game, EffectResult effectResult, Filterable... sourceFilters) {
+        if (effectResult.getType() == EffectResult.Type.ADD_BURDEN) {
+            AddBurdenResult burdenResult = (AddBurdenResult) effectResult;
+            return (Filters.and(sourceFilters).accepts(game.getGameState(), game.getModifiersQuerying(), burdenResult.getSource()));
+        }
+        return false;
+    }
+
+    public static boolean addedThreat(LotroGame game, EffectResult effectResult, Filterable... sourceFilters) {
+        if (effectResult.getType() == EffectResult.Type.ADD_THREAT) {
+            AddThreatResult burdenResult = (AddThreatResult) effectResult;
+            return (Filters.and(sourceFilters).accepts(game.getGameState(), game.getModifiersQuerying(), burdenResult.getSource()));
         }
         return false;
     }
