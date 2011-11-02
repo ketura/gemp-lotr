@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -73,11 +74,19 @@ public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
 
     @Override
     public boolean wasSuccessful() {
-        return _playCardAction != null && _playCardAction.wasSuccessful();
+        if (_playCardAction == null)
+            return false;
+        if (_playCardAction instanceof PlayPermanentAction)
+            return ((PlayPermanentAction) _playCardAction).wasSuccessful();
+        return true;
     }
 
     @Override
     public boolean wasCarriedOut() {
-        return _playCardAction != null && _playCardAction.wasCarriedOut();
+        if (_playCardAction == null)
+            return false;
+        if (_playCardAction instanceof PlayPermanentAction)
+            return ((PlayPermanentAction) _playCardAction).wasCarriedOut();
+        return true;
     }
 }

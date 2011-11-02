@@ -17,6 +17,7 @@ import java.util.Collection;
 public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     private Action _action;
     private int _count;
+    private SubAction _resultSubAction;
 
     public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         this(action, playerId, minimum, maximum, 1, filters);
@@ -41,11 +42,11 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected final void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-        SubAction subAction = new SubAction(_action);
+        _resultSubAction = new SubAction(_action);
         for (int i = 0; i < _count; i++) {
-            subAction.appendEffect(new ExertCharactersEffect(_action.getActionSource(), Filters.in(characters)));
+            _resultSubAction.appendEffect(new ExertCharactersEffect(_action.getActionSource(), Filters.in(characters)));
         }
-        game.getActionsEnvironment().addActionToStack(subAction);
+        game.getActionsEnvironment().addActionToStack(_resultSubAction);
 
         for (PhysicalCard character : characters)
             forEachCardExertedCallback(character);
@@ -53,5 +54,15 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
 
     protected void forEachCardExertedCallback(PhysicalCard character) {
 
+    }
+
+    @Override
+    public boolean wasSuccessful() {
+        return _resultSubAction != null && _resultSubAction.wasSuccessful();
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return _resultSubAction != null && _resultSubAction.wasCarriedOut();
     }
 }

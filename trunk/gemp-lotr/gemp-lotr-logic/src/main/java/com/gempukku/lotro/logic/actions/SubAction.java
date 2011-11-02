@@ -64,7 +64,6 @@ public class SubAction implements Action {
         return effect;
     }
 
-    @Override
     public boolean wasSuccessful() {
         if (!_effects.isEmpty())
             return false;
@@ -76,7 +75,6 @@ public class SubAction implements Action {
         return true;
     }
 
-    @Override
     public boolean wasCarriedOut() {
         if (!_effects.isEmpty())
             return false;

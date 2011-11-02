@@ -116,14 +116,4 @@ public class ResolveSkirmishAction implements Action {
         else
             return Collections.emptyList();
     }
-
-    @Override
-    public boolean wasCarriedOut() {
-        return true;
-    }
-
-    @Override
-    public boolean wasSuccessful() {
-        return true;
-    }
 }

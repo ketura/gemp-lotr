@@ -8,14 +8,15 @@ import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Set;
 
-public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
+public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect {
     private Action _action;
     private String _playerId;
     private boolean _forced;
@@ -60,9 +61,9 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
     }
 
     @Override
-    protected FullEffectResult playEffectReturningResult(final LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
         if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _action.getActionSource()))
-            return new FullEffectResult(null, false, false);
+            return null;
 
         Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
 
@@ -71,7 +72,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
         if (hand.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, hand, _forced));
-            game.getActionsEnvironment().addActionToStack(subAction);
+            processSubAction(game, subAction);
             cardsBeingDiscarded(hand, success);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -81,13 +82,13 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractEffect {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, cards, _forced));
-                            game.getActionsEnvironment().addActionToStack(subAction);
+                            processSubAction(game, subAction);
                             cardsBeingDiscarded(cards, success);
                         }
                     });
         }
 
-        return new FullEffectResult(null, success, success);
+        return null;
     }
 
     protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {

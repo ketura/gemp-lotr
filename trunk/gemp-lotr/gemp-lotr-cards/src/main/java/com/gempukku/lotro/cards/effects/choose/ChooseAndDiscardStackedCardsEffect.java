@@ -8,15 +8,17 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class ChooseAndDiscardStackedCardsEffect extends AbstractEffect {
+public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect {
     private Action _action;
     private String _playerId;
     private int _minimum;
@@ -49,18 +51,16 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractEffect {
     }
 
     @Override
-    protected FullEffectResult playEffectReturningResult(final LotroGame game) {
+    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
         List<PhysicalCard> discardableCards = new LinkedList<PhysicalCard>();
 
         for (PhysicalCard stackedOnCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter))
             discardableCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), _stackedCardFilter));
 
-        final boolean success = discardableCards.size() >= _minimum;
-
         if (discardableCards.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), discardableCards));
-            game.getActionsEnvironment().addActionToStack(subAction);
+            processSubAction(game, subAction);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose cards to discard", discardableCards, _minimum, _maximum) {
@@ -69,11 +69,10 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractEffect {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), selectedCards));
-                            game.getActionsEnvironment().addActionToStack(subAction);
+                            processSubAction(game, subAction);
                         }
                     });
         }
-
-        return new FullEffectResult(null, success, success);
+        return null;
     }
 }
