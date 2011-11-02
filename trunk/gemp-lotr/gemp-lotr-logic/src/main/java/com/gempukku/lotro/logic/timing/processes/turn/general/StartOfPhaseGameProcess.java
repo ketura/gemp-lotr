@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
@@ -54,7 +53,7 @@ public class StartOfPhaseGameProcess implements GameProcess {
                     }
                 });
         action.appendEffect(
-                new TriggeringResultEffect(Effect.Type.START_OF_PHASE, new StartOfPhaseResult(_phase), "Start of " + _phase + " phase"));
+                new TriggeringResultEffect(null, new StartOfPhaseResult(_phase), "Start of " + _phase + " phase"));
 
         _game.getActionsEnvironment().addActionToStack(action);
     }
