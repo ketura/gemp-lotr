@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.ThreatCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.MinThreatCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,11 +38,11 @@ public class Card7_009 extends AbstractAttachableFPPossession {
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new KeywordModifier(self, Filters.hasAttached(self), new ThreatCondition(1), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.hasAttached(self), new MinThreatCondition(1), Keyword.DAMAGE, 1));
         modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), new ThreatCondition(2), 1));
+                new StrengthModifier(self, Filters.hasAttached(self), new MinThreatCondition(2), 1));
         modifiers.add(
-                new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new ThreatCondition(3), 1));
+                new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new MinThreatCondition(3), 1));
         return modifiers;
     }
 }
