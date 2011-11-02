@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.gollum;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnActionProxyEffect;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.PlaySiteEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.Culture;
@@ -51,7 +51,7 @@ public class Card7_076 extends AbstractEvent {
                 new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
         final int moveCount = game.getGameState().getMoveCount();
         action.appendEffect(
-                new AddUntilEndOfTurnActionProxyEffect(
+                new AddUntilEndOfPhaseActionProxyEffect(
                         new AbstractActionProxy() {
                             @Override
                             public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
@@ -65,7 +65,7 @@ public class Card7_076 extends AbstractEvent {
                                 }
                                 return null;
                             }
-                        }));
+                        }, Phase.REGROUP));
         return action;
     }
 }

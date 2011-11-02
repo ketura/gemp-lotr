@@ -17,8 +17,6 @@ public class RuleSet {
     }
 
     public void applyRuleSet() {
-        new EndEffectsAndActionsRule(_actionsEnvironment, _modifiersLogic).applyRule();
-
         new RoamingRule(_modifiersLogic).applyRule();
         new EnduringRule(_modifiersLogic).applyRule();
 

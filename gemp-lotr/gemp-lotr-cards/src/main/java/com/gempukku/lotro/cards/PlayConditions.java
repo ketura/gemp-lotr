@@ -245,6 +245,11 @@ public class PlayConditions {
                 && game.getGameState().getCurrentPhase() == phase);
     }
 
+    public static boolean endOfPhase(LotroGame game, EffectResult effectResult, Phase phase) {
+        return (effectResult.getType() == EffectResult.Type.END_OF_PHASE
+                && game.getGameState().getCurrentPhase() == phase);
+    }
+
     public static boolean canExert(PhysicalCard source, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return canExert(source, gameState, modifiersQuerying, Filters.sameCard(card));
     }
