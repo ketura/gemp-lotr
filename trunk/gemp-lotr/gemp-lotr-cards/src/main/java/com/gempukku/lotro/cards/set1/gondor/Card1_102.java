@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_102 extends AbstractOldEvent {
     public Card1_102() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Dager Strike", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, Culture.GONDOR, "Dagger Strike", Phase.SKIRMISH);
     }
 
     @Override
