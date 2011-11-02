@@ -17,7 +17,7 @@ public enum Keyword implements Filterable {
     PIPEWEED("Pipeweed"),
 
     DAMAGE("Damage", true, true), DEFENDER("Defender", true, true), AMBUSH("Ambush", true, true), FIERCE("Fierce", true), ARCHER("Archer", true),
-    UNHASTY("Unhasty", true), RANGER("Ranger", true), TRACKER("Tracker", true), VILLAGER("Villager", true), MACHINE("Machine", true),
+    UNHASTY("Unhasty", true), RANGER("Ranger", true), TRACKER("Tracker", true), VILLAGER("Villager", true), MACHINE("Machine", true), ENGINE("Engine", true),
     SOUTHRON("Southron", true), EASTERLING("Easterling", true), VALIANT("Valiant", true), KNIGHT("Knight", true), FORTIFICATION("Fortification", true),
     WARG_RIDER("Warg-rider", true);
 
