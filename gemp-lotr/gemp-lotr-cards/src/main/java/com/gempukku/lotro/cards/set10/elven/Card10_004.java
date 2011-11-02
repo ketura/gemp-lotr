@@ -41,7 +41,7 @@ public class Card10_004 extends AbstractCompanion {
         				new ExertCharactersEffect(self, self));
         		action.appendEffect(
         				int archerTotal = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.ARCHER));
-        				// TODO Need to make it so it targets minion skirmishing unbound elf and not just any minion
+        				// TODO Need to make it so it targets minion skirmishing unbound elf and not just any minion, also does it spot minions?
         				new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -archerTotal, Filters.type(CardType.MINION)));
         		actions.add(action);
         	}
