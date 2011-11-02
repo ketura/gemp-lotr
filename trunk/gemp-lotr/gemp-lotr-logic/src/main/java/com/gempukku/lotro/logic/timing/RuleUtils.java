@@ -84,4 +84,27 @@ public class RuleUtils {
 
         return totalStrength;
     }
+
+    public static int getFellowshipSkirmishDamageBonus(LotroGame game) {
+        if (game.getGameState().getSkirmish() == null)
+            return 0;
+
+        PhysicalCard fpChar = game.getGameState().getSkirmish().getFellowshipCharacter();
+        if (fpChar == null)
+            return 0;
+
+        return game.getModifiersQuerying().getKeywordCount(game.getGameState(), fpChar, Keyword.DAMAGE);
+    }
+
+    public static int getShadowSkirmishDamageBonus(LotroGame game) {
+        if (game.getGameState().getSkirmish() == null)
+            return 0;
+
+        int totalBonus = 0;
+
+        for (PhysicalCard physicalCard : game.getGameState().getSkirmish().getShadowCharacters())
+            totalBonus += game.getModifiersQuerying().getKeywordCount(game.getGameState(), physicalCard, Keyword.DAMAGE);
+
+        return totalBonus;
+    }
 }

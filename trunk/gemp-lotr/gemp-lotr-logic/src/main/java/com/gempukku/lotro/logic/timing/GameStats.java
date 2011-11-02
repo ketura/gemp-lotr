@@ -22,6 +22,9 @@ public class GameStats {
     private int _fellowshipSkirmishStrength;
     private int _shadowSkirmishStrength;
 
+    private int _fellowshipSkirmishDamageBonus;
+    private int _shadowSkirmishDamageBonus;
+
     private boolean _fpOverwhelmed;
 
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<String, Map<Zone, Integer>>();
@@ -68,6 +71,18 @@ public class GameStats {
         if (newShadowStrength != _shadowSkirmishStrength) {
             changed = true;
             _shadowSkirmishStrength = newShadowStrength;
+        }
+
+        int newFellowshipDamageBonus = RuleUtils.getFellowshipSkirmishDamageBonus(game);
+        if (newFellowshipDamageBonus != _fellowshipSkirmishDamageBonus) {
+            changed = true;
+            _fellowshipSkirmishDamageBonus = newFellowshipDamageBonus;
+        }
+
+        int newShadowDamageBonus = RuleUtils.getShadowSkirmishDamageBonus(game);
+        if (newShadowDamageBonus != _shadowSkirmishDamageBonus) {
+            changed = true;
+            _shadowSkirmishDamageBonus = newShadowDamageBonus;
         }
 
         boolean newFpOverwhelmed = false;
@@ -147,6 +162,14 @@ public class GameStats {
         return _shadowSkirmishStrength;
     }
 
+    public int getFellowshipSkirmishDamageBonus() {
+        return _fellowshipSkirmishDamageBonus;
+    }
+
+    public int getShadowSkirmishDamageBonus() {
+        return _shadowSkirmishDamageBonus;
+    }
+
     public boolean isFpOverwhelmed() {
         return _fpOverwhelmed;
     }
@@ -167,10 +190,12 @@ public class GameStats {
         GameStats copy = new GameStats();
         copy._fellowshipArchery = _fellowshipArchery;
         copy._fellowshipSkirmishStrength = _fellowshipSkirmishStrength;
+        copy._fellowshipSkirmishDamageBonus = _fellowshipSkirmishDamageBonus;
         copy._moveCount = _moveCount;
         copy._moveLimit = _moveLimit;
         copy._shadowArchery = _shadowArchery;
         copy._shadowSkirmishStrength = _shadowSkirmishStrength;
+        copy._shadowSkirmishDamageBonus = _shadowSkirmishDamageBonus;
         copy._fpOverwhelmed = _fpOverwhelmed;
         copy._zoneSizes = _zoneSizes;
         copy._charStrengths = _charStrengths;

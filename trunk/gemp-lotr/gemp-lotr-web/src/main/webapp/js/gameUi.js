@@ -35,7 +35,9 @@ var GempLotrGameUI = Class.extend({
 
     skirmishGroupDiv: null,
     fpStrengthDiv: null,
+    fpDamageBonusDiv: null,
     shadowStrengthDiv: null,
+    shadowDamageBonusDiv: null,
     skirmishShadowGroup: null,
     skirmishFellowshipGroup: null,
 
@@ -488,16 +490,21 @@ var GempLotrGameUI = Class.extend({
                 var y = currentPlayerTurn ? (padding * 3 + yScales[2] * heightPerScale) : (padding * 2 + yScales[1] * heightPerScale);
                 this.skirmishGroupDiv.css({left:x + "px", top:y + "px", width: groupWidth, height: groupHeight, position: "absolute"});
                 var strengthBoxSize = 40;
+                var dmgBoxSize = 30;
                 if (currentPlayerTurn) {
                     this.skirmishShadowGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
                     this.skirmishFellowshipGroup.setBounds(x + 3, y + heightScales[2] * heightPerScale + padding + 3, groupWidth - 6, heightScales[3] * heightPerScale - 6);
                     this.fpStrengthDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - 2 + "px", top: groupHeight - strengthBoxSize - 2 + "px", width: strengthBoxSize, height: strengthBoxSize, "z-index": 50});
+                    this.fpDamageBonusDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top: groupHeight - dmgBoxSize - 2 + "px", width: dmgBoxSize, height: dmgBoxSize, "z-index": 50});
                     this.shadowStrengthDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - 2 + "px", top: 2 + "px", width: strengthBoxSize, height: strengthBoxSize, "z-index": 50});
+                    this.shadowDamageBonusDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top: 2 + "px", width: dmgBoxSize, height: dmgBoxSize, "z-index": 50});
                 } else {
                     this.skirmishFellowshipGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[1] * heightPerScale - 6);
                     this.skirmishShadowGroup.setBounds(x + 3, y + heightScales[1] * heightPerScale + padding + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
                     this.shadowStrengthDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - 2 + "px", top: groupHeight - strengthBoxSize - 2 + "px", width: strengthBoxSize, height: strengthBoxSize, "z-index": 50});
+                    this.shadowDamageBonusDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top: groupHeight - dmgBoxSize - 2 + "px", width: dmgBoxSize, height: dmgBoxSize, "z-index": 50});
                     this.fpStrengthDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - 2 + "px", top: 2 + "px", width: strengthBoxSize, height: strengthBoxSize, "z-index": 50});
+                    this.fpDamageBonusDiv.css({position: "absolute", left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top: 2 + "px", width: dmgBoxSize, height: dmgBoxSize, "z-index": 50});
                 }
                 i++;
             }
