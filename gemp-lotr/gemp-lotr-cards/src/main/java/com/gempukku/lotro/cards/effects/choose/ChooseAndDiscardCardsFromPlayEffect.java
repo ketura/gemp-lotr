@@ -13,6 +13,7 @@ import java.util.Collection;
 
 public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect {
     private Action _action;
+    private SubAction _resultSubAction;
 
     public ChooseAndDiscardCardsFromPlayEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose cards to discard", minimum, maximum, filters);
@@ -27,12 +28,22 @@ public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         cardsToBeDiscardedCallback(cards);
-        SubAction subAction = new SubAction(_action);
-        subAction.appendEffect(new DiscardCardsFromPlayEffect(_action.getActionSource(), Filters.in(cards)));
-        game.getActionsEnvironment().addActionToStack(subAction);
+        _resultSubAction = new SubAction(_action);
+        _resultSubAction.appendEffect(new DiscardCardsFromPlayEffect(_action.getActionSource(), Filters.in(cards)));
+        game.getActionsEnvironment().addActionToStack(_resultSubAction);
     }
 
     protected void cardsToBeDiscardedCallback(Collection<PhysicalCard> cards) {
 
+    }
+
+    @Override
+    public boolean wasSuccessful() {
+        return _resultSubAction != null && _resultSubAction.wasSuccessful();
+    }
+
+    @Override
+    public boolean wasCarriedOut() {
+        return _resultSubAction != null && _resultSubAction.wasCarriedOut();
     }
 }

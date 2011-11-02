@@ -24,14 +24,14 @@ public abstract class AbstractEffect implements Effect {
     }
 
     @Override
-    public final boolean wasCarriedOut() {
+    public boolean wasCarriedOut() {
         if (_carriedOut == null)
             throw new IllegalStateException("Effect has to be played first");
         return _carriedOut;
     }
 
     @Override
-    public final boolean wasSuccessful() {
+    public boolean wasSuccessful() {
         if (_successful == null)
             throw new IllegalStateException("Effect has to be played first");
         return _successful;

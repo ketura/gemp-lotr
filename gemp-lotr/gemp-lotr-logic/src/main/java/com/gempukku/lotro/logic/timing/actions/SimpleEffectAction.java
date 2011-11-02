@@ -54,14 +54,4 @@ public class SimpleEffectAction implements Action {
         _effect = null;
         return result;
     }
-
-    @Override
-    public boolean wasCarriedOut() {
-        return true;
-    }
-
-    @Override
-    public boolean wasSuccessful() {
-        return true;
-    }
 }

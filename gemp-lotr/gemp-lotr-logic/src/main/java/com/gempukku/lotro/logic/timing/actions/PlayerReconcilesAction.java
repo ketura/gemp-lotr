@@ -99,14 +99,4 @@ public class PlayerReconcilesAction implements Action {
 
         return _effectQueue.poll();
     }
-
-    @Override
-    public boolean wasCarriedOut() {
-        return true;
-    }
-
-    @Override
-    public boolean wasSuccessful() {
-        return true;
-    }
 }
