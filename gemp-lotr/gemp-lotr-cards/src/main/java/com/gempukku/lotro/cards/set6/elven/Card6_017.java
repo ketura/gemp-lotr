@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.actions.SubCostToEffectAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -10,6 +11,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -37,7 +39,7 @@ public class Card6_017 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
@@ -49,9 +51,14 @@ public class Card6_017 extends AbstractPermanent {
                                     @Override
                                     public void decisionMade(String result) throws DecisionResultInvalidException {
                                         final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                                        for (PhysicalCard selectedCard : selectedCards) {
-                                            action.insertEffect(
+                                        if (selectedCards.size() > 0) {
+                                            PhysicalCard selectedCard = selectedCards.get(0);
+                                            SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                            subAction.appendCost(
+                                                    new DiscardCardsFromPlayEffect(self, self));
+                                            subAction.appendEffect(
                                                     new DiscardCardFromDeckEffect(selectedCard));
+                                            game.getActionsEnvironment().addActionToStack(subAction);
                                         }
                                     }
                                 }));
