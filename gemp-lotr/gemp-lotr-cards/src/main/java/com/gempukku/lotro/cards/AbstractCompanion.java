@@ -59,7 +59,7 @@ public abstract class AbstractCompanion extends AbstractPermanent {
         return getExtraInPlayPhaseActions(playerId, game, self);
     }
 
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         return null;
     }
 

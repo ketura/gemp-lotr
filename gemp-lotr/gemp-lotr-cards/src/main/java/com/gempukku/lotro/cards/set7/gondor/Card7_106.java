@@ -2,13 +2,15 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,24 +24,25 @@ import java.util.List;
  * Strength: 6
  * Vitality: 3
  * Resistance: 6
- * Game Text: Regroup: While you have exactly 5 cards in hand, you may exert Derufin to discard an engine, machine,
- * or possession.
+ * Game Text: Knight. Fellowship: Discard a fortification to heal Ingold twice.
  */
-public class Card7_087 extends AbstractCompanion {
-    public Card7_087() {
-        super(2, 6, 3, Culture.GONDOR, Race.MAN, null, "Derufin", true);
+public class Card7_106 extends AbstractCompanion {
+    public Card7_106() {
+        super(2, 6, 3, Culture.GONDOR, Race.MAN, null, "Ingold", true);
+        addKeyword(Keyword.KNIGHT);
     }
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
-                && game.getGameState().getHand(playerId).size() == 5
-                && PlayConditions.canSelfExert(self, game)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+                && PlayConditions.canDiscardFromPlay(self, game, Keyword.FORTIFICATION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.FORTIFICATION));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Keyword.ENGINE, Keyword.MACHINE, CardType.POSSESSION)));
+                    new HealCharactersEffect(self, self));
+            action.appendEffect(
+                    new HealCharactersEffect(self, self));
             return Collections.singletonList(action);
         }
         return null;
