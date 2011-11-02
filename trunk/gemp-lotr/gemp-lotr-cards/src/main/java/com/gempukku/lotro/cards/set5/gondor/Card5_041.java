@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.ExtraFilters;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -10,10 +11,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -99,16 +98,7 @@ public class Card5_041 extends AbstractEvent {
                     new ChooseArbitraryCardsEffect(_playerId, "Choose card to play", game.getGameState().getDiscard(_playerId),
                             Filters.and(
                                     CardType.POSSESSION,
-                                    new Filter() {
-                                        @Override
-                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
-                                                return false;
-                                            AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
-                                            return weapon.checkPlayRequirements(_playerId, game, physicalCard, additionalAttachmentFilter, 0);
-                                        }
-                                    })
-                            , 1, 1) {
+                                    ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 1, 1) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             if (selectedCards.size() > 0) {
