@@ -875,20 +875,30 @@ var GempLotrGameUI = Class.extend({
         cardVitalityDiv.css({display: "none"});
         tokenOverlay.append(cardVitalityDiv);
 
+        var cardSiteNumberDiv = $("<div class='cardSiteNumber'></div>");
+        cardSiteNumberDiv.css({display: "none"});
+        tokenOverlay.append(cardSiteNumberDiv);
+
         cardDiv.data("card", card);
 
         var sizeListeners = new Array();
         sizeListeners[0] = {
             sizeChanged: function(cardElem, width, height) {
                 var maxDimension = Math.max(width, height);
-                var borderWidth = Math.floor(maxDimension / 30);
 
-                var size = Math.floor(maxDimension / 10);
+                var size = 0.0865 * maxDimension;
+
+                var x = 0.09255 * maxDimension - size / 2;
+                var strengthY = 0.67203 * maxDimension - size / 2;
+                var vitalityY = 0.79074 * maxDimension - size / 2;
+                var minionSiteNumberY = 0.89135 * maxDimension - size / 2;
+
                 var fontPerc = (size * 7) + "%";
                 var borderRadius = Math.ceil(size / 5) + "px";
 
-                $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: borderWidth * 1.45 + "px", top: maxDimension * 0.64 + "px", width: size, height: size});
-                $(".cardVitality", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: borderWidth * 1.45 + "px", top: maxDimension * 0.645 + size + "px", width: size, height: size});
+                $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: strengthY + "px", width: size, height: size});
+                $(".cardVitality", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: vitalityY + "px", width: size, height: size});
+                $(".cardSiteNumber", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: minionSiteNumberY + "px", width: size, height: size});
             }
         };
 
@@ -910,6 +920,7 @@ var GempLotrGameUI = Class.extend({
             }
         };
         cardDiv.swipe(swipeOptions);
+
 
         return cardDiv;
     },

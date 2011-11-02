@@ -691,6 +691,7 @@ var GameAnimations = Class.extend({
                 function(next) {
                     $(".cardStrength").css({display: "none"});
                     $(".cardVitality").css({display: "none"});
+                    $(".cardSiteNumber").css({display: "none"});
 
                     var charStats = element.getAttribute("charStats");
                     if (charStats != null) {
@@ -701,6 +702,8 @@ var GameAnimations = Class.extend({
                             var cardStatArr = cardStats[1].split("|");
                             $(".cardStrength", cardDiv).html(cardStatArr[0]).css({display: ""});
                             $(".cardVitality", cardDiv).html(cardStatArr[1]).css({display: ""});
+                            if (cardStatArr.length > 2)
+                                $(".cardSiteNumber", cardDiv).html(cardStatArr[2]).css({display: ""});
                         }
                     }
 
