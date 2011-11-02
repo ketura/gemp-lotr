@@ -65,7 +65,7 @@ public class Card2_108 extends AbstractAttachable {
                         }
                     });
             possibleEffects.add(
-                    new CancelRingBearerAndNazgulSkirmish(self) {
+                    new CancelRingBearerAndNazgulSkirmish(self.getAttachedTo()) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Cancel a skirmish";
@@ -81,10 +81,10 @@ public class Card2_108 extends AbstractAttachable {
     }
 
     private class CancelRingBearerAndNazgulSkirmish extends CancelSkirmishEffect {
-        private PhysicalCard _attachedCondition;
+        private PhysicalCard _attachedTo;
 
-        private CancelRingBearerAndNazgulSkirmish(PhysicalCard attachedCondition) {
-            _attachedCondition = attachedCondition;
+        private CancelRingBearerAndNazgulSkirmish(PhysicalCard attachedTo) {
+            _attachedTo = attachedTo;
         }
 
         @Override
@@ -95,7 +95,7 @@ public class Card2_108 extends AbstractAttachable {
         @Override
         public boolean isPlayableInFull(LotroGame game) {
             Skirmish skirmish = game.getGameState().getSkirmish();
-            return (skirmish != null && skirmish.getFellowshipCharacter() == _attachedCondition.getAttachedTo()
+            return (skirmish != null && skirmish.getFellowshipCharacter() == _attachedTo
                     && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0);
         }
     }
