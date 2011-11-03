@@ -14,6 +14,6 @@ public class InitiativeCondition implements Condition {
 
     @Override
     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return gameState.getInitiativeSide() == _side;
+        return modifiersQuerying.hasInitiative(gameState) == _side;
     }
 }

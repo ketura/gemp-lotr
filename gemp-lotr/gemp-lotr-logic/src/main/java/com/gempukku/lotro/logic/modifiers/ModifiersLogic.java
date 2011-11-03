@@ -544,13 +544,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean hasInitiative(GameState gameState, Side side) {
+    public Side hasInitiative(GameState gameState) {
+        for (Modifier modifier : getModifiers(ModifierEffect.INITIATIVE_MODIFIER)) {
+            Side initiative = modifier.hasInitiative(gameState, this);
+            if (initiative != null)
+                return initiative;
+        }
+
         int freePeopleInitiativeHandSize = gameState.getHand(gameState.getCurrentPlayerId()).size()
                 + gameState.getVoid(gameState.getCurrentPlayerId()).size();
-        if (side == Side.SHADOW)
-            return freePeopleInitiativeHandSize < 4;
+        if (freePeopleInitiativeHandSize < 4)
+            return Side.SHADOW;
         else
-            return freePeopleInitiativeHandSize >= 4;
+            return Side.FREE_PEOPLE;
     }
 
     @Override
