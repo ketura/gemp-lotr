@@ -218,7 +218,7 @@ var GameAnimations = Class.extend({
         if (animate) {
             $("#main").queue(
                     function(next) {
-                        that.game.layoutUI(false);
+                        that.game.layoutGroupWithCard(cardId);
                         next();
                     });
         }
@@ -599,10 +599,10 @@ var GameAnimations = Class.extend({
     },
 
     addTokens: function(element, animate) {
+        var cardId = element.getAttribute("cardId");
         var that = this;
         $("#main").queue(
                 function(next) {
-                    var cardId = element.getAttribute("cardId");
                     var zone = element.getAttribute("zone");
                     var token = element.getAttribute("token");
                     var count = parseInt(element.getAttribute("count"));
@@ -619,7 +619,7 @@ var GameAnimations = Class.extend({
         if (animate) {
             $("#main").queue(
                     function(next) {
-                        that.game.layoutUI(false);
+                        layoutTokens($(".card:cardId(" + cardId + ")"));
                         next();
                     });
         }
@@ -646,7 +646,7 @@ var GameAnimations = Class.extend({
         if (animate) {
             $("#main").queue(
                     function(next) {
-                        that.game.layoutUI(false);
+                        layoutTokens($(".card:cardId(" + cardId + ")"));
                         next();
                     });
         }
@@ -672,7 +672,7 @@ var GameAnimations = Class.extend({
         if (animate) {
             $("#main").queue(
                     function(next) {
-                        that.game.layoutUI(false);
+                        that.game.advPathGroup.layoutCards();
                         next();
                     });
         }
@@ -680,13 +680,6 @@ var GameAnimations = Class.extend({
 
     gameStats: function(element, animate) {
         var that = this;
-        if (animate) {
-            $("#main").queue(
-                    function(next) {
-                        that.game.layoutUI(false);
-                        next();
-                    });
-        }
         $("#main").queue(
                 function(next) {
                     $(".cardStrength").css({display: "none"});
