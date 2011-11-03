@@ -7,8 +7,6 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -35,10 +33,7 @@ public class Card7_058 extends AbstractMinion {
         if (PlayConditions.isPhase(game, Phase.SHADOW)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
                 && PlayConditions.canPlayFromDiscard(playerId, game, self)) {
-            ActivateCardAction action = new ActivateCardAction(self);
-            action.appendEffect(
-                    new PlayCardEffect(self));
-            return Collections.singletonList(action);
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
         }
         return null;
     }
