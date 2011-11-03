@@ -239,7 +239,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean hasFlagActive(ModifierFlag modifierFlag) {
+    public boolean hasFlagActive(GameState gameState, ModifiersQuerying modifiersQuerying, ModifierFlag modifierFlag) {
         return false;
     }
 }

@@ -56,7 +56,7 @@ public class Card4_001 extends AbstractAttachable {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE) && gameState.isWearingRing();
+                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.RING_TEXT_INACTIVE) && gameState.isWearingRing();
                             }
                         }, 2));
 
@@ -66,7 +66,7 @@ public class Card4_001 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddBurdenEffect(self, 1));
@@ -81,7 +81,7 @@ public class Card4_001 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
-                && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new PreventCardEffect(woundEffect, self.getAttachedTo()));

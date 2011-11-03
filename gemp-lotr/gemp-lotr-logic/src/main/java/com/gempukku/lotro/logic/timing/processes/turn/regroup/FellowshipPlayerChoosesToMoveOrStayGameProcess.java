@@ -24,7 +24,7 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
     public void process() {
         final GameState gameState = _game.getGameState();
         if (gameState.getMoveCount() < RuleUtils.calculateMoveLimit(_game)) {
-            if (_game.getModifiersQuerying().hasFlagActive(ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)) {
+            if (_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)) {
                 _nextProcess = new MovementGameProcess(_game,
                         new EndOfPhaseGameProcess(_game, Phase.REGROUP,
                                 new ShadowPhasesGameProcess(_game)));

@@ -562,9 +562,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean hasFlagActive(ModifierFlag modifierFlag) {
+    public boolean hasFlagActive(GameState gameState, ModifierFlag modifierFlag) {
         for (Modifier modifier : getModifiers(ModifierEffect.SPECIAL_FLAG_MODIFIER))
-            if (modifier.hasFlagActive(modifierFlag))
+            if (modifier.hasFlagActive(gameState, this, modifierFlag))
                 return true;
 
         return false;

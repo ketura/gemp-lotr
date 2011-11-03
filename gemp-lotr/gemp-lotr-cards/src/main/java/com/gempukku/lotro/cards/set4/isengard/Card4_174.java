@@ -55,7 +55,7 @@ public class Card4_174 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
-                && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(

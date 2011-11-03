@@ -40,7 +40,7 @@ public class RegroupGameProcess implements GameProcess {
         @Override
         public void process() {
             if (_game.getGameState().getCurrentSiteNumber() == 9
-                    && _game.getModifiersQuerying().hasFlagActive(ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE)) {
+                    && _game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE)) {
                 _game.playerWon(_game.getGameState().getCurrentPlayerId(), "Surviving to Shadow Reconcile on site 9");
             }
         }

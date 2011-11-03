@@ -59,7 +59,7 @@ public class Card7_002 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddBurdenEffect(self, 1));
@@ -74,7 +74,7 @@ public class Card7_002 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
-                && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new PreventCardEffect(woundEffect, self.getAttachedTo()));

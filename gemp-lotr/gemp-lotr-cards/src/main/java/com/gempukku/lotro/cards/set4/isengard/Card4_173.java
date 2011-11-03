@@ -53,7 +53,7 @@ public class Card4_173 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentPhase() == Phase.ARCHERY && !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                                return gameState.getCurrentPhase() == Phase.ARCHERY && !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         }, Filters.sameCard(self)));
         modifiers.add(
@@ -61,7 +61,7 @@ public class Card4_173 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
                         Filters.sameCard(self)));
