@@ -115,6 +115,13 @@ public class Filters {
     public static Filter canBeAssignedToSkirmishByEffect(final Side sidePlayer) {
         return Filters.and(
                 notAssignedToSkirmish,
+                Filters.or(
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return !gameState.isFierceSkirmishes();
+                            }
+                        }, Keyword.FIERCE),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
