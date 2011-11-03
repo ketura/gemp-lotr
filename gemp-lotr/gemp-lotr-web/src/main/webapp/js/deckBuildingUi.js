@@ -20,6 +20,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     specialCollectionGroup: null,
     selectionFunc: null,
     pageDiv: null,
+    fullFilterDiv: null,
     filterDiv: null,
     drawDeckDiv: null,
     fpDeckGroup: null,
@@ -124,8 +125,28 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.pageDiv = $("<div></div>");
         this.pageDiv.append("<button id='previousPage' style='float: left;'>Previous page</button>");
         this.pageDiv.append("<button id='nextPage' style='float: right;'>Next page</button>");
-        this.pageDiv.append("<div id='countSlider' style='left: 33px; top: 10px; width: 200px;'></div>");
+        this.pageDiv.append("<div id='countSlider' style='left: 50px; top: 10px; width: 200px;'></div>");
         this.collectionDiv.append(this.pageDiv);
+
+        this.fullFilterDiv = $("<div id='fullFiltering'></div>");
+        this.fullFilterDiv.append("<select id='set'>"
+                + "<option value=''>All Sets</option>"
+                + "<option value='1,2,3'>Fellowship Block</option>"
+                + "<option value='1'>01 - The Fellowship of the Ring</option>"
+                + "<option value='2'>02 - Mines of Moria</option>"
+                + "<option value='3'>03 - Realms of the Elf-lords</option>"
+                + "<option value='4,5,6'>Towers Block</option>"
+                + "<option value='4'>04 - The Two Towers</option>"
+                + "<option value='5'>05 - Battle of Helm's Deep</option>"
+                + "<option value='6'>06 - Ents of Fangorn</option>"
+                + "<option value='7,8,10'>King Block</option>"
+                + "<option value='7'>07 - The Return of the King</option>"
+                + "<option value='8'>08 - Siege of Gondor</option>"
+                + "<option value='9'>09 - Reflections</option>"
+                + "<option value='10'>10 - Mount Doom</option>"
+                + "</select>");
+        this.fullFilterDiv.append("<input type='text' id='cardName' value='Card name'>");
+        this.collectionDiv.append(this.fullFilterDiv);
 
         this.filterDiv = $("<div id='filtering'></div>");
 
@@ -149,23 +170,6 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         var combos = $("<div></div>");
 
-        combos.append("<select id='set'>"
-                + "<option value=''>All Sets</option>"
-                + "<option value='1,2,3'>Fellowship Block</option>"
-                + "<option value='1'>01 - The Fellowship of the Ring</option>"
-                + "<option value='2'>02 - Mines of Moria</option>"
-                + "<option value='3'>03 - Realms of the Elf-lords</option>"
-                + "<option value='4,5,6'>Towers Block</option>"
-                + "<option value='4'>04 - The Two Towers</option>"
-                + "<option value='5'>05 - Battle of Helm's Deep</option>"
-                + "<option value='6'>06 - Ents of Fangorn</option>"
-                + "<option value='7,8,10'>King Block</option>"
-                + "<option value='7'>07 - The Return of the King</option>"
-                + "<option value='8'>08 - Siege of Gondor</option>"
-                + "<option value='9'>09 - Reflections</option>"
-                + "<option value='10'>10 - Mount Doom</option>"
-                + "</select>");
-
         combos.append(" <select id='cardType'>"
                 + "<option value=''>All Card Types</option>"
                 + "<option value='COMPANION'>Companions</option>"
@@ -178,12 +182,48 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<option value='POSSESSION,ARTIFACT'>Items</option>"
                 + "<option value='COMPANION,ALLY,MINION'>Characters</option>"
                 + "</select>");
+        combos.append(" <select id='keyword'>"
+                + "<option value=''>No keyword filtering</option>"
+                + "<option value='ARCHER'>Archer</option>"
+                + "<option value='EASTERLING'>Easterling</option>"
+                + "<option value='ENDURING'>Enduring</option>"
+                + "<option value='ENGINE'>Engine</option>"
+                + "<option value='FIERCE'>Fierce</option>"
+                + "<option value='FORTIFICATION'>Fortification</option>"
+                + "<option value='KNIGHT'>Knight</option>"
+                + "<option value='MACHINE'>Machine</option>"
+                + "<option value='PIPEWEED'>Pipeweed</option>"
+                + "<option value='RANGER'>Ranger</option>"
+                + "<option value='RING_BOUND'>Ring-bound</option>"
+                + "<option value='SEARCH'>Search</option>"
+                + "<option value='SOUTHRON'>Southron</option>"
+                + "<option value='SPELL'>Spell</option>"
+                + "<option value='STEALTH'>Stealth</option>"
+                + "<option value='TALE'>Tale</option>"
+                + "<option value='TENTACLE'>Tentacle</option>"
+                + "<option value='TRACKER'>Tracker</option>"
+                + "<option value='TWILIGHT'>Twilight</option>"
+                + "<option value='UNHASTY'>Unhasty</option>"
+                + "<option value='VALIANT'>Valiant</option>"
+                + "<option value='VILLAGER'>Villager</option>"
+                + "<option value='WARG_RIDER'>Warg-rider</option>"
+                + "<option value='WEATHER'>Weather</option>"
+                + "</select>");
         this.filterDiv.append(combos);
 
         this.collectionDiv.append(this.filterDiv);
 
         $("#culture1").buttonset();
         $("#culture2").buttonset();
+
+        var fullFilterChanged = function() {
+            that.start = 0;
+            that.getCollection();
+            return true;
+        };
+
+        $("#set").change(fullFilterChanged);
+        $("#cardName").change(fullFilterChanged);
 
         var filterOut = function() {
             that.filter = that.calculateNormalFilter();
@@ -192,8 +232,8 @@ var GempLotrDeckBuildingUI = Class.extend({
             return true;
         };
 
-        $("#set").change(filterOut);
         $("#cardType").change(filterOut);
+        $("#keyword").change(filterOut);
 
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMORIA,#labelRAIDER,#labelSAURON,#labelWRAITH").click(filterOut);
 
@@ -561,6 +601,24 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.selectionFunc = this.addCardToDeck;
     },
 
+    calculateFullFilterPostfix: function() {
+        var setNo = $("#set option:selected").prop("value");
+        if (setNo != "")
+            setNo = " set:" + setNo;
+
+        var cardName = $("#cardName").val();
+        if (cardName == "Card name")
+            cardName = "";
+        else {
+            var cardNameElems = cardName.split(" ");
+            cardName = "";
+            for (var i = 0; i < cardNameElems.length; i++)
+                cardName += " name:" + cardNameElems[i];
+        }
+
+        return setNo + cardName;
+    },
+
     calculateNormalFilter: function() {
         var cultures = new Array();
         $("label", $("#culture1")).each(
@@ -574,20 +632,20 @@ var GempLotrDeckBuildingUI = Class.extend({
                         cultures.push($(this).prop("id").substring(5));
                 });
 
-        var setNo = $("#set option:selected").prop("value");
-        if (setNo != "")
-            setNo = " set:" + setNo;
-
         var cardType = $("#cardType option:selected").prop("value");
         if (cardType == "")
             cardType = "cardType:-SITE,THE_ONE_RING";
         else
             cardType = "cardType:" + cardType;
 
+        var keyword = $("#keyword option:selected").prop("value");
+        if (keyword != "")
+            keyword = " keyword:" + keyword;
+
         if (cultures.length > 0)
-            return cardType + setNo + " culture:" + cultures;
+            return cardType + " culture:" + cultures + keyword;
         else
-            return cardType + setNo;
+            return cardType + keyword;
     },
 
     addCardToDeck: function(blueprintId, side) {
@@ -659,7 +717,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     getCollection: function() {
         var that = this;
-        this.comm.getCollection(this.collectionType, this.filter, this.start, this.count, function(xml) {
+        this.comm.getCollection(this.collectionType, this.filter + this.calculateFullFilterPostfix(), this.start, this.count, function(xml) {
             that.displayCollection(xml);
         });
     },
@@ -771,13 +829,15 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.bottomBarDiv.css({ position: "absolute", left: padding * 3 + sitesWidth * 2, top: manageHeight + padding + deckHeight - 50, width: deckWidth - (sitesWidth + padding) * 2 - padding, height: 50 });
 
-        this.filterDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding, height: 80 });
-        this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 130, width: collectionWidth - padding * 2, height: collectionHeight - 130 });
         this.pageDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding, height: 50 });
-        this.specialCollectionDiv.css({ position: "absolute", left: padding, top: 50, width: collectionWidth - padding * 2, height: collectionHeight - 50 });
+        $("#countSlider").css({width: collectionWidth - padding - 100});
+        this.fullFilterDiv.css({position:"absolute", left: padding, top: 50, width: collectionWidth - padding, height: 30});
+        this.filterDiv.css({ position: "absolute", left: padding, top: 80, width: collectionWidth - padding, height: 80 });
+        this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 160, width: collectionWidth - padding * 2, height: collectionHeight - 160 });
+        this.specialCollectionDiv.css({ position: "absolute", left: padding, top: 80, width: collectionWidth - padding * 2, height: collectionHeight - 80 });
 
-        this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 130);
-        this.specialCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 50);
+        this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 160);
+        this.specialCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 80);
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {
