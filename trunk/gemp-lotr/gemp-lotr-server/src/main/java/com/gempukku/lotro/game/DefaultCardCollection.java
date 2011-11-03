@@ -43,6 +43,7 @@ public class DefaultCardCollection implements MutableCardCollection {
         String[] sets = null;
         if (setStr != null)
             sets = setStr.split(",");
+        List<String> words = getWords(filterParams);
         List<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
         List<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
         List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
@@ -62,8 +63,9 @@ public class DefaultCardCollection implements MutableCardCollection {
                     if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                         if (cultures == null || cultures.contains(blueprint.getCulture()))
                             if (containsAllKeywords(blueprint, keywords))
-                                if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
-                                    result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
+                                if (containsAllWords(blueprint, words))
+                                    if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
+                                        result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
             }
         }
         Collections.sort(result, new Comparator<Item>() {
@@ -101,6 +103,15 @@ public class DefaultCardCollection implements MutableCardCollection {
         return null;
     }
 
+    private List<String> getWords(String[] filterParams) {
+        List<String> result = new LinkedList<String>();
+        for (String filterParam : filterParams) {
+            if (filterParam.startsWith("name:"))
+                result.add(filterParam.substring("name:".length()));
+        }
+        return result;
+    }
+
     private Integer getSiteNumber(String[] filterParams) {
         for (String filterParam : filterParams) {
             if (filterParam.startsWith("siteNumber:"))
@@ -112,6 +123,14 @@ public class DefaultCardCollection implements MutableCardCollection {
     private boolean containsAllKeywords(LotroCardBlueprint blueprint, List<Keyword> keywords) {
         for (Keyword keyword : keywords) {
             if (blueprint == null || !blueprint.hasKeyword(keyword))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean containsAllWords(LotroCardBlueprint blueprint, List<String> words) {
+        for (String word : words) {
+            if (blueprint == null || !blueprint.getName().toLowerCase().contains(word.toLowerCase()))
                 return false;
         }
         return true;
