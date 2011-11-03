@@ -67,13 +67,11 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
 
         Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
 
-        final boolean success = hand.size() >= _minimum;
-
         if (hand.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, hand, _forced));
             processSubAction(game, subAction);
-            cardsBeingDiscarded(hand, success);
+            cardsBeingDiscardedCallback(hand);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose cards to discard", hand, _minimum, _maximum) {
@@ -83,7 +81,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
                             SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, cards, _forced));
                             processSubAction(game, subAction);
-                            cardsBeingDiscarded(cards, success);
+                            cardsBeingDiscardedCallback(cards);
                         }
                     });
         }
@@ -91,6 +89,6 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
         return null;
     }
 
-    protected void cardsBeingDiscarded(Collection<PhysicalCard> cardsBeingDiscarded, boolean success) {
+    protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
     }
 }
