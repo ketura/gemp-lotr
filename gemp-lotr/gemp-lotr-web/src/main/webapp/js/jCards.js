@@ -107,6 +107,13 @@ var Card = Class.extend({
             return Math.floor(height / cardScale);
         else
             return Math.floor(height * cardScale);
+    },
+
+    getWidthForMaxDimension: function(maxDimension) {
+        if (this.horizontal)
+            return maxDimension;
+        else
+            return Math.floor(maxDimension * cardScale);
     }
 });
 
