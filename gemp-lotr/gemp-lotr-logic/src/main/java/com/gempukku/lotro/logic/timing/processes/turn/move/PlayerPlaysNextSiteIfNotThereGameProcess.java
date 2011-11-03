@@ -15,8 +15,6 @@ import com.gempukku.lotro.logic.timing.results.WhenMoveFromResult;
 import com.gempukku.lotro.logic.timing.results.WhenMoveToResult;
 import com.gempukku.lotro.logic.timing.results.WhenMovesResult;
 
-import java.util.Collections;
-
 public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
     private LotroGame _game;
     private GameProcess _afterMoveGameProcess;
@@ -51,9 +49,6 @@ public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
             nextSite = Filters.filter(gameState.getAdventureDeck(playerToPlaySite), gameState, _game.getModifiersQuerying(),
                     Filters.siteNumber(nextSiteNumber)).iterator().next();
 
-            gameState.removeCardsFromZone(null, Collections.singleton(nextSite));
-            gameState.addCardToZone(_game, nextSite, Zone.ADVENTURE_PATH);
-
             final PhysicalCard site = nextSite;
 
             _nextProcess =
@@ -61,7 +56,7 @@ public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
                         @Override
                         public void process() {
                             _game.getActionsEnvironment().addActionToStack(
-                                    new SimpleEffectAction(new PlayCardEffect(site), "Plays next site"));
+                                    new SimpleEffectAction(new PlayCardEffect(site, Zone.ADVENTURE_PATH), "Plays next site"));
                         }
 
                         @Override
