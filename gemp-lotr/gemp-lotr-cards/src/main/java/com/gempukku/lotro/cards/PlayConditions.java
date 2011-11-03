@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class PlayConditions {
     public static boolean nonPlayZone(Zone zone) {
@@ -325,6 +326,33 @@ public class PlayConditions {
         if (effectResult.getType() == EffectResult.Type.ADD_THREAT) {
             AddThreatResult burdenResult = (AddThreatResult) effectResult;
             return (Filters.and(sourceFilters).accepts(game.getGameState(), game.getModifiersQuerying(), burdenResult.getSource()));
+        }
+        return false;
+    }
+
+    public static boolean assigned(LotroGame game, EffectResult effectResult, Side side, Filter againstFilter, Filterable... cardFilters) {
+        if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
+            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
+            if (side != null) {
+                if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
+                    if (side == Side.SHADOW)
+                        return false;
+                } else {
+                    if (side == Side.FREE_PEOPLE)
+                        return false;
+                }
+            }
+
+            final Map<PhysicalCard, List<PhysicalCard>> assignments = assignmentResult.getAssignments();
+            for (PhysicalCard matchingFPCard : Filters.filter(assignments.keySet(), game.getGameState(), game.getModifiersQuerying(), cardFilters)) {
+                if (Filters.filter(assignments.get(matchingFPCard), game.getGameState(), game.getModifiersQuerying(), againstFilter).size() > 0)
+                    return true;
+            }
+
+            for (PhysicalCard matchingAgainstCard : Filters.filter(assignments.keySet(), game.getGameState(), game.getModifiersQuerying(), againstFilter)) {
+                if (Filters.filter(assignments.get(matchingAgainstCard), game.getGameState(), game.getModifiersQuerying(), cardFilters).size() > 0)
+                    return true;
+            }
         }
         return false;
     }
