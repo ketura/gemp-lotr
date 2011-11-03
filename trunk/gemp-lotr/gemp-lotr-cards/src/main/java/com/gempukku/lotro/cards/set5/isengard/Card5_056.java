@@ -55,7 +55,7 @@ public class Card5_056 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
                         Filters.and(
@@ -71,7 +71,7 @@ public class Card5_056 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
                         Filters.sameCard(self)));

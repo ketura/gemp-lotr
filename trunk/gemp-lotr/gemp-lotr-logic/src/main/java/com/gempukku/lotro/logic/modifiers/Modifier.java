@@ -95,5 +95,5 @@ public interface Modifier {
 
     public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter);
 
-    public boolean hasFlagActive(ModifierFlag modifierFlag);
+    public boolean hasFlagActive(GameState gameState, ModifiersQuerying modifiersQuerying, ModifierFlag modifierFlag);
 }

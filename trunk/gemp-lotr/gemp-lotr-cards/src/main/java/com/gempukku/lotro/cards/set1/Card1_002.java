@@ -59,7 +59,7 @@ public class Card1_002 extends AbstractAttachable {
     public List<? extends Action> getOptionalInPlayBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
-                && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
                 List<Action> actions = new LinkedList<Action>();
@@ -80,7 +80,7 @@ public class Card1_002 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
-                && !game.getModifiersQuerying().hasFlagActive(ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();

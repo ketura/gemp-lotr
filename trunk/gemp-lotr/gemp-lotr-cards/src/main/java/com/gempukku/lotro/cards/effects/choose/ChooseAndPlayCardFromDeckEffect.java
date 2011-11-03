@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -38,7 +39,7 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return true;
+        return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
     }
 
     @Override
@@ -48,19 +49,21 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
 
     @Override
     public Collection<? extends EffectResult> playEffect(final LotroGame game) {
-        Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_filter, Filters.playable(game, _twilightModifier)));
-        game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(deck), 0, 1) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                        if (selectedCards.size() > 0) {
-                            PhysicalCard selectedCard = selectedCards.get(0);
-                            _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier);
-                            game.getActionsEnvironment().addActionToStack(_playCardAction);
+        if (isPlayableInFull(game)) {
+            Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_filter, Filters.playable(game, _twilightModifier)));
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(deck), 0, 1) {
+                        @Override
+                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                            List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            if (selectedCards.size() > 0) {
+                                PhysicalCard selectedCard = selectedCards.get(0);
+                                _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier);
+                                game.getActionsEnvironment().addActionToStack(_playCardAction);
+                            }
                         }
-                    }
-                });
+                    });
+        }
         return null;
     }
 
