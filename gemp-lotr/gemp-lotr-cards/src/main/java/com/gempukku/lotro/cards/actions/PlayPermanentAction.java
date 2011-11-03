@@ -24,8 +24,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
     private Iterator<Effect> _preCostIterator;
 
-    private boolean _cardPutIntoPlay;
-
     private Effect _playCardEffect;
     private boolean _cardPlayed;
 
@@ -43,7 +41,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
         _preCostIterator = preCostEffects.iterator();
 
-        _playCardEffect = new PlayCardEffect(card);
+        _playCardEffect = new PlayCardEffect(card, zone);
     }
 
     @Override
@@ -76,13 +74,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
             Effect cost = getNextCost();
             if (cost != null)
                 return cost;
-
-            if (!_cardPutIntoPlay) {
-                _cardPutIntoPlay = true;
-                if (_permanentPlayed.getZone() != null)
-                    game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
-                game.getGameState().addCardToZone(game, _permanentPlayed, _zone);
-            }
 
             if (!_cardPlayed) {
                 _cardPlayed = true;
