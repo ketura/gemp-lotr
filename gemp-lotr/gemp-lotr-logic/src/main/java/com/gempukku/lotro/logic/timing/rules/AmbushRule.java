@@ -25,14 +25,14 @@ public class AmbushRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
                             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
                             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
                                 for (List<PhysicalCard> minions : assignmentResult.getAssignments().values()) {
                                     for (PhysicalCard minion : minions) {
-                                        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), minion, Keyword.AMBUSH)) {
+                                        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), minion, Keyword.AMBUSH) && minion.getOwner().equals(playerId)) {
                                             final int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), minion, Keyword.AMBUSH);
                                             RequiredTriggerAction action = new RequiredTriggerAction(minion);
                                             action.setText("Ambush - add " + count);
