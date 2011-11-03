@@ -18,17 +18,17 @@ import java.util.List;
  * Set: The Return of the King
  * Side: Shadow
  * Culture: Raider
- * Twilight Cost: 4
+ * Twilight Cost: 3
  * Type: Minion • Man
- * Strength: 9
+ * Strength: 8
  * Vitality: 2
  * Site: 4
  * Game Text: Southron. At the start of each skirmish involving this minion, you may remove (3) to wound a companion
  * or ally he is skirmishing.
  */
-public class Card7_136 extends AbstractMinion {
-    public Card7_136() {
-        super(4, 9, 2, 4, Race.MAN, Culture.RAIDER, "Desert Soldier");
+public class Card7_137 extends AbstractMinion {
+    public Card7_137() {
+        super(3, 8, 2, 4, Race.MAN, Culture.RAIDER, "Desert Spearman");
         addKeyword(Keyword.SOUTHRON);
     }
 
