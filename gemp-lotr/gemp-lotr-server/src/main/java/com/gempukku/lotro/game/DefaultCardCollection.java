@@ -10,6 +10,101 @@ public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Integer> _counts = new TreeMap<String, Integer>(new CardBlueprintIdComparator());
     private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>();
     private LotroCardBlueprintLibrary _library;
+    private static final Comparator<Item> NAME_COMPARATOR = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            if (o1.getType() == o2.getType()) {
+                if (o1.getType() == Item.Type.PACK)
+                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+                else
+                    return o1.getCardBlueprint().getName().compareTo(o2.getCardBlueprint().getName());
+            } else {
+                if (o1.getType() == Item.Type.PACK)
+                    return -1;
+                else
+                    return 1;
+            }
+        }
+    };
+
+    private static final Comparator<Item> TWILIGHT_COMPARATOR = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            if (o1.getType() == o2.getType()) {
+                if (o1.getType() == Item.Type.PACK)
+                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+                else {
+                    int twilightResult = o1.getCardBlueprint().getTwilightCost() - o2.getCardBlueprint().getTwilightCost();
+                    if (twilightResult == 0)
+                        return NAME_COMPARATOR.compare(o1, o2);
+                    return twilightResult;
+                }
+            } else {
+                if (o1.getType() == Item.Type.PACK)
+                    return -1;
+                else
+                    return 1;
+            }
+        }
+    };
+
+    private static final Comparator<Item> STRENGTH_COMPARATOR = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            if (o1.getType() == o2.getType()) {
+                if (o1.getType() == Item.Type.PACK)
+                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+                else {
+                    int strengthResult = getStrengthSafely(o1.getCardBlueprint()) - getStrengthSafely(o2.getCardBlueprint());
+                    if (strengthResult == 0)
+                        return NAME_COMPARATOR.compare(o1, o2);
+                    return strengthResult;
+                }
+            } else {
+                if (o1.getType() == Item.Type.PACK)
+                    return -1;
+                else
+                    return 1;
+            }
+        }
+
+        private int getStrengthSafely(LotroCardBlueprint blueprint) {
+            try {
+                return blueprint.getStrength();
+            } catch (UnsupportedOperationException exp) {
+                return Integer.MAX_VALUE;
+            }
+        }
+    };
+
+    private static final Comparator<Item> VITALITY_COMPARATOR = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            if (o1.getType() == o2.getType()) {
+                if (o1.getType() == Item.Type.PACK)
+                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+                else {
+                    int strengthResult = getVitalitySafely(o1.getCardBlueprint()) - getVitalitySafely(o2.getCardBlueprint());
+                    if (strengthResult == 0)
+                        return NAME_COMPARATOR.compare(o1, o2);
+                    return strengthResult;
+                }
+            } else {
+                if (o1.getType() == Item.Type.PACK)
+                    return -1;
+                else
+                    return 1;
+            }
+        }
+
+        private int getVitalitySafely(LotroCardBlueprint blueprint) {
+            try {
+                return blueprint.getVitality();
+            } catch (UnsupportedOperationException exp) {
+                return Integer.MAX_VALUE;
+            }
+        }
+    };
 
     public DefaultCardCollection(LotroCardBlueprintLibrary library) {
         _library = library;
@@ -68,22 +163,16 @@ public class DefaultCardCollection implements MutableCardCollection {
                                         result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
             }
         }
-        Collections.sort(result, new Comparator<Item>() {
-            @Override
-            public int compare(Item o1, Item o2) {
-                if (o1.getType() == o2.getType()) {
-                    if (o1.getType() == Item.Type.PACK)
-                        return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-                    else
-                        return o1.getCardBlueprint().getName().compareTo(o2.getCardBlueprint().getName());
-                } else {
-                    if (o1.getType() == Item.Type.PACK)
-                        return -1;
-                    else
-                        return 1;
-                }
-            }
-        });
+        String sort = getSort(filterParams);
+        if (sort != null && sort.equals("twilight"))
+            Collections.sort(result, TWILIGHT_COMPARATOR);
+        else if (sort != null && sort.equals("strength"))
+            Collections.sort(result, STRENGTH_COMPARATOR);
+        else if (sort != null && sort.equals("vitality"))
+            Collections.sort(result, VITALITY_COMPARATOR);
+        else
+            Collections.sort(result, NAME_COMPARATOR);
+
         return result;
     }
 
@@ -116,6 +205,14 @@ public class DefaultCardCollection implements MutableCardCollection {
         for (String filterParam : filterParams) {
             if (filterParam.startsWith("siteNumber:"))
                 return Integer.parseInt(filterParam.substring("siteNumber:".length()));
+        }
+        return null;
+    }
+
+    private String getSort(String[] filterParams) {
+        for (String filterParam : filterParams) {
+            if (filterParam.startsWith("sort:"))
+                return filterParam.substring("sort:".length());
         }
         return null;
     }

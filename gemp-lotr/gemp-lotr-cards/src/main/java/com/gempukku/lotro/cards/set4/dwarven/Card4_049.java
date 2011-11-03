@@ -44,11 +44,11 @@ public class Card4_049 extends AbstractCompanion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int bonus = (card.getBlueprint().getName().equals("Legolas")) ? 2 : 1;
+                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                            int bonus = (companion.getBlueprint().getName().equals("Legolas")) ? 2 : 1;
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(companion), bonus), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);
