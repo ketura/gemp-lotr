@@ -205,7 +205,6 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem = $("<div class='ui-widget-content'></div>");
         this.gameStateElem.css({"border-radius": "7px"});
 
-        this.gameStateElem.append("<b>Players:</b><br>");
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div>"
                     + "<div class='playerStats'><div id='deck" + i + "' style='display: inline;'></div> <div id='hand" + i + "' style='display: inline;'></div> <div id='discard" + i + "' style='display: inline;'></div> <div id='deadPile" + i + "' style='display: inline;'></div></div></div>");
@@ -214,7 +213,6 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.append("<br>");
 
         this.gameStateElem.append("<div class='twilightPool'>0</div>");
-        this.gameStateElem.append("<b>Phases:</b><br>");
         this.gameStateElem.append("<div class='phase' id='FELLOWSHIP'>Fellowship</div>");
         this.gameStateElem.append("<div class='phase' id='SHADOW'>Shadow</div>");
         this.gameStateElem.append("<div class='phase' id='MANEUVER'>Maneuver</div>");
