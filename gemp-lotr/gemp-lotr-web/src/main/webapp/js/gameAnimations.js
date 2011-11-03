@@ -12,7 +12,7 @@ var GameAnimations = Class.extend({
 
     getAnimationLength: function(origValue) {
         if (this.game.replayMode)
-            return origValue * 2;
+            return origValue * 1;
         return origValue;
     },
 
@@ -137,6 +137,12 @@ var GameAnimations = Class.extend({
                                     var targetCardWidth = $(targetCard).width();
                                     var targetCardHeight = $(targetCard).height();
 
+                                    if (card.horizontal != $(targetCard).data("card").horizontal) {
+                                        var tempSize = targetCardHeight;
+                                        targetCardHeight = targetCardWidth;
+                                        targetCardWidth = tempSize;
+                                    }
+
                                     $(cardDiv).css(
                                     {
                                         position: "absolute",
@@ -159,9 +165,9 @@ var GameAnimations = Class.extend({
                                         queue: false,
                                         complete: null});
                                 }
-
-                                setTimeout(next, that.getAnimationLength(that.cardAffectsCardDuration));
                             }
+
+                            setTimeout(next, that.getAnimationLength(that.cardAffectsCardDuration));
                         }).queue(
                         function(next) {
                             $(".card").each(
