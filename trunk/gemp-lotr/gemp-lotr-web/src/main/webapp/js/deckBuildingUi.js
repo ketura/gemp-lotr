@@ -146,6 +146,13 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<option value='10'>10 - Mount Doom</option>"
                 + "</select>");
         this.fullFilterDiv.append("<input type='text' id='cardName' value='Card name'>");
+        this.fullFilterDiv.append("<select id='sort'>"
+                + "<option value=''>Sort by:</option>"
+                + "<option value='name'>Name</option>"
+                + "<option value='twilight'>Twilight</option>"
+                + "<option value='strength'>Strength</option>"
+                + "<option value='vitality'>Vitality</option>"
+                + "</select>");
         this.collectionDiv.append(this.fullFilterDiv);
 
         this.filterDiv = $("<div id='filtering'></div>");
@@ -224,6 +231,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         $("#set").change(fullFilterChanged);
         $("#cardName").change(fullFilterChanged);
+        $("#sort").change(fullFilterChanged);
 
         var filterOut = function() {
             that.filter = that.calculateNormalFilter();
@@ -606,6 +614,10 @@ var GempLotrDeckBuildingUI = Class.extend({
         if (setNo != "")
             setNo = " set:" + setNo;
 
+        var sort = $("#sort option:selected").prop("value");
+        if (sort != "")
+            sort = " sort:" + sort;
+
         var cardName = $("#cardName").val();
         if (cardName == "Card name")
             cardName = "";
@@ -616,7 +628,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 cardName += " name:" + cardNameElems[i];
         }
 
-        return setNo + cardName;
+        return setNo + sort + cardName;
     },
 
     calculateNormalFilter: function() {
