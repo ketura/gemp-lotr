@@ -167,6 +167,8 @@ var GempLotrGameUI = Class.extend({
                 }
             }
         }
+
+        this.layoutUI(false);
     },
 
     initializeGameUI: function() {

@@ -626,10 +626,10 @@ var GameAnimations = Class.extend({
     },
 
     removeTokens: function(element, animate) {
+        var cardId = element.getAttribute("cardId");
         var that = this;
         $("#main").queue(
                 function(next) {
-                    var cardId = element.getAttribute("cardId");
                     var zone = element.getAttribute("zone");
                     var token = element.getAttribute("token");
                     var count = parseInt(element.getAttribute("count"));
