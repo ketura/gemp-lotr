@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.results.PlayEventResult;
@@ -12,7 +13,7 @@ public class PlayEventEffect extends PlayCardEffect {
     private PlayEventResult _playEventResult;
 
     public PlayEventEffect(PhysicalCard cardPlayed, boolean requiresRanger) {
-        super(cardPlayed);
+        super(cardPlayed, (Zone) null);
         _cardPlayed = cardPlayed;
         _requiresRanger = requiresRanger;
         _playEventResult = new PlayEventResult(getPlayedCard(), _requiresRanger);
@@ -24,6 +25,8 @@ public class PlayEventEffect extends PlayCardEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        if (_cardPlayed.getZone() != null)
+            game.getGameState().removeCardsFromZone(_cardPlayed.getOwner(), Collections.singleton(_cardPlayed));
         return new FullEffectResult(Collections.singleton(_playEventResult), true, true);
     }
 }

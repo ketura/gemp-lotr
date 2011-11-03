@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards.actions;
 
-import com.gempukku.lotro.cards.effects.AttachCardEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PayPlayOnTwilightCostEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
@@ -27,9 +26,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
     private Iterator<Effect> _preCostIterator;
 
-    private Effect _putCardIntoPlayEffect;
-    private boolean _cardPutIntoPlay;
-
     private Effect _playCardEffect;
     private boolean _cardPlayed;
 
@@ -53,8 +49,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                             appendCost(
                                     new ExertCharactersEffect(target, target));
                         }
-
-                        _putCardIntoPlayEffect = new AttachCardEffect(_cardToAttach, target);
 
                         int modifier = twilightModifier;
                         for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())
@@ -109,7 +103,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
             return _chooseTargetEffect;
         }
 
-        if (_putCardIntoPlayEffect != null) {
+        if (_playCardEffect != null) {
             if (_preCostIterator.hasNext())
                 return _preCostIterator.next();
 
@@ -117,11 +111,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                 Effect cost = getNextCost();
                 if (cost != null)
                     return cost;
-
-                if (!_cardPutIntoPlay) {
-                    _cardPutIntoPlay = true;
-                    return _putCardIntoPlayEffect;
-                }
 
                 if (!_cardPlayed) {
                     _cardPlayed = true;
