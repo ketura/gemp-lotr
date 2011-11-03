@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.raider;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -21,29 +21,29 @@ import java.util.List;
  * Set: The Return of the King
  * Side: Shadow
  * Culture: Raider
- * Twilight Cost: 4
+ * Twilight Cost: 3
  * Type: Minion • Man
- * Strength: 9
+ * Strength: 8
  * Vitality: 2
  * Site: 4
- * Game Text: Easterling. Maneuver: If you cannot spot 2 burdens, spot another Easterling and discard a card from hand
- * to add a burden.
+ * Game Text: Easterling. Maneuver: If you cannot spot a burden, spot another Easterling and exert this minion to add
+ * a burden.
  */
-public class Card7_143 extends AbstractMinion {
-    public Card7_143() {
-        super(4, 9, 2, 4, Race.MAN, Culture.RAIDER, "Easterling Footman");
+public class Card7_146 extends AbstractMinion {
+    public Card7_146() {
+        super(3, 8, 2, 4, Race.MAN, Culture.RAIDER, "Easterling Sergeant");
         addKeyword(Keyword.EASTERLING);
     }
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
-                && game.getGameState().getBurdens() < 2
+                && game.getGameState().getBurdens() < 1
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.EASTERLING)
-                && PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any)) {
+                && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
+                    new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);
