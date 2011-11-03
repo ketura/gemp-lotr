@@ -114,6 +114,61 @@ var GempLotrGameUI = Class.extend({
         this.addBottomLeftTabPane();
     },
 
+    layoutGroupWithCard: function(cardId) {
+        var cardData = $(".card:cardId(" + cardId + ")").data("card");
+        if (this.advPathGroup.cardBelongs(cardData)) {
+            this.advPathGroup.layoutCards();
+            return;
+        }
+        if (this.charactersPlayer.cardBelongs(cardData)) {
+            this.charactersPlayer.layoutCards();
+            return;
+        }
+        if (this.charactersOpponent.cardBelongs(cardData)) {
+            this.charactersOpponent.layoutCards();
+            return;
+        }
+        if (this.supportPlayer.cardBelongs(cardData)) {
+            this.supportPlayer.layoutCards();
+            return;
+        }
+        if (this.supportOpponent.cardBelongs(cardData)) {
+            this.supportOpponent.layoutCards();
+            return;
+        }
+        if (this.hand != null)
+            if (this.hand.cardBelongs(cardData)) {
+                this.hand.layoutCards();
+                return;
+            }
+        if (this.shadow.cardBelongs(cardData)) {
+            this.shadow.layoutCards();
+            return;
+        }
+
+        if (this.skirmishFellowshipGroup.cardBelongs(cardData)) {
+            this.skirmishFellowshipGroup.layoutCards();
+            return;
+        }
+        if (this.skirmishShadowGroup.cardBelongs(cardData)) {
+            this.skirmishShadowGroup.layoutCards();
+            return;
+        }
+
+        for (var characterId in this.shadowAssignGroups) {
+            if (this.shadowAssignGroups.hasOwnProperty(characterId)) {
+                if (this.shadowAssignGroups[characterId].cardBelongs(cardData)) {
+                    this.shadowAssignGroups[characterId].layoutCards();
+                    return;
+                }
+                if (this.freePeopleAssignGroups[characterId].cardBelongs(cardData)) {
+                    this.freePeopleAssignGroups[characterId].layoutCards();
+                    return;
+                }
+            }
+        }
+    },
+
     initializeGameUI: function() {
         this.advPathGroup = new AdvPathCardGroup($("#main"));
 
