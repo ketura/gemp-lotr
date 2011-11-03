@@ -33,8 +33,6 @@ public class GameState {
     private boolean _wearingRing;
     private boolean _consecutiveAction;
 
-    private Side _initiativeSide;
-
     private Map<String, Integer> _playerPosition = new HashMap<String, Integer>();
     private Map<String, Integer> _playerThreats = new HashMap<String, Integer>();
 
@@ -74,14 +72,6 @@ public class GameState {
 
         for (GameStateListener listener : getAllGameStateListeners())
             listener.setPlayerOrder(playerOrder.getAllPlayers());
-    }
-
-    public void setInitiativeSide(Side initiativeSide) {
-        _initiativeSide = initiativeSide;
-    }
-
-    public Side getInitiativeSide() {
-        return _initiativeSide;
     }
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {

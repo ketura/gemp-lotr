@@ -148,7 +148,7 @@ public class PlayConditions {
     }
 
     public static boolean hasInitiative(LotroGame game, Side side) {
-        return game.getGameState().getInitiativeSide() == side;
+        return game.getModifiersQuerying().hasInitiative(game.getGameState()) == side;
     }
 
     public static boolean canAddThreat(LotroGame game, PhysicalCard card, int count) {

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set7.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -33,7 +34,7 @@ public class Card7_031 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose Gandalf", Filters.gandalf) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        if (game.getGameState().getInitiativeSide() == Side.FREE_PEOPLE) {
+                        if (PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)) {
                             game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                     new StrengthModifier(self, card, 4), Phase.SKIRMISH);
                             game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
