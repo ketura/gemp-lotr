@@ -137,28 +137,38 @@ var GameAnimations = Class.extend({
                                     var targetCardWidth = $(targetCard).width();
                                     var targetCardHeight = $(targetCard).height();
 
+                                    var shadowStartPosX;
+                                    var shadowStartPosY;
+                                    var shadowWidth;
+                                    var shadowHeight;
                                     if (card.horizontal != $(targetCard).data("card").horizontal) {
-                                        var tempSize = targetCardHeight;
-                                        targetCardHeight = targetCardWidth;
-                                        targetCardWidth = tempSize;
+                                        shadowWidth = targetCardHeight;
+                                        shadowHeight = targetCardWidth;
+                                        shadowStartPosX = $(targetCard).position().left - (shadowWidth - targetCardWidth) / 2;
+                                        shadowStartPosY = $(targetCard).position().top - (shadowHeight - targetCardHeight) / 2;
+                                    } else {
+                                        shadowWidth = targetCardWidth;
+                                        shadowHeight = targetCardHeight;
+                                        shadowStartPosX = $(targetCard).position().left;
+                                        shadowStartPosY = $(targetCard).position().top;
                                     }
 
                                     $(cardDiv).css(
                                     {
                                         position: "absolute",
-                                        left: $(targetCard).position().left,
-                                        top: $(targetCard).position().top,
-                                        width: targetCardWidth,
-                                        height: targetCardHeight,
+                                        left: shadowStartPosX,
+                                        top: shadowStartPosY,
+                                        width: shadowWidth,
+                                        height: shadowHeight,
                                         "z-index": 100,
                                         opacity: 1});
                                     $(cardDiv).animate(
                                     {
                                         opacity: 0,
-                                        left: "-=" + (targetCardWidth / 2),
-                                        top: "-=" + (targetCardHeight / 2),
-                                        width: "+=" + targetCardWidth,
-                                        height: "+=" + targetCardHeight},
+                                        left: "-=" + (shadowWidth / 2),
+                                        top: "-=" + (shadowHeight / 2),
+                                        width: "+=" + shadowWidth,
+                                        height: "+=" + shadowHeight},
                                     {
                                         duration: that.getAnimationLength(that.cardAffectsCardDuration),
                                         easing: "easeInQuart",
