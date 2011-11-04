@@ -25,10 +25,10 @@ var GameAnimations = Class.extend({
 
             // Play-out game event animation only if it's not the player who initiated it
             if (this.game.spectatorMode || this.game.replayMode || (participantId != this.game.bottomPlayerId)) {
-                var cardDiv = $(".card:cardId(" + cardId + ")");
-                if (cardDiv != null) {
-                    $("#main").queue(
-                            function(next) {
+                $("#main").queue(
+                        function(next) {
+                            var cardDiv = $(".card:cardId(" + cardId + ")");
+                            if (cardDiv != null) {
                                 $(".borderOverlay", cardDiv)
                                         .switchClass("borderOverlay", "highlightBorderOverlay", that.getAnimationLength(that.cardActivatedDuration / 6))
                                         .switchClass("highlightBorderOverlay", "borderOverlay", that.getAnimationLength(that.cardActivatedDuration / 6))
@@ -37,8 +37,11 @@ var GameAnimations = Class.extend({
                                         .switchClass("borderOverlay", "highlightBorderOverlay", that.getAnimationLength(that.cardActivatedDuration / 6))
                                         .switchClass("highlightBorderOverlay", "borderOverlay", that.getAnimationLength(that.cardActivatedDuration / 6));
                                 setTimeout(next, that.getAnimationLength(that.cardActivatedDuration));
-                            });
-                }
+                            }
+                            else {
+                                next();
+                            }
+                        });
             }
         }
     },
