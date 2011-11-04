@@ -623,7 +623,7 @@ public class ServerResource {
         if (chatRoom == null)
             sendError(Response.Status.NOT_FOUND);
 
-        if (message != null)
+        if (message != null && message.trim().length() > 0)
             chatRoom.sendMessage(participantId, StringEscapeUtils.escapeHtml(message));
 
         List<ChatMessage> chatMessages = chatRoom.getPendingMessages(participantId);
