@@ -51,8 +51,10 @@ var ChatBoxUI = Class.extend({
                 var code = (e.keyCode ? e.keyCode : e.which);
                 if (code == 13) {
                     var value = $(this).val();
-                    that.sendMessage(value);
-                    that.appendMessage("<b>Me:</b> " + that.escapeHtml(value));
+                    if (value != "") {
+                        that.sendMessage(value);
+                        that.appendMessage("<b>Me:</b> " + that.escapeHtml(value));
+                    }
                     $(this).val("");
                 }
             });
