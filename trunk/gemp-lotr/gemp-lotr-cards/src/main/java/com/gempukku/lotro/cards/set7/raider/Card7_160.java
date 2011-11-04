@@ -56,7 +56,12 @@ public class Card7_160 extends AbstractMinion {
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                    return new AddThreatsEffect(playerId, self, 1);
+                                    return new AddThreatsEffect(playerId, self, 1) {
+                                        @Override
+                                        public String getText(LotroGame game) {
+                                            return "Add a threat";
+                                        }
+                                    };
                                 }
                             }
                     ));
