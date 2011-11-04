@@ -18,7 +18,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LotroGameMediator {
     private Map<String, GatheringParticipantCommunicationChannel> _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
-    private DefaultUserFeedback _userFeedback = new DefaultUserFeedback();
+    private DefaultUserFeedback _userFeedback;
     private DefaultLotroGame _lotroGame;
     private Map<String, Integer> _playerClocks = new HashMap<String, Integer>();
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
@@ -47,6 +47,7 @@ public class LotroGameMediator {
         }
 
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
+        _userFeedback = new DefaultUserFeedback(_lotroGame);
     }
 
     public void addGameStateListener(String playerId, GameStateListener listener) {
@@ -250,10 +251,6 @@ public class LotroGameMediator {
                 if (warning != null)
                     visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
 
-                AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
-                if (awaitingDecision != null)
-                    visitor.visitAwaitingDecision(awaitingDecision);
-
                 Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
                 for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
                     String player = playerClock.getKey();
@@ -278,10 +275,6 @@ public class LotroGameMediator {
 
             for (GameEvent gameEvent : participantCommunicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);
-
-            AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(participantId);
-            if (awaitingDecision != null)
-                visitor.visitAwaitingDecision(awaitingDecision);
 
             Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {

@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
+import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.*;
@@ -39,6 +40,8 @@ public class GameState {
     private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
 
     private Map<String, PhysicalCard> _ringBearers = new HashMap<String, PhysicalCard>();
+
+    private Map<String, AwaitingDecision> _playerDecisions = new HashMap<String, AwaitingDecision>();
 
     private List<Assignment> _assignments = new LinkedList<Assignment>();
     private Skirmish _skirmish = null;
@@ -183,12 +186,26 @@ public class GameState {
             }
 
             listener.sendGameStats(gameStats);
+
+            final AwaitingDecision awaitingDecision = _playerDecisions.get(playerId);
+            if (awaitingDecision != null)
+                listener.decisionRequired(playerId, awaitingDecision);
         }
     }
 
     public void sendMessage(String message) {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.sendMessage(message);
+    }
+
+    public void playerDecisionStarted(String playerId, AwaitingDecision awaitingDecision) {
+        _playerDecisions.put(playerId, awaitingDecision);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.decisionRequired(playerId, awaitingDecision);
+    }
+
+    public void playerDecisionFinished(String playerId) {
+        _playerDecisions.remove(playerId);
     }
 
     public void transferCard(PhysicalCard card, PhysicalCard transferTo) {

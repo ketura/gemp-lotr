@@ -3,6 +3,7 @@ package com.gempukku.lotro.communication;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.Collection;
@@ -50,4 +51,6 @@ public interface GameStateListener {
     public void eventPlayed(PhysicalCard card);
 
     public void cardActivated(String playerPerforming, PhysicalCard card);
+
+    public void decisionRequired(String playerId, AwaitingDecision awaitingDecision);
 }

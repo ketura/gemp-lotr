@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -96,6 +97,28 @@ public class EventSerializer {
 
             if (charStr.length() > 0)
                 eventElem.setAttribute("charStats", charStr.toString());
+        }
+        if (gameEvent.getAwaitingDecision() != null) {
+            AwaitingDecision decision = gameEvent.getAwaitingDecision();
+            eventElem.setAttribute("id", String.valueOf(decision.getAwaitingDecisionId()));
+            eventElem.setAttribute("decisionType", decision.getDecisionType().name());
+            if (decision.getText() != null)
+                eventElem.setAttribute("text", decision.getText());
+            for (Map.Entry<String, Object> paramEntry : decision.getDecisionParameters().entrySet()) {
+                if (paramEntry.getValue() instanceof String) {
+                    Element decisionParam = doc.createElement("parameter");
+                    decisionParam.setAttribute("name", paramEntry.getKey());
+                    decisionParam.setAttribute("value", (String) paramEntry.getValue());
+                    eventElem.appendChild(decisionParam);
+                } else if (paramEntry.getValue() instanceof String[]) {
+                    for (String value : (String[]) paramEntry.getValue()) {
+                        Element decisionParam = doc.createElement("parameter");
+                        decisionParam.setAttribute("name", paramEntry.getKey());
+                        decisionParam.setAttribute("value", value);
+                        eventElem.appendChild(decisionParam);
+                    }
+                }
+            }
         }
 
         return eventElem;
