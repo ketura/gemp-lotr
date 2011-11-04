@@ -147,6 +147,10 @@ public class PlayConditions {
         return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), filters) >= count;
     }
 
+    public static boolean canSpotThreat(LotroGame game, int count) {
+        return game.getGameState().getThreats() >= count;
+    }
+
     public static boolean hasInitiative(LotroGame game, Side side) {
         return game.getModifiersQuerying().hasInitiative(game.getGameState()) == side;
     }
