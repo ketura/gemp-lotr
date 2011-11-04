@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class GameEvent {
         AT, RT,
         M, W,
         GS,
-        CAC, EP, CA
+        CAC, EP, CA, D
     }
 
     private String _message;
@@ -37,6 +38,7 @@ public class GameEvent {
     private Token _token;
     private int[] _otherCardIds;
     private GameStats _gameStats;
+    private AwaitingDecision _awaitingDecision;
 
     public GameEvent(Type type) {
         _type = type;
@@ -61,6 +63,15 @@ public class GameEvent {
 
     public GameEvent gameStats(GameStats gameStats) {
         _gameStats = gameStats;
+        return this;
+    }
+
+    public AwaitingDecision getAwaitingDecision() {
+        return _awaitingDecision;
+    }
+
+    public GameEvent awaitingDecision(AwaitingDecision awaitingDecision) {
+        _awaitingDecision = awaitingDecision;
         return this;
     }
 

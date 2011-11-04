@@ -18,7 +18,6 @@ import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -835,11 +834,6 @@ public class ServerResource {
         }
 
         @Override
-        public void visitAwaitingDecision(AwaitingDecision awaitingDecision) {
-            _element.appendChild(serializeDecision(_doc, awaitingDecision));
-        }
-
-        @Override
         public void visitClock(Map<String, Integer> secondsLeft) {
             _element.appendChild(serializeClocks(_doc, secondsLeft));
         }
@@ -855,30 +849,6 @@ public class ServerResource {
         }
 
         return clocks;
-    }
-
-    private Node serializeDecision(Document doc, AwaitingDecision decision) {
-        Element decisionElem = doc.createElement("decision");
-        decisionElem.setAttribute("id", String.valueOf(decision.getAwaitingDecisionId()));
-        decisionElem.setAttribute("type", decision.getDecisionType().name());
-        if (decision.getText() != null)
-            decisionElem.setAttribute("text", decision.getText());
-        for (Map.Entry<String, Object> paramEntry : decision.getDecisionParameters().entrySet()) {
-            if (paramEntry.getValue() instanceof String) {
-                Element decisionParam = doc.createElement("parameter");
-                decisionParam.setAttribute("name", paramEntry.getKey());
-                decisionParam.setAttribute("value", (String) paramEntry.getValue());
-                decisionElem.appendChild(decisionParam);
-            } else if (paramEntry.getValue() instanceof String[]) {
-                for (String value : (String[]) paramEntry.getValue()) {
-                    Element decisionParam = doc.createElement("parameter");
-                    decisionParam.setAttribute("name", paramEntry.getKey());
-                    decisionParam.setAttribute("value", value);
-                    decisionElem.appendChild(decisionParam);
-                }
-            }
-        }
-        return decisionElem;
     }
 
     private void logUser(HttpServletRequest request, String login) {
