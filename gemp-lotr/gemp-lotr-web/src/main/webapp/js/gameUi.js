@@ -616,7 +616,7 @@ var GempLotrGameUI = Class.extend({
         var that = this;
         this.communication.getReplay(replayId,
                 function(xml) {
-                    that.processXml(xml, true);
+                    that.processXmlReplay(xml, true);
                 });
     },
 
@@ -647,8 +647,96 @@ var GempLotrGameUI = Class.extend({
     processXml: function(xml, animate) {
         log(xml);
         var root = xml.documentElement;
-        if (root.tagName == 'gameState' || root.tagName == 'update' || root.tagName == 'gameReplay')
+        if (root.tagName == 'gameState' || root.tagName == 'update')
             this.processGameEventsXml(root, animate);
+    },
+
+    replayGameEventNextIndex: 0,
+    replayGameEvents: null,
+
+    processXmlReplay: function(xml, animate) {
+        log(xml);
+        var root = xml.documentElement;
+        if (root.tagName == 'gameReplay') {
+            this.replayGameEvents = root.getElementsByTagName("ge");
+            this.replayGameEventNextIndex = 0;
+
+            if (this.shouldPlay())
+                this.playNextReplayEvent();
+        }
+    },
+
+    shouldPlay: function() {
+        return true;
+    },
+
+    playNextReplayEvent: function() {
+        var that = this;
+        if (this.replayGameEventNextIndex < this.replayGameEvents.length) {
+            this.processGameEvent(this.replayGameEvents[this.replayGameEventNextIndex], true);
+            if (this.shouldPlay()) {
+                // After the event is resolved if play is pressed, wait for 200ms and execute next event
+                // If it's not pressed, UI should wait, once it's gonna be pressed, the UI should call this method
+                // again
+                $("#main").queue(
+                        function(next) {
+                            setTimeout(next, 200);
+                        });
+                $("#main").queue(
+                        function(next) {
+                            that.playNextReplayEvent();
+                        });
+            }
+        }
+    },
+
+    processGameEvent: function(gameEvent, animate) {
+        var eventType = gameEvent.getAttribute("type");
+        if (eventType == "PCIP") {
+            this.animations.putCardInPlay(gameEvent, animate);
+        } else if (eventType == "MCIP") {
+            this.animations.moveCardInPlay(gameEvent, animate);
+        } else if (eventType == "P") {
+            this.participant(gameEvent);
+        } else if (eventType == "RCFP") {
+            this.animations.removeCardFromPlay(gameEvent, animate);
+        } else if (eventType == "GPC") {
+            this.animations.gamePhaseChange(gameEvent, animate);
+        } else if (eventType == "TP") {
+            this.animations.twilightPool(gameEvent, animate);
+        } else if (eventType == "TC") {
+            this.animations.turnChange(gameEvent, animate);
+        } else if (eventType == "AA") {
+            this.animations.addAssignment(gameEvent, animate);
+        } else if (eventType == "RA") {
+            this.animations.removeAssignment(gameEvent, animate);
+        } else if (eventType == "SS") {
+            this.animations.startSkirmish(gameEvent, animate);
+        } else if (eventType == "RFS") {
+            this.animations.removeFromSkirmish(gameEvent, animate);
+        } else if (eventType == "ES") {
+            this.animations.endSkirmish(animate);
+        } else if (eventType == "AT") {
+            this.animations.addTokens(gameEvent, animate);
+        } else if (eventType == "RT") {
+            this.animations.removeTokens(gameEvent, animate);
+        } else if (eventType == "PP") {
+            this.animations.playerPosition(gameEvent, animate);
+        } else if (eventType == "GS") {
+            this.animations.gameStats(gameEvent, animate);
+        } else if (eventType == "M") {
+            this.animations.message(gameEvent, animate);
+        } else if (eventType == "W") {
+            this.animations.warning(gameEvent, animate);
+        } else if (eventType == "CAC") {
+            this.animations.cardAffectsCard(gameEvent, animate);
+        } else if (eventType == "EP") {
+            this.animations.eventPlayed(gameEvent, animate);
+        } else if (eventType == "CA") {
+            this.animations.cardActivated(gameEvent, animate);
+        } else if (eventType == "D") {
+            this.animations.processDecision(gameEvent, animate);
+        }
     },
 
     processGameEventsXml: function(element, animate) {
@@ -659,53 +747,10 @@ var GempLotrGameUI = Class.extend({
         // Go through all the events
         for (var i = 0; i < gameEvents.length; i++) {
             var gameEvent = gameEvents[i];
+            this.processGameEvent(gameEvent, animate);
             var eventType = gameEvent.getAttribute("type");
-            if (eventType == "PCIP") {
-                this.animations.putCardInPlay(gameEvent, animate);
-            } else if (eventType == "MCIP") {
-                this.animations.moveCardInPlay(gameEvent, animate);
-            } else if (eventType == "P") {
-                this.participant(gameEvent);
-            } else if (eventType == "RCFP") {
-                this.animations.removeCardFromPlay(gameEvent, animate);
-            } else if (eventType == "GPC") {
-                this.animations.gamePhaseChange(gameEvent, animate);
-            } else if (eventType == "TP") {
-                this.animations.twilightPool(gameEvent, animate);
-            } else if (eventType == "TC") {
-                this.animations.turnChange(gameEvent, animate);
-            } else if (eventType == "AA") {
-                this.animations.addAssignment(gameEvent, animate);
-            } else if (eventType == "RA") {
-                this.animations.removeAssignment(gameEvent, animate);
-            } else if (eventType == "SS") {
-                this.animations.startSkirmish(gameEvent, animate);
-            } else if (eventType == "RFS") {
-                this.animations.removeFromSkirmish(gameEvent, animate);
-            } else if (eventType == "ES") {
-                this.animations.endSkirmish(animate);
-            } else if (eventType == "AT") {
-                this.animations.addTokens(gameEvent, animate);
-            } else if (eventType == "RT") {
-                this.animations.removeTokens(gameEvent, animate);
-            } else if (eventType == "PP") {
-                this.animations.playerPosition(gameEvent, animate);
-            } else if (eventType == "GS") {
-                this.animations.gameStats(gameEvent, animate);
-            } else if (eventType == "M") {
-                this.animations.message(gameEvent, animate);
-            } else if (eventType == "W") {
-                this.animations.warning(gameEvent, animate);
-            } else if (eventType == "CAC") {
-                this.animations.cardAffectsCard(gameEvent, animate);
-            } else if (eventType == "EP") {
-                this.animations.eventPlayed(gameEvent, animate);
-            } else if (eventType == "CA") {
-                this.animations.cardActivated(gameEvent, animate);
-            } else if (eventType == "D") {
+            if (eventType == "D")
                 hasDecision = true;
-                this.animations.processDecision(gameEvent, animate);
-            }
         }
 
         if (this.allPlayerIds != null) {
@@ -729,7 +774,7 @@ var GempLotrGameUI = Class.extend({
             }
         }
 
-        if (!hasDecision && !this.replayMode)
+        if (!hasDecision)
             this.animations.updateGameState(animate);
     },
 
