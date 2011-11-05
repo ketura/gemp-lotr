@@ -52,7 +52,7 @@ public class Card4_086 extends AbstractCompanion {
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                                 return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(Filters.possessionClass(PossessionClass.RANGED_WEAPON))) > 0;
                             }
-                        }, 2));
+                        }, -2));
         modifiers.add(
                 new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self),
                         new Condition() {
