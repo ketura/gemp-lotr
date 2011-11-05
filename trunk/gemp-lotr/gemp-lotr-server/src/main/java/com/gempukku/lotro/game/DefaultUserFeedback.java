@@ -14,7 +14,7 @@ public class DefaultUserFeedback implements UserFeedback {
 
     private LotroGame _game;
 
-    public DefaultUserFeedback(LotroGame game) {
+    public void setGame(LotroGame game) {
         _game = game;
     }
 

@@ -186,11 +186,11 @@ public class GameState {
             }
 
             listener.sendGameStats(gameStats);
-
-            final AwaitingDecision awaitingDecision = _playerDecisions.get(playerId);
-            if (awaitingDecision != null)
-                listener.decisionRequired(playerId, awaitingDecision);
         }
+
+        final AwaitingDecision awaitingDecision = _playerDecisions.get(playerId);
+        if (awaitingDecision != null)
+            listener.decisionRequired(playerId, awaitingDecision);
     }
 
     public void sendMessage(String message) {

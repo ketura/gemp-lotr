@@ -46,8 +46,9 @@ public class LotroGameMediator {
             _playersPlaying.add(participantId);
         }
 
+        _userFeedback = new DefaultUserFeedback();
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
-        _userFeedback = new DefaultUserFeedback(_lotroGame);
+        _userFeedback.setGame(_lotroGame);
     }
 
     public void addGameStateListener(String playerId, GameStateListener listener) {
