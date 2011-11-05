@@ -683,7 +683,7 @@ public class GameState {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
-        return card.getBlueprint().getCardType() == CardType.SITE
+        return (card.getBlueprint().getCardType() == CardType.SITE && _currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP)
                 || (
                 card.getAttachedTo() == null &&
                         ((card.getOwner().equals(_currentPlayerId) && (side == Side.FREE_PEOPLE))
