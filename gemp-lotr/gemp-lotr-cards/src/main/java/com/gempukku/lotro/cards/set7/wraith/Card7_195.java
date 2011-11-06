@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,10 +41,13 @@ public class Card7_195 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND
                 && game.getGameState().getCurrentPhase() != Phase.REGROUP) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
-                    new AddThreatsEffect(self.getOwner(), self, 1));
-            return Collections.singletonList(action);
+            DrawCardOrPutIntoHandResult drawResult = (DrawCardOrPutIntoHandResult) effectResult;
+            if (drawResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
+                RequiredTriggerAction action = new RequiredTriggerAction(self);
+                action.appendEffect(
+                        new AddThreatsEffect(self.getOwner(), self, 1));
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
