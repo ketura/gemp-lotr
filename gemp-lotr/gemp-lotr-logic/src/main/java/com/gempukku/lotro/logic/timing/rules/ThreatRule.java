@@ -1,6 +1,8 @@
 package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -8,6 +10,7 @@ import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
@@ -36,9 +39,15 @@ public class ThreatRule {
                                 action.setText("Threat damage assignment");
                                 action.appendEffect(
                                         new RemoveThreatsEffect(null, threats));
-                                for (int i = 0; i < threats; i++)
+                                for (int i = 0; i < threats; i++) {
+                                    Filter filter = Filters.type(CardType.COMPANION);
+
+                                    if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_BEARER_CANT_TAKE_THREAT_WOUNDS))
+                                        filter = Filters.and(filter, Filters.not(Keyword.RING_BEARER));
+
                                     action.appendEffect(
-                                            new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                                            new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, filter));
+                                }
                                 return Collections.singletonList(action);
                             }
                         }
