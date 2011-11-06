@@ -51,7 +51,7 @@ public class Card7_223 extends AbstractEvent {
         @Override
         protected void forEachCardExertedCallback(PhysicalCard character) {
             _action.appendEffect(
-                    new ChooseAndExertCharactersEffect(_action, character.getOwner(), 1, 1, CardType.COMPANION) {
+                    new ChooseAndExertCharactersEffect(_action, character.getOwner(), 0, 1, CardType.COMPANION) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             _action.appendEffect(new ExertMinionContinuouslyEffect(_action, _fpPlayerId));
