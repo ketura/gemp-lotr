@@ -38,7 +38,8 @@ public class Card4_155 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.activated(game, effectResult, Filters.or(CardType.ALLY, Filters.unboundCompanion))
-                && PlayConditions.canExert(self, game, Filters.name("Grima"))) {
+                && PlayConditions.canExert(self, game, Filters.name("Grima"))
+                && checkPlayRequirements(playerId, game, self, 0)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(

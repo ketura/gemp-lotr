@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -49,7 +48,7 @@ public class Card1_189 extends AbstractResponseOldEvent {
                 || (
                 effectResult.getType() == EffectResult.Type.WOUND
                         && Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0))
-                && PlayConditions.canPayForShadowCard(game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

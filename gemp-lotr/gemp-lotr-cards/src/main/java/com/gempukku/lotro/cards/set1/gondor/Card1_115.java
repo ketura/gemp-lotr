@@ -35,7 +35,8 @@ public class Card1_115 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT, Filters.keyword(Keyword.SKIRMISH))) {
+        if (PlayConditions.played(game, effectResult, CardType.EVENT, Filters.keyword(Keyword.SKIRMISH))
+                && checkPlayRequirements(playerId, game, self, 0)) {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null) {
                 PhysicalCard fpCharacter = skirmish.getFellowshipCharacter();
