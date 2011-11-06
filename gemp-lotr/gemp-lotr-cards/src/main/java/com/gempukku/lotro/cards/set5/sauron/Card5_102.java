@@ -46,7 +46,7 @@ public class Card5_102 extends AbstractPermanent {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return physicalCard.getData() == null;
+                                return self.getData() == null;
                             }
                         }),
                 new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)), -3);
