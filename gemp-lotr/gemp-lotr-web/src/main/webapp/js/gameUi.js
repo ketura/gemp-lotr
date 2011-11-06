@@ -93,6 +93,14 @@ var GempLotrGameUI = Class.extend({
             return (cardData != null && ($.inArray(cardData.cardId, cardIds) > -1));
         };
 
+        if (this.replayMode) {
+            var replayDiv = $("<div class='replay'></div>");
+            replayDiv.append("<input type='checkbox' id='replayButton' /><label for='replayButton'><img src='images/play.png' width='50' height='50'/></label>");
+            $("#main").append(replayDiv);
+            replayDiv.css({"z-index": 1000});
+            $("#replayButton").button();
+        }
+
         this.shadowAssignGroups = {};
         this.freePeopleAssignGroups = {};
         this.assignGroupDivs = new Array();
@@ -602,6 +610,10 @@ var GempLotrGameUI = Class.extend({
         }
         this.tabPane.css({ position: "absolute", left: padding, top: height - padding - chatHeight, width: specialUiWidth + advPathWidth - padding, height: chatHeight - padding});
         this.chatBox.setBounds(4, 4 + 25, specialUiWidth + advPathWidth - 8, chatHeight - 8 - 25);
+
+        if (this.replayMode) {
+            $(".replay").css({position: "absolute", left: width - 50 - 4 - padding, top: height - 50 - 2 - padding, width: 50, height: 50, "z-index": 1000});
+        }
     },
 
     startGameSession: function() {
@@ -655,31 +667,40 @@ var GempLotrGameUI = Class.extend({
     replayGameEvents: null,
 
     processXmlReplay: function(xml, animate) {
+        var that = this;
         log(xml);
         var root = xml.documentElement;
         if (root.tagName == 'gameReplay') {
             this.replayGameEvents = root.getElementsByTagName("ge");
             this.replayGameEventNextIndex = 0;
 
-            if (this.shouldPlay())
-                this.playNextReplayEvent();
+            $("label", $(".replay")).click(
+                    function() {
+                        that.playNextReplayEvent();
+                    });
+
+            this.playNextReplayEvent();
         }
     },
 
     shouldPlay: function() {
-        return true;
+        return $("label", $(".replay")).hasClass("ui-state-active");
     },
 
     playNextReplayEvent: function() {
-        var that = this;
-        if (this.replayGameEventNextIndex < this.replayGameEvents.length) {
-            var gameEvent = this.replayGameEvents[this.replayGameEventNextIndex];
-            this.processGameEvent(gameEvent, true);
-            this.replayGameEventNextIndex++;
-            if (this.shouldPlay()) {
-                // After the event is resolved if play is pressed, execute next event
-                // If it's not pressed, UI should wait, once it's gonna be pressed, the UI should call this method
-                // again
+        if (this.shouldPlay()) {
+            var that = this;
+            if (this.replayGameEventNextIndex < this.replayGameEvents.length) {
+                $("#main").queue(
+                        function(next) {
+                            that.cleanupDecision();
+                            next();
+                        });
+                var gameEvent = this.replayGameEvents[this.replayGameEventNextIndex];
+                this.processGameEvent(gameEvent, true);
+
+                this.replayGameEventNextIndex++;
+
                 $("#main").queue(
                         function(next) {
                             that.playNextReplayEvent();
@@ -815,7 +836,7 @@ var GempLotrGameUI = Class.extend({
 
         var index = this.getPlayerIndex(this.bottomPlayerId);
         if (index == -1) {
-            this.bottomPlayerId = this.allPlayerIds[0];
+            this.bottomPlayerId = this.allPlayerIds[1];
             this.spectatorMode = true;
         } else {
             this.spectatorMode = false;
