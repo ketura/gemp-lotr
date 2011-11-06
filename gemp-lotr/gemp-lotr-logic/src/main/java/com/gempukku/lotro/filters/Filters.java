@@ -441,12 +441,16 @@ public class Filters {
         };
     }
 
-    public static final Filter wounded = new Filter() {
-        @Override
-        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            return gameState.getWounds(physicalCard) > 0;
-        }
-    };
+    public static Filter wounds(final int wounds) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return gameState.getWounds(physicalCard) >= wounds;
+            }
+        };
+    }
+
+    public static final Filter wounded = Filters.wounds(1);
 
     public static Filter cardId(final int cardId) {
         return new Filter() {
