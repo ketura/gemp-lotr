@@ -57,7 +57,12 @@ public class Card4_256 extends AbstractMinion {
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String fpPlayerId) {
-                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)));
+                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
+                                        @Override
+                                        public String getText(LotroGame game) {
+                                            return "Make " + playerId + " discard a companion (except the Ring-bearer)";
+                                        }
+                                    };
                                 }
                             }
                     ));
