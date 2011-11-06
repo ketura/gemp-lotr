@@ -41,7 +41,7 @@ public class Card7_211 extends AbstractMinion {
         if (PlayConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddThreatsEffect(self.getOwner(), self, new CountActiveEvaluator(4, null, CardType.COMPANION)));
+                    new AddThreatsEffect(self.getOwner(), self, new CountActiveEvaluator(4, (Integer) null, CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;
