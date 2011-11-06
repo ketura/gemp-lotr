@@ -515,6 +515,13 @@ public class Filters {
         };
     }
 
+    public static Filter uncontrolledSite = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.getBlueprint().getCardType() == CardType.SITE && physicalCard.getCardController() == null;
+        }
+    };
+
     public static Filter culture(final Culture culture) {
         return new Filter() {
             @Override
