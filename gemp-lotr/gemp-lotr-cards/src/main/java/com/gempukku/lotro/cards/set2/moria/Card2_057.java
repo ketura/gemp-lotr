@@ -36,6 +36,7 @@ public class Card2_057 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.SKIRMISH_ABOUT_TO_END
+                && checkPlayRequirements(playerId, game, self, 0)
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(),
                 Filters.balrog, Filters.hasAttached(Filters.name("Whip of Many Thongs"))).size() > 0) {
             PlayEventAction action = new PlayEventAction(self);
