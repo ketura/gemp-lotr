@@ -36,6 +36,6 @@ public class Card2_067 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ArcheryTotalModifier(self, Side.SHADOW,
-                        new SpotCondition(Filters.and(Filters.not(Filters.sameCard(self)), Filters.keyword(Keyword.ARCHER))), 1));
+                        new SpotCondition(Filters.not(self), Culture.MORIA, Keyword.ARCHER), 1));
     }
 }
