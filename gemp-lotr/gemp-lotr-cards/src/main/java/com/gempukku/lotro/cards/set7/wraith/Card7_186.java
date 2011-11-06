@@ -38,7 +38,7 @@ public class Card7_186 extends AbstractAttachable {
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), 2));
         modifiers.add(
-                new KeywordModifier(self, Filters.hasAttached(self), new SpotCondition(Keyword.RING_BEARER, Filters.wounds(2)), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.hasAttached(self), new SpotCondition(Keyword.RING_BEARER, Filters.hasWounds(2)), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }
