@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,19 +21,25 @@ public class PlaySiteEffect extends AbstractEffect {
     private String _playerId;
     private Block _siteBlock;
     private int _siteNumber;
+    private Filterable[] _extraSiteFilters;
 
     public PlaySiteEffect(String playerId, Block siteBlock, int siteNumber) {
+        this(playerId, siteBlock, siteNumber, Filters.any);
+    }
+
+    public PlaySiteEffect(String playerId, Block siteBlock, int siteNumber, Filterable... extraSiteFilters) {
         _playerId = playerId;
         _siteBlock = siteBlock;
         _siteNumber = siteNumber;
+        _extraSiteFilters = extraSiteFilters;
     }
 
     private PhysicalCard getMatchingSite(LotroGame game) {
         Collection<PhysicalCard> matching;
         if (_siteBlock != null) {
-            matching = Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber), Filters.siteBlock(_siteBlock));
+            matching = Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, Filters.siteNumber(_siteNumber), Filters.siteBlock(_siteBlock)));
         } else {
-            matching = Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(_siteNumber));
+            matching = Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, Filters.siteNumber(_siteNumber)));
         }
         if (matching.size() > 0)
             return matching.iterator().next();
