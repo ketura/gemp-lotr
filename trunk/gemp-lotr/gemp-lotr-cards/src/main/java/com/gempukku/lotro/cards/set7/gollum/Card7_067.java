@@ -44,7 +44,7 @@ public class Card7_067 extends AbstractPermanent {
     @Override
     public PlayPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, twilightModifier);
-        int maxThreats = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - game.getGameState().getThreats();
+        int maxThreats = Math.min(9, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - game.getGameState().getThreats());
         playCardAction.appendCost(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                         new IntegerAwaitingDecision(1, "Choose how many threats to add", 0, maxThreats) {
