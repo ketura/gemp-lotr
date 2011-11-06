@@ -156,6 +156,10 @@ public class PlayConditions {
         return game.getGameState().getThreats() >= count;
     }
 
+    public static boolean canSpotBurdens(LotroGame game, int count) {
+        return game.getGameState().getBurdens() >= count;
+    }
+
     public static boolean hasInitiative(LotroGame game, Side side) {
         return game.getModifiersQuerying().hasInitiative(game.getGameState()) == side;
     }
