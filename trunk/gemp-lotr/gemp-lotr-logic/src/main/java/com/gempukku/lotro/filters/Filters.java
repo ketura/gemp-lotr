@@ -441,7 +441,7 @@ public class Filters {
         };
     }
 
-    public static Filter wounds(final int wounds) {
+    public static Filter hasWounds(final int wounds) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -450,7 +450,7 @@ public class Filters {
         };
     }
 
-    public static final Filter wounded = Filters.wounds(1);
+    public static final Filter wounded = Filters.hasWounds(1);
 
     public static Filter cardId(final int cardId) {
         return new Filter() {
