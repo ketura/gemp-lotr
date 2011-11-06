@@ -836,11 +836,6 @@ var GameAnimations = Class.extend({
                     function(next) {
                         setTimeout(next, that.getAnimationLength(that.decisionDuration));
                     });
-            $("#main").queue(
-                    function(next) {
-                        that.game.cleanupDecision();
-                        next();
-                    });
         }
     },
 
