@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
@@ -39,7 +38,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && game.getGameState().isWearingRing()
-                && PlayConditions.canPayForShadowCard(game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new UnrespondableEffect() {

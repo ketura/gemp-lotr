@@ -36,7 +36,7 @@ public class Card1_273 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
-                && PlayConditions.canPayForShadowCard(game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0)) {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (effectResult.getType() == EffectResult.Type.KILL
                     && Filters.filter(((KillResult) effectResult).getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)).size() > 0

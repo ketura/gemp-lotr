@@ -41,7 +41,8 @@ public class Card1_085 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(final String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
         if (PlayConditions.isGettingExerted(effect, game, CardType.COMPANION)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf)) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf)
+                && checkPlayRequirements(playerId, game, self, 0)) {
             final ExertCharactersEffect exertEffect = (ExertCharactersEffect) effect;
             Collection<PhysicalCard> exertedCharacters = exertEffect.getAffectedCardsMinusPrevented(game);
             final PlayEventAction action = new PlayEventAction(self);

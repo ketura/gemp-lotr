@@ -30,7 +30,8 @@ public class Card6_043 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.smeagol)) {
+        if (PlayConditions.winsSkirmish(game, effectResult, Filters.smeagol)
+                && checkPlayRequirements(playerId, game, self, 0)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.smeagol));

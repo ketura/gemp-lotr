@@ -40,7 +40,8 @@ public class Card4_141 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL
-                && PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)) {
+                && PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
+                && checkPlayRequirements(playerId, game, self, 0)) {
             KillResult killResult = (KillResult) effectResult;
             Collection<PhysicalCard> killedChars = Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)));
             if (killedChars.size() > 0) {

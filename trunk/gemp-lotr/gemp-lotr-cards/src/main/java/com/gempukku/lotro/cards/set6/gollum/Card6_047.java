@@ -32,7 +32,7 @@ public class Card6_047 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game, effectResult, Filters.gollum)
-                && PlayConditions.canPayForShadowCard(game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
