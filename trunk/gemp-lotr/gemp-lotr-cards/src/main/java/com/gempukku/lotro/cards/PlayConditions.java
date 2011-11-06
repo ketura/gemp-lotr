@@ -69,6 +69,11 @@ public class PlayConditions {
                 && twilightCost <= gameState.getTwilightPool();
     }
 
+    public static boolean canUseShadowCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self, int twilightCost) {
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS || self.getZone() == Zone.ATTACHED)
+                && twilightCost <= game.getGameState().getTwilightPool();
+    }
+
     public static boolean canUseStackedShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
         return (phase == null || gameState.getCurrentPhase() == phase) && self.getZone() == Zone.STACKED
                 && twilightCost <= gameState.getTwilightPool();
