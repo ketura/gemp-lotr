@@ -64,6 +64,10 @@ public class PlayConditions {
         return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.FREE_CHARACTERS || self.getZone() == Zone.ATTACHED);
     }
 
+    public static boolean canUseFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.FREE_CHARACTERS || self.getZone() == Zone.ATTACHED);
+    }
+
     public static boolean canUseShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
         return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS || self.getZone() == Zone.ATTACHED)
                 && twilightCost <= gameState.getTwilightPool();
