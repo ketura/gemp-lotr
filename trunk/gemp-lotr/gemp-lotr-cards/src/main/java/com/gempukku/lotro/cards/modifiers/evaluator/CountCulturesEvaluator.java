@@ -16,6 +16,14 @@ public class CountCulturesEvaluator implements Evaluator {
     private int _multiplier;
     private int _over;
 
+    public CountCulturesEvaluator(Filterable... filters) {
+        this(0, filters);
+    }
+
+    public CountCulturesEvaluator(int over, Filterable... filters) {
+        this(over, 1, filters);
+    }
+
     public CountCulturesEvaluator(int over, int multiplier, Filterable... filters) {
         _over = over;
         _multiplier = multiplier;
