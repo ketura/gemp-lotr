@@ -68,11 +68,15 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
                                 PhysicalCard selectedCard = selectedCards.get(0);
                                 _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier);
                                 game.getActionsEnvironment().addActionToStack(_playCardAction);
+                                cardChosenCallback(selectedCard);
                             }
                         }
                     });
         }
         return null;
+    }
+
+    protected void cardChosenCallback(PhysicalCard cardChosenToPlay) {
     }
 
     @Override
