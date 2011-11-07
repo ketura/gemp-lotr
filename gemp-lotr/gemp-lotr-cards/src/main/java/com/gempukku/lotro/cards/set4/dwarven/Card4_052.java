@@ -39,7 +39,7 @@ public class Card4_052 extends AbstractPermanent {
                 new StrengthModifier(self, Filters.gimli, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
                                 PhysicalCard finalCount = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name("Final Count"));
                                 if (finalCount != null)
                                     return Math.min(3, Math.min(gameState.getTokenCount(self, Token.DWARVEN), gameState.getTokenCount(finalCount, Token.ELVEN)));

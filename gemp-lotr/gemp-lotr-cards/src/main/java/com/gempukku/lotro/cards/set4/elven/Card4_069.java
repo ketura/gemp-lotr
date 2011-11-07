@@ -39,7 +39,7 @@ public class Card4_069 extends AbstractPermanent {
                 new StrengthModifier(self, Filters.legolas, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
                                 PhysicalCard myAxeIsNotched = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name("My Axe Is Notched"));
                                 if (myAxeIsNotched != null)
                                     return Math.min(3, Math.min(gameState.getTokenCount(self, Token.ELVEN), gameState.getTokenCount(myAxeIsNotched, Token.DWARVEN)));
