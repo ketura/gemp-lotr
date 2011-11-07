@@ -40,10 +40,15 @@ public class PutRandomCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
                 gameState.sendMessage(randomCard.getOwner() + " puts a card at random from hand on bottom of his or her deck");
                 gameState.removeCardsFromZone(randomCard.getOwner(), Collections.singleton(randomCard));
                 gameState.putCardOnBottomOfDeck(randomCard);
+                putCardFromHandOnBottomOfDeckCallback(randomCard);
             }
 
             return new FullEffectResult(null, true, true);
         }
         return new FullEffectResult(null, false, false);
+    }
+
+    protected void putCardFromHandOnBottomOfDeckCallback(PhysicalCard card) {
+
     }
 }
