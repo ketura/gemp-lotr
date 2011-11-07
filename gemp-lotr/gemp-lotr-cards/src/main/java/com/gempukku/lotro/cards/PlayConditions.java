@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -211,6 +212,16 @@ public class PlayConditions {
 
     public static boolean canPlayFromDeadPile(String playerId, LotroGame game, Filterable... filters) {
         return Filters.filter(game.getGameState().getDeadPile(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
+    }
+
+    public static boolean canPlayFromStacked(String playerId, LotroGame game, Filterable stackedOn, Filterable... filters) {
+        final Collection<PhysicalCard> matchingStackedOn = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), stackedOn);
+        for (PhysicalCard stackedOnCard : matchingStackedOn) {
+            if (Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0)
+                return true;
+        }
+
+        return false;
     }
 
     public static boolean canPlayFromDiscard(String playerId, LotroGame game, Filterable... filters) {
