@@ -479,15 +479,6 @@ public class Filters {
         };
     }
 
-    public static Filter hasAttached(final PhysicalCard attachment) {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard == attachment.getAttachedTo();
-            }
-        };
-    }
-
     public static Filter attachedTo(final Filterable... filters) {
         return new Filter() {
             @Override
