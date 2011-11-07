@@ -94,7 +94,7 @@ public class PlaySiteEffect extends AbstractEffect {
             }
 
             sitePlayedCallback(newSite);
-            return new FullEffectResult(Collections.singleton(new PlayCardResult(newSite, null)), true, true);
+            return new FullEffectResult(Collections.singleton(new PlayCardResult(Zone.DECK, newSite, null, null)), true, true);
         }
         return new FullEffectResult(null, false, false);
     }

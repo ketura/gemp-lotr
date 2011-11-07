@@ -63,7 +63,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
                         _preCostIterator = preCostEffects.iterator();
 
-                        _playCardEffect = new PlayCardEffect(card, target);
+                        _playCardEffect = new PlayCardEffect(zone, card, target, null);
                     }
                 };
     }

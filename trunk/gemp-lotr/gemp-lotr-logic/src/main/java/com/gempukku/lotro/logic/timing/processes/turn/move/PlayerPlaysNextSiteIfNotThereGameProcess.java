@@ -56,7 +56,7 @@ public class PlayerPlaysNextSiteIfNotThereGameProcess implements GameProcess {
                         @Override
                         public void process() {
                             _game.getActionsEnvironment().addActionToStack(
-                                    new SimpleEffectAction(new PlayCardEffect(site, Zone.ADVENTURE_PATH), "Plays next site"));
+                                    new SimpleEffectAction(new PlayCardEffect(Zone.DECK, site, Zone.ADVENTURE_PATH, null), "Plays next site"));
                         }
 
                         @Override
