@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.SkirmishGameProcess;
 
@@ -39,8 +40,13 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 for (Assignment assignment : assignments)
                     fps.add(assignment.getFellowshipCharacter());
 
+                String playerChoosingSkirmishOrder = gameState.getCurrentPlayerId();
+                if (_game.getModifiersQuerying().hasFlagActive(gameState, ModifierFlag.SKIRMISH_ORDER_BY_FIRST_SHADOW_PLAYER))
+                    playerChoosingSkirmishOrder = gameState.getPlayerOrder().getCounterClockwisePlayOrder(playerChoosingSkirmishOrder, false).getNextPlayer();
+
                 SystemQueueAction chooseNextSkirmishAction = new SystemQueueAction();
-                ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, gameState.getCurrentPlayerId(), "Choose next skirmish to resolve", Filters.in(fps)) {
+
+                ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, playerChoosingSkirmishOrder, "Choose next skirmish to resolve", Filters.in(fps)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         gameState.startSkirmish(card);
@@ -48,7 +54,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                         _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));
                     }
                 };
-                chooseNextSkirmish.setShortcut(false);
+                chooseNextSkirmish.setUseShortcut(false);
 
                 chooseNextSkirmishAction.appendEffect(chooseNextSkirmish);
 

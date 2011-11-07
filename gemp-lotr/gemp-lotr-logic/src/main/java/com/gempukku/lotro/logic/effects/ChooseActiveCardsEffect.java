@@ -32,7 +32,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
         _filters = filters;
     }
 
-    public void setShortcut(boolean shortcut) {
+    public void setUseShortcut(boolean shortcut) {
         _shortcut = shortcut;
     }
 
