@@ -3,8 +3,6 @@ package com.gempukku.lotro.cards.set7.raider;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.modifiers.evaluator.ForEachThreatEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -35,8 +33,9 @@ public class Card7_153 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
+        int threats = game.getGameState().getThreats();
         action.appendEffect(
-                new AddTwilightEffect(self, new MultiplyEvaluator(2, new ForEachThreatEvaluator())));
+                new AddTwilightEffect(self, 2 * threats));
         return action;
     }
 }

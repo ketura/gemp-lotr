@@ -8,8 +8,8 @@ public class PlayEventResult extends PlayCardResult {
     private boolean _requiresRanger;
     private Zone _targetZone = Zone.DISCARD;
 
-    public PlayEventResult(PhysicalCard playedCard, boolean requiresRanger) {
-        super(playedCard, null);
+    public PlayEventResult(Zone playedFrom, PhysicalCard playedCard, boolean requiresRanger) {
+        super(playedFrom, playedCard, null, null);
         _requiresRanger = requiresRanger;
     }
 

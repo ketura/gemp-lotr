@@ -45,7 +45,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         _preCostIterator = preCostEffects.iterator();
 
-        _playCardEffect = new PlayEventEffect(card, requiresRanger);
+        _playCardEffect = new PlayEventEffect(card.getZone(), card, requiresRanger);
     }
 
     public boolean isRequiresRanger() {

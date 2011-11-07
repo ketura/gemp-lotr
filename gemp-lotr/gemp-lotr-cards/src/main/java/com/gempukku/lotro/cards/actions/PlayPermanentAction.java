@@ -41,7 +41,13 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
         _preCostIterator = preCostEffects.iterator();
 
-        _playCardEffect = new PlayCardEffect(card, zone);
+        PhysicalCard playedFromCard = null;
+        if (card.getZone() == Zone.STACKED)
+            playedFromCard = card.getStackedOn();
+        else if (card.getZone() == Zone.ATTACHED)
+            playedFromCard = card.getAttachedTo();
+
+        _playCardEffect = new PlayCardEffect(card.getZone(), card, zone, playedFromCard);
     }
 
     @Override

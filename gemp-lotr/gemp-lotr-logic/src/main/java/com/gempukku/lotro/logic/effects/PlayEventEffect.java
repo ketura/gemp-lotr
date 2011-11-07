@@ -12,11 +12,11 @@ public class PlayEventEffect extends PlayCardEffect {
     private boolean _requiresRanger;
     private PlayEventResult _playEventResult;
 
-    public PlayEventEffect(PhysicalCard cardPlayed, boolean requiresRanger) {
-        super(cardPlayed, (Zone) null);
+    public PlayEventEffect(Zone playedFrom, PhysicalCard cardPlayed, boolean requiresRanger) {
+        super(playedFrom, cardPlayed, (Zone) null, null);
         _cardPlayed = cardPlayed;
         _requiresRanger = requiresRanger;
-        _playEventResult = new PlayEventResult(getPlayedCard(), _requiresRanger);
+        _playEventResult = new PlayEventResult(playedFrom, getPlayedCard(), _requiresRanger);
     }
 
     public PlayEventResult getPlayEventResult() {

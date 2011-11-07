@@ -10,18 +10,24 @@ import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import java.util.Collections;
 
 public class PlayCardEffect extends AbstractEffect {
+    private Zone _playedFrom;
     private PhysicalCard _cardPlayed;
     private PhysicalCard _attachedToCard;
     private Zone _zone;
+    private PhysicalCard _attachedOrStackedPlayedFrom;
 
-    public PlayCardEffect(PhysicalCard cardPlayed, Zone zone) {
+    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom) {
+        _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
-        _zone = zone;
+        _zone = playedTo;
+        _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
     }
 
-    public PlayCardEffect(PhysicalCard cardPlayed, PhysicalCard attachedToCard) {
+    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, PhysicalCard attachedToCard, PhysicalCard attachedOrStackedPlayedFrom) {
+        _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _attachedToCard = attachedToCard;
+        _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
         _zone = Zone.ATTACHED;
     }
 
@@ -58,6 +64,6 @@ public class PlayCardEffect extends AbstractEffect {
             game.getGameState().addCardToZone(game, _cardPlayed, _zone);
         }
 
-        return new FullEffectResult(Collections.singleton(new PlayCardResult(_cardPlayed, _attachedToCard)), true, true);
+        return new FullEffectResult(Collections.singleton(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom)), true, true);
     }
 }
