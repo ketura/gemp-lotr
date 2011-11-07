@@ -37,20 +37,26 @@ public class Card7_273 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
             if (PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any)) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Stack besieger SAURON Orc");
                 action.appendCost(
-                        new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.SAURON, Race.ORC, Keyword.BESIEGER));
+                        new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Filters.any));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose site you control", Filters.siteControlled(playerId)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose besieger SAURON Orc", Culture.SAURON, Race.ORC, Keyword.BESIEGER) {
                             @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                action.insertEffect(
-                                        new StackCardFromPlayEffect(self, card));
+                            protected void cardSelected(LotroGame game, final PhysicalCard minion) {
+                                action.appendEffect(
+                                        new ChooseActiveCardEffect(self, playerId, "Choose site you control", Filters.siteControlled(playerId)) {
+                                            @Override
+                                            protected void cardSelected(LotroGame game, PhysicalCard site) {
+                                                action.insertEffect(
+                                                        new StackCardFromPlayEffect(minion, site));
+                                            }
+                                        });
                             }
                         });
                 actions.add(action);
@@ -59,13 +65,19 @@ public class Card7_273 extends AbstractMinion {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Stack SAURON Orc");
                 action.appendCost(
-                        new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.SAURON, Race.ORC));
+                        new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2, Filters.any));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose site you control", Filters.siteControlled(playerId)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose SAURON Orc", Culture.SAURON, Race.ORC) {
                             @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                action.insertEffect(
-                                        new StackCardFromPlayEffect(self, card));
+                            protected void cardSelected(LotroGame game, final PhysicalCard minion) {
+                                action.appendEffect(
+                                        new ChooseActiveCardEffect(self, playerId, "Choose site you control", Filters.siteControlled(playerId)) {
+                                            @Override
+                                            protected void cardSelected(LotroGame game, PhysicalCard site) {
+                                                action.insertEffect(
+                                                        new StackCardFromPlayEffect(minion, site));
+                                            }
+                                        });
                             }
                         });
                 actions.add(action);
