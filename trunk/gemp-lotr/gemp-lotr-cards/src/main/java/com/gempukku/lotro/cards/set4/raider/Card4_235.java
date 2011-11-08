@@ -3,11 +3,11 @@ package com.gempukku.lotro.cards.set4.raider;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 
 /**
  * Set: The Two Towers
@@ -32,7 +32,7 @@ public class Card4_235 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new AddTwilightEffect(self, 1));
+                new AddBurdenEffect(self, 1));
         return action;
     }
 
