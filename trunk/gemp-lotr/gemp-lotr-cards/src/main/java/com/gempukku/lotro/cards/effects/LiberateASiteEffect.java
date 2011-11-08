@@ -6,8 +6,12 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LiberateASiteEffect extends AbstractEffect {
     private PhysicalCard _source;
@@ -50,15 +54,23 @@ public class LiberateASiteEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         PhysicalCard siteToLiberate = getSiteToLiberate(game);
         if (siteToLiberate != null) {
+            Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
 
             List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(siteToLiberate);
-            game.getGameState().removeCardsFromZone(_source.getOwner(), stackedCards);
-            for (PhysicalCard stackedCard : stackedCards)
-                game.getGameState().addCardToZone(game, stackedCard, Zone.DISCARD);
+            cardsToRemove.addAll(stackedCards);
+
+            List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(siteToLiberate);
+            cardsToRemove.addAll(attachedCards);
+            discardedCards.addAll(attachedCards);
+
+            game.getGameState().removeCardsFromZone(_source.getOwner(), cardsToRemove);
+            for (PhysicalCard removedCard : cardsToRemove)
+                game.getGameState().addCardToZone(game, removedCard, Zone.DISCARD);
 
             game.getGameState().loseControlOfCard(siteToLiberate, Zone.ADVENTURE_PATH);
 
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(Collections.singleton(new DiscardCardsFromPlayResult(discardedCards)), true, true);
         }
         return new FullEffectResult(null, false, false);
     }
