@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.actions;
 
+import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.Zone;
@@ -19,6 +20,7 @@ import java.util.List;
 public class PlayPermanentAction extends AbstractCostToEffectAction {
     private PhysicalCard _permanentPlayed;
     private Zone _zone;
+    private int _twilightModifier;
 
     private boolean _cardRemoved;
 
@@ -29,13 +31,19 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
     private boolean _cardDiscarded;
 
+    private boolean _discountResolved;
+    private DiscountEffect _discountEffect;
+
+    private boolean _discountApplied;
+
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier) {
         _permanentPlayed = card;
         _zone = zone;
+        _twilightModifier = twilightModifier;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
         preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable()));
-        appendCost(new PayTwilightCostEffect(card, twilightModifier));
+
         if (card.getZone() == Zone.DECK)
             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
 
@@ -48,6 +56,10 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
             playedFromCard = card.getAttachedTo();
 
         _playCardEffect = new PlayCardEffect(card.getZone(), card, zone, playedFromCard);
+    }
+
+    public void setDiscountEffect(DiscountEffect discountEffect) {
+        _discountEffect = discountEffect;
     }
 
     @Override
@@ -74,6 +86,19 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
             _cardRemoved = true;
             game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
             game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID);
+        }
+
+        if (!_discountResolved) {
+            _discountResolved = true;
+            if (_discountEffect != null)
+                return _discountEffect;
+        }
+
+        if (!_discountApplied) {
+            _discountApplied = true;
+            if (_discountEffect != null)
+                _twilightModifier -= _discountEffect.getDiscountPaidFor();
+            insertCost(new PayTwilightCostEffect(_permanentPlayed, _twilightModifier));
         }
 
         if (!isCostFailed()) {

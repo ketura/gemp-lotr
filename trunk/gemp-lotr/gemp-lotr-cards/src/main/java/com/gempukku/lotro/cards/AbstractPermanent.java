@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,11 +31,16 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return new PlayPermanentAction(self, _playedToZone, twilightModifier);
+        PlayPermanentAction action = new PlayPermanentAction(self, _playedToZone, twilightModifier);
+        DiscountEffect discountEffect = getDiscountEffect(action, playerId, game, self);
+        if (discountEffect != null)
+            action.setDiscountEffect(discountEffect);
+        return action;
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+        twilightModifier -= getPotentialExtraPaymentDiscount(playerId, game, self);
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
                 && (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier));
     }
@@ -45,6 +51,15 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     }
 
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
+        // Always non-negative 
+        return 0;
+    }
+
+    protected DiscountEffect getDiscountEffect(Action action, String playerId, LotroGame game, PhysicalCard self) {
         return null;
     }
 
