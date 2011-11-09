@@ -31,6 +31,7 @@ public class Card3_119 extends AbstractSite {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
+                && playerId.equals(game.getGameState().getCurrentPlayerId())
                 && game.getGameState().getCurrentSite() == self
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)) >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
