@@ -434,19 +434,23 @@ public class Filters {
     }
 
     public static Filter sameCard(final PhysicalCard card) {
+        final int cardId = card.getCardId();
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (physicalCard == card);
+                return (physicalCard.getCardId() == cardId);
             }
         };
     }
 
     public static Filter in(final Collection<PhysicalCard> cards) {
+        final Set<Integer> cardIds = new HashSet<Integer>();
+        for (PhysicalCard card : cards)
+            cardIds.add(card.getCardId());
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return cards.contains(physicalCard);
+                return cardIds.contains(physicalCard.getCardId());
             }
         };
     }
