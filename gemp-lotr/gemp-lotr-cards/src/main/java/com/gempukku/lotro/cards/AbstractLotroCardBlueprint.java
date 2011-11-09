@@ -193,6 +193,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public RequiredTriggerAction getDiscardedFromPlayTrigger(LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
     public Signet getSignet() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }

@@ -28,6 +28,8 @@ public class RuleSet {
 
         new WinConditionRule(_actionsEnvironment).applyRule();
 
+        new DiscardedCardRule(_actionsEnvironment).applyRule();
+
         new FrodoAndSamRule(_modifiersLogic).applyRule();
 
         new ThreatRule(_actionsEnvironment).applyRule();
