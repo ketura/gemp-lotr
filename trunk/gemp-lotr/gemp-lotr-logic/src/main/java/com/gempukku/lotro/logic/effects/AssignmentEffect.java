@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class AssignmentEffect extends AbstractEffect {
     private String _playerId;
+    private boolean _ignoreSingleMinionRestriction;
     private PhysicalCard _fpChar;
     private PhysicalCard _minion;
 
@@ -22,6 +23,10 @@ public class AssignmentEffect extends AbstractEffect {
         _playerId = playerId;
         _fpChar = fpChar;
         _minion = minion;
+    }
+
+    public void setIgnoreSingleMinionRestriction(boolean ignoreSingleMinionRestriction) {
+        _ignoreSingleMinionRestriction = ignoreSingleMinionRestriction;
     }
 
     @Override
@@ -37,7 +42,9 @@ public class AssignmentEffect extends AbstractEffect {
     @Override
     public boolean isPlayableInFull(LotroGame game) {
         Side side = _playerId.equals(game.getGameState().getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW;
-        return Filters.canBeAssignedToSkirmishByEffect(side).accepts(game.getGameState(), game.getModifiersQuerying(), _fpChar)
+        return (
+                (_ignoreSingleMinionRestriction && Filters.canBeAssignedToSkirmishByEffectIgnoreNotAssigned(side).accepts(game.getGameState(), game.getModifiersQuerying(), _fpChar))
+                        || Filters.canBeAssignedToSkirmishByEffect(side).accepts(game.getGameState(), game.getModifiersQuerying(), _fpChar))
                 && Filters.canBeAssignedToSkirmishByEffect(side).accepts(game.getGameState(), game.getModifiersQuerying(), _minion)
                 && game.getModifiersQuerying().isValidAssignments(game.getGameState(), side, Collections.singletonMap(_fpChar, Collections.singletonList(_minion)));
     }

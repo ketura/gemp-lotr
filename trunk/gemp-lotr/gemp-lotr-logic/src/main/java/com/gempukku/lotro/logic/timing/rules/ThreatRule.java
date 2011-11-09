@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.effects.ThreatWoundsEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -32,9 +33,16 @@ public class ThreatRule {
                     public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.KILL) {
                             KillResult killResult = (KillResult) effectResult;
-                            boolean threatsTrigger = Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY)).size() > 0;
+                            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY)).size() > 0) {
+                                RequiredTriggerAction action = new RequiredTriggerAction(null);
+                                action.appendEffect(
+                                        new ThreatWoundsEffect(killResult));
+                                return Collections.singletonList(action);
+                            }
+                        }
+                        if (effectResult.getType() == EffectResult.Type.THREAT_WOUND_TRIGGER) {
                             int threats = game.getGameState().getThreats();
-                            if (threatsTrigger && threats > 0) {
+                            if (threats > 0) {
                                 RequiredTriggerAction action = new RequiredTriggerAction(null);
                                 action.setText("Threat damage assignment");
                                 action.appendEffect(
