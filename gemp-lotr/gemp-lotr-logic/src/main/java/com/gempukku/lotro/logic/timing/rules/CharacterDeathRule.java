@@ -29,7 +29,7 @@ public class CharacterDeathRule {
             RequiredTriggerAction action = new RequiredTriggerAction(null);
             action.setText("Character(s) death");
             action.appendEffect(
-                    new KillEffect(deadCharacters));
+                    new KillEffect(deadCharacters, KillEffect.Cause.WOUNDS));
             return Collections.singletonList(action);
         }
 

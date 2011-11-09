@@ -44,7 +44,7 @@ public class Filters {
         return result;
     }
 
-    public static PhysicalCard findFirstActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filter... filters) {
+    public static PhysicalCard findFirstActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, Filters.and(filters));
         gameState.iterateActiveCards(visitor);
         return visitor.getCard();
@@ -115,6 +115,25 @@ public class Filters {
     public static Filter canBeAssignedToSkirmishByEffect(final Side sidePlayer) {
         return Filters.and(
                 notAssignedToSkirmish,
+                Filters.or(
+                        Filters.not(CardType.MINION),
+                        Filters.or(
+                                new Filter() {
+                                    @Override
+                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                        return !gameState.isFierceSkirmishes();
+                                    }
+                                }, Keyword.FIERCE)),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return modifiersQuerying.canBeAssignedToSkirmish(gameState, sidePlayer, physicalCard);
+                    }
+                });
+    }
+
+    public static Filter canBeAssignedToSkirmishByEffectIgnoreNotAssigned(final Side sidePlayer) {
+        return Filters.and(
                 Filters.or(
                         Filters.not(CardType.MINION),
                         Filters.or(

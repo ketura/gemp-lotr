@@ -16,9 +16,19 @@ import java.util.*;
 
 public class KillEffect extends AbstractSuccessfulEffect {
     private List<PhysicalCard> _cards;
+    private Cause _cause;
 
-    public KillEffect(List<PhysicalCard> cards) {
+    public enum Cause {
+        WOUNDS, OVERWHELM, CARD_EFFECT
+    }
+
+    public KillEffect(List<PhysicalCard> cards, Cause cause) {
         _cards = cards;
+        _cause = cause;
+    }
+
+    public Cause getCause() {
+        return _cause;
     }
 
     @Override
@@ -91,9 +101,9 @@ public class KillEffect extends AbstractSuccessfulEffect {
             gameState.addCardToZone(game, discardedCard, Zone.DISCARD);
 
         if (killedCards.size() > 0 && discardedCards.size() > 0) {
-            return Arrays.asList(new KillResult(killedCards), new DiscardCardsFromPlayResult(discardedCards));
+            return Arrays.asList(new KillResult(killedCards, _cause), new DiscardCardsFromPlayResult(discardedCards));
         } else if (killedCards.size() > 0) {
-            return Arrays.asList(new KillResult(killedCards));
+            return Arrays.asList(new KillResult(killedCards, _cause));
         } else if (discardedCards.size() > 0) {
             return Arrays.asList(new DiscardCardsFromPlayResult(discardedCards));
         } else {

@@ -22,7 +22,8 @@ public abstract class EffectResult {
 
         WHEN_MOVE_FROM, WHEN_FELLOWSHIP_MOVES, WHEN_MOVE_TO,
         REVEAL_CARDS_FROM_HAND,
-        INITIATIVE_CHANGE
+        INITIATIVE_CHANGE,
+        THREAT_WOUND_TRIGGER
     }
 
     private Type _type;

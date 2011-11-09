@@ -47,7 +47,7 @@ public class Card7_152 extends AbstractMinion {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new KillEffect(skirmishResult.getLosers()));
+                    new KillEffect(skirmishResult.getLosers(), KillEffect.Cause.CARD_EFFECT));
             return Collections.singletonList(action);
         }
         return null;
