@@ -32,6 +32,10 @@ public class PhysicalCardImpl implements PhysicalCard {
         _blueprint = blueprint;
     }
 
+    public void setCardId(int cardId) {
+        _cardId = cardId;
+    }
+
     @Override
     public String getBlueprintId() {
         return _blueprintId;

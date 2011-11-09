@@ -352,6 +352,8 @@ public class GameState {
     }
 
     private void addCardToZone(LotroGame game, PhysicalCard card, Zone zone, boolean end) {
+        assignNewCardId(card);
+
         List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
         if (end)
             zoneCards.add((PhysicalCardImpl) card);
@@ -378,6 +380,13 @@ public class GameState {
             } else if (zone == Zone.STACKED)
                 startAffectingStacked(game, card);
         }
+    }
+
+    private void assignNewCardId(PhysicalCard card) {
+        _allCards.remove(card.getCardId());
+        int newCardId = nextCardId();
+        ((PhysicalCardImpl) card).setCardId(newCardId);
+        _allCards.put(newCardId, ((PhysicalCardImpl) card));
     }
 
     private void removeAllTokens(PhysicalCard card) {
