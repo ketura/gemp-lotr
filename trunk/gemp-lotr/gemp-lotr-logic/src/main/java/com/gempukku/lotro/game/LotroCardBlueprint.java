@@ -3,6 +3,7 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -50,7 +51,7 @@ public interface LotroCardBlueprint {
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 
-    public Action getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
+    public CostToEffectAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self);
 

@@ -49,13 +49,13 @@ public class Card7_274 extends AbstractMinion {
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Culture.SAURON, Race.ORC) {
                         @Override
-                        protected void cardChosenCallback(PhysicalCard cardChosenToPlay) {
+                        protected void cardPlayed(PhysicalCard cardPlayed) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new StrengthModifier(self, cardChosenToPlay, 6), Phase.REGROUP));
+                                            new StrengthModifier(self, cardPlayed, 6), Phase.REGROUP));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, cardChosenToPlay, Keyword.FIERCE), Phase.REGROUP));
+                                            new KeywordModifier(self, cardPlayed, Keyword.FIERCE), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);
