@@ -72,7 +72,7 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
                                         new UnrespondableEffect() {
                                             @Override
                                             protected void doPlayEffect(LotroGame game) {
-                                                cardPlayed(selectedCard);
+                                                afterCardPlayed(selectedCard);
                                             }
                                         });
                                 game.getActionsEnvironment().addActionToStack(_playCardAction);
@@ -83,7 +83,7 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
         return null;
     }
 
-    protected void cardPlayed(PhysicalCard cardPlayed) {
+    protected void afterCardPlayed(PhysicalCard cardPlayed) {
     }
 
     @Override
