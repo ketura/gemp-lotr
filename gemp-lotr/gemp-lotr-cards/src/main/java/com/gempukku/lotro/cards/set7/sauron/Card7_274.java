@@ -49,7 +49,7 @@ public class Card7_274 extends AbstractMinion {
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Culture.SAURON, Race.ORC) {
                         @Override
-                        protected void cardPlayed(PhysicalCard cardPlayed) {
+                        protected void afterCardPlayed(PhysicalCard cardPlayed) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new StrengthModifier(self, cardPlayed, 6), Phase.REGROUP));

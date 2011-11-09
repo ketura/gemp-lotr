@@ -53,9 +53,6 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
         return null;
     }
 
-    protected void cardPlayed(PhysicalCard cardPlayed) {
-    }
-
     @Override
     public Collection<? extends EffectResult> playEffect(final LotroGame game) {
         Collection<PhysicalCard> playableInHand = getPlayableInHandCards(game);
@@ -70,7 +67,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
                                     new UnrespondableEffect() {
                                         @Override
                                         protected void doPlayEffect(LotroGame game) {
-                                            cardPlayed(selectedCard);
+                                            afterCardPlayed(selectedCard);
                                         }
                                     });
                             game.getActionsEnvironment().addActionToStack(_playCardAction);
@@ -78,6 +75,9 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
                     });
         }
         return null;
+    }
+
+    protected void afterCardPlayed(PhysicalCard cardPlayed) {
     }
 
     @Override

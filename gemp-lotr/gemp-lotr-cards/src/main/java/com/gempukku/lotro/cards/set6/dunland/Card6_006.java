@@ -43,7 +43,7 @@ public class Card6_006 extends AbstractMinion {
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.and(Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN))) {
                         @Override
-                        protected void cardPlayed(PhysicalCard cardPlayed) {
+                        protected void afterCardPlayed(PhysicalCard cardPlayed) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new KeywordModifier(self, Filters.sameCard(cardPlayed), Keyword.FIERCE), Phase.REGROUP));

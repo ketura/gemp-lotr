@@ -40,7 +40,7 @@ public class Card6_084 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -8, CardType.MINION, Filters.or(Culture.WRAITH, Culture.SAURON)) {
                         @Override
-                        protected void cardPlayed(PhysicalCard cardPlayed) {
+                        protected void afterCardPlayed(PhysicalCard cardPlayed) {
                             action.appendEffect(
                                     new ExhaustCharacterEffect(self, action, cardPlayed));
                         }
