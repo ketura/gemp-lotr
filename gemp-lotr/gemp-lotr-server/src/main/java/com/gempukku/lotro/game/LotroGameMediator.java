@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -98,7 +99,7 @@ public class LotroGameMediator {
                 for (Modifier modifier : modifiers) {
                     PhysicalCard source = modifier.getSource();
                     if (source != null)
-                        sb.append("<br><b>" + source.getBlueprint().getName() + ":</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
+                        sb.append("<br><b>" + GameUtils.getCardLink(source) + ":</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
                     else
                         sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
                 }
