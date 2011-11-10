@@ -3,24 +3,27 @@ package com.gempukku.lotro.cards.set7.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Set: The Return of the King
@@ -42,37 +45,44 @@ public class Card7_200 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, null, null, ModifierEffect.ASSIGNMENT_MODIFIER) {
-                    @Override
-                    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments) {
-                        if (side == Side.FREE_PEOPLE) {
-                            if (isGettingAssigned(assignments, self) && Filters.countSpottable(gameState, modifiersQuerying, Race.NAZGUL) > 0) {
-                                return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION, Filters.canExert(self)) >= 1;
-                            }
-                        }
-
-                        return true;
-                    }
-                });
+                new FreePeoplePlayerMayNotAssignCharacterModifier(self,
+                        new AndCondition(
+                                new SpotCondition(Race.NAZGUL),
+                                new Condition() {
+                                    @Override
+                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                        return self.getData() == null;
+                                    }
+                                }), self));
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.assigned(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+        if (effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING
                 && PlayConditions.canSpot(game, Race.NAZGUL)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+            final RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendCost(
+                    new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                            new MultipleChoiceAwaitingDecision(1, "Do you wish to exert a companion to be able to assign this minion?", new String[]{"Yes", "No"}) {
+                                @Override
+                                protected void validDecisionMade(int index, String result) {
+                                    if (index == 0) {
+                                        action.appendCost(
+                                                new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                                        action.appendEffect(
+                                                new UnrespondableEffect() {
+                                                    @Override
+                                                    protected void doPlayEffect(LotroGame game) {
+                                                        self.storeData(new Object());
+                                                    }
+                                                });
+                                    }
+                                }
+                            }));
             return Collections.singletonList(action);
         }
+        if (PlayConditions.endOfPhase(game, effectResult, Phase.ASSIGNMENT))
+            self.removeData();
         return null;
-    }
-
-    private boolean isGettingAssigned(Map<PhysicalCard, List<PhysicalCard>> assignments, PhysicalCard self) {
-        for (List<PhysicalCard> physicalCards : assignments.values()) {
-            if (physicalCards.contains(self))
-                return true;
-        }
-        return false;
     }
 }
