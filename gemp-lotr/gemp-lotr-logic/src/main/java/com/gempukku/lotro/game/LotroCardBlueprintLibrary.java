@@ -45,9 +45,16 @@ public class LotroCardBlueprintLibrary {
         return blueprintId;
     }
 
-    private void addAlternatives(String blueprint1, String blueprint2) {
-        addAlternative(blueprint1, blueprint2);
-        addAlternative(blueprint2, blueprint1);
+    private void addAlternatives(String newBlueprint, String existingBlueprint) {
+        List<String> existingAlternates = _fullBlueprintMapping.get(existingBlueprint);
+        if (existingAlternates != null) {
+            for (String existingAlternate : existingAlternates) {
+                addAlternative(newBlueprint, existingAlternate);
+                addAlternative(existingAlternate, newBlueprint);
+            }
+        }
+        addAlternative(newBlueprint, existingBlueprint);
+        addAlternative(existingBlueprint, newBlueprint);
     }
 
     private void addAlternative(String from, String to) {
