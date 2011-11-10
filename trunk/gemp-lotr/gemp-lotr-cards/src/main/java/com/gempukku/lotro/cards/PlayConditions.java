@@ -527,6 +527,14 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean movesFrom(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
+                && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean canRemoveTokens(LotroGame game, Token token, int count, Filterable... fromFilters) {
         return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasToken(token, count))).size() > 0;
     }
