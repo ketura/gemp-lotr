@@ -4,6 +4,8 @@ public abstract class EffectResult {
     public enum Type {
         WOUND, KILL, HEAL, EXERT, DISCARD_FROM_PLAY, DISCARD_FROM_HAND,
 
+        FREE_PEOPLE_PLAYER_STARTS_ASSIGNING,
+
         ASSIGNMENT, OVERWHELM_IN_SKIRMISH, RESOLVE_SKIRMISH,
 
         ADD_TWILIGHT,

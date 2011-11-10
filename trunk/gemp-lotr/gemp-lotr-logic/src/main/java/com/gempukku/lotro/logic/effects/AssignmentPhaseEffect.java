@@ -29,10 +29,6 @@ public class AssignmentPhaseEffect extends AbstractEffect {
         _text = text;
     }
 
-    public AssignmentPhaseEffect(String playerId, PhysicalCard fpChar, List<PhysicalCard> minions, String text) {
-        this(playerId, Collections.singletonMap(fpChar, minions), text);
-    }
-
     @Override
     public Effect.Type getType() {
         return null;
