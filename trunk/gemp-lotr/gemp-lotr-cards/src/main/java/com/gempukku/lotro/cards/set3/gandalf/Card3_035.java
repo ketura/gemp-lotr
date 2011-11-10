@@ -4,6 +4,8 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -41,11 +43,11 @@ public class Card3_035 extends AbstractPermanent {
                     new ChooseActiveCardEffect(self, playerId, "Chooose a companion", Filters.type(CardType.COMPANION)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int gandalfSignet = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), new com.gempukku.lotro.filters.Filter[]{Filters.type(CardType.COMPANION), Filters.signet(Signet.GANDALF)});
-                            int bonus = Math.min(3, gandalfSignet);
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(card), null,
+                                                    new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3,
+                                                            new CountSpottableEvaluator(CardType.COMPANION, Signet.GANDALF))), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);

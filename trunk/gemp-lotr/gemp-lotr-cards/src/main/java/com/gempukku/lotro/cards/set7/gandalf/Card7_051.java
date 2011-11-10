@@ -41,6 +41,7 @@ public class Card7_051 extends AbstractEvent {
                 new ForEachTwilightTokenYouSpotEffect(playerId) {
                     @Override
                     protected void twilightTokensSpotted(int twilightTokens) {
+                        twilightTokens = Math.min(8, twilightTokens);
                         action.insertEffect(
                                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, twilightTokens, Filters.gandalf));
                     }

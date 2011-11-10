@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -49,9 +50,9 @@ public class Card1_269 extends AbstractAttachable {
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
-                            new AddUntilEndOfPhaseModifierEffect(
-                                    new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1), Phase.SKIRMISH)));
+                    new AddUntilEndOfPhaseModifierEffect(
+                            new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), null,
+                                    new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3, new ConstantEvaluator(1))), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;

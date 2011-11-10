@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set6.rohan;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -14,6 +14,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,9 +50,9 @@ public class Card6_095 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(self)));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 1, Phase.SKIRMISH,
-                            new AddUntilEndOfPhaseModifierEffect(
-                                    new StrengthModifier(self, self, 3), Phase.SKIRMISH)));
+                    new AddUntilEndOfPhaseModifierEffect(
+                            new StrengthModifier(self, self, null,
+                                    new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3, new ConstantEvaluator(3))), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;
