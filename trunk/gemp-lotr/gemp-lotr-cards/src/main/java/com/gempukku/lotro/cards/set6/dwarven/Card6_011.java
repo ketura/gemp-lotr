@@ -63,7 +63,6 @@ public class Card6_011 extends AbstractEvent {
                             @Override
                             protected void validDecisionMade(int index, String result) {
                                 action.skipDiscardPart();
-                                game.getGameState().removeCardsFromZone(playerId, Collections.singleton(self));
                                 if (index == 0)
                                     game.getGameState().putCardOnTopOfDeck(self);
                                 else
