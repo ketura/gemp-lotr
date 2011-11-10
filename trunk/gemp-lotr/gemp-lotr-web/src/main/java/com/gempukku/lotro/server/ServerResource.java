@@ -734,7 +734,9 @@ public class ServerResource {
             sb.append("<script>location.href='hall.html';</script>");
         } else {
             sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
-            sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size()).append("</div>");
+            sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
+                    .append(", games played in last 24 hours: ").append(_lotroServer.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
+                    .append("</div>");
             sb.append(getLoginHTML());
         }
 

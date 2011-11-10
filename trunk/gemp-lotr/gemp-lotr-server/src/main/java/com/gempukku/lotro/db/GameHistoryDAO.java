@@ -113,4 +113,31 @@ public class GameHistoryDAO {
             throw new RuntimeException("Unable to get count of player games", exp);
         }
     }
+
+    public int getGamesPlayedCountInLastMs(long ms) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=?");
+                try {
+                    statement.setLong(1, System.currentTimeMillis() - ms);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        if (rs.next())
+                            return rs.getInt(1);
+                        else
+                            return -1;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get count of games played", exp);
+        }
+    }
 }

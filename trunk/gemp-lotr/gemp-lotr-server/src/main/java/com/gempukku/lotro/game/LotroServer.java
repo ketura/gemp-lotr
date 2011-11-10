@@ -97,6 +97,10 @@ public class LotroServer extends AbstractServer {
         return _gameHistoryDao.getGameHistoryForPlayerCount(player);
     }
 
+    public int getGamesPlayedCountInLastMs(long ms) {
+        return _gameHistoryDao.getGamesPlayedCountInLastMs(ms);
+    }
+
     public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary() {
         return _lotroCardBlueprintLibrary;
     }
