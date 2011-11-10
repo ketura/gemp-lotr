@@ -34,7 +34,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         GameState gameState = _game.getGameState();
         Filter minionFilter = Filters.and(Filters.type(CardType.MINION), Filters.owner(_playerId));
         if (gameState.isFierceSkirmishes())

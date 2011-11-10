@@ -12,7 +12,7 @@ public class CleanupProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         _game.getGameState().stopAffectingCardsForCurrentPlayer();
         _game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
     }

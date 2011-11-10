@@ -21,11 +21,11 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         final GameState gameState = _game.getGameState();
         if (gameState.getMoveCount() < RuleUtils.calculateMoveLimit(_game)) {
             if (_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)) {
-                _nextProcess = new MovementGameProcess(_game,
+                _nextProcess = new MovementGameProcess(
                         new EndOfPhaseGameProcess(_game, Phase.REGROUP,
                                 new ShadowPhasesGameProcess(_game)));
             } else {
@@ -34,7 +34,7 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
                             @Override
                             protected void validDecisionMade(int index, String result) {
                                 if (result.equals("Yes"))
-                                    _nextProcess = new MovementGameProcess(_game,
+                                    _nextProcess = new MovementGameProcess(
                                             new EndOfPhaseGameProcess(_game, Phase.REGROUP,
                                                     new ShadowPhasesGameProcess(_game)));
                                 else {

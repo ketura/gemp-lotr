@@ -22,7 +22,7 @@ public class AssignmentGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
 
     }
 

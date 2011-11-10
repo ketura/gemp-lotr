@@ -34,7 +34,7 @@ public class TurnProcedure {
 
         _gameStats = new GameStats();
 
-        _gameProcess = new BiddingGameProcess(players, lotroGame, playerOrderFeedback);
+        _gameProcess = new BiddingGameProcess(players, playerOrderFeedback);
     }
 
     public GameStats getGameStats() {
@@ -48,7 +48,7 @@ public class TurnProcedure {
                     _gameProcess = _gameProcess.getNextProcess();
                     _playedGameProcess = false;
                 } else {
-                    _gameProcess.process();
+                    _gameProcess.process(_game);
                     if (_gameStats.updateGameStats(_game))
                         _game.getGameState().sendGameStats(_gameStats);
                     _playedGameProcess = true;

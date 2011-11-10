@@ -10,15 +10,13 @@ import java.util.*;
 
 public class ChooseSeatingOrderGameProcess implements GameProcess {
     private Map<String, Integer> _bids;
-    private LotroGame _game;
     private PlayerOrderFeedback _playerOrderFeedback;
 
     private Iterator<String> _biddingOrderPlayers;
     private String[] _orderedPlayers;
 
-    public ChooseSeatingOrderGameProcess(Map<String, Integer> bids, LotroGame game, PlayerOrderFeedback playerOrderFeedback) {
+    public ChooseSeatingOrderGameProcess(Map<String, Integer> bids, PlayerOrderFeedback playerOrderFeedback) {
         _bids = bids;
-        _game = game;
         _playerOrderFeedback = playerOrderFeedback;
 
         ArrayList<String> participantList = new ArrayList<String>(bids.keySet());
@@ -36,14 +34,14 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
-        checkForNextSeating();
+    public void process(LotroGame game) {
+        checkForNextSeating(game);
     }
 
-    private void checkForNextSeating() {
+    private void checkForNextSeating(LotroGame game) {
         String[] emptySeats = getEmptySeatNumbers();
         if (emptySeats.length > 1)
-            askNextPlayerToChoosePlace(emptySeats);
+            askNextPlayerToChoosePlace(game, emptySeats);
         else {
             _orderedPlayers[Integer.parseInt(emptySeats[0]) - 1] = _biddingOrderPlayers.next();
             _playerOrderFeedback.setPlayerOrder(new PlayerOrder(Arrays.asList(_orderedPlayers)), _orderedPlayers[0]);
@@ -58,19 +56,19 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
         return result.toArray(new String[result.size()]);
     }
 
-    private void participantHasChosenSeat(String participant, int placeNo) {
+    private void participantHasChosenSeat(LotroGame game, String participant, int placeNo) {
         _orderedPlayers[placeNo - 1] = participant;
 
-        checkForNextSeating();
+        checkForNextSeating(game);
     }
 
-    private void askNextPlayerToChoosePlace(String[] emptySeatNumbers) {
+    private void askNextPlayerToChoosePlace(final LotroGame game, String[] emptySeatNumbers) {
         final String playerId = _biddingOrderPlayers.next();
-        _game.getUserFeedback().sendAwaitingDecision(playerId,
+        game.getUserFeedback().sendAwaitingDecision(playerId,
                 new MultipleChoiceAwaitingDecision(1, "Choose a seat number at the table", emptySeatNumbers) {
                     @Override
                     protected void validDecisionMade(int index, String result) {
-                        participantHasChosenSeat(playerId, Integer.parseInt(result));
+                        participantHasChosenSeat(game, playerId, Integer.parseInt(result));
                     }
                 }
         );
@@ -78,6 +76,6 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new FirstPlayerPlaysSiteGameProcess(_game, _bids, _orderedPlayers[0]);
+        return new FirstPlayerPlaysSiteGameProcess(_bids, _orderedPlayers[0]);
     }
 }

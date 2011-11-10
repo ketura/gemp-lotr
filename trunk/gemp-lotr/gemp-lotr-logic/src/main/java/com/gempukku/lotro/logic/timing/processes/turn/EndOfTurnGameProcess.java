@@ -20,7 +20,7 @@ public class EndOfTurnGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         SystemQueueAction action = new SystemQueueAction() {
             @Override
             public String getText(LotroGame game) {

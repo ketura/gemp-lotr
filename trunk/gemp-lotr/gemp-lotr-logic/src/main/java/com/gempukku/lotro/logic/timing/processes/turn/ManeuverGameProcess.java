@@ -18,7 +18,7 @@ public class ManeuverGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
 
     }
 

@@ -25,7 +25,7 @@ public class StartOfPhaseGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         _game.getGameState().setCurrentPhase(_phase);
         SystemQueueAction action = new SystemQueueAction() {
             @Override

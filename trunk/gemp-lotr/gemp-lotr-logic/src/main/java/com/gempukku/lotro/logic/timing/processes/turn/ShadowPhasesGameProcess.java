@@ -16,7 +16,7 @@ public class ShadowPhasesGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         _playOrder.getNextPlayer();
     }
 

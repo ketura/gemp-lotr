@@ -31,7 +31,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         Collection<PhysicalCard> possibleCharacters = getPossibleCharacters(_playerId);
         if (possibleCharacters.size() == 0)
             _nextProcess = _followingGameProcess;

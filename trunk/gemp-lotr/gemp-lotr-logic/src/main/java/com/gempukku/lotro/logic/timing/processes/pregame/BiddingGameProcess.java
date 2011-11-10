@@ -12,21 +12,19 @@ import java.util.Set;
 
 public class BiddingGameProcess implements GameProcess {
     private Set<String> _players;
-    private LotroGame _game;
     private PlayerOrderFeedback _playerOrderFeedback;
     private Map<String, Integer> _bids = new HashMap<String, Integer>();
 
-    public BiddingGameProcess(Set<String> players, LotroGame game, PlayerOrderFeedback playerOrderFeedback) {
+    public BiddingGameProcess(Set<String> players, PlayerOrderFeedback playerOrderFeedback) {
         _players = players;
-        _game = game;
         _playerOrderFeedback = playerOrderFeedback;
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         for (String player : _players) {
             final String decidingPlayer = player;
-            _game.getUserFeedback().sendAwaitingDecision(decidingPlayer, new IntegerAwaitingDecision(1, "Choose a number of burdens to bid", 0) {
+            game.getUserFeedback().sendAwaitingDecision(decidingPlayer, new IntegerAwaitingDecision(1, "Choose a number of burdens to bid", 0) {
                 @Override
                 public void decisionMade(String result) throws DecisionResultInvalidException {
                     try {
@@ -48,6 +46,6 @@ public class BiddingGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new ChooseSeatingOrderGameProcess(_bids, _game, _playerOrderFeedback);
+        return new ChooseSeatingOrderGameProcess(_bids, _playerOrderFeedback);
     }
 }

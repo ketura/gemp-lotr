@@ -16,7 +16,7 @@ public class PlayerReconcilesGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         _game.getActionsEnvironment().addActionToStack(new PlayerReconcilesAction(_game, _playerId));
     }
 

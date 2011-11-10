@@ -28,7 +28,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.SKIRMISH, null)) {
             _nextProcess = _followingGameProcess;
         } else {

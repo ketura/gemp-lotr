@@ -17,7 +17,7 @@ public class ArcheryFireGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         _fellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(_game);
 
         _shadowArcheryTotal = RuleUtils.calculateShadowArcheryTotal(_game);

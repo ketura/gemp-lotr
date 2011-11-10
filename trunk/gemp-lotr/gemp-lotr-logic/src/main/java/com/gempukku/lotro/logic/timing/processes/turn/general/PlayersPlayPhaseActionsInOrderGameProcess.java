@@ -27,7 +27,7 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         Skirmish skirmish = _game.getGameState().getSkirmish();
         if (_game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && (_game.getGameState().getSkirmish().isCancelled()
