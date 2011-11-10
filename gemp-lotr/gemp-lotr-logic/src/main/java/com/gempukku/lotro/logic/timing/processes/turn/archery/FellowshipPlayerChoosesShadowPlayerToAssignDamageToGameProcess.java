@@ -23,7 +23,7 @@ public class FellowshipPlayerChoosesShadowPlayerToAssignDamageToGameProcess impl
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         if (_woundsToAssign > 0) {
             List<String> shadowPlayers = new LinkedList<String>();
 

@@ -15,7 +15,7 @@ public class ResolveSkirmishGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         Skirmish skirmish = _game.getGameState().getSkirmish();
         if (!skirmish.isCancelled())
             _game.getActionsEnvironment().addActionToStack(new ResolveSkirmishAction(_game, skirmish));

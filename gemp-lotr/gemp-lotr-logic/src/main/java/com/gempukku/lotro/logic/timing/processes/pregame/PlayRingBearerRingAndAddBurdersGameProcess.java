@@ -14,38 +14,38 @@ import java.util.Collections;
 import java.util.Map;
 
 public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
-    private LotroGame _game;
     private Map<String, Integer> _bids;
     private String _firstPlayer;
+    private GameProcess _nextProcess;
 
-    public PlayRingBearerRingAndAddBurdersGameProcess(LotroGame game, Map<String, Integer> bids, String firstPlayer) {
-        _game = game;
+    public PlayRingBearerRingAndAddBurdersGameProcess(Map<String, Integer> bids, String firstPlayer) {
         _bids = bids;
         _firstPlayer = firstPlayer;
     }
 
     @Override
-    public void process() {
-        GameState gameState = _game.getGameState();
+    public void process(LotroGame game) {
+        GameState gameState = game.getGameState();
         for (String playerId : gameState.getPlayerOrder().getAllPlayers()) {
-            PhysicalCard ringBearer = Filters.filter(gameState.getDeck(playerId), gameState, _game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).iterator().next();
+            PhysicalCard ringBearer = Filters.filter(gameState.getDeck(playerId), gameState, game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).iterator().next();
             gameState.removeCardsFromZone(null, Collections.singleton(ringBearer));
-            gameState.addCardToZone(_game, ringBearer, Zone.FREE_CHARACTERS);
+            gameState.addCardToZone(game, ringBearer, Zone.FREE_CHARACTERS);
             gameState.setRingBearer(ringBearer);
 
-            PhysicalCard ring = Filters.filter(gameState.getDeck(playerId), gameState, _game.getModifiersQuerying(), Filters.type(CardType.THE_ONE_RING)).iterator().next();
+            PhysicalCard ring = Filters.filter(gameState.getDeck(playerId), gameState, game.getModifiersQuerying(), Filters.type(CardType.THE_ONE_RING)).iterator().next();
             gameState.removeCardsFromZone(null, Collections.singleton(ring));
-            gameState.attachCard(_game, ring, ringBearer);
+            gameState.attachCard(game, ring, ringBearer);
 
             gameState.startPlayerTurn(playerId);
             gameState.addBurdens(_bids.get(playerId));
         }
         gameState.setCurrentPhase(Phase.PLAY_STARTING_FELLOWSHIP);
+
+        _nextProcess = new PlayStartingFellowshipGameProcess(game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false), _firstPlayer);
     }
 
     @Override
     public GameProcess getNextProcess() {
-        GameState gameState = _game.getGameState();
-        return new PlayStartingFellowshipGameProcess(_game, gameState.getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false), _firstPlayer);
+        return _nextProcess;
     }
 }

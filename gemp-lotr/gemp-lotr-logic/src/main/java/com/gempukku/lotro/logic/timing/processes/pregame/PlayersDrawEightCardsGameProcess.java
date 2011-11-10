@@ -15,7 +15,7 @@ public class PlayersDrawEightCardsGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         GameState gameState = _game.getGameState();
         for (String player : gameState.getPlayerOrder().getAllPlayers()) {
             gameState.shuffleDeck(player);

@@ -24,7 +24,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         if (_woundsToAssign > 0) {
             Filter filter = Filters.and(Filters.type(CardType.MINION), Filters.owner(_playerId));
 

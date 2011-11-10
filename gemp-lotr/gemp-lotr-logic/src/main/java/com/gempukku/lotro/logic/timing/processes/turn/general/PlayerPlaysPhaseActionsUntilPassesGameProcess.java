@@ -22,7 +22,7 @@ public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProces
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         final List<Action> playableActions = _game.getActionsEnvironment().getPhaseActions(_playerId);
 
         _game.getUserFeedback().sendAwaitingDecision(_playerId,

@@ -17,7 +17,7 @@ public class AfterSkirmishesGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
 
     }
 

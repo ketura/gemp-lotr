@@ -16,7 +16,7 @@ public class StartOfTurnGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         PlayOrder playOrder = _game.getGameState().getPlayerOrder().getClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), false);
         playOrder.getNextPlayer();
 

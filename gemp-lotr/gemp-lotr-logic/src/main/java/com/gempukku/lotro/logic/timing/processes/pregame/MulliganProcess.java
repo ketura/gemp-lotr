@@ -24,7 +24,7 @@ public class MulliganProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         final String nextPlayer = _playOrder.getNextPlayer();
         if (nextPlayer != null) {
             _game.getUserFeedback().sendAwaitingDecision(nextPlayer,

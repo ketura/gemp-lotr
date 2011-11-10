@@ -11,22 +11,20 @@ import java.util.Collections;
 import java.util.Map;
 
 public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
-    private LotroGame _game;
     private Map<String, Integer> _bids;
     private String _firstPlayer;
 
-    public FirstPlayerPlaysSiteGameProcess(LotroGame game, Map<String, Integer> bids, String firstPlayer) {
-        _game = game;
+    public FirstPlayerPlaysSiteGameProcess(Map<String, Integer> bids, String firstPlayer) {
         _bids = bids;
         _firstPlayer = firstPlayer;
     }
 
     @Override
-    public void process() {
-        GameState gameState = _game.getGameState();
-        PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, _game.getModifiersQuerying(), Filters.siteNumber(1)).iterator().next();
+    public void process(LotroGame game) {
+        GameState gameState = game.getGameState();
+        PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, game.getModifiersQuerying(), Filters.siteNumber(1)).iterator().next();
         gameState.removeCardsFromZone(null, Collections.singleton(firstSite));
-        gameState.addCardToZone(_game, firstSite, Zone.ADVENTURE_PATH);
+        gameState.addCardToZone(game, firstSite, Zone.ADVENTURE_PATH);
 
         for (String playerId : gameState.getPlayerOrder().getAllPlayers())
             gameState.setPlayerPosition(playerId, 1);
@@ -34,6 +32,6 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new PlayRingBearerRingAndAddBurdersGameProcess(_game, _bids, _firstPlayer);
+        return new PlayRingBearerRingAndAddBurdersGameProcess(_bids, _firstPlayer);
     }
 }

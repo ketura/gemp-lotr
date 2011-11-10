@@ -20,7 +20,7 @@ public class SimpleTriggeringGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         _game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringResultEffect(_effectResult, _text), _text));
     }
 

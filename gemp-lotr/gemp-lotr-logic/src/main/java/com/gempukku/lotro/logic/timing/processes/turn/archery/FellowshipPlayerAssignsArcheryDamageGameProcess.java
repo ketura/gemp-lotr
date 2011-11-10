@@ -25,7 +25,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         if (_woundsToAssign > 0) {
 
             Filter filter =

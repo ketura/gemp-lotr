@@ -18,7 +18,7 @@ public class DiscardAllMinionsGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         GameState gameState = _game.getGameState();
         DiscardCardsFromPlayEffect cards = new DiscardCardsFromPlayEffect(null, Filters.type(CardType.MINION));
         cards.playEffect(_game);

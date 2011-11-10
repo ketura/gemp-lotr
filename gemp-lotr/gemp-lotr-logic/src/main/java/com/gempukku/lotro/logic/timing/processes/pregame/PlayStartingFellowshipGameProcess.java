@@ -5,31 +5,29 @@ import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class PlayStartingFellowshipGameProcess implements GameProcess {
-    private LotroGame _game;
     private PlayOrder _playOrder;
     private String _firstPlayer;
 
     private GameProcess _nextProcess;
 
-    public PlayStartingFellowshipGameProcess(LotroGame game, PlayOrder playOrder, String firstPlayer) {
-        _game = game;
+    public PlayStartingFellowshipGameProcess(PlayOrder playOrder, String firstPlayer) {
         _playOrder = playOrder;
         _firstPlayer = firstPlayer;
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         String nextPlayer = _playOrder.getNextPlayer();
 
-        _game.getGameState().stopAffectingCardsForCurrentPlayer();
+        game.getGameState().stopAffectingCardsForCurrentPlayer();
 
         if (nextPlayer != null) {
-            _game.getGameState().startPlayerTurn(nextPlayer);
-            _game.getGameState().startAffectingCardsForCurrentPlayer(_game);
+            game.getGameState().startPlayerTurn(nextPlayer);
+            game.getGameState().startAffectingCardsForCurrentPlayer(game);
 
-            _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_game, nextPlayer, new PlayStartingFellowshipGameProcess(_game, _playOrder, _firstPlayer));
+            _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(game, nextPlayer, new PlayStartingFellowshipGameProcess(_playOrder, _firstPlayer));
         } else {
-            _nextProcess = new PlayersDrawEightCardsGameProcess(_game, _firstPlayer);
+            _nextProcess = new PlayersDrawEightCardsGameProcess(game, _firstPlayer);
         }
     }
 

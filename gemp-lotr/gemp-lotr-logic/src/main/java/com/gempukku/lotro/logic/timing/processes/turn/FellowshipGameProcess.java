@@ -16,7 +16,7 @@ public class FellowshipGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
 
     }
 
@@ -24,7 +24,7 @@ public class FellowshipGameProcess implements GameProcess {
     public GameProcess getNextProcess() {
         return new StartOfPhaseGameProcess(_game, Phase.FELLOWSHIP,
                 new PlayerPlaysPhaseActionsUntilPassesGameProcess(_game, _game.getGameState().getCurrentPlayerId(),
-                        new MovementGameProcess(_game,
+                        new MovementGameProcess(
                                 new EndOfPhaseGameProcess(_game, Phase.FELLOWSHIP,
                                         new ShadowPhasesGameProcess(_game)))));
     }

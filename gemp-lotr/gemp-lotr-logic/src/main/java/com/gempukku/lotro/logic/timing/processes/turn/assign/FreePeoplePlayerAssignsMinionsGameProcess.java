@@ -30,7 +30,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
     }
 
     @Override
-    public void process() {
+    public void process(LotroGame game) {
         final GameState gameState = _game.getGameState();
 
         Filter minionFilter = Filters.type(CardType.MINION);
