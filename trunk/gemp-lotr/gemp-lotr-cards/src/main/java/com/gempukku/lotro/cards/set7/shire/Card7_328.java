@@ -1,0 +1,77 @@
+package com.gempukku.lotro.cards.set7.shire;
+
+import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.modifiers.AddActionToCardModifier;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.AssignmentEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.Action;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Set: The Return of the King
+ * Side: Free
+ * Culture: Shire
+ * Twilight Cost: 2
+ * Type: Condition
+ * Game Text: Bearer must be Merry or Pippin. Each minion gains this ability: 'Assignment: Assign this minion to bearer
+ * of Slow-kindled Courage.' Regroup: Discard this condition to discard a minion and remove 2 burdens.
+ */
+public class Card7_328 extends AbstractAttachable {
+    public Card7_328() {
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 2, Culture.SHIRE, null, "Slow-kindled Courage", true);
+    }
+
+    @Override
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.or(Filters.name("Merry"), Filters.name("Pippin"));
+    }
+
+    @Override
+    public List<? extends Modifier> getAlwaysOnModifiers(final LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(
+                new AddActionToCardModifier(self, null, CardType.MINION) {
+                    @Override
+                    protected ActivateCardAction createExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard matchingCard) {
+                        if (PlayConditions.canUseFPCardDuringPhase(gameState, Phase.ASSIGNMENT, matchingCard)) {
+                            ActivateCardAction action = new ActivateCardAction(matchingCard);
+                            action.setText("Assign to " + self.getAttachedTo().getBlueprint().getName());
+                            action.appendEffect(
+                                    new AssignmentEffect(matchingCard.getOwner(), self.getAttachedTo(), matchingCard));
+                            return action;
+                        }
+                        return null;
+                    }
+                });
+    }
+
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
+                && PlayConditions.canSelfDiscard(self, game)) {
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new DiscardCardsFromPlayEffect(self, self));
+            action.appendEffect(
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
+            action.appendEffect(
+                    new RemoveBurdenEffect(self));
+            action.appendEffect(
+                    new RemoveBurdenEffect(self));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+}
