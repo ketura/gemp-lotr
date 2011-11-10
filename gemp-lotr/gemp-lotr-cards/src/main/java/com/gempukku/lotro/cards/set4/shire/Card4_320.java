@@ -25,7 +25,7 @@ public class Card4_320 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         boolean spotGandalf = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(

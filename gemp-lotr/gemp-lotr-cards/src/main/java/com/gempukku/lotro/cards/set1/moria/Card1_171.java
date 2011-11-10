@@ -23,7 +23,7 @@ public class Card1_171 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose exhausted companion", Filters.type(CardType.COMPANION), Filters.exhausted, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {

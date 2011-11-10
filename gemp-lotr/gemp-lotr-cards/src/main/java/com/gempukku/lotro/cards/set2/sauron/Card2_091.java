@@ -41,7 +41,7 @@ public class Card2_091 extends AbstractResponseOldEvent {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION))
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new DiscardCardsFromHandEffect(self, game.getGameState().getCurrentPlayerId(), new HashSet<PhysicalCard>(game.getGameState().getHand(game.getGameState().getCurrentPlayerId())), true));

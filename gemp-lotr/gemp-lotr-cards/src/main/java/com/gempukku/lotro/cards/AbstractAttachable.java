@@ -70,12 +70,12 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     protected abstract Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
 
     @Override
-    public final boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public final boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return checkPlayRequirements(playerId, game, self, Filters.any, twilightModifier);
     }
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
-        return (self.getBlueprint().getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier))
+        return (self.getBlueprint().getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier, false))
                 && PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter);
     }
@@ -86,8 +86,8 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
         Side side = self.getBlueprint().getSide();
         if (((side == Side.FREE_PEOPLE && PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
                 || (side == Side.SHADOW && PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)))
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            actions.add(getPlayCardAction(playerId, game, self, 0));
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
+            actions.add(getPlayCardAction(playerId, game, self, 0, false));
         }
 
         List<? extends Action> extraPhaseActions = getExtraPhaseActions(playerId, game, self);
@@ -98,7 +98,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public final AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public final AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return getPlayCardAction(playerId, game, self, Filters.any, twilightModifier);
     }
 

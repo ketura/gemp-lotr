@@ -38,7 +38,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && game.getGameState().isWearingRing()
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new UnrespondableEffect() {

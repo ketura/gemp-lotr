@@ -30,7 +30,7 @@ public interface ModifiersQuerying {
     public int getMoveLimit(GameState gameState, int baseMoveLimit);
 
     // Twilight cost
-    public int getTwilightCost(GameState gameState, PhysicalCard physicalCard);
+    public int getTwilightCost(GameState gameState, PhysicalCard physicalCard, boolean ignoreRoamingPenalty);
 
     public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target);
 

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return false;
     }
 
@@ -98,7 +98,7 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public CostToEffectAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public CostToEffectAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return null;
     }
 

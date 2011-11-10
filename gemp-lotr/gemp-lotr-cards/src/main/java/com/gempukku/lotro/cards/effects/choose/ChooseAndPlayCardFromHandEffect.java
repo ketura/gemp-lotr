@@ -19,6 +19,7 @@ import java.util.List;
 
 public class ChooseAndPlayCardFromHandEffect implements Effect {
     private String _playerId;
+    private boolean _ignoreRoamingPenalty;
     private Filter _filter;
     private int _twilightModifier;
     private CostToEffectAction _playCardAction;
@@ -28,7 +29,12 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     }
 
     public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, int twilightModifier, Filterable... filter) {
+        this(playerId, cardsInHandAtStart, twilightModifier, false, filter);
+    }
+
+    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, int twilightModifier, boolean ignoreRoamingPenalty, Filterable... filter) {
         _playerId = playerId;
+        _ignoreRoamingPenalty = ignoreRoamingPenalty;
         // Card has to be in hand when you start playing the card (we need to copy the collection)
         _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(cardsInHandAtStart)));
         _twilightModifier = twilightModifier;
@@ -40,7 +46,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     }
 
     private Collection<PhysicalCard> getPlayableInHandCards(LotroGame game) {
-        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier, _ignoreRoamingPenalty));
     }
 
     @Override
@@ -62,7 +68,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             final PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
-                            _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier);
+                            _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier, _ignoreRoamingPenalty);
                             _playCardAction.appendEffect(
                                     new UnrespondableEffect() {
                                         @Override

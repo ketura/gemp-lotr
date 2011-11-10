@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -32,7 +31,7 @@ public class Card5_096 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose companion or ally",
@@ -54,7 +53,7 @@ public class Card5_096 extends AbstractEvent {
             RevealCardsFromHandResult revealResult = (RevealCardsFromHandResult) effectResult;
             if (revealResult.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())
                     && revealResult.getRevealedCards().contains(self)
-                    && PlayConditions.canPayForShadowCard(game, self, 0)) {
+                    && checkPlayRequirements(playerId, game, self, 0, false)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
                         new AddBurdenEffect(self, 2));

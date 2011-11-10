@@ -41,8 +41,8 @@ public class Card7_063 extends AbstractAttachable {
     @Override
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.hasInitiative(game, Side.SHADOW)
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
         }
         return null;
     }

@@ -45,9 +45,9 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        int twilightCost = modifiersQuerying.getTwilightCost(gameState, physicalCard);
+                        int twilightCost = modifiersQuerying.getTwilightCost(gameState, physicalCard, false);
                         return gameState.getTwilightPool() + twilightCost <= 4
-                                && physicalCard.getBlueprint().checkPlayRequirements(playerId, _game, physicalCard, 0);
+                                && physicalCard.getBlueprint().checkPlayRequirements(playerId, _game, physicalCard, 0, false);
                     }
                 });
     }
@@ -62,7 +62,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                     _nextProcess = _followingGameProcess;
                 else {
                     PhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
-                    Action playCardAction = selectedPhysicalCard.getBlueprint().getPlayCardAction(playerId, _game, selectedPhysicalCard, 0);
+                    Action playCardAction = selectedPhysicalCard.getBlueprint().getPlayCardAction(playerId, _game, selectedPhysicalCard, 0, false);
                     _game.getActionsEnvironment().addActionToStack(playCardAction);
                     _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_game, _playerId, _followingGameProcess);
                 }

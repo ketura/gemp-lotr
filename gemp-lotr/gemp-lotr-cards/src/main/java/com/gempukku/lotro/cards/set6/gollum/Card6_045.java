@@ -37,8 +37,8 @@ public class Card6_045 extends AbstractCompanion {
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier);
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         permanentAction.appendCost(
                 new AddBurdenEffect(self, 1));
         return permanentAction;

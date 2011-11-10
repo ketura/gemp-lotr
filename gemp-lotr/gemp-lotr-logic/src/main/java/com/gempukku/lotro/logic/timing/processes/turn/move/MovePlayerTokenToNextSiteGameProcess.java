@@ -20,7 +20,7 @@ public class MovePlayerTokenToNextSiteGameProcess implements GameProcess {
         GameState gameState = _game.getGameState();
         gameState.movePlayerToNextSite(_game);
 
-        int siteTwilightCost = _game.getModifiersQuerying().getTwilightCost(gameState, gameState.getCurrentSite());
+        int siteTwilightCost = _game.getModifiersQuerying().getTwilightCost(gameState, gameState.getCurrentSite(), false);
         int companionCount = Filters.countActive(gameState, _game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
 
         gameState.addTwilight(siteTwilightCost + companionCount);

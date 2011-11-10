@@ -30,7 +30,7 @@ public class Card7_183 extends AbstractResponseEvent {
         if (effectResult.getType() == EffectResult.Type.KILL
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Filters.inSkirmish).size() > 0
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new WoundCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION), Filters.hasAttached(Culture.WRAITH, CardType.CONDITION)));
