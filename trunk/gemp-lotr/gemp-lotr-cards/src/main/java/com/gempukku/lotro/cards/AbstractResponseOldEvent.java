@@ -13,7 +13,7 @@ public abstract class AbstractResponseOldEvent extends AbstractOldEvent {
     }
 
     @Override
-    public final PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public final PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return null;
     }
 }

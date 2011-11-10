@@ -38,7 +38,7 @@ public class Card1_203 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Race.NAZGUL)
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

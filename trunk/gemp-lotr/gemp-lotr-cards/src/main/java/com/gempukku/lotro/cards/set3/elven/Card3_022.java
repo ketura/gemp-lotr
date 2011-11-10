@@ -25,8 +25,8 @@ public class Card3_022 extends AbstractOldEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Elrond"))
                 || Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)) >= 2);
     }
@@ -37,7 +37,7 @@ public class Card3_022 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndHealCharactersEffect(action, playerId, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))));

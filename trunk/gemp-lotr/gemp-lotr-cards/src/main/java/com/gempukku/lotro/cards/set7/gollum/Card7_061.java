@@ -31,13 +31,13 @@ public class Card7_061 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && PlayConditions.canSpot(game, Filters.gollumOrSmeagol);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2,
@@ -49,8 +49,8 @@ public class Card7_061 extends AbstractEvent {
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
-                && checkPlayRequirements(playerId, game, self, 0)) {
-            final PlayEventAction playCardAction = getPlayCardAction(playerId, game, self, 0);
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
+            final PlayEventAction playCardAction = getPlayCardAction(playerId, game, self, 0, false);
             playCardAction.appendEffect(
                     new AbstractSuccessfulEffect() {
                         @Override

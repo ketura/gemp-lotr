@@ -6,11 +6,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.logic.modifiers.*;
 
 public class RoamingRule {
     private ModifiersLogic _modifiersLogic;
@@ -31,12 +27,22 @@ public class RoamingRule {
                 new KeywordModifier(null, roamingFilter, Keyword.ROAMING));
 
         _modifiersLogic.addAlwaysOnModifier(
-                new TwilightCostModifier(null, Filters.keyword(Keyword.ROAMING), null,
-                        new Evaluator() {
-                            @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-                                return modifiersQuerying.getRoamingPenalty(gameState, self);
-                            }
-                        }));
+                new AbstractModifier(null, null, Keyword.ROAMING, ModifierEffect.TWILIGHT_COST_MODIFIER) {
+                    @Override
+                    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
+                        if (ignoreRoamingPenalty)
+                            return 0;
+                        return modifiersQuerying.getRoamingPenalty(gameState, physicalCard);
+                    }
+
+                    @Override
+                    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                        final int value = modifiersQuerying.getRoamingPenalty(gameState, self);
+                        if (value >= 0)
+                            return "Twilight cost +" + value;
+                        else
+                            return "Twilight cost " + value;
+                    }
+                });
     }
 }

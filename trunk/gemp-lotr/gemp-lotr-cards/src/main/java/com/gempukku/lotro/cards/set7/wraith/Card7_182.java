@@ -32,7 +32,7 @@ public class Card7_182 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.SKIRMISH_ABOUT_TO_END
-                && checkPlayRequirements(playerId, game, self, 0)
+                && checkPlayRequirements(playerId, game, self, 0, false)
                 && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL).size() > 0) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

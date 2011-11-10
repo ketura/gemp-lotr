@@ -33,13 +33,13 @@ public class Card1_298 extends AbstractOldEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier);
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentSiteNumber() > 5 || game.getGameState().getCurrentSiteBlock() != Block.FELLOWSHIP) {
             action.appendEffect(

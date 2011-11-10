@@ -48,7 +48,7 @@ public class Card1_189 extends AbstractResponseOldEvent {
                 || (
                 effectResult.getType() == EffectResult.Type.WOUND
                         && Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)).size() > 0))
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

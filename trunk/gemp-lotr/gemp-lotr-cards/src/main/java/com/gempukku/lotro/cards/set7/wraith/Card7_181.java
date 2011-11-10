@@ -36,14 +36,14 @@ public class Card7_181 extends AbstractPermanent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && PlayConditions.canSpot(game, 2, Race.NAZGUL);
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
-        final PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier);
+    public PlayPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         int maxThreats = Math.min(3, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - game.getGameState().getThreats());
         permanentAction.appendCost(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,

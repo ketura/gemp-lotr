@@ -41,7 +41,7 @@ public class Card2_034 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION))
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);
             final PlayEventAction action = new PlayEventAction(self);

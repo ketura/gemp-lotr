@@ -30,7 +30,7 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction action = new PlayPermanentAction(self, _playedToZone, twilightModifier);
         DiscountEffect discountEffect = getDiscountEffect(action, playerId, game, self);
         if (discountEffect != null)
@@ -39,10 +39,10 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         twilightModifier -= getPotentialExtraPaymentDiscount(playerId, game, self);
         return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
-                && (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier));
+                && (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier, ignoreRoamingPenalty));
     }
 
     @Override
@@ -66,8 +66,8 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW, self)
-                && checkPlayRequirements(playerId, game, self, 0))
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
+                && checkPlayRequirements(playerId, game, self, 0, false))
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
 
         return getExtraPhaseActions(playerId, game, self);
     }

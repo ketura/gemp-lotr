@@ -63,7 +63,7 @@ public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
                             List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             if (selectedCards.size() > 0) {
                                 PhysicalCard selectedCard = selectedCards.get(0);
-                                _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier);
+                                _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier, false);
                                 game.getActionsEnvironment().addActionToStack(_playCardAction);
                             }
                         }

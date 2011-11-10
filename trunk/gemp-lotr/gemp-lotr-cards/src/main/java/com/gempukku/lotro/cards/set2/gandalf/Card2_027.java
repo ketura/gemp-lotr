@@ -28,8 +28,8 @@ public class Card2_027 extends AbstractOldEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        if (!super.checkPlayRequirements(playerId, game, self, twilightModifier))
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        if (!super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty))
             return false;
 
         PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
@@ -42,7 +42,7 @@ public class Card2_027 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.possessionClass(PossessionClass.STAFF), Filters.attachedTo(Filters.gandalf)));

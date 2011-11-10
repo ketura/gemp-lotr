@@ -25,7 +25,7 @@ public class Card1_102 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose GONDOR of SHIRE companion bearing a hand weapon", Filters.or(Filters.culture(Culture.GONDOR), Filters.culture(Culture.SHIRE)), Filters.type(CardType.COMPANION), Filters.hasAttached(Filters.possessionClass(PossessionClass.HAND_WEAPON))) {

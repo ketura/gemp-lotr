@@ -43,7 +43,7 @@ public class Card5_110 extends AbstractPermanent {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> stackedOrcs) {
                             if (stackedOrcs.size() > 0) {
                                 PhysicalCard stackedOrc = stackedOrcs.iterator().next();
-                                game.getActionsEnvironment().addActionToStack(stackedOrc.getBlueprint().getPlayCardAction(playerId, game, stackedOrc, 0));
+                                game.getActionsEnvironment().addActionToStack(stackedOrc.getBlueprint().getPlayCardAction(playerId, game, stackedOrc, 0, false));
                             }
                         }
                     });

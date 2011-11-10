@@ -32,7 +32,7 @@ public class Card4_005 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         final int bonus = (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) > 0) ? 4 : 2;
         action.appendEffect(

@@ -23,7 +23,7 @@ public class Card4_304 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         int siteNumber = game.getGameState().getCurrentSiteNumber();
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(

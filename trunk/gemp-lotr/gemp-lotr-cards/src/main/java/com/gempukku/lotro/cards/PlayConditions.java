@@ -29,8 +29,8 @@ public class PlayConditions {
                 && zone != Zone.ATTACHED && zone != Zone.ADVENTURE_PATH;
     }
 
-    public static boolean canPayForShadowCard(LotroGame game, PhysicalCard self, int twilightModifier) {
-        return game.getModifiersQuerying().getTwilightCost(game.getGameState(), self) + twilightModifier <= game.getGameState().getTwilightPool();
+    public static boolean canPayForShadowCard(LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        return game.getModifiersQuerying().getTwilightCost(game.getGameState(), self, ignoreRoamingPenalty) + twilightModifier <= game.getGameState().getTwilightPool();
     }
 
     private static boolean containsPhase(Phase[] phases, Phase phase) {
@@ -208,6 +208,10 @@ public class PlayConditions {
 
     public static boolean canPlayFromHand(String playerId, LotroGame game, int twilightModifier, Filterable... filters) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, twilightModifier))).size() > 0;
+    }
+
+    public static boolean canPlayFromHand(String playerId, LotroGame game, int twilightModifier, boolean ignoreRoamingPenalty, Filterable... filters) {
+        return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, twilightModifier, ignoreRoamingPenalty))).size() > 0;
     }
 
     public static boolean canPlayFromDeadPile(String playerId, LotroGame game, Filterable... filters) {

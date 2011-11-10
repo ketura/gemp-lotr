@@ -40,7 +40,7 @@ public class Card4_032 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)))
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             final List<PhysicalCard> losers = skirmishResult.getLosers();
             PlayEventAction action = new PlayEventAction(self);

@@ -33,7 +33,7 @@ public class Card7_058 extends AbstractMinion {
         if (PlayConditions.isPhase(game, Phase.SHADOW)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
                 && PlayConditions.canPlayFromDiscard(playerId, game, self)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0));
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
         }
         return null;
     }

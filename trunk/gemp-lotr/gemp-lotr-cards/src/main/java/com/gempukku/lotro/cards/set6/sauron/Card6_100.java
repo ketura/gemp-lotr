@@ -36,15 +36,15 @@ public class Card6_100 extends AbstractMinion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier)
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && (game.getGameState().getBurdens() >= 1
                 || PlayConditions.canSpot(game, CardType.MINION, Keyword.TWILIGHT));
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
-        PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier);
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         List<Effect> possibleCosts = new LinkedList<Effect>();
         possibleCosts.add(
                 new RemoveBurdenEffect(self) {

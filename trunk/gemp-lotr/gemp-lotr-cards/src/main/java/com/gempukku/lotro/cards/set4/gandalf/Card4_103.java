@@ -73,7 +73,7 @@ public class Card4_103 extends AbstractAlly {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> stackedHobbits) {
                             if (stackedHobbits.size() > 0) {
                                 PhysicalCard stackedHobbit = stackedHobbits.iterator().next();
-                                game.getActionsEnvironment().addActionToStack(stackedHobbit.getBlueprint().getPlayCardAction(playerId, game, stackedHobbit, 0));
+                                game.getActionsEnvironment().addActionToStack(stackedHobbit.getBlueprint().getPlayCardAction(playerId, game, stackedHobbit, 0, false));
                             }
                         }
                     });

@@ -65,7 +65,7 @@ public class Card1_073 extends AbstractPermanent {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             PhysicalCard selectedCard = selectedCards.iterator().next();
-                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0));
+                            game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, 0, false));
                         }
                     });
 

@@ -39,7 +39,7 @@ public class Card1_122 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.race(Race.URUK_HAI), Filters.owner(playerId)))
-                && checkPlayRequirements(playerId, game, self, 0)) {
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             String playedCardName = ((PlayCardResult) effectResult).getPlayedCard().getBlueprint().getName();
             Collection<PhysicalCard> cardsInDiscardWithSameName = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name(playedCardName));

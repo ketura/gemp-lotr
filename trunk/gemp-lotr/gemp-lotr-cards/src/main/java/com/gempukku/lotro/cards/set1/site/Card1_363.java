@@ -48,7 +48,7 @@ public class Card1_363 extends AbstractSite {
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0);
+                                            return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0, false);
                                         }
                                     }), 0, 1));
             return Collections.singletonList(action);
@@ -78,7 +78,7 @@ public class Card1_363 extends AbstractSite {
         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             if (selectedCards.size() > 0) {
                 PhysicalCard selectedCard = selectedCards.iterator().next();
-                _game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, _game, selectedCard, 0));
+                _game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, _game, selectedCard, 0, false));
 
                 LinkedList<PhysicalCard> remainingCards = new LinkedList<PhysicalCard>(_game.getGameState().getDiscard(_playerId));
                 remainingCards.remove(selectedCard);
