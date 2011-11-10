@@ -6,10 +6,7 @@ import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.game.formats.FotRBlockFormat;
-import com.gempukku.lotro.game.formats.FreeFormat;
-import com.gempukku.lotro.game.formats.TTTBlockFormat;
-import com.gempukku.lotro.game.formats.TowersStandardFormat;
+import com.gempukku.lotro.game.formats.*;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -48,6 +45,8 @@ public class HallServer extends AbstractServer {
         addFormat("ttt_block", "Two Towers block", "default", new TTTBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
         addFormat("c_ttt_block", "Community Two Towers block", "default", new TTTBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));
         addFormat("towers_standard", "Towers Standard", "default", new TowersStandardFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+        addFormat("king_block", "King block", "default", new KingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
+        addFormat("c_king_block", "Community King block", "default", new KingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));
 
         addFormat("whatever", "Format for testing", "default", new FreeFormat(_lotroServer.getLotroCardBlueprintLibrary()));
     }
