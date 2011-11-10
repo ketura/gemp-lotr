@@ -45,23 +45,23 @@ public class Card4_365 extends AbstractCompanion {
             final Filter additionalAttachmentFilter = Filters.and(Culture.ROHAN, CardType.COMPANION);
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new CheckLimitEffect(action, self, 1, Phase.FELLOWSHIP,
-                            new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getHand(playerId),
-                                    Filters.and(
-                                            Culture.ROHAN,
-                                            CardType.POSSESSION,
-                                            ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 1, 1) {
-                                @Override
-                                protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                    if (selectedCards.size() > 0) {
-                                        PhysicalCard selectedCard = selectedCards.iterator().next();
-                                        AttachPermanentAction attachPermanentAction = ((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, additionalAttachmentFilter, 0);
-                                        game.getActionsEnvironment().addActionToStack(attachPermanentAction);
-                                        action.appendEffect(
-                                                new AppendHealTargetEffect(action, attachPermanentAction));
-                                    }
-                                }
-                            }));
+                    new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getHand(playerId),
+                            Filters.and(
+                                    Culture.ROHAN,
+                                    CardType.POSSESSION,
+                                    ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 1, 1) {
+                        @Override
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            if (selectedCards.size() > 0) {
+                                PhysicalCard selectedCard = selectedCards.iterator().next();
+                                AttachPermanentAction attachPermanentAction = ((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, additionalAttachmentFilter, 0);
+                                game.getActionsEnvironment().addActionToStack(attachPermanentAction);
+                                action.appendEffect(
+                                        new CheckLimitEffect(action, self, 1, Phase.FELLOWSHIP,
+                                                new AppendHealTargetEffect(action, attachPermanentAction)));
+                            }
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;
