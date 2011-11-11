@@ -287,6 +287,14 @@ public class GameState {
         removeFromSkirmish(card, true);
     }
 
+    public void replaceInSkirmish(PhysicalCard card) {
+        _skirmish.setFellowshipCharacter(card);
+        for (GameStateListener gameStateListener : getAllGameStateListeners()) {
+            gameStateListener.finishSkirmish();
+            gameStateListener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
+        }
+    }
+
     private void removeFromSkirmish(PhysicalCard card, boolean notify) {
         if (_skirmish.getFellowshipCharacter() == card) {
             _skirmish.setFellowshipCharacter(null);
