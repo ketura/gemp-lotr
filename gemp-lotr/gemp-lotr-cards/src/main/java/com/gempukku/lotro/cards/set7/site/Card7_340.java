@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -27,7 +26,7 @@ import java.util.List;
 public class Card7_340 extends AbstractSite {
     public Card7_340() {
         super("Tower of Ecthelion", Block.KING, 3, 0, Direction.RIGHT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

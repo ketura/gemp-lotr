@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set7.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +24,7 @@ import java.util.List;
 public class Card7_346 extends AbstractSite {
     public Card7_346() {
         super("Minas Tirith Fifth Circle", Block.KING, 6, 3, Direction.LEFT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

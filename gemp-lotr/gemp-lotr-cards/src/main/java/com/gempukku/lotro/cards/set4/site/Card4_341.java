@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +24,7 @@ import java.util.List;
 public class Card4_341 extends AbstractSite {
     public Card4_341() {
         super("Throne Room", Block.TWO_TOWERS, 3, 1, Direction.RIGHT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

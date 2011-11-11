@@ -2,7 +2,10 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -22,7 +25,7 @@ import java.util.List;
 public class Card7_351 extends AbstractSite {
     public Card7_351() {
         super("Minas Tirith Sixth Circle", Block.KING, 6, 3, Direction.LEFT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

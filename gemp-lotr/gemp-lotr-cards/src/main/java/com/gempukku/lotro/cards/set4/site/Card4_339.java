@@ -25,7 +25,7 @@ import java.util.List;
 public class Card4_339 extends AbstractSite {
     public Card4_339() {
         super("Stables", Block.TWO_TOWERS, 3, 0, Direction.RIGHT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

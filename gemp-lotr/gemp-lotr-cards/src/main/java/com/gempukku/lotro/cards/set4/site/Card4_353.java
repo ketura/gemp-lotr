@@ -24,7 +24,7 @@ import java.util.List;
 public class Card4_353 extends AbstractSite {
     public Card4_353() {
         super("Great Hall", Block.TWO_TOWERS, 6, 3, Direction.LEFT);
-        addKeyword(Keyword.SANCTUARY);
+
         addKeyword(Keyword.BATTLEGROUND);
     }
 

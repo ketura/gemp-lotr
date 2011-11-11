@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.LookAtOpponentsHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +27,7 @@ import java.util.List;
 public class Card1_351 extends AbstractSite {
     public Card1_351() {
         super("Galadriel's Glade", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

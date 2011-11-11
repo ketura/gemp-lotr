@@ -29,7 +29,7 @@ public class Card3_115 extends AbstractSite {
     public Card3_115() {
         super("Caras Galadhon", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
         addKeyword(Keyword.FOREST);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override
