@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,7 +24,7 @@ import java.util.List;
 public class Card4_337 extends AbstractSite {
     public Card4_337() {
         super("Barrows of Edoras", Block.TWO_TOWERS, 3, 0, Direction.RIGHT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

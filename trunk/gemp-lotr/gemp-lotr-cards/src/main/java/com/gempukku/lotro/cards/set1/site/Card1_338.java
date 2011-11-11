@@ -29,7 +29,7 @@ public class Card1_338 extends AbstractSite {
     public Card1_338() {
         super("Ford of Bruinen", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

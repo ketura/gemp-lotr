@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +26,7 @@ import java.util.List;
 public class Card1_340 extends AbstractSite {
     public Card1_340() {
         super("Rivendell Terrace", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

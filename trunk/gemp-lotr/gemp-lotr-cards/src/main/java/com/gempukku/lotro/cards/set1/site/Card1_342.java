@@ -23,7 +23,7 @@ public class Card1_342 extends AbstractSite {
     public Card1_342() {
         super("Rivendell Waterfall", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Card1_352 extends AbstractSite {
     public Card1_352() {
         super("Lothlorien Woods", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
         addKeyword(Keyword.FOREST);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

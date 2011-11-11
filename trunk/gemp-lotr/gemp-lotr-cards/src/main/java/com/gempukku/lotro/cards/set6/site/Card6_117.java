@@ -4,7 +4,10 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeadPileEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,7 +28,7 @@ import java.util.List;
 public class Card6_117 extends AbstractSite {
     public Card6_117() {
         super("Mudeseld", Block.TWO_TOWERS, 3, 0, Direction.RIGHT);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override

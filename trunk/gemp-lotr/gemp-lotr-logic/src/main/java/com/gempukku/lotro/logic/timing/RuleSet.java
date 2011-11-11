@@ -24,7 +24,7 @@ public class RuleSet {
 
         new ResolveSkirmishRule(_game, _actionsEnvironment).applyRule();
 
-        new SanctuaryRule(_actionsEnvironment).applyRule();
+        new SanctuaryRule(_actionsEnvironment, _modifiersLogic).applyRule();
 
         new WinConditionRule(_actionsEnvironment).applyRule();
 

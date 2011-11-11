@@ -28,7 +28,7 @@ public class Card2_120 extends AbstractSite {
     public Card2_120() {
         super("Valley of the Silverlode", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
         addKeyword(Keyword.RIVER);
-        addKeyword(Keyword.SANCTUARY);
+
     }
 
     @Override
