@@ -40,10 +40,10 @@ public class Card8_001 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canSpot(game, Race.DWARF)) {
+                && PlayConditions.canSpot(game, Race.DWARF, Keyword.DAMAGE)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF, Keyword.DAMAGE) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
