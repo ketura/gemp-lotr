@@ -38,7 +38,7 @@ public class Card6_046 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.wounded, Filters.inSkirmishAgainst(Filters.gollum)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.inSkirmishAgainst(Filters.gollum)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
