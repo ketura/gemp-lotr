@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card8_022 extends AbstractPermanent {
     public Card8_022() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Hidden Event From Her");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Hidden Even From Her");
     }
 
     @Override
