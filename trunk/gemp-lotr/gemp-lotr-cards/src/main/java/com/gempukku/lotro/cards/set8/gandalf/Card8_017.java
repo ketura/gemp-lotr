@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.set8.elven;
+package com.gempukku.lotro.cards.set8.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
