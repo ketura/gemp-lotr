@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.effects.choose;
+package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;

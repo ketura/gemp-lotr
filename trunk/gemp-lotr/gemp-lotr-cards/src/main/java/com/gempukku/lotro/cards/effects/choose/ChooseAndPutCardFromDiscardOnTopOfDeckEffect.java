@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
+import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnTopOfDeckEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
