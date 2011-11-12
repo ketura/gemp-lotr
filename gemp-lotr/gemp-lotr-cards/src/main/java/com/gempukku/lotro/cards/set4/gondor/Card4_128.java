@@ -53,25 +53,25 @@ public class Card4_128 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION)) {
                     @Override
-                    protected void cardSelected(LotroGame game, final PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, final PhysicalCard minion) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new MinionSiteNumberModifier(self, Filters.sameCard(card), null, 2), Phase.SKIRMISH));
+                                        new MinionSiteNumberModifier(self, Filters.sameCard(minion), null, 2), Phase.SKIRMISH));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
-                                                if (PlayConditions.losesSkirmish(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), effectResults, Filters.sameCard(card))) {
+                                                if (PlayConditions.losesSkirmish(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), effectResults, Filters.sameCard(minion))) {
                                                     final RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                     action.appendEffect(
                                                             new PlayoutDecisionEffect(lotroGame.getUserFeedback(), playerId,
-                                                                    new MultipleChoiceAwaitingDecision(1, "Would you like to wound " + card.getBlueprint().getName(), new String[]{"Yes", "No"}) {
+                                                                    new MultipleChoiceAwaitingDecision(1, "Would you like to wound " + minion.getBlueprint().getName(), new String[]{"Yes", "No"}) {
                                                                         @Override
                                                                         protected void validDecisionMade(int index, String result) {
                                                                             if (result.equals("Yes")) {
                                                                                 action.insertEffect(
-                                                                                        new WoundCharactersEffect(self, card));
+                                                                                        new WoundCharactersEffect(self, minion));
                                                                             }
                                                                         }
                                                                     }));

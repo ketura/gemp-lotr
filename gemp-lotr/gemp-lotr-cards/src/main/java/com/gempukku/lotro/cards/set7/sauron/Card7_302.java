@@ -35,7 +35,7 @@ public class Card7_302 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             OverwhelmSkirmishResult overwhelmResult = (OverwhelmSkirmishResult) effectResult;
-            if (Filters.filter(overwhelmResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0
+            if (Filters.filter(overwhelmResult.getInSkirmishLosers(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0
                     && Filters.filter(overwhelmResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC).size() > 0) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(

@@ -298,11 +298,13 @@ public class GameState {
     private void removeFromSkirmish(PhysicalCard card, boolean notify) {
         if (_skirmish.getFellowshipCharacter() == card) {
             _skirmish.setFellowshipCharacter(null);
+            _skirmish.addRemovedFromSkirmish(card);
             if (notify)
                 for (GameStateListener listener : getAllGameStateListeners())
                     listener.removeFromSkirmish(card);
         }
         if (_skirmish.getShadowCharacters().remove(card)) {
+            _skirmish.addRemovedFromSkirmish(card);
             if (notify)
                 for (GameStateListener listener : getAllGameStateListeners())
                     listener.removeFromSkirmish(card);
