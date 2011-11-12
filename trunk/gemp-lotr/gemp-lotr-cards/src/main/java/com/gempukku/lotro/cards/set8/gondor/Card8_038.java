@@ -69,3 +69,4 @@ public class Card8_038 extends AbstractCompanion {
         }
         return null;
     }
+}
