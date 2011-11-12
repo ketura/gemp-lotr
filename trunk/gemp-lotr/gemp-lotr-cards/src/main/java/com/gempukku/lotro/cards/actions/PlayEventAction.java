@@ -30,6 +30,8 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     private boolean _skipDiscardCard;
 
+    private String _text;
+
     public PlayEventAction(PhysicalCard card) {
         this(card, false);
     }
@@ -46,6 +48,8 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _preCostIterator = preCostEffects.iterator();
 
         _playCardEffect = new PlayEventEffect(card.getZone(), card, requiresRanger);
+
+        _text = "Play " + _eventPlayed.getBlueprint().getName();
     }
 
     public boolean isRequiresRanger() {
@@ -66,9 +70,13 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         return _eventPlayed;
     }
 
+    public void setText(String text) {
+        _text = text;
+    }
+
     @Override
     public String getText(LotroGame game) {
-        return "Play " + _eventPlayed.getBlueprint().getName();
+        return _text;
     }
 
     @Override
