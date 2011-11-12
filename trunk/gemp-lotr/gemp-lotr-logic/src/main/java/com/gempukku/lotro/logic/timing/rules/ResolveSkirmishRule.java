@@ -43,7 +43,7 @@ public class ResolveSkirmishRule {
                             for (PhysicalCard winner : winners)
                                 dmg += modifiersQuerying.getKeywordCount(gameState, winner, Keyword.DAMAGE);
 
-                            List<PhysicalCard> losers = skirmishResult.getLosers();
+                            List<PhysicalCard> losers = skirmishResult.getInSkirmishLosers();
 
                             RequiredTriggerAction action = new RequiredTriggerAction(null);
                             action.setText("Resolving skirmish");
@@ -55,7 +55,7 @@ public class ResolveSkirmishRule {
                             return Collections.singletonList(action);
                         } else if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;
-                            List<PhysicalCard> losers = new LinkedList<PhysicalCard>(skirmishResult.getLosers());
+                            List<PhysicalCard> losers = new LinkedList<PhysicalCard>(skirmishResult.getInSkirmishLosers());
 
                             RequiredTriggerAction action = new RequiredTriggerAction(null);
                             action.setText("Resolving skirmish");
