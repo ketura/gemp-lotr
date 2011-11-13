@@ -33,7 +33,8 @@ public class Card2_023 extends AbstractPermanent {
             @Override
             public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
                 if (physicalCard.getBlueprint().getCardType() == CardType.POSSESSION || physicalCard.getBlueprint().getCardType() == CardType.ARTIFACT) {
-                    if (target.getBlueprint().getName().equals("Gandalf") || target.getBlueprint().getSignet() == Signet.GANDALF)
+                    CardType cardType = target.getBlueprint().getCardType();
+                    if (target.getBlueprint().getName().equals("Gandalf") || (cardType == CardType.COMPANION && target.getBlueprint().getSignet() == Signet.GANDALF))
                         return -1;
                 }
                 return 0;
