@@ -22,7 +22,7 @@ public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffe
         super(action.getActionSource(), playerId, "Choose minion to assign " + GameUtils.getCardLink(companion) + " to", filters);
         _action = action;
         _playerId = playerId;
-        _companion = _companion;
+        _companion = companion;
     }
 
     @Override
