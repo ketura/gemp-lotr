@@ -49,6 +49,7 @@ var CardGroup = Class.extend({
 
 var AdvPathCardGroup = CardGroup.extend({
     positions: null,
+    currentPlayerIndex: null,
 
     init: function(container) {
         this._super(container,
@@ -59,6 +60,10 @@ var AdvPathCardGroup = CardGroup.extend({
 
     setPositions: function(positions) {
         this.positions = positions;
+    },
+
+    setCurrentPlayerIndex: function(index) {
+        this.currentPlayedIndex = index;
     },
 
     layoutCards: function() {
@@ -96,8 +101,12 @@ var AdvPathCardGroup = CardGroup.extend({
             cardData.tokens = {};
             if (this.positions != null) {
                 for (var i = 0; i < this.positions.length; i++)
-                    if (this.positions[i] == cardData.siteNumber)
-                        cardData.tokens["" + (i + 1)] = 1;
+                    if (this.positions[i] == cardData.siteNumber) {
+                        if (i == this.currentPlayedIndex)
+                            cardData.tokens["" + (i + 1) + "-a"] = 1;
+                        else
+                            cardData.tokens["" + (i + 1) + "-i"] = 1;
+                    }
             }
 
             if (cardData.attachedCards.length == 1) {

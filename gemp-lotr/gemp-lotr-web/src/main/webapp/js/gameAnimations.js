@@ -478,9 +478,17 @@ var GameAnimations = Class.extend({
                         else
                             $(this).removeClass("current");
                     });
+                    that.game.advPathGroup.setCurrentPlayerIndex(playerIndex);
 
                     next();
                 });
+        if (animate) {
+            $("#main").queue(
+                    function(next) {
+                        that.game.advPathGroup.layoutCards();
+                        next();
+                    });
+        }
     },
 
     addAssignment: function(element, animate) {
