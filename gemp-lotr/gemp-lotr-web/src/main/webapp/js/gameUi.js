@@ -954,8 +954,8 @@ var GempLotrGameUI = Class.extend({
 
         $("#integerDecision").SpinnerControl({ type: 'range',
             typedata: {
-                min: min,
-                max: max,
+                min: parseInt(min),
+                max: parseInt(max),
                 interval: 1,
                 decimalplaces: 0
             },
