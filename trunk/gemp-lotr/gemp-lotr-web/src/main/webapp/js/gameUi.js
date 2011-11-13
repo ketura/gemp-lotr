@@ -215,21 +215,45 @@ var GempLotrGameUI = Class.extend({
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             this.gameStateElem.append("<div class='player'>" + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div>"
-                    + "<div class='playerStats'><div id='deck" + i + "' style='display: inline;'></div> <div id='hand" + i + "' style='display: inline;'></div> <div id='discard" + i + "' style='display: inline;'></div> <div id='deadPile" + i + "' style='display: inline;'></div></div></div>");
+                    + "<div class='playerStats'><div id='deck" + i + "' class='deckSize'></div><div id='hand" + i + "' class='handSize'></div><div id='threats" + i + "' class='threatsSize'></div><div id='showStats" + i + "' class='showStats'></div><div id='discard" + i + "' class='discardSize'></div><div id='deadPile" + i + "' class='deadPileSize'></div></div></div>");
+
         }
 
-        this.gameStateElem.append("<br>");
-
         this.gameStateElem.append("<div class='twilightPool'>0</div>");
-        this.gameStateElem.append("<div class='phase' id='FELLOWSHIP'>Fellowship</div>");
-        this.gameStateElem.append("<div class='phase' id='SHADOW'>Shadow</div>");
-        this.gameStateElem.append("<div class='phase' id='MANEUVER'>Maneuver</div>");
-        this.gameStateElem.append("<div class='phase' id='ARCHERY'>Archery</div>");
-        this.gameStateElem.append("<div class='phase' id='ASSIGNMENT'>Assignment</div>");
-        this.gameStateElem.append("<div class='phase' id='SKIRMISH'>Skirmish</div>");
-        this.gameStateElem.append("<div class='phase' id='REGROUP'>Regroup</div>");
+        this.gameStateElem.append("<div class='phase' id='FELLOWSHIP'>Fel</div>");
+        this.gameStateElem.append("<div class='phase' id='SHADOW'>Sh</div>");
+        this.gameStateElem.append("<div class='phase' id='MANEUVER'>Man</div>");
+        this.gameStateElem.append("<div class='phase' id='ARCHERY'>Arc</div>");
+        this.gameStateElem.append("<div class='phase' id='ASSIGNMENT'>As</div>");
+        this.gameStateElem.append("<div class='phase' id='SKIRMISH'>Sk</div>");
+        this.gameStateElem.append("<div class='phase' id='REGROUP'>Re</div>");
 
         $("#main").append(this.gameStateElem);
+
+        for (var i = 0; i < this.allPlayerIds.length; i++) {
+            var showBut = $("<div>+</div>").button().click(
+                    (
+                            function(playerIndex) {
+                                return function() {
+                                    $(".player").each(
+                                            function(index) {
+                                                if (index == playerIndex) {
+                                                    if ($(this).hasClass("opened")) {
+                                                        $(this).removeClass("opened").css({width: 150 - that.padding});
+                                                        $("#discard" + playerIndex).css({display: "none"});
+                                                        $("#deadPile" + playerIndex).css({display: "none"});
+                                                    } else {
+                                                        $(this).addClass("opened").css({width: 150 - that.padding + 80});
+                                                        $("#discard" + playerIndex).css({display: "table-cell"});
+                                                        $("#deadPile" + playerIndex).css({display: "table-cell"});
+                                                    }
+                                                }
+                                            });
+                                };
+                            })(i));
+
+            $("#showStats" + i).append(showBut);
+        }
 
         if (!this.spectatorMode)
             $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
