@@ -33,7 +33,7 @@ public class Card3_040 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)))) {
+        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))) {
             self.storeData(new Object());
         }
         return null;
@@ -42,9 +42,7 @@ public class Card3_040 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            if (self.getData() != null) {
-                self.removeData();
-            } else {
+            if (self.getData() == null) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
                         new ChooseAndHealCharactersEffect(action, playerId, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
