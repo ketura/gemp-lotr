@@ -28,6 +28,7 @@ public class GameStats {
     private boolean _fpOverwhelmed;
 
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<String, Map<Zone, Integer>>();
+    private Map<String, Integer> _threats = new HashMap<String, Integer>();
     private Map<Integer, Integer> _charStrengths = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> _charVitalities = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> _thirdStats = new HashMap<Integer, Integer>();
@@ -144,6 +145,17 @@ public class GameStats {
             _thirdStats = newThirdStats;
         }
 
+        Map<String, Integer> newThreats = new HashMap<String, Integer>();
+        if (playerOrder != null) {
+            for (String player : playerOrder.getAllPlayers())
+                newThreats.put(player, game.getGameState().getPlayerThreats(player));
+        }
+
+        if (!newThreats.equals(_threats)) {
+            changed = true;
+            _threats = newThreats;
+        }
+
         return changed;
     }
 
@@ -187,6 +199,10 @@ public class GameStats {
         return Collections.unmodifiableMap(_zoneSizes);
     }
 
+    public Map<String, Integer> getThreats() {
+        return _threats;
+    }
+
     public Map<Integer, Integer> getCharStrengths() {
         return Collections.unmodifiableMap(_charStrengths);
     }
@@ -211,6 +227,7 @@ public class GameStats {
         copy._shadowSkirmishDamageBonus = _shadowSkirmishDamageBonus;
         copy._fpOverwhelmed = _fpOverwhelmed;
         copy._zoneSizes = _zoneSizes;
+        copy._threats = _threats;
         copy._charStrengths = _charStrengths;
         copy._charVitalities = _charVitalities;
         copy._thirdStats = _thirdStats;

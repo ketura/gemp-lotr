@@ -620,6 +620,10 @@ public class GameState {
         return getTokenCount(_ringBearers.get(getCurrentPlayerId()), Token.BURDEN);
     }
 
+    public int getPlayerThreats(String playerId) {
+        return _playerThreats.get(playerId);
+    }
+
     public int getThreats() {
         return _playerThreats.get(getCurrentPlayerId());
     }
