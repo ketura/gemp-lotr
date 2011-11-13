@@ -739,11 +739,21 @@ var GameAnimations = Class.extend({
                         var dead = playerZone.getAttribute("DEAD");
                         var deck = playerZone.getAttribute("DECK");
 
-                        $("#hand" + that.game.getPlayerIndex(playerId)).text("Hand: " + hand);
-                        $("#discard" + that.game.getPlayerIndex(playerId)).text("Discard: " + discard);
-                        $("#deadPile" + that.game.getPlayerIndex(playerId)).text("Dead pile: " + dead);
-                        $("#deck" + that.game.getPlayerIndex(playerId)).text("Deck: " + deck);
+                        $("#deck" + that.game.getPlayerIndex(playerId)).text(deck);
+                        $("#hand" + that.game.getPlayerIndex(playerId)).text(hand);
+                        $("#discard" + that.game.getPlayerIndex(playerId)).text(discard);
+                        $("#deadPile" + that.game.getPlayerIndex(playerId)).text(dead);
                     }
+
+                    var playerThreats = element.getElementsByTagName("threats")
+                    for (var i = 0; i < playerThreats.length; i++) {
+                        var playerThreat = playerThreats[i];
+
+                        var playerId = playerThreat.getAttribute("name");
+                        var value = playerThreat.getAttribute("value");
+                        $("#threats" + that.game.getPlayerIndex(playerId)).text(value);
+                    }
+
                     if (that.game.fpStrengthDiv != null) {
                         that.game.fpStrengthDiv.text(element.getAttribute("fellowshipStrength"));
                         var fpOverwhelmed = element.getAttribute("fpOverwhelmed");
