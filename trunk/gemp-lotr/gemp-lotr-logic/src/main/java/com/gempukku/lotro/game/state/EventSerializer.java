@@ -82,6 +82,13 @@ public class EventSerializer {
                 eventElem.appendChild(playerZonesElem);
             }
 
+            for (Map.Entry<String, Integer> playerThreatEntry : gameStats.getThreats().entrySet()) {
+                Element threatsElem = doc.createElement("threats");
+                threatsElem.setAttribute("name", playerThreatEntry.getKey());
+                threatsElem.setAttribute("value", playerThreatEntry.getValue().toString());
+                eventElem.appendChild(threatsElem);
+            }
+
             Map<Integer, Integer> charVitalities = gameStats.getCharVitalities();
             Map<Integer, Integer> charThirdStats = gameStats.getThirdStats();
 
