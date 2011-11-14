@@ -6,10 +6,10 @@ import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.modifiers.HasInitiativeModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
@@ -48,19 +48,10 @@ public class Card8_059 extends AbstractPermanent {
                                 new Condition() {
                                     @Override
                                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        return getRaiderTokensTotal(gameState, modifiersQuerying) >= 6;
+                                        return GameUtils.getSpottableTokensTotal(gameState, modifiersQuerying, Token.RAIDER) >= 6;
                                     }
                                 }
                         ), Side.SHADOW));
-    }
-
-    private int getRaiderTokensTotal(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        int raiderTokensTotal = 0;
-
-        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.hasToken(Token.RAIDER)))
-            raiderTokensTotal += gameState.getTokenCount(physicalCard, Token.RAIDER);
-
-        return raiderTokensTotal;
     }
 
     @Override
@@ -80,7 +71,7 @@ public class Card8_059 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
 
             action.appendEffect(
-                    new AddTwilightEffect(self, getRaiderTokensTotal(game.getGameState(), game.getModifiersQuerying())));
+                    new AddTwilightEffect(self, GameUtils.getSpottableTokensTotal(game.getGameState(), game.getModifiersQuerying(), Token.RAIDER)));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

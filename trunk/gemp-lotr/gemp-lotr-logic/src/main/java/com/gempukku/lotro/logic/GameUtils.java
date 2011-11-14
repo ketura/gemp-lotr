@@ -1,7 +1,11 @@
 package com.gempukku.lotro.logic;
 
+import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.*;
 
@@ -59,5 +63,14 @@ public class GameUtils {
             return "none";
         else
             return sb.substring(0, sb.length() - 2);
+    }
+
+    public static int getSpottableTokensTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Token token) {
+        int tokensTotal = 0;
+
+        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.hasToken(token)))
+            tokensTotal += gameState.getTokenCount(physicalCard, token);
+
+        return tokensTotal;
     }
 }
