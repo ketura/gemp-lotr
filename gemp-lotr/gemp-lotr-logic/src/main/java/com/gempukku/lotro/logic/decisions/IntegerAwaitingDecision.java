@@ -22,6 +22,10 @@ public abstract class IntegerAwaitingDecision extends AbstractAwaitingDecision {
             setParam("max", max.toString());
     }
 
+    public void setDefaultValue(int defaultValue) {
+        setParam("defaultValue", String.valueOf(defaultValue));
+    }
+
     protected int getValidatedResult(String result) throws DecisionResultInvalidException {
         try {
             int value = Integer.parseInt(result);
