@@ -252,4 +252,9 @@ public abstract class AbstractModifier implements Modifier {
     public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying) {
         return null;
     }
+
+    @Override
+    public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
+        return 0;
+    }
 }
