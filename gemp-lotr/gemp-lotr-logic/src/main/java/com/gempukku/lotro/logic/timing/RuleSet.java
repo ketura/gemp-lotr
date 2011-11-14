@@ -30,6 +30,8 @@ public class RuleSet {
 
         new DiscardedCardRule(_actionsEnvironment).applyRule();
 
+        new KilledCardRule(_actionsEnvironment).applyRule();
+
         new FrodoAndSamRule(_modifiersLogic).applyRule();
 
         new ThreatRule(_actionsEnvironment).applyRule();

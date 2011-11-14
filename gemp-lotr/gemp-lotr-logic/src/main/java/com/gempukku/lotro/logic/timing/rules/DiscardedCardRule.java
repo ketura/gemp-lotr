@@ -30,7 +30,7 @@ public class DiscardedCardRule {
                             Collection<PhysicalCard> discardedCards = discardResult.getDiscardedCards();
                             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
                             for (PhysicalCard discardedCard : discardedCards) {
-                                RequiredTriggerAction trigger = discardedCard.getBlueprint().getDiscardedFromPlayTrigger(game, discardedCard);
+                                RequiredTriggerAction trigger = discardedCard.getBlueprint().getDiscardedFromPlayRequiredTrigger(game, discardedCard);
                                 if (trigger != null)
                                     actions.add(trigger);
                             }

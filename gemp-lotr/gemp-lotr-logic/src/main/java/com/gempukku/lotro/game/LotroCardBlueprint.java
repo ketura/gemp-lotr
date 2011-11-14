@@ -71,7 +71,9 @@ public interface LotroCardBlueprint {
 
     public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
 
-    public RequiredTriggerAction getDiscardedFromPlayTrigger(LotroGame game, PhysicalCard self);
+    public RequiredTriggerAction getDiscardedFromPlayRequiredTrigger(LotroGame game, PhysicalCard self);
+
+    public OptionalTriggerAction getKilledOptionalTrigger(LotroGame game, PhysicalCard self);
 
     public Block getSiteBlock();
 
