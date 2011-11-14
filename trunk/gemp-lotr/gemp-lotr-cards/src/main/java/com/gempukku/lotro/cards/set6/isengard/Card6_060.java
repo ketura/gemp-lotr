@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveTokensFromCardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -63,7 +63,7 @@ public class Card6_060 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, 2, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndRemoveTokensFromCardEffect(self, playerId, Token.ISENGARD, 1, Keyword.MACHINE));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ISENGARD, 1, Keyword.MACHINE));
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(

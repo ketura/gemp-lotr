@@ -85,14 +85,15 @@ public class Filters {
         };
     }
 
-    public static Filter hasAnyTokens(final int count) {
+    public static Filter hasAnyCultureTokens(final int count) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 Map<Token, Integer> tokens = gameState.getTokens(physicalCard);
-                for (Integer integer : tokens.values()) {
-                    if (integer >= count)
-                        return true;
+                for (Map.Entry<Token, Integer> tokenCount : tokens.entrySet()) {
+                    if (tokenCount.getKey().getCulture() != null)
+                        if (tokenCount.getValue() >= count)
+                            return true;
                 }
                 return false;
             }

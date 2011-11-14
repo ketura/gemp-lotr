@@ -37,7 +37,7 @@ public class Card6_055 extends AbstractAttachableFPPossession {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final Set<Culture> cultureTokens = new HashSet<Culture>();
-            for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.hasAnyTokens(1))) {
+            for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.hasAnyCultureTokens(1))) {
                 Map<Token, Integer> tokens = game.getGameState().getTokens(physicalCard);
                 for (Map.Entry<Token, Integer> tokenIntegerEntry : tokens.entrySet()) {
                     if (tokenIntegerEntry.getValue() > 0) {
