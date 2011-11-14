@@ -11,21 +11,20 @@ import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
     private String _playerId;
     private String _choiceText;
-    private List<? extends PhysicalCard> _cards;
+    private Collection<? extends PhysicalCard> _cards;
     private Filterable _filter;
     private int _minimum;
     private int _maximum;
 
-    public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<? extends PhysicalCard> cards, int minimum, int maximum) {
+    public ChooseArbitraryCardsEffect(String playerId, String choiceText, Collection<? extends PhysicalCard> cards, int minimum, int maximum) {
         this(playerId, choiceText, cards, Filters.any, minimum, maximum);
     }
 
-    public ChooseArbitraryCardsEffect(String playerId, String choiceText, List<? extends PhysicalCard> cards, Filterable filter, int minimum, int maximum) {
+    public ChooseArbitraryCardsEffect(String playerId, String choiceText, Collection<? extends PhysicalCard> cards, Filterable filter, int minimum, int maximum) {
         _playerId = playerId;
         _choiceText = choiceText;
         _cards = cards;
