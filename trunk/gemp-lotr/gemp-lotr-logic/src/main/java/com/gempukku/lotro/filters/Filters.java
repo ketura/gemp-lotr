@@ -58,6 +58,15 @@ public class Filters {
 
     // Filters available
 
+    public static Filter lessVitalityThan(final int vitality) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getVitality(gameState, physicalCard) < vitality;
+            }
+        };
+    }
+
     public static Filter lessStrengthThan(final int strength) {
         return new Filter() {
             @Override
