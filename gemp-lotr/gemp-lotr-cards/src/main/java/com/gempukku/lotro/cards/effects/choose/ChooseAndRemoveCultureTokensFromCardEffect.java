@@ -8,11 +8,11 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
-public class ChooseAndRemoveTokensFromCardEffect extends ChooseActiveCardEffect {
+public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCardEffect {
     private Token _token;
     private int _count;
 
-    public ChooseAndRemoveTokensFromCardEffect(PhysicalCard source, String playerId, Token token, int count, Filterable... filters) {
+    public ChooseAndRemoveCultureTokensFromCardEffect(PhysicalCard source, String playerId, Token token, int count, Filterable... filters) {
         super(source, playerId, "Choose card to remove tokens from", filters);
         _token = token;
         _count = count;
@@ -23,7 +23,7 @@ public class ChooseAndRemoveTokensFromCardEffect extends ChooseActiveCardEffect 
         if (_token != null)
             return Filters.hasToken(_token, _count);
         else
-            return Filters.hasAnyTokens(_count);
+            return Filters.hasAnyCultureTokens(_count);
     }
 
     @Override

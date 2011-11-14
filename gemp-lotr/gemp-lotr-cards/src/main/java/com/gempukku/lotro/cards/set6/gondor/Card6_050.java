@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set6.gondor;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveTokensFromCardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -44,7 +44,7 @@ public class Card6_050 extends AbstractCompanion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Remove ELVEN token...");
             action.appendCost(
-                    new ChooseAndRemoveTokensFromCardEffect(self, playerId, Token.ELVEN, 1, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ELVEN, 1, Filters.any));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.inSkirmishAgainst(self)) {
                         @Override
@@ -61,7 +61,7 @@ public class Card6_050 extends AbstractCompanion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Remove DWARVEN token...");
             action.appendCost(
-                    new ChooseAndRemoveTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.DWARF));
             actions.add(action);
@@ -71,7 +71,7 @@ public class Card6_050 extends AbstractCompanion {
                 && PlayConditions.canRemoveTokens(game, Token.ROHAN, 1, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndRemoveTokensFromCardEffect(self, playerId, Token.ROHAN, 1, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ROHAN, 1, Filters.any));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION));
             actions.add(action);

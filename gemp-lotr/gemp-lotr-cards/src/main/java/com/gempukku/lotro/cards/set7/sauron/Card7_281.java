@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.CheckLimitEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveTokensFromCardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -46,7 +46,7 @@ public class Card7_281 extends AbstractPermanent {
                 && PlayConditions.canRemoveTokens(game, Token.SAURON, 1, CardType.CONDITION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndRemoveTokensFromCardEffect(self, playerId, Token.SAURON, 1, CardType.CONDITION));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.SAURON, 1, CardType.CONDITION));
             action.appendEffect(
                     new CheckLimitEffect(action, self, 2, Phase.SKIRMISH,
                             new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Culture.SAURON, Race.ORC)));
