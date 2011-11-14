@@ -48,7 +48,7 @@ public class Card7_287 extends AbstractMinion {
     }
 
     @Override
-    public RequiredTriggerAction getDiscardedFromPlayTrigger(LotroGame game, PhysicalCard self) {
+    public RequiredTriggerAction getDiscardedFromPlayRequiredTrigger(LotroGame game, PhysicalCard self) {
         RequiredTriggerAction action = new RequiredTriggerAction(self);
         action.appendEffect(
                 new RemoveThreatsEffect(self, 3));
