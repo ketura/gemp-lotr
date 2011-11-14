@@ -29,26 +29,34 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
         if (_woundsToAssign > 0) {
 
             Filter filter =
-                    Filters.or(
-                            Filters.type(CardType.COMPANION),
-                            Filters.and(
-                                    Filters.type(CardType.ALLY),
-                                    Filters.or(
-                                            Filters.and(
-                                                    Filters.allyAtHome,
+                    Filters.and(
+                            Filters.or(
+                                    Filters.type(CardType.COMPANION),
+                                    Filters.and(
+                                            Filters.type(CardType.ALLY),
+                                            Filters.or(
+                                                    Filters.and(
+                                                            Filters.allyAtHome,
+                                                            new Filter() {
+                                                                @Override
+                                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                                                    return !modifiersQuerying.isAllyPreventedFromParticipatingInArcheryFire(gameState, physicalCard);
+                                                                }
+                                                            }),
                                                     new Filter() {
                                                         @Override
                                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                            return !modifiersQuerying.isAllyPreventedFromParticipatingInArcheryFire(gameState, physicalCard);
+                                                            return modifiersQuerying.isAllyAllowedToParticipateInArcheryFire(gameState, physicalCard);
                                                         }
-                                                    }),
-                                            new Filter() {
-                                                @Override
-                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                    return modifiersQuerying.isAllyAllowedToParticipateInArcheryFire(gameState, physicalCard);
-                                                }
-                                            })
-                            )
+                                                    })
+                                    )
+                            ),
+                            new Filter() {
+                                @Override
+                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                    return modifiersQuerying.canTakeArcheryWound(gameState, physicalCard);
+                                }
+                            }
                     );
 
             SystemQueueAction action = new SystemQueueAction();

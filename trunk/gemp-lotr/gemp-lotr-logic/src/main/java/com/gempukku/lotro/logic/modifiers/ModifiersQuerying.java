@@ -50,6 +50,8 @@ public interface ModifiersQuerying {
     // Wounds/exertions
     public boolean canTakeWound(GameState gameState, PhysicalCard card);
 
+    public boolean canTakeArcheryWound(GameState gameState, PhysicalCard card);
+
     public boolean canBeExerted(GameState gameState, PhysicalCard exertionSource, PhysicalCard card);
 
     public boolean canBeHealed(GameState gameState, PhysicalCard card);

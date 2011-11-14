@@ -338,6 +338,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canTakeArcheryWound(GameState gameState, PhysicalCard card) {
+        for (Modifier modifier : getModifiers(ModifierEffect.WOUND_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, card, modifier)) {
+                if (!modifier.canTakeArcheryWound(gameState, this, card))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public boolean canBeExerted(GameState gameState, PhysicalCard source, PhysicalCard card) {
         for (Modifier modifier : getModifiers(ModifierEffect.WOUND_MODIFIER)) {
             if (affectsCardWithSkipSet(gameState, card, modifier))
