@@ -66,7 +66,7 @@ public class Card2_053 extends AbstractAttachable {
                             }));
             return Collections.singletonList(action);
         }
-        return super.getRequiredAfterTriggers(game, effectResult, self);
+        return null;
     }
 
     @Override
