@@ -20,6 +20,7 @@ import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -59,6 +60,7 @@ public class Card4_112 extends AbstractAttachableFPPossession {
                                 }
                             }
                     ));
+            return Collections.singletonList(action);
         }
         return null;
     }
