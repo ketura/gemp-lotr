@@ -100,4 +100,6 @@ public interface Modifier {
     public boolean hasFlagActive(GameState gameState, ModifiersQuerying modifiersQuerying, ModifierFlag modifierFlag);
 
     public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying);
+
+    public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying);
 }

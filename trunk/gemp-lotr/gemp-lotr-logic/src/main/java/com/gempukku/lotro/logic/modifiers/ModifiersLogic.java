@@ -564,7 +564,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
         int freePeopleInitiativeHandSize = gameState.getHand(gameState.getCurrentPlayerId()).size()
                 + gameState.getVoid(gameState.getCurrentPlayerId()).size();
-        if (freePeopleInitiativeHandSize < 4)
+
+        int initiativeHandSize = 4;
+        for (Modifier modifier : getModifiers(ModifierEffect.INITIATIVE_MODIFIER))
+            initiativeHandSize += modifier.getInitiativeHandSizeModifier(gameState, this);
+
+        if (freePeopleInitiativeHandSize < initiativeHandSize)
             return Side.SHADOW;
         else
             return Side.FREE_PEOPLE;
