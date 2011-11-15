@@ -49,16 +49,18 @@ public class DefaultLotroGame implements LotroGame {
         _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack);
 
         final Map<String, List<String>> cards = new HashMap<String, List<String>>();
+        final Map<String, String> ringBearers = new HashMap<String, String>();
+        final Map<String, String> rings = new HashMap<String, String>();
         for (String playerId : decks.keySet()) {
             List<String> deck = new LinkedList<String>();
 
             LotroDeck lotroDeck = decks.get(playerId);
-            deck.add(lotroDeck.getRingBearer());
-            deck.add(lotroDeck.getRing());
             deck.addAll(lotroDeck.getSites());
             deck.addAll(lotroDeck.getAdventureCards());
 
             cards.put(playerId, deck);
+            ringBearers.put(playerId, lotroDeck.getRingBearer());
+            rings.put(playerId, lotroDeck.getRing());
         }
 
         _gameState = new GameState();
@@ -68,7 +70,7 @@ public class DefaultLotroGame implements LotroGame {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {
                         final GameStats gameStats = _turnProcedure.getGameStats();
-                        _gameState.init(playerOrder, firstPlayer, cards, library, gameStats);
+                        _gameState.init(playerOrder, firstPlayer, cards, ringBearers, rings, library, gameStats);
                     }
                 }
         );
