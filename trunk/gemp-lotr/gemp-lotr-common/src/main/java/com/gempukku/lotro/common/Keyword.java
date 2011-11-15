@@ -5,6 +5,8 @@ public enum Keyword implements Filterable {
 
     SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"), ASSIGNMENT("Assignment"), REGROUP("Regroup"),
 
+    CAN_START_WITH_RING("Can-bear-ring", false),
+
     RING_BOUND("Ring-Bound", true), RING_BEARER("Ring-Bearer", true),
 
     ENDURING("Enduring", true), ROAMING("Roaming", true), TWILIGHT("Twilight", true),

@@ -68,7 +68,7 @@ public abstract class DefaultLotroFormat implements LotroFormat {
             if (deck.getRingBearer() == null)
                 throw new DeckInvalidException("Deck doesn't have a Ring-bearer");
             LotroCardBlueprint ringBearer = _library.getLotroCardBlueprint(deck.getRingBearer());
-            if (!ringBearer.hasKeyword(Keyword.RING_BEARER))
+            if (!ringBearer.hasKeyword(Keyword.CAN_START_WITH_RING))
                 throw new DeckInvalidException("Card assigned as Ring-bearer can not bear the ring");
 
             // Ring
