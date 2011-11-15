@@ -28,7 +28,7 @@ import java.util.List;
 public class Card1_290 extends AbstractCompanion {
     public Card1_290() {
         super(0, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Frodo", true);
-        addKeyword(Keyword.RING_BEARER);
+        addKeyword(Keyword.CAN_START_WITH_RING);
     }
 
     @Override

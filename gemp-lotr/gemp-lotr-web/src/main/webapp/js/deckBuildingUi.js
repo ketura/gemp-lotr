@@ -311,7 +311,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringBearerDiv.click(
                 function() {
                     if ($(".card", that.ringBearerDiv).length == 0)
-                        that.showPredefinedFilter("keyword:RING_BEARER", that.ringBearerDiv);
+                        that.showPredefinedFilter("keyword:CAN_START_WITH_RING", that.ringBearerDiv);
                 });
         this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function(card) {
             return true;
@@ -384,11 +384,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
