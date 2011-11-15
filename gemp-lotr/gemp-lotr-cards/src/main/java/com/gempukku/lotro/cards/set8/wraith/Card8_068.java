@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.PutHandBeneathDrawDeckEffect;
+import com.gempukku.lotro.cards.effects.PutCardsFromHandBeneathDrawDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -70,7 +70,7 @@ public class Card8_068 extends AbstractEvent {
                                                         if (killResult.getKilledCards().contains(againstNazgul)) {
                                                             RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                             action.appendEffect(
-                                                                    new PutHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId()));
+                                                                    new PutCardsFromHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId()));
                                                             return Collections.singletonList(action);
                                                         }
                                                     }
