@@ -187,7 +187,7 @@ public class LotroServer extends AbstractServer {
 
         try {
             String ringBearer = cards.get(0);
-            if (!_lotroCardBlueprintLibrary.getLotroCardBlueprint(ringBearer).hasKeyword(Keyword.RING_BEARER))
+            if (!_lotroCardBlueprintLibrary.getLotroCardBlueprint(ringBearer).hasKeyword(Keyword.CAN_START_WITH_RING))
                 return null;
 
             String ring = cards.get(1);
