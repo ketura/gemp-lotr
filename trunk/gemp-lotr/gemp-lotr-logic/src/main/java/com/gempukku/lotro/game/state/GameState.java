@@ -40,6 +40,7 @@ public class GameState {
     private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
 
     private Map<String, PhysicalCard> _ringBearers = new HashMap<String, PhysicalCard>();
+    private Map<String, PhysicalCard> _rings = new HashMap<String, PhysicalCard>();
 
     private Map<String, AwaitingDecision> _playerDecisions = new HashMap<String, AwaitingDecision>();
 
@@ -54,20 +55,25 @@ public class GameState {
         return _nextCardId++;
     }
 
-    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, LotroCardBlueprintLibrary library, GameStats gameStats) {
+    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, Map<String, String> ringBearers, Map<String, String> rings, LotroCardBlueprintLibrary library, GameStats gameStats) {
         _playerOrder = playerOrder;
         _currentPlayerId = firstPlayer;
 
         for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {
-            _adventureDecks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
-            _decks.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
-            _hands.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
-            _voids.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
-            _discards.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
-            _deadPiles.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
-            _stacked.put(stringListEntry.getKey(), new LinkedList<PhysicalCardImpl>());
+            String playerId = stringListEntry.getKey();
+            List<String> decks = stringListEntry.getValue();
 
-            addPlayerCards(stringListEntry.getKey(), stringListEntry.getValue(), library);
+            _adventureDecks.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _decks.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _hands.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _voids.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _discards.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _deadPiles.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _stacked.put(playerId, new LinkedList<PhysicalCardImpl>());
+
+            addPlayerCards(playerId, decks, library);
+            _ringBearers.put(playerId, createPhysicalCard(playerId, library, ringBearers.get(playerId)));
+            _rings.put(playerId, createPhysicalCard(playerId, library, rings.get(playerId)));
         }
 
         for (String playerId : playerOrder.getAllPlayers())
@@ -79,18 +85,25 @@ public class GameState {
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
         for (String blueprintId : cards) {
-            LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
+            PhysicalCardImpl physicalCard = createPhysicalCard(playerId, library, blueprintId);
+            physicalCard.setZone(Zone.DECK);
 
-            int cardId = nextCardId();
-            PhysicalCardImpl physicalCard = new PhysicalCardImpl(cardId, blueprintId, playerId, Zone.DECK, card);
-
-            if (card.getCardType() == CardType.SITE)
+            if (physicalCard.getBlueprint().getCardType() == CardType.SITE)
                 _adventureDecks.get(playerId).add(physicalCard);
             else
                 _decks.get(playerId).add(physicalCard);
-
-            _allCards.put(physicalCard.getCardId(), physicalCard);
         }
+    }
+
+    private PhysicalCardImpl createPhysicalCard(String playerId, LotroCardBlueprintLibrary library, String blueprintId) {
+        LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
+
+        int cardId = nextCardId();
+        PhysicalCardImpl result = new PhysicalCardImpl(cardId, blueprintId, playerId, null, card);
+
+        _allCards.put(cardId, result);
+
+        return result;
     }
 
     public boolean isConsecutiveAction() {
@@ -262,6 +275,10 @@ public class GameState {
 
     public PhysicalCard getRingBearer(String playerId) {
         return _ringBearers.get(playerId);
+    }
+
+    public PhysicalCard getRing(String playerId) {
+        return _rings.get(playerId);
     }
 
     private List<PhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
