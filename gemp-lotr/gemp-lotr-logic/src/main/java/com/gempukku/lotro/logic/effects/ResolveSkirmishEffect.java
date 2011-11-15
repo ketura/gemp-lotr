@@ -46,7 +46,9 @@ public class ResolveSkirmishEffect extends AbstractEffect {
 
         final PhysicalCard fellowshipCharacter = _skirmish.getFellowshipCharacter();
 
-        int multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game.getGameState(), fellowshipCharacter);
+        int multiplier = 2;
+        if (fellowshipCharacter != null)
+            multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game.getGameState(), fellowshipCharacter);
 
         if (fpStrength * multiplier <= shadowStrength && shadowStrength != 0) {
             return Result.FELLOWSHIP_OVERWHELMED;
