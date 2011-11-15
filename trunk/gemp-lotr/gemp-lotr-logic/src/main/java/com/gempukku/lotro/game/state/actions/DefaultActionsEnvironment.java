@@ -232,6 +232,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _actionStack.stackAction(action);
     }
 
+    @Override
+    public <T extends Action> T findTopmostActionOfType(Class<T> clazz) {
+        return _actionStack.findTopmostActionOfType(clazz);
+    }
+
     private class GatherRequiredAfterTriggers extends CompletePhysicalCardVisitor {
         private Collection<? extends EffectResult> _effectResults;
         private List<Action> _actions = new LinkedList<Action>();

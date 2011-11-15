@@ -31,4 +31,13 @@ public class ActionStack {
             return null;
         return _actionStack.peek();
     }
+
+    public <T extends Action> T findTopmostActionOfType(Class<T> clazz) {
+        for (int i = _actionStack.size() - 1; i >= 0; i--) {
+            final Action actionAtIndex = _actionStack.get(i);
+            if (actionAtIndex.getClass() == clazz)
+                return (T) actionAtIndex;
+        }
+        return null;
+    }
 }
