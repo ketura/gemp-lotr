@@ -8,19 +8,18 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
-import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
-public abstract class ChooseCardsFromDiscardEffect extends AbstractEffect {
+public abstract class ChooseCardsFromDeadPileEffect extends AbstractEffect {
     private String _playerId;
     private int _minimum;
     private int _maximum;
     private Filter _filter;
 
-    public ChooseCardsFromDiscardEffect(String playerId, int minimum, int maximum, Filterable... filters) {
+    public ChooseCardsFromDeadPileEffect(String playerId, int minimum, int maximum, Filterable... filters) {
         _playerId = playerId;
         _minimum = minimum;
         _maximum = maximum;
@@ -29,23 +28,23 @@ public abstract class ChooseCardsFromDiscardEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Choose card from discard";
+        return "Choose card from dead pile";
     }
 
     @Override
-    public Effect.Type getType() {
+    public Type getType() {
         return null;
     }
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDeadPile(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
         return cards.size() >= _minimum;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDeadPile(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
 
         boolean success = cards.size() >= _minimum;
 
@@ -57,7 +56,7 @@ public abstract class ChooseCardsFromDiscardEffect extends AbstractEffect {
             cardsSelected(game, cards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, "Choose card from discard", new LinkedList<PhysicalCard>(cards), minimum, _maximum) {
+                    new ArbitraryCardsSelectionDecision(1, "Choose card from dead pile", new LinkedList<PhysicalCard>(cards), minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             cardsSelected(game, getSelectedCardsByResponse(result));
