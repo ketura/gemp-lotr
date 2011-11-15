@@ -3,9 +3,8 @@ package com.gempukku.lotro.cards.set10.elven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,12 +19,12 @@ import java.util.List;
  * Side: Free
  * Culture: Elven
  * Twilight Cost: 2
- * Type: Companion � Elf
+ * Type: Companion • Elf
  * Strength: 6
  * Vitality: 3
  * Resistance: 6
- * Game Text: Skirmish: Exert Aegnor to make a minion skirmishing an unbound [ELVEN] companion strength -1 for each archer you spot.
- * Rarity: U
+ * Game Text: Skirmish: Exert Aegnor to make a minion skirmishing an unbound [ELVEN] companion strength -1 for each
+ * archer you spot.
  */
 public class Card10_004 extends AbstractCompanion {
     public Card10_004() {
@@ -33,15 +32,20 @@ public class Card10_004 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canSelfExert(self, game)) {
-            ActivateCardAction action = new ActivateCardAction(self);
-            action.setText("Make an minion skirmishing an unbound Elf compaion strength -1 for each archer you spot");
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, new NegativeEvaluator(new CountSpottableEvaluator(Keyword.ARCHER)), CardType.MINION, Filters.inSkirmishAgainst(Culture.ELVEN, Filters.unboundCompanion)));
+                    new ForEachYouSpotEffect(playerId, Keyword.ARCHER) {
+                        @Override
+                        protected void spottedCards(int spotCount) {
+                            action.insertEffect(
+                                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -spotCount, CardType.MINION, Filters.inSkirmishAgainst(Culture.ELVEN, Filters.unboundCompanion)));
+                        }
+                    });
             return Collections.singletonList(action);
         }
 
