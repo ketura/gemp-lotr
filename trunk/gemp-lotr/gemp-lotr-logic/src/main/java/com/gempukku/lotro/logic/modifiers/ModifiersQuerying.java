@@ -16,6 +16,8 @@ import java.util.Map;
 public interface ModifiersQuerying {
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
 
+    public boolean hasTextRemoved(GameState gameState, PhysicalCard card);
+
     // Keywords
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword);
 
