@@ -54,6 +54,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean hasRemovedText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return false;
+    }
+
+    @Override
     public boolean isKeywordRemoved(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
         return false;
     }
