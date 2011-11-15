@@ -173,6 +173,15 @@ public class PlayConditions {
         return game.getModifiersQuerying().hasInitiative(game.getGameState()) == side;
     }
 
+    public static boolean loseInitiative(EffectResult effectResult, Side side) {
+        if (effectResult.getType() == EffectResult.Type.INITIATIVE_CHANGE) {
+            InitiativeChangeResult initiativeChangeResult = (InitiativeChangeResult) effectResult;
+            if (initiativeChangeResult.getSide() != side)
+                return true;
+        }
+        return false;
+    }
+
     public static boolean canAddThreat(LotroGame game, PhysicalCard card, int count) {
         return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - game.getGameState().getThreats() >= count;
     }
