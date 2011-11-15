@@ -34,6 +34,7 @@ public class Card8_116 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+                && checkPlayRequirements(playerId, game, self, 0, false)
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP
                 && PlayConditions.canExert(self, game, Filters.unboundCompanion, Race.HOBBIT)) {
             PlayEventAction action = new PlayEventAction(self);
