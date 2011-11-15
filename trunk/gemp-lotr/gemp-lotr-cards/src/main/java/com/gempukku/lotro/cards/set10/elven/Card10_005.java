@@ -20,14 +20,13 @@ import java.util.List;
  * Side: Free
  * Culture: Elven
  * Twilight Cost: 2
- * Type: Companion Elf
+ * Type: Companion • Elf
  * Strength: 6
  * Vitality: 3
  * Resistance: 6
  * Signet: Aragorn
  * Game Text: Skirmish: Discard a card from hand to discard the bottom card of your draw deck. If the bottom card was
  * an [ELVEN] card, each minion skirmishing Arwen is strength -3.
- * Rarity: U
  */
 public class Card10_005 extends AbstractCompanion {
     public Card10_005() {
@@ -39,7 +38,6 @@ public class Card10_005 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.setText("Discard the bottom card of your draw deck. If the bottom card was an Elven card, each minion skirmishing Arwen is strength -3.");
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
             action.appendEffect(
