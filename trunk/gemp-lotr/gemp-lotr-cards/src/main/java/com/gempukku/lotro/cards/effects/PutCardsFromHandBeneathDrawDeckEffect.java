@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
@@ -9,16 +11,16 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
-public class PutHandBeneathDrawDeckEffect extends AbstractSubActionEffect {
+public class PutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffect {
     private Action _action;
     private String _playerId;
+    private Filterable[] _filters;
 
-    public PutHandBeneathDrawDeckEffect(Action action, String playerId) {
+    public PutCardsFromHandBeneathDrawDeckEffect(Action action, String playerId, Filterable... filters) {
         _action = action;
         _playerId = playerId;
+        _filters = filters;
     }
 
     @Override
@@ -38,21 +40,20 @@ public class PutHandBeneathDrawDeckEffect extends AbstractSubActionEffect {
 
     @Override
     public Collection<? extends EffectResult> playEffect(LotroGame game) {
-        final Set<PhysicalCard> hand = new HashSet<PhysicalCard>(game.getGameState().getHand(_playerId));
-
+        final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters);
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
-                new ChooseAndPutNextCardFromHandOnBottomOfLibrary(subAction, hand));
+                new ChooseAndPutNextCardFromHandOnBottomOfLibrary(subAction, cards));
         processSubAction(game, subAction);
 
         return null;
     }
 
     private class ChooseAndPutNextCardFromHandOnBottomOfLibrary extends ChooseArbitraryCardsEffect {
-        private Set<PhysicalCard> _remainingCards;
+        private Collection<PhysicalCard> _remainingCards;
         private SubAction _subAction;
 
-        public ChooseAndPutNextCardFromHandOnBottomOfLibrary(SubAction subAction, Set<PhysicalCard> remainingCards) {
+        public ChooseAndPutNextCardFromHandOnBottomOfLibrary(SubAction subAction, Collection<PhysicalCard> remainingCards) {
             super(_playerId, "Choose a card to put on bottom of your deck", remainingCards, 1, 1);
             _subAction = subAction;
             _remainingCards = remainingCards;

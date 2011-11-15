@@ -2,9 +2,10 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PutHandBeneathDrawDeckEffect;
+import com.gempukku.lotro.cards.effects.PutCardsFromHandBeneathDrawDeckEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -32,7 +33,7 @@ public class Card4_337 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new PutHandBeneathDrawDeckEffect(action, playerId));
+                    new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, Filters.any));
             action.appendEffect(
                     new DrawCardEffect(playerId, 4));
             return Collections.singletonList(action);
