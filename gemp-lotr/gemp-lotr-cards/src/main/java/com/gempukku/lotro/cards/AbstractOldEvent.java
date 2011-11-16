@@ -24,8 +24,6 @@ public abstract class AbstractOldEvent extends AbstractLotroCardBlueprint {
     }
 
     private static final Phase[] mergeArray(Phase playableInPhase, Phase... additionalPlayableInPhases) {
-        if (playableInPhase == null)
-            return new Phase[0];
         Phase[] result = new Phase[additionalPlayableInPhases.length + 1];
         result[0] = playableInPhase;
         System.arraycopy(additionalPlayableInPhases, 0, result, 1, additionalPlayableInPhases.length);
