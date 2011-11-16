@@ -3,12 +3,10 @@ package com.gempukku.lotro.logic.timing.actions;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.effects.ResolveSkirmishEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.results.SkirmishAboutToEndResult;
 
 import java.util.Iterator;
@@ -16,15 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ResolveSkirmishAction implements Action {
-    private LotroGame _game;
-    private Skirmish _skirmish;
-
     Iterator<Effect> _effects;
-
-    public ResolveSkirmishAction(LotroGame game, Skirmish skirmish) {
-        _game = game;
-        _skirmish = skirmish;
-    }
 
     @Override
     public Phase getActionTimeword() {
@@ -74,16 +64,9 @@ public class ResolveSkirmishAction implements Action {
     private Iterator<Effect> resolveSkirmish() {
         List<Effect> effects = new LinkedList<Effect>();
 
-        effects.add(new ResolveSkirmishEffect(_skirmish));
+        effects.add(new ResolveSkirmishEffect());
 
         effects.add(new TriggeringResultEffect(new SkirmishAboutToEndResult(), "Skirmish about to end"));
-
-        effects.add(new UnrespondableEffect() {
-            @Override
-            public void doPlayEffect(LotroGame game) {
-                game.getGameState().finishSkirmish();
-            }
-        });
 
         return effects.iterator();
     }

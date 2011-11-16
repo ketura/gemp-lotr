@@ -9,8 +9,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.timing.actions.SkirmishPhaseAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.SkirmishGameProcess;
 
 import java.util.HashSet;
 import java.util.List;
@@ -49,9 +49,8 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, playerChoosingSkirmishOrder, "Choose next skirmish to resolve", Filters.in(fps)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        gameState.startSkirmish(card);
-
-                        _nextProcess = new SkirmishGameProcess(_game, new PlayoutSkirmishesGameProcess(_game, _followingGameProcess));
+                        game.getActionsEnvironment().addActionToStack(
+                                new SkirmishPhaseAction(card));
                     }
                 };
                 chooseNextSkirmish.setUseShortcut(false);
@@ -59,6 +58,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 chooseNextSkirmishAction.appendEffect(chooseNextSkirmish);
 
                 _game.getActionsEnvironment().addActionToStack(chooseNextSkirmishAction);
+                _nextProcess = this;
             } else {
                 _nextProcess = _followingGameProcess;
             }
