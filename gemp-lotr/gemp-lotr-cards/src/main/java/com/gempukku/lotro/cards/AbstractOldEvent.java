@@ -16,11 +16,20 @@ import java.util.List;
 public abstract class AbstractOldEvent extends AbstractLotroCardBlueprint {
     private Phase[] _playableInPhases;
 
-    public AbstractOldEvent(Side side, Culture culture, String name, Phase... playableInPhases) {
+    public AbstractOldEvent(Side side, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {
         super(side, CardType.EVENT, culture, name);
-        _playableInPhases = playableInPhases;
-        for (Phase playableInPhase : _playableInPhases)
-            processPhase(playableInPhase);
+        _playableInPhases = mergeArray(playableInPhase, additionalPlayableInPhases);
+        for (Phase playablePhase : _playableInPhases)
+            processPhase(playablePhase);
+    }
+
+    private static final Phase[] mergeArray(Phase playableInPhase, Phase... additionalPlayableInPhases) {
+        if (playableInPhase == null)
+            return new Phase[0];
+        Phase[] result = new Phase[additionalPlayableInPhases.length + 1];
+        result[0] = playableInPhase;
+        System.arraycopy(additionalPlayableInPhases, 0, result, 1, additionalPlayableInPhases.length);
+        return result;
     }
 
     private void processPhase(Phase phase) {
