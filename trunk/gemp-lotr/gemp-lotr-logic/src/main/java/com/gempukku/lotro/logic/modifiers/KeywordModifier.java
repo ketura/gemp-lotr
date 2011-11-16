@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
-public class KeywordModifier extends AbstractModifier {
+public class KeywordModifier extends AbstractModifier implements KeywordAffectingModifier {
     private Keyword _keyword;
     private Evaluator _evaluator;
 
@@ -27,6 +27,11 @@ public class KeywordModifier extends AbstractModifier {
         super(physicalCard, null, affectFilter, condition, ModifierEffect.KEYWORD_MODIFIER);
         _keyword = keyword;
         _evaluator = evaluator;
+    }
+
+    @Override
+    public Keyword getKeyword() {
+        return _keyword;
     }
 
     @Override

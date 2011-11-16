@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.LoggingThreadLocal;
 import com.gempukku.lotro.logic.timing.actions.SystemAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
@@ -106,10 +107,20 @@ public class TurnProcedure {
 
                 Side initiativePreEffect = _game.getModifiersQuerying().hasInitiative(_game.getGameState());
 
-                final Collection<? extends EffectResult> effectResults = _effect.playEffect(_game);
                 List<EffectResult> results = new LinkedList<EffectResult>();
-                if (effectResults != null)
-                    results.addAll(effectResults);
+
+                Action topmostAction = _actionStack.getTopmostAction();
+                if (topmostAction != null && topmostAction.getActionSource() != null)
+                    LoggingThreadLocal.logMethodStart(topmostAction.getActionSource(), "playEffect");
+
+                try {
+                    final Collection<? extends EffectResult> effectResults = _effect.playEffect(_game);
+                    if (effectResults != null)
+                        results.addAll(effectResults);
+                } finally {
+                    if (topmostAction != null && topmostAction.getActionSource() != null)
+                        LoggingThreadLocal.logMethodEnd();
+                }
 
                 Side initiativePostEffect = _game.getModifiersQuerying().hasInitiative(_game.getGameState());
 
