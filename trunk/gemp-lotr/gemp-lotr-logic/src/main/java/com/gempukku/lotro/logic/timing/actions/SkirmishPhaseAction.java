@@ -23,6 +23,7 @@ public class SkirmishPhaseAction extends SystemQueueAction {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         game.getGameState().startSkirmish(fellowshipCharacter, shadowCharacters);
+                        game.getGameState().setCurrentPhase(Phase.SKIRMISH);
                         ((ModifiersLogic) game.getModifiersEnvironment()).removeStartOfPhase(Phase.SKIRMISH);
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeStartOfPhaseActionProxies(Phase.SKIRMISH);
                     }
