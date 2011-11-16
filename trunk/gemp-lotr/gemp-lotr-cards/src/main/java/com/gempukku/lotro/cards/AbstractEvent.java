@@ -7,8 +7,8 @@ import com.gempukku.lotro.common.Side;
 public abstract class AbstractEvent extends AbstractOldEvent {
     private int _twilightCost;
 
-    public AbstractEvent(Side side, int twilightCost, Culture culture, String name, Phase... playableInPhases) {
-        super(side, culture, name, playableInPhases);
+    public AbstractEvent(Side side, int twilightCost, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {
+        super(side, culture, name, playableInPhase, additionalPlayableInPhases);
         _twilightCost = twilightCost;
     }
 

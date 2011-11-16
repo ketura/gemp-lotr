@@ -6,10 +6,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -28,7 +25,7 @@ import java.util.List;
  */
 public class Card2_088 extends AbstractOldEvent {
     public Card2_088() {
-        super(Side.SHADOW, Culture.SAURON, "Memory of Many Things");
+        super(Side.SHADOW, Culture.SAURON, "Memory of Many Things", Phase.MANEUVER);
     }
 
     @Override

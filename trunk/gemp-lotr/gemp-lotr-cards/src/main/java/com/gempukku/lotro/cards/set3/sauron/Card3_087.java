@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffe
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class Card3_087 extends AbstractOldEvent {
     public Card3_087() {
-        super(Side.SHADOW, Culture.SAURON, "The Dark Lord Advances");
+        super(Side.SHADOW, Culture.SAURON, "The Dark Lord Advances", Phase.REGROUP);
     }
 
     @Override
