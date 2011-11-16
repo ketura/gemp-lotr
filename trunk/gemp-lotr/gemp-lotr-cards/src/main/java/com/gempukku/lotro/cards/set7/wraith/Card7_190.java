@@ -69,7 +69,7 @@ public class Card7_190 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
-                && PlayConditions.canRemoveBurdens(game, self, 1)) {
+                && PlayConditions.canRemoveThreat(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));

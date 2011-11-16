@@ -2,9 +2,8 @@ package com.gempukku.lotro.logic.timing.processes.turn.regroup;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.EndOfTurnGameProcess;
@@ -19,9 +18,10 @@ public class DiscardAllMinionsGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        GameState gameState = _game.getGameState();
-        DiscardCardsFromPlayEffect cards = new DiscardCardsFromPlayEffect(null, Filters.type(CardType.MINION));
-        cards.playEffect(_game);
+        SystemQueueAction action = new SystemQueueAction();
+        action.appendEffect(
+                new DiscardCardsFromPlayEffect(null, CardType.MINION));
+        game.getActionsEnvironment().addActionToStack(action);
     }
 
     @Override
