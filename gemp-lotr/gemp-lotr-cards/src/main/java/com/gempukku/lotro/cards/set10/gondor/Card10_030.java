@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
@@ -20,6 +21,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,6 +67,9 @@ public class Card10_030 extends AbstractEvent {
                                                                     return "Make " + GameUtils.getCardLink(card) + " damage +1";
                                                                 }
                                                             });
+                                                    action.appendEffect(
+                                                            new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
+                                                    return Collections.singletonList(action);
                                                 }
                                                 return null;
                                             }
