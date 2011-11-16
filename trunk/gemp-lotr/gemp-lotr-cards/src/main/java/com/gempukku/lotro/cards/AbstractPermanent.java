@@ -18,15 +18,15 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     private Zone _playedToZone;
 
     public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name) {
-        super(side, cardType, culture, name);
-        _playedToZone = playedToZone;
-        _twilightCost = twilightCost;
+        this(side, twilightCost, cardType, culture, playedToZone, name, false);
     }
 
     public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name, boolean unique) {
         super(side, cardType, culture, name, unique);
         _playedToZone = playedToZone;
         _twilightCost = twilightCost;
+        if (playedToZone == Zone.SUPPORT)
+            addKeyword(Keyword.SUPPORT_AREA);
     }
 
     @Override
