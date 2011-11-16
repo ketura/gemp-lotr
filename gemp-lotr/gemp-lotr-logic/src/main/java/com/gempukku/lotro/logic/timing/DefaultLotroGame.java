@@ -1,10 +1,9 @@
 package com.gempukku.lotro.logic.timing;
 
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.ActionsEnvironment;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
@@ -175,12 +174,13 @@ public class DefaultLotroGame implements LotroGame {
         GameState gameState = getGameState();
         if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {
             // Ring-bearer death
-            if (!Filters.canSpot(gameState, getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))) {
+            PhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
+            Zone zone = ringBearer.getZone();
+            if (zone == null || !zone.isInPlay()) {
                 playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is dead");
                 return;
             } else {
                 // Ring-bearer corruption
-                PhysicalCard ringBearer = Filters.findFirstActive(getGameState(), getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER));
                 int ringBearerResistance = getModifiersQuerying().getResistance(getGameState(), ringBearer);
                 if (ringBearerResistance <= 0) {
                     playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");

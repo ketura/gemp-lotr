@@ -18,7 +18,7 @@ public class EnduringRule {
 
     public void applyRule() {
         _modifiersLogic.addAlwaysOnModifier(
-                new StrengthModifier(null, Filters.and(Keyword.ENDURING, Filters.wounded), null,
+                new StrengthModifier(null, Filters.and(Filters.wounded, Keyword.ENDURING), null,
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {

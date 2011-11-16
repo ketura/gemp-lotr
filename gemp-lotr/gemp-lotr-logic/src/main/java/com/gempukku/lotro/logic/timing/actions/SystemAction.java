@@ -8,12 +8,12 @@ import com.gempukku.lotro.logic.timing.Action;
 public abstract class SystemAction implements Action {
     @Override
     public PhysicalCard getActionSource() {
-        throw new UnsupportedOperationException("System action has no action source");
+        return null;
     }
 
     @Override
     public PhysicalCard getActionAttachedToCard() {
-        throw new UnsupportedOperationException("System action has no action source");
+        return null;
     }
 
     @Override
@@ -36,6 +36,6 @@ public abstract class SystemAction implements Action {
 
     @Override
     public String getText(LotroGame game) {
-        throw new UnsupportedOperationException("System action has no text");
+        return null;
     }
 }

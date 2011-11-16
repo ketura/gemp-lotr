@@ -5,10 +5,11 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.KeywordAffectingModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
-public class CancelKeywordBonusModifier extends AbstractModifier {
+public class CancelKeywordBonusModifier extends AbstractModifier implements KeywordAffectingModifier {
     private Keyword _keyword;
 
     public CancelKeywordBonusModifier(PhysicalCard source, Keyword keyword, Filter affectFilter) {
@@ -21,5 +22,10 @@ public class CancelKeywordBonusModifier extends AbstractModifier {
         if (keyword == _keyword)
             return false;
         return true;
+    }
+
+    @Override
+    public Keyword getKeyword() {
+        return _keyword;
     }
 }

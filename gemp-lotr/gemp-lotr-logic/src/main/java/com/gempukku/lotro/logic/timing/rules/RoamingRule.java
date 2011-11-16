@@ -27,7 +27,7 @@ public class RoamingRule {
                 new KeywordModifier(null, roamingFilter, Keyword.ROAMING));
 
         _modifiersLogic.addAlwaysOnModifier(
-                new AbstractModifier(null, null, Keyword.ROAMING, ModifierEffect.TWILIGHT_COST_MODIFIER) {
+                new AbstractModifier(null, null, Filters.and(CardType.MINION, Keyword.ROAMING), ModifierEffect.TWILIGHT_COST_MODIFIER) {
                     @Override
                     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
                         if (ignoreRoamingPenalty)
