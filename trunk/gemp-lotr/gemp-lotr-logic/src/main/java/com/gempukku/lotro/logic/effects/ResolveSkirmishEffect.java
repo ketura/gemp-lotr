@@ -15,14 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 public class ResolveSkirmishEffect extends AbstractEffect {
-    private Skirmish _skirmish;
-
     public enum Result {
         FELLOWSHIP_OVERWHELMED, FELLOWSHIP_LOSES, SHADOW_LOSES, SHADOW_OVERWHELMED
-    }
-
-    public ResolveSkirmishEffect(Skirmish skirmish) {
-        _skirmish = skirmish;
     }
 
     @Override
@@ -44,7 +38,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
         int fpStrength = RuleUtils.getFellowshipSkirmishStrength(game);
         int shadowStrength = RuleUtils.getShadowSkirmishStrength(game);
 
-        final PhysicalCard fellowshipCharacter = _skirmish.getFellowshipCharacter();
+        final PhysicalCard fellowshipCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
 
         int multiplier = 2;
         if (fellowshipCharacter != null)
@@ -63,21 +57,23 @@ public class ResolveSkirmishEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        Skirmish skirmish = game.getGameState().getSkirmish();
+
         Result result = getUpcomingResult(game);
         Set<EffectResult> results = new HashSet<EffectResult>();
 
         if (result == Result.FELLOWSHIP_LOSES) {
             game.getGameState().sendMessage("Skirmish finishes with a normal win");
-            results.add(new NormalSkirmishResult(_skirmish.getShadowCharacters(), fpList(_skirmish.getFellowshipCharacter()), _skirmish.getRemovedFromSkirmish()));
+            results.add(new NormalSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
         } else if (result == Result.SHADOW_LOSES) {
             game.getGameState().sendMessage("Skirmish finishes with a normal win");
-            results.add(new NormalSkirmishResult(fpList(_skirmish.getFellowshipCharacter()), _skirmish.getShadowCharacters(), _skirmish.getRemovedFromSkirmish()));
+            results.add(new NormalSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
         } else if (result == Result.FELLOWSHIP_OVERWHELMED) {
             game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
-            results.add(new OverwhelmSkirmishResult(_skirmish.getShadowCharacters(), fpList(_skirmish.getFellowshipCharacter()), _skirmish.getRemovedFromSkirmish()));
+            results.add(new OverwhelmSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
         } else {
             game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
-            results.add(new OverwhelmSkirmishResult(fpList(_skirmish.getFellowshipCharacter()), _skirmish.getShadowCharacters(), _skirmish.getRemovedFromSkirmish()));
+            results.add(new OverwhelmSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
         }
 
         return new FullEffectResult(results, true, true);
