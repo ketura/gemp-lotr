@@ -58,7 +58,7 @@ public class LoggingThreadLocal {
     public static void stop(boolean writeOperation) {
         long start = _start.get();
         long time = System.currentTimeMillis() - start;
-        if (time > 10) {
+        if (time > 100) {
             String str = "Processing took (" + writeOperation + ") " + time + "ms: \n" + _logLocal.get().toString();
             try {
                 synchronized (_fos) {
