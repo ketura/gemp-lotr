@@ -10,13 +10,17 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class ExtraFilters {
     public static Filter attachableTo(final LotroGame game, final Filterable... filters) {
+        return attachableTo(game, 0, filters);
+    }
+
+    public static Filter attachableTo(final LotroGame game, final int twilightModifier, final Filterable... filters) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
                     return false;
                 AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
-                return weapon.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, Filters.and(filters), 0);
+                return weapon.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, Filters.and(filters), twilightModifier);
             }
         };
     }
