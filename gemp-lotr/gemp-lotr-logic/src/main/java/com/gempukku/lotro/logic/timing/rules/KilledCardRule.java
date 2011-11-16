@@ -30,9 +30,11 @@ public class KilledCardRule {
                             Set<PhysicalCard> killedCards = killResult.getKilledCards();
                             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
                             for (PhysicalCard killedCard : killedCards) {
-                                OptionalTriggerAction trigger = killedCard.getBlueprint().getKilledOptionalTrigger(game, killedCard);
-                                if (trigger != null)
-                                    actions.add(trigger);
+                                if (killedCard.getOwner().equals(playerId)) {
+                                    OptionalTriggerAction trigger = killedCard.getBlueprint().getKilledOptionalTrigger(game, killedCard);
+                                    if (trigger != null)
+                                        actions.add(trigger);
+                                }
                             }
                             return actions;
                         }
