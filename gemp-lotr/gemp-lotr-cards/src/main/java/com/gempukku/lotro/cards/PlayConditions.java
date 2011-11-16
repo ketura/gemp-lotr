@@ -215,6 +215,25 @@ public class PlayConditions {
                 });
     }
 
+    public static boolean canWound(final LotroGame game, final int times, final int count, Filterable... filters) {
+        final GameState gameState = game.getGameState();
+        final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        final Filter filter = Filters.and(filters);
+        return gameState.iterateActiveCards(
+                new PhysicalCardVisitor() {
+                    private int _woundableCount;
+
+                    @Override
+                    public boolean visitPhysicalCard(PhysicalCard physicalCard) {
+                        if (filter.accepts(gameState, modifiersQuerying, physicalCard)
+                                && modifiersQuerying.getVitality(gameState, physicalCard) > times
+                                && modifiersQuerying.canTakeWound(gameState, physicalCard))
+                            _woundableCount++;
+                        return _woundableCount >= count;
+                    }
+                });
+    }
+
     public static boolean canPlayFromHand(String playerId, LotroGame game, Filterable... filters) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
     }
