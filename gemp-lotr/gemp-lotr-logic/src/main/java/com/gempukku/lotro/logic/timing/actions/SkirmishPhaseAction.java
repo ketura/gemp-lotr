@@ -14,13 +14,15 @@ import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishAboutToEndResult;
 import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
 
+import java.util.List;
+
 public class SkirmishPhaseAction extends SystemQueueAction {
-    public SkirmishPhaseAction(final PhysicalCard character) {
+    public SkirmishPhaseAction(final PhysicalCard fellowshipCharacter, final List<PhysicalCard> shadowCharacters) {
         appendEffect(
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        game.getGameState().startSkirmish(character);
+                        game.getGameState().startSkirmish(fellowshipCharacter, shadowCharacters);
                         ((ModifiersLogic) game.getModifiersEnvironment()).removeStartOfPhase(Phase.SKIRMISH);
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeStartOfPhaseActionProxies(Phase.SKIRMISH);
                     }

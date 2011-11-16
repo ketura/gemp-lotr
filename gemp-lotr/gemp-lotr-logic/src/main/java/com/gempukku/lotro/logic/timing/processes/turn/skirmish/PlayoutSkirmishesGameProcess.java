@@ -33,7 +33,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
             _nextProcess = _followingGameProcess;
         } else {
             final GameState gameState = _game.getGameState();
-            List<Assignment> assignments = gameState.getAssignments();
+            final List<Assignment> assignments = gameState.getAssignments();
 
             if (assignments.size() > 0) {
                 Set<PhysicalCard> fps = new HashSet<PhysicalCard>();
@@ -49,8 +49,10 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, playerChoosingSkirmishOrder, "Choose next skirmish to resolve", Filters.in(fps)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
+                        final Assignment assignment = findAssignment(assignments, card);
+                        game.getGameState().removeAssignment(assignment);
                         game.getActionsEnvironment().addActionToStack(
-                                new SkirmishPhaseAction(card));
+                                new SkirmishPhaseAction(assignment.getFellowshipCharacter(), assignment.getShadowCharacters()));
                     }
                 };
                 chooseNextSkirmish.setUseShortcut(false);
@@ -63,6 +65,14 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 _nextProcess = _followingGameProcess;
             }
         }
+    }
+
+    private Assignment findAssignment(List<Assignment> assignments, PhysicalCard freePeopleCharacter) {
+        for (Assignment assignment : assignments) {
+            if (assignment.getFellowshipCharacter() == freePeopleCharacter)
+                return assignment;
+        }
+        return null;
     }
 
     @Override

@@ -857,10 +857,14 @@ public class GameState {
         return null;
     }
 
-    public void startSkirmish(PhysicalCard fp) {
-        Assignment assignment = findAssignment(fp);
-        removeAssignment(assignment);
-        _skirmish = new Skirmish(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
+    public void startSkirmish(PhysicalCard fellowshipCharacter, List<PhysicalCard> shadowCharacters) {
+        _skirmish = new Skirmish(fellowshipCharacter, shadowCharacters);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
+    }
+
+    public void restartSkirmish(Skirmish skirmish) {
+        _skirmish = skirmish;
         for (GameStateListener listener : getAllGameStateListeners())
             listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
     }
