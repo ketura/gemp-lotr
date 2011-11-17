@@ -60,6 +60,8 @@ public interface ModifiersQuerying {
 
     public boolean canRemoveBurden(GameState gameState, PhysicalCard source);
 
+    public boolean canRemoveThreat(GameState gameState, PhysicalCard source);
+
     // Assignments
     public boolean canBeAssignedToSkirmish(GameState gameState, Side playerSide, PhysicalCard card);
 

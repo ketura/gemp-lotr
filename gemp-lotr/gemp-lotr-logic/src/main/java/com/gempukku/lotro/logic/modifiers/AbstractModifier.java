@@ -224,6 +224,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canRemoveThreat(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
     public int getRoamingPenaltyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }
