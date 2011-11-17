@@ -33,7 +33,7 @@ public class Card7_117 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && (PlayConditions.canSpot(game, 2, Keyword.KNIGHT) || PlayConditions.canExertMultiple(self, game, 1, 2, Culture.GONDOR, Race.MAN));
+                && (PlayConditions.canSpot(game, 2, Keyword.KNIGHT) || PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN));
     }
 
     @Override

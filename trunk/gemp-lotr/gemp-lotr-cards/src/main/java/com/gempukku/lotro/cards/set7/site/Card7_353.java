@@ -32,7 +32,7 @@ public class Card7_353 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
-                && PlayConditions.canExertMultiple(self, game, 1, 2, CardType.MINION)
+                && PlayConditions.canExert(self, game, 1, 2, CardType.MINION)
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

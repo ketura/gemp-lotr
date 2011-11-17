@@ -30,7 +30,7 @@ public class Card1_105 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Filters.or(CardType.COMPANION, CardType.ALLY))) {
+                && PlayConditions.canExert(self, game, Culture.GONDOR, Filters.or(CardType.COMPANION, CardType.ALLY))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Filters.or(CardType.COMPANION, CardType.ALLY)));

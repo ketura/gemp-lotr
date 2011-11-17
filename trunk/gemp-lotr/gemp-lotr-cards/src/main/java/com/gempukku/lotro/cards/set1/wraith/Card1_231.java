@@ -35,7 +35,7 @@ public class Card1_231 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.canExert(self, game, self)
                 && (
                 Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 6
                         || game.getGameState().getBurdens() >= 5)) {

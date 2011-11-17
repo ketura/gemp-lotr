@@ -32,7 +32,7 @@ public class Card1_059 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(),
+                && PlayConditions.canExert(self, game,
                 Filters.or(
                         Race.ELF,
                         Race.DWARF))) {

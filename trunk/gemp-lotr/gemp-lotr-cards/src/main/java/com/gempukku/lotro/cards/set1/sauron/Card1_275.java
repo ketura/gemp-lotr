@@ -32,7 +32,7 @@ public class Card1_275 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Keyword.TRACKER)) {
+                && PlayConditions.canExert(self, game, Culture.SAURON, Keyword.TRACKER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Keyword.TRACKER));

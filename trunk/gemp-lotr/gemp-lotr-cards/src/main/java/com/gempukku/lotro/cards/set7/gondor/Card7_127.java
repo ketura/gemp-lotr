@@ -56,7 +56,7 @@ public class Card7_127 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
-                && (PlayConditions.canExertMultiple(self, game, 1, 3, Culture.GONDOR, Race.MAN) || PlayConditions.canExertMultiple(self, game, 1, 2, Keyword.KNIGHT))) {
+                && (PlayConditions.canExert(self, game, 1, 3, Culture.GONDOR, Race.MAN) || PlayConditions.canExert(self, game, 1, 2, Keyword.KNIGHT))) {
             ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(

@@ -49,7 +49,7 @@ public class Card10_032 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && self.getZone() == Zone.SUPPORT
                 && (
-                PlayConditions.canExertMultiple(self, game, 1, 2, Culture.GONDOR, Race.MAN)
+                PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN)
                         || PlayConditions.canSpot(game, 3, Keyword.KNIGHT))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();

@@ -38,7 +38,7 @@ public class Card3_036 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && game.getGameState().getTwilightPool() >= 4
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.gandalf)) {
+                && PlayConditions.canExert(self, game, Filters.gandalf)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             final ActivateCardAction action = new ActivateCardAction(self);

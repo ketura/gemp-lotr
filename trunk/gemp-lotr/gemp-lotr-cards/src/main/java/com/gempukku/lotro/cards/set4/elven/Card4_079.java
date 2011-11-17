@@ -44,7 +44,7 @@ public class Card4_079 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Race.ELF)) {
             final List<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
-            if (PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.in(winners))) {
+            if (PlayConditions.canExert(self, game, Filters.in(winners))) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendCost(
                         new ExertCharactersEffect(self, winners.get(0)));

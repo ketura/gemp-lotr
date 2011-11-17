@@ -52,7 +52,7 @@ public class Card3_019 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && (PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.aragorn)
+                && (PlayConditions.canExert(self, game, Filters.aragorn)
                 || game.getGameState().getHand(playerId).size() >= 2)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();

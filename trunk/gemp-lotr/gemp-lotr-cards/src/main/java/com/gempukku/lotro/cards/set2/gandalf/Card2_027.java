@@ -35,7 +35,7 @@ public class Card2_027 extends AbstractOldEvent {
         PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
         List<PhysicalCard> attachedToGandalf = game.getGameState().getAttachedCards(gandalf);
         if (gandalf != null
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.sameCard(gandalf))
+                && PlayConditions.canExert(self, game, 2, Filters.sameCard(gandalf))
                 && Filters.filter(attachedToGandalf, game.getGameState(), game.getModifiersQuerying(), PossessionClass.STAFF).size() > 0)
             return true;
         return false;

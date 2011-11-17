@@ -32,7 +32,7 @@ public class Card1_318 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
-                && PlayConditions.canExertMultiple(self, game, 1, 2, Race.HOBBIT)) {
+                && PlayConditions.canExert(self, game, 1, 2, Race.HOBBIT)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.HOBBIT));
