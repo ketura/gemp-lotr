@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
@@ -51,7 +52,7 @@ public class Card4_171 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(final LotroGame game, Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, self.getAttachedTo())) {
+        if (TriggerConditions.isGettingKilled(effect, game, self.getAttachedTo())) {
             KillEffect killEffect = (KillEffect) effect;
             if (killEffect.getCharactersToBeKilled().contains(self.getAttachedTo())) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);

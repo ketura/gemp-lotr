@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
@@ -54,7 +55,7 @@ public class Card5_102 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Culture.SAURON, Race.ORC)
+        if (TriggerConditions.played(game, effectResult, Culture.SAURON, Race.ORC)
                 && Filters.and(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite()))
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN

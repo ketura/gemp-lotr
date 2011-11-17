@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set8.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
@@ -34,7 +34,7 @@ public class Card8_119 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(

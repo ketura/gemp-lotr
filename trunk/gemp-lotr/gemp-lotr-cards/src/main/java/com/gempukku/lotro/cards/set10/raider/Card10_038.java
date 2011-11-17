@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -35,7 +36,7 @@ public class Card10_038 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)
                 && PlayConditions.canRemoveTokens(game, Token.RAIDER, 1, Filters.any)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

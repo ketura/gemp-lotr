@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -36,7 +36,7 @@ public class Card1_023 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Race.DWARF)
+        if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

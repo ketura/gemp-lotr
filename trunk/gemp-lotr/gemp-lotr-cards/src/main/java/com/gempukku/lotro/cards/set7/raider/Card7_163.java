@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.modifiers.HasInitiativeModifier;
 import com.gempukku.lotro.common.Culture;
@@ -43,7 +44,7 @@ public class Card7_163 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.assigned(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
+        if (TriggerConditions.assigned(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilEndOfTurnModifierEffect(

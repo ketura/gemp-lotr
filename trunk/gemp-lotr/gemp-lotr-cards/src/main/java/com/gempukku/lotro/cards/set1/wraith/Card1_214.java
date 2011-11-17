@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -39,7 +39,7 @@ public class Card1_214 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Race.NAZGUL)
+        if (TriggerConditions.winsSkirmish(game, effectResult, Race.NAZGUL)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayEventAction action = new PlayEventAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();

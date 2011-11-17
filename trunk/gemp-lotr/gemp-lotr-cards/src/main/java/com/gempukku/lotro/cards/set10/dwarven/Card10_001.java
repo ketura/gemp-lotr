@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.dwarven;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -35,7 +36,7 @@ public class Card10_001 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.MINION)) {
+        if (TriggerConditions.played(game, effectResult, CardType.MINION)) {
             PlayCardResult playResult = (PlayCardResult) effectResult;
             final PhysicalCard playedMinion = playResult.getPlayedCard();
             final PlayEventAction action = new PlayEventAction(self);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
@@ -40,7 +41,7 @@ public class Card7_112 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             int countSpottable = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.aragorn, Filters.boromir, Filters.name("Denethor"), Filters.name("Faramir")));
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

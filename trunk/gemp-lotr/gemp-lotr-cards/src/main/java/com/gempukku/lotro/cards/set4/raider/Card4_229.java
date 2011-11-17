@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -35,7 +36,7 @@ public class Card4_229 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))
                 && PlayConditions.canSpot(game, Filters.not(Filters.sameCard(self)), Keyword.EASTERLING)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int twilight = Math.min(4, game.getGameState().getBurdens());

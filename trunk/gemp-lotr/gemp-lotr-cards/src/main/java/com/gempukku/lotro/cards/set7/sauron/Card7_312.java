@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -29,7 +29,7 @@ public class Card7_312 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, Race.ORC)
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, Race.ORC)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

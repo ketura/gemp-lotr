@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.shire;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
@@ -34,7 +35,7 @@ public class Card8_110 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.movesFrom(game, effectResult, Filters.siteBlock(Block.KING), Filters.siteNumber(4))) {
+        if (TriggerConditions.movesFrom(game, effectResult, Filters.siteBlock(Block.KING), Filters.siteNumber(4))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ForEachYouSpotEffect(game.getGameState().getCurrentPlayerId(), CardType.COMPANION, Keyword.RING_BOUND) {

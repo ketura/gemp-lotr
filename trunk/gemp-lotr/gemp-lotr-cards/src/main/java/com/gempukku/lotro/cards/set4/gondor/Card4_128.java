@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -62,7 +62,7 @@ public class Card4_128 extends AbstractOldEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
-                                                if (PlayConditions.losesSkirmish(game, effectResults, Filters.sameCard(minion))) {
+                                                if (TriggerConditions.losesSkirmish(game, effectResults, Filters.sameCard(minion))) {
                                                     final RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                     action.appendEffect(
                                                             new PlayoutDecisionEffect(lotroGame.getUserFeedback(), playerId,

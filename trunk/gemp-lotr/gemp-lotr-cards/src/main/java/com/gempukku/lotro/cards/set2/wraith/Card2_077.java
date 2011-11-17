@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
@@ -33,7 +34,7 @@ public class Card2_077 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Race.NAZGUL, Keyword.TWILIGHT)
+        if (TriggerConditions.isGettingWounded(effect, game, Race.NAZGUL, Keyword.TWILIGHT)
                 && PlayConditions.canUseShadowCardDuringPhase(game, null, self, 1)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
@@ -41,7 +42,7 @@ public class Card4_270 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.unboundCompanion)
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.unboundCompanion)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
             final WoundCharactersEffect woundEffects = (WoundCharactersEffect) effect;
 

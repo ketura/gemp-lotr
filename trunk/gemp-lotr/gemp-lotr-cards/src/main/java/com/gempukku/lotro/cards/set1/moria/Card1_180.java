@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -42,7 +42,7 @@ public class Card1_180 extends AbstractAttachable {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);

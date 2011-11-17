@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
@@ -41,7 +41,7 @@ public class Card2_003 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))) {
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));

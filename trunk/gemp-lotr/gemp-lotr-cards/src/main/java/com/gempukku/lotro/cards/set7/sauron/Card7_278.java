@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -38,7 +39,7 @@ public class Card7_278 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Keyword.BESIEGER)
+        if (TriggerConditions.isGettingWounded(effect, game, Keyword.BESIEGER)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);

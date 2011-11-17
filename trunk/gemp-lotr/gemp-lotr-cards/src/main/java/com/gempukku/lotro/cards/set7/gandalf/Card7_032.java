@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -36,7 +37,7 @@ public class Card7_032 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT)
+        if (TriggerConditions.played(game, effectResult, CardType.EVENT)
                 && PlayConditions.canExert(self, game, Filters.gandalf)) {
             PlayEventResult playEventResult = (PlayEventResult) effectResult;
 

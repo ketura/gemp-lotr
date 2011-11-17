@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -33,7 +33,7 @@ public class Card3_040 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.losesSkirmish(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))) {
+        if (TriggerConditions.losesSkirmish(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))) {
             self.storeData(new Object());
         }
         return null;

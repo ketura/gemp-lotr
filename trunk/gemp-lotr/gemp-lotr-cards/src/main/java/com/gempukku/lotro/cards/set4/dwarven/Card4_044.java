@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.StackCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
@@ -35,7 +36,7 @@ public class Card4_044 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(self.getOwner(), 1, 1, Filters.any) {

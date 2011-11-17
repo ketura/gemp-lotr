@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Race;
@@ -26,7 +27,7 @@ public class Card7_333 extends AbstractSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.movesFrom(game, effectResult, self)
+        if (TriggerConditions.movesFrom(game, effectResult, self)
                 && PlayConditions.canSpot(game, 3, Race.HOBBIT)
                 && playerId.equals(game.getGameState().getCurrentPlayerId())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

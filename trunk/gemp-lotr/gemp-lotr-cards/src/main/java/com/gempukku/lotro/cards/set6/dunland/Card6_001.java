@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.dunland;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
@@ -40,7 +41,7 @@ public class Card6_001 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, 2, Culture.DUNLAND, Race.MAN)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
@@ -52,7 +53,7 @@ public class Card6_001 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Culture.DUNLAND, Race.MAN)) {
+        if (TriggerConditions.isGettingWounded(effect, game, Culture.DUNLAND, Race.MAN)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
             final ActivateCardAction action = new ActivateCardAction(self);

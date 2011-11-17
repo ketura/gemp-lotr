@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -50,7 +50,7 @@ public class Card2_043 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.name("Lurtz"))) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.name("Lurtz"))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));

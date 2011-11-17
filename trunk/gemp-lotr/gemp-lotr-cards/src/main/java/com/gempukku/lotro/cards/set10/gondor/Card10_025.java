@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -34,13 +35,13 @@ public class Card10_025 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.not(self), CardType.COMPANION));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && PlayConditions.canExert(self, game, CardType.COMPANION)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

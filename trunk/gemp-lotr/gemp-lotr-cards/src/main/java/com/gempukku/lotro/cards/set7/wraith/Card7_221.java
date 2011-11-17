@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.Culture;
@@ -44,7 +45,7 @@ public class Card7_221 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canRemoveThreat(game, self, 1)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

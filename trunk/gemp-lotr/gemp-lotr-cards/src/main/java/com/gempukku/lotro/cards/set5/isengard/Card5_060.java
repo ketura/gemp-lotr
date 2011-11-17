@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
@@ -56,7 +57,7 @@ public class Card5_060 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingDiscarded(effect, game, Keyword.MACHINE)) {
+        if (TriggerConditions.isGettingDiscarded(effect, game, Keyword.MACHINE)) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             if (discardEffect.getSource() != null
                     && discardEffect.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())) {

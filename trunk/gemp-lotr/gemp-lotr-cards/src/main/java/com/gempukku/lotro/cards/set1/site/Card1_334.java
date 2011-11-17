@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -31,7 +31,7 @@ public class Card1_334 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.or(CardType.POSSESSION, CardType.ARTIFACT))) {
+        if (TriggerConditions.played(game, effectResult, Filters.or(CardType.POSSESSION, CardType.ARTIFACT))) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             PhysicalCard attachedTo = playCardResult.getAttachedTo();
             if (attachedTo != null && attachedTo.getBlueprint().getCardType() == CardType.COMPANION) {

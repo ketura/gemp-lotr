@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -42,7 +43,7 @@ public class Card7_152 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmishAgainst(game, effectResult, self, CardType.COMPANION)
+        if (TriggerConditions.winsSkirmishAgainst(game, effectResult, self, CardType.COMPANION)
                 && game.getGameState().getThreats() >= 6) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);

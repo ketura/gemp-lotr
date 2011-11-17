@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardOnTopOfDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -40,7 +41,7 @@ public class Card7_095 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.REGROUP)
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlledByShadowPlayer(self.getOwner())) == 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

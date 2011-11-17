@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
@@ -49,14 +50,14 @@ public class Card7_085 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.addedBurden(game, effectResult, Side.SHADOW)) {
+        if (TriggerConditions.addedBurden(game, effectResult, Side.SHADOW)) {
             AddBurdenResult burdenResult = (AddBurdenResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddThreatsEffect(self.getOwner(), self, burdenResult.getCount()));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.addedThreat(game, effectResult, Side.SHADOW)) {
+        if (TriggerConditions.addedThreat(game, effectResult, Side.SHADOW)) {
             AddThreatResult threatResult = (AddThreatResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

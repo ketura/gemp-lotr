@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -52,7 +53,7 @@ public class Card1_221 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())
+        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

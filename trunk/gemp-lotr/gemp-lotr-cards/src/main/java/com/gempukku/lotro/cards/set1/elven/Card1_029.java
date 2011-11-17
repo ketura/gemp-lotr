@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -58,7 +58,7 @@ public class Card1_029 extends AbstractOldEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                                if (PlayConditions.winsSkirmish(effectResult, elf)) {
+                                                if (TriggerConditions.winsSkirmish(effectResult, elf)) {
                                                     SkirmishResult skirmishResult = (SkirmishResult) effectResult;
                                                     List<PhysicalCard> losers = skirmishResult.getLosers();
                                                     Set<String> opponents = new HashSet<String>();

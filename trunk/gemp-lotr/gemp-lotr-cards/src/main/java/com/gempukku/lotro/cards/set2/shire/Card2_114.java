@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.MakeRingBearerEffect;
@@ -59,7 +60,7 @@ public class Card2_114 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, Filters.frodo)) {
+        if (TriggerConditions.isGettingKilled(effect, game, Filters.frodo)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new MakeRingBearerEffect(self));
             return Collections.singletonList(action);

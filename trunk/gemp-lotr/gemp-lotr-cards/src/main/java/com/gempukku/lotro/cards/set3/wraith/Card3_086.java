@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.Culture;
@@ -38,7 +39,7 @@ public class Card3_086 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(effectResult, self)
+        if (TriggerConditions.winsSkirmish(effectResult, self)
                 && PlayConditions.canExert(self, game, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.*;
@@ -71,7 +71,7 @@ public class Card2_053 extends AbstractAttachable {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.isWounded(effectResult, self.getAttachedTo())
+        if (TriggerConditions.isWounded(effectResult, self.getAttachedTo())
                 && game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

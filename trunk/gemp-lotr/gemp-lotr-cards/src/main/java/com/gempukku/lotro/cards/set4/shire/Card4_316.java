@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.MakeRingBearerEffect;
@@ -43,7 +44,7 @@ public class Card4_316 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isAddingBurden(effect, game, Side.SHADOW)
+        if (TriggerConditions.isAddingBurden(effect, game, Side.SHADOW)
                 && PlayConditions.canSpot(game, Filters.frodo)
                 && PlayConditions.canSelfExert(self, game)) {
             final AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
@@ -64,7 +65,7 @@ public class Card4_316 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, Filters.frodo)) {
+        if (TriggerConditions.isGettingKilled(effect, game, Filters.frodo)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new MakeRingBearerEffect(self));
             return Collections.singletonList(action);

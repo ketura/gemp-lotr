@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,7 +36,7 @@ public class Card10_012 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.loseInitiative(effectResult, Side.FREE_PEOPLE)) {
+        if (TriggerConditions.losesInitiative(effectResult, Side.FREE_PEOPLE)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, self.getOwner(), "Choose a minion", CardType.MINION) {

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -33,7 +34,7 @@ public class Card4_126 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.and(Culture.GONDOR, Race.MAN))) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.GONDOR, Race.MAN))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.GONDOR));

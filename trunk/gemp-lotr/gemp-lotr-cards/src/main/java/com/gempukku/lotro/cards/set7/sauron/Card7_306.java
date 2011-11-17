@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -44,7 +45,7 @@ public class Card7_306 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.SAURON, Race.ORC)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

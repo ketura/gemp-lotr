@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +44,7 @@ public class Card8_094 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.BESIEGER)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4;

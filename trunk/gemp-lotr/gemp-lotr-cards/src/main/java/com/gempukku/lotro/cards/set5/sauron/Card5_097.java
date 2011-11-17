@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.CardType;
@@ -35,7 +36,7 @@ public class Card5_097 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION)
+        if (TriggerConditions.played(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION)
                 && PlayConditions.canSelfExert(self, game)
                 && game.getGameState().getTwilightPool() >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
@@ -53,7 +54,7 @@ public class Card8_038 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.aragorn)
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.aragorn)
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && PlayConditions.canSelfExert(self, game)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

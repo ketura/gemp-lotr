@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -32,7 +32,7 @@ public class Card1_191 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new AddTwilightEffect(self, 2));

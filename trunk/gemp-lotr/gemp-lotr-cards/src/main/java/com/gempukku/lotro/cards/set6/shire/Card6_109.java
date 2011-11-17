@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.*;
@@ -41,7 +42,7 @@ public class Card6_109 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && Filters.exhausted.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
@@ -55,7 +56,7 @@ public class Card6_109 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.movesTo(game, effectResult, Filters.siteNumber(9))) {
+        if (TriggerConditions.movesTo(game, effectResult, Filters.siteNumber(9))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new CorruptRingBearerEffect());

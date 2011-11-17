@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -31,7 +31,7 @@ public class Card4_236 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getGameState().getTwilightPool() >= 4
-                && PlayConditions.losesSkirmishAgainst(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Keyword.SOUTHRON)) {
+                && TriggerConditions.losesSkirmishAgainst(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Keyword.SOUTHRON)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(4));

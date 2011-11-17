@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set6.gollum;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
@@ -30,7 +30,7 @@ public class Card6_043 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.smeagol)
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.smeagol)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

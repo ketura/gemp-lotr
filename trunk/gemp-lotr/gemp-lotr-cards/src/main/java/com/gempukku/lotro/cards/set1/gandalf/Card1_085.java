@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
@@ -40,7 +40,7 @@ public class Card1_085 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(final String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingExerted(effect, game, CardType.COMPANION)
+        if (TriggerConditions.isGettingExerted(effect, game, CardType.COMPANION)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final ExertCharactersEffect exertEffect = (ExertCharactersEffect) effect;

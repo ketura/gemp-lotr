@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -33,7 +34,7 @@ public class Card1_234 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))
                 // You must be able to play a minion from discard to use this trigger
                 && PlayConditions.canPlayFromDiscard(playerId, game, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

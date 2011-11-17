@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -30,7 +31,7 @@ public class Card4_293 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.roaminMinion)
+        if (TriggerConditions.played(game, effectResult, Filters.roaminMinion)
                 && PlayConditions.canSpot(game, Keyword.VILLAGER)) {
             PlayCardResult result = (PlayCardResult) effectResult;
             OptionalTriggerAction action = new OptionalTriggerAction(self);

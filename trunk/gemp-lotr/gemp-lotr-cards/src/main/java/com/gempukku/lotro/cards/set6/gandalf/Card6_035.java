@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -44,7 +44,7 @@ public class Card6_035 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
+        if (TriggerConditions.isGettingWounded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
             final ActivateCardAction action = new ActivateCardAction(self);

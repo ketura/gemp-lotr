@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
@@ -35,7 +36,7 @@ public class Card8_056 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
                 && PlayConditions.canDiscardFromPlay(self, game, CardType.ALLY)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);

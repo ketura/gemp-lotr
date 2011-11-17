@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.raider;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -34,7 +35,7 @@ public class Card10_051 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.POSSESSION, Side.FREE_PEOPLE)
+        if (TriggerConditions.played(game, effectResult, CardType.POSSESSION, Side.FREE_PEOPLE)
                 && PlayConditions.canSpot(game, Culture.RAIDER)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayCardResult playResult = (PlayCardResult) effectResult;

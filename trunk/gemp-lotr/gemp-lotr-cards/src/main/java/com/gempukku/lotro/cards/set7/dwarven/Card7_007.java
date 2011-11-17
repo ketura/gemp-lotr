@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
@@ -41,7 +42,7 @@ public class Card7_007 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, Culture.DWARVEN, CardType.CONDITION)
+        if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, Culture.DWARVEN, CardType.CONDITION)
                 && (PlayConditions.canExert(self, game, Race.DWARF)
                 || PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.DWARVEN))) {
             final DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;

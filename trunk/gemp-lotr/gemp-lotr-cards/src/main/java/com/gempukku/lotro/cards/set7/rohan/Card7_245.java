@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.rohan;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
@@ -37,7 +38,7 @@ public class Card7_245 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && PlayConditions.canDiscardFromHand(game, playerId, 3, Filters.any)) {

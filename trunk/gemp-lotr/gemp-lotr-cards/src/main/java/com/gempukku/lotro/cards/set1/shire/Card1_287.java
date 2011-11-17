@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
@@ -37,7 +37,7 @@ public class Card1_287 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingHealed(effect, game, Keyword.RING_BEARER)) {
+        if (TriggerConditions.isGettingHealed(effect, game, Keyword.RING_BEARER)) {
             final HealCharactersEffect healEffect = (HealCharactersEffect) effect;
             final PlayEventAction action = new PlayEventAction(self);
             action.appendCost(

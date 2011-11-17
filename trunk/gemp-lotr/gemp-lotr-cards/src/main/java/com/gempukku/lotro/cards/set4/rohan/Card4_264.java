@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -36,7 +37,7 @@ public class Card4_264 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isTakingControlOfSite(effect, game, Filters.any)
+        if (TriggerConditions.isTakingControlOfSite(effect, game, Filters.any)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canExert(self, game, Keyword.VILLAGER)) {
             TakeControlOfASiteEffect takeControlEffect = (TakeControlOfASiteEffect) effect;

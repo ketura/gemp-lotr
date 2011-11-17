@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
@@ -32,7 +33,7 @@ public class Card4_148 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Race.URUK_HAI)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Race.URUK_HAI)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ISENGARD));

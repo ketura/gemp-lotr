@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,7 +35,7 @@ public class Card7_018 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Culture.ELVEN, CardType.EVENT, Keyword.SKIRMISH)
+        if (TriggerConditions.played(game, effectResult, Culture.ELVEN, CardType.EVENT, Keyword.SKIRMISH)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.hasAttached(self), Filters.inSkirmish) > 0) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

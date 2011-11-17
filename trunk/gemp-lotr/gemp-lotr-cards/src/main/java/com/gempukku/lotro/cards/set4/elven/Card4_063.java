@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -46,7 +46,7 @@ public class Card4_063 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(self.getAttachedTo()))) {
+        if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(self.getAttachedTo()))) {
             final DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             Collection<PhysicalCard> discardedCards = discardEffect.getAffectedCardsMinusPrevented(game);
 

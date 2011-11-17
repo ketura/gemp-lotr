@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.sauron;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.HasInitiativeModifier;
@@ -47,7 +48,7 @@ public class Card8_104 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.COMPANION)
+        if (TriggerConditions.played(game, effectResult, CardType.COMPANION)
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.SAURON)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

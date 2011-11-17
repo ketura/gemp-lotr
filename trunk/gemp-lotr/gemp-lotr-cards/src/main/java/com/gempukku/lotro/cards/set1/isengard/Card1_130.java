@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +28,7 @@ public class Card1_130 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.and(Keyword.WEATHER, CardType.CONDITION, Filters.owner(self.getOwner())))) {
+        if (TriggerConditions.played(game, effectResult, Filters.and(Keyword.WEATHER, CardType.CONDITION, Filters.owner(self.getOwner())))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Culture.GANDALF, Filters.or(CardType.COMPANION, CardType.ALLY)));

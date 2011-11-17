@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
@@ -47,7 +48,7 @@ public class Card2_047 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT)
+        if (TriggerConditions.played(game, effectResult, CardType.EVENT)
                 && PlayConditions.canExert(self, game, self)) {
             PlayEventResult playEffect = (PlayEventResult) effectResult;
             if (playEffect.isRequiresRanger()) {

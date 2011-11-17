@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
@@ -40,7 +40,7 @@ public class Card1_009 extends AbstractAttachableFPPossession {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
+        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
             List<PhysicalCard> losers = skirmishResult.getLosers();
 

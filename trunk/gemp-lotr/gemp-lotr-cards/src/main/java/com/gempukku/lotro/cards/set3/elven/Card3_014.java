@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Block;
@@ -45,7 +45,7 @@ public class Card3_014 extends AbstractAlly {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWoundedBy(effect, game, Filters.and(Culture.SAURON, Filters.or(CardType.MINION, CardType.EVENT)), Race.ELF)) {
+        if (TriggerConditions.isGettingWoundedBy(effect, game, Filters.and(Culture.SAURON, Filters.or(CardType.MINION, CardType.EVENT)), Race.ELF)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
@@ -37,7 +37,7 @@ public class Card1_203 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Race.NAZGUL)
+        if (TriggerConditions.isGettingWounded(effect, game, Race.NAZGUL)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final PlayEventAction action = new PlayEventAction(self);

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.shire;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,7 +29,7 @@ public class Card2_113 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Keyword.TALE)
+        if (TriggerConditions.played(game, effectResult, Keyword.TALE)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Bilbo"))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

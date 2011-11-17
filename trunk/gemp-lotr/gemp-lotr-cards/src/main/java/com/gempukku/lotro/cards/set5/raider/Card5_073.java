@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set5.raider;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -48,7 +48,7 @@ public class Card5_073 extends AbstractAttachable {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
+        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, 2));

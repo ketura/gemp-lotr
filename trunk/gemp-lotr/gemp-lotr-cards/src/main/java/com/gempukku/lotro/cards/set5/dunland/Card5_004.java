@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set5.dunland;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -46,7 +46,7 @@ public class Card5_004 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))
                 && game.getGameState().getHand(game.getGameState().getCurrentPlayerId()).size() >= 4) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendCost(

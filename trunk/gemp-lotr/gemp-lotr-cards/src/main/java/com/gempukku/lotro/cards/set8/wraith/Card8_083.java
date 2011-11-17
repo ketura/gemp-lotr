@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
@@ -63,7 +64,7 @@ public class Card8_083 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && PlayConditions.canRemoveThreat(game, self, 1)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
 

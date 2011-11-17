@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +43,7 @@ public class Card6_031 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.owner(playerId), Keyword.SPELL)
+        if (TriggerConditions.played(game, effectResult, Filters.owner(playerId), Keyword.SPELL)
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

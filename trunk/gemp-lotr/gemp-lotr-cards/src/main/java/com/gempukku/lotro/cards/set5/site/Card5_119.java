@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set5.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Block;
@@ -34,7 +34,7 @@ public class Card5_119 extends AbstractSite {
 
     @Override
     public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId), Filters.mounted)
+        if (TriggerConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId), Filters.mounted)
                 && game.getGameState().getTwilightPool() >= 2) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);

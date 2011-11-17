@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.common.*;
@@ -34,7 +34,7 @@ public class Card1_115 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT, Keyword.SKIRMISH)
+        if (TriggerConditions.played(game, effectResult, CardType.EVENT, Keyword.SKIRMISH)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null) {

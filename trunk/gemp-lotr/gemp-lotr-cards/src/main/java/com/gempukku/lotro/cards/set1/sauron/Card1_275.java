@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -31,7 +32,7 @@ public class Card1_275 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
+        if (TriggerConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
                 && PlayConditions.canExert(self, game, Culture.SAURON, Keyword.TRACKER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

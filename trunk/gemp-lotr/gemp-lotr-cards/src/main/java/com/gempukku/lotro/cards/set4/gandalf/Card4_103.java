@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
@@ -40,7 +41,7 @@ public class Card4_103 extends AbstractAlly {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
-        if (PlayConditions.isGettingDiscarded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
+        if (TriggerConditions.isGettingDiscarded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             Collection<PhysicalCard> discardedHobbits = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Race.HOBBIT);
             final ActivateCardAction action = new ActivateCardAction(self);
