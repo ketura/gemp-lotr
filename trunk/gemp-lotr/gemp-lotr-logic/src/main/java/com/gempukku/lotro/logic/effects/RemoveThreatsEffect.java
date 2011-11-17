@@ -26,18 +26,21 @@ public class RemoveThreatsEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getThreats() >= _count;
+        return game.getGameState().getThreats() >= _count && game.getModifiersQuerying().canRemoveThreat(game.getGameState(), _source);
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        int toRemove = Math.min(game.getGameState().getThreats(), _count);
+        if (game.getModifiersQuerying().canRemoveThreat(game.getGameState(), _source)) {
+            int toRemove = Math.min(game.getGameState().getThreats(), _count);
 
-        if (_source != null)
-            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " removed " + toRemove + " threat" + ((toRemove > 1) ? "s" : ""));
+            if (_source != null)
+                game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " removed " + toRemove + " threat" + ((toRemove > 1) ? "s" : ""));
 
-        game.getGameState().removeThreats(game.getGameState().getCurrentPlayerId(), toRemove);
+            game.getGameState().removeThreats(game.getGameState().getCurrentPlayerId(), toRemove);
 
-        return new FullEffectResult(null, _count == toRemove, _count == toRemove);
+            return new FullEffectResult(null, _count == toRemove, _count == toRemove);
+        }
+        return new FullEffectResult(null, false, false);
     }
 }

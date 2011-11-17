@@ -187,11 +187,11 @@ public class PlayConditions {
     }
 
     public static boolean canRemoveThreat(LotroGame game, PhysicalCard card, int count) {
-        return game.getGameState().getThreats() >= count;
+        return game.getGameState().getThreats() >= count && game.getModifiersQuerying().canRemoveThreat(game.getGameState(), card);
     }
 
     public static boolean canRemoveBurdens(LotroGame game, PhysicalCard card, int count) {
-        return game.getGameState().getBurdens() >= count;
+        return game.getGameState().getBurdens() >= count && game.getModifiersQuerying().canRemoveBurden(game.getGameState(), card);
     }
 
     public static boolean canExertMultiple(PhysicalCard source, LotroGame game, int times, int count, Filterable... filters) {

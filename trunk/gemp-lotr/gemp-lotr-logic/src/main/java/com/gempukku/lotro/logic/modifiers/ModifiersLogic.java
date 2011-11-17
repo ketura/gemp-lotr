@@ -638,6 +638,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return true;
     }
 
+    @Override
+    public boolean canRemoveThreat(GameState gameState, PhysicalCard source) {
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.THREAT_MODIFIER)) {
+            if (!modifier.canRemoveThreat(gameState, this, source))
+                return false;
+        }
+        return true;
+    }
+
     /**
      * Rule of 4. "You cannot draw (or take into hand) more than 4 cards during your fellowship phase."
      *
