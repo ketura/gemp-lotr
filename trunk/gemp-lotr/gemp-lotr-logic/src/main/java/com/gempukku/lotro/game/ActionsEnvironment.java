@@ -32,4 +32,6 @@ public interface ActionsEnvironment {
     public void addActionToStack(Action action);
 
     public <T extends Action> T findTopmostActionOfType(Class<T> clazz);
+
+    public List<PhysicalCard> getPlayedCardsInCurrentPhase();
 }
