@@ -44,7 +44,7 @@ public class Card4_160 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD tracker", Culture.ISENGARD, Filters.keyword(Keyword.TRACKER)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD tracker", Culture.ISENGARD, Keyword.TRACKER) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

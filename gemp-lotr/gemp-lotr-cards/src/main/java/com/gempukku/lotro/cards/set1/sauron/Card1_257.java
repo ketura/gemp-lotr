@@ -39,7 +39,7 @@ public class Card1_257 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.not(Filters.keyword(Keyword.RING_BEARER))));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.not(Keyword.RING_BEARER)));
             return Collections.singletonList(action);
         }
         return null;

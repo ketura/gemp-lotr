@@ -8,7 +8,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
@@ -29,14 +28,14 @@ public class Card4_234 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game, Filters.keyword(Keyword.SOUTHRON));
+                && PlayConditions.canExert(self, game, Keyword.SOUTHRON);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.SOUTHRON)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.SOUTHRON));
         action.appendEffect(
                 new AddTwilightEffect(self, 3));
         return action;

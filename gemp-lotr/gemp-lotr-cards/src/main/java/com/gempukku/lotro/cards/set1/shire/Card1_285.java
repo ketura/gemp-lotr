@@ -42,17 +42,17 @@ public class Card1_285 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), CardType.POSSESSION)) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.PIPEWEED, CardType.POSSESSION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), CardType.POSSESSION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.PIPEWEED, CardType.POSSESSION));
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, PossessionClass.PIPE, Integer.MAX_VALUE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
-                                    Collection<PhysicalCard> talesInDiscard = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.TALE));
+                                    Collection<PhysicalCard> talesInDiscard = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Keyword.TALE);
 
                                     int shufflableTales = Math.min(spotCount, talesInDiscard.size());
                                     action.appendEffect(

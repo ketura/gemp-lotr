@@ -42,7 +42,7 @@ public class Card4_169 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, Filters.keyword(Keyword.ARCHER)), -1));
+                new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, Keyword.ARCHER), -1));
     }
 
     @Override

@@ -37,7 +37,7 @@ public class Card1_251 extends AbstractOldEvent {
         int woundCount = companionCount - 5;
         for (int i = 0; i < woundCount; i++) {
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
         }
         return action;
     }

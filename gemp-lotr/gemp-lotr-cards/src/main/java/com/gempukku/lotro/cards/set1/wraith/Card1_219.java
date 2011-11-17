@@ -33,7 +33,7 @@ public class Card1_219 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Race.NAZGUL))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.not(Filters.keyword(Keyword.RING_BEARER))));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.not(Keyword.RING_BEARER)));
             return Collections.singletonList(action);
         }
         return null;

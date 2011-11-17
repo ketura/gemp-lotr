@@ -35,7 +35,7 @@ public class Card1_308 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(new AddBurdenEffect(self, 1));
         action.appendEffect(
-                new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Filters.keyword(Keyword.RING_BEARER))));
+                new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Keyword.RING_BEARER)));
         return action;
     }
 }

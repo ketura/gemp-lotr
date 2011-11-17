@@ -48,6 +48,6 @@ public class Card4_130 extends AbstractCompanion {
                                 Filters.inSkirmishAgainst(
                                         Filters.and(
                                                 CardType.MINION,
-                                                Filters.keyword(Keyword.ROAMING)))), 2));
+                                                Keyword.ROAMING))), 2));
     }
 }

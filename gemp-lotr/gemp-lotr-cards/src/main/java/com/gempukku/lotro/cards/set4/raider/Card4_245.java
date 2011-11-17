@@ -39,7 +39,7 @@ public class Card4_245 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ArcheryTotalModifier(self, Side.SHADOW,
-                        new SpotCondition(Filters.not(Filters.sameCard(self)), Filters.keyword(Keyword.SOUTHRON)),
+                        new SpotCondition(Filters.not(Filters.sameCard(self)), Keyword.SOUTHRON),
                         new CountSpottableEvaluator(Filters.siteControlled(self.getOwner()))));
     }
 }

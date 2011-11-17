@@ -34,7 +34,7 @@ public class Card4_233 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new ChooseActiveCardEffect(self, playerId, "Choose Southron", Filters.keyword(Keyword.SOUTHRON)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose Southron", Keyword.SOUTHRON) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Make a Southron strength +1 for each burden you spot (limit +5)";

@@ -51,7 +51,7 @@ public class Card4_225 extends AbstractMinion {
                 action.appendCost(
                         new RemoveTwilightEffect(2));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Filters.keyword(Keyword.EASTERLING)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Keyword.EASTERLING) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
@@ -67,7 +67,7 @@ public class Card4_225 extends AbstractMinion {
                 action.appendCost(
                         new RemoveTwilightEffect(2));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Filters.keyword(Keyword.EASTERLING)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Keyword.EASTERLING) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
@@ -83,7 +83,7 @@ public class Card4_225 extends AbstractMinion {
                 action.appendCost(
                         new RemoveTwilightEffect(2));
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Filters.keyword(Keyword.EASTERLING)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose an Easterling", Keyword.EASTERLING) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(

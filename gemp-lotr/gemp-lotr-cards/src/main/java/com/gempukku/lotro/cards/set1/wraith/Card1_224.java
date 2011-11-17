@@ -48,7 +48,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
                             for (Assignment assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
 
-                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) > 0) {
+                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) > 0) {
                                 action.appendEffect(
                                         new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Race.NAZGUL, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                             @Override

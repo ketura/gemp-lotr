@@ -612,7 +612,14 @@ public class Filters {
         };
     }
 
-    public static Filter keyword(final Keyword keyword) {
+    private static final Map<Keyword, Filter> _keywordFilterMap = new HashMap<Keyword, Filter>();
+
+    static {
+        for (Keyword keyword : Keyword.values())
+            _keywordFilterMap.put(keyword, keyword(keyword));
+    }
+
+    private static Filter keyword(final Keyword keyword) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -648,7 +655,7 @@ public class Filters {
         else if (filter instanceof Culture)
             return _cultureFilterMap.get((Culture) filter);
         else if (filter instanceof Keyword)
-            return Filters.keyword((Keyword) filter);
+            return _keywordFilterMap.get((Keyword) filter);
         else if (filter instanceof PossessionClass)
             return _possessionClassFilterMap.get((PossessionClass) filter);
         else if (filter instanceof Race)
@@ -708,8 +715,8 @@ public class Filters {
         };
     }
 
-    public static final Filter unboundCompanion = Filters.and(CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BOUND)));
-    public static final Filter roaminMinion = Filters.and(CardType.MINION, Filters.keyword(Keyword.ROAMING));
+    public static final Filter unboundCompanion = Filters.and(CardType.COMPANION, Filters.not(Keyword.RING_BOUND));
+    public static final Filter roaminMinion = Filters.and(CardType.MINION, Keyword.ROAMING);
     public static final Filter mounted = Filters.hasAttached(PossessionClass.MOUNT);
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

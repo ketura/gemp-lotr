@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -28,7 +27,7 @@ public class Card1_113 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self, true);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.RANGER)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.RANGER));
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
                     @Override
@@ -49,6 +48,6 @@ public class Card1_113 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER)
                 || game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.FOREST))
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER);
     }
 }

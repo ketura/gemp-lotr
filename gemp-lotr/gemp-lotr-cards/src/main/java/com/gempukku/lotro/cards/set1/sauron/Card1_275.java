@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -33,10 +32,10 @@ public class Card1_275 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Filters.keyword(Keyword.TRACKER))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Keyword.TRACKER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Filters.keyword(Keyword.TRACKER)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Keyword.TRACKER));
             action.appendEffect(
                     new CancelEventEffect(self, (PlayEventResult) effectResult));
             return Collections.singletonList(action);

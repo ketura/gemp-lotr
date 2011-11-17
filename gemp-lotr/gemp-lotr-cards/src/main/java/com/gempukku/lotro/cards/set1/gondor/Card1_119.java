@@ -27,7 +27,7 @@ public class Card1_119 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self, true);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a roaming minion", Filters.keyword(Keyword.ROAMING), CardType.MINION) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a roaming minion", Keyword.ROAMING, CardType.MINION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard roamingMinion) {
                         action.appendEffect(
@@ -45,6 +45,6 @@ public class Card1_119 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER);
     }
 }

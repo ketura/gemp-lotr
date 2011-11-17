@@ -24,7 +24,7 @@ public class AfterSkirmishesGameProcess implements GameProcess {
     @Override
     public GameProcess getNextProcess() {
         GameState gameState = _game.getGameState();
-        if (!gameState.isFierceSkirmishes() && Filters.canSpot(gameState, _game.getModifiersQuerying(), CardType.MINION, Filters.keyword(Keyword.FIERCE))) {
+        if (!gameState.isFierceSkirmishes() && Filters.canSpot(gameState, _game.getModifiersQuerying(), CardType.MINION, Keyword.FIERCE)) {
             gameState.setFierceSkirmishes(true);
             return new AssignmentGameProcess(_game);
         } else {

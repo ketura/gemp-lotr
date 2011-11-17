@@ -40,12 +40,12 @@ public class Card4_246 extends AbstractMinion {
         if (game.getGameState().getTwilightPool() > 0
                 && PlayConditions.losesSkirmishAgainst(game.getGameState(), game.getModifiersQuerying(), effectResult,
                 Filters.or(CardType.COMPANION, CardType.ALLY),
-                Filters.keyword(Keyword.SOUTHRON))) {
+                Keyword.SOUTHRON)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION, Filters.keyword(Keyword.RING_BOUND)));
+                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION, Keyword.RING_BOUND));
             return Collections.singletonList(action);
         }
         return null;

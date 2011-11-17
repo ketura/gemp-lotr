@@ -32,6 +32,6 @@ public class Card2_121 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.and(CardType.SITE, Filters.keyword(Keyword.UNDERGROUND)), -2));
+                new TwilightCostModifier(self, Filters.and(CardType.SITE, Keyword.UNDERGROUND), -2));
     }
 }

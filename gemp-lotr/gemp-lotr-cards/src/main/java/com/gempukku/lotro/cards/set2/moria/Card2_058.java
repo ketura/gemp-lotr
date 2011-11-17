@@ -43,7 +43,7 @@ public class Card2_058 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.keyword(Keyword.TENTACLE)));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Keyword.TENTACLE));
             return Collections.singletonList(action);
         }
         return null;

@@ -377,7 +377,7 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean losesSkirmishAgainst(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter loserFilter, Filter winnerFilter) {
+    public static boolean losesSkirmishAgainst(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filterable loserFilter, Filterable winnerFilter) {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
@@ -434,7 +434,7 @@ public class PlayConditions {
         return Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()).accepts(game.getGameState(), game.getModifiersQuerying(), card);
     }
 
-    public static boolean canCardAssignToSkirmish(PhysicalCard source, LotroGame game, Filter filter) {
+    public static boolean canCardAssignToSkirmish(PhysicalCard source, LotroGame game, Filterable filter) {
         return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()), filter) > 0;
     }
 

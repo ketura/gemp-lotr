@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
@@ -35,7 +34,7 @@ public class Card1_115 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT, Filters.keyword(Keyword.SKIRMISH))
+        if (PlayConditions.played(game, effectResult, CardType.EVENT, Keyword.SKIRMISH)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null) {

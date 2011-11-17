@@ -37,7 +37,7 @@ public class Card3_079 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.ARCHER)));
+                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Keyword.ARCHER));
         return action;
     }
 }

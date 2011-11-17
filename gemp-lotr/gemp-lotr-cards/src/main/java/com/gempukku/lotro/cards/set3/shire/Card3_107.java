@@ -40,10 +40,10 @@ public class Card3_107 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), CardType.POSSESSION)) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.PIPEWEED, CardType.POSSESSION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), CardType.POSSESSION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.PIPEWEED, CardType.POSSESSION));
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, PossessionClass.PIPE, Integer.MAX_VALUE) {

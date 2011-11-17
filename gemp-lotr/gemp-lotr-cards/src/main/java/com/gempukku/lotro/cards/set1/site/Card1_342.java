@@ -32,7 +32,7 @@ public class Card1_342 extends AbstractSite {
             self.removeData();
         else if (game.getGameState().getCurrentSite() == self
                 && self.getData() == null
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER)) {
             self.storeData(new Object());
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new MoveLimitModifier(self, 1));

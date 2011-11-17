@@ -39,7 +39,7 @@ public class Card1_142 extends AbstractPermanent {
                     @Override
                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                         return gameState.getBurdens() >= 5
-                                && Filters.canSpot(gameState, modifiersQuerying, Filters.keyword(Keyword.RING_BEARER), Filters.exhausted);
+                                && Filters.canSpot(gameState, modifiersQuerying, Keyword.RING_BEARER, Filters.exhausted);
                     }
                 }, -1);
     }

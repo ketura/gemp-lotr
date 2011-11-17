@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -42,10 +41,10 @@ public class Card2_083 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new WoundCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                    new WoundCharactersEffect(self, Keyword.RING_BEARER));
             if (game.getGameState().getBurdens() >= 5) {
                 action.appendEffect(
-                        new WoundCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                        new WoundCharactersEffect(self, Keyword.RING_BEARER));
             }
             return Collections.singletonList(action);
         }

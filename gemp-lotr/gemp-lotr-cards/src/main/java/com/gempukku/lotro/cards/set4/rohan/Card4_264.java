@@ -44,7 +44,7 @@ public class Card4_264 extends AbstractCompanion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.VILLAGER)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.VILLAGER));
             action.appendEffect(
                     new PreventEffect(takeControlEffect));
             return Collections.singletonList(action);

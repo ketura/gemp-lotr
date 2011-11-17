@@ -75,7 +75,7 @@ public class Card2_053 extends AbstractAttachable {
                 && game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.ARCHER), CardType.COMPANION));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Keyword.ARCHER, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

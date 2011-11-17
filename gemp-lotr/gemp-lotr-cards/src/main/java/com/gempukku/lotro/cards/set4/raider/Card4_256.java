@@ -41,7 +41,7 @@ public class Card4_256 extends AbstractMinion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canSpot(game, Filters.keyword(Keyword.SOUTHRON));
+                && PlayConditions.canSpot(game, Keyword.SOUTHRON);
     }
 
     @Override
@@ -52,12 +52,12 @@ public class Card4_256 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new PreventableEffect(action,
-                            new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)), self),
+                            new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER), self),
                             game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String fpPlayerId) {
-                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
+                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)) {
                                         @Override
                                         public String getText(LotroGame game) {
                                             return "Make " + playerId + " discard a companion (except the Ring-bearer)";

@@ -29,7 +29,7 @@ public class Card2_113 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.keyword(Keyword.TALE))
+        if (PlayConditions.played(game, effectResult, Keyword.TALE)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Bilbo"))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

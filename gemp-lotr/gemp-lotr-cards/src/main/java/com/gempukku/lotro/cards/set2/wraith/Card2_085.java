@@ -62,9 +62,9 @@ public class Card2_085 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new WoundCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                    new WoundCharactersEffect(self, Keyword.RING_BEARER));
             action.appendEffect(
-                    new WoundCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                    new WoundCharactersEffect(self, Keyword.RING_BEARER));
             return Collections.singletonList(action);
         }
         return null;

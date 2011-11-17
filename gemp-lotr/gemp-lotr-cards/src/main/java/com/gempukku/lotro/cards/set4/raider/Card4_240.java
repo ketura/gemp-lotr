@@ -47,7 +47,7 @@ public class Card4_240 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER)));
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, CardType.COMPANION, Filters.not(Keyword.RING_BEARER));
                             }
                         }
                 ));

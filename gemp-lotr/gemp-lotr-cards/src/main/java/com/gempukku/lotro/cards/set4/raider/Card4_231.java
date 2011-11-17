@@ -37,9 +37,9 @@ public class Card4_231 extends AbstractPermanent {
                 && game.getGameState().getCurrentSiteNumber() == 2 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Filters.keyword(Keyword.RING_BOUND))));
+                    new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND)));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Filters.keyword(Keyword.RING_BOUND))));
+                    new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND)));
             return Collections.singletonList(action);
         }
         return null;
@@ -55,7 +55,7 @@ public class Card4_231 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Race.MAN));
             action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.keyword(Keyword.RING_BOUND)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Keyword.RING_BOUND));
             return Collections.singletonList(action);
         }
         return null;

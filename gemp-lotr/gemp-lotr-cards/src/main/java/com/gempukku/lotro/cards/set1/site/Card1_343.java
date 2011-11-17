@@ -37,18 +37,18 @@ public class Card1_343 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.keyword(Keyword.TALE))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Keyword.TALE)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.keyword(Keyword.TALE)) {
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Keyword.TALE) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard Tale from play";
                         }
                     });
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Filters.keyword(Keyword.TALE)) {
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Keyword.TALE) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard Tale from hand";

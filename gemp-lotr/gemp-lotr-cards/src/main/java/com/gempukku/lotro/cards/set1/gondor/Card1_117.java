@@ -31,8 +31,8 @@ public class Card1_117 extends AbstractOldEvent {
 
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Filters.keyword(Keyword.ROAMING))),
-                        Filters.keyword(Keyword.RANGER)));
+                        new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Keyword.ROAMING)),
+                        Keyword.RANGER));
         return action;
     }
 

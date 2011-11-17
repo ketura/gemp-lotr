@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -39,7 +38,7 @@ public class Card4_213 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
-                    new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.ISENGARD, Filters.keyword(Keyword.TRACKER)) {
+                    new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.ISENGARD, Keyword.TRACKER) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {
