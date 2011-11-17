@@ -105,6 +105,10 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean canBeAssignedToSkirmishByEffect(PhysicalCard source, LotroGame game, Filterable... filters) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(filters), Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()));
+    }
+
     public static boolean canSelfExert(PhysicalCard self, LotroGame game) {
         return canExert(self, game, 1, 1, self);
     }
