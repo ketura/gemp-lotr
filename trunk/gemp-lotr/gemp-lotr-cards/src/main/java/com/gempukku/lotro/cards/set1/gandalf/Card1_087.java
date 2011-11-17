@@ -28,7 +28,7 @@ public class Card1_087 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndPlayCardFromDeckEffect(playerId, Filters.and(Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)))));
+                new ChooseAndPlayCardFromDeckEffect(playerId, Filters.and(Filters.culture(Culture.GANDALF), Filters.or(CardType.COMPANION, CardType.ALLY))));
         return action;
     }
 

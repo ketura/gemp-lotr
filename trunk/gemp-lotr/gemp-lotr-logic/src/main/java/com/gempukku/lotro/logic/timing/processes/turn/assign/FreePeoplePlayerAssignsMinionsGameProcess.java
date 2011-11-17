@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.timing.processes.turn.assign;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
@@ -41,7 +42,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                     protected void doPlayEffect(final LotroGame game) {
                         final GameState gameState = game.getGameState();
 
-                        Filter minionFilter = Filters.type(CardType.MINION);
+                        Filterable minionFilter = CardType.MINION;
                         if (gameState.isFierceSkirmishes())
                             minionFilter = Filters.and(
                                     Filters.keyword(Keyword.FIERCE),
@@ -52,7 +53,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                             final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, game.getModifiersQuerying(),
                                     Filters.or(
                                             Filters.and(
-                                                    Filters.type(CardType.COMPANION),
+                                                    CardType.COMPANION,
                                                     Filters.or(
                                                             Filters.not(Keyword.UNHASTY),
                                                             new Filter() {
@@ -64,7 +65,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                                     )
                                             ),
                                             Filters.and(
-                                                    Filters.type(CardType.ALLY),
+                                                    CardType.ALLY,
                                                     Filters.or(
                                                             Filters.and(
                                                                     Filters.allyAtHome,

@@ -84,11 +84,11 @@ public class Card3_069 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), CardType.MINION, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard minion) {
                             action.appendEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer companion", Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer companion", CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                                             action.appendEffect(

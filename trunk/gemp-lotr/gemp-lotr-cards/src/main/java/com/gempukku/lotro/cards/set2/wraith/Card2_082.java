@@ -38,7 +38,7 @@ public class Card2_082 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.ALLY)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

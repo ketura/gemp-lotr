@@ -47,7 +47,7 @@ public class Card1_085 extends AbstractResponseOldEvent {
             Collection<PhysicalCard> exertedCharacters = exertEffect.getAffectedCardsMinusPrevented(game);
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose character", Filters.type(CardType.COMPANION), Filters.in(exertedCharacters)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose character", CardType.COMPANION, Filters.in(exertedCharacters)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(

@@ -49,7 +49,7 @@ public class Card3_016 extends AbstractOldEvent {
                                             PhysicalCard revealedCard = revealedCards.get(0);
                                             int twilightCost = revealedCard.getBlueprint().getTwilightCost();
                                             action.appendEffect(
-                                                    new ChooseAndHealCharactersEffect(action, playerId, twilightCost, twilightCost, Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
+                                                    new ChooseAndHealCharactersEffect(action, playerId, twilightCost, twilightCost, Filters.culture(Culture.ELVEN), CardType.ALLY));
                                         }
                                     }
                                 });

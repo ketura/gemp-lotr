@@ -44,7 +44,7 @@ public class Card2_081 extends AbstractOldEvent {
                     @Override
                     protected void burdensSpotted(int burdensSpotted) {
                         action.insertEffect(
-                                new ChooseAndExertCharactersEffect(action, playerId, burdensSpotted, burdensSpotted, Filters.type(CardType.COMPANION)));
+                                new ChooseAndExertCharactersEffect(action, playerId, burdensSpotted, burdensSpotted, CardType.COMPANION));
                     }
                 });
         return action;

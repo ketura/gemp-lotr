@@ -41,7 +41,7 @@ public class Card4_102 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
         action.appendEffect(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, Filters.type(CardType.MINION), Filters.wounded));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, CardType.MINION, Filters.wounded));
         return action;
     }
 }

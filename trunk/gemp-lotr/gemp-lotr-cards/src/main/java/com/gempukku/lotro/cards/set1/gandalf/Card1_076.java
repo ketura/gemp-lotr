@@ -53,7 +53,7 @@ public class Card1_076 extends AbstractResponseOldEvent {
 
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION), Filters.in(cardsToBeWounded)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.in(cardsToBeWounded)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard companion) {
                             action.appendEffect(

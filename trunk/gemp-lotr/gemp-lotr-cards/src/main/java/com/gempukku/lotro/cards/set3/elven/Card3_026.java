@@ -40,7 +40,7 @@ public class Card3_026 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
         action.appendEffect(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.ARTIFACT))));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.or(CardType.POSSESSION, CardType.ARTIFACT)));
         return action;
     }
 }

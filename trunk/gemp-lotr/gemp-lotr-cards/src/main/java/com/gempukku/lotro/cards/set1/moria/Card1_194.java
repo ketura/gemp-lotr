@@ -39,7 +39,7 @@ public class Card1_194 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)) >= 3
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), CardType.MINION) >= 3
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(new CancelEventEffect(self, (PlayEventResult) effectResult));

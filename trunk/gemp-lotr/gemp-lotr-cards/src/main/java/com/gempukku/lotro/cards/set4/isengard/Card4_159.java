@@ -56,7 +56,7 @@ public class Card4_159 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)));
+        return Filters.and(CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER)));
     }
 
     @Override

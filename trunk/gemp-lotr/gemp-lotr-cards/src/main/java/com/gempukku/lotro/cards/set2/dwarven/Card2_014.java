@@ -33,7 +33,7 @@ public class Card2_014 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
-            Collection<PhysicalCard> dwarfCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
+            Collection<PhysicalCard> dwarfCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), CardType.COMPANION);
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             for (final PhysicalCard dwarfCompanion : dwarfCompanions) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);

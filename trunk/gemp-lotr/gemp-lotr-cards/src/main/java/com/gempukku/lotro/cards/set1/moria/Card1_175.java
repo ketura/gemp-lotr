@@ -32,12 +32,12 @@ public class Card1_175 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.MINION));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), CardType.MINION);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.type(CardType.COMPANION))
+        if (PlayConditions.played(game, effectResult, CardType.COMPANION)
                 && game.getGameState().getCurrentSiteNumber() >= 4 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);

@@ -47,16 +47,16 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
             if (attachedTo.getCardType() == CardType.COMPANION) {
                 validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
-                                Filters.type(CardType.COMPANION),
+                                CardType.COMPANION,
                                 Filters.allyAtHome));
             } else if (attachedTo.isAllyAtHome(gameState.getCurrentSiteNumber(), gameState.getCurrentSite().getBlueprint().getSiteBlock())) {
                 validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
-                                Filters.type(CardType.COMPANION),
+                                CardType.COMPANION,
                                 Filters.allyAtHome));
             } else {
                 validTransferFilter = Filters.and(validTargetFilter,
-                        Filters.type(CardType.ALLY), Filters.allyAtHome
+                        CardType.ALLY, Filters.allyAtHome
                 );
             }
 

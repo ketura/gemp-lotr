@@ -2,7 +2,6 @@ package com.gempukku.lotro.logic.timing.processes.turn;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.CanSpotGameProcess;
@@ -27,6 +26,6 @@ public class ManeuverGameProcess implements GameProcess {
         return new StartOfPhaseGameProcess(_game, Phase.MANEUVER,
                 new PlayersPlayPhaseActionsInOrderGameProcess(_game, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0,
                         new EndOfPhaseGameProcess(_game, Phase.MANEUVER,
-                                new CanSpotGameProcess(_game, Filters.type(CardType.MINION), new ArcheryGameProcess(_game), new RegroupGameProcess(_game)))));
+                                new CanSpotGameProcess(_game, CardType.MINION, new ArcheryGameProcess(_game), new RegroupGameProcess(_game)))));
     }
 }

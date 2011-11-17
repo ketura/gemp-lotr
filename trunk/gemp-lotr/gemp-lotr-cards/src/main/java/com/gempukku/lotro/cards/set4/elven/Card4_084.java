@@ -51,7 +51,7 @@ public class Card4_084 extends AbstractOldEvent {
                     }
                 });
         possibleEffects.add(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Exert a minion";

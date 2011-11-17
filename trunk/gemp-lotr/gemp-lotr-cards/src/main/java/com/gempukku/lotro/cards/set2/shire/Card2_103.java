@@ -48,7 +48,7 @@ public class Card2_103 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), Filters.hasAttached(Filters.weapon)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose minion", Filters.type(CardType.MINION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(

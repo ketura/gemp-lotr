@@ -61,7 +61,7 @@ public class Card4_033 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             for (int i = 0; i < dunlandManCount; i++)
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.type(CardType.COMPANION)));
+                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

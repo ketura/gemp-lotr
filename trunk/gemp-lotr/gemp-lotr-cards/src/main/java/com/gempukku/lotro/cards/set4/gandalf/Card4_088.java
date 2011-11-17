@@ -49,7 +49,7 @@ public class Card4_088 extends AbstractPermanent {
             int tokenCount = game.getGameState().getTokenCount(self, Token.GANDALF);
             for (int i = 0; i < tokenCount; i++)
                 action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.gandalf)));
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.gandalf)));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

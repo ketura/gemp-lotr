@@ -31,7 +31,7 @@ public class Card3_003 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.DWARVEN), Filters.keyword(Keyword.TALE)))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.DWARF), Filters.type(CardType.COMPANION)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.DWARF), CardType.COMPANION));
             return Collections.singletonList(action);
         }
 

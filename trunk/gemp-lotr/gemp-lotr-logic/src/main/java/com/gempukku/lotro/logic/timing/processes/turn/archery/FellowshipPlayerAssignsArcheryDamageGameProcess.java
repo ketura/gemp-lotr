@@ -31,9 +31,9 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
             Filter filter =
                     Filters.and(
                             Filters.or(
-                                    Filters.type(CardType.COMPANION),
+                                    CardType.COMPANION,
                                     Filters.and(
-                                            Filters.type(CardType.ALLY),
+                                            CardType.ALLY,
                                             Filters.or(
                                                     Filters.and(
                                                             Filters.allyAtHome,

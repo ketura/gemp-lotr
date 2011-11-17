@@ -36,7 +36,7 @@ public class Card1_277 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples condition", Filters.side(Side.FREE_PEOPLE), CardType.CONDITION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard fpCondition) {
                         action.appendEffect(

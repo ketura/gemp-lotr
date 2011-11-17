@@ -30,7 +30,7 @@ public class Card1_113 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.keyword(Keyword.RANGER)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard minion) {
                         action.appendEffect(new ExhaustCharacterEffect(self, action, minion));

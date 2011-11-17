@@ -34,10 +34,10 @@ public class Card1_331 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.MINION), Filters.owner(playerId))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.MINION)), Filters.owner(playerId)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(CardType.COMPANION, CardType.MINION), Filters.owner(playerId)) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(

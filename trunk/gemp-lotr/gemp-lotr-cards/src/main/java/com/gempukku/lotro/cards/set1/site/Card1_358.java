@@ -35,7 +35,7 @@ public class Card1_358 extends AbstractSite {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, 1, Filters.culture(Culture.GONDOR)));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION), Filters.culture(Culture.GONDOR)));
+                    new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION, Filters.culture(Culture.GONDOR)));
             return Collections.singletonList(action);
         }
         return null;

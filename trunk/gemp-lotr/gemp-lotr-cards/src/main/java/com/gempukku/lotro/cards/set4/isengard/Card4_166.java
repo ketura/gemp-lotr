@@ -34,13 +34,13 @@ public class Card4_166 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canSpot(game, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
+                && PlayConditions.canSpot(game, Filters.culture(Culture.ISENGARD), CardType.MINION);
     }
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)
-                && PlayConditions.canSpot(game, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION))) {
+                && PlayConditions.canSpot(game, Filters.culture(Culture.ISENGARD), CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));

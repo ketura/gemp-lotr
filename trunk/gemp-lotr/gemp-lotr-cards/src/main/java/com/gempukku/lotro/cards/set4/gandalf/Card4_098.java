@@ -46,7 +46,7 @@ public class Card4_098 extends AbstractOldEvent {
         action.appendEffect(
                 new WoundCharactersEffect(self,
                         Filters.and(
-                                Filters.type(CardType.MINION),
+                                CardType.MINION,
                                 new Filter() {
                                     @Override
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

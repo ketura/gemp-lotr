@@ -25,7 +25,7 @@ public class Card4_260 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)),
+                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.or(CardType.COMPANION, CardType.ALLY),
                         Filters.inSkirmishAgainst(Filters.culture(Culture.RAIDER), Filters.race(Race.MAN))));
         return action;
     }

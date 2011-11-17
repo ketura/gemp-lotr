@@ -354,13 +354,11 @@ public class Filters {
         }
     };
 
-    private static Map<Signet, Filter> _signetFilterMap = new HashMap<Signet, Filter>();
+    private static final Map<Signet, Filter> _signetFilterMap = new HashMap<Signet, Filter>();
 
     static {
-        _signetFilterMap.put(Signet.ARAGORN, Filters.signet(Signet.ARAGORN));
-        _signetFilterMap.put(Signet.FRODO, Filters.signet(Signet.FRODO));
-        _signetFilterMap.put(Signet.GANDALF, Filters.signet(Signet.GANDALF));
-        _signetFilterMap.put(Signet.THÉODEN, Filters.signet(Signet.THÉODEN));
+        for (Signet signet : Signet.values())
+            _signetFilterMap.put(signet, signet(signet));
     }
 
     private static Filter signet(final Signet signet) {
@@ -404,7 +402,7 @@ public class Filters {
 
     public static Filter isAllyHome(final int siteNumber, final Block siteBlock) {
         return Filters.and(
-                Filters.type(CardType.ALLY),
+                CardType.ALLY,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -414,7 +412,7 @@ public class Filters {
     }
 
     public static final Filter allyAtHome = Filters.and(
-            Filters.type(CardType.ALLY),
+            CardType.ALLY,
             new Filter() {
                 @Override
                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -520,7 +518,14 @@ public class Filters {
         };
     }
 
-    public static Filter type(final CardType cardType) {
+    private static final Map<CardType, Filter> _typeFilterMap = new HashMap<CardType, Filter>();
+
+    static {
+        for (CardType cardType : CardType.values())
+            _typeFilterMap.put(cardType, type(cardType));
+    }
+
+    private static Filter type(final CardType cardType) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -604,7 +609,7 @@ public class Filters {
         else if (filter instanceof PhysicalCard)
             return Filters.sameCard((PhysicalCard) filter);
         else if (filter instanceof CardType)
-            return Filters.type((CardType) filter);
+            return _typeFilterMap.get((CardType) filter);
         else if (filter instanceof Culture)
             return Filters.culture((Culture) filter);
         else if (filter instanceof Keyword)
@@ -668,8 +673,8 @@ public class Filters {
         };
     }
 
-    public static final Filter unboundCompanion = Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BOUND)));
-    public static final Filter roaminMinion = Filters.and(Filters.type(CardType.MINION), Filters.keyword(Keyword.ROAMING));
+    public static final Filter unboundCompanion = Filters.and(CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BOUND)));
+    public static final Filter roaminMinion = Filters.and(CardType.MINION, Filters.keyword(Keyword.ROAMING));
     public static final Filter mounted = Filters.hasAttached(Filters.possessionClass(PossessionClass.MOUNT));
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

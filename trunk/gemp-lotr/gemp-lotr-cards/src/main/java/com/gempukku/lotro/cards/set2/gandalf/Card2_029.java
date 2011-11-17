@@ -46,7 +46,7 @@ public class Card2_029 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose minion", Filters.type(CardType.MINION)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

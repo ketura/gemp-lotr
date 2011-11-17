@@ -51,7 +51,7 @@ public class Card4_172 extends AbstractAttachable {
                     && assignmentResult.getAssignments().keySet().contains(self.getAttachedTo())) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new ExertCharactersEffect(self, Filters.type(CardType.ALLY)));
+                        new ExertCharactersEffect(self, CardType.ALLY));
                 return Collections.singletonList(action);
             }
         }

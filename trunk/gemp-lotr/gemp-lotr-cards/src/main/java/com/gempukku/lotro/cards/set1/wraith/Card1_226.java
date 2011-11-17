@@ -35,7 +35,7 @@ public class Card1_226 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
         action.appendEffect(
-                new WoundCharactersEffect(self, Filters.type(CardType.ALLY)));
+                new WoundCharactersEffect(self, CardType.ALLY));
         return action;
     }
 

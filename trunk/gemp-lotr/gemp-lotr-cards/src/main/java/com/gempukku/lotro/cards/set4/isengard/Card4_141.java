@@ -43,7 +43,7 @@ public class Card4_141 extends AbstractResponseOldEvent {
                 && PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             KillResult killResult = (KillResult) effectResult;
-            Collection<PhysicalCard> killedChars = Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)));
+            Collection<PhysicalCard> killedChars = Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.ALLY, CardType.COMPANION));
             if (killedChars.size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);
 

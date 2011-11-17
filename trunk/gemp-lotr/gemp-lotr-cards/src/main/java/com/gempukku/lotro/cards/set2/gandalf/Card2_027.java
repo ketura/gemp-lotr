@@ -54,7 +54,7 @@ public class Card2_027 extends AbstractOldEvent {
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf, Filters.inSkirmish))
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(
-                            action, playerId, 1, 1, Filters.type(CardType.MINION), Filters.inSkirmish));
+                            action, playerId, 1, 1, CardType.MINION, Filters.inSkirmish));
         return action;
     }
 

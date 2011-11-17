@@ -30,7 +30,7 @@ public class Card4_241 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int bonus = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 6) ? 5 : 3;
+                        int bonus = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 6) ? 5 : 3;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));

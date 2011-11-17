@@ -47,7 +47,7 @@ public class Card1_316 extends AbstractPermanent {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "Spot 2 Hobbit companions to make the shadow number -1 (or spot 4 to make it -2)",
                 Filters.and(
-                        Filters.type(CardType.SITE),
+                        CardType.SITE,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -57,7 +57,7 @@ public class Card1_316 extends AbstractPermanent {
                 ), ModifierEffect.TWILIGHT_COST_MODIFIER) {
             @Override
             public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
-                int hobbitsCount = Filters.countSpottable(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT));
+                int hobbitsCount = Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION, Filters.race(Race.HOBBIT));
                 if (hobbitsCount >= 4)
                     return -2;
                 if (hobbitsCount >= 2)

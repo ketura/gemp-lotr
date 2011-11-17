@@ -47,7 +47,7 @@ public class Card4_256 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
-                && PlayConditions.canSpot(game, 7, Filters.type(CardType.COMPANION))
+                && PlayConditions.canSpot(game, 7, CardType.COMPANION)
                 && PlayConditions.canCardAssignToSkirmish(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
@@ -57,7 +57,7 @@ public class Card4_256 extends AbstractMinion {
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String fpPlayerId) {
-                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
+                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                                         @Override
                                         public String getText(LotroGame game) {
                                             return "Make " + playerId + " discard a companion (except the Ring-bearer)";

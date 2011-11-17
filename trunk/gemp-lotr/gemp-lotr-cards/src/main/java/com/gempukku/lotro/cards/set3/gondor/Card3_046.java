@@ -39,7 +39,7 @@ public class Card3_046 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose GONDOR companion", Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose GONDOR companion", Filters.culture(Culture.GONDOR), CardType.COMPANION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(

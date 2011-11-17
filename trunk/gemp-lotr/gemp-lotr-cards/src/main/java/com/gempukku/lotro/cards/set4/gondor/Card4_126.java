@@ -49,7 +49,7 @@ public class Card4_126 extends AbstractPermanent {
             int tokens = Math.min(3, game.getGameState().getTokenCount(self, Token.GONDOR));
             for (int i = 0; i < tokens; i++)
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

@@ -50,7 +50,7 @@ public class Card1_307 extends AbstractCompanion {
                 }
             });
             possibleEffects.add(
-                    new ChooseAndHealCharactersEffect(action, self.getOwner(), Filters.type(CardType.COMPANION)) {
+                    new ChooseAndHealCharactersEffect(action, self.getOwner(), CardType.COMPANION) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Heal a companion";

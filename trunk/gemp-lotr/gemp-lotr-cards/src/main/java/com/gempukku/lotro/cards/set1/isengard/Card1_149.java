@@ -38,7 +38,7 @@ public class Card1_149 extends AbstractMinion {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION));
+                                return Filters.canSpot(gameState, modifiersQuerying, Filters.keyword(Keyword.WEATHER), CardType.CONDITION);
                             }
                         }), 3);
     }

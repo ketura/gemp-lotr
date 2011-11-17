@@ -30,7 +30,7 @@ public class Card2_098 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Card2_098 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.COMPANION)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         Signet signet = character.getBlueprint().getSignet();

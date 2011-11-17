@@ -35,7 +35,7 @@ public class Card1_212 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose an ally", Filters.type(CardType.ALLY)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose an ally", CardType.ALLY) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard ally) {
                         action.appendEffect(

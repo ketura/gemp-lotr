@@ -27,7 +27,7 @@ public class Card4_003 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && (
-                Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DUNLAND), Filters.type(CardType.MINION)) >= 3
+                Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DUNLAND), CardType.MINION) >= 3
                         || Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)));
     }
 

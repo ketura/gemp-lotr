@@ -36,10 +36,10 @@ public class Card4_146 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new AllyParticipatesInArcheryFireModifier(self, Filters.type(CardType.ALLY)), Phase.ARCHERY));
+                            new AllyParticipatesInArcheryFireModifier(self, CardType.ALLY), Phase.ARCHERY));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new CantTakeWoundsModifier(self, Filters.type(CardType.COMPANION)), Phase.ARCHERY));
+                            new CantTakeWoundsModifier(self, CardType.COMPANION), Phase.ARCHERY));
             return Collections.singletonList(action);
         }
         return null;

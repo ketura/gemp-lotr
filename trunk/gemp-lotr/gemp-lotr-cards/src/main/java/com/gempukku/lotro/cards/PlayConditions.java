@@ -113,8 +113,8 @@ public class PlayConditions {
     }
 
     private static int getTotalCompanions(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.COMPANION))
-                + Filters.filter(gameState.getDeadPile(playerId), gameState, modifiersQuerying, Filters.type(CardType.COMPANION)).size();
+        return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION)
+                + Filters.filter(gameState.getDeadPile(playerId), gameState, modifiersQuerying, CardType.COMPANION).size();
     }
 
     public static boolean checkRuleOfNine(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {

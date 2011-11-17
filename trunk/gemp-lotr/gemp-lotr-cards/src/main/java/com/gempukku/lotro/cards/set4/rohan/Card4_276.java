@@ -48,7 +48,7 @@ public class Card4_276 extends AbstractPermanent {
             int tokenCount = game.getGameState().getTokenCount(self, Token.ROHAN);
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, tokenCount, tokenCount, Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, tokenCount, tokenCount, Filters.side(Side.SHADOW), CardType.CONDITION));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

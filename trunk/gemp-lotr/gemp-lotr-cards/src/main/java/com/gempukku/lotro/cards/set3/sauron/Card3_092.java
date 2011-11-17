@@ -27,7 +27,7 @@ public class Card3_092 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), CardType.MINION);
     }
 
     @Override
@@ -39,15 +39,15 @@ public class Card3_092 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), CardType.MINION));
         int cardsCount = 0;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.DWARF)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.DWARF)))
             cardsCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.ELF)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.ELF)))
             cardsCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.MAN)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.MAN)))
             cardsCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.WIZARD)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.WIZARD)))
             cardsCount++;
         for (int i = 0; i < cardsCount; i++)
             action.appendEffect(

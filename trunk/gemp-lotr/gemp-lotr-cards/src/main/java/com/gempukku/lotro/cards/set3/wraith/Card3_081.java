@@ -40,7 +40,7 @@ public class Card3_081 extends AbstractPermanent {
             if (addBurdenResult.getSource().getBlueprint().getCulture() == Culture.WRAITH) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.type(CardType.COMPANION)));
+                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
                 return Collections.singletonList(action);
             }
         }

@@ -36,10 +36,10 @@ public class Card1_205 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
-        boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION)));
+        boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE), Filters.or(CardType.POSSESSION, CardType.CONDITION));
         if (firstEffect) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(Filters.type(CardType.POSSESSION), Filters.type(CardType.CONDITION))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(CardType.POSSESSION, CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
                             action.appendEffect(
@@ -48,7 +48,7 @@ public class Card1_205 extends AbstractOldEvent {
                     });
         } else {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION)), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(CardType.ALLY, CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
                             action.appendEffect(

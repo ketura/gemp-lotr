@@ -48,7 +48,7 @@ public class Card4_261 extends AbstractPermanent {
                             if (Filters.canSpot(gameState, modifiersQuerying, Filters.culture(Culture.RAIDER), Filters.race(Race.MAN))
                                     && playEventAction.isRequiresRanger())
                                 playEventAction.appendCost(
-                                        new ChooseAndWoundCharactersEffect(playEventAction, performingPlayer, 1, 1, Filters.type(CardType.COMPANION)));
+                                        new ChooseAndWoundCharactersEffect(playEventAction, performingPlayer, 1, 1, CardType.COMPANION));
                         }
 
                         return true;

@@ -46,7 +46,7 @@ public class Card4_171 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.type(CardType.COMPANION), Filters.not(Filters.hasAttached(Filters.name("Rest While You Can"))));
+        return Filters.and(CardType.COMPANION, Filters.not(Filters.hasAttached(Filters.name("Rest While You Can"))));
     }
 
     @Override

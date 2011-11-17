@@ -48,8 +48,8 @@ public class Card4_085 extends AbstractCompanion {
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1,
-                            Filters.or(Filters.type(CardType.CONDITION), Filters.type(CardType.SITE)),
-                            Filters.type(CardType.MINION)));
+                            Filters.or(CardType.CONDITION, CardType.SITE),
+                            CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

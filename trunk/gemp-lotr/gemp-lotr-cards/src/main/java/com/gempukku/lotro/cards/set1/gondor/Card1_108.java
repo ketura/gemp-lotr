@@ -32,6 +32,6 @@ public class Card1_108 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.type(CardType.SITE), -1);
+        return new TwilightCostModifier(self, CardType.SITE, -1);
     }
 }

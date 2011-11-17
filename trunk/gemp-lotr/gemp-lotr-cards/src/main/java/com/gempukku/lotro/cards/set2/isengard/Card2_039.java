@@ -41,13 +41,13 @@ public class Card2_039 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
-        int companions = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
+        int companions = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
         if (companions >= 6)
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self,
                             Filters.and(
                                     Filters.side(Side.FREE_PEOPLE),
-                                    Filters.type(CardType.POSSESSION),
+                                    CardType.POSSESSION,
                                     Filters.or(
                                             Filters.possessionClass(PossessionClass.ARMOR),
                                             Filters.possessionClass(PossessionClass.HELM),
@@ -57,7 +57,7 @@ public class Card2_039 extends AbstractOldEvent {
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(
                             action, playerId, 1, 1,
-                            Filters.type(CardType.POSSESSION),
+                            CardType.POSSESSION,
                             Filters.or(
                                     Filters.possessionClass(PossessionClass.ARMOR),
                                     Filters.possessionClass(PossessionClass.HELM),

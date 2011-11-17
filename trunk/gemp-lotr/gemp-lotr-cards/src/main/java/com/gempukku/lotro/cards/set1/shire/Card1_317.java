@@ -43,7 +43,7 @@ public class Card1_317 extends AbstractAttachable {
             action.appendCost(new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.and(Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT)), 2), Phase.REGROUP));
+                            new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.race(Race.HOBBIT)), 2), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

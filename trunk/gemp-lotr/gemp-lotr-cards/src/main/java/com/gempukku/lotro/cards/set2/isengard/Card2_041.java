@@ -49,7 +49,7 @@ public class Card2_041 extends AbstractOldEvent {
                     @Override
                     protected void burdensSpotted(int burdensSpotted) {
                         action.insertEffect(
-                                new ChooseCardsFromDiscardEffect(playerId, burdensSpotted, burdensSpotted, Filters.type(CardType.MINION)) {
+                                new ChooseCardsFromDiscardEffect(playerId, burdensSpotted, burdensSpotted, CardType.MINION) {
                                     @Override
                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                         action.insertEffect(

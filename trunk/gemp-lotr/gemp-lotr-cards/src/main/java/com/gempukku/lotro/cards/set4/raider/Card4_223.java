@@ -37,7 +37,7 @@ public class Card4_223 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)));
         int maxDiscard = (game.getGameState().getBurdens() >= 3) ? 2 : 1;
         action.appendEffect(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, maxDiscard, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.CONDITION)));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, maxDiscard, Filters.side(Side.FREE_PEOPLE), CardType.CONDITION));
         return action;
     }
 

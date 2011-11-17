@@ -28,8 +28,8 @@ public class Card2_023 extends AbstractPermanent {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new AbstractModifier(self, "The twilight cost of each possession or artifact played on Gandalf or a character who has the Gandalf signet is -1",
                 Filters.or(
-                        Filters.type(CardType.POSSESSION),
-                        Filters.type(CardType.ARTIFACT)), ModifierEffect.TWILIGHT_COST_MODIFIER) {
+                        CardType.POSSESSION,
+                        CardType.ARTIFACT), ModifierEffect.TWILIGHT_COST_MODIFIER) {
             @Override
             public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
                 if (physicalCard.getBlueprint().getCardType() == CardType.POSSESSION || physicalCard.getBlueprint().getCardType() == CardType.ARTIFACT) {

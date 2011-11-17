@@ -55,7 +55,7 @@ public class Card4_028 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard dunlandMan) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new CancelStrengthBonusModifier(self, Filters.and(Filters.type(CardType.POSSESSION), Filters.attachedTo(Filters.inSkirmishAgainst(Filters.sameCard(dunlandMan))))), Phase.SKIRMISH));
+                                            new CancelStrengthBonusModifier(self, Filters.and(CardType.POSSESSION, Filters.attachedTo(Filters.inSkirmishAgainst(Filters.sameCard(dunlandMan))))), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);

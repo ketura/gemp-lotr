@@ -34,13 +34,13 @@ public class Card3_106 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION));
+        return Filters.and(Filters.race(Race.HOBBIT), CardType.COMPANION);
     }
 
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.type(CardType.SITE), -1));
+                new TwilightCostModifier(self, CardType.SITE, -1));
     }
 
     @Override

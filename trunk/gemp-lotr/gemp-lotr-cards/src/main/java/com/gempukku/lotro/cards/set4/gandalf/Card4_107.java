@@ -56,7 +56,7 @@ public class Card4_107 extends AbstractAttachable {
     public List<? extends Action> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL) {
             KillResult killResult = (KillResult) effectResult;
-            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION), Filters.culture(Culture.ISENGARD)).size() > 0) {
+            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.culture(Culture.ISENGARD)).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new DiscardCardsFromPlayEffect(self, self));

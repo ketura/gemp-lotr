@@ -40,7 +40,7 @@ public class Card3_001 extends AbstractAttachable {
                 && game.getGameState().getCurrentSiteNumber() >= 4
                 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), Filters.type(CardType.COMPANION));
+            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), CardType.COMPANION);
             action.appendEffect(
                     new DrawCardEffect(playerId, dwarfCompanions));
             return Collections.singletonList(action);

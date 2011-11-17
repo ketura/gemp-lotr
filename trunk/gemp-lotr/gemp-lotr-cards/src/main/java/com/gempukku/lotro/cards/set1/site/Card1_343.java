@@ -57,7 +57,7 @@ public class Card1_343 extends AbstractSite {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.owner(playerId), Filters.type(CardType.COMPANION)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.owner(playerId), CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

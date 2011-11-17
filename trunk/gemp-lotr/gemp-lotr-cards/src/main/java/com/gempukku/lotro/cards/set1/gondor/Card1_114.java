@@ -35,7 +35,7 @@ public class Card1_114 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION));
+        return Filters.and(Filters.culture(Culture.GONDOR), CardType.COMPANION);
     }
 
     @Override

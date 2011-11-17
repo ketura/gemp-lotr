@@ -45,7 +45,7 @@ public class Card4_055 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition", Filters.culture(Culture.DWARVEN), Filters.type(CardType.CONDITION)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition", Filters.culture(Culture.DWARVEN), CardType.CONDITION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
@@ -54,7 +54,7 @@ public class Card4_055 extends AbstractOldEvent {
                                     protected void cardsShuffledCallback(Set<PhysicalCard> cardsShuffled) {
                                         for (int i = 0; i < cardsShuffled.size(); i++)
                                             action.appendEffect(
-                                                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)));
+                                                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
                                     }
                                 });
 

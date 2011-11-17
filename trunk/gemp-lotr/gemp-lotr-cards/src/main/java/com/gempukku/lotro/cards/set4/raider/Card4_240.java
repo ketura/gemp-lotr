@@ -39,7 +39,7 @@ public class Card4_240 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)));
-        int burdens = Math.max(0, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) - 4);
+        int burdens = Math.max(0, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4);
         action.appendEffect(
                 new PreventableEffect(action,
                         new AddBurdenEffect(self, burdens),
@@ -47,7 +47,7 @@ public class Card4_240 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Filters.type(CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER)));
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER)));
                             }
                         }
                 ));

@@ -58,7 +58,7 @@ public class Card4_079 extends AbstractResponseOldEvent {
                             }
                         });
                 possibleEffects.add(
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)) {
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Wound a minion";

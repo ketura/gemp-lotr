@@ -35,7 +35,7 @@ public class Card3_080 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.MINION));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), CardType.MINION);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Card3_080 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.POSSESSION)) {
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Filters.side(Side.FREE_PEOPLE), CardType.POSSESSION) {
                                     @Override
                                     public String getText(LotroGame game) {
                                         return "Discard 2 Free People possessions";

@@ -32,7 +32,7 @@ public class Card4_092 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new DiscardCardsFromPlayEffect(self, Filters.type(CardType.CONDITION)));
+                new DiscardCardsFromPlayEffect(self, CardType.CONDITION));
         return action;
     }
 

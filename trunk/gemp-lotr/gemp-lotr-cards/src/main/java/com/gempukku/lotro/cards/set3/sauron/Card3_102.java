@@ -35,14 +35,14 @@ public class Card3_102 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.type(CardType.MINION));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), CardType.MINION);
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.type(CardType.MINION)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), CardType.MINION));
         return action;
     }
 
@@ -50,7 +50,7 @@ public class Card3_102 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int allies = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY));
+            int allies = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.ALLY);
             action.appendEffect(
                     new AddTwilightEffect(self, allies));
             return Collections.singletonList(action);

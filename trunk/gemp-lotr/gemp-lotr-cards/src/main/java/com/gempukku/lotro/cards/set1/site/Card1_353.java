@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -33,7 +32,7 @@ public class Card1_353 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.type(CardType.ALLY)));
+                    new DiscardCardsFromPlayEffect(self, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

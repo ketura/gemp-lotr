@@ -39,7 +39,7 @@ public class Card3_074 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, Filters.type(CardType.ALLY)).size() > 0;
+                                return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.ALLY).size() > 0;
                             }
                         }, 3));
         modifiers.add(
@@ -47,7 +47,7 @@ public class Card3_074 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, Filters.type(CardType.ALLY)).size() > 0;
+                                return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.ALLY).size() > 0;
                             }
                         }, Keyword.FIERCE, 1));
         return modifiers;

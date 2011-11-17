@@ -30,7 +30,7 @@ public class Card3_113 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SHIRE), Filters.type(CardType.COMPANION)) >= 2;
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SHIRE), CardType.COMPANION) >= 2;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Card3_113 extends AbstractPermanent {
             if (source != null && source.getOwner().equals(playerId) && source.getBlueprint().getRace() != Race.HOBBIT) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION)));
+                        new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION));
                 return Collections.singletonList(action);
             }
         }

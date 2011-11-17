@@ -49,7 +49,7 @@ public class Card7_232 extends AbstractAttachableFPPossession {
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.and(Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.hasAttached(self)))));
+                    new ExertCharactersEffect(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self)))));
             return Collections.singletonList(action);
         }
         return null;
@@ -74,7 +74,8 @@ public class Card7_232 extends AbstractAttachableFPPossession {
                         public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
                             return new RemoveTwilightEffect(1);
                         }
-                    }));
+                    }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

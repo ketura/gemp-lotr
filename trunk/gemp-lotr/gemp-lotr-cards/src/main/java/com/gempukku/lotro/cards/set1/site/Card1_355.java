@@ -34,7 +34,7 @@ public class Card1_355 extends AbstractSite {
                 && !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.type(CardType.COMPANION)));
+                    new ExertCharactersEffect(self, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

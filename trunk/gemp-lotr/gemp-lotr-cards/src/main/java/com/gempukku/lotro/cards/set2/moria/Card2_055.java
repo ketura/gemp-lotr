@@ -36,7 +36,7 @@ public class Card2_055 extends AbstractPermanent {
                 new StrengthModifier(self,
                         Filters.and(
                                 Filters.culture(Culture.MORIA),
-                                Filters.type(CardType.MINION),
+                                CardType.MINION,
                                 Filters.unique
                         ), 1));
     }
@@ -45,10 +45,10 @@ public class Card2_055 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId)))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.not(Filters.owner(playerId)))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", Filters.type(CardType.SITE), Filters.not(Filters.owner(playerId))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", CardType.SITE, Filters.not(Filters.owner(playerId))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int siteNumber = card.getBlueprint().getSiteNumber();

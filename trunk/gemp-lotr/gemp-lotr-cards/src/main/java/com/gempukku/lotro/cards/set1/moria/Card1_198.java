@@ -33,14 +33,14 @@ public class Card1_198 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), Filters.type(CardType.MINION));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), CardType.MINION);
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.MORIA), CardType.MINION));
         return action;
     }
 
@@ -49,7 +49,7 @@ public class Card1_198 extends AbstractPermanent {
         int siteNumber = game.getGameState().getCurrentSiteNumber();
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && siteNumber >= 4 && siteNumber <= 6 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));

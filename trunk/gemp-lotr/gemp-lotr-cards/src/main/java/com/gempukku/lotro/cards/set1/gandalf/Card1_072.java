@@ -38,13 +38,13 @@ public class Card1_072 extends AbstractCompanion {
                     @Override
                     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
                         int result = 0;
-                        if (Filters.canSpot(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.race(Race.HOBBIT)))
+                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Filters.race(Race.HOBBIT)))
                             result++;
-                        if (Filters.canSpot(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.race(Race.DWARF)))
+                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Filters.race(Race.DWARF)))
                             result++;
-                        if (Filters.canSpot(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.race(Race.ELF)))
+                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Filters.race(Race.ELF)))
                             result++;
-                        if (Filters.canSpot(gameState, modifiersQuerying, Filters.type(CardType.COMPANION), Filters.race(Race.MAN)))
+                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Filters.race(Race.MAN)))
                             result++;
                         return result;
                     }

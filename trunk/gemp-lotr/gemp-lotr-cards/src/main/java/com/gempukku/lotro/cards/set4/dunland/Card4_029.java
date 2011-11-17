@@ -31,11 +31,11 @@ public class Card4_029 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.type(CardType.SITE),
+                new TwilightCostModifier(self, CardType.SITE,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.type(CardType.SITE),
+                                return Filters.countActive(gameState, modifiersQuerying, CardType.SITE,
                                         Filters.hasStacked(Filters.and(Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)))) > 0;
                             }
                         }, 5));
