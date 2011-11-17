@@ -38,7 +38,7 @@ public class Card4_215 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.culture(Culture.ISENGARD), Filters.race(Race.MAN));
+                && PlayConditions.canExert(self, game, Culture.ISENGARD, Filters.race(Race.MAN));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Card4_215 extends AbstractAttachable {
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         final AttachPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
         playCardAction.appendCost(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.race(Race.MAN)));
+                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Culture.ISENGARD, Filters.race(Race.MAN)));
         return playCardAction;
     }
 

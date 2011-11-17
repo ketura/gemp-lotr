@@ -29,7 +29,7 @@ public class Card1_116 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new CardMatchesEvaluator(2, 4, Filters.keyword(Keyword.DEFENDER)),
-                        Filters.culture(Culture.GONDOR), CardType.COMPANION));
+                        Culture.GONDOR, CardType.COMPANION));
         return action;
     }
 

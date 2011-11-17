@@ -41,7 +41,7 @@ public class Card2_022 extends AbstractAttachableFPPossession {
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
-                        Filters.culture(Culture.GANDALF),
+                        Culture.GANDALF,
                         Filters.keyword(Keyword.SPELL)
                 ), -1));
     }

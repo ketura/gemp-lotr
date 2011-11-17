@@ -31,7 +31,7 @@ public class Card1_130 extends AbstractPermanent {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.WEATHER), CardType.CONDITION, Filters.owner(self.getOwner())))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.culture(Culture.GANDALF), Filters.or(CardType.COMPANION, CardType.ALLY)));
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Culture.GANDALF, Filters.or(CardType.COMPANION, CardType.ALLY)));
 
             return Collections.singletonList(action);
         }

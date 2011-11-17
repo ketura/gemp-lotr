@@ -41,7 +41,7 @@ public class Card4_171 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canSpot(game, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER));
+                && PlayConditions.canSpot(game, Culture.ISENGARD, Filters.keyword(Keyword.TRACKER));
     }
 
     @Override

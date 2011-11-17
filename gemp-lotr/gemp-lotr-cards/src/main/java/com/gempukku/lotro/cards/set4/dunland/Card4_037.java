@@ -38,12 +38,12 @@ public class Card4_037 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
-                && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)))
+                && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.DUNLAND, Filters.race(Race.MAN)))
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final List<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.in(winners), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.in(winners), Culture.DUNLAND, Filters.race(Race.MAN)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

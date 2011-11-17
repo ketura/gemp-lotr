@@ -36,15 +36,15 @@ public class Card1_193 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             Collection<PhysicalCard> discardedCards = discardResult.getDiscardedCards();
-            if (Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(), Filters.zone(Zone.DISCARD), Filters.culture(Culture.MORIA), Filters.weapon, Filters.playable(game, -1)).size() > 0) {
+            if (Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(), Filters.zone(Zone.DISCARD), Culture.MORIA, Filters.weapon, Filters.playable(game, -1)).size() > 0) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId,
                                 game.getGameState().getDiscard(playerId),
                                 -1, Filters.and(
-                                        Filters.culture(Culture.MORIA),
-                                        Filters.weapon,
-                                        Filters.in(discardedCards))));
+                                Culture.MORIA,
+                                Filters.weapon,
+                                Filters.in(discardedCards))));
                 return Collections.singletonList(action);
             }
         }

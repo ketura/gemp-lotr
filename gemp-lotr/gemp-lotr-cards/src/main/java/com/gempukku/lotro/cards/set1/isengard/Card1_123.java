@@ -35,7 +35,7 @@ public class Card1_123 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), CardType.MINION)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION)
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 5;
     }
 
@@ -43,7 +43,7 @@ public class Card1_123 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), CardType.MINION));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer exhausted companion", CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.exhausted) {
                     @Override

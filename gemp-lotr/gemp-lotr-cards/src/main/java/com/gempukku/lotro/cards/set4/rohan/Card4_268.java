@@ -31,7 +31,7 @@ public class Card4_268 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.ROHAN), Filters.race(Race.MAN));
+        return Filters.and(Culture.ROHAN, Filters.race(Race.MAN));
     }
 
     @Override

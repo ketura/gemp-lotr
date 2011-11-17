@@ -28,7 +28,7 @@ public class Card3_022 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Elrond"))
-                || Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ELVEN), CardType.ALLY) >= 2);
+                || Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN, CardType.ALLY) >= 2);
     }
 
     @Override

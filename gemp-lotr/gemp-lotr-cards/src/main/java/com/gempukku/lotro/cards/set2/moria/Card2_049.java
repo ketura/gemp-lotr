@@ -36,7 +36,7 @@ public class Card2_049 extends AbstractMinion {
                 new StrengthModifier(self,
                         Filters.and(
                                 Filters.not(Filters.sameCard(self)),
-                                Filters.culture(Culture.MORIA),
+                                Culture.MORIA,
                                 Filters.keyword(Keyword.ARCHER)
                         ), 2)
         );

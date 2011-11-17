@@ -36,7 +36,7 @@ public class Card4_029 extends AbstractPermanent {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                                 return Filters.countActive(gameState, modifiersQuerying, CardType.SITE,
-                                        Filters.hasStacked(Filters.and(Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)))) > 0;
+                                        Filters.hasStacked(Filters.and(Culture.DUNLAND, Filters.race(Race.MAN)))) > 0;
                             }
                         }, 5));
     }

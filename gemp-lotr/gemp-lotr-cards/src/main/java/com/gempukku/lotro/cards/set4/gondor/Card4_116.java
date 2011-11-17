@@ -35,7 +35,7 @@ public class Card4_116 extends AbstractCompanion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new TwilightCostModifier(self, Filters.and(Filters.not(Filters.sameCard(self)), Filters.culture(Culture.GONDOR), Filters.race(Race.MAN)),
+                new TwilightCostModifier(self, Filters.and(Filters.not(Filters.sameCard(self)), Culture.GONDOR, Filters.race(Race.MAN)),
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {

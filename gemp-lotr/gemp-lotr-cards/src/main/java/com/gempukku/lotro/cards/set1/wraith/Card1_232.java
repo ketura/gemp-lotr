@@ -35,7 +35,7 @@ public class Card1_232 extends AbstractMinion {
                         ),
                         Filters.hasAttached(
                                 Filters.and(
-                                        Filters.culture(Culture.WRAITH),
+                                        Culture.WRAITH,
                                         CardType.CONDITION
                                 )
                         )

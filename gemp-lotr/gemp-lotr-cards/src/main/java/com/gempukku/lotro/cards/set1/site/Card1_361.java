@@ -23,6 +23,6 @@ public class Card1_361 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.and(Filters.culture(Culture.ISENGARD), CardType.MINION), -1);
+        return new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, CardType.MINION), -1);
     }
 }

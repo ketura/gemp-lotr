@@ -39,7 +39,7 @@ public class Card2_064 extends AbstractMinion {
         return Collections.singletonList(
                 new RoamingPenaltyModifier(self,
                         Filters.and(
-                                Filters.culture(Culture.MORIA),
+                                Culture.MORIA,
                                 Filters.race(Race.ORC),
                                 Filters.owner(self.getOwner())
                         ), -1));
@@ -50,7 +50,7 @@ public class Card2_064 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.culture(Culture.ELVEN), CardType.CONDITION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.ELVEN, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

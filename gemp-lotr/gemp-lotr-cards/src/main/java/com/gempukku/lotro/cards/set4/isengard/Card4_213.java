@@ -39,7 +39,7 @@ public class Card4_213 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
-                    new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)) {
+                    new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.ISENGARD, Filters.keyword(Keyword.TRACKER)) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {

@@ -568,7 +568,14 @@ public class Filters {
         }
     };
 
-    public static Filter culture(final Culture culture) {
+    private static final Map<Culture, Filter> _cultureFilterMap = new HashMap<Culture, Filter>();
+
+    static {
+        for (Culture culture : Culture.values())
+            _cultureFilterMap.put(culture, culture(culture));
+    }
+
+    private static Filter culture(final Culture culture) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -611,7 +618,7 @@ public class Filters {
         else if (filter instanceof CardType)
             return _typeFilterMap.get((CardType) filter);
         else if (filter instanceof Culture)
-            return Filters.culture((Culture) filter);
+            return _cultureFilterMap.get((Culture) filter);
         else if (filter instanceof Keyword)
             return Filters.keyword((Keyword) filter);
         else if (filter instanceof PossessionClass)

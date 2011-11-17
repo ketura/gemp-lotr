@@ -45,7 +45,7 @@ public class Card3_040 extends AbstractPermanent {
             if (self.getData() == null) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new ChooseAndHealCharactersEffect(action, playerId, Filters.culture(Culture.GONDOR), CardType.COMPANION));
+                        new ChooseAndHealCharactersEffect(action, playerId, Culture.GONDOR, CardType.COMPANION));
                 return Collections.singletonList(action);
             }
         }

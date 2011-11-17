@@ -40,7 +40,7 @@ public class Card2_009 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
-                    new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.culture(Culture.DWARVEN), CardType.EVENT) {
+                    new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.DWARVEN, CardType.EVENT) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {

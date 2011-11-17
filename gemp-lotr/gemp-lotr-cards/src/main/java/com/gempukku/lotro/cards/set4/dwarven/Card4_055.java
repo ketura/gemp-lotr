@@ -45,7 +45,7 @@ public class Card4_055 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition", Filters.culture(Culture.DWARVEN), CardType.CONDITION) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition", Culture.DWARVEN, CardType.CONDITION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(

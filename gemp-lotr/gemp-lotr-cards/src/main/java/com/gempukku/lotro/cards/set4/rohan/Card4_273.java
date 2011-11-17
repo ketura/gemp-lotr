@@ -27,7 +27,7 @@ public class Card4_273 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Filters.culture(Culture.ROHAN), Filters.race(Race.MAN)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Culture.ROHAN, Filters.race(Race.MAN)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.VILLAGER)) ? 3 : 2;

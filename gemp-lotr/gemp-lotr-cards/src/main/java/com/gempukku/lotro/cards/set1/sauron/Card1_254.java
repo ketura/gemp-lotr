@@ -30,7 +30,7 @@ public class Card1_254 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.SAURON), CardType.MINION);
+        return Filters.and(Culture.SAURON, CardType.MINION);
     }
 
     @Override

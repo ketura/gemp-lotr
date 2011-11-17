@@ -36,7 +36,7 @@ public class Card4_216 extends AbstractPermanent {
         if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult,
                 Filters.and(
                         Filters.or(CardType.COMPANION, CardType.ALLY),
-                        Filters.inSkirmishAgainst(Filters.and(Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)))))) {
+                        Filters.inSkirmishAgainst(Filters.and(Culture.RAIDER, Filters.race(Race.MAN)))))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.RAIDER));
@@ -52,7 +52,7 @@ public class Card4_216 extends AbstractPermanent {
             int count = game.getGameState().getTokenCount(self, Token.RAIDER);
             for (int i = 0; i < count; i++)
                 action.appendEffect(
-                        new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.RAIDER), Filters.keyword(Keyword.ARCHER)));
+                        new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Filters.keyword(Keyword.ARCHER)));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

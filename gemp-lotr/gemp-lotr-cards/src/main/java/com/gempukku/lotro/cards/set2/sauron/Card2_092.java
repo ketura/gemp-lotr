@@ -30,14 +30,14 @@ public class Card2_092 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Filters.race(Race.ORC));
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
-            boolean spotsTracker = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.keyword(Keyword.TRACKER));
+            boolean spotsTracker = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Filters.keyword(Keyword.TRACKER));
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardEffect(playerId, spotsTracker ? 2 : 1));

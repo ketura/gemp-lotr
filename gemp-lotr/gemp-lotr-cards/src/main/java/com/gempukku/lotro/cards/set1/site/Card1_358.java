@@ -30,12 +30,12 @@ public class Card1_358 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, 1, Filters.culture(Culture.GONDOR)));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, 1, Culture.GONDOR));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION, Filters.culture(Culture.GONDOR)));
+                    new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION, Culture.GONDOR));
             return Collections.singletonList(action);
         }
         return null;

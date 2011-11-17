@@ -36,7 +36,7 @@ public class Card1_173 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Filters.culture(Culture.MORIA), Filters.weapon))) {
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(self.getOwner()), Culture.MORIA, Filters.weapon))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new AddTwilightEffect(self, 1));
             return Collections.singletonList(action);
@@ -53,7 +53,7 @@ public class Card1_173 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Culture.MORIA, Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
                             action.appendEffect(

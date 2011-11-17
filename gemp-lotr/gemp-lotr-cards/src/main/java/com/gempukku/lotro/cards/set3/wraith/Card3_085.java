@@ -65,7 +65,7 @@ public class Card3_085 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 2, 2, Filters.culture(Culture.GANDALF));
+                                return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 2, 2, Culture.GANDALF);
                             }
                         }
                 ));

@@ -32,7 +32,7 @@ public class Card3_015 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ELVEN), CardType.ALLY) >= 3) {
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN, CardType.ALLY) >= 3) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));

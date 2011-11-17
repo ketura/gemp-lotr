@@ -34,7 +34,7 @@ public class Card4_045 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.and(Filters.culture(Culture.DWARVEN), CardType.CONDITION), Filters.side(Side.FREE_PEOPLE)) {
+                new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Filters.side(Side.FREE_PEOPLE)) {
                     @Override
                     protected void cardsChosen(Collection<PhysicalCard> stackedCards) {
                         for (PhysicalCard card : stackedCards)

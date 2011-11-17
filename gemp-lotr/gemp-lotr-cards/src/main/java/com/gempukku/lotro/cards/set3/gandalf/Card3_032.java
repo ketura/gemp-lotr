@@ -49,7 +49,7 @@ public class Card3_032 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new ChooseCardsFromDiscardEffect(playerId, 0, 2, Filters.culture(Culture.GANDALF)) {
+                new ChooseCardsFromDiscardEffect(playerId, 0, 2, Culture.GANDALF) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Shuffle up to 2 GANDALF cards";
@@ -62,7 +62,7 @@ public class Card3_032 extends AbstractOldEvent {
                     }
                 });
         possibleEffects.add(
-                new ChooseCardsFromDiscardEffect(playerId, 0, 2, Filters.culture(Culture.SHIRE)) {
+                new ChooseCardsFromDiscardEffect(playerId, 0, 2, Culture.SHIRE) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Shuffle up to 2 SHIRE cards";

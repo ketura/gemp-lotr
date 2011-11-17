@@ -40,7 +40,7 @@ public class Card1_017 extends AbstractAlly {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
 
-            Collection<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), CardType.EVENT);
+            Collection<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, CardType.EVENT);
 
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to shuffle into draw deck", new LinkedList<PhysicalCard>(discardedDwarvenEvents), 1, 1) {

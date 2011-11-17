@@ -41,7 +41,7 @@ public class Card2_008 extends AbstractPermanent {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
-                        Filters.culture(Culture.MORIA),
+                        Culture.MORIA,
                         Filters.race(Race.ORC),
                         new Filter() {
                             @Override
