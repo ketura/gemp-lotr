@@ -2,10 +2,9 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -24,7 +23,7 @@ public class Card1_299 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.HOBBIT);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.HOBBIT;
     }
 }

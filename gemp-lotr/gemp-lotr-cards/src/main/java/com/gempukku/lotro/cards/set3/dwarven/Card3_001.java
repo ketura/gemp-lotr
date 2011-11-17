@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set3.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,8 +28,8 @@ public class Card3_001 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.DWARF);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.DWARF;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class Card3_001 extends AbstractAttachable {
                 && game.getGameState().getCurrentSiteNumber() >= 4
                 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), CardType.COMPANION);
+            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
             action.appendEffect(
                     new DrawCardEffect(playerId, dwarfCompanions));
             return Collections.singletonList(action);

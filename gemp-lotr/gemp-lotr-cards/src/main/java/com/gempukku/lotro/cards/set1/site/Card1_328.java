@@ -27,7 +27,7 @@ public class Card1_328 extends AbstractSite {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new RoamingPenaltyModifier(self,
                 Filters.and(
-                        Filters.race(Race.NAZGUL),
+                        Race.NAZGUL,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

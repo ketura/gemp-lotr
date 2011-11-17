@@ -30,10 +30,10 @@ public class Card4_083 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Race.ELF) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int bonus = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)) >= 3) ? 3 : 2;
+                        int bonus = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ELF) >= 3) ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));

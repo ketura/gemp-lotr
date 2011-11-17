@@ -40,13 +40,13 @@ public class Card3_063 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
         int exertionCount = 0;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.DWARF)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.DWARF))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.ELF)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.ELF))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.MAN)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.MAN))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.WIZARD)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.WIZARD))
             exertionCount++;
         action.appendEffect(
                 new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), exertionCount, exertionCount, CardType.COMPANION));

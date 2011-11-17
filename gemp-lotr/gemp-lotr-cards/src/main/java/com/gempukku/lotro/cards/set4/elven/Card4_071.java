@@ -56,12 +56,12 @@ public class Card4_071 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.sameCard(self)), Filters.race(Race.ELF))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.sameCard(self)), Race.ELF)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.not(Filters.sameCard(self)), Filters.race(Race.ELF)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.not(Filters.sameCard(self)), Race.ELF));
 
             action.appendEffect(
                     new LiberateASiteEffect(self));

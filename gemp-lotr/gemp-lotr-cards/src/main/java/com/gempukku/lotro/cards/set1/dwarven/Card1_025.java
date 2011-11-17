@@ -7,7 +7,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
@@ -37,7 +36,7 @@ public class Card1_025 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.DWARF))
+        if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Race.DWARF)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);

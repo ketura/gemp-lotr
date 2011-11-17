@@ -40,7 +40,7 @@ public class Card1_030 extends AbstractCompanion {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.race(Race.NAZGUL), Filters.inSkirmish);
+                                return Filters.canSpot(gameState, modifiersQuerying, Race.NAZGUL, Filters.inSkirmish);
                             }
                         }), 3);
     }

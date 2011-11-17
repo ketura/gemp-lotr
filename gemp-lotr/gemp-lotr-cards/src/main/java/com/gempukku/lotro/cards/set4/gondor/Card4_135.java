@@ -33,7 +33,7 @@ public class Card4_135 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR Man", Culture.GONDOR, Filters.race(Race.MAN)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR Man", Culture.GONDOR, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         boolean isAgainstRoaming = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.roaminMinion, Filters.inSkirmishAgainst(Filters.sameCard(card))) > 0;

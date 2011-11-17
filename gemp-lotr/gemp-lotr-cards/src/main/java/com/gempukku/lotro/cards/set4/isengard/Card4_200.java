@@ -36,7 +36,7 @@ public class Card4_200 extends AbstractMinion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canSpot(game, Filters.race(Race.URUK_HAI));
+                && PlayConditions.canSpot(game, Race.URUK_HAI);
     }
 
     @Override

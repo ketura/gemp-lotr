@@ -40,7 +40,7 @@ public class Card3_014 extends AbstractAlly {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Card3_014 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Filters.race(Race.ELF)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Race.ELF) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

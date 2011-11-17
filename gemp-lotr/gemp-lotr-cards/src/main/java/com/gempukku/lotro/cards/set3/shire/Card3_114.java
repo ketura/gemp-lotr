@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -33,11 +32,11 @@ public class Card3_114 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isAddingTwilight(effect, game, Side.SHADOW)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), CardType.ALLY)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.ALLY)) {
             final AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT), CardType.ALLY));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, CardType.ALLY));
             action.appendEffect(
                     new PreventEffect(addTwilightEffect));
             return Collections.singletonList(action);

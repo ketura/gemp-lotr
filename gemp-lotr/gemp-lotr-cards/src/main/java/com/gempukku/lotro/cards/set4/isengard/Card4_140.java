@@ -9,7 +9,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -29,7 +28,7 @@ public class Card4_140 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.race(Race.URUK_HAI));
+                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Race.URUK_HAI);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class Card4_140 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.race(Race.URUK_HAI)));
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.URUK_HAI));
         action.appendEffect(
                 new AddBurdenEffect(self, game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size()));
         return action;

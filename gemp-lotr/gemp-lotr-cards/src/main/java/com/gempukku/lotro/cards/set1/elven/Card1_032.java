@@ -34,7 +34,7 @@ public class Card1_032 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Filters.keyword(Keyword.ARCHER))),
-                        Filters.race(Race.ELF)));
+                        Race.ELF));
         return action;
     }
 }

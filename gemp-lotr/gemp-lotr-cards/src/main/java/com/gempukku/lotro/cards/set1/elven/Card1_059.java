@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,20 +34,20 @@ public class Card1_059 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(),
                 Filters.or(
-                        Filters.race(Race.ELF),
-                        Filters.race(Race.DWARF)))) {
+                        Race.ELF,
+                        Race.DWARF))) {
             final ActivateCardAction action = new ActivateCardAction(self);
 
             action.appendCost(new AddTwilightEffect(self, 1));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.race(Race.DWARF), Filters.race(Race.ELF))) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(Race.DWARF, Race.ELF)) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
-                            Filter filter;
+                            Filterable filter;
                             if (character.getBlueprint().getRace() == Race.ELF)
-                                filter = Filters.race(Race.DWARF);
+                                filter = Race.DWARF;
                             else
-                                filter = Filters.race(Race.ELF);
+                                filter = Race.ELF;
                             action.appendEffect(
                                     new ChooseAndHealCharactersEffect(action, playerId, filter));
                         }

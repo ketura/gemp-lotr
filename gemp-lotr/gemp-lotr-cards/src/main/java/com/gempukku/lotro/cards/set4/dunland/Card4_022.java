@@ -39,10 +39,10 @@ public class Card4_022 extends AbstractMinion {
         modifiers.add(
                 new ShouldSkipPhaseModifier(self, new SpotCondition(2, Filters.siteControlled(self.getOwner())), Phase.ARCHERY));
         modifiers.add(
-                new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), Culture.DUNLAND, Filters.race(Race.MAN)),
+                new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), Culture.DUNLAND, Race.MAN),
                         new SpotCondition(3, Filters.siteControlled(self.getOwner())), Keyword.FIERCE, 1));
         modifiers.add(
-                new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), Culture.DUNLAND, Filters.race(Race.MAN)),
+                new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), Culture.DUNLAND, Race.MAN),
                         new SpotCondition(4, Filters.siteControlled(self.getOwner())), Keyword.DAMAGE, 1));
         return modifiers;
     }

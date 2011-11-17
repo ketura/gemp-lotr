@@ -43,7 +43,7 @@ public class Card1_071 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
     }
 }

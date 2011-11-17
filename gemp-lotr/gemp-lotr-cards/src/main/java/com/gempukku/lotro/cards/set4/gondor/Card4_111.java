@@ -52,7 +52,7 @@ public class Card4_111 extends AbstractAttachable {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.GONDOR));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Rin-bound Man", Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Rin-bound Man", Race.MAN, Filters.keyword(Keyword.RING_BOUND)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

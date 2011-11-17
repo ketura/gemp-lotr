@@ -48,7 +48,7 @@ public class Card1_014 extends AbstractAttachableFPPossession {
         if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ORC)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Race.ORC));
 
             return Collections.singletonList(action);
         }

@@ -71,20 +71,20 @@ public class Card3_068 extends AbstractMinion {
                         },
                         Filters.sameCard(self)));
         modifiers.add(
-                new KeywordModifier(self, Filters.race(Race.URUK_HAI), Keyword.FIERCE));
+                new KeywordModifier(self, Race.URUK_HAI, Keyword.FIERCE));
         return modifiers;
     }
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.race(Race.URUK_HAI))
+        if (PlayConditions.isGettingWounded(effect, game, Race.URUK_HAI)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Filters.race(Race.URUK_HAI)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Race.URUK_HAI) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

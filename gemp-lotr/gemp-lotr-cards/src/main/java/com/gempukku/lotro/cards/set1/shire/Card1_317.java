@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,8 +31,8 @@ public class Card1_317 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.HOBBIT);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.HOBBIT;
     }
 
     @Override
@@ -43,7 +42,7 @@ public class Card1_317 extends AbstractAttachable {
             action.appendCost(new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.race(Race.HOBBIT)), 2), Phase.REGROUP));
+                            new StrengthModifier(self, Filters.and(CardType.COMPANION, Race.HOBBIT), 2), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

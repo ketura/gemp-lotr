@@ -40,7 +40,7 @@ public class Card2_064 extends AbstractMinion {
                 new RoamingPenaltyModifier(self,
                         Filters.and(
                                 Culture.MORIA,
-                                Filters.race(Race.ORC),
+                                Race.ORC,
                                 Filters.owner(self.getOwner())
                         ), -1));
     }

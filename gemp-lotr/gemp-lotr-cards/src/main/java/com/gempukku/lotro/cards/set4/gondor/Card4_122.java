@@ -34,6 +34,6 @@ public class Card4_122 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new MinionSiteNumberModifier(self, Filters.inSkirmishAgainst(Filters.and(Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND))), null, 2));
+                new MinionSiteNumberModifier(self, Filters.inSkirmishAgainst(Filters.and(Race.MAN, Filters.keyword(Keyword.RING_BOUND))), null, 2));
     }
 }

@@ -35,14 +35,14 @@ public class Card1_121 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard urukHai) {
                         action.appendEffect(

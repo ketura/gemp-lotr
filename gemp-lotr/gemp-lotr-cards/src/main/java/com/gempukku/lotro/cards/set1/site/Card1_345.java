@@ -31,7 +31,7 @@ public class Card1_345 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
                 && game.getGameState().getTwilightPool() >= 1
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Filters.race(Race.ORC), Filters.playable(game, 1)).size() > 0) {
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.playable(game, 1)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(

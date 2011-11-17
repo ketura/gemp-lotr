@@ -40,7 +40,7 @@ public class Card3_017 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.ELF));
             return Collections.singletonList(action);
         }
         return null;

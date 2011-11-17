@@ -33,7 +33,7 @@ public class Card1_359 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC)) >= 5) {
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ORC) >= 5) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilEndOfTurnModifierEffect(

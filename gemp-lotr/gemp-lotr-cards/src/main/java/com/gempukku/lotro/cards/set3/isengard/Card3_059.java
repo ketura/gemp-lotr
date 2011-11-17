@@ -35,13 +35,13 @@ public class Card3_059 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Culture.ISENGARD, Filters.race(Race.ORC))) {
+        if (PlayConditions.isGettingWounded(effect, game, Culture.ISENGARD, Race.ORC)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Culture.ISENGARD, Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Culture.ISENGARD, Race.ORC) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

@@ -1,11 +1,7 @@
 package com.gempukku.lotro.cards.set2.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -31,8 +27,8 @@ public class Card2_032 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.MAN);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.MAN;
     }
 
     @Override
@@ -47,7 +43,7 @@ public class Card2_032 extends AbstractAttachableFPPossession {
             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                 return gameState.getSkirmish() != null
                         && gameState.getSkirmish().getFellowshipCharacter() == self.getAttachedTo()
-                        && Filters.filter(gameState.getSkirmish().getShadowCharacters(), gameState, modifiersQuerying, Filters.race(Race.NAZGUL)).size() > 0;
+                        && Filters.filter(gameState.getSkirmish().getShadowCharacters(), gameState, modifiersQuerying, Race.NAZGUL).size() > 0;
             }
         };
 

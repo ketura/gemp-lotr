@@ -44,7 +44,7 @@ public class Card2_033 extends AbstractResponseOldEvent {
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.exhausted, Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.exhausted, Race.ORC) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard orc) {
                             action.insertEffect(

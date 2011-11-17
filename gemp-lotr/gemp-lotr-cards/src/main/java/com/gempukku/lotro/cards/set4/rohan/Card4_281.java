@@ -45,7 +45,7 @@ public class Card4_281 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Culture.ROHAN, Filters.race(Race.MAN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Culture.ROHAN, Race.MAN) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

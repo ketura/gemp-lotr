@@ -43,7 +43,7 @@ public class Card2_111 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Bilbo")));
         action.appendEffect(
-                new ChooseAndPlayCardFromDeckEffect(playerId, Filters.race(Race.HOBBIT)));
+                new ChooseAndPlayCardFromDeckEffect(playerId, Race.HOBBIT));
         return action;
     }
 }

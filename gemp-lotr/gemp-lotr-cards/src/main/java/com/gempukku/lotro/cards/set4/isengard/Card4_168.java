@@ -36,7 +36,7 @@ public class Card4_168 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new CancelSkirmishEffect(Filters.race(Race.URUK_HAI)));
+                    new CancelSkirmishEffect(Race.URUK_HAI));
             return Collections.singletonList(action);
         }
         return null;

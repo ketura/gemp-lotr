@@ -38,7 +38,7 @@ public class Card1_249 extends AbstractPermanent {
         return new StrengthModifier(self,
                 Filters.and(
                         Culture.SAURON,
-                        Filters.race(Race.ORC),
+                        Race.ORC,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -53,7 +53,7 @@ public class Card1_249 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.SAURON, Filters.race(Race.ORC)))) {
+        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.SAURON, Race.ORC))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));

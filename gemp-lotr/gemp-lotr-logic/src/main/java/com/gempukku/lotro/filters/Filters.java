@@ -377,7 +377,14 @@ public class Filters {
         };
     }
 
-    public static Filter race(final Race race) {
+    private static final Map<Race, Filter> _raceFilterMap = new HashMap<Race, Filter>();
+
+    static {
+        for (Race race : Race.values())
+            _raceFilterMap.put(race, race(race));
+    }
+
+    private static Filter race(final Race race) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -631,7 +638,7 @@ public class Filters {
         else if (filter instanceof PossessionClass)
             return _possessionClassFilterMap.get((PossessionClass) filter);
         else if (filter instanceof Race)
-            return Filters.race((Race) filter);
+            return _raceFilterMap.get((Race) filter);
         else if (filter instanceof Side)
             return Filters.side((Side) filter);
         else if (filter instanceof Signet)

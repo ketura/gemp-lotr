@@ -34,8 +34,8 @@ public class Card1_020 extends AbstractPermanent {
         EffectResult.Type resultType = effectResult.getType();
         if (resultType == EffectResult.Type.OVERWHELM_IN_SKIRMISH || resultType == EffectResult.Type.RESOLVE_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            if (Filters.filter(skirmishResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF)).size() > 0) {
-                Collection<PhysicalCard> losingOrcs = Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC));
+            if (Filters.filter(skirmishResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Race.DWARF).size() > 0) {
+                Collection<PhysicalCard> losingOrcs = Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Race.ORC);
 
                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
 
@@ -46,7 +46,7 @@ public class Card1_020 extends AbstractPermanent {
                 }
 
                 return actions;
-            } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF)).size() > 0) {
+            } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Race.DWARF).size() > 0) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
                 return Collections.singletonList(action);

@@ -59,7 +59,7 @@ public class Card1_135 extends AbstractAttachable {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
-                        Filters.race(Race.HOBBIT),
+                        Race.HOBBIT,
                         CardType.COMPANION,
                         new Filter() {
                             @Override

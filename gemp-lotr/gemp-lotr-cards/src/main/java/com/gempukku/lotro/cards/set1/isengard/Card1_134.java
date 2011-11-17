@@ -58,7 +58,7 @@ public class Card1_134 extends AbstractAttachable {
                 && game.getGameState().getCurrentSite() == self.getAttachedTo()) {
 
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Filters.race(Race.HOBBIT))));
+            action.appendEffect(new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Race.HOBBIT)));
 
             return Collections.singletonList(action);
         }

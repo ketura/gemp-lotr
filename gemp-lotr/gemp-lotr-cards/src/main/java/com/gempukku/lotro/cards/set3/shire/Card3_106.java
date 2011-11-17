@@ -34,7 +34,7 @@ public class Card3_106 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.race(Race.HOBBIT), CardType.COMPANION);
+        return Filters.and(Race.HOBBIT, CardType.COMPANION);
     }
 
     @Override

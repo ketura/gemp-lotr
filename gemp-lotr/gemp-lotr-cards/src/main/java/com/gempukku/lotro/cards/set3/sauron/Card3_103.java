@@ -64,7 +64,7 @@ public class Card3_103 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Filters.race(Race.ELF)) {
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Race.ELF) {
                                     @Override
                                     public String getText(LotroGame game) {
                                         return "Discard 2 Elves from play";

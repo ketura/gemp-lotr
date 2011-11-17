@@ -27,7 +27,7 @@ public class Card4_115 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Filters.race(Race.MAN));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Race.MAN);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Card4_115 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Filters.race(Race.MAN)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN));
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.canTakeWound) {
                     @Override

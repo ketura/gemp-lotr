@@ -32,7 +32,7 @@ public class Card4_008 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Chooose DUNLAND Man", Culture.DUNLAND, Filters.race(Race.MAN)) {
+                new ChooseActiveCardEffect(self, playerId, "Chooose DUNLAND Man", Culture.DUNLAND, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);

@@ -34,12 +34,12 @@ public class Card1_159 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI);
     }
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(playerId), Filters.race(Race.URUK_HAI)))
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.owner(playerId), Race.URUK_HAI))
                 && game.getGameState().getTwilightPool() >= 3) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
 
@@ -47,7 +47,7 @@ public class Card1_159 extends AbstractPermanent {
 
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners()))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a winning Uruk-hai", Filters.and(Filters.owner(playerId), Race.URUK_HAI, Filters.in(skirmishResult.getWinners()))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard winningUrukHai) {
                             action.appendEffect(

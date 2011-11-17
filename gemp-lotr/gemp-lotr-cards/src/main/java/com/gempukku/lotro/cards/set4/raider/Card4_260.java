@@ -26,7 +26,7 @@ public class Card4_260 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.or(CardType.COMPANION, CardType.ALLY),
-                        Filters.inSkirmishAgainst(Culture.RAIDER, Filters.race(Race.MAN))));
+                        Filters.inSkirmishAgainst(Culture.RAIDER, Race.MAN)));
         return action;
     }
 

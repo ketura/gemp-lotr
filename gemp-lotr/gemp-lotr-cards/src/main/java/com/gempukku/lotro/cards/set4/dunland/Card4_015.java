@@ -41,7 +41,7 @@ public class Card4_015 extends AbstractMinion {
                                 Filters.inSkirmishAgainst(
                                         Filters.and(
                                                 Culture.ROHAN,
-                                                Filters.race(Race.MAN)))), 2));
+                                                Race.MAN))), 2));
     }
 
     @Override

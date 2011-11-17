@@ -41,7 +41,7 @@ public class Card3_061 extends AbstractMinion {
                 new AbstractModifier(self, "While you can spot another [ISENGARD] Orc, no player may use archery special abilities.", null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        if (Filters.canSpot(gameState, modifiersQuerying, Filters.not(Filters.sameCard(self)), Culture.ISENGARD, Filters.race(Race.ORC))) {
+                        if (Filters.canSpot(gameState, modifiersQuerying, Filters.not(Filters.sameCard(self)), Culture.ISENGARD, Race.ORC)) {
                             PhysicalCard actionSource = action.getActionSource();
                             if (actionSource != null
                                     && action.getActionTimeword() == Phase.ARCHERY

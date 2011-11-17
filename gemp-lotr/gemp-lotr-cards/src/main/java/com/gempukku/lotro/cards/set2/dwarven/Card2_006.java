@@ -31,7 +31,7 @@ public class Card2_006 extends AbstractCompanion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Card2_006 extends AbstractCompanion {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.race(Race.URUK_HAI), Filters.inSkirmish);
+                                return Filters.canSpot(gameState, modifiersQuerying, Race.URUK_HAI, Filters.inSkirmish);
                             }
                         }), 3);
     }

@@ -7,7 +7,6 @@ import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -35,7 +34,7 @@ public class Card1_215 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
-                        new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Filters.race(Race.NAZGUL), Integer.MAX_VALUE) {
+                        new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Race.NAZGUL, Integer.MAX_VALUE) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotCount = getValidatedResult(result);

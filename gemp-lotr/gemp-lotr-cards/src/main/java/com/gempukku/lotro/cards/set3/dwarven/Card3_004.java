@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -30,12 +29,12 @@ public class Card3_004 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), CardType.ALLY)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.ALLY)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF), CardType.ALLY));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, CardType.ALLY));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.DWARF), CardType.COMPANION));
+                    new ChooseAndHealCharactersEffect(action, playerId, Race.DWARF, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

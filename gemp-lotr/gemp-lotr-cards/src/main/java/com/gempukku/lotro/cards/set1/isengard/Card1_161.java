@@ -41,21 +41,21 @@ public class Card1_161 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, CardType.EVENT, Filters.keyword(Keyword.STEALTH))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI))
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
 
             final PlayEventAction action = new PlayEventAction(self);
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert an Uruk-hai";
                         }
                     });
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)) {
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.URUK_HAI) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard an Uruk-hai";

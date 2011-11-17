@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -33,10 +32,10 @@ public class Card1_318 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self))
-                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.race(Race.HOBBIT))) {
+                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Race.HOBBIT)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.race(Race.HOBBIT)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.HOBBIT));
             action.appendCost(new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             return Collections.singletonList(action);

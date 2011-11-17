@@ -51,8 +51,8 @@ public class Card1_314 extends AbstractAttachable {
                                         && skirmish.getFellowshipCharacter() == self.getAttachedTo()
                                         && Filters.filter(skirmish.getShadowCharacters(), gameState, modifiersQuerying,
                                         Filters.or(
-                                                Filters.race(Race.URUK_HAI),
-                                                Filters.race(Race.TROLL))).size() > 0;
+                                                Race.URUK_HAI,
+                                                Race.TROLL)).size() > 0;
                             }
                         }), 3);
     }

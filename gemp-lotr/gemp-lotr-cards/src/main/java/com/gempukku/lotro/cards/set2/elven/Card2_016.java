@@ -33,16 +33,16 @@ public class Card2_016 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
     }
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.race(Race.URUK_HAI), -2));
+                new StrengthModifier(self, Race.URUK_HAI, -2));
         modifiers.add(
-                new RemoveKeywordModifier(self, Filters.race(Race.URUK_HAI), Keyword.DAMAGE));
+                new RemoveKeywordModifier(self, Race.URUK_HAI, Keyword.DAMAGE));
         return modifiers;
     }
 

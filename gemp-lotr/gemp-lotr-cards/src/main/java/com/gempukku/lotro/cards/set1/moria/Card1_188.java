@@ -38,7 +38,7 @@ public class Card1_188 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.owner(playerId), Culture.MORIA, Filters.race(Race.ORC)));
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.owner(playerId), Culture.MORIA, Race.ORC));
             return Collections.singletonList(action);
         }
         return null;
@@ -49,7 +49,7 @@ public class Card1_188 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && (game.getGameState().getCurrentSiteNumber() == 4 || game.getGameState().getCurrentSiteNumber() == 5) && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), CardType.COMPANION);
+            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
             action.appendEffect(new AddTwilightEffect(self, dwarfCompanions * 2));
             return Collections.singletonList(action);
         }

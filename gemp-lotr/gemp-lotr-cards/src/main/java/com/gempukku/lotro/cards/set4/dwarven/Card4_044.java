@@ -60,7 +60,7 @@ public class Card4_044 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Filters.side(Side.FREE_PEOPLE)));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF)));
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.DWARF));
             return Collections.singletonList(action);
         }
         return null;

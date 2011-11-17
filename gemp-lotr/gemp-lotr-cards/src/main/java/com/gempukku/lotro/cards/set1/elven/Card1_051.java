@@ -42,7 +42,7 @@ public class Card1_051 extends AbstractCompanion {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                 Skirmish activeSkirmish = gameState.getSkirmish();
-                                return Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Filters.race(Race.NAZGUL)).size() > 0;
+                                return Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Race.NAZGUL).size() > 0;
                             }
                         }), 3);
     }

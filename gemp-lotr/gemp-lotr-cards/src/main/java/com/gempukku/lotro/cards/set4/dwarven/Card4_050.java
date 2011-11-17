@@ -39,7 +39,7 @@ public class Card4_050 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndStackCardsFromHandEffect(action, playerId, 1, 1, self, Filters.side(Side.FREE_PEOPLE)));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

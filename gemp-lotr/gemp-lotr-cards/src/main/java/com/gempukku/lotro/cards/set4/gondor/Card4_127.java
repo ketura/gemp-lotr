@@ -36,7 +36,7 @@ public class Card4_127 extends AbstractCompanion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.MAN, Filters.keyword(Keyword.RING_BOUND));
     }
 
     @Override

@@ -28,7 +28,7 @@ public class Card1_024 extends AbstractPermanent {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
-                        Filters.race(Race.DWARF),
+                        Race.DWARF,
                         Filters.inSkirmish,
                         new Filter() {
                             @Override

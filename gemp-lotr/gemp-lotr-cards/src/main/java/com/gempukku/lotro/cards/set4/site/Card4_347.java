@@ -36,7 +36,7 @@ public class Card4_347 extends AbstractSite {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
-                        Filters.race(Race.URUK_HAI),
+                        Race.URUK_HAI,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -47,7 +47,7 @@ public class Card4_347 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.URUK_HAI))
+        if (PlayConditions.played(game, effectResult, Race.URUK_HAI)
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN

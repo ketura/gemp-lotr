@@ -8,7 +8,6 @@ import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -37,21 +36,21 @@ public class Card1_162 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI);
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI));
         return action;
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         GameState gameState = game.getGameState();
-        if (PlayConditions.winsSkirmish(gameState, game.getModifiersQuerying(), effectResult, Filters.race(Race.URUK_HAI))) {
+        if (PlayConditions.winsSkirmish(gameState, game.getModifiersQuerying(), effectResult, Race.URUK_HAI)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(new ExertCharactersEffect(self, gameState.getRingBearer(gameState.getCurrentPlayerId())) {

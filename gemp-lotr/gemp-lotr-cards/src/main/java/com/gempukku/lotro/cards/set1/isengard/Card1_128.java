@@ -32,7 +32,7 @@ public class Card1_128 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Card1_128 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Race.URUK_HAI) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
                         action.appendEffect(

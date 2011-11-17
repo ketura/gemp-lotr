@@ -35,12 +35,12 @@ public class Card4_172 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canSpot(game, Filters.or(Filters.saruman, Filters.and(Culture.ISENGARD, Filters.race(Race.MAN))));
+                && PlayConditions.canSpot(game, Filters.or(Filters.saruman, Filters.and(Culture.ISENGARD, Race.MAN)));
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.race(Race.MAN));
+        return Filters.and(Filters.side(Side.FREE_PEOPLE), Race.MAN);
     }
 
     @Override

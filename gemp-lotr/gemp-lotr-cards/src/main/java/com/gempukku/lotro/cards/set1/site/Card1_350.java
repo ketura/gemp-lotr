@@ -36,7 +36,7 @@ public class Card1_350 extends AbstractSite {
         return new TwilightCostModifier(self,
                 Filters.and(
                         Culture.MORIA,
-                        Filters.race(Race.ORC),
+                        Race.ORC,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -47,7 +47,7 @@ public class Card1_350 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.MORIA, Filters.race(Race.ORC))))
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.MORIA, Race.ORC)))
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN
                 && self.getData() != null)

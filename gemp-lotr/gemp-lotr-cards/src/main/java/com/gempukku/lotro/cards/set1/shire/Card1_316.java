@@ -33,13 +33,13 @@ public class Card1_316 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT);
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        action.appendCost(new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT)));
+        action.appendCost(new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT));
         return action;
     }
 
@@ -57,7 +57,7 @@ public class Card1_316 extends AbstractPermanent {
                 ), ModifierEffect.TWILIGHT_COST_MODIFIER) {
             @Override
             public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
-                int hobbitsCount = Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION, Filters.race(Race.HOBBIT));
+                int hobbitsCount = Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION, Race.HOBBIT);
                 if (hobbitsCount >= 4)
                     return -2;
                 if (hobbitsCount >= 2)

@@ -43,10 +43,10 @@ public class Card3_031 extends AbstractOldEvent {
         if (game.getGameState().getCurrentSiteNumber() <= 5 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new CantBeAssignedToSkirmishModifier(self, Filters.race(Race.HOBBIT)), Phase.REGROUP));
+                            new CantBeAssignedToSkirmishModifier(self, Race.HOBBIT), Phase.REGROUP));
         } else {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Race.HOBBIT) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
