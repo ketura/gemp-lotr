@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
@@ -62,15 +62,17 @@ public class Card10_060 extends AbstractAttachable {
                         protected void cardSelected(LotroGame game, final PhysicalCard card) {
                             action.appendEffect(
                                     new PlayoutDecisionEffect(playerId,
-                                            new MultipleChoiceAwaitingDecision(1, "Do you want to put " + GameUtils.getCardLink(card) + " on top of deck instead?", new String[]{"Yes", "No"}) {
+                                            new YesNoDecision("Do you want to put " + GameUtils.getCardLink(card) + " on top of deck instead?") {
                                                 @Override
-                                                protected void validDecisionMade(int index, String result) {
-                                                    if (index == 0)
-                                                        action.appendEffect(
-                                                                new PutCardFromPlayOnTopOfDeckEffect(card));
-                                                    else
-                                                        action.appendEffect(
-                                                                new DiscardCardsFromPlayEffect(self, card));
+                                                protected void yes() {
+                                                    action.appendEffect(
+                                                            new PutCardFromPlayOnTopOfDeckEffect(card));
+                                                }
+
+                                                @Override
+                                                protected void no() {
+                                                    action.appendEffect(
+                                                            new DiscardCardsFromPlayEffect(self, card));
                                                 }
                                             }));
                         }
