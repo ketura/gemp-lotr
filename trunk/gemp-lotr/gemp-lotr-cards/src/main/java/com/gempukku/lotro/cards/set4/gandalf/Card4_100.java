@@ -43,7 +43,7 @@ public class Card4_100 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new MayNotBearModifier(self, Filters.hasAttached(self), Filters.possessionClass(PossessionClass.HAND_WEAPON)));
+                new MayNotBearModifier(self, Filters.hasAttached(self), PossessionClass.HAND_WEAPON));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Card4_100 extends AbstractAttachableFPPossession {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.hasAttached(self)), Filters.possessionClass(PossessionClass.HAND_WEAPON))));
+                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.hasAttached(self)), PossessionClass.HAND_WEAPON)));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE

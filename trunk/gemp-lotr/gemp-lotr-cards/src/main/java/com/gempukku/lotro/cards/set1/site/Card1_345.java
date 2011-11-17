@@ -39,8 +39,8 @@ public class Card1_345 extends AbstractSite {
                             Filters.and(
                                     Filters.side(Side.SHADOW),
                                     Filters.or(
-                                            Filters.possessionClass(PossessionClass.HAND_WEAPON),
-                                            Filters.possessionClass(PossessionClass.RANGED_WEAPON))
+                                            PossessionClass.HAND_WEAPON,
+                                            PossessionClass.RANGED_WEAPON)
                             )));
             return Collections.singletonList(action);
         }

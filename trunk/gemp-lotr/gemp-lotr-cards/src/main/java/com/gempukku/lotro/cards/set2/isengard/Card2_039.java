@@ -49,9 +49,9 @@ public class Card2_039 extends AbstractOldEvent {
                                     Filters.side(Side.FREE_PEOPLE),
                                     CardType.POSSESSION,
                                     Filters.or(
-                                            Filters.possessionClass(PossessionClass.ARMOR),
-                                            Filters.possessionClass(PossessionClass.HELM),
-                                            Filters.possessionClass(PossessionClass.SHIELD)
+                                            PossessionClass.ARMOR,
+                                            PossessionClass.HELM,
+                                            PossessionClass.SHIELD
                                     ))));
         else
             action.appendEffect(
@@ -59,9 +59,9 @@ public class Card2_039 extends AbstractOldEvent {
                             action, playerId, 1, 1,
                             CardType.POSSESSION,
                             Filters.or(
-                                    Filters.possessionClass(PossessionClass.ARMOR),
-                                    Filters.possessionClass(PossessionClass.HELM),
-                                    Filters.possessionClass(PossessionClass.SHIELD)
+                                    PossessionClass.ARMOR,
+                                    PossessionClass.HELM,
+                                    PossessionClass.SHIELD
                             )));
         return action;
     }

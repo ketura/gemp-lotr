@@ -85,7 +85,14 @@ public class Filters {
         };
     }
 
-    public static Filter possessionClass(final PossessionClass possessionClass) {
+    public static final Map<PossessionClass, Filter> _possessionClassFilterMap = new HashMap<PossessionClass, Filter>();
+
+    static {
+        for (PossessionClass possessionClass : PossessionClass.values())
+            _possessionClassFilterMap.put(possessionClass, possessionClass(possessionClass));
+    }
+
+    private static Filter possessionClass(final PossessionClass possessionClass) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -231,7 +238,7 @@ public class Filters {
 
     public static final Filter galadriel = Filters.name("Galadriel");
 
-    public static final Filter weapon = Filters.or(Filters.possessionClass(PossessionClass.HAND_WEAPON), Filters.possessionClass(PossessionClass.RANGED_WEAPON));
+    public static final Filter weapon = Filters.or(PossessionClass.HAND_WEAPON, PossessionClass.RANGED_WEAPON);
 
     public static final Filter inSkirmish = new Filter() {
         @Override
@@ -622,7 +629,7 @@ public class Filters {
         else if (filter instanceof Keyword)
             return Filters.keyword((Keyword) filter);
         else if (filter instanceof PossessionClass)
-            return Filters.possessionClass((PossessionClass) filter);
+            return _possessionClassFilterMap.get((PossessionClass) filter);
         else if (filter instanceof Race)
             return Filters.race((Race) filter);
         else if (filter instanceof Side)
@@ -682,7 +689,7 @@ public class Filters {
 
     public static final Filter unboundCompanion = Filters.and(CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BOUND)));
     public static final Filter roaminMinion = Filters.and(CardType.MINION, Filters.keyword(Keyword.ROAMING));
-    public static final Filter mounted = Filters.hasAttached(Filters.possessionClass(PossessionClass.MOUNT));
+    public static final Filter mounted = Filters.hasAttached(PossessionClass.MOUNT);
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
         private GameState _gameState;
