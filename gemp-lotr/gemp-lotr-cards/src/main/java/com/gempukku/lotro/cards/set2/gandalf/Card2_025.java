@@ -37,10 +37,10 @@ public class Card2_025 extends AbstractAlly {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.or(
-                        Filters.possessionClass(PossessionClass.SHIELD),
-                        Filters.possessionClass(PossessionClass.ARMOR),
-                        Filters.possessionClass(PossessionClass.HELM),
-                        Filters.possessionClass(PossessionClass.HAND_WEAPON)
+                        PossessionClass.SHIELD,
+                        PossessionClass.ARMOR,
+                        PossessionClass.HELM,
+                        PossessionClass.HAND_WEAPON
                 ), 1);
     }
 }

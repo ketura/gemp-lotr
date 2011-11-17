@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.decisions;
 
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -10,11 +10,11 @@ import java.util.Map;
 
 public abstract class ForEachYouSpotDecision extends IntegerAwaitingDecision {
     private LotroGame _lotroGame;
-    private Filter _filter;
+    private Filterable _filter;
     private int _defaultValue;
     private int _max;
 
-    protected ForEachYouSpotDecision(int id, String text, LotroGame lotroGame, Filter filter, int defaultValue) {
+    protected ForEachYouSpotDecision(int id, String text, LotroGame lotroGame, Filterable filter, int defaultValue) {
         super(id, text, 0);
         _lotroGame = lotroGame;
         _filter = filter;

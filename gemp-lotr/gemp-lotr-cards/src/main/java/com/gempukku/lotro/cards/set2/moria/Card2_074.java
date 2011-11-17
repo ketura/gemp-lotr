@@ -53,9 +53,9 @@ public class Card2_074 extends AbstractAttachable {
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1,
                             Filters.or(
-                                    Filters.possessionClass(PossessionClass.HELM),
-                                    Filters.possessionClass(PossessionClass.SHIELD),
-                                    Filters.possessionClass(PossessionClass.ARMOR)),
+                                    PossessionClass.HELM,
+                                    PossessionClass.SHIELD,
+                                    PossessionClass.ARMOR),
                             Filters.attachedTo(
                                     Filters.inSkirmishAgainst(Filters.hasAttached(self)))));
             return Collections.singletonList(action);

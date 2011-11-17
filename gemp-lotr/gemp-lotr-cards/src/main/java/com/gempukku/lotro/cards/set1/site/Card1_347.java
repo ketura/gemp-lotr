@@ -31,7 +31,7 @@ public class Card1_347 extends AbstractSite {
                                 CardType.COMPANION,
                                 CardType.MINION),
                         Filters.hasAttached(
-                                Filters.possessionClass(PossessionClass.HAND_WEAPON))
+                                PossessionClass.HAND_WEAPON)
                 ), Keyword.DAMAGE);
     }
 }

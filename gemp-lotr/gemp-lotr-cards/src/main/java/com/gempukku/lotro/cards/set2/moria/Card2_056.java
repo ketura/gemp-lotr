@@ -46,7 +46,7 @@ public class Card2_056 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.balrog));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.possessionClass(PossessionClass.RANGED_WEAPON)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, PossessionClass.RANGED_WEAPON));
             return Collections.singletonList(action);
         }
         return null;
