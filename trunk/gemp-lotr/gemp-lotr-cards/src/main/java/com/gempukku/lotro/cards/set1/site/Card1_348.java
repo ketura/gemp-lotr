@@ -36,7 +36,7 @@ public class Card1_348 extends AbstractSite {
                 && self.getData() == null) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.keyword(Keyword.WEATHER)));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Keyword.WEATHER));
             return Collections.singletonList(action);
         }
         return null;

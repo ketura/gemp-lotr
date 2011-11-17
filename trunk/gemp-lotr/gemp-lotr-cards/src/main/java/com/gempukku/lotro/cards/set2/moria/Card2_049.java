@@ -37,7 +37,7 @@ public class Card2_049 extends AbstractMinion {
                         Filters.and(
                                 Filters.not(Filters.sameCard(self)),
                                 Culture.MORIA,
-                                Filters.keyword(Keyword.ARCHER)
+                                Keyword.ARCHER
                         ), 2)
         );
     }

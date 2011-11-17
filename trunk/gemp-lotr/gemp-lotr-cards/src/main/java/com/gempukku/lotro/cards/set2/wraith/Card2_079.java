@@ -37,7 +37,7 @@ public class Card2_079 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Filters.keyword(Keyword.TWILIGHT));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Keyword.TWILIGHT);
     }
 
     @Override
@@ -49,14 +49,14 @@ public class Card2_079 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL, Filters.keyword(Keyword.TWILIGHT)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL, Keyword.TWILIGHT));
         action.appendEffect(
-                new ExertCharactersEffect(self, Filters.keyword(Keyword.RING_BEARER)));
+                new ExertCharactersEffect(self, Keyword.RING_BEARER));
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER), Filters.exhausted)) {
+                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER, Filters.exhausted)) {
                             action.insertEffect(
                                     new PutOnTheOneRingEffect());
                             game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(

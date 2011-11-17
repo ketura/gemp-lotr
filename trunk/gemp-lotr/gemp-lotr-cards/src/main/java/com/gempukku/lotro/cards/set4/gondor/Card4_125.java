@@ -40,11 +40,11 @@ public class Card4_125 extends AbstractPermanent {
                 new StrengthModifier(self,
                         Filters.and(
                                 CardType.MINION,
-                                Filters.keyword(Keyword.ROAMING),
+                                Keyword.ROAMING,
                                 Filters.inSkirmishAgainst(
                                         Filters.and(
                                                 CardType.COMPANION,
-                                                Filters.keyword(Keyword.RING_BOUND)
+                                                Keyword.RING_BOUND
                                         )
                                 )
                         ),
@@ -64,7 +64,7 @@ public class Card4_125 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.keyword(Keyword.ROAMING)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Keyword.ROAMING));
             return Collections.singletonList(action);
         }
         return null;

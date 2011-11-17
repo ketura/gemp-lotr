@@ -47,7 +47,7 @@ public class Card4_258 extends AbstractMinion {
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
                     new PreventableEffect(action,
-                            new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER)), self),
+                            new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER), self),
                             game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {
                                 @Override

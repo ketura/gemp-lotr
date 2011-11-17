@@ -10,7 +10,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -31,7 +30,7 @@ public class Card4_145 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game, Culture.ISENGARD, Filters.keyword(Keyword.ARCHER));
+                && PlayConditions.canExert(self, game, Culture.ISENGARD, Keyword.ARCHER);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class Card4_145 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, Filters.keyword(Keyword.ARCHER)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, Keyword.ARCHER));
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
                         new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -1), Phase.ARCHERY));

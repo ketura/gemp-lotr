@@ -37,7 +37,7 @@ public class Card2_092 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
-            boolean spotsTracker = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Filters.keyword(Keyword.TRACKER));
+            boolean spotsTracker = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Keyword.TRACKER);
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardEffect(playerId, spotsTracker ? 2 : 1));

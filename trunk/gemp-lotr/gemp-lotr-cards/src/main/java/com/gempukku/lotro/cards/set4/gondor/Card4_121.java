@@ -49,12 +49,12 @@ public class Card4_121 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.MAN, Filters.keyword(Keyword.RING_BOUND))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.MAN, Keyword.RING_BOUND)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.MAN, Filters.keyword(Keyword.RING_BOUND)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.MAN, Keyword.RING_BOUND));
             action.appendEffect(
                     new LiberateASiteEffect(self));
             return Collections.singletonList(action);

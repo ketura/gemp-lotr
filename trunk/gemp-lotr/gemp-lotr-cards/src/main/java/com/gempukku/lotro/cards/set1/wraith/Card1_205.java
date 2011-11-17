@@ -48,7 +48,7 @@ public class Card1_205 extends AbstractOldEvent {
                     });
         } else {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(CardType.ALLY, CardType.COMPANION), Filters.not(Filters.keyword(Keyword.RING_BEARER))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(CardType.ALLY, CardType.COMPANION), Filters.not(Keyword.RING_BEARER)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
                             action.appendEffect(

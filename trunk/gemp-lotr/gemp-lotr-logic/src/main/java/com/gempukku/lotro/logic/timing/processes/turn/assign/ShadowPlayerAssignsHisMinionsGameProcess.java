@@ -39,7 +39,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
         Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId));
         if (gameState.isFierceSkirmishes())
             minionFilter = Filters.and(
-                    Filters.keyword(Keyword.FIERCE),
+                    Keyword.FIERCE,
                     minionFilter);
 
         final Collection<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.SHADOW));

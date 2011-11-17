@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -28,7 +27,7 @@ public class Card1_116 extends AbstractOldEvent {
 
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new CardMatchesEvaluator(2, 4, Filters.keyword(Keyword.DEFENDER)),
+                        new CardMatchesEvaluator(2, 4, Keyword.DEFENDER),
                         Culture.GONDOR, CardType.COMPANION));
         return action;
     }

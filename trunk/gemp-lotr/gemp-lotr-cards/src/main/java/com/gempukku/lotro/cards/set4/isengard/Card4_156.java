@@ -30,11 +30,11 @@ public class Card4_156 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD tracker", Culture.ISENGARD, Filters.keyword(Keyword.TRACKER)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD tracker", Culture.ISENGARD, Keyword.TRACKER) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus =
-                                (Filters.inSkirmishAgainst(Filters.hasAttached(Filters.keyword(Keyword.SEARCH))).accepts(game.getGameState(), game.getModifiersQuerying(), card)) ? 4 : 2;
+                                (Filters.inSkirmishAgainst(Filters.hasAttached(Keyword.SEARCH)).accepts(game.getGameState(), game.getModifiersQuerying(), card)) ? 4 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));

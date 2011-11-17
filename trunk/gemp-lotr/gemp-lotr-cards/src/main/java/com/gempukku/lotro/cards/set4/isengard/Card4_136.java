@@ -44,7 +44,7 @@ public class Card4_136 extends AbstractMinion {
                         }, Keyword.FIERCE, 1));
         modifiers.add(
                 new StrengthModifier(self, Filters.sameCard(self),
-                        new SpotCondition(Filters.and(Filters.siteControlled(self.getOwner()), Filters.keyword(Keyword.BATTLEGROUND))), 4));
+                        new SpotCondition(Filters.and(Filters.siteControlled(self.getOwner()), Keyword.BATTLEGROUND)), 4));
         return modifiers;
     }
 }

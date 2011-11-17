@@ -36,7 +36,7 @@ public class Card4_127 extends AbstractCompanion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.MAN, Filters.keyword(Keyword.RING_BOUND));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.MAN, Keyword.RING_BOUND);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Card4_127 extends AbstractCompanion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose roaming minion", CardType.MINION, Filters.keyword(Keyword.ROAMING), Filters.inSkirmishAgainst(Filters.sameCard(self))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose roaming minion", CardType.MINION, Keyword.ROAMING, Filters.inSkirmishAgainst(Filters.sameCard(self))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

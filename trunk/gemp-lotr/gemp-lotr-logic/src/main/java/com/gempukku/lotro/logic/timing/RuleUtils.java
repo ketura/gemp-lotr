@@ -34,7 +34,7 @@ public class RuleUtils {
                                         })
                         )
                 ),
-                Filters.keyword(Keyword.ARCHER),
+                Keyword.ARCHER,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -48,7 +48,7 @@ public class RuleUtils {
     public static int calculateShadowArcheryTotal(LotroGame game) {
         int normalArcheryTotal = Filters.countActive(game.getGameState(), game.getModifiersQuerying(),
                 CardType.MINION,
-                Filters.keyword(Keyword.ARCHER),
+                Keyword.ARCHER,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

@@ -44,7 +44,7 @@ public class Card1_363 extends AbstractSite {
                     new ChooseTrackerToPlay(action, game, 1, playerId, "Choose tracker to play",
                             new LinkedList<PhysicalCard>(game.getGameState().getDiscard(playerId)),
                             Filters.and(
-                                    Filters.keyword(Keyword.TRACKER),
+                                    Keyword.TRACKER,
                                     new Filter() {
                                         @Override
                                         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

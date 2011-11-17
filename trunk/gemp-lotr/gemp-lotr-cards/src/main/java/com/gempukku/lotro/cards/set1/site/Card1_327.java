@@ -27,7 +27,7 @@ public class Card1_327 extends AbstractSite {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (self.getData() == null
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RANGER))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER)) {
             self.storeData(new Object());
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new MoveLimitModifier(self, 1));

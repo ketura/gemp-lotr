@@ -36,7 +36,7 @@ public class Card4_229 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, Filters.sameCard(self))
-                && PlayConditions.canSpot(game, Filters.not(Filters.sameCard(self)), Filters.keyword(Keyword.EASTERLING))) {
+                && PlayConditions.canSpot(game, Filters.not(Filters.sameCard(self)), Keyword.EASTERLING)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int twilight = Math.min(4, game.getGameState().getBurdens());
 

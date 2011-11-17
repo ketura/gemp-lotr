@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.LocationMatchesEvaluator;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -32,7 +31,7 @@ public class Card1_026 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new LocationMatchesEvaluator(2, 4, Filters.keyword(Keyword.UNDERGROUND)),
+                        new LocationMatchesEvaluator(2, 4, Keyword.UNDERGROUND),
                         Race.DWARF));
         return action;
     }

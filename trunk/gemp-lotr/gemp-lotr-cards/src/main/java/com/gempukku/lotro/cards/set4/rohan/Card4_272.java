@@ -37,6 +37,6 @@ public class Card4_272 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new KeywordModifier(self, Filters.hasAttached(self), new SpotCondition(Filters.keyword(Keyword.VILLAGER)), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.hasAttached(self), new SpotCondition(Keyword.VILLAGER), Keyword.DAMAGE, 1));
     }
 }

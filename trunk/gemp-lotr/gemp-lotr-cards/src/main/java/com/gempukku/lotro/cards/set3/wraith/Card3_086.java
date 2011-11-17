@@ -48,7 +48,7 @@ public class Card3_086 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
-                                    new TransferPermanentEffect(card, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.RING_BEARER))));
+                                    new TransferPermanentEffect(card, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER)));
                         }
                     });
             return Collections.singletonList(action);

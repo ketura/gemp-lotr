@@ -45,7 +45,7 @@ public class Card1_123 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer exhausted companion", CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.exhausted) {
+                new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer exhausted companion", CardType.COMPANION, Filters.not(Keyword.RING_BEARER), Filters.exhausted) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard exhaustedCompanion) {
                         action.appendEffect(new DiscardCardsFromPlayEffect(self, exhaustedCompanion));

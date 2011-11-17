@@ -42,7 +42,7 @@ public class Card2_022 extends AbstractAttachableFPPossession {
         return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         Culture.GANDALF,
-                        Filters.keyword(Keyword.SPELL)
+                        Keyword.SPELL
                 ), -1));
     }
 

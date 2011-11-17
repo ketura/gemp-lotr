@@ -45,8 +45,8 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                         Filterable minionFilter = CardType.MINION;
                         if (gameState.isFierceSkirmishes())
                             minionFilter = Filters.and(
-                                    Filters.keyword(Keyword.FIERCE),
-                                    minionFilter);
+                                    minionFilter,
+                                    Keyword.FIERCE);
 
                         final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.FREE_PEOPLE));
                         if (minions.size() > 0) {

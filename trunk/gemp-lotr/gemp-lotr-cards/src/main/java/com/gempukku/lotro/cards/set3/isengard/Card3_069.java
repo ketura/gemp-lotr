@@ -88,7 +88,7 @@ public class Card3_069 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard minion) {
                             action.appendEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer companion", CardType.COMPANION, Filters.not(Filters.keyword(Keyword.RING_BEARER)), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer companion", CardType.COMPANION, Filters.not(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                                             action.appendEffect(

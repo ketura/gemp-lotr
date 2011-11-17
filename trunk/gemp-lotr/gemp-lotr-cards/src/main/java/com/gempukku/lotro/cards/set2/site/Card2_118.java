@@ -39,7 +39,7 @@ public class Card2_118 extends AbstractSite {
                 new TwilightCostModifier(self,
                         Filters.and(
                                 Culture.MORIA,
-                                Filters.keyword(Keyword.ARCHER),
+                                Keyword.ARCHER,
                                 new Filter() {
                                     @Override
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -51,7 +51,7 @@ public class Card2_118 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.MORIA, Filters.keyword(Keyword.ARCHER)))
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.MORIA, Keyword.ARCHER))
                 && game.getGameState().getCurrentPhase() == Phase.SHADOW
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());

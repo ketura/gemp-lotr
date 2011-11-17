@@ -24,7 +24,7 @@ public class Card2_086 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Filters.keyword(Keyword.TWILIGHT))
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Keyword.TWILIGHT)
                 && game.getGameState().isWearingRing();
     }
 

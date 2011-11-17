@@ -39,7 +39,7 @@ public class Card4_182 extends AbstractMinion {
         if (PlayConditions.played(game, effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose machine", Filters.keyword(Keyword.MACHINE)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose machine", Keyword.MACHINE) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

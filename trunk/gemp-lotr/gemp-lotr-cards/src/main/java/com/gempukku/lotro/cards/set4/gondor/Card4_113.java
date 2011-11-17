@@ -26,7 +26,7 @@ public class Card4_113 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.MAN, Filters.keyword(Keyword.RING_BOUND));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.MAN, Keyword.RING_BOUND);
     }
 
     @Override
@@ -38,9 +38,9 @@ public class Card4_113 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.MAN, Filters.keyword(Keyword.RING_BOUND)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.MAN, Keyword.RING_BOUND));
         action.appendEffect(
-                new CancelSkirmishEffect(Filters.and(CardType.MINION, Filters.keyword(Keyword.ROAMING))));
+                new CancelSkirmishEffect(Filters.and(CardType.MINION, Keyword.ROAMING)));
         return action;
     }
 }

@@ -52,7 +52,7 @@ public class Card4_216 extends AbstractPermanent {
             int count = game.getGameState().getTokenCount(self, Token.RAIDER);
             for (int i = 0; i < count; i++)
                 action.appendEffect(
-                        new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Filters.keyword(Keyword.ARCHER)));
+                        new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Keyword.ARCHER));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

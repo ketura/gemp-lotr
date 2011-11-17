@@ -43,7 +43,7 @@ public class Card4_212 extends AbstractAttachable {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                 if (assignmentResult.getAssignments().keySet().contains(self.getAttachedTo())) {
-                    if (Filters.filter(assignmentResult.getAssignments().get(self.getAttachedTo()), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Filters.keyword(Keyword.TRACKER)).size() > 0) {
+                    if (Filters.filter(assignmentResult.getAssignments().get(self.getAttachedTo()), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Keyword.TRACKER).size() > 0) {
                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                         action.appendEffect(
                                 new ExertCharactersEffect(self, self.getAttachedTo()));

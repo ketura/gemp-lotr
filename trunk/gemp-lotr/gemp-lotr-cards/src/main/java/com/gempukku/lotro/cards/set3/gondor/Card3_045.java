@@ -39,7 +39,7 @@ public class Card3_045 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new TwilightCostModifier(self, Filters.and(CardType.EVENT, Filters.keyword(Keyword.MANEUVER)), 2), Phase.MANEUVER));
+                        new TwilightCostModifier(self, Filters.and(CardType.EVENT, Keyword.MANEUVER), 2), Phase.MANEUVER));
         return action;
     }
 }
