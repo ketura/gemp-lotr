@@ -617,6 +617,24 @@ public class Filters {
     static {
         for (Keyword keyword : Keyword.values())
             _keywordFilterMap.put(keyword, keyword(keyword));
+
+        // Some simple shortcuts for filters
+        _keywordFilterMap.put(Keyword.RING_BEARER,
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return gameState.getRingBearer(gameState.getCurrentPlayerId()) == physicalCard;
+                    }
+                });
+        _keywordFilterMap.put(Keyword.RANGER, Filters.and(CardType.COMPANION, keyword(Keyword.RANGER)));
+
+        // Minion groups
+        _keywordFilterMap.put(Keyword.SOUTHRON, Filters.and(CardType.MINION, keyword(Keyword.SOUTHRON)));
+        _keywordFilterMap.put(Keyword.EASTERLING, Filters.and(CardType.MINION, keyword(Keyword.EASTERLING)));
+        _keywordFilterMap.put(Keyword.CORSAIR, Filters.and(CardType.MINION, keyword(Keyword.CORSAIR)));
+        _keywordFilterMap.put(Keyword.TRACKER, Filters.and(CardType.MINION, keyword(Keyword.TRACKER)));
+        _keywordFilterMap.put(Keyword.WARG_RIDER, Filters.and(CardType.MINION, keyword(Keyword.WARG_RIDER)));
+        _keywordFilterMap.put(Keyword.BESIEGER, Filters.and(CardType.MINION, keyword(Keyword.BESIEGER)));
     }
 
     private static Filter keyword(final Keyword keyword) {
