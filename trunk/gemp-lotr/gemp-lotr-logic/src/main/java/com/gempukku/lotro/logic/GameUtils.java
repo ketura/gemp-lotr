@@ -1,5 +1,7 @@
 package com.gempukku.lotro.logic;
 
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -72,5 +74,12 @@ public class GameUtils {
             tokensTotal += gameState.getTokenCount(physicalCard, token);
 
         return tokensTotal;
+    }
+
+    public static int getSpottableCulturesCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
+        Set<Culture> cultures = new HashSet<Culture>();
+        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, filters))
+            cultures.add(physicalCard.getBlueprint().getCulture());
+        return cultures.size();
     }
 }
