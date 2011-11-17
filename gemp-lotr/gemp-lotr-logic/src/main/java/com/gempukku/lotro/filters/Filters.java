@@ -526,6 +526,13 @@ public class Filters {
         };
     }
 
+    public static final Filter unwounded = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return gameState.getWounds(physicalCard) == 0;
+        }
+    };
+
     public static final Filter wounded = Filters.hasWounds(1);
 
     public static Filter name(final String name) {
