@@ -38,7 +38,7 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
 
         if (_remainingDamage > 0) {
             _remainingDamage--;
-            return new WoundCharactersEffect(_skirmishResult.getWinners(), Filters.in(_skirmishResult.getLosers()));
+            return new WoundCharactersEffect(_skirmishResult.getWinners(), Filters.in(_skirmishResult.getInSkirmishLosers()));
         }
 
         return null;
