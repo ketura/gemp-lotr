@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -73,7 +72,7 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean losesSkirmish(LotroGame game, EffectResult effectResult, Filter filter) {
+    public static boolean losesSkirmish(LotroGame game, EffectResult effectResult, Filterable filter) {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
