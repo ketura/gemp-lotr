@@ -50,7 +50,7 @@ public class Card2_043 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.name("Lurtz"))) {
+        if (PlayConditions.winsSkirmish(game, effectResult, Filters.name("Lurtz"))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));

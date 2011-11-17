@@ -35,7 +35,7 @@ public class Card4_199 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
-                && PlayConditions.controllsSite(game.getGameState(), game.getModifiersQuerying(), playerId)) {
+                && PlayConditions.controllsSite(game, playerId)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose site you control", Filters.siteControlled(playerId)) {

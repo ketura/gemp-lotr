@@ -38,7 +38,7 @@ public class Card4_024 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)
-                && PlayConditions.controllsSite(game.getGameState(), game.getModifiersQuerying(), playerId)) {
+                && PlayConditions.controllsSite(game, playerId)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose site you control", Filters.siteControlled(playerId)) {

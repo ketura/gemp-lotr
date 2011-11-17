@@ -34,7 +34,7 @@ public class Card4_034 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))) {
+        if (PlayConditions.losesSkirmish(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.DUNLAND));

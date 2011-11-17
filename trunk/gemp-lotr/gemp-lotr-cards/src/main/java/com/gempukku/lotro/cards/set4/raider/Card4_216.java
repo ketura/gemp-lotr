@@ -33,7 +33,7 @@ public class Card4_216 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult,
+        if (PlayConditions.losesSkirmish(game, effectResult,
                 Filters.and(
                         Filters.or(CardType.COMPANION, CardType.ALLY),
                         Filters.inSkirmishAgainst(Filters.and(Culture.RAIDER, Race.MAN))))) {

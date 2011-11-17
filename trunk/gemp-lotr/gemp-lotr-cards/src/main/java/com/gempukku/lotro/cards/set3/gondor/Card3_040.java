@@ -33,7 +33,7 @@ public class Card3_040 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))) {
+        if (PlayConditions.losesSkirmish(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))) {
             self.storeData(new Object());
         }
         return null;

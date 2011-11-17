@@ -38,7 +38,7 @@ public class Card4_246 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getGameState().getTwilightPool() > 0
-                && PlayConditions.losesSkirmishAgainst(game.getGameState(), game.getModifiersQuerying(), effectResult,
+                && PlayConditions.losesSkirmishAgainst(game, effectResult,
                 Filters.or(CardType.COMPANION, CardType.ALLY),
                 Keyword.SOUTHRON)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
