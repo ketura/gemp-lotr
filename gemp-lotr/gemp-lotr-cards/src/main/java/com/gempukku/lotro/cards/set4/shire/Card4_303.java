@@ -42,7 +42,7 @@ public class Card4_303 extends AbstractAttachableFPPossession {
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             boolean firstOption = (game.getGameState().getCurrentSiteNumber() <= 4 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS);
             ActivateCardAction action = new ActivateCardAction(self);
             if (firstOption) {

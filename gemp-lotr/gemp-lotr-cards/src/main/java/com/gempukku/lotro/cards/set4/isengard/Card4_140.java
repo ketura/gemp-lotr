@@ -28,7 +28,7 @@ public class Card4_140 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Race.URUK_HAI);
+                && PlayConditions.canExertMultiple(self, game, 1, 2, Race.URUK_HAI);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class Card2_056 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.balrog)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

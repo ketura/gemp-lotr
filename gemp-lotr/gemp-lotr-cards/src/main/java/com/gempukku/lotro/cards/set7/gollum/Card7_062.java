@@ -33,7 +33,7 @@ public class Card7_062 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 1)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 1)
                 && PlayConditions.canExert(self, game, Filters.gollum)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

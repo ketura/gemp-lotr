@@ -29,7 +29,7 @@ public class Card7_055 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canDiscardFromHand(game, playerId, 3, Filters.any)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.smeagol)) {
             ActivateCardAction action = new ActivateCardAction(self);

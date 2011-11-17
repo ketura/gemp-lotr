@@ -31,7 +31,7 @@ public class Card5_090 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, Culture.ROHAN, CardType.POSSESSION)) {
             ActivateCardAction action = new ActivateCardAction(self);

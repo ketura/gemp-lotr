@@ -48,7 +48,7 @@ public class Card4_121 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.MAN, Keyword.RING_BOUND)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

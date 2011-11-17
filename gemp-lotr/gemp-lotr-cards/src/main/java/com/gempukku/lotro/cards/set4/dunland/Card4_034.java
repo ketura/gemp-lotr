@@ -45,7 +45,7 @@ public class Card4_034 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int possesions = Math.min(3, game.getGameState().getTokenCount(self, Token.DUNLAND));
             action.appendEffect(

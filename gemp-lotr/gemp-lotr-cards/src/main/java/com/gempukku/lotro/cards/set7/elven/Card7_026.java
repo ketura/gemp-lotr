@@ -33,7 +33,7 @@ public class Card7_026 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
                 && game.getGameState().getThreats() == 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

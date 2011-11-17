@@ -52,7 +52,7 @@ public class Card5_028 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, 2, Filters.gollumOrSmeagol)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

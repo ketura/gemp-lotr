@@ -36,7 +36,7 @@ public class Card1_343 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.MANEUVER, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Keyword.TALE)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();

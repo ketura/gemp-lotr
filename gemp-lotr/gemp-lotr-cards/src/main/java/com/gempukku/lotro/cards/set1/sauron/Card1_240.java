@@ -34,7 +34,7 @@ public class Card1_240 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)
-                && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 2)) {
+                && PlayConditions.canUseShadowCardDuringPhase(game, null, self, 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(

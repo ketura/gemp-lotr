@@ -41,7 +41,7 @@ public class Card4_315 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Sam's Pack")));

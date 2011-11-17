@@ -38,7 +38,7 @@ public class Card1_344 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
             boolean gimliCanExert = PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
-            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.gimli), CardType.COMPANION);
+            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game, 1, 2, Filters.not(Filters.gimli), CardType.COMPANION);
             if (gimliCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 

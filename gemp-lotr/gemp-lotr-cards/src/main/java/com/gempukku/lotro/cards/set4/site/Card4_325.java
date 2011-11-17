@@ -28,8 +28,8 @@ public class Card4_325 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.unboundCompanion)) {
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
+                && PlayConditions.canExertMultiple(self, game, 1, 2, Filters.unboundCompanion)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.unboundCompanion));

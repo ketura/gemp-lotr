@@ -28,7 +28,7 @@ public class Card4_294 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN)
                 && PlayConditions.canPlayFromDiscard(playerId, game, PossessionClass.HAND_WEAPON)) {
             ActivateCardAction action = new ActivateCardAction(self);

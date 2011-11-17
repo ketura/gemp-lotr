@@ -31,7 +31,7 @@ public class Card7_159 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && game.getGameState().getBurdens() < 2
                 && PlayConditions.canExert(self, game, Keyword.EASTERLING)) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -41,7 +41,7 @@ public class Card7_159 extends AbstractPermanent {
                     new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

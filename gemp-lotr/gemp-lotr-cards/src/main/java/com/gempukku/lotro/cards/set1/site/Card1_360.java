@@ -32,7 +32,7 @@ public class Card1_360 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

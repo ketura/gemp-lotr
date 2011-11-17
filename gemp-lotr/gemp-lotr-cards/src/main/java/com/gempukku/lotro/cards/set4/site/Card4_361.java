@@ -30,7 +30,7 @@ public class Card4_361 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
                 && PlayConditions.canPlayFromDiscard(playerId, game, -2, Filters.saruman)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

@@ -40,7 +40,7 @@ public class Card5_019 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && (
                 PlayConditions.canExert(self, game, Race.HOBBIT, Filters.unboundCompanion)
                         || game.getGameState().getHand(playerId).size() >= 2)) {
@@ -67,7 +67,7 @@ public class Card5_019 extends AbstractCompanion {
                             new ParticipatesInSkirmishesModifier(self, Filters.sameCard(self)), Phase.ASSIGNMENT));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

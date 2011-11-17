@@ -46,7 +46,7 @@ public class Card4_111 extends AbstractAttachable {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

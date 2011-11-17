@@ -30,7 +30,7 @@ public class Card1_196 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && game.getGameState().getHand(playerId).size() >= 3
                 // You have to be able to play a MORIA Orc from discard to use it
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.playable(game)).size() > 0) {

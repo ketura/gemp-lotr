@@ -39,7 +39,7 @@ public class Card6_068 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, Culture.ISENGARD, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
@@ -54,7 +54,7 @@ public class Card6_068 extends AbstractMinion {
 
     @Override
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseStackedShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
+        if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && self.getStackedOn().getBlueprint().getCulture() == Culture.ISENGARD
                 && PlayConditions.canSpot(game, Culture.ISENGARD, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);

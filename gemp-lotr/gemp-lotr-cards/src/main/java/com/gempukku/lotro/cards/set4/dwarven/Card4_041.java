@@ -50,7 +50,7 @@ public class Card4_041 extends AbstractAttachableFPPossession {
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.CONDITION, Culture.DWARVEN) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
 

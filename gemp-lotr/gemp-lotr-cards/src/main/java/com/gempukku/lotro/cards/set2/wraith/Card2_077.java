@@ -34,7 +34,7 @@ public class Card2_077 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isGettingWounded(effect, game, Race.NAZGUL, Keyword.TWILIGHT)
-                && PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), null, self, 1)) {
+                && PlayConditions.canUseShadowCardDuringPhase(game, null, self, 1)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCards = woundEffect.getAffectedCardsMinusPrevented(game);
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -37,7 +37,7 @@ public class Card1_301 extends AbstractAlly {
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && game.getGameState().getTwilightPool() < 3) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new AddTwilightEffect(self, 2));

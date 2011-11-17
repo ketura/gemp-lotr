@@ -32,7 +32,7 @@ public class Card7_012 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, Race.DWARF, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
@@ -41,7 +41,7 @@ public class Card7_012 extends AbstractPermanent {
                     new ChooseAndStackCardsFromHandEffect(action, playerId, 1, 1, self, Filters.any));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int count = Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN).size();
             for (int i = 0; i < count; i++)

@@ -28,7 +28,7 @@ public class Card1_324 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new AddBurdenEffect(self, 1));
 

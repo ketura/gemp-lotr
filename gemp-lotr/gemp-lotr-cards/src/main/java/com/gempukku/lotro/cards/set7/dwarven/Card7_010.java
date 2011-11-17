@@ -57,7 +57,7 @@ public class Card7_010 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {

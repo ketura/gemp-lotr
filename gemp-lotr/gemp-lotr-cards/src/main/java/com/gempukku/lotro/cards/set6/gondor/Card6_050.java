@@ -39,7 +39,7 @@ public class Card6_050 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canRemoveTokens(game, Token.ELVEN, 1, Filters.any)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Remove ELVEN token...");
@@ -56,7 +56,7 @@ public class Card6_050 extends AbstractCompanion {
                     });
             actions.add(action);
         }
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canRemoveTokens(game, Token.DWARVEN, 1, Filters.any)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Remove DWARVEN token...");
@@ -66,7 +66,7 @@ public class Card6_050 extends AbstractCompanion {
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.DWARF));
             actions.add(action);
         }
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), self)
                 && PlayConditions.canRemoveTokens(game, Token.ROHAN, 1, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);

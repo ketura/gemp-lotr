@@ -31,7 +31,7 @@ public class Card6_084 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canExert(self, game, 2, Race.NAZGUL)
                 && PlayConditions.canPlayFromHand(playerId, game, -8, CardType.MINION, Filters.or(Culture.WRAITH, Culture.SAURON))) {
             final ActivateCardAction action = new ActivateCardAction(self);

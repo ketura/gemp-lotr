@@ -32,7 +32,7 @@ public class Card2_100 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Race.HOBBIT);
+                && PlayConditions.canExertMultiple(self, game, 1, 2, Race.HOBBIT);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Card7_276 extends AbstractMinion {
 
     @Override
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseStackedShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
+        if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && Filters.siteControlled(playerId).accepts(game.getGameState(), game.getModifiersQuerying(), self.getStackedOn())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

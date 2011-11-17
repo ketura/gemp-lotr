@@ -29,7 +29,7 @@ public class Card1_358 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

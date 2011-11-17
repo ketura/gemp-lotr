@@ -39,7 +39,7 @@ public class Card4_249 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)
                 && PlayConditions.canCardAssignToSkirmish(self, game, self)
                 && PlayConditions.canCardAssignToSkirmish(self, game, Keyword.RING_BEARER)) {

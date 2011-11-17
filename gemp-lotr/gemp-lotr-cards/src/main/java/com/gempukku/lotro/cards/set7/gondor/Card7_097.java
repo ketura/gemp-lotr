@@ -34,7 +34,7 @@ public class Card7_097 extends AbstractAlly {
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);
