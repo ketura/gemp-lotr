@@ -528,15 +528,6 @@ public class Filters {
 
     public static final Filter wounded = Filters.hasWounds(1);
 
-    public static Filter cardId(final int cardId) {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getCardId() == cardId;
-            }
-        };
-    }
-
     public static Filter name(final String name) {
         return new Filter() {
             @Override
