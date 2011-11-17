@@ -38,8 +38,8 @@ public class Card4_073 extends AbstractCompanion {
                         Filters.and(
                                 Filters.side(Side.SHADOW),
                                 Filters.or(
-                                        Filters.type(CardType.EVENT),
-                                        Filters.type(CardType.CONDITION)
+                                        CardType.EVENT,
+                                        CardType.CONDITION
                                 )
                         ), null,
                         new CountSpottableEvaluator(Filters.and(Filters.unboundCompanion, Filters.race(Race.HOBBIT)))));

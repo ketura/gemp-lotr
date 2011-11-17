@@ -31,7 +31,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
         if (_woundsToAssign > 0) {
             Filter filter =
                     Filters.and(
-                            Filters.type(CardType.MINION),
+                            CardType.MINION,
                             Filters.owner(_playerId),
                             new Filter() {
                                 @Override

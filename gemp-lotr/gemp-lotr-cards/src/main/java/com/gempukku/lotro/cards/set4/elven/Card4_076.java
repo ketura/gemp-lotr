@@ -8,7 +8,6 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -45,7 +44,7 @@ public class Card4_076 extends AbstractCompanion {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.insertEffect(
-                                    new ChooseAndWoundCharactersEffect(action, opponentId, 1, 1, Filters.type(CardType.MINION)));
+                                    new ChooseAndWoundCharactersEffect(action, opponentId, 1, 1, CardType.MINION));
                         }
                     });
             return Collections.singletonList(action);

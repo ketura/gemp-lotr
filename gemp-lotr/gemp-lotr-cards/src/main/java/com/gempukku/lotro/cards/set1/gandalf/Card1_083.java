@@ -32,7 +32,7 @@ public class Card1_083 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -3, Filters.type(CardType.MINION)));
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -3, CardType.MINION));
         return action;
     }
 

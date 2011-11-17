@@ -1,8 +1,8 @@
 package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -48,7 +48,7 @@ public class ThreatRule {
                                 action.appendEffect(
                                         new RemoveThreatsEffect(null, threats));
                                 for (int i = 0; i < threats; i++) {
-                                    Filter filter = Filters.type(CardType.COMPANION);
+                                    Filterable filter = CardType.COMPANION;
 
                                     if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_BEARER_CANT_TAKE_THREAT_WOUNDS))
                                         filter = Filters.and(filter, Filters.not(Keyword.RING_BEARER));

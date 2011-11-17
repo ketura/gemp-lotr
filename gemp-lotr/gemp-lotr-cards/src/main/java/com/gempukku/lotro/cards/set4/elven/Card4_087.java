@@ -30,7 +30,7 @@ public class Card4_087 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        final boolean againstWoundedMinion = Filters.inSkirmishAgainst(Filters.and(Filters.type(CardType.MINION), Filters.wounded)).accepts(game.getGameState(), game.getModifiersQuerying(), card);
+                        final boolean againstWoundedMinion = Filters.inSkirmishAgainst(Filters.and(CardType.MINION, Filters.wounded)).accepts(game.getGameState(), game.getModifiersQuerying(), card);
                         int bonus = againstWoundedMinion ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

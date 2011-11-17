@@ -40,7 +40,7 @@ public class Card4_110 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.keyword(Keyword.RING_BOUND), Filters.race(Race.MAN)));
         action.appendEffect(
-                new WoundCharactersEffect(self, Filters.and(Filters.type(CardType.MINION), Filters.keyword(Keyword.ROAMING))));
+                new WoundCharactersEffect(self, Filters.and(CardType.MINION, Filters.keyword(Keyword.ROAMING))));
         return action;
     }
 }

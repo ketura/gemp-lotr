@@ -32,8 +32,8 @@ public class Card4_108 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.gandalf)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION))
-                > Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
+                > Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Card4_108 extends AbstractOldEvent {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         action.insertEffect(
-                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)));
+                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
                     }
                 });
         return action;

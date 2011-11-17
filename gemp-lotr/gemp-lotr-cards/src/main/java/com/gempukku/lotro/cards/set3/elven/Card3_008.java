@@ -36,7 +36,7 @@ public class Card3_008 extends AbstractCompanion {
                         new SpotCondition(
                                 3, Filters.and(
                                 Filters.culture(Culture.ELVEN),
-                                Filters.type(CardType.ALLY),
+                                CardType.ALLY,
                                 Filters.isAllyHome(3, Block.FELLOWSHIP)
                         )), -3));
     }

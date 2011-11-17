@@ -49,14 +49,14 @@ public class Card4_177 extends AbstractAttachable {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && self.getAttachedTo().getBlueprint().getName().equals("Ugluk")
                 && PlayConditions.canExert(self, game, Filters.name("Ugluk"))
-                && PlayConditions.canPlayFromHand(playerId, game, -3, Filters.type(CardType.MINION))) {
+                && PlayConditions.canPlayFromHand(playerId, game, -3, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Ugluk")));
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Filters.type(CardType.MINION)));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, CardType.MINION));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -3, Filters.type(CardType.MINION)));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -3, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

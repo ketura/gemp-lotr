@@ -33,9 +33,9 @@ public class Card1_332 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
 
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))) {
+            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), CardType.COMPANION)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new ExertCharactersEffect(self, Filters.and(Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION))));
+                action.appendEffect(new ExertCharactersEffect(self, Filters.and(Filters.race(Race.HOBBIT), CardType.COMPANION)));
                 return Collections.singletonList(action);
             }
         }

@@ -38,7 +38,7 @@ public class Card1_139 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.race(Race.URUK_HAI)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
-                        if (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION)) >= 5) {
+                        if (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 5) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(urukHai), 4), Phase.REGROUP));

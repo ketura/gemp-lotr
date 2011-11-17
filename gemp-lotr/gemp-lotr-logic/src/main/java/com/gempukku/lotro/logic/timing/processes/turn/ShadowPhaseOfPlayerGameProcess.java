@@ -2,7 +2,6 @@ package com.gempukku.lotro.logic.timing.processes.turn;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
@@ -33,7 +32,7 @@ public class ShadowPhaseOfPlayerGameProcess implements GameProcess {
 
         GameProcess followingGameProcess;
         if (nextPlayer == null)
-            followingGameProcess = new CanSpotGameProcess(_game, Filters.type(CardType.MINION), new ManeuverGameProcess(_game), new RegroupGameProcess(_game));
+            followingGameProcess = new CanSpotGameProcess(_game, CardType.MINION, new ManeuverGameProcess(_game), new RegroupGameProcess(_game));
         else
             followingGameProcess = new ShadowPhaseOfPlayerGameProcess(_game, _playOrder, nextPlayer);
 

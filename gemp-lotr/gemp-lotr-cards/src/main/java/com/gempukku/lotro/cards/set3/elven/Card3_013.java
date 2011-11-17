@@ -38,7 +38,7 @@ public class Card3_013 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, Filters.type(CardType.ALLY), Filters.isAllyHome(3, Block.FELLOWSHIP)));
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, CardType.ALLY, Filters.isAllyHome(3, Block.FELLOWSHIP)));
             return Collections.singletonList(action);
         }
         return null;
@@ -54,7 +54,7 @@ public class Card3_013 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.type(CardType.COMPANION)));
+                    new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

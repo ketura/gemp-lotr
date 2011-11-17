@@ -53,7 +53,7 @@ public class Card4_097 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String shadowPlayerId) {
-                                return new ChooseAndWoundCharactersEffect(subAction, playerId, 1, 1, Filters.type(CardType.MINION)) {
+                                return new ChooseAndWoundCharactersEffect(subAction, playerId, 1, 1, CardType.MINION) {
                                     @Override
                                     public String getText(LotroGame game) {
                                         return "Make fellowship player wound a minion";

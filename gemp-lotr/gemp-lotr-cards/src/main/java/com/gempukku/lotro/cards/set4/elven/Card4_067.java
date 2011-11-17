@@ -43,12 +43,12 @@ public class Card4_067 extends AbstractCompanion {
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.type(CardType.CONDITION), Filters.hasToken(Token.ELVEN)) > 0) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), CardType.CONDITION, Filters.hasToken(Token.ELVEN)) > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose condition", Filters.owner(playerId), Filters.type(CardType.CONDITION), Filters.hasToken(Token.ELVEN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose condition", Filters.owner(playerId), CardType.CONDITION, Filters.hasToken(Token.ELVEN)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertCost(
@@ -56,7 +56,7 @@ public class Card4_067 extends AbstractCompanion {
                         }
                     });
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.sameCard(self))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.sameCard(self))));
             return Collections.singletonList(action);
         }
         return null;

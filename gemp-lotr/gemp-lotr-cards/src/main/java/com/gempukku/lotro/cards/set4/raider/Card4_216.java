@@ -35,7 +35,7 @@ public class Card4_216 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult,
                 Filters.and(
-                        Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)),
+                        Filters.or(CardType.COMPANION, CardType.ALLY),
                         Filters.inSkirmishAgainst(Filters.and(Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)))))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

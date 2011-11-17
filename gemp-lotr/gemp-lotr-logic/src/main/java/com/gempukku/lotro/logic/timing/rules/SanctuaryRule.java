@@ -39,7 +39,7 @@ public class SanctuaryRule {
                             action.setText("Sanctuary healing");
                             for (int i = 0; i < 5; i++) {
                                 final int remainingHeals = 5 - i;
-                                ChooseAndHealCharactersEffect healEffect = new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, Filters.type(CardType.COMPANION));
+                                ChooseAndHealCharactersEffect healEffect = new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, CardType.COMPANION);
                                 healEffect.setChoiceText("Sanctuary healing - Choose companion to heal - remaining heals: " + remainingHeals);
                                 action.appendEffect(healEffect);
                             }

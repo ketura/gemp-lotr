@@ -35,13 +35,13 @@ public class Card4_170 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
-                int count = Filters.filter(assignmentResult.getAssignments().keySet(), game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.ALLY)).size();
+                int count = Filters.filter(assignmentResult.getAssignments().keySet(), game.getGameState(), game.getModifiersQuerying(), CardType.ALLY).size();
                 List<OptionalTriggerAction> optionalTriggers = new LinkedList<OptionalTriggerAction>();
 
                 for (int i = 0; i < count; i++) {
                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                     action.appendEffect(
-                            new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), -2, Filters.and(Filters.type(CardType.MINION), Filters.culture(Culture.ISENGARD))));
+                            new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), -2, Filters.and(CardType.MINION, Filters.culture(Culture.ISENGARD))));
                     optionalTriggers.add(action);
                 }
 

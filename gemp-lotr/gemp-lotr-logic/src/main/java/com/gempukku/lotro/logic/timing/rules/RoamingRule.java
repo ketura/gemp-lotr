@@ -16,7 +16,7 @@ public class RoamingRule {
     }
 
     public void applyRule() {
-        Filter roamingFilter = Filters.and(Filters.type(CardType.MINION), new Filter() {
+        Filter roamingFilter = Filters.and(CardType.MINION, new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return (modifiersQuerying.getMinionSiteNumber(gameState, physicalCard) > gameState.getCurrentSiteNumber());

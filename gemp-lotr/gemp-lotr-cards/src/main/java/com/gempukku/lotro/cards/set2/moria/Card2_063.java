@@ -36,7 +36,7 @@ public class Card2_063 extends AbstractMinion {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.culture(Culture.MORIA), Filters.type(CardType.MINION)));
+                    new ChooseAndHealCharactersEffect(action, playerId, Filters.culture(Culture.MORIA), CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

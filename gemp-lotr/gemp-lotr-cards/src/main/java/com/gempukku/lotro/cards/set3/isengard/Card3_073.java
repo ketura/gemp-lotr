@@ -39,7 +39,7 @@ public class Card3_073 extends AbstractOldEvent {
                         super.cardsSelected(game, cards);    //To change body of overridden methods use File | Settings | File Templates.
                         int discardedOrcs = cards.size();
                         action.appendEffect(
-                                new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), discardedOrcs, discardedOrcs, Filters.type(CardType.COMPANION)));
+                                new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), discardedOrcs, discardedOrcs, CardType.COMPANION));
                     }
                 });
         return action;

@@ -41,7 +41,7 @@ public class Card2_096 extends AbstractAlly {
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.TALE)));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION), Filters.zone(Zone.SUPPORT)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.SHADOW), CardType.CONDITION, Filters.zone(Zone.SUPPORT)));
             return Collections.singletonList(action);
         }
         return null;

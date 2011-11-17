@@ -41,7 +41,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
 
     private Collection<PhysicalCard> getPossibleCharacters(final String playerId) {
         return Filters.filter(_game.getGameState().getDeck(playerId), _game.getGameState(), _game.getModifiersQuerying(),
-                Filters.type(CardType.COMPANION),
+                CardType.COMPANION,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

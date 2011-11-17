@@ -46,6 +46,6 @@ public class Card4_265 extends AbstractCompanion {
                 new StrengthModifier(self,
                         Filters.and(
                                 Filters.sameCard(self),
-                                Filters.inSkirmishAgainst(Filters.type(CardType.MINION), Filters.wounded)), 2));
+                                Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)), 2));
     }
 }

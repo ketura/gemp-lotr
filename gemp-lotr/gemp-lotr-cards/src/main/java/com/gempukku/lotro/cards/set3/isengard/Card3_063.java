@@ -26,7 +26,7 @@ public class Card3_063 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), CardType.MINION);
     }
 
     @Override
@@ -38,18 +38,18 @@ public class Card3_063 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), CardType.MINION));
         int exertionCount = 0;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.DWARF)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.DWARF)))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.ELF)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.ELF)))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.MAN)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.MAN)))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION), Filters.race(Race.WIZARD)))
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.race(Race.WIZARD)))
             exertionCount++;
         action.appendEffect(
-                new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), exertionCount, exertionCount, Filters.type(CardType.COMPANION)));
+                new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), exertionCount, exertionCount, CardType.COMPANION));
         return action;
     }
 }

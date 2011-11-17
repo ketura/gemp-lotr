@@ -37,7 +37,7 @@ public class Card2_120 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
 
-            Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION));
+            Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT), CardType.COMPANION);
             for (final PhysicalCard hobbitCompanion : hobbitCompanions) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.setText("Heal " + GameUtils.getCardLink(hobbitCompanion));

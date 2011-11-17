@@ -36,7 +36,7 @@ public class Card2_071 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.race(Race.HOBBIT), Filters.type(CardType.COMPANION));
+        return Filters.and(Filters.race(Race.HOBBIT), CardType.COMPANION);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     @Override
     public void process(LotroGame game) {
         GameState gameState = _game.getGameState();
-        Filter minionFilter = Filters.and(Filters.type(CardType.MINION), Filters.owner(_playerId));
+        Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId));
         if (gameState.isFierceSkirmishes())
             minionFilter = Filters.and(
                     Filters.keyword(Keyword.FIERCE),
@@ -46,9 +46,9 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
         if (minions.size() > 0) {
             final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
                     Filters.or(
-                            Filters.type(CardType.COMPANION),
+                            CardType.COMPANION,
                             Filters.and(
-                                    Filters.type(CardType.ALLY),
+                                    CardType.ALLY,
                                     Filters.or(
                                             Filters.and(
                                                     Filters.allyAtHome,

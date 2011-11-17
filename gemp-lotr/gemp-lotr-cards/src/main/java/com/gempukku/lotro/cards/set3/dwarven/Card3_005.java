@@ -60,7 +60,7 @@ public class Card3_005 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, Filters.culture(Culture.MORIA), Filters.type(CardType.CONDITION)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, Filters.culture(Culture.MORIA), CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

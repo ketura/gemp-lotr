@@ -57,7 +57,7 @@ public class Card4_139 extends AbstractAttachable {
         if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult,
                 Filters.and(
                         Filters.not(Filters.hasAttached(self)),
-                        Filters.or(Filters.type(CardType.ALLY), Filters.type(CardType.COMPANION))))) {
+                        Filters.or(CardType.ALLY, CardType.COMPANION)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(self, Filters.hasAttached(self)));

@@ -26,7 +26,7 @@ public class Card3_045 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), CardType.COMPANION);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Card3_045 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new TwilightCostModifier(self, Filters.and(Filters.type(CardType.EVENT), Filters.keyword(Keyword.MANEUVER)), 2), Phase.MANEUVER));
+                        new TwilightCostModifier(self, Filters.and(CardType.EVENT, Filters.keyword(Keyword.MANEUVER)), 2), Phase.MANEUVER));
         return action;
     }
 }

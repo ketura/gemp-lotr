@@ -52,7 +52,7 @@ public class Card2_058 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new MayNotBearModifier(self, Filters.sameCard(self), Filters.type(CardType.POSSESSION)));
+                new MayNotBearModifier(self, Filters.sameCard(self), CardType.POSSESSION));
     }
 
     @Override

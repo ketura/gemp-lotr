@@ -28,8 +28,8 @@ public class Card1_347 extends AbstractSite {
         return new KeywordModifier(self,
                 Filters.and(
                         Filters.or(
-                                Filters.type(CardType.COMPANION),
-                                Filters.type(CardType.MINION)),
+                                CardType.COMPANION,
+                                CardType.MINION),
                         Filters.hasAttached(
                                 Filters.possessionClass(PossessionClass.HAND_WEAPON))
                 ), Keyword.DAMAGE);

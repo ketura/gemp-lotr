@@ -40,12 +40,12 @@ public class Card3_018 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, Filters.type(CardType.MINION)));
+                    new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

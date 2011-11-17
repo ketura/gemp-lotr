@@ -40,7 +40,7 @@ public class Card4_113 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND)));
         action.appendEffect(
-                new CancelSkirmishEffect(Filters.and(Filters.type(CardType.MINION), Filters.keyword(Keyword.ROAMING))));
+                new CancelSkirmishEffect(Filters.and(CardType.MINION, Filters.keyword(Keyword.ROAMING))));
         return action;
     }
 }

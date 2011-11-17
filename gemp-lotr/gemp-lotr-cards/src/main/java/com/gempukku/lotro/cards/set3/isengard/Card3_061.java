@@ -62,7 +62,7 @@ public class Card3_061 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.type(CardType.COMPANION)));
+                    new ExertCharactersEffect(self, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

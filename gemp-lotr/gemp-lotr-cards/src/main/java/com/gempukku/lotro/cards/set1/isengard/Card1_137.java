@@ -49,7 +49,7 @@ public class Card1_137 extends AbstractOldEvent {
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.type(CardType.COMPANION)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, CardType.COMPANION) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Exert 2 companions";

@@ -38,7 +38,7 @@ public class Card1_346 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
             boolean frodoCanExert = PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
-            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.frodo), Filters.type(CardType.COMPANION));
+            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.frodo), CardType.COMPANION);
             if (frodoCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
@@ -51,7 +51,7 @@ public class Card1_346 extends AbstractSite {
                     }
                 });
                 possibleEffects.add(
-                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.frodo), Filters.type(CardType.COMPANION)) {
+                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.frodo), CardType.COMPANION) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Exert 2 other companions";
@@ -70,7 +70,7 @@ public class Card1_346 extends AbstractSite {
             if (twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.frodo), Filters.type(CardType.COMPANION)));
+                        new ChooseAndExertCharactersEffect(action, fpPlayerId, 2, 2, Filters.not(Filters.frodo), CardType.COMPANION));
 
                 return Collections.singletonList(action);
             }

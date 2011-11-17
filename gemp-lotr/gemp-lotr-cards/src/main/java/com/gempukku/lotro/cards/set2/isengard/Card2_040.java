@@ -33,14 +33,14 @@ public class Card2_040 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), CardType.MINION);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.EXERT) {
             ExertResult exertResult = (ExertResult) effectResult;
-            Collection<PhysicalCard> exertedShireAllies = Filters.filter(exertResult.getExertedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SHIRE), Filters.type(CardType.ALLY));
+            Collection<PhysicalCard> exertedShireAllies = Filters.filter(exertResult.getExertedCards(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SHIRE), CardType.ALLY);
             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
             for (PhysicalCard exertedShireAlly : exertedShireAllies) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);

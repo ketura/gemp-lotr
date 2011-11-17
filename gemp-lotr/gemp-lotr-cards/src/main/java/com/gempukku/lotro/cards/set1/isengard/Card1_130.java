@@ -28,10 +28,10 @@ public class Card1_130 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.WEATHER), Filters.type(CardType.CONDITION), Filters.owner(self.getOwner())))) {
+        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.keyword(Keyword.WEATHER), CardType.CONDITION, Filters.owner(self.getOwner())))) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.culture(Culture.GANDALF), Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))));
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.culture(Culture.GANDALF), Filters.or(CardType.COMPANION, CardType.ALLY)));
 
             return Collections.singletonList(action);
         }

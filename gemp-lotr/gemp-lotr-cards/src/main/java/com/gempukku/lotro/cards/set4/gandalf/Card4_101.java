@@ -28,8 +28,8 @@ public class Card4_101 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), Filters.type(CardType.MINION))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ENT), Filters.type(CardType.ALLY));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), CardType.MINION)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ENT), CardType.ALLY);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Card4_101 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "choose an Ent ally", Filters.race(Race.ENT), Filters.type(CardType.ALLY)) {
+                new ChooseActiveCardEffect(self, playerId, "choose an Ent ally", Filters.race(Race.ENT), CardType.ALLY) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(

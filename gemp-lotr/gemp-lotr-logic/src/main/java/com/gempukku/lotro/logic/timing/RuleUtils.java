@@ -14,9 +14,9 @@ public class RuleUtils {
     public static int calculateFellowshipArcheryTotal(LotroGame game) {
         int normalArcheryTotal = Filters.countActive(game.getGameState(), game.getModifiersQuerying(),
                 Filters.or(
-                        Filters.type(CardType.COMPANION),
+                        CardType.COMPANION,
                         Filters.and(
-                                Filters.type(CardType.ALLY),
+                                CardType.ALLY,
                                 Filters.or(
                                         Filters.and(
                                                 Filters.allyAtHome,
@@ -47,7 +47,7 @@ public class RuleUtils {
 
     public static int calculateShadowArcheryTotal(LotroGame game) {
         int normalArcheryTotal = Filters.countActive(game.getGameState(), game.getModifiersQuerying(),
-                Filters.type(CardType.MINION),
+                CardType.MINION,
                 Filters.keyword(Keyword.ARCHER),
                 new Filter() {
                     @Override

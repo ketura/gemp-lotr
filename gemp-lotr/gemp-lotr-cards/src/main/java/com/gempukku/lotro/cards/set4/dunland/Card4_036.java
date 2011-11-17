@@ -47,7 +47,7 @@ public class Card4_036 extends AbstractAttachable {
         if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.hasAttached(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Filters.type(CardType.POSSESSION), Filters.side(Side.FREE_PEOPLE)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, CardType.POSSESSION, Filters.side(Side.FREE_PEOPLE)));
             return Collections.singletonList(action);
         }
         return null;

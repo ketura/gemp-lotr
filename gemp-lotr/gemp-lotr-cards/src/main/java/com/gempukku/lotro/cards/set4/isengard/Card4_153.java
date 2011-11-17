@@ -35,10 +35,10 @@ public class Card4_153 extends AbstractMinion {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(
-                                Filters.hasAttached(Filters.and(Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION))),
+                                Filters.hasAttached(Filters.and(Filters.side(Side.SHADOW), CardType.CONDITION)),
                                 Filters.or(
                                         Filters.unboundCompanion,
-                                        Filters.type(CardType.ALLY)
+                                        CardType.ALLY
                                 )), -1));
     }
 }

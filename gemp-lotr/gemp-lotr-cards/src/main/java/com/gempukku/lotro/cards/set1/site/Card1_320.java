@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
@@ -21,6 +20,6 @@ public class Card1_320 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.type(CardType.COMPANION), 2);
+        return new TwilightCostModifier(self, CardType.COMPANION, 2);
     }
 }

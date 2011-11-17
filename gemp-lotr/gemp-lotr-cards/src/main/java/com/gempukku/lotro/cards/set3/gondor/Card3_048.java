@@ -41,13 +41,13 @@ public class Card3_048 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.culture(Culture.GONDOR), CardType.COMPANION)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.culture(Culture.GONDOR), CardType.COMPANION));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new TwilightCostModifier(self, Filters.type(CardType.MINION), 1), Phase.REGROUP));
+                            new TwilightCostModifier(self, CardType.MINION, 1), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

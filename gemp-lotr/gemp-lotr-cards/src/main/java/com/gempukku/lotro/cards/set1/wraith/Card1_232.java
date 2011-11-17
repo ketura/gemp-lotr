@@ -30,13 +30,13 @@ public class Card1_232 extends AbstractMinion {
         return new StrengthModifier(self,
                 Filters.and(
                         Filters.or(
-                                Filters.type(CardType.ALLY),
-                                Filters.type(CardType.COMPANION)
+                                CardType.ALLY,
+                                CardType.COMPANION
                         ),
                         Filters.hasAttached(
                                 Filters.and(
                                         Filters.culture(Culture.WRAITH),
-                                        Filters.type(CardType.CONDITION)
+                                        CardType.CONDITION
                                 )
                         )
                 ), -2);

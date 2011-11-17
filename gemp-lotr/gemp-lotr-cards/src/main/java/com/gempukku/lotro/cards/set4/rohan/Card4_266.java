@@ -47,7 +47,7 @@ public class Card4_266 extends AbstractCompanion {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ROHAN), Filters.type(CardType.ALLY)));
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ROHAN), CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

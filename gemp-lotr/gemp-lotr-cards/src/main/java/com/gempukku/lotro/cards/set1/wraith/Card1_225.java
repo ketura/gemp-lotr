@@ -59,7 +59,7 @@ public class Card1_225 extends AbstractAttachable {
             if (skirmish != null
                     && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
                 action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose possession borne by character he is skirmishing", Filters.type(CardType.POSSESSION), Filters.hasAttached(skirmish.getFellowshipCharacter())) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose possession borne by character he is skirmishing", CardType.POSSESSION, Filters.hasAttached(skirmish.getFellowshipCharacter())) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard possession) {
                                 action.appendEffect(

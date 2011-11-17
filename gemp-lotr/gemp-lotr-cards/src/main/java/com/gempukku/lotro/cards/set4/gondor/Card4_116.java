@@ -43,7 +43,7 @@ public class Card4_116 extends AbstractCompanion {
                             }
                         }, -1));
         modifiers.add(
-                new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.inSkirmishAgainst(Filters.and(Filters.type(CardType.MINION), Filters.keyword(Keyword.ROAMING)))), 2));
+                new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.inSkirmishAgainst(Filters.and(CardType.MINION, Filters.keyword(Keyword.ROAMING)))), 2));
         return modifiers;
     }
 }

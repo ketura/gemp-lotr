@@ -31,12 +31,12 @@ public class Card4_236 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getGameState().getTwilightPool() >= 4
-                && PlayConditions.losesSkirmishAgainst(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY)), Filters.keyword(Keyword.SOUTHRON))) {
+                && PlayConditions.losesSkirmishAgainst(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.keyword(Keyword.SOUTHRON))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(4));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.type(CardType.COMPANION), Filters.keyword(Keyword.RING_BOUND)));
+                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION, Filters.keyword(Keyword.RING_BOUND)));
             return Collections.singletonList(action);
         }
         return null;

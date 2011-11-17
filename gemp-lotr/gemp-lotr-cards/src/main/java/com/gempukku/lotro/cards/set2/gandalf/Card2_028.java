@@ -43,7 +43,7 @@ public class Card2_028 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
-                        new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.type(CardType.COMPANION)) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.appendEffect(

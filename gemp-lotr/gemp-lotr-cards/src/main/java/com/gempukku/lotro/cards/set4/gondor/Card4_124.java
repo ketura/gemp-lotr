@@ -37,18 +37,18 @@ public class Card4_124 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(),
                 Filters.or(
                         Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion),
-                        Filters.and(Filters.culture(Culture.ROHAN), Filters.type(CardType.COMPANION))))) {
+                        Filters.and(Filters.culture(Culture.ROHAN), CardType.COMPANION)))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.or(
                             Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion),
-                            Filters.and(Filters.culture(Culture.ROHAN), Filters.type(CardType.COMPANION)))) {
+                            Filters.and(Filters.culture(Culture.ROHAN), CardType.COMPANION))) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             Culture culture = character.getBlueprint().getCulture();
                             Filter filter;
                             if (culture == Culture.GONDOR)
-                                filter = Filters.and(Filters.culture(Culture.ROHAN), Filters.type(CardType.COMPANION));
+                                filter = Filters.and(Filters.culture(Culture.ROHAN), CardType.COMPANION);
                             else
                                 filter = Filters.and(Filters.culture(Culture.GONDOR), Filters.unboundCompanion);
 

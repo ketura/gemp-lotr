@@ -45,17 +45,17 @@ public class Card2_073 extends AbstractMinion {
         modifiers.add(
                 new KeywordModifier(self, Filters.keyword(Keyword.TENTACLE), Keyword.DAMAGE));
         modifiers.add(
-                new MayNotBearModifier(self, Filters.sameCard(self), Filters.type(CardType.POSSESSION)));
+                new MayNotBearModifier(self, Filters.sameCard(self), CardType.POSSESSION));
         return modifiers;
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.MINION), Filters.not(Filters.sameCard(self)), Filters.not(Filters.keyword(Keyword.TENTACLE)))) {
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.not(Filters.sameCard(self)), Filters.not(Filters.keyword(Keyword.TENTACLE)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.type(CardType.MINION), Filters.not(Filters.sameCard(self)), Filters.not(Filters.keyword(Keyword.TENTACLE)))));
+                    new DiscardCardsFromPlayEffect(self, Filters.and(CardType.MINION, Filters.not(Filters.sameCard(self)), Filters.not(Filters.keyword(Keyword.TENTACLE)))));
             actions.add(action);
         }
         if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.MARSH)) {

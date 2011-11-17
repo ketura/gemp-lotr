@@ -47,7 +47,7 @@ public class Card1_202 extends AbstractPermanent {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
-                        Filters.type(CardType.COMPANION),
+                        CardType.COMPANION,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

@@ -51,19 +51,19 @@ public class Card4_041 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)) > 0) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.CONDITION, Filters.culture(Culture.DWARVEN)) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)) {
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION, Filters.culture(Culture.DWARVEN)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard DWARVEN condition";
                         }
                     });
             possibleCosts.add(
-                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Filters.type(CardType.CONDITION), Filters.culture(Culture.DWARVEN)), Filters.any) {
+                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(CardType.CONDITION, Filters.culture(Culture.DWARVEN)), Filters.any) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard a card stacked on a DWARVEN condition";

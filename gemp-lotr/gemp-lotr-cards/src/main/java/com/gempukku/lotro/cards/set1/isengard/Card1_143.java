@@ -37,7 +37,7 @@ public class Card1_143 extends AbstractMinion {
                 // Weapon bonus (Hand or Ranged)
                 Filters.weapon,
                 // That is attached to Companion or Ally
-                Filters.attachedTo(Filters.or(Filters.type(CardType.COMPANION), Filters.type(CardType.ALLY))),
+                Filters.attachedTo(Filters.or(CardType.COMPANION, CardType.ALLY)),
                 // In a skirmish with this minion
                 new Filter() {
                     @Override

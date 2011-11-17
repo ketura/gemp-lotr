@@ -39,10 +39,10 @@ public class Card3_060 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
-            int characterSpot = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
+            int characterSpot = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
             if (characterSpot >= 5) {
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.type(CardType.POSSESSION))));
+                        new DiscardCardsFromPlayEffect(self, Filters.and(Filters.side(Side.FREE_PEOPLE), CardType.POSSESSION)));
             } else {
                 action.appendEffect(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.weapon));

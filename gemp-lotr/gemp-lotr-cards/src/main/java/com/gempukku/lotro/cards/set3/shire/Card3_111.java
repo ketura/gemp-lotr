@@ -41,7 +41,7 @@ public class Card3_111 extends AbstractAlly {
                     if (source != null && source.getBlueprint().getSide() == Side.SHADOW) {
                         OptionalTriggerAction action = new OptionalTriggerAction(self);
                         action.appendEffect(
-                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Filters.type(CardType.MINION), Filters.and(Filters.side(Side.SHADOW), Filters.type(CardType.CONDITION)))));
+                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(CardType.MINION, Filters.and(Filters.side(Side.SHADOW), CardType.CONDITION))));
                         actions.add(action);
                     }
                 }

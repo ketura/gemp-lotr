@@ -46,14 +46,14 @@ public class Card2_088 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)));
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.ALLY)) {
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Discard an ally";
                     }
                 });
         possibleEffects.add(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Filters.type(CardType.ALLY), Filters.culture(Culture.ELVEN)) {
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, CardType.ALLY, Filters.culture(Culture.ELVEN)) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Discard 2 ELVEN allies";

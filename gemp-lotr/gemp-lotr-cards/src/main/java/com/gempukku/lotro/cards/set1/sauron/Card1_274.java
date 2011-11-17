@@ -48,7 +48,7 @@ public class Card1_274 extends AbstractPermanent {
                 new Condition() {
                     @Override
                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, Filters.type(CardType.COMPANION)).size() >= 3;
+                        return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.COMPANION).size() >= 3;
                     }
                 },
                 -1);

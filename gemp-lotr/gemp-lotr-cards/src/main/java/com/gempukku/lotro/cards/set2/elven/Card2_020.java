@@ -33,14 +33,14 @@ public class Card2_020 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), Filters.type(CardType.ALLY));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF), CardType.ALLY);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF), Filters.type(CardType.ALLY)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF), CardType.ALLY));
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ORC)))
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
@@ -49,16 +49,16 @@ public class Card2_020 extends AbstractOldEvent {
                                 protected void validDecisionMade(int index, String result) {
                                     if (result.equals("Yes")) {
                                         action.appendEffect(
-                                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Filters.type(CardType.CONDITION)));
+                                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, CardType.CONDITION));
                                     } else {
                                         action.appendEffect(
-                                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.CONDITION)));
+                                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));
                                     }
                                 }
                             }));
         else
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.type(CardType.CONDITION)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));
 
         return action;
     }

@@ -43,7 +43,7 @@ public class Card2_036 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose another companion", Filters.type(CardType.COMPANION), Filters.not(Filters.aragorn)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose another companion", CardType.COMPANION, Filters.not(Filters.aragorn)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = (card.getBlueprint().getSignet() == Signet.ARAGORN) ? 3 : 2;

@@ -40,8 +40,8 @@ public class Card4_063 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.type(CardType.COMPANION);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return CardType.COMPANION;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Card4_063 extends AbstractAttachableFPPossession {
             Collection<PhysicalCard> discardedCards = discardEffect.getAffectedCardsMinusPrevented(game);
 
             Collection<PhysicalCard> discardedPossesions = Filters.filter(discardedCards, game.getGameState(), game.getModifiersQuerying(),
-                    Filters.type(CardType.POSSESSION), Filters.not(self), Filters.attachedTo(self.getAttachedTo()));
+                    CardType.POSSESSION, Filters.not(self), Filters.attachedTo(self.getAttachedTo()));
 
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

@@ -44,7 +44,7 @@ public class Card4_070 extends AbstractOldEvent {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.sameCard(character))) {
+                                new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.inSkirmishAgainst(Filters.sameCard(character))) {
                                     @Override
                                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                                         action.insertEffect(

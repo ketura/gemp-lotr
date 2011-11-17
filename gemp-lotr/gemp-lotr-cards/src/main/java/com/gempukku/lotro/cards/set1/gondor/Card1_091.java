@@ -34,27 +34,27 @@ public class Card1_091 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.GONDOR), Filters.type(CardType.COMPANION));
+        return Filters.and(Filters.culture(Culture.GONDOR), CardType.COMPANION);
     }
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.keyword(Keyword.PIPEWEED), CardType.POSSESSION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), Filters.type(CardType.POSSESSION)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.keyword(Keyword.PIPEWEED), CardType.POSSESSION));
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
                             new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Filters.possessionClass(PossessionClass.PIPE), Integer.MAX_VALUE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
-                                    int companionsCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.type(CardType.COMPANION));
+                                    int companionsCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
                                     spotCount = Math.min(spotCount, companionsCount);
                                     action.appendEffect(
-                                            new ChooseAndHealCharactersEffect(action, playerId, spotCount, spotCount, Filters.type(CardType.COMPANION)));
+                                            new ChooseAndHealCharactersEffect(action, playerId, spotCount, spotCount, CardType.COMPANION));
                                 }
                             }));
             return Collections.singletonList(action);

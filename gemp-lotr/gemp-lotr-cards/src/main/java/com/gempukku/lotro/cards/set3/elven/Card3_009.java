@@ -35,17 +35,17 @@ public class Card3_009 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ELVEN), CardType.ALLY)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ELVEN), Filters.type(CardType.ALLY)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ELVEN), CardType.ALLY));
             action.appendEffect(
                     new DiscardBottomCardFromDeckEffect(playerId) {
                         @Override
                         protected void discardedCardCallback(PhysicalCard card) {
                             if (card.getBlueprint().getCulture() == Culture.ELVEN) {
                                 action.appendEffect(
-                                        new ChooseActiveCardEffect(self, playerId, "Choose a minion", Filters.type(CardType.MINION), Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
+                                        new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
                                             @Override
                                             protected void cardSelected(LotroGame game, PhysicalCard minion) {
                                                 action.insertEffect(
