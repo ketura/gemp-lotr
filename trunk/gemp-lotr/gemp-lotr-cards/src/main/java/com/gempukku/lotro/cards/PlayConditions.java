@@ -487,14 +487,6 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean played(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter filter) {
-        if (effectResult.getType() == EffectResult.Type.PLAY) {
-            PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
-            return filter.accepts(gameState, modifiersQuerying, playedCard);
-        }
-        return false;
-    }
-
     public static boolean activated(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.ACTIVATE) {
             PhysicalCard source = ((ActivateCardResult) effectResult).getSource();
@@ -504,7 +496,11 @@ public class PlayConditions {
     }
 
     public static boolean played(LotroGame game, EffectResult effectResult, Filterable... filters) {
-        return played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(filters));
+        if (effectResult.getType() == EffectResult.Type.PLAY) {
+            PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), playedCard);
+        }
+        return false;
     }
 
     public static boolean movesTo(LotroGame game, EffectResult effectResult, Filterable... filters) {

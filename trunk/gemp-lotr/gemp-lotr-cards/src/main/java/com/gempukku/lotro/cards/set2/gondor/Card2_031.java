@@ -47,7 +47,7 @@ public class Card2_031 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.SAURON, CardType.MINION))) {
+        if (PlayConditions.played(game, effectResult, Filters.and(Culture.SAURON, CardType.MINION))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExhaustCharacterEffect(self, action, ((PlayCardResult) effectResult).getPlayedCard()));

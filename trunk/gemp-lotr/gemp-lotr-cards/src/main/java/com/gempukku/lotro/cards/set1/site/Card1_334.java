@@ -31,7 +31,7 @@ public class Card1_334 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(CardType.POSSESSION, CardType.ARTIFACT))) {
+        if (PlayConditions.played(game, effectResult, Filters.or(CardType.POSSESSION, CardType.ARTIFACT))) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             PhysicalCard attachedTo = playCardResult.getAttachedTo();
             if (attachedTo != null && attachedTo.getBlueprint().getCardType() == CardType.COMPANION) {
