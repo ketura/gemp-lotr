@@ -33,7 +33,7 @@ public class Card1_215 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Race.NAZGUL, Integer.MAX_VALUE) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {

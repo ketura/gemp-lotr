@@ -69,7 +69,7 @@ public class PlayerReconcilesAction implements Action {
             GameState gameState = _game.getGameState();
             final Set<? extends PhysicalCard> cardsInHand = new HashSet<PhysicalCard>(gameState.getHand(_playerId));
             if (cardsInHand.size() > 8) {
-                _effectQueue.add(new PlayoutDecisionEffect(_game.getUserFeedback(), _playerId,
+                _effectQueue.add(new PlayoutDecisionEffect(_playerId,
                         new CardsSelectionDecision(1, "Choose cards to discard down to 8", cardsInHand, cardsInHand.size() - 8, cardsInHand.size() - 8) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
@@ -78,7 +78,7 @@ public class PlayerReconcilesAction implements Action {
                             }
                         }));
             } else if (cardsInHand.size() > 0) {
-                _effectQueue.add(new PlayoutDecisionEffect(_game.getUserFeedback(), _playerId,
+                _effectQueue.add(new PlayoutDecisionEffect(_playerId,
                         new CardsSelectionDecision(1, "Reconcile - choose card to discard or press DONE", cardsInHand, 0, 1) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {

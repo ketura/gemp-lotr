@@ -56,7 +56,7 @@ public class Card3_033 extends AbstractOldEvent {
                                         if (revealedCards.size() > 0) {
                                             final PhysicalCard revealedCard = revealedCards.iterator().next();
                                             action.insertEffect(
-                                                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                    new PlayoutDecisionEffect(playerId,
                                                             new MultipleChoiceAwaitingDecision(1, "Do you wish to discard " + revealedCard.getBlueprint().getName(), new String[]{"Yes", "No"}) {
                                                                 @Override
                                                                 protected void validDecisionMade(int index, String result) {

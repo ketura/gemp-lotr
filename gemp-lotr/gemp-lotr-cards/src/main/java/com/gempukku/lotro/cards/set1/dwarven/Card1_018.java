@@ -55,7 +55,7 @@ public class Card1_018 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF));
         action.appendEffect(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new MultipleChoiceAwaitingDecision(1, "Choose player", GameUtils.getAllPlayers(game)) {
                             @Override
                             protected void validDecisionMade(int index, final String chosenPlayerId) {

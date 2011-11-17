@@ -58,7 +58,7 @@ public class Card6_011 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new MultipleChoiceAwaitingDecision(1, "Where to put \"Toss Me\"?", new String[]{"Top of deck", "Bottom of deck"}) {
                             @Override
                             protected void validDecisionMade(int index, String result) {
@@ -84,7 +84,7 @@ public class Card6_011 extends AbstractEvent {
                     @Override
                     protected void cardsSelected(LotroGame game, final Collection<PhysicalCard> selectedCards) {
                         action.insertEffect(
-                                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                new PlayoutDecisionEffect(playerId,
                                         new MultipleChoiceAwaitingDecision(1, "Where to put selected card?", new String[]{"Top of deck", "Bottom of deck"}) {
                                             @Override
                                             protected void validDecisionMade(int index, String result) {

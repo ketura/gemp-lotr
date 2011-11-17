@@ -50,7 +50,7 @@ public class Card5_004 extends AbstractMinion {
                 && game.getGameState().getHand(game.getGameState().getCurrentPlayerId()).size() >= 4) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendCost(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Do you want to discard 4 cards from hand to discard this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {

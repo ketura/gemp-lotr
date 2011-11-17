@@ -51,7 +51,7 @@ public class Card1_189 extends AbstractResponseOldEvent {
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                    new PlayoutDecisionEffect(playerId,
                             new ForEachYouSpotDecision(1, "Choose how many MORIA minions you wish to spot", game, Filters.and(Culture.MORIA, CardType.MINION), Integer.MAX_VALUE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {

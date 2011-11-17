@@ -49,7 +49,7 @@ public class Card7_283 extends AbstractPermanent {
         final PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         int maxThreats = Math.min(3, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - game.getGameState().getThreats());
         permanentAction.appendCost(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new IntegerAwaitingDecision(1, "Choose how many threats to add", 0, maxThreats) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {

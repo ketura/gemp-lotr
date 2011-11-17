@@ -42,7 +42,7 @@ public class Card7_321 extends AbstractCompanion {
             action.appendCost(
                     new ReturnCardsToHandEffect(self, self));
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                    new PlayoutDecisionEffect(playerId,
                             new IntegerAwaitingDecision(1, "How many ROHAN possessions do you wish to play from your discard pile?", 0, 2) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {

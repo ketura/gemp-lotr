@@ -43,7 +43,7 @@ public class Card2_020 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF, CardType.ALLY));
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ORC))
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                    new PlayoutDecisionEffect(playerId,
                             new MultipleChoiceAwaitingDecision(1, "Do you wish to spot an Orc?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {

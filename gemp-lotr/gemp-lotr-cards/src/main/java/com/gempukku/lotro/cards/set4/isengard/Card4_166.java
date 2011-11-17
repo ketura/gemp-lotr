@@ -46,7 +46,7 @@ public class Card4_166 extends AbstractPermanent {
             final List<String> allPlayers = game.getGameState().getPlayerOrder().getAllPlayers();
             final String[] players = allPlayers.toArray(new String[allPlayers.size()]);
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                    new PlayoutDecisionEffect(playerId,
                             new MultipleChoiceAwaitingDecision(1, "Choose player to reveal top card", players) {
                                 @Override
                                 protected void validDecisionMade(int index, String deckId) {
@@ -57,7 +57,7 @@ public class Card4_166 extends AbstractPermanent {
                                                     if (cards.size() > 0) {
                                                         final PhysicalCard card = cards.get(0);
                                                         action.appendEffect(
-                                                                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                                new PlayoutDecisionEffect(playerId,
                                                                         new MultipleChoiceAwaitingDecision(1, "Do you want to put " + card.getBlueprint().getName() + " on bottom of deck?", new String[]{"Yes", "No"}) {
                                                                             @Override
                                                                             protected void validDecisionMade(int index, String result) {

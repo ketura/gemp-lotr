@@ -46,7 +46,7 @@ public class Card6_017 extends AbstractPermanent {
                     new AddTwilightEffect(self, 1));
             if (game.getGameState().getDeck(playerId).size() > 0)
                 action.appendEffect(
-                        new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                        new PlayoutDecisionEffect(playerId,
                                 new ArbitraryCardsSelectionDecision(1, "Choose a card to discard from deck", Collections.singleton(game.getGameState().getDeck(playerId).get(0)), 0, 1) {
                                     @Override
                                     public void decisionMade(String result) throws DecisionResultInvalidException {

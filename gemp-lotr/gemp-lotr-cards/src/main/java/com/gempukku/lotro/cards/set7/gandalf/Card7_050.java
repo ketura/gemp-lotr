@@ -41,7 +41,7 @@ public class Card7_050 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf));
         action.appendCost(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new IntegerAwaitingDecision(1, "Choose how many times you wish to exert Gandalf", 0, vitality - 1) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {

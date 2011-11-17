@@ -36,7 +36,7 @@ public class Card1_294 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new IntegerAwaitingDecision(1, "Choose how many twilight to add", 0) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {

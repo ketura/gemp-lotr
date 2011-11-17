@@ -40,7 +40,7 @@ public class Card4_299 extends AbstractPermanent {
                 && game.getGameState().getCurrentSiteNumber() == 1 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), self.getOwner(),
+                    new PlayoutDecisionEffect(self.getOwner(),
                             new IntegerAwaitingDecision(1, "How many burdens do you wish to remove?", 0, 2) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {

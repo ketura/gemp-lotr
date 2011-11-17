@@ -71,7 +71,7 @@ public class Card1_022 extends AbstractOldEvent {
                 _lastCard = card;
             }
             if (card != null && _count < 5) {
-                _action.appendEffect(new PlayoutDecisionEffect(game.getUserFeedback(), _player,
+                _action.appendEffect(new PlayoutDecisionEffect(_player,
                         new MultipleChoiceAwaitingDecision(1, "Do you want to put " + _lastCard.getBlueprint().getName() + " in your hand?", new String[]{"Yes", "No"}) {
                             @Override
                             protected void validDecisionMade(int index, String result) {

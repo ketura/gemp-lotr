@@ -67,7 +67,7 @@ public class Card1_120 extends AbstractPermanent {
                                             protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                                 if (revealedCards.size() > 0)
                                                     action.insertEffect(
-                                                            new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                            new PlayoutDecisionEffect(playerId,
                                                                     new ArbitraryCardsSelectionDecision(1, "Choose card to discard", revealedCards, 0, 1) {
                                                                         @Override
                                                                         public void decisionMade(String result) throws DecisionResultInvalidException {

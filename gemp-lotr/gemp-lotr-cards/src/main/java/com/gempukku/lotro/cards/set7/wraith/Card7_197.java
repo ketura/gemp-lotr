@@ -69,7 +69,7 @@ public class Card7_197 extends AbstractMinion {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             final int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL);
             action.appendCost(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Do you wish to exert " + count + " companions to be able to assign this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {

@@ -64,7 +64,7 @@ public class Card6_015 extends AbstractAlly {
                             for (final PhysicalCard card : cards)
                                 if (card.getBlueprint().getCulture() == Culture.ELVEN) {
                                     action.appendEffect(
-                                            new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                            new PlayoutDecisionEffect(playerId,
                                                     new MultipleChoiceAwaitingDecision(1, "do you want to take " + GameUtils.getCardLink(card) + " into hand and heal an Elf companion?", new String[]{"Yes", "No"}) {
                                                         @Override
                                                         protected void validDecisionMade(int index, String result) {

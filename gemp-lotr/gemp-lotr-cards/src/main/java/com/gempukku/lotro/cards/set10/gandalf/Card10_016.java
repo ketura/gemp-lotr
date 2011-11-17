@@ -40,7 +40,7 @@ public class Card10_016 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Race.WIZARD));
         action.appendEffect(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new IntegerAwaitingDecision(1, "Choose a number", 0) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {

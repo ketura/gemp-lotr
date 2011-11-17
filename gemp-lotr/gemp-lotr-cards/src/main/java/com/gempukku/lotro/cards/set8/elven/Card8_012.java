@@ -47,7 +47,7 @@ public class Card8_012 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF, CardType.COMPANION));
         int archeryTotal = RuleUtils.calculateFellowshipArcheryTotal(game);
         action.appendCost(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new IntegerAwaitingDecision(1, "Choose X (reduce fellowship archery total)", 0, archeryTotal) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {

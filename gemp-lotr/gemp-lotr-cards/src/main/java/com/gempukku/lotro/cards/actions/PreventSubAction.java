@@ -35,7 +35,7 @@ public class PreventSubAction extends SubAction {
                 _playerPreventionCost = _preventionCost.createPreventionCostForPlayer(PreventSubAction.this, nextPlayer);
                 if (_playerPreventionCost.isPlayableInFull(game)) {
                     appendEffect(
-                            new PlayoutDecisionEffect(game.getUserFeedback(), nextPlayer,
+                            new PlayoutDecisionEffect(nextPlayer,
                                     new MultipleChoiceAwaitingDecision(1, "Would you like to - " + _playerPreventionCost.getText(game) + " to prevent - " + _effectToExecute.getText(game), new String[]{"Yes", "No"}) {
                                         @Override
                                         protected void validDecisionMade(int index, String result) {

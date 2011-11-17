@@ -41,7 +41,7 @@ public class Card7_331 extends AbstractSite {
             while ((nextPlayerId = drawOrder.getNextPlayer()) != null) {
                 final String drawingPlayerId = nextPlayerId;
                 action.appendEffect(
-                        new PlayoutDecisionEffect(game.getUserFeedback(), drawingPlayerId,
+                        new PlayoutDecisionEffect(drawingPlayerId,
                                 new MultipleChoiceAwaitingDecision(1, "Do you wish to draw a card?", new String[]{"Yes", "No"}) {
                                     @Override
                                     protected void validDecisionMade(int index, String result) {
