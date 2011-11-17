@@ -60,7 +60,7 @@ public class Card10_040 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
-                && PlayConditions.canWound(game, 1, 2, Filters.not(self), Culture.RAIDER, Race.MAN)) {
+                && PlayConditions.canWound(self, game, 1, 2, Filters.not(self), Culture.RAIDER, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndWoundCharactersEffect(action, playerId, 2, 2, Filters.not(self), Culture.RAIDER, Race.MAN));

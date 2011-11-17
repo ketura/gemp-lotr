@@ -172,7 +172,7 @@ public class PlayConditions {
         return game.getGameState().getBurdens() >= count && game.getModifiersQuerying().canRemoveBurden(game.getGameState(), card);
     }
 
-    public static boolean canWound(final LotroGame game, final int times, final int count, Filterable... filters) {
+    public static boolean canWound(PhysicalCard source, final LotroGame game, final int times, final int count, Filterable... filters) {
         final GameState gameState = game.getGameState();
         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         final Filter filter = Filters.and(filters);
@@ -189,6 +189,16 @@ public class PlayConditions {
                         return _woundableCount >= count;
                     }
                 });
+    }
+
+    public static boolean canHeal(PhysicalCard source, LotroGame game, Filterable... filters) {
+        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.wounded, Filters.and(filters),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    }
+                }) >= 1;
     }
 
     public static boolean canPlayFromHand(String playerId, LotroGame game, Filterable... filters) {
