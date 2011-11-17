@@ -52,7 +52,7 @@ public class Card5_009 extends AbstractPermanent {
                 action.appendCost(
                         new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Filters.any));
                 action.appendEffect(
-                        new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Filters.side(Side.FREE_PEOPLE)) {
+                        new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Side.FREE_PEOPLE) {
                             @Override
                             protected void cardsChosen(Collection<PhysicalCard> stackedCards) {
                                 for (PhysicalCard stackedCard : stackedCards)

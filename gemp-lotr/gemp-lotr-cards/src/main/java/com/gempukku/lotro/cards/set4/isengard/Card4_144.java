@@ -37,7 +37,7 @@ public class Card4_144 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Race.URUK_HAI));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.FREE_PEOPLE), CardType.CONDITION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

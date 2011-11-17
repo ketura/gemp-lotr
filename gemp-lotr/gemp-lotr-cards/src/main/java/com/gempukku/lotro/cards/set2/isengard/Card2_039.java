@@ -46,7 +46,7 @@ public class Card2_039 extends AbstractOldEvent {
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self,
                             Filters.and(
-                                    Filters.side(Side.FREE_PEOPLE),
+                                    Side.FREE_PEOPLE,
                                     CardType.POSSESSION,
                                     Filters.or(
                                             PossessionClass.ARMOR,

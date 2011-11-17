@@ -49,7 +49,7 @@ public class Card4_196 extends AbstractAttachable {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.hasAttached(self)));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.FREE_PEOPLE), PossessionClass.MOUNT));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, PossessionClass.MOUNT));
             return Collections.singletonList(action);
         }
         return null;

@@ -62,7 +62,7 @@ public class Card4_154 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
-                                    new ReturnCardsToHandEffect(self, Filters.and(Filters.attachedTo(Filters.sameCard(card)), Filters.side(Side.FREE_PEOPLE))));
+                                    new ReturnCardsToHandEffect(self, Filters.and(Filters.attachedTo(Filters.sameCard(card)), Side.FREE_PEOPLE)));
                         }
                     });
             return Collections.singletonList(action);

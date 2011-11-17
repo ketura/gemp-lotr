@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -37,7 +36,7 @@ public class Card4_223 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Race.MAN));
         int maxDiscard = (game.getGameState().getBurdens() >= 3) ? 2 : 1;
         action.appendEffect(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, maxDiscard, Filters.side(Side.FREE_PEOPLE), CardType.CONDITION));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, maxDiscard, Side.FREE_PEOPLE, CardType.CONDITION));
         return action;
     }
 

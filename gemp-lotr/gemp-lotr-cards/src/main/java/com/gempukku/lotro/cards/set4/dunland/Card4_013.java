@@ -39,7 +39,7 @@ public class Card4_013 extends AbstractMinion {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int max = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 6) ? 2 : 1;
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, max, Filters.side(Side.FREE_PEOPLE), CardType.POSSESSION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, max, Side.FREE_PEOPLE, CardType.POSSESSION));
             return Collections.singletonList(action);
         }
         return null;

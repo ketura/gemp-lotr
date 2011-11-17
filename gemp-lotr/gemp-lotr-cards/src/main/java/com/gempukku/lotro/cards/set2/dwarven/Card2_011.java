@@ -47,7 +47,7 @@ public class Card2_011 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose condition",
                             Filters.or(
-                                    Filters.and(Filters.side(Side.SHADOW), CardType.CONDITION, Filters.attachedTo(Race.DWARF)),
+                                    Filters.and(Side.SHADOW, CardType.CONDITION, Filters.attachedTo(Race.DWARF)),
                                     Filters.and(Filters.keyword(Keyword.WEATHER)), CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {

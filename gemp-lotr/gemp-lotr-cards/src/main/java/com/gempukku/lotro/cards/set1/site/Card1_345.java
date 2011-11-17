@@ -37,7 +37,7 @@ public class Card1_345 extends AbstractSite {
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId),
                             Filters.and(
-                                    Filters.side(Side.SHADOW),
+                                    Side.SHADOW,
                                     Filters.or(
                                             PossessionClass.HAND_WEAPON,
                                             PossessionClass.RANGED_WEAPON)

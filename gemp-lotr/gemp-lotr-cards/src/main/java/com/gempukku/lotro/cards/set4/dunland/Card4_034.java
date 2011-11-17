@@ -49,7 +49,7 @@ public class Card4_034 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             int possesions = Math.min(3, game.getGameState().getTokenCount(self, Token.DUNLAND));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, possesions, possesions, CardType.POSSESSION, Filters.side(Side.FREE_PEOPLE)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, possesions, possesions, CardType.POSSESSION, Side.FREE_PEOPLE));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

@@ -36,10 +36,10 @@ public class Card1_205 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL));
-        boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE), Filters.or(CardType.POSSESSION, CardType.CONDITION));
+        boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION));
         if (firstEffect) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples possession or condition", Filters.side(Side.FREE_PEOPLE), Filters.or(CardType.POSSESSION, CardType.CONDITION)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples possession or condition", Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
                             action.appendEffect(
