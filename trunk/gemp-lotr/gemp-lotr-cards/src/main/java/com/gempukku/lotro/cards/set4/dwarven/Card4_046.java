@@ -56,7 +56,7 @@ public class Card4_046 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
-                    new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Filters.side(Side.FREE_PEOPLE)) {
+                    new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Side.FREE_PEOPLE) {
                         @Override
                         protected void cardsChosen(Collection<PhysicalCard> stackedCards) {
                             for (PhysicalCard stackedCard : stackedCards) {

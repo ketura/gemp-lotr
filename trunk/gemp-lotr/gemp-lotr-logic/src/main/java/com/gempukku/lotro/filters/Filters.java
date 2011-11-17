@@ -396,7 +396,14 @@ public class Filters {
         };
     }
 
-    public static Filter side(final Side side) {
+    private static final Map<Side, Filter> _sideFilterMap = new HashMap<Side, Filter>();
+
+    static {
+        for (Side side : Side.values())
+            _sideFilterMap.put(side, side(side));
+    }
+
+    private static Filter side(final Side side) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -494,7 +501,14 @@ public class Filters {
         };
     }
 
-    public static Filter zone(final Zone zone) {
+    private static final Map<Zone, Filter> _zoneFilterMap = new HashMap<Zone, Filter>();
+
+    static {
+        for (Zone zone : Zone.values())
+            _zoneFilterMap.put(zone, zone(zone));
+    }
+
+    private static Filter zone(final Zone zone) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -640,11 +654,11 @@ public class Filters {
         else if (filter instanceof Race)
             return _raceFilterMap.get((Race) filter);
         else if (filter instanceof Side)
-            return Filters.side((Side) filter);
+            return _sideFilterMap.get((Side) filter);
         else if (filter instanceof Signet)
             return _signetFilterMap.get((Signet) filter);
         else if (filter instanceof Zone)
-            return Filters.zone((Zone) filter);
+            return _zoneFilterMap.get((Zone) filter);
         else
             throw new IllegalArgumentException("Unknown type of filterable: " + filter);
     }

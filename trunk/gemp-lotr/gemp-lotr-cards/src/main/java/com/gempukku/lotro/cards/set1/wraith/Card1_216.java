@@ -59,7 +59,7 @@ public class Card1_216 extends AbstractAttachable {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
 
-            final PhysicalCard bladeTipInSupport = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"), Filters.owner(playerId), Filters.zone(Zone.SUPPORT));
+            final PhysicalCard bladeTipInSupport = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"), Filters.owner(playerId), Zone.SUPPORT);
             final Collection<PhysicalCard> bladeTipsInDiscard = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"));
 
             List<Effect> possibleEffects = new LinkedList<Effect>();

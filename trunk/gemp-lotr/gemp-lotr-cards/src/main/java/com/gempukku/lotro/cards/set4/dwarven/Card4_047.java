@@ -37,14 +37,14 @@ public class Card4_047 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.DWARF)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendCost(
-                                    new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.side(Side.FREE_PEOPLE)) {
+                                    new ChooseCardsFromHandEffect(playerId, 1, 1, Side.FREE_PEOPLE) {
                                         @Override
                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                             SubAction subAction = new SubAction(action);

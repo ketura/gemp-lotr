@@ -54,7 +54,7 @@ public class Card4_094 extends AbstractAttachable {
         modifiers.add(
                 new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
-                new MayNotBePlayedOnModifier(self, Filters.hasAttached(self), Filters.and(Filters.side(Side.SHADOW), CardType.CONDITION)));
+                new MayNotBePlayedOnModifier(self, Filters.hasAttached(self), Filters.and(Side.SHADOW, CardType.CONDITION)));
 
         return modifiers;
     }
@@ -69,7 +69,7 @@ public class Card4_094 extends AbstractAttachable {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.side(Side.SHADOW), CardType.CONDITION, Filters.attachedTo(Filters.hasAttached(self)))));
+                    new DiscardCardsFromPlayEffect(self, Filters.and(Side.SHADOW, CardType.CONDITION, Filters.attachedTo(Filters.hasAttached(self)))));
             return Collections.singletonList(action);
         }
         return null;

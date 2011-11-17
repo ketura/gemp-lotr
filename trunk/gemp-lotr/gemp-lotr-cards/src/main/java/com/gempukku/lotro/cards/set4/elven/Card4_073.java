@@ -36,7 +36,7 @@ public class Card4_073 extends AbstractCompanion {
         return Collections.singletonList(
                 new TwilightCostModifier(self,
                         Filters.and(
-                                Filters.side(Side.SHADOW),
+                                Side.SHADOW,
                                 Filters.or(
                                         CardType.EVENT,
                                         CardType.CONDITION

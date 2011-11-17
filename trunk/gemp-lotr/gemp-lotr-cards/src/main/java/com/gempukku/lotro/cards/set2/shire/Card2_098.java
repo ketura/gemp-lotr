@@ -7,7 +7,6 @@ import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -48,7 +47,7 @@ public class Card2_098 extends AbstractOldEvent {
                         Signet signet = character.getBlueprint().getSignet();
                         int count = (signet == Signet.FRODO) ? 2 : 1;
                         action.appendEffect(
-                                new ChooseCardsFromDiscardEffect(playerId, count, count, Filters.side(Side.FREE_PEOPLE)) {
+                                new ChooseCardsFromDiscardEffect(playerId, count, count, Side.FREE_PEOPLE) {
                                     @Override
                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                         for (PhysicalCard card : cards) {

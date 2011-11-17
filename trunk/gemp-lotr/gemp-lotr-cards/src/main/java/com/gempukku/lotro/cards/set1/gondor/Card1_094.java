@@ -55,7 +55,7 @@ public class Card1_094 extends AbstractAttachableFPPossession {
                     });
 
             possibleEffects.add(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Shadow condition attached to companion", Filters.side(Side.SHADOW), CardType.CONDITION, Filters.attachedTo(CardType.COMPANION)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Shadow condition attached to companion", Side.SHADOW, CardType.CONDITION, Filters.attachedTo(CardType.COMPANION)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard Shadow condition attached to a companion";

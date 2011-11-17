@@ -43,7 +43,7 @@ public class Card4_162 extends AbstractOldEvent {
         action.appendCost(
                 new RevealCardEffect(self, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.not(self))));
         action.appendCost(
-                new DiscardCardsFromHandEffect(self, playerId, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE)), false));
+                new DiscardCardsFromHandEffect(self, playerId, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE), false));
         action.appendEffect(
                 new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.ISENGARD) {
                     @Override

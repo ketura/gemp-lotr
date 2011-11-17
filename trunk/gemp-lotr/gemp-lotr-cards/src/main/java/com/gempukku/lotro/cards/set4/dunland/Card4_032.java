@@ -45,7 +45,7 @@ public class Card4_032 extends AbstractResponseOldEvent {
             final List<PhysicalCard> losers = skirmishResult.getLosers();
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.in(losers)), Filters.side(Side.FREE_PEOPLE))));
+                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.in(losers)), Side.FREE_PEOPLE)));
             return Collections.singletonList(action);
         }
         return null;

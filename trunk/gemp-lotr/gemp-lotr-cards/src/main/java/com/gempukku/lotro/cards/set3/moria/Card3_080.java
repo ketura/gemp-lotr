@@ -67,7 +67,7 @@ public class Card3_080 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Filters.side(Side.FREE_PEOPLE), CardType.POSSESSION) {
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Side.FREE_PEOPLE, CardType.POSSESSION) {
                                     @Override
                                     public String getText(LotroGame game) {
                                         return "Discard 2 Free People possessions";

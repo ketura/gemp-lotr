@@ -69,7 +69,7 @@ public class Card4_107 extends AbstractAttachable {
                                             @Override
                                             protected void cardsRevealed(final List<PhysicalCard> cards) {
                                                 action.appendEffect(
-                                                        new ChooseArbitraryCardsEffect(playerId, "Choose shadow card", cards, Filters.side(Side.SHADOW), 1, 1) {
+                                                        new ChooseArbitraryCardsEffect(playerId, "Choose shadow card", cards, Side.SHADOW, 1, 1) {
                                                             @Override
                                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                                 for (PhysicalCard selectedCard : selectedCards) {
@@ -79,7 +79,7 @@ public class Card4_107 extends AbstractAttachable {
                                                             }
                                                         });
                                                 action.appendEffect(
-                                                        new ChooseArbitraryCardsEffect(playerId, "Choose free people card", cards, Filters.side(Side.FREE_PEOPLE), 1, 1) {
+                                                        new ChooseArbitraryCardsEffect(playerId, "Choose free people card", cards, Side.FREE_PEOPLE, 1, 1) {
                                                             @Override
                                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                                 for (PhysicalCard selectedCard : selectedCards) {
