@@ -36,7 +36,7 @@ public class Card4_133 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new KeywordModifier(self, Filters.and(Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND)),
+                new KeywordModifier(self, Filters.and(Race.MAN, Filters.keyword(Keyword.RING_BOUND)),
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
@@ -48,12 +48,12 @@ public class Card4_133 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.MAN, Filters.keyword(Keyword.RING_BOUND))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.not(Filters.owner(playerId)), Filters.race(Race.MAN)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.not(Filters.owner(playerId)), Race.MAN));
             return Collections.singletonList(action);
         }
         return null;

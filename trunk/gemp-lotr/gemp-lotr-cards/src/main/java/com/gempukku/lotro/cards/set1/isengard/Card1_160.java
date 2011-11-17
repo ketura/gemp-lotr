@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,8 +31,8 @@ public class Card1_160 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.URUK_HAI);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.URUK_HAI;
     }
 
     @Override

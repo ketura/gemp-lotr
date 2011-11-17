@@ -39,7 +39,7 @@ public class Card4_132 extends AbstractAttachableFPPossession {
                 new StrengthModifier(self,
                         Filters.and(
                                 Filters.hasAttached(self),
-                                Filters.inSkirmishAgainst(Filters.race(Race.URUK_HAI))
+                                Filters.inSkirmishAgainst(Race.URUK_HAI)
                         ), 2));
     }
 }

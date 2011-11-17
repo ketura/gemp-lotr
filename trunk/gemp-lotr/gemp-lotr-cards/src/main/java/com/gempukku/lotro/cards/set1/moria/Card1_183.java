@@ -54,11 +54,11 @@ public class Card1_183 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.MORIA, Filters.race(Race.ORC)))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Filters.race(Race.ORC), Filters.inSkirmish)) {
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.MORIA, Race.ORC))
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.inSkirmish)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a MORIA Orc", Culture.MORIA, Filters.race(Race.ORC), Filters.inSkirmish) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a MORIA Orc", Culture.MORIA, Race.ORC, Filters.inSkirmish) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
                             action.appendEffect(new StackCardFromPlayEffect(moriaOrc, self));

@@ -35,7 +35,7 @@ public class Card1_210 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Filters.race(Race.NAZGUL)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Race.NAZGUL) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
                         int burdens = game.getGameState().getBurdens();

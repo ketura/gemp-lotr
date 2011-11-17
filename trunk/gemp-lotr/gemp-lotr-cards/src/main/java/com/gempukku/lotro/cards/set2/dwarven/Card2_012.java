@@ -44,7 +44,7 @@ public class Card2_012 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                             action.appendEffect(

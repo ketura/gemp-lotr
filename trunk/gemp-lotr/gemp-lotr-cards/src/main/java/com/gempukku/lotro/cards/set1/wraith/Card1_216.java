@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.AttachCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -44,8 +43,8 @@ public class Card1_216 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.NAZGUL);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.NAZGUL;
     }
 
     @Override

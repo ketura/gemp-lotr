@@ -53,7 +53,7 @@ public class Card1_173 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Culture.MORIA, Filters.race(Race.ORC), Filters.in(cardsToBeWounded)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Culture.MORIA, Race.ORC, Filters.in(cardsToBeWounded)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard moriaOrc) {
                             action.appendEffect(

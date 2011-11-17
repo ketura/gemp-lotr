@@ -32,7 +32,7 @@ public class Card3_119 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && playerId.equals(game.getGameState().getCurrentPlayerId())
                 && game.getGameState().getCurrentSite() == self
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF)) >= 2) {
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ELF) >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new RemoveBurdenEffect(self));

@@ -33,7 +33,7 @@ public class Card1_005 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose Dwarf", Filters.race(Race.DWARF)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose Dwarf", Race.DWARF) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                         action.appendEffect(

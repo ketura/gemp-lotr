@@ -30,8 +30,8 @@ public class Card1_168 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Filters.race(Race.DWARF))),
-                        Culture.MORIA, Filters.race(Race.ORC)));
+                        new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Race.DWARF)),
+                        Culture.MORIA, Race.ORC));
         return action;
     }
 

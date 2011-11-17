@@ -31,19 +31,19 @@ public class Card4_131 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND));
+        return Filters.and(Race.MAN, Filters.keyword(Keyword.RING_BOUND));
     }
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Filters.hasAttached(self)), Filters.or(Filters.race(Race.MAN), Filters.roaminMinion)) > 0) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Filters.hasAttached(self)), Filters.or(Race.MAN, Filters.roaminMinion)) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.hasAttached(self)));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(Filters.hasAttached(self)), Filters.or(Filters.race(Race.MAN), Filters.roaminMinion)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(Filters.hasAttached(self)), Filters.or(Race.MAN, Filters.roaminMinion)));
             return Collections.singletonList(action);
         }
         return null;

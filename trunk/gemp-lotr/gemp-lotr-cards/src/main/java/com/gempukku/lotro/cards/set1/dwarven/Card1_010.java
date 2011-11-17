@@ -3,11 +3,7 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,8 +29,8 @@ public class Card1_010 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.DWARF);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.DWARF;
     }
 
     @Override

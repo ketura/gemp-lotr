@@ -33,11 +33,11 @@ public class Card2_011 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF), CardType.COMPANION)
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION)
                 && game.getGameState().getDeck(playerId).size() >= 3) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.DWARF), CardType.COMPANION));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, CardType.COMPANION));
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendCost(
@@ -47,7 +47,7 @@ public class Card2_011 extends AbstractPermanent {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose condition",
                             Filters.or(
-                                    Filters.and(Filters.side(Side.SHADOW), CardType.CONDITION, Filters.attachedTo(Filters.race(Race.DWARF))),
+                                    Filters.and(Filters.side(Side.SHADOW), CardType.CONDITION, Filters.attachedTo(Race.DWARF)),
                                     Filters.and(Filters.keyword(Keyword.WEATHER)), CardType.CONDITION)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {

@@ -5,8 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -37,8 +35,8 @@ public class Card2_010 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.DWARF);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.DWARF;
     }
 
     @Override

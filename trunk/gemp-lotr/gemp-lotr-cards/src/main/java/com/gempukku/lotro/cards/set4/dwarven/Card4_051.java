@@ -33,7 +33,7 @@ public class Card4_051 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         boolean spotsLegolas = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.legolas);

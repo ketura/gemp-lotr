@@ -7,7 +7,6 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonus
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -38,7 +37,7 @@ public class Card1_186 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.MORIA, Filters.race(Race.ORC)));
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.MORIA, Race.ORC));
             return Collections.singletonList(action);
         }
         return null;

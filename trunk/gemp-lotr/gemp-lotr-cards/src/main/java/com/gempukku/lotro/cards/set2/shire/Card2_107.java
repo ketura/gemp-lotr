@@ -31,13 +31,13 @@ public class Card2_107 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT)) >= 2;
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT) >= 2;
     }
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.race(Race.NAZGUL), -4));
+                new StrengthModifier(self, Race.NAZGUL, -4));
     }
 
     @Override

@@ -39,12 +39,12 @@ public class Card4_192 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))
-                && PlayConditions.canPlayFromHand(playerId, game, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))), Filters.race(Race.URUK_HAI))) {
+                && PlayConditions.canPlayFromHand(playerId, game, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.not(Filters.sameCard(self))), Race.URUK_HAI)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))), Filters.race(Race.URUK_HAI)
+                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.not(Filters.sameCard(self))), Race.URUK_HAI
                     ));
             return Collections.singletonList(action);
         }

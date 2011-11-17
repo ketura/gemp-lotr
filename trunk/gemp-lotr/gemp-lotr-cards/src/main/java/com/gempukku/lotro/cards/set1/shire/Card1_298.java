@@ -43,7 +43,7 @@ public class Card1_298 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentSiteNumber() > 5 || game.getGameState().getCurrentSiteBlock() != Block.FELLOWSHIP) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Race.HOBBIT) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
                             action.appendEffect(

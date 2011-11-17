@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -45,7 +44,7 @@ public class Card3_083 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Filters.race(Race.NAZGUL)) {
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Race.NAZGUL) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert a Nazgul";

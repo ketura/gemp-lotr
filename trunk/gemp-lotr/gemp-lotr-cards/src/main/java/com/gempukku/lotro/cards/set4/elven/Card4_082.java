@@ -36,7 +36,7 @@ public class Card4_082 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.ELF))) {
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Race.ELF)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ELVEN));
@@ -50,7 +50,7 @@ public class Card4_082 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.inSkirmishAgainst(Filters.race(Race.ELF))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int bonus = Math.max(-3, -game.getGameState().getTokenCount(self, Token.ELVEN));

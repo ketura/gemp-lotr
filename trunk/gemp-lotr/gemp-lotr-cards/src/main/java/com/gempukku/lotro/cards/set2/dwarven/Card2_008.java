@@ -34,7 +34,7 @@ public class Card2_008 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.DWARF));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Card2_008 extends AbstractPermanent {
         return new TwilightCostModifier(self,
                 Filters.and(
                         Culture.MORIA,
-                        Filters.race(Race.ORC),
+                        Race.ORC,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

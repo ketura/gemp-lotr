@@ -42,6 +42,6 @@ public class Card4_073 extends AbstractCompanion {
                                         CardType.CONDITION
                                 )
                         ), null,
-                        new CountSpottableEvaluator(Filters.and(Filters.unboundCompanion, Filters.race(Race.HOBBIT)))));
+                        new CountSpottableEvaluator(Filters.and(Filters.unboundCompanion, Race.HOBBIT))));
     }
 }

@@ -8,7 +8,6 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -38,10 +37,10 @@ public class Card1_228 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && checkPlayRequirements(playerId, game, self, 0, false)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.NAZGUL)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL));
             action.appendEffect(
                     new AddBurdenEffect(self, 2));
             return Collections.singletonList(action);

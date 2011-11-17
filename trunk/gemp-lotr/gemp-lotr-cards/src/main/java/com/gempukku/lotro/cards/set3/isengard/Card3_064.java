@@ -43,7 +43,7 @@ public class Card3_064 extends AbstractMinion {
                         Filters.and(
                                 Filters.not(Filters.sameCard(self)),
                                 Culture.ISENGARD,
-                                Filters.race(Race.ORC)
+                                Race.ORC
                         ), 1));
     }
 

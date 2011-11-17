@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffe
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,8 +33,8 @@ public class Card4_177 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.race(Race.URUK_HAI);
+    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Race.URUK_HAI;
     }
 
     @Override

@@ -42,7 +42,7 @@ public class Card4_107 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.race(Race.ELF), Filters.canExert(self));
+        return Filters.and(Race.ELF, Filters.canExert(self));
     }
 
     @Override

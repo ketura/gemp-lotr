@@ -50,7 +50,7 @@ public class Card1_095 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ExertCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.or(Filters.race(Race.ORC), Filters.race(Race.URUK_HAI)), Filters.inSkirmishAgainst(Filters.hasAttached(self))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.or(Race.ORC, Race.URUK_HAI), Filters.inSkirmishAgainst(Filters.hasAttached(self))));
             return Collections.singletonList(action);
         }
         return null;

@@ -31,7 +31,7 @@ public class Card4_134 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Culture.GONDOR, Filters.race(Race.MAN));
+        return Filters.and(Culture.GONDOR, Race.MAN);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Card4_134 extends AbstractAttachableFPPossession {
                                 Filters.hasAttached(self),
                                 Filters.inSkirmishAgainst(
                                         Filters.or(
-                                                Filters.race(Race.MAN),
+                                                Race.MAN,
                                                 Filters.roaminMinion
                                         )
                                 )

@@ -36,7 +36,7 @@ public class Card4_059 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         final AtomicInteger counter = new AtomicInteger();
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 0, Integer.MAX_VALUE, CardType.COMPANION, Filters.race(Race.ELF)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 0, Integer.MAX_VALUE, CardType.COMPANION, Race.ELF) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         counter.incrementAndGet();

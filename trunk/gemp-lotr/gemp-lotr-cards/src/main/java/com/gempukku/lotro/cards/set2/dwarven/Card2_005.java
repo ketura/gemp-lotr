@@ -28,7 +28,7 @@ public class Card2_005 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Filters.race(Race.DWARF)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                         boolean has2Weapons = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.attachedTo(Filters.sameCard(dwarf)), PossessionClass.HAND_WEAPON) == 2;

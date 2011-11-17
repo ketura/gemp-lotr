@@ -96,7 +96,7 @@ public class Card2_108 extends AbstractAttachable {
         public boolean isPlayableInFull(LotroGame game) {
             Skirmish skirmish = game.getGameState().getSkirmish();
             return (skirmish != null && skirmish.getFellowshipCharacter() == _attachedTo
-                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0);
+                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL).size() > 0);
         }
     }
 }

@@ -28,7 +28,7 @@ public class Card2_039 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Card2_039 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI));
         int companions = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
         if (companions >= 6)
             action.appendEffect(

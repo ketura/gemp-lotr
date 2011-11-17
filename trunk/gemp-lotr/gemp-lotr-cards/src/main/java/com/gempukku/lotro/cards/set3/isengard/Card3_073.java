@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
@@ -33,7 +32,7 @@ public class Card3_073 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, Integer.MAX_VALUE, Culture.ISENGARD, Filters.race(Race.ORC)) {
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, Integer.MAX_VALUE, Culture.ISENGARD, Race.ORC) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         super.cardsSelected(game, cards);    //To change body of overridden methods use File | Settings | File Templates.

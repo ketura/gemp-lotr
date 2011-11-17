@@ -34,22 +34,22 @@ public class Card4_137 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI), Filters.playable(game)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.race(Race.URUK_HAI)));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Race.URUK_HAI));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ISENGARD));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
                 && game.getGameState().getTokenCount(self, Token.ISENGARD) >= 3
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI)) > 0) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.ISENGARD, 3));
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.race(Race.URUK_HAI)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.URUK_HAI));
             action.appendEffect(
                     new TakeControlOfASiteEffect(self, playerId));
             return Collections.singletonList(action);

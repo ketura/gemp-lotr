@@ -37,7 +37,7 @@ public class Card4_119 extends AbstractAttachableFPPossession {
                         Filters.and(
                                 CardType.MINION,
                                 Filters.keyword(Keyword.ROAMING),
-                                Filters.inSkirmishAgainst(Filters.and(Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND)))
+                                Filters.inSkirmishAgainst(Filters.and(Race.MAN, Filters.keyword(Keyword.RING_BOUND)))
                         ), -1));
     }
 }

@@ -33,11 +33,11 @@ public class Card1_133 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.URUK_HAI))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.race(Race.URUK_HAI)));
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Race.URUK_HAI));
 
             return Collections.singletonList(action);
         }

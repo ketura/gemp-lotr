@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -33,7 +32,7 @@ public class Card2_009 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.race(Race.DWARF))) {
+        if (PlayConditions.played(game, effectResult, Race.DWARF)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));

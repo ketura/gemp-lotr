@@ -49,7 +49,7 @@ public class Card4_120 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.race(Race.MAN), Filters.keyword(Keyword.RING_BOUND)));
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.MAN, Filters.keyword(Keyword.RING_BOUND)));
             return Collections.singletonList(action);
         }
         return null;

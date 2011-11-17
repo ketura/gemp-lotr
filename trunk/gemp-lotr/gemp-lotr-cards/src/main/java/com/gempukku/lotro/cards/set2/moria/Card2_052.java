@@ -43,21 +43,21 @@ public class Card2_052 extends AbstractMinion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Filters.race(Race.ORC));
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC);
     }
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 2)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Filters.race(Race.ORC), Filters.playable(game, 2)).size() > 0) {
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.playable(game, 2)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Culture.MORIA, Filters.race(Race.ORC))));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Culture.MORIA, Race.ORC)));
             return Collections.singletonList(action);
         }
         return null;

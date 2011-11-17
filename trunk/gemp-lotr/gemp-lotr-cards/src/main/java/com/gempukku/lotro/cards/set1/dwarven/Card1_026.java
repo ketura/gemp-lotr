@@ -33,7 +33,7 @@ public class Card1_026 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new LocationMatchesEvaluator(2, 4, Filters.keyword(Keyword.UNDERGROUND)),
-                        Filters.race(Race.DWARF)));
+                        Race.DWARF));
         return action;
     }
 }

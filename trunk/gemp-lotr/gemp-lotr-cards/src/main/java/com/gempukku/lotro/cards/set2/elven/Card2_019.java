@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
@@ -31,19 +30,19 @@ public class Card2_019 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.ELF);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
         action.appendEffect(
-                new WoundCharactersEffect(self, Filters.race(Race.NAZGUL)));
+                new WoundCharactersEffect(self, Race.NAZGUL));
         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER))
             action.appendEffect(
-                    new WoundCharactersEffect(self, Filters.race(Race.NAZGUL)));
+                    new WoundCharactersEffect(self, Race.NAZGUL));
         return action;
     }
 }

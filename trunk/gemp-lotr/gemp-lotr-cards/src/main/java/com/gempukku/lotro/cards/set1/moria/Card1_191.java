@@ -33,7 +33,7 @@ public class Card1_191 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.ELF))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new AddTwilightEffect(self, 2));
             return Collections.singletonList(action);

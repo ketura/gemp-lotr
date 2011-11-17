@@ -35,20 +35,20 @@ public class Card4_157 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.or(Filters.saruman, Filters.and(Culture.ISENGARD, Filters.race(Race.MAN))));
+                && PlayConditions.canExert(self, game, Filters.or(Filters.saruman, Filters.and(Culture.ISENGARD, Race.MAN)));
     }
 
     @Override
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         final AttachPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
         playCardAction.appendCost(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Filters.or(Filters.saruman, Filters.and(Culture.ISENGARD, Filters.race(Race.MAN)))));
+                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Filters.or(Filters.saruman, Filters.and(Culture.ISENGARD, Race.MAN))));
         return playCardAction;
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.side(Side.FREE_PEOPLE), Filters.race(Race.MAN));
+        return Filters.and(Filters.side(Side.FREE_PEOPLE), Race.MAN);
     }
 
     @Override

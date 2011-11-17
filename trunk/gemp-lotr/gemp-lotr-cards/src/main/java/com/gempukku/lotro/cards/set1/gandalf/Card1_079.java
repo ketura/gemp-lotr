@@ -45,7 +45,7 @@ public class Card1_079 extends AbstractPermanent {
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                 AbstractCompanion companion = (AbstractCompanion) physicalCard.getBlueprint();
                                 if (companion.getRace() != null) {
-                                    return !Filters.canSpot(gameState, modifiersQuerying, Filters.race(companion.getRace()));
+                                    return !Filters.canSpot(gameState, modifiersQuerying, companion.getRace());
                                 }
                                 return false;
                             }

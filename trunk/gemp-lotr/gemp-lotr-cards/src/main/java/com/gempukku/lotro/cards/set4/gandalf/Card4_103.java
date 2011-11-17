@@ -42,7 +42,7 @@ public class Card4_103 extends AbstractAlly {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (PlayConditions.isGettingDiscarded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
-            Collection<PhysicalCard> discardedHobbits = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Filters.race(Race.HOBBIT));
+            Collection<PhysicalCard> discardedHobbits = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Race.HOBBIT);
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose unbound hobbit", Filters.in(discardedHobbits)) {
@@ -61,7 +61,7 @@ public class Card4_103 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
-                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Filters.race(Race.HOBBIT), Filters.playable(game)).size() > 0) {
+                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Race.HOBBIT, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));

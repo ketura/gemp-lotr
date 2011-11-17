@@ -28,7 +28,7 @@ public class Card1_201 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(Filters.keyword(Keyword.ARCHER))),
-                        Culture.MORIA, Filters.race(Race.ORC)));
+                        Culture.MORIA, Race.ORC));
         return action;
     }
 

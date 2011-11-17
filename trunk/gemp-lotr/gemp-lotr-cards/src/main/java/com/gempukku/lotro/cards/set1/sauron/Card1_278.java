@@ -35,7 +35,7 @@ public class Card1_278 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a SAURON Orc", Culture.SAURON, Filters.race(Race.ORC)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a SAURON Orc", Culture.SAURON, Race.ORC) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard sauronOrc) {
                             action.appendEffect(

@@ -33,16 +33,16 @@ public class Card1_304 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.not(Filters.race(Race.HOBBIT)));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.not(Race.HOBBIT));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.race(Race.HOBBIT))));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Race.HOBBIT)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Filters.race(Race.HOBBIT)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Race.HOBBIT) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
                         action.appendEffect(

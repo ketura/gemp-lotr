@@ -29,7 +29,7 @@ public class Card1_003 extends AbstractOldEvent {
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new CardMatchesEvaluator(2, 3,
                                 Filters.hasAttached(Culture.DWARVEN, PossessionClass.HAND_WEAPON)),
-                        Filters.race(Race.DWARF)));
+                        Race.DWARF));
 
         return action;
     }

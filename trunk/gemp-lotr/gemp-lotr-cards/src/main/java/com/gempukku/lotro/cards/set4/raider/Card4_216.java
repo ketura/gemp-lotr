@@ -36,7 +36,7 @@ public class Card4_216 extends AbstractPermanent {
         if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult,
                 Filters.and(
                         Filters.or(CardType.COMPANION, CardType.ALLY),
-                        Filters.inSkirmishAgainst(Filters.and(Culture.RAIDER, Filters.race(Race.MAN)))))) {
+                        Filters.inSkirmishAgainst(Filters.and(Culture.RAIDER, Race.MAN))))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.RAIDER));

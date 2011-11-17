@@ -28,7 +28,7 @@ public class Card1_336 extends AbstractSite {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new KeywordModifier(self,
                 Filters.and(
-                        Filters.race(Race.NAZGUL),
+                        Race.NAZGUL,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

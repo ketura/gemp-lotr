@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
@@ -34,10 +33,10 @@ public class Card2_101 extends AbstractAlly {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Filters.race(Race.HOBBIT), CardType.COMPANION)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Race.HOBBIT, CardType.COMPANION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.race(Race.HOBBIT), CardType.COMPANION) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Race.HOBBIT, CardType.COMPANION) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard companion) {
                             Skirmish skirmish = game.getGameState().getSkirmish();

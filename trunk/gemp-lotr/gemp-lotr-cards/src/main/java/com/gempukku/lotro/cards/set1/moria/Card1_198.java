@@ -49,7 +49,7 @@ public class Card1_198 extends AbstractPermanent {
         int siteNumber = game.getGameState().getCurrentSiteNumber();
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && siteNumber >= 4 && siteNumber <= 6 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.or(Filters.race(Race.ELF), Filters.race(Race.DWARF)))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.or(Race.ELF, Race.DWARF))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));

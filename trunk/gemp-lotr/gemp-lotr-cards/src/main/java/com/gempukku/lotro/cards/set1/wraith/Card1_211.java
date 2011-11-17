@@ -31,7 +31,7 @@ public class Card1_211 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.KILL
                 && game.getGameState().getSkirmish() != null
-                && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.NAZGUL)).size() > 0) {
+                && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL).size() > 0) {
             KillResult killResult = (KillResult) effectResult;
             if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);

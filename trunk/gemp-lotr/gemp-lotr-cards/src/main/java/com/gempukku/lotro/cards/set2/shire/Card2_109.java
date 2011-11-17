@@ -4,11 +4,7 @@ import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -66,7 +62,7 @@ public class Card2_109 extends AbstractOldEvent {
                                                                 new MultipleChoiceAwaitingDecision(1, "Choose action to perform", new String[]{"Wound " + exertionCount + " Orcs", "Wound " + exertionCount + " Uruk-hai"}) {
                                                                     @Override
                                                                     protected void validDecisionMade(int index, String result) {
-                                                                        Filter filter = (index == 0) ? Filters.race(Race.ORC) : Filters.race(Race.URUK_HAI);
+                                                                        Filterable filter = (index == 0) ? Race.ORC : Race.URUK_HAI;
                                                                         action.insertEffect(
                                                                                 new ChooseAndWoundCharactersEffect(action, playerId, exertionCount, exertionCount, filter));
                                                                     }

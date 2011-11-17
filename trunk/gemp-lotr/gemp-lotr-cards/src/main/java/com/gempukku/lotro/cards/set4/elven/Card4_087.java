@@ -27,7 +27,7 @@ public class Card4_087 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Filters.race(Race.ELF)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Race.ELF) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         final boolean againstWoundedMinion = Filters.inSkirmishAgainst(Filters.and(CardType.MINION, Filters.wounded)).accepts(game.getGameState(), game.getModifiersQuerying(), card);

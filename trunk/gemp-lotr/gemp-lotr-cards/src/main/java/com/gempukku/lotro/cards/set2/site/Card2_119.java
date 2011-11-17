@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -29,6 +28,6 @@ public class Card2_119 extends AbstractSite {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new RemoveKeywordModifier(self, Filters.race(Race.URUK_HAI), Keyword.ROAMING));
+                new RemoveKeywordModifier(self, Race.URUK_HAI, Keyword.ROAMING));
     }
 }

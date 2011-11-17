@@ -45,7 +45,7 @@ public class Card4_184 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose nother Uruk-hai", Filters.race(Race.URUK_HAI), Filters.not(Filters.sameCard(self))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose nother Uruk-hai", Race.URUK_HAI, Filters.not(Filters.sameCard(self))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

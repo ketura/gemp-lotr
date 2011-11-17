@@ -36,6 +36,6 @@ public class Card3_021 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.and(Filters.or(Filters.race(Race.ORC), Filters.race(Race.URUK_HAI)), Filters.inSkirmishAgainst(Filters.hasAttached(self))), -2));
+                new StrengthModifier(self, Filters.and(Filters.or(Race.ORC, Race.URUK_HAI), Filters.inSkirmishAgainst(Filters.hasAttached(self))), -2));
     }
 }

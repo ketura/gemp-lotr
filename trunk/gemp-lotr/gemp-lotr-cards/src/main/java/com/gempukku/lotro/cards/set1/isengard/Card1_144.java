@@ -30,13 +30,13 @@ public class Card1_144 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Filters.race(Race.URUK_HAI), Filters.owner(playerId)))
+        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
                 && game.getGameState().getTwilightPool() >= 1) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.race(Race.URUK_HAI), Filters.in(skirmishResult.getWinners())));
+                    new ChooseAndHealCharactersEffect(action, playerId, Race.URUK_HAI, Filters.in(skirmishResult.getWinners())));
             return Collections.singletonList(action);
         }
         return null;

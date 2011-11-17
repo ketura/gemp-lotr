@@ -7,7 +7,6 @@ import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -34,12 +33,12 @@ public class Card4_242 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)
-                && PlayConditions.canExert(self, game, Culture.RAIDER, Filters.race(Race.MAN))) {
+                && PlayConditions.canExert(self, game, Culture.RAIDER, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Filters.race(Race.MAN)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Race.MAN));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.RAIDER));
             return Collections.singletonList(action);

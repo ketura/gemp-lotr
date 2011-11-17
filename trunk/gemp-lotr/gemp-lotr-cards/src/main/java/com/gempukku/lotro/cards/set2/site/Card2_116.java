@@ -7,7 +7,6 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -32,10 +31,10 @@ public class Card2_116 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.race(Race.HOBBIT))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.HOBBIT)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT));
             action.appendEffect(
                     new PlaySiteEffect(playerId, Block.FELLOWSHIP, 2));
             return Collections.singletonList(action);

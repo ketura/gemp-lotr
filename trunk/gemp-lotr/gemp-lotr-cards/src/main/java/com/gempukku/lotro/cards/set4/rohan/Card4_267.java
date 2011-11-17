@@ -37,7 +37,7 @@ public class Card4_267 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Filters.race(Race.MAN)))
+        if (Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Race.MAN))
             return -1;
         return 0;
     }

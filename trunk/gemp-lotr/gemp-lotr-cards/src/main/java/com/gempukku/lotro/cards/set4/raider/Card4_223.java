@@ -27,14 +27,14 @@ public class Card4_223 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game, Culture.RAIDER, Filters.race(Race.MAN));
+                && PlayConditions.canExert(self, game, Culture.RAIDER, Race.MAN);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Filters.race(Race.MAN)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Race.MAN));
         int maxDiscard = (game.getGameState().getBurdens() >= 3) ? 2 : 1;
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, maxDiscard, Filters.side(Side.FREE_PEOPLE), CardType.CONDITION));

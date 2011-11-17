@@ -25,7 +25,7 @@ public class Card1_164 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
+                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Race.ELF));
         return action;
     }
 

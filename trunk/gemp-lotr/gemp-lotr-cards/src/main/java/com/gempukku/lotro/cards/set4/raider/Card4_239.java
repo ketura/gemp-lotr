@@ -7,7 +7,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -30,7 +29,7 @@ public class Card4_239 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Culture.RAIDER, Filters.race(Race.MAN)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Culture.RAIDER, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus = (game.getGameState().getBurdens() >= 4) ? 4 : 3;

@@ -31,7 +31,7 @@ public class Card3_072 extends AbstractPermanent {
                 new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
                         Filters.and(
                                 Filters.weapon,
-                                Filters.attachedTo(Filters.inSkirmishAgainst(Filters.and(Culture.ISENGARD, Filters.race(Race.ORC))))
+                                Filters.attachedTo(Filters.inSkirmishAgainst(Filters.and(Culture.ISENGARD, Race.ORC)))
                         )));
     }
 }
