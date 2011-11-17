@@ -144,6 +144,13 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean isWounded(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.WOUND) {
+            return Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
     public static boolean isTakingControlOfSite(Effect effect, LotroGame game, Filterable... sourceFilters) {
         if (effect.getType() == Effect.Type.BEFORE_TAKE_CONTROL_OF_A_SITE) {
             TakeControlOfASiteEffect takeControlOfASiteEffect = (TakeControlOfASiteEffect) effect;
