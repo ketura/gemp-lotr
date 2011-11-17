@@ -24,6 +24,6 @@ public class PreventCardEffect extends UnrespondableEffect {
     @Override
     protected void doPlayEffect(LotroGame game) {
         for (PhysicalCard card : _cards)
-            _effect.preventEffect(card);
+            _effect.preventEffect(game, card);
     }
 }

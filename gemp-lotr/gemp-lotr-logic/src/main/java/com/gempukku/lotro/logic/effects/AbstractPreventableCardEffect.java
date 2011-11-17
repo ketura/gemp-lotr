@@ -52,7 +52,7 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
         return new FullEffectResult(results, affectedCards.size() >= _requiredTargets, affectedMinusPreventedCards.size() >= _requiredTargets);
     }
 
-    public void preventEffect(PhysicalCard card) {
+    public void preventEffect(LotroGame game, PhysicalCard card) {
         _preventedTargets.add(card);
     }
 }
