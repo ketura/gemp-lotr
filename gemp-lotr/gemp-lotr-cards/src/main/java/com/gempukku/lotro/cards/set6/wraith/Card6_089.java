@@ -32,7 +32,7 @@ public class Card6_089 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canRemoveToken(game.getGameState(), self, Token.WRAITH, 3)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.WRAITH, 3)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.WRAITH, 3));

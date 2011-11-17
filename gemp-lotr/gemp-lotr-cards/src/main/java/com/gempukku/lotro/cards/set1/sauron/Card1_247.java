@@ -31,7 +31,7 @@ public class Card1_247 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.SAURON, Race.ORC))
+        if (PlayConditions.winsSkirmish(game, effectResult, Filters.and(Culture.SAURON, Race.ORC))
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
 

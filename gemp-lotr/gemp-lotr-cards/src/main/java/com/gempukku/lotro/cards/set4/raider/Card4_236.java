@@ -31,7 +31,7 @@ public class Card4_236 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getGameState().getTwilightPool() >= 4
-                && PlayConditions.losesSkirmishAgainst(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Keyword.SOUTHRON)) {
+                && PlayConditions.losesSkirmishAgainst(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Keyword.SOUTHRON)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(4));

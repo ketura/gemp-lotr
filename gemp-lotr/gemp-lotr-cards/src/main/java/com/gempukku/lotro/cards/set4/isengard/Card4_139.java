@@ -54,7 +54,7 @@ public class Card4_139 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult,
+        if (PlayConditions.losesSkirmish(game, effectResult,
                 Filters.and(
                         Filters.not(Filters.hasAttached(self)),
                         Filters.or(CardType.ALLY, CardType.COMPANION)))) {

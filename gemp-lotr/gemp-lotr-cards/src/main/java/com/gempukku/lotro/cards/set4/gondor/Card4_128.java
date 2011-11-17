@@ -53,7 +53,7 @@ public class Card4_128 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
                     @Override
-                    protected void cardSelected(LotroGame game, final PhysicalCard minion) {
+                    protected void cardSelected(final LotroGame game, final PhysicalCard minion) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new MinionSiteNumberModifier(self, Filters.sameCard(minion), null, 2), Phase.SKIRMISH));
@@ -62,7 +62,7 @@ public class Card4_128 extends AbstractOldEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
-                                                if (PlayConditions.losesSkirmish(lotroGame.getGameState(), lotroGame.getModifiersQuerying(), effectResults, Filters.sameCard(minion))) {
+                                                if (PlayConditions.losesSkirmish(game, effectResults, Filters.sameCard(minion))) {
                                                     final RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                     action.appendEffect(
                                                             new PlayoutDecisionEffect(lotroGame.getUserFeedback(), playerId,

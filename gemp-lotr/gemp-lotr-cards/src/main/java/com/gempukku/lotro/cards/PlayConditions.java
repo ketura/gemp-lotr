@@ -285,12 +285,17 @@ public class PlayConditions {
                 && game.getGameState().getCurrentPhase() == phase);
     }
 
-    public static boolean controllsSite(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
-        return Filters.findFirstActive(gameState, modifiersQuerying, Filters.siteControlled(playerId)) != null;
+    public static boolean controllsSite(LotroGame game, String playerId) {
+        return Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) != null;
     }
 
     public static boolean winsSkirmish(LotroGame game, EffectResult effectResult, Filterable... filters) {
-        return winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, filters);
+        EffectResult.Type effectType = effectResult.getType();
+        if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
+            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+            return (Filters.filter(skirmishResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters)).size() > 0);
+        }
+        return false;
     }
 
     public static boolean winsSkirmish(EffectResult effectResult, PhysicalCard character) {
@@ -303,20 +308,9 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean winsSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filterable... filter) {
-        EffectResult.Type effectType = effectResult.getType();
-        if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            return (Filters.filter(skirmishResult.getWinners(), gameState, modifiersQuerying, filter).size() > 0);
-        }
-        return false;
-    }
-
     public static boolean winsSkirmishAgainst(LotroGame game, EffectResult effectResult, Filterable winnerFilter, Filterable loserFilter) {
-        return winsSkirmishAgainst(game.getGameState(), game.getModifiersQuerying(), effectResult, winnerFilter, loserFilter);
-    }
-
-    public static boolean winsSkirmishAgainst(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filterable winnerFilter, Filterable loserFilter) {
+        GameState gameState = game.getGameState();
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
@@ -328,16 +322,18 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean losesSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filter filter) {
+    public static boolean losesSkirmish(LotroGame game, EffectResult effectResult, Filter filter) {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            return (Filters.filter(skirmishResult.getLosers(), gameState, modifiersQuerying, filter).size() > 0);
+            return (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), filter).size() > 0);
         }
         return false;
     }
 
-    public static boolean losesSkirmishAgainst(GameState gameState, ModifiersQuerying modifiersQuerying, EffectResult effectResult, Filterable loserFilter, Filterable winnerFilter) {
+    public static boolean losesSkirmishAgainst(LotroGame game, EffectResult effectResult, Filterable loserFilter, Filterable winnerFilter) {
+        GameState gameState = game.getGameState();
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
@@ -519,19 +515,19 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean canRemoveTokens(LotroGame game, Token token, int count, Filterable... fromFilters) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasToken(token, count))).size() > 0;
-    }
-
     public static boolean canRemoveAnyCultureTokens(LotroGame game, int count, Filterable... fromFilters) {
         return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count))).size() > 0;
     }
 
-    public static boolean canRemoveToken(GameState gameState, PhysicalCard from, Token token) {
-        return canRemoveToken(gameState, from, token, 1);
+    public static boolean canRemoveTokens(LotroGame game, PhysicalCard from, Token token) {
+        return canRemoveTokens(game, from, token, 1);
     }
 
-    public static boolean canRemoveToken(GameState gameState, PhysicalCard from, Token token, int count) {
-        return gameState.getTokenCount(from, token) >= count;
+    public static boolean canRemoveTokens(LotroGame game, PhysicalCard from, Token token, int count) {
+        return game.getGameState().getTokenCount(from, token) >= count;
+    }
+
+    public static boolean canRemoveTokens(LotroGame game, Token token, int count, Filterable... fromFilters) {
+        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasToken(token, count))).size() > 0;
     }
 }

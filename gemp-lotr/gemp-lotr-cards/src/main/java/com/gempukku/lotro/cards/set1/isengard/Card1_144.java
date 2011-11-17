@@ -30,7 +30,7 @@ public class Card1_144 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
+        if (PlayConditions.winsSkirmish(game, effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
                 && game.getGameState().getTwilightPool() >= 1) {
             SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
             final ActivateCardAction action = new ActivateCardAction(self);
