@@ -37,9 +37,9 @@ public class Card10_115 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         Skirmish skirmish = game.getGameState().getSkirmish();
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Filters.owner(playerId), Race.HOBBIT)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, CardType.MINION, Filters.not(Keyword.FIERCE))
-        action.appendEffect(
-                new CancelSkirmishEffect());
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, CardType.MINION, Filters.not(Keyword.FIERCE)))
+            action.appendEffect(
+                    new CancelSkirmishEffect());
         action.appendEffect(
                 new AddUntilStartOfPhaseModifierEffect(
                         new KeywordModifier(self, Filters.in(skirmish.getShadowCharacters()), Keyword.FIERCE), Phase.REGROUP));
