@@ -35,7 +35,8 @@ public class Card10_051 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.played(game, effectResult, CardType.POSSESSION, Side.FREE_PEOPLE)
-                && PlayConditions.canSpot(game, Culture.RAIDER)) {
+                && PlayConditions.canSpot(game, Culture.RAIDER)
+                && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayCardResult playResult = (PlayCardResult) effectResult;
             final PhysicalCard playedCard = playResult.getPlayedCard();
             PlayEventAction action = new PlayEventAction(self);
