@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -73,5 +74,11 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
         }
 
         return Collections.singleton(new WoundResult(cards));
+    }
+
+    @Override
+    public void preventEffect(LotroGame game, PhysicalCard card) {
+        if (!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS))
+            super.preventEffect(game, card);
     }
 }
