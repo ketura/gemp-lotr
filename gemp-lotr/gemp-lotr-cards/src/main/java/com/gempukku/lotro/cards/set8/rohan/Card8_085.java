@@ -39,7 +39,7 @@ public class Card8_085 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.POSSESSION));
         action.appendEffect(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.ROHAN, CardType.POSSESSION));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ROHAN, CardType.POSSESSION));
         return action;
     }
 }

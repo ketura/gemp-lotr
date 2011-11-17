@@ -37,7 +37,7 @@ public class Card1_326 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -1, Filters.or(CardType.COMPANION, CardType.ALLY)));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, -1, Filters.or(CardType.COMPANION, CardType.ALLY)));
             return Collections.singletonList(action);
         }
         return null;

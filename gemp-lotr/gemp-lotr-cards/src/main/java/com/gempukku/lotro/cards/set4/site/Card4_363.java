@@ -38,7 +38,7 @@ public class Card4_363 extends AbstractSite {
             action.appendCost(
                     new RemoveBurdenEffect(self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), CardType.MINION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

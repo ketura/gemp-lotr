@@ -51,7 +51,7 @@ public class Card8_118 extends AbstractSite {
                         }
                     });
             possibleEffects.add(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), CardType.MINION, Keyword.ENDURING) {
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION, Keyword.ENDURING) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Play from discard";

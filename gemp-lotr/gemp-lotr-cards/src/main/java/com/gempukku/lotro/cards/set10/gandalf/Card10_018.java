@@ -52,7 +52,7 @@ public class Card10_018 extends AbstractCompanion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.GANDALF, CardType.CONDITION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.GANDALF, CardType.CONDITION));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

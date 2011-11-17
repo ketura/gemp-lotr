@@ -36,7 +36,7 @@ public class Card7_055 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.smeagol));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.smeagol));
             return Collections.singletonList(action);
         }
         return null;

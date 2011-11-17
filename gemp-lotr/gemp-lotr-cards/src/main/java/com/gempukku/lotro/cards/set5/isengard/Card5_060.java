@@ -41,7 +41,7 @@ public class Card5_060 extends AbstractPermanent {
                 && PlayConditions.canPlayFromHand(playerId, game, Race.URUK_HAI)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Race.URUK_HAI));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Race.URUK_HAI));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a machine", Keyword.MACHINE) {
                         @Override

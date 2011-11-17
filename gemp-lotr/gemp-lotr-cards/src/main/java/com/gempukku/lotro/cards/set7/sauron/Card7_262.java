@@ -73,7 +73,7 @@ public class Card7_262 extends AbstractEvent {
                             action.insertCost(
                                     new RemoveBurdenEffect(self));
                             action.appendEffect(
-                                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.SAURON, Race.ORC));
+                                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Race.ORC));
                         }
                     });
 

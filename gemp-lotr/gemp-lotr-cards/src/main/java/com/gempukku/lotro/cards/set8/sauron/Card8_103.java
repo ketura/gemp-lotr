@@ -41,7 +41,7 @@ public class Card8_103 extends AbstractPermanent {
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.SAURON, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Culture.SAURON, CardType.MINION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.SAURON, CardType.MINION));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.SAURON));
             return Collections.singletonList(action);

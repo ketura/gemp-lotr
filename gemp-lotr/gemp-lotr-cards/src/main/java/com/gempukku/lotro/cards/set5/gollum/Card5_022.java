@@ -52,7 +52,7 @@ public class Card5_022 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), CardType.MINION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

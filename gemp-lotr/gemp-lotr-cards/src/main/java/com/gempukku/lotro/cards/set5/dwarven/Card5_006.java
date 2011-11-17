@@ -46,7 +46,7 @@ public class Card5_006 extends AbstractEvent {
                     }
                 });
         possibleEffects.add(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.DWARVEN, CardType.CONDITION) {
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.DWARVEN, CardType.CONDITION) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Play a DWARVEN condition from your discard pile";

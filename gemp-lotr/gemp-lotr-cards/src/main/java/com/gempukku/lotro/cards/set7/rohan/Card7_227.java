@@ -47,7 +47,7 @@ public class Card7_227 extends AbstractCompanion {
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.ROHAN, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Culture.ROHAN, CardType.COMPANION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.ROHAN, CardType.COMPANION));
             action.appendEffect(
                     new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, Culture.ROHAN, Filters.or(CardType.POSSESSION, Filters.and(CardType.EVENT, Keyword.SKIRMISH))));
             return Collections.singletonList(action);

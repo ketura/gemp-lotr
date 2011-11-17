@@ -42,7 +42,7 @@ public class Card7_085 extends AbstractCompanion {
                 && PlayConditions.canPlayFromHand(playerId, game, -2, Culture.GONDOR, Keyword.KNIGHT)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2, Culture.GONDOR, Keyword.KNIGHT));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Culture.GONDOR, Keyword.KNIGHT));
             return Collections.singletonList(action);
         }
         return null;

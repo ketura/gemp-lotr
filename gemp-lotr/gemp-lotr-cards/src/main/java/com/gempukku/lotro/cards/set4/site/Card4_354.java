@@ -34,7 +34,7 @@ public class Card4_354 extends AbstractSite {
                 && PlayConditions.canPlayFromHand(playerId, game, CardType.POSSESSION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), CardType.POSSESSION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, CardType.POSSESSION));
             action.appendEffect(
                     new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);

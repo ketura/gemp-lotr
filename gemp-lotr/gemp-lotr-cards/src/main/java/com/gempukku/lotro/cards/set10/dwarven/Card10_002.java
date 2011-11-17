@@ -47,9 +47,9 @@ public class Card10_002 extends AbstractPermanent {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Culture.DWARVEN, CardType.CONDITION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.DWARVEN, CardType.CONDITION));
             possibleEffects.add(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.DWARVEN, CardType.CONDITION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.DWARVEN, CardType.CONDITION));
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
             return Collections.singletonList(action);

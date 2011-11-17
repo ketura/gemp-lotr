@@ -41,7 +41,7 @@ public class Card4_302 extends AbstractCompanion {
                 && PlayConditions.canPlayFromHand(playerId, game, CardType.COMPANION, Keyword.RING_BOUND)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), CardType.COMPANION, Keyword.RING_BOUND));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, CardType.COMPANION, Keyword.RING_BOUND));
             action.appendEffect(
                     new RemoveBurdenEffect(self));
             return Collections.singletonList(action);

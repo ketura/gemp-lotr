@@ -55,7 +55,7 @@ public class Card4_177 extends AbstractAttachable {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, CardType.MINION));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -3, CardType.MINION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, -3, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

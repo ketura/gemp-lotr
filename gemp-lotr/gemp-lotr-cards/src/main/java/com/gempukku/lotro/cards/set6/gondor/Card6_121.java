@@ -47,7 +47,7 @@ public class Card6_121 extends AbstractCompanion {
                 && PlayConditions.canPlayFromHand(playerId, game, Keyword.RANGER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Keyword.RANGER));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Keyword.RANGER));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION, Keyword.RING_BOUND));
             return Collections.singletonList(action);

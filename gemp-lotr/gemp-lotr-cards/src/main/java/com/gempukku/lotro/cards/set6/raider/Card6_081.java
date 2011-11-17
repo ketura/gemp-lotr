@@ -42,7 +42,7 @@ public class Card6_081 extends AbstractMinion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, Keyword.AMBUSH)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Keyword.AMBUSH));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Keyword.AMBUSH));
             return Collections.singletonList(action);
         }
         return null;

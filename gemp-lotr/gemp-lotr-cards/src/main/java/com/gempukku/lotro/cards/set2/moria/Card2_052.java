@@ -57,7 +57,7 @@ public class Card2_052 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Culture.MORIA, Race.ORC)));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.and(Culture.MORIA, Race.ORC)));
             return Collections.singletonList(action);
         }
         return null;

@@ -37,7 +37,7 @@ public class Card1_196 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Culture.MORIA, Race.ORC)));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.and(Culture.MORIA, Race.ORC)));
             return Collections.singletonList(action);
         }
         return null;

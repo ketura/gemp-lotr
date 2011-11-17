@@ -41,7 +41,7 @@ public class Card5_081 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.ROHAN, CardType.POSSESSION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ROHAN, CardType.POSSESSION));
             return Collections.singletonList(action);
         }
         return null;

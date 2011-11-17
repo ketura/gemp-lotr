@@ -41,7 +41,7 @@ public class Card1_349 extends AbstractSite {
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.balrog, Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -6, Filters.balrog) {
+                        new ChooseAndPlayCardFromHandEffect(playerId, game, -6, Filters.balrog) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Play The Balrog from hand";

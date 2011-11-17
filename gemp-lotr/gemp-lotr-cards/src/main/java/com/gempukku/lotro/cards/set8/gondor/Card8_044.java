@@ -39,7 +39,7 @@ public class Card8_044 extends AbstractPermanent {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN));
             action.appendEffect(
                     new CheckLimitEffect(action, self, 1, Phase.REGROUP,
-                            new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.GONDOR, Keyword.FORTIFICATION)));
+                            new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.GONDOR, Keyword.FORTIFICATION)));
             return Collections.singletonList(action);
         }
         return null;

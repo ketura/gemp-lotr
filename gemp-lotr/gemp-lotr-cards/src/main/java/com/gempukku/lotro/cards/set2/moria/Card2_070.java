@@ -52,7 +52,7 @@ public class Card2_070 extends AbstractOldEvent {
                                 new RevealCardEffect(self, selectedCards));
                         int cardsRevealed = selectedCards.size();
                         action.appendEffect(
-                                new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2 * cardsRevealed, Filters.balrog));
+                                new ChooseAndPlayCardFromHandEffect(playerId, game, -2 * cardsRevealed, Filters.balrog));
                     }
                 });
         return action;

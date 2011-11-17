@@ -37,7 +37,7 @@ public class Card7_281 extends AbstractPermanent {
                 && PlayConditions.canPlayFromHand(playerId, game, Keyword.BESIEGER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Keyword.BESIEGER));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Keyword.BESIEGER));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.SAURON));
             return Collections.singletonList(action);

@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 public class ChooseAndPlayCardFromHandEffect implements Effect {
     private String _playerId;
@@ -24,19 +23,19 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     private int _twilightModifier;
     private CostToEffectAction _playCardAction;
 
-    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, Filterable... filter) {
-        this(playerId, cardsInHandAtStart, 0, filter);
+    public ChooseAndPlayCardFromHandEffect(String playerId, LotroGame game, Filterable... filters) {
+        this(playerId, game, 0, false, filters);
     }
 
-    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, int twilightModifier, Filterable... filter) {
-        this(playerId, cardsInHandAtStart, twilightModifier, false, filter);
+    public ChooseAndPlayCardFromHandEffect(String playerId, LotroGame game, int twilightModifier, Filterable... filters) {
+        this(playerId, game, twilightModifier, false, filters);
     }
 
-    public ChooseAndPlayCardFromHandEffect(String playerId, List<? extends PhysicalCard> cardsInHandAtStart, int twilightModifier, boolean ignoreRoamingPenalty, Filterable... filter) {
+    public ChooseAndPlayCardFromHandEffect(String playerId, LotroGame game, int twilightModifier, boolean ignoreRoamingPenalty, Filterable... filter) {
         _playerId = playerId;
         _ignoreRoamingPenalty = ignoreRoamingPenalty;
         // Card has to be in hand when you start playing the card (we need to copy the collection)
-        _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(cardsInHandAtStart)));
+        _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(game.getGameState().getHand(playerId))));
         _twilightModifier = twilightModifier;
     }
 

@@ -61,7 +61,7 @@ public class Card7_244 extends AbstractPermanent {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.ROHAN, CardType.POSSESSION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ROHAN, CardType.POSSESSION));
             return Collections.singletonList(action);
         }
         return null;

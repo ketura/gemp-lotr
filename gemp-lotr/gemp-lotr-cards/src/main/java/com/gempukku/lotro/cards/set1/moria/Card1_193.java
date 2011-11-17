@@ -40,7 +40,7 @@ public class Card1_193 extends AbstractPermanent {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId,
-                                game.getGameState().getDiscard(playerId),
+                                game,
                                 -1, Filters.and(
                                 Culture.MORIA,
                                 Filters.weapon,

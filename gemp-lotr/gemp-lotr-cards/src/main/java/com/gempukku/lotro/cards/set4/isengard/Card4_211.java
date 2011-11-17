@@ -40,7 +40,7 @@ public class Card4_211 extends AbstractPermanent {
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.ISENGARD, Keyword.ARCHER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.and(Culture.ISENGARD, Keyword.ARCHER)));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Filters.and(Culture.ISENGARD, Keyword.ARCHER)));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ISENGARD));
             return Collections.singletonList(action);

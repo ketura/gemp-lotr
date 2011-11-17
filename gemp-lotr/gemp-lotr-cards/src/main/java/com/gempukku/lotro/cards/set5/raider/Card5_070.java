@@ -38,7 +38,7 @@ public class Card5_070 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.RAIDER, PossessionClass.MOUNT));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.RAIDER, PossessionClass.MOUNT));
             return Collections.singletonList(action);
         }
         return null;

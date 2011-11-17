@@ -47,7 +47,7 @@ public class Card2_046 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Race.URUK_HAI));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Race.URUK_HAI));
             return Collections.singletonList(action);
         }
         return null;

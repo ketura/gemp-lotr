@@ -46,7 +46,7 @@ public class Card7_076 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.smeagol));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.smeagol));
         action.appendEffect(
                 new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
         final int moveCount = game.getGameState().getMoveCount();

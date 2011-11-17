@@ -33,7 +33,7 @@ public class Card6_115 extends AbstractSite {
                 && PlayConditions.canPlayFromHand(playerId, game, CardType.COMPANION, Signet.FRODO)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), CardType.COMPANION, Signet.FRODO));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, CardType.COMPANION, Signet.FRODO));
             action.appendEffect(
                     new RemoveBurdenEffect(self));
             return Collections.singletonList(action);

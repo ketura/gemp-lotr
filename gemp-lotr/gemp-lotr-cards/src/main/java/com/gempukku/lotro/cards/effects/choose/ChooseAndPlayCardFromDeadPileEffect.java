@@ -22,14 +22,14 @@ public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
     private int _twilightModifier;
     private Action _playCardAction;
 
-    public ChooseAndPlayCardFromDeadPileEffect(String playerId, List<? extends PhysicalCard> cardsInDeadPileAtStart, Filterable... filter) {
-        this(playerId, cardsInDeadPileAtStart, 0, filter);
+    public ChooseAndPlayCardFromDeadPileEffect(String playerId, LotroGame game, Filterable... filter) {
+        this(playerId, game, 0, filter);
     }
 
-    public ChooseAndPlayCardFromDeadPileEffect(String playerId, List<? extends PhysicalCard> cardsInDeadPileAtStart, int twilightModifier, Filterable... filter) {
+    public ChooseAndPlayCardFromDeadPileEffect(String playerId, LotroGame game, int twilightModifier, Filterable... filter) {
         _playerId = playerId;
         // Card has to be in dead pile when you start playing the card (we need to copy the collection)
-        _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(cardsInDeadPileAtStart)));
+        _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(game.getGameState().getDeadPile(playerId))));
         _twilightModifier = twilightModifier;
     }
 

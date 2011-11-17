@@ -45,7 +45,7 @@ public class Card8_051 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Keyword.CORSAIR));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Keyword.CORSAIR));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a card to add tokens to", Filters.hasToken(Token.RAIDER)) {
                         @Override

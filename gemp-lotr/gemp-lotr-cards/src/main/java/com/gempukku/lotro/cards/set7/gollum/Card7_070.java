@@ -39,7 +39,7 @@ public class Card7_070 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.smeagol));
         action.appendEffect(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), CardType.COMPANION));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.COMPANION));
         return action;
     }
 }

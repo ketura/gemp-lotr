@@ -49,7 +49,7 @@ public class Card7_321 extends AbstractCompanion {
                                     int count = getValidatedResult(result);
                                     for (int i = 0; i < count; i++)
                                         action.appendEffect(
-                                                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.ROHAN, CardType.POSSESSION));
+                                                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ROHAN, CardType.POSSESSION));
 
                                 }
                             })

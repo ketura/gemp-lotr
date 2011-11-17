@@ -54,7 +54,7 @@ public class Card8_092 extends AbstractCompanion {
                     }
                 });
         possibleEffects.add(
-                new ChooseAndPlayCardFromDiscardEffect(self.getOwner(), game.getGameState().getDiscard(self.getOwner()), Culture.ROHAN, CardType.COMPANION) {
+                new ChooseAndPlayCardFromDiscardEffect(self.getOwner(), game, Culture.ROHAN, CardType.COMPANION) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Play from discard";

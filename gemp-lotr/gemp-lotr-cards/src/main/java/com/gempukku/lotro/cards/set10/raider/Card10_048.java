@@ -57,7 +57,7 @@ public class Card10_048 extends AbstractAttachable {
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.RAIDER, CardType.CONDITION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.RAIDER, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

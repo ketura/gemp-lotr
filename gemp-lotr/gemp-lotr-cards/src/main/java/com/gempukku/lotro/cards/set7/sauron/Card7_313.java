@@ -49,7 +49,7 @@ public class Card7_313 extends AbstractPermanent {
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.SAURON, CardType.CONDITION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Culture.SAURON, CardType.CONDITION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.SAURON, CardType.CONDITION));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.SAURON));
             return Collections.singletonList(action);

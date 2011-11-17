@@ -33,7 +33,7 @@ public class Card5_117 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.smeagol));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.smeagol));
         action.appendEffect(
                 new HealCharactersEffect(self, Filters.and(Race.HOBBIT, Keyword.RING_BOUND)));
         action.appendEffect(

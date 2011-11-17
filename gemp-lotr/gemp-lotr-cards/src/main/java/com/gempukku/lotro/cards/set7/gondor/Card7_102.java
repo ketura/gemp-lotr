@@ -42,7 +42,7 @@ public class Card7_102 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.GONDOR, Keyword.FORTIFICATION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.GONDOR, Keyword.FORTIFICATION));
             return Collections.singletonList(action);
         }
         return null;
