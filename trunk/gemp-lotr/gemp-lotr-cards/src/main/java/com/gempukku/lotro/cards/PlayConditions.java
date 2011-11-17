@@ -403,7 +403,7 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean assigned(LotroGame game, EffectResult effectResult, Side side, Filter againstFilter, Filterable... cardFilters) {
+    public static boolean assigned(LotroGame game, EffectResult effectResult, Side side, Filterable againstFilter, Filterable... cardFilters) {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
             if (side != null) {
