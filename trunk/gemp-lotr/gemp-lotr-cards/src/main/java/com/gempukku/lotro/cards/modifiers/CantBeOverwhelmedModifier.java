@@ -20,6 +20,6 @@ public class CantBeOverwhelmedModifier extends AbstractModifier {
 
     @Override
     public int getOverwhelmMultiplier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return Integer.MAX_VALUE;
+        return 10000;
     }
 }
