@@ -1,10 +1,7 @@
 package com.gempukku.lotro.game.state.actions;
 
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.ActionProxy;
-import com.gempukku.lotro.game.ActionsEnvironment;
-import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -14,6 +11,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromDiscardVisitor;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromStackedVisitor;
+import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 
 import java.util.*;
@@ -26,9 +24,23 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     private Map<Phase, List<ActionProxy>> _untilEndOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
     private List<ActionProxy> _untilEndOfTurnActionProxies = new LinkedList<ActionProxy>();
 
+    private List<PhysicalCard> _playedCardsInPhase = new LinkedList<PhysicalCard>();
+
     public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
         _actionStack = actionStack;
+
+        addAlwaysOnActionProxy(
+                new AbstractActionProxy() {
+                    @Override
+                    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
+                        if (effectResults.getType() == EffectResult.Type.PLAY) {
+                            PlayCardResult playResult = (PlayCardResult) effectResults;
+                            _playedCardsInPhase.add(playResult.getPlayedCard());
+                        }
+                        return null;
+                    }
+                });
     }
 
     public void addAlwaysOnActionProxy(ActionProxy actionProxy) {
@@ -49,6 +61,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             _actionProxies.removeAll(list);
             list.clear();
         }
+        _playedCardsInPhase.clear();
     }
 
     public void removeEndOfTurnActionProxies() {
@@ -235,6 +248,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public <T extends Action> T findTopmostActionOfType(Class<T> clazz) {
         return _actionStack.findTopmostActionOfType(clazz);
+    }
+
+    @Override
+    public List<PhysicalCard> getPlayedCardsInCurrentPhase() {
+        return Collections.unmodifiableList(_playedCardsInPhase);
     }
 
     private class GatherRequiredAfterTriggers extends CompletePhysicalCardVisitor {
