@@ -40,7 +40,7 @@ public class Card3_048 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), 2, Culture.GONDOR, CardType.COMPANION)) {
+                && PlayConditions.canExert(self, game, 2, Culture.GONDOR, CardType.COMPANION)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Culture.GONDOR, CardType.COMPANION));

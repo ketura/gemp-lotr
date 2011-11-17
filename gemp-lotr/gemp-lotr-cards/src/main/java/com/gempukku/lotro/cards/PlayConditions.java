@@ -121,19 +121,38 @@ public class PlayConditions {
     }
 
     public static boolean canSelfExert(PhysicalCard self, LotroGame game) {
-        return canExert(self, game, Filters.sameCard(self));
+        return canExert(self, game, 1, 1, self);
     }
 
     public static boolean canSelfExert(PhysicalCard self, int times, LotroGame game) {
-        return canExert(self, game, times, Filters.sameCard(self));
+        return canExert(self, game, times, 1, self);
     }
 
     public static boolean canExert(PhysicalCard source, LotroGame game, Filterable... filters) {
-        return canExert(source, game.getGameState(), game.getModifiersQuerying(), filters);
+        return canExert(source, game, 1, 1, filters);
     }
 
     public static boolean canExert(PhysicalCard source, LotroGame game, int times, Filterable... filters) {
-        return canExert(source, game.getGameState(), game.getModifiersQuerying(), times, filters);
+        return canExert(source, game, times, 1, filters);
+    }
+
+    public static boolean canExert(final PhysicalCard source, LotroGame game, final int times, final int count, Filterable... filters) {
+        final GameState gameState = game.getGameState();
+        final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        final Filter filter = Filters.and(filters);
+        return gameState.iterateActiveCards(
+                new PhysicalCardVisitor() {
+                    private int _exertableCount;
+
+                    @Override
+                    public boolean visitPhysicalCard(PhysicalCard physicalCard) {
+                        if (filter.accepts(gameState, modifiersQuerying, physicalCard)
+                                && (modifiersQuerying.getVitality(gameState, physicalCard) > times)
+                                && modifiersQuerying.canBeExerted(gameState, source, physicalCard))
+                            _exertableCount++;
+                        return _exertableCount >= count;
+                    }
+                });
     }
 
     public static boolean canSpot(LotroGame game, Filterable... filters) {
@@ -175,25 +194,6 @@ public class PlayConditions {
 
     public static boolean canRemoveBurdens(LotroGame game, PhysicalCard card, int count) {
         return game.getGameState().getBurdens() >= count && game.getModifiersQuerying().canRemoveBurden(game.getGameState(), card);
-    }
-
-    public static boolean canExertMultiple(final PhysicalCard source, LotroGame game, final int times, final int count, Filterable... filters) {
-        final GameState gameState = game.getGameState();
-        final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        final Filter filter = Filters.and(filters);
-        return gameState.iterateActiveCards(
-                new PhysicalCardVisitor() {
-                    private int _exertableCount;
-
-                    @Override
-                    public boolean visitPhysicalCard(PhysicalCard physicalCard) {
-                        if (filter.accepts(gameState, modifiersQuerying, physicalCard)
-                                && (modifiersQuerying.getVitality(gameState, physicalCard) > times)
-                                && modifiersQuerying.canBeExerted(gameState, source, physicalCard))
-                            _exertableCount++;
-                        return _exertableCount >= count;
-                    }
-                });
     }
 
     public static boolean canWound(final LotroGame game, final int times, final int count, Filterable... filters) {
@@ -275,23 +275,6 @@ public class PlayConditions {
         return canDiscardFromPlay(source, game, 1, filters);
     }
 
-    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, Filterable... filters) {
-        return canExert(source, gameState, modifiersQuerying, 1, filters);
-    }
-
-    public static boolean canExert(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, Filterable... filters) {
-        final Filter filter = Filters.and(filters);
-        return gameState.iterateActiveCards(
-                new PhysicalCardVisitor() {
-                    @Override
-                    public boolean visitPhysicalCard(PhysicalCard physicalCard) {
-                        return filter.accepts(gameState, modifiersQuerying, physicalCard)
-                                && (modifiersQuerying.getVitality(gameState, physicalCard) > times)
-                                && modifiersQuerying.canBeExerted(gameState, source, physicalCard);
-                    }
-                });
-    }
-
     public static boolean startOfPhase(LotroGame game, EffectResult effectResult, Phase phase) {
         return (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && game.getGameState().getCurrentPhase() == phase);
@@ -300,10 +283,6 @@ public class PlayConditions {
     public static boolean endOfPhase(LotroGame game, EffectResult effectResult, Phase phase) {
         return (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                 && game.getGameState().getCurrentPhase() == phase);
-    }
-
-    public static boolean canExert(PhysicalCard source, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return canExert(source, gameState, modifiersQuerying, Filters.sameCard(card));
     }
 
     public static boolean controllsSite(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {

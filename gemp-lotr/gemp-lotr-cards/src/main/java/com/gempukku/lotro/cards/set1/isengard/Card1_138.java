@@ -45,7 +45,7 @@ public class Card1_138 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
+                && PlayConditions.canExert(self, game, Culture.ISENGARD, CardType.MINION);
     }
 
     @Override

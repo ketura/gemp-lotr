@@ -48,6 +48,6 @@ public class Card1_113 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER)
                 || game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.FOREST))
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER);
+                && PlayConditions.canExert(self, game, Keyword.RANGER);
     }
 }

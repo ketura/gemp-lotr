@@ -37,7 +37,7 @@ public class Card3_110 extends AbstractAlly {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.isAddingBurden(effect, game, Side.SHADOW)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
+                && PlayConditions.canExert(self, game, self)) {
             final AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

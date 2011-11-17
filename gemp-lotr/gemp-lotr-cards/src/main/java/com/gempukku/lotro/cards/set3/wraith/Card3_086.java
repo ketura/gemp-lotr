@@ -39,7 +39,7 @@ public class Card3_086 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.winsSkirmish(effectResult, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)) {
+                && PlayConditions.canExert(self, game, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
