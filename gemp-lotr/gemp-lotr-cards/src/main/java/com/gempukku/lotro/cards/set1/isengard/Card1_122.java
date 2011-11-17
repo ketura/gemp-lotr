@@ -38,7 +38,7 @@ public class Card1_122 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
+        if (PlayConditions.played(game, effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             String playedCardName = ((PlayCardResult) effectResult).getPlayedCard().getBlueprint().getName();

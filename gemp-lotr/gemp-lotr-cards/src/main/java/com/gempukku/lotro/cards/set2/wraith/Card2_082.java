@@ -35,7 +35,7 @@ public class Card2_082 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
+        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.ALLY));

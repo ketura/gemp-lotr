@@ -51,7 +51,7 @@ public class Card2_118 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.and(Culture.MORIA, Keyword.ARCHER))
+        if (PlayConditions.played(game, effectResult, Filters.and(Culture.MORIA, Keyword.ARCHER))
                 && game.getGameState().getCurrentPhase() == Phase.SHADOW
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());

@@ -48,7 +48,7 @@ public class Card4_100 extends AbstractAttachableFPPossession {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
+        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.hasAttached(self)), PossessionClass.HAND_WEAPON)));

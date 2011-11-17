@@ -38,7 +38,7 @@ public class Card4_046 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game.getGameState(), game.getModifiersQuerying(), effectResult, Filters.sameCard(self))) {
+        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new StackTopCardsFromDeckEffect(self, self.getOwner(), 6, self));
