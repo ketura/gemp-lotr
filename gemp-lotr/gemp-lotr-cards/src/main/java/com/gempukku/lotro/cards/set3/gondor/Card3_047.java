@@ -42,7 +42,7 @@ public class Card3_047 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn));
         action.appendEffect(
                 new AddUntilStartOfPhaseModifierEffect(
-                        new KeywordModifier(self, Filters.and(Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN)), Keyword.DAMAGE), Phase.REGROUP));
+                        new KeywordModifier(self, Filters.and(CardType.COMPANION, Signet.ARAGORN), Keyword.DAMAGE), Phase.REGROUP));
         return action;
     }
 }

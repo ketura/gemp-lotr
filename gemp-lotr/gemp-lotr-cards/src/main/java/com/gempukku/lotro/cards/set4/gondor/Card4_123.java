@@ -36,7 +36,7 @@ public class Card4_123 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, Filters.type(CardType.COMPANION), Filters.signet(Signet.ARAGORN)));
+                new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, CardType.COMPANION, Signet.ARAGORN));
         return action;
     }
 }

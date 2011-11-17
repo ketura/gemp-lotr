@@ -354,7 +354,16 @@ public class Filters {
         }
     };
 
-    public static Filter signet(final Signet signet) {
+    private static Map<Signet, Filter> _signetFilterMap = new HashMap<Signet, Filter>();
+
+    static {
+        _signetFilterMap.put(Signet.ARAGORN, Filters.signet(Signet.ARAGORN));
+        _signetFilterMap.put(Signet.FRODO, Filters.signet(Signet.FRODO));
+        _signetFilterMap.put(Signet.GANDALF, Filters.signet(Signet.GANDALF));
+        _signetFilterMap.put(Signet.THÉODEN, Filters.signet(Signet.THÉODEN));
+    }
+
+    private static Filter signet(final Signet signet) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -607,7 +616,7 @@ public class Filters {
         else if (filter instanceof Side)
             return Filters.side((Side) filter);
         else if (filter instanceof Signet)
-            return Filters.signet((Signet) filter);
+            return _signetFilterMap.get((Signet) filter);
         else if (filter instanceof Zone)
             return Filters.zone((Zone) filter);
         else
