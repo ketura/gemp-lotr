@@ -58,7 +58,7 @@ public class Card7_204 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Race.NAZGUL));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Race.NAZGUL));
             return Collections.singletonList(action);
         }
         return null;

@@ -68,7 +68,7 @@ public class Card7_077 extends AbstractAttachable {
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), CardType.COMPANION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

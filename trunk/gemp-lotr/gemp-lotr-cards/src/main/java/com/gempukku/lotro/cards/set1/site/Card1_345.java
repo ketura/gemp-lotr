@@ -35,7 +35,7 @@ public class Card1_345 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId),
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game,
                             Filters.and(
                                     Side.SHADOW,
                                     Filters.or(

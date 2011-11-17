@@ -36,7 +36,7 @@ public class Card7_179 extends AbstractPermanent {
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2, Race.NAZGUL));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Race.NAZGUL));
             return Collections.singletonList(action);
         }
         return null;

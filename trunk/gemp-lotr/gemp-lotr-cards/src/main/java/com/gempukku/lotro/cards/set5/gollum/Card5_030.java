@@ -55,7 +55,7 @@ public class Card5_030 extends AbstractEvent {
                     });
             if (PlayConditions.canPlayFromDiscard(playerId, game, Filters.gollum)) {
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.gollum) {
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Play Gollum from your discard pile";

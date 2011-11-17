@@ -89,7 +89,7 @@ public class Card4_173 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.name("Saruman's Staff")));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.name("Saruman's Staff")));
             return Collections.singletonList(action);
         }
         return null;

@@ -37,7 +37,7 @@ public class Card4_137 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Race.URUK_HAI));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Race.URUK_HAI));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ISENGARD));
             return Collections.singletonList(action);

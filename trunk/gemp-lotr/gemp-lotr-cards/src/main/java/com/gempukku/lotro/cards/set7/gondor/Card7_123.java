@@ -36,7 +36,7 @@ public class Card7_123 extends AbstractPermanent {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Add a GONDOR token here");
                 action.appendCost(
-                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Culture.GONDOR, Race.MAN));
+                        new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.GONDOR, Race.MAN));
                 action.appendEffect(
                         new AddTokenEffect(self, self, Token.GONDOR, 1));
                 actions.add(action);
@@ -46,7 +46,7 @@ public class Card7_123 extends AbstractPermanent {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Play a GONDOR companion with modified twilight cost");
                 action.appendEffect(
-                        new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -tokenCount, Culture.GONDOR, CardType.COMPANION));
+                        new ChooseAndPlayCardFromHandEffect(playerId, game, -tokenCount, Culture.GONDOR, CardType.COMPANION));
                 action.appendEffect(
                         new DiscardCardsFromPlayEffect(self, self));
                 actions.add(action);

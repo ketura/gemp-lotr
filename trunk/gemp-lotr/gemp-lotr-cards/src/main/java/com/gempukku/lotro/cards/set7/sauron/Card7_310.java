@@ -44,7 +44,7 @@ public class Card7_310 extends AbstractPermanent {
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), 0, true, Culture.SAURON, Race.ORC));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, 0, true, Culture.SAURON, Race.ORC));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 4)

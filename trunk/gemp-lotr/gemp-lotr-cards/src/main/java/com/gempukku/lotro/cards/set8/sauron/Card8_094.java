@@ -65,7 +65,7 @@ public class Card8_094 extends AbstractMinion {
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.SAURON, Keyword.ENGINE));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Keyword.ENGINE));
             return Collections.singletonList(action);
         }
         return null;

@@ -42,7 +42,7 @@ public class Card1_234 extends AbstractMinion {
             int minions = Math.max(0, companions - 4);
             for (int i = 0; i < minions; i++) {
                 action.appendEffect(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), CardType.MINION));
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION));
             }
             return Collections.singletonList(action);
         }

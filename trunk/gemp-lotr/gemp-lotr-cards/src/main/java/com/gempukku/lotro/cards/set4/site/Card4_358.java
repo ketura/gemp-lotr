@@ -34,7 +34,7 @@ public class Card4_358 extends AbstractSite {
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.DUNLAND, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Culture.DUNLAND, CardType.MINION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.DUNLAND, CardType.MINION));
             action.appendEffect(
                     new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);

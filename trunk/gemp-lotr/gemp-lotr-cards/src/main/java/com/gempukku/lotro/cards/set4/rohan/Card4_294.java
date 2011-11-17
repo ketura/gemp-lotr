@@ -35,7 +35,7 @@ public class Card4_294 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ROHAN, Race.MAN));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), PossessionClass.HAND_WEAPON));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, PossessionClass.HAND_WEAPON));
             return Collections.singletonList(action);
         }
         return null;

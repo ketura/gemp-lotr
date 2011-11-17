@@ -36,9 +36,8 @@ public class Card3_052 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.saruman));
-            List<? extends PhysicalCard> discard = game.getGameState().getDiscard(playerId);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, discard, -2, Filters.and(Culture.ISENGARD, Keyword.WEATHER, CardType.CONDITION)));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, -2, Filters.and(Culture.ISENGARD, Keyword.WEATHER, CardType.CONDITION)));
             return Collections.singletonList(action);
         }
         return null;

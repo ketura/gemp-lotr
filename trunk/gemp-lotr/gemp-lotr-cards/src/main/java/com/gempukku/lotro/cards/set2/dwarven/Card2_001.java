@@ -47,7 +47,7 @@ public class Card2_001 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Culture.DWARVEN, Filters.weapon)));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.and(Culture.DWARVEN, Filters.weapon)));
             return Collections.singletonList(action);
         }
         return null;

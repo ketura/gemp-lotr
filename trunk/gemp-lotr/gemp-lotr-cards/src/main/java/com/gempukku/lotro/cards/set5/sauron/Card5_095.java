@@ -46,9 +46,9 @@ public class Card5_095 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, 2, Culture.SAURON, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.SAURON, CardType.CONDITION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, CardType.CONDITION));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.SAURON, CardType.CONDITION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, CardType.CONDITION));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

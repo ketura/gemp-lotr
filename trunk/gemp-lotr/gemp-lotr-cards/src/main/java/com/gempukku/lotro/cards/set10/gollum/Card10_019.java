@@ -52,14 +52,14 @@ public class Card10_019 extends AbstractResponseEvent {
                     PlayEventAction action = new PlayEventAction(self);
                     List<Effect> possibleEffects = new LinkedList<Effect>();
                     possibleEffects.add(
-                            new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), -2, Filters.gollum) {
+                            new ChooseAndPlayCardFromDiscardEffect(playerId, game, -2, Filters.gollum) {
                                 @Override
                                 protected void afterCardPlayed(PhysicalCard cardPlayed) {
                                     gollumPlayed(game, playedOn, cardPlayed);
                                 }
                             });
                     possibleEffects.add(
-                            new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -2, Filters.gollum) {
+                            new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Filters.gollum) {
                                 @Override
                                 protected void afterCardPlayed(PhysicalCard cardPlayed) {
                                     gollumPlayed(game, playedOn, cardPlayed);

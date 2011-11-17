@@ -36,7 +36,7 @@ public class Card10_053 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL));
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Culture.WRAITH, CardType.MINION));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.WRAITH, CardType.MINION));
             int count = PlayConditions.hasInitiative(game, Side.SHADOW) ? 2 : 1;
             action.appendEffect(
                     new AddTwilightEffect(self, count));

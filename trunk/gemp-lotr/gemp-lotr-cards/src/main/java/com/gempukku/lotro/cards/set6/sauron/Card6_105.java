@@ -38,7 +38,7 @@ public class Card6_105 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Race.ORC));
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), -4, CardType.MINION, Filters.or(Race.NAZGUL, Culture.SAURON)) {
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, -4, CardType.MINION, Filters.or(Race.NAZGUL, Culture.SAURON)) {
                         @Override
                         protected void afterCardPlayed(PhysicalCard cardPlayed) {
                             action.appendEffect(

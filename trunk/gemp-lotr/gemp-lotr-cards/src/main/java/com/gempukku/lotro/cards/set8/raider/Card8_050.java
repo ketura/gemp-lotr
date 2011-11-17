@@ -62,7 +62,7 @@ public class Card8_050 extends AbstractPermanent {
                                             action.insertCost(
                                                     new RemoveTokenEffect(self, self, Token.RAIDER, tokens));
                                         action.appendEffect(
-                                                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), -tokens, Keyword.CORSAIR));
+                                                new ChooseAndPlayCardFromDiscardEffect(playerId, game, -tokens, Keyword.CORSAIR));
                                         action.appendEffect(
                                                 new DiscardCardsFromPlayEffect(self, self));
                                     }

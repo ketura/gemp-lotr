@@ -35,7 +35,7 @@ public class Card4_308 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Race.HOBBIT, Filters.unboundCompanion));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Race.HOBBIT, Filters.unboundCompanion));
         return action;
     }
 }

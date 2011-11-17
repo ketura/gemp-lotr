@@ -47,7 +47,7 @@ public class Card7_326 extends AbstractCompanion {
                 && PlayConditions.canPlayFromHand(playerId, game, CardType.COMPANION, Race.HOBBIT)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), CardType.COMPANION, Race.HOBBIT));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, CardType.COMPANION, Race.HOBBIT));
             action.appendEffect(
                     new RemoveBurdenEffect(self));
             return Collections.singletonList(action);

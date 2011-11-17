@@ -47,7 +47,7 @@ public class Card10_047 extends AbstractPermanent {
                 && PlayConditions.canPlayFromHand(playerId, game, 1, Keyword.SOUTHRON)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Keyword.SOUTHRON));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Keyword.SOUTHRON));
             action.appendEffect(
                     new AddThreatsEffect(playerId, self, 1));
             return Collections.singletonList(action);

@@ -70,7 +70,7 @@ public class Card6_063 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.ISENGARD, Race.ORC));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ISENGARD, Race.ORC));
             return Collections.singletonList(action);
         }
         return null;

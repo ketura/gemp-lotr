@@ -40,7 +40,7 @@ public class Card4_089 extends AbstractCompanion {
             action.appendCost(
                     new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), CardType.COMPANION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

@@ -40,7 +40,7 @@ public class Card5_048 extends AbstractEvent {
                                             new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, Filters.owner(playerId), CardType.MINION));
                                 for (int i = 0; i < count; i++)
                                     action.appendEffect(
-                                            new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.ISENGARD, Filters.weapon));
+                                            new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ISENGARD, Filters.weapon));
                             }
                         }));
         return action;

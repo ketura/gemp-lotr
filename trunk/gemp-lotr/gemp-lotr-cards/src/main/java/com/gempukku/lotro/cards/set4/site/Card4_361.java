@@ -34,7 +34,7 @@ public class Card4_361 extends AbstractSite {
                 && PlayConditions.canPlayFromDiscard(playerId, game, -2, Filters.saruman)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), -2, Filters.saruman));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, -2, Filters.saruman));
             return Collections.singletonList(action);
         }
         return null;

@@ -36,7 +36,7 @@ public class Card4_006 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Culture.DUNLAND, Race.MAN)));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.and(Culture.DUNLAND, Race.MAN)));
             return Collections.singletonList(action);
         }
         return null;

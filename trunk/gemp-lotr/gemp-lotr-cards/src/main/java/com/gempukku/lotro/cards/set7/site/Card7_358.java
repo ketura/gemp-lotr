@@ -36,7 +36,7 @@ public class Card7_358 extends AbstractSite {
             action.appendCost(
                     new RemoveThreatsEffect(self, 2));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), -2, Race.NAZGUL));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, -2, Race.NAZGUL));
             return Collections.singletonList(action);
         }
         return null;

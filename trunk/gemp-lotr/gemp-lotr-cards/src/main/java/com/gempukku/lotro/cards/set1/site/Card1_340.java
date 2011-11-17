@@ -35,7 +35,7 @@ public class Card1_340 extends AbstractSite {
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Race.MAN, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Race.MAN));
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Race.MAN));
             action.appendEffect(new DrawCardEffect(playerId, 1));
             return Collections.singletonList(action);
         }

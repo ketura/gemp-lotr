@@ -44,7 +44,7 @@ public class Card5_111 extends AbstractCompanion {
             action.appendCost(
                     new AddBurdenEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.smeagol));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.smeagol));
             return Collections.singletonList(action);
         }
         return null;

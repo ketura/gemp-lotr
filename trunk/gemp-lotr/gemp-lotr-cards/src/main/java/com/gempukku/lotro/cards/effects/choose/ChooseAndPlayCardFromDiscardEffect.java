@@ -23,14 +23,14 @@ public class ChooseAndPlayCardFromDiscardEffect implements Effect {
     private int _twilightModifier;
     private CostToEffectAction _playCardAction;
 
-    public ChooseAndPlayCardFromDiscardEffect(String playerId, List<? extends PhysicalCard> cardsInDiscardAtStart, Filterable... filter) {
-        this(playerId, cardsInDiscardAtStart, 0, filter);
+    public ChooseAndPlayCardFromDiscardEffect(String playerId, LotroGame game, Filterable... filter) {
+        this(playerId, game, 0, filter);
     }
 
-    public ChooseAndPlayCardFromDiscardEffect(String playerId, List<? extends PhysicalCard> cardsInDiscardAtStart, int twilightModifier, Filterable... filter) {
+    public ChooseAndPlayCardFromDiscardEffect(String playerId, LotroGame game, int twilightModifier, Filterable... filter) {
         _playerId = playerId;
         // Card has to be in discard when you start playing the card (we need to copy the collection)
-        _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(cardsInDiscardAtStart)));
+        _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(game.getGameState().getDiscard(playerId))));
         _twilightModifier = twilightModifier;
     }
 

@@ -44,7 +44,7 @@ public class Card8_022 extends AbstractPermanent {
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.gollum)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.gollum));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));
             action.appendEffect(

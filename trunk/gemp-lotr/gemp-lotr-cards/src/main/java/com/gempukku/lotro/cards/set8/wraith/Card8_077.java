@@ -45,7 +45,7 @@ public class Card8_077 extends AbstractMinion {
                 action.appendCost(
                         new DiscardCardsFromPlayEffect(self, self));
                 action.appendEffect(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.WRAITH, CardType.MINION));
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.WRAITH, CardType.MINION));
                 actions.add(action);
             }
             if (PlayConditions.canSelfDiscard(self, game)

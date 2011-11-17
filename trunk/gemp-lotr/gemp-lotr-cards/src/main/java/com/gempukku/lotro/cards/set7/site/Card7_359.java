@@ -37,7 +37,7 @@ public class Card7_359 extends AbstractSite {
             action.appendCost(
                     new RemoveThreatsEffect(self, 2));
             action.appendCost(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.gollum));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum));
             action.appendEffect(
                     new AddBurdenEffect(self, 2));
             return Collections.singletonList(action);

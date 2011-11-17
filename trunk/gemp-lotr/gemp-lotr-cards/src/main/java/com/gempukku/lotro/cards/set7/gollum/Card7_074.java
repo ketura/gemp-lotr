@@ -35,7 +35,7 @@ public class Card7_074 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.gollum));
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum));
         int threats = game.getGameState().getThreats();
         action.appendEffect(
                 new AddTwilightEffect(self, threats));

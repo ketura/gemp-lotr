@@ -41,7 +41,7 @@ public class Card6_006 extends AbstractMinion {
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Race.MAN, Filters.playable(game)).size() > 0) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromHandEffect(playerId, game.getGameState().getHand(playerId), Filters.and(Culture.DUNLAND, Race.MAN)) {
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, Filters.and(Culture.DUNLAND, Race.MAN)) {
                         @Override
                         protected void afterCardPlayed(PhysicalCard cardPlayed) {
                             action.appendEffect(

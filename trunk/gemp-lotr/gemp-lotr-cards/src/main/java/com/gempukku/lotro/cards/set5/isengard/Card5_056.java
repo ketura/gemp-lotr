@@ -98,7 +98,7 @@ public class Card5_056 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Culture.ISENGARD, CardType.POSSESSION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ISENGARD, CardType.POSSESSION));
             return Collections.singletonList(action);
         }
         return null;

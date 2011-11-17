@@ -40,7 +40,7 @@ public class Card6_117 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 3, 3, CardType.COMPANION, Signet.GANDALF));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeadPileEffect(playerId, game.getGameState().getDeadPile(playerId), Filters.unboundCompanion));
+                    new ChooseAndPlayCardFromDeadPileEffect(playerId, game, Filters.unboundCompanion));
             return Collections.singletonList(action);
         }
         return null;
