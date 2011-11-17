@@ -63,7 +63,7 @@ public class Card7_201 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Race.NAZGUL)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendCost(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Do you wish to exert a companion to be able to assign this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {

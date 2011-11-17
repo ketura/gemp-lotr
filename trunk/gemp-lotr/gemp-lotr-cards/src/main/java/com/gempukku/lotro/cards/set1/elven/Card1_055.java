@@ -46,7 +46,7 @@ public class Card1_055 extends AbstractPermanent {
             PhysicalCard galadriel = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.galadriel);
             action.appendCost(new ExertCharactersEffect(self, galadriel));
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                    new PlayoutDecisionEffect(playerId,
                             new MultipleChoiceAwaitingDecision(1, "Choose opponent with at least 7 cards in hand", opponentsHavingAtLeast7Cards(game, playerId)) {
                                 @Override
                                 protected void validDecisionMade(int index, final String chosenOpponent) {

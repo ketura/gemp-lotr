@@ -52,21 +52,21 @@ public class Card6_101 extends AbstractMinion {
                 possibleCultures.add(culture.getHumanReadable());
 
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Name first spared culture", possibleCultures.toArray(new String[possibleCultures.size()])) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     possibleCultures.add(result);
                                     final Culture firstCulture = Culture.findCultureByHumanReadable(result);
                                     action.insertEffect(
-                                            new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                                            new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                                                     new MultipleChoiceAwaitingDecision(1, "Name second spared culture", possibleCultures.toArray(new String[possibleCultures.size()])) {
                                                         @Override
                                                         protected void validDecisionMade(int index, String result) {
                                                             possibleCultures.add(result);
                                                             final Culture secondCulture = Culture.findCultureByHumanReadable(result);
                                                             action.insertEffect(
-                                                                    new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                                                                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                                                                             new MultipleChoiceAwaitingDecision(1, "Name third spared culture", possibleCultures.toArray(new String[possibleCultures.size()])) {
                                                                                 @Override
                                                                                 protected void validDecisionMade(int index, String result) {

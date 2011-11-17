@@ -48,7 +48,7 @@ public class Card2_109 extends AbstractOldEvent {
                     protected void cardSelected(final LotroGame game, final PhysicalCard bearer) {
                         int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), bearer);
                         action.insertCost(
-                                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                new PlayoutDecisionEffect(playerId,
                                         new IntegerAwaitingDecision(1, "Choose how many times to exert", 1, vitality - 1) {
                                             @Override
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
@@ -58,7 +58,7 @@ public class Card2_109 extends AbstractOldEvent {
                                                             new ExertCharactersEffect(self, bearer));
                                                 }
                                                 action.appendEffect(
-                                                        new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                                        new PlayoutDecisionEffect(playerId,
                                                                 new MultipleChoiceAwaitingDecision(1, "Choose action to perform", new String[]{"Wound " + exertionCount + " Orcs", "Wound " + exertionCount + " Uruk-hai"}) {
                                                                     @Override
                                                                     protected void validDecisionMade(int index, String result) {

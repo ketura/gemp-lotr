@@ -53,7 +53,7 @@ public class Card2_053 extends AbstractAttachable {
                 && game.getGameState().getCurrentPhase() == Phase.MANEUVER) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), game.getGameState().getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Would you like to skip Archery phase?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {

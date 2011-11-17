@@ -31,7 +31,7 @@ public class Card7_029 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Race.ELF));
         action.appendEffect(
-                new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                new PlayoutDecisionEffect(playerId,
                         new MultipleChoiceAwaitingDecision(1, "Do you want to place this even on top of your draw deck?", new String[]{"Yes", "No"}) {
                             @Override
                             protected void validDecisionMade(int index, String result) {

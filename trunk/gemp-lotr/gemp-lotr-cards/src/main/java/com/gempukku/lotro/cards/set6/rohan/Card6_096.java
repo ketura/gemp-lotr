@@ -45,7 +45,7 @@ public class Card6_096 extends AbstractEvent {
                         new MoveLimitModifier(self, 2)));
         for (final String opponentId : GameUtils.getOpponents(game, playerId)) {
             action.appendEffect(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), opponentId,
+                    new PlayoutDecisionEffect(opponentId,
                             new MultipleChoiceAwaitingDecision(1, "Do you want to draw 6 cards?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {

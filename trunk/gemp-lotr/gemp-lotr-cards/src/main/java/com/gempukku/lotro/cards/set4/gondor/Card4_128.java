@@ -65,7 +65,7 @@ public class Card4_128 extends AbstractOldEvent {
                                                 if (TriggerConditions.losesSkirmish(game, effectResults, Filters.sameCard(minion))) {
                                                     final RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                     action.appendEffect(
-                                                            new PlayoutDecisionEffect(lotroGame.getUserFeedback(), playerId,
+                                                            new PlayoutDecisionEffect(playerId,
                                                                     new MultipleChoiceAwaitingDecision(1, "Would you like to wound " + minion.getBlueprint().getName(), new String[]{"Yes", "No"}) {
                                                                         @Override
                                                                         protected void validDecisionMade(int index, String result) {

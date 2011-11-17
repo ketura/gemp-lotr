@@ -66,7 +66,7 @@ public class Card8_066 extends AbstractEvent {
                         spotDecision.setDefaultValue(count);
 
                         action.appendEffect(
-                                new PlayoutDecisionEffect(game.getUserFeedback(), playerId, spotDecision));
+                                new PlayoutDecisionEffect(playerId, spotDecision));
                     }
                 });
         return action;

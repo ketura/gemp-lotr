@@ -49,7 +49,7 @@ public class Card8_103 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                    new PlayoutDecisionEffect(playerId,
                             new IntegerAwaitingDecision(1, "How many SAURON tokens you wish to remove?", 0, game.getGameState().getTokenCount(self, Token.SAURON)) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {

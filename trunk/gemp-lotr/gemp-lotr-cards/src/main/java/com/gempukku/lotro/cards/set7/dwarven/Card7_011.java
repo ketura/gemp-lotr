@@ -41,7 +41,7 @@ public class Card7_011 extends AbstractEvent {
                                 new StrengthModifier(self, card, 2), Phase.SKIRMISH);
                         if (PlayConditions.canExert(self, game, card)) {
                             action.appendEffect(
-                                    new PlayoutDecisionEffect(game.getUserFeedback(), playerId,
+                                    new PlayoutDecisionEffect(playerId,
                                             new MultipleChoiceAwaitingDecision(1, "Do you want to exert that Dwarf to draw 2 cards?", new String[]{"Yes", "No"}) {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
