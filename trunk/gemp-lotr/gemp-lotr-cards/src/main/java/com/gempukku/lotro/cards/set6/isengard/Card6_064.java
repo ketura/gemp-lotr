@@ -60,7 +60,7 @@ public class Card6_064 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 1)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 1)
                 && game.getGameState().getStackedCards(self).size() >= 3) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

@@ -37,7 +37,7 @@ public class Card4_248 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

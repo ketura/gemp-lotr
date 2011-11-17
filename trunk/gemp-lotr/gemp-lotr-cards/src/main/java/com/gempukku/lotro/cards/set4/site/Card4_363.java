@@ -29,7 +29,7 @@ public class Card4_363 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
                 && game.getGameState().getBurdens() >= 2
                 && PlayConditions.canPlayFromDiscard(playerId, game, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);

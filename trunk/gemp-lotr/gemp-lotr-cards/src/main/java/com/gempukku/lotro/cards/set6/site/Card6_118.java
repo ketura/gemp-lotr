@@ -33,7 +33,7 @@ public class Card6_118 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canSpot(game, 3, CardType.COMPANION, Signet.THÉODEN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             Set<PhysicalCard> hand = new HashSet<PhysicalCard>(game.getGameState().getHand(playerId));

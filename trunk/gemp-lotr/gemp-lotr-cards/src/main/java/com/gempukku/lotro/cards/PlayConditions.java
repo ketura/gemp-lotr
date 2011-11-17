@@ -61,17 +61,8 @@ public class PlayConditions {
                 && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
     }
 
-    public static boolean canUseFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.FREE_CHARACTERS || self.getZone() == Zone.ATTACHED);
-    }
-
     public static boolean canUseFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
         return (phase == null || game.getGameState().getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.FREE_CHARACTERS || self.getZone() == Zone.ATTACHED);
-    }
-
-    public static boolean canUseShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (self.getZone() == Zone.SUPPORT || self.getZone() == Zone.SHADOW_CHARACTERS || self.getZone() == Zone.ATTACHED)
-                && twilightCost <= gameState.getTwilightPool();
     }
 
     public static boolean canUseShadowCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self, int twilightCost) {
@@ -79,25 +70,17 @@ public class PlayConditions {
                 && twilightCost <= game.getGameState().getTwilightPool();
     }
 
-    public static boolean canUseStackedShadowCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self, int twilightCost) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && self.getZone() == Zone.STACKED
-                && twilightCost <= gameState.getTwilightPool();
+    public static boolean canUseStackedShadowCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self, int twilightCost) {
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && self.getZone() == Zone.STACKED
+                && twilightCost <= game.getGameState().getTwilightPool();
     }
 
     public static boolean isPhase(LotroGame game, Phase phase) {
         return (game.getGameState().getCurrentPhase() == phase);
     }
 
-    public static boolean canUseStackedFPCardDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && self.getZone() == Zone.STACKED;
-    }
-
-    public static boolean canUseSiteDuringPhase(GameState gameState, Phase phase, PhysicalCard self) {
-        return (phase == null || gameState.getCurrentPhase() == phase) && (gameState.getCurrentSite() == self);
-    }
-
     public static boolean canUseSiteDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return canUseSiteDuringPhase(game.getGameState(), phase, self);
+        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (game.getGameState().getCurrentSite() == self);
     }
 
     public static boolean stackedOn(PhysicalCard card, LotroGame game, Filterable... filters) {
@@ -194,11 +177,9 @@ public class PlayConditions {
         return game.getGameState().getBurdens() >= count && game.getModifiersQuerying().canRemoveBurden(game.getGameState(), card);
     }
 
-    public static boolean canExertMultiple(PhysicalCard source, LotroGame game, int times, int count, Filterable... filters) {
-        return canExertMultiple(source, game.getGameState(), game.getModifiersQuerying(), times, count, filters);
-    }
-
-    public static boolean canExertMultiple(final PhysicalCard source, final GameState gameState, final ModifiersQuerying modifiersQuerying, final int times, final int count, Filterable... filters) {
+    public static boolean canExertMultiple(final PhysicalCard source, LotroGame game, final int times, final int count, Filterable... filters) {
+        final GameState gameState = game.getGameState();
+        final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         final Filter filter = Filters.and(filters);
         return gameState.iterateActiveCards(
                 new PhysicalCardVisitor() {

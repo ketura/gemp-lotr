@@ -38,7 +38,7 @@ public class Card1_346 extends AbstractSite {
                 && game.getGameState().getCurrentSite() == self) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
             boolean frodoCanExert = PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
-            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game.getGameState(), game.getModifiersQuerying(), 1, 2, Filters.not(Filters.frodo), CardType.COMPANION);
+            boolean twoOtherCanExert = PlayConditions.canExertMultiple(self, game, 1, 2, Filters.not(Filters.frodo), CardType.COMPANION);
             if (frodoCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 

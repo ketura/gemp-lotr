@@ -34,7 +34,7 @@ public class Card4_201 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.controllsSite(game.getGameState(), game.getModifiersQuerying(), playerId)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
@@ -52,7 +52,7 @@ public class Card4_201 extends AbstractMinion {
 
     @Override
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseStackedShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
+        if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && self.getStackedOn().getBlueprint().getCardType() == CardType.SITE
                 && playerId.equals(self.getStackedOn().getCardController())
                 && checkPlayRequirements(playerId, game, self, -1, false)) {

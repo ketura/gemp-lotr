@@ -47,7 +47,7 @@ public class Card4_216 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ARCHERY, self, 0)) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int count = game.getGameState().getTokenCount(self, Token.RAIDER);
             for (int i = 0; i < count; i++)

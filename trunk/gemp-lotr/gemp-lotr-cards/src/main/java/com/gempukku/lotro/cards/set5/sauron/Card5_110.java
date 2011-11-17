@@ -34,7 +34,7 @@ public class Card5_110 extends AbstractPermanent {
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && Filters.filter(stackedCards, game.getGameState(), game.getModifiersQuerying(), Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
@@ -49,7 +49,7 @@ public class Card5_110 extends AbstractPermanent {
                     });
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.REGROUP, self, 3)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 3)
                 && PlayConditions.canSpot(game, Culture.SAURON, Race.ORC)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

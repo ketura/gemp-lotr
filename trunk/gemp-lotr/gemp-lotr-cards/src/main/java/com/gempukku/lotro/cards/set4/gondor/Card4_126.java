@@ -44,7 +44,7 @@ public class Card4_126 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int tokens = Math.min(3, game.getGameState().getTokenCount(self, Token.GONDOR));
             for (int i = 0; i < tokens; i++)

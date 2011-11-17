@@ -39,7 +39,7 @@ public class Card1_055 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.MANEUVER, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.galadriel)
                 && opponentsHavingAtLeast7Cards(game, playerId).length > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);

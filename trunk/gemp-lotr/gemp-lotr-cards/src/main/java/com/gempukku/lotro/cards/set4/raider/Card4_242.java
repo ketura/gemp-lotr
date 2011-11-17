@@ -32,7 +32,7 @@ public class Card4_242 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 3)
                 && PlayConditions.canExert(self, game, Culture.RAIDER, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
@@ -43,7 +43,7 @@ public class Card4_242 extends AbstractPermanent {
                     new AddTokenEffect(self, self, Token.RAIDER));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canRemoveToken(game.getGameState(), self, Token.RAIDER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

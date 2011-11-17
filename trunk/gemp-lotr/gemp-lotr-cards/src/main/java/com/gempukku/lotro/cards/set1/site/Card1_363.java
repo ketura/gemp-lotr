@@ -38,7 +38,7 @@ public class Card1_363 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.SHADOW, self)) {
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseTrackerToPlay(action, game, 1, playerId, "Choose tracker to play",

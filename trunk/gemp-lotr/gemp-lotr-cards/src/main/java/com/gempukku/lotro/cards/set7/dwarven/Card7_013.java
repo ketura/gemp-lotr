@@ -44,7 +44,7 @@ public class Card7_013 extends AbstractAttachable {
                 new AddActionToCardModifier(self, null, CardType.MINION) {
                     @Override
                     protected ActivateCardAction createExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard matchingCard) {
-                        if (PlayConditions.canUseFPCardDuringPhase(gameState, Phase.ASSIGNMENT, matchingCard)) {
+                        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, matchingCard)) {
                             ActivateCardAction action = new ActivateCardAction(matchingCard);
                             action.setText("Assign to " + self.getAttachedTo().getBlueprint().getName());
                             action.appendEffect(
@@ -58,7 +58,7 @@ public class Card7_013 extends AbstractAttachable {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

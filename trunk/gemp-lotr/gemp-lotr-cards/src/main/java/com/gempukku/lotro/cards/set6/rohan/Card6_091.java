@@ -30,7 +30,7 @@ public class Card6_091 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canDiscardFromPlay(self, game, PossessionClass.MOUNT, Filters.attachedTo(Culture.ROHAN, Race.MAN))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

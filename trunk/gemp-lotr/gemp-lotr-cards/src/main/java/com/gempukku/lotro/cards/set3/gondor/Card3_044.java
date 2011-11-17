@@ -36,7 +36,7 @@ public class Card3_044 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Stack a GONDOR card from hand here");

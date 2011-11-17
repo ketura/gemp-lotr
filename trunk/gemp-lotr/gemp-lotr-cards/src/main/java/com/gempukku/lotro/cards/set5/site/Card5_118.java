@@ -33,7 +33,7 @@ public class Card5_118 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.REGROUP, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.owner(playerId))
                 && game.getGameState().getTwilightPool() >= 9) {
             ActivateCardAction action = new ActivateCardAction(self);

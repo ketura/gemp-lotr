@@ -36,7 +36,7 @@ public class Card5_072 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canSelfExert(self, game)) {
             CountCulturesVisitor visitor = new CountCulturesVisitor();
             game.getGameState().iterateActiveCards(visitor);

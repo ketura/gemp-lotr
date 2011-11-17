@@ -67,7 +67,7 @@ public class Card4_159 extends AbstractAttachable {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 2)
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 2)
                 && PlayConditions.canExert(self, game, Culture.ISENGARD, Keyword.TRACKER, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

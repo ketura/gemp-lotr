@@ -40,7 +40,7 @@ public class Card7_091 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.ROHAN, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
@@ -49,7 +49,7 @@ public class Card7_091 extends AbstractCompanion {
                     new HealCharactersEffect(self, self));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
 
             if (PlayConditions.canSelfExert(self, game)) {
