@@ -34,12 +34,12 @@ public class Card3_095 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.MANEUVER, self, 0)
                 && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), self)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.SAURON), CardType.CONDITION) > 0) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.SAURON, CardType.CONDITION) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.SAURON), CardType.CONDITION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.side(Side.FREE_PEOPLE), CardType.CONDITION));
             return Collections.singletonList(action);

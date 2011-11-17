@@ -31,7 +31,7 @@ public class Card2_088 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC));
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Filters.race(Race.ORC));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Card2_088 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.SAURON), Filters.race(Race.ORC)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Filters.race(Race.ORC)));
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY) {
@@ -53,7 +53,7 @@ public class Card2_088 extends AbstractOldEvent {
                     }
                 });
         possibleEffects.add(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, CardType.ALLY, Filters.culture(Culture.ELVEN)) {
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, CardType.ALLY, Culture.ELVEN) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Discard 2 ELVEN allies";

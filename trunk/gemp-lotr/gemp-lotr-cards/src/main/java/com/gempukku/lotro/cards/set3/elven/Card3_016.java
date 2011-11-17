@@ -8,7 +8,6 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
@@ -49,7 +48,7 @@ public class Card3_016 extends AbstractOldEvent {
                                             PhysicalCard revealedCard = revealedCards.get(0);
                                             int twilightCost = revealedCard.getBlueprint().getTwilightCost();
                                             action.appendEffect(
-                                                    new ChooseAndHealCharactersEffect(action, playerId, twilightCost, twilightCost, Filters.culture(Culture.ELVEN), CardType.ALLY));
+                                                    new ChooseAndHealCharactersEffect(action, playerId, twilightCost, twilightCost, Culture.ELVEN, CardType.ALLY));
                                         }
                                     }
                                 });

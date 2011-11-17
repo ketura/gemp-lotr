@@ -33,7 +33,7 @@ public class Card4_263 extends AbstractAttachableFPPossession {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canSpot(game, Filters.culture(Culture.ROHAN), Filters.race(Race.MAN));
+                && PlayConditions.canSpot(game, Culture.ROHAN, Filters.race(Race.MAN));
     }
 
     @Override

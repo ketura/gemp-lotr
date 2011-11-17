@@ -50,7 +50,7 @@ public class Card3_005 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.and(Filters.culture(Culture.MORIA), Filters.weapon), 2));
+                new TwilightCostModifier(self, Filters.and(Culture.MORIA, Filters.weapon), 2));
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Card3_005 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, Filters.culture(Culture.MORIA), CardType.CONDITION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, Culture.MORIA, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

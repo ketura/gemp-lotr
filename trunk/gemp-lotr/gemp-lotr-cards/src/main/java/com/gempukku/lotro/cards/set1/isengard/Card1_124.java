@@ -8,7 +8,6 @@ import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -40,7 +39,7 @@ public class Card1_124 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ISENGARD), CardType.MINION);
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class Card1_124 extends AbstractOldEvent {
         String fpPlayer = game.getGameState().getCurrentPlayerId();
 
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), CardType.MINION));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(new ExertCharactersEffect(self, game.getGameState().getRingBearer(fpPlayer)) {

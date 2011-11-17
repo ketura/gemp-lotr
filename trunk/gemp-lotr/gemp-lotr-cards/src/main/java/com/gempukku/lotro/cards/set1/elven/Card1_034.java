@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -38,7 +37,7 @@ public class Card1_034 extends AbstractAlly {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Filters.culture(Culture.ELVEN), CardType.ALLY));
+                    new ChooseAndHealCharactersEffect(action, playerId, Culture.ELVEN, CardType.ALLY));
 
             return Collections.singletonList(action);
         }

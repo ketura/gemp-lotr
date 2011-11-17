@@ -41,7 +41,7 @@ public class Card1_273 extends AbstractResponseOldEvent {
             if (effectResult.getType() == EffectResult.Type.KILL
                     && Filters.filter(((KillResult) effectResult).getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0
                     && skirmish != null
-                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SAURON), Filters.race(Race.ORC)).size() > 0) {
+                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Filters.race(Race.ORC)).size() > 0) {
                 PlayEventAction action = new PlayEventAction(self);
                 int burdens = (game.getGameState().isWearingRing()) ? 3 : 1;
                 action.appendEffect(

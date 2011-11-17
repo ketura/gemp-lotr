@@ -30,14 +30,14 @@ public class Card4_243 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game, Filters.culture(Culture.RAIDER), Filters.keyword(Keyword.ARCHER));
+                && PlayConditions.canExert(self, game, Culture.RAIDER, Filters.keyword(Keyword.ARCHER));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.RAIDER), Filters.keyword(Keyword.ARCHER)));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Filters.keyword(Keyword.ARCHER)));
         int total = Math.min(5, game.getGameState().getBurdens());
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(

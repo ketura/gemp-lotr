@@ -49,7 +49,7 @@ public class Card4_233 extends AbstractOldEvent {
                     }
                 });
         possibleEffects.add(
-                new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Culture.RAIDER, Filters.race(Race.MAN)) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Make a RAIDER Man strength +2";

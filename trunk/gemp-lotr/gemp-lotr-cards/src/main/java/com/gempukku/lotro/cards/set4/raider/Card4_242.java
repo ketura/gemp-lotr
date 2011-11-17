@@ -34,12 +34,12 @@ public class Card4_242 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SHADOW, self, 3)
-                && PlayConditions.canExert(self, game, Filters.culture(Culture.RAIDER), Filters.race(Race.MAN))) {
+                && PlayConditions.canExert(self, game, Culture.RAIDER, Filters.race(Race.MAN))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Filters.race(Race.MAN)));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.RAIDER));
             return Collections.singletonList(action);

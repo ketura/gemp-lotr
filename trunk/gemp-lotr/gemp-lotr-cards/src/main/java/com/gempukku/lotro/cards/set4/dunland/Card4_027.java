@@ -35,11 +35,11 @@ public class Card4_027 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.losesSkirmish(game.getGameState(), game.getModifiersQuerying(), effectResult,
-                Filters.and(Filters.culture(Culture.ROHAN), Filters.race(Race.MAN)))) {
+                Filters.and(Culture.ROHAN, Filters.race(Race.MAN)))) {
 
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             List<PhysicalCard> winners = skirmishResult.getWinners();
-            Collection<PhysicalCard> winningDunlandMan = Filters.filter(winners, game.getGameState(), game.getModifiersQuerying(), Filters.and(Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)));
+            Collection<PhysicalCard> winningDunlandMan = Filters.filter(winners, game.getGameState(), game.getModifiersQuerying(), Filters.and(Culture.DUNLAND, Filters.race(Race.MAN)));
 
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             for (final PhysicalCard physicalCard : winningDunlandMan) {

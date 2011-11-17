@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.RevealCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -35,7 +34,7 @@ public class Card1_054 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose ELVEN card", game.getGameState().getHand(playerId), Filters.culture(Culture.ELVEN), 1, 1) {
+                    new ChooseArbitraryCardsEffect(playerId, "Choose ELVEN card", game.getGameState().getHand(playerId), Culture.ELVEN, 1, 1) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {

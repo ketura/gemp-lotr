@@ -35,7 +35,7 @@ public class Card3_070 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Culture.ISENGARD, Filters.race(Race.ORC)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int countCards = game.getGameState().getHand(playerId).size();

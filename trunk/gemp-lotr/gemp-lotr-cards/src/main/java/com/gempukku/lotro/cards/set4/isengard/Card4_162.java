@@ -34,7 +34,7 @@ public class Card4_162 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canSpot(game, Filters.or(Filters.saruman, Filters.and(Filters.culture(Culture.ISENGARD), Filters.race(Race.MAN))));
+                && PlayConditions.canSpot(game, Filters.or(Filters.saruman, Filters.and(Culture.ISENGARD, Filters.race(Race.MAN))));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Card4_162 extends AbstractOldEvent {
         action.appendCost(
                 new DiscardCardsFromHandEffect(self, playerId, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.side(Side.FREE_PEOPLE)), false));
         action.appendEffect(
-                new ChooseCardsFromDiscardEffect(playerId, 1, 1, Filters.culture(Culture.ISENGARD)) {
+                new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.ISENGARD) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         for (PhysicalCard card : cards) {

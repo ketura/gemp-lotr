@@ -45,7 +45,7 @@ public class Card4_261 extends AbstractPermanent {
                         if (actionSource != null
                                 && actionSource.getBlueprint().getCardType() == CardType.EVENT) {
                             PlayEventAction playEventAction = (PlayEventAction) action;
-                            if (Filters.canSpot(gameState, modifiersQuerying, Filters.culture(Culture.RAIDER), Filters.race(Race.MAN))
+                            if (Filters.canSpot(gameState, modifiersQuerying, Culture.RAIDER, Filters.race(Race.MAN))
                                     && playEventAction.isRequiresRanger())
                                 playEventAction.appendCost(
                                         new ChooseAndWoundCharactersEffect(playEventAction, performingPlayer, 1, 1, CardType.COMPANION));
@@ -63,7 +63,7 @@ public class Card4_261 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Culture.RAIDER, Filters.race(Race.MAN)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

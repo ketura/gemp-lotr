@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -34,10 +33,10 @@ public class Card3_041 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.ARCHERY, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR), CardType.COMPANION)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.GONDOR), CardType.COMPANION));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, CardType.COMPANION));
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(

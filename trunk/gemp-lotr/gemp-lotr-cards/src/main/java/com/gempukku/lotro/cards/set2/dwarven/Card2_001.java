@@ -38,7 +38,7 @@ public class Card2_001 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DWARVEN), Filters.weapon, Filters.playable(game)).size() > 0) {
+                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, Filters.weapon, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
@@ -47,7 +47,7 @@ public class Card2_001 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Filters.culture(Culture.DWARVEN), Filters.weapon)));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game.getGameState().getDiscard(playerId), Filters.and(Culture.DWARVEN, Filters.weapon)));
             return Collections.singletonList(action);
         }
         return null;

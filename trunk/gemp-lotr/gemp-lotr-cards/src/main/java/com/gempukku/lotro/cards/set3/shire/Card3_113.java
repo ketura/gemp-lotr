@@ -30,7 +30,7 @@ public class Card3_113 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SHIRE), CardType.COMPANION) >= 2;
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE, CardType.COMPANION) >= 2;
     }
 
     @Override

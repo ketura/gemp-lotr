@@ -38,10 +38,10 @@ public class Card3_100 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.SAURON), CardType.CONDITION) > 0) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.SAURON, CardType.CONDITION) > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.SAURON), CardType.CONDITION));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose character skirmishing this minion", Filters.inSkirmishAgainst(Filters.sameCard(self))) {
                         @Override

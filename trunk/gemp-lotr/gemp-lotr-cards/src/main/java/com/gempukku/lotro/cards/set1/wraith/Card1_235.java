@@ -40,7 +40,7 @@ public class Card1_235 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a WRAITH minion", Filters.culture(Culture.WRAITH), CardType.MINION) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a WRAITH minion", Culture.WRAITH, CardType.MINION) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard wraithMinion) {
                             action.appendEffect(

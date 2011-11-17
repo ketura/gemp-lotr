@@ -31,10 +31,10 @@ public class Card3_120 extends AbstractSite {
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game.getGameState(), Phase.MANEUVER, self)
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 4
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC))) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.ISENGARD, Filters.race(Race.ORC))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Filters.culture(Culture.ISENGARD), Filters.race(Race.ORC)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.ISENGARD, Filters.race(Race.ORC)));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
             return Collections.singletonList(action);

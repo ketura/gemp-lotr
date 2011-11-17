@@ -47,6 +47,6 @@ public class Card1_133 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.and(Filters.culture(Culture.ISENGARD), CardType.EVENT, Filters.owner(self.getOwner())), -1);
+        return new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, CardType.EVENT, Filters.owner(self.getOwner())), -1);
     }
 }

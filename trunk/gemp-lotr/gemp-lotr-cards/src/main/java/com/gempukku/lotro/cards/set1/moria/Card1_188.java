@@ -38,7 +38,7 @@ public class Card1_188 extends AbstractPermanent {
             action.appendCost(
                     new DiscardCardsFromPlayEffect(self, self));
             action.appendEffect(
-                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.owner(playerId), Filters.culture(Culture.MORIA), Filters.race(Race.ORC)));
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.owner(playerId), Culture.MORIA, Filters.race(Race.ORC)));
             return Collections.singletonList(action);
         }
         return null;

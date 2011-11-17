@@ -27,7 +27,7 @@ public class Card4_003 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
                 && (
-                Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DUNLAND), CardType.MINION) >= 3
+                Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, CardType.MINION) >= 3
                         || Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)));
     }
 
@@ -40,7 +40,7 @@ public class Card4_003 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
+                new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Culture.DUNLAND, Filters.race(Race.MAN)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(

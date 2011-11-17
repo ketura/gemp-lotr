@@ -84,7 +84,7 @@ public class Card3_069 extends AbstractMinion {
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD minion", Filters.culture(Culture.ISENGARD), CardType.MINION, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD minion", Culture.ISENGARD, CardType.MINION, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard minion) {
                             action.appendEffect(

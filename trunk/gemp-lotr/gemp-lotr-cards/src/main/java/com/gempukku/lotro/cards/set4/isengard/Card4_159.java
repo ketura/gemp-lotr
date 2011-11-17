@@ -43,14 +43,14 @@ public class Card4_159 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER));
+                && PlayConditions.canExert(self, game, Culture.ISENGARD, Filters.keyword(Keyword.TRACKER));
     }
 
     @Override
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         final AttachPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
         playCardAction.appendCost(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmish(Side.SHADOW)));
+                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Culture.ISENGARD, Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmish(Side.SHADOW)));
         return playCardAction;
     }
 
@@ -68,10 +68,10 @@ public class Card4_159 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.ASSIGNMENT, self, 2)
-                && PlayConditions.canExert(self, game, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
+                && PlayConditions.canExert(self, game, Culture.ISENGARD, Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, self.getAttachedTo())) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, Filters.keyword(Keyword.TRACKER), Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, self.getAttachedTo())) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard minion) {
                             action.appendEffect(

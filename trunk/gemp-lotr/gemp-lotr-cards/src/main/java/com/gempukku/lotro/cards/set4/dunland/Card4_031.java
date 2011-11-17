@@ -37,7 +37,7 @@ public class Card4_031 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Culture.DUNLAND, Filters.race(Race.MAN), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard dunlandMan) {
                             action.insertEffect(

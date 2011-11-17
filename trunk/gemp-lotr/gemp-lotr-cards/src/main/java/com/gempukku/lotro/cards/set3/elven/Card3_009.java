@@ -35,10 +35,10 @@ public class Card3_009 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.ELVEN), CardType.ALLY)) {
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN, CardType.ALLY)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ELVEN), CardType.ALLY));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ELVEN, CardType.ALLY));
             action.appendEffect(
                     new DiscardBottomCardFromDeckEffect(playerId) {
                         @Override

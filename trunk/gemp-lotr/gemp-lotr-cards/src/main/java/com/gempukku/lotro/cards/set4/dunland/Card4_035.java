@@ -32,7 +32,7 @@ public class Card4_035 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilStartOfPhaseModifierEffect(
-                        new KeywordModifier(self, Filters.and(Filters.owner(playerId), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)), Keyword.FIERCE), Phase.REGROUP));
+                        new KeywordModifier(self, Filters.and(Filters.owner(playerId), Culture.DUNLAND, Filters.race(Race.MAN)), Keyword.FIERCE), Phase.REGROUP));
         return action;
     }
 

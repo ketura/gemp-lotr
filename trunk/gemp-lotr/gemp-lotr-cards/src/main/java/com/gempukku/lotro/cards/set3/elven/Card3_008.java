@@ -35,7 +35,7 @@ public class Card3_008 extends AbstractCompanion {
                 new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.sameCard(self)),
                         new SpotCondition(
                                 3, Filters.and(
-                                Filters.culture(Culture.ELVEN),
+                                Culture.ELVEN,
                                 CardType.ALLY,
                                 Filters.isAllyHome(3, Block.FELLOWSHIP)
                         )), -3));

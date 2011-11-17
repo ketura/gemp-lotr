@@ -37,11 +37,11 @@ public class Card3_044 extends AbstractPermanent {
         List<Action> actions = new LinkedList<Action>();
 
         if (PlayConditions.canUseFPCardDuringPhase(game.getGameState(), Phase.FELLOWSHIP, self)) {
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.GONDOR)).size() > 0) {
+            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Stack a GONDOR card from hand here");
                 action.appendEffect(
-                        new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.culture(Culture.GONDOR)) {
+                        new ChooseCardsFromHandEffect(playerId, 1, 1, Culture.GONDOR) {
                             @Override
                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                 for (PhysicalCard selectedCard : selectedCards) {

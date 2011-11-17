@@ -39,11 +39,11 @@ public class Card4_176 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new RoamingPenaltyModifier(self, Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER)), -2));
+                new RoamingPenaltyModifier(self, Filters.and(Culture.ISENGARD, Filters.keyword(Keyword.TRACKER)), -2));
         modifiers.add(
-                new StrengthModifier(self, Filters.sameCard(self), new SpotCondition(2, Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER))), 3));
+                new StrengthModifier(self, Filters.sameCard(self), new SpotCondition(2, Filters.and(Culture.ISENGARD, Filters.keyword(Keyword.TRACKER))), 3));
         modifiers.add(
-                new KeywordModifier(self, Filters.sameCard(self), new SpotCondition(3, Filters.and(Filters.culture(Culture.ISENGARD), Filters.keyword(Keyword.TRACKER))), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.sameCard(self), new SpotCondition(3, Filters.and(Culture.ISENGARD, Filters.keyword(Keyword.TRACKER))), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }

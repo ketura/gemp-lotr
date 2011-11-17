@@ -38,7 +38,7 @@ public class Card1_186 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.culture(Culture.MORIA), Filters.race(Race.ORC)));
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.MORIA, Filters.race(Race.ORC)));
             return Collections.singletonList(action);
         }
         return null;

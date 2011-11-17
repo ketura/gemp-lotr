@@ -9,7 +9,6 @@ import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -50,7 +49,7 @@ public class Card3_006 extends AbstractOldEvent {
                                             PhysicalCard card = revealedCards.get(0);
                                             int twilightCost = card.getBlueprint().getTwilightCost();
                                             action.insertEffect(
-                                                    new ChooseCardsFromDiscardEffect(playerId, 0, twilightCost, Filters.culture(Culture.DWARVEN)) {
+                                                    new ChooseCardsFromDiscardEffect(playerId, 0, twilightCost, Culture.DWARVEN) {
                                                         @Override
                                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                                             action.insertEffect(

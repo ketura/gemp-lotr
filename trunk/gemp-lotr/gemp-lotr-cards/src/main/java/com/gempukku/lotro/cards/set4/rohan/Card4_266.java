@@ -37,7 +37,7 @@ public class Card4_266 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.culture(Culture.ROHAN), Filters.race(Race.MAN)))
+        if (Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Filters.race(Race.MAN)))
             return -1;
         return 0;
     }
@@ -47,7 +47,7 @@ public class Card4_266 extends AbstractCompanion {
         if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.ROHAN), CardType.ALLY));
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

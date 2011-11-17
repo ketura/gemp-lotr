@@ -41,7 +41,7 @@ public class Card1_063 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.race(Race.ELF)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose SAURON minion, condition or possession", Filters.culture(Culture.SAURON),
+                new ChooseActiveCardEffect(self, playerId, "Choose SAURON minion, condition or possession", Culture.SAURON,
                         Filters.or(CardType.MINION, CardType.CONDITION, CardType.POSSESSION)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard sauronCard) {

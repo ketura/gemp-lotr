@@ -30,7 +30,7 @@ public class Card4_247 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.culture(Culture.RAIDER), Filters.race(Race.MAN));
+        return Filters.and(Culture.RAIDER, Filters.race(Race.MAN));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Card4_247 extends AbstractAttachable {
                 new KeywordModifier(self, Filters.hasAttached(self), Keyword.ARCHER));
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.SHADOW,
-                        new SpotCondition(Filters.not(Filters.hasAttached(self)), Filters.culture(Culture.RAIDER), Filters.race(Race.MAN)), 1));
+                        new SpotCondition(Filters.not(Filters.hasAttached(self)), Culture.RAIDER, Filters.race(Race.MAN)), 1));
         return modifiers;
     }
 }

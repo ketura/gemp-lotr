@@ -35,7 +35,7 @@ public class Card2_055 extends AbstractPermanent {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(
-                                Filters.culture(Culture.MORIA),
+                                Culture.MORIA,
                                 CardType.MINION,
                                 Filters.unique
                         ), 1));

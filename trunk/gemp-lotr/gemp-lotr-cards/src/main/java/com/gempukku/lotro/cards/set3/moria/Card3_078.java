@@ -27,7 +27,7 @@ public class Card3_078 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.SHIRE), CardType.COMPANION) >= 2;
+                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE, CardType.COMPANION) >= 2;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Card3_078 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose MORIA minion", Filters.culture(Culture.MORIA), CardType.MINION) {
+                new ChooseActiveCardEffect(self, playerId, "Choose MORIA minion", Culture.MORIA, CardType.MINION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(

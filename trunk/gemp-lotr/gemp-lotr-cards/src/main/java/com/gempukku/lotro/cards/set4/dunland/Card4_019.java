@@ -74,7 +74,7 @@ public class Card4_019 extends AbstractPermanent {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.in(woundedCharacters), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.in(woundedCharacters), Culture.DUNLAND, Filters.race(Race.MAN)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

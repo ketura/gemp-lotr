@@ -43,7 +43,7 @@ public class Card1_174 extends AbstractMinion {
                                 if (skirmish != null) {
                                     List<PhysicalCard> shadowChars = skirmish.getShadowCharacters();
                                     if (shadowChars.contains(self)
-                                            && Filters.filter(shadowChars, gameState, modifiersQuerying, Filters.culture(Culture.MORIA), Filters.race(Race.ORC), Filters.not(Filters.sameCard(self))).size() > 0)
+                                            && Filters.filter(shadowChars, gameState, modifiersQuerying, Culture.MORIA, Filters.race(Race.ORC), Filters.not(Filters.sameCard(self))).size() > 0)
                                         return true;
                                 }
                                 return false;

@@ -45,12 +45,12 @@ public class Card4_028 extends AbstractPermanent {
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game.getGameState(), Phase.SKIRMISH, self, 0)
                 && PlayConditions.canRemoveToken(game.getGameState(), self, Token.DUNLAND)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Filters.race(Race.MAN))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.DUNLAND));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.culture(Culture.DUNLAND), Filters.race(Race.MAN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Culture.DUNLAND, Filters.race(Race.MAN)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard dunlandMan) {
                             action.appendEffect(

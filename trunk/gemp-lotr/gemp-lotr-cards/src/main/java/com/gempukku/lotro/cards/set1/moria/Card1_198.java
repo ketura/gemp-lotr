@@ -33,14 +33,14 @@ public class Card1_198 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
-                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Filters.culture(Culture.MORIA), CardType.MINION);
+                && PlayConditions.canExert(self, game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, CardType.MINION);
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.culture(Culture.MORIA), CardType.MINION));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.MORIA, CardType.MINION));
         return action;
     }
 

@@ -40,7 +40,7 @@ public class Card4_015 extends AbstractMinion {
                                 Filters.sameCard(self),
                                 Filters.inSkirmishAgainst(
                                         Filters.and(
-                                                Filters.culture(Culture.ROHAN),
+                                                Culture.ROHAN,
                                                 Filters.race(Race.MAN)))), 2));
     }
 
