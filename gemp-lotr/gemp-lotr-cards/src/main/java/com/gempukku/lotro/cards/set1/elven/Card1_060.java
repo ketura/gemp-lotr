@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -73,7 +73,7 @@ public class Card1_060 extends AbstractAlly {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.SITE, Filters.siteNumber(3)))
+        if (TriggerConditions.played(game, effectResult, CardType.SITE, Filters.siteNumber(3)))
             game.getGameState().reapplyAffectingForCard(game, self);
 
         LotroCardBlueprint copied = getCopied(game, self);

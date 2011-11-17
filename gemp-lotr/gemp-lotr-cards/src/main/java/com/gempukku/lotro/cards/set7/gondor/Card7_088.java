@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -35,7 +36,7 @@ public class Card7_088 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.REGROUP)
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)
                 && game.getGameState().getHand(playerId).size() == 4
                 && PlayConditions.canSpot(game, Culture.GONDOR, Race.MAN, Filters.not(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

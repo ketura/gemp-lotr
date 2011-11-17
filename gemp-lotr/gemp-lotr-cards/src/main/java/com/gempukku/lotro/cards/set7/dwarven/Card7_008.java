@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -42,7 +43,7 @@ public class Card7_008 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)
-                && PlayConditions.isGettingWounded(effect, game, Filters.gimli)
+                && TriggerConditions.isGettingWounded(effect, game, Filters.gimli)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
 

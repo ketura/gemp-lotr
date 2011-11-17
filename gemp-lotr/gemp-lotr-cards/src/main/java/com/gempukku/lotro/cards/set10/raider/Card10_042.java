@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -33,7 +34,7 @@ public class Card10_042 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.RAIDER, Race.MAN)) {

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.common.Block;
@@ -35,7 +35,7 @@ public class Card7_345 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             String fpPlayerId = game.getGameState().getCurrentPlayerId();

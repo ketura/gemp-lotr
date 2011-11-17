@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromStackedEffect;
@@ -36,7 +37,7 @@ public class Card8_071 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.MINION)) {
+        if (TriggerConditions.played(game, effectResult, CardType.MINION)) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             if (playCardResult.getPlayedFrom() == Zone.STACKED && playCardResult.getAttachedOrStackedPlayedFrom() == self) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);

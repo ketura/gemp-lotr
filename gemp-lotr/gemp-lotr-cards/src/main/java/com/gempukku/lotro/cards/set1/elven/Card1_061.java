@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +28,7 @@ public class Card1_061 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.and(Culture.ELVEN, Keyword.TALE))) {
+        if (TriggerConditions.played(game, effectResult, Filters.and(Culture.ELVEN, Keyword.TALE))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new RemoveBurdenEffect(self));
             return Collections.singletonList(action);

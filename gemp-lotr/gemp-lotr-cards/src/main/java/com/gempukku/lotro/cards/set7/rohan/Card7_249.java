@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.*;
@@ -55,13 +55,13 @@ public class Card7_249 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Culture.ROHAN, Race.MAN)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Culture.ROHAN, Race.MAN)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ROHAN));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));

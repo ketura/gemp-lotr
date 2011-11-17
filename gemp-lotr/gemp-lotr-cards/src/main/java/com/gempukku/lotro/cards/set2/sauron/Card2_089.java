@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -50,7 +50,7 @@ public class Card2_089 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT)) {
+        if (TriggerConditions.played(game, effectResult, CardType.EVENT)) {
             PlayEventResult playEffect = (PlayEventResult) effectResult;
             if (playEffect.isRequiresRanger()) {
                 ActivateCardAction action = new ActivateCardAction(self);

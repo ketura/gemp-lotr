@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -51,7 +52,7 @@ public class Card8_045 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, self)
+        if (TriggerConditions.winsSkirmish(game, effectResult, self)
                 && PlayConditions.canSelfExert(self, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

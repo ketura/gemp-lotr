@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set6.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +43,7 @@ public class Card6_085 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())
+        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())
                 && self.getAttachedTo().getBlueprint().getName().equals("Ulaire Toldea")) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

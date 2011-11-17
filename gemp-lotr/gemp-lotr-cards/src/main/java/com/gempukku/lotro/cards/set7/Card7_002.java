@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
@@ -72,7 +73,7 @@ public class Card7_002 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -75,7 +76,7 @@ public class Card1_295 extends AbstractAlly {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.SITE, Filters.siteNumber(1)))
+        if (TriggerConditions.played(game, effectResult, CardType.SITE, Filters.siteNumber(1)))
             game.getGameState().reapplyAffectingForCard(game, self);
 
         LotroCardBlueprint copied = getCopied(game, self);

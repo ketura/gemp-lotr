@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,7 +34,7 @@ public class Card7_081 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new AddTwilightEffect(self, 2));

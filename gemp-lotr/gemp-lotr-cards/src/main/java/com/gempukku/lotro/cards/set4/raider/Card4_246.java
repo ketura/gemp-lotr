@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -38,7 +38,7 @@ public class Card4_246 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getGameState().getTwilightPool() > 0
-                && PlayConditions.losesSkirmishAgainst(game, effectResult,
+                && TriggerConditions.losesSkirmishAgainst(game, effectResult,
                 Filters.or(CardType.COMPANION, CardType.ALLY),
                 Keyword.SOUTHRON)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

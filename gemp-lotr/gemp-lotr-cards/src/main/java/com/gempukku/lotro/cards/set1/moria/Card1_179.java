@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.ExtraFilters;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -38,7 +35,7 @@ public class Card1_179 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Culture.MORIA, Race.ORC);
 
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.weapon, ExtraFilters.attachableTo(game, additionalAttachmentFilter))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

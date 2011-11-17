@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.effects;
 
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
@@ -26,7 +26,7 @@ public class PreventAllWoundsActionProxy extends AbstractActionProxy {
 
     @Override
     public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
-        if (PlayConditions.isGettingWounded(effect, game, _filters)) {
+        if (TriggerConditions.isGettingWounded(effect, game, _filters)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> toPreventOn = Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), _filters);
             RequiredTriggerAction action = new RequiredTriggerAction(_source);

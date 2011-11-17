@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -34,7 +34,7 @@ public class Card7_145 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, self)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int burdens = game.getGameState().getBurdens();
             action.appendEffect(

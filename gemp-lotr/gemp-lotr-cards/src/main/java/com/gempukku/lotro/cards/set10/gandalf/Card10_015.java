@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
@@ -30,7 +31,7 @@ public class Card10_015 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.loseInitiative(effectResult, Side.FREE_PEOPLE)
+        if (TriggerConditions.losesInitiative(effectResult, Side.FREE_PEOPLE)
                 && game.getGameState().getCurrentPhase() != Phase.FELLOWSHIP
                 && PlayConditions.canSpot(game, Culture.GANDALF, CardType.COMPANION)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.*;
@@ -54,7 +55,7 @@ public class Card1_183 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.and(Culture.MORIA, Race.ORC))
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.MORIA, Race.ORC))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.inSkirmish)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

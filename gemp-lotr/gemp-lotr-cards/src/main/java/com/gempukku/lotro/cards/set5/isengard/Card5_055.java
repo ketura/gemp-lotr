@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.Culture;
@@ -47,7 +47,7 @@ public class Card5_055 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Culture.ISENGARD, Race.ORC)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Culture.ISENGARD, Race.ORC)) {
             SkirmishResult result = (SkirmishResult) effectResult;
             Collection<PhysicalCard> winners = Filters.filter(result.getWinners(), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Race.ORC, Filters.canExert(self));
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();

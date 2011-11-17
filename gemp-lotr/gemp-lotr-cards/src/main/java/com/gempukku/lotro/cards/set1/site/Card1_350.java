@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -47,7 +47,7 @@ public class Card1_350 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.and(Culture.MORIA, Race.ORC)))
+        if (TriggerConditions.played(game, effectResult, Filters.and(Culture.MORIA, Race.ORC)))
             self.storeData(new Object());
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN
                 && self.getData() != null)

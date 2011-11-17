@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards.effects;
 
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
@@ -31,12 +30,12 @@ public class StackTopCardsFromDeckEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return !PlayConditions.nonPlayZone(_target.getZone()) && game.getGameState().getDeck(_playerId).size() >= _count;
+        return _target.getZone().isInPlay() && game.getGameState().getDeck(_playerId).size() >= _count;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (!PlayConditions.nonPlayZone(_target.getZone())) {
+        if (_target.getZone().isInPlay()) {
             int stacked = 0;
             for (int i = 0; i < _count; i++) {
                 final PhysicalCard card = game.getGameState().removeTopDeckCard(_playerId);

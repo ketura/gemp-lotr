@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -31,7 +32,7 @@ public class Card3_114 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isAddingTwilight(effect, game, Side.SHADOW)
+        if (TriggerConditions.isAddingTwilight(effect, game, Side.SHADOW)
                 && PlayConditions.canExert(self, game, Race.HOBBIT, CardType.ALLY)) {
             final AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);

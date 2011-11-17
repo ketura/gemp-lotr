@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.common.CardType;
@@ -38,7 +38,7 @@ public class Card1_194 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
+        if (TriggerConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, CardType.MINION) >= 3
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             PlayEventAction action = new PlayEventAction(self);

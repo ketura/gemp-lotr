@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.gollum;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
@@ -69,7 +70,7 @@ public class Card8_028 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.assigned(game, effectResult, null, Filters.any, Filters.hasAttached(self))) {
+        if (TriggerConditions.assigned(game, effectResult, null, Filters.any, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(self, Filters.hasAttached(self)));

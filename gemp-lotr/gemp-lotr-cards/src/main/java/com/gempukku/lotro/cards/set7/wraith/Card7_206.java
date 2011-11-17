@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.CheckLimitEffect;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
@@ -33,7 +34,7 @@ public class Card7_206 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.WRAITH, CardType.MINION)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.WRAITH, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new CheckLimitEffect(action, self, 1, Phase.REGROUP,

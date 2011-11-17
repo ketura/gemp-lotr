@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -56,7 +57,7 @@ public class Card10_026 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(self, self));
@@ -69,7 +70,7 @@ public class Card10_026 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
                 && PlayConditions.canExert(self, game, Filters.not(self), Culture.GONDOR, Race.WRAITH)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

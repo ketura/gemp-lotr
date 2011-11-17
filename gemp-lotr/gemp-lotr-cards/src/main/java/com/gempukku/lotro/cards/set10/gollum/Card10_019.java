@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.gollum;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
@@ -41,7 +42,7 @@ public class Card10_019 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, CardType.POSSESSION)
+        if (TriggerConditions.played(game, effectResult, CardType.POSSESSION)
                 && checkPlayRequirements(playerId, game, self, 0, false)
                 && (PlayConditions.canPlayFromDiscard(playerId, game, -2, Filters.gollum) || PlayConditions.canPlayFromHand(playerId, game, -2, Filters.gollum))) {
             PlayCardResult playResult = (PlayCardResult) effectResult;

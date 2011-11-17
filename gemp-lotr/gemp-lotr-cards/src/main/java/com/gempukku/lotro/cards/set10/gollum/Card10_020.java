@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.gollum;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.CancelActivatedEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
@@ -54,7 +55,7 @@ public class Card10_020 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.activated(game, effectResult, Filters.owner(game.getGameState().getCurrentPlayerId()))) {
+        if (TriggerConditions.activated(game, effectResult, Filters.owner(game.getGameState().getCurrentPlayerId()))) {
             ActivateCardResult activateCardResult = (ActivateCardResult) effectResult;
             if (activateCardResult.getActionTimeword() == Phase.MANEUVER || activateCardResult.getActionTimeword() == Phase.ARCHERY
                     && PlayConditions.canExert(self, game, Filters.gollum)) {

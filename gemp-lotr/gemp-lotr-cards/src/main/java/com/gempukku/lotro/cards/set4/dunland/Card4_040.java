@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.dunland;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.Culture;
@@ -35,7 +36,7 @@ public class Card4_040 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.and(Filters.not(Filters.sameCard(self)), Culture.DUNLAND, Race.MAN))
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Filters.not(Filters.sameCard(self)), Culture.DUNLAND, Race.MAN))
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

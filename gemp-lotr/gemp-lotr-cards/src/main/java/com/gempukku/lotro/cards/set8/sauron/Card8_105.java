@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.common.*;
@@ -50,7 +51,7 @@ public class Card8_105 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, self)
+        if (TriggerConditions.winsSkirmish(game, effectResult, self)
                 && PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

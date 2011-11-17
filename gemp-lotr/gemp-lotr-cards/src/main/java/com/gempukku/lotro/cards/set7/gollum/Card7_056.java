@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.gollum;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,7 +34,7 @@ public class Card7_056 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, Filters.hasAttached(self))
+        if (TriggerConditions.isGettingKilled(effect, game, Filters.hasAttached(self))
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
@@ -58,7 +58,7 @@ public class Card1_002 extends AbstractAttachable {
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
+                && TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
@@ -78,7 +78,7 @@ public class Card1_002 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

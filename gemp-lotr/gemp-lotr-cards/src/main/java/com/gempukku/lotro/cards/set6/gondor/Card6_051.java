@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -41,7 +42,7 @@ public class Card6_051 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
+        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.setText("Heal another GONDOR companion");
             action.appendEffect(
@@ -53,7 +54,7 @@ public class Card6_051 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(effectResult, self.getAttachedTo())
+        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Discard to liberate a site");

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -30,7 +31,7 @@ public class Card6_075 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.losesSkirmishAgainst(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.and(Culture.ISENGARD, Race.MAN))
+        if (TriggerConditions.losesSkirmishAgainst(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.and(Culture.ISENGARD, Race.MAN))
                 && PlayConditions.canSpot(game, CardType.POSSESSION)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.dunland;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -38,7 +39,7 @@ public class Card4_037 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
-                && PlayConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
+                && TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final List<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
             final PlayEventAction action = new PlayEventAction(self);

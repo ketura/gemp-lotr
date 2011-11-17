@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
 import com.gempukku.lotro.common.CardType;
@@ -38,7 +39,7 @@ public class Card10_041 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.EASTERLING)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -36,7 +36,7 @@ public class Card1_025 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (self.getZone() == Zone.HAND && PlayConditions.winsSkirmish(game, effectResult, Race.DWARF)
+        if (self.getZone() == Zone.HAND && TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);

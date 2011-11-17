@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set6.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
@@ -39,7 +39,7 @@ public class Card6_073 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingDiscarded(effect, game, Culture.ISENGARD, Race.ORC)) {
+        if (TriggerConditions.isGettingDiscarded(effect, game, Culture.ISENGARD, Race.ORC)) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             if (game.getGameState().getCurrentPhase() == Phase.REGROUP
                     && discardEffect.getSource() != null) {
@@ -62,7 +62,7 @@ public class Card6_073 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Culture.ISENGARD, Race.ORC)
+        if (TriggerConditions.isGettingWounded(effect, game, Culture.ISENGARD, Race.ORC)
                 && game.getGameState().getStackedCards(self).size() >= 2) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             final ActivateCardAction action = new ActivateCardAction(self);

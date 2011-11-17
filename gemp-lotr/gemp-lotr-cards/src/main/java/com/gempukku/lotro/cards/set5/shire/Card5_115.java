@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set5.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.MakeRingBearerEffect;
 import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.Culture;
@@ -60,7 +60,7 @@ public class Card5_115 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, Filters.frodo)) {
+        if (TriggerConditions.isGettingKilled(effect, game, Filters.frodo)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(new MakeRingBearerEffect(self));
             return Collections.singletonList(action);

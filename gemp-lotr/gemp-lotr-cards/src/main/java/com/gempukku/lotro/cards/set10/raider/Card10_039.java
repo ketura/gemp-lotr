@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
@@ -38,7 +39,7 @@ public class Card10_039 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.CORSAIR)
                 && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game.getGameState(), game.getGameState().getCurrentPlayerId(), self)
                 && game.getGameState().getDeck(game.getGameState().getCurrentPlayerId()).size() > 0) {

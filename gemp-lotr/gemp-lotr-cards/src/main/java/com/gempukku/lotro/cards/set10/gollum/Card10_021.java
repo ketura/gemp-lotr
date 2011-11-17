@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set10.gollum;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -39,7 +39,7 @@ public class Card10_021 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.assigned(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
+        if (TriggerConditions.assigned(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(

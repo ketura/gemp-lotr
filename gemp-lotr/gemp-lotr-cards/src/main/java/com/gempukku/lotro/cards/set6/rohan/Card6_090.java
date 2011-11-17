@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.rohan;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
@@ -41,7 +42,7 @@ public class Card6_090 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.setText("Exert a minion");
             action.appendEffect(
@@ -53,7 +54,7 @@ public class Card6_090 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
+        if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Discard this to liberate a site");

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.cards.effects.StackTopCardsFromDeckEffect;
@@ -38,7 +39,7 @@ public class Card4_046 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new StackTopCardsFromDeckEffect(self, self.getOwner(), 6, self));

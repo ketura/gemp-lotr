@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set10.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
@@ -39,7 +39,7 @@ public class Card10_007 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

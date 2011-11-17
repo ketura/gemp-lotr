@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -32,7 +33,7 @@ public class Card7_034 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Filters.gandalf)
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.gandalf)
                 && PlayConditions.canExert(self, game, Filters.gandalf)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

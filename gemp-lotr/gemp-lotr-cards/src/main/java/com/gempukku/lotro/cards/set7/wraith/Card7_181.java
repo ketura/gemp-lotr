@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
@@ -61,7 +62,7 @@ public class Card7_181 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingKilled(effect, game, CardType.COMPANION)) {
+        if (TriggerConditions.isGettingKilled(effect, game, CardType.COMPANION)) {
             KillEffect killEffect = (KillEffect) effect;
             Collection<PhysicalCard> companionsKilled = Filters.filter(killEffect.getCharactersToBeKilled(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
@@ -80,7 +81,7 @@ public class Card7_181 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));

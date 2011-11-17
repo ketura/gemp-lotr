@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
@@ -35,7 +36,7 @@ public class Card7_107 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.not(Filters.owner(playerId)), Filters.or(CardType.POSSESSION, Keyword.ENGINE))
+        if (TriggerConditions.played(game, effectResult, Filters.not(Filters.owner(playerId)), Filters.or(CardType.POSSESSION, Keyword.ENGINE))
                 && PlayConditions.canRemoveTokens(game, Token.GONDOR, 1, Filters.owner(playerId), CardType.CONDITION)) {
             PlayCardResult playResult = (PlayCardResult) effectResult;
 

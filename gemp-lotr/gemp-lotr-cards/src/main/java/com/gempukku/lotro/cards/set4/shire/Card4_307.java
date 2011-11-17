@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.shire;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -56,7 +57,7 @@ public class Card4_307 extends AbstractEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
-                                                if (PlayConditions.winsSkirmish(effectResults, character)
+                                                if (TriggerConditions.winsSkirmish(effectResults, character)
                                                         && playerId.equals(character.getOwner())) {
                                                     OptionalTriggerAction action = new OptionalTriggerAction(character);
                                                     action.appendEffect(

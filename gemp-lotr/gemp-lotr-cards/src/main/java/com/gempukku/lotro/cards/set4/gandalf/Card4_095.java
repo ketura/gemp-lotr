@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -40,7 +41,7 @@ public class Card4_095 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, final EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Culture.GANDALF, CardType.EVENT)
+        if (TriggerConditions.played(game, effectResult, Culture.GANDALF, CardType.EVENT)
                 && PlayConditions.canExert(self, game, 2, Filters.gandalf)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(

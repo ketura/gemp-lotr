@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set8.wraith;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -47,7 +47,7 @@ public class Card8_073 extends AbstractEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
-                                                if (PlayConditions.winsSkirmish(game, effectResult, card)
+                                                if (TriggerConditions.winsSkirmish(game, effectResult, card)
                                                         && playerId.equals(card.getOwner())) {
                                                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                                                     action.setActionAttachedToCard(card);

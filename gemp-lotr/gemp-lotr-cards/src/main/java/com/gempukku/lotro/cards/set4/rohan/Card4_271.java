@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
@@ -36,7 +36,7 @@ public class Card4_271 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, Filters.sameCard(self))
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.sameCard(self))
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && Filters.exhausted.accepts(game.getGameState(), game.getModifiersQuerying(), self)
                 && game.getGameState().getHand(playerId).size() >= 2) {

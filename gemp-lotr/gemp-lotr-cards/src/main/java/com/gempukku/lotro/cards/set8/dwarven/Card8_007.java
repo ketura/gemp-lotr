@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set8.dwarven;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -29,7 +29,7 @@ public class Card8_007 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Race.DWARF, Keyword.DAMAGE)
+        if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF, Keyword.DAMAGE)
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.elven;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -42,7 +43,7 @@ public class Card4_079 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, Race.ELF)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Race.ELF)) {
             final List<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
             if (PlayConditions.canExert(self, game, Filters.in(winners))) {
                 PlayEventAction action = new PlayEventAction(self);

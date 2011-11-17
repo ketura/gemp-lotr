@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -47,7 +48,7 @@ public class Card2_031 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.and(Culture.SAURON, CardType.MINION))) {
+        if (TriggerConditions.played(game, effectResult, Filters.and(Culture.SAURON, CardType.MINION))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExhaustCharacterEffect(self, action, ((PlayCardResult) effectResult).getPlayedCard()));

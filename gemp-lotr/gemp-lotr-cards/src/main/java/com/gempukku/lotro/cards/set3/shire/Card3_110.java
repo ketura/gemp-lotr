@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Block;
@@ -36,7 +37,7 @@ public class Card3_110 extends AbstractAlly {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isAddingBurden(effect, game, Side.SHADOW)
+        if (TriggerConditions.isAddingBurden(effect, game, Side.SHADOW)
                 && PlayConditions.canExert(self, game, self)) {
             final AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -48,7 +48,7 @@ public class Card7_083 extends AbstractEvent {
                                             new AbstractActionProxy() {
                                                 @Override
                                                 public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                                                    if (PlayConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)) {
+                                                    if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)) {
                                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                         action.appendEffect(
                                                                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.SAURON, CardType.MINION, Filters.inSkirmishAgainst(card)));

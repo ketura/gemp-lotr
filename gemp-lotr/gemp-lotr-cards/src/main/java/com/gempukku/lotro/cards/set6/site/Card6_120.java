@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.Block;
@@ -33,7 +34,7 @@ public class Card6_120 extends AbstractSite {
     @Override
     public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, null, self)
-                && PlayConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId))
+                && TriggerConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId))
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);

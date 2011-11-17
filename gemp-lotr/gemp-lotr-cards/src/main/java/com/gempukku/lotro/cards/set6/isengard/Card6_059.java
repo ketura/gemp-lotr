@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set6.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +43,7 @@ public class Card6_059 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int sitesControlled = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(self.getOwner()));
             for (int i = 0; i < sitesControlled; i++)

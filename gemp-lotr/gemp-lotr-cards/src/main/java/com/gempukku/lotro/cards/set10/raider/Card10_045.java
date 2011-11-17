@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.set10.raider;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.ExtraFilters;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.Culture;
@@ -40,7 +37,7 @@ public class Card10_045 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, self)
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canPlayFromDiscard(playerId, game, -2, PossessionClass.MOUNT, ExtraFilters.attachableTo(game, self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

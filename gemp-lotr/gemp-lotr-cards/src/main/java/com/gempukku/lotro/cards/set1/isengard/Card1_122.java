@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.Culture;
@@ -38,7 +38,7 @@ public class Card1_122 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.played(game, effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
+        if (TriggerConditions.played(game, effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             String playedCardName = ((PlayCardResult) effectResult).getPlayedCard().getBlueprint().getName();

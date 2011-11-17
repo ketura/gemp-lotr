@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
@@ -81,7 +82,7 @@ public class Card7_200 extends AbstractMinion {
                             }));
             return Collections.singletonList(action);
         }
-        if (PlayConditions.endOfPhase(game, effectResult, Phase.ASSIGNMENT))
+        if (TriggerConditions.endOfPhase(game, effectResult, Phase.ASSIGNMENT))
             self.removeData();
         return null;
     }

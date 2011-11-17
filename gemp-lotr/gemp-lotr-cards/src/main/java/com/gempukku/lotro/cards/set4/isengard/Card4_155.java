@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelActivatedEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -37,7 +38,7 @@ public class Card4_155 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.activated(game, effectResult, Filters.or(CardType.ALLY, Filters.unboundCompanion))
+        if (TriggerConditions.activated(game, effectResult, Filters.or(CardType.ALLY, Filters.unboundCompanion))
                 && PlayConditions.canExert(self, game, Filters.name("Grima"))
                 && checkPlayRequirements(playerId, game, self, 0, false)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;

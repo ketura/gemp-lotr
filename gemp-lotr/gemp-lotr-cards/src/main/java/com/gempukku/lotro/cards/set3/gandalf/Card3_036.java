@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
@@ -36,7 +37,7 @@ public class Card3_036 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isGettingWounded(effect, game, CardType.COMPANION)
+        if (TriggerConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && game.getGameState().getTwilightPool() >= 4
                 && PlayConditions.canExert(self, game, Filters.gandalf)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

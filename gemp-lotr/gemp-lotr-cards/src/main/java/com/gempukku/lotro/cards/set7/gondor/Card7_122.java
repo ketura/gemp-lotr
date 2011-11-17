@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
@@ -45,7 +46,7 @@ public class Card7_122 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (PlayConditions.isTakingControlOfSite(effect, game, Filters.not(Filters.owner(playerId)))
+        if (TriggerConditions.isTakingControlOfSite(effect, game, Filters.not(Filters.owner(playerId)))
                 && PlayConditions.canDiscardFromPlay(self, game, 2, Culture.GONDOR, Keyword.FORTIFICATION)) {
             TakeControlOfASiteEffect takeControlEffect = (TakeControlOfASiteEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);

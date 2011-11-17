@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.CancelActivatedEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
@@ -56,7 +57,7 @@ public class Card5_059 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.activated(game, effectResult, Filters.any)) {
+        if (TriggerConditions.activated(game, effectResult, Filters.any)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
             if (Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
                     && activateEffect.getActionTimeword() == Phase.SKIRMISH
