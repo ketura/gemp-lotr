@@ -38,6 +38,7 @@ public class Card10_074 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Culture.ROHAN, Race.MAN, Filters.owner(playerId))
+                && checkPlayRequirements(playerId, game, self, 0, false)
                 && PlayConditions.canDiscardFromPlay(self, game, Culture.ROHAN, CardType.POSSESSION)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
