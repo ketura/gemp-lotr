@@ -14,6 +14,53 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.*;
 
 public class Filters {
+    private static final Map<CardType, Filter> _typeFilterMap = new HashMap<CardType, Filter>();
+    private static final Map<PossessionClass, Filter> _possessionClassFilterMap = new HashMap<PossessionClass, Filter>();
+    private static final Map<Signet, Filter> _signetFilterMap = new HashMap<Signet, Filter>();
+    private static final Map<Race, Filter> _raceFilterMap = new HashMap<Race, Filter>();
+    private static final Map<Zone, Filter> _zoneFilterMap = new HashMap<Zone, Filter>();
+    private static final Map<Side, Filter> _sideFilterMap = new HashMap<Side, Filter>();
+    private static final Map<Culture, Filter> _cultureFilterMap = new HashMap<Culture, Filter>();
+    private static final Map<Keyword, Filter> _keywordFilterMap = new HashMap<Keyword, Filter>();
+
+    static {
+        for (Culture culture : Culture.values())
+            _cultureFilterMap.put(culture, culture(culture));
+        for (Side side : Side.values())
+            _sideFilterMap.put(side, side(side));
+        for (Zone zone : Zone.values())
+            _zoneFilterMap.put(zone, zone(zone));
+        for (Race race : Race.values())
+            _raceFilterMap.put(race, race(race));
+        for (Signet signet : Signet.values())
+            _signetFilterMap.put(signet, signet(signet));
+        for (PossessionClass possessionClass : PossessionClass.values())
+            _possessionClassFilterMap.put(possessionClass, possessionClass(possessionClass));
+        for (CardType cardType : CardType.values())
+            _typeFilterMap.put(cardType, type(cardType));
+        for (Keyword keyword : Keyword.values())
+            _keywordFilterMap.put(keyword, keyword(keyword));
+
+        // Some simple shortcuts for filters
+        _keywordFilterMap.put(Keyword.RING_BEARER,
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return gameState.getRingBearer(gameState.getCurrentPlayerId()) == physicalCard;
+                    }
+                });
+        _keywordFilterMap.put(Keyword.RANGER, Filters.and(CardType.COMPANION, keyword(Keyword.RANGER)));
+
+        // Minion groups
+        _keywordFilterMap.put(Keyword.SOUTHRON, Filters.and(CardType.MINION, keyword(Keyword.SOUTHRON)));
+        _keywordFilterMap.put(Keyword.EASTERLING, Filters.and(CardType.MINION, keyword(Keyword.EASTERLING)));
+        _keywordFilterMap.put(Keyword.CORSAIR, Filters.and(CardType.MINION, keyword(Keyword.CORSAIR)));
+        _keywordFilterMap.put(Keyword.TRACKER, Filters.and(CardType.MINION, keyword(Keyword.TRACKER)));
+        _keywordFilterMap.put(Keyword.WARG_RIDER, Filters.and(CardType.MINION, keyword(Keyword.WARG_RIDER)));
+        _keywordFilterMap.put(Keyword.BESIEGER, Filters.and(CardType.MINION, keyword(Keyword.BESIEGER)));
+    }
+
+
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         Filter filter = Filters.and(filters);
         SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, filter);
@@ -85,12 +132,6 @@ public class Filters {
         };
     }
 
-    public static final Map<PossessionClass, Filter> _possessionClassFilterMap = new HashMap<PossessionClass, Filter>();
-
-    static {
-        for (PossessionClass possessionClass : PossessionClass.values())
-            _possessionClassFilterMap.put(possessionClass, possessionClass(possessionClass));
-    }
 
     private static Filter possessionClass(final PossessionClass possessionClass) {
         return new Filter() {
@@ -362,13 +403,6 @@ public class Filters {
         }
     };
 
-    private static final Map<Signet, Filter> _signetFilterMap = new HashMap<Signet, Filter>();
-
-    static {
-        for (Signet signet : Signet.values())
-            _signetFilterMap.put(signet, signet(signet));
-    }
-
     private static Filter signet(final Signet signet) {
         return new Filter() {
             @Override
@@ -376,13 +410,6 @@ public class Filters {
                 return (physicalCard.getBlueprint().getSignet() == signet);
             }
         };
-    }
-
-    private static final Map<Race, Filter> _raceFilterMap = new HashMap<Race, Filter>();
-
-    static {
-        for (Race race : Race.values())
-            _raceFilterMap.put(race, race(race));
     }
 
     private static Filter race(final Race race) {
@@ -397,12 +424,6 @@ public class Filters {
         };
     }
 
-    private static final Map<Side, Filter> _sideFilterMap = new HashMap<Side, Filter>();
-
-    static {
-        for (Side side : Side.values())
-            _sideFilterMap.put(side, side(side));
-    }
 
     private static Filter side(final Side side) {
         return new Filter() {
@@ -502,13 +523,6 @@ public class Filters {
         };
     }
 
-    private static final Map<Zone, Filter> _zoneFilterMap = new HashMap<Zone, Filter>();
-
-    static {
-        for (Zone zone : Zone.values())
-            _zoneFilterMap.put(zone, zone(zone));
-    }
-
     private static Filter zone(final Zone zone) {
         return new Filter() {
             @Override
@@ -543,13 +557,6 @@ public class Filters {
                 return physicalCard.getBlueprint().getName() != null && physicalCard.getBlueprint().getName().equals(name);
             }
         };
-    }
-
-    private static final Map<CardType, Filter> _typeFilterMap = new HashMap<CardType, Filter>();
-
-    static {
-        for (CardType cardType : CardType.values())
-            _typeFilterMap.put(cardType, type(cardType));
     }
 
     private static Filter type(final CardType cardType) {
@@ -595,12 +602,6 @@ public class Filters {
         }
     };
 
-    private static final Map<Culture, Filter> _cultureFilterMap = new HashMap<Culture, Filter>();
-
-    static {
-        for (Culture culture : Culture.values())
-            _cultureFilterMap.put(culture, culture(culture));
-    }
 
     private static Filter culture(final Culture culture) {
         return new Filter() {
@@ -609,31 +610,6 @@ public class Filters {
                 return (physicalCard.getBlueprint().getCulture() == culture);
             }
         };
-    }
-
-    private static final Map<Keyword, Filter> _keywordFilterMap = new HashMap<Keyword, Filter>();
-
-    static {
-        for (Keyword keyword : Keyword.values())
-            _keywordFilterMap.put(keyword, keyword(keyword));
-
-        // Some simple shortcuts for filters
-        _keywordFilterMap.put(Keyword.RING_BEARER,
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return gameState.getRingBearer(gameState.getCurrentPlayerId()) == physicalCard;
-                    }
-                });
-        _keywordFilterMap.put(Keyword.RANGER, Filters.and(CardType.COMPANION, keyword(Keyword.RANGER)));
-
-        // Minion groups
-        _keywordFilterMap.put(Keyword.SOUTHRON, Filters.and(CardType.MINION, keyword(Keyword.SOUTHRON)));
-        _keywordFilterMap.put(Keyword.EASTERLING, Filters.and(CardType.MINION, keyword(Keyword.EASTERLING)));
-        _keywordFilterMap.put(Keyword.CORSAIR, Filters.and(CardType.MINION, keyword(Keyword.CORSAIR)));
-        _keywordFilterMap.put(Keyword.TRACKER, Filters.and(CardType.MINION, keyword(Keyword.TRACKER)));
-        _keywordFilterMap.put(Keyword.WARG_RIDER, Filters.and(CardType.MINION, keyword(Keyword.WARG_RIDER)));
-        _keywordFilterMap.put(Keyword.BESIEGER, Filters.and(CardType.MINION, keyword(Keyword.BESIEGER)));
     }
 
     private static Filter keyword(final Keyword keyword) {
