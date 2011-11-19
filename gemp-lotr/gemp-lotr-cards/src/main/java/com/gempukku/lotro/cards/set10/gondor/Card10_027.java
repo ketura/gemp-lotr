@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,6 +31,7 @@ import java.util.List;
 public class Card10_027 extends AbstractCompanion {
     public Card10_027() {
         super(2, 6, 3, Culture.GONDOR, Race.WRAITH, null, "Dead Man of Dunharrow");
+        addKeyword(Keyword.ENDURING);
     }
 
     @Override
