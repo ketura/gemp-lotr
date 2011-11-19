@@ -47,6 +47,7 @@ public class HallServer extends AbstractServer {
         addFormat("towers_standard", "Towers Standard", "default", new TowersStandardFormat(_lotroServer.getLotroCardBlueprintLibrary()));
         addFormat("king_block", "King block", "default", new KingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
         addFormat("c_king_block", "Community King block", "default", new KingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));
+        addFormat("movie", "Movie block", "default", new MovieFormat(_lotroServer.getLotroCardBlueprintLibrary()));
 
         addFormat("whatever", "Format for testing", "default", new FreeFormat(_lotroServer.getLotroCardBlueprintLibrary()));
     }
