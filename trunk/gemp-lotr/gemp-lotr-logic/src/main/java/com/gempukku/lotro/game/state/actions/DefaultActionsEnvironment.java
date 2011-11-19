@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.ActionStack;
@@ -33,7 +34,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
                         if (effectResults.getType() == EffectResult.Type.PLAY) {
                             PlayCardResult playResult = (PlayCardResult) effectResults;
                             _playedCardsInPhase.add(playResult.getPlayedCard());
@@ -106,9 +107,10 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         List<Action> gatheredActions = gatherActions.getActions();
 
         for (ActionProxy actionProxy : _actionProxies) {
-            List<? extends Action> actions = actionProxy.getRequiredBeforeTriggers(_lotroGame, effect);
-            if (actions != null)
+            List<? extends RequiredTriggerAction> actions = actionProxy.getRequiredBeforeTriggers(_lotroGame, effect);
+            if (actions != null) {
                 gatheredActions.addAll(actions);
+            }
         }
 
         return gatheredActions;
@@ -159,7 +161,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         if (effectResults != null) {
             for (ActionProxy actionProxy : _actionProxies) {
                 for (EffectResult effectResult : effectResults) {
-                    List<? extends Action> actions = actionProxy.getRequiredAfterTriggers(_lotroGame, effectResult);
+                    List<? extends RequiredTriggerAction> actions = actionProxy.getRequiredAfterTriggers(_lotroGame, effectResult);
                     if (actions != null)
                         gatheredActions.addAll(actions);
                 }
@@ -180,7 +182,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         if (effectResults != null) {
             for (ActionProxy actionProxy : _actionProxies) {
                 for (EffectResult effectResult : effectResults) {
-                    List<? extends Action> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
+                    List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
                     if (actions != null)
                         gatheredActions.addAll(actions);
                 }

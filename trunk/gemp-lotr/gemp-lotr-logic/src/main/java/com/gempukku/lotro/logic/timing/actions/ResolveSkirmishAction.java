@@ -14,7 +14,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ResolveSkirmishAction implements Action {
-    Iterator<Effect> _effects;
+    private Iterator<Effect> _effects;
+
+    @Override
+    public void setVirtualCardAction(boolean virtualCardAction) {
+    }
+
+    @Override
+    public boolean isVirtualCardAction() {
+        return false;
+    }
 
     @Override
     public Phase getActionTimeword() {

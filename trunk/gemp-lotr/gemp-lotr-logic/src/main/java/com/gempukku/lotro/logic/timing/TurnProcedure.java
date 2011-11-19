@@ -196,7 +196,7 @@ public class TurnProcedure {
 
             if (possibleActions.size() > 0) {
                 _game.getUserFeedback().sendAwaitingDecision(activePlayer,
-                        new CardActionSelectionDecision(game, 1, _effect.getText(game) + " - Optional \"is about to\" responses", possibleActions, true) {
+                        new CardActionSelectionDecision(game, 1, _effect.getText(game) + " - Optional \"is about to\" responses", possibleActions) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Action action = getSelectedAction(result);
@@ -246,8 +246,9 @@ public class TurnProcedure {
             // Remove triggers for cards no longer in play
             final Iterator<Action> triggersIterator = optionalAfterTriggers.iterator();
             while (triggersIterator.hasNext()) {
-                final PhysicalCard actionSource = triggersIterator.next().getActionSource();
-                if (!actionSource.getZone().isInPlay())
+                Action action = triggersIterator.next();
+                final PhysicalCard actionSource = action.getActionSource();
+                if (!actionSource.getZone().isInPlay() && !action.isVirtualCardAction())
                     triggersIterator.remove();
             }
 
@@ -258,7 +259,7 @@ public class TurnProcedure {
 
             if (possibleActions.size() > 0) {
                 _game.getUserFeedback().sendAwaitingDecision(activePlayer,
-                        new CardActionSelectionDecision(game, 1, _effect.getText(game) + " - optional \"when\" responses", possibleActions, true) {
+                        new CardActionSelectionDecision(game, 1, _effect.getText(game) + " - optional \"when\" responses", possibleActions) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Action action = getSelectedAction(result);

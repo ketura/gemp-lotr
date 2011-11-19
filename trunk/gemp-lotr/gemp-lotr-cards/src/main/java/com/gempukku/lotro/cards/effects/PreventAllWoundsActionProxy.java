@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
@@ -25,7 +24,7 @@ public class PreventAllWoundsActionProxy extends AbstractActionProxy {
     }
 
     @Override
-    public List<? extends Action> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
+    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
         if (TriggerConditions.isGettingWounded(effect, game, _filters)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> toPreventOn = Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), _filters);

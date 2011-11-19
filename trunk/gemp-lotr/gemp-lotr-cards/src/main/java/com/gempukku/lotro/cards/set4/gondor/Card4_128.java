@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -61,7 +60,7 @@ public class Card4_128 extends AbstractOldEvent {
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
                                             @Override
-                                            public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
+                                            public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
                                                 if (TriggerConditions.losesSkirmish(game, effectResults, Filters.sameCard(minion))) {
                                                     final RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                     action.appendEffect(

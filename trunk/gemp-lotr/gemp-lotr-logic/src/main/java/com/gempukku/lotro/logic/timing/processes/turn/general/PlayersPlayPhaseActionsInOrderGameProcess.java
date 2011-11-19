@@ -46,7 +46,7 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
             final List<Action> playableActions = _game.getActionsEnvironment().getPhaseActions(playerId);
 
             _game.getUserFeedback().sendAwaitingDecision(playerId,
-                    new CardActionSelectionDecision(_game, 1, "Choose action to play or Pass", playableActions, true) {
+                    new CardActionSelectionDecision(_game, 1, "Choose action to play or Pass", playableActions) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);

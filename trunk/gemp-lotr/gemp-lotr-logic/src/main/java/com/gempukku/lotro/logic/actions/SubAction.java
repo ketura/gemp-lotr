@@ -17,6 +17,15 @@ public class SubAction implements Action {
         _action = action;
     }
 
+    @Override
+    public void setVirtualCardAction(boolean virtualCardAction) {
+    }
+
+    @Override
+    public boolean isVirtualCardAction() {
+        return false;
+    }
+
     public void appendEffect(Effect effect) {
         _effects.add(effect);
     }

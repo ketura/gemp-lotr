@@ -15,6 +15,18 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     private Phase _actionTimeword;
     private String _performingPlayer;
 
+    private boolean _virtualCardAction = false;
+
+    @Override
+    public void setVirtualCardAction(boolean virtualCardAction) {
+        _virtualCardAction = virtualCardAction;
+    }
+
+    @Override
+    public boolean isVirtualCardAction() {
+        return _virtualCardAction;
+    }
+
     @Override
     public Phase getActionTimeword() {
         return _actionTimeword;

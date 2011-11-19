@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -32,7 +31,7 @@ public class SanctuaryRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_TURN
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(game.getGameState().getCurrentSite());

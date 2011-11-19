@@ -11,6 +11,10 @@ public interface Action {
 
     public PhysicalCard getActionAttachedToCard();
 
+    public void setVirtualCardAction(boolean virtualCardAction);
+
+    public boolean isVirtualCardAction();
+
     public void setPerformingPlayer(String playerId);
 
     public String getPerformingPlayer();

@@ -26,7 +26,7 @@ public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProces
         final List<Action> playableActions = _game.getActionsEnvironment().getPhaseActions(_playerId);
 
         _game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new CardActionSelectionDecision(_game, 1, "Choose action to play or Pass", playableActions, true) {
+                new CardActionSelectionDecision(_game, 1, "Choose action to play or Pass", playableActions) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         Action action = getSelectedAction(result);

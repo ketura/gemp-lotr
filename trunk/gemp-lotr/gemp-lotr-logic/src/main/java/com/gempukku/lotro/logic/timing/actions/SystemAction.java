@@ -6,6 +6,16 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public abstract class SystemAction implements Action {
+
+    @Override
+    public void setVirtualCardAction(boolean virtualCardAction) {
+    }
+
+    @Override
+    public boolean isVirtualCardAction() {
+        return false;
+    }
+
     @Override
     public PhysicalCard getActionSource() {
         return null;
