@@ -40,7 +40,8 @@ public class AddThreatsEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Add " + _count + " threat" + ((evaluateCount(game) > 1) ? "s" : "");
+        int number = evaluateCount(game);
+        return "Add " + number + " threat" + ((number > 1) ? "s" : "");
     }
 
     @Override
