@@ -9,7 +9,7 @@ public class KingBlockFormat extends DefaultLotroFormat {
         addRestrictedCard("7_49");
         addValidSet(7);
         addValidSet(8);
-        addValidSet(9);
+        addValidSet(10);
     }
 
     @Override
