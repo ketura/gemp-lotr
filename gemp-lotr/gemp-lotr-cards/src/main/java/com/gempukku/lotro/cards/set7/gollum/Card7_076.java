@@ -15,7 +15,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.PlaySiteEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -54,7 +53,7 @@ public class Card7_076 extends AbstractEvent {
                 new AddUntilEndOfPhaseActionProxyEffect(
                         new AbstractActionProxy() {
                             @Override
-                            public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                            public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                 if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
                                         && game.getGameState().getCurrentPhase() == Phase.REGROUP
                                         && moveCount == game.getGameState().getMoveCount()) {

@@ -15,7 +15,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
 
@@ -64,7 +63,7 @@ public class Card8_068 extends AbstractEvent {
                                     new AddUntilEndOfPhaseActionProxyEffect(
                                             new AbstractActionProxy() {
                                                 @Override
-                                                public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                                                public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                                     if (effectResult.getType() == EffectResult.Type.KILL) {
                                                         KillResult killResult = (KillResult) effectResult;
                                                         if (killResult.getKilledCards().contains(againstNazgul)) {

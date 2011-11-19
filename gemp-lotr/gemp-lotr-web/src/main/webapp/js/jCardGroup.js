@@ -47,6 +47,55 @@ var CardGroup = Class.extend({
     }
 });
 
+var VerticalBarGroup = CardGroup.extend({
+    init: function(container, belongTest, createDiv) {
+        this._super(container, belongTest, createDiv);
+    },
+
+    layoutCards: function() {
+        var cardsToLayout = new Array();
+        var that = this;
+        $(".card", this.container).each(function(index) {
+            var card = $(this).data("card");
+            if (that.belongTestFunc(card)) {
+                cardsToLayout.push($(this));
+            }
+        });
+
+        var cardCount = cardsToLayout.length;
+        var totalHeight = 0;
+
+        for (var cardId in cardsToLayout)
+            totalHeight += cardsToLayout[cardId].data("card").getHeightForWidth(this.width);
+
+        var resultPadding = Math.min(this.padding, (this.height - totalHeight) / (cardCount - 1));
+
+        var x = this.x;
+        var y = this.y;
+        var index = 10;
+        for (var cardId in cardsToLayout) {
+            var cardElem = cardsToLayout[cardId];
+            var cardData = cardsToLayout[cardId].data("card");
+            var cardHeight = (cardElem.data("card").getHeightForWidth(this.width));
+
+            if (cardData.attachedCards.length == 1) {
+                this.layoutCard(cardData.attachedCards[0], x + (this.width - cardHeight) / 2, y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
+                index++;
+            } else {
+                for (var i = 0; i < cardData.attachedCards.length; i++) {
+                    this.layoutCard(cardData.attachedCards[i], x + i * (this.width - cardHeight) / (cardData.attachedCards.length - 1), y - (this.width - cardHeight) / 2, cardHeight, this.width, index);
+                    index++;
+                }
+            }
+
+            this.layoutCard(cardElem, x, y, this.width, cardHeight, index);
+
+            y += cardHeight + resultPadding;
+            index++;
+        }
+    }
+});
+
 var AdvPathCardGroup = CardGroup.extend({
     positions: null,
     currentPlayerIndex: null,

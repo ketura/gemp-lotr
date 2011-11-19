@@ -16,7 +16,7 @@ public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
         _actions = actions;
 
         setParam("actionId", getActionIds(actions));
-        setParam("blueprintId", getCardIds(actions));
+        setParam("blueprintId", getBlueprintIds(actions));
         setParam("actionText", getActionTexts(actions));
     }
 
@@ -27,7 +27,7 @@ public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
         return result;
     }
 
-    private String[] getCardIds(List<? extends Action> actions) {
+    private String[] getBlueprintIds(List<? extends Action> actions) {
         String[] result = new String[actions.size()];
         for (int i = 0; i < result.length; i++) {
             PhysicalCard physicalCard = actions.get(i).getActionAttachedToCard();

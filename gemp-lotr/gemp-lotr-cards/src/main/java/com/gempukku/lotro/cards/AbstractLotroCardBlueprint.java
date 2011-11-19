@@ -198,7 +198,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public OptionalTriggerAction getKilledOptionalTrigger(LotroGame game, PhysicalCard self) {
+    public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
         return null;
     }
 

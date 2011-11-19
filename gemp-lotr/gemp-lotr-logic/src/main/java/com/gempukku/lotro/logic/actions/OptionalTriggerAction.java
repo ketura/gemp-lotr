@@ -13,15 +13,13 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
     private boolean _sentMessage;
     private String _text;
 
+    private boolean _virtual;
+
     public OptionalTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         _actionAttachedToCard = physicalCard;
 
         _text = "Optional trigger from " + GameUtils.getCardLink(_physicalCard);
-    }
-
-    public void setActionAttachedToCard(PhysicalCard actionAttachedToCard) {
-        _actionAttachedToCard = actionAttachedToCard;
     }
 
     @Override

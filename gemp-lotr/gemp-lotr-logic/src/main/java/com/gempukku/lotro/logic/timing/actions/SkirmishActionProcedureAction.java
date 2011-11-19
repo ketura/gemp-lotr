@@ -68,7 +68,7 @@ public class SkirmishActionProcedureAction extends SystemQueueAction {
             final List<Action> playableActions = game.getActionsEnvironment().getPhaseActions(playerId);
 
             game.getUserFeedback().sendAwaitingDecision(playerId,
-                    new CardActionSelectionDecision(game, 1, "Choose action to play or Pass", playableActions, true) {
+                    new CardActionSelectionDecision(game, 1, "Choose action to play or Pass", playableActions) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);

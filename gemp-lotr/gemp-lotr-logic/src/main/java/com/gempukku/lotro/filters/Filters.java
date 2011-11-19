@@ -49,7 +49,10 @@ public class Filters {
                         return gameState.getRingBearer(gameState.getCurrentPlayerId()) == physicalCard;
                     }
                 });
+        // Only companions can be rangers
         _keywordFilterMap.put(Keyword.RANGER, Filters.and(CardType.COMPANION, keyword(Keyword.RANGER)));
+        // Only allies can be villagers
+        _keywordFilterMap.put(Keyword.VILLAGER, Filters.and(CardType.ALLY, keyword(Keyword.VILLAGER)));
 
         // Minion groups
         _keywordFilterMap.put(Keyword.SOUTHRON, Filters.and(CardType.MINION, keyword(Keyword.SOUTHRON)));

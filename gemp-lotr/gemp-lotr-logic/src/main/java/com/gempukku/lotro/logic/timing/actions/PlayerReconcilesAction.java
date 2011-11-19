@@ -29,6 +29,15 @@ public class PlayerReconcilesAction implements Action {
     }
 
     @Override
+    public void setVirtualCardAction(boolean virtualCardAction) {
+    }
+
+    @Override
+    public boolean isVirtualCardAction() {
+        return false;
+    }
+
+    @Override
     public Phase getActionTimeword() {
         return null;
     }

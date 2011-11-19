@@ -41,6 +41,8 @@ var GempLotrGameUI = Class.extend({
     skirmishShadowGroup: null,
     skirmishFellowshipGroup: null,
 
+    extraActionsGroup: null,
+
     assignGroupDivs: null,
     shadowAssignGroups: null,
     freePeopleAssignGroups: null,
@@ -199,6 +201,9 @@ var GempLotrGameUI = Class.extend({
         this.supportPlayer = new NormalCardGroup($("#main"), function(card) {
             return (card.zone == "SUPPORT" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
+        this.extraActionsGroup = new NormalCardGroup($("#main"), function(card) {
+            return (card.zone == "EXTRA");
+        }, false);
         if (!this.spectatorMode) {
             this.hand = new NormalCardGroup($("#main"), function(card) {
                 return (card.zone == "HAND");
@@ -621,6 +626,7 @@ var GempLotrGameUI = Class.extend({
                 this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
 
             this.gameStateElem.css({ position: "absolute", left: padding * 2 + advPathWidth, top: padding, width: specialUiWidth - padding, height: height - padding * 4 - alertHeight - chatHeight});
+            this.extraActionsGroup.setBounds(padding * 2 + advPathWidth, padding + 160, specialUiWidth - padding, height - padding * 4 - alertHeight - chatHeight - 160);
             this.alertBox.css({ position: "absolute", left: padding * 2 + advPathWidth, top: height - (padding * 2) - alertHeight - chatHeight, width: specialUiWidth - padding, height: alertHeight });
 
 
@@ -1187,6 +1193,7 @@ var GempLotrGameUI = Class.extend({
         var text = decision.getAttribute("text");
 
         var cardIds = this.getDecisionParameters(decision, "cardId");
+        var blueprintIds = this.getDecisionParameters(decision, "blueprintId");
         var actionIds = this.getDecisionParameters(decision, "actionId");
         var actionTexts = this.getDecisionParameters(decision, "actionText");
 
@@ -1225,6 +1232,13 @@ var GempLotrGameUI = Class.extend({
             that.alertText.html("");
             that.alertButtons.html("");
             that.clearSelection();
+            $(".card").each(
+                    function() {
+                        var card = $(this).data("card");
+                        if (card.zone == "EXTRA")
+                            $(this).remove();
+                    });
+            that.extraActionsGroup.layoutCards();
             that.decisionFunction(id, "" + selectedCardIds);
         };
 
@@ -1236,19 +1250,43 @@ var GempLotrGameUI = Class.extend({
         };
 
         var allowSelection = function() {
+            var hasVirtual = false;
+
             for (var i = 0; i < cardIds.length; i++) {
                 var cardId = cardIds[i];
                 var actionId = actionIds[i];
                 var actionText = actionTexts[i];
+                var blueprintId = blueprintIds[i];
 
+                if (blueprintId == "inPlay") {
+                    var cardIdElem = $(".card:cardId(" + cardId + ")");
+                    if (cardIdElem.data("action") == null) {
+                        cardIdElem.data("action", new Array());
+                    }
 
-                var cardIdElem = $(".card:cardId(" + cardId + ")");
-                if (cardIdElem.data("action") == null) {
-                    cardIdElem.data("action", new Array());
+                    var actions = cardIdElem.data("action");
+                    actions.push({ actionId: actionId, actionText: actionText });
+                } else {
+                    hasVirtual = true;
+                    cardIds[i] = "extra" + cardId;
+                    var card = new Card(blueprintId, "EXTRA", "extra" + cardId, this.selfParticipantId);
+
+                    var cardDiv = that.createCardDiv(card);
+
+                    $("#main").append(cardDiv);
+
+                    var cardIdElem = $(".card:cardId(extra" + cardId + ")");
+                    if (cardIdElem.data("action") == null) {
+                        cardIdElem.data("action", new Array());
+                    }
+
+                    var actions = cardIdElem.data("action");
+                    actions.push({ actionId: actionId, actionText: actionText });
                 }
+            }
 
-                var actions = cardIdElem.data("action");
-                actions.push({ actionId: actionId, actionText: actionText });
+            if (hasVirtual) {
+                that.extraActionsGroup.layoutCards();
             }
 
             that.selectionFunction = function(cardId, event) {

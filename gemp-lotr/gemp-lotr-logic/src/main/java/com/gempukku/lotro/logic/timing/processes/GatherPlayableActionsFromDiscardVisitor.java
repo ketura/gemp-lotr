@@ -22,8 +22,12 @@ public class GatherPlayableActionsFromDiscardVisitor extends CompletePhysicalCar
     @Override
     protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
         List<? extends Action> list = physicalCard.getBlueprint().getPhaseActionsFromDiscard(_playerId, _game, physicalCard);
-        if (list != null)
-            _actions.addAll(list);
+        if (list != null) {
+            for (Action action : list) {
+                action.setVirtualCardAction(true);
+                _actions.add(action);
+            }
+        }
     }
 
     public List<? extends Action> getActions() {

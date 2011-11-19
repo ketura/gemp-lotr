@@ -43,25 +43,28 @@ public class Card8_092 extends AbstractCompanion {
     }
 
     @Override
-    public OptionalTriggerAction getKilledOptionalTrigger(LotroGame game, PhysicalCard self) {
-        OptionalTriggerAction action = new OptionalTriggerAction(self);
-        List<Effect> possibleEffects = new LinkedList<Effect>();
-        possibleEffects.add(
-                new ChooseAndPlayCardFromDeckEffect(self.getOwner(), Culture.ROHAN, CardType.COMPANION) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Play from deck";
-                    }
-                });
-        possibleEffects.add(
-                new ChooseAndPlayCardFromDiscardEffect(self.getOwner(), game, Culture.ROHAN, CardType.COMPANION) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Play from discard";
-                    }
-                });
-        action.appendEffect(
-                new ChoiceEffect(action, self.getOwner(), possibleEffects));
-        return action;
+    public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
+        if (playerId.equals(self.getOwner())) {
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            List<Effect> possibleEffects = new LinkedList<Effect>();
+            possibleEffects.add(
+                    new ChooseAndPlayCardFromDeckEffect(self.getOwner(), Culture.ROHAN, CardType.COMPANION) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Play from deck";
+                        }
+                    });
+            possibleEffects.add(
+                    new ChooseAndPlayCardFromDiscardEffect(self.getOwner(), game, Culture.ROHAN, CardType.COMPANION) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Play from discard";
+                        }
+                    });
+            action.appendEffect(
+                    new ChoiceEffect(action, self.getOwner(), possibleEffects));
+            return action;
+        }
+        return null;
     }
 }

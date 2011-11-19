@@ -6,7 +6,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.KillEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.actions.ResolveSkirmishDamageAction;
 import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
@@ -29,7 +28,7 @@ public class ResolveSkirmishRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.RESOLVE_SKIRMISH) {
                             NormalSkirmishResult skirmishResult = (NormalSkirmishResult) effectResult;
                             ResolveSkirmishDamageAction action = new ResolveSkirmishDamageAction(skirmishResult);

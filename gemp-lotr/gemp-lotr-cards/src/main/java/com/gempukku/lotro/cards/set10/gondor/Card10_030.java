@@ -17,7 +17,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -53,7 +52,7 @@ public class Card10_030 extends AbstractEvent {
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
                                             @Override
-                                            public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                                            public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                                 if (TriggerConditions.winsSkirmish(game, effectResult, card)) {
                                                     RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                     List<Effect> possibleEffects = new LinkedList<Effect>();

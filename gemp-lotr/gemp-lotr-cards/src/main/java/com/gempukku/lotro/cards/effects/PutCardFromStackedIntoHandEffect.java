@@ -38,7 +38,7 @@ public class PutCardFromStackedIntoHandEffect extends AbstractEffect {
         if (_card.getZone() == Zone.STACKED
                 && game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _card.getOwner())) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_card.getOwner() + " puts " + GameUtils.getCardLink(_card) + " from stacked on another card into his or her hand");
+            gameState.sendMessage(_card.getOwner() + " puts " + GameUtils.getCardLink(_card) + " from " + GameUtils.getCardLink(_card.getStackedOn()) + " into his or her hand");
             gameState.removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             gameState.addCardToZone(game, _card, Zone.HAND);
 

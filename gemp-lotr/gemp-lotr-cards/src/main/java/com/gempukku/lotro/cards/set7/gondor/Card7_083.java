@@ -13,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -47,7 +46,7 @@ public class Card7_083 extends AbstractEvent {
                                     new AddUntilEndOfPhaseActionProxyEffect(
                                             new AbstractActionProxy() {
                                                 @Override
-                                                public List<? extends Action> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                                                public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                                     if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)) {
                                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                         action.appendEffect(

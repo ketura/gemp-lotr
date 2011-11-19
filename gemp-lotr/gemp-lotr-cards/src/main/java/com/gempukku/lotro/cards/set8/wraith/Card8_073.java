@@ -13,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -46,11 +45,11 @@ public class Card8_073 extends AbstractEvent {
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
                                             @Override
-                                            public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
+                                            public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
                                                 if (TriggerConditions.winsSkirmish(game, effectResult, card)
                                                         && playerId.equals(card.getOwner())) {
                                                     OptionalTriggerAction action = new OptionalTriggerAction(self);
-                                                    action.setActionAttachedToCard(card);
+                                                    action.setVirtualCardAction(true);
                                                     action.appendEffect(
                                                             new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, PossessionClass.MOUNT));
                                                     return Collections.singletonList(action);

@@ -13,7 +13,6 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -62,7 +61,7 @@ public class Card2_079 extends AbstractOldEvent {
                             game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(
                                     new AbstractActionProxy() {
                                         @Override
-                                        public List<? extends Action> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
+                                        public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
                                             if (effectResults.getType() == EffectResult.Type.START_OF_PHASE
                                                     && lotroGame.getGameState().getCurrentPhase() == Phase.REGROUP) {
                                                 RequiredTriggerAction action = new RequiredTriggerAction(self);

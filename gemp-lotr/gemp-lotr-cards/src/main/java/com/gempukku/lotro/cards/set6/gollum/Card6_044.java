@@ -19,7 +19,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -62,11 +61,11 @@ public class Card6_044 extends AbstractEvent {
                 new AddUntilEndOfPhaseActionProxyEffect(
                         new AbstractActionProxy() {
                             @Override
-                            public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
+                            public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
                                 if (effectResults.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                                         && !lotroGame.getGameState().getCurrentPlayerId().equals(playerId)) {
                                     OptionalTriggerAction action = new OptionalTriggerAction(self);
-                                    action.setActionAttachedToCard(lotroGame.getGameState().getCurrentSite());
+                                    action.setVirtualCardAction(true);
                                     action.appendEffect(
                                             new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 0, 3, Side.SHADOW));
                                     return Collections.singletonList(action);

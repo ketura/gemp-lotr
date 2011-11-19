@@ -17,7 +17,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -56,10 +55,11 @@ public class Card4_307 extends AbstractEvent {
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
                                             @Override
-                                            public List<? extends Action> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
+                                            public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
                                                 if (TriggerConditions.winsSkirmish(effectResults, character)
                                                         && playerId.equals(character.getOwner())) {
-                                                    OptionalTriggerAction action = new OptionalTriggerAction(character);
+                                                    OptionalTriggerAction action = new OptionalTriggerAction(self);
+                                                    action.setVirtualCardAction(true);
                                                     action.appendEffect(
                                                             new RemoveBurdenEffect(self));
                                                     return Collections.singletonList(action);
