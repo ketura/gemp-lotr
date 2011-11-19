@@ -48,7 +48,12 @@ public class Card10_112 extends AbstractEvent {
         possibleEffects.add(
                 new RemoveBurdenEffect(self));
         possibleEffects.add(
-                new RemoveThreatsEffect(self, 2));
+                new RemoveThreatsEffect(self, 2) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Remove 2 threats";
+                    }
+                });
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));
         return action;
