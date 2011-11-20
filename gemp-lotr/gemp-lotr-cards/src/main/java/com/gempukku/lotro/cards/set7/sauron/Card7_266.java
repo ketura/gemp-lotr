@@ -3,14 +3,12 @@ package com.gempukku.lotro.cards.set7.sauron;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.PutCharacterFromPlayInDeadPileEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-
-import java.util.Collections;
 
 /**
  * Set: The Return of the King
@@ -43,13 +41,7 @@ public class Card7_266 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.insertEffect(
-                                new UnrespondableEffect() {
-                                    @Override
-                                    protected void doPlayEffect(LotroGame game) {
-                                        game.getGameState().removeCardsFromZone(game.getGameState().getCurrentPlayerId(), Collections.singleton(card));
-                                        game.getGameState().addCardToZone(game, card, Zone.DEAD);
-                                    }
-                                });
+                                new PutCharacterFromPlayInDeadPileEffect(card));
                     }
                 });
         return action;
