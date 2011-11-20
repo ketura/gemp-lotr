@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -22,6 +23,8 @@ public interface ModifiersQuerying {
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword);
 
     public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword);
+
+    public boolean hasSignet(GameState gameState, PhysicalCard physicalCard, Signet signet);
 
     // Archery
     public int getArcheryTotal(GameState gameState, Side side, int baseArcheryTotal);

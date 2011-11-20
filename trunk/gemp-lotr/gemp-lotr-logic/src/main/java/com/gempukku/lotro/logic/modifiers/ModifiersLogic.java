@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -247,6 +248,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                         return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean hasSignet(GameState gameState, PhysicalCard physicalCard, Signet signet) {
+        LoggingThreadLocal.logMethodStart(physicalCard, "hasSignet " + signet);
+        try {
+            if (physicalCard.getBlueprint().getSignet() == signet)
+                return true;
+            for (Modifier modifier : getModifiers(gameState, ModifierEffect.SIGNET_MODIFIER)) {
+                if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
+                    if (modifier.hasSignet(gameState, this, physicalCard, signet))
+                        return true;
+            }
+            return false;
+        } finally {
+            LoggingThreadLocal.logMethodEnd();
+        }
     }
 
     @Override
