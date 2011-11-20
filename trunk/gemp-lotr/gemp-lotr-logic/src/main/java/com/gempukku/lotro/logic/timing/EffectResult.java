@@ -16,6 +16,8 @@ public abstract class EffectResult {
         START_OF_TURN,
         END_OF_TURN,
 
+        RECONCILE,
+
         PLAY, ACTIVATE, DRAW_CARD_OR_PUT_INTO_HAND,
 
         PUT_ON_THE_ONE_RING, REMOVE_BURDEN, ADD_BURDEN, ADD_THREAT,

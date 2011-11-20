@@ -9,8 +9,10 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.results.ReconcileResult;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -84,6 +86,8 @@ public class PlayerReconcilesAction implements Action {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                 _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, cards, false));
+                                _effectQueue.add(
+                                        new TriggeringResultEffect(new ReconcileResult(), "Player reconciled"));
                             }
                         }));
             } else if (cardsInHand.size() > 0) {
@@ -99,10 +103,14 @@ public class PlayerReconcilesAction implements Action {
                                 if (cardsInHandAfterDiscard < 8) {
                                     _effectQueue.add(new DrawCardEffect(_playerId, 8 - cardsInHandAfterDiscard));
                                 }
+                                _effectQueue.add(
+                                        new TriggeringResultEffect(new ReconcileResult(), "Player reconciled"));
                             }
                         }));
             } else {
                 _effectQueue.add(new DrawCardEffect(_playerId, 8));
+                _effectQueue.add(
+                        new TriggeringResultEffect(new ReconcileResult(), "Player reconciled"));
             }
         }
 
