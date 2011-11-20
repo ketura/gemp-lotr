@@ -16,11 +16,19 @@ import java.util.Collection;
 public class StartOfPhaseGameProcess implements GameProcess {
     private LotroGame _game;
     private Phase _phase;
+    private String _playerId;
     private GameProcess _followingGameProcess;
 
     public StartOfPhaseGameProcess(LotroGame game, Phase phase, GameProcess followingGameProcess) {
         _game = game;
         _phase = phase;
+        _followingGameProcess = followingGameProcess;
+    }
+
+    public StartOfPhaseGameProcess(LotroGame game, Phase phase, String playerId, GameProcess followingGameProcess) {
+        _game = game;
+        _phase = phase;
+        _playerId = playerId;
         _followingGameProcess = followingGameProcess;
     }
 
@@ -53,7 +61,7 @@ public class StartOfPhaseGameProcess implements GameProcess {
                     }
                 });
         action.appendEffect(
-                new TriggeringResultEffect(null, new StartOfPhaseResult(_phase), "Start of " + _phase + " phase"));
+                new TriggeringResultEffect(null, new StartOfPhaseResult(_phase, _playerId), "Start of " + _phase + " phase"));
 
         _game.getActionsEnvironment().addActionToStack(action);
     }

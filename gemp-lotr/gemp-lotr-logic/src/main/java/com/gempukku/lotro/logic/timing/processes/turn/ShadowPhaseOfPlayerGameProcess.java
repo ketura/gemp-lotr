@@ -36,7 +36,7 @@ public class ShadowPhaseOfPlayerGameProcess implements GameProcess {
         else
             followingGameProcess = new ShadowPhaseOfPlayerGameProcess(_game, _playOrder, nextPlayer);
 
-        return new StartOfPhaseGameProcess(_game, Phase.SHADOW,
+        return new StartOfPhaseGameProcess(_game, Phase.SHADOW, _shadowPlayer,
                 new PlayerPlaysPhaseActionsUntilPassesGameProcess(_game, _shadowPlayer,
                         new EndOfPhaseGameProcess(_game, Phase.SHADOW,
                                 followingGameProcess)));
