@@ -43,9 +43,7 @@ public class Card1_023 extends AbstractResponseOldEvent {
                     new ChooseOpponentEffect(playerId) {
                         @Override
                         protected void opponentChosen(String opponentId) {
-                            action.appendEffect(new DiscardTopCardFromDeckEffect(self, opponentId, true));
-                            action.appendEffect(new DiscardTopCardFromDeckEffect(self, opponentId, true));
-                            action.appendEffect(new DiscardTopCardFromDeckEffect(self, opponentId, true));
+                            action.appendEffect(new DiscardTopCardFromDeckEffect(self, opponentId, 3, true));
                         }
                     });
             return Collections.singletonList(action);
