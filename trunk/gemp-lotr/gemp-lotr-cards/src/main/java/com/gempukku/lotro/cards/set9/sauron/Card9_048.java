@@ -31,6 +31,6 @@ public class Card9_048 extends AbstractMinion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -(gameState.getTwilightPool() + gameState.getThreats() + Filters.countSpottable(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner())));
+        return -(gameState.getBurdens() + gameState.getThreats() + Filters.countSpottable(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner())));
     }
 }
