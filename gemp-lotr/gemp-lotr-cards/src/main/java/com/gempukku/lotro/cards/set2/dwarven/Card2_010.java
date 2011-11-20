@@ -30,7 +30,7 @@ public class Card2_010 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public boolean isExtraPossessionClass() {
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self) {
         return true;
     }
 
