@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 public class MovieFormat extends DefaultLotroFormat {
     public MovieFormat(LotroCardBlueprintLibrary library) {
-        super(library, Block.KING, true, 60, 4, true);
+        super(library, Block.KING, true, 60, 4, true, false);
         addBannedCard("8_1");
         addBannedCard("3_38");
         addBannedCard("3_106");
