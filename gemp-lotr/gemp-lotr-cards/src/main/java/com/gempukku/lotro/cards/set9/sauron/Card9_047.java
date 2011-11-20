@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
@@ -55,7 +55,7 @@ public class Card9_047 extends AbstractPermanent {
                 && (((StartOfPhaseResult) effectResult).getPlayerId().equals(playerId))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardEffect(playerId, 1));
+                    new DrawCardsEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

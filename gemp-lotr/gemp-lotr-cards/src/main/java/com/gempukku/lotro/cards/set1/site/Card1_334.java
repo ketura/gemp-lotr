@@ -9,7 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
@@ -36,7 +36,7 @@ public class Card1_334 extends AbstractSite {
             PhysicalCard attachedTo = playCardResult.getAttachedTo();
             if (attachedTo != null && attachedTo.getBlueprint().getCardType() == CardType.COMPANION) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new DrawCardEffect(game.getGameState().getCurrentPlayerId(), 1));
+                action.appendEffect(new DrawCardsEffect(game.getGameState().getCurrentPlayerId(), 1));
                 return Collections.singletonList(action);
             }
         }

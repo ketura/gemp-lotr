@@ -7,7 +7,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class Card4_362 extends AbstractSite {
                     && companionCount > 4) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new DrawCardEffect(playerId, companionCount - 4));
+                        new DrawCardsEffect(playerId, companionCount - 4));
                 return Collections.singletonList(action);
             }
         }

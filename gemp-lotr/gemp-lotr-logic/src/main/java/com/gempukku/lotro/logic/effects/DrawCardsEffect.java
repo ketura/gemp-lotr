@@ -7,11 +7,11 @@ import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 import java.util.Collections;
 
-public class DrawCardEffect extends AbstractEffect {
+public class DrawCardsEffect extends AbstractEffect {
     private String _playerId;
     private final int _count;
 
-    public DrawCardEffect(String playerId, int count) {
+    public DrawCardsEffect(String playerId, int count) {
         _playerId = playerId;
         _count = count;
     }

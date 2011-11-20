@@ -14,7 +14,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -67,7 +67,7 @@ public class Card9_026 extends AbstractCompanion {
                                         protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
                                             if (cardsBeingDiscarded.size() == 2)
                                                 action.appendEffect(
-                                                        new DrawCardEffect(opponent, 2));
+                                                        new DrawCardsEffect(opponent, 2));
                                         }
                                     }));
                     actions.add(action);

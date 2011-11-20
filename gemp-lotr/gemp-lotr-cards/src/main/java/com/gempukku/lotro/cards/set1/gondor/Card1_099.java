@@ -11,7 +11,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class Card1_099 extends AbstractOldEvent {
                             game.getGameState().putCardOnBottomOfDeck(physicalCard);
                         game.getGameState().shuffleDeck(opponentId);
 
-                        action.appendEffect(new DrawCardEffect(opponentId, 8));
+                        action.appendEffect(new DrawCardsEffect(opponentId, 8));
                     }
                 });
         return action;

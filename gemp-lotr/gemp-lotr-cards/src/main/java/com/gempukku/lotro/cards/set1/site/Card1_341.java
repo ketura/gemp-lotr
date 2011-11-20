@@ -10,7 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -36,7 +36,7 @@ public class Card1_341 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Race.ELF));
-            action.appendEffect(new DrawCardEffect(playerId, 1));
+            action.appendEffect(new DrawCardsEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

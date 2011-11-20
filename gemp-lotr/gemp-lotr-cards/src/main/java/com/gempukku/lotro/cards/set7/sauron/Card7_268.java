@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
@@ -52,7 +52,7 @@ public class Card7_268 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             int cards = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.BESIEGER) ? 2 : 1;
             action.appendEffect(
-                    new DrawCardEffect(playerId, cards));
+                    new DrawCardsEffect(playerId, cards));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

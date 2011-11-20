@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 /**
  * Set: The Two Towers
@@ -43,7 +43,7 @@ public class Card4_056 extends AbstractOldEvent {
         action.appendCost(
                 new DiscardTopCardFromDeckEffect(self, playerId, false));
         action.appendEffect(
-                new DrawCardEffect(playerId, 2));
+                new DrawCardsEffect(playerId, 2));
         return action;
     }
 }

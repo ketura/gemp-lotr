@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -95,7 +95,7 @@ public class Card9_037 extends AbstractPermanent {
             action.appendEffect(
                     new DiscardCardsFromHandEffect(self, playerId, new HashSet<PhysicalCard>(game.getGameState().getHand(playerId)), false));
             action.appendEffect(
-                    new DrawCardEffect(playerId, 3));
+                    new DrawCardsEffect(playerId, 3));
             return Collections.singletonList(action);
         }
         return null;

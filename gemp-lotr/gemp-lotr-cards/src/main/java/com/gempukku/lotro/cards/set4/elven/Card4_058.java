@@ -8,7 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
@@ -40,7 +40,7 @@ public class Card4_058 extends AbstractOldEvent {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotted = getValidatedResult(result);
                                 action.appendEffect(
-                                        new DrawCardEffect(playerId, spotted));
+                                        new DrawCardsEffect(playerId, spotted));
                             }
                         }));
         return action;

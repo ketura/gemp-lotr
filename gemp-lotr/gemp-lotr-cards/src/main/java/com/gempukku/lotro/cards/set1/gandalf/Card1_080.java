@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
@@ -54,7 +54,7 @@ public class Card1_080 extends AbstractAlly {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             action.appendEffect(new DiscardCardsFromHandEffect(self, playerId, selectedCards, false));
-                            action.appendEffect(new DrawCardEffect(playerId, selectedCards.size()));
+                            action.appendEffect(new DrawCardsEffect(playerId, selectedCards.size()));
                         }
                     });
             return Collections.singletonList(action);

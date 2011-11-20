@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -72,7 +72,7 @@ public class Card7_024 extends AbstractPermanent {
                         }
                     });
             possibleEffects.add(
-                    new DrawCardEffect(playerId, 2));
+                    new DrawCardsEffect(playerId, 2));
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
             return Collections.singletonList(action);

@@ -15,7 +15,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -50,7 +50,7 @@ public class Card2_015 extends AbstractOldEvent {
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(final String opponentId) {
-                        action.insertEffect(new DrawCardEffect(opponentId, 2));
+                        action.insertEffect(new DrawCardsEffect(opponentId, 2));
                         List<Effect> possibleEffects = new LinkedList<Effect>();
                         possibleEffects.add(
                                 new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false, 2, 2, Side.SHADOW) {

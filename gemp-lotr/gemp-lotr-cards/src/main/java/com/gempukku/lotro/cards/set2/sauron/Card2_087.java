@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 /**
  * Set: Mines of Moria
@@ -45,7 +45,7 @@ public class Card2_087 extends AbstractOldEvent {
                     protected void burdensSpotted(int burdensSpotted) {
                         int cardsDrawn = Math.min(5, burdensSpotted);
                         action.insertEffect(
-                                new DrawCardEffect(playerId, cardsDrawn));
+                                new DrawCardsEffect(playerId, cardsDrawn));
                     }
                 });
         return action;
