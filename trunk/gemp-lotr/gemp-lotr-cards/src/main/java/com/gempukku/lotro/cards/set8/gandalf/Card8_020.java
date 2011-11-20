@@ -4,17 +4,19 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
+import com.gempukku.lotro.cards.effects.PutCharacterFromPlayInDeadPileEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Set: Siege of Gondor
@@ -44,13 +46,7 @@ public class Card8_020 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.insertCost(
-                                new UnrespondableEffect() {
-                                    @Override
-                                    protected void doPlayEffect(LotroGame game) {
-                                        game.getGameState().removeCardsFromZone(playerId, Collections.singleton(card));
-                                        game.getGameState().addCardToZone(game, card, Zone.DEAD);
-                                    }
-                                });
+                                new PutCharacterFromPlayInDeadPileEffect(card));
                         action.appendEffect(
                                 new ChooseArbitraryCardsEffect(playerId, "Choose cards to put in your hand", game.getGameState().getDeck(playerId), 0, 3) {
                                     @Override
