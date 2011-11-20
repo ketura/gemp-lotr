@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 import java.util.Collection;
 
@@ -47,7 +47,7 @@ public class Card3_049 extends AbstractOldEvent {
                     protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
                         int cardsCount = cardsBeingDiscarded.size();
                         action.appendEffect(
-                                new DrawCardEffect(playerId, cardsCount));
+                                new DrawCardsEffect(playerId, cardsCount));
                     }
                 });
         return action;

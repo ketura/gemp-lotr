@@ -10,7 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -40,7 +40,7 @@ public class Card5_103 extends AbstractMinion {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int sitesControlled = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId));
             action.appendEffect(
-                    new DrawCardEffect(playerId, Math.min(3, sitesControlled)));
+                    new DrawCardsEffect(playerId, Math.min(3, sitesControlled)));
             return Collections.singletonList(action);
         }
         return null;

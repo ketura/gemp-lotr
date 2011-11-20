@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -37,7 +37,7 @@ public class Card1_197 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.MORIA, Race.ORC));
         action.appendEffect(
-                new DrawCardEffect(playerId, 2));
+                new DrawCardsEffect(playerId, 2));
         return action;
     }
 

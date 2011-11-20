@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -30,7 +30,7 @@ public class Card1_362 extends AbstractSite {
             if (!playerId.equals(game.getGameState().getCurrentPlayerId())) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new DrawCardEffect(playerId, game.getGameState().getBurdens()));
+                        new DrawCardsEffect(playerId, game.getGameState().getBurdens()));
                 return Collections.singletonList(action);
             }
         }

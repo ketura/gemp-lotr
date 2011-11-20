@@ -13,7 +13,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -56,7 +56,7 @@ public class Card10_029 extends AbstractEvent {
                                                                             action.appendEffect(
                                                                                     new DiscardCardsFromHandEffect(self, opponentId, Collections.singleton(selectedCard), true));
                                                                             action.appendEffect(
-                                                                                    new DrawCardEffect(opponentId, 1));
+                                                                                    new DrawCardsEffect(opponentId, 1));
                                                                         }
                                                                     }
                                                                 });

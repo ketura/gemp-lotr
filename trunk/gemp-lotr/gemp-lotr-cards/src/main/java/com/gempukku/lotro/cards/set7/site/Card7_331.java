@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -47,7 +47,7 @@ public class Card7_331 extends AbstractSite {
                                     protected void validDecisionMade(int index, String result) {
                                         if (index == 0) {
                                             action.insertEffect(
-                                                    new DrawCardEffect(drawingPlayerId, 1));
+                                                    new DrawCardsEffect(drawingPlayerId, 1));
                                         }
                                     }
                                 }));

@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 import java.util.List;
 
@@ -55,8 +55,8 @@ public class Card1_044 extends AbstractOldEvent {
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {
                                             action.appendEffect(new DiscardCardsFromHandEffect(self, opponentId, selectedCards, true));
-                                            action.appendEffect(new DrawCardEffect(playerId, 1));
-                                            action.appendEffect(new DrawCardEffect(playerId, 1));
+                                            action.appendEffect(new DrawCardsEffect(playerId, 1));
+                                            action.appendEffect(new DrawCardsEffect(playerId, 1));
                                         }
                                     }
                                 }

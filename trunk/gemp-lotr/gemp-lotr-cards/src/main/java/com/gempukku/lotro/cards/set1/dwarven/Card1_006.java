@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -38,7 +38,7 @@ public class Card1_006 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, CardType.COMPANION));
-        action.appendEffect(new DrawCardEffect(playerId, 3));
+        action.appendEffect(new DrawCardsEffect(playerId, 3));
         return action;
     }
 }

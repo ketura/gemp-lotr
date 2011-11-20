@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
@@ -38,7 +38,7 @@ public class Card1_206 extends AbstractPermanent {
                 && ((StartOfPhaseResult) effectResult).getPhase() == Phase.SHADOW) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DrawCardEffect(self.getOwner(), 1));
+                    new DrawCardsEffect(self.getOwner(), 1));
             return Collections.singletonList(action);
         }
         if (effectResult.getType() == EffectResult.Type.END_OF_PHASE

@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
@@ -50,7 +50,7 @@ public class Card7_011 extends AbstractEvent {
                                                         subAction.appendCost(
                                                                 new ExertCharactersEffect(self, card));
                                                         subAction.appendEffect(
-                                                                new DrawCardEffect(playerId, 2));
+                                                                new DrawCardsEffect(playerId, 2));
                                                         game.getActionsEnvironment().addActionToStack(subAction);
                                                     }
                                                 }

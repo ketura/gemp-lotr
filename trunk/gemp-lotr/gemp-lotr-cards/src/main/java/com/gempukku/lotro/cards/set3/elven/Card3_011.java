@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
@@ -61,7 +61,7 @@ public class Card3_011 extends AbstractOldEvent {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         action.insertEffect(
-                                new DrawCardEffect(playerId, integer.get()));
+                                new DrawCardsEffect(playerId, integer.get()));
                     }
                 });
         return null;

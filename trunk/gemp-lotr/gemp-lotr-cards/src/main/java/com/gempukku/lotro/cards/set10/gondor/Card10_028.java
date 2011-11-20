@@ -12,7 +12,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +59,7 @@ public class Card10_028 extends AbstractCompanion {
                         protected void opponentChosen(String opponentId) {
                             action.insertEffect(
                                     new OptionalEffect(action, opponentId,
-                                            new DrawCardEffect(opponentId, 2)));
+                                            new DrawCardsEffect(opponentId, 2)));
                         }
                     });
             return Collections.singletonList(action);

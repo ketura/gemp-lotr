@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 
 /**
@@ -43,7 +43,7 @@ public class Card2_026 extends AbstractOldEvent {
                         protected void sitePlayedCallback(PhysicalCard site) {
                             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), site, Keyword.UNDERGROUND))
                                 action.appendEffect(
-                                        new DrawCardEffect(playerId, 1));
+                                        new DrawCardsEffect(playerId, 1));
                         }
                     });
         }

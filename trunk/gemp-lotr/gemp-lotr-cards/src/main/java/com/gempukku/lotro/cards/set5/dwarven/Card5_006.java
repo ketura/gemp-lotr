@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffec
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -39,7 +39,7 @@ public class Card5_006 extends AbstractEvent {
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new DrawCardEffect(playerId, 1) {
+                new DrawCardsEffect(playerId, 1) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Draw a card";

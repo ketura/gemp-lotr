@@ -13,7 +13,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -55,7 +55,7 @@ public class Card5_108 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new DrawCardEffect(playerId, 1));
+                    new DrawCardsEffect(playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

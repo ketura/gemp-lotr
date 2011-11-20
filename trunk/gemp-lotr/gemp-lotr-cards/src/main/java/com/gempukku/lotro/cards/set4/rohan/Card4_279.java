@@ -12,7 +12,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -50,7 +50,7 @@ public class Card4_279 extends AbstractOldEvent {
                     }
                 });
         possibleEffects.add(
-                new DrawCardEffect(playerId, 3) {
+                new DrawCardsEffect(playerId, 3) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Draw 3 cards";

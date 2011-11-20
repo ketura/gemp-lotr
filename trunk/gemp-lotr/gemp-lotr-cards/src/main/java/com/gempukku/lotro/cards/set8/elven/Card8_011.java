@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 /**
  * Set: Siege of Gondor
@@ -38,7 +38,7 @@ public class Card8_011 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.ELF));
         action.appendEffect(
-                new DrawCardEffect(playerId, 3));
+                new DrawCardsEffect(playerId, 3));
         return action;
     }
 }

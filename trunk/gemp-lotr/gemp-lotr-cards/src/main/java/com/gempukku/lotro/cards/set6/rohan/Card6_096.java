@@ -14,7 +14,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
@@ -51,7 +51,7 @@ public class Card6_096 extends AbstractEvent {
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0)
                                         action.insertEffect(
-                                                new DrawCardEffect(opponentId, 6));
+                                                new DrawCardsEffect(opponentId, 6));
                                 }
                             }));
         }

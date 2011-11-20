@@ -12,7 +12,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -46,7 +46,7 @@ public class Card5_003 extends AbstractEvent {
                             protected void doPlayEffect(LotroGame game) {
                                 game.getGameState().shuffleCardsIntoDeck(game.getGameState().getHand(playerId), playerId);
                                 action.appendEffect(
-                                        new DrawCardEffect(playerId, 8));
+                                        new DrawCardsEffect(playerId, 8));
                             }
 
                             @Override

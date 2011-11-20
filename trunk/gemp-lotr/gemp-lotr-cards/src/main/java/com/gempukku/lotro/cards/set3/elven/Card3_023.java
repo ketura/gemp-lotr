@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -50,7 +50,7 @@ public class Card3_023 extends AbstractAttachableFPPossession {
                             int count = cardsBeingDiscarded.size();
                             if (count > 0)
                                 action.appendEffect(
-                                        new DrawCardEffect(playerId, count));
+                                        new DrawCardsEffect(playerId, count));
                         }
                     });
             return Collections.singletonList(action);

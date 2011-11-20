@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -89,7 +89,7 @@ public class Card9_038 extends AbstractPermanent {
             possibleEffect.add(
                     new RemoveTwilightEffect(2));
             possibleEffect.add(
-                    new DrawCardEffect(playerId, 1));
+                    new DrawCardsEffect(playerId, 1));
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffect));
             return Collections.singletonList(action);

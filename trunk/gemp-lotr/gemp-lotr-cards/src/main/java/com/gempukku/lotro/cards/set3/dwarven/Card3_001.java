@@ -6,7 +6,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class Card3_001 extends AbstractAttachable {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
             action.appendEffect(
-                    new DrawCardEffect(playerId, dwarfCompanions));
+                    new DrawCardsEffect(playerId, dwarfCompanions));
             return Collections.singletonList(action);
         }
         return null;

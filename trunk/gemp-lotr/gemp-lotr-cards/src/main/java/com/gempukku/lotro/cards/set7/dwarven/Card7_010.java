@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.DrawCardEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -48,7 +48,7 @@ public class Card7_010 extends AbstractPermanent {
                             int count = Filters.filter(cardsStacked, game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN).size();
                             if (count > 0)
                                 action.appendEffect(
-                                        new DrawCardEffect(playerId, count));
+                                        new DrawCardsEffect(playerId, count));
                         }
                     });
             return Collections.singletonList(action);
