@@ -6,6 +6,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
@@ -75,6 +76,8 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
         for (PhysicalCard card : discardedFromPlay)
             gameState.addCardToZone(game, card, Zone.DISCARD);
 
+        if (_source != null && cardsToReturnToHand.size() > 0)
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " returns " + getAppendedNames(cardsToReturnToHand) + " to hand");
         if (discardedFromPlay.size() > 0)
             return new FullEffectResult(Collections.singleton(new DiscardCardsFromPlayResult(discardedFromPlay)), true, true);
 
