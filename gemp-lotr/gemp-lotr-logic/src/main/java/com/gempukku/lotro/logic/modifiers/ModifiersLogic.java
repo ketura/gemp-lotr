@@ -573,6 +573,21 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public List<? extends Action> getExtraPhaseActionsFromStacked(GameState gameState, PhysicalCard target) {
+        List<Action> activateCardActions = new LinkedList<Action>();
+
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.EXTRA_ACTION_MODIFIER)) {
+            if (affectsCardWithSkipSet(gameState, target, modifier)) {
+                List<? extends Action> actions = modifier.getExtraPhaseActionFromStacked(gameState, this, target);
+                if (actions != null)
+                    activateCardActions.addAll(actions);
+            }
+        }
+
+        return activateCardActions;
+    }
+
+    @Override
     public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments) {
 
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.ASSIGNMENT_MODIFIER)) {

@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromDiscardVisitor;
-import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromStackedVisitor;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 
@@ -445,4 +444,37 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             return _actions;
         }
     }
+
+    private class GatherPlayableActionsFromStackedVisitor extends CompletePhysicalCardVisitor {
+        private LotroGame _game;
+        private String _playerId;
+
+        private List<Action> _actions = new LinkedList<Action>();
+
+        public GatherPlayableActionsFromStackedVisitor(LotroGame game, String playerId) {
+            _game = game;
+            _playerId = playerId;
+        }
+
+        @Override
+        protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
+            List<? extends Action> list = physicalCard.getBlueprint().getPhaseActionsFromStacked(_playerId, _game, physicalCard);
+            if (list != null)
+                _actions.addAll(list);
+            final List<? extends Action> extraActions = _game.getModifiersQuerying().getExtraPhaseActionsFromStacked(_game.getGameState(), physicalCard);
+            if (extraActions != null) {
+                for (Action action : extraActions) {
+                    if (action != null)
+                        _actions.add(action);
+                    else
+                        System.out.println("Null action from: " + physicalCard.getBlueprint().getName());
+                }
+            }
+        }
+
+        public List<? extends Action> getActions() {
+            return _actions;
+        }
+    }
+
 }
