@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_096 extends AbstractCompanion {
     public Card1_096() {
-        super(3, 7, 3, Culture.GONDOR, Race.MAN, Signet.ARAGORN, "Boromir", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, Signet.ARAGORN, "Boromir", true);
         addKeyword(Keyword.RANGER);
     }
 

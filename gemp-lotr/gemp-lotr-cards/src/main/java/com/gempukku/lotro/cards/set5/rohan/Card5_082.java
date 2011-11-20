@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card5_082 extends AbstractCompanion {
     public Card5_082() {
-        super(2, 6, 3, Culture.ROHAN, Race.MAN, null, "Gamling", true);
+        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Gamling", true);
         addKeyword(Keyword.VALIANT);
     }
 

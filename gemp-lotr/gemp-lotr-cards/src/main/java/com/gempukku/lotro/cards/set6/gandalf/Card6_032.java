@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card6_032 extends AbstractCompanion {
     public Card6_032() {
-        super(13, 10, 4, Culture.GANDALF, Race.ENT, null, "Host of Fangorn", true);
+        super(13, 10, 4, 6, Culture.GANDALF, Race.ENT, null, "Host of Fangorn", true);
     }
 
     @Override

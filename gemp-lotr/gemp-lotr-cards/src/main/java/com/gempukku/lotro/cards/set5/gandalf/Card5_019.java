@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card5_019 extends AbstractCompanion {
     public Card5_019() {
-        super(4, 10, 4, Culture.GANDALF, Race.ENT, null, "Lindenroot", true);
+        super(4, 10, 4, 6, Culture.GANDALF, Race.ENT, null, "Lindenroot", true);
         addKeyword(Keyword.UNHASTY);
     }
 

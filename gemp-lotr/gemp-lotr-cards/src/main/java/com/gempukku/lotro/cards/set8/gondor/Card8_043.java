@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card8_043 extends AbstractCompanion {
     public Card8_043() {
-        super(5, 9, 3, Culture.GONDOR, Race.WRAITH, Signet.ARAGORN, "Shadow Host", true);
+        super(5, 9, 3, 6, Culture.GONDOR, Race.WRAITH, Signet.ARAGORN, "Shadow Host", true);
         addKeyword(Keyword.ENDURING);
     }
 

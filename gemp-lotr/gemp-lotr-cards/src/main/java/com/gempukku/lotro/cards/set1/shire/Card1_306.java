@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_306 extends AbstractCompanion {
     public Card1_306() {
-        super(1, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Pippin", true);
+        super(1, 3, 4, 6, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Pippin", true);
     }
 
     @Override

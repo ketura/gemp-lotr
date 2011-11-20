@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_089 extends AbstractCompanion {
     public Card1_089() {
-        super(4, 8, 4, Culture.GONDOR, Race.MAN, Signet.GANDALF, "Aragorn", true);
+        super(4, 8, 4, 6, Culture.GONDOR, Race.MAN, Signet.GANDALF, "Aragorn", true);
         addKeyword(Keyword.RANGER);
     }
 

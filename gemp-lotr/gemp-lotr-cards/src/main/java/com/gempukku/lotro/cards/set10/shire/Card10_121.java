@@ -20,12 +20,7 @@ import com.gempukku.lotro.common.Signet;
  */
 public class Card10_121 extends AbstractCompanion {
     public Card10_121() {
-        super(0, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Frodo", true);
+        super(0, 3, 4, 12, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Frodo", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
-    }
-
-    @Override
-    public int getResistance() {
-        return 12;
     }
 }

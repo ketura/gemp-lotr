@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card9_025 extends AbstractCompanion {
     public Card9_025() {
-        super(2, 6, 4, Culture.GANDALF, Race.TREE, null, "Huorn");
+        super(2, 6, 4, 6, Culture.GANDALF, Race.TREE, null, "Huorn");
         addKeyword(Keyword.DAMAGE, 1);
     }
 

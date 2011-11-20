@@ -32,13 +32,8 @@ import java.util.List;
  */
 public class Card7_326 extends AbstractCompanion {
     public Card7_326() {
-        super(2, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.ARAGORN, "Sam", true);
+        super(2, 3, 4, 5, Culture.SHIRE, Race.HOBBIT, Signet.ARAGORN, "Sam", true);
         addKeyword(Keyword.RING_BOUND);
-    }
-
-    @Override
-    public int getResistance() {
-        return 5;
     }
 
     @Override

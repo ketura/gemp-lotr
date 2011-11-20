@@ -18,7 +18,7 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card5_035 extends AbstractCompanion {
     public Card5_035() {
-        super(2, 6, 3, Culture.GONDOR, Race.MAN, null, "Gondorian Knight");
+        super(2, 6, 3, 6, Culture.GONDOR, Race.MAN, null, "Gondorian Knight");
         addKeyword(Keyword.KNIGHT);
     }
 }

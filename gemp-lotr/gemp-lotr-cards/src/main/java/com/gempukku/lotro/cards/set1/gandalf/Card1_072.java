@@ -28,7 +28,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  */
 public class Card1_072 extends AbstractCompanion {
     public Card1_072() {
-        super(4, 6, 4, Culture.GANDALF, Race.WIZARD, Signet.FRODO, "Gandalf", true);
+        super(4, 6, 4, 6, Culture.GANDALF, Race.WIZARD, Signet.FRODO, "Gandalf", true);
     }
 
     @Override

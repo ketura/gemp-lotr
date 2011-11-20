@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Card10_026 extends AbstractCompanion {
     public Card10_026() {
-        super(3, 7, 3, Culture.GONDOR, Race.WRAITH, null, "Cursed of Erech", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.WRAITH, null, "Cursed of Erech", true);
         addKeyword(Keyword.ENDURING);
     }
 

@@ -28,14 +28,9 @@ import java.util.List;
  */
 public class Card7_318 extends AbstractCompanion {
     public Card7_318() {
-        super(0, 3, 4, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Frodo", true);
+        super(0, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Frodo", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
         addKeyword(Keyword.RING_BOUND);
-    }
-
-    @Override
-    public int getResistance() {
-        return 10;
     }
 
     @Override

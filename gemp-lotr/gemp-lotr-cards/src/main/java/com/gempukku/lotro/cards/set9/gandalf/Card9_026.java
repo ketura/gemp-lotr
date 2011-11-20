@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card9_026 extends AbstractCompanion {
     public Card9_026() {
-        super(4, 8, 4, Culture.GANDALF, Race.WIZARD, Signet.GANDALF, "Radagast", true);
+        super(4, 8, 4, 6, Culture.GANDALF, Race.WIZARD, Signet.GANDALF, "Radagast", true);
     }
 
     @Override

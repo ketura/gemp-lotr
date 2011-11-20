@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_096 extends AbstractCompanion {
     public Card7_096() {
-        super(2, 6, 3, Culture.GONDOR, Race.MAN, null, "Gondorian Captain");
+        super(2, 6, 3, 6, Culture.GONDOR, Race.MAN, null, "Gondorian Captain");
         addKeyword(Keyword.KNIGHT);
     }
 

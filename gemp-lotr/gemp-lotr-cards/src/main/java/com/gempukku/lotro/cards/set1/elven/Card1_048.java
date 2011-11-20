@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_048 extends AbstractCompanion {
     public Card1_048() {
-        super(2, 5, 3, Culture.ELVEN, Race.ELF, null, "Haldir", true);
+        super(2, 5, 3, 6, Culture.ELVEN, Race.ELF, null, "Haldir", true);
     }
 
     @Override

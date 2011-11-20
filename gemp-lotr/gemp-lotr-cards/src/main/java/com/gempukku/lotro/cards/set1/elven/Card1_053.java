@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card1_053 extends AbstractCompanion {
     public Card1_053() {
-        super(1, 4, 2, Culture.ELVEN, Race.ELF, null, "Lorien Elf");
+        super(1, 4, 2, 6, Culture.ELVEN, Race.ELF, null, "Lorien Elf");
     }
 
     @Override

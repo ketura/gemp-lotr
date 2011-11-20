@@ -18,7 +18,7 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card5_083 extends AbstractCompanion {
     public Card5_083() {
-        super(2, 6, 3, Culture.ROHAN, Race.MAN, null, "Household Guard");
+        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Household Guard");
         addKeyword(Keyword.VALIANT);
     }
 }

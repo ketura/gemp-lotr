@@ -40,7 +40,7 @@ public class AbstractAlly extends AbstractPermanent {
         _race = race;
     }
 
-    public Race getRace() {
+    public final Race getRace() {
         return _race;
     }
 
@@ -83,7 +83,7 @@ public class AbstractAlly extends AbstractPermanent {
     }
 
     @Override
-    public int getResistance() {
+    public final int getResistance() {
         return 0;
     }
 }

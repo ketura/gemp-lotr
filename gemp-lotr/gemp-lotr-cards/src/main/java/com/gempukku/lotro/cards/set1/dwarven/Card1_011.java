@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_011 extends AbstractCompanion {
     public Card1_011() {
-        super(2, 5, 3, Culture.DWARVEN, Race.DWARF, null, "Farin", true);
+        super(2, 5, 3, 6, Culture.DWARVEN, Race.DWARF, null, "Farin", true);
     }
 
     @Override
