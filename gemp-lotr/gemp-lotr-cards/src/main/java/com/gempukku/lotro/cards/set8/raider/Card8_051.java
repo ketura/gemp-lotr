@@ -51,7 +51,7 @@ public class Card8_051 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
-                                    new AddTokenEffect(self, self, Token.RAIDER, 2));
+                                    new AddTokenEffect(self, card, Token.RAIDER, 2));
                         }
                     });
             return Collections.singletonList(action);
