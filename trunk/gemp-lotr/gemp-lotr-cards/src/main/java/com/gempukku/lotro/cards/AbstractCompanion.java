@@ -15,27 +15,29 @@ import java.util.List;
 public abstract class AbstractCompanion extends AbstractPermanent {
     private int _strength;
     private int _vitality;
+    private int _resistance;
     private Race _race;
     private Signet _signet;
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Race race, Signet signet, String name) {
-        this(twilightCost, strength, vitality, culture, race, signet, name, false);
+    public AbstractCompanion(int twilightCost, int strength, int vitality, int resistance, Culture culture, Race race, Signet signet, String name) {
+        this(twilightCost, strength, vitality, resistance, culture, race, signet, name, false);
     }
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, Culture culture, Race race, Signet signet, String name, boolean unique) {
+    public AbstractCompanion(int twilightCost, int strength, int vitality, int resistance, Culture culture, Race race, Signet signet, String name, boolean unique) {
         super(Side.FREE_PEOPLE, twilightCost, CardType.COMPANION, culture, Zone.FREE_CHARACTERS, name, unique);
         _strength = strength;
         _vitality = vitality;
+        _resistance = resistance;
         _race = race;
         _signet = signet;
     }
 
-    public Race getRace() {
+    public final Race getRace() {
         return _race;
     }
 
     @Override
-    public Signet getSignet() {
+    public final Signet getSignet() {
         return _signet;
     }
 
@@ -74,7 +76,7 @@ public abstract class AbstractCompanion extends AbstractPermanent {
     }
 
     @Override
-    public int getResistance() {
-        return 6;
+    public final int getResistance() {
+        return _resistance;
     }
 }

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card8_034 extends AbstractCompanion {
     public Card8_034() {
-        super(3, 7, 3, Culture.GONDOR, Race.MAN, Signet.GANDALF, "Faramir", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, Signet.GANDALF, "Faramir", true);
         addKeyword(Keyword.KNIGHT);
     }
 

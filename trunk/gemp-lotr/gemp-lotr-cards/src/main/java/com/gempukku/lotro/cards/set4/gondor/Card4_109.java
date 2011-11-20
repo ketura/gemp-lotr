@@ -20,7 +20,7 @@ import com.gempukku.lotro.common.Signet;
  */
 public class Card4_109 extends AbstractCompanion {
     public Card4_109() {
-        super(4, 8, 4, Culture.GONDOR, Race.MAN, Signet.GANDALF, "Aragorn", true);
+        super(4, 8, 4, 6, Culture.GONDOR, Race.MAN, Signet.GANDALF, "Aragorn", true);
         addKeyword(Keyword.DEFENDER, 1);
     }
 }

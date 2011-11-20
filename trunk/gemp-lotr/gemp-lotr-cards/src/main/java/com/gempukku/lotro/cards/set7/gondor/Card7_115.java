@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_115 extends AbstractCompanion {
     public Card7_115() {
-        super(2, 5, 3, Culture.GONDOR, Race.MAN, null, "Ranger of Minas Tirith");
+        super(2, 5, 3, 6, Culture.GONDOR, Race.MAN, null, "Ranger of Minas Tirith");
         addKeyword(Keyword.RANGER);
     }
 

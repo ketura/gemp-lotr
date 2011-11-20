@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card1_007 extends AbstractCompanion {
     public Card1_007() {
-        super(1, 4, 2, Culture.DWARVEN, Race.DWARF, null, "Dwarf Guard", false);
+        super(1, 4, 2, 6, Culture.DWARVEN, Race.DWARF, null, "Dwarf Guard", false);
     }
 
     @Override

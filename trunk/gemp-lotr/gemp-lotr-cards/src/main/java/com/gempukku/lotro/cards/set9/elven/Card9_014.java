@@ -29,13 +29,8 @@ import java.util.List;
  */
 public class Card9_014 extends AbstractCompanion {
     public Card9_014() {
-        super(3, 3, 3, Culture.ELVEN, Race.ELF, null, "Galadriel", true);
+        super(3, 3, 3, 3, Culture.ELVEN, Race.ELF, null, "Galadriel", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
-    }
-
-    @Override
-    public int getResistance() {
-        return 3;
     }
 
     @Override

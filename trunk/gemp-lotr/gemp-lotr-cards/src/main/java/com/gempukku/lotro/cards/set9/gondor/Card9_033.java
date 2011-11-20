@@ -33,13 +33,8 @@ import java.util.List;
  */
 public class Card9_033 extends AbstractCompanion {
     public Card9_033() {
-        super(3, 7, 3, Culture.GONDOR, Race.MAN, null, "Isildur", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, null, "Isildur", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
-    }
-
-    @Override
-    public int getResistance() {
-        return 6;
     }
 
     @Override

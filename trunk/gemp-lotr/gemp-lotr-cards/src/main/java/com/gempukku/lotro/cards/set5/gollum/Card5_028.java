@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card5_028 extends AbstractCompanion {
     public Card5_028() {
-        super(0, 3, 4, Culture.GOLLUM, null, Signet.FRODO, "Smeagol", true);
+        super(0, 3, 4, 6, Culture.GOLLUM, null, Signet.FRODO, "Smeagol", true);
         addKeyword(Keyword.RING_BOUND);
     }
 
@@ -107,17 +107,17 @@ public class Card5_028 extends AbstractCompanion {
             } else if (_cards.size() > 1) {
                 game.getUserFeedback().sendAwaitingDecision(
                         _playerId, new ArbitraryCardsSelectionDecision(1, "Choose card to put on bottom of deck", _cards, 1, 1) {
-                    @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
-                        final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                        if (selectedCards.size() == 1) {
-                            PhysicalCard card = selectedCards.iterator().next();
-                            _cards.remove(card);
-                            game.getGameState().removeCardsFromZone(_playerId, Collections.singleton(card));
-                            game.getGameState().putCardOnBottomOfDeck(card);
-                        }
-                    }
-                });
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                if (selectedCards.size() == 1) {
+                                    PhysicalCard card = selectedCards.iterator().next();
+                                    _cards.remove(card);
+                                    game.getGameState().removeCardsFromZone(_playerId, Collections.singleton(card));
+                                    game.getGameState().putCardOnBottomOfDeck(card);
+                                }
+                            }
+                        });
             }
             return null;
         }

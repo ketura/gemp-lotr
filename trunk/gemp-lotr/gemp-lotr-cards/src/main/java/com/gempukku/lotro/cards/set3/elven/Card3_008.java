@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_008 extends AbstractCompanion {
     public Card3_008() {
-        super(2, 6, 3, Culture.ELVEN, Race.ELF, Signet.GANDALF, "Arwen", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, Signet.GANDALF, "Arwen", true);
     }
 
     @Override
@@ -35,9 +35,9 @@ public class Card3_008 extends AbstractCompanion {
                 new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.sameCard(self)),
                         new SpotCondition(
                                 3, Filters.and(
-                                Culture.ELVEN,
-                                CardType.ALLY,
-                                Filters.isAllyHome(3, Block.FELLOWSHIP)
-                        )), -3));
+                                        Culture.ELVEN,
+                                        CardType.ALLY,
+                                        Filters.isAllyHome(3, Block.FELLOWSHIP)
+                                )), -3));
     }
 }

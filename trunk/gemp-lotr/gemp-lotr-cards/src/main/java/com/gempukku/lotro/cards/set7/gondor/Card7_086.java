@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_086 extends AbstractCompanion {
     public Card7_086() {
-        super(2, 5, 3, Culture.GONDOR, Race.MAN, Signet.ARAGORN, "Denethor", true);
+        super(2, 5, 3, 6, Culture.GONDOR, Race.MAN, Signet.ARAGORN, "Denethor", true);
     }
 
     @Override

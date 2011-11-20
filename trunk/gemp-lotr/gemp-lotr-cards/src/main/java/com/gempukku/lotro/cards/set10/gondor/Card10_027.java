@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card10_027 extends AbstractCompanion {
     public Card10_027() {
-        super(2, 6, 3, Culture.GONDOR, Race.WRAITH, null, "Dead Man of Dunharrow");
+        super(2, 6, 3, 6, Culture.GONDOR, Race.WRAITH, null, "Dead Man of Dunharrow");
         addKeyword(Keyword.ENDURING);
     }
 

@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card6_033 extends AbstractCompanion {
     public Card6_033() {
-        super(4, 8, 3, Culture.GANDALF, Race.ENT, null, "Quickbeam", true);
+        super(4, 8, 3, 6, Culture.GANDALF, Race.ENT, null, "Quickbeam", true);
     }
 
     @Override

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_265 extends AbstractCompanion {
     public Card4_265() {
-        super(3, 6, 3, Culture.ROHAN, Race.MAN, null, "Elite Rider");
+        super(3, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Elite Rider");
     }
 
     @Override

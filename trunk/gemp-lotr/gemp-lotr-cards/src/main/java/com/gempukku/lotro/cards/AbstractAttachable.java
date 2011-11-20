@@ -28,7 +28,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
         _possessionClass = possessionClass;
     }
 
-    public PossessionClass getPossessionClass() {
+    public final PossessionClass getPossessionClass() {
         return _possessionClass;
     }
 

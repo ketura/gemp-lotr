@@ -38,14 +38,9 @@ import java.util.List;
  */
 public class Card9_004 extends AbstractCompanion {
     public Card9_004() {
-        super(2, 6, 3, Culture.DWARVEN, Race.DWARF, null, "Gimli", true);
+        super(2, 6, 3, 4, Culture.DWARVEN, Race.DWARF, null, "Gimli", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
         addKeyword(Keyword.DAMAGE, 1);
-    }
-
-    @Override
-    public int getResistance() {
-        return 4;
     }
 
     @Override

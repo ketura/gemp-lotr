@@ -35,14 +35,9 @@ import java.util.List;
  */
 public class Card9_030 extends AbstractCompanion {
     public Card9_030() {
-        super(0, 3, 4, Culture.GOLLUM, null, null, "Smeagol", true);
+        super(0, 3, 4, 7, Culture.GOLLUM, null, null, "Smeagol", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
         addKeyword(Keyword.RING_BOUND);
-    }
-
-    @Override
-    public int getResistance() {
-        return 7;
     }
 
     @Override

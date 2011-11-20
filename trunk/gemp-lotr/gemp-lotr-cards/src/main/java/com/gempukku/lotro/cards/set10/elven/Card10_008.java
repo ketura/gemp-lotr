@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card10_008 extends AbstractCompanion {
     public Card10_008() {
-        super(4, 7, 4, Culture.ELVEN, Race.ELF, null, "Cirdan", true);
+        super(4, 7, 4, 6, Culture.ELVEN, Race.ELF, null, "Cirdan", true);
     }
 
     @Override
