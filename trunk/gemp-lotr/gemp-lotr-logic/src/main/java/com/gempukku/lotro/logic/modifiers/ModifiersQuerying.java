@@ -86,6 +86,8 @@ public interface ModifiersQuerying {
 
     public List<? extends ActivateCardAction> getExtraPhaseActions(GameState gameState, PhysicalCard target);
 
+    public List<? extends Action> getExtraPhaseActionsFromStacked(GameState gameState, PhysicalCard target);
+
     // Others
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
 

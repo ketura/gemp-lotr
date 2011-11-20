@@ -580,6 +580,15 @@ public class Filters {
         };
     }
 
+    public static Filter stackedOn(final Filterable... filters) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getStackedOn() != null && Filters.and(filters).accepts(gameState, modifiersQuerying, physicalCard.getStackedOn());
+            }
+        };
+    }
+
     public static Filter siteControlledByShadowPlayer(final String fellowshipPlayer) {
         return new Filter() {
             @Override

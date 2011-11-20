@@ -179,6 +179,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public List<? extends Action> getExtraPhaseActionFromStacked(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return null;
+    }
+
+    @Override
     public boolean canHavePlayedOn(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard playedCard, PhysicalCard target) {
         return true;
     }
