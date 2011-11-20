@@ -90,14 +90,17 @@ public class EventSerializer {
             }
 
             Map<Integer, Integer> charVitalities = gameStats.getCharVitalities();
-            Map<Integer, Integer> charThirdStats = gameStats.getThirdStats();
+            Map<Integer, Integer> charSiteNumbers = gameStats.getSiteNumbers();
+            Map<Integer, Integer> charResistances = gameStats.getCharResistances();
 
             StringBuilder charStr = new StringBuilder();
             for (Map.Entry<Integer, Integer> characters : gameStats.getCharStrengths().entrySet()) {
                 Integer charCardId = characters.getKey();
                 charStr.append("," + charCardId + "=" + characters.getValue() + "|" + charVitalities.get(charCardId));
-                if (charThirdStats.containsKey(charCardId))
-                    charStr.append("|" + charThirdStats.get(charCardId));
+                if (charSiteNumbers.containsKey(charCardId))
+                    charStr.append("|" + charSiteNumbers.get(charCardId));
+                else if (charResistances.containsKey(charCardId))
+                    charStr.append("|R" + charResistances.get(charCardId));
             }
             if (charStr.length() > 0)
                 charStr.delete(0, 1);

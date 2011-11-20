@@ -31,7 +31,8 @@ public class GameStats {
     private Map<String, Integer> _threats = new HashMap<String, Integer>();
     private Map<Integer, Integer> _charStrengths = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> _charVitalities = new HashMap<Integer, Integer>();
-    private Map<Integer, Integer> _thirdStats = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> _siteNumbers = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> _charResistances = new HashMap<Integer, Integer>();
 
     /**
      * @return If the stats have changed
@@ -122,12 +123,15 @@ public class GameStats {
 
         Map<Integer, Integer> newCharStrengths = new HashMap<Integer, Integer>();
         Map<Integer, Integer> newCharVitalities = new HashMap<Integer, Integer>();
-        Map<Integer, Integer> newThirdStats = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> newSiteNumbers = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> newCharResistances = new HashMap<Integer, Integer>();
         for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
             newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game.getGameState(), character));
             newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game.getGameState(), character));
             if (character.getBlueprint().getCardType() == CardType.MINION)
-                newThirdStats.put(character.getCardId(), game.getModifiersQuerying().getMinionSiteNumber(game.getGameState(), character));
+                newSiteNumbers.put(character.getCardId(), game.getModifiersQuerying().getMinionSiteNumber(game.getGameState(), character));
+            else
+                newCharResistances.put(character.getCardId(), game.getModifiersQuerying().getResistance(game.getGameState(), character));
         }
 
         if (!newCharStrengths.equals(_charStrengths)) {
@@ -140,9 +144,14 @@ public class GameStats {
             _charVitalities = newCharVitalities;
         }
 
-        if (!newThirdStats.equals(_thirdStats)) {
+        if (!newSiteNumbers.equals(_siteNumbers)) {
             changed = true;
-            _thirdStats = newThirdStats;
+            _siteNumbers = newSiteNumbers;
+        }
+
+        if (!newCharResistances.equals(_charResistances)) {
+            changed = true;
+            _charResistances = newCharResistances;
         }
 
         Map<String, Integer> newThreats = new HashMap<String, Integer>();
@@ -211,8 +220,12 @@ public class GameStats {
         return _charVitalities;
     }
 
-    public Map<Integer, Integer> getThirdStats() {
-        return _thirdStats;
+    public Map<Integer, Integer> getSiteNumbers() {
+        return _siteNumbers;
+    }
+
+    public Map<Integer, Integer> getCharResistances() {
+        return _charResistances;
     }
 
     public GameStats makeACopy() {
@@ -230,7 +243,8 @@ public class GameStats {
         copy._threats = _threats;
         copy._charStrengths = _charStrengths;
         copy._charVitalities = _charVitalities;
-        copy._thirdStats = _thirdStats;
+        copy._siteNumbers = _siteNumbers;
+        copy._charResistances = _charResistances;
         return copy;
     }
 }

@@ -713,6 +713,7 @@ var GameAnimations = Class.extend({
                     $(".cardStrength").css({display: "none"});
                     $(".cardVitality").css({display: "none"});
                     $(".cardSiteNumber").css({display: "none"});
+                    $(".cardResistance").css({display: "none"});
 
                     var charStats = element.getAttribute("charStats");
                     if (charStats != null) {
@@ -723,8 +724,12 @@ var GameAnimations = Class.extend({
                             var cardStatArr = cardStats[1].split("|");
                             $(".cardStrength", cardDiv).html(cardStatArr[0]).css({display: ""});
                             $(".cardVitality", cardDiv).html(cardStatArr[1]).css({display: ""});
-                            if (cardStatArr.length > 2)
-                                $(".cardSiteNumber", cardDiv).html(cardStatArr[2]).css({display: ""});
+                            if (cardStatArr.length > 2) {
+                                if (cardStatArr[2].indexOf("R") == 0)
+                                    $(".cardResistance", cardDiv).html(cardStatArr[2].substring(1)).css({display: ""});
+                                else
+                                    $(".cardSiteNumber", cardDiv).html(cardStatArr[2]).css({display: ""});
+                            }
                         }
                     }
 

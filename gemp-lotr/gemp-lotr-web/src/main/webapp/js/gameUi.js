@@ -1042,6 +1042,10 @@ var GempLotrGameUI = Class.extend({
         cardSiteNumberDiv.css({display: "none"});
         tokenOverlay.append(cardSiteNumberDiv);
 
+        var cardResistanceDiv = $("<div class='cardResistance'></div>");
+        cardResistanceDiv.css({display: "none"});
+        tokenOverlay.append(cardResistanceDiv);
+
         cardDiv.data("card", card);
 
         var sizeListeners = new Array();
@@ -1062,6 +1066,7 @@ var GempLotrGameUI = Class.extend({
                 $(".cardStrength", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: strengthY + "px", width: size, height: size});
                 $(".cardVitality", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: vitalityY + "px", width: size, height: size});
                 $(".cardSiteNumber", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: minionSiteNumberY + "px", width: size, height: size});
+                $(".cardResistance", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: minionSiteNumberY + "px", width: size, height: size});
             }
         };
 
