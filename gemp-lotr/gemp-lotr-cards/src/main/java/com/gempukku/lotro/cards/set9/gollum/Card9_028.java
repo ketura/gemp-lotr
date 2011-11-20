@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.set9.gandalf;
+package com.gempukku.lotro.cards.set9.gollum;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
