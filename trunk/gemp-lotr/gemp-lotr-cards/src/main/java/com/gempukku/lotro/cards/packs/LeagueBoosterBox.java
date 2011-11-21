@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards.packs;
 
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -28,7 +27,7 @@ public class LeagueBoosterBox {
 
     public synchronized List<String> getBooster(String setNo) {
         if (!setNo.equals("1"))
-            throw new IllegalArgumentException("Invalid setNo: "+setNo);
+            throw new IllegalArgumentException("Invalid setNo: " + setNo);
         initializeFotR();
 
         boolean hasFoil = _random.nextInt(6) == 0;
@@ -38,11 +37,11 @@ public class LeagueBoosterBox {
         if (hasFoil) {
             int type = _random.nextInt(11);
             if (type == 0)
-                result.add(_foilRares.get(_random.nextInt(_foilRares.size()))+"*");
+                result.add(_foilRares.get(_random.nextInt(_foilRares.size())) + "*");
             else if (type < 4)
-                result.add(_foilUncommons.get(_random.nextInt(_foilUncommons.size()))+"*");
+                result.add(_foilUncommons.get(_random.nextInt(_foilUncommons.size())) + "*");
             else
-                result.add(_foilCommons.get(_random.nextInt(_foilCommons.size()))+"*");
+                result.add(_foilCommons.get(_random.nextInt(_foilCommons.size())) + "*");
         }
 
         // Add rare
@@ -54,8 +53,8 @@ public class LeagueBoosterBox {
         result.add(_leagueShadowUncommons.get(_random.nextInt(_leagueShadowUncommons.size())));
         result.add(_leagueFPUncommons.get(_random.nextInt(_leagueFPUncommons.size())));
 
-        Collections.shuffle(_leagueShadowCommons);
-        Collections.shuffle(_leagueFPCommons);
+        Collections.shuffle(_leagueShadowCommons, _random);
+        Collections.shuffle(_leagueFPCommons, _random);
 
         result.add(_leagueShadowCommons.get(0));
         result.add(_leagueFPCommons.get(0));
@@ -72,7 +71,7 @@ public class LeagueBoosterBox {
             else
                 result.add(_leagueFPCommons.get(3));
         }
-        
+
         return result;
     }
 
