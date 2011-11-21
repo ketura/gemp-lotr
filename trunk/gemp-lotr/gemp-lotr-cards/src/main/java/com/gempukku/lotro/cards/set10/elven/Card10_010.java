@@ -3,12 +3,12 @@ package com.gempukku.lotro.cards.set10.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
+import com.gempukku.lotro.cards.effects.PutPlayedEventOnTopOfDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 /**
  * Set: Mount Doom
@@ -32,18 +32,7 @@ public class Card10_010 extends AbstractEvent {
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Zone.SUPPORT))
             action.appendEffect(
                     new OptionalEffect(action, playerId,
-                            new UnrespondableEffect() {
-                                @Override
-                                public String getText(LotroGame game) {
-                                    return "Place this event on top of your draw deck";
-                                }
-
-                                @Override
-                                protected void doPlayEffect(LotroGame game) {
-                                    action.skipDiscardPart();
-                                    game.getGameState().putCardOnTopOfDeck(self);
-                                }
-                            }));
+                            new PutPlayedEventOnTopOfDeckEffect(action)));
         return action;
     }
 }

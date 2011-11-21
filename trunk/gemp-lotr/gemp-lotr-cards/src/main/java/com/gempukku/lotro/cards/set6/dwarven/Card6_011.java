@@ -2,9 +2,7 @@ package com.gempukku.lotro.cards.set6.dwarven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromHandOnTopOfDeckEffect;
+import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -62,11 +60,12 @@ public class Card6_011 extends AbstractEvent {
                         new MultipleChoiceAwaitingDecision(1, "Where to put \"Toss Me\"?", new String[]{"Top of deck", "Bottom of deck"}) {
                             @Override
                             protected void validDecisionMade(int index, String result) {
-                                action.skipDiscardPart();
                                 if (index == 0)
-                                    game.getGameState().putCardOnTopOfDeck(self);
+                                    action.insertEffect(
+                                            new PutPlayedEventOnTopOfDeckEffect(action));
                                 else
-                                    game.getGameState().putCardOnBottomOfDeck(self);
+                                    action.insertEffect(
+                                            new PutPlayedEventOnBottomOfDeckEffect(action));
                             }
                         }) {
                     @Override
