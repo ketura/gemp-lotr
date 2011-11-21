@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.cards.packs.PackBox;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -114,13 +115,39 @@ public class DefaultCardCollection implements MutableCardCollection {
     public void addCards(String blueprintId, LotroCardBlueprint blueprint, int count) {
         if (blueprint == null)
             throw new IllegalArgumentException("blueprint == null");
-        _counts.put(blueprintId, count);
+        Integer oldCount = _counts.get(blueprintId);
+        if (oldCount == null)
+            oldCount = 0;
+        _counts.put(blueprintId, oldCount + count);
         _cards.put(blueprintId, blueprint);
     }
 
     @Override
     public void addPacks(String packId, int count) {
         _counts.put(packId, count);
+    }
+
+    @Override
+    public synchronized List<Item> openPack(String packId, PackBox packBox, LotroCardBlueprintLibrary library) {
+        Integer count = _counts.get(packId);
+        if (count == null)
+            return null;
+        if (count > 0) {
+            List<String> packContents = packBox.openPack(packId);
+            if (packContents == null)
+                return null;
+
+            List<Item> result = new LinkedList<Item>();
+            for (String cardFromPack : packContents) {
+                LotroCardBlueprint cardBlueprint = library.getLotroCardBlueprint(cardFromPack);
+                addCards(cardFromPack, cardBlueprint, 1);
+                result.add(new Item(Item.Type.CARD, 1, cardFromPack, cardBlueprint));
+            }
+            _counts.put(packId, count - 1);
+
+            return result;
+        }
+        return null;
     }
 
     @Override

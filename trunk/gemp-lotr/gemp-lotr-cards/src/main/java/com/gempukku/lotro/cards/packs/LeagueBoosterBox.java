@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 import java.util.*;
 
-public class LeagueBoosterBox {
+public class LeagueBoosterBox implements BoosterBox {
     private Random _random = new Random(0);
     private LotroCardBlueprintLibrary _library;
 
@@ -25,9 +25,7 @@ public class LeagueBoosterBox {
         _library = library;
     }
 
-    public synchronized List<String> getBooster(String setNo) {
-        if (!setNo.equals("1"))
-            throw new IllegalArgumentException("Invalid setNo: " + setNo);
+    public synchronized List<String> getBooster() {
         initializeFotR();
 
         boolean hasFoil = _random.nextInt(6) == 0;

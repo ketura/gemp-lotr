@@ -4,6 +4,7 @@ import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.MutableCardCollection;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,32 +16,28 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CollectionDAO {
     private DbAccess _dbAccess;
-    private CardCollection _defaultCollection;
     private CollectionSerializer _collectionSerializer;
 
-    private Map<Integer, Map<String, CardCollection>> _collections = new ConcurrentHashMap<Integer, Map<String, CardCollection>>();
+    private Map<Integer, Map<String, MutableCardCollection>> _collections = new ConcurrentHashMap<Integer, Map<String, MutableCardCollection>>();
 
-    public CollectionDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library, CardCollection defaultCollection) {
+    public CollectionDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
         _dbAccess = dbAccess;
-        _defaultCollection = defaultCollection;
         _collectionSerializer = new CollectionSerializer(library);
     }
 
-    public CardCollection getCollectionForPlayer(Player player, String type) {
-        if (type == null || type.equals("default"))
-            return _defaultCollection;
-        Map<String, CardCollection> playerCollections = _collections.get(player.getId());
+    public MutableCardCollection getCollectionForPlayer(Player player, String type) {
+        Map<String, MutableCardCollection> playerCollections = _collections.get(player.getId());
         if (playerCollections != null) {
-            CardCollection collection = playerCollections.get(type);
+            MutableCardCollection collection = playerCollections.get(type);
             if (collection != null)
                 return collection;
         }
 
-        CardCollection collection = getCollectionFromDB(player, type);
+        MutableCardCollection collection = getCollectionFromDB(player, type);
         if (collection != null) {
-            Map<String, CardCollection> collectionsByType = _collections.get(player.getId());
+            Map<String, MutableCardCollection> collectionsByType = _collections.get(player.getId());
             if (collectionsByType == null) {
-                collectionsByType = new ConcurrentHashMap<String, CardCollection>();
+                collectionsByType = new ConcurrentHashMap<String, MutableCardCollection>();
                 _collections.put(player.getId(), collectionsByType);
             }
             collectionsByType.put(type, collection);
@@ -49,7 +46,7 @@ public class CollectionDAO {
         return null;
     }
 
-    private CardCollection getCollectionFromDB(Player player, String type) {
+    private MutableCardCollection getCollectionFromDB(Player player, String type) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
@@ -90,12 +87,12 @@ public class CollectionDAO {
         }
     }
 
-    public void setCollectionForPlayer(Player player, String type, CardCollection collection) {
+    public void setCollectionForPlayer(Player player, String type, MutableCardCollection collection) {
         if (!type.equals("default")) {
             storeCollectionToDB(player, type, collection);
-            Map<String, CardCollection> collectionsByType = _collections.get(player.getId());
+            Map<String, MutableCardCollection> collectionsByType = _collections.get(player.getId());
             if (collectionsByType == null) {
-                collectionsByType = new ConcurrentHashMap<String, CardCollection>();
+                collectionsByType = new ConcurrentHashMap<String, MutableCardCollection>();
                 _collections.put(player.getId(), collectionsByType);
             }
             collectionsByType.put(type, collection);

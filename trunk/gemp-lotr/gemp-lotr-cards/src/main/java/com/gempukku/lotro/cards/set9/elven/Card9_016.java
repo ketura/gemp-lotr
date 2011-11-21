@@ -58,6 +58,11 @@ public class Card9_016 extends AbstractCompanion {
                                             new OptionalEffect(action, playerId,
                                                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, self) {
                                                         @Override
+                                                        public String getText(LotroGame game) {
+                                                            return "Exert Glorfindel to make a Nazgul he is skirmishing strength -X";
+                                                        }
+
+                                                        @Override
                                                         protected void forEachCardExertedCallback(PhysicalCard character) {
                                                             action.appendEffect(
                                                                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -card.getBlueprint().getTwilightCost(), Race.NAZGUL, Filters.inSkirmishAgainst(self)));
