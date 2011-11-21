@@ -357,7 +357,8 @@ public class GameState {
                 if (assignment.getFellowshipCharacter() == card)
                     removeAssignment(assignment);
                 if (assignment.getShadowCharacters().remove(card))
-                    removeAssignment(assignment);
+                    if (assignment.getShadowCharacters().size() == 0)
+                        removeAssignment(assignment);
             }
 
             if (_skirmish != null)
