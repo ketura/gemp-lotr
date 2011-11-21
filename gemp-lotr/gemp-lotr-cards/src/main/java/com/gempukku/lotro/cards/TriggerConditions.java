@@ -169,7 +169,7 @@ public class TriggerConditions {
     public static boolean isAddingTwilight(Effect effect, LotroGame game, Filterable... filters) {
         if (effect.getType() == Effect.Type.BEFORE_ADD_TWILIGHT) {
             AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
-            return !addTwilightEffect.isPrevented() && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addTwilightEffect.getSource());
+            return !addTwilightEffect.isPrevented() && addTwilightEffect.getSource() != null && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addTwilightEffect.getSource());
         }
         return false;
     }
