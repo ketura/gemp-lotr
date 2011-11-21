@@ -115,6 +115,27 @@ public abstract class DefaultLotroFormat implements LotroFormat {
                         throw new DeckInvalidException("Deck has multiple of the same site number: " + blueprint.getSiteNumber());
                     sites[blueprint.getSiteNumber() - 1] = true;
                 }
+            } else {
+                Set<LotroCardBlueprint> siteBlueprints = new HashSet<LotroCardBlueprint>();
+                for (String site : deck.getSites())
+                    siteBlueprints.add(_library.getLotroCardBlueprint(site));
+
+                if (siteBlueprints.size() < 9)
+                    throw new DeckInvalidException("Deck contains multiple of the same site");
+
+                Map<Integer, Integer> twilightCount = new HashMap<Integer, Integer>();
+                for (LotroCardBlueprint siteBlueprint : siteBlueprints) {
+                    int twilight = siteBlueprint.getTwilightCost();
+                    Integer count = twilightCount.get(twilight);
+                    if (count == null)
+                        count = 0;
+                    twilightCount.put(twilight, count + 1);
+                }
+
+                for (Map.Entry<Integer, Integer> twilightCountEntry : twilightCount.entrySet()) {
+                    if (twilightCountEntry.getValue() > 3)
+                        throw new DeckInvalidException("Deck contains " + twilightCountEntry.getValue() + " sites with twilight number of " + twilightCountEntry.getKey());
+                }
             }
 
             // Deck
