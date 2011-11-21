@@ -2,6 +2,8 @@ package com.gempukku.lotro.cards.set7.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.OptionalEffect;
+import com.gempukku.lotro.cards.effects.PutPlayedEventOnTopOfDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -9,8 +11,6 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
  * Set: The Return of the King
@@ -31,16 +31,8 @@ public class Card7_029 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Race.ELF));
         action.appendEffect(
-                new PlayoutDecisionEffect(playerId,
-                        new MultipleChoiceAwaitingDecision(1, "Do you want to place this even on top of your draw deck?", new String[]{"Yes", "No"}) {
-                            @Override
-                            protected void validDecisionMade(int index, String result) {
-                                if (index == 0) {
-                                    action.skipDiscardPart();
-                                    game.getGameState().putCardOnTopOfDeck(self);
-                                }
-                            }
-                        }));
+                new OptionalEffect(action, playerId,
+                        new PutPlayedEventOnTopOfDeckEffect(action)));
         return action;
     }
 }

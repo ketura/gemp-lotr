@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
+import com.gempukku.lotro.cards.effects.PutPlayedEventOnTopOfDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 /**
  * Set: Siege of Gondor
@@ -49,18 +49,7 @@ public class Card8_066 extends AbstractEvent {
                                 if (PlayConditions.hasInitiative(game, Side.SHADOW))
                                     action.appendEffect(
                                             new OptionalEffect(action, playerId,
-                                                    new UnrespondableEffect() {
-                                                        @Override
-                                                        public String getText(LotroGame game) {
-                                                            return "Place this event on top of your draw deck";
-                                                        }
-
-                                                        @Override
-                                                        protected void doPlayEffect(LotroGame game) {
-                                                            action.skipDiscardPart();
-                                                            game.getGameState().putCardOnTopOfDeck(self);
-                                                        }
-                                                    }));
+                                                    new PutPlayedEventOnTopOfDeckEffect(action)));
                             }
                         };
                         spotDecision.setDefaultValue(count);
