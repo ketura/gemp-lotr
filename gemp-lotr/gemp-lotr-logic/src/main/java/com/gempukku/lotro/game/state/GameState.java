@@ -460,7 +460,7 @@ public class GameState {
 
     public boolean iterateActiveTextCards(PhysicalCardVisitor physicalCardVisitor) {
         for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (physicalCard.getBlueprint().getCardType() != CardType.SITE || getCurrentSite() == physicalCard)
+            if (physicalCard.getBlueprint().getCardType() != CardType.SITE || (_currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == physicalCard))
                 if (isCardInPlayActive(physicalCard))
                     if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                         return true;
@@ -470,7 +470,8 @@ public class GameState {
     }
 
     public boolean iterateActiveTextCards(String player, PhysicalCardVisitor physicalCardVisitor) {
-        physicalCardVisitor.visitPhysicalCard(getCurrentSite());
+        if (_currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP)
+            physicalCardVisitor.visitPhysicalCard(getCurrentSite());
 
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (physicalCard.getBlueprint().getCardType() != CardType.SITE && physicalCard.getOwner().equals(player) && isCardInPlayActive(physicalCard))
@@ -481,8 +482,9 @@ public class GameState {
     }
 
     public boolean iterateActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
-        if (physicalCardVisitor.visitPhysicalCard(getCurrentSite()))
-            return true;
+        if (_currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP)
+            if (physicalCardVisitor.visitPhysicalCard(getCurrentSite()))
+                return true;
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (physicalCard.getOwner().equals(player)
                     && physicalCard.getBlueprint().getCardType() != CardType.SITE && isCardInPlayActive(physicalCard))
