@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card10_119 extends AbstractSite {
     public Card10_119() {
-        super("Steward's Tomb", Block.KING, 4, 8, Direction.LEFT);
+        super("Steward's Tomb", Block.KING, 5, 8, Direction.LEFT);
     }
 
     @Override
