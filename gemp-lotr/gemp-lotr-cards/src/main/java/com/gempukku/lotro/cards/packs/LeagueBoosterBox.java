@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import java.util.*;
 
 public class LeagueBoosterBox {
-    private Random _random = new Random();
+    private Random _random = new Random(0);
     private LotroCardBlueprintLibrary _library;
 
     private List<String> _leagueRares;
