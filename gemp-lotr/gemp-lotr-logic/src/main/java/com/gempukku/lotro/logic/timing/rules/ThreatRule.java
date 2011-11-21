@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.effects.ThreatWoundsEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -44,6 +45,8 @@ public class ThreatRule {
                             if (threats > 0) {
                                 RequiredTriggerAction action = new RequiredTriggerAction(null);
                                 action.setText("Threat damage assignment");
+                                action.appendEffect(
+                                        new SendMessageEffect(game.getGameState().getCurrentPlayerId() + " assigns " + threats + " threat damage"));
                                 action.appendEffect(
                                         new RemoveThreatsEffect(null, threats));
                                 for (int i = 0; i < threats; i++) {
