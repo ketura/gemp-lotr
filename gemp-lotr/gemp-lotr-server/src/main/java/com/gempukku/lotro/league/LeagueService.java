@@ -26,25 +26,15 @@ public class LeagueService {
         return _leagueDao.getActiveLeagues();
     }
 
-    public CardCollection getLeagueCollection(Player player, String type) {
-        final CardCollection collectionForPlayer = _collectionDao.getCollectionForPlayer(player, type);
+    public CardCollection getLeagueCollection(Player player, League league) {
+        final CardCollection collectionForPlayer = _collectionDao.getCollectionForPlayer(player, league.getType());
         if (collectionForPlayer == null) {
-            final League leagueByType = getLeagueByType(type);
-            if (leagueByType != null)
-                return leagueByType.getBaseCollection();
+            return league.getBaseCollection();
         }
         return collectionForPlayer;
     }
 
-    private League getLeagueByType(String type) {
-        for (League league : getActiveLeagues()) {
-            if (league.getType().equals(type))
-                return league;
-        }
-        return null;
-    }
-
-    public LotroFormat getLeagueFormat(String type) {
+    public LotroFormat getLeagueFormat(League league) {
         return new LeagueFormat(_library, true);
     }
 }
