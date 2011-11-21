@@ -1,13 +1,11 @@
 package com.gempukku.lotro.logic.timing.processes.pregame;
 
-import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
+import com.gempukku.lotro.logic.effects.PlaySiteEffect;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
-import java.util.Collections;
 import java.util.Map;
 
 public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
@@ -21,13 +19,19 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        GameState gameState = game.getGameState();
-        PhysicalCard firstSite = Filters.filter(gameState.getAdventureDeck(_firstPlayer), gameState, game.getModifiersQuerying(), Filters.siteNumber(1)).iterator().next();
-        gameState.removeCardsFromZone(null, Collections.singleton(firstSite));
-        gameState.addCardToZone(game, firstSite, Zone.ADVENTURE_PATH);
-
-        for (String playerId : gameState.getPlayerOrder().getAllPlayers())
-            gameState.setPlayerPosition(playerId, 1);
+        SystemQueueAction action = new SystemQueueAction();
+        action.appendEffect(
+                new PlaySiteEffect(_firstPlayer, null, 1));
+        action.appendEffect(
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        for (String playerId : game.getGameState().getPlayerOrder().getAllPlayers())
+                            game.getGameState().setPlayerPosition(playerId, 1);
+                    }
+                }
+        );
+        game.getActionsEnvironment().addActionToStack(action);
     }
 
     @Override
