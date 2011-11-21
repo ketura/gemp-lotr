@@ -28,9 +28,7 @@ public class Card1_342 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN)
-            self.removeData();
-        else if (game.getGameState().getCurrentSite() == self
+        if (game.getGameState().getCurrentSite() == self
                 && self.getData() == null
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER)) {
             self.storeData(new Object());

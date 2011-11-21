@@ -39,9 +39,6 @@ public class Card4_359 extends AbstractSite {
                 && game.getGameState().getCurrentPhase() == Phase.SHADOW) {
             self.storeData(new Object());
         }
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
-            self.removeData();
-        }
         return null;
     }
 }
