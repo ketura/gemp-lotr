@@ -91,7 +91,7 @@ public class EventSerializer {
 
             Map<Integer, Integer> charVitalities = gameStats.getCharVitalities();
             Map<Integer, Integer> charSiteNumbers = gameStats.getSiteNumbers();
-            Map<Integer, Integer> charResistances = gameStats.getCharResistances();
+            Map<Integer, String> charResistances = gameStats.getCharResistances();
 
             StringBuilder charStr = new StringBuilder();
             for (Map.Entry<Integer, Integer> characters : gameStats.getCharStrengths().entrySet()) {

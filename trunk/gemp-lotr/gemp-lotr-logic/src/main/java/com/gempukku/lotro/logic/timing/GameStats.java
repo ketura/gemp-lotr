@@ -1,8 +1,10 @@
 package com.gempukku.lotro.logic.timing;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
@@ -32,7 +34,7 @@ public class GameStats {
     private Map<Integer, Integer> _charStrengths = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> _charVitalities = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> _siteNumbers = new HashMap<Integer, Integer>();
-    private Map<Integer, Integer> _charResistances = new HashMap<Integer, Integer>();
+    private Map<Integer, String> _charResistances = new HashMap<Integer, String>();
 
     /**
      * @return If the stats have changed
@@ -124,14 +126,33 @@ public class GameStats {
         Map<Integer, Integer> newCharStrengths = new HashMap<Integer, Integer>();
         Map<Integer, Integer> newCharVitalities = new HashMap<Integer, Integer>();
         Map<Integer, Integer> newSiteNumbers = new HashMap<Integer, Integer>();
-        Map<Integer, Integer> newCharResistances = new HashMap<Integer, Integer>();
+        Map<Integer, String> newCharResistances = new HashMap<Integer, String>();
         for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
             newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game.getGameState(), character));
             newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game.getGameState(), character));
-            if (character.getBlueprint().getCardType() == CardType.MINION)
+            final LotroCardBlueprint blueprint = character.getBlueprint();
+            if (blueprint.getCardType() == CardType.MINION)
                 newSiteNumbers.put(character.getCardId(), game.getModifiersQuerying().getMinionSiteNumber(game.getGameState(), character));
-            else
-                newCharResistances.put(character.getCardId(), game.getModifiersQuerying().getResistance(game.getGameState(), character));
+            else {
+                final int resistance = game.getModifiersQuerying().getResistance(game.getGameState(), character);
+                if (blueprint.getCardType() == CardType.COMPANION) {
+                    Signet signet = blueprint.getSignet();
+                    String resistanceStr;
+                    if (signet == Signet.ARAGORN)
+                        resistanceStr = "A" + resistance;
+                    else if (signet == Signet.FRODO)
+                        resistanceStr = "F" + resistance;
+                    else if (signet == Signet.GANDALF)
+                        resistanceStr = "G" + resistance;
+                    else if (signet == Signet.THÉODEN)
+                        resistanceStr = "T" + resistance;
+                    else
+                        resistanceStr = String.valueOf(resistance);
+                    newCharResistances.put(character.getCardId(), resistanceStr);
+                } else {
+                    newCharResistances.put(character.getCardId(), String.valueOf(resistance));
+                }
+            }
         }
 
         if (!newCharStrengths.equals(_charStrengths)) {
@@ -224,7 +245,7 @@ public class GameStats {
         return _siteNumbers;
     }
 
-    public Map<Integer, Integer> getCharResistances() {
+    public Map<Integer, String> getCharResistances() {
         return _charResistances;
     }
 
