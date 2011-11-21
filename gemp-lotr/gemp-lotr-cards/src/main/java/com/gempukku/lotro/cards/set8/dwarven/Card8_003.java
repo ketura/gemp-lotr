@@ -42,7 +42,7 @@ public class Card8_003 extends AbstractEvent {
                                     @Override
                                     protected void opponentChosen(String opponentId) {
                                         action.insertEffect(
-                                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, count, count, Side.SHADOW));
+                                                new ChooseAndDiscardCardsFromPlayEffect(action, opponentId, count, count, Side.SHADOW));
                                     }
                                 });
                     }

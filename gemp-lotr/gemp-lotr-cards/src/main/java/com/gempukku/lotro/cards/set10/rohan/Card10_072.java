@@ -48,7 +48,7 @@ public class Card10_072 extends AbstractCompanion {
                                 wounds += game.getGameState().getWounds(minion);
                             for (int i = 0; i < wounds; i++)
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+                                        new ChooseAndWoundCharactersEffect(action, opponentId, 1, 1, CardType.MINION));
                         }
                     });
             return Collections.singletonList(action);
