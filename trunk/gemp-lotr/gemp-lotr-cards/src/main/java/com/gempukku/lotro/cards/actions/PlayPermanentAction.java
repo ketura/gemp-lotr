@@ -84,8 +84,10 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
         if (!_cardRemoved) {
             _cardRemoved = true;
+            boolean fromHand = (_permanentPlayed.getZone() == Zone.HAND);
             game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
-            game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID);
+            if (fromHand)
+                game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID);
         }
 
         if (!_discountResolved) {
