@@ -68,7 +68,7 @@ public class ServerResource {
             _lotroServer = new LotroServer(dbAccess, _library, _chatServer, _test);
             _lotroServer.startServer();
 
-            _collectionDao = new CollectionDAO(dbAccess, _library, _lotroServer.getDefaultCollection());
+            _collectionDao = new CollectionDAO(dbAccess, _library);
 
             _leagueService = new LeagueService(dbAccess, _collectionDao, _library);
 
@@ -537,10 +537,14 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-
         Player player = _lotroServer.getPlayerDao().getPlayer(participantId);
 
-        CardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType);
+        CardCollection collection;
+        if (collectionType.equals("default"))
+            collection = _lotroServer.getDefaultCollection();
+        else {
+            collection = _collectionDao.getCollectionForPlayer(player, collectionType);
+        }
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -575,6 +579,56 @@ public class ServerResource {
                 }
             }
             index++;
+        }
+
+        return doc;
+    }
+
+    @Path("/collection/{collectionType}")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document openPack(
+            @PathParam("collectionType") String collectionType,
+            @FormParam("participantId") String participantId,
+            @FormParam("pack") String packId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        if (!_test)
+            participantId = getLoggedUser(request);
+
+        Player player = _lotroServer.getPlayerDao().getPlayer(participantId);
+
+        MutableCardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType);
+        if (collection == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        List<CardCollection.Item> packContents = collection.openPack(packId, null, null);
+        if (packContents == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element collectionElem = doc.createElement("pack");
+        doc.appendChild(collectionElem);
+
+        for (CardCollection.Item item : packContents) {
+            String blueprintId = item.getBlueprintId();
+            if (item.getType() == CardCollection.Item.Type.CARD) {
+                Element card = doc.createElement("card");
+                card.setAttribute("count", String.valueOf(item.getCount()));
+                card.setAttribute("blueprintId", blueprintId);
+                Side side = item.getCardBlueprint().getSide();
+                if (side != null)
+                    card.setAttribute("side", side.toString());
+                collectionElem.appendChild(card);
+            } else {
+                Element pack = doc.createElement("pack");
+                pack.setAttribute("count", String.valueOf(item.getCount()));
+                pack.setAttribute("blueprintId", blueprintId);
+                collectionElem.appendChild(pack);
+            }
         }
 
         return doc;

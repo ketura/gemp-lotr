@@ -37,7 +37,7 @@ public class Card8_087 extends AbstractCompanion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
                 && game.getGameState().getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
@@ -45,8 +45,9 @@ public class Card8_087 extends AbstractCompanion {
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 10) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> cards) {
+                            Collection<PhysicalCard> rohanPossessions = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, CardType.POSSESSION);
                             action.insertEffect(
-                                    new PlayAnyNumberOfCardsFromDeckEffect(action, playerId, cards));
+                                    new PlayAnyNumberOfCardsFromDeckEffect(action, playerId, rohanPossessions));
                         }
                     });
             action.appendEffect(
