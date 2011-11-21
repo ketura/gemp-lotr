@@ -47,7 +47,7 @@ public class Card7_050 extends AbstractEvent {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int exertCount = getValidatedResult(result);
                                 action.insertCost(
-                                        new ChooseAndExertCharactersEffect(action, playerId, exertCount, exertCount, Filters.gandalf));
+                                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, exertCount, Filters.gandalf));
                                 action.appendEffect(
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, exertCount, CardType.MINION) {
                                             @Override
