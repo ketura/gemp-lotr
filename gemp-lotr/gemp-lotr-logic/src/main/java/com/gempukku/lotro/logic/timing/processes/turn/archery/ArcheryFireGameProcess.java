@@ -21,6 +21,7 @@ public class ArcheryFireGameProcess implements GameProcess {
         _fellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(_game);
 
         _shadowArcheryTotal = RuleUtils.calculateShadowArcheryTotal(_game);
+        game.getGameState().sendMessage("Archery fire: fellowship - " + _fellowshipArcheryTotal + ", minion - " + _shadowArcheryTotal);
     }
 
     @Override
