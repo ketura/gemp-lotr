@@ -58,9 +58,6 @@ public class Card5_102 extends AbstractPermanent {
         if (TriggerConditions.played(game, effectResult, Culture.SAURON, Race.ORC)
                 && Filters.and(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite()))
             self.storeData(new Object());
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN
-                && self.getData() != null)
-            self.removeData();
         return null;
     }
 

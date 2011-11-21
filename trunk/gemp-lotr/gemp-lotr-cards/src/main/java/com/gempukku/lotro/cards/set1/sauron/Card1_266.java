@@ -53,8 +53,6 @@ public class Card1_266 extends AbstractMinion {
                 return Collections.singletonList(action);
             }
         }
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN)
-            self.removeData();
         return null;
     }
 

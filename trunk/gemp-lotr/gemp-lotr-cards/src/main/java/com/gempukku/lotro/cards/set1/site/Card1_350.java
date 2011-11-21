@@ -49,9 +49,6 @@ public class Card1_350 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Filters.and(Culture.MORIA, Race.ORC)))
             self.storeData(new Object());
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN
-                && self.getData() != null)
-            self.removeData();
         return null;
     }
 }

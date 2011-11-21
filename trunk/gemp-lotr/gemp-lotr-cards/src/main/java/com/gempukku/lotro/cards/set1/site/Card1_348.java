@@ -8,9 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,14 +37,6 @@ public class Card1_348 extends AbstractSite {
                     new ChooseAndPlayCardFromDeckEffect(playerId, Keyword.WEATHER));
             return Collections.singletonList(action);
         }
-        return null;
-    }
-
-    @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN
-                && self.getData() != null)
-            self.removeData();
         return null;
     }
 }
