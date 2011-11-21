@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card4_187 extends AbstractMinion {
     public Card4_187() {
-        super(1, 5, 1, 4, Race.URUK_HAI, Culture.ISENGARD, "Uruk Foot Soldier");
+        super(1, 5, 1, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Foot Soldier");
         addKeyword(Keyword.TRACKER);
         addKeyword(Keyword.FIERCE);
     }
