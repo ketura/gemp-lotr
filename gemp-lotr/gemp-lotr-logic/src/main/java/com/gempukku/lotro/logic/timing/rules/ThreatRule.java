@@ -55,8 +55,9 @@ public class ThreatRule {
                                     if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_BEARER_CANT_TAKE_THREAT_WOUNDS))
                                         filter = Filters.and(filter, Filters.not(Keyword.RING_BEARER));
 
-                                    action.appendEffect(
-                                            new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, filter));
+                                    ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, filter);
+                                    woundCharacter.setSourceText("Threat Rule");
+                                    action.appendEffect(woundCharacter);
                                 }
                                 return Collections.singletonList(action);
                             }
