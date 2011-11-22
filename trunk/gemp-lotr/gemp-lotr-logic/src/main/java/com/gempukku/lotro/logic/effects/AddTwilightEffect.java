@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Preventable;
@@ -13,10 +14,17 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
     private PhysicalCard _source;
     private int _twilight;
     private int _prevented;
+    private String _sourceText;
 
     public AddTwilightEffect(PhysicalCard source, int twilight) {
         _source = source;
         _twilight = twilight;
+        if (source != null)
+            _sourceText = GameUtils.getCardLink(source);
+    }
+
+    public void setSourceText(String sourceText) {
+        _sourceText = sourceText;
     }
 
     public PhysicalCard getSource() {
@@ -51,7 +59,7 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (!isPrevented()) {
-            game.getGameState().sendMessage(_twilight + " gets added to the twilight pool");
+            game.getGameState().sendMessage(_sourceText + " added " + _twilight + " twilight");
             game.getGameState().addTwilight(_twilight);
             return new FullEffectResult(Collections.singleton(new AddTwilightResult(_source)), true, _prevented == 0);
         }
