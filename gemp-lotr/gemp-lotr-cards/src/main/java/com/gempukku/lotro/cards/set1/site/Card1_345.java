@@ -4,7 +4,10 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,18 +33,11 @@ public class Card1_345 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
-                && game.getGameState().getTwilightPool() >= 1
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.playable(game, 1)).size() > 0) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, 1, Side.SHADOW, Filters.weapon)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game,
-                            Filters.and(
-                                    Side.SHADOW,
-                                    Filters.or(
-                                            PossessionClass.HAND_WEAPON,
-                                            PossessionClass.RANGED_WEAPON)
-                            )));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Side.SHADOW, Filters.weapon));
             return Collections.singletonList(action);
         }
         return null;
