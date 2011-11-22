@@ -36,7 +36,8 @@ public class Card9_017 extends AbstractAttachableFPPossession {
 
     @Override
     public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self) {
-        return self.getAttachedTo().getBlueprint().getName().equals("Aragorn");
+        PhysicalCard to = self.getAttachedTo();
+        return (to != null && to.getBlueprint().getName().equals("Aragorn"));
     }
 
     @Override
