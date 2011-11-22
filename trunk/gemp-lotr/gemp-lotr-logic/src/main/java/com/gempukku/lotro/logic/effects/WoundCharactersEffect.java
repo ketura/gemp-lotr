@@ -17,22 +17,33 @@ import java.util.Collections;
 
 public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     private Collection<PhysicalCard> _sources;
+    private String _sourceText;
 
     public WoundCharactersEffect(Collection<PhysicalCard> sources, Filterable... filter) {
         super(filter);
         _sources = sources;
+        if (sources != null)
+            _sourceText = GameUtils.getAppendedNames(sources);
     }
 
     public WoundCharactersEffect(PhysicalCard source, PhysicalCard... cards) {
         super(cards);
-        if (source != null)
+        if (source != null) {
             _sources = Collections.singleton(source);
+            _sourceText = GameUtils.getCardLink(source);
+        }
     }
 
     public WoundCharactersEffect(PhysicalCard source, Filterable... filter) {
         super(filter);
-        if (source != null)
+        if (source != null) {
             _sources = Collections.singleton(source);
+            _sourceText = GameUtils.getCardLink(source);
+        }
+    }
+
+    public void setSourceText(String sourceText) {
+        _sourceText = sourceText;
     }
 
     public Collection<PhysicalCard> getSources() {
@@ -63,10 +74,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     @Override
     protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() > 0)
-            if (_sources != null)
-                game.getGameState().sendMessage(getAppendedNames(cards) + " " + GameUtils.be(cards) + " wounded by - " + getAppendedNames(_sources));
-            else
-                game.getGameState().sendMessage(getAppendedNames(cards) + " " + GameUtils.be(cards) + " wounded");
+            game.getGameState().sendMessage(getAppendedNames(cards) + " " + GameUtils.be(cards) + " wounded by " + _sourceText);
 
         for (PhysicalCard woundedCard : cards) {
             game.getGameState().addWound(woundedCard);
