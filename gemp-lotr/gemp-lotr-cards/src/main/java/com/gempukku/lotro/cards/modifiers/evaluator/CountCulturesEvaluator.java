@@ -33,8 +33,11 @@ public class CountCulturesEvaluator implements Evaluator {
     @Override
     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         Set<Culture> cultures = new HashSet<Culture>();
-        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, _filters))
-            cultures.add(physicalCard.getBlueprint().getCulture());
+        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, _filters)) {
+            Culture culture = physicalCard.getBlueprint().getCulture();
+            if (culture != null)
+                cultures.add(culture);
+        }
         return _multiplier * Math.max(0, cultures.size() - _over);
     }
 }
