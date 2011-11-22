@@ -14,6 +14,7 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
 
     private Iterator<String> _biddingOrderPlayers;
     private String[] _orderedPlayers;
+    private boolean _sentBids;
 
     public ChooseSeatingOrderGameProcess(Map<String, Integer> bids, PlayerOrderFeedback playerOrderFeedback) {
         _bids = bids;
@@ -35,6 +36,11 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
+        if (!_sentBids) {
+            _sentBids = true;
+            for (Map.Entry<String, Integer> playerBid : _bids.entrySet())
+                game.getGameState().sendMessage(playerBid.getKey() + " bid " + playerBid.getValue());
+        }
         checkForNextSeating(game);
     }
 
