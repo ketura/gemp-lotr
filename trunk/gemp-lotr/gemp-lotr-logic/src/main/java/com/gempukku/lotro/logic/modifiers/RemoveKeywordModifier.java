@@ -13,7 +13,7 @@ public class RemoveKeywordModifier extends AbstractModifier implements KeywordAf
     }
 
     public RemoveKeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Condition condition, Keyword keyword) {
-        super(physicalCard, "Loses " + keyword.getHumanReadable() + "keyword(s)", affectFilter, condition, ModifierEffect.KEYWORD_MODIFIER);
+        super(physicalCard, "Loses " + keyword.getHumanReadable() + " keyword(s)", affectFilter, condition, ModifierEffect.KEYWORD_MODIFIER);
         _keyword = keyword;
     }
 
