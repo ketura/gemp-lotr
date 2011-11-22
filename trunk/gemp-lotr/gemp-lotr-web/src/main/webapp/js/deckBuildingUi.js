@@ -105,6 +105,8 @@ var GempLotrDeckBuildingUI = Class.extend({
                         that.comm.renameDeck(oldDeckName, newDeckName,
                                 function() {
                                     that.loadDecks();
+                                    if (prompt("Do you wish to save this deck?"))
+                                        that.saveDeck(false);
                                 });
                     }
                 });
@@ -384,11 +386,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
