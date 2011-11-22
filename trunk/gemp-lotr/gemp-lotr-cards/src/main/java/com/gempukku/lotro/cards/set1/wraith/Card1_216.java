@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AttachCardEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
+import com.gempukku.lotro.cards.effects.TransferPermanentNotFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -84,7 +84,7 @@ public class Card1_216 extends AbstractAttachable {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
-                                        new AttachCardEffect(bladeTipsInDiscard.iterator().next(), card));
+                                        new TransferPermanentNotFromPlayEffect(bladeTipsInDiscard.iterator().next(), card));
                             }
 
                             @Override
