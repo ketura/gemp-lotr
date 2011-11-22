@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -45,16 +46,17 @@ public class Card7_037 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && game.getGameState().getHand(playerId).size() >= 3) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(
-                    new ChooseCardsFromHandEffect(playerId, 3, 3, Filters.any) {
-                        @Override
-                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                            for (PhysicalCard selectedCard : selectedCards) {
-                                action.insertCost(
-                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+            for (int i = 0; i < 3; i++)
+                action.appendCost(
+                        new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.any) {
+                            @Override
+                            protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                                for (PhysicalCard selectedCard : selectedCards) {
+                                    action.insertCost(
+                                            new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                }
                             }
-                        }
-                    });
+                        });
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.inSkirmishAgainst(Filters.unboundCompanion)) {
                         @Override
@@ -70,19 +72,30 @@ public class Card7_037 extends AbstractCompanion {
                                             }, GameUtils.getOpponents(game, playerId),
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
-                                                public Effect createPreventionCostForPlayer(final SubAction subAction, String playerId) {
-                                                    return new ChooseCardsFromHandEffect(playerId, 3, 3, Filters.any) {
+                                                public Effect createPreventionCostForPlayer(final SubAction subAction, final String opponentId) {
+                                                    return new UnrespondableEffect() {
+                                                        @Override
+                                                        public boolean isPlayableInFull(LotroGame game) {
+                                                            return game.getGameState().getHand(opponentId).size() >= 3;
+                                                        }
+
                                                         @Override
                                                         public String getText(LotroGame game) {
                                                             return "Place 3 cards from hand on top of draw deck";
                                                         }
 
                                                         @Override
-                                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                                            for (PhysicalCard selectedCard : selectedCards) {
-                                                                subAction.appendEffect(
-                                                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard));
-                                                            }
+                                                        protected void doPlayEffect(LotroGame game) {
+                                                            subAction.appendEffect(
+                                                                    new ChooseCardsFromHandEffect(opponentId, 1, 1, Filters.any) {
+                                                                        @Override
+                                                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                                                                            for (PhysicalCard selectedCard : selectedCards) {
+                                                                                action.insertCost(
+                                                                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                                                            }
+                                                                        }
+                                                                    });
                                                         }
                                                     };
                                                 }
