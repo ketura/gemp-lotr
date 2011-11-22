@@ -7,6 +7,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
@@ -96,7 +97,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                             // Validate minion count (Defender)
                                             for (PhysicalCard freeCard : assignments.keySet()) {
                                                 List<PhysicalCard> minionsAssigned = assignments.get(freeCard);
-                                                if (minionsAssigned.size() > 1 + game.getModifiersQuerying().getKeywordCount(game.getGameState(), freeCard, Keyword.DEFENDER))
+                                                if (minionsAssigned.size() + getMinionsAssignedBeforeCount(freeCard, gameState) > 1 + game.getModifiersQuerying().getKeywordCount(game.getGameState(), freeCard, Keyword.DEFENDER))
                                                     throw new DecisionResultInvalidException(freeCard.getBlueprint().getName() + " can't have so many minions assigned");
                                                 unassignedMinions.removeAll(minionsAssigned);
                                             }
@@ -113,6 +114,14 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                     }
                 });
         game.getActionsEnvironment().addActionToStack(action);
+    }
+
+    private int getMinionsAssignedBeforeCount(PhysicalCard freeCard, GameState gameState) {
+        for (Assignment assignment : gameState.getAssignments()) {
+            if (assignment.getFellowshipCharacter() == freeCard)
+                return assignment.getShadowCharacters().size();
+        }
+        return 0;
     }
 
     @Override
