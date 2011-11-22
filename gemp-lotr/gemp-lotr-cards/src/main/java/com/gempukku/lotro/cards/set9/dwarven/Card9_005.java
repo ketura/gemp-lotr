@@ -41,7 +41,8 @@ public class Card9_005 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
+                && game.getGameState().isFierceSkirmishes()) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             for (PhysicalCard physicalCard : skirmishResult.getWinners()) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
