@@ -52,11 +52,9 @@ public class Card7_050 extends AbstractEvent {
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, exertCount, CardType.MINION) {
                                             @Override
                                             protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
-                                                for (PhysicalCard card : cards) {
-                                                    if (card.getBlueprint().getRace() == Race.NAZGUL) ;
-                                                    action.appendEffect(new WoundCharactersEffect(self, card));
-                                                }
-
+                                                for (PhysicalCard card : cards)
+                                                    if (card.getBlueprint().getRace() == Race.NAZGUL)
+                                                        action.appendEffect(new WoundCharactersEffect(self, card));
                                             }
                                         });
                             }
