@@ -68,8 +68,9 @@ public class MovementGameProcess implements GameProcess {
                         int siteTwilightCost = game.getModifiersQuerying().getTwilightCost(gameState, gameState.getCurrentSite(), false);
                         int companionCount = Filters.countActive(gameState, game.getModifiersQuerying(), CardType.COMPANION);
 
-                        action.insertEffect(
-                                new AddTwilightEffect(null, siteTwilightCost + companionCount));
+                        AddTwilightEffect effect = new AddTwilightEffect(null, siteTwilightCost + companionCount);
+                        effect.setSourceText("Moving");
+                        action.insertEffect(effect);
                     }
                 });
         action.appendEffect(
