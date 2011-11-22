@@ -29,7 +29,6 @@ public class ReconcileHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         PlayerReconcilesAction action = new PlayerReconcilesAction(game, _playerId);
-        game.getGameState().sendMessage(_playerId + " reconciles");
         game.getActionsEnvironment().addActionToStack(action);
         return new FullEffectResult(null, true, true);
     }
