@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set8.gondor;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -44,7 +45,7 @@ public class Card8_034 extends AbstractCompanion {
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 10) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> cards) {
-                            action.appendEffect(
+                            action.insertEffect(
                                     new ChooseArbitraryCardsEffect(playerId, "Choose a knight to play", cards, Filters.and(Keyword.KNIGHT, Filters.playable(game)), 0, 1) {
                                         @Override
                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
@@ -57,6 +58,8 @@ public class Card8_034 extends AbstractCompanion {
                                     });
                         }
                     });
+            action.appendEffect(
+                    new ShuffleDeckEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;
