@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -42,7 +43,8 @@ public class GameUtils {
     }
 
     public static String getCardLink(PhysicalCard card) {
-        return "<div class='cardHint' value='" + card.getBlueprintId() + "'>" + card.getBlueprint().getName() + "</div>";
+        LotroCardBlueprint blueprint = card.getBlueprint();
+        return "<div class='cardHint' value='" + card.getBlueprintId() + "'>" + (blueprint.isUnique() ? "•" : "") + blueprint.getName() + "</div>";
     }
 
     public static String getAppendedTextNames(Collection<PhysicalCard> cards) {
