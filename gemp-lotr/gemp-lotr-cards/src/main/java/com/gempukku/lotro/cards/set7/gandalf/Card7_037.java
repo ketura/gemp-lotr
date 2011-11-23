@@ -86,16 +86,17 @@ public class Card7_037 extends AbstractCompanion {
 
                                                         @Override
                                                         protected void doPlayEffect(LotroGame game) {
-                                                            subAction.appendEffect(
-                                                                    new ChooseCardsFromHandEffect(opponentId, 1, 1, Filters.any) {
-                                                                        @Override
-                                                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                                                            for (PhysicalCard selectedCard : selectedCards) {
-                                                                                action.insertCost(
-                                                                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                                            for (int i = 0; i < 3; i++)
+                                                                subAction.appendEffect(
+                                                                        new ChooseCardsFromHandEffect(opponentId, 1, 1, Filters.any) {
+                                                                            @Override
+                                                                            protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                                                                                for (PhysicalCard selectedCard : selectedCards) {
+                                                                                    action.insertCost(
+                                                                                            new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                                                                }
                                                                             }
-                                                                        }
-                                                                    });
+                                                                        });
                                                         }
                                                     };
                                                 }
