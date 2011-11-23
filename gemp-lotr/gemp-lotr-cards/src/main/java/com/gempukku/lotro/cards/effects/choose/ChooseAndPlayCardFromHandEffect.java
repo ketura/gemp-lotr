@@ -19,6 +19,7 @@ import java.util.LinkedList;
 public class ChooseAndPlayCardFromHandEffect implements Effect {
     private String _playerId;
     private boolean _ignoreRoamingPenalty;
+    private boolean _ignoreCheckingDeadPile;
     private Filter _filter;
     private int _twilightModifier;
     private CostToEffectAction _playCardAction;
@@ -31,11 +32,16 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
         this(playerId, game, twilightModifier, false, filters);
     }
 
-    public ChooseAndPlayCardFromHandEffect(String playerId, LotroGame game, int twilightModifier, boolean ignoreRoamingPenalty, Filterable... filter) {
+    public ChooseAndPlayCardFromHandEffect(String playerId, LotroGame game, int twilightModifier, boolean ignoreRoamingPenalty, Filterable... filters) {
+        this(playerId, game, twilightModifier, ignoreRoamingPenalty, false, filters);
+    }
+
+    public ChooseAndPlayCardFromHandEffect(String playerId, LotroGame game, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile, Filterable... filters) {
         _playerId = playerId;
         _ignoreRoamingPenalty = ignoreRoamingPenalty;
+        _ignoreCheckingDeadPile = ignoreCheckingDeadPile;
         // Card has to be in hand when you start playing the card (we need to copy the collection)
-        _filter = Filters.and(filter, Filters.in(new LinkedList<PhysicalCard>(game.getGameState().getHand(playerId))));
+        _filter = Filters.and(filters, Filters.in(new LinkedList<PhysicalCard>(game.getGameState().getHand(playerId))));
         _twilightModifier = twilightModifier;
     }
 
@@ -45,7 +51,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     }
 
     private Collection<PhysicalCard> getPlayableInHandCards(LotroGame game) {
-        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier, _ignoreRoamingPenalty));
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier, _ignoreRoamingPenalty, _ignoreCheckingDeadPile));
     }
 
     @Override

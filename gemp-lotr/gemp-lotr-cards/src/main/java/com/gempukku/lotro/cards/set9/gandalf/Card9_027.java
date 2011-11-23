@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set9.gandalf;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCharacterFromPlayInDeadPileEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -48,6 +49,13 @@ public class Card9_027 extends AbstractPermanent {
                                         new PutCharacterFromPlayInDeadPileEffect(wizard));
                         }
                     });
+            return Collections.singletonList(action);
+        }
+        if ((PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self) || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
+                && PlayConditions.canPlayFromHand(playerId, game, Side.FREE_PEOPLE, Race.WIZARD, Filters.playable(game, 0, false, true))) {
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendEffect(
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, 0, false, true, Side.FREE_PEOPLE, Race.WIZARD));
             return Collections.singletonList(action);
         }
         return null;

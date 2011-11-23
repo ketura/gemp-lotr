@@ -386,10 +386,14 @@ public class Filters {
     }
 
     public static Filter playable(final LotroGame game, final int twilightModifier, final boolean ignoreRoamingPenalty) {
+        return playable(game, twilightModifier, ignoreRoamingPenalty, false);
+    }
+
+    public static Filter playable(final LotroGame game, final int twilightModifier, final boolean ignoreRoamingPenalty, final boolean ignoreCheckingDeadPile) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getBlueprint().checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, twilightModifier, ignoreRoamingPenalty);
+                return physicalCard.getBlueprint().checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
             }
         };
     }

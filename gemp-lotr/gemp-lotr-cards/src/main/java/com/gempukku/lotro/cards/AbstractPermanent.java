@@ -39,9 +39,9 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         twilightModifier -= getPotentialExtraPaymentDiscount(playerId, game, self);
-        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self)
+        return PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self, ignoreCheckingDeadPile)
                 && (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier, ignoreRoamingPenalty));
     }
 
@@ -70,12 +70,12 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW, self)
-                && checkPlayRequirements(playerId, game, self, 0, false))
+                && checkPlayRequirements(playerId, game, self, 0, false, false))
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
         Phase extraPhase = getExtraPlayableInPhase();
         if (extraPhase != null)
             if (PlayConditions.canPlayCardDuringPhase(game, extraPhase, self)
-                    && checkPlayRequirements(playerId, game, self, 0, false))
+                    && checkPlayRequirements(playerId, game, self, 0, false, false))
                 return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
 
 

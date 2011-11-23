@@ -32,7 +32,7 @@ public class Card10_097 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.addedBurden(game, effectResult, Filters.any)
-                && checkPlayRequirements(playerId, game, self, 0, false)
+                && checkPlayRequirements(playerId, game, self, 0, false, false)
                 && PlayConditions.canSpot(game, Culture.SAURON, CardType.MINION)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

@@ -28,8 +28,8 @@ public class Card7_043 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty)
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 &&
                 (PlayConditions.canExert(self, game, 3, Filters.gandalf)
                         || (PlayConditions.hasInitiative(game, Side.FREE_PEOPLE) && PlayConditions.canExert(self, game, 2, Filters.gandalf)));

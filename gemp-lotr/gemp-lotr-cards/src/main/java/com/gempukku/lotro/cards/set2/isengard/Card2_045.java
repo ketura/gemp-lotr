@@ -37,7 +37,7 @@ public class Card2_045 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION)
-                && checkPlayRequirements(playerId, game, self, 0, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));

@@ -30,7 +30,7 @@ public class Card7_312 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, Race.ORC)
-                && checkPlayRequirements(playerId, game, self, 0, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(

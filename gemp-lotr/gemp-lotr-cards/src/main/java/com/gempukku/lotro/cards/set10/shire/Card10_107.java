@@ -53,7 +53,7 @@ public class Card10_107 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, Phase.SKIRMISH, self)
-                && checkPlayRequirements(playerId, game, self, 0, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
         }
         return null;
