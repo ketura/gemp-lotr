@@ -41,6 +41,6 @@ public class Card2_025 extends AbstractAlly {
                         PossessionClass.ARMOR,
                         PossessionClass.HELM,
                         PossessionClass.HAND_WEAPON
-                ), 1);
+                ), -1);
     }
 }
