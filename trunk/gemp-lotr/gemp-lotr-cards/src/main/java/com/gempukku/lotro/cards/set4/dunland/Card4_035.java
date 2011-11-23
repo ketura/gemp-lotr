@@ -23,7 +23,7 @@ public class Card4_035 extends AbstractOldEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) >= 2;
     }
 

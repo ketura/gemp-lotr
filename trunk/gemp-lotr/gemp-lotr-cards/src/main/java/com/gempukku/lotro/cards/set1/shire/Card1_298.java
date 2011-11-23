@@ -33,9 +33,9 @@ public class Card1_298 extends AbstractOldEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         PhysicalCard fpCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
+        return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
     }
 
     @Override

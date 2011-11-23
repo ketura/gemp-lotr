@@ -36,7 +36,7 @@ public class Card1_228 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
-                && checkPlayRequirements(playerId, game, self, 0, false)
+                && checkPlayRequirements(playerId, game, self, 0, false, false)
                 && PlayConditions.canExert(self, game, Race.NAZGUL)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(

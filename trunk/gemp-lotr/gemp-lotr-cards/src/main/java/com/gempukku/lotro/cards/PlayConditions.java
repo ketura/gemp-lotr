@@ -72,12 +72,12 @@ public class PlayConditions {
         return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), card.getStackedOn());
     }
 
-    public static boolean checkUniqueness(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public static boolean checkUniqueness(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self, boolean ignoreCheckingDeadPile) {
         LotroCardBlueprint blueprint = self.getBlueprint();
         return (!blueprint.isUnique()
                 || (
                 !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))
-                        && (self.getZone() == Zone.DEAD || (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0))));
+                        && (ignoreCheckingDeadPile || (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0))));
     }
 
     private static int getTotalCompanions(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
@@ -218,7 +218,7 @@ public class PlayConditions {
     }
 
     public static boolean canPlayFromDeadPile(String playerId, LotroGame game, Filterable... filters) {
-        return Filters.filter(game.getGameState().getDeadPile(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
+        return Filters.filter(game.getGameState().getDeadPile(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, 0, false, true))).size() > 0;
     }
 
     public static boolean canPlayFromStacked(String playerId, LotroGame game, Filterable stackedOn, Filterable... filters) {
