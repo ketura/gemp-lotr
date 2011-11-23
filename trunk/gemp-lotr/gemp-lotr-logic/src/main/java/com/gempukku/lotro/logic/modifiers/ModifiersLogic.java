@@ -1,9 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -329,7 +326,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public int getResistance(GameState gameState, PhysicalCard physicalCard) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getResistance");
         try {
-            int result = physicalCard.getBlueprint().getResistance() - gameState.getBurdens();
+            int result = physicalCard.getBlueprint().getResistance();
+            // Companions resistance is reduced by the number of burdens
+            if (physicalCard.getBlueprint().getCardType() == CardType.COMPANION)
+                result -= gameState.getBurdens();
             for (Modifier modifier : getModifiers(gameState, ModifierEffect.RESISTANCE_MODIFIER)) {
                 if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
                     result += modifier.getResistanceModifier(gameState, this, physicalCard);
