@@ -34,7 +34,7 @@ var GempLotrHallUI = Class.extend({
         var height = $(div).height();
 
         this.tablesDiv = $("<div></div>");
-        this.tablesDiv.css({scroll: "auto", left: "0px", top: "0px", width: width + "px", height: (height - 40) + "px"});
+        this.tablesDiv.css({overflow: "auto", left: "0px", top: "0px", width: width + "px", height: (height - 40) + "px"});
         this.div.append(this.tablesDiv);
 
         var buttonsDiv = $("<div></div>");
