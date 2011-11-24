@@ -12,15 +12,13 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess {
-    private LotroGame _game;
     private String _playerId;
     private int _woundsToAssign;
     private GameProcess _followingGameProcess;
 
     private GameProcess _nextProcess;
 
-    public ShadowPlayerAssignsArcheryDamageGameProcess(LotroGame game, String playerId, int woundsToAssign, GameProcess followingGameProcess) {
-        _game = game;
+    public ShadowPlayerAssignsArcheryDamageGameProcess(String playerId, int woundsToAssign, GameProcess followingGameProcess) {
         _playerId = playerId;
         _woundsToAssign = woundsToAssign;
         _followingGameProcess = followingGameProcess;
@@ -49,7 +47,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
                 action.appendEffect(woundCharacter);
             }
 
-            _game.getActionsEnvironment().addActionToStack(action);
+            game.getActionsEnvironment().addActionToStack(action);
         }
         _nextProcess = _followingGameProcess;
     }

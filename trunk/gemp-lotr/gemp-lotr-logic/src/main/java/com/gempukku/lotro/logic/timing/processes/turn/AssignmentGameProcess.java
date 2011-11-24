@@ -2,40 +2,35 @@ package com.gempukku.lotro.logic.timing.processes.turn;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.assign.FreePeoplePlayerAssignsMinionsGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.assign.ShadowPlayersAssignTheirMinionsGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.general.CanSpotGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.EndOfPhaseGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.PlayersPlayPhaseActionsInOrderGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.StartOfPhaseGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.skirmish.AfterSkirmishesGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.skirmish.PlayoutSkirmishesGameProcess;
 
 public class AssignmentGameProcess implements GameProcess {
-    private LotroGame _game;
-
-    public AssignmentGameProcess(LotroGame game) {
-        _game = game;
-    }
+    private GameProcess _followingGameProcess;
 
     @Override
     public void process(LotroGame game) {
-
+        if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
+                || game.getModifiersQuerying().shouldSkipPhase(game.getGameState(), Phase.ASSIGNMENT, null))
+            _followingGameProcess = new RegroupGameProcess();
+        else
+            _followingGameProcess = new StartOfPhaseGameProcess(Phase.ASSIGNMENT,
+                    new PlayersPlayPhaseActionsInOrderGameProcess(game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), true), 0,
+                            new FreePeoplePlayerAssignsMinionsGameProcess(game,
+                                    new ShadowPlayersAssignTheirMinionsGameProcess(
+                                            new EndOfPhaseGameProcess(Phase.ASSIGNMENT,
+                                                    new PlayoutSkirmishesGameProcess())))));
     }
 
     @Override
     public GameProcess getNextProcess() {
-        if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.ASSIGNMENT, null))
-            return new CanSpotGameProcess(_game, CardType.MINION, new PlayoutSkirmishesGameProcess(_game, new AfterSkirmishesGameProcess(_game)), new RegroupGameProcess(_game));
-
-        return new StartOfPhaseGameProcess(_game, Phase.ASSIGNMENT,
-                new PlayersPlayPhaseActionsInOrderGameProcess(_game, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0,
-                        new FreePeoplePlayerAssignsMinionsGameProcess(_game,
-                                new ShadowPlayersAssignTheirMinionsGameProcess(_game,
-                                        new EndOfPhaseGameProcess(_game, Phase.ASSIGNMENT,
-                                                new CanSpotGameProcess(_game, CardType.MINION,
-                                                        new PlayoutSkirmishesGameProcess(_game, new AfterSkirmishesGameProcess(_game)), new RegroupGameProcess(_game)))))));
+        return _followingGameProcess;
     }
 }

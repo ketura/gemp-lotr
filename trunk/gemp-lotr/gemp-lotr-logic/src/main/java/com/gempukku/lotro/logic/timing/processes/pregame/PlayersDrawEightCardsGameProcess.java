@@ -6,29 +6,29 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.StartOfTurnGameProcess;
 
 public class PlayersDrawEightCardsGameProcess implements GameProcess {
-    private LotroGame _game;
     private String _firstPlayer;
+    private GameProcess _followingGameProcess;
 
-    public PlayersDrawEightCardsGameProcess(LotroGame game, String firstPlayer) {
-        _game = game;
+    public PlayersDrawEightCardsGameProcess(String firstPlayer) {
         _firstPlayer = firstPlayer;
     }
 
     @Override
     public void process(LotroGame game) {
-        GameState gameState = _game.getGameState();
+        GameState gameState = game.getGameState();
         for (String player : gameState.getPlayerOrder().getAllPlayers()) {
             gameState.shuffleDeck(player);
             for (int i = 0; i < 8; i++)
                 gameState.playerDrawsCard(player);
         }
+        if (game.getFormat().hasMulliganRule())
+            _followingGameProcess = new MulliganProcess(game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
+        else
+            _followingGameProcess = new StartOfTurnGameProcess();
     }
 
     @Override
     public GameProcess getNextProcess() {
-        if (_game.getFormat().hasMulliganRule())
-            return new MulliganProcess(_game, _game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
-        else
-            return new StartOfTurnGameProcess(_game);
+        return _followingGameProcess;
     }
 }

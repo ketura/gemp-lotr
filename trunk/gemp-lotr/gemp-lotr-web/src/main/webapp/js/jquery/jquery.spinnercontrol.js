@@ -88,7 +88,7 @@
                 ($("div.ValueDisplay", objContainerDiv)).html(opt.defaultVal.toFixed(opt.typedata.decimalplaces));
                 var selectedValue = opt.defaultVal;
 
-                if ((opt.typedata.max - opt.typedata.min) > opt.typedata.interval) {
+                if ((opt.typedata.max - opt.typedata.min) >= opt.typedata.interval) {
                     // attach events;
                     $("div.RightButton", objContainerDiv).click(function () {
                         if ((selectedValue + opt.typedata.interval) <= opt.typedata.max || opt.looping) {

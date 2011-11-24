@@ -10,11 +10,7 @@ import com.gempukku.lotro.logic.timing.processes.turn.EndOfTurnGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.EndOfPhaseGameProcess;
 
 public class DiscardAllMinionsGameProcess implements GameProcess {
-    private LotroGame _game;
-
-    public DiscardAllMinionsGameProcess(LotroGame game) {
-        _game = game;
-    }
+    private GameProcess _followingGameProcess;
 
     @Override
     public void process(LotroGame game) {
@@ -22,11 +18,12 @@ public class DiscardAllMinionsGameProcess implements GameProcess {
         action.appendEffect(
                 new DiscardCardsFromPlayEffect(null, CardType.MINION));
         game.getActionsEnvironment().addActionToStack(action);
+        _followingGameProcess = new EndOfPhaseGameProcess(Phase.REGROUP,
+                new EndOfTurnGameProcess());
     }
 
     @Override
     public GameProcess getNextProcess() {
-        return new EndOfPhaseGameProcess(_game, Phase.REGROUP,
-                new EndOfTurnGameProcess(_game));
+        return _followingGameProcess;
     }
 }

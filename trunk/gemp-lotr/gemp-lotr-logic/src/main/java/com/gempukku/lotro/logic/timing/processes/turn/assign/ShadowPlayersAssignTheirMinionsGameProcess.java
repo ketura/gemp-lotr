@@ -6,25 +6,25 @@ import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class ShadowPlayersAssignTheirMinionsGameProcess implements GameProcess {
-    private LotroGame _game;
     private GameProcess _followingProcess;
+    private PlayOrder _shadowOrder;
+    private String _firstShadowPlayer;
 
-    public ShadowPlayersAssignTheirMinionsGameProcess(LotroGame game, GameProcess followingProcess) {
-        _game = game;
+    public ShadowPlayersAssignTheirMinionsGameProcess(GameProcess followingProcess) {
         _followingProcess = followingProcess;
     }
 
     @Override
     public void process(LotroGame game) {
+        GameState gameState = game.getGameState();
+        _shadowOrder = gameState.getPlayerOrder().getCounterClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
+        _shadowOrder.getNextPlayer();
+        _firstShadowPlayer = _shadowOrder.getNextPlayer();
 
     }
 
     @Override
     public GameProcess getNextProcess() {
-        GameState gameState = _game.getGameState();
-        PlayOrder shadowOrder = gameState.getPlayerOrder().getCounterClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
-        shadowOrder.getNextPlayer();
-        String firstShadowPlayer = shadowOrder.getNextPlayer();
-        return new ShadowPlayerAssignsHisMinionsGameProcess(_game, shadowOrder, firstShadowPlayer, _followingProcess);
+        return new ShadowPlayerAssignsHisMinionsGameProcess(_shadowOrder, _firstShadowPlayer, _followingProcess);
     }
 }

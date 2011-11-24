@@ -12,14 +12,12 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProcess {
-    private LotroGame _game;
     private int _woundsToAssign;
     private GameProcess _followingGameProcess;
 
     private GameProcess _nextProcess;
 
-    public FellowshipPlayerAssignsArcheryDamageGameProcess(LotroGame game, int woundsToAssign, GameProcess followingGameProcess) {
-        _game = game;
+    public FellowshipPlayerAssignsArcheryDamageGameProcess(int woundsToAssign, GameProcess followingGameProcess) {
         _woundsToAssign = woundsToAssign;
         _followingGameProcess = followingGameProcess;
     }
@@ -62,13 +60,13 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
             SystemQueueAction action = new SystemQueueAction();
             for (int i = 0; i < _woundsToAssign; i++) {
                 final int woundsLeft = _woundsToAssign - i;
-                ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, _game.getGameState().getCurrentPlayerId(), 1, 1, filter);
+                ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, filter);
                 woundCharacter.setSourceText("Archery Fire");
                 woundCharacter.setChoiceText("Choose character to assign archery wound to - remaining wounds: " + woundsLeft);
                 action.appendEffect(woundCharacter);
             }
 
-            _game.getActionsEnvironment().addActionToStack(action);
+            game.getActionsEnvironment().addActionToStack(action);
         }
         _nextProcess = _followingGameProcess;
     }

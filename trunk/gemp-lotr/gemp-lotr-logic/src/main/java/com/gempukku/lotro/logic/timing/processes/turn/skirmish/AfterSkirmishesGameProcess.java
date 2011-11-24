@@ -10,25 +10,21 @@ import com.gempukku.lotro.logic.timing.processes.turn.AssignmentGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.RegroupGameProcess;
 
 public class AfterSkirmishesGameProcess implements GameProcess {
-    private LotroGame _game;
-
-    public AfterSkirmishesGameProcess(LotroGame game) {
-        _game = game;
-    }
+    private GameProcess _followingGameProcess;
 
     @Override
     public void process(LotroGame game) {
-
+        GameState gameState = game.getGameState();
+        if (!gameState.isFierceSkirmishes() && Filters.canSpot(gameState, game.getModifiersQuerying(), CardType.MINION, Keyword.FIERCE)) {
+            gameState.setFierceSkirmishes(true);
+            _followingGameProcess = new AssignmentGameProcess();
+        } else {
+            _followingGameProcess = new RegroupGameProcess();
+        }
     }
 
     @Override
     public GameProcess getNextProcess() {
-        GameState gameState = _game.getGameState();
-        if (!gameState.isFierceSkirmishes() && Filters.canSpot(gameState, _game.getModifiersQuerying(), CardType.MINION, Keyword.FIERCE)) {
-            gameState.setFierceSkirmishes(true);
-            return new AssignmentGameProcess(_game);
-        } else {
-            return new RegroupGameProcess(_game);
-        }
+        return _followingGameProcess;
     }
 }

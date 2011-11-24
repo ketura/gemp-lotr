@@ -17,22 +17,14 @@ import java.util.List;
 import java.util.Set;
 
 public class PlayoutSkirmishesGameProcess implements GameProcess {
-    private LotroGame _game;
-    private GameProcess _followingGameProcess;
-
     private GameProcess _nextProcess;
-
-    public PlayoutSkirmishesGameProcess(LotroGame game, GameProcess followingGameProcess) {
-        _game = game;
-        _followingGameProcess = followingGameProcess;
-    }
 
     @Override
     public void process(LotroGame game) {
-        if (_game.getModifiersQuerying().shouldSkipPhase(_game.getGameState(), Phase.SKIRMISH, null)) {
-            _nextProcess = _followingGameProcess;
+        if (game.getModifiersQuerying().shouldSkipPhase(game.getGameState(), Phase.SKIRMISH, null)) {
+            _nextProcess = new AfterSkirmishesGameProcess();
         } else {
-            final GameState gameState = _game.getGameState();
+            final GameState gameState = game.getGameState();
             final List<Assignment> assignments = gameState.getAssignments();
 
             if (assignments.size() > 0) {
@@ -41,7 +33,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                     fps.add(assignment.getFellowshipCharacter());
 
                 String playerChoosingSkirmishOrder = gameState.getCurrentPlayerId();
-                if (_game.getModifiersQuerying().hasFlagActive(gameState, ModifierFlag.SKIRMISH_ORDER_BY_FIRST_SHADOW_PLAYER))
+                if (game.getModifiersQuerying().hasFlagActive(gameState, ModifierFlag.SKIRMISH_ORDER_BY_FIRST_SHADOW_PLAYER))
                     playerChoosingSkirmishOrder = gameState.getPlayerOrder().getCounterClockwisePlayOrder(playerChoosingSkirmishOrder, false).getNextPlayer();
 
                 SystemQueueAction chooseNextSkirmishAction = new SystemQueueAction();
@@ -59,10 +51,10 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
 
                 chooseNextSkirmishAction.appendEffect(chooseNextSkirmish);
 
-                _game.getActionsEnvironment().addActionToStack(chooseNextSkirmishAction);
+                game.getActionsEnvironment().addActionToStack(chooseNextSkirmishAction);
                 _nextProcess = this;
             } else {
-                _nextProcess = _followingGameProcess;
+                _nextProcess = new AfterSkirmishesGameProcess();
             }
         }
     }

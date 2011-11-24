@@ -13,12 +13,6 @@ import com.gempukku.lotro.logic.timing.results.EndOfTurnResult;
 import java.util.Collection;
 
 public class EndOfTurnGameProcess implements GameProcess {
-    private LotroGame _game;
-
-    public EndOfTurnGameProcess(LotroGame game) {
-        _game = game;
-    }
-
     @Override
     public void process(LotroGame game) {
         SystemQueueAction action = new SystemQueueAction() {
@@ -48,11 +42,11 @@ public class EndOfTurnGameProcess implements GameProcess {
                         return null;
                     }
                 });
-        _game.getActionsEnvironment().addActionToStack(action);
+        game.getActionsEnvironment().addActionToStack(action);
     }
 
     @Override
     public GameProcess getNextProcess() {
-        return new CleanupProcess(_game);
+        return new CleanupProcess();
     }
 }

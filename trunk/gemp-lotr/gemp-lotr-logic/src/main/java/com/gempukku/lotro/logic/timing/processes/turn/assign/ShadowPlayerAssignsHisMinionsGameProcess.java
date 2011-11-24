@@ -21,30 +21,28 @@ import java.util.List;
 import java.util.Map;
 
 public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
-    private LotroGame _game;
     private PlayOrder _shadowOrder;
     private String _playerId;
     private GameProcess _followingGameProcess;
 
-    public ShadowPlayerAssignsHisMinionsGameProcess(LotroGame game, PlayOrder shadowOrder, String playerId, GameProcess followingGameProcess) {
-        _game = game;
+    public ShadowPlayerAssignsHisMinionsGameProcess(PlayOrder shadowOrder, String playerId, GameProcess followingGameProcess) {
         _shadowOrder = shadowOrder;
         _playerId = playerId;
         _followingGameProcess = followingGameProcess;
     }
 
     @Override
-    public void process(LotroGame game) {
-        GameState gameState = _game.getGameState();
+    public void process(final LotroGame game) {
+        GameState gameState = game.getGameState();
         Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId));
         if (gameState.isFierceSkirmishes())
             minionFilter = Filters.and(
                     Keyword.FIERCE,
                     minionFilter);
 
-        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, _game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.SHADOW));
+        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.SHADOW));
         if (minions.size() > 0) {
-            final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, _game.getModifiersQuerying(),
+            final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, game.getModifiersQuerying(),
                     Filters.or(
                             CardType.COMPANION,
                             Filters.and(
@@ -69,7 +67,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                     ),
                     Filters.canBeAssignedToSkirmish(Side.SHADOW));
 
-            _game.getUserFeedback().sendAwaitingDecision(_playerId,
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
@@ -79,10 +77,10 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                             action.appendEffect(
                                     new AssignmentPhaseEffect(_playerId, assignments, "Shadow player assignments"));
 
-                            if (!_game.getModifiersQuerying().isValidAssignments(_game.getGameState(), Side.SHADOW, assignments))
+                            if (!game.getModifiersQuerying().isValidAssignments(game.getGameState(), Side.SHADOW, assignments))
                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
-                            _game.getActionsEnvironment().addActionToStack(action);
+                            game.getActionsEnvironment().addActionToStack(action);
                         }
                     });
         }
@@ -92,7 +90,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     public GameProcess getNextProcess() {
         String nextPlayerId = _shadowOrder.getNextPlayer();
         if (nextPlayerId != null)
-            return new ShadowPlayerAssignsHisMinionsGameProcess(_game, _shadowOrder, nextPlayerId, _followingGameProcess);
+            return new ShadowPlayerAssignsHisMinionsGameProcess(_shadowOrder, nextPlayerId, _followingGameProcess);
         else
             return _followingGameProcess;
     }

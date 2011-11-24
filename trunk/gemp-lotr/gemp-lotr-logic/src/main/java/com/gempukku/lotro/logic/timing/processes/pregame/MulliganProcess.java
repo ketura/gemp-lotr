@@ -13,43 +13,41 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MulliganProcess implements GameProcess {
-    private LotroGame _game;
     private PlayOrder _playOrder;
 
     private GameProcess _nextProcess;
 
-    public MulliganProcess(LotroGame game, PlayOrder playOrder) {
-        _game = game;
+    public MulliganProcess(PlayOrder playOrder) {
         _playOrder = playOrder;
     }
 
     @Override
-    public void process(LotroGame game) {
+    public void process(final LotroGame game) {
         final String nextPlayer = _playOrder.getNextPlayer();
         if (nextPlayer != null) {
-            _game.getUserFeedback().sendAwaitingDecision(nextPlayer,
+            game.getUserFeedback().sendAwaitingDecision(nextPlayer,
                     new MultipleChoiceAwaitingDecision(1, "Do you wish to mulligan? (Shuffle cards back and draw 6)", new String[]{"No", "Yes"}) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
                             if (index == 1) {
-                                final GameState gameState = _game.getGameState();
+                                final GameState gameState = game.getGameState();
                                 gameState.sendMessage(nextPlayer + " mulligans");
                                 Set<PhysicalCard> hand = new HashSet<PhysicalCard>(gameState.getHand(nextPlayer));
                                 gameState.removeCardsFromZone(nextPlayer, hand);
                                 for (PhysicalCard card : hand)
-                                    gameState.addCardToZone(_game, card, Zone.DECK);
+                                    gameState.addCardToZone(game, card, Zone.DECK);
 
                                 gameState.shuffleDeck(nextPlayer);
                                 for (int i = 0; i < 6; i++)
                                     gameState.playerDrawsCard(nextPlayer);
                             } else {
-                                _game.getGameState().sendMessage(nextPlayer + " decides not to mulligan");
+                                game.getGameState().sendMessage(nextPlayer + " decides not to mulligan");
                             }
                         }
                     });
-            _nextProcess = new MulliganProcess(_game, _playOrder);
+            _nextProcess = new MulliganProcess(_playOrder);
         } else {
-            _nextProcess = new StartOfTurnGameProcess(_game);
+            _nextProcess = new StartOfTurnGameProcess();
         }
     }
 
