@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.set8.gandalf;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.PutCharacterFromPlayInDeadPileEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.common.CardType;
@@ -14,6 +13,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.KillEffect;
+
+import java.util.Collections;
 
 /**
  * Set: Siege of Gondor
@@ -43,7 +45,7 @@ public class Card8_020 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.insertCost(
-                                new PutCharacterFromPlayInDeadPileEffect(card));
+                                new KillEffect(Collections.singletonList(card), KillEffect.Cause.CARD_EFFECT));
                         for (int i = 0; i < 3; i++)
                             action.appendEffect(
                                     new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 0, 1, card.getBlueprint().getCulture()));
