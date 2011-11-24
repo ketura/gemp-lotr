@@ -31,8 +31,9 @@ public class MulliganProcess implements GameProcess {
                     new MultipleChoiceAwaitingDecision(1, "Do you wish to mulligan? (Shuffle cards back and draw 6)", new String[]{"No", "Yes"}) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
-                            if (result.equals("Yes")) {
+                            if (index == 1) {
                                 final GameState gameState = _game.getGameState();
+                                gameState.sendMessage(nextPlayer + " mulligans");
                                 Set<PhysicalCard> hand = new HashSet<PhysicalCard>(gameState.getHand(nextPlayer));
                                 gameState.removeCardsFromZone(nextPlayer, hand);
                                 for (PhysicalCard card : hand)
@@ -41,6 +42,8 @@ public class MulliganProcess implements GameProcess {
                                 gameState.shuffleDeck(nextPlayer);
                                 for (int i = 0; i < 6; i++)
                                     gameState.playerDrawsCard(nextPlayer);
+                            } else {
+                                _game.getGameState().sendMessage(nextPlayer + " decides not to mulligan");
                             }
                         }
                     });
