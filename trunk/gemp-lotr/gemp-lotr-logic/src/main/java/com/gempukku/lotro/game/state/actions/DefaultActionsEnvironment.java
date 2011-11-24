@@ -18,6 +18,7 @@ import java.util.*;
 
 public class DefaultActionsEnvironment implements ActionsEnvironment {
     private LotroGame _lotroGame;
+    private CharacterDeathRule _characterDeathRule;
     private ActionStack _actionStack;
     private List<ActionProxy> _actionProxies = new LinkedList<ActionProxy>();
     private Map<Phase, List<ActionProxy>> _untilStartOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
@@ -26,9 +27,10 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     private List<PhysicalCard> _playedCardsInPhase = new LinkedList<PhysicalCard>();
 
-    public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
+    public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack, CharacterDeathRule characterDeathRule) {
         _lotroGame = lotroGame;
         _actionStack = actionStack;
+        _characterDeathRule = characterDeathRule;
 
         addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
@@ -152,8 +154,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _lotroGame.getGameState().iterateActiveTextCards(gatherActions);
 
         List<Action> gatheredActions = gatherActions.getActions();
-        CharacterDeathRule characterDeathRule = new CharacterDeathRule();
-        List<RequiredTriggerAction> killEffects = characterDeathRule.getKillEffects(_lotroGame);
+        List<RequiredTriggerAction> killEffects = _characterDeathRule.getKillEffects(_lotroGame);
         if (killEffects != null)
             gatheredActions.addAll(killEffects);
 

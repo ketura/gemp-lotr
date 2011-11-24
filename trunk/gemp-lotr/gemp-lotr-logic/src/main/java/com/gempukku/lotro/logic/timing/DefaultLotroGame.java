@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
 
@@ -29,6 +30,7 @@ public class DefaultLotroGame implements LotroGame {
     private UserFeedback _userFeedback;
     private TurnProcedure _turnProcedure;
     private ActionStack _actionStack;
+    private CharacterDeathRule _characterDeathRule = new CharacterDeathRule();
 
     private LotroFormat _format;
 
@@ -45,7 +47,7 @@ public class DefaultLotroGame implements LotroGame {
 
         _allPlayers = decks.keySet();
 
-        _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack);
+        _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack, _characterDeathRule);
 
         final Map<String, List<String>> cards = new HashMap<String, List<String>>();
         final Map<String, String> ringBearers = new HashMap<String, String>();
@@ -170,23 +172,30 @@ public class DefaultLotroGame implements LotroGame {
     }
 
     @Override
-    public void checkLoseConditions() {
+    public void checkRingBearerCorruption() {
         GameState gameState = getGameState();
         if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {
             // Ring-bearer death
             PhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
             Zone zone = ringBearer.getZone();
-            if (zone == null || !zone.isInPlay()) {
-                playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is dead");
-                return;
-            } else {
+            if (zone != null && zone.isInPlay()) {
                 // Ring-bearer corruption
                 int ringBearerResistance = getModifiersQuerying().getResistance(getGameState(), ringBearer);
-                if (ringBearerResistance <= 0) {
+                if (ringBearerResistance <= 0)
                     playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
-                    return;
-                }
             }
+        }
+    }
+
+    @Override
+    public void checkRingBearerAlive() {
+        GameState gameState = getGameState();
+        if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {
+            // Ring-bearer death
+            PhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
+            Zone zone = ringBearer.getZone();
+            if (zone == null || !zone.isInPlay())
+                playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is dead");
         }
     }
 

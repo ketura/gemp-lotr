@@ -190,6 +190,14 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean killed(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.KILL) {
+            KillResult killResult = (KillResult) effectResult;
+            return Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
     public static boolean isGettingWoundedBy(Effect effect, LotroGame game, Filterable sourceFilter, Filterable... filters) {
         if (effect.getType() == Effect.Type.BEFORE_WOUND) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
