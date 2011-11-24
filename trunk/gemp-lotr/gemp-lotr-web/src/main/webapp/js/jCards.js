@@ -84,6 +84,9 @@ var Card = Class.extend({
     },
 
     getUrlByBlueprintId: function(blueprintId) {
+        if (blueprintId == "Fellowship of the Ring - League")
+            return "/gemp-lotr/images/boosters/fotr_booster.jpg";
+
         var separator = blueprintId.indexOf("_");
         var setNo = parseInt(blueprintId.substr(0, separator));
         var cardNo = parseInt(blueprintId.substr(separator + 1));
@@ -124,15 +127,17 @@ var Card = Class.extend({
     }
 });
 
-function createCardDiv(image, text, foil) {
+function createCardDiv(image, text, foil, tokens) {
     var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
     if (foil) {
         var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/holo.jpg' width='100%' height='100%'></div>");
         cardDiv.append(foilDiv);
     }
 
-    var overlayDiv = $("<div class='tokenOverlay'></div>");
-    cardDiv.append(overlayDiv);
+    if (tokens === undefined || tokens) {
+        var overlayDiv = $("<div class='tokenOverlay'></div>");
+        cardDiv.append(overlayDiv);
+    }
     var borderDiv = $("<div class='borderOverlay'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
     cardDiv.append(borderDiv);
 

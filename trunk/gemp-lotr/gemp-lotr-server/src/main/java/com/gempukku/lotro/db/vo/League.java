@@ -1,6 +1,5 @@
 package com.gempukku.lotro.db.vo;
 
-import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
 
 public class League {
@@ -28,7 +27,7 @@ public class League {
         return _name;
     }
 
-    public CardCollection getBaseCollection() {
+    public MutableCardCollection getBaseCollection() {
         return _baseCollection;
     }
 }

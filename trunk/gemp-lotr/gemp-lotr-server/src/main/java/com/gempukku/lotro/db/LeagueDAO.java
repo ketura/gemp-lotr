@@ -2,9 +2,12 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.MutableCardCollection;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -26,11 +29,35 @@ public class LeagueDAO {
         _serializer = new CollectionSerializer(_library);
     }
 
-    private void loadLeagues() throws SQLException, IOException {
+    public void addLeague(String name, String type, CardCollection collection, int startTime, int endTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, collection from league");
+            PreparedStatement statement = conn.prepareStatement("insert into league (name, type, collection, start, end) values (?, ?, ?, ?, ?)");
             try {
+                statement.setString(1, name);
+                statement.setString(2, type);
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                _serializer.serializeCollection(collection, outputStream);
+                statement.setBlob(3, new ByteArrayInputStream(outputStream.toByteArray()));
+                statement.setInt(4, startTime);
+                statement.setInt(5, endTime);
+                statement.execute();
+                _dateLoaded = 0;
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    private void loadActiveLeagues(int currentTime) throws SQLException, IOException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, collection from league where start<=? and end>=?");
+            try {
+                statement.setInt(1, currentTime);
+                statement.setInt(2, currentTime);
                 ResultSet rs = statement.executeQuery();
                 try {
                     while (rs.next()) {
@@ -43,7 +70,7 @@ public class LeagueDAO {
                             try {
                                 MutableCardCollection collection = _serializer.deserializeCollection(inputStream);
 
-                                _activeLeagues.add(new League(id, name, type, collection));
+                                _activeLeagues.add(new League(id, type, name, collection));
                             } finally {
                                 inputStream.close();
                             }
@@ -71,7 +98,7 @@ public class LeagueDAO {
         int currentDate = getCurrentDate();
         if (currentDate != _dateLoaded) {
             try {
-                loadLeagues();
+                loadActiveLeagues(currentDate);
                 _dateLoaded = currentDate;
             } catch (SQLException e) {
                 throw new RuntimeException("Unable to load Leagues", e);
