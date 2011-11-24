@@ -128,7 +128,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 function(first, second) {
                     return (first.data("card").siteNumber - second.data("card").siteNumber);
                 }
-        );
+                );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -190,6 +190,7 @@ var NormalCardGroup = CardGroup.extend({
                 cardsToLayout.push($(this));
             }
         });
+
 
         var proportionsArray = this.getCardsWithAttachmentWidthProportion(cardsToLayout);
 
@@ -353,47 +354,54 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
 }
 
 function layoutTokens(cardElem) {
-    var width = cardElem.width();
-    var height = cardElem.height();
-    var maxDimension = Math.max(width, height);
-
     var tokenOverlay = $(".tokenOverlay", cardElem);
 
-    var tokenSize = Math.floor(maxDimension / 13) * 2;
+    if (tokenOverlay != null) {
+        var width = cardElem.width();
+        var height = cardElem.height();
+        var maxDimension = Math.max(width, height);
 
-    // Remove all existing tokens
-    $(".token", tokenOverlay).remove();
+        var tokenSize = Math.floor(maxDimension / 13) * 2;
 
-    var tokens = cardElem.data("card").tokens;
-    if (tokens != null) {
-        var tokenInColumnMax = 10;
-        var tokenColumns = 0;
+        // Remove all existing tokens
+        $(".token", tokenOverlay).remove();
 
-        for (var token in tokens)
-            if (tokens.hasOwnProperty(token) && tokens[token] > 0) {
-                tokenColumns += (1 + Math.floor((tokens[token] - 1) / tokenInColumnMax));
-            }
+        var tokens = cardElem.data("card").tokens;
+        if (tokens != null) {
+            var tokenInColumnMax = 10;
+            var tokenColumns = 0;
 
-        var tokenIndex = 1;
-        for (var token in tokens)
-            if (tokens.hasOwnProperty(token) && tokens[token] > 0) {
-                var tokenCount = tokens[token];
-
-                var tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2);
-                var tokenInColumnIndex = 0;
-                for (var i = 0; i < tokenCount; i++) {
-                    if (tokenInColumnIndex == tokenInColumnMax) {
-                        tokenInColumnIndex = 0;
-                        tokenIndex++;
-                        tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2)
-                    }
-                    var tokenY = Math.floor((maxDimension / 13) * (1 + tokenInColumnIndex));
-
-                    var tokenElem = $("<img class='token' src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: tokenY + "px"});
-                    tokenOverlay.append(tokenElem);
-                    tokenInColumnIndex++;
+            for (var token in tokens)
+                if (tokens.hasOwnProperty(token) && tokens[token] > 0) {
+                    tokenColumns += (1 + Math.floor((tokens[token] - 1) / tokenInColumnMax));
                 }
-                tokenIndex ++;
-            }
+
+            var tokenIndex = 1;
+            for (var token in tokens)
+                if (tokens.hasOwnProperty(token)) {
+                    if (token == "count") {
+                        var tokenElem = $("<div class='cardCount token'>" + tokens[token] + "</div>").css({position: "absolute", left: ((width - 20) / 2) + "px", top: ((height - 18) / 2) + "px"});
+                        tokenOverlay.append(tokenElem);
+                    } else if (tokens[token] > 0) {
+                        var tokenCount = tokens[token];
+
+                        var tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2);
+                        var tokenInColumnIndex = 0;
+                        for (var i = 0; i < tokenCount; i++) {
+                            if (tokenInColumnIndex == tokenInColumnMax) {
+                                tokenInColumnIndex = 0;
+                                tokenIndex++;
+                                tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2)
+                            }
+                            var tokenY = Math.floor((maxDimension / 13) * (1 + tokenInColumnIndex));
+
+                            var tokenElem = $("<img class='token' src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position: "absolute", left: tokenX + "px", top: tokenY + "px"});
+                            tokenOverlay.append(tokenElem);
+                            tokenInColumnIndex++;
+                        }
+                        tokenIndex ++;
+                    }
+                }
+        }
     }
 }

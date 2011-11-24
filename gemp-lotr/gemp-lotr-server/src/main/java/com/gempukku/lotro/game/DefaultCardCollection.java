@@ -143,7 +143,10 @@ public class DefaultCardCollection implements MutableCardCollection {
                 addCards(cardFromPack, cardBlueprint, 1);
                 result.add(new Item(Item.Type.CARD, 1, cardFromPack, cardBlueprint));
             }
-            _counts.put(packId, count - 1);
+            if (count == 1)
+                _counts.remove(packId);
+            else
+                _counts.put(packId, count - 1);
 
             return result;
         }
@@ -289,6 +292,14 @@ public class DefaultCardCollection implements MutableCardCollection {
         public int compare(String o1, String o2) {
             String[] o1Parts = o1.split("_");
             String[] o2Parts = o2.split("_");
+
+            if (o1Parts.length == 1 && o2Parts.length == 1)
+                return o1Parts[0].compareTo(o2Parts[0]);
+            if (o1Parts.length == 1)
+                return -1;
+            if (o2Parts.length == 1)
+                return 1;
+
             if (o1Parts[0].equals(o2Parts[0])) {
                 final int firstNumber = getAvailableNumber(o1Parts[1]);
                 final int secondNumber = getAvailableNumber(o2Parts[1]);

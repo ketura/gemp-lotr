@@ -130,6 +130,19 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    openPack: function(collectionType, pack, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/collection/" + collectionType,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                pack: pack},
+            success: callback,
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
     saveDeck: function(deckName, contents, callback) {
         $.ajax({
             type: "POST",

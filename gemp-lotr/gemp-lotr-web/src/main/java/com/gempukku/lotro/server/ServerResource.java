@@ -1,5 +1,8 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.cards.packs.DefaultPackBox;
+import com.gempukku.lotro.cards.packs.LeagueBoosterBox;
+import com.gempukku.lotro.cards.packs.PackBox;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
@@ -54,6 +57,7 @@ public class ServerResource {
     private ChatServer _chatServer;
     private LeagueService _leagueService;
     private CollectionDAO _collectionDao;
+    private PackBox _packBox;
 
     public ServerResource() {
         _logger.debug("starting resource");
@@ -74,6 +78,11 @@ public class ServerResource {
 
             _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _collectionDao, _test);
             _hallServer.startServer();
+
+            DefaultPackBox packBox = new DefaultPackBox();
+            packBox.addBoosterBox("Fellowship of the Ring - League", new LeagueBoosterBox(_library));
+            _packBox = packBox;
+
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
             exp.printStackTrace();
@@ -539,12 +548,7 @@ public class ServerResource {
 
         Player player = _lotroServer.getPlayerDao().getPlayer(participantId);
 
-        CardCollection collection;
-        if (collectionType.equals("default"))
-            collection = _lotroServer.getDefaultCollection();
-        else {
-            collection = _collectionDao.getCollectionForPlayer(player, collectionType);
-        }
+        CardCollection collection = getCollection(player, collectionType);
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -584,6 +588,20 @@ public class ServerResource {
         return doc;
     }
 
+    private CardCollection getCollection(Player player, String collectionType) {
+        CardCollection collection = null;
+        if (collectionType.equals("default"))
+            collection = _lotroServer.getDefaultCollection();
+        else if (collectionType.equals("permanent"))
+            collection = _collectionDao.getCollectionForPlayer(player, "permanent");
+        else {
+            League league = _leagueService.getLeagueByType(collectionType);
+            if (league != null)
+                collection = _leagueService.getLeagueCollection(player, league);
+        }
+        return collection;
+    }
+
     @Path("/collection/{collectionType}")
     @POST
     @Produces(MediaType.APPLICATION_XML)
@@ -597,13 +615,17 @@ public class ServerResource {
 
         Player player = _lotroServer.getPlayerDao().getPlayer(participantId);
 
-        MutableCardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType);
-        if (collection == null)
+        CardCollection collection = getCollection(player, collectionType);
+        if (collection == null || !(collection instanceof MutableCardCollection))
             sendError(Response.Status.NOT_FOUND);
 
-        List<CardCollection.Item> packContents = collection.openPack(packId, null, null);
+        MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
+
+        List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packBox, _library);
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
+
+        _collectionDao.setCollectionForPlayer(player, collectionType, modifiableColleciton);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -720,6 +742,7 @@ public class ServerResource {
         }
         for (League league : _hallServer.getRunningLeagues()) {
             Element formatElem = doc.createElement("format");
+            formatElem.setAttribute("type", league.getType());
             formatElem.appendChild(doc.createTextNode(league.getName()));
             hall.appendChild(formatElem);
         }

@@ -28,6 +28,19 @@
             border: 2px solid #00cccc;
         }
 
+        .cardCount {
+            width: 20px;
+            height: 18px;
+            background-color: #000000;
+            color: #ffffff;
+            font-size: 120%;
+            font-weight: bolder;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            opacity: 0.7;
+        }
+
         .ui-layout-east {
             width: 350px;
         }
@@ -113,7 +126,7 @@
                     $('body').layout({
                         applyDefaultStyles: true,
                         onresize: function() {
-                            ui.layoutUI();
+                            ui.layoutUI(true);
                         },
                         east__minSize: "30%"
                     });
@@ -121,10 +134,10 @@
                     $(".ui-layout-pane").css({"background-color": "#000000"});
 
                     $(window).resize(function() {
-                        ui.layoutUI();
+                        ui.layoutUI(true);
                     });
 
-                    ui.layoutUI();
+                    ui.layoutUI(true);
                 });
     </script>
 

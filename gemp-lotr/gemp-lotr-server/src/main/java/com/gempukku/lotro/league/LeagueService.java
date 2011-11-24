@@ -5,9 +5,7 @@ import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
-import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.*;
 
 import java.util.Set;
 
@@ -26,12 +24,29 @@ public class LeagueService {
         return _leagueDao.getActiveLeagues();
     }
 
-    public CardCollection getLeagueCollection(Player player, League league) {
-        final CardCollection collectionForPlayer = _collectionDao.getCollectionForPlayer(player, league.getType());
+    public MutableCardCollection getLeagueCollection(Player player, League league) {
+        final MutableCardCollection collectionForPlayer = _collectionDao.getCollectionForPlayer(player, league.getType());
         if (collectionForPlayer == null) {
-            return league.getBaseCollection();
+            MutableCardCollection collection = new DefaultCardCollection(_library);
+
+            MutableCardCollection baseCollection = league.getBaseCollection();
+            for (CardCollection.Item item : baseCollection.getItems(null)) {
+                if (item.getType() == CardCollection.Item.Type.CARD)
+                    collection.addCards(item.getBlueprintId(), _library.getLotroCardBlueprint(item.getBlueprintId()), item.getCount());
+                else
+                    collection.addPacks(item.getBlueprintId(), item.getCount());
+            }
+            return collection;
         }
         return collectionForPlayer;
+    }
+
+    public League getLeagueByType(String type) {
+        for (League league : getActiveLeagues()) {
+            if (league.getType().equals(type))
+                return league;
+        }
+        return null;
     }
 
     public LotroFormat getLeagueFormat(League league) {
