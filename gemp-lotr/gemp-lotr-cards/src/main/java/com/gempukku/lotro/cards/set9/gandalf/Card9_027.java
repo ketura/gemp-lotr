@@ -52,7 +52,7 @@ public class Card9_027 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if ((PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self) || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
-                && PlayConditions.canPlayFromHand(playerId, game, Side.FREE_PEOPLE, Race.WIZARD, Filters.playable(game, 0, false, true))) {
+                && PlayConditions.canPlayFromHand(playerId, game, 0, false, true, Side.FREE_PEOPLE, Race.WIZARD)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, 0, false, true, Side.FREE_PEOPLE, Race.WIZARD));
