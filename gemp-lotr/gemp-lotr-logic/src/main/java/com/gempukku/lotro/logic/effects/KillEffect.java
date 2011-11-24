@@ -11,12 +11,14 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
+import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 
 import java.util.*;
 
 public class KillEffect extends AbstractSuccessfulEffect {
     private List<PhysicalCard> _cards;
     private Cause _cause;
+    private CharacterDeathRule _characterDeathRule;
 
     public enum Cause {
         WOUNDS, OVERWHELM, CARD_EFFECT
@@ -25,6 +27,12 @@ public class KillEffect extends AbstractSuccessfulEffect {
     public KillEffect(List<PhysicalCard> cards, Cause cause) {
         _cards = cards;
         _cause = cause;
+    }
+
+    public KillEffect(List<PhysicalCard> cards, Cause cause, CharacterDeathRule characterDeathRule) {
+        _cards = cards;
+        _cause = cause;
+        _characterDeathRule = characterDeathRule;
     }
 
     public Cause getCause() {

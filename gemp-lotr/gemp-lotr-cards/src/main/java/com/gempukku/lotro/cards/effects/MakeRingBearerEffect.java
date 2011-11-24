@@ -5,6 +5,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collections;
+
 public class MakeRingBearerEffect extends UnrespondableEffect {
     private PhysicalCard _newRingBearer;
 
@@ -19,7 +21,8 @@ public class MakeRingBearerEffect extends UnrespondableEffect {
 
         PhysicalCard theOneRing = game.getGameState().getRing(game.getGameState().getCurrentPlayerId());
         game.getGameState().sendMessage(_newRingBearer.getOwner() + " makes " + GameUtils.getCardLink(_newRingBearer) + " a new Ring-bearer");
-        game.getGameState().transferCard(theOneRing, _newRingBearer);
+        game.getGameState().removeCardsFromZone(_newRingBearer.getOwner(), Collections.singleton(theOneRing));
+        game.getGameState().attachCard(game, theOneRing, _newRingBearer);
         game.getGameState().setRingBearer(_newRingBearer);
     }
 }

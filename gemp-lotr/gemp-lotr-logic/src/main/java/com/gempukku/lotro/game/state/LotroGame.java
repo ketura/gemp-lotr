@@ -17,7 +17,9 @@ public interface LotroGame {
 
     public UserFeedback getUserFeedback();
 
-    public void checkLoseConditions();
+    public void checkRingBearerCorruption();
+
+    public void checkRingBearerAlive();
 
     public void playerWon(String currentPlayerId, String reason);
 

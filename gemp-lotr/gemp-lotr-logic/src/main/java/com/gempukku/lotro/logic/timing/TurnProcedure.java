@@ -63,7 +63,7 @@ public class TurnProcedure {
                         _actionStack.stackAction(new PlayOutRecognizableEffect(effect));
                 }
             }
-            _game.checkLoseConditions();
+            _game.checkRingBearerCorruption();
         }
     }
 
@@ -75,6 +75,7 @@ public class TurnProcedure {
         private boolean _effectPlayed;
         private boolean _checkedRequiredWhenResponses;
         private boolean _checkedOptionalWhenResponses;
+        private boolean _checkedRingBearerDeath;
 
         private PlayOutRecognizableEffect(Effect effect) {
             _effect = effect;
@@ -158,8 +159,23 @@ public class TurnProcedure {
                     return new StackActionEffect(action);
                 }
             }
+            if (!_checkedRingBearerDeath) {
+                _checkedRingBearerDeath = true;
+                if (_effectResults != null && _effectResults.size() > 0) {
+                    if (hasKillEffectResult())
+                        _game.checkRingBearerAlive();
+                }
+            }
 
             return null;
+        }
+
+        private boolean hasKillEffectResult() {
+            for (EffectResult effectResult : _effectResults) {
+                if (effectResult.getType() == EffectResult.Type.KILL)
+                    return true;
+            }
+            return false;
         }
     }
 
