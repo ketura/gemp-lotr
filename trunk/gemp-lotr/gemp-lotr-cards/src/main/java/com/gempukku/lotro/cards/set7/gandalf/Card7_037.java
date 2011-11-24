@@ -92,7 +92,7 @@ public class Card7_037 extends AbstractCompanion {
                                                                             @Override
                                                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                                                 for (PhysicalCard selectedCard : selectedCards) {
-                                                                                    action.insertCost(
+                                                                                    subAction.insertEffect(
                                                                                             new PutCardFromHandOnTopOfDeckEffect(selectedCard));
                                                                                 }
                                                                             }
