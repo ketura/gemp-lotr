@@ -176,9 +176,6 @@ var AdvPathCardGroup = CardGroup.extend({
 });
 
 var NormalCardGroup = CardGroup.extend({
-    layoutShrinkThreshold: 0.1,
-    lastTimeLayedCount: 0,
-    lastTimeRowCount: 1,
 
     init: function(container, belongTest, createDiv) {
         this._super(container, belongTest, createDiv);
@@ -194,28 +191,31 @@ var NormalCardGroup = CardGroup.extend({
             }
         });
 
-        var cardCount = cardsToLayout.length;
+        var proportionsArray = this.getCardsWithAttachmentWidthProportion(cardsToLayout);
 
-        var startWithRows = 1;
-        if (cardCount > ((1 - this.layoutShrinkThreshold) * this.lastTimeLayedCount))
-            startWithRows = this.lastTimeRowCount;
-
-        var rows = startWithRows - 1;
+        var rows = 0;
         var result = false;
         do {
             rows++;
-            result = this.layoutInRowsIfPossible(cardsToLayout, rows);
+            result = this.layoutInRowsIfPossible(cardsToLayout, proportionsArray, rows);
         } while (!result);
-
-        if (rows != startWithRows) {
-            this.lastTimeLayedCount = cardCount;
-            this.lastTimeRowCount = rows;
-        }
     },
 
-    layoutInRowsIfPossible: function(cardsToLayout, rowCount) {
+    getCardsWithAttachmentWidthProportion: function(cardsToLayout) {
+        var proportionsArray = new Array();
+        for (var cardIndex in cardsToLayout) {
+            var cardData = cardsToLayout[cardIndex].data("card");
+            var cardWithAttachmentWidth = cardData.getWidthForMaxDimension(1000);
+            for (var i = 0; i < cardData.attachedCards.length; i++)
+                cardWithAttachmentWidth += cardData.attachedCards[i].data("card").getWidthForMaxDimension(1000) * 0.2;
+            proportionsArray.push(cardWithAttachmentWidth / 1000);
+        }
+        return proportionsArray;
+    },
+
+    layoutInRowsIfPossible: function(cardsToLayout, proportionsArray, rowCount) {
         if (rowCount == 1) {
-            var oneRowHeight = this.getHeightForLayoutInOneRow(cardsToLayout);
+            var oneRowHeight = this.getHeightForLayoutInOneRow(proportionsArray);
             if (oneRowHeight * 2 + this.padding > this.height) {
                 this.layoutInRow(cardsToLayout, oneRowHeight);
                 return true;
@@ -223,7 +223,7 @@ var NormalCardGroup = CardGroup.extend({
                 return false;
             }
         } else {
-            if (this.tryIfCanLayoutInRows(rowCount, cardsToLayout)) {
+            if (this.tryIfCanLayoutInRows(rowCount, proportionsArray)) {
                 this.layoutInRows(rowCount, cardsToLayout);
                 return true;
             } else {
@@ -232,18 +232,12 @@ var NormalCardGroup = CardGroup.extend({
         }
     },
 
-    getHeightForLayoutInOneRow: function(cardsToLayout) {
+    getHeightForLayoutInOneRow: function(proportionsArray) {
         var totalWidth = 0;
-        for (var cardIndex in cardsToLayout) {
-            var cardData = cardsToLayout[cardIndex].data("card");
-            var cardWidth = cardData.getWidthForMaxDimension(this.height);
-            var attachmentWidths = 0;
-            for (var i = 0; i < cardData.attachedCards.length; i++)
-                attachmentWidths += cardData.attachedCards[i].data("card").getWidthForMaxDimension(this.height) * 0.2;
-            var cardWidthWithAttachments = cardWidth + attachmentWidths;
-            totalWidth += cardWidthWithAttachments;
-        }
-        var widthWithoutPadding = this.width - (this.padding * (cardsToLayout.length - 1));
+        for (var cardIndex in proportionsArray)
+            totalWidth += proportionsArray[cardIndex] * this.height;
+
+        var widthWithoutPadding = this.width - (this.padding * (proportionsArray.length - 1));
         if (totalWidth > widthWithoutPadding) {
             return Math.floor(this.height / (totalWidth / widthWithoutPadding));
         } else {
@@ -251,19 +245,14 @@ var NormalCardGroup = CardGroup.extend({
         }
     },
 
-    tryIfCanLayoutInRows: function(rowCount, cardsToLayout) {
+    tryIfCanLayoutInRows: function(rowCount, proportionsArray) {
         var rowHeight = (this.height - (this.padding * (rowCount - 1))) / rowCount;
         if (this.maxCardHeight != null)
             rowHeight = Math.min(this.maxCardHeight, rowHeight);
         var totalWidth = 0;
         var row = 0;
-        for (var cardIndex in cardsToLayout) {
-            var cardData = cardsToLayout[cardIndex].data("card");
-            var cardWidth = cardData.getWidthForMaxDimension(rowHeight);
-            var attachmentWidths = 0;
-            for (var i = 0; i < cardData.attachedCards.length; i++)
-                attachmentWidths += cardData.attachedCards[i].data("card").getWidthForMaxDimension(rowHeight) * 0.2;
-            var cardWidthWithAttachments = cardWidth + attachmentWidths;
+        for (var cardIndex in proportionsArray) {
+            var cardWidthWithAttachments = proportionsArray[cardIndex] * rowHeight;
             totalWidth += cardWidthWithAttachments;
             if (totalWidth > this.width) {
                 row++;
