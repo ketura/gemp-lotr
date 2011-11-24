@@ -41,7 +41,7 @@ public class Card10_118 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.CONDITION, Filters.owner(game.getGameState().getCurrentPlayerId())));
             return Collections.singletonList(action);

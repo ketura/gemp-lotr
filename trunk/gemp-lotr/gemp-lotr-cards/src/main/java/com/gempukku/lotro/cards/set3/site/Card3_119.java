@@ -35,7 +35,7 @@ public class Card3_119 extends AbstractSite {
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ELF) >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

@@ -37,7 +37,7 @@ public class Card7_341 extends AbstractSite {
                 && PlayConditions.canRemoveBurdens(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.owner(playerId), CardType.MINION));
             return Collections.singletonList(action);

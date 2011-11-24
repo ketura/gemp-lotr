@@ -46,7 +46,7 @@ public class Card10_112 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SHIRE, Filters.character));
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new RemoveBurdenEffect(self));
+                new RemoveBurdenEffect(playerId, self));
         possibleEffects.add(
                 new RemoveThreatsEffect(self, 2) {
                     @Override

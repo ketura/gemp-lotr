@@ -71,7 +71,7 @@ public class Card7_262 extends AbstractEvent {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
                             action.insertCost(
-                                    new RemoveBurdenEffect(self));
+                                    new RemoveBurdenEffect(playerId, self));
                             action.appendEffect(
                                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Race.ORC));
                         }

@@ -50,7 +50,7 @@ public class Card9_044 extends AbstractAttachable {
                 && PlayConditions.canRemoveBurdens(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendEffect(
                     new HealCharactersEffect(self, Race.NAZGUL));
             return Collections.singletonList(action);

@@ -47,7 +47,7 @@ public class Card6_100 extends AbstractMinion {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         List<Effect> possibleCosts = new LinkedList<Effect>();
         possibleCosts.add(
-                new RemoveBurdenEffect(self) {
+                new RemoveBurdenEffect(playerId, self) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Remove a burden";

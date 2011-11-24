@@ -38,7 +38,7 @@ public class Card1_312 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, CardType.COMPANION));
-        action.appendEffect(new RemoveBurdenEffect(self));
+        action.appendEffect(new RemoveBurdenEffect(playerId, self));
         return action;
     }
 }

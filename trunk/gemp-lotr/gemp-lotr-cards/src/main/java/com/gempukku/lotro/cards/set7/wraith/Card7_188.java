@@ -73,7 +73,7 @@ public class Card7_188 extends AbstractMinion {
                 && PlayConditions.canRemoveBurdens(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, self, 3), Phase.SKIRMISH));

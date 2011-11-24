@@ -47,7 +47,7 @@ public class Card4_299 extends AbstractPermanent {
                                     int count = getValidatedResult(result);
                                     for (int i = 0; i < count; i++)
                                         action.appendEffect(
-                                                new RemoveBurdenEffect(self));
+                                                new RemoveBurdenEffect(self.getOwner(), self));
                                 }
                             }));
             return Collections.singletonList(action);

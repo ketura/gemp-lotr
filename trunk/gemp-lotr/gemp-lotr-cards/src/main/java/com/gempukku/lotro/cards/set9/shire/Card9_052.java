@@ -46,13 +46,13 @@ public class Card9_052 extends AbstractAlly {
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         List<Effect> possibleCosts = new LinkedList<Effect>();
 
         if (PlayConditions.canRemoveBurdens(game, self, 2)) {
             possibleCosts.add(
-                    new RemoveBurdenEffect(self) {
+                    new RemoveBurdenEffect(playerId, self) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Remove 2 burdens";
@@ -62,7 +62,7 @@ public class Card9_052 extends AbstractAlly {
                         protected FullEffectResult playEffectReturningResult(LotroGame game) {
                             FullEffectResult effectResult = super.playEffectReturningResult(game);
                             action.insertCost(
-                                    new RemoveBurdenEffect(self));
+                                    new RemoveBurdenEffect(playerId, self));
                             return effectResult;
                         }
                     });

@@ -38,11 +38,11 @@ public class Card5_112 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.gollumOrSmeagol));
         action.appendEffect(
-                new RemoveBurdenEffect(self));
+                new RemoveBurdenEffect(playerId, self));
         action.appendEffect(
-                new RemoveBurdenEffect(self));
+                new RemoveBurdenEffect(playerId, self));
         action.appendEffect(
-                new RemoveBurdenEffect(self));
+                new RemoveBurdenEffect(playerId, self));
         return action;
     }
 }

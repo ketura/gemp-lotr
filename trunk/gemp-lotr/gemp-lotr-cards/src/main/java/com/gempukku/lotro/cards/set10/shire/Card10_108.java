@@ -35,7 +35,7 @@ public class Card10_108 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, 2, Culture.SHIRE, CardType.COMPANION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

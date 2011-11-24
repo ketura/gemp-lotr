@@ -39,9 +39,9 @@ public class Card8_118 extends AbstractSite {
                 && PlayConditions.canRemoveBurdens(game, self, 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(playerId, CardType.MINION, Keyword.ENDURING) {
