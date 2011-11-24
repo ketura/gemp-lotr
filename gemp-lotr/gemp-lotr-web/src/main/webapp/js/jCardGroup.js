@@ -129,7 +129,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 function(first, second) {
                     return (first.data("card").siteNumber - second.data("card").siteNumber);
                 }
-                );
+        );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -177,6 +177,9 @@ var AdvPathCardGroup = CardGroup.extend({
 });
 
 var NormalCardGroup = CardGroup.extend({
+    layoutShrinkThreshold: 0.1,
+    lastTimeLayedCount: 0,
+    lastTimeRowCount: 1,
 
     init: function(container, belongTest, createDiv) {
         this._super(container, belongTest, createDiv);
@@ -194,17 +197,39 @@ var NormalCardGroup = CardGroup.extend({
 
         var cardCount = cardsToLayout.length;
 
-        var oneRowHeight = this.getHeightForLayoutInOneRow(cardsToLayout);
-        if (oneRowHeight * 2 + this.padding <= this.height) {
-            var result;
-            var rows = 1;
-            do {
-                rows++;
-                result = this.tryIfCanLayoutInRows(rows, cardsToLayout);
-            } while (!result);
-            this.layoutInRows(rows, cardsToLayout);
+        var startWithRows = 1;
+        if (cardCount > ((1 - this.layoutShrinkThreshold) * this.lastTimeLayedCount))
+            startWithRows = this.lastTimeRowCount;
+
+        var rows = startWithRows - 1;
+        var result = false;
+        do {
+            rows++;
+            result = this.layoutInRowsIfPossible(cardsToLayout, rows);
+        } while (!result);
+
+        if (rows != startWithRows) {
+            this.lastTimeLayedCount = cardCount;
+            this.lastTimeRowCount = rows;
+        }
+    },
+
+    layoutInRowsIfPossible: function(cardsToLayout, rowCount) {
+        if (rowCount == 1) {
+            var oneRowHeight = this.getHeightForLayoutInOneRow(cardsToLayout);
+            if (oneRowHeight * 2 + this.padding > this.height) {
+                this.layoutInRow(cardsToLayout, oneRowHeight);
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            this.layoutInRow(cardsToLayout, oneRowHeight);
+            if (this.tryIfCanLayoutInRows(rowCount, cardsToLayout)) {
+                this.layoutInRows(rowCount, cardsToLayout);
+                return true;
+            } else {
+                return false;
+            }
         }
     },
 
