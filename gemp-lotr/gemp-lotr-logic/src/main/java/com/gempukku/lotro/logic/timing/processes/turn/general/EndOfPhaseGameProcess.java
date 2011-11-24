@@ -14,12 +14,10 @@ import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
 import java.util.Collection;
 
 public class EndOfPhaseGameProcess implements GameProcess {
-    private LotroGame _game;
     private Phase _phase;
     private GameProcess _followingGameProcess;
 
-    public EndOfPhaseGameProcess(LotroGame game, Phase phase, GameProcess followingGameProcess) {
-        _game = game;
+    public EndOfPhaseGameProcess(Phase phase, GameProcess followingGameProcess) {
         _phase = phase;
         _followingGameProcess = followingGameProcess;
     }
@@ -53,7 +51,7 @@ public class EndOfPhaseGameProcess implements GameProcess {
                         return null;
                     }
                 });
-        _game.getActionsEnvironment().addActionToStack(action);
+        game.getActionsEnvironment().addActionToStack(action);
     }
 
     @Override

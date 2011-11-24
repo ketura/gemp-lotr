@@ -10,24 +10,21 @@ import com.gempukku.lotro.logic.timing.processes.turn.regroup.FellowshipPlayerCh
 import com.gempukku.lotro.logic.timing.processes.turn.regroup.ShadowPlayersReconcileGameProcess;
 
 public class RegroupGameProcess implements GameProcess {
-    private LotroGame _game;
-
-    public RegroupGameProcess(LotroGame game) {
-        _game = game;
-    }
+    private GameProcess _followingGameProcess;
 
     @Override
     public void process(LotroGame game) {
+        _followingGameProcess = new StartOfPhaseGameProcess(Phase.REGROUP,
+                new PlayersPlayPhaseActionsInOrderGameProcess(game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), true), 0,
+                        new CheckForSpecialWinConditionGameProcess(
+                                new ShadowPlayersReconcileGameProcess(
+                                        new FellowshipPlayerChoosesToMoveOrStayGameProcess()))));
 
     }
 
     @Override
     public GameProcess getNextProcess() {
-        return new StartOfPhaseGameProcess(_game, Phase.REGROUP,
-                new PlayersPlayPhaseActionsInOrderGameProcess(_game, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0,
-                        new CheckForSpecialWinConditionGameProcess(
-                                new ShadowPlayersReconcileGameProcess(_game,
-                                        new FellowshipPlayerChoosesToMoveOrStayGameProcess(_game)))));
+        return _followingGameProcess;
     }
 
     private class CheckForSpecialWinConditionGameProcess implements GameProcess {
@@ -39,9 +36,9 @@ public class RegroupGameProcess implements GameProcess {
 
         @Override
         public void process(LotroGame game) {
-            if (_game.getGameState().getCurrentSiteNumber() == 9
-                    && _game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE)) {
-                _game.playerWon(_game.getGameState().getCurrentPlayerId(), "Surviving to Shadow Reconcile on site 9");
+            if (game.getGameState().getCurrentSiteNumber() == 9
+                    && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE)) {
+                game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to Shadow Reconcile on site 9");
             }
         }
 

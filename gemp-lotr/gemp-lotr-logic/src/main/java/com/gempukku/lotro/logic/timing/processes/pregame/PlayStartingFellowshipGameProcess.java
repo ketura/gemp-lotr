@@ -25,9 +25,9 @@ public class PlayStartingFellowshipGameProcess implements GameProcess {
             game.getGameState().startPlayerTurn(nextPlayer);
             game.getGameState().startAffectingCardsForCurrentPlayer(game);
 
-            _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(game, nextPlayer, new PlayStartingFellowshipGameProcess(_playOrder, _firstPlayer));
+            _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(nextPlayer, new PlayStartingFellowshipGameProcess(_playOrder, _firstPlayer));
         } else {
-            _nextProcess = new PlayersDrawEightCardsGameProcess(game, _firstPlayer);
+            _nextProcess = new PlayersDrawEightCardsGameProcess(_firstPlayer);
         }
     }
 

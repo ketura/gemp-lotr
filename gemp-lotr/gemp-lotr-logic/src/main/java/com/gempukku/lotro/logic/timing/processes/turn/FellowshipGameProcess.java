@@ -9,23 +9,22 @@ import com.gempukku.lotro.logic.timing.processes.turn.general.StartOfPhaseGamePr
 import com.gempukku.lotro.logic.timing.processes.turn.move.MovementGameProcess;
 
 public class FellowshipGameProcess implements GameProcess {
-    private LotroGame _game;
-
-    public FellowshipGameProcess(LotroGame game) {
-        _game = game;
-    }
+    private GameProcess _followingGameProcess;
 
     @Override
     public void process(LotroGame game) {
-
+        if (game.getModifiersQuerying().shouldSkipPhase(game.getGameState(), Phase.FELLOWSHIP, game.getGameState().getCurrentPlayerId()))
+            _followingGameProcess = new ShadowPhasesGameProcess();
+        else
+            _followingGameProcess = new StartOfPhaseGameProcess(Phase.FELLOWSHIP,
+                    new PlayerPlaysPhaseActionsUntilPassesGameProcess(game.getGameState().getCurrentPlayerId(),
+                            new MovementGameProcess(
+                                    new EndOfPhaseGameProcess(Phase.FELLOWSHIP,
+                                            new ShadowPhasesGameProcess()))));
     }
 
     @Override
     public GameProcess getNextProcess() {
-        return new StartOfPhaseGameProcess(_game, Phase.FELLOWSHIP,
-                new PlayerPlaysPhaseActionsUntilPassesGameProcess(_game, _game.getGameState().getCurrentPlayerId(),
-                        new MovementGameProcess(
-                                new EndOfPhaseGameProcess(_game, Phase.FELLOWSHIP,
-                                        new ShadowPhasesGameProcess(_game)))));
+        return _followingGameProcess;
     }
 }
