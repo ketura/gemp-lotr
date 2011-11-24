@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set9.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PutCharacterFromPlayInDeadPileEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -10,6 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -46,7 +46,7 @@ public class Card9_027 extends AbstractPermanent {
                             PhysicalCard wizard = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Race.WIZARD, Filters.inSkirmish);
                             if (wizard != null)
                                 action.appendEffect(
-                                        new PutCharacterFromPlayInDeadPileEffect(wizard));
+                                        new KillEffect(Collections.singletonList(wizard), KillEffect.Cause.CARD_EFFECT));
                         }
                     });
             return Collections.singletonList(action);
