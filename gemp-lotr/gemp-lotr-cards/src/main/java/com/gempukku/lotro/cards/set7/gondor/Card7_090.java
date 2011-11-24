@@ -42,7 +42,7 @@ public class Card7_090 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmishAgainst(game, effectResult, Filters.and(self), Filters.and(CardType.MINION, Keyword.FIERCE))
+        if (TriggerConditions.winsSkirmishInvolving(game, effectResult, Filters.and(self), Filters.and(CardType.MINION, Keyword.FIERCE))
                 && PlayConditions.canSelfExert(self, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

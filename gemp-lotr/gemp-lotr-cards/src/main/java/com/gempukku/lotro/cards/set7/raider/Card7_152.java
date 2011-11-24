@@ -43,7 +43,7 @@ public class Card7_152 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmishAgainst(game, effectResult, self, CardType.COMPANION)
+        if (TriggerConditions.winsSkirmishInvolving(game, effectResult, self, CardType.COMPANION)
                 && game.getGameState().getThreats() >= 6) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
