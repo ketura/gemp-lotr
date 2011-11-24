@@ -58,7 +58,7 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean winsSkirmishAgainst(LotroGame game, EffectResult effectResult, Filterable winnerFilter, Filterable loserFilter) {
+    public static boolean winsSkirmishInvolving(LotroGame game, EffectResult effectResult, Filterable winnerFilter, Filterable loserFilter) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         EffectResult.Type effectType = effectResult.getType();
@@ -81,7 +81,7 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean losesSkirmishAgainst(LotroGame game, EffectResult effectResult, Filterable loserFilter, Filterable winnerFilter) {
+    public static boolean losesSkirmishInvolving(LotroGame game, EffectResult effectResult, Filterable loserFilter, Filterable winnerFilter) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         EffectResult.Type effectType = effectResult.getType();

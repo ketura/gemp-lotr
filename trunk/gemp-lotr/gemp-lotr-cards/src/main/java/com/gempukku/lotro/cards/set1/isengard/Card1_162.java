@@ -52,7 +52,7 @@ public class Card1_162 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         GameState gameState = game.getGameState();
-        if (TriggerConditions.losesSkirmishAgainst(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Race.URUK_HAI)) {
+        if (TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Race.URUK_HAI)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(new ExertCharactersEffect(self, gameState.getRingBearer(gameState.getCurrentPlayerId())) {
