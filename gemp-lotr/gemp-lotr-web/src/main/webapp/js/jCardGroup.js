@@ -6,7 +6,6 @@ var CardGroup = Class.extend({
     height: null,
     belongTestFunc: null,
     padding: 5,
-    cardId: null,
     maxCardHeight: null,
     descDiv: null,
 
@@ -65,17 +64,17 @@ var VerticalBarGroup = CardGroup.extend({
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
 
-        for (var cardId in cardsToLayout)
-            totalHeight += cardsToLayout[cardId].data("card").getHeightForWidth(this.width);
+        for (var cardIndex in cardsToLayout)
+            totalHeight += cardsToLayout[cardIndex].data("card").getHeightForWidth(this.width);
 
         var resultPadding = Math.min(this.padding, (this.height - totalHeight) / (cardCount - 1));
 
         var x = this.x;
         var y = this.y;
         var index = 10;
-        for (var cardId in cardsToLayout) {
-            var cardElem = cardsToLayout[cardId];
-            var cardData = cardsToLayout[cardId].data("card");
+        for (var cardIndex in cardsToLayout) {
+            var cardElem = cardsToLayout[cardIndex];
+            var cardData = cardElem.data("card");
             var cardHeight = (cardElem.data("card").getHeightForWidth(this.width));
 
             if (cardData.attachedCards.length == 1) {
@@ -134,17 +133,17 @@ var AdvPathCardGroup = CardGroup.extend({
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
 
-        for (var cardId in cardsToLayout)
-            totalHeight += cardsToLayout[cardId].data("card").getHeightForWidth(this.width);
+        for (var cardIndex in cardsToLayout)
+            totalHeight += cardsToLayout[cardIndex].data("card").getHeightForWidth(this.width);
 
         var resultPadding = Math.min(this.padding, (this.height - totalHeight) / (cardCount - 1));
 
         var x = this.x;
         var y = this.y;
         var index = 10;
-        for (var cardId in cardsToLayout) {
-            var cardElem = cardsToLayout[cardId];
-            var cardData = cardsToLayout[cardId].data("card");
+        for (var cardIndex in cardsToLayout) {
+            var cardElem = cardsToLayout[cardIndex];
+            var cardData = cardElem.data("card");
             var cardHeight = (cardElem.data("card").getHeightForWidth(this.width));
 
             cardData.tokens = {};
@@ -235,8 +234,8 @@ var NormalCardGroup = CardGroup.extend({
 
     getHeightForLayoutInOneRow: function(cardsToLayout) {
         var totalWidth = 0;
-        for (var cardId in cardsToLayout) {
-            var cardData = cardsToLayout[cardId].data("card");
+        for (var cardIndex in cardsToLayout) {
+            var cardData = cardsToLayout[cardIndex].data("card");
             var cardWidth = cardData.getWidthForMaxDimension(this.height);
             var attachmentWidths = 0;
             for (var i = 0; i < cardData.attachedCards.length; i++)
@@ -258,8 +257,8 @@ var NormalCardGroup = CardGroup.extend({
             rowHeight = Math.min(this.maxCardHeight, rowHeight);
         var totalWidth = 0;
         var row = 0;
-        for (var cardId in cardsToLayout) {
-            var cardData = cardsToLayout[cardId].data("card");
+        for (var cardIndex in cardsToLayout) {
+            var cardData = cardsToLayout[cardIndex].data("card");
             var cardWidth = cardData.getWidthForMaxDimension(rowHeight);
             var attachmentWidths = 0;
             for (var i = 0; i < cardData.attachedCards.length; i++)
@@ -284,10 +283,10 @@ var NormalCardGroup = CardGroup.extend({
         var row = 0;
         var y = Math.floor((this.height - height) / 2);
 
-        for (var cardId in cardsToLayout) {
+        for (var cardIndex in cardsToLayout) {
             var index = 10;
-            var cardElem = cardsToLayout[cardId];
-            var cardData = cardsToLayout[cardId].data("card");
+            var cardElem = cardsToLayout[cardIndex];
+            var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(height);
 
             for (var i = 0; i < cardData.attachedCards.length; i++) {
@@ -312,10 +311,10 @@ var NormalCardGroup = CardGroup.extend({
         var y = 0;
 
 
-        for (var cardId in cardsToLayout) {
+        for (var cardIndex in cardsToLayout) {
             var index = 10;
-            var cardElem = cardsToLayout[cardId];
-            var cardData = cardsToLayout[cardId].data("card");
+            var cardElem = cardsToLayout[cardIndex];
+            var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(rowHeight);
 
             var attachmentWidths = 0;
