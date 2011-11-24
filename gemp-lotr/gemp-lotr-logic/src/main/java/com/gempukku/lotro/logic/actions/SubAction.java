@@ -30,6 +30,10 @@ public class SubAction implements Action {
         _effects.add(effect);
     }
 
+    public void insertEffect(Effect effect) {
+        _effects.add(0, effect);
+    }
+
     @Override
     public PhysicalCard getActionSource() {
         return _action.getActionSource();
