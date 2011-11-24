@@ -297,8 +297,7 @@ var NormalCardGroup = CardGroup.extend({
             rowHeight = Math.min(this.maxCardHeight, rowHeight);
         var x = 0;
         var row = 0;
-        var y = 0;
-
+        var y = Math.floor((this.height - (rowHeight * rowCount) - (this.padding * (rowCount - 1))) / 2);
 
         for (var cardIndex in cardsToLayout) {
             var index = 10;
