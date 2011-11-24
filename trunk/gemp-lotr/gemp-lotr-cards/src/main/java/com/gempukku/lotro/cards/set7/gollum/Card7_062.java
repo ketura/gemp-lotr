@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.gollum;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
+import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -48,7 +48,7 @@ public class Card7_062 extends AbstractPermanent {
                                 final Culture culture = card.getBlueprint().getCulture();
                                 if (culture == Culture.GOLLUM || culture == Culture.WRAITH)
                                     action.appendEffect(
-                                            new PutCardFromDeckIntoHandOrDiscardEffect(card));
+                                            new PutCardFromDiscardIntoHandEffect(card));
                             }
                         }
                     });
