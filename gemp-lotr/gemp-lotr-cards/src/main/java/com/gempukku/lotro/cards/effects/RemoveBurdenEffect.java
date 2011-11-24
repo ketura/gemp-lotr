@@ -9,9 +9,11 @@ import com.gempukku.lotro.logic.timing.results.RemoveBurdenResult;
 import java.util.Collections;
 
 public class RemoveBurdenEffect extends AbstractEffect {
+    private String _performingPlayerId;
     private PhysicalCard _source;
 
-    public RemoveBurdenEffect(PhysicalCard source) {
+    public RemoveBurdenEffect(String performingPlayerId, PhysicalCard source) {
+        _performingPlayerId = performingPlayerId;
         _source = source;
     }
 
@@ -40,7 +42,7 @@ public class RemoveBurdenEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             game.getGameState().sendMessage("Removed a burden");
             game.getGameState().removeBurdens(1);
-            return new FullEffectResult(Collections.singleton(new RemoveBurdenResult(_source)), true, true);
+            return new FullEffectResult(Collections.singleton(new RemoveBurdenResult(_performingPlayerId, _source)), true, true);
         }
         return new FullEffectResult(null, false, false);
     }

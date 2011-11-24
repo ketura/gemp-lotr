@@ -43,7 +43,7 @@ public class Card1_287 extends AbstractResponseOldEvent {
             action.appendCost(
                     new PreventCardEffect(healEffect, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER)));
             action.appendEffect(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

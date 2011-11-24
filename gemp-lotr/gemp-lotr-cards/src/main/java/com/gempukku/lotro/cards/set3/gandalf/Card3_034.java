@@ -42,7 +42,7 @@ public class Card3_034 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new AddTwilightEffect(self, 3));
             action.appendEffect(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

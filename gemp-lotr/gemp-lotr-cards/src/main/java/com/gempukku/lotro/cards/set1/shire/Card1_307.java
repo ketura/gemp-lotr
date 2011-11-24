@@ -43,7 +43,7 @@ public class Card1_307 extends AbstractCompanion {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(new RemoveBurdenEffect(self) {
+            possibleEffects.add(new RemoveBurdenEffect(self.getOwner(), self) {
                 @Override
                 public String getText(LotroGame game) {
                     return "Remove a burden";

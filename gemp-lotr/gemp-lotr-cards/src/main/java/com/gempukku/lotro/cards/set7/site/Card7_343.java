@@ -35,11 +35,11 @@ public class Card7_343 extends AbstractSite {
                 && PlayConditions.canRemoveBurdens(game, self, 3)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.SHADOW, 3), Phase.ARCHERY));

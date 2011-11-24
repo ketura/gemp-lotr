@@ -39,7 +39,7 @@ public class Card7_140 extends AbstractMinion {
                 && game.getGameState().getBurdens() >= 1) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendCost(
                     new ExertCharactersEffect(self, self));
             boolean hasInitiative = PlayConditions.hasInitiative(game, Side.SHADOW);

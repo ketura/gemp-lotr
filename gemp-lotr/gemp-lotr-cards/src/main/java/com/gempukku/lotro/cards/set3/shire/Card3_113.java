@@ -38,7 +38,7 @@ public class Card3_113 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.REMOVE_BURDEN) {
             RemoveBurdenResult removeBurdenResult = (RemoveBurdenResult) effectResult;
             PhysicalCard source = removeBurdenResult.getSource();
-            if (source != null && source.getOwner().equals(playerId) && source.getBlueprint().getRace() != Race.HOBBIT) {
+            if (source != null && removeBurdenResult.getPerformingPlayerId().equals(playerId) && source.getBlueprint().getRace() != Race.HOBBIT) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
                         new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION));

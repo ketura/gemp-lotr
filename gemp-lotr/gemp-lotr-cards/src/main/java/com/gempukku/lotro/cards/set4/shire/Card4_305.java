@@ -49,7 +49,7 @@ public class Card4_305 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             for (int i = 0; i < tokenCount; i++)
                 action.appendEffect(
-                        new RemoveBurdenEffect(self));
+                        new RemoveBurdenEffect(playerId, self));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

@@ -61,7 +61,7 @@ public class Card4_307 extends AbstractEvent {
                                                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                                                     action.setVirtualCardAction(true);
                                                     action.appendEffect(
-                                                            new RemoveBurdenEffect(self));
+                                                            new RemoveBurdenEffect(playerId, self));
                                                     return Collections.singletonList(action);
                                                 }
                                                 return null;

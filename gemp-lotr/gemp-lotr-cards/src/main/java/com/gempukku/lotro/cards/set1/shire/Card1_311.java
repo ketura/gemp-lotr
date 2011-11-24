@@ -43,7 +43,7 @@ public class Card1_311 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self));
-            action.appendEffect(new RemoveBurdenEffect(self));
+            action.appendEffect(new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

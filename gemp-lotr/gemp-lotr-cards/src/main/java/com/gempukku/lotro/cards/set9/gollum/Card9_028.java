@@ -55,7 +55,7 @@ public class Card9_028 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Add (1)");
                 action.appendCost(
-                        new RemoveBurdenEffect(self));
+                        new RemoveBurdenEffect(playerId, self));
                 action.appendEffect(
                         new AddTwilightEffect(self, 1));
                 actions.add(action);
@@ -66,7 +66,7 @@ public class Card9_028 extends AbstractMinion {
                 && PlayConditions.canRemoveBurdens(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendEffect(
                     new AddTwilightEffect(self, 2));
             return Collections.singletonList(action);
@@ -77,7 +77,7 @@ public class Card9_028 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Add (3)");
                 action.appendCost(
-                        new RemoveBurdenEffect(self));
+                        new RemoveBurdenEffect(playerId, self));
                 action.appendEffect(
                         new AddTwilightEffect(self, 3));
                 actions.add(action);

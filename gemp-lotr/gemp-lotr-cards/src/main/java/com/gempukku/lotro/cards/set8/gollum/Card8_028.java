@@ -52,7 +52,7 @@ public class Card8_028 extends AbstractPermanent {
                         }
                     });
             possibleCosts.add(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(

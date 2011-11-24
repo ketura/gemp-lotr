@@ -35,7 +35,7 @@ public class Card6_115 extends AbstractSite {
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, CardType.COMPANION, Signet.FRODO));
             action.appendEffect(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

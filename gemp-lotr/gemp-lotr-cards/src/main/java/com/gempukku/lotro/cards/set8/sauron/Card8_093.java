@@ -31,7 +31,7 @@ public class Card8_093 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, Culture.SAURON, CardType.MINION)
                 && PlayConditions.canSpot(game, CardType.COMPANION, Filters.not(Keyword.RING_BEARER), Filters.lessVitalityThan(game.getGameState().getBurdens() + 1))) {
@@ -45,7 +45,7 @@ public class Card8_093 extends AbstractPermanent {
                             int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), card);
                             for (int i = 0; i < vitality; i++)
                                 action.insertCost(
-                                        new RemoveBurdenEffect(self));
+                                        new RemoveBurdenEffect(playerId, self));
                             action.appendEffect(
                                     new ReturnCardsToHandEffect(self, card));
                         }

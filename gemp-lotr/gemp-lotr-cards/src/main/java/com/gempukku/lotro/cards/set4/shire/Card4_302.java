@@ -38,7 +38,7 @@ public class Card4_302 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, CardType.COMPANION, Keyword.RING_BOUND));
             action.appendEffect(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;

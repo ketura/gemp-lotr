@@ -44,7 +44,7 @@ public class Card7_326 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, CardType.COMPANION, Race.HOBBIT));
             action.appendEffect(
-                    new RemoveBurdenEffect(self));
+                    new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }
         return null;
