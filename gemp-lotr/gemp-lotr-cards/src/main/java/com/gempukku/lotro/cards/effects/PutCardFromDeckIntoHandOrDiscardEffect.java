@@ -40,7 +40,7 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (_physicalCard.getZone() == Zone.DECK) {
             if (game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _physicalCard.getOwner())) {
-                game.getGameState().sendMessage(_physicalCard.getOwner() + " puts card from deck into his or her hand");
+                game.getGameState().sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from deck into his or her hand");
                 game.getGameState().removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
                 game.getGameState().addCardToZone(game, _physicalCard, Zone.HAND);
                 return new FullEffectResult(Collections.singleton(new DrawCardOrPutIntoHandResult(_physicalCard.getOwner(), 1)), true, true);
