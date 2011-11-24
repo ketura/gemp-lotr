@@ -309,7 +309,7 @@ public class Filters {
     public static final Filter canTakeWound = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            return modifiersQuerying.canTakeWound(gameState, physicalCard);
+            return modifiersQuerying.canTakeWound(gameState, physicalCard) && modifiersQuerying.getVitality(gameState, physicalCard) > 0;
         }
     };
 
