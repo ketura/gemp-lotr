@@ -96,6 +96,8 @@ public class PlaySiteEffect extends AbstractEffect {
             sitePlayedCallback(newSite);
             game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.DECK, newSite, null, null));
             return new FullEffectResult(true, true);
+        } else {
+            game.getGameState().sendMessage("Can't find a matching site to play in " + _playerId + " adventure deck");
         }
         return new FullEffectResult(false, false);
     }
