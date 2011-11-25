@@ -9,10 +9,12 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     private PhysicalCard _source;
@@ -54,7 +56,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+    protected void playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
 
         Set<PhysicalCard> toMoveFromZoneToDiscard = new HashSet<PhysicalCard>();
@@ -84,6 +86,6 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
         if (_source != null && discardedCards.size() > 0)
             game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + GameUtils.getCardLink(_source));
-        return Collections.singleton(new DiscardCardsFromPlayResult(discardedCards));
+        game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
     }
 }

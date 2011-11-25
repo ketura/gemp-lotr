@@ -45,12 +45,7 @@ public class Card5_014 extends AbstractEvent {
                     }
                 });
         possibleEffects.add(
-                new LiberateASiteEffect(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Liberate a site";
-                    }
-                });
+                new LiberateASiteEffect(self));
 
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));

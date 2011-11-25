@@ -64,11 +64,10 @@ public class ExhaustCharacterEffect extends AbstractSubActionEffect {
         }
 
         @Override
-        protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
-            final Collection<? extends EffectResult> effectResults = super.playoutEffectOn(game, cards);
+        protected void playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+            super.playoutEffectOn(game, cards);
             if (getAffectedCards(game).size() > 0)
                 _subAction.appendEffect(new InfiniteExertionEffect(_source, _subAction, _filters));
-            return effectResults;
         }
     }
 }

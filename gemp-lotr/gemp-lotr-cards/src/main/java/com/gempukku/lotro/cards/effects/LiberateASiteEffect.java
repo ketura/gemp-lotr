@@ -4,16 +4,15 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.OldAbstractEffect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class LiberateASiteEffect extends OldAbstractEffect {
+public class LiberateASiteEffect extends AbstractEffect {
     private PhysicalCard _source;
 
     public LiberateASiteEffect(PhysicalCard source) {
@@ -70,8 +69,10 @@ public class LiberateASiteEffect extends OldAbstractEffect {
 
             game.getGameState().loseControlOfCard(siteToLiberate, Zone.ADVENTURE_PATH);
 
-            return new FullEffectResult(Collections.singleton(new DiscardCardsFromPlayResult(discardedCards)), true, true);
+            if (discardedCards.size() > 0)
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }
