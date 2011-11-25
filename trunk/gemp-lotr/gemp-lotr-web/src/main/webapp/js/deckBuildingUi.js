@@ -193,6 +193,8 @@ var GempLotrDeckBuildingUI = Class.extend({
         combos.append(" <select id='keyword'>"
                 + "<option value=''>No keyword filtering</option>"
                 + "<option value='ARCHER'>Archer</option>"
+                + "<option value='BESIEGER'>Besieger</option>"
+                + "<option value='CORSAIR'>Corsair</option>"
                 + "<option value='EASTERLING'>Easterling</option>"
                 + "<option value='ENDURING'>Enduring</option>"
                 + "<option value='ENGINE'>Engine</option>"
@@ -385,11 +387,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
