@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -39,7 +39,7 @@ public class Card1_288 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.or(Filters.name("Merry"), Filters.name("Pippin"))));
             return Collections.singletonList(action);

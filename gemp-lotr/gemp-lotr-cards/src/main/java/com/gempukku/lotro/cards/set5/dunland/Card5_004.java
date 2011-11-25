@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.dunland;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -58,7 +58,7 @@ public class Card5_004 extends AbstractMinion {
                                         action.insertCost(
                                                 new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 4));
                                         action.appendEffect(
-                                                new DiscardCardsFromPlayEffect(self, self));
+                                                new SelfDiscardEffect(self));
                                     }
                                 }
                             }));

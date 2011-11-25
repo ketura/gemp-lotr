@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set9.dwarven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -38,7 +38,7 @@ public class Card9_011 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             int damageCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), self, Keyword.DAMAGE);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

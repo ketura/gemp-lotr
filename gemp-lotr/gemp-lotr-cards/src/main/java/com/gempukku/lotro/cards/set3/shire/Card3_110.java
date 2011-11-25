@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -42,7 +42,7 @@ public class Card3_110 extends AbstractAlly {
             final AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new PreventEffect(addBurdenEffect));
             return Collections.singletonList(action);

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set8.raider;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +43,7 @@ public class Card8_051 extends AbstractMinion {
                 && PlayConditions.canPlayFromHand(playerId, game, Keyword.CORSAIR)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Keyword.CORSAIR));
             action.appendEffect(

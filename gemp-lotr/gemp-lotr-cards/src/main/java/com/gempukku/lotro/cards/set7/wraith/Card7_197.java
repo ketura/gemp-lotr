@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
@@ -99,7 +99,7 @@ public class Card7_197 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Filters.or(Race.NAZGUL, Filters.and(Culture.WRAITH, Race.ORC))));
             return Collections.singletonList(action);

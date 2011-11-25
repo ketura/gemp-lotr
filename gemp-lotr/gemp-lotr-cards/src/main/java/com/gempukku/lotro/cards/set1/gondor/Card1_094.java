@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +44,7 @@ public class Card1_094 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -93,7 +93,7 @@ public class Card1_295 extends AbstractAlly {
                 && !game.getGameState().getSite(1).getOwner().equals(playerId)
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new ExertCharactersEffect(self, self));
+            action.appendCost(new SelfExertEffect(self));
             action.appendEffect(new PlaySiteEffect(playerId, Block.FELLOWSHIP, 1));
             actions.add(action);
         }

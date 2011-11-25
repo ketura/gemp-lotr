@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set5.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,7 +38,7 @@ public class Card5_098 extends AbstractMinion {
                 && game.getGameState().getBurdens() >= 5) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new DrawCardsEffect(playerId, 1));
             return Collections.singletonList(action);

@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -54,7 +54,7 @@ public class Card2_047 extends AbstractMinion {
             if (playEffect.isRequiresRanger()) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new CancelEventEffect(self, playEffect));
                 return Collections.singletonList(action);

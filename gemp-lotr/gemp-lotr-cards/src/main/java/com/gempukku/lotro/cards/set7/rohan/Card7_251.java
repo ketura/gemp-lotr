@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set7.rohan;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -61,7 +61,7 @@ public class Card7_251 extends AbstractPermanent {
                         new ChooseAndPutCardFromDiscardIntoHandEffect(action, opponentId, 0, 4, Filters.any));
             }
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             return Collections.singletonList(action);
         }
         return null;

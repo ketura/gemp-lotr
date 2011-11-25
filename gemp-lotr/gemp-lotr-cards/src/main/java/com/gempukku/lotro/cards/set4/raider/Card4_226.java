@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.raider;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -44,7 +44,7 @@ public class Card4_226 extends AbstractMinion {
                 if (oneAssignment.getValue().contains(self) && Filters.unboundCompanion.accepts(game.getGameState(), game.getModifiersQuerying(), oneAssignment.getKey())) {
                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                     action.appendCost(
-                            new ExertCharactersEffect(self, self));
+                            new SelfExertEffect(self));
                     action.appendEffect(
                             new AddBurdenEffect(self, 1));
                     return Collections.singletonList(action);

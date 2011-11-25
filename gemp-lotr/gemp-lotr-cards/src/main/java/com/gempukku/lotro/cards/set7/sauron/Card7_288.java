@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -40,7 +40,7 @@ public class Card7_288 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.SAURON, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new AddThreatsEffect(playerId, self, 1));
             return Collections.singletonList(action);

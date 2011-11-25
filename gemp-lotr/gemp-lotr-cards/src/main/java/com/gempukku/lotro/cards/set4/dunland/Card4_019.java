@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -59,7 +59,7 @@ public class Card4_019 extends AbstractPermanent {
             possibleCosts.add(
                     new RemoveTwilightEffect(2));
             possibleCosts.add(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
 
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));

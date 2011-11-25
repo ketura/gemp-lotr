@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -10,7 +11,6 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -39,7 +39,7 @@ public class Card5_106 extends AbstractMinion {
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new TakeControlOfASiteEffect(self, playerId));
             return Collections.singletonList(action);

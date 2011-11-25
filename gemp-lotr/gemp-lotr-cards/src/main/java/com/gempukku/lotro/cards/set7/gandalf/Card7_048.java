@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set7.gandalf;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -48,7 +48,7 @@ public class Card7_048 extends AbstractPermanent {
             possibleEffects.add(
                     new AddThreatsEffect(self.getOwner(), self, 1));
             possibleEffects.add(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
@@ -62,7 +62,7 @@ public class Card7_048 extends AbstractPermanent {
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 2, 2, CardType.MINION));
             return Collections.singletonList(action);

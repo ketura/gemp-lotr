@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set6.isengard;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseActionProxyEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -65,9 +65,9 @@ public class Card6_060 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ISENGARD, 1, Keyword.MACHINE));
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new AddUntilStartOfPhaseActionProxyEffect(
                             new PreventAllWoundsActionProxy(self, Race.URUK_HAI), Phase.ASSIGNMENT));

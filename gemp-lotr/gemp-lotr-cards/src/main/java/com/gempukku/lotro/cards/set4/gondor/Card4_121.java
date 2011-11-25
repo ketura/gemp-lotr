@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -52,7 +52,7 @@ public class Card4_121 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game, Race.MAN, Keyword.RING_BOUND)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.MAN, Keyword.RING_BOUND));
             action.appendEffect(

@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set7.gondor;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
@@ -56,7 +56,7 @@ public class Card7_091 extends AbstractCompanion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an unbound Hobbit strength +2");
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Race.HOBBIT, Filters.unboundCompanion));
                 actions.add(action);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set9.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
@@ -9,7 +10,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -50,7 +50,7 @@ public class Card9_036 extends AbstractPermanent {
                 && PlayConditions.canPlayFromDiscard(playerId, game, PossessionClass.RING)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, PossessionClass.RING));
             return Collections.singletonList(action);

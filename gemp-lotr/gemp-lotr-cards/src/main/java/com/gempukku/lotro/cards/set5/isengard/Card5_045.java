@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -63,9 +63,9 @@ public class Card5_045 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ISENGARD, 3, Keyword.MACHINE));
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new WoundCharactersEffect(self, CardType.ALLY));
             action.appendEffect(

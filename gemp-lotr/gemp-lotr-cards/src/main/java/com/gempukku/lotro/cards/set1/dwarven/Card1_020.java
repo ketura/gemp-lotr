@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -48,7 +49,7 @@ public class Card1_020 extends AbstractPermanent {
                 return actions;
             } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Race.DWARF).size() > 0) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
+                action.appendEffect(new SelfDiscardEffect(self));
                 return Collections.singletonList(action);
             }
         }

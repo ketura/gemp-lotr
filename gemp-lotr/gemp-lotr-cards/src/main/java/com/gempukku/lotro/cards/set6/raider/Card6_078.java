@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set6.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -45,7 +45,7 @@ public class Card6_078 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an Easterling Str +1");
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Keyword.EASTERLING));
                 actions.add(action);
@@ -54,7 +54,7 @@ public class Card6_078 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an Easterling Str +2");
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Keyword.EASTERLING));
                 actions.add(action);
@@ -63,7 +63,7 @@ public class Card6_078 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an Easterling Str +3");
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 3, Keyword.EASTERLING));
                 actions.add(action);

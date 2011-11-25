@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -47,7 +47,7 @@ public class Card4_120 extends AbstractPermanent {
             action.appendCost(
                     new AddTwilightEffect(self, 2));
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.MAN, Keyword.RING_BOUND));
             return Collections.singletonList(action);

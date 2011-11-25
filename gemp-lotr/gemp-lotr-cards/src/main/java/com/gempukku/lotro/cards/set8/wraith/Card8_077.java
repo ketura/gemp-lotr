@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.CardType;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -43,7 +43,7 @@ public class Card8_077 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Play from discard");
                 action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
                 action.appendEffect(
                         new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.WRAITH, CardType.MINION));
                 actions.add(action);
@@ -53,7 +53,7 @@ public class Card8_077 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Play from deck");
                 action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
                 action.appendEffect(
                         new ChooseAndPlayCardFromDeckEffect(playerId, -1, Culture.WRAITH, CardType.MINION));
                 action.appendEffect(

@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -64,7 +64,7 @@ public class Card8_050 extends AbstractPermanent {
                                         action.appendEffect(
                                                 new ChooseAndPlayCardFromDiscardEffect(playerId, game, -tokens, Keyword.CORSAIR));
                                         action.appendEffect(
-                                                new DiscardCardsFromPlayEffect(self, self));
+                                                new SelfDiscardEffect(self));
                                     }
                                 }));
                 return Collections.singletonList(action);

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -40,7 +40,7 @@ public class Card7_210 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.WRAITH, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);

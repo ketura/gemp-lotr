@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set10.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -48,9 +48,9 @@ public class Card10_018 extends AbstractCompanion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.GANDALF, CardType.CONDITION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.GANDALF, CardType.CONDITION));
             action.appendEffect(

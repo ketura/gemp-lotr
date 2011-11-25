@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set9.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -36,7 +37,7 @@ public class Card9_027 extends AbstractPermanent {
                 && PlayConditions.canSelfDiscard(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, CardType.MINION, Filters.inSkirmishAgainst(Race.WIZARD)));
             action.appendEffect(

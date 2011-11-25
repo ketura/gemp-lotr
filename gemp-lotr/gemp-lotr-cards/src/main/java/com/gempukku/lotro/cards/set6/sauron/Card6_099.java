@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set6.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.*;
@@ -39,7 +39,7 @@ public class Card6_099 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                             new CountSpottableEvaluator(CardType.MINION, Keyword.TWILIGHT),

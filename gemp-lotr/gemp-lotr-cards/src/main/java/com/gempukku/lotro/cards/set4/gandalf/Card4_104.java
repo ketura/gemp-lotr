@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -40,7 +40,7 @@ public class Card4_104 extends AbstractAlly {
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, 1, Filters.unboundCompanion));
             action.appendEffect(

@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -49,12 +49,12 @@ public class Card4_303 extends AbstractAttachableFPPossession {
                 action.appendCost(
                         new AddBurdenEffect(self, 1));
                 action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
                 action.appendEffect(
                         new CancelSkirmishEffect(Filters.sameCard(self.getAttachedTo())));
             } else {
                 action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
                 action.appendEffect(
                         new RemoveBurdenEffect(playerId, self));
                 action.appendEffect(

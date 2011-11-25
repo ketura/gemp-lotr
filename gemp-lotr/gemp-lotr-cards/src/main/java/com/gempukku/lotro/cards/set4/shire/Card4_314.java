@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -45,7 +45,7 @@ public class Card4_314 extends AbstractCompanion {
                     new AddBurdenEffect(self, 1));
             action.appendEffect(
                     new PreventableEffect(action,
-                            new DiscardCardsFromPlayEffect(self, self),
+                            new SelfDiscardEffect(self),
                             GameUtils.getOpponents(game, playerId),
                             new PreventableEffect.PreventionCost() {
                                 @Override

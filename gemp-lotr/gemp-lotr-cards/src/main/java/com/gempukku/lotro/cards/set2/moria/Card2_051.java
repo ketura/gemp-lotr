@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -52,7 +53,7 @@ public class Card2_051 extends AbstractMinion {
         if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             actions.add(action);
         }
         return actions;

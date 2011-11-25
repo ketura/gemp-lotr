@@ -2,12 +2,12 @@ package com.gempukku.lotro.cards.set6.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +35,7 @@ public class Card6_113 extends AbstractCompanion {
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Culture.GANDALF, CardType.COMPANION));
             return Collections.singletonList(action);

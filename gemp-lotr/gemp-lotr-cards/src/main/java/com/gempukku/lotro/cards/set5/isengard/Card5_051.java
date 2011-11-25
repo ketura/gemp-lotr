@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ReturnCardsToHandEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -47,7 +47,7 @@ public class Card5_051 extends AbstractMinion {
             if (visitor.getCultureCount() >= 4) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.unboundCompanion) {
                             @Override

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.MaxThreatCondition;
 import com.gempukku.lotro.cards.modifiers.evaluator.ForEachThreatEvaluator;
 import com.gempukku.lotro.common.Culture;
@@ -49,9 +49,9 @@ public class Card7_364 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, 2, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new RemoveThreatsEffect(self, 3));
             return Collections.singletonList(action);

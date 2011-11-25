@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set5.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.Culture;
@@ -51,7 +51,7 @@ public class Card5_109 extends AbstractMinion {
                 && game.getGameState().getHand(playerId).size() >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(

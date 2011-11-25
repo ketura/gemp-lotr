@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndReturnCardsToHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -43,7 +43,7 @@ public class Card3_018 extends AbstractAlly {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

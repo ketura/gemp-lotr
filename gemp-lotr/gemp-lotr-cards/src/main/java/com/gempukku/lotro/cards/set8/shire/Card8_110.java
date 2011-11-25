@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -61,7 +61,7 @@ public class Card8_110 extends AbstractPermanent {
                             action.insertEffect(
                                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, spotCount));
                             action.appendEffect(
-                                    new DiscardCardsFromPlayEffect(self, self));
+                                    new SelfDiscardEffect(self));
                         }
                     });
             return Collections.singletonList(action);

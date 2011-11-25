@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set7.gondor;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -52,7 +53,7 @@ public class Card7_101 extends AbstractPermanent {
                         }
                     });
             possibleEffects.add(
-                    new DiscardCardsFromPlayEffect(self, self) {
+                    new SelfDiscardEffect(self) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard this condition";
@@ -71,7 +72,7 @@ public class Card7_101 extends AbstractPermanent {
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION) {

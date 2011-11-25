@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set5.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndReturnCardsToHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -36,7 +36,7 @@ public class Card5_090 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, Culture.ROHAN, CardType.POSSESSION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.POSSESSION));
             return Collections.singletonList(action);

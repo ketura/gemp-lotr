@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -52,7 +52,7 @@ public class Card3_017 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             Collection<PhysicalCard> nextSites = Filters.filter(game.getGameState().getAdventureDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1));
             if (nextSites.size() > 0 && game.getModifiersQuerying().hasKeyword(game.getGameState(), nextSites.iterator().next(), Keyword.FOREST)) {
                 action.appendEffect(

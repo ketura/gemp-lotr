@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set3.isengard;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.common.Culture;
@@ -82,7 +82,7 @@ public class Card3_068 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Race.URUK_HAI) {

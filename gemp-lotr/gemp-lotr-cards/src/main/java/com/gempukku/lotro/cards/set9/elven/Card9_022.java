@@ -9,7 +9,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -64,7 +63,7 @@ public class Card9_022 extends AbstractPermanent {
                         }
                     });
             possibleCosts.add(
-                    new DiscardCardsFromPlayEffect(self, self) {
+                    new SelfDiscardEffect(self) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard this possession";

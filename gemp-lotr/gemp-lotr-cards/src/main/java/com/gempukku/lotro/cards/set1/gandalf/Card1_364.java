@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -37,7 +37,7 @@ public class Card1_364 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Signet.GANDALF, Filters.playable(game, -2)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new ExertCharactersEffect(self, self));
+            action.appendCost(new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, -2, CardType.COMPANION, Signet.GANDALF));
             return Collections.singletonList(action);

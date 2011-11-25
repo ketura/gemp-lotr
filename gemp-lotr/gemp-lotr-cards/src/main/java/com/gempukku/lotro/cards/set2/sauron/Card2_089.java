@@ -4,7 +4,8 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -56,14 +56,14 @@ public class Card2_089 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 List<Effect> possibleCosts = new LinkedList<Effect>();
                 possibleCosts.add(
-                        new ExertCharactersEffect(self, self) {
+                        new SelfExertEffect(self) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Exert this minion";
                             }
                         });
                 possibleCosts.add(
-                        new DiscardCardsFromPlayEffect(self, self) {
+                        new SelfDiscardEffect(self) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Discard this minion";

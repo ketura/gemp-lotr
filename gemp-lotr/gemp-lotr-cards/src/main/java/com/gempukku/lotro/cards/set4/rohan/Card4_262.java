@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -38,7 +38,7 @@ public class Card4_262 extends AbstractAlly {
                 && PlayConditions.canSpot(game, Keyword.VILLAGER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));

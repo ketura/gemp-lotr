@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.raider;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -45,7 +45,7 @@ public class Card7_166 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ExertCharactersEffect(self, self) {
+                    new SelfExertEffect(self) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert this minion";

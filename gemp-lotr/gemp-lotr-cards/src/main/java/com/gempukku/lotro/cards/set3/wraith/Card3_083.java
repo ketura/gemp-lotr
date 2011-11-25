@@ -2,13 +2,13 @@ package com.gempukku.lotro.cards.set3.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -51,7 +51,7 @@ public class Card3_083 extends AbstractPermanent {
                         }
                     });
             possibleEffects.add(
-                    new DiscardCardsFromPlayEffect(self, self) {
+                    new SelfDiscardEffect(self) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard this condition";

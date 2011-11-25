@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -54,7 +55,7 @@ public class Card7_212 extends AbstractMinion {
             for (PhysicalCard killedCompanion : Filters.filter(result.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ExertCharactersEffect(self, Keyword.RING_BEARER));
                 actions.add(action);

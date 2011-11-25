@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -40,7 +40,7 @@ public class Card4_257 extends AbstractMinion {
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, CardType.COMPANION));
             return Collections.singletonList(action);

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set9.gollum;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -44,9 +44,9 @@ public class Card9_028 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert the Ring-bearer");
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.RING_BEARER));
                 actions.add(action);
@@ -86,9 +86,9 @@ public class Card9_028 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Wound the Ring-bearer");
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Keyword.RING_BEARER));
                 actions.add(action);

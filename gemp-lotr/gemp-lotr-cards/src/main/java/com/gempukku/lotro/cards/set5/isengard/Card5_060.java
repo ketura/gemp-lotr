@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -63,7 +64,7 @@ public class Card5_060 extends AbstractPermanent {
                     && discardEffect.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
 
                 Collection<PhysicalCard> machines = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Keyword.MACHINE);
                 for (PhysicalCard machine : machines)
