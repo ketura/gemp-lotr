@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,14 +38,10 @@ public class Card3_029 extends AbstractPermanent {
                 && game.getGameState().getCurrentPhase() == Phase.SHADOW) {
             DrawCardOrPutIntoHandResult drawResult = (DrawCardOrPutIntoHandResult) effectResult;
             if (!drawResult.getPlayerId().equals(playerId)) {
-                List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-                for (int i = 0; i < drawResult.getCount(); i++) {
-                    OptionalTriggerAction action = new OptionalTriggerAction(self);
-                    action.appendEffect(
-                            new RemoveTwilightEffect(1));
-                    actions.add(action);
-                }
-                return actions;
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.appendEffect(
+                        new RemoveTwilightEffect(1));
+                return Collections.singletonList(action);
             }
         }
         return null;

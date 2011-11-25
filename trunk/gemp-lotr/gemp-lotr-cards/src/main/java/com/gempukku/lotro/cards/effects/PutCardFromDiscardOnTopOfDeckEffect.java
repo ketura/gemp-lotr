@@ -28,9 +28,9 @@ public class PutCardFromDiscardOnTopOfDeckEffect extends AbstractEffect {
             gameState.sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from discard on the top of deck");
             gameState.removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
             gameState.putCardOnTopOfDeck(_physicalCard);
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 
     @Override

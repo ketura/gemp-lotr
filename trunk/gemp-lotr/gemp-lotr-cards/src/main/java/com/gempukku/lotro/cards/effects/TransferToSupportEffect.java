@@ -35,8 +35,8 @@ public class TransferToSupportEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             game.getGameState().removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             game.getGameState().addCardToZone(game, _card, Zone.SUPPORT);
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

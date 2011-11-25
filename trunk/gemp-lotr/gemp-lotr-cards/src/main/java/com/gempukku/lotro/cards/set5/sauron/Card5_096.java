@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.RevealCardsFromHandResult;
+import com.gempukku.lotro.logic.timing.results.RevealCardFromHandResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,9 +50,9 @@ public class Card5_096 extends AbstractEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.REVEAL_CARDS_FROM_HAND) {
-            RevealCardsFromHandResult revealResult = (RevealCardsFromHandResult) effectResult;
+            RevealCardFromHandResult revealResult = (RevealCardFromHandResult) effectResult;
             if (revealResult.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())
-                    && revealResult.getRevealedCards().contains(self)
+                    && revealResult.getRevealedCard() == self
                     && checkPlayRequirements(playerId, game, self, 0, false, false)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(

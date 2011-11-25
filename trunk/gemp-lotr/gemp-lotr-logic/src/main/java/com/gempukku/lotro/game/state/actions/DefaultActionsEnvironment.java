@@ -27,6 +27,8 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     private List<PhysicalCard> _playedCardsInPhase = new LinkedList<PhysicalCard>();
 
+    private Set<EffectResult> _effectResults = new HashSet<EffectResult>();
+
     public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack, CharacterDeathRule characterDeathRule) {
         _lotroGame = lotroGame;
         _actionStack = actionStack;
@@ -43,6 +45,17 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                         return null;
                     }
                 });
+    }
+
+    @Override
+    public void emitEffectResult(EffectResult effectResult) {
+        _effectResults.add(effectResult);
+    }
+
+    public Set<EffectResult> consumeEffectResults() {
+        Set<EffectResult> result = _effectResults;
+        _effectResults = new HashSet<EffectResult>();
+        return result;
     }
 
     public void addAlwaysOnActionProxy(ActionProxy actionProxy) {

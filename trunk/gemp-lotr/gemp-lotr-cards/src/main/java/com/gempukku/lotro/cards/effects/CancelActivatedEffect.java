@@ -36,8 +36,8 @@ public class CancelActivatedEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " cancels effect - " + GameUtils.getCardLink(_effect.getSource()));
             _effect.cancelEffect();
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

@@ -43,8 +43,8 @@ public class AddTokenEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             game.getGameState().addTokens(_target, _token, _count);
 
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

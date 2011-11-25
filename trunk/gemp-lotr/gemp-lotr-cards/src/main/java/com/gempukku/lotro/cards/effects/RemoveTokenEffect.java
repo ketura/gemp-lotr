@@ -44,6 +44,6 @@ public class RemoveTokenEffect extends AbstractEffect {
         int removeTokens = Math.min(tokenCount, _count);
         game.getGameState().removeTokens(_target, _token, removeTokens);
 
-        return new FullEffectResult(null, removeTokens == _count, removeTokens == _count);
+        return new FullEffectResult(removeTokens == _count, removeTokens == _count);
     }
 }

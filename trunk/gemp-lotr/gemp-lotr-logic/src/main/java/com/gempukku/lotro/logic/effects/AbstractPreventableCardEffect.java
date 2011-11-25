@@ -5,12 +5,12 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.OldAbstractEffect;
 
 import java.util.*;
 
-public abstract class AbstractPreventableCardEffect extends AbstractEffect {
+public abstract class AbstractPreventableCardEffect extends OldAbstractEffect {
     private Filter _filter;
     private Set<PhysicalCard> _preventedTargets = new HashSet<PhysicalCard>();
     private int _requiredTargets;

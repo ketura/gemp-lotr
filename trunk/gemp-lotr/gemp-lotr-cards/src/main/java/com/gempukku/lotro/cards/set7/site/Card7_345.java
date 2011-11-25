@@ -47,12 +47,7 @@ public class Card7_345 extends AbstractSite {
                         }
                     });
             possibleEffects.add(
-                    new AddBurdenEffect(self, 2) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Add 2 burdens";
-                        }
-                    });
+                    new AddBurdenEffect(self, 2));
             action.appendEffect(
                     new ChoiceEffect(action, fpPlayerId, possibleEffects));
             return Collections.singletonList(action);

@@ -64,7 +64,7 @@ public abstract class ChooseCardsFromDeckEffect extends AbstractEffect {
                     });
         }
 
-        return new FullEffectResult(null, success, success);
+        return new FullEffectResult(success, success);
     }
 
     protected abstract void cardsSelected(LotroGame game, Collection<PhysicalCard> cards);

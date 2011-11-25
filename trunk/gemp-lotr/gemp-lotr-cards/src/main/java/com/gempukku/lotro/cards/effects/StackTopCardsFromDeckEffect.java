@@ -44,8 +44,8 @@ public class StackTopCardsFromDeckEffect extends AbstractEffect {
                     stacked++;
                 }
             }
-            return new FullEffectResult(null, stacked == _count, stacked == _count);
+            return new FullEffectResult(stacked == _count, stacked == _count);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

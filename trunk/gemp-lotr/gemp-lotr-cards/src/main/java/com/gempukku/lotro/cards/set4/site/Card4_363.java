@@ -34,9 +34,7 @@ public class Card4_363 extends AbstractSite {
                 && PlayConditions.canPlayFromDiscard(playerId, game, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(playerId, self));
-            action.appendCost(
-                    new RemoveBurdenEffect(playerId, self));
+                    new RemoveBurdenEffect(playerId, self, 2));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION));
             return Collections.singletonList(action);

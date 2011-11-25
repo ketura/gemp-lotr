@@ -6,9 +6,6 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Preventable;
-import com.gempukku.lotro.logic.timing.results.AddTwilightResult;
-
-import java.util.Collections;
 
 public class AddTwilightEffect extends AbstractEffect implements Preventable {
     private PhysicalCard _source;
@@ -61,8 +58,8 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
         if (!isPrevented()) {
             game.getGameState().sendMessage(_sourceText + " added " + _twilight + " twilight");
             game.getGameState().addTwilight(_twilight);
-            return new FullEffectResult(Collections.singleton(new AddTwilightResult(_source)), true, _prevented == 0);
+            return new FullEffectResult(true, _prevented == 0);
         }
-        return new FullEffectResult(null, true, false);
+        return new FullEffectResult(true, false);
     }
 }

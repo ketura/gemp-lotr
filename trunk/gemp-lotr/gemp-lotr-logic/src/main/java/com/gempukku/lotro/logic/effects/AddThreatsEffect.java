@@ -11,8 +11,6 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.results.AddThreatResult;
 
-import java.util.Collections;
-
 public class AddThreatsEffect extends AbstractEffect {
     private Action _action;
     private String _performingPlayer;
@@ -62,8 +60,11 @@ public class AddThreatsEffect extends AbstractEffect {
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + toAdd + " threat" + ((toAdd > 1) ? "s" : ""));
             game.getGameState().addThreats(game.getGameState().getCurrentPlayerId(), toAdd);
 
-            return new FullEffectResult(Collections.singleton(new AddThreatResult(_source, toAdd)), toAdd == count, toAdd == count);
+            for (int i = 0; i < toAdd; i++)
+                game.getActionsEnvironment().emitEffectResult(new AddThreatResult(_source));
+
+            return new FullEffectResult(toAdd == count, toAdd == count);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

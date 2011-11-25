@@ -40,9 +40,7 @@ public class Card7_147 extends AbstractMinion {
                 && game.getGameState().getBurdens() >= 2) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(playerId, self));
-            action.appendCost(
-                    new RemoveBurdenEffect(playerId, self));
+                    new RemoveBurdenEffect(playerId, self, 2));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.not(self), Keyword.EASTERLING));
             return Collections.singletonList(action);

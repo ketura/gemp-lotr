@@ -39,8 +39,8 @@ public class PutCardFromHandOnTopOfDeckEffect extends AbstractEffect {
             gameState.sendMessage(_physicalCard.getOwner() + " puts a card from hand on top of his or her deck");
             gameState.removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
             gameState.putCardOnTopOfDeck(_physicalCard);
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

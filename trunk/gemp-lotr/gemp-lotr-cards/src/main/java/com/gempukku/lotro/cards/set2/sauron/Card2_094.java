@@ -56,7 +56,7 @@ public class Card2_094 extends AbstractAttachable {
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, ((DrawCardOrPutIntoHandResult) effectResult).getCount()));
+                    new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);
         }
         return null;

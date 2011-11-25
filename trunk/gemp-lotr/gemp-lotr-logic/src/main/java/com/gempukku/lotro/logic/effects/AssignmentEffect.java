@@ -56,8 +56,9 @@ public class AssignmentEffect extends AbstractEffect {
             game.getGameState().assignToSkirmishes(_fpChar, Collections.singletonList(_minion));
 
             final Map<PhysicalCard, List<PhysicalCard>> assignments = Collections.singletonMap(_fpChar, Collections.singletonList(_minion));
-            return new FullEffectResult(Collections.singleton(new AssignmentResult(_playerId, assignments)), true, true);
+            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, assignments));
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }
