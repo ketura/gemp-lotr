@@ -335,10 +335,19 @@ var NormalCardGroup = CardGroup.extend({
 });
 
 function layoutCardElem(cardElem, x, y, width, height, index) {
+    x = Math.floor(x);
+    y = Math.floor(y);
+    width = Math.floor(width);
+    height = Math.floor(height);
+    if (cardElem.css("left") == (x + "px") && cardElem.css("top") == (y + "px")
+            && cardElem.css("width") == (width + "px") && cardElem.css("height") == (height + "px")
+            && cardElem.css("zIndex") == index)
+        return;
     cardElem.css({position: "absolute", left: x + "px", top: y + "px", width: width, height: height, zIndex: index });
 
     var tokenOverlay = $(".tokenOverlay", cardElem);
-    tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
+    if (tokenOverlay.length > 0)
+        tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
 
     $(".foilOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
 
@@ -356,7 +365,7 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
 function layoutTokens(cardElem) {
     var tokenOverlay = $(".tokenOverlay", cardElem);
 
-    if (tokenOverlay != null) {
+    if (tokenOverlay.length > 0) {
         var width = cardElem.width();
         var height = cardElem.height();
         var maxDimension = Math.max(width, height);
