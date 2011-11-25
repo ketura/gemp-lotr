@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -29,7 +30,7 @@ public class RemoveTwilightEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         int toRemove = Math.min(game.getGameState().getTwilightPool(), _twilight);
-        game.getGameState().sendMessage(toRemove + " twilight gets removed from twilight pool");
+        game.getGameState().sendMessage(GameUtils.formatNumber(toRemove, _twilight) + " twilight gets removed from twilight pool");
         game.getGameState().removeTwilight(toRemove);
 
         return new FullEffectResult(toRemove == _twilight, toRemove == _twilight);

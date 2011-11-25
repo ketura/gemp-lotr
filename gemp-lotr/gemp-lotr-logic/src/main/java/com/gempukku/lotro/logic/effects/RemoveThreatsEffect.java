@@ -36,7 +36,7 @@ public class RemoveThreatsEffect extends AbstractEffect {
 
             if (toRemove > 0) {
                 if (_source != null)
-                    game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " removed " + toRemove + " threat" + ((toRemove > 1) ? "s" : ""));
+                    game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " removed " + GameUtils.formatNumber(toRemove, _count) + " threat" + ((toRemove > 1) ? "s" : ""));
                 game.getGameState().removeThreats(game.getGameState().getCurrentPlayerId(), toRemove);
             }
 
