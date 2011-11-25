@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
@@ -65,7 +64,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+    public void playEffect(final LotroGame game) {
         Collection<PhysicalCard> playableInHand = getPlayableInHandCards(game);
         if (playableInHand.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -85,7 +84,6 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
                         }
                     });
         }
-        return null;
     }
 
     protected void afterCardPlayed(PhysicalCard cardPlayed) {

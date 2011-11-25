@@ -6,9 +6,11 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class PreventableEffect extends AbstractSubActionEffect {
     private CostToEffectAction _action;
@@ -47,10 +49,9 @@ public class PreventableEffect extends AbstractSubActionEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         final PreventSubAction subAction = new PreventSubAction(_action, _effectToExecute, _choicePlayers, _preventionCost);
         processSubAction(game, subAction);
-        return null;
     }
 
     public static interface PreventionCost {

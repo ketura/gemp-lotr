@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 
@@ -39,14 +38,12 @@ public class PutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffe
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters);
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new ChooseAndPutNextCardFromHandOnBottomOfLibrary(subAction, cards));
         processSubAction(game, subAction);
-
-        return null;
     }
 
     private class ChooseAndPutNextCardFromHandOnBottomOfLibrary extends ChooseArbitraryCardsEffect {

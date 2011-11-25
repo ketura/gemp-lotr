@@ -18,10 +18,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.actions.PlayerReconcilesAction;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,10 +89,9 @@ public class Card7_015 extends AbstractAttachable {
                         }
 
                         @Override
-                        public Collection<? extends EffectResult> playEffect(LotroGame game) {
+                        public void playEffect(LotroGame game) {
                             game.getActionsEnvironment().addActionToStack(
                                     new PlayerReconcilesAction(game, playerId));
-                            return null;
                         }
                     });
             action.appendEffect(

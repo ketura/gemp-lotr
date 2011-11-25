@@ -5,9 +5,6 @@ import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collection;
-import java.util.Collections;
-
 public class TriggeringResultEffect extends AbstractSuccessfulEffect {
     private Type _effectType;
     private EffectResult _effectResult;
@@ -34,7 +31,7 @@ public class TriggeringResultEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
-        return Collections.singleton(_effectResult);
+    public void playEffect(LotroGame game) {
+        game.getActionsEnvironment().emitEffectResult(_effectResult);
     }
 }

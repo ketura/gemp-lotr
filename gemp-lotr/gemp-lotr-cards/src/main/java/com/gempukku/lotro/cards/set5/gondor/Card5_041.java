@@ -15,7 +15,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 
@@ -61,9 +60,8 @@ public class Card5_041 extends AbstractEvent {
                     }
 
                     @Override
-                    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+                    public void playEffect(LotroGame game) {
                         game.getActionsEnvironment().addActionToStack(subAction);
-                        return null;
                     }
                 }
         );
@@ -91,7 +89,7 @@ public class Card5_041 extends AbstractEvent {
         }
 
         @Override
-        public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+        public void playEffect(final LotroGame game) {
             final Filter additionalAttachmentFilter = Filters.and(CardType.COMPANION, Signet.ARAGORN);
 
             _subAction.appendEffect(
@@ -108,9 +106,6 @@ public class Card5_041 extends AbstractEvent {
                             }
                         }
                     });
-
-
-            return null;
         }
     }
 }

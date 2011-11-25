@@ -11,9 +11,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -51,7 +49,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+    public void playEffect(final LotroGame game) {
         List<PhysicalCard> discardableCards = new LinkedList<PhysicalCard>();
 
         for (PhysicalCard stackedOnCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter))
@@ -73,6 +71,5 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
                         }
                     });
         }
-        return null;
     }
 }

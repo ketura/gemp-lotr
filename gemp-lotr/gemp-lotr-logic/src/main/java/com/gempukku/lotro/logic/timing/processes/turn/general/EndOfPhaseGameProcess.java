@@ -7,11 +7,8 @@ import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
-
-import java.util.Collection;
 
 public class EndOfPhaseGameProcess implements GameProcess {
     private Phase _phase;
@@ -45,10 +42,9 @@ public class EndOfPhaseGameProcess implements GameProcess {
                     }
 
                     @Override
-                    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+                    public void playEffect(LotroGame game) {
                         ((ModifiersLogic) game.getModifiersEnvironment()).removeEndOfPhase(_phase);
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeEndOfPhaseActionProxies(_phase);
-                        return null;
                     }
                 });
         game.getActionsEnvironment().addActionToStack(action);

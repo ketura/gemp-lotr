@@ -17,9 +17,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -99,7 +97,7 @@ public class Card5_028 extends AbstractCompanion {
         }
 
         @Override
-        public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+        public void playEffect(final LotroGame game) {
             if (_cards.size() == 1) {
                 final PhysicalCard card = _cards.get(0);
                 game.getGameState().removeCardsFromZone(_playerId, Collections.singleton(card));
@@ -119,7 +117,6 @@ public class Card5_028 extends AbstractCompanion {
                             }
                         });
             }
-            return null;
         }
     }
 }

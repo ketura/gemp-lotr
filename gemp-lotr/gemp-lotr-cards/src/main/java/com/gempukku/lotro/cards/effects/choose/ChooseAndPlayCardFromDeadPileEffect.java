@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -53,7 +52,7 @@ public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+    public void playEffect(final LotroGame game) {
         Collection<PhysicalCard> deadPile = getPlayableInDeadPile(game);
         if (deadPile.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -69,7 +68,6 @@ public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
                         }
                     });
         }
-        return null;
     }
 
     @Override

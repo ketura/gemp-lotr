@@ -3,9 +3,6 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.cards.decisions.ForEachTwilightTokenYouSpotDecision;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-
-import java.util.Collection;
 
 public abstract class ForEachTwilightTokenYouSpotEffect implements Effect {
     private String _playerId;
@@ -25,7 +22,7 @@ public abstract class ForEachTwilightTokenYouSpotEffect implements Effect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         int twilightPool = game.getGameState().getTwilightPool();
         if (twilightPool == 0)
             twilightTokensSpotted(0);
@@ -37,7 +34,6 @@ public abstract class ForEachTwilightTokenYouSpotEffect implements Effect {
                             ForEachTwilightTokenYouSpotEffect.this.twilightTokensSpotted(twilightTokensSpotted);
                         }
                     });
-        return null;
     }
 
     protected abstract void twilightTokensSpotted(int twilightTokens);

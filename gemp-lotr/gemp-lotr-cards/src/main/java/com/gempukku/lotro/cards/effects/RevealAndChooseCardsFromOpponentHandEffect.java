@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -44,7 +43,7 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
 
@@ -64,7 +63,6 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
                         }
                     });
         }
-        return null;
     }
 
     @Override

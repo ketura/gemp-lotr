@@ -30,7 +30,6 @@ public class DefaultLotroGame implements LotroGame {
     private UserFeedback _userFeedback;
     private TurnProcedure _turnProcedure;
     private ActionStack _actionStack;
-    private CharacterDeathRule _characterDeathRule = new CharacterDeathRule();
 
     private LotroFormat _format;
 
@@ -47,7 +46,7 @@ public class DefaultLotroGame implements LotroGame {
 
         _allPlayers = decks.keySet();
 
-        _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack, _characterDeathRule);
+        _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack);
 
         final Map<String, List<String>> cards = new HashMap<String, List<String>>();
         final Map<String, String> ringBearers = new HashMap<String, String>();
@@ -66,6 +65,9 @@ public class DefaultLotroGame implements LotroGame {
 
         _gameState = new GameState();
 
+        CharacterDeathRule characterDeathRule = new CharacterDeathRule(_actionsEnvironment);
+        characterDeathRule.applyRule();
+
         _turnProcedure = new TurnProcedure(this, decks.keySet(), userFeedback, _actionStack,
                 new PlayerOrderFeedback() {
                     @Override
@@ -73,8 +75,7 @@ public class DefaultLotroGame implements LotroGame {
                         final GameStats gameStats = _turnProcedure.getGameStats();
                         _gameState.init(playerOrder, firstPlayer, cards, ringBearers, rings, library, gameStats);
                     }
-                }
-        );
+                }, characterDeathRule);
         _userFeedback = userFeedback;
 
         RuleSet ruleSet = new RuleSet(this, _actionsEnvironment, _modifiersLogic);

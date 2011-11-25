@@ -4,9 +4,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-
-import java.util.Collection;
 
 public class PlayoutDecisionEffect extends AbstractSuccessfulEffect {
     private String _playerId;
@@ -28,8 +25,7 @@ public class PlayoutDecisionEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId, _decision);
-        return null;
     }
 }

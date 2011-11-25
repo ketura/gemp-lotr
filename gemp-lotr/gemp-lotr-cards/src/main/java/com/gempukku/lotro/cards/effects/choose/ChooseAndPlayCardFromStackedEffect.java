@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.*;
@@ -57,7 +56,7 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+    public void playEffect(final LotroGame game) {
         Collection<PhysicalCard> playableFromStacked = getPlayableFromStacked(game);
         if (playableFromStacked.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -80,7 +79,6 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
                         }
                     });
         }
-        return null;
     }
 
     protected void afterCardPlayed(PhysicalCard cardPlayed) {
