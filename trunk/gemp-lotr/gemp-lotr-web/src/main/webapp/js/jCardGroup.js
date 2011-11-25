@@ -296,9 +296,10 @@ var NormalCardGroup = CardGroup.extend({
         var rowHeight = (this.height - ((rowCount - 1) * this.padding)) / rowCount;
         if (this.maxCardHeight != null)
             rowHeight = Math.min(this.maxCardHeight, rowHeight);
+        var yBias = Math.floor((this.height - (rowHeight * rowCount) - (this.padding * (rowCount - 1))) / 2);
         var x = 0;
         var row = 0;
-        var y = Math.floor((this.height - (rowHeight * rowCount) - (this.padding * (rowCount - 1))) / 2);
+        var y = yBias;
 
         for (var cardIndex in cardsToLayout) {
             var index = 10;
@@ -313,7 +314,7 @@ var NormalCardGroup = CardGroup.extend({
             if (x + cardWidthWithAttachments > this.width) {
                 row++;
                 x = 0;
-                y = row * (rowHeight + this.padding);
+                y = yBias + row * (rowHeight + this.padding);
             }
 
             for (var i = 0; i < cardData.attachedCards.length; i++) {
