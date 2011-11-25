@@ -8,9 +8,6 @@ import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.EffectResult;
-
-import java.util.Collection;
 
 public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
     private int _minimalThreatsToRemove;
@@ -43,7 +40,7 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+    public void playEffect(final LotroGame game) {
         if (isPlayableInFull(game)) {
             int maxRemovableThreats = game.getGameState().getThreats();
             if (_minimalThreatsToRemove < maxRemovableThreats) {
@@ -60,17 +57,14 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
                             }
                         }
                 );
-                return null;
             } else {
                 SubAction subAction = new SubAction(_action);
                 subAction.appendEffect(
                         new RemoveThreatsEffect(_action.getActionSource(), _minimalThreatsToRemove));
                 processSubAction(game, subAction);
                 _threatsRemoved = _minimalThreatsToRemove;
-                return null;
             }
         }
-        return null;
     }
 
     @Override

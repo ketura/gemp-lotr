@@ -14,7 +14,7 @@ public abstract class EffectResult {
         START_OF_TURN,
         END_OF_TURN,
 
-        RECONCILE,
+        RECONCILE, ZERO_VITALITY,
 
         PLAY, ACTIVATE, DRAW_CARD_OR_PUT_INTO_HAND,
 

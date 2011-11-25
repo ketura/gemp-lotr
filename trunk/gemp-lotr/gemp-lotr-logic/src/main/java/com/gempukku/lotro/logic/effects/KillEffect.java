@@ -8,17 +8,17 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
-import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class KillEffect extends AbstractSuccessfulEffect {
     private List<PhysicalCard> _cards;
     private Cause _cause;
-    private CharacterDeathRule _characterDeathRule;
 
     public enum Cause {
         WOUNDS, OVERWHELM, CARD_EFFECT
@@ -27,12 +27,6 @@ public class KillEffect extends AbstractSuccessfulEffect {
     public KillEffect(List<PhysicalCard> cards, Cause cause) {
         _cards = cards;
         _cause = cause;
-    }
-
-    public KillEffect(List<PhysicalCard> cards, Cause cause, CharacterDeathRule characterDeathRule) {
-        _cards = cards;
-        _cause = cause;
-        _characterDeathRule = characterDeathRule;
     }
 
     public Cause getCause() {
@@ -61,7 +55,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         List<PhysicalCard> toBeKilled = getCharactersToBeKilled();
 
         GameState gameState = game.getGameState();
@@ -109,13 +103,12 @@ public class KillEffect extends AbstractSuccessfulEffect {
             gameState.addCardToZone(game, discardedCard, Zone.DISCARD);
 
         if (killedCards.size() > 0 && discardedCards.size() > 0) {
-            return Arrays.asList(new KillResult(killedCards, _cause), new DiscardCardsFromPlayResult(discardedCards));
+            game.getActionsEnvironment().emitEffectResult(new KillResult(killedCards, _cause));
+            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
         } else if (killedCards.size() > 0) {
-            return Arrays.asList(new KillResult(killedCards, _cause));
+            game.getActionsEnvironment().emitEffectResult(new KillResult(killedCards, _cause));
         } else if (discardedCards.size() > 0) {
-            return Arrays.asList(new DiscardCardsFromPlayResult(discardedCards));
-        } else {
-            return null;
+            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
         }
     }
 }

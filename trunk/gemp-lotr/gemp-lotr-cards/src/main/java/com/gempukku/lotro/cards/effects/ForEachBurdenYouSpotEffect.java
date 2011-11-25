@@ -3,9 +3,6 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.cards.decisions.ForEachBurdenYouSpotDecision;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-
-import java.util.Collection;
 
 public abstract class ForEachBurdenYouSpotEffect implements Effect {
     private String _playerId;
@@ -25,7 +22,7 @@ public abstract class ForEachBurdenYouSpotEffect implements Effect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         int burdens = game.getGameState().getBurdens();
         if (burdens == 0)
             burdensSpotted(0);
@@ -37,7 +34,6 @@ public abstract class ForEachBurdenYouSpotEffect implements Effect {
                             ForEachBurdenYouSpotEffect.this.burdensSpotted(burdensSpotted);
                         }
                     });
-        return null;
     }
 
     protected abstract void burdensSpotted(int burdensSpotted);

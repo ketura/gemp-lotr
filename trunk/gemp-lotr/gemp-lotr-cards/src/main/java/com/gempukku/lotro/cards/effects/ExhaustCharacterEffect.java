@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 
@@ -44,15 +43,13 @@ public class ExhaustCharacterEffect extends AbstractSubActionEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(new InfiniteExertionEffect(_source, subAction, _filters));
         processSubAction(game, subAction);
         final Collection<PhysicalCard> cards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
         if (cards.size() > 0)
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " exhausts " + GameUtils.getAppendedNames(cards));
-
-        return null;
     }
 
     private class InfiniteExertionEffect extends ExertCharactersEffect {

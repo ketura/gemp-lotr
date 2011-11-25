@@ -6,9 +6,7 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class ChoiceEffect extends AbstractSubActionEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+    public void playEffect(final LotroGame game) {
         final List<Effect> possibleEffects = new LinkedList<Effect>();
         for (Effect effect : _possibleEffects) {
             if (effect.isPlayableInFull(game))
@@ -65,7 +63,6 @@ public class ChoiceEffect extends AbstractSubActionEffect {
                         }
                     });
         }
-        return null;
     }
 
     private String[] getEffectsText(List<Effect> possibleEffects, LotroGame game) {

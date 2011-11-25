@@ -5,7 +5,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,9 +33,8 @@ public class RevealCardEffect extends AbstractSuccessfulEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(LotroGame game) {
+    public void playEffect(LotroGame game) {
         if (_cards.size() > 0)
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards - " + getAppendedNames(_cards));
-        return null;
     }
 }

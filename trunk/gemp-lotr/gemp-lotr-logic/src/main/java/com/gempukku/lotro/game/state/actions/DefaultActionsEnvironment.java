@@ -29,10 +29,9 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     private Set<EffectResult> _effectResults = new HashSet<EffectResult>();
 
-    public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack, CharacterDeathRule characterDeathRule) {
+    public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
         _actionStack = actionStack;
-        _characterDeathRule = characterDeathRule;
 
         addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
@@ -50,6 +49,10 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public void emitEffectResult(EffectResult effectResult) {
         _effectResults.add(effectResult);
+    }
+
+    public boolean hasPendingEffectResults() {
+        return _effectResults.size() > 0;
     }
 
     public Set<EffectResult> consumeEffectResults() {
@@ -167,9 +170,6 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _lotroGame.getGameState().iterateActiveTextCards(gatherActions);
 
         List<Action> gatheredActions = gatherActions.getActions();
-        List<RequiredTriggerAction> killEffects = _characterDeathRule.getKillEffects(_lotroGame);
-        if (killEffects != null)
-            gatheredActions.addAll(killEffects);
 
         if (effectResults != null) {
             for (ActionProxy actionProxy : _actionProxies) {

@@ -2,8 +2,6 @@ package com.gempukku.lotro.logic.timing;
 
 import com.gempukku.lotro.game.state.LotroGame;
 
-import java.util.Collection;
-
 public interface Effect {
     public enum Type {
         BEFORE_WOUND, BEFORE_EXERT, BEFORE_ADD_BURDENS, BEFORE_DISCARD_FROM_PLAY,
@@ -41,12 +39,12 @@ public interface Effect {
     public boolean isPlayableInFull(LotroGame game);
 
     /**
-     * Plays the effect and returns it's result.
+     * Plays the effect and emits the results.
      *
      * @param game
      * @return
      */
-    public Collection<? extends EffectResult> playEffect(LotroGame game);
+    public void playEffect(LotroGame game);
 
     /**
      * Returns if the effect playing called earlier was successful or not. This is

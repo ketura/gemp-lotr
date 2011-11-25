@@ -6,9 +6,6 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-
-import java.util.Collection;
 
 public class OptionalEffect extends AbstractSubActionEffect {
     private Action _action;
@@ -37,7 +34,7 @@ public class OptionalEffect extends AbstractSubActionEffect {
     }
 
     @Override
-    public Collection<? extends EffectResult> playEffect(final LotroGame game) {
+    public void playEffect(final LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new MultipleChoiceAwaitingDecision(1, "Do you wish to " + _optionalEffect.getText(game) + "?", new String[]{"Yes", "No"}) {
                     @Override
@@ -49,6 +46,5 @@ public class OptionalEffect extends AbstractSubActionEffect {
                         }
                     }
                 });
-        return null;
     }
 }
