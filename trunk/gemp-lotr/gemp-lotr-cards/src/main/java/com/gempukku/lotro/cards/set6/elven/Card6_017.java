@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.SubCostToEffectAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -55,7 +55,7 @@ public class Card6_017 extends AbstractPermanent {
                                             PhysicalCard selectedCard = selectedCards.get(0);
                                             SubCostToEffectAction subAction = new SubCostToEffectAction(action);
                                             subAction.appendCost(
-                                                    new DiscardCardsFromPlayEffect(self, self));
+                                                    new SelfDiscardEffect(self));
                                             subAction.appendEffect(
                                                     new DiscardCardFromDeckEffect(selectedCard));
                                             game.getActionsEnvironment().addActionToStack(subAction);

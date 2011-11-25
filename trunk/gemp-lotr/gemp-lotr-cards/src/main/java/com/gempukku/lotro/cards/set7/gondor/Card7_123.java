@@ -3,12 +3,12 @@ package com.gempukku.lotro.cards.set7.gondor;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -48,7 +48,7 @@ public class Card7_123 extends AbstractPermanent {
                 action.appendEffect(
                         new ChooseAndPlayCardFromHandEffect(playerId, game, -tokenCount, Culture.GONDOR, CardType.COMPANION));
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
                 actions.add(action);
             }
             return actions;

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.elven;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -55,7 +56,7 @@ public class Card4_063 extends AbstractAttachableFPPossession {
 
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose possession", Filters.in(discardedPossesions)) {
                         @Override

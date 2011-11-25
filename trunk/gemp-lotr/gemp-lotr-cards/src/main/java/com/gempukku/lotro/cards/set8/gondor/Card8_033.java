@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExhaustCharactersEffect;
 import com.gempukku.lotro.common.Culture;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -48,7 +48,7 @@ public class Card8_033 extends AbstractResponseEvent {
                     PlayEventAction action = new PlayEventAction(self);
                     action.setText("Discard " + killedWraith.getBlueprint().getName());
                     action.appendCost(
-                            new DiscardCardsFromPlayEffect(self, self));
+                            new SelfDiscardEffect(self));
                     List<Effect> possibleCosts = new LinkedList<Effect>();
                     possibleCosts.add(
                             new ChooseAndExhaustCharactersEffect(action, playerId, 1, 1, Filters.not(killedWraith), Culture.GONDOR, Race.WRAITH) {

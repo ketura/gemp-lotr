@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +57,7 @@ public class Card8_027 extends AbstractCompanion {
                 action.appendCost(
                         new AddThreatsEffect(playerId, self, totalVitality));
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
                 return Collections.singletonList(action);
             }
         }
@@ -65,7 +65,7 @@ public class Card8_027 extends AbstractCompanion {
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, CardType.MINION, Culture.GOLLUM));
             return Collections.singletonList(action);

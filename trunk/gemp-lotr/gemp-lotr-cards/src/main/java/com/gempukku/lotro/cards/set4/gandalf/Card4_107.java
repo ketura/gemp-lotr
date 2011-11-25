@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -16,7 +17,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.KillResult;
@@ -59,7 +59,7 @@ public class Card4_107 extends AbstractAttachable {
             if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Culture.ISENGARD).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new DiscardCardsFromPlayEffect(self, self));
+                        new SelfDiscardEffect(self));
                 action.appendEffect(
                         new ChooseOpponentEffect(playerId) {
                             @Override

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set5.raider;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -43,7 +44,7 @@ public class Card5_072 extends AbstractMinion {
             if (visitor.getCultureCount() >= 4) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ExertCharactersEffect(self, CardType.COMPANION));
                 return Collections.singletonList(action);

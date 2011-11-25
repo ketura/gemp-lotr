@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.CantDiscardFromPlayModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -55,9 +55,9 @@ public class Card4_188 extends AbstractMinion {
             if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Race.HOBBIT).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendCost(
-                        new ExertCharactersEffect(self, self));
+                        new SelfExertEffect(self));
                 action.appendEffect(
                         new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.canExert(self)) {
                             @Override

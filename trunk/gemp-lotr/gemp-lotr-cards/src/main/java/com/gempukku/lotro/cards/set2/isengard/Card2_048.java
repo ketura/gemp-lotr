@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -67,7 +67,7 @@ public class Card2_048 extends AbstractAttachable {
 
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new DiscardCardsFromPlayEffect(self, self));
+            action.appendEffect(new SelfDiscardEffect(self));
 
             return Collections.singletonList(action);
         }

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set7.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -41,7 +41,7 @@ public class Card7_140 extends AbstractMinion {
             action.appendCost(
                     new RemoveBurdenEffect(playerId, self));
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             boolean hasInitiative = PlayConditions.hasInitiative(game, Side.SHADOW);
             int healCount = hasInitiative ? 2 : 1;
             action.appendEffect(

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.shire;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.RemoveCharacterFromSkirmishEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +42,7 @@ public class Card4_313 extends AbstractCompanion {
                 && PlayConditions.canDiscardFromPlay(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose Uruk-hai", Race.URUK_HAI, Filters.inSkirmishAgainst(Filters.unboundCompanion)) {
                         @Override

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set10.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -45,7 +45,7 @@ public class Card10_092 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.SAURON, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self));
+                    new SelfExertEffect(self));
             int cultures = GameUtils.getSpottableCulturesCount(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE);
             if (cultures < 3)
                 action.appendEffect(
