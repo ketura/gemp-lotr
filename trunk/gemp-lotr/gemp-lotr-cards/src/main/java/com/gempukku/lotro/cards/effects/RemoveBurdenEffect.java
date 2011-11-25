@@ -47,7 +47,7 @@ public class RemoveBurdenEffect extends AbstractEffect {
         if (game.getModifiersQuerying().canRemoveBurden(game.getGameState(), _source)) {
             int toRemove = Math.min(_count, game.getGameState().getBurdens());
             if (toRemove > 0) {
-                game.getGameState().sendMessage(_performingPlayerId + " removed " + toRemove + " burden" + ((toRemove > 1) ? "s" : "") + " with " + GameUtils.getCardLink(_source));
+                game.getGameState().sendMessage(_performingPlayerId + " removed " + GameUtils.formatNumber(toRemove, _count) + " burden" + ((toRemove > 1) ? "s" : "") + " with " + GameUtils.getCardLink(_source));
                 game.getGameState().removeBurdens(toRemove);
                 for (int i = 0; i < toRemove; i++)
                     game.getActionsEnvironment().emitEffectResult(new RemoveBurdenResult(_performingPlayerId, _source));

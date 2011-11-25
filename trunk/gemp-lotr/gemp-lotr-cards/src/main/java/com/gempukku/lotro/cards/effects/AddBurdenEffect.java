@@ -55,7 +55,7 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (_prevented < _count) {
             int toAdd = _count - _prevented;
-            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + toAdd + " burden" + ((toAdd > 1) ? "s" : ""));
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + GameUtils.formatNumber(toAdd, _count) + " burden" + ((toAdd > 1) ? "s" : ""));
             game.getGameState().addBurdens(toAdd);
             for (int i = 0; i < toAdd; i++)
                 game.getActionsEnvironment().emitEffectResult(new AddBurdenResult(_source));

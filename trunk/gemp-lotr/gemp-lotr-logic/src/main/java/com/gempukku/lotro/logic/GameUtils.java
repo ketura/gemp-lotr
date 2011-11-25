@@ -84,4 +84,11 @@ public class GameUtils {
             cultures.add(physicalCard.getBlueprint().getCulture());
         return cultures.size();
     }
+
+    public static String formatNumber(int effective, int requested) {
+        if (effective != requested)
+            return effective + "(" + requested + ")";
+        else
+            return String.valueOf(effective);
+    }
 }

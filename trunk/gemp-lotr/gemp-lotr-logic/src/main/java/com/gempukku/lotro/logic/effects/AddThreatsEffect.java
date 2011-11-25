@@ -57,7 +57,7 @@ public class AddThreatsEffect extends AbstractEffect {
         int count = evaluateCount(game);
         int toAdd = Math.min(count, getThreatsPossibleToAdd(game));
         if (toAdd > 0) {
-            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + toAdd + " threat" + ((toAdd > 1) ? "s" : ""));
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + GameUtils.formatNumber(toAdd, count) + " threat" + ((toAdd > 1) ? "s" : ""));
             game.getGameState().addThreats(game.getGameState().getCurrentPlayerId(), toAdd);
 
             for (int i = 0; i < toAdd; i++)
