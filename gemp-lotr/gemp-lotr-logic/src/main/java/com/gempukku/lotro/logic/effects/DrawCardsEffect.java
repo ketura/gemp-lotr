@@ -5,8 +5,6 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
-import java.util.Collections;
-
 public class DrawCardsEffect extends AbstractEffect {
     private String _playerId;
     private final int _count;
@@ -43,9 +41,11 @@ public class DrawCardsEffect extends AbstractEffect {
         if (drawn > 0)
             game.getGameState().sendMessage(_playerId + " draws " + drawn + " card" + ((drawn > 1) ? "s" : ""));
 
-        if (drawn > 0)
-            return new FullEffectResult(Collections.singleton(new DrawCardOrPutIntoHandResult(_playerId, drawn)), _count == drawn, _count == drawn);
-        else
-            return new FullEffectResult(null, false, false);
+        if (drawn > 0) {
+            for (int i = 0; i < drawn; i++)
+                game.getActionsEnvironment().emitEffectResult(new DrawCardOrPutIntoHandResult(_playerId));
+            return new FullEffectResult(_count == drawn, _count == drawn);
+        } else
+            return new FullEffectResult(false, false);
     }
 }

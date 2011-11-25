@@ -13,7 +13,7 @@ public class RemoveTwilightEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Remove " + _twilight + " twilight";
+        return "Remove (" + _twilight + ")";
     }
 
     @Override
@@ -32,6 +32,6 @@ public class RemoveTwilightEffect extends AbstractEffect {
         game.getGameState().sendMessage(toRemove + " twilight gets removed from twilight pool");
         game.getGameState().removeTwilight(toRemove);
 
-        return new FullEffectResult(null, toRemove == _twilight, toRemove == _twilight);
+        return new FullEffectResult(toRemove == _twilight, toRemove == _twilight);
     }
 }

@@ -12,8 +12,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
-import com.gempukku.lotro.logic.timing.results.AddThreatResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,17 +49,15 @@ public class Card7_085 extends AbstractCompanion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.addedBurden(game, effectResult, Side.SHADOW)) {
-            AddBurdenResult burdenResult = (AddBurdenResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddThreatsEffect(self.getOwner(), self, burdenResult.getCount()));
+                    new AddThreatsEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         if (TriggerConditions.addedThreat(game, effectResult, Side.SHADOW)) {
-            AddThreatResult threatResult = (AddThreatResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, threatResult.getCount()));
+                    new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);
         }
         return null;

@@ -40,8 +40,8 @@ public class TransferPermanentEffect extends AbstractEffect {
             gameState.sendMessage(_physicalCard.getOwner() + " transfers " + GameUtils.getCardLink(_physicalCard) + " to " + GameUtils.getCardLink(_targetCard));
             gameState.transferCard(_physicalCard, _targetCard);
 
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

@@ -52,20 +52,7 @@ public class Card9_052 extends AbstractAlly {
 
         if (PlayConditions.canRemoveBurdens(game, self, 2)) {
             possibleCosts.add(
-                    new RemoveBurdenEffect(playerId, self) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Remove 2 burdens";
-                        }
-
-                        @Override
-                        protected FullEffectResult playEffectReturningResult(LotroGame game) {
-                            FullEffectResult effectResult = super.playEffectReturningResult(game);
-                            action.insertCost(
-                                    new RemoveBurdenEffect(playerId, self));
-                            return effectResult;
-                        }
-                    });
+                    new RemoveBurdenEffect(playerId, self, 2));
         }
         possibleCosts.add(
                 new RemoveThreatsEffect(self, 2));

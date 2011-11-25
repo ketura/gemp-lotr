@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
@@ -127,6 +128,8 @@ public class TurnProcedure {
 
                 if (initiativePreEffect != initiativePostEffect)
                     results.add(new InitiativeChangeResult(initiativePostEffect));
+
+                results.addAll(((DefaultActionsEnvironment) game.getActionsEnvironment()).consumeEffectResults());
 
                 _effectResults = results;
 

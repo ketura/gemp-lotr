@@ -55,12 +55,7 @@ public class Card1_137 extends AbstractOldEvent {
                     }
                 });
 
-        possibleEffects.add(new PutOnTheOneRingEffect() {
-            @Override
-            public String getText(LotroGame game) {
-                return "Put on The One Ring";
-            }
-        });
+        possibleEffects.add(new PutOnTheOneRingEffect());
 
         action.appendEffect(
                 new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));

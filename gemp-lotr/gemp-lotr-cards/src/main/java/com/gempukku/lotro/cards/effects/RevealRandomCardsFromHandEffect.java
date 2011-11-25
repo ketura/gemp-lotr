@@ -5,9 +5,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.RevealCardsFromHandResult;
+import com.gempukku.lotro.logic.timing.results.RevealCardFromHandResult;
 
-import java.util.Collections;
 import java.util.List;
 
 public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
@@ -40,9 +39,12 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
             if (randomCards.size() > 0)
                 game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from " + _playerHand + " hand at random - " + getAppendedNames(randomCards));
             cardsRevealed(randomCards);
-            return new FullEffectResult(Collections.singleton(new RevealCardsFromHandResult(_source, _playerHand, randomCards)), randomCards.size() == _count, randomCards.size() == _count);
+            for (PhysicalCard randomCard : randomCards)
+                game.getActionsEnvironment().emitEffectResult(new RevealCardFromHandResult(_source, _playerHand, randomCard));
+
+            return new FullEffectResult(randomCards.size() == _count, randomCards.size() == _count);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 
     @Override

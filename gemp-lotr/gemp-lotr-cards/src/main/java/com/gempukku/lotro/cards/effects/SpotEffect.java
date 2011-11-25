@@ -33,8 +33,8 @@ public class SpotEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

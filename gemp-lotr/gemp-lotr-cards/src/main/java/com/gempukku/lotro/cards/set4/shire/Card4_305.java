@@ -47,9 +47,9 @@ public class Card4_305 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             int tokenCount = Math.min(3, game.getGameState().getTokenCount(self, Token.SHIRE));
             ActivateCardAction action = new ActivateCardAction(self);
-            for (int i = 0; i < tokenCount; i++)
+            if (tokenCount > 0)
                 action.appendEffect(
-                        new RemoveBurdenEffect(playerId, self));
+                        new RemoveBurdenEffect(playerId, self, tokenCount));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, self));
             return Collections.singletonList(action);

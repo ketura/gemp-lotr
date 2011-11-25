@@ -6,7 +6,6 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +52,7 @@ public class AssignmentPhaseEffect extends AbstractEffect {
             List<PhysicalCard> minions = physicalCardListEntry.getValue();
             game.getGameState().assignToSkirmishes(fpChar, minions);
         }
-        return new FullEffectResult(Collections.singleton(new AssignmentResult(_playerId, _assignments)), true, true);
+        game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _assignments));
+        return new FullEffectResult(true, true);
     }
 }

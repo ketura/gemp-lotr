@@ -8,8 +8,6 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 
-import java.util.Collections;
-
 public class ActivateCardEffect extends AbstractEffect {
     private PhysicalCard _source;
     private Phase _actionTimeword;
@@ -52,6 +50,7 @@ public class ActivateCardEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        return new FullEffectResult(Collections.singleton(_activateCardResult), true, true);
+        game.getActionsEnvironment().emitEffectResult(_activateCardResult);
+        return new FullEffectResult(true, true);
     }
 }

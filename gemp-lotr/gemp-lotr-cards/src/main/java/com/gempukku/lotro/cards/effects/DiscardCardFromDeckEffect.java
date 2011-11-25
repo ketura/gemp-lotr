@@ -39,8 +39,8 @@ public class DiscardCardFromDeckEffect extends AbstractEffect {
             gameState.sendMessage(GameUtils.getCardLink(_card) + " gets discarded from deck");
             gameState.removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             gameState.addCardToZone(game, _card, Zone.DISCARD);
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

@@ -45,9 +45,8 @@ public class Card4_299 extends AbstractPermanent {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int count = getValidatedResult(result);
-                                    for (int i = 0; i < count; i++)
-                                        action.appendEffect(
-                                                new RemoveBurdenEffect(self.getOwner(), self));
+                                    if (count > 0)
+                                        action.appendEffect(new RemoveBurdenEffect(self.getOwner(), self, count));
                                 }
                             }));
             return Collections.singletonList(action);

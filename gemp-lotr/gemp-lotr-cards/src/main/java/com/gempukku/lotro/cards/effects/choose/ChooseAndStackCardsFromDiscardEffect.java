@@ -74,7 +74,7 @@ public class ChooseAndStackCardsFromDiscardEffect extends AbstractEffect {
                     });
         }
 
-        return new FullEffectResult(null, success, success);
+        return new FullEffectResult(success, success);
     }
 
     public void stackFromDiscardCallback(Collection<PhysicalCard> cardsStacked) {

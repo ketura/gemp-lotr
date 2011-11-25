@@ -5,8 +5,6 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.PutOnTheOneRingResult;
 
-import java.util.Collections;
-
 public class PutOnTheOneRingEffect extends AbstractEffect {
 
     @Override
@@ -16,7 +14,7 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Ring-bearer puts on The One Ring";
+        return "Put on The One Ring";
     }
 
     @Override
@@ -31,9 +29,10 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
         if (canPutOnTheRing) {
             game.getGameState().sendMessage("Ring-bearer puts on The One Ring");
             game.getGameState().setWearingRing(true);
-            return new FullEffectResult(Collections.singleton(new PutOnTheOneRingResult()), true, true);
+            game.getActionsEnvironment().emitEffectResult(new PutOnTheOneRingResult());
+            return new FullEffectResult(true, true);
         } else {
-            return new FullEffectResult(null, false, false);
+            return new FullEffectResult(false, false);
         }
     }
 }

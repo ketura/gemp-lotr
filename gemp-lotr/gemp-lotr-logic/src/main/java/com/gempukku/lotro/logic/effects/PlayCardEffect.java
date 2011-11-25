@@ -64,6 +64,8 @@ public class PlayCardEffect extends AbstractEffect {
             game.getGameState().addCardToZone(game, _cardPlayed, _zone);
         }
 
-        return new FullEffectResult(Collections.singleton(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom)), true, true);
+        game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom));
+
+        return new FullEffectResult(true, true);
     }
 }

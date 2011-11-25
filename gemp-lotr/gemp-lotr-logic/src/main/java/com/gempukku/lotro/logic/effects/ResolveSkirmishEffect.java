@@ -3,8 +3,8 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.OldAbstractEffect;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ResolveSkirmishEffect extends AbstractEffect {
+public class ResolveSkirmishEffect extends OldAbstractEffect {
     public enum Result {
         FELLOWSHIP_OVERWHELMED, FELLOWSHIP_LOSES, SHADOW_LOSES, SHADOW_OVERWHELMED
     }

@@ -6,10 +6,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.RevealCardsFromHandResult;
+import com.gempukku.lotro.logic.timing.results.RevealCardFromHandResult;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class RevealCardsFromHandEffect extends AbstractEffect {
     private PhysicalCard _source;
@@ -46,6 +45,10 @@ public class RevealCardsFromHandEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _handPlayerId + " cards in hand - " + getAppendedNames(_cards));
 
-        return new FullEffectResult(Collections.singleton(new RevealCardsFromHandResult(_source, _handPlayerId, _cards)), true, true);
+        for (PhysicalCard card : _cards) {
+            game.getActionsEnvironment().emitEffectResult(new RevealCardFromHandResult(_source, _handPlayerId, card));
+        }
+
+        return new FullEffectResult(true, true);
     }
 }

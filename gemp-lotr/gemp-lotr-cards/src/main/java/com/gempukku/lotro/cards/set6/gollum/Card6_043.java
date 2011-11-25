@@ -36,9 +36,7 @@ public class Card6_043 extends AbstractResponseEvent {
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.smeagol));
             action.appendEffect(
-                    new RemoveBurdenEffect(playerId, self));
-            action.appendEffect(
-                    new RemoveBurdenEffect(playerId, self));
+                    new RemoveBurdenEffect(playerId, self, 2));
             return Collections.singletonList(action);
         }
         return null;

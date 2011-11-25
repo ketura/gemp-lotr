@@ -57,19 +57,9 @@ public class Card2_108 extends AbstractAttachable {
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new TakeOffTheOneRingEffect() {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Take off The One Ring";
-                        }
-                    });
+                    new TakeOffTheOneRingEffect());
             possibleEffects.add(
-                    new CancelRingBearerAndNazgulSkirmish(self.getAttachedTo()) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Cancel a skirmish";
-                        }
-                    });
+                    new CancelRingBearerAndNazgulSkirmish(self.getAttachedTo()));
 
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));

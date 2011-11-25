@@ -46,8 +46,8 @@ public class LookAtOpponentsHandEffect extends AbstractEffect {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                         }
                     });
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

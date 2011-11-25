@@ -23,6 +23,6 @@ public abstract class UnrespondableEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         doPlayEffect(game);
-        return new FullEffectResult(null, true, true);
+        return new FullEffectResult(true, true);
     }
 }

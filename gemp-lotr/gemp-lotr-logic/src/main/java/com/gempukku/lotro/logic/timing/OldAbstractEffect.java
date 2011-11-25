@@ -7,7 +7,7 @@ import com.sun.istack.internal.NotNull;
 
 import java.util.Collection;
 
-public abstract class AbstractEffect implements Effect {
+public abstract class OldAbstractEffect implements Effect {
     private Boolean _carriedOut;
     private Boolean _successful;
 
@@ -20,7 +20,7 @@ public abstract class AbstractEffect implements Effect {
         FullEffectResult fullEffectResult = playEffectReturningResult(game);
         _carriedOut = fullEffectResult.isCarriedOut();
         _successful = fullEffectResult.isSuccessful();
-        return null;
+        return fullEffectResult._results;
     }
 
     @Override
@@ -46,10 +46,12 @@ public abstract class AbstractEffect implements Effect {
     }
 
     protected static class FullEffectResult {
+        private Collection<? extends EffectResult> _results;
         private boolean _successful;
         private boolean _carriedOut;
 
-        public FullEffectResult(boolean successful, boolean carriedOut) {
+        public FullEffectResult(Collection<? extends EffectResult> results, boolean successful, boolean carriedOut) {
+            _results = results;
             _successful = successful;
             _carriedOut = carriedOut;
         }

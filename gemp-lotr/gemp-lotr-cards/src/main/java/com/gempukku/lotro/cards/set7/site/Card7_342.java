@@ -38,9 +38,7 @@ public class Card7_342 extends AbstractSite {
                 && PlayConditions.canRemoveBurdens(game, self, 2)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new RemoveBurdenEffect(playerId, self));
-            action.appendCost(
-                    new RemoveBurdenEffect(playerId, self));
+                    new RemoveBurdenEffect(playerId, self, 2));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose your minion", Filters.owner(playerId), CardType.MINION) {
                         @Override

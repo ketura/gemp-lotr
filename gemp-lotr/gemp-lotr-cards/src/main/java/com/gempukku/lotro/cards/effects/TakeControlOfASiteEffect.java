@@ -68,8 +68,8 @@ public class TakeControlOfASiteEffect extends AbstractEffect implements Preventa
         if (site != null && !_prevented) {
             game.getGameState().takeControlOfCard(_playerId, site, Zone.SUPPORT);
             game.getGameState().sendMessage(_playerId + " took control of " + GameUtils.getCardLink(site));
-            return new FullEffectResult(null, true, true);
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

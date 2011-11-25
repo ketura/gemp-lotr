@@ -5,8 +5,6 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.results.KillResult;
 import com.gempukku.lotro.logic.timing.results.ThreatWoundTriggerResult;
 
-import java.util.Collections;
-
 public class ThreatWoundsEffect extends AbstractEffect {
     private KillResult _killResult;
 
@@ -35,6 +33,7 @@ public class ThreatWoundsEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        return new FullEffectResult(Collections.singleton(new ThreatWoundTriggerResult()), true, true);
+        game.getActionsEnvironment().emitEffectResult(new ThreatWoundTriggerResult());
+        return new FullEffectResult(true, true);
     }
 }

@@ -43,9 +43,9 @@ public class Card8_093 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), card);
-                            for (int i = 0; i < vitality; i++)
+                            if (vitality > 0)
                                 action.insertCost(
-                                        new RemoveBurdenEffect(playerId, self));
+                                        new RemoveBurdenEffect(playerId, self, vitality));
                             action.appendEffect(
                                     new ReturnCardsToHandEffect(self, card));
                         }

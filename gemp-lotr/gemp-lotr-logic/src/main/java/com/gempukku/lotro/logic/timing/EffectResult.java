@@ -8,8 +8,6 @@ public abstract class EffectResult {
 
         ASSIGNMENT, OVERWHELM_IN_SKIRMISH, RESOLVE_SKIRMISH,
 
-        ADD_TWILIGHT,
-
         START_OF_PHASE,
         END_OF_PHASE,
 
