@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 import java.util.Collection;
@@ -72,7 +71,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     }
 
     @Override
-    protected Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
+    protected void playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() > 0)
             game.getGameState().sendMessage(getAppendedNames(cards) + " " + GameUtils.be(cards) + " wounded by " + _sourceText);
 
@@ -80,8 +79,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
             game.getGameState().addWound(woundedCard);
             game.getModifiersEnvironment().addedWound(woundedCard);
         }
-
-        return Collections.singleton(new WoundResult(cards));
+        game.getActionsEnvironment().emitEffectResult(new WoundResult(cards));
     }
 
     @Override

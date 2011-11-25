@@ -5,12 +5,11 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.OldAbstractEffect;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 import java.util.*;
 
-public abstract class AbstractPreventableCardEffect extends OldAbstractEffect {
+public abstract class AbstractPreventableCardEffect extends AbstractEffect {
     private Filter _filter;
     private Set<PhysicalCard> _preventedTargets = new HashSet<PhysicalCard>();
     private int _requiredTargets;
@@ -42,14 +41,14 @@ public abstract class AbstractPreventableCardEffect extends OldAbstractEffect {
         return getAffectedCardsMinusPrevented(game).size() >= _requiredTargets;
     }
 
-    protected abstract Collection<? extends EffectResult> playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards);
+    protected abstract void playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards);
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         Collection<PhysicalCard> affectedCards = getAffectedCards(game);
         Collection<PhysicalCard> affectedMinusPreventedCards = getAffectedCardsMinusPrevented(game);
-        Collection<? extends EffectResult> results = playoutEffectOn(game, affectedMinusPreventedCards);
-        return new FullEffectResult(results, affectedCards.size() >= _requiredTargets, affectedMinusPreventedCards.size() >= _requiredTargets);
+        playoutEffectOn(game, affectedMinusPreventedCards);
+        return new FullEffectResult(affectedCards.size() >= _requiredTargets, affectedMinusPreventedCards.size() >= _requiredTargets);
     }
 
     public void preventEffect(LotroGame game, PhysicalCard card) {

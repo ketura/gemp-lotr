@@ -4,13 +4,13 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.OldAbstractEffect;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 import java.util.Collections;
 
-public class PutCardFromDeckIntoHandOrDiscardEffect extends OldAbstractEffect {
+public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
     private PhysicalCard _physicalCard;
 
     public PutCardFromDeckIntoHandOrDiscardEffect(PhysicalCard physicalCard) {
@@ -43,13 +43,14 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends OldAbstractEffect {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from deck into his or her hand");
                 game.getGameState().removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
                 game.getGameState().addCardToZone(game, _physicalCard, Zone.HAND);
-                return new FullEffectResult(Collections.singleton(new DrawCardOrPutIntoHandResult(_physicalCard.getOwner())), true, true);
+                game.getActionsEnvironment().emitEffectResult(new DrawCardOrPutIntoHandResult(_physicalCard.getOwner()));
+                return new FullEffectResult(true, true);
             } else {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + GameUtils.getCardLink(_physicalCard) + " from deck due to Rule of 4");
                 game.getGameState().removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
                 game.getGameState().addCardToZone(game, _physicalCard, Zone.DISCARD);
             }
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

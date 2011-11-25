@@ -5,16 +5,15 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.OldAbstractEffect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StackCardFromPlayEffect extends OldAbstractEffect {
+public class StackCardFromPlayEffect extends AbstractEffect {
     private PhysicalCard _card;
     private PhysicalCard _stackOn;
 
@@ -68,10 +67,9 @@ public class StackCardFromPlayEffect extends OldAbstractEffect {
 
             // Send the result (attached cards get discarded)
             if (discardedCards.size() > 0)
-                return new FullEffectResult(Collections.singleton(new DiscardCardsFromPlayResult(discardedCards)), true, true);
-            else
-                return new FullEffectResult(null, true, true);
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
+            return new FullEffectResult(true, true);
         }
-        return new FullEffectResult(null, false, false);
+        return new FullEffectResult(false, false);
     }
 }

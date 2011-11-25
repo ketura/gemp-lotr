@@ -43,12 +43,7 @@ public class Card4_279 extends AbstractOldEvent {
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new LiberateASiteEffect(self) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Liberate a site";
-                    }
-                });
+                new LiberateASiteEffect(self));
         possibleEffects.add(
                 new DrawCardsEffect(playerId, 3) {
                     @Override
