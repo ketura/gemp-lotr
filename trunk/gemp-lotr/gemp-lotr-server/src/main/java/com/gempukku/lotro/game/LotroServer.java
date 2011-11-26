@@ -37,11 +37,13 @@ public class LotroServer extends AbstractServer {
     private GameHistoryDAO _gameHistoryDao;
     private DefaultCardCollection _defaultCollection;
     private ChatServer _chatServer;
+    private boolean _test;
     private GameRecorder _gameRecorder;
 
     public LotroServer(DbAccess dbAccess, LotroCardBlueprintLibrary library, ChatServer chatServer, boolean test) {
         _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
+        _test = test;
         _defaultCollection = new DefaultCardCollection(library);
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 365; j++) {
@@ -145,17 +147,19 @@ public class LotroServer extends AbstractServer {
                         }
                     }
                 });
-        final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator);
-        lotroGameMediator.addGameResultListener(
-                new GameResultListener() {
-                    @Override
-                    public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                        final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
+        if (!_test) {
+            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator);
+            lotroGameMediator.addGameResultListener(
+                    new GameResultListener() {
+                        @Override
+                        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                            final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
 
-                        gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
+                            gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
+                        }
                     }
-                }
-        );
+            );
+        }
 
         _runningGames.put(gameId, lotroGameMediator);
         _nextGameId++;

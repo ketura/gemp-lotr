@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.actions.SystemAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
@@ -83,11 +82,9 @@ public class TurnProcedure {
         }
     }
 
-    private class PlayOutEffect extends SystemAction implements RulesEffect {
+    private class PlayOutEffect extends SystemQueueAction {
         private Effect _effect;
-        private boolean _checkedIsAboutToRequiredResponses;
-        private boolean _checkedIsAboutToOptionalResponses;
-        private boolean _effectPlayed;
+        private boolean _initialized;
 
         private PlayOutEffect(Effect effect) {
             _effect = effect;
@@ -100,35 +97,35 @@ public class TurnProcedure {
 
         @Override
         public Effect nextEffect(LotroGame game) {
-            if (!_checkedIsAboutToRequiredResponses) {
-                _checkedIsAboutToRequiredResponses = true;
+            if (!_initialized) {
+                _initialized = true;
                 List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect);
-                if (requiredIsAboutToResponses.size() > 0) {
-                    SystemQueueAction action = new SystemQueueAction();
-                    action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, requiredIsAboutToResponses));
-                    return new StackActionEffect(action);
-                }
-            }
-            if (!_checkedIsAboutToOptionalResponses) {
-                _checkedIsAboutToOptionalResponses = true;
-                SystemQueueAction action = new SystemQueueAction();
-                action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(action, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect));
-                return new StackActionEffect(action);
-            }
-            if (!_effectPlayed) {
-                _effectPlayed = true;
-                _effect.playEffect(_game);
+                if (requiredIsAboutToResponses.size() > 0)
+                    appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(this, requiredIsAboutToResponses));
+                appendEffect(new PlayoutOptionalBeforeResponsesEffect(this, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect));
+                appendEffect(new PlayEffect(_effect));
             }
 
-            return null;
+            return getNextEffect();
         }
     }
 
-    private class PlayOutEffectResults extends SystemAction implements RulesEffect {
+    private class PlayEffect extends UnrespondableEffect {
+        private Effect _effect;
+
+        private PlayEffect(Effect effect) {
+            _effect = effect;
+        }
+
+        @Override
+        protected void doPlayEffect(LotroGame game) {
+            _effect.playEffect(game);
+        }
+    }
+
+    private class PlayOutEffectResults extends SystemQueueAction {
         private Set<EffectResult> _effectResults;
-        private boolean _checkedRequiredWhenResponses;
-        private boolean _checkedOptionalWhenResponses;
-        private boolean _checkedRingBearerDeath;
+        private boolean _initialized;
 
         private PlayOutEffectResults(Set<EffectResult> effectResults) {
             _effectResults = effectResults;
@@ -136,38 +133,30 @@ public class TurnProcedure {
 
         @Override
         public Effect nextEffect(LotroGame game) {
-            if (!_checkedRequiredWhenResponses) {
-                _checkedRequiredWhenResponses = true;
+            if (!_initialized) {
+                _initialized = true;
                 List<Action> requiredResponses = _game.getActionsEnvironment().getRequiredAfterTriggers(_effectResults);
-                if (requiredResponses.size() > 0) {
-                    SystemQueueAction action = new SystemQueueAction();
-                    action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(action, requiredResponses));
-                    return new StackActionEffect(action);
-                }
-            }
-            if (_effectResults != null && _effectResults.size() > 0) {
-                if (!_checkedOptionalWhenResponses) {
-                    _checkedOptionalWhenResponses = true;
-                    SystemQueueAction action = new SystemQueueAction();
+                if (requiredResponses.size() > 0)
+                    appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(this, requiredResponses));
 
-                    Map<String, List<Action>> optionalAfterTriggers = new HashMap<String, List<Action>>();
-                    for (String playerId : _game.getGameState().getPlayerOrder().getAllPlayers()) {
-                        List<Action> actions = new LinkedList<Action>();
-                        actions.addAll(_game.getActionsEnvironment().getOptionalAfterTriggers(playerId, _effectResults));
-                        optionalAfterTriggers.put(playerId, actions);
-                    }
-
-                    action.appendEffect(
-                            new PlayoutOptionalAfterResponsesEffect(action, optionalAfterTriggers, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effectResults));
-                    return new StackActionEffect(action);
+                Map<String, List<Action>> optionalAfterTriggers = new HashMap<String, List<Action>>();
+                for (String playerId : _game.getGameState().getPlayerOrder().getAllPlayers()) {
+                    List<Action> actions = new LinkedList<Action>();
+                    actions.addAll(_game.getActionsEnvironment().getOptionalAfterTriggers(playerId, _effectResults));
+                    optionalAfterTriggers.put(playerId, actions);
                 }
+                appendEffect(
+                        new PlayoutOptionalAfterResponsesEffect(this, optionalAfterTriggers, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effectResults));
+                appendEffect(
+                        new UnrespondableEffect() {
+                            @Override
+                            protected void doPlayEffect(LotroGame game) {
+                                if (hasKillEffectResult())
+                                    _game.checkRingBearerAlive();
+                            }
+                        });
             }
-            if (!_checkedRingBearerDeath) {
-                _checkedRingBearerDeath = true;
-                if (hasKillEffectResult())
-                    _game.checkRingBearerAlive();
-            }
-            return null;
+            return getNextEffect();
         }
 
         private boolean hasKillEffectResult() {
@@ -179,7 +168,7 @@ public class TurnProcedure {
         }
     }
 
-    private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect implements RulesEffect {
+    private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect {
         private SystemQueueAction _action;
         private Set<PhysicalCard> _cardTriggersUsed;
         private PlayOrder _playOrder;
@@ -220,23 +209,23 @@ public class TurnProcedure {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalBeforeTriggers.contains(action))
                                         _cardTriggersUsed.add(action.getActionSource());
-                                    _action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect));
+                                    _action.insertEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                                        _action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
+                                        _action.insertEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
                                     }
                                 }
                             }
                         });
             } else {
                 if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                    _action.appendEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
+                    _action.insertEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, _passCount + 1, _effect));
                 }
             }
         }
     }
 
-    private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect implements RulesEffect {
+    private class PlayoutOptionalAfterResponsesEffect extends UnrespondableEffect {
         private SystemQueueAction _action;
         private Map<String, List<Action>> _unplayedAfterTriggers;
         private PlayOrder _playOrder;
@@ -281,23 +270,23 @@ public class TurnProcedure {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalAfterTriggers.contains(action))
                                         optionalAfterTriggers.remove(action);
-                                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, 0, _effectResults));
+                                    _action.insertEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, 0, _effectResults));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                                        _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, _passCount + 1, _effectResults));
+                                        _action.insertEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, _passCount + 1, _effectResults));
                                     }
                                 }
                             }
                         });
             } else {
                 if ((_passCount + 1) < _playOrder.getPlayerCount()) {
-                    _action.appendEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, _passCount + 1, _effectResults));
+                    _action.insertEffect(new PlayoutOptionalAfterResponsesEffect(_action, _unplayedAfterTriggers, _playOrder, _passCount + 1, _effectResults));
                 }
             }
         }
     }
 
-    private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect implements RulesEffect {
+    private class PlayoutAllActionsIfEffectNotCancelledEffect extends UnrespondableEffect {
         private SystemQueueAction _action;
         private List<Action> _actions;
 
@@ -318,23 +307,10 @@ public class TurnProcedure {
                                 Action action = getSelectedAction(result);
                                 _game.getActionsEnvironment().addActionToStack(action);
                                 _actions.remove(action);
-                                _action.appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(_action, _actions));
+                                _action.insertEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(_action, _actions));
                             }
                         });
             }
-        }
-    }
-
-    private class StackActionEffect extends UnrespondableEffect implements RulesEffect {
-        private Action _action;
-
-        private StackActionEffect(Action action) {
-            _action = action;
-        }
-
-        @Override
-        public void doPlayEffect(LotroGame game) {
-            _actionStack.stackAction(_action);
         }
     }
 }

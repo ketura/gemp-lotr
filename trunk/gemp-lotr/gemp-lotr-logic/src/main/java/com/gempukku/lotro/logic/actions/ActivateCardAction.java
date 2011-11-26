@@ -4,13 +4,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.ActivateCardEffect;
-import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class ActivateCardAction extends AbstractCostToEffectAction {
     private PhysicalCard _physicalCard;
 
     private ActivateCardEffect _activateCardEffect;
+
+    private String _message;
 
     private boolean _sentMessage;
     private boolean _activated;
@@ -20,6 +21,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     public ActivateCardAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         _text = "Use " + _physicalCard.getBlueprint().getName();
+        _message = GameUtils.getCardLink(_physicalCard) + " is used";
     }
 
     @Override
@@ -43,10 +45,12 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
 
     @Override
     public Effect nextEffect(LotroGame game) {
-        if (!_sentMessage && _physicalCard != null) {
+        if (!_sentMessage) {
             _sentMessage = true;
-            game.getGameState().activatedCard(getPerformingPlayer(), _physicalCard);
-            return new SendMessageEffect(getMessage());
+            if (_physicalCard != null)
+                game.getGameState().activatedCard(getPerformingPlayer(), _physicalCard);
+            if (_message != null)
+                game.getGameState().sendMessage(_message);
         }
 
         if (!isCostFailed()) {
@@ -67,9 +71,5 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
             }
         }
         return null;
-    }
-
-    private String getMessage() {
-        return GameUtils.getCardLink(_physicalCard) + " is used";
     }
 }
