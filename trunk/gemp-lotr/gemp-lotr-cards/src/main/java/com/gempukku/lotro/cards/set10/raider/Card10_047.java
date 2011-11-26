@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.raider;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.cards.modifiers.CantRemoveThreatsModifier;
 import com.gempukku.lotro.common.*;
@@ -46,6 +47,8 @@ public class Card10_047 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 1)
                 && PlayConditions.canPlayFromHand(playerId, game, 1, Keyword.SOUTHRON)) {
             ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new RemoveTwilightEffect(1));
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Keyword.SOUTHRON));
             action.appendEffect(
