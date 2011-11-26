@@ -33,6 +33,7 @@ public class CharacterDeathRule {
                             ZeroVitalityResult zeroVitalityResult = (ZeroVitalityResult) effectResult;
                             final PhysicalCard deadCharacter = zeroVitalityResult.getCharacter();
                             RequiredTriggerAction action = new RequiredTriggerAction(deadCharacter);
+                            action.setMessage(null);
                             action.setText("Character death");
                             action.appendEffect(
                                     new KillEffect(Collections.singletonList(deadCharacter), KillEffect.Cause.WOUNDS));

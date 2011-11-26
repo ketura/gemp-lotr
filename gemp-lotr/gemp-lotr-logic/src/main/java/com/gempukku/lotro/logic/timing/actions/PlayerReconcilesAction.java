@@ -6,7 +6,10 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.ReconcileResult;
@@ -72,9 +75,8 @@ public class PlayerReconcilesAction implements Action {
     @Override
     public Effect nextEffect(LotroGame game) {
         if (_effectQueue == null) {
+            game.getGameState().sendMessage(_playerId + " reconciles");
             _effectQueue = new LinkedList<Effect>();
-            _effectQueue.add(
-                    new SendMessageEffect(_playerId + " reconciles"));
 
             GameState gameState = _game.getGameState();
             final Set<? extends PhysicalCard> cardsInHand = new HashSet<PhysicalCard>(gameState.getHand(_playerId));

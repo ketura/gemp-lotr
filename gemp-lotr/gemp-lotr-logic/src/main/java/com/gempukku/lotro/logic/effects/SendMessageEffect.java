@@ -12,6 +12,7 @@ public class SendMessageEffect extends UnrespondableEffect {
 
     @Override
     protected void doPlayEffect(LotroGame game) {
-        game.getGameState().sendMessage(_message);
+        if (_message != null)
+            game.getGameState().sendMessage(_message);
     }
 }
