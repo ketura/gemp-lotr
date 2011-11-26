@@ -133,8 +133,13 @@ var AdvPathCardGroup = CardGroup.extend({
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
 
-        for (var cardIndex in cardsToLayout)
-            totalHeight += cardsToLayout[cardIndex].data("card").getHeightForWidth(this.width);
+        for (var cardIndex in cardsToLayout) {
+            var cardData = cardsToLayout[cardIndex].data("card");
+            var cardHeight = cardData.getHeightForWidth(this.width);
+            totalHeight += cardHeight;
+            if (cardData.attachedCards.length > 0)
+                totalHeight += cardHeight * 0.2;
+        }
 
         var resultPadding = Math.min(this.padding, (this.height - totalHeight) / (cardCount - 1));
 
@@ -145,6 +150,9 @@ var AdvPathCardGroup = CardGroup.extend({
             var cardElem = cardsToLayout[cardIndex];
             var cardData = cardElem.data("card");
             var cardHeight = (cardElem.data("card").getHeightForWidth(this.width));
+
+            if (cardData.attachedCards.length > 0)
+                y += cardHeight * 0.1;
 
             cardData.tokens = {};
             if (this.positions != null) {
@@ -168,6 +176,9 @@ var AdvPathCardGroup = CardGroup.extend({
             }
 
             this.layoutCard(cardElem, x, y, this.width, cardHeight, index);
+
+            if (cardData.attachedCards.length > 0)
+                y += cardHeight * 0.1;
 
             y += cardHeight + resultPadding;
             index++;
