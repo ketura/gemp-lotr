@@ -68,13 +68,17 @@ public class TurnProcedure {
                 } else {
                     Effect effect = _actionStack.getNextEffect(_game);
                     if (effect != null) {
-                        if (effect instanceof RulesEffect)
+                        if (effect.getType() == null)
                             effect.playEffect(_game);
                         else
                             _actionStack.stackAction(new PlayOutEffect(effect));
                     }
                 }
             }
+
+            if (_gameStats.updateGameStats(_game))
+                _game.getGameState().sendGameStats(_gameStats);
+
             _game.checkRingBearerCorruption();
         }
     }
@@ -113,11 +117,7 @@ public class TurnProcedure {
             }
             if (!_effectPlayed) {
                 _effectPlayed = true;
-
                 _effect.playEffect(_game);
-
-                if (_gameStats.updateGameStats(_game))
-                    _game.getGameState().sendGameStats(_gameStats);
             }
 
             return null;
