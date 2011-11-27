@@ -10,8 +10,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 
-import java.util.Collections;
-
 /**
  * Set: The Return of the King
  * Side: Shadow
@@ -43,7 +41,7 @@ public class Card7_266 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.insertEffect(
-                                new KillEffect(Collections.singletonList(card), KillEffect.Cause.CARD_EFFECT));
+                                new KillEffect(card, KillEffect.Cause.CARD_EFFECT));
                     }
                 });
         return action;

@@ -1,16 +1,17 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,19 +37,13 @@ public class Card1_265 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
+        if (TriggerConditions.forEachKilledBy(game, effectResult, Filters.and(Culture.SAURON, Race.ORC), CardType.COMPANION)
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
-            Skirmish skirmish = game.getGameState().getSkirmish();
-            if (effectResult.getType() == EffectResult.Type.KILL
-                    && Filters.filter(((KillResult) effectResult).getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0
-                    && skirmish != null
-                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC).size() > 0) {
-                PlayEventAction action = new PlayEventAction(self);
-                int deadPileCount = game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size();
-                for (int i = 0; i < deadPileCount * 3; i++)
-                    action.appendEffect(new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
-                return Collections.singletonList(action);
-            }
+            PlayEventAction action = new PlayEventAction(self);
+            int deadPileCount = game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size();
+            for (int i = 0; i < deadPileCount * 3; i++)
+                action.appendEffect(new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
+            return Collections.singletonList(action);
         }
         return null;
     }

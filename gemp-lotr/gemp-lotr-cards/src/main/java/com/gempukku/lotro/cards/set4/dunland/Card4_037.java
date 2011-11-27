@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -41,7 +42,7 @@ public class Card4_037 extends AbstractResponseOldEvent {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
-            final List<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
+            final Set<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.in(winners), Culture.DUNLAND, Race.MAN) {

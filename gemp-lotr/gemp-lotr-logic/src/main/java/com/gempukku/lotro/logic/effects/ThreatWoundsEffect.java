@@ -2,17 +2,17 @@ package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
-import com.gempukku.lotro.logic.timing.results.KillResult;
+import com.gempukku.lotro.logic.timing.results.KilledResult;
 import com.gempukku.lotro.logic.timing.results.ThreatWoundTriggerResult;
 
 public class ThreatWoundsEffect extends AbstractEffect {
-    private KillResult _killResult;
+    private KilledResult _killResult;
 
-    public ThreatWoundsEffect(KillResult killResult) {
+    public ThreatWoundsEffect(KilledResult killResult) {
         _killResult = killResult;
     }
 
-    public KillResult getKillResult() {
+    public KilledResult getKillResult() {
         return _killResult;
     }
 

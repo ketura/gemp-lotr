@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class AbstractModifier implements Modifier {
     private PhysicalCard _physicalCard;
@@ -201,12 +202,12 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, List<PhysicalCard> minions) {
+    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, Set<PhysicalCard> minions) {
         return true;
     }
 
     @Override
-    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments) {
+    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
         return true;
     }
 

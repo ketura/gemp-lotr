@@ -16,8 +16,8 @@ public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecisi
         setParam("minions", getCardIds(_minions));
     }
 
-    protected Map<PhysicalCard, List<PhysicalCard>> getAssignmentsBasedOnResponse(String response) throws DecisionResultInvalidException {
-        Map<PhysicalCard, List<PhysicalCard>> assignments = new HashMap<PhysicalCard, List<PhysicalCard>>();
+    protected Map<PhysicalCard, Set<PhysicalCard>> getAssignmentsBasedOnResponse(String response) throws DecisionResultInvalidException {
+        Map<PhysicalCard, Set<PhysicalCard>> assignments = new HashMap<PhysicalCard, Set<PhysicalCard>>();
         if (response.equals(""))
             return assignments;
 
@@ -31,7 +31,7 @@ public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecisi
                 if (assignments.containsKey(freeCard))
                     throw new DecisionResultInvalidException();
 
-                List<PhysicalCard> minions = new LinkedList<PhysicalCard>();
+                Set<PhysicalCard> minions = new HashSet<PhysicalCard>();
                 for (int i = 1; i < cardIds.length; i++) {
                     PhysicalCard minion = getCardId(_minions, Integer.parseInt(cardIds[i]));
                     if (assignedMinions.contains(minion))

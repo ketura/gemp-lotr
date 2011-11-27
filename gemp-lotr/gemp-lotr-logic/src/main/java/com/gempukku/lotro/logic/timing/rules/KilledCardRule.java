@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
+import com.gempukku.lotro.logic.timing.results.KilledResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,8 +24,8 @@ public class KilledCardRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.KILL) {
-                            KillResult killResult = (KillResult) effectResult;
+                        if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
+                            KilledResult killResult = (KilledResult) effectResult;
                             Set<PhysicalCard> killedCards = killResult.getKilledCards();
                             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
                             for (PhysicalCard killedCard : killedCards) {

@@ -256,9 +256,9 @@ public class Filters {
                             return false;
 
                         if (against.getBlueprint().getSide() == Side.FREE_PEOPLE)
-                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(against, Collections.singletonList(physicalCard)));
+                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(against, Collections.singleton(physicalCard)));
                         else
-                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(physicalCard, Collections.singletonList(against)));
+                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(physicalCard, Collections.singleton(against)));
                     }
                 });
     }
@@ -306,12 +306,16 @@ public class Filters {
         }
     };
 
-    public static final Filter canTakeWound = new Filter() {
-        @Override
-        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            return modifiersQuerying.canTakeWound(gameState, physicalCard) && modifiersQuerying.getVitality(gameState, physicalCard) > 0;
-        }
-    };
+    public static final Filter canTakeWounds(final int count) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.canTakeWound(gameState, physicalCard) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
+            }
+        };
+    }
+
+    public static final Filter canTakeWound = canTakeWounds(1);
 
     public static final Filter exhausted = new Filter() {
         @Override

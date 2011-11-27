@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public interface GameStateListener {
     public void cardCreated(PhysicalCard card);
@@ -26,11 +27,11 @@ public interface GameStateListener {
 
     public void setCurrentPhase(Phase currentPhase);
 
-    public void addAssignment(PhysicalCard fp, List<PhysicalCard> minions);
+    public void addAssignment(PhysicalCard fp, Set<PhysicalCard> minions);
 
     public void removeAssignment(PhysicalCard fp);
 
-    public void startSkirmish(PhysicalCard fp, List<PhysicalCard> minions);
+    public void startSkirmish(PhysicalCard fp, Set<PhysicalCard> minions);
 
     public void removeFromSkirmish(PhysicalCard card);
 

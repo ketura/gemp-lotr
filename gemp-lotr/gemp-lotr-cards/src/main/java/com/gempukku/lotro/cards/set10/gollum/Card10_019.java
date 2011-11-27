@@ -80,7 +80,7 @@ public class Card10_019 extends AbstractResponseEvent {
         if (skirmish != null)
             game.getGameState().finishSkirmish();
 
-        final SkirmishPhaseAction skirmishPhaseAction = new SkirmishPhaseAction(character, Collections.singletonList(gollum));
+        final SkirmishPhaseAction skirmishPhaseAction = new SkirmishPhaseAction(character, Collections.singleton(gollum));
         // We might have to restart the skirmish, if the possession was played during it
         if (skirmish != null) {
             skirmishPhaseAction.appendEffect(

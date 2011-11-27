@@ -12,8 +12,9 @@ import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ResolveSkirmishRule {
     private LotroGame _lotroGame;
@@ -35,7 +36,7 @@ public class ResolveSkirmishRule {
                             return Collections.singletonList(action);
                         } else if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;
-                            List<PhysicalCard> losers = new LinkedList<PhysicalCard>(skirmishResult.getInSkirmishLosers());
+                            Set<PhysicalCard> losers = new HashSet<PhysicalCard>(skirmishResult.getInSkirmishLosers());
 
                             RequiredTriggerAction action = new RequiredTriggerAction(null);
                             action.setText("Resolving skirmish");

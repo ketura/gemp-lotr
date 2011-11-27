@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set10.dwarven;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.actions.ResolveSkirmishDamageAction;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,27 +34,24 @@ public class Card10_003 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Race.DWARF)) {
-            KillResult killResult = (KillResult) effectResult;
-            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.MINION).size() > 0) {
-                final ResolveSkirmishDamageAction resolveSkirmishDamageAction = game.getActionsEnvironment().findTopmostActionOfType(ResolveSkirmishDamageAction.class);
-                if (resolveSkirmishDamageAction != null
-                        && resolveSkirmishDamageAction.getRemainingDamage() > 0) {
-                    final PlayEventAction action = new PlayEventAction(self);
-                    action.appendEffect(
-                            new UnrespondableEffect() {
-                                @Override
-                                protected void doPlayEffect(LotroGame game) {
-                                    int remainingDamage = resolveSkirmishDamageAction.getRemainingDamage();
-                                    resolveSkirmishDamageAction.consumeRemainingDamage();
-                                    for (int i = 0; i < remainingDamage; i++)
-                                        action.appendEffect(
-                                                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.notAssignedToSkirmish));
-                                }
-                            });
-                    return Collections.singletonList(action);
-                }
+        if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.DWARF, CardType.MINION)
+                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+            final ResolveSkirmishDamageAction resolveSkirmishDamageAction = game.getActionsEnvironment().findTopmostActionOfType(ResolveSkirmishDamageAction.class);
+            if (resolveSkirmishDamageAction != null
+                    && resolveSkirmishDamageAction.getRemainingDamage() > 0) {
+                final PlayEventAction action = new PlayEventAction(self);
+                action.appendEffect(
+                        new UnrespondableEffect() {
+                            @Override
+                            protected void doPlayEffect(LotroGame game) {
+                                int remainingDamage = resolveSkirmishDamageAction.getRemainingDamage();
+                                resolveSkirmishDamageAction.consumeRemainingDamage();
+                                for (int i = 0; i < remainingDamage; i++)
+                                    action.appendEffect(
+                                            new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.notAssignedToSkirmish));
+                            }
+                        });
+                return Collections.singletonList(action);
             }
         }
         return null;

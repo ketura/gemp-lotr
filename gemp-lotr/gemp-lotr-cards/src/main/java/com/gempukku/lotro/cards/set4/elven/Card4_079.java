@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -22,6 +22,7 @@ import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -44,11 +45,11 @@ public class Card4_079 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.ELF)) {
-            final List<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
+            final Set<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
             if (PlayConditions.canExert(self, game, Filters.in(winners))) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendCost(
-                        new ExertCharactersEffect(self, winners.get(0)));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF, Filters.in(winners)));
 
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(

@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Set: Realms of Elf-lords
@@ -37,10 +38,10 @@ public class Card3_115 extends AbstractSite {
         return Collections.singletonList(
                 new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, ModifierEffect.ASSIGNMENT_MODIFIER) {
                     @Override
-                    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, List<PhysicalCard>> assignments) {
-                        for (Map.Entry<PhysicalCard, List<PhysicalCard>> minionsAssignedToCharacter : assignments.entrySet()) {
+                    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
+                        for (Map.Entry<PhysicalCard, Set<PhysicalCard>> minionsAssignedToCharacter : assignments.entrySet()) {
                             PhysicalCard fp = minionsAssignedToCharacter.getKey();
-                            List<PhysicalCard> minions = minionsAssignedToCharacter.getValue();
+                            Set<PhysicalCard> minions = minionsAssignedToCharacter.getValue();
                             List<Assignment> alreadyAssigned = gameState.getAssignments();
                             if (countMinionsCurrentlyAssignedToFPChar(alreadyAssigned, fp) + minions.size() > 1)
                                 return false;

@@ -14,10 +14,10 @@ import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
 import com.gempukku.lotro.logic.timing.results.SkirmishAboutToEndResult;
 import com.gempukku.lotro.logic.timing.results.StartOfPhaseResult;
 
-import java.util.List;
+import java.util.Set;
 
 public class SkirmishPhaseAction extends SystemQueueAction {
-    public SkirmishPhaseAction(final PhysicalCard fellowshipCharacter, final List<PhysicalCard> shadowCharacters) {
+    public SkirmishPhaseAction(final PhysicalCard fellowshipCharacter, final Set<PhysicalCard> shadowCharacters) {
         appendEffect(
                 new UnrespondableEffect() {
                     @Override

@@ -6,12 +6,12 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Set;
 
-public class KillResult extends EffectResult {
+public class KilledResult extends EffectResult {
     private Set<PhysicalCard> _killedCards;
     private KillEffect.Cause _cause;
 
-    public KillResult(Set<PhysicalCard> killedCards, KillEffect.Cause cause) {
-        super(EffectResult.Type.KILL);
+    public KilledResult(Set<PhysicalCard> killedCards, KillEffect.Cause cause) {
+        super(EffectResult.Type.ANY_NUMBER_KILLED);
         _killedCards = killedCards;
         _cause = cause;
     }

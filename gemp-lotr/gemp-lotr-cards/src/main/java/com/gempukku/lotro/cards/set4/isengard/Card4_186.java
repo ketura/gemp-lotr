@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.CantDiscardFromPlayModifier;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -46,17 +46,14 @@ public class Card4_186 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL
+        if (TriggerConditions.forEachKilled(game, effectResult, Filters.unboundCompanion, Race.HOBBIT)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
-            KillResult killResult = (KillResult) effectResult;
-            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.unboundCompanion, Race.HOBBIT).size() > 0) {
-                ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new SelfExertEffect(self));
-                action.appendEffect(
-                        new AddBurdenEffect(self, 1));
-                return Collections.singletonList(action);
-            }
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new SelfExertEffect(self));
+            action.appendEffect(
+                    new AddBurdenEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

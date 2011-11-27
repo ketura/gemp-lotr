@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,16 +27,11 @@ public class Card7_363 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL) {
-            KillResult killResult = (KillResult) effectResult;
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            for (PhysicalCard physicalCard : Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new AddBurdenEffect(self, 1));
-                actions.add(action);
-            }
-            return actions;
+        if (TriggerConditions.forEachKilled(game, effectResult, CardType.COMPANION)) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new AddBurdenEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

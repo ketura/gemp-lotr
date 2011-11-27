@@ -16,8 +16,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.*;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TriggerConditions {
     public static boolean losesInitiative(EffectResult effectResult, Side side) {
@@ -52,7 +52,7 @@ public class TriggerConditions {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            List<PhysicalCard> winners = skirmishResult.getWinners();
+            Set<PhysicalCard> winners = skirmishResult.getWinners();
             return winners.contains(character);
         }
         return false;
@@ -64,8 +64,8 @@ public class TriggerConditions {
         EffectResult.Type effectType = effectResult.getType();
         if (effectType == EffectResult.Type.RESOLVE_SKIRMISH || effectType == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            List<PhysicalCard> winners = skirmishResult.getWinners();
-            List<PhysicalCard> losers = skirmishResult.getLosers();
+            Set<PhysicalCard> winners = skirmishResult.getWinners();
+            Set<PhysicalCard> losers = skirmishResult.getLosers();
             return (Filters.filter(winners, gameState, modifiersQuerying, winnerFilter).size() > 0)
                     && (Filters.filter(losers, gameState, modifiersQuerying, loserFilter).size() > 0);
         }
@@ -122,7 +122,7 @@ public class TriggerConditions {
                 }
             }
 
-            final Map<PhysicalCard, List<PhysicalCard>> assignments = assignmentResult.getAssignments();
+            final Map<PhysicalCard, Set<PhysicalCard>> assignments = assignmentResult.getAssignments();
             for (PhysicalCard matchingFPCard : Filters.filter(assignments.keySet(), game.getGameState(), game.getModifiersQuerying(), cardFilters)) {
                 if (Filters.filter(assignments.get(matchingFPCard), game.getGameState(), game.getModifiersQuerying(), againstFilter).size() > 0)
                     return true;
@@ -190,10 +190,25 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean killed(LotroGame game, EffectResult effectResult, Filterable... filters) {
-        if (effectResult.getType() == EffectResult.Type.KILL) {
-            KillResult killResult = (KillResult) effectResult;
-            return Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+    public static boolean forEachKilled(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_KILLED) {
+            ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());
+        }
+        return false;
+    }
+
+    public static boolean forEachKilledBy(LotroGame game, EffectResult effectResult, Filterable killedBy, Filterable... killed) {
+        return forEachKilledInASkirmish(game, effectResult, killedBy, killed);
+    }
+
+    public static boolean forEachKilledInASkirmish(LotroGame game, EffectResult effectResult, Filterable killedBy, Filterable... killed) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_KILLED
+                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, killedBy)) {
+            ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
+
+            return Filters.and(killed).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());
         }
         return false;
     }

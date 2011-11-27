@@ -47,7 +47,7 @@ public class Card9_027 extends AbstractPermanent {
                             PhysicalCard wizard = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Race.WIZARD, Filters.inSkirmish);
                             if (wizard != null)
                                 action.appendEffect(
-                                        new KillEffect(Collections.singletonList(wizard), KillEffect.Cause.CARD_EFFECT));
+                                        new KillEffect(wizard, KillEffect.Cause.CARD_EFFECT));
                         }
                     });
             return Collections.singletonList(action);
