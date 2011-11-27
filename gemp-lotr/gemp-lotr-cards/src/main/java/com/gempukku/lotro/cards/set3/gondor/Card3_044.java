@@ -3,9 +3,8 @@ package com.gempukku.lotro.cards.set3.gondor;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
-import com.gempukku.lotro.cards.effects.StackCardFromHandEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseArbitraryCardsEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -41,16 +40,7 @@ public class Card3_044 extends AbstractPermanent {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Stack a GONDOR card from hand here");
                 action.appendEffect(
-                        new ChooseCardsFromHandEffect(playerId, 1, 1, Culture.GONDOR) {
-                            @Override
-                            protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                for (PhysicalCard selectedCard : selectedCards) {
-                                    action.appendEffect(
-                                            new StackCardFromHandEffect(selectedCard, self));
-                                }
-                            }
-                        }
-                );
+                        new ChooseAndStackCardsFromHandEffect(action, playerId, 1, 1, self, Culture.GONDOR));
                 actions.add(action);
             }
 
