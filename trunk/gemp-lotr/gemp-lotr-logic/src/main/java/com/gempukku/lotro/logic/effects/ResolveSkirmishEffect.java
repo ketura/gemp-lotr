@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 public class ResolveSkirmishEffect extends AbstractEffect {
     public enum Result {
@@ -75,10 +75,10 @@ public class ResolveSkirmishEffect extends AbstractEffect {
         return new FullEffectResult(true, true);
     }
 
-    private List<PhysicalCard> fpList(PhysicalCard card) {
+    private Set<PhysicalCard> fpList(PhysicalCard card) {
         if (card != null)
-            return Collections.singletonList(card);
+            return Collections.singleton(card);
         else
-            return Collections.emptyList();
+            return Collections.emptySet();
     }
 }

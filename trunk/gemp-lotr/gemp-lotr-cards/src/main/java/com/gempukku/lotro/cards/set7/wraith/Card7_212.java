@@ -2,13 +2,13 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -16,10 +16,8 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -48,19 +46,14 @@ public class Card7_212 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL
+        if (TriggerConditions.forEachKilled(game, effectResult, CardType.COMPANION)
                 && PlayConditions.canSelfExert(self, game)) {
-            KillResult result = (KillResult) effectResult;
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-            for (PhysicalCard killedCompanion : Filters.filter(result.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.appendCost(
-                        new SelfExertEffect(self));
-                action.appendEffect(
-                        new ExertCharactersEffect(self, Keyword.RING_BEARER));
-                actions.add(action);
-            }
-            return actions;
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendCost(
+                    new SelfExertEffect(self));
+            action.appendEffect(
+                    new ExertCharactersEffect(self, Keyword.RING_BEARER));
+            return Collections.singletonList(action);
         }
         return null;
     }

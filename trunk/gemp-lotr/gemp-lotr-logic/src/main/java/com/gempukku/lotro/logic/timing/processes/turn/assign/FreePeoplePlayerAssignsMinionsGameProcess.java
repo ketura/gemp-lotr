@@ -20,10 +20,7 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.FreePlayerStartsAssigningResult;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
     private GameProcess _followingGameProcess;
@@ -91,12 +88,12 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {
                                         @Override
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                                            Map<PhysicalCard, List<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
+                                            Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
                                             List<PhysicalCard> unassignedMinions = new LinkedList<PhysicalCard>(minions);
                                             // Validate minion count (Defender)
                                             for (PhysicalCard freeCard : assignments.keySet()) {
-                                                List<PhysicalCard> minionsAssigned = assignments.get(freeCard);
+                                                Set<PhysicalCard> minionsAssigned = assignments.get(freeCard);
                                                 if (minionsAssigned.size() + getMinionsAssignedBeforeCount(freeCard, gameState) > 1 + game.getModifiersQuerying().getKeywordCount(game.getGameState(), freeCard, Keyword.DEFENDER))
                                                     throw new DecisionResultInvalidException(freeCard.getBlueprint().getName() + " can't have so many minions assigned");
                                                 unassignedMinions.removeAll(minionsAssigned);

@@ -2,13 +2,13 @@ package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.game.PhysicalCard;
 
-import java.util.List;
+import java.util.Set;
 
 public class Assignment {
     private PhysicalCard _fellowshipCharacter;
-    private List<PhysicalCard> _shadowCharacters;
+    private Set<PhysicalCard> _shadowCharacters;
 
-    public Assignment(PhysicalCard fellowshipCharacter, List<PhysicalCard> shadowCharacters) {
+    public Assignment(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;
         _shadowCharacters = shadowCharacters;
     }
@@ -17,7 +17,7 @@ public class Assignment {
         return _fellowshipCharacter;
     }
 
-    public List<PhysicalCard> getShadowCharacters() {
+    public Set<PhysicalCard> getShadowCharacters() {
         return _shadowCharacters;
     }
 }

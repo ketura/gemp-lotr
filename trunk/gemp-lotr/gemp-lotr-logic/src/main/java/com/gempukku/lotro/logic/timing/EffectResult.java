@@ -2,7 +2,9 @@ package com.gempukku.lotro.logic.timing;
 
 public abstract class EffectResult {
     public enum Type {
-        WOUND, KILL, HEAL, EXERT, DISCARD_FROM_PLAY, DISCARD_FROM_HAND,
+        ANY_NUMBER_KILLED, FOR_EACH_KILLED,
+
+        WOUND, HEAL, EXERT, DISCARD_FROM_PLAY, DISCARD_FROM_HAND,
 
         FREE_PEOPLE_PLAYER_STARTS_ASSIGNING,
 

@@ -3,15 +3,17 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-public class ZeroVitalityResult extends EffectResult {
-    private PhysicalCard _character;
+import java.util.Set;
 
-    public ZeroVitalityResult(PhysicalCard character) {
+public class ZeroVitalityResult extends EffectResult {
+    private Set<PhysicalCard> _characters;
+
+    public ZeroVitalityResult(Set<PhysicalCard> characters) {
         super(Type.ZERO_VITALITY);
-        _character = character;
+        _characters = characters;
     }
 
-    public PhysicalCard getCharacter() {
-        return _character;
+    public Set<PhysicalCard> getCharacters() {
+        return _characters;
     }
 }

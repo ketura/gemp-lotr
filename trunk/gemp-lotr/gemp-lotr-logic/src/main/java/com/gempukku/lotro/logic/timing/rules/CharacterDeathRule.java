@@ -31,17 +31,16 @@ public class CharacterDeathRule {
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.ZERO_VITALITY) {
                             ZeroVitalityResult zeroVitalityResult = (ZeroVitalityResult) effectResult;
-                            final PhysicalCard deadCharacter = zeroVitalityResult.getCharacter();
-                            RequiredTriggerAction action = new RequiredTriggerAction(deadCharacter);
-                            action.setMessage(null);
+                            final Set<PhysicalCard> characters = zeroVitalityResult.getCharacters();
+                            RequiredTriggerAction action = new RequiredTriggerAction(null);
                             action.setText("Character death");
                             action.appendEffect(
-                                    new KillEffect(Collections.singletonList(deadCharacter), KillEffect.Cause.WOUNDS));
+                                    new KillEffect(characters, KillEffect.Cause.WOUNDS));
                             action.appendEffect(
                                     new UnrespondableEffect() {
                                         @Override
                                         protected void doPlayEffect(LotroGame game) {
-                                            _charactersAlreadyOnWayToDeath.remove(deadCharacter);
+                                            _charactersAlreadyOnWayToDeath.removeAll(characters);
                                         }
                                     });
 
@@ -59,11 +58,15 @@ public class CharacterDeathRule {
             Collection<PhysicalCard> characters = Filters.filterActive(gameState, game.getModifiersQuerying(),
                     Filters.or(CardType.ALLY, CardType.COMPANION, CardType.MINION));
 
+            Set<PhysicalCard> deadChars = new HashSet<PhysicalCard>();
             for (PhysicalCard character : characters)
-                if (!_charactersAlreadyOnWayToDeath.contains(character) && game.getModifiersQuerying().getVitality(gameState, character) <= 0) {
-                    _charactersAlreadyOnWayToDeath.add(character);
-                    game.getActionsEnvironment().emitEffectResult(new ZeroVitalityResult(character));
-                }
+                if (!_charactersAlreadyOnWayToDeath.contains(character) && game.getModifiersQuerying().getVitality(gameState, character) <= 0)
+                    deadChars.add(character);
+
+            if (deadChars.size() > 0) {
+                _charactersAlreadyOnWayToDeath.addAll(deadChars);
+                game.getActionsEnvironment().emitEffectResult(new ZeroVitalityResult(deadChars));
+            }
         }
     }
 }

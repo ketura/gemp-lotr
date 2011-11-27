@@ -3,32 +3,31 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class SkirmishResult extends EffectResult {
-    private List<PhysicalCard> _winners;
-    private List<PhysicalCard> _inSkirmishlosers;
-    private List<PhysicalCard> _losers;
+    private Set<PhysicalCard> _winners;
+    private Set<PhysicalCard> _inSkirmishlosers;
+    private Set<PhysicalCard> _losers;
 
-    public SkirmishResult(EffectResult.Type type, List<PhysicalCard> winners, List<PhysicalCard> losers, Set<PhysicalCard> removedFromSkirmish) {
+    public SkirmishResult(EffectResult.Type type, Set<PhysicalCard> winners, Set<PhysicalCard> losers, Set<PhysicalCard> removedFromSkirmish) {
         super(type);
         _winners = winners;
         _inSkirmishlosers = losers;
-        _losers = new LinkedList<PhysicalCard>(losers);
+        _losers = new HashSet<PhysicalCard>(losers);
         _losers.addAll(removedFromSkirmish);
     }
 
-    public List<PhysicalCard> getWinners() {
+    public Set<PhysicalCard> getWinners() {
         return _winners;
     }
 
-    public List<PhysicalCard> getInSkirmishLosers() {
+    public Set<PhysicalCard> getInSkirmishLosers() {
         return _inSkirmishlosers;
     }
 
-    public List<PhysicalCard> getLosers() {
+    public Set<PhysicalCard> getLosers() {
         return _losers;
     }
 }

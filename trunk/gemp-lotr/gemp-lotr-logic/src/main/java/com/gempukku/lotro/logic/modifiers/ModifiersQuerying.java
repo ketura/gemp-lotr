@@ -13,6 +13,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface ModifiersQuerying {
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
@@ -76,7 +77,7 @@ public interface ModifiersQuerying {
 
     public boolean isAllyPreventedFromParticipatingInArcheryFire(GameState gameState, PhysicalCard card);
 
-    public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, List<PhysicalCard>> assignments);
+    public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, Set<PhysicalCard>> assignments);
 
     // Playing actions
     public boolean canPlayAction(GameState gameState, String performingPlayer, Action action);

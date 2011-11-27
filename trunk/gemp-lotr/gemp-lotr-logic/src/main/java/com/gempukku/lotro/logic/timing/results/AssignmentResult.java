@@ -4,14 +4,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class AssignmentResult extends EffectResult {
     private String _playerId;
-    private Map<PhysicalCard, List<PhysicalCard>> _assignments;
+    private Map<PhysicalCard, Set<PhysicalCard>> _assignments;
 
-    public AssignmentResult(String playerId, Map<PhysicalCard, List<PhysicalCard>> assignments) {
+    public AssignmentResult(String playerId, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
         super(EffectResult.Type.ASSIGNMENT);
         _playerId = playerId;
         _assignments = assignments;
@@ -21,7 +21,7 @@ public class AssignmentResult extends EffectResult {
         return _playerId;
     }
 
-    public Map<PhysicalCard, List<PhysicalCard>> getAssignments() {
+    public Map<PhysicalCard, Set<PhysicalCard>> getAssignments() {
         return Collections.unmodifiableMap(_assignments);
     }
 }

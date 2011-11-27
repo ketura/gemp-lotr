@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.effects.ThreatWoundsEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
+import com.gempukku.lotro.logic.timing.results.KilledResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,8 +30,8 @@ public class ThreatRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.KILL) {
-                            KillResult killResult = (KillResult) effectResult;
+                        if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
+                            KilledResult killResult = (KilledResult) effectResult;
                             if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY)).size() > 0) {
                                 RequiredTriggerAction action = new RequiredTriggerAction(null);
                                 action.appendEffect(

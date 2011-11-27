@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.wraith;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -16,7 +17,6 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -64,14 +64,11 @@ public class Card8_068 extends AbstractEvent {
                                             new AbstractActionProxy() {
                                                 @Override
                                                 public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                                                    if (effectResult.getType() == EffectResult.Type.KILL) {
-                                                        KillResult killResult = (KillResult) effectResult;
-                                                        if (killResult.getKilledCards().contains(againstNazgul)) {
-                                                            RequiredTriggerAction action = new RequiredTriggerAction(self);
-                                                            action.appendEffect(
-                                                                    new PutCardsFromHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId()));
-                                                            return Collections.singletonList(action);
-                                                        }
+                                                    if (TriggerConditions.forEachKilled(game, effectResult, againstNazgul)) {
+                                                        RequiredTriggerAction action = new RequiredTriggerAction(self);
+                                                        action.appendEffect(
+                                                                new PutCardsFromHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId()));
+                                                        return Collections.singletonList(action);
                                                     }
                                                     return null;
                                                 }

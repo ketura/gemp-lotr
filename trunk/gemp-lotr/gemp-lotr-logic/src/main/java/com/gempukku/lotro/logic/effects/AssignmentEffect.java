@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class AssignmentEffect extends AbstractEffect {
     private String _playerId;
@@ -46,16 +46,16 @@ public class AssignmentEffect extends AbstractEffect {
                 (_ignoreSingleMinionRestriction && Filters.canBeAssignedToSkirmishByEffectIgnoreNotAssigned(side).accepts(game.getGameState(), game.getModifiersQuerying(), _fpChar))
                         || Filters.canBeAssignedToSkirmishByEffect(side).accepts(game.getGameState(), game.getModifiersQuerying(), _fpChar))
                 && Filters.canBeAssignedToSkirmishByEffect(side).accepts(game.getGameState(), game.getModifiersQuerying(), _minion)
-                && game.getModifiersQuerying().isValidAssignments(game.getGameState(), side, Collections.singletonMap(_fpChar, Collections.singletonList(_minion)));
+                && game.getModifiersQuerying().isValidAssignments(game.getGameState(), side, Collections.singletonMap(_fpChar, Collections.singleton(_minion)));
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             game.getGameState().sendMessage(_playerId + " assigns " + GameUtils.getCardLink(_minion) + " to skirmish " + GameUtils.getCardLink(_fpChar));
-            game.getGameState().assignToSkirmishes(_fpChar, Collections.singletonList(_minion));
+            game.getGameState().assignToSkirmishes(_fpChar, Collections.singleton(_minion));
 
-            final Map<PhysicalCard, List<PhysicalCard>> assignments = Collections.singletonMap(_fpChar, Collections.singletonList(_minion));
+            final Map<PhysicalCard, Set<PhysicalCard>> assignments = Collections.singletonMap(_fpChar, Collections.singleton(_minion));
             game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, assignments));
             return new FullEffectResult(true, true);
         }

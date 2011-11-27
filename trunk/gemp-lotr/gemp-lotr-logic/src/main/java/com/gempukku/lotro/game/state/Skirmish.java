@@ -3,17 +3,16 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.game.PhysicalCard;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Skirmish {
     private PhysicalCard _fellowshipCharacter;
-    private List<PhysicalCard> _shadowCharacters;
+    private Set<PhysicalCard> _shadowCharacters;
     private boolean _cancelled;
 
     private Set<PhysicalCard> _removedFromSkirmish = new HashSet<PhysicalCard>();
 
-    public Skirmish(PhysicalCard fellowshipCharacter, List<PhysicalCard> shadowCharacters) {
+    public Skirmish(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;
         _shadowCharacters = shadowCharacters;
     }
@@ -22,7 +21,7 @@ public class Skirmish {
         return _fellowshipCharacter;
     }
 
-    public List<PhysicalCard> getShadowCharacters() {
+    public Set<PhysicalCard> getShadowCharacters() {
         return _shadowCharacters;
     }
 

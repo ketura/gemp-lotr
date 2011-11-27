@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
+import com.gempukku.lotro.logic.timing.results.ForEachKilledResult;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -45,21 +44,14 @@ public class Card1_182 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL) {
-            KillResult killResult = (KillResult) effectResult;
-            Collection<PhysicalCard> killedCards = killResult.getKilledCards();
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            for (PhysicalCard killedCard : killedCards) {
-                Skirmish skirmish = game.getGameState().getSkirmish();
-                if (killedCard.getBlueprint().getCardType() == CardType.COMPANION
-                        && skirmish != null && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
-                    int burdens = (killedCard.getBlueprint().getRace() == Race.HOBBIT) ? 2 : 1;
-                    RequiredTriggerAction action = new RequiredTriggerAction(self);
-                    action.appendEffect(new AddBurdenEffect(self, burdens));
-                    actions.add(action);
-                }
-            }
-            return actions;
+        if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, self.getAttachedTo(), CardType.COMPANION)) {
+            ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
+            Race killedRace = killResult.getKilledCard().getBlueprint().getRace();
+            int burdens = (killedRace == Race.HOBBIT) ? 2 : 1;
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new AddBurdenEffect(self, burdens));
+            return Collections.singletonList(action);
         }
         return null;
     }

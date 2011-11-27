@@ -832,12 +832,12 @@ public class GameState {
         setTwilight(_twilightPool - Math.min(Math.max(0, twilight), _twilightPool));
     }
 
-    public void assignToSkirmishes(PhysicalCard fp, List<PhysicalCard> minions) {
+    public void assignToSkirmishes(PhysicalCard fp, Set<PhysicalCard> minions) {
         Assignment assignment = findAssignment(fp);
         if (assignment != null)
             assignment.getShadowCharacters().addAll(minions);
         else
-            _assignments.add(new Assignment(fp, new LinkedList<PhysicalCard>(minions)));
+            _assignments.add(new Assignment(fp, new HashSet<PhysicalCard>(minions)));
 
         for (GameStateListener listener : getAllGameStateListeners())
             listener.addAssignment(fp, minions);
@@ -860,7 +860,7 @@ public class GameState {
         return null;
     }
 
-    public void startSkirmish(PhysicalCard fellowshipCharacter, List<PhysicalCard> shadowCharacters) {
+    public void startSkirmish(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
         _skirmish = new Skirmish(fellowshipCharacter, shadowCharacters);
         for (GameStateListener listener : getAllGameStateListeners())
             listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());

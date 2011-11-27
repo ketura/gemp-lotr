@@ -1,6 +1,8 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.communication.UserFeedback;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
@@ -11,6 +13,7 @@ import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
+import com.gempukku.lotro.logic.timing.results.KilledResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import com.gempukku.lotro.logic.timing.rules.InitiativeChangeRule;
 
@@ -151,7 +154,7 @@ public class TurnProcedure {
                         new UnrespondableEffect() {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
-                                if (hasKillEffectResult())
+                                if (hasKilledRingBearer())
                                     _game.checkRingBearerAlive();
                             }
                         });
@@ -159,10 +162,13 @@ public class TurnProcedure {
             return getNextEffect();
         }
 
-        private boolean hasKillEffectResult() {
+        private boolean hasKilledRingBearer() {
             for (EffectResult effectResult : _effectResults) {
-                if (effectResult.getType() == EffectResult.Type.KILL)
-                    return true;
+                if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
+                    KilledResult killResult = (KilledResult) effectResult;
+                    if (Filters.filter(killResult.getKilledCards(), _game.getGameState(), _game.getModifiersQuerying(), Keyword.RING_BEARER).size() > 0)
+                        return true;
+                }
             }
             return false;
         }

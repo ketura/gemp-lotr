@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
@@ -19,7 +20,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -54,48 +54,45 @@ public class Card4_107 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL) {
-            KillResult killResult = (KillResult) effectResult;
-            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Culture.ISENGARD).size() > 0) {
-                final ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new SelfDiscardEffect(self));
-                action.appendEffect(
-                        new ChooseOpponentEffect(playerId) {
-                            @Override
-                            protected void opponentChosen(final String opponentId) {
-                                action.insertEffect(
-                                        new RevealTopCardsOfDrawDeckEffect(self, opponentId, 10) {
-                                            @Override
-                                            protected void cardsRevealed(final List<PhysicalCard> cards) {
-                                                action.appendEffect(
-                                                        new ChooseArbitraryCardsEffect(playerId, "Choose shadow card", cards, Side.SHADOW, 1, 1) {
-                                                            @Override
-                                                            protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                                                for (PhysicalCard selectedCard : selectedCards) {
-                                                                    action.insertEffect(
-                                                                            new DiscardCardFromDeckEffect(selectedCard));
-                                                                }
+        if (TriggerConditions.forEachKilled(game, effectResult, Culture.ISENGARD, CardType.MINION)) {
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new SelfDiscardEffect(self));
+            action.appendEffect(
+                    new ChooseOpponentEffect(playerId) {
+                        @Override
+                        protected void opponentChosen(final String opponentId) {
+                            action.insertEffect(
+                                    new RevealTopCardsOfDrawDeckEffect(self, opponentId, 10) {
+                                        @Override
+                                        protected void cardsRevealed(final List<PhysicalCard> cards) {
+                                            action.appendEffect(
+                                                    new ChooseArbitraryCardsEffect(playerId, "Choose shadow card", cards, Side.SHADOW, 1, 1) {
+                                                        @Override
+                                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                                                            for (PhysicalCard selectedCard : selectedCards) {
+                                                                action.insertEffect(
+                                                                        new DiscardCardFromDeckEffect(selectedCard));
                                                             }
-                                                        });
-                                                action.appendEffect(
-                                                        new ChooseArbitraryCardsEffect(playerId, "Choose free people card", cards, Side.FREE_PEOPLE, 1, 1) {
-                                                            @Override
-                                                            protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                                                for (PhysicalCard selectedCard : selectedCards) {
-                                                                    action.insertEffect(
-                                                                            new DiscardCardFromDeckEffect(selectedCard));
-                                                                }
+                                                        }
+                                                    });
+                                            action.appendEffect(
+                                                    new ChooseArbitraryCardsEffect(playerId, "Choose free people card", cards, Side.FREE_PEOPLE, 1, 1) {
+                                                        @Override
+                                                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                                                            for (PhysicalCard selectedCard : selectedCards) {
+                                                                action.insertEffect(
+                                                                        new DiscardCardFromDeckEffect(selectedCard));
                                                             }
-                                                        });
-                                                action.appendEffect(
-                                                        new ShuffleDeckEffect(opponentId));
-                                            }
-                                        });
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+                                                        }
+                                                    });
+                                            action.appendEffect(
+                                                    new ShuffleDeckEffect(opponentId));
+                                        }
+                                    });
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

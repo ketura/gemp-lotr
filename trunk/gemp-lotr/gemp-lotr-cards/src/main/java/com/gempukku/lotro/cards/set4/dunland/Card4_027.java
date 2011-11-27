@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -38,7 +39,7 @@ public class Card4_027 extends AbstractPermanent {
                 Filters.and(Culture.ROHAN, Race.MAN))) {
 
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            List<PhysicalCard> winners = skirmishResult.getWinners();
+            Set<PhysicalCard> winners = skirmishResult.getWinners();
             Collection<PhysicalCard> winningDunlandMan = Filters.filter(winners, game.getGameState(), game.getModifiersQuerying(), Filters.and(Culture.DUNLAND, Race.MAN));
 
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();

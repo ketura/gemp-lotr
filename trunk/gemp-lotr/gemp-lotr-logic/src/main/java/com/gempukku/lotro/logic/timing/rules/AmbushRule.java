@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class AmbushRule {
     private DefaultActionsEnvironment _actionsEnvironment;
@@ -29,7 +30,7 @@ public class AmbushRule {
                             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
                             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                                 List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-                                for (List<PhysicalCard> minions : assignmentResult.getAssignments().values()) {
+                                for (Set<PhysicalCard> minions : assignmentResult.getAssignments().values()) {
                                     for (PhysicalCard minion : minions) {
                                         if (game.getModifiersQuerying().hasKeyword(game.getGameState(), minion, Keyword.AMBUSH) && minion.getOwner().equals(playerId)) {
                                             final int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), minion, Keyword.AMBUSH);

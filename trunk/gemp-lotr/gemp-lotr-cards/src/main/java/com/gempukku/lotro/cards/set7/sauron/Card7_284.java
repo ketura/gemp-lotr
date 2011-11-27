@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.effects.ThreatWoundsEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.KillResult;
+import com.gempukku.lotro.logic.timing.results.KilledResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +43,7 @@ public class Card7_284 extends AbstractMinion {
         if (effect.getType() == Effect.Type.BEFORE_THREAT_WOUNDS
                 && PlayConditions.canRemoveThreat(game, self, 1)) {
             ThreatWoundsEffect threatWoundsEffect = (ThreatWoundsEffect) effect;
-            KillResult killResult = threatWoundsEffect.getKillResult();
+            KilledResult killResult = threatWoundsEffect.getKillResult();
             if (killResult.getCause() == KillEffect.Cause.OVERWHELM
                     && Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0
                     && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Culture.SAURON, Race.ORC)) {

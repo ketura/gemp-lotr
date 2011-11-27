@@ -57,7 +57,7 @@ public class Card9_030 extends AbstractCompanion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
-                                    new KillEffect(Collections.singletonList(card), KillEffect.Cause.CARD_EFFECT));
+                                    new KillEffect(Collections.singleton(card), KillEffect.Cause.CARD_EFFECT));
                         }
                     });
             return Collections.singletonList(action);

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -11,10 +12,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.KillResult;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,18 +36,11 @@ public class Card4_198 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.KILL
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Race.URUK_HAI)) {
-            KillResult killResult = (KillResult) effectResult;
-            final Collection<PhysicalCard> killedFPs = Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.ALLY, CardType.COMPANION));
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-            for (int i = 0; i < killedFPs.size(); i++) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.appendEffect(
-                        new TakeControlOfASiteEffect(self, playerId));
-                actions.add(action);
-            }
-            return actions;
+        if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.URUK_HAI, Filters.or(CardType.COMPANION, CardType.ALLY))) {
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendEffect(
+                    new TakeControlOfASiteEffect(self, playerId));
+            return Collections.singletonList(action);
         }
         return null;
     }

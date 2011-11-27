@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -38,7 +39,7 @@ public class Card4_178 extends AbstractMinion {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                 List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-                for (Map.Entry<PhysicalCard, List<PhysicalCard>> physicalCardListEntry : assignmentResult.getAssignments().entrySet()) {
+                for (Map.Entry<PhysicalCard, Set<PhysicalCard>> physicalCardListEntry : assignmentResult.getAssignments().entrySet()) {
                     if (Filters.filter(physicalCardListEntry.getValue(), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Race.MAN).size() > 0) {
                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                         action.appendEffect(

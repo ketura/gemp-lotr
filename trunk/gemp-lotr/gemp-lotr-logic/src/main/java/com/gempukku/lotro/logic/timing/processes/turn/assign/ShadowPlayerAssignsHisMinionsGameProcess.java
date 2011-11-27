@@ -17,8 +17,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     private PlayOrder _shadowOrder;
@@ -71,7 +71,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Map<PhysicalCard, List<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
+                            Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
                             SystemQueueAction action = new SystemQueueAction();
                             action.appendEffect(

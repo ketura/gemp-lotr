@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Set: The Fellowship of the Ring
@@ -41,7 +41,7 @@ public class Card1_174 extends AbstractMinion {
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                 Skirmish skirmish = gameState.getSkirmish();
                                 if (skirmish != null) {
-                                    List<PhysicalCard> shadowChars = skirmish.getShadowCharacters();
+                                    Set<PhysicalCard> shadowChars = skirmish.getShadowCharacters();
                                     if (shadowChars.contains(self)
                                             && Filters.filter(shadowChars, gameState, modifiersQuerying, Culture.MORIA, Race.ORC, Filters.not(Filters.sameCard(self))).size() > 0)
                                         return true;

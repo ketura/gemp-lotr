@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.timing.results.SkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -43,7 +44,7 @@ public class Card4_032 extends AbstractResponseOldEvent {
                 && TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            final List<PhysicalCard> losers = skirmishResult.getLosers();
+            final Set<PhysicalCard> losers = skirmishResult.getLosers();
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.in(losers)), Side.FREE_PEOPLE)));

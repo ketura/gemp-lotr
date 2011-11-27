@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 
-import java.util.List;
+import java.util.Set;
 
 public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
     private NormalSkirmishResult _skirmishResult;
@@ -53,7 +53,7 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
     }
 
     private int calculateDamageToDo(LotroGame game) {
-        List<PhysicalCard> winners = _skirmishResult.getWinners();
+        Set<PhysicalCard> winners = _skirmishResult.getWinners();
         int dmg = 1;
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         GameState gameState = game.getGameState();
