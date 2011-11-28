@@ -32,7 +32,7 @@ public class Card8_024 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.isWounded(game, effectResult, CardType.COMPANION)
+        if (TriggerConditions.forEachWounded(game, effectResult, CardType.COMPANION)
                 && PlayConditions.canSpot(game, Culture.GOLLUM, CardType.MINION, Filters.inSkirmish)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
