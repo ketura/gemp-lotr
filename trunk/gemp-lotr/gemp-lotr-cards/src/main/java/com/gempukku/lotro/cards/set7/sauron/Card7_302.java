@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -10,7 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,10 +34,9 @@ public class Card7_302 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
-            OverwhelmSkirmishResult overwhelmResult = (OverwhelmSkirmishResult) effectResult;
-            if (Filters.filter(overwhelmResult.getInSkirmishLosers(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0
-                    && Filters.filter(overwhelmResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC).size() > 0) {
+        if (TriggerConditions.losesSkirmishInvolving(game, effectResult, CardType.COMPANION, Filters.and(Culture.SAURON, Race.ORC))) {
+            CharacterLostSkirmishResult lostResult = (CharacterLostSkirmishResult) effectResult;
+            if (lostResult.getSkirmishType() == CharacterLostSkirmishResult.SkirmishType.OVERWHELM) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new AddBurdenEffect(self, 3));

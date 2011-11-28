@@ -35,7 +35,7 @@ public class Card6_048 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(effectResult, self)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {

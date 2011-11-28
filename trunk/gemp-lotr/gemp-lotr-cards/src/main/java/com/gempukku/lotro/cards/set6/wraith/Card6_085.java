@@ -43,7 +43,7 @@ public class Card6_085 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())
+        if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
                 && self.getAttachedTo().getBlueprint().getName().equals("Ulaire Toldea")) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

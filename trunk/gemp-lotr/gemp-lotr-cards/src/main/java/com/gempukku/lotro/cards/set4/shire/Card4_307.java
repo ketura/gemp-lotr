@@ -56,7 +56,7 @@ public class Card4_307 extends AbstractEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
-                                                if (TriggerConditions.winsSkirmish(effectResults, character)
+                                                if (TriggerConditions.winsSkirmish(lotroGame, effectResults, character)
                                                         && playerId.equals(character.getOwner())) {
                                                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                                                     action.setVirtualCardAction(true);
