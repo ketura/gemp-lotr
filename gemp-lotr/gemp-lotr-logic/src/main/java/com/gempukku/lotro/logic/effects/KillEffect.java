@@ -108,13 +108,17 @@ public class KillEffect extends AbstractSuccessfulEffect {
             game.getActionsEnvironment().emitEffectResult(new KilledResult(killedCards, _cause));
             for (PhysicalCard killedCard : killedCards)
                 game.getActionsEnvironment().emitEffectResult(new ForEachKilledResult(killedCard, _cause));
-            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
+            for (PhysicalCard discardedCard : discardedCards)
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
+
         } else if (killedCards.size() > 0) {
             game.getActionsEnvironment().emitEffectResult(new KilledResult(killedCards, _cause));
             for (PhysicalCard killedCard : killedCards)
                 game.getActionsEnvironment().emitEffectResult(new ForEachKilledResult(killedCard, _cause));
         } else if (discardedCards.size() > 0) {
-            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
+            for (PhysicalCard discardedCard : discardedCards)
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
+
         }
     }
 }

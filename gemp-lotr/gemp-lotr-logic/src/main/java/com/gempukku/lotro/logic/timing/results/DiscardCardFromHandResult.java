@@ -9,7 +9,7 @@ public class DiscardCardFromHandResult extends EffectResult {
     private boolean _forced;
 
     public DiscardCardFromHandResult(PhysicalCard source, PhysicalCard card, boolean forced) {
-        super(Type.DISCARD_FROM_HAND);
+        super(Type.FOR_EACH_DISCARDED_FROM_HAND);
         _source = source;
         _card = card;
         _forced = forced;

@@ -77,8 +77,10 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
         if (_source != null && cardsToReturnToHand.size() > 0)
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " returns " + getAppendedNames(cardsToReturnToHand) + " to hand");
-        if (discardedFromPlay.size() > 0)
-            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedFromPlay));
+
+        for (PhysicalCard discardedCard : discardedFromPlay)
+            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
+
 
         return new FullEffectResult(true, true);
     }
