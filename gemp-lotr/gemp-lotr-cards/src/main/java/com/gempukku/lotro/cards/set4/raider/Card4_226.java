@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
@@ -12,12 +13,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -38,19 +36,14 @@ public class Card4_226 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.ASSIGNMENT
+        if (TriggerConditions.assignedAgainst(game, effectResult, null, Filters.unboundCompanion, self)
                 && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
-            AssignmentResult result = (AssignmentResult) effectResult;
-            for (Map.Entry<PhysicalCard, Set<PhysicalCard>> oneAssignment : result.getAssignments().entrySet()) {
-                if (oneAssignment.getValue().contains(self) && Filters.unboundCompanion.accepts(game.getGameState(), game.getModifiersQuerying(), oneAssignment.getKey())) {
-                    OptionalTriggerAction action = new OptionalTriggerAction(self);
-                    action.appendCost(
-                            new SelfExertEffect(self));
-                    action.appendEffect(
-                            new AddBurdenEffect(self, 1));
-                    return Collections.singletonList(action);
-                }
-            }
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendCost(
+                    new SelfExertEffect(self));
+            action.appendEffect(
+                    new AddBurdenEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

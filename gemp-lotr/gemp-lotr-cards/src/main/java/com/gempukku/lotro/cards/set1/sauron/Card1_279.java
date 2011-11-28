@@ -53,7 +53,7 @@ public class Card1_279 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
-            if (assignmentResult.getAssignments().containsKey(self.getAttachedTo()))
+            if (assignmentResult.getAssignedCard() == self.getAttachedTo())
                 self.storeData(true);
             else if (self.getData() == null)
                 self.storeData(false);

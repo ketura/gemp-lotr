@@ -51,8 +51,11 @@ public class AssignmentPhaseEffect extends AbstractEffect {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             Set<PhysicalCard> minions = physicalCardListEntry.getValue();
             game.getGameState().assignToSkirmishes(fpChar, minions);
+
+            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, fpChar, minions));
+            for (PhysicalCard minion : minions)
+                game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, minion, fpChar));
         }
-        game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _assignments));
         return new FullEffectResult(true, true);
     }
 }

@@ -38,7 +38,7 @@ public class Card7_135 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assigned(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)
+        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

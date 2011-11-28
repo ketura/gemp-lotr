@@ -44,7 +44,7 @@ public class Card7_163 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assigned(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
+        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilEndOfTurnModifierEffect(
