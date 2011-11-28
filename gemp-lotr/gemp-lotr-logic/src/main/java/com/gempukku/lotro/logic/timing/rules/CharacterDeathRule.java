@@ -52,7 +52,7 @@ public class CharacterDeathRule {
     }
 
     public void checkCharactersZeroVitality(LotroGame game) {
-        if (game.getGameState().getCurrentPhase() != Phase.PUT_RING_BEARER && game.getGameState().getCurrentPhase() == Phase.BETWEEN_TURNS) {
+        if (game.getGameState().getCurrentPhase() != Phase.PUT_RING_BEARER && game.getGameState().getCurrentPhase() != Phase.BETWEEN_TURNS) {
             GameState gameState = game.getGameState();
 
             Collection<PhysicalCard> characters = Filters.filterActive(gameState, game.getModifiersQuerying(),
