@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -16,7 +17,6 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,9 +45,7 @@ public class Card1_189 extends AbstractResponseOldEvent {
         if (((
                 effectResult.getType() == EffectResult.Type.EXERT
                         && Filters.filter(((ExertResult) effectResult).getExertedCards(), game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER).size() > 0)
-                || (
-                effectResult.getType() == EffectResult.Type.WOUND
-                        && Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER).size() > 0))
+                || TriggerConditions.isWounded(game, effectResult, Keyword.RING_BEARER))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

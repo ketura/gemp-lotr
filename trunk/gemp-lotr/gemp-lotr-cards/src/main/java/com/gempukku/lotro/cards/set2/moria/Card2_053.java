@@ -71,7 +71,7 @@ public class Card2_053 extends AbstractAttachable {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.isWounded(effectResult, self.getAttachedTo())
+        if (TriggerConditions.isWounded(game, effectResult, Filters.hasAttached(self))
                 && game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
