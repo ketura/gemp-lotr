@@ -1,14 +1,17 @@
 package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,15 +31,11 @@ public class Card4_336 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
-            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
-            if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
-                int assignedCount = assignmentResult.getAssignments().keySet().size();
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new AddTwilightEffect(self, assignedCount));
-                return Collections.singletonList(action);
-            }
+        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, Filters.or(CardType.COMPANION, CardType.ALLY))) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new AddTwilightEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

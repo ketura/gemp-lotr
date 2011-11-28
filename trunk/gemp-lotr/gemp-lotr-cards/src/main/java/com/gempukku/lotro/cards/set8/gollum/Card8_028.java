@@ -70,7 +70,7 @@ public class Card8_028 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assigned(game, effectResult, null, Filters.any, Filters.hasAttached(self))) {
+        if (TriggerConditions.assignedAgainst(game, effectResult, null, Filters.any, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(self, Filters.hasAttached(self)));

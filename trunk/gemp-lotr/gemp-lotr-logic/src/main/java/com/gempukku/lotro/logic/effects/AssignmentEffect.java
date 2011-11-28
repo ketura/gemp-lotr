@@ -10,8 +10,6 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
 
 public class AssignmentEffect extends AbstractEffect {
     private String _playerId;
@@ -55,8 +53,9 @@ public class AssignmentEffect extends AbstractEffect {
             game.getGameState().sendMessage(_playerId + " assigns " + GameUtils.getCardLink(_minion) + " to skirmish " + GameUtils.getCardLink(_fpChar));
             game.getGameState().assignToSkirmishes(_fpChar, Collections.singleton(_minion));
 
-            final Map<PhysicalCard, Set<PhysicalCard>> assignments = Collections.singletonMap(_fpChar, Collections.singleton(_minion));
-            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, assignments));
+            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _fpChar, _minion));
+            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _minion, _fpChar));
+
             return new FullEffectResult(true, true);
         }
         return new FullEffectResult(false, false);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -13,7 +14,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,15 +45,11 @@ public class Card4_172 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
-            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
-            if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())
-                    && assignmentResult.getAssignments().keySet().contains(self.getAttachedTo())) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new ExertCharactersEffect(self, CardType.ALLY));
-                return Collections.singletonList(action);
-            }
+        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, Filters.hasAttached(self))) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new ExertCharactersEffect(self, CardType.ALLY));
+            return Collections.singletonList(action);
         }
         return null;
     }

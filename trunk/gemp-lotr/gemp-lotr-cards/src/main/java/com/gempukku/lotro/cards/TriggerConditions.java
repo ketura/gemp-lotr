@@ -14,9 +14,6 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.*;
 
-import java.util.Map;
-import java.util.Set;
-
 public class TriggerConditions {
     public static boolean losesInitiative(EffectResult effectResult, Side side) {
         if (effectResult.getType() == EffectResult.Type.INITIATIVE_CHANGE) {
@@ -79,7 +76,7 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean assigned(LotroGame game, EffectResult effectResult, Side side, Filterable againstFilter, Filterable... cardFilters) {
+    public static boolean assignedAgainst(LotroGame game, EffectResult effectResult, Side side, Filterable againstFilter, Filterable... assignedFilters) {
         if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
             if (side != null) {
@@ -92,16 +89,8 @@ public class TriggerConditions {
                 }
             }
 
-            final Map<PhysicalCard, Set<PhysicalCard>> assignments = assignmentResult.getAssignments();
-            for (PhysicalCard matchingFPCard : Filters.filter(assignments.keySet(), game.getGameState(), game.getModifiersQuerying(), cardFilters)) {
-                if (Filters.filter(assignments.get(matchingFPCard), game.getGameState(), game.getModifiersQuerying(), againstFilter).size() > 0)
-                    return true;
-            }
-
-            for (PhysicalCard matchingAgainstCard : Filters.filter(assignments.keySet(), game.getGameState(), game.getModifiersQuerying(), againstFilter)) {
-                if (Filters.filter(assignments.get(matchingAgainstCard), game.getGameState(), game.getModifiersQuerying(), cardFilters).size() > 0)
-                    return true;
-            }
+            return Filters.and(assignedFilters).accepts(game.getGameState(), game.getModifiersQuerying(), assignmentResult.getAssignedCard())
+                    && Filters.filter(assignmentResult.getAgainst(), game.getGameState(), game.getModifiersQuerying(), againstFilter).size() > 0;
         }
         return false;
     }
