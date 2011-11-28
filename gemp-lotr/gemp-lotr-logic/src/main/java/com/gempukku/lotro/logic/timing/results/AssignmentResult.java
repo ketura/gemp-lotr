@@ -12,14 +12,14 @@ public class AssignmentResult extends EffectResult {
     private Set<PhysicalCard> _against;
 
     public AssignmentResult(String playerId, PhysicalCard assignedCard, PhysicalCard against) {
-        super(EffectResult.Type.ASSIGNMENT);
+        super(EffectResult.Type.CHARACTER_ASSIGNED);
         _playerId = playerId;
         _assignedCard = assignedCard;
         _against = Collections.singleton(against);
     }
 
     public AssignmentResult(String playerId, PhysicalCard assignedCard, Set<PhysicalCard> against) {
-        super(EffectResult.Type.ASSIGNMENT);
+        super(EffectResult.Type.CHARACTER_ASSIGNED);
         _playerId = playerId;
         _assignedCard = assignedCard;
         _against = against;

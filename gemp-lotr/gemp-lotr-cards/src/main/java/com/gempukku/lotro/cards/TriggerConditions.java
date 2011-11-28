@@ -77,7 +77,7 @@ public class TriggerConditions {
     }
 
     public static boolean assignedAgainst(LotroGame game, EffectResult effectResult, Side side, Filterable againstFilter, Filterable... assignedFilters) {
-        if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
+        if (effectResult.getType() == EffectResult.Type.CHARACTER_ASSIGNED) {
             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
             if (side != null) {
                 if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
