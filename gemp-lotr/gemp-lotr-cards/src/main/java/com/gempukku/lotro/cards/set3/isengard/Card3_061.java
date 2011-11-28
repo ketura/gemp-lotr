@@ -4,16 +4,14 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
+import com.gempukku.lotro.cards.modifiers.PlayersCantUsePhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -39,19 +37,7 @@ public class Card3_061 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "While you can spot another [ISENGARD] Orc, no player may use archery special abilities.", null, ModifierEffect.ACTION_MODIFIER) {
-                    @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        if (Filters.canSpot(gameState, modifiersQuerying, Filters.not(Filters.sameCard(self)), Culture.ISENGARD, Race.ORC)) {
-                            PhysicalCard actionSource = action.getActionSource();
-                            if (actionSource != null
-                                    && action.getActionTimeword() == Phase.ARCHERY
-                                    && actionSource.getBlueprint().getCardType() != CardType.EVENT)
-                                return false;
-                        }
-                        return true;
-                    }
-                });
+                new PlayersCantUsePhaseSpecialAbilitiesModifier(self, new SpotCondition(Culture.ISENGARD, Race.ORC, Filters.not(self)), Phase.ARCHERY));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.modifiers.RemoveGameTextModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -8,13 +9,8 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,15 +43,6 @@ public class Card2_076 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "Sam's game text does not apply", Filters.sam, ModifierEffect.ACTION_MODIFIER) {
-                    @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        PhysicalCard actionSource = action.getActionSource();
-                        if (actionSource != null
-                                && actionSource.getBlueprint().getName().equals("Sam"))
-                            return false;
-                        return true;
-                    }
-                });
+                new RemoveGameTextModifier(self, Filters.hasAttached(self)));
     }
 }

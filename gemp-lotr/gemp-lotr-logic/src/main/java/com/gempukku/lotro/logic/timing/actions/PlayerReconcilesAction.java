@@ -31,6 +31,11 @@ public class PlayerReconcilesAction implements Action {
     }
 
     @Override
+    public Type getType() {
+        return Type.OTHER;
+    }
+
+    @Override
     public void setVirtualCardAction(boolean virtualCardAction) {
     }
 

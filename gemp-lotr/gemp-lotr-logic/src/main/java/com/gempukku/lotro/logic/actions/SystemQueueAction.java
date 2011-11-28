@@ -6,6 +6,11 @@ import com.gempukku.lotro.logic.timing.Effect;
 
 public class SystemQueueAction extends AbstractCostToEffectAction {
     @Override
+    public Type getType() {
+        return Type.OTHER;
+    }
+
+    @Override
     public PhysicalCard getActionSource() {
         return null;
     }

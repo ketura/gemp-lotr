@@ -3,8 +3,8 @@ package com.gempukku.lotro.logic.timing.processes.turn;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
-import com.gempukku.lotro.logic.timing.actions.SimpleEffectAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.StartOfTurnResult;
 
@@ -19,7 +19,12 @@ public class StartOfTurnGameProcess implements GameProcess {
         game.getGameState().startPlayerTurn(nextPlayer);
         game.getGameState().startAffectingCardsForCurrentPlayer(game);
 
-        game.getActionsEnvironment().addActionToStack(new SimpleEffectAction(new TriggeringResultEffect(new StartOfTurnResult(), "Start of turn"), "Start of turn"));
+        SystemQueueAction action = new SystemQueueAction();
+
+        action.appendEffect(
+                new TriggeringResultEffect(new StartOfTurnResult(), "Start of turn"));
+
+        game.getActionsEnvironment().addActionToStack(action);
     }
 
     @Override

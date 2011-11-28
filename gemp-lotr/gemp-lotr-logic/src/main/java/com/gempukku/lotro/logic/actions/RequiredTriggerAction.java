@@ -22,6 +22,11 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public Type getType() {
+        return Type.TRIGGER;
+    }
+
+    @Override
     public PhysicalCard getActionSource() {
         return _physicalCard;
     }

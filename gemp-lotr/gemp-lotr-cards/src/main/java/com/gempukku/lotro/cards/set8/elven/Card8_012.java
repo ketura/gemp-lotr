@@ -6,18 +6,14 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.cards.modifiers.PlayerCantUsePhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 
 /**
@@ -59,17 +55,7 @@ public class Card8_012 extends AbstractEvent {
                                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, reduce, CardType.MINION));
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
-                                                    @Override
-                                                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                                                        if (performingPlayer.equals(playerId)
-                                                                && action.getActionTimeword() == Phase.ARCHERY
-                                                                && action.getActionSource() != null
-                                                                && action.getActionSource().getZone().isInPlay())
-                                                            return false;
-                                                        return true;
-                                                    }
-                                                }, Phase.ARCHERY));
+                                                new PlayerCantUsePhaseSpecialAbilitiesModifier(self, playerId, Phase.ARCHERY), Phase.ARCHERY));
                             }
                         }));
 

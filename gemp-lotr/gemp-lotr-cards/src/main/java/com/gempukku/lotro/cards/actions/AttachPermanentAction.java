@@ -68,6 +68,11 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                 };
     }
 
+    @Override
+    public Type getType() {
+        return Type.PLAY_CARD;
+    }
+
     public PhysicalCard getTarget() {
         return _target;
     }
