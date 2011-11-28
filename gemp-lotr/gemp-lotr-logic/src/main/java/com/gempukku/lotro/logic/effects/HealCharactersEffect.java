@@ -9,7 +9,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.HealResult;
 
 import java.util.Collection;
 
@@ -58,8 +57,6 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
             for (PhysicalCard cardToHeal : cardsToHeal) {
                 game.getGameState().removeWound(cardToHeal);
             }
-
-            game.getActionsEnvironment().emitEffectResult(new HealResult(cardsToHeal));
         }
     }
 }
