@@ -39,7 +39,7 @@ public class Card10_096 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.isWounded(game, effectResult, Culture.SAURON, CardType.MINION, Keyword.ROAMING)) {
+        if (TriggerConditions.forEachWounded(game, effectResult, Culture.SAURON, CardType.MINION, Keyword.ROAMING)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.SAURON));

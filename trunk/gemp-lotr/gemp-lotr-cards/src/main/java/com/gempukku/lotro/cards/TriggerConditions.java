@@ -136,8 +136,8 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean isWounded(LotroGame game, EffectResult effectResult, Filterable... filters) {
-        if (effectResult.getType() == EffectResult.Type.WOUND)
+    public static boolean forEachWounded(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_WOUNDED)
             return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((WoundResult) effectResult).getWoundedCard());
         return false;
     }

@@ -7,7 +7,7 @@ public class WoundResult extends EffectResult {
     private PhysicalCard _card;
 
     public WoundResult(PhysicalCard card) {
-        super(EffectResult.Type.WOUND);
+        super(EffectResult.Type.FOR_EACH_WOUNDED);
         _card = card;
     }
 
