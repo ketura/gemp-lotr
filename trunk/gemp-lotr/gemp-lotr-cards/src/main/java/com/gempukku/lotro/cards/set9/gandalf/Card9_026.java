@@ -15,11 +15,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,13 +40,12 @@ public class Card9_026 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
-                new MoveLimitModifier(self, 1));
-    }
-
-    @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (self.getData() == null) {
+            self.storeData(new Object());
+            game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                    new MoveLimitModifier(self, 1));
+        }
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
