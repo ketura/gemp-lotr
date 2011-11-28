@@ -58,6 +58,11 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
         _playCardEffect = new PlayCardEffect(card.getZone(), card, zone, playedFromCard);
     }
 
+    @Override
+    public Type getType() {
+        return Type.PLAY_CARD;
+    }
+
     public void setDiscountEffect(DiscountEffect discountEffect) {
         _discountEffect = discountEffect;
     }

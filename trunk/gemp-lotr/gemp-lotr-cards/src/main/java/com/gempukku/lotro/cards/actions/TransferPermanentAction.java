@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import java.util.Collection;
 
 public class TransferPermanentAction extends ActivateCardAction {
-    public TransferPermanentAction(final PhysicalCard card, LotroGame game, Filter filter) {
+    public TransferPermanentAction(final PhysicalCard card, Filter filter) {
         super(card);
 
         appendCost(new PayTwilightCostEffect(card));
@@ -24,6 +24,11 @@ public class TransferPermanentAction extends ActivateCardAction {
                         }
                     }
                 });
+    }
+
+    @Override
+    public Type getType() {
+        return Type.OTHER;
     }
 
     @Override

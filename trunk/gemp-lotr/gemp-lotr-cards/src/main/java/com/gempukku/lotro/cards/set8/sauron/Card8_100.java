@@ -51,7 +51,7 @@ public class Card8_100 extends AbstractMinion {
                                 @Override
                                 public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                                     if (performingPlayer.equals(gameState.getCurrentPlayerId())
-                                            && action.getActionSource() != null && action.getActionSource().getBlueprint().getCardType() != CardType.EVENT
+                                            && action.getType() == Action.Type.SPECIAL_ABILITY
                                             && action.getActionTimeword() == Phase.ARCHERY)
                                         return false;
                                     return true;

@@ -5,6 +5,12 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public interface Action {
+    public enum Type {
+        PLAY_CARD, SPECIAL_ABILITY, TRIGGER, OTHER
+    }
+
+    public Type getType();
+
     public PhysicalCard getActionSource();
 
     public void setActionTimeword(Phase phase);

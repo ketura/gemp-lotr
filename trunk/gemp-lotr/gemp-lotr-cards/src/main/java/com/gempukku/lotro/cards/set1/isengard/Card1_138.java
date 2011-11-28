@@ -5,17 +5,13 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.modifiers.PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -58,16 +54,7 @@ public class Card1_138 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new AbstractModifier(self, "Can't play Skirmish actions", null, ModifierEffect.ACTION_MODIFIER) {
-            @Override
-            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                if (action.getActionTimeword() == Phase.SKIRMISH
-                        && gameState.getCurrentSite() == self.getAttachedTo()) {
-                    return false;
-                }
-                return true;
-            }
-        };
+        return new PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier(self, Phase.SKIRMISH);
     }
 
     @Override

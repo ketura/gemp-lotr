@@ -1,16 +1,12 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.modifiers.CantPlayCardsModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
 
 /**
  * Set: The Fellowship of the Ring
@@ -27,14 +23,6 @@ public class Card1_329 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new AbstractModifier(self, "Stealth events may not be played", null, ModifierEffect.ACTION_MODIFIER) {
-            @Override
-            public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                PhysicalCard actionSourceCard = action.getActionSource();
-                if (actionSourceCard != null && actionSourceCard.getBlueprint().getCardType() == CardType.EVENT && modifiersQuerying.hasKeyword(gameState, actionSourceCard, Keyword.STEALTH))
-                    return false;
-                return true;
-            }
-        };
+        return new CantPlayCardsModifier(self, CardType.EVENT, Keyword.STEALTH);
     }
 }

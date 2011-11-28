@@ -18,6 +18,11 @@ public class SubAction implements Action {
     }
 
     @Override
+    public Type getType() {
+        return _action.getType();
+    }
+
+    @Override
     public void setVirtualCardAction(boolean virtualCardAction) {
     }
 

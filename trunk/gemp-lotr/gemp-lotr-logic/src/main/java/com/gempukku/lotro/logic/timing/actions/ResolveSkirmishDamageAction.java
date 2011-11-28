@@ -25,6 +25,11 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
     }
 
     @Override
+    public Type getType() {
+        return Type.OTHER;
+    }
+
+    @Override
     public String getText(LotroGame game) {
         return "Resolving skirmish";
     }

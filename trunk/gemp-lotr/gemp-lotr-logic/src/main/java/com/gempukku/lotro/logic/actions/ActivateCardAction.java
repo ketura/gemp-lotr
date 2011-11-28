@@ -25,6 +25,11 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public Type getType() {
+        return Type.SPECIAL_ABILITY;
+    }
+
+    @Override
     public PhysicalCard getActionSource() {
         return _physicalCard;
     }

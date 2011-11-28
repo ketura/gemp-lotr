@@ -15,6 +15,11 @@ public class SubCostToEffectAction extends AbstractCostToEffectAction {
     }
 
     @Override
+    public Type getType() {
+        return _action.getType();
+    }
+
+    @Override
     public PhysicalCard getActionAttachedToCard() {
         return _action.getActionAttachedToCard();
     }

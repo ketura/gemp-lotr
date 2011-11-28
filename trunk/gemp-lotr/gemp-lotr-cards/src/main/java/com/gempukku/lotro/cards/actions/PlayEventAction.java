@@ -52,6 +52,11 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _text = "Play " + _eventPlayed.getBlueprint().getName();
     }
 
+    @Override
+    public Type getType() {
+        return Type.PLAY_CARD;
+    }
+
     public boolean isRequiresRanger() {
         return _requiresRanger;
     }

@@ -70,7 +70,7 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
                     });
 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), validTransferFilter))
-                actions.add(new TransferPermanentAction(self, game, validTransferFilter));
+                actions.add(new TransferPermanentAction(self, validTransferFilter));
         }
     }
 
