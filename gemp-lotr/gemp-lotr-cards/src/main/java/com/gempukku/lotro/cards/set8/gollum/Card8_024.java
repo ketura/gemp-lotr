@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.gollum;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -12,9 +13,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,17 +32,12 @@ public class Card8_024 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WOUND
+        if (TriggerConditions.isWounded(game, effectResult, CardType.COMPANION)
                 && PlayConditions.canSpot(game, Culture.GOLLUM, CardType.MINION, Filters.inSkirmish)) {
-            WoundResult woundResult = (WoundResult) effectResult;
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            for (PhysicalCard physicalCard : Filters.filter(woundResult.getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, CardType.COMPANION));
-                actions.add(action);
-            }
-            return actions;
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, CardType.COMPANION));
+            return Collections.singletonList(action);
         }
         return null;
     }

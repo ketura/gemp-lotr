@@ -78,8 +78,8 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
         for (PhysicalCard woundedCard : cards) {
             game.getGameState().addWound(woundedCard);
             game.getModifiersEnvironment().addedWound(woundedCard);
+            game.getActionsEnvironment().emitEffectResult(new WoundResult(woundedCard));
         }
-        game.getActionsEnvironment().emitEffectResult(new WoundResult(cards));
     }
 
     @Override

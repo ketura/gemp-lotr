@@ -136,17 +136,9 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean isWounded(EffectResult effectResult, PhysicalCard character) {
-        if (effectResult.getType() == EffectResult.Type.WOUND) {
-            return ((WoundResult) effectResult).getWoundedCards().contains(character);
-        }
-        return false;
-    }
-
     public static boolean isWounded(LotroGame game, EffectResult effectResult, Filterable... filters) {
-        if (effectResult.getType() == EffectResult.Type.WOUND) {
-            return Filters.filter(((WoundResult) effectResult).getWoundedCards(), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
-        }
+        if (effectResult.getType() == EffectResult.Type.WOUND)
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((WoundResult) effectResult).getWoundedCard());
         return false;
     }
 
