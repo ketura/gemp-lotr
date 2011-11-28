@@ -27,7 +27,7 @@ public class AmbushRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.ASSIGNMENT) {
+                        if (effectResult.getType() == EffectResult.Type.CHARACTER_ASSIGNED) {
                             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
                             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                                 PhysicalCard assignedCard = assignmentResult.getAssignedCard();

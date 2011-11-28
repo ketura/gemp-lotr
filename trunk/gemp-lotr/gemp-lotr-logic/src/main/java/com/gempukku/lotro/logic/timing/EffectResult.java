@@ -40,9 +40,7 @@ public abstract class EffectResult {
 
         CHARACTER_WON_SKIRMISH, CHARACTER_LOST_SKIRMISH,
 
-        // Old format
-
-        ASSIGNMENT
+        CHARACTER_ASSIGNED
     }
 
     private Type _type;
