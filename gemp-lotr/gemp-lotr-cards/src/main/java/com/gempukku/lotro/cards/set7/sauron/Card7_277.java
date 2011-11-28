@@ -32,6 +32,7 @@ import java.util.List;
 public class Card7_277 extends AbstractMinion {
     public Card7_277() {
         super(3, 9, 2, 5, Race.ORC, Culture.SAURON, "Gorgoroth Sapper");
+        addKeyword(Keyword.BESIEGER);
     }
 
     @Override
