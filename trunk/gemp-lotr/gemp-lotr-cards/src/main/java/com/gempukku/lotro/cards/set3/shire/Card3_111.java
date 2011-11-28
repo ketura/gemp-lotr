@@ -32,7 +32,7 @@ public class Card3_111 extends AbstractAlly {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.DISCARD_FROM_HAND) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_HAND) {
             DiscardCardFromHandResult discardCardsResult = (DiscardCardFromHandResult) effectResult;
             if (discardCardsResult.isForced()) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);

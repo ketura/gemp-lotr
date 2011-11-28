@@ -8,8 +8,7 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 public class DiscardedCardRule {
@@ -24,16 +23,12 @@ public class DiscardedCardRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.DISCARD_FROM_PLAY) {
+                        if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_PLAY) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
-                            Collection<PhysicalCard> discardedCards = discardResult.getDiscardedCards();
-                            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-                            for (PhysicalCard discardedCard : discardedCards) {
-                                RequiredTriggerAction trigger = discardedCard.getBlueprint().getDiscardedFromPlayRequiredTrigger(game, discardedCard);
-                                if (trigger != null)
-                                    actions.add(trigger);
-                            }
-                            return actions;
+                            final PhysicalCard discardedCard = discardResult.getDiscardedCard();
+                            RequiredTriggerAction trigger = discardedCard.getBlueprint().getDiscardedFromPlayRequiredTrigger(game, discardedCard);
+                            if (trigger != null)
+                                return Collections.singletonList(trigger);
                         }
                         return null;
                     }

@@ -86,6 +86,8 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
         if (_source != null && discardedCards.size() > 0)
             game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + GameUtils.getCardLink(_source));
-        game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCards));
+
+        for (PhysicalCard discardedCard : discardedCards)
+            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
     }
 }
