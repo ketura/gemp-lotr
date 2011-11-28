@@ -142,6 +142,12 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean forEachExerted(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_EXERTED)
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((ExertResult) effectResult).getExertedCard());
+        return false;
+    }
+
     public static boolean isTakingControlOfSite(Effect effect, LotroGame game, Filterable... sourceFilters) {
         if (effect.getType() == Effect.Type.BEFORE_TAKE_CONTROL_OF_A_SITE) {
             TakeControlOfASiteEffect takeControlOfASiteEffect = (TakeControlOfASiteEffect) effect;
