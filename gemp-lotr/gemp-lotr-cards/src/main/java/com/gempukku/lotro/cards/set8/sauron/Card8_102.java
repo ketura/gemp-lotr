@@ -23,13 +23,13 @@ import java.util.List;
  * Type: Minion • Troll
  * Strength: 16
  * Vitality: 4
- * Site: 6
+ * Site: 5
  * Game Text: Besieger. Fierce. The twilight cost of this minion is -1 for each [SAURON] engine you spot. When you play
  * this minion at sites 5K to 9K, you may discard a Free Peoples condition.
  */
 public class Card8_102 extends AbstractMinion {
     public Card8_102() {
-        super(9, 16, 4, 6, Race.TROLL, Culture.SAURON, "Great Hill Troll");
+        super(9, 16, 4, 5, Race.TROLL, Culture.SAURON, "Great Hill Troll");
         addKeyword(Keyword.BESIEGER);
         addKeyword(Keyword.FIERCE);
     }
