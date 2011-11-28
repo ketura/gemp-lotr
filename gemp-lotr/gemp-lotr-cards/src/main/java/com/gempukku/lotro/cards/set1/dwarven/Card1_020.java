@@ -1,17 +1,18 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,26 +33,21 @@ public class Card1_020 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        EffectResult.Type resultType = effectResult.getType();
-        if (resultType == EffectResult.Type.OVERWHELM_IN_SKIRMISH || resultType == EffectResult.Type.RESOLVE_SKIRMISH) {
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            if (Filters.filter(skirmishResult.getWinners(), game.getGameState(), game.getModifiersQuerying(), Race.DWARF).size() > 0) {
-                Collection<PhysicalCard> losingOrcs = Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Race.ORC);
-
-                List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-
-                for (PhysicalCard losingOrc : losingOrcs) {
-                    RequiredTriggerAction action = new RequiredTriggerAction(self);
-                    action.appendEffect(new DiscardCardsFromPlayEffect(self, losingOrc));
-                    actions.add(action);
-                }
-
-                return actions;
-            } else if (Filters.filter(skirmishResult.getLosers(), game.getGameState(), game.getModifiersQuerying(), Race.DWARF).size() > 0) {
+        if (TriggerConditions.winsSkirmishInvolving(game, effectResult, Race.DWARF, Race.ORC)) {
+            CharacterWonSkirmishResult wonResult = (CharacterWonSkirmishResult) effectResult;
+            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
+            for (PhysicalCard losingOrc : Filters.filter(wonResult.getInvolving(), game.getGameState(), game.getModifiersQuerying(), Race.ORC)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new SelfDiscardEffect(self));
-                return Collections.singletonList(action);
+                action.setText("Discard " + GameUtils.getCardLink(losingOrc));
+                action.appendEffect(new DiscardCardsFromPlayEffect(self, losingOrc));
+                actions.add(action);
             }
+            return actions;
+        }
+        if (TriggerConditions.losesSkirmish(game, effectResult, Race.DWARF)) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(new SelfDiscardEffect(self));
+            return Collections.singletonList(action);
         }
         return null;
     }

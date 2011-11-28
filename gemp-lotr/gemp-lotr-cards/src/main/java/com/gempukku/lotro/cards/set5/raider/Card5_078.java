@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set5.raider;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -11,7 +12,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -48,9 +49,9 @@ public class Card5_078 extends AbstractAttachable {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
-            OverwhelmSkirmishResult result = (OverwhelmSkirmishResult) effectResult;
-            if (result.getWinners().contains(self.getAttachedTo())) {
+        if (TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.hasAttached(self))) {
+            CharacterLostSkirmishResult lostSkirmishResult = (CharacterLostSkirmishResult) effectResult;
+            if (lostSkirmishResult.getSkirmishType() == CharacterLostSkirmishResult.SkirmishType.OVERWHELM) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
                         new AddTwilightEffect(self, 5));

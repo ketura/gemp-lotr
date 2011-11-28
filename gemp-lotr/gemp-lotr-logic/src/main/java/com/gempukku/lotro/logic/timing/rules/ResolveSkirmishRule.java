@@ -30,11 +30,11 @@ public class ResolveSkirmishRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.RESOLVE_SKIRMISH) {
+                        if (effectResult.getType() == EffectResult.Type.SKIRMISH_FINISHED_NORMALLY) {
                             NormalSkirmishResult skirmishResult = (NormalSkirmishResult) effectResult;
                             ResolveSkirmishDamageAction action = new ResolveSkirmishDamageAction(skirmishResult);
                             return Collections.singletonList(action);
-                        } else if (effectResult.getType() == EffectResult.Type.OVERWHELM_IN_SKIRMISH) {
+                        } else if (effectResult.getType() == EffectResult.Type.SKIRMISH_FINISHED_WITH_OVERWHELM) {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;
                             Set<PhysicalCard> losers = new HashSet<PhysicalCard>(skirmishResult.getInSkirmishLosers());
 

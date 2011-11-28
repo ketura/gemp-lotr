@@ -42,7 +42,7 @@ public class Card6_051 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.setText("Heal another GONDOR companion");
             action.appendEffect(
@@ -54,7 +54,7 @@ public class Card6_051 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(effectResult, self.getAttachedTo())
+        if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Discard to liberate a site");

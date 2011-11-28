@@ -57,7 +57,7 @@ public class Card1_029 extends AbstractOldEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                                if (TriggerConditions.winsSkirmish(effectResult, elf)) {
+                                                if (TriggerConditions.winsSkirmish(lotroGame, effectResult, elf)) {
                                                     SkirmishResult skirmishResult = (SkirmishResult) effectResult;
                                                     Set<PhysicalCard> losers = skirmishResult.getLosers();
                                                     Set<String> opponents = new HashSet<String>();

@@ -7,6 +7,6 @@ import java.util.Set;
 
 public class OverwhelmSkirmishResult extends SkirmishResult {
     public OverwhelmSkirmishResult(Set<PhysicalCard> winners, Set<PhysicalCard> losers, Set<PhysicalCard> removedFromSkirmish) {
-        super(EffectResult.Type.OVERWHELM_IN_SKIRMISH, winners, losers, removedFromSkirmish);
+        super(EffectResult.Type.SKIRMISH_FINISHED_WITH_OVERWHELM, winners, losers, removedFromSkirmish);
     }
 }
