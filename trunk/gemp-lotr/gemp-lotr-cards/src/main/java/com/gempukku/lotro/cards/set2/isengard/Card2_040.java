@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -11,10 +12,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.ExertResult;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,17 +37,11 @@ public class Card2_040 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.EXERT) {
-            ExertResult exertResult = (ExertResult) effectResult;
-            Collection<PhysicalCard> exertedShireAllies = Filters.filter(exertResult.getExertedCards(), game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE, CardType.ALLY);
-            List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            for (PhysicalCard exertedShireAlly : exertedShireAllies) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new AddTwilightEffect(self, 1));
-                actions.add(action);
-            }
-            return actions;
+        if (TriggerConditions.forEachExerted(game, effectResult, Culture.SHIRE, CardType.ALLY)) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new AddTwilightEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

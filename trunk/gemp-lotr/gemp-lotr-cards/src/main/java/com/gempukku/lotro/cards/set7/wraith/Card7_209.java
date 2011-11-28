@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,14 +47,11 @@ public class Card7_209 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.EXERT) {
-            ExertResult exertResult = (ExertResult) effectResult;
-            if (exertResult.getExertedCards().contains(self.getAttachedTo())) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new AddTwilightEffect(self, 1));
-                return Collections.singletonList(action);
-            }
+        if (TriggerConditions.forEachExerted(game, effectResult, Filters.hasAttached(self))) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new AddTwilightEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

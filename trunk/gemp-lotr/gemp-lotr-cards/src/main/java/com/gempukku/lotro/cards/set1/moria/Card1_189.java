@@ -16,7 +16,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,10 +41,7 @@ public class Card1_189 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (((
-                effectResult.getType() == EffectResult.Type.EXERT
-                        && Filters.filter(((ExertResult) effectResult).getExertedCards(), game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER).size() > 0)
-                || TriggerConditions.forEachWounded(game, effectResult, Keyword.RING_BEARER))
+        if ((TriggerConditions.forEachExerted(game, effectResult, Keyword.RING_BEARER) || TriggerConditions.forEachWounded(game, effectResult, Keyword.RING_BEARER))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

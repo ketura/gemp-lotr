@@ -4,10 +4,10 @@ public abstract class EffectResult {
     public enum Type {
         // Translated to new format
         ANY_NUMBER_KILLED, FOR_EACH_KILLED,
-        FOR_EACH_WOUNDED,
+        FOR_EACH_WOUNDED, FOR_EACH_EXERTED,
 
         // Old format
-        EXERT, DISCARD_FROM_PLAY, DISCARD_FROM_HAND,
+        DISCARD_FROM_PLAY, DISCARD_FROM_HAND,
 
         FREE_PEOPLE_PLAYER_STARTS_ASSIGNING,
 

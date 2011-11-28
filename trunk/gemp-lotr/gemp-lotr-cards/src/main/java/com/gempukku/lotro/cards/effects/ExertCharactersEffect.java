@@ -54,9 +54,9 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
         if (cards.size() > 0)
             game.getGameState().sendMessage(getAppendedNames(cards) + " exert" + GameUtils.s(cards) + " due to " + GameUtils.getCardLink(_source));
 
-        for (PhysicalCard woundedCard : cards)
+        for (PhysicalCard woundedCard : cards) {
             game.getGameState().addWound(woundedCard);
-
-        game.getActionsEnvironment().emitEffectResult(new ExertResult(cards));
+            game.getActionsEnvironment().emitEffectResult(new ExertResult(woundedCard));
+        }
     }
 }
