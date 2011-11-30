@@ -47,7 +47,6 @@ var GameHistoryUI = Class.extend({
                 else
                     row.append($("<td></td>").html("&nbsp;"));
                 row.append($("<td></td>").html(winner));
-                row.append($("<td></td>").html(winner));
                 row.append($("<td></td>").html(loser));
                 row.append($("<td></td>").html(winReason));
                 row.append($("<td></td>").html(loseReason));

@@ -22,7 +22,7 @@ public class GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, winner_deck_name, loser_deck_name, start_date, end_date) values (?,?,?,?,?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, winner_deck_name, loser_deck_name, start_date, end_date) values (?,?,?,?,?,?,?,?,?,?,?)");
                 try {
                     statement.setString(1, winner);
                     statement.setString(2, loser);
