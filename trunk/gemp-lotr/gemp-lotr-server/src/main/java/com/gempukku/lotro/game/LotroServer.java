@@ -147,23 +147,23 @@ public class LotroServer extends AbstractServer {
                         }
                     }
                 });
-        if (!_test) {
-            Map<String, String> deckNames = new HashMap<String, String>();
-            for (LotroGameParticipant participant : participants)
-                deckNames.put(participant.getPlayerId(), participant.getDeckName());
+//        if (!_test) {
+        Map<String, String> deckNames = new HashMap<String, String>();
+        for (LotroGameParticipant participant : participants)
+            deckNames.put(participant.getPlayerId(), participant.getDeckName());
 
-            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, formatName, deckNames);
-            lotroGameMediator.addGameResultListener(
-                    new GameResultListener() {
-                        @Override
-                        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                            final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
+        final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, formatName, deckNames);
+        lotroGameMediator.addGameResultListener(
+                new GameResultListener() {
+                    @Override
+                    public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                        final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
 
-                            gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
-                        }
+                        gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
                     }
-            );
-        }
+                }
+        );
+//        }
 
         _runningGames.put(gameId, lotroGameMediator);
         _nextGameId++;
