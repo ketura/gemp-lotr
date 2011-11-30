@@ -23,11 +23,13 @@ var GameHistoryUI = Class.extend({
         var root = xml.documentElement;
         if (root.tagName == 'gameHistory') {
             var historyTable = $("<table class='gameHistory'></table>");
-            historyTable.append("<tr><th>Winner</th><th>Loser</th><th>Win reason</th><th>Lose reason</th><th>Finished on</th><th>Replay link</th></tr>");
+            historyTable.append("<tr><th>Format</th><th>Deck</th><th>Winner</th><th>Loser</th><th>Win reason</th><th>Lose reason</th><th>Finished on</th><th>Replay link</th></tr>");
 
             var entries = root.getElementsByTagName("historyEntry");
             for (var i = 0; i < entries.length; i++) {
                 var historyEntry = entries[i];
+                var format = historyEntry.getAttribute("formatName");
+                var deck = historyEntry.getAttribute("deckName");
                 var winner = historyEntry.getAttribute("winner");
                 var loser = historyEntry.getAttribute("loser");
                 var winReason = historyEntry.getAttribute("winReason");
@@ -36,6 +38,15 @@ var GameHistoryUI = Class.extend({
                 var gameRecordingId = historyEntry.getAttribute("gameRecordingId");
 
                 var row = $("<tr></tr>");
+                if (format != null)
+                    row.append($("<td></td>").html(format));
+                else
+                    row.append($("<td></td>").html("&nbsp;"));
+                if (deck != null)
+                    row.append($("<td></td>").html(deck));
+                else
+                    row.append($("<td></td>").html("&nbsp;"));
+                row.append($("<td></td>").html(winner));
                 row.append($("<td></td>").html(winner));
                 row.append($("<td></td>").html(loser));
                 row.append($("<td></td>").html(winReason));

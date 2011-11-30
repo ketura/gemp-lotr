@@ -202,10 +202,15 @@ public class ServerResource {
             historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
             historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
 
-            if (gameHistoryEntry.getWinner().equals(participantId) && gameHistoryEntry.getWinnerRecording() != null)
+            historyEntry.setAttribute("formatName", gameHistoryEntry.getFormatName());
+
+            if (gameHistoryEntry.getWinner().equals(participantId) && gameHistoryEntry.getWinnerRecording() != null) {
                 historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getWinnerRecording());
-            else if (gameHistoryEntry.getLoser().equals(participantId) && gameHistoryEntry.getLoserRecording() != null)
+                historyEntry.setAttribute("deckName", gameHistoryEntry.getWinnerDeckName());
+            } else if (gameHistoryEntry.getLoser().equals(participantId) && gameHistoryEntry.getLoserRecording() != null) {
                 historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getLoserRecording());
+                historyEntry.setAttribute("deckName", gameHistoryEntry.getLoserDeckName());
+            }
 
             historyEntry.setAttribute("startTime", String.valueOf(gameHistoryEntry.getStartTime().getTime()));
             historyEntry.setAttribute("endTime", String.valueOf(gameHistoryEntry.getEndTime().getTime()));

@@ -89,7 +89,7 @@ public class HallServer extends AbstractServer {
         AwaitingTable table = new AwaitingTable(type, _supportedFormatNames.get(type), supportedFormat);
         _awaitingTables.put(tableId, table);
 
-        joinTableInternal(tableId, playerId, table, lotroDeck);
+        joinTableInternal(tableId, playerId, table, deckName, lotroDeck);
     }
 
     private LotroDeck validateUserAndDeck(String type, LotroFormat format, String playerId, String deckName) throws HallException {
@@ -124,13 +124,13 @@ public class HallServer extends AbstractServer {
 
         LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getFormatType(), awaitingTable.getLotroFormat(), playerId, deckName);
 
-        joinTableInternal(tableId, playerId, awaitingTable, lotroDeck);
+        joinTableInternal(tableId, playerId, awaitingTable, deckName, lotroDeck);
 
         return true;
     }
 
-    private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, LotroDeck lotroDeck) {
-        boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, lotroDeck));
+    private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, String deckName, LotroDeck lotroDeck) {
+        boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, deckName, lotroDeck));
         if (tableFull)
             createGame(tableId, awaitingTable);
     }
