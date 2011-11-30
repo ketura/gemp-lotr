@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class MoveLimitModifier extends AbstractModifier {
-    private Condition _condition;
     private int _moveLimitModifier;
 
     public MoveLimitModifier(PhysicalCard source, int moveLimitModifier) {
@@ -16,15 +15,12 @@ public class MoveLimitModifier extends AbstractModifier {
     }
 
     public MoveLimitModifier(PhysicalCard source, Condition condition, int moveLimitModifier) {
-        super(source, "Move limit " + ((moveLimitModifier < 0) ? moveLimitModifier : ("+" + moveLimitModifier)), null, ModifierEffect.MOVE_LIMIT_MODIFIER);
-        _condition = condition;
+        super(source, "Move limit " + ((moveLimitModifier < 0) ? moveLimitModifier : ("+" + moveLimitModifier)), null, condition, ModifierEffect.MOVE_LIMIT_MODIFIER);
         _moveLimitModifier = moveLimitModifier;
     }
 
     @Override
     public int getMoveLimitModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        if (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying))
-            return _moveLimitModifier;
-        return 0;
+        return _moveLimitModifier;
     }
 }

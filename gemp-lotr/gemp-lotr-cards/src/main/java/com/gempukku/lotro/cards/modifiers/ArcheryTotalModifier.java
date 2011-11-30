@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class ArcheryTotalModifier extends AbstractModifier {
     private Side _side;
-    private Condition _condition;
     private Evaluator _evaluator;
 
     public ArcheryTotalModifier(PhysicalCard source, Side side, int modifier) {
@@ -24,9 +23,8 @@ public class ArcheryTotalModifier extends AbstractModifier {
     }
 
     public ArcheryTotalModifier(PhysicalCard source, Side side, Condition condition, Evaluator evaluator) {
-        super(source, null, null, ModifierEffect.ARCHERY_MODIFIER);
+        super(source, null, null, condition, ModifierEffect.ARCHERY_MODIFIER);
         _side = side;
-        _condition = condition;
         _evaluator = evaluator;
     }
 
@@ -38,9 +36,6 @@ public class ArcheryTotalModifier extends AbstractModifier {
 
     @Override
     public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Side side) {
-        if (side == _side && ((_condition == null) || (_condition.isFullfilled(gameState, modifiersQuerying))))
-            return _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
-        else
-            return 0;
+        return _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
     }
 }

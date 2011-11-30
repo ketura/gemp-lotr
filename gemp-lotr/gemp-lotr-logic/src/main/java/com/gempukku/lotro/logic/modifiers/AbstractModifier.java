@@ -32,6 +32,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public Condition getCondition() {
+        return _condition;
+    }
+
+    @Override
     public PhysicalCard getSource() {
         return _physicalCard;
     }
@@ -48,7 +53,7 @@ public abstract class AbstractModifier implements Modifier {
 
     @Override
     public boolean affectsCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying)) && (_affectFilter != null && _affectFilter.accepts(gameState, modifiersQuerying, physicalCard));
+        return (_affectFilter != null && _affectFilter.accepts(gameState, modifiersQuerying, physicalCard));
     }
 
     @Override

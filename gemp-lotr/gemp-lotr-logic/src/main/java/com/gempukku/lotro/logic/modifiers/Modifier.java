@@ -21,6 +21,8 @@ public interface Modifier {
 
     public ModifierEffect getModifierEffect();
 
+    public Condition getCondition();
+
     public boolean affectsCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
     public boolean hasRemovedText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);

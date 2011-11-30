@@ -11,12 +11,10 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CantDiscardCardsFromHandOrTopOfDeckModifier extends AbstractModifier {
     private Filterable[] _discardSourceAffected;
-    private Condition _condition;
     private String _playerId;
 
     public CantDiscardCardsFromHandOrTopOfDeckModifier(PhysicalCard source, Condition condition, String playerId, Filterable... discardSourceAffected) {
-        super(source, null, null, ModifierEffect.DISCARD_NOT_FROM_PLAY);
-        _condition = condition;
+        super(source, null, null, condition, ModifierEffect.DISCARD_NOT_FROM_PLAY);
         _playerId = playerId;
         _discardSourceAffected = discardSourceAffected;
     }
@@ -24,18 +22,16 @@ public class CantDiscardCardsFromHandOrTopOfDeckModifier extends AbstractModifie
     @Override
     public boolean canDiscardCardsFromHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
         if (playerId.equals(_playerId))
-            if (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying))
-                if (source == null || Filters.and(_discardSourceAffected).accepts(gameState, modifiersQuerying, source))
-                    return false;
+            if (source == null || Filters.and(_discardSourceAffected).accepts(gameState, modifiersQuerying, source))
+                return false;
         return true;
     }
 
     @Override
     public boolean canDiscardCardsFromTopOfDeck(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
         if (playerId.equals(_playerId))
-            if (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying))
-                if (source == null || Filters.and(_discardSourceAffected).accepts(gameState, modifiersQuerying, source))
-                    return false;
+            if (source == null || Filters.and(_discardSourceAffected).accepts(gameState, modifiersQuerying, source))
+                return false;
         return true;
     }
 }
