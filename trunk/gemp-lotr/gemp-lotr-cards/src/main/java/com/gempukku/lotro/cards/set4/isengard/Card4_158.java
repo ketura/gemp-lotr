@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.isengard;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -41,12 +42,14 @@ public class Card4_158 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
+                    new SelfExertEffect(self));
+            action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose Uruk-hai", Filters.not(self), Race.URUK_HAI) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, self, Keyword.FIERCE), Phase.REGROUP));
+                                            new KeywordModifier(self, card, Keyword.FIERCE), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);
