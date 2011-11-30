@@ -45,8 +45,7 @@ public class Card8_070 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
-                && self.getAttachedTo().getBlueprint().getName().equals("The Witch-king")
-                && PlayConditions.canExert(self, game, Filters.hasAttached(self))
+                && PlayConditions.canExert(self, game, Filters.hasAttached(self), Filters.witchKing)
                 && PlayConditions.canSpot(game, CardType.POSSESSION, Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self))))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
