@@ -26,7 +26,7 @@ public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffe
     }
 
     @Override
-    protected Filter getExtraFilter(final LotroGame game) {
+    protected Filter getExtraFilterForPlaying(final LotroGame game) {
         final Side side = game.getGameState().getCurrentPlayerId().equals(_playerId) ? Side.FREE_PEOPLE : Side.SHADOW;
         return Filters.and(
                 CardType.MINION,
