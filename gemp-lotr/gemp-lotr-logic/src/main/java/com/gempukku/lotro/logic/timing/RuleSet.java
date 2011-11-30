@@ -20,6 +20,8 @@ public class RuleSet {
         new RoamingRule(_modifiersLogic).applyRule();
         new EnduringRule(_modifiersLogic).applyRule();
 
+        new MusterRule(_actionsEnvironment).applyRule();
+
         new AmbushRule(_actionsEnvironment).applyRule();
 
         new ResolveSkirmishRule(_game, _actionsEnvironment).applyRule();

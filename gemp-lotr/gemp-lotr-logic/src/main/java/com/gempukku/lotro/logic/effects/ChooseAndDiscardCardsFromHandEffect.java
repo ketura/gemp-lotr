@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.effects.choose;
+package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
