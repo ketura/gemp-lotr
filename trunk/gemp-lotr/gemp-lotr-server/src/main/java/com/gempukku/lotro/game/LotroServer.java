@@ -45,21 +45,29 @@ public class LotroServer extends AbstractServer {
         _chatServer = chatServer;
         _test = test;
         _defaultCollection = new DefaultCardCollection(library);
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 365; j++) {
-                String blueprintId = i + "_" + j;
-                try {
-                    LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                    CardType cardType = cardBlueprint.getCardType();
-                    if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                        _defaultCollection.addCards(blueprintId, cardBlueprint, 1);
-                    else
-                        _defaultCollection.addCards(blueprintId, cardBlueprint, 4);
-                } catch (IllegalArgumentException exp) {
 
+        Thread thr = new Thread(
+                new Runnable() {
+                    public void run() {
+                        for (int i = 1; i <= 10; i++) {
+                            for (int j = 1; j <= 365; j++) {
+                                String blueprintId = i + "_" + j;
+                                try {
+                                    LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                                    CardType cardType = cardBlueprint.getCardType();
+                                    if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                                        _defaultCollection.addCards(blueprintId, cardBlueprint, 1);
+                                    else
+                                        _defaultCollection.addCards(blueprintId, cardBlueprint, 4);
+                                } catch (IllegalArgumentException exp) {
+
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-        }
+        );
+        thr.start();
 
         _playerDao = new PlayerDAO(dbAccess);
         _deckDao = new DeckDAO(dbAccess);

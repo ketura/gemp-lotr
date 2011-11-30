@@ -58,10 +58,10 @@ public class Card4_057 extends AbstractPermanent {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
-                            action.appendEffect(
-                                    new SelfDiscardEffect(self));
                         }
                     });
+            action.appendEffect(
+                    new SelfDiscardEffect(self));
             return Collections.singletonList(action);
         }
         return null;
