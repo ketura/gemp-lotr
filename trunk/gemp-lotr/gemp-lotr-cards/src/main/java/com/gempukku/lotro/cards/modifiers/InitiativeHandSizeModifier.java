@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class InitiativeHandSizeModifier extends AbstractModifier {
-    private Condition _condition;
     private Evaluator _evaluator;
 
     public InitiativeHandSizeModifier(PhysicalCard source, int modifier) {
@@ -22,16 +21,12 @@ public class InitiativeHandSizeModifier extends AbstractModifier {
     }
 
     public InitiativeHandSizeModifier(PhysicalCard source, Condition condition, Evaluator evaluator) {
-        super(source, null, null, ModifierEffect.INITIATIVE_MODIFIER);
-        _condition = condition;
+        super(source, null, null, condition, ModifierEffect.INITIATIVE_MODIFIER);
         _evaluator = evaluator;
     }
 
     @Override
     public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        if (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying))
-            return _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
-        else
-            return 0;
+        return _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
     }
 }

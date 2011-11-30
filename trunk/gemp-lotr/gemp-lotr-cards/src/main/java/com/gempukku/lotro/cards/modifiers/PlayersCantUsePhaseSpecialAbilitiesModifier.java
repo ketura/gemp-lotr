@@ -10,8 +10,6 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class PlayersCantUsePhaseSpecialAbilitiesModifier extends AbstractModifier {
-
-    private Condition _condition;
     private Phase _phase;
 
     public PlayersCantUsePhaseSpecialAbilitiesModifier(PhysicalCard source, Phase phase) {
@@ -19,16 +17,14 @@ public class PlayersCantUsePhaseSpecialAbilitiesModifier extends AbstractModifie
     }
 
     public PlayersCantUsePhaseSpecialAbilitiesModifier(PhysicalCard source, Condition condition, Phase phase) {
-        super(source, null, null, ModifierEffect.ACTION_MODIFIER);
-        _condition = condition;
+        super(source, null, null, condition, ModifierEffect.ACTION_MODIFIER);
         _phase = phase;
     }
 
     @Override
     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-        if (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying))
-            if (action.getActionTimeword() == _phase && action.getType() == Action.Type.SPECIAL_ABILITY)
-                return false;
+        if (action.getActionTimeword() == _phase && action.getType() == Action.Type.SPECIAL_ABILITY)
+            return false;
         return true;
     }
 }

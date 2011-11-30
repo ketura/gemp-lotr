@@ -83,16 +83,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         if (modifiers == null)
             return Collections.emptyList();
         else {
-            if (modifierEffect != ModifierEffect.TEXT_MODIFIER) {
-                LinkedList<Modifier> liveModifiers = new LinkedList<Modifier>();
-                for (Modifier modifier : modifiers) {
-                    if (modifier.getSource() == null || !hasTextRemoved(gameState, modifier.getSource()))
+            LinkedList<Modifier> liveModifiers = new LinkedList<Modifier>();
+            for (Modifier modifier : modifiers) {
+                Condition condition = modifier.getCondition();
+                if (condition == null || condition.isFullfilled(gameState, this))
+                    if (modifierEffect == ModifierEffect.TEXT_MODIFIER || modifier.getSource() == null || !hasTextRemoved(gameState, modifier.getSource()))
                         liveModifiers.add(modifier);
-                }
+            }
 
-                return liveModifiers;
-            } else
-                return modifiers;
+            return liveModifiers;
         }
     }
 
@@ -156,8 +155,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         Set<Modifier> result = new HashSet<Modifier>();
         for (List<Modifier> modifiers : _modifiers.values()) {
             for (Modifier modifier : modifiers) {
-                if (affectsCardWithSkipSet(gameState, card, modifier))
-                    result.add(modifier);
+                Condition condition = modifier.getCondition();
+                if (condition == null || condition.isFullfilled(gameState, this))
+                    if (affectsCardWithSkipSet(gameState, card, modifier))
+                        result.add(modifier);
             }
         }
         return result;
