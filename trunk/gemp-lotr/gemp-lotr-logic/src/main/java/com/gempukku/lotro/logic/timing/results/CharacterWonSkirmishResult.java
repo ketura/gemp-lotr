@@ -4,6 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 public class CharacterWonSkirmishResult extends EffectResult {
@@ -29,7 +30,7 @@ public class CharacterWonSkirmishResult extends EffectResult {
         super(EffectResult.Type.CHARACTER_WON_SKIRMISH);
         _type = type;
         _winner = winner;
-        _involving = involving;
+        _involving = new HashSet<PhysicalCard>(involving);
     }
 
     public Set<PhysicalCard> getInvolving() {

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card10_101 extends AbstractMinion {
     public Card10_101() {
-        super(7, 14, 4, 6, Race.TROLL, Culture.SAURON, "Troll of Cirith Gorgol");
+        super(7, 14, 4, 6, Race.TROLL, Culture.SAURON, "Troll of Cirith Gorgor");
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.FIERCE);
     }
