@@ -19,7 +19,7 @@ public class WinConditionRule {
 
     public void applyRule() {
         _actionsEnvironment.addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
+                new AbstractActionProxy("Win condition rule") {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResults) {
                         if (effectResults.getType() == EffectResult.Type.START_OF_PHASE

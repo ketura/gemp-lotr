@@ -14,7 +14,7 @@ public class PutPlayedEventOnTopOfDeckEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getCardLink(_action.getActionSource()) + " on top of your deck";
+        return "Put " + GameUtils.getCardLink(_action.getEventPlayed()) + " on top of your deck";
     }
 
     @Override
@@ -30,9 +30,9 @@ public class PutPlayedEventOnTopOfDeckEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(_action.getActionSource()) + " on top of his/her deck");
+            game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(_action.getEventPlayed()) + " on top of his/her deck");
             _action.skipDiscardPart();
-            game.getGameState().putCardOnTopOfDeck(_action.getActionSource());
+            game.getGameState().putCardOnTopOfDeck(_action.getEventPlayed());
             return new FullEffectResult(true, true);
         }
         return new FullEffectResult(false, false);

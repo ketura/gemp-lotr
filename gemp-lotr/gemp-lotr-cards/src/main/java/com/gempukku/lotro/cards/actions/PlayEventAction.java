@@ -52,6 +52,10 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _text = "Play " + _eventPlayed.getBlueprint().getName();
     }
 
+    public PhysicalCard getEventPlayed() {
+        return _eventPlayed;
+    }
+
     @Override
     public Type getType() {
         return Type.PLAY_CARD;
@@ -66,8 +70,8 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
-        return _eventPlayed;
+    public ActionSource getActionSource() {
+        return new ActionSource(_eventPlayed);
     }
 
     @Override

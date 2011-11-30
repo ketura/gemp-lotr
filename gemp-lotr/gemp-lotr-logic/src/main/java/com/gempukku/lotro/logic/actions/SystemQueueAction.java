@@ -11,7 +11,7 @@ public class SystemQueueAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public ActionSource getActionSource() {
         return null;
     }
 

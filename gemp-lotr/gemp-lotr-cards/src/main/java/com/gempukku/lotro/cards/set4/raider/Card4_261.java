@@ -40,7 +40,7 @@ public class Card4_261 extends AbstractPermanent {
                 new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        final PhysicalCard actionSource = action.getActionSource();
+                        final PhysicalCard actionSource = action.getActionSource().getPhysicalCard();
 
                         if (actionSource != null
                                 && actionSource.getBlueprint().getCardType() == CardType.EVENT) {

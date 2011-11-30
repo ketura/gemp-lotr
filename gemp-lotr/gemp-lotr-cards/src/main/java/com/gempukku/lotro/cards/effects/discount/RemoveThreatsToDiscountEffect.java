@@ -51,7 +51,7 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
                                 int threats = getValidatedResult(result);
                                 SubAction subAction = new SubAction(_action);
                                 subAction.appendEffect(
-                                        new RemoveThreatsEffect(_action.getActionSource(), threats));
+                                        new RemoveThreatsEffect(_action.getActionSource().getPhysicalCard(), threats));
                                 processSubAction(game, subAction);
                                 _threatsRemoved = _minimalThreatsToRemove;
                             }
@@ -60,7 +60,7 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
             } else {
                 SubAction subAction = new SubAction(_action);
                 subAction.appendEffect(
-                        new RemoveThreatsEffect(_action.getActionSource(), _minimalThreatsToRemove));
+                        new RemoveThreatsEffect(_action.getActionSource().getPhysicalCard(), _minimalThreatsToRemove));
                 processSubAction(game, subAction);
                 _threatsRemoved = _minimalThreatsToRemove;
             }

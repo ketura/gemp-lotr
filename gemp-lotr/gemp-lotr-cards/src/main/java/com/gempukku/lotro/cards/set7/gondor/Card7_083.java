@@ -44,7 +44,7 @@ public class Card7_083 extends AbstractEvent {
                         if (Filters.inSkirmishAgainst(Culture.SAURON, CardType.MINION).accepts(game.getGameState(), game.getModifiersQuerying(), card)) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseActionProxyEffect(
-                                            new AbstractActionProxy() {
+                                            new AbstractActionProxy(self) {
                                                 @Override
                                                 public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                                     if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)) {

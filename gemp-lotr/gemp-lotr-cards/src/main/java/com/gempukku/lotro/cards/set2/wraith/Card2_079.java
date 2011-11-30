@@ -59,7 +59,7 @@ public class Card2_079 extends AbstractOldEvent {
                             action.insertEffect(
                                     new PutOnTheOneRingEffect());
                             game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(
-                                    new AbstractActionProxy() {
+                                    new AbstractActionProxy(self) {
                                         @Override
                                         public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
                                             if (effectResults.getType() == EffectResult.Type.START_OF_PHASE

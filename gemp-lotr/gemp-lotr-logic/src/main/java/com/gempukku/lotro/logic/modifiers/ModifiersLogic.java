@@ -188,6 +188,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         LoggingThreadLocal.logMethodStart(physicalCard, "hasKeyword " + keyword.getHumanReadable());
         try {
+            if (hasTextRemoved(gameState, physicalCard))
+                return false;
+
             for (Modifier modifier : getModifiers(gameState, ModifierEffect.KEYWORD_MODIFIER)) {
                 if (((KeywordAffectingModifier) modifier).getKeyword() == keyword)
                     if (affectsCardWithSkipSet(gameState, physicalCard, modifier))
@@ -215,6 +218,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getKeywordCount " + keyword.getHumanReadable());
         try {
+            if (hasTextRemoved(gameState, physicalCard))
+                return 0;
+
             for (Modifier modifier : getModifiers(gameState, ModifierEffect.KEYWORD_MODIFIER)) {
                 if (((KeywordAffectingModifier) modifier).getKeyword() == keyword)
                     if (affectsCardWithSkipSet(gameState, physicalCard, modifier))

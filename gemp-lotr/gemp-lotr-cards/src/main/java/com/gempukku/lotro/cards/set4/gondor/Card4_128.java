@@ -56,7 +56,7 @@ public class Card4_128 extends AbstractOldEvent {
                                         new MinionSiteNumberModifier(self, Filters.sameCard(minion), null, 2), Phase.SKIRMISH));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
-                                        new AbstractActionProxy() {
+                                        new AbstractActionProxy(self) {
                                             @Override
                                             public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
                                                 if (TriggerConditions.losesSkirmish(game, effectResult, Filters.sameCard(minion))

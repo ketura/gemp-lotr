@@ -27,8 +27,8 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
-        return _physicalCard;
+    public ActionSource getActionSource() {
+        return new ActionSource(_physicalCard);
     }
 
     @Override

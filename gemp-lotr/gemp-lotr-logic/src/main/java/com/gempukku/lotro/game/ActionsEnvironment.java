@@ -7,6 +7,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface ActionsEnvironment {
     public List<Action> getRequiredBeforeTriggers(Effect effect);
@@ -17,7 +18,7 @@ public interface ActionsEnvironment {
 
     public List<Action> getRequiredAfterTriggers(Collection<? extends EffectResult> effectResults);
 
-    public List<Action> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults);
+    public Map<Action, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults);
 
     public List<Action> getOptionalAfterActions(String playerId, Collection<? extends EffectResult> effectResults);
 

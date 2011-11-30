@@ -11,7 +11,7 @@ public interface Action {
 
     public Type getType();
 
-    public PhysicalCard getActionSource();
+    public ActionSource getActionSource();
 
     public void setActionTimeword(Phase phase);
 
@@ -30,4 +30,25 @@ public interface Action {
     public String getText(LotroGame game);
 
     public Effect nextEffect(LotroGame game);
+
+    public final class ActionSource {
+        private PhysicalCard _physicalCard;
+        private String _ruleName;
+
+        public ActionSource(PhysicalCard physicalCard) {
+            _physicalCard = physicalCard;
+        }
+
+        public ActionSource(String ruleName) {
+            _ruleName = ruleName;
+        }
+
+        public PhysicalCard getPhysicalCard() {
+            return _physicalCard;
+        }
+
+        public String getRuleName() {
+            return _ruleName;
+        }
+    }
 }

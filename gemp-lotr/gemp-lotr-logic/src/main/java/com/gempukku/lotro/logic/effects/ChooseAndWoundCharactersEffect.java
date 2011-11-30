@@ -21,7 +21,7 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     public ChooseAndWoundCharactersEffect(Action action, String playerId, int minimum, int maximum, int count, Filterable... filters) {
-        super(action.getActionSource(), playerId, "Choose characters to wound", minimum, maximum, filters);
+        super(action.getActionSource().getPhysicalCard(), playerId, "Choose characters to wound", minimum, maximum, filters);
         _action = action;
         _count = count;
     }
@@ -39,7 +39,7 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++) {
-            WoundCharactersEffect woundEffect = new WoundCharactersEffect(_action.getActionSource(), Filters.in(cards));
+            WoundCharactersEffect woundEffect = new WoundCharactersEffect(_action.getActionSource().getPhysicalCard(), Filters.in(cards));
             if (_sourceText != null)
                 woundEffect.setSourceText(_sourceText);
             subAction.appendEffect(woundEffect);

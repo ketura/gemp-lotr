@@ -26,7 +26,7 @@ public class CantPlayCardsModifier extends AbstractModifier {
 
     @Override
     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-        final PhysicalCard actionSource = action.getActionSource();
+        final PhysicalCard actionSource = action.getActionSource().getPhysicalCard();
         if (actionSource != null)
             if (action.getType() == Action.Type.PLAY_CARD)
                 if (_condition == null || _condition.isFullfilled(gameState, modifiersQuerying))
