@@ -126,6 +126,15 @@ public class Filters {
         };
     }
 
+    public static Filter minResistance(final int resistance) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getResistance(gameState, physicalCard) >= resistance;
+            }
+        };
+    }
+
     public static Filter lessStrengthThan(final int strength) {
         return new Filter() {
             @Override
