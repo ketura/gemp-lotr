@@ -52,7 +52,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     public Effect nextEffect(LotroGame game) {
         if (!_sentMessage) {
             _sentMessage = true;
-            if (_physicalCard != null)
+            if (_physicalCard != null && _physicalCard.getZone().isInPlay())
                 game.getGameState().activatedCard(getPerformingPlayer(), _physicalCard);
             if (_message != null)
                 game.getGameState().sendMessage(_message);

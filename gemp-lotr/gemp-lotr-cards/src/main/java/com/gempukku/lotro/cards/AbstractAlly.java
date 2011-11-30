@@ -46,6 +46,7 @@ public class AbstractAlly extends AbstractPermanent {
 
     protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canHealByDiscarding(game.getGameState(), game.getModifiersQuerying(), self)) {
+            // TODO this is not really an activated action...
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new DiscardCardsFromHandEffect(null, playerId, Collections.singleton(self), false));
 
