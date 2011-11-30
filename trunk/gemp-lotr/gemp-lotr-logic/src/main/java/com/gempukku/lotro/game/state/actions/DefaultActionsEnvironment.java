@@ -256,6 +256,13 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                 playableActions.add(action);
         }
 
+        for (Action action : discardVisitor.getActions()) {
+            action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
+            action.setPerformingPlayer(playerId);
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+                playableActions.add(action);
+        }
+
         return playableActions;
     }
 

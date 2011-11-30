@@ -95,33 +95,97 @@ public class TimingAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        AwaitingDecision optionalActionChoice = _userFeedback.getAwaitingDecision(P1);
-        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, optionalActionChoice.getDecisionType());
-        System.out.println(optionalActionChoice);
+        AwaitingDecision firstOptionalActionChoice = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, firstOptionalActionChoice.getDecisionType());
+        assertEquals(2, ((String[]) firstOptionalActionChoice.getDecisionParameters().get("cardId")).length);
+
+        playerDecided(P1, "0");
+
+        AwaitingDecision secondOptionalActionChoice = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, secondOptionalActionChoice.getDecisionType());
+        assertEquals(1, ((String[]) secondOptionalActionChoice.getDecisionParameters().get("cardId")).length);
+
+        playerDecided(P1, "0");
+
+        assertTrue(_game.getGameState().getCurrentPhase() != Phase.BETWEEN_TURNS);
     }
 
     @Test
     public void playEffectFromDiscard() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
 
+        PhysicalCardImpl gollum = new PhysicalCardImpl(100, "7_58", P2, _library.getLotroCardBlueprint("7_58"));
+
+        _game.getGameState().addCardToZone(_game, gollum, Zone.DISCARD);
+
+        skipMulligans();
+
+        _game.getGameState().addTwilight(10);
+
+        playerDecided(P1, "");
+
+        _userFeedback.getAwaitingDecision(P2);
+
+        AwaitingDecision shadowPhaseAction = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseAction.getDecisionType());
+        validateContents(new String[]{"7_58"}, (String[]) shadowPhaseAction.getDecisionParameters().get("blueprintId"));
+
+        playerDecided(P2, "0");
+
+        assertEquals(Zone.SHADOW_CHARACTERS, gollum.getZone());
     }
 
     @Test
     public void playEffectFromStacked() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
 
+        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _library.getLotroCardBlueprint("1_13"));
+        PhysicalCardImpl letThemCome = new PhysicalCardImpl(101, "1_20", P1, _library.getLotroCardBlueprint("1_20"));
+        PhysicalCardImpl slakedThirsts = new PhysicalCardImpl(102, "7_14", P1, _library.getLotroCardBlueprint("7_14"));
+
+        PhysicalCardImpl gollum = new PhysicalCardImpl(100, "7_58", P2, _library.getLotroCardBlueprint("7_58"));
+
+        _game.getGameState().addCardToZone(_game, gimli, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, letThemCome, Zone.SUPPORT);
+        _game.getGameState().stackCard(_game, slakedThirsts, letThemCome);
+
+        skipMulligans();
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        _game.getGameState().addCardToZone(_game, gollum, Zone.SHADOW_CHARACTERS);
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        AwaitingDecision maneuverPhaseAction = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, maneuverPhaseAction.getDecisionType());
+        validateContents(new String[]{"Use Slaked Thirsts"}, (String[]) maneuverPhaseAction.getDecisionParameters().get("actionText"));
+
+        playerDecided(P1, "0");
+
+        assertEquals(Zone.DISCARD, slakedThirsts.getZone());
+        assertEquals(2, _game.getGameState().getWounds(gollum));
     }
 
     @Test
     public void stackedCardAffectsGame() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
 
-    }
+        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _library.getLotroCardBlueprint("1_13"));
+        PhysicalCardImpl letThemCome = new PhysicalCardImpl(101, "1_20", P1, _library.getLotroCardBlueprint("1_20"));
+        PhysicalCardImpl tossMe = new PhysicalCardImpl(102, "6_11", P1, _library.getLotroCardBlueprint("6_11"));
 
-    @Test
-    public void charactersDontDieIfPrintedVitalityEqualToWoundsButCurrentVitalityMoreThanZero() throws DecisionResultInvalidException {
+        skipMulligans();
 
-    }
+        _game.getGameState().addCardToZone(_game, gimli, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, letThemCome, Zone.SUPPORT);
+        _game.getGameState().stackCard(_game, tossMe, letThemCome);
 
-    @Test
-    public void charactersDieIfCurrentVitalityIsZero() throws DecisionResultInvalidException {
-
+        assertEquals(7, _game.getModifiersQuerying().getStrength(_game.getGameState(), gimli));
     }
 }
