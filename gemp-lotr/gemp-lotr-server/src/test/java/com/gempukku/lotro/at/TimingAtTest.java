@@ -35,5 +35,35 @@ public class TimingAtTest extends AbstractAtTest {
         playerDecided(P1, getArbitraryCardId(secondCharacterDecision, "6_121"));
     }
 
+    public void playStartingFellowshipWithSpotRequirement() throws DecisionResultInvalidException {
 
+    }
+
+    public void playMultipleRequiredEffectsInOrder() throws DecisionResultInvalidException {
+
+    }
+
+    public void playMultipleOptionalEffectsInOrder() throws DecisionResultInvalidException {
+
+    }
+
+    public void playEffectFromDiscard() throws DecisionResultInvalidException {
+
+    }
+
+    public void playEffectFromStacked() throws DecisionResultInvalidException {
+
+    }
+
+    public void stackedCardAffectsGame() throws DecisionResultInvalidException {
+
+    }
+
+    public void charactersDontDieIfPrintedVitalityEqualToWoundsButCurrentVitalityMoreThanZero() throws DecisionResultInvalidException {
+
+    }
+
+    public void charactersDieIfCurrentVitalityIsZero() throws DecisionResultInvalidException {
+
+    }
 }
