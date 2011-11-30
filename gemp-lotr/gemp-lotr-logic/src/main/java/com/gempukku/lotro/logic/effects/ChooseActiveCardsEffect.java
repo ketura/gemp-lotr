@@ -40,13 +40,17 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
         _choiceText = choiceText;
     }
 
-    protected Filter getExtraFilter(LotroGame game) {
+    protected Filter getExtraFilterForPlaying(LotroGame game) {
         return Filters.any;
+    }
+
+    protected Filter getExtraFilterForPlayabilityCheck(LotroGame game) {
+        return getExtraFilterForPlaying(game);
     }
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilter(game))) >= _minimum;
+        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilterForPlayabilityCheck(game))) >= _minimum;
     }
 
     @Override
@@ -61,7 +65,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        final Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilter(game)));
+        final Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilterForPlaying(game)));
 
         int minimum = _minimum;
         if (matchingCards.size() < minimum)

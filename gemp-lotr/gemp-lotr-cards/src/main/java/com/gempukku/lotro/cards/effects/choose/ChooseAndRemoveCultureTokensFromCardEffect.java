@@ -19,7 +19,7 @@ public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCard
     }
 
     @Override
-    protected Filter getExtraFilter(LotroGame game) {
+    protected Filter getExtraFilterForPlaying(LotroGame game) {
         if (_token != null)
             return Filters.hasToken(_token, _count);
         else

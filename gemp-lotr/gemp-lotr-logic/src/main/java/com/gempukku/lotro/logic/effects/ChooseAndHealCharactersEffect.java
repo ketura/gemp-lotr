@@ -33,7 +33,19 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     @Override
-    protected Filter getExtraFilter(LotroGame game) {
+    protected Filter getExtraFilterForPlayabilityCheck(LotroGame game) {
+        return Filters.and(
+                Filters.hasWounds(_count),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    }
+                });
+    }
+
+    @Override
+    protected Filter getExtraFilterForPlaying(LotroGame game) {
         return Filters.and(
                 Filters.wounded,
                 new Filter() {
