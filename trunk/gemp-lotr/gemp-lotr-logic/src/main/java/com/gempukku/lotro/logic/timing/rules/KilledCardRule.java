@@ -21,7 +21,7 @@ public class KilledCardRule {
 
     public void applyRule() {
         _actionsEnvironment.addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
+                new AbstractActionProxy("Killed card rule") {
                     @Override
                     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
@@ -29,10 +29,12 @@ public class KilledCardRule {
                             Set<PhysicalCard> killedCards = killResult.getKilledCards();
                             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
                             for (PhysicalCard killedCard : killedCards) {
-                                OptionalTriggerAction trigger = killedCard.getBlueprint().getKilledOptionalTrigger(playerId, game, killedCard);
-                                if (trigger != null) {
-                                    trigger.setVirtualCardAction(true);
-                                    actions.add(trigger);
+                                if (!effectResult.wasOptionalTriggerUsed(killedCard)) {
+                                    OptionalTriggerAction trigger = killedCard.getBlueprint().getKilledOptionalTrigger(playerId, game, killedCard);
+                                    if (trigger != null) {
+                                        trigger.setVirtualCardAction(true);
+                                        actions.add(trigger);
+                                    }
                                 }
                             }
                             return actions;

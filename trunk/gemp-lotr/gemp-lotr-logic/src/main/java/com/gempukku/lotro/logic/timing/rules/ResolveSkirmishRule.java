@@ -27,7 +27,7 @@ public class ResolveSkirmishRule {
 
     public void applyRule() {
         _actionsEnvironment.addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
+                new AbstractActionProxy("Resolve skirmish") {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.SKIRMISH_FINISHED_NORMALLY) {

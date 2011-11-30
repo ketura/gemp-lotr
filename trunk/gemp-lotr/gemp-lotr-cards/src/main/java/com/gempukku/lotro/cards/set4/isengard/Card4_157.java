@@ -60,7 +60,7 @@ public class Card4_157 extends AbstractAttachable {
                 new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        if (action.getActionSource() == self.getAttachedTo())
+                        if (action.getActionSource().getPhysicalCard() == self.getAttachedTo())
                             return false;
                         return true;
                     }

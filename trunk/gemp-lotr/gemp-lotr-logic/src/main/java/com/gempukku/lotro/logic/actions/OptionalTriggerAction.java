@@ -24,14 +24,18 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
         }
     }
 
+    public void setActionAttachedToCard(PhysicalCard actionAttachedToCard) {
+        _actionAttachedToCard = actionAttachedToCard;
+    }
+
     @Override
     public Type getType() {
         return Type.TRIGGER;
     }
 
     @Override
-    public PhysicalCard getActionSource() {
-        return _physicalCard;
+    public ActionSource getActionSource() {
+        return new ActionSource(_physicalCard);
     }
 
     @Override

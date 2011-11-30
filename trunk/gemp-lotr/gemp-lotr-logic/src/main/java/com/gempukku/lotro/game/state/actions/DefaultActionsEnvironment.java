@@ -34,7 +34,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _actionStack = actionStack;
 
         addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
+                new AbstractActionProxy("Played cards recording") {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
                         if (effectResults.getType() == EffectResult.Type.PLAY) {
@@ -185,24 +185,28 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public List<Action> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
+    public Map<Action, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
         GatherOptionalAfterTriggers gatherActions = new GatherOptionalAfterTriggers(playerId, effectResults);
 
         _lotroGame.getGameState().iterateActiveTextCards(playerId, gatherActions);
 
-        final List<Action> gatheredActions = gatherActions.getActions();
+        final Map<Action, EffectResult> gatheredActions = gatherActions.getActions();
 
         if (effectResults != null) {
             for (ActionProxy actionProxy : _actionProxies) {
                 for (EffectResult effectResult : effectResults) {
-                    List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
-                    if (actions != null)
-                        gatheredActions.addAll(actions);
+                    if (!effectResult.wasOptionalTriggerUsed(actionProxy.getActionSource())) {
+                        List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
+                        if (actions != null) {
+                            for (OptionalTriggerAction action : actions)
+                                gatheredActions.put(action, effectResult);
+                        }
+                    }
                 }
             }
         }
 
-        for (Action gatheredAction : gatheredActions)
+        for (Action gatheredAction : gatheredActions.keySet())
             gatheredAction.setPerformingPlayer(playerId);
 
         return gatheredActions;
@@ -344,7 +348,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     private class GatherOptionalAfterTriggers extends CompletePhysicalCardVisitor {
         private String _playerId;
         private Collection<? extends EffectResult> _effectResults;
-        private List<Action> _actions = new LinkedList<Action>();
+        private Map<Action, EffectResult> _actions = new HashMap<Action, EffectResult>();
 
         private GatherOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
             _playerId = playerId;
@@ -356,14 +360,19 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
                 if (_effectResults != null)
                     for (EffectResult effectResult : _effectResults) {
-                        List<? extends Action> actions = physicalCard.getBlueprint().getOptionalAfterTriggers(_playerId, _lotroGame, effectResult, physicalCard);
-                        if (actions != null)
-                            _actions.addAll(actions);
+                        if (!effectResult.wasOptionalTriggerUsed(physicalCard)) {
+                            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalAfterTriggers(_playerId, _lotroGame, effectResult, physicalCard);
+                            if (actions != null) {
+                                for (Action action : actions) {
+                                    _actions.put(action, effectResult);
+                                }
+                            }
+                        }
                     }
             }
         }
 
-        public List<Action> getActions() {
+        public Map<Action, EffectResult> getActions() {
             return _actions;
         }
     }

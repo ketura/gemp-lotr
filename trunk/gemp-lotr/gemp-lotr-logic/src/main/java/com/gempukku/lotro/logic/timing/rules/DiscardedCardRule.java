@@ -20,7 +20,7 @@ public class DiscardedCardRule {
 
     public void applyRule() {
         _actionsEnvironment.addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
+                new AbstractActionProxy("Discarded card rule") {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_PLAY) {

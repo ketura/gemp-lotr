@@ -26,7 +26,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     public ChooseAndHealCharactersEffect(Action action, String playerId, int minimum, int maximum, int count, Filterable... filters) {
-        super(action.getActionSource(), playerId, "Choose characters to heal", minimum, maximum, filters);
+        super(action.getActionSource().getPhysicalCard(), playerId, "Choose characters to heal", minimum, maximum, filters);
         _action = action;
         _playerId = playerId;
         _count = count;
@@ -53,7 +53,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++)
-            subAction.appendEffect(new HealCharactersEffect(_action.getActionSource(), Filters.in(cards)));
+            subAction.appendEffect(new HealCharactersEffect(_action.getActionSource().getPhysicalCard(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);
     }
 }

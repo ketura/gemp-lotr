@@ -24,7 +24,7 @@ public class MusterRule {
 
     public void applyRule() {
         _actionsEnvironment.addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
+                new AbstractActionProxy("Muster rule") {
                     @Override
                     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE

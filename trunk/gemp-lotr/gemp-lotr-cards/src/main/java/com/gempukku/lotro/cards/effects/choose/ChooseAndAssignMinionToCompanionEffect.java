@@ -19,7 +19,7 @@ public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffe
     private PhysicalCard _companion;
 
     public ChooseAndAssignMinionToCompanionEffect(Action action, String playerId, PhysicalCard companion, Filterable... filters) {
-        super(action.getActionSource(), playerId, "Choose minion to assign " + GameUtils.getCardLink(companion) + " to", filters);
+        super(action.getActionSource().getPhysicalCard(), playerId, "Choose minion to assign " + GameUtils.getCardLink(companion) + " to", filters);
         _action = action;
         _playerId = playerId;
         _companion = companion;

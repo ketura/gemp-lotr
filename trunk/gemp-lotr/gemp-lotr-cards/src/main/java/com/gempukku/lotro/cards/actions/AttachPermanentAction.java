@@ -82,8 +82,8 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
-        return _cardToAttach;
+    public ActionSource getActionSource() {
+        return new ActionSource(_cardToAttach);
     }
 
     @Override

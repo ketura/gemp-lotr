@@ -61,7 +61,7 @@ public class Card8_068 extends AbstractEvent {
                             final PhysicalCard againstNazgul = againstNazgulCollection.iterator().next();
                             action.appendEffect(
                                     new AddUntilEndOfPhaseActionProxyEffect(
-                                            new AbstractActionProxy() {
+                                            new AbstractActionProxy(self) {
                                                 @Override
                                                 public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                                     if (TriggerConditions.forEachKilled(game, effectResult, againstNazgul)) {

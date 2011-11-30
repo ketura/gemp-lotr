@@ -24,7 +24,7 @@ public class AmbushRule {
 
     public void applyRule() {
         _actionsEnvironment.addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
+                new AbstractActionProxy("Ambush rule") {
                     @Override
                     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.CHARACTER_ASSIGNED) {
@@ -33,7 +33,8 @@ public class AmbushRule {
                                 PhysicalCard assignedCard = assignmentResult.getAssignedCard();
                                 if (Filters.and(CardType.MINION, Keyword.AMBUSH).accepts(game.getGameState(), game.getModifiersQuerying(), assignedCard)) {
                                     final int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), assignedCard, Keyword.AMBUSH);
-                                    OptionalTriggerAction action = new OptionalTriggerAction(assignedCard);
+                                    OptionalTriggerAction action = new OptionalTriggerAction(null);
+                                    action.setActionAttachedToCard(assignedCard);
                                     action.setText("Ambush - add " + count);
                                     action.appendEffect(
                                             new AddTwilightEffect(assignedCard, count));
