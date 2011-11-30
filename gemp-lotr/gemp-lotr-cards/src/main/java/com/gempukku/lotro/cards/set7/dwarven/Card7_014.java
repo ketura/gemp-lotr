@@ -45,9 +45,9 @@ public class Card7_014 extends AbstractEvent {
 
     @Override
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
+        if (PlayConditions.canUseStackedFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.stackedOn(self, game, Culture.DWARVEN, CardType.CONDITION)
-                && PlayConditions.canSpot(game, Race.DWARF)) {
+                && PlayConditions.canSpot(game, Race.DWARF, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardStackedCardsEffect(self, self));
