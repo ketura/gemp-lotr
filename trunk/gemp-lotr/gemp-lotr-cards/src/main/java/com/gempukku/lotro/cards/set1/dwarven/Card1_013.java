@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -39,7 +38,7 @@ public class Card1_013 extends AbstractCompanion {
             ActivateCardAction action = new ActivateCardAction(self);
 
             action.appendCost(new SelfExertEffect(self));
-            action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));
+            action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, self, 2), Phase.SKIRMISH));
 
             return Collections.singletonList(action);
         }

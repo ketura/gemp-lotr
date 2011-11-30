@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.modifiers.conditions.CanSpotTwilightCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -34,6 +33,6 @@ public class Card4_090 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.sameCard(self), new CanSpotTwilightCondition(3), 3));
+                new StrengthModifier(self, self, new CanSpotTwilightCondition(3), 3));
     }
 }

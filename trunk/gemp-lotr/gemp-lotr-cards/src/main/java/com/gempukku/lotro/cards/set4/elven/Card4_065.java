@@ -42,27 +42,27 @@ public class Card4_065 extends AbstractCompanion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.sameCard(self),
+                new StrengthModifier(self, self,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }, 1));
         modifiers.add(
-                new KeywordModifier(self, Filters.sameCard(self),
+                new KeywordModifier(self, self,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }, Keyword.DAMAGE, 1));
         modifiers.add(
-                new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self),
+                new DoesNotAddToArcheryTotalModifier(self, self,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }));
         return modifiers;

@@ -42,7 +42,7 @@ public class Card4_071 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.sameCard(self),
+                new StrengthModifier(self, self,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
@@ -56,12 +56,12 @@ public class Card4_071 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, self)
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)
-                && PlayConditions.canExert(self, game, Filters.not(Filters.sameCard(self)), Race.ELF)) {
+                && PlayConditions.canExert(self, game, Filters.not(self), Race.ELF)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.not(Filters.sameCard(self)), Race.ELF));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.not(self), Race.ELF));
 
             action.appendEffect(
                     new LiberateASiteEffect(self));

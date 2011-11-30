@@ -46,7 +46,7 @@ public class Card1_147 extends AbstractMinion {
                         protected void cardSelected(LotroGame game, PhysicalCard companion) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new PreventMinionBeingAssignedToCharacterModifier(self, Side.FREE_PEOPLE, Filters.sameCard(companion), Filters.sameCard(self))
+                                            new PreventMinionBeingAssignedToCharacterModifier(self, Side.FREE_PEOPLE, Filters.sameCard(companion), self)
                                             , Phase.ASSIGNMENT));
                         }
                     });

@@ -51,7 +51,7 @@ public class Card4_033 extends AbstractMinion {
                                 return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
-                        Filters.sameCard(self)));
+                        self));
     }
 
     @Override

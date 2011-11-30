@@ -99,7 +99,7 @@ public class GameState {
         LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
 
         int cardId = nextCardId();
-        PhysicalCardImpl result = new PhysicalCardImpl(cardId, blueprintId, playerId, null, card);
+        PhysicalCardImpl result = new PhysicalCardImpl(cardId, blueprintId, playerId, card);
 
         _allCards.put(cardId, result);
 

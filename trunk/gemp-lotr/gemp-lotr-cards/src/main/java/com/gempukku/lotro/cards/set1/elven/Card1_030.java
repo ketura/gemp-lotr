@@ -35,7 +35,7 @@ public class Card1_030 extends AbstractCompanion {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
-                        Filters.sameCard(self),
+                        self,
                         Filters.inSkirmish,
                         new Filter() {
                             @Override

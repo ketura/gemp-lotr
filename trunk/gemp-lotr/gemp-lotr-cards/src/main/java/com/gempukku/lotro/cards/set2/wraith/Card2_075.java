@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterM
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -40,7 +39,7 @@ public class Card2_075 extends AbstractMinion {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new RemoveKeywordModifier(self, Race.NAZGUL, Keyword.ROAMING));
         modifiers.add(
-                new FreePeoplePlayerMayNotAssignCharacterModifier(self, Filters.sameCard(self)));
+                new FreePeoplePlayerMayNotAssignCharacterModifier(self, self));
         return modifiers;
     }
 

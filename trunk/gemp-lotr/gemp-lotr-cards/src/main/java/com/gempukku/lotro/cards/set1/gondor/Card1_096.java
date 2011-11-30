@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
@@ -30,6 +29,6 @@ public class Card1_096 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new OverwhelmedByMultiplierModifier(self, Filters.sameCard(self), 3);
+        return new OverwhelmedByMultiplierModifier(self, self, 3);
     }
 }

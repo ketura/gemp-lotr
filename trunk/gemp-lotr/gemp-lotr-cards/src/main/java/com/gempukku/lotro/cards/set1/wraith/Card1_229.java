@@ -9,7 +9,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -44,7 +43,7 @@ public class Card1_229 extends AbstractMinion {
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.sameCard(self), null,
+                            new StrengthModifier(self, self, null,
                                     new CardLimitEvaluator(game, self, Phase.SKIRMISH, 5, new ConstantEvaluator(1))), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }

@@ -41,7 +41,7 @@ public class Card2_066 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Watcher in the Water")));
@@ -53,7 +53,7 @@ public class Card2_066 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new MayNotBearModifier(self, Filters.sameCard(self), CardType.POSSESSION));
+                new MayNotBearModifier(self, self, CardType.POSSESSION));
     }
 
     @Override

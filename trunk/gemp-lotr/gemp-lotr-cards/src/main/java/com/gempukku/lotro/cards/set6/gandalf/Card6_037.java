@@ -47,7 +47,7 @@ public class Card6_037 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ParticipatesInSkirmishesModifier(self, Filters.sameCard(self)), Phase.ASSIGNMENT));
+                            new ParticipatesInSkirmishesModifier(self, self), Phase.ASSIGNMENT));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)

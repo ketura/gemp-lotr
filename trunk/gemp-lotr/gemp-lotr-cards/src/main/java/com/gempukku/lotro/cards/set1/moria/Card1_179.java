@@ -35,7 +35,7 @@ public class Card1_179 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Culture.MORIA, Race.ORC);
 
-        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))
+        if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.weapon, ExtraFilters.attachableTo(game, additionalAttachmentFilter))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

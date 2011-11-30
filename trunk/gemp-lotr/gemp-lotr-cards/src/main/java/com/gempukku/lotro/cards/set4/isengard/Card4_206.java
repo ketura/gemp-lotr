@@ -34,6 +34,6 @@ public class Card4_206 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new KeywordModifier(self, Filters.sameCard(self), new SpotCondition(Filters.siteControlled(self.getOwner())), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, self, new SpotCondition(Filters.siteControlled(self.getOwner())), Keyword.DAMAGE, 1));
     }
 }

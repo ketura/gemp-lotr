@@ -35,7 +35,7 @@ public class Card1_174 extends AbstractMinion {
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new KeywordModifier(self,
                 Filters.and(
-                        Filters.sameCard(self),
+                        self,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -43,7 +43,7 @@ public class Card1_174 extends AbstractMinion {
                                 if (skirmish != null) {
                                     Set<PhysicalCard> shadowChars = skirmish.getShadowCharacters();
                                     if (shadowChars.contains(self)
-                                            && Filters.filter(shadowChars, gameState, modifiersQuerying, Culture.MORIA, Race.ORC, Filters.not(Filters.sameCard(self))).size() > 0)
+                                            && Filters.filter(shadowChars, gameState, modifiersQuerying, Culture.MORIA, Race.ORC, Filters.not(self)).size() > 0)
                                         return true;
                                 }
                                 return false;

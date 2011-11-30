@@ -56,7 +56,7 @@ public class Card4_067 extends AbstractCompanion {
                         }
                     });
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.sameCard(self))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

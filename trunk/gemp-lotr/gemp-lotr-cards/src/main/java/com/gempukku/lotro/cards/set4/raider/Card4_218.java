@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -38,11 +37,11 @@ public class Card4_218 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.sameCard(self), new SpotBurdensCondition(4), 5));
+                new StrengthModifier(self, self, new SpotBurdensCondition(4), 5));
         modifiers.add(
-                new KeywordModifier(self, Filters.sameCard(self), new SpotBurdensCondition(5), Keyword.FIERCE, 1));
+                new KeywordModifier(self, self, new SpotBurdensCondition(5), Keyword.FIERCE, 1));
         modifiers.add(
-                new KeywordModifier(self, Filters.sameCard(self), new SpotBurdensCondition(6), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, self, new SpotBurdensCondition(6), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }

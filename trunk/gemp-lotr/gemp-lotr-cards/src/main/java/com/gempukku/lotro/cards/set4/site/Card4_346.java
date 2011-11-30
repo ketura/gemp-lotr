@@ -30,6 +30,6 @@ public class Card4_346 extends AbstractSite {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new TwilightCostModifier(self, Filters.sameCard(self), null, new CountSpottableEvaluator(CardType.COMPANION, Filters.mounted)));
+                new TwilightCostModifier(self, self, null, new CountSpottableEvaluator(CardType.COMPANION, Filters.mounted)));
     }
 }

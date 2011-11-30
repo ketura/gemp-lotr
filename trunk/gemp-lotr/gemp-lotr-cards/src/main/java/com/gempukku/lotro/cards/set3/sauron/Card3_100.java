@@ -43,7 +43,7 @@ public class Card3_100 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose character skirmishing this minion", Filters.inSkirmishAgainst(Filters.sameCard(self))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose character skirmishing this minion", Filters.inSkirmishAgainst(self)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

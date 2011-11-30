@@ -35,7 +35,7 @@ public class Card2_049 extends AbstractMinion {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(
-                                Filters.not(Filters.sameCard(self)),
+                                Filters.not(self),
                                 Culture.MORIA,
                                 Keyword.ARCHER
                         ), 2)

@@ -38,7 +38,7 @@ public class Card4_078 extends AbstractCompanion {
                 new StrengthModifier(self,
                         Filters.and(
                                 CardType.MINION,
-                                Filters.inSkirmishAgainst(Filters.sameCard(self))
+                                Filters.inSkirmishAgainst(self)
                         ), null,
                         new Evaluator() {
                             @Override

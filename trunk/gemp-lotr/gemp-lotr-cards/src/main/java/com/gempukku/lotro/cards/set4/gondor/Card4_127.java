@@ -47,7 +47,7 @@ public class Card4_127 extends AbstractCompanion {
             action.appendCost(
                     new SelfExertEffect(self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose roaming minion", CardType.MINION, Keyword.ROAMING, Filters.inSkirmishAgainst(Filters.sameCard(self))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose roaming minion", CardType.MINION, Keyword.ROAMING, Filters.inSkirmishAgainst(self)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

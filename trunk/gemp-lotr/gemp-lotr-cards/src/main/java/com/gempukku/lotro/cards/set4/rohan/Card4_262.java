@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -34,7 +33,7 @@ public class Card4_262 extends AbstractAlly {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
-                && PlayConditions.canExert(self, game, Filters.sameCard(self))
+                && PlayConditions.canExert(self, game, self)
                 && PlayConditions.canSpot(game, Keyword.VILLAGER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

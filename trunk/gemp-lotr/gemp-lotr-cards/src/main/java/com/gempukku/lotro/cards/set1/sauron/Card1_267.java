@@ -40,7 +40,7 @@ public class Card1_267 extends AbstractMinion {
             action.appendCost(
                     new SelfExertEffect(self));
             action.appendEffect(
-                    new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Filters.sameCard(self))));
+                    new WoundCharactersEffect(self, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

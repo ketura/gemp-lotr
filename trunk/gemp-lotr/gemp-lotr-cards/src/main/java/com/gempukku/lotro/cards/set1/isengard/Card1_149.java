@@ -34,7 +34,7 @@ public class Card1_149 extends AbstractMinion {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
-                        Filters.sameCard(self),
+                        self,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
