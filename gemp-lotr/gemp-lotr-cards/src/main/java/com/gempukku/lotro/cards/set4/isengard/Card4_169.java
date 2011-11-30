@@ -48,7 +48,7 @@ public class Card4_169 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
-                && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
+                && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));
@@ -56,7 +56,7 @@ public class Card4_169 extends AbstractMinion {
                     new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.unboundCompanion));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self)), Phase.ARCHERY));
+                            new DoesNotAddToArcheryTotalModifier(self, self), Phase.ARCHERY));
             return Collections.singletonList(action);
         }
         return null;

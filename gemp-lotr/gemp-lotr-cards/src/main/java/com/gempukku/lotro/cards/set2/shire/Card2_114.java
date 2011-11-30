@@ -39,7 +39,7 @@ public class Card2_114 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && PlayConditions.canExert(self, game, 2, Filters.sameCard(self))) {
+                && PlayConditions.canExert(self, game, 2, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));
@@ -47,7 +47,7 @@ public class Card2_114 extends AbstractCompanion {
                     new SelfExertEffect(self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new KeywordModifier(self, Filters.sameCard(self), Keyword.DEFENDER), Phase.REGROUP));
+                            new KeywordModifier(self, self, Keyword.DEFENDER), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

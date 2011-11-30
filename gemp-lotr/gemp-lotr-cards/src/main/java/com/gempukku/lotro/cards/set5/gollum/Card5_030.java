@@ -38,7 +38,7 @@ public class Card5_030 extends AbstractEvent {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && (
                 game.getGameState().getCurrentPhase() != Phase.SKIRMISH
-                        || Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.not(Filters.sameCard(self))).size() >= 1);
+                        || Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.not(self)).size() >= 1);
     }
 
     @Override

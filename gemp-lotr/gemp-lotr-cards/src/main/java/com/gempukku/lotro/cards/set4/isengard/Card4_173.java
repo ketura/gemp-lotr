@@ -56,7 +56,7 @@ public class Card4_173 extends AbstractMinion {
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                                 return gameState.getCurrentPhase() == Phase.ARCHERY && !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
-                        }, Filters.sameCard(self)));
+                        }, self));
         modifiers.add(
                 new CantBeAssignedToSkirmishModifier(self,
                         new Condition() {
@@ -65,13 +65,13 @@ public class Card4_173 extends AbstractMinion {
                                 return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
-                        Filters.sameCard(self)));
+                        self));
         return modifiers;
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));
@@ -83,7 +83,7 @@ public class Card4_173 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canExert(self, game, Filters.sameCard(self))
+                && PlayConditions.canExert(self, game, self)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Saruman's Staff"))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

@@ -46,19 +46,19 @@ public class Card4_086 extends AbstractCompanion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.sameCard(self))),
+                new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)),
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }, -2));
         modifiers.add(
-                new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self),
+                new DoesNotAddToArcheryTotalModifier(self, self,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.sameCard(self), Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }));
         return modifiers;

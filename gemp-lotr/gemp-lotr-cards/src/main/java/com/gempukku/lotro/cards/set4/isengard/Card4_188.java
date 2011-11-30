@@ -49,7 +49,7 @@ public class Card4_188 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.forEachKilled(game, effectResult, Filters.unboundCompanion, Race.HOBBIT)
-                && PlayConditions.canExert(self, game, 2, Filters.sameCard(self))) {
+                && PlayConditions.canExert(self, game, 2, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));

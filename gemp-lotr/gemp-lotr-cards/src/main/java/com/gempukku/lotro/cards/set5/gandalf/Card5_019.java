@@ -64,7 +64,7 @@ public class Card5_019 extends AbstractCompanion {
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ParticipatesInSkirmishesModifier(self, Filters.sameCard(self)), Phase.ASSIGNMENT));
+                            new ParticipatesInSkirmishesModifier(self, self), Phase.ASSIGNMENT));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
@@ -73,7 +73,7 @@ public class Card5_019 extends AbstractCompanion {
             action.appendCost(
                     new SelfExertEffect(self));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION, Filters.inSkirmishAgainst(Filters.sameCard(self))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

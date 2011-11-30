@@ -36,7 +36,7 @@ public class Card4_202 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.sameCard(self), null, new Evaluator() {
+                new StrengthModifier(self, self, null, new Evaluator() {
                     @Override
                     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
                         return 2 * Filters.countSpottable(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner()));

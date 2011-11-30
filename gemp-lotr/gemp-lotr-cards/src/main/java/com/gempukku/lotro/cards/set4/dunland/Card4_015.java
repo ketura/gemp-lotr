@@ -37,7 +37,7 @@ public class Card4_015 extends AbstractMinion {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(
-                                Filters.sameCard(self),
+                                self,
                                 Filters.inSkirmishAgainst(
                                         Filters.and(
                                                 Culture.ROHAN,

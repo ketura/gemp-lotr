@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -45,7 +44,7 @@ public class Card4_233 extends AbstractOldEvent {
                         int bonus = Math.min(5, game.getGameState().getBurdens());
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(self), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, self, bonus), Phase.SKIRMISH));
                     }
                 });
         possibleEffects.add(
@@ -59,7 +58,7 @@ public class Card4_233 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, self, 2), Phase.SKIRMISH));
                     }
                 });
         action.appendEffect(

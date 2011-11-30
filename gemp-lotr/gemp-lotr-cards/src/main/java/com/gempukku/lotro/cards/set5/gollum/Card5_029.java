@@ -10,7 +10,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Signet;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -53,10 +52,10 @@ public class Card5_029 extends AbstractCompanion {
                     new AddBurdenEffect(self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new CantTakeWoundsModifier(self, Filters.sameCard(self)), Phase.SKIRMISH));
+                            new CantTakeWoundsModifier(self, self), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;

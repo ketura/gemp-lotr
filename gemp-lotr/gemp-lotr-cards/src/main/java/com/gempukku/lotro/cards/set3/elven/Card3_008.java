@@ -32,12 +32,12 @@ public class Card3_008 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.sameCard(self)),
+                new StrengthModifier(self, Filters.inSkirmishAgainst(self),
                         new SpotCondition(
                                 3, Filters.and(
-                                        Culture.ELVEN,
-                                        CardType.ALLY,
-                                        Filters.isAllyHome(3, Block.FELLOWSHIP)
-                                )), -3));
+                                Culture.ELVEN,
+                                CardType.ALLY,
+                                Filters.isAllyHome(3, Block.FELLOWSHIP)
+                        )), -3));
     }
 }

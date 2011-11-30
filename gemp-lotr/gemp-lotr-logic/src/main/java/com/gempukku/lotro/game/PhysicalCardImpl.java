@@ -24,11 +24,10 @@ public class PhysicalCardImpl implements PhysicalCard {
 
     private Object _data;
 
-    public PhysicalCardImpl(int cardId, String blueprintId, String owner, Zone zone, LotroCardBlueprint blueprint) {
+    public PhysicalCardImpl(int cardId, String blueprintId, String owner, LotroCardBlueprint blueprint) {
         _cardId = cardId;
         _blueprintId = blueprintId;
         _owner = owner;
-        _zone = zone;
         _blueprint = blueprint;
     }
 

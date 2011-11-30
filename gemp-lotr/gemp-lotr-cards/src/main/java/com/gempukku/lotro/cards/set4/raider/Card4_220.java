@@ -44,7 +44,7 @@ public class Card4_220 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(Filters.sameCard(self))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

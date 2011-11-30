@@ -39,7 +39,7 @@ public class Card5_031 extends AbstractCompanion {
         return Collections.singletonList(
                 new TwilightCostModifier(self,
                         Filters.and(
-                                Filters.not(Filters.sameCard(self)),
+                                Filters.not(self),
                                 Keyword.KNIGHT
                         ), new PhaseCondition(Phase.PLAY_STARTING_FELLOWSHIP), -1));
     }

@@ -34,7 +34,7 @@ public class Card1_185 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN ally or DWARVEN condition", Culture.DWARVEN, Filters.or(CardType.ALLY, CardType.CONDITION)) {

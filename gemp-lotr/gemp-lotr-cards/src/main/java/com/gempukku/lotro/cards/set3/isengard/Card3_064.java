@@ -41,7 +41,7 @@ public class Card3_064 extends AbstractMinion {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(
-                                Filters.not(Filters.sameCard(self)),
+                                Filters.not(self),
                                 Culture.ISENGARD,
                                 Race.ORC
                         ), 1));

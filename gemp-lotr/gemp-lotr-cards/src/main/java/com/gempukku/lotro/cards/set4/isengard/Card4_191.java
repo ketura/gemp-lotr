@@ -39,13 +39,13 @@ public class Card4_191 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
-                && PlayConditions.canExert(self, game, Filters.sameCard(self))
+                && PlayConditions.canExert(self, game, self)
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose nother Uruk-hai", Race.URUK_HAI, Filters.not(Filters.sameCard(self))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose nother Uruk-hai", Race.URUK_HAI, Filters.not(self)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

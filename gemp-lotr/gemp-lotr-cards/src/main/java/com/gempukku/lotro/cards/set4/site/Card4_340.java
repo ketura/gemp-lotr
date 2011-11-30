@@ -30,6 +30,6 @@ public class Card4_340 extends AbstractSite {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AllyMayNotParticipateInArcheryFireAndSkirmishesModifier(self, new LocationCondition(Filters.sameCard(self)), Filters.and(Culture.ROHAN, CardType.ALLY)));
+                new AllyMayNotParticipateInArcheryFireAndSkirmishesModifier(self, new LocationCondition(self), Filters.and(Culture.ROHAN, CardType.ALLY)));
     }
 }

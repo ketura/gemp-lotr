@@ -43,7 +43,7 @@ public class Card5_115 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new OverwhelmedByMultiplierModifier(self, Filters.sameCard(self),
+                new OverwhelmedByMultiplierModifier(self, self,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {

@@ -34,7 +34,7 @@ public class Card2_065 extends AbstractMinion {
         return Collections.singletonList(
                 new KeywordModifier(self,
                         Filters.and(
-                                Filters.sameCard(self),
+                                self,
                                 Filters.hasAttached(Filters.name("Goblin Spear"))
                         ), Keyword.DAMAGE, 2));
     }

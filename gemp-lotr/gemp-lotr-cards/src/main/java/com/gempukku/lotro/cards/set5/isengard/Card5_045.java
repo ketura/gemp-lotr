@@ -41,7 +41,7 @@ public class Card5_045 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.and(Filters.sameCard(self), Filters.inSkirmish),
+                new StrengthModifier(self, Filters.and(self, Filters.inSkirmish),
                         null,
                         new Evaluator() {
                             @Override
@@ -57,7 +57,7 @@ public class Card5_045 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
-                && PlayConditions.canExert(self, game, 2, Filters.sameCard(self))
+                && PlayConditions.canExert(self, game, 2, self)
                 && PlayConditions.canRemoveTokens(game, Token.ISENGARD, 3, Keyword.MACHINE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

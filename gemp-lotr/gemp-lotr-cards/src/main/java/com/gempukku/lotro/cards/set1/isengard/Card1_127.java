@@ -38,11 +38,11 @@ public class Card1_127 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.not(Filters.sameCard(self)))) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.not(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));
+                            new KeywordModifier(self, self, Keyword.FIERCE), Phase.REGROUP));
 
             return Collections.singletonList(action);
         }

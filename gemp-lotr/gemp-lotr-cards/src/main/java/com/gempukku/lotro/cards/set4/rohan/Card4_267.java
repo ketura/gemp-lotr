@@ -45,11 +45,11 @@ public class Card4_267 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.sameCard(self), null,
+                new StrengthModifier(self, self, null,
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-                                final Collection<PhysicalCard> minions = Filters.filterActive(gameState, modifiersQuerying, Filters.inSkirmishAgainst(Filters.sameCard(self)));
+                                final Collection<PhysicalCard> minions = Filters.filterActive(gameState, modifiersQuerying, Filters.inSkirmishAgainst(self));
                                 int wounds = 0;
                                 for (PhysicalCard minion : minions)
                                     wounds += gameState.getWounds(minion);

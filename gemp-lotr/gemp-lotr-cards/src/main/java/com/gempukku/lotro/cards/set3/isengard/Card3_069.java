@@ -58,7 +58,7 @@ public class Card3_069 extends AbstractMinion {
                             }
                         },
                         Filters.and(
-                                Filters.sameCard(self),
+                                self,
                                 new Filter() {
                                     @Override
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -73,7 +73,7 @@ public class Card3_069 extends AbstractMinion {
                                 return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
-                        Filters.sameCard(self)));
+                        self));
         return modifiers;
     }
 

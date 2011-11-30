@@ -39,7 +39,7 @@ public class Card4_046 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new StackTopCardsFromDeckEffect(self, self.getOwner(), 6, self));
@@ -57,7 +57,7 @@ public class Card4_046 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, false));
             action.appendEffect(
-                    new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Side.FREE_PEOPLE) {
+                    new ChooseStackedCardsEffect(action, playerId, 1, 1, self, Side.FREE_PEOPLE) {
                         @Override
                         protected void cardsChosen(Collection<PhysicalCard> stackedCards) {
                             for (PhysicalCard stackedCard : stackedCards) {

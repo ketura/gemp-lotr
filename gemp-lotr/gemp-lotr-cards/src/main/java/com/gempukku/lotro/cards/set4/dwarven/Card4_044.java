@@ -36,7 +36,7 @@ public class Card4_044 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.sameCard(self))) {
+        if (TriggerConditions.played(game, effectResult, self)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(self.getOwner(), 1, 1, Filters.any) {
@@ -59,7 +59,7 @@ public class Card4_044 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getAttachedCards(self), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.sameCard(self), Side.FREE_PEOPLE));
+                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, self, Side.FREE_PEOPLE));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.DWARF));
             return Collections.singletonList(action);

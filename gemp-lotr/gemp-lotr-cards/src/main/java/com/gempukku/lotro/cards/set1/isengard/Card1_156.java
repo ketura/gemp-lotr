@@ -38,7 +38,7 @@ public class Card1_156 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));
+                            new KeywordModifier(self, self, Keyword.FIERCE), Phase.REGROUP));
 
             return Collections.singletonList(action);
         }

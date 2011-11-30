@@ -61,10 +61,10 @@ public class Card5_082 extends AbstractCompanion {
                     });
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.sameCard(self), 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, Filters.sameCard(self), Keyword.DAMAGE), Phase.SKIRMISH));
+                            new KeywordModifier(self, self, Keyword.DAMAGE), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;

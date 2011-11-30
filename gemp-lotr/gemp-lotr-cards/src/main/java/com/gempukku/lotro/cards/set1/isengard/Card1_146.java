@@ -37,7 +37,7 @@ public class Card1_146 extends AbstractMinion {
                 && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 5) {
 
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendEffect(new AddUntilStartOfPhaseModifierEffect(new KeywordModifier(self, Filters.sameCard(self), Keyword.FIERCE), Phase.REGROUP));
+            action.appendEffect(new AddUntilStartOfPhaseModifierEffect(new KeywordModifier(self, self, Keyword.FIERCE), Phase.REGROUP));
 
             return Collections.singletonList(action);
         }

@@ -36,7 +36,7 @@ public class Card1_236 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && game.getGameState().getBurdens() >= 4) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self), Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
+            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), self, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
                 action.appendEffect(
                         new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
             }

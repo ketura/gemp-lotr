@@ -43,7 +43,7 @@ public class Card4_270 extends AbstractCompanion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.unboundCompanion)
-                && PlayConditions.canExert(self, game, Filters.sameCard(self))) {
+                && PlayConditions.canExert(self, game, self)) {
             final WoundCharactersEffect woundEffects = (WoundCharactersEffect) effect;
 
             final ActivateCardAction action = new ActivateCardAction(self);
