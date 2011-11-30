@@ -148,7 +148,11 @@ public class LotroServer extends AbstractServer {
                     }
                 });
         if (!_test) {
-            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator);
+            Map<String, String> deckNames = new HashMap<String, String>();
+            for (LotroGameParticipant participant : participants)
+                deckNames.put(participant.getPlayerId(), participant.getDeckName());
+
+            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, formatName, deckNames);
             lotroGameMediator.addGameResultListener(
                     new GameResultListener() {
                         @Override

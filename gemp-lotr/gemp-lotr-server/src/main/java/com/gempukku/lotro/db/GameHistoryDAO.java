@@ -18,11 +18,11 @@ public class GameHistoryDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, Date startDate, Date endDate) {
+    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String winnerDeckName, String loserDeckName, Date startDate, Date endDate) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, start_date, end_date) values (?,?,?,?,?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, winner_deck_name, loser_deck_name, start_date, end_date) values (?,?,?,?,?,?,?,?)");
                 try {
                     statement.setString(1, winner);
                     statement.setString(2, loser);
@@ -30,8 +30,11 @@ public class GameHistoryDAO {
                     statement.setString(4, loseReason);
                     statement.setString(5, winRecordingId);
                     statement.setString(6, loseRecordingId);
-                    statement.setLong(7, startDate.getTime());
-                    statement.setLong(8, endDate.getTime());
+                    statement.setString(7, formatName);
+                    statement.setString(8, winnerDeckName);
+                    statement.setString(9, loserDeckName);
+                    statement.setLong(10, startDate.getTime());
+                    statement.setLong(11, endDate.getTime());
 
                     statement.execute();
                 } finally {
@@ -49,7 +52,7 @@ public class GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
+                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
                 try {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
@@ -65,10 +68,13 @@ public class GameHistoryDAO {
                             String loseReason = rs.getString(4);
                             String winRecordingId = rs.getString(5);
                             String loseRecordingId = rs.getString(6);
-                            Date startDate = new Date(rs.getLong(7));
-                            Date endDate = new Date(rs.getLong(8));
+                            String formatName = rs.getString(7);
+                            String winnerDeckName = rs.getString(8);
+                            String loserDeckName = rs.getString(9);
+                            Date startDate = new Date(rs.getLong(10));
+                            Date endDate = new Date(rs.getLong(11));
 
-                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, startDate, endDate);
+                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, winnerDeckName, loserDeckName, startDate, endDate);
                             result.add(entry);
                         }
                         return result;
