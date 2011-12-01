@@ -7,11 +7,10 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 
 import java.util.*;
-
-import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
@@ -118,7 +117,7 @@ public abstract class AbstractAtTest {
         lotroDeck.setRing("1_2");
         // 7_330,7_336,8_117,7_342,7_345,7_350,8_120,10_120,7_360
         lotroDeck.addSite("7_330");
-        lotroDeck.addSite("7_336");
+        lotroDeck.addSite("7_335");
         lotroDeck.addSite("8_117");
         lotroDeck.addSite("7_342");
         lotroDeck.addSite("7_345");

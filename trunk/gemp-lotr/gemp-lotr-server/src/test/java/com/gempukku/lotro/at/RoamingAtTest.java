@@ -1,0 +1,199 @@
+package com.gempukku.lotro.at;
+
+import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
+import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.logic.decisions.AwaitingDecision;
+import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
+import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
+import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+public class RoamingAtTest extends AbstractAtTest {
+    @Test
+    public void cantPlayRoamingMinionIfNotEnoughTwilight() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
+
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, orcChieftain, Zone.HAND);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        assertEquals(2, _game.getGameState().getTwilightPool());
+        // Can't play the Orc Chieftain
+        AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
+        validateContents(new String[0], (String[]) shadowPhaseDecision.getDecisionParameters().get("actionId"));
+
+        // Orc Chieftain still in hand
+        assertEquals(Zone.HAND, orcChieftain.getZone());
+    }
+
+    @Test
+    public void payingForRoamingMinionDefaultRoamingPenalty() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
+
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, orcChieftain, Zone.HAND);
+        _game.getGameState().addTwilight(2);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        assertEquals(4, _game.getGameState().getTwilightPool());
+        // Can't play the Orc Chieftain
+        AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
+        validateContents(new String[]{"" + orcChieftain.getCardId()}, (String[]) shadowPhaseDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, getCardActionId(shadowPhaseDecision, "Play "));
+
+        // Orc Chieftain in play
+        assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
+        assertEquals(0, _game.getGameState().getTwilightPool());
+        assertTrue(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+    }
+
+    @Test
+    public void payingForRoamingMinionDiscountRoamingPenalty() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
+
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, orcChieftain, Zone.HAND);
+        _game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                new RoamingPenaltyModifier(orcChieftain, Culture.SAURON, -1));
+        _game.getGameState().addTwilight(2);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        assertEquals(4, _game.getGameState().getTwilightPool());
+        // Can't play the Orc Chieftain
+        AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
+        validateContents(new String[]{"" + orcChieftain.getCardId()}, (String[]) shadowPhaseDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, getCardActionId(shadowPhaseDecision, "Play "));
+
+        // Orc Chieftain in play
+        assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
+        assertEquals(1, _game.getGameState().getTwilightPool());
+        assertTrue(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+    }
+
+    @Test
+    public void payingForRoamingMinionNotRoamingModifier() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
+
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, orcChieftain, Zone.HAND);
+        _game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                new RemoveKeywordModifier(orcChieftain, Culture.SAURON, Keyword.ROAMING));
+        _game.getGameState().addTwilight(2);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        assertEquals(4, _game.getGameState().getTwilightPool());
+        // Can't play the Orc Chieftain
+        AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
+        validateContents(new String[]{"" + orcChieftain.getCardId()}, (String[]) shadowPhaseDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, getCardActionId(shadowPhaseDecision, "Play "));
+
+        // Orc Chieftain in play
+        assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
+        assertEquals(2, _game.getGameState().getTwilightPool());
+        assertFalse(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+    }
+
+    @Test
+    public void payingForRoamingMinionSiteNumberModifier() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
+
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, orcChieftain, Zone.HAND);
+        _game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                new MinionSiteNumberModifier(orcChieftain, Culture.SAURON, null, -4));
+        _game.getGameState().addTwilight(2);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        assertEquals(4, _game.getGameState().getTwilightPool());
+        // Can't play the Orc Chieftain
+        AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
+        validateContents(new String[]{"" + orcChieftain.getCardId()}, (String[]) shadowPhaseDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, getCardActionId(shadowPhaseDecision, "Play "));
+
+        // Orc Chieftain in play
+        assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
+        assertEquals(2, _game.getGameState().getTwilightPool());
+        assertFalse(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+    }
+
+    @Test
+    public void payingForRoamingMinionSiteNumberModifierNotEnough() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
+
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, orcChieftain, Zone.HAND);
+        _game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                new MinionSiteNumberModifier(orcChieftain, Culture.SAURON, null, -3));
+        _game.getGameState().addTwilight(2);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        assertEquals(4, _game.getGameState().getTwilightPool());
+        // Can't play the Orc Chieftain
+        AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
+        validateContents(new String[]{"" + orcChieftain.getCardId()}, (String[]) shadowPhaseDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, getCardActionId(shadowPhaseDecision, "Play "));
+
+        // Orc Chieftain in play
+        assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
+        assertEquals(0, _game.getGameState().getTwilightPool());
+        assertTrue(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+    }
+}
