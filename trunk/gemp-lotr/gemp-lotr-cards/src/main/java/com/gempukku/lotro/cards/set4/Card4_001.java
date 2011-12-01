@@ -50,7 +50,6 @@ public class Card4_001 extends AbstractAttachable {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new VitalityModifier(self, Filters.hasAttached(self), 2));
-        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BEARER));
         modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self),

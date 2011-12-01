@@ -9,6 +9,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -52,7 +53,7 @@ public class Card7_212 extends AbstractMinion {
             action.appendCost(
                     new SelfExertEffect(self));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Keyword.RING_BEARER));
+                    new ExertCharactersEffect(self, Filters.ringBearer));
             return Collections.singletonList(action);
         }
         return null;

@@ -7,7 +7,7 @@ public enum Keyword implements Filterable {
 
     CAN_START_WITH_RING("Can-bear-ring", false),
 
-    RING_BOUND("Ring-Bound", true), RING_BEARER("Ring-Bearer", true),
+    RING_BOUND("Ring-Bound", true),
 
     ENDURING("Enduring", true), ROAMING("Roaming", true), TWILIGHT("Twilight", true),
 

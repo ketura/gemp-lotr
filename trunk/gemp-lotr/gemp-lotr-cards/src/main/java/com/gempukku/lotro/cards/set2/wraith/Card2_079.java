@@ -50,12 +50,12 @@ public class Card2_079 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL, Keyword.TWILIGHT));
         action.appendEffect(
-                new ExertCharactersEffect(self, Keyword.RING_BEARER));
+                new ExertCharactersEffect(self, Filters.ringBearer));
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER, Filters.exhausted)) {
+                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.exhausted)) {
                             action.insertEffect(
                                     new PutOnTheOneRingEffect());
                             game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(

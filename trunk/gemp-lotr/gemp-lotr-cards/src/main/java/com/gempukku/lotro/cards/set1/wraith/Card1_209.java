@@ -50,7 +50,7 @@ public class Card1_209 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
                 && self.getZone() == Zone.ATTACHED) {
-            boolean ringBearer = game.getModifiersQuerying().hasKeyword(game.getGameState(), self.getAttachedTo(), Keyword.RING_BEARER);
+            boolean ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()) == self.getAttachedTo();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             if (ringBearer) {
                 action.appendEffect(new AddBurdenEffect(self, 1));

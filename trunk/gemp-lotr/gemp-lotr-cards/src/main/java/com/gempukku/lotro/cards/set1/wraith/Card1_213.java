@@ -3,7 +3,10 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +34,7 @@ public class Card1_213 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Race.NAZGUL) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
-                        boolean notAssigned = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER, Filters.notAssignedToSkirmish);
+                        boolean notAssigned = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.notAssignedToSkirmish);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(nazgul), notAssigned ? 2 : 3), Phase.SKIRMISH));

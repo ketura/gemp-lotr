@@ -68,7 +68,7 @@ public class Card9_030 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
-                && game.getModifiersQuerying().hasKeyword(game.getGameState(), self, Keyword.RING_BEARER)) {
+                && game.getGameState().getRingBearer(playerId) == self) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddBurdenEffect(self, 2));

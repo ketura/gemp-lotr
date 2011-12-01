@@ -42,13 +42,6 @@ public class Filters {
             _keywordFilterMap.put(keyword, keyword(keyword));
 
         // Some simple shortcuts for filters
-        _keywordFilterMap.put(Keyword.RING_BEARER,
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return gameState.getRingBearer(gameState.getCurrentPlayerId()) == physicalCard;
-                    }
-                });
         // Only companions can be rangers
         _keywordFilterMap.put(Keyword.RANGER, Filters.and(CardType.COMPANION, keyword(Keyword.RANGER)));
         // Only allies can be villagers
@@ -302,6 +295,13 @@ public class Filters {
 
     public static final Filter weapon = Filters.or(PossessionClass.HAND_WEAPON, PossessionClass.RANGED_WEAPON);
     public static final Filter character = Filters.or(CardType.ALLY, CardType.COMPANION, CardType.MINION);
+
+    public static final Filter ringBearer = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return gameState.getRingBearer(gameState.getCurrentPlayerId()) == physicalCard;
+        }
+    };
 
     public static final Filter inSkirmish = new Filter() {
         @Override

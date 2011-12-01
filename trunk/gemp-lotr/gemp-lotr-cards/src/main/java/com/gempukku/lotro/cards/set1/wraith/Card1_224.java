@@ -5,7 +5,10 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
@@ -48,7 +51,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
                             for (Assignment assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
 
-                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) > 0) {
+                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) > 0) {
                                 action.appendEffect(
                                         new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Race.NAZGUL, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
                                             @Override

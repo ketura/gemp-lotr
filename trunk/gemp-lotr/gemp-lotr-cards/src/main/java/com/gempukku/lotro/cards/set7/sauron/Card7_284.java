@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -50,7 +49,7 @@ public class Card7_284 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new RemoveThreatsEffect(self, 1));
-                PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER);
+                PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer);
                 AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, ringBearer, self);
                 assignmentEffect.setIgnoreSingleMinionRestriction(true);
                 action.appendEffect(assignmentEffect);

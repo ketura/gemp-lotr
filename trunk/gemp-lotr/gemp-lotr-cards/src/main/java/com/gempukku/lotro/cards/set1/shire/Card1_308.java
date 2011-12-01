@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
@@ -35,7 +34,7 @@ public class Card1_308 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(new AddBurdenEffect(self, 1));
         action.appendEffect(
-                new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Keyword.RING_BEARER)));
+                new WoundCharactersEffect(self, Filters.inSkirmishAgainst(Filters.ringBearer)));
         return action;
     }
 }

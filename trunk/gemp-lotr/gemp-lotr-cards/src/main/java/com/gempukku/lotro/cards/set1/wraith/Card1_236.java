@@ -38,7 +38,7 @@ public class Card1_236 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), self, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
                 action.appendEffect(
-                        new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
+                        new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION, Filters.not(Filters.ringBearer)));
             }
             return Collections.singletonList(action);
         }
