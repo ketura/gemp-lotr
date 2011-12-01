@@ -30,8 +30,8 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public ActionSource getActionSource() {
-        return new ActionSource(_physicalCard);
+    public PhysicalCard getActionSource() {
+        return _physicalCard;
     }
 
     @Override

@@ -19,9 +19,8 @@ public class PreventAllWoundsActionProxy extends AbstractActionProxy {
     private Filterable[] _filters;
 
     public PreventAllWoundsActionProxy(PhysicalCard source, Filterable... filters) {
-        super(source);
         _source = source;
-        this._filters = filters;
+        _filters = filters;
     }
 
     @Override

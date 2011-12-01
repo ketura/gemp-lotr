@@ -15,14 +15,14 @@ public class ChooseAndReturnCardsToHandEffect extends ChooseActiveCardsEffect {
     private Action _action;
 
     public ChooseAndReturnCardsToHandEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
-        super(action.getActionSource().getPhysicalCard(), playerId, "Choose cards to return to hand", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose cards to return to hand", minimum, maximum, filters);
         _action = action;
     }
 
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         SubAction subAction = new SubAction(_action);
-        subAction.appendEffect(new ReturnCardsToHandEffect(_action.getActionSource().getPhysicalCard(), Filters.in(cards)));
+        subAction.appendEffect(new ReturnCardsToHandEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);
     }
 }

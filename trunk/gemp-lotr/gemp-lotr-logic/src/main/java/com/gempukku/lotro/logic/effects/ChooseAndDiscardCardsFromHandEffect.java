@@ -60,14 +60,14 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
 
     @Override
     public void playEffect(final LotroGame game) {
-        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _action.getActionSource().getPhysicalCard()))
+        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _action.getActionSource()))
             return;
 
         Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
 
         if (hand.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
-            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource().getPhysicalCard(), _playerId, hand, _forced));
+            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, hand, _forced));
             processSubAction(game, subAction);
             cardsBeingDiscardedCallback(hand);
         } else {
@@ -77,7 +77,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
-                            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource().getPhysicalCard(), _playerId, cards, _forced));
+                            subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, cards, _forced));
                             processSubAction(game, subAction);
                             cardsBeingDiscardedCallback(cards);
                         }

@@ -18,7 +18,7 @@ public class ChooseAndExhaustCharactersEffect extends ChooseActiveCardsEffect {
     private Action _action;
 
     public ChooseAndExhaustCharactersEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
-        super(action.getActionSource().getPhysicalCard(), playerId, "Choose characters to exert", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose characters to exert", minimum, maximum, filters);
         _action = action;
     }
 
@@ -27,7 +27,7 @@ public class ChooseAndExhaustCharactersEffect extends ChooseActiveCardsEffect {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canBeExerted(gameState, _action.getActionSource().getPhysicalCard(), physicalCard)
+                return modifiersQuerying.canBeExerted(gameState, _action.getActionSource(), physicalCard)
                         && modifiersQuerying.getVitality(gameState, physicalCard) > 1;
             }
         };
@@ -36,7 +36,7 @@ public class ChooseAndExhaustCharactersEffect extends ChooseActiveCardsEffect {
     @Override
     protected final void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
         SubAction subAction = new SubAction(_action);
-        subAction.appendEffect(new ExhaustCharacterEffect(_action.getActionSource().getPhysicalCard(), subAction, Filters.in(characters)));
+        subAction.appendEffect(new ExhaustCharacterEffect(_action.getActionSource(), subAction, Filters.in(characters)));
         game.getActionsEnvironment().addActionToStack(subAction);
     }
 }

@@ -46,21 +46,21 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
             if (_minimalThreatsToRemove < maxRemovableThreats) {
                 game.getUserFeedback().sendAwaitingDecision(
                         _action.getPerformingPlayer(), new IntegerAwaitingDecision(1, "Choose how many threats to remove", _minimalThreatsToRemove, maxRemovableThreats) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                int threats = getValidatedResult(result);
-                                SubAction subAction = new SubAction(_action);
-                                subAction.appendEffect(
-                                        new RemoveThreatsEffect(_action.getActionSource().getPhysicalCard(), threats));
-                                processSubAction(game, subAction);
-                                _threatsRemoved = _minimalThreatsToRemove;
-                            }
-                        }
+                    @Override
+                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                        int threats = getValidatedResult(result);
+                        SubAction subAction = new SubAction(_action);
+                        subAction.appendEffect(
+                                new RemoveThreatsEffect(_action.getActionSource(), threats));
+                        processSubAction(game, subAction);
+                        _threatsRemoved = _minimalThreatsToRemove;
+                    }
+                }
                 );
             } else {
                 SubAction subAction = new SubAction(_action);
                 subAction.appendEffect(
-                        new RemoveThreatsEffect(_action.getActionSource().getPhysicalCard(), _minimalThreatsToRemove));
+                        new RemoveThreatsEffect(_action.getActionSource(), _minimalThreatsToRemove));
                 processSubAction(game, subAction);
                 _threatsRemoved = _minimalThreatsToRemove;
             }

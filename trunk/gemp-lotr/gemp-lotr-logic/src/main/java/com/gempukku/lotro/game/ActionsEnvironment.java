@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -18,7 +19,7 @@ public interface ActionsEnvironment {
 
     public List<Action> getRequiredAfterTriggers(Collection<? extends EffectResult> effectResults);
 
-    public Map<Action, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults);
+    public Map<OptionalTriggerAction, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults);
 
     public List<Action> getOptionalAfterActions(String playerId, Collection<? extends EffectResult> effectResults);
 

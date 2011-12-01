@@ -70,8 +70,8 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public ActionSource getActionSource() {
-        return new ActionSource(_eventPlayed);
+    public PhysicalCard getActionSource() {
+        return _eventPlayed;
     }
 
     @Override
