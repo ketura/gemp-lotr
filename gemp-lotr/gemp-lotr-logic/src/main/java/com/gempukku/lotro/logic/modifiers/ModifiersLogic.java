@@ -189,7 +189,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         LoggingThreadLocal.logMethodStart(physicalCard, "hasKeyword " + keyword.getHumanReadable());
         try {
-            if (hasTextRemoved(gameState, physicalCard))
+            if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword) && hasTextRemoved(gameState, physicalCard))
                 return false;
 
             for (Modifier modifier : getModifiers(gameState, ModifierEffect.KEYWORD_MODIFIER)) {
@@ -219,7 +219,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getKeywordCount " + keyword.getHumanReadable());
         try {
-            if (hasTextRemoved(gameState, physicalCard))
+            if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword) && hasTextRemoved(gameState, physicalCard))
                 return 0;
 
             for (Modifier modifier : getModifiers(gameState, ModifierEffect.KEYWORD_MODIFIER)) {
@@ -240,6 +240,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         } finally {
             LoggingThreadLocal.logMethodEnd();
         }
+    }
+
+    private boolean isCandidateForKeywordRemovalWithTextRemoval(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
+        if (keyword == Keyword.RING_BEARER)
+            return false;
+        if (keyword == Keyword.ROAMING)
+            return false;
+        if (keyword == Keyword.RING_BOUND)
+            if (gameState.getRingBearer(physicalCard.getOwner()) == physicalCard)
+                return false;
+        return true;
     }
 
     private boolean appliesKeywordModifier(GameState gameState, PhysicalCard modifierSource, Keyword keyword) {
