@@ -59,7 +59,7 @@ public class Card6_044 extends AbstractEvent {
                         new MoveLimitModifier(self, 1)));
         action.appendEffect(
                 new AddUntilEndOfPhaseActionProxyEffect(
-                        new AbstractActionProxy(self) {
+                        new AbstractActionProxy() {
                             @Override
                             public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
                                 if (effectResults.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES

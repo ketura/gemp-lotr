@@ -40,7 +40,7 @@ public class SubAction implements Action {
     }
 
     @Override
-    public ActionSource getActionSource() {
+    public PhysicalCard getActionSource() {
         return _action.getActionSource();
     }
 

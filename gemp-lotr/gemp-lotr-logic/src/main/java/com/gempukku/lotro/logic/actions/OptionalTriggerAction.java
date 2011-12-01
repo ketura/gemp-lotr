@@ -13,19 +13,24 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
 
     private boolean _sentMessage;
     private String _text;
+    private String _triggerIdentifier;
+
+    public OptionalTriggerAction(String triggerIdentifier, PhysicalCard attachedToCard) {
+        _actionAttachedToCard = attachedToCard;
+        _triggerIdentifier = triggerIdentifier;
+    }
 
     public OptionalTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         _actionAttachedToCard = physicalCard;
 
-        if (physicalCard != null) {
-            _text = "Optional trigger from " + GameUtils.getCardLink(_physicalCard);
-            _message = GameUtils.getCardLink(_physicalCard) + " optional triggered effect is used";
-        }
+        _text = "Optional trigger from " + GameUtils.getCardLink(_physicalCard);
+        _message = GameUtils.getCardLink(_physicalCard) + " optional triggered effect is used";
+        _triggerIdentifier = String.valueOf(physicalCard.getCardId());
     }
 
-    public void setActionAttachedToCard(PhysicalCard actionAttachedToCard) {
-        _actionAttachedToCard = actionAttachedToCard;
+    public String getTriggerIdentifier() {
+        return _triggerIdentifier;
     }
 
     @Override
@@ -34,8 +39,8 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public ActionSource getActionSource() {
-        return new ActionSource(_physicalCard);
+    public PhysicalCard getActionSource() {
+        return _physicalCard;
     }
 
     @Override

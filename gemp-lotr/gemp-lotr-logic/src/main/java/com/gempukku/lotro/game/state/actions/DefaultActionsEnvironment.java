@@ -34,7 +34,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _actionStack = actionStack;
 
         addAlwaysOnActionProxy(
-                new AbstractActionProxy("Played cards recording") {
+                new AbstractActionProxy() {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
                         if (effectResults.getType() == EffectResult.Type.PLAY) {
@@ -185,22 +185,21 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public Map<Action, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
+    public Map<OptionalTriggerAction, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
         GatherOptionalAfterTriggers gatherActions = new GatherOptionalAfterTriggers(playerId, effectResults);
 
         _lotroGame.getGameState().iterateActiveTextCards(playerId, gatherActions);
 
-        final Map<Action, EffectResult> gatheredActions = gatherActions.getActions();
+        final Map<OptionalTriggerAction, EffectResult> gatheredActions = gatherActions.getActions();
 
         if (effectResults != null) {
             for (ActionProxy actionProxy : _actionProxies) {
                 for (EffectResult effectResult : effectResults) {
-                    if (!effectResult.wasOptionalTriggerUsed(actionProxy.getActionSource())) {
-                        List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
-                        if (actions != null) {
-                            for (OptionalTriggerAction action : actions)
+                    List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
+                    if (actions != null) {
+                        for (OptionalTriggerAction action : actions)
+                            if (!effectResult.wasOptionalTriggerUsed(action))
                                 gatheredActions.put(action, effectResult);
-                        }
                     }
                 }
             }
@@ -355,7 +354,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     private class GatherOptionalAfterTriggers extends CompletePhysicalCardVisitor {
         private String _playerId;
         private Collection<? extends EffectResult> _effectResults;
-        private Map<Action, EffectResult> _actions = new HashMap<Action, EffectResult>();
+        private Map<OptionalTriggerAction, EffectResult> _actions = new HashMap<OptionalTriggerAction, EffectResult>();
 
         private GatherOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
             _playerId = playerId;
@@ -367,19 +366,17 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
                 if (_effectResults != null)
                     for (EffectResult effectResult : _effectResults) {
-                        if (!effectResult.wasOptionalTriggerUsed(physicalCard)) {
-                            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalAfterTriggers(_playerId, _lotroGame, effectResult, physicalCard);
-                            if (actions != null) {
-                                for (Action action : actions) {
+                        List<OptionalTriggerAction> actions = physicalCard.getBlueprint().getOptionalAfterTriggers(_playerId, _lotroGame, effectResult, physicalCard);
+                        if (actions != null) {
+                            for (OptionalTriggerAction action : actions)
+                                if (!effectResult.wasOptionalTriggerUsed(action))
                                     _actions.put(action, effectResult);
-                                }
-                            }
                         }
                     }
             }
         }
 
-        public Map<Action, EffectResult> getActions() {
+        public Map<OptionalTriggerAction, EffectResult> getActions() {
             return _actions;
         }
     }

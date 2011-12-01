@@ -16,7 +16,7 @@ public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect
     private SubAction _resultSubAction;
 
     public ChooseAndDiscardCardsFromPlayEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
-        super(action.getActionSource().getPhysicalCard(), playerId, "Choose cards to discard", minimum, maximum, filters);
+        super(action.getActionSource(), playerId, "Choose cards to discard", minimum, maximum, filters);
         _action = action;
     }
 
@@ -28,7 +28,7 @@ public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         _resultSubAction = new SubAction(_action);
-        _resultSubAction.appendEffect(new DiscardCardsFromPlayEffect(_action.getActionSource().getPhysicalCard(), Filters.in(cards)));
+        _resultSubAction.appendEffect(new DiscardCardsFromPlayEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(_resultSubAction);
         cardsToBeDiscardedCallback(cards);
     }

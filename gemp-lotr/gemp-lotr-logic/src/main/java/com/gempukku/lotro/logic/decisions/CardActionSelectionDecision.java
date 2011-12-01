@@ -32,7 +32,7 @@ public abstract class CardActionSelectionDecision extends AbstractAwaitingDecisi
         for (int i = 0; i < result.length; i++) {
             Action action = actions.get(i);
             if (action.isVirtualCardAction())
-                result[i] = String.valueOf(action.getActionSource().getPhysicalCard().getBlueprintId());
+                result[i] = String.valueOf(action.getActionSource().getBlueprintId());
             else
                 result[i] = "inPlay";
         }

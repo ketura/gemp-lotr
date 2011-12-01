@@ -57,7 +57,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
 
         if (discardableCards.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
-            subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource().getPhysicalCard(), discardableCards));
+            subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), discardableCards));
             processSubAction(game, subAction);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -66,7 +66,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
-                            subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource().getPhysicalCard(), selectedCards));
+                            subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), selectedCards));
                             processSubAction(game, subAction);
                         }
                     });

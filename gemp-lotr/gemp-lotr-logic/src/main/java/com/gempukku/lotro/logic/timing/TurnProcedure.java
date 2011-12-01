@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.PlayOrder;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
@@ -190,7 +191,7 @@ public class TurnProcedure {
             // Remove triggers already resolved
             final Iterator<Action> triggersIterator = optionalBeforeTriggers.iterator();
             while (triggersIterator.hasNext())
-                if (_cardTriggersUsed.contains(triggersIterator.next().getActionSource().getPhysicalCard()))
+                if (_cardTriggersUsed.contains(triggersIterator.next().getActionSource()))
                     triggersIterator.remove();
 
             final List<Action> optionalBeforeActions = _game.getActionsEnvironment().getOptionalBeforeActions(activePlayer, _effect);
@@ -207,7 +208,7 @@ public class TurnProcedure {
                                 if (action != null) {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalBeforeTriggers.contains(action))
-                                        _cardTriggersUsed.add(action.getActionSource().getPhysicalCard());
+                                        _cardTriggersUsed.add(action.getActionSource());
                                     _action.insertEffect(new PlayoutOptionalBeforeResponsesEffect(_action, _cardTriggersUsed, _playOrder, 0, _effect));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {
@@ -241,7 +242,7 @@ public class TurnProcedure {
         public void doPlayEffect(LotroGame game) {
             final String activePlayer = _playOrder.getNextPlayer();
 
-            final Map<Action, EffectResult> optionalAfterTriggers = _game.getActionsEnvironment().getOptionalAfterTriggers(activePlayer, _effectResults);
+            final Map<OptionalTriggerAction, EffectResult> optionalAfterTriggers = _game.getActionsEnvironment().getOptionalAfterTriggers(activePlayer, _effectResults);
 
             final List<Action> optionalAfterActions = _game.getActionsEnvironment().getOptionalAfterActions(activePlayer, _effectResults);
 
@@ -257,7 +258,7 @@ public class TurnProcedure {
                                 if (action != null) {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalAfterTriggers.containsKey(action))
-                                        optionalAfterTriggers.get(action).optionalTriggerUsed(action.getActionSource());
+                                        optionalAfterTriggers.get(action).optionalTriggerUsed((OptionalTriggerAction) action);
                                     _action.insertEffect(new PlayoutOptionalAfterResponsesEffect(_action, _playOrder, 0, _effectResults));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {

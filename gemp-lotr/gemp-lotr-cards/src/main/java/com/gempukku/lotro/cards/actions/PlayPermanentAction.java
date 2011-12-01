@@ -68,8 +68,8 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public ActionSource getActionSource() {
-        return new ActionSource(_permanentPlayed);
+    public PhysicalCard getActionSource() {
+        return _permanentPlayed;
     }
 
     @Override

@@ -50,7 +50,7 @@ public class Card10_030 extends AbstractEvent {
                                         new StrengthModifier(self, card, 2), Phase.SKIRMISH));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
-                                        new AbstractActionProxy(self) {
+                                        new AbstractActionProxy() {
                                             @Override
                                             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                                 if (TriggerConditions.winsSkirmish(game, effectResult, card)) {

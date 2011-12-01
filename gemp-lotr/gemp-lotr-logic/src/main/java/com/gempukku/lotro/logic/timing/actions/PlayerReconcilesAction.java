@@ -63,7 +63,7 @@ public class PlayerReconcilesAction implements Action {
     }
 
     @Override
-    public ActionSource getActionSource() {
+    public PhysicalCard getActionSource() {
         return null;
     }
 

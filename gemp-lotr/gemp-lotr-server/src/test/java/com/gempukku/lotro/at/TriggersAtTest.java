@@ -6,12 +6,13 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
 
 public class TriggersAtTest extends AbstractAtTest {
     @Test
@@ -64,4 +65,6 @@ public class TriggersAtTest extends AbstractAtTest {
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, chooseTriggersDecision.getDecisionType());
         validateContents(new String[]{"" + gimli.getCardId(), "" + stoutAndStrong.getCardId()}, (String[]) chooseTriggersDecision.getDecisionParameters().get("cardId"));
     }
+
+
 }

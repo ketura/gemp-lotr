@@ -18,7 +18,7 @@ public class ChooseAndAssignCharacterToMinionEffect extends ChooseActiveCardEffe
     private PhysicalCard _minion;
 
     public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, PhysicalCard minion, Filterable... filters) {
-        super(action.getActionSource().getPhysicalCard(), playerId, "Choose character to assign " + GameUtils.getCardLink(minion) + " to", filters);
+        super(action.getActionSource(), playerId, "Choose character to assign " + GameUtils.getCardLink(minion) + " to", filters);
         _action = action;
         _playerId = playerId;
         _minion = minion;

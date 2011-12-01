@@ -1,13 +1,12 @@
 package com.gempukku.lotro.logic.timing;
 
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public abstract class EffectResult {
-    private Set<Integer> _optionalTriggersUsedForCardId = new HashSet<Integer>();
-    private Set<String> _optionalTriggersUsedForRuleName = new HashSet<String>();
+    private Set<String> _optionalTriggersUsed = new HashSet<String>();
 
     public enum Type {
         // Translated to new format
@@ -61,25 +60,11 @@ public abstract class EffectResult {
         return _type;
     }
 
-    public void optionalTriggerUsed(Action.ActionSource actionSource) {
-        if (actionSource.getPhysicalCard() != null)
-            _optionalTriggersUsedForCardId.add(actionSource.getPhysicalCard().getCardId());
-        else
-            _optionalTriggersUsedForRuleName.add(actionSource.getRuleName());
+    public void optionalTriggerUsed(OptionalTriggerAction action) {
+        _optionalTriggersUsed.add(action.getTriggerIdentifier());
     }
 
-    public boolean wasOptionalTriggerUsed(PhysicalCard card) {
-        return _optionalTriggersUsedForCardId.contains(card.getCardId());
-    }
-
-    public boolean wasOptionalTriggerUsed(String ruleName) {
-        return _optionalTriggersUsedForRuleName.contains(ruleName);
-    }
-
-    public boolean wasOptionalTriggerUsed(Action.ActionSource actionSource) {
-        if (actionSource.getPhysicalCard() != null)
-            return _optionalTriggersUsedForCardId.contains(actionSource.getPhysicalCard().getCardId());
-        else
-            return _optionalTriggersUsedForRuleName.contains(actionSource.getRuleName());
+    public boolean wasOptionalTriggerUsed(OptionalTriggerAction action) {
+        return _optionalTriggersUsed.contains(action.getTriggerIdentifier());
     }
 }

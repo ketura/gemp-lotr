@@ -24,7 +24,7 @@ public class MusterRule {
 
     public void applyRule() {
         _actionsEnvironment.addAlwaysOnActionProxy(
-                new AbstractActionProxy("Muster rule") {
+                new AbstractActionProxy() {
                     @Override
                     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
@@ -32,7 +32,7 @@ public class MusterRule {
                                 && game.getGameState().getHand(playerId).size() > 0) {
                             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
                             for (PhysicalCard musterCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Keyword.MUSTER)) {
-                                OptionalTriggerAction action = new OptionalTriggerAction(musterCard);
+                                OptionalTriggerAction action = new OptionalTriggerAction("muster" + musterCard.getCardId(), musterCard);
                                 action.appendCost(
                                         new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
                                 action.appendEffect(

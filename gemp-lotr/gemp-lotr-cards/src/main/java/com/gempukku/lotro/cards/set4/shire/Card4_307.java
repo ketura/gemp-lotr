@@ -53,7 +53,7 @@ public class Card4_307 extends AbstractEvent {
                                         new StrengthModifier(self, Filters.sameCard(character), 3), Phase.SKIRMISH));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
-                                        new AbstractActionProxy(self) {
+                                        new AbstractActionProxy() {
                                             @Override
                                             public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
                                                 if (TriggerConditions.winsSkirmish(lotroGame, effectResults, character)

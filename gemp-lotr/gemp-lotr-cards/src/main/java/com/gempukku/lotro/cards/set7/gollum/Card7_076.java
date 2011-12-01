@@ -51,7 +51,7 @@ public class Card7_076 extends AbstractEvent {
         final int moveCount = game.getGameState().getMoveCount();
         action.appendEffect(
                 new AddUntilEndOfPhaseActionProxyEffect(
-                        new AbstractActionProxy(self) {
+                        new AbstractActionProxy() {
                             @Override
                             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                 if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
