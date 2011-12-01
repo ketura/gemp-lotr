@@ -8,14 +8,20 @@ import com.gempukku.lotro.logic.timing.Effect;
 public class PayTwilightCostEffect extends AbstractEffect {
     private PhysicalCard _physicalCard;
     private int _twilightModifier;
+    private boolean _ignoreRoamingPenalty;
 
     public PayTwilightCostEffect(PhysicalCard physicalCard) {
         this(physicalCard, 0);
     }
 
     public PayTwilightCostEffect(PhysicalCard physicalCard, int twilightModifier) {
+        this(physicalCard, twilightModifier, false);
+    }
+
+    public PayTwilightCostEffect(PhysicalCard physicalCard, int twilightModifier, boolean ignoreRoamingPenalty) {
         _physicalCard = physicalCard;
         _twilightModifier = twilightModifier;
+        _ignoreRoamingPenalty = ignoreRoamingPenalty;
     }
 
     @Override
@@ -30,7 +36,7 @@ public class PayTwilightCostEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        int twilightCost = _twilightModifier + game.getModifiersQuerying().getTwilightCost(game.getGameState(), _physicalCard, false);
+        int twilightCost = _twilightModifier + game.getModifiersQuerying().getTwilightCost(game.getGameState(), _physicalCard, _ignoreRoamingPenalty);
 
         String currentPlayerId = game.getGameState().getCurrentPlayerId();
         if (!currentPlayerId.equals(_physicalCard.getOwner())) {
@@ -43,7 +49,7 @@ public class PayTwilightCostEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        int twilightCost = _twilightModifier + game.getModifiersQuerying().getTwilightCost(game.getGameState(), _physicalCard, false);
+        int twilightCost = _twilightModifier + game.getModifiersQuerying().getTwilightCost(game.getGameState(), _physicalCard, _ignoreRoamingPenalty);
 
         String currentPlayerId = game.getGameState().getCurrentPlayerId();
         if (currentPlayerId.equals(_physicalCard.getOwner())) {

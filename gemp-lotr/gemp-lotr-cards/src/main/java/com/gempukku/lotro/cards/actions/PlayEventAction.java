@@ -1,7 +1,11 @@
 package com.gempukku.lotro.cards.actions;
 
+import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -15,7 +19,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PlayEventAction extends AbstractCostToEffectAction {
+public class PlayEventAction extends AbstractCostToEffectAction implements DiscountableAction {
     private PhysicalCard _eventPlayed;
     private boolean _requiresRanger;
 
@@ -31,6 +35,10 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     private boolean _skipDiscardCard;
 
     private String _text;
+    private boolean _discountResolved;
+    private DiscountEffect _discountEffect;
+
+    private boolean _discountApplied;
 
     public PlayEventAction(PhysicalCard card) {
         this(card, false);
@@ -41,7 +49,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         _requiresRanger = requiresRanger;
 
         List<Effect> preCostEffects = new LinkedList<Effect>();
-        appendCost(new PayTwilightCostEffect(card));
         if (card.getZone() == Zone.DECK)
             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
 
@@ -59,6 +66,11 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     @Override
     public Type getType() {
         return Type.PLAY_CARD;
+    }
+
+    @Override
+    public void setDiscountEffect(DiscountEffect discountEffect) {
+        _discountEffect = discountEffect;
     }
 
     public boolean isRequiresRanger() {
@@ -90,6 +102,9 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     @Override
     public Effect nextEffect(LotroGame game) {
+        if (_preCostIterator.hasNext())
+            return _preCostIterator.next();
+
         if (!_cardRemoved) {
             _cardRemoved = true;
             game.getGameState().sendMessage(_eventPlayed.getOwner() + " plays " + GameUtils.getCardLink(_eventPlayed) + " from " + _eventPlayed.getZone().getHumanReadable());
@@ -100,8 +115,34 @@ public class PlayEventAction extends AbstractCostToEffectAction {
             game.getGameState().eventPlayed(_eventPlayed);
         }
 
-        if (_preCostIterator.hasNext())
-            return _preCostIterator.next();
+        if (!_discountResolved) {
+            _discountResolved = true;
+            if (_discountEffect == null) {
+                int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), _eventPlayed, Keyword.TOIL);
+                if (toilCount > 0) {
+                    _discountEffect = new ToilDiscountEffect(this, _eventPlayed, _eventPlayed.getOwner(), _eventPlayed.getBlueprint().getCulture(), toilCount);
+                }
+            }
+            if (_discountEffect != null) {
+                int requiredDiscount = 0;
+                if (_eventPlayed.getBlueprint().getSide() == Side.SHADOW) {
+                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game.getGameState(), _eventPlayed, false);
+                    int underPool = twilightCost - game.getGameState().getTwilightPool();
+                    if (underPool > 0)
+                        requiredDiscount = underPool;
+                }
+                _discountEffect.setMinimalRequiredDiscount(requiredDiscount);
+                return _discountEffect;
+            }
+        }
+
+        if (!_discountApplied) {
+            _discountApplied = true;
+            int twilightModifier = 0;
+            if (_discountEffect != null)
+                twilightModifier -= _discountEffect.getDiscountPaidFor();
+            insertCost(new PayTwilightCostEffect(_eventPlayed, twilightModifier));
+        }
 
         if (!isCostFailed()) {
             Effect cost = getNextCost();
