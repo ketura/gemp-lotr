@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -42,7 +43,10 @@ public class RemoveTokenEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         int tokenCount = game.getGameState().getTokenCount(_target, _token);
         int removeTokens = Math.min(tokenCount, _count);
-        game.getGameState().removeTokens(_target, _token, removeTokens);
+        if (removeTokens > 0) {
+            game.getGameState().removeTokens(_target, _token, removeTokens);
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " removed " + removeTokens + " " + _token + " token" + ((removeTokens > 1) ? "s" : "") + " from " + GameUtils.getCardLink(_target));
+        }
 
         return new FullEffectResult(removeTokens == _count, removeTokens == _count);
     }
