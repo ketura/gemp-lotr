@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,8 +27,7 @@ public class Card4_359 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SHADOW
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SHADOW)
                 && self.getData() == null
                 && game.getGameState().getTwilightPool() < 9) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
@@ -35,8 +35,7 @@ public class Card4_359 extends AbstractSite {
                     new AddTwilightEffect(self, 4));
             return Collections.singletonList(action);
         }
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SHADOW) {
+        if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)) {
             self.storeData(new Object());
         }
         return null;

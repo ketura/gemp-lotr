@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gollum;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
@@ -54,8 +55,7 @@ public class Card7_076 extends AbstractEvent {
                         new AbstractActionProxy() {
                             @Override
                             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                                if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                                        && game.getGameState().getCurrentPhase() == Phase.REGROUP
+                                if (TriggerConditions.endOfPhase(game, effectResult, Phase.REGROUP)
                                         && moveCount == game.getGameState().getMoveCount()) {
                                     RequiredTriggerAction action = new RequiredTriggerAction(self);
                                     action.appendEffect(

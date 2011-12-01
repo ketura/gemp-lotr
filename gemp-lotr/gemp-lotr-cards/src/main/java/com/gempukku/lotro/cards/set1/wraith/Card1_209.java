@@ -47,8 +47,7 @@ public class Card1_209 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && self.getZone() == Zone.ATTACHED) {
             boolean ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()) == self.getAttachedTo();
             RequiredTriggerAction action = new RequiredTriggerAction(self);

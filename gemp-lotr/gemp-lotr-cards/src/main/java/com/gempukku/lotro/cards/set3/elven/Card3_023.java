@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -40,8 +41,7 @@ public class Card3_023 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 0, 2, Filters.any) {

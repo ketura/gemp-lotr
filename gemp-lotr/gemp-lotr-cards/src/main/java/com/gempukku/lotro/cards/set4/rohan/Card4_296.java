@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -26,8 +27,7 @@ public class Card4_296 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Keyword.VILLAGER));

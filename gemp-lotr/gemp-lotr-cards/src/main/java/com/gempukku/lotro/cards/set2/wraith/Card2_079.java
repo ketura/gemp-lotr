@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.wraith;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
@@ -61,9 +62,8 @@ public class Card2_079 extends AbstractOldEvent {
                             game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(
                                     new AbstractActionProxy() {
                                         @Override
-                                        public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
-                                            if (effectResults.getType() == EffectResult.Type.START_OF_PHASE
-                                                    && lotroGame.getGameState().getCurrentPhase() == Phase.REGROUP) {
+                                        public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
+                                            if (TriggerConditions.startOfPhase(lotroGame, effectResult, Phase.REGROUP)) {
                                                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                 action.appendEffect(
                                                         new TakeOffTheOneRingEffect());

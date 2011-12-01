@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,8 +30,7 @@ public class Card7_044 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.REGROUP
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

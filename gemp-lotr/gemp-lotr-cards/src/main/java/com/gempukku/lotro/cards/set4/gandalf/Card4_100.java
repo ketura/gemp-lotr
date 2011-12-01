@@ -54,8 +54,7 @@ public class Card4_100 extends AbstractAttachableFPPossession {
                     new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.hasAttached(self)), PossessionClass.HAND_WEAPON)));
             return Collections.singletonList(action);
         }
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
             final Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getName().equals("Gandalf")) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);

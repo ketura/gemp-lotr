@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
@@ -42,8 +43,7 @@ public class Card7_253 extends AbstractAttachableFPPossession {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

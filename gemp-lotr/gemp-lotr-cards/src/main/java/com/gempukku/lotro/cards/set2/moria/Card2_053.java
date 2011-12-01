@@ -49,8 +49,7 @@ public class Card2_053 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.MANEUVER) {
+        if (TriggerConditions.endOfPhase(game, effectResult, Phase.MANEUVER)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),

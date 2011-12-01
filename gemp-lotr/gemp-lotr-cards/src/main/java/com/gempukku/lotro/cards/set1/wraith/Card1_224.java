@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
@@ -38,8 +39,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+        if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)
                 && game.getGameState().isWearingRing()
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);

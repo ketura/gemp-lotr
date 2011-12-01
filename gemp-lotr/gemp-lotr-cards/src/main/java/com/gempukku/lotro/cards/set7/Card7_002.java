@@ -86,9 +86,8 @@ public class Card7_002 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (game.getGameState().getCurrentPhase() == Phase.REGROUP
-                && game.getGameState().isWearingRing()
-                && effectResult.getType() == EffectResult.Type.START_OF_PHASE) {
+        if ((TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP) || TriggerConditions.endOfPhase(game, effectResult, Phase.REGROUP))
+                && game.getGameState().isWearingRing()) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new TakeOffTheOneRingEffect());
             return Collections.singletonList(action);

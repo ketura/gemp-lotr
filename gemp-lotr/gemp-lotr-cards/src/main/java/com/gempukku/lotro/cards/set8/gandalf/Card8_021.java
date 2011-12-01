@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set8.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
@@ -44,8 +45,7 @@ public class Card8_021 extends AbstractAttachableFPPossession {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
             final Skirmish skirmish = game.getGameState().getSkirmish();
             if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getName().equals("Gandalf")) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
