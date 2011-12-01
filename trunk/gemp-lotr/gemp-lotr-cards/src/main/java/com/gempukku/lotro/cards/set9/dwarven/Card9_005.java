@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,13 +43,12 @@ public class Card9_005 extends AbstractCompanion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
                 && game.getGameState().isFierceSkirmishes()) {
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            for (PhysicalCard physicalCard : skirmishResult.getWinners()) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.appendEffect(
-                        new HealCharactersEffect(self, physicalCard));
-                return Collections.singletonList(action);
-            }
+            CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
+            PhysicalCard winner = skirmishResult.getWinner();
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendEffect(
+                    new HealCharactersEffect(self, winner));
+            return Collections.singletonList(action);
         }
         return null;
     }

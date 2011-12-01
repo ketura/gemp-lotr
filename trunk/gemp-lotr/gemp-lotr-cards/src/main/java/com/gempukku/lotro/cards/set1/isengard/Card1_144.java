@@ -7,10 +7,11 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,11 +33,12 @@ public class Card1_144 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
                 && game.getGameState().getTwilightPool() >= 1) {
-            SkirmishResult skirmishResult = ((SkirmishResult) effectResult);
+            CharacterWonSkirmishResult skirmishResult = ((CharacterWonSkirmishResult) effectResult);
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.setText("Heal " + GameUtils.getCardLink(skirmishResult.getWinner()));
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Race.URUK_HAI, Filters.in(skirmishResult.getWinners())));
+                    new HealCharactersEffect(self, skirmishResult.getWinner()));
             return Collections.singletonList(action);
         }
         return null;

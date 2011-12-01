@@ -12,12 +12,10 @@ import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -35,27 +33,18 @@ public class Card4_027 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.losesSkirmish(game, effectResult,
-                Filters.and(Culture.ROHAN, Race.MAN))) {
-
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            Set<PhysicalCard> winners = skirmishResult.getWinners();
-            Collection<PhysicalCard> winningDunlandMan = Filters.filter(winners, game.getGameState(), game.getModifiersQuerying(), Filters.and(Culture.DUNLAND, Race.MAN));
-
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-            for (final PhysicalCard physicalCard : winningDunlandMan) {
-                OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.setText("Make " + GameUtils.getCardLink(physicalCard) + " strength +2 and Fierce");
-                action.appendEffect(
-                        new AddUntilStartOfPhaseModifierEffect(
-                                new StrengthModifier(self, Filters.sameCard(physicalCard), 2), Phase.REGROUP));
-                action.appendEffect(
-                        new AddUntilStartOfPhaseModifierEffect(
-                                new KeywordModifier(self, Filters.sameCard(physicalCard), Keyword.FIERCE), Phase.REGROUP));
-                actions.add(action);
-            }
-
-            return actions;
+        if (TriggerConditions.winsSkirmishInvolving(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN), Filters.and(Culture.ROHAN, Race.MAN))) {
+            CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
+            PhysicalCard winner = skirmishResult.getWinner();
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.setText("Make " + GameUtils.getCardLink(winner) + " strength +2 and Fierce");
+            action.appendEffect(
+                    new AddUntilStartOfPhaseModifierEffect(
+                            new StrengthModifier(self, Filters.sameCard(winner), 2), Phase.REGROUP));
+            action.appendEffect(
+                    new AddUntilStartOfPhaseModifierEffect(
+                            new KeywordModifier(self, Filters.sameCard(winner), Keyword.FIERCE), Phase.REGROUP));
+            return Collections.singletonList(action);
         }
         return null;
     }
