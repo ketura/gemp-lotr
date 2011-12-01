@@ -50,12 +50,6 @@ public abstract class AbstractOldEvent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return (getSide() != Side.SHADOW
-                || PlayConditions.canPayForShadowCard(game, self, twilightModifier, ignoreRoamingPenalty));
-    }
-
-    @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (_playableInPhases != null) {
             if (PlayConditions.canPlayCardDuringPhase(game, _playableInPhases, self)) {
