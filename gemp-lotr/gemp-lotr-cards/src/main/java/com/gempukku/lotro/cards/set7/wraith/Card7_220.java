@@ -4,7 +4,10 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.ConditionEvaluator;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +32,7 @@ public class Card7_220 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new ConditionEvaluator(2, 4,
-                                new SpotCondition(Keyword.RING_BEARER, Filters.hasWounds(2))),
+                                new SpotCondition(Filters.ringBearer, Filters.hasWounds(2))),
                         Culture.WRAITH, Race.ORC));
         return action;
     }

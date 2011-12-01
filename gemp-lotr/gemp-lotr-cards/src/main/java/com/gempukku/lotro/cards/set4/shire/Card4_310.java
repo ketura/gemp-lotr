@@ -6,7 +6,11 @@ import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -37,10 +41,10 @@ public class Card4_310 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && PlayConditions.canExert(self, game, Keyword.RING_BEARER)) {
+                && PlayConditions.canExert(self, game, Filters.ringBearer)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.RING_BEARER));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.ringBearer));
             action.appendEffect(
                     new PreventableEffect(action,
                             new SelfDiscardEffect(self),

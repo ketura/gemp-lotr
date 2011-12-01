@@ -85,10 +85,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         else {
             LinkedList<Modifier> liveModifiers = new LinkedList<Modifier>();
             for (Modifier modifier : modifiers) {
-                Condition condition = modifier.getCondition();
-                if (condition == null || condition.isFullfilled(gameState, this))
-                    if (modifierEffect == ModifierEffect.TEXT_MODIFIER || modifier.getSource() == null || !hasTextRemoved(gameState, modifier.getSource()))
-                        liveModifiers.add(modifier);
+                if (!_skipSet.contains(modifier)) {
+                    _skipSet.add(modifier);
+                    Condition condition = modifier.getCondition();
+                    if (condition == null || condition.isFullfilled(gameState, this))
+                        if (modifierEffect == ModifierEffect.TEXT_MODIFIER || modifier.getSource() == null || !hasTextRemoved(gameState, modifier.getSource()))
+                            liveModifiers.add(modifier);
+                    _skipSet.remove(modifier);
+                }
             }
 
             return liveModifiers;
@@ -243,8 +247,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     private boolean isCandidateForKeywordRemovalWithTextRemoval(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
-        if (keyword == Keyword.RING_BEARER)
-            return false;
         if (keyword == Keyword.ROAMING)
             return false;
         if (keyword == Keyword.RING_BOUND)

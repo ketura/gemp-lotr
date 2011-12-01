@@ -52,7 +52,7 @@ public class Card1_207 extends AbstractPermanent {
         modifiers.add(
                 new CantHealModifier(self, Filters.hasAttached(self)));
         modifiers.add(
-                new CantRemoveBurdensModifier(self, new SpotCondition(Keyword.RING_BEARER, Filters.hasAttached(self)), Filters.any));
+                new CantRemoveBurdensModifier(self, new SpotCondition(Filters.ringBearer, Filters.hasAttached(self)), Filters.any));
         return modifiers;
     }
 }

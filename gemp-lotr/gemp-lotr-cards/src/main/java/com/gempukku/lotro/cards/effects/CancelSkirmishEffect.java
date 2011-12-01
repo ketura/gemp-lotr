@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
@@ -32,7 +31,7 @@ public class CancelSkirmishEffect extends AbstractEffect {
         return game.getGameState().getSkirmish() != null
                 && !game.getGameState().getSkirmish().isCancelled()
                 && (_involvementFilter == null || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_involvementFilter, Filters.inSkirmish)) > 0)
-                && (game.getFormat().canCancelRingBearerSkirmish() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER, Filters.inSkirmish));
+                && (game.getFormat().canCancelRingBearerSkirmish() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.inSkirmish));
     }
 
     @Override

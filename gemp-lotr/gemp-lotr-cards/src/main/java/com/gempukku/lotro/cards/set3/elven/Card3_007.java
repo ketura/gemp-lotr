@@ -41,7 +41,7 @@ public class Card3_007 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingWounded(effect, game, Keyword.RING_BEARER)
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.ringBearer)
                 && game.getGameState().getHand(playerId).size() >= 3) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
@@ -49,7 +49,7 @@ public class Card3_007 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose character to prevent all wounds", Filters.in(woundedCharacters), Keyword.RING_BEARER) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose character to prevent all wounds", Filters.in(woundedCharacters), Filters.ringBearer) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(

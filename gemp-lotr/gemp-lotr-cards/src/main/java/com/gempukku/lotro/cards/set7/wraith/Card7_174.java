@@ -45,7 +45,7 @@ public class Card7_174 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard nazgul) {
                             action.insertEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.not(Keyword.RING_BEARER), Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, nazgul)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, nazgul)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, final PhysicalCard card) {
                                             action.appendEffect(

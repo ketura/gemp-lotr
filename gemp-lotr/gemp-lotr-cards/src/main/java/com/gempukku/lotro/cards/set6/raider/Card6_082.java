@@ -38,7 +38,7 @@ public class Card6_082 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
-                        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)) {
+                        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Discard a companion (except the Ring-bearer)";

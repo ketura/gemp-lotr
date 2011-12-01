@@ -35,11 +35,11 @@ public class Card7_187 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, self, new SpotCondition(Keyword.RING_BEARER, Filters.exhausted), 3));
+                new StrengthModifier(self, self, new SpotCondition(Filters.ringBearer, Filters.exhausted), 3));
         modifiers.add(
-                new KeywordModifier(self, self, new SpotCondition(Keyword.RING_BEARER, Filters.exhausted), Keyword.FIERCE, 1));
+                new KeywordModifier(self, self, new SpotCondition(Filters.ringBearer, Filters.exhausted), Keyword.FIERCE, 1));
         modifiers.add(
-                new KeywordModifier(self, self, new SpotCondition(Keyword.RING_BEARER, Filters.exhausted), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, self, new SpotCondition(Filters.ringBearer, Filters.exhausted), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }

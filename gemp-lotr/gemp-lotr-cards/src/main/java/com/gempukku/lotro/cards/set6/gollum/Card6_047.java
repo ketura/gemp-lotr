@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,7 +34,7 @@ public class Card6_047 extends AbstractResponseEvent {
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)));
             return Collections.singletonList(action);
         }
         return null;

@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.timing;
 
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -160,7 +159,7 @@ public class TurnProcedure {
             for (EffectResult effectResult : _effectResults) {
                 if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
                     KilledResult killResult = (KilledResult) effectResult;
-                    if (Filters.filter(killResult.getKilledCards(), _game.getGameState(), _game.getModifiersQuerying(), Keyword.RING_BEARER).size() > 0)
+                    if (Filters.filter(killResult.getKilledCards(), _game.getGameState(), _game.getModifiersQuerying(), Filters.ringBearer).size() > 0)
                         return true;
                 }
             }

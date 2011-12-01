@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,11 +36,11 @@ public class Card1_287 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
-        if (TriggerConditions.isGettingHealed(effect, game, Keyword.RING_BEARER)) {
+        if (TriggerConditions.isGettingHealed(effect, game, Filters.ringBearer)) {
             final HealCharactersEffect healEffect = (HealCharactersEffect) effect;
             final PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new PreventCardEffect(healEffect, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER)));
+                    new PreventCardEffect(healEffect, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer)));
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);

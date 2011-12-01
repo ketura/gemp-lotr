@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.cards.modifiers.conditions.InitiativeCondition;
 import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -39,7 +40,7 @@ public class Card7_170 extends AbstractMinion {
         modifiers.add(
                 new CantTakeWoundsModifier(self,
                         new AndCondition(new InitiativeCondition(Side.SHADOW), new PhaseCondition(Phase.ARCHERY)),
-                        Keyword.RING_BEARER));
+                        Filters.ringBearer));
         modifiers.add(
                 new KeywordModifier(self, self, new InitiativeCondition(Side.SHADOW), Keyword.AMBUSH, 8));
         return modifiers;

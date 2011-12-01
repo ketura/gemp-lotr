@@ -57,7 +57,7 @@ public class Card7_129 extends AbstractPermanent {
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)));
             return Collections.singletonList(action);
         }
         return null;

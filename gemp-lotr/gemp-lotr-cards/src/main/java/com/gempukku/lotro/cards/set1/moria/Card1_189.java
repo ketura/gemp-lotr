@@ -8,7 +8,6 @@ import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -41,7 +40,7 @@ public class Card1_189 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if ((TriggerConditions.forEachExerted(game, effectResult, Keyword.RING_BEARER) || TriggerConditions.forEachWounded(game, effectResult, Keyword.RING_BEARER))
+        if ((TriggerConditions.forEachExerted(game, effectResult, Filters.ringBearer) || TriggerConditions.forEachWounded(game, effectResult, Filters.ringBearer))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

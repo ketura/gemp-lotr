@@ -40,7 +40,7 @@ public class Card4_259 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new PreventableEffect(action,
-                                        new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Keyword.RING_BEARER), card),
+                                        new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer), card),
                                         game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {
                                             @Override

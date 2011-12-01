@@ -50,7 +50,7 @@ public class Card7_206 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, self, Filters.hasToken(Token.WRAITH, 3))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ExhaustCharacterEffect(self, action, Keyword.RING_BEARER));
+                    new ExhaustCharacterEffect(self, action, Filters.ringBearer));
             action.appendEffect(
                     new SelfDiscardEffect(self));
             return Collections.singletonList(action);

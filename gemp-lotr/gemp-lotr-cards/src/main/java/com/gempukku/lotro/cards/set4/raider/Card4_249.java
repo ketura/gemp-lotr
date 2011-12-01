@@ -42,10 +42,10 @@ public class Card4_249 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)
                 && PlayConditions.canCardAssignToSkirmish(self, game, self)
-                && PlayConditions.canCardAssignToSkirmish(self, game, Keyword.RING_BEARER)) {
+                && PlayConditions.canCardAssignToSkirmish(self, game, Filters.ringBearer)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Ring-bearer", Keyword.RING_BEARER) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Ring-bearer", Filters.ringBearer) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(new PreventableEffect(action,

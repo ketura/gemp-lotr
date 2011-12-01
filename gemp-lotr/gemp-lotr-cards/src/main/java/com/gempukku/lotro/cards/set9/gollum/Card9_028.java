@@ -6,8 +6,8 @@ import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -48,7 +48,7 @@ public class Card9_028 extends AbstractMinion {
                 action.appendCost(
                         new SelfExertEffect(self));
                 action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.RING_BEARER));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.ringBearer));
                 actions.add(action);
             }
             if (PlayConditions.canRemoveBurdens(game, self, 1)) {
@@ -90,7 +90,7 @@ public class Card9_028 extends AbstractMinion {
                 action.appendCost(
                         new SelfExertEffect(self));
                 action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Keyword.RING_BEARER));
+                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.ringBearer));
                 actions.add(action);
             }
             return actions;

@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -33,6 +32,6 @@ public class Card7_202 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, self, new SpotCondition(Keyword.RING_BEARER, Filters.wounded), 6));
+                new StrengthModifier(self, self, new SpotCondition(Filters.ringBearer, Filters.wounded), 6));
     }
 }

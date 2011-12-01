@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -42,7 +41,7 @@ public class Card2_084 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getBurdens() >= 2 || gameState.getWounds(Filters.findFirstActive(gameState, modifiersQuerying, Keyword.RING_BEARER)) >= 2;
+                                return gameState.getBurdens() >= 2 || gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId())) >= 2;
                             }
                         }, Keyword.DAMAGE, 1));
         modifiers.add(
@@ -50,7 +49,7 @@ public class Card2_084 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getBurdens() >= 2 || gameState.getWounds(Filters.findFirstActive(gameState, modifiersQuerying, Keyword.RING_BEARER)) >= 2;
+                                return gameState.getBurdens() >= 2 || gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId())) >= 2;
                             }
                         }, Keyword.FIERCE, 1));
         return modifiers;

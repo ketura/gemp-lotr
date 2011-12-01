@@ -2,7 +2,6 @@ package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -51,7 +50,7 @@ public class ThreatRule {
                                     Filterable filter = CardType.COMPANION;
 
                                     if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_BEARER_CANT_TAKE_THREAT_WOUNDS))
-                                        filter = Filters.and(filter, Filters.not(Keyword.RING_BEARER));
+                                        filter = Filters.and(filter, Filters.not(Filters.ringBearer));
 
                                     ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, filter);
                                     woundCharacter.setSourceText("Threat Rule");

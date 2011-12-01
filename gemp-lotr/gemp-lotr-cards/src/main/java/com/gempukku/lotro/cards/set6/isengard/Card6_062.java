@@ -35,7 +35,7 @@ public class Card6_062 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 4, 4, Culture.ISENGARD, Race.ORC));
         action.appendEffect(
-                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 4, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
+                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 4, CardType.COMPANION, Filters.not(Filters.ringBearer)));
         return action;
     }
 }

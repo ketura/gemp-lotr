@@ -43,7 +43,7 @@ public class Card1_231 extends AbstractMinion {
             action.appendCost(
                     new SelfExertEffect(self));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)));
             return Collections.singletonList(action);
         }
         return null;

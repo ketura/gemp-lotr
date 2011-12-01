@@ -38,7 +38,7 @@ public class Card10_105 extends AbstractEvent {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
-                                new ReplaceInSkirmishEffect(character, CardType.COMPANION, Filters.not(Keyword.RING_BEARER)));
+                                new ReplaceInSkirmishEffect(character, CardType.COMPANION, Filters.not(Filters.ringBearer)));
                     }
                 });
         return action;
