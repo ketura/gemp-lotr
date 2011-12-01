@@ -2,17 +2,18 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import static junit.framework.Assert.assertEquals;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -69,5 +70,63 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
         assertEquals(Zone.DISCARD, goblinRunner.getZone());
+    }
+
+    @Test
+    public void playDiscountAsfalothOnArwen() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        extraCards.put(P1, Arrays.asList("1_30", "1_31"));
+        initializeSimplestGame(extraCards);
+
+        // Play first character
+        AwaitingDecision firstCharacterDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.ARBITRARY_CARDS, firstCharacterDecision.getDecisionType());
+        validateContents(new String[]{"1_30"}, ((String[]) firstCharacterDecision.getDecisionParameters().get("blueprintId")));
+
+        playerDecided(P1, getArbitraryCardId(firstCharacterDecision, "1_30"));
+
+        skipMulligans();
+
+        PhysicalCard asfaloth = _game.getGameState().getHand(P1).get(0);
+
+        final AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, awaitingDecision.getDecisionType());
+        validateContents(new String[]{"" + asfaloth.getCardId()}, (String[]) awaitingDecision.getDecisionParameters().get("cardId"));
+
+        assertEquals(0, _game.getGameState().getTwilightPool());
+
+        playerDecided(P1, "0");
+
+        assertEquals(0, _game.getGameState().getTwilightPool());
+        assertEquals(Zone.ATTACHED, asfaloth.getZone());
+    }
+
+    @Test
+    public void playDiscountAsfalothOnOtherElf() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        extraCards.put(P1, Arrays.asList("1_51", "1_31"));
+        initializeSimplestGame(extraCards);
+
+        // Play first character
+        AwaitingDecision firstCharacterDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.ARBITRARY_CARDS, firstCharacterDecision.getDecisionType());
+        validateContents(new String[]{"1_51"}, ((String[]) firstCharacterDecision.getDecisionParameters().get("blueprintId")));
+
+        playerDecided(P1, getArbitraryCardId(firstCharacterDecision, "1_51"));
+
+        skipMulligans();
+
+        PhysicalCard asfaloth = _game.getGameState().getHand(P1).get(0);
+
+        final AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, awaitingDecision.getDecisionType());
+        validateContents(new String[]{"" + asfaloth.getCardId()}, (String[]) awaitingDecision.getDecisionParameters().get("cardId"));
+
+        assertEquals(0, _game.getGameState().getTwilightPool());
+
+        playerDecided(P1, "0");
+
+        assertEquals(2, _game.getGameState().getTwilightPool());
+        assertEquals(Zone.ATTACHED, asfaloth.getZone());
     }
 }
