@@ -33,6 +33,7 @@ public class MusterRule {
                             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
                             for (PhysicalCard musterCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Keyword.MUSTER)) {
                                 OptionalTriggerAction action = new OptionalTriggerAction("muster" + musterCard.getCardId(), musterCard);
+                                action.setText("Use Muster");
                                 action.appendCost(
                                         new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
                                 action.appendEffect(

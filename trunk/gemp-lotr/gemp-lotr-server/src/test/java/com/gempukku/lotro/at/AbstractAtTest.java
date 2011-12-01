@@ -7,10 +7,11 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 
 import java.util.*;
+
+import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
@@ -81,6 +82,14 @@ public abstract class AbstractAtTest {
         for (int i = 0; i < blueprints.length; i++)
             if (blueprints[i].equals(blueprintId))
                 return ((String[]) awaitingDecision.getDecisionParameters().get("cardId"))[i];
+        return null;
+    }
+
+    protected String getCardActionId(AwaitingDecision awaitingDecision, String actionTextStart) {
+        String[] actionTexts = (String[]) awaitingDecision.getDecisionParameters().get("actionText");
+        for (int i = 0; i < actionTexts.length; i++)
+            if (actionTexts[i].startsWith(actionTextStart))
+                return ((String[]) awaitingDecision.getDecisionParameters().get("actionId"))[i];
         return null;
     }
 
