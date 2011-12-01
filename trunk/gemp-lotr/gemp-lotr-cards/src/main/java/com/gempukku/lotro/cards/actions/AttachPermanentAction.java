@@ -115,9 +115,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
     @Override
     public Effect nextEffect(LotroGame game) {
-        if (_preCostIterator.hasNext())
-            return _preCostIterator.next();
-
         if (!_cardRemoved) {
             _cardRemoved = true;
             game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
@@ -127,6 +124,9 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
             _targetChosen = true;
             return _chooseTargetEffect;
         }
+
+        if (_preCostIterator.hasNext())
+            return _preCostIterator.next();
 
         if (!_discountResolved) {
             _discountResolved = true;
