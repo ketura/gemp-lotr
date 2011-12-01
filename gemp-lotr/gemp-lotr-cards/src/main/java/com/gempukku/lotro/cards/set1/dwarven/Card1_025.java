@@ -7,12 +7,11 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,10 +38,10 @@ public class Card1_025 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (self.getZone() == Zone.HAND && TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+            CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.DWARF, Filters.in(skirmishResult.getWinners())));
+                    new HealCharactersEffect(self, skirmishResult.getWinner()));
             return Collections.singletonList(action);
         }
         return null;

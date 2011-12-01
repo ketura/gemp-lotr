@@ -8,10 +8,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,18 +33,13 @@ public class Card1_247 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.SAURON, Race.ORC))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+            CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
 
             final PlayEventAction action = new PlayEventAction(self);
+            action.setText("Make " + GameUtils.getCardLink(skirmishResult.getWinner()) + " fierce");
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Culture.SAURON, Race.ORC, Filters.in(skirmishResult.getWinners())) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard winningSauronOrc) {
-                            action.appendEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(winningSauronOrc), Keyword.FIERCE), Phase.REGROUP));
-                        }
-                    });
+                    new AddUntilStartOfPhaseModifierEffect(
+                            new KeywordModifier(self, skirmishResult.getWinner(), Keyword.FIERCE), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

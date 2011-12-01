@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
@@ -10,15 +11,14 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -48,19 +48,19 @@ public class Card5_055 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Culture.ISENGARD, Race.ORC)) {
-            SkirmishResult result = (SkirmishResult) effectResult;
-            Collection<PhysicalCard> winners = Filters.filter(result.getWinners(), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Race.ORC, Filters.canExert(self));
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-            for (PhysicalCard winner : winners) {
+            CharacterWonSkirmishResult result = (CharacterWonSkirmishResult) effectResult;
+            PhysicalCard winner = result.getWinner();
+            if (PlayConditions.canExert(self, game, winner)) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.setText("Exert " + GameUtils.getCardLink(winner));
                 action.appendCost(
                         new ExertCharactersEffect(self, winner));
                 action.appendEffect(
                         new TakeControlOfASiteEffect(self, playerId));
-                actions.add(action);
+                return Collections.singletonList(action);
             }
-            return actions;
         }
+
         return null;
     }
 }

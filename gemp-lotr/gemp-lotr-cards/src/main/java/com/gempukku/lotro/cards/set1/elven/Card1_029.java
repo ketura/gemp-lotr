@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -58,8 +58,8 @@ public class Card1_029 extends AbstractOldEvent {
                                             @Override
                                             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
                                                 if (TriggerConditions.winsSkirmish(lotroGame, effectResult, elf)) {
-                                                    SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-                                                    Set<PhysicalCard> losers = skirmishResult.getLosers();
+                                                    CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
+                                                    Set<PhysicalCard> losers = skirmishResult.getInvolving();
                                                     Set<String> opponents = new HashSet<String>();
                                                     for (PhysicalCard loser : losers)
                                                         opponents.add(loser.getOwner());

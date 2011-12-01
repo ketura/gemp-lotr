@@ -5,24 +5,22 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -45,11 +43,11 @@ public class Card4_079 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.ELF)) {
-            final Set<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
-            if (PlayConditions.canExert(self, game, Filters.in(winners))) {
+            PhysicalCard winner = ((CharacterWonSkirmishResult) effectResult).getWinner();
+            if (PlayConditions.canExert(self, game, winner)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF, Filters.in(winners)));
+                        new ExertCharactersEffect(self, winner));
 
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(

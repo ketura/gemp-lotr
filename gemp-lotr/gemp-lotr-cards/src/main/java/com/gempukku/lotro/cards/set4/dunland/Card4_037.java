@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -9,15 +8,14 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Set: The Two Towers
@@ -39,23 +37,17 @@ public class Card4_037 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
-                && TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
-            final Set<PhysicalCard> winners = ((SkirmishResult) effectResult).getWinners();
+            PhysicalCard winner = ((CharacterWonSkirmishResult) effectResult).getWinner();
             final PlayEventAction action = new PlayEventAction(self);
-            action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Filters.in(winners), Culture.DUNLAND, Race.MAN) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.insertEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), 4), Phase.REGROUP));
-                            action.insertEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(card), Keyword.FIERCE), Phase.REGROUP));
-                        }
-                    });
+            action.setText("Make " + GameUtils.getCardLink(winner) + " strength +4 and Fierce");
+            action.insertEffect(
+                    new AddUntilStartOfPhaseModifierEffect(
+                            new StrengthModifier(self, Filters.sameCard(winner), 4), Phase.REGROUP));
+            action.insertEffect(
+                    new AddUntilStartOfPhaseModifierEffect(
+                            new KeywordModifier(self, Filters.sameCard(winner), Keyword.FIERCE), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

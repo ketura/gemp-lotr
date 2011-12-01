@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,8 +43,8 @@ public class Card4_032 extends AbstractResponseOldEvent {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
                 && checkPlayRequirements(playerId, game, self, 0, false, false)) {
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
-            final Set<PhysicalCard> losers = skirmishResult.getLosers();
+            CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
+            final Set<PhysicalCard> losers = skirmishResult.getInvolving();
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.in(losers)), Side.FREE_PEOPLE)));

@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.SkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,10 +45,10 @@ public class Card7_152 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmishInvolving(game, effectResult, self, CardType.COMPANION)
                 && game.getGameState().getThreats() >= 6) {
-            SkirmishResult skirmishResult = (SkirmishResult) effectResult;
+            CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new KillEffect(skirmishResult.getLosers(), KillEffect.Cause.CARD_EFFECT));
+                    new KillEffect(skirmishResult.getInvolving(), KillEffect.Cause.CARD_EFFECT));
             return Collections.singletonList(action);
         }
         return null;
