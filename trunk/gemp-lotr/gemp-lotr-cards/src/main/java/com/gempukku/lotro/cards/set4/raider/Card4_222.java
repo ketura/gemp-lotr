@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -36,8 +37,7 @@ public class Card4_222 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && game.getGameState().getSkirmish().getShadowCharacters().contains(self)
                 && game.getGameState().getTwilightPool() >= 3) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

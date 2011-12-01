@@ -55,8 +55,7 @@ public class Card2_118 extends AbstractSite {
                 && game.getGameState().getCurrentPhase() == Phase.SHADOW
                 && game.getGameState().getCurrentSite() == self)
             self.storeData(new Object());
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SHADOW
+        if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)
                 && self.getData() != null)
             self.removeData();
         return null;

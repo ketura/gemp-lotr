@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -39,8 +40,7 @@ public class Card3_083 extends AbstractPermanent {
                     new AddTwilightEffect(self, burdens));
             return Collections.singletonList(action);
         }
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SHADOW) {
+        if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(

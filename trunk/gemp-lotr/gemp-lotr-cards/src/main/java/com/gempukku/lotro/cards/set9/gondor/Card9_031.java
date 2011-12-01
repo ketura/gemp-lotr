@@ -38,8 +38,7 @@ public class Card9_031 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && Filters.and(Filters.inSkirmish, Filters.ringBearer).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
