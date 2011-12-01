@@ -29,7 +29,7 @@ var GameAnimations = Class.extend({
                 $("#main").queue(
                         function(next) {
                             var cardDiv = $(".card:cardId(" + cardId + ")");
-                            if (cardDiv != null) {
+                            if (cardDiv.length > 0) {
                                 $(".borderOverlay", cardDiv)
                                         .switchClass("borderOverlay", "highlightBorderOverlay", that.getAnimationLength(that.cardActivatedDuration / 6))
                                         .switchClass("highlightBorderOverlay", "borderOverlay", that.getAnimationLength(that.cardActivatedDuration / 6))
@@ -403,7 +403,7 @@ var GameAnimations = Class.extend({
                         var cardId = cardRemovedIds[i];
                         var card = $(".card:cardId(" + cardId + ")");
 
-                        if (card != null) {
+                        if (card.length > 0) {
                             var cardData = card.data("card");
                             if (cardData.zone == "ATTACHED" || cardData.zone == "STACKED") {
                                 $(".card").each(
