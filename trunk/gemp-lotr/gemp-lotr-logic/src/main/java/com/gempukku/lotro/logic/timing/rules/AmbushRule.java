@@ -31,7 +31,8 @@ public class AmbushRule {
                             AssignmentResult assignmentResult = (AssignmentResult) effectResult;
                             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                                 PhysicalCard assignedCard = assignmentResult.getAssignedCard();
-                                if (Filters.and(CardType.MINION, Keyword.AMBUSH).accepts(game.getGameState(), game.getModifiersQuerying(), assignedCard)) {
+                                if (Filters.and(CardType.MINION, Keyword.AMBUSH).accepts(game.getGameState(), game.getModifiersQuerying(), assignedCard)
+                                        && assignedCard.getOwner().equals(playerId)) {
                                     final int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), assignedCard, Keyword.AMBUSH);
                                     OptionalTriggerAction action = new OptionalTriggerAction("ambush" + assignedCard.getCardId(), assignedCard);
                                     action.setText("Ambush - add " + count);
