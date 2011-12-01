@@ -38,6 +38,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         _unique = unique;
     }
 
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier, ignoreRoamingPenalty));
+    }
+
     protected void addKeyword(Keyword keyword) {
         addKeyword(keyword, 1);
     }
