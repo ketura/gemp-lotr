@@ -1,8 +1,12 @@
 package com.gempukku.lotro.cards.actions;
 
+import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PayPlayOnTwilightCostEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -16,7 +20,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.*;
 
-public class AttachPermanentAction extends AbstractCostToEffectAction {
+public class AttachPermanentAction extends AbstractCostToEffectAction implements DiscountableAction {
     private PhysicalCard _cardToAttach;
 
     private boolean _cardRemoved;
@@ -34,6 +38,13 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     private boolean _exertTarget;
 
     private PhysicalCard _target;
+
+    private boolean _discountResolved;
+    private DiscountEffect _discountEffect;
+
+    private boolean _discountApplied;
+
+    private int _twilightModifier;
 
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
         _cardToAttach = card;
@@ -55,11 +66,12 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                             if (filterIntegerEntry.getKey().accepts(game.getGameState(), game.getModifiersQuerying(), target))
                                 modifier += filterIntegerEntry.getValue();
 
+                        _twilightModifier = modifier;
+
                         List<Effect> preCostEffects = new LinkedList<Effect>();
                         preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + zone.getHumanReadable() + " on " + GameUtils.getCardLink(target)));
                         if (zone == Zone.DECK)
                             preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
-                        appendCost(new PayPlayOnTwilightCostEffect(card, target, modifier));
 
                         _preCostIterator = preCostEffects.iterator();
 
@@ -71,6 +83,11 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     @Override
     public Type getType() {
         return Type.PLAY_CARD;
+    }
+
+    @Override
+    public void setDiscountEffect(DiscountEffect discountEffect) {
+        _discountEffect = discountEffect;
     }
 
     public PhysicalCard getTarget() {
@@ -98,6 +115,9 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
     @Override
     public Effect nextEffect(LotroGame game) {
+        if (_preCostIterator.hasNext())
+            return _preCostIterator.next();
+
         if (!_cardRemoved) {
             _cardRemoved = true;
             game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
@@ -108,10 +128,35 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
             return _chooseTargetEffect;
         }
 
-        if (_playCardEffect != null) {
-            if (_preCostIterator.hasNext())
-                return _preCostIterator.next();
+        if (!_discountResolved) {
+            _discountResolved = true;
+            if (_discountEffect == null) {
+                int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), _cardToAttach, Keyword.TOIL);
+                if (toilCount > 0) {
+                    _discountEffect = new ToilDiscountEffect(this, _cardToAttach, _cardToAttach.getOwner(), _cardToAttach.getBlueprint().getCulture(), toilCount);
+                }
+            }
+            if (_discountEffect != null) {
+                int requiredDiscount = 0;
+                if (_cardToAttach.getBlueprint().getSide() == Side.SHADOW) {
+                    int twilightCost = game.getModifiersQuerying().getPlayOnTwilightCost(game.getGameState(), _cardToAttach, _target);
+                    int underPool = twilightCost - game.getGameState().getTwilightPool();
+                    if (underPool > 0)
+                        requiredDiscount = underPool;
+                }
+                _discountEffect.setMinimalRequiredDiscount(requiredDiscount);
+                return _discountEffect;
+            }
+        }
 
+        if (!_discountApplied) {
+            _discountApplied = true;
+            if (_discountEffect != null)
+                _twilightModifier -= _discountEffect.getDiscountPaidFor();
+            insertCost(new PayPlayOnTwilightCostEffect(_cardToAttach, _target, _twilightModifier));
+        }
+
+        if (_playCardEffect != null) {
             if (!isCostFailed()) {
                 Effect cost = getNextCost();
                 if (cost != null)
