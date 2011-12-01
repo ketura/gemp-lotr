@@ -34,11 +34,11 @@ var GempLotrHallUI = Class.extend({
         var height = $(div).height();
 
         this.tablesDiv = $("<div></div>");
-        this.tablesDiv.css({overflow: "auto", left: "0px", top: "0px", width: width + "px", height: (height - 40) + "px"});
+        this.tablesDiv.css({overflow: "auto", left: "0px", top: "0px", width: width + "px", height: (height - 30) + "px"});
         this.div.append(this.tablesDiv);
 
         var buttonsDiv = $("<div></div>");
-        buttonsDiv.css({left: "0px", top: (height - 40) + "px", width: width + "px", height: 40 + "px", align: "right"});
+        buttonsDiv.css({left: "0px", top: (height - 30) + "px", width: width + "px", height: 29 + "px", align: "right", backgroundColor: "#000000", "border-top-width": "1px", "border-top-color": "#ffffff", "border-top-style": "solid"});
 
         var that = this;
 
