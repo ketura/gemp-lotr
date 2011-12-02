@@ -16,4 +16,24 @@ public class Player {
     public String getName() {
         return _name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+
+        if (_id != player._id) return false;
+        if (_name != null ? !_name.equals(player._name) : player._name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = _id;
+        result = 31 * result + (_name != null ? _name.hashCode() : 0);
+        return result;
+    }
 }
