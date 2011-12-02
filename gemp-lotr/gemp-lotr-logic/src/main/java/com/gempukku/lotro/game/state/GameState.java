@@ -48,6 +48,7 @@ public class GameState {
     private Skirmish _skirmish = null;
 
     private Set<GameStateListener> _gameStateListeners = new HashSet<GameStateListener>();
+    private LinkedList<String> _lastMessages = new LinkedList<String>();
 
     private int _nextCardId = 0;
 
@@ -199,6 +200,9 @@ public class GameState {
             }
 
             listener.sendGameStats(gameStats);
+
+            for (String lastMessage : _lastMessages)
+                listener.sendMessage(lastMessage);
         }
 
         final AwaitingDecision awaitingDecision = _playerDecisions.get(playerId);
@@ -207,6 +211,9 @@ public class GameState {
     }
 
     public void sendMessage(String message) {
+        _lastMessages.add(message);
+        if (_lastMessages.size() > 10)
+            _lastMessages.removeFirst();
         for (GameStateListener listener : getAllGameStateListeners())
             listener.sendMessage(message);
     }
