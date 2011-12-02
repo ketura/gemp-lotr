@@ -45,7 +45,7 @@ public class Card5_023 extends AbstractAttachable {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gollumOrSmeagol));
             action.appendEffect(
-                    new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
+                    new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             return Collections.singletonList(action);
         }
         return null;

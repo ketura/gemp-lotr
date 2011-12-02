@@ -38,7 +38,7 @@ public class Card2_026 extends AbstractOldEvent {
         PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
         if (nextSite == null || !nextSite.getOwner().equals(playerId)) {
             action.appendEffect(
-                    new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1) {
+                    new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1) {
                         @Override
                         protected void sitePlayedCallback(PhysicalCard site) {
                             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), site, Keyword.UNDERGROUND))

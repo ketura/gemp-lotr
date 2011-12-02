@@ -94,7 +94,7 @@ public class Card1_295 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(self));
-            action.appendEffect(new PlaySiteEffect(playerId, Block.FELLOWSHIP, 1));
+            action.appendEffect(new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, 1));
             actions.add(action);
         }
         LotroCardBlueprint copied = getCopied(game, self);

@@ -48,7 +48,7 @@ public class Card7_076 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.smeagol));
         action.appendEffect(
-                new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
+                new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
         final int moveCount = game.getGameState().getMoveCount();
         action.appendEffect(
                 new AddUntilEndOfPhaseActionProxyEffect(

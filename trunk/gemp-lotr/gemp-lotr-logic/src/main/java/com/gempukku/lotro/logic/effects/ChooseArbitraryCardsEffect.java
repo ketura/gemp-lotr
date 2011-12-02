@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.effects.choose;
+package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;

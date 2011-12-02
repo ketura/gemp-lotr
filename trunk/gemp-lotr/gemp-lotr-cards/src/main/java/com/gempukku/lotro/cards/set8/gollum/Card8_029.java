@@ -37,7 +37,7 @@ public class Card8_029 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
+                new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
                         new TwilightCostModifier(self, Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1), -1), game.getGameState().getCurrentPhase()));

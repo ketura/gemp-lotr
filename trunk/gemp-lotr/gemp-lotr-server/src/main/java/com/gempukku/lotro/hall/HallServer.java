@@ -35,7 +35,7 @@ public class HallServer extends AbstractServer {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
-        _chatServer.createChatRoom("Game Hall");
+        _chatServer.createChatRoom("Game Hall", 10);
 
         addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
         addFormat("c_fotr_block", "Community Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));

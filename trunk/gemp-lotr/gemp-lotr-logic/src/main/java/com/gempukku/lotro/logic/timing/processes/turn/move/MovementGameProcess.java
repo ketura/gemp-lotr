@@ -50,7 +50,7 @@ public class MovementGameProcess implements GameProcess {
                             }
 
                             action.insertEffect(
-                                    new PlaySiteEffect(playerToPlaySite, null, nextSiteNumber));
+                                    new PlaySiteEffect(action, playerToPlaySite, null, nextSiteNumber));
                         }
                     }
                 });
