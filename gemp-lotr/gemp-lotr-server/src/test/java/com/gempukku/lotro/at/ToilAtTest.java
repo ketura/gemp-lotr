@@ -6,7 +6,6 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.LoggingThreadLocal;
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
@@ -254,12 +253,7 @@ public class ToilAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, corpsOfHarad2, Zone.SHADOW_CHARACTERS);
         _game.getGameState().addTwilight(6);
 
-        LoggingThreadLocal.start();
-        try {
-            playerDecided(P1, "");
-        } finally {
-            LoggingThreadLocal.stop(true);
-        }
+        playerDecided(P1, "");
 
         assertEquals(8, _game.getGameState().getTwilightPool());
 
@@ -307,12 +301,7 @@ public class ToilAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, corpsOfHarad5, Zone.SHADOW_CHARACTERS);
         _game.getGameState().addTwilight(6);
 
-        LoggingThreadLocal.start();
-        try {
-            playerDecided(P1, "");
-        } finally {
-            LoggingThreadLocal.stop(true);
-        }
+        playerDecided(P1, "");
 
         assertEquals(8, _game.getGameState().getTwilightPool());
 
