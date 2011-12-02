@@ -12,7 +12,11 @@ public class ChatRoomMediator {
 
     private Map<String, GatheringChatRoomListener> _listeners = new HashMap<String, GatheringChatRoomListener>();
 
-    private final int _channelInactivityTimeoutPeriod = 1000 * 10; // 10 seconds
+    private int _channelInactivityTimeoutPeriod = 1000 * 10; // 10 seconds
+
+    public ChatRoomMediator(int secondsTimeoutPeriod) {
+        _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
+    }
 
     public synchronized List<ChatMessage> joinUser(String playerId) {
         GatheringChatRoomListener value = new GatheringChatRoomListener();

@@ -59,7 +59,7 @@ public class Card7_079 extends AbstractAttachableFPPossession {
                 && (game.getGameState().getCurrentSiteNumber() == 2 || game.getGameState().getCurrentSiteNumber() == 5)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
+                    new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             return Collections.singletonList(action);
         }
         return null;

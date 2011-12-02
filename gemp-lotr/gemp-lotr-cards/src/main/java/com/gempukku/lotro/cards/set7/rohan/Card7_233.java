@@ -35,7 +35,7 @@ public class Card7_233 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new PlaySiteEffect(playerId, Block.KING, game.getGameState().getCurrentSiteNumber(), Keyword.PLAINS));
+                    new PlaySiteEffect(action, playerId, Block.KING, game.getGameState().getCurrentSiteNumber(), Keyword.PLAINS));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
             return Collections.singletonList(action);

@@ -134,7 +134,7 @@ public class LotroServer extends AbstractServer {
         final String gameId = String.valueOf(_nextGameId);
         String chatRoomName = getChatRoomName(gameId);
 
-        ChatRoomMediator room = _chatServer.createChatRoom(chatRoomName);
+        ChatRoomMediator room = _chatServer.createChatRoom(chatRoomName, 30);
         room.sendMessage("System", "You're starting a game of " + formatName);
 
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary);

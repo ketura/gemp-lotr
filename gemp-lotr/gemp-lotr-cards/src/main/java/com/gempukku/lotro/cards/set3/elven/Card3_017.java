@@ -56,7 +56,7 @@ public class Card3_017 extends AbstractAlly {
             Collection<PhysicalCard> nextSites = Filters.filter(game.getGameState().getAdventureDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1));
             if (nextSites.size() > 0 && game.getModifiersQuerying().hasKeyword(game.getGameState(), nextSites.iterator().next(), Keyword.FOREST)) {
                 action.appendEffect(
-                        new PlaySiteEffect(playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
+                        new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             }
             return Collections.singletonList(action);
         }

@@ -36,7 +36,7 @@ public class Card2_116 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT));
             action.appendEffect(
-                    new PlaySiteEffect(playerId, Block.FELLOWSHIP, 2));
+                    new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, 2));
             return Collections.singletonList(action);
         }
         return null;

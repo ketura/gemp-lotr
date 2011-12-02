@@ -21,7 +21,7 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
     public void process(LotroGame game) {
         SystemQueueAction action = new SystemQueueAction();
         action.appendEffect(
-                new PlaySiteEffect(_firstPlayer, null, 1));
+                new PlaySiteEffect(action, _firstPlayer, null, 1));
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override

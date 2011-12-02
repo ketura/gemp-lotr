@@ -30,10 +30,10 @@ public class Card4_304 extends AbstractEvent {
         action.appendCost(
                 new AddBurdenEffect(self, 2));
         action.appendEffect(
-                new PlaySiteEffect(playerId, null, siteNumber + 1));
+                new PlaySiteEffect(action, playerId, null, siteNumber + 1));
         if (siteNumber < 8)
             action.appendEffect(
-                    new PlaySiteEffect(playerId, null, siteNumber + 2));
+                    new PlaySiteEffect(action, playerId, null, siteNumber + 2));
         return action;
     }
 }

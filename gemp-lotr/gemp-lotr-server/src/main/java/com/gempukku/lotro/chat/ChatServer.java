@@ -8,8 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatServer extends AbstractServer {
     private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
 
-    public ChatRoomMediator createChatRoom(String name) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator();
+    public ChatRoomMediator createChatRoom(String name, int secondsTimeoutPeriod) {
+        ChatRoomMediator chatRoom = new ChatRoomMediator(secondsTimeoutPeriod);
         chatRoom.sendMessage("System", "Welcome to room: " + name);
         _chatRooms.put(name, chatRoom);
         return chatRoom;

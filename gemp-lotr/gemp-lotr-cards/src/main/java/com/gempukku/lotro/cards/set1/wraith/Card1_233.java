@@ -45,7 +45,7 @@ public class Card1_233 extends AbstractMinion {
                     new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", CardType.SITE, Filters.not(Filters.owner(playerId))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard site) {
-                            action.appendEffect(new PlaySiteEffect(playerId, Block.FELLOWSHIP, site.getBlueprint().getSiteNumber()));
+                            action.appendEffect(new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, site.getBlueprint().getSiteNumber()));
                         }
                     });
             return Collections.singletonList(action);
