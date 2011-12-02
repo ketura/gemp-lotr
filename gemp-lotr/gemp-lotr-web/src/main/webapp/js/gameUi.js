@@ -995,6 +995,7 @@ var GempLotrGameUI = Class.extend({
         });
 
         this.smallDialog.dialog("open");
+        $('.ui-dialog :button').blur();
     },
 
     multipleChoiceDecision: function(decision) {
@@ -1023,6 +1024,7 @@ var GempLotrGameUI = Class.extend({
         }
 
         this.smallDialog.dialog("open");
+        $('.ui-dialog :button').blur();
     },
 
     createCardDiv: function(card, text, foil) {
@@ -1190,6 +1192,7 @@ var GempLotrGameUI = Class.extend({
 
         this.cardActionDialog.dialog("open");
         this.arbitraryDialogResize(false);
+        $('.ui-dialog :button').blur();
     },
 
     // Choosing one action to resolve, for example phase actions
@@ -1456,6 +1459,7 @@ var GempLotrGameUI = Class.extend({
 
         this.cardActionDialog.dialog("open");
         this.arbitraryDialogResize(false);
+        $('.ui-dialog :button').blur();
     },
 
     // Choosing some number of cards, for example to character
