@@ -8,7 +8,6 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.GameHistoryDAO;
-import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.logic.timing.GameResultListener;
@@ -32,7 +31,6 @@ public class LotroServer extends AbstractServer {
 
     private int _nextGameId = 1;
 
-    private PlayerDAO _playerDao;
     private DeckDAO _deckDao;
     private GameHistoryDAO _gameHistoryDao;
     private DefaultCardCollection _defaultCollection;
@@ -69,7 +67,6 @@ public class LotroServer extends AbstractServer {
         );
         thr.start();
 
-        _playerDao = new PlayerDAO(dbAccess);
         _deckDao = new DeckDAO(dbAccess);
 
         _gameHistoryDao = new GameHistoryDAO(dbAccess);
@@ -95,10 +92,6 @@ public class LotroServer extends AbstractServer {
 
     public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary() {
         return _lotroCardBlueprintLibrary;
-    }
-
-    public PlayerDAO getPlayerDao() {
-        return _playerDao;
     }
 
     public DeckDAO getDeckDao() {
@@ -216,8 +209,7 @@ public class LotroServer extends AbstractServer {
         }
     }
 
-    public LotroDeck getParticipantDeck(String participantId, String deckName) {
-        Player player = _playerDao.getPlayer(participantId);
+    public LotroDeck getParticipantDeck(Player player, String deckName) {
         LotroDeck deck = _deckDao.getDeckForPlayer(player, deckName);
         if (deck == null)
             return null;

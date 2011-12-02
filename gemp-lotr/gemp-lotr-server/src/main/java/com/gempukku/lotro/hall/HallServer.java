@@ -2,7 +2,6 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
@@ -16,7 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
     private LeagueService _leagueService;
-    private CollectionDAO _collectionDao;
     private LotroServer _lotroServer;
 
     private Map<String, String> _supportedFormatNames = new LinkedHashMap<String, String>();
@@ -33,11 +31,10 @@ public class HallServer extends AbstractServer {
 
     private Map<Player, Long> _lastVisitedPlayers = Collections.synchronizedMap(new LinkedHashMap<Player, Long>());
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, CollectionDAO collectionDao, boolean test) {
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
-        _collectionDao = collectionDao;
         _chatServer.createChatRoom("Game Hall");
 
         addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
@@ -101,7 +98,7 @@ public class HallServer extends AbstractServer {
         if (isPlayerBusy(player.getName()))
             throw new HallException("You can't play more than one game at a time or wait at more than one table");
 
-        LotroDeck lotroDeck = _lotroServer.getParticipantDeck(player.getName(), deckName);
+        LotroDeck lotroDeck = _lotroServer.getParticipantDeck(player, deckName);
         if (lotroDeck == null)
             throw new HallException("You don't have a deck registered yet");
 
