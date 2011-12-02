@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,8 +42,9 @@ public class Card7_133 extends AbstractMinion {
         if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
+            AssignmentResult assignment = (AssignmentResult) effectResult;
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(self)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.in(assignment.getAgainst())));
             return Collections.singletonList(action);
         }
         return null;
