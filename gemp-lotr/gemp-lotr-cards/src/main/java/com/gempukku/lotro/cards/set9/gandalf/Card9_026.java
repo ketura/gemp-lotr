@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set9.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Culture;
@@ -41,7 +42,8 @@ public class Card9_026 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (self.getData() == null) {
+        if ((TriggerConditions.played(game, effectResult, self) || effectResult.getType() == EffectResult.Type.START_OF_TURN)
+                && self.getData() == null) {
             self.storeData(new Object());
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new MoveLimitModifier(self, 1));
