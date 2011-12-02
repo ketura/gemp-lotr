@@ -79,14 +79,16 @@ public class HallServer extends AbstractServer {
         String formatName = null;
         if (format != null)
             formatName = _supportedFormatNames.get(type);
-        // Maybe it's a league format?
+
         if (format == null) {
+            // Maybe it's a league format?
             final League league = _leagueService.getLeagueByType(type);
             if (league != null) {
                 format = _leagueService.getLeagueFormat(league, player);
                 formatName = league.getName();
             }
         }
+        // It's not a normal format and also not a league one
         if (format == null)
             throw new HallException("This format is not supported: " + type);
 
