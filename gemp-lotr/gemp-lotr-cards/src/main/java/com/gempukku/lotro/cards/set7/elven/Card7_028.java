@@ -44,17 +44,17 @@ public class Card7_028 extends AbstractPermanent {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new SelfDiscardEffect(self) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Discard this condition";
-                        }
-                    });
-            possibleCosts.add(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard a card from hand";
+                        }
+                    });
+            possibleCosts.add(
+                    new SelfDiscardEffect(self) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard this condition";
                         }
                     });
             action.appendCost(
