@@ -731,6 +731,12 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
@@ -738,7 +744,7 @@ public class ServerResource {
 
         Element hall = doc.createElement("hall");
 
-        _hallServer.processTables(participantId, new SerializeHallInfoVisitor(doc, hall));
+        _hallServer.processTables(player, new SerializeHallInfoVisitor(doc, hall));
         for (Map.Entry<String, String> format : _hallServer.getSupportedFormatNames().entrySet()) {
             Element formatElem = doc.createElement("format");
             formatElem.setAttribute("type", format.getKey());
@@ -768,8 +774,14 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
         try {
-            _hallServer.joinTableAsPlayer(tableId, participantId, deckName);
+            _hallServer.joinTableAsPlayer(tableId, player, deckName);
             return null;
         } catch (HallException e) {
             return marshalException(e);
@@ -786,8 +798,14 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
         try {
-            _hallServer.createNewTable(format, participantId, deckName);
+            _hallServer.createNewTable(format, player, deckName);
             return null;
         } catch (HallException e) {
             return marshalException(e);
@@ -802,7 +820,13 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        _hallServer.leaveAwaitingTables(participantId);
+        PlayerDAO playerDao = _lotroServer.getPlayerDao();
+
+        Player player = playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        _hallServer.leaveAwaitingTables(player);
     }
 
     @GET
