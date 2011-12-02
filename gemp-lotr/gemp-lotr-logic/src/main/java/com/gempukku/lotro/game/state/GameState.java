@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.timing.GameStats;
 import java.util.*;
 
 public class GameState {
+    private static final int LAST_MESSAGE_STORED_COUNT = 10;
     private PlayerOrder _playerOrder;
 
     private Map<String, List<PhysicalCardImpl>> _adventureDecks = new HashMap<String, List<PhysicalCardImpl>>();
@@ -212,7 +213,7 @@ public class GameState {
 
     public void sendMessage(String message) {
         _lastMessages.add(message);
-        if (_lastMessages.size() > 10)
+        if (_lastMessages.size() > LAST_MESSAGE_STORED_COUNT)
             _lastMessages.removeFirst();
         for (GameStateListener listener : getAllGameStateListeners())
             listener.sendMessage(message);
