@@ -49,7 +49,7 @@ public class LeagueService {
         return null;
     }
 
-    public LotroFormat getLeagueFormat(League league) {
-        return new LeagueFormat(_library, true);
+    public LotroFormat getLeagueFormat(League league, Player player) {
+        return new LeagueFormat(_library, getLeagueCollection(player, league), true);
     }
 }
