@@ -44,6 +44,7 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
         final Collection<PhysicalCard> selectableCards = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+        int maximum = Math.min(_maximum, selectableCards.size());
 
         boolean success = selectableCards.size() >= _minimum;
 
@@ -53,7 +54,7 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
             cardsSelected(game, selectableCards);
         else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose cards from hand", selectableCards, minimum, _maximum) {
+                    new CardsSelectionDecision(1, "Choose cards from hand", selectableCards, minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

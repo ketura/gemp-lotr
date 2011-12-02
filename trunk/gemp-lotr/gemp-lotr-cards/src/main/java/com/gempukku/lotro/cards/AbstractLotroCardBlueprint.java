@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -40,6 +41,9 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), self, Keyword.TOIL);
+        if (toilCount > 0)
+            twilightModifier -= toilCount * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), getCulture(), Filters.character, Filters.canExert(self));
         return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, twilightModifier, ignoreRoamingPenalty));
     }
 

@@ -66,6 +66,8 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
         final Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilterForPlaying(game)));
+        // Lets get the count realistic
+        int maximum = Math.min(_maximum, matchingCards.size());
 
         int minimum = _minimum;
         if (matchingCards.size() < minimum)
@@ -77,7 +79,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
             cardsSelected(game, matchingCards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, _choiceText, matchingCards, minimum, _maximum) {
+                    new CardsSelectionDecision(1, _choiceText, matchingCards, minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

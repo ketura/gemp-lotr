@@ -54,13 +54,15 @@ public abstract class ChooseStackedCardsEffect extends AbstractEffect {
         for (PhysicalCard stackedOnCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter))
             stackedCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), _stackedCardFilter));
 
+        int maximum = Math.min(_maximum, stackedCards.size());
+
         final boolean success = stackedCards.size() >= _minimum;
 
         if (stackedCards.size() <= _minimum) {
             cardsChosen(stackedCards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose cards", stackedCards, _minimum, _maximum) {
+                    new CardsSelectionDecision(1, "Choose cards", stackedCards, _minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> stackedCards = getSelectedCardsByResponse(result);

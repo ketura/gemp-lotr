@@ -18,8 +18,8 @@ import java.util.Set;
 public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
     private Action _action;
     private String _playerId;
-    private int _minimum;
-    private int _maximum;
+    private final int _minimum;
+    private final int _maximum;
     private PhysicalCard _stackOn;
     private Filterable _filter;
 
@@ -50,6 +50,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
         Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+        int maximum = Math.min(_maximum, hand.size());
 
         final boolean success = hand.size() >= _minimum;
 
@@ -61,7 +62,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
             stackFromHandCallback(hand);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose cards to stack", hand, _minimum, _maximum) {
+                    new CardsSelectionDecision(1, "Choose cards to stack", hand, _minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
