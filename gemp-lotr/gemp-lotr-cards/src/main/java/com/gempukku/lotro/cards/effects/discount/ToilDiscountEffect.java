@@ -66,6 +66,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
                             _exertedCount++;
                         }
                     });
+            processSubAction(game, subAction);
         }
     }
 
