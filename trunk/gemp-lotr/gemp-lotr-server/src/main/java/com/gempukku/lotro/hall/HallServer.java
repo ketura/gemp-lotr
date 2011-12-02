@@ -76,11 +76,16 @@ public class HallServer extends AbstractServer {
      */
     public synchronized void createNewTable(String type, Player player, String deckName) throws HallException {
         LotroFormat format = _supportedFormats.get(type);
+        String formatName = null;
+        if (format != null)
+            formatName = _supportedFormatNames.get(type);
         // Maybe it's a league format?
         if (format == null) {
             final League league = _leagueService.getLeagueByType(type);
-            if (league != null)
+            if (league != null) {
                 format = _leagueService.getLeagueFormat(league, player);
+                formatName = league.getName();
+            }
         }
         if (format == null)
             throw new HallException("This format is not supported: " + type);
@@ -88,7 +93,7 @@ public class HallServer extends AbstractServer {
         LotroDeck lotroDeck = validateUserAndDeck(type, format, player, deckName);
 
         String tableId = String.valueOf(_nextTableId++);
-        AwaitingTable table = new AwaitingTable(type, _supportedFormatNames.get(type), format);
+        AwaitingTable table = new AwaitingTable(type, formatName, format);
         _awaitingTables.put(tableId, table);
 
         joinTableInternal(tableId, player.getName(), table, deckName, lotroDeck);
