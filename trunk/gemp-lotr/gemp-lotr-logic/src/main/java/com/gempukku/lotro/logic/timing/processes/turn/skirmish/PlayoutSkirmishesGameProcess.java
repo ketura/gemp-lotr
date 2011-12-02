@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.turn.skirmish;
 
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,9 +29,14 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
             final List<Assignment> assignments = gameState.getAssignments();
 
             if (assignments.size() > 0) {
-                Set<PhysicalCard> fps = new HashSet<PhysicalCard>();
-                for (Assignment assignment : assignments)
-                    fps.add(assignment.getFellowshipCharacter());
+                Set<PhysicalCard> nonLurkerSkirmishFps = new HashSet<PhysicalCard>();
+                Set<PhysicalCard> lurkerSkirmishFps = new HashSet<PhysicalCard>();
+                for (Assignment assignment : assignments) {
+                    if (Filters.filter(assignment.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Keyword.LURKER).size() > 0)
+                        lurkerSkirmishFps.add(assignment.getFellowshipCharacter());
+                    else
+                        nonLurkerSkirmishFps.add(assignment.getFellowshipCharacter());
+                }
 
                 String playerChoosingSkirmishOrder = gameState.getCurrentPlayerId();
                 if (game.getModifiersQuerying().hasFlagActive(gameState, ModifierFlag.SKIRMISH_ORDER_BY_FIRST_SHADOW_PLAYER))
@@ -38,7 +44,13 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
 
                 SystemQueueAction chooseNextSkirmishAction = new SystemQueueAction();
 
-                ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, playerChoosingSkirmishOrder, "Choose next skirmish to resolve", Filters.in(fps)) {
+                Set<PhysicalCard> skirmishChoice;
+                if (nonLurkerSkirmishFps.size() > 0)
+                    skirmishChoice = nonLurkerSkirmishFps;
+                else
+                    skirmishChoice = lurkerSkirmishFps;
+
+                ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, playerChoosingSkirmishOrder, "Choose next skirmish to resolve", Filters.in(skirmishChoice)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         final Assignment assignment = findAssignment(assignments, card);
