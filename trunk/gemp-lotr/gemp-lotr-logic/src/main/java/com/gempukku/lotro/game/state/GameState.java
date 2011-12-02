@@ -200,10 +200,10 @@ public class GameState {
             }
 
             listener.sendGameStats(gameStats);
-
-            for (String lastMessage : _lastMessages)
-                listener.sendMessage(lastMessage);
         }
+
+        for (String lastMessage : _lastMessages)
+            listener.sendMessage(lastMessage);
 
         final AwaitingDecision awaitingDecision = _playerDecisions.get(playerId);
         if (awaitingDecision != null)
