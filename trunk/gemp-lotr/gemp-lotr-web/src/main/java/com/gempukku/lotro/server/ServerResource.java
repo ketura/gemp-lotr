@@ -57,6 +57,7 @@ public class ServerResource {
     private ChatServer _chatServer;
     private LeagueService _leagueService;
     private CollectionDAO _collectionDao;
+    private PlayerDAO _playerDao;
     private PackBox _packBox;
 
     public ServerResource() {
@@ -73,10 +74,11 @@ public class ServerResource {
             _lotroServer.startServer();
 
             _collectionDao = new CollectionDAO(dbAccess, _library);
+            _playerDao = new PlayerDAO(dbAccess);
 
             _leagueService = new LeagueService(dbAccess, _collectionDao, _library);
 
-            _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _collectionDao, _test);
+            _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _test);
             _hallServer.startServer();
 
             DefaultPackBox packBox = new DefaultPackBox();
@@ -97,7 +99,7 @@ public class ServerResource {
             @FormParam("login") String login,
             @FormParam("password") String password,
             @Context HttpServletRequest request) throws Exception {
-        if (_lotroServer.getPlayerDao().loginUser(login, password) != null) {
+        if (_playerDao.loginUser(login, password) != null) {
             logUser(request, login);
             return "<script>location.href='hall.html';</script>";
         } else {
@@ -112,7 +114,7 @@ public class ServerResource {
             @FormParam("login") String login,
             @FormParam("password") String password,
             @Context HttpServletRequest request) throws Exception {
-        if (_lotroServer.getPlayerDao().registerUser(login, password)) {
+        if (_playerDao.registerUser(login, password)) {
             logUser(request, login);
             return "<script>location.href='hall.html';</script>";
         } else {
@@ -178,9 +180,7 @@ public class ServerResource {
         if (start < 0 || count < 1 || count > 100)
             sendError(Response.Status.BAD_REQUEST);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
@@ -334,12 +334,11 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
+
+        DeckDAO deckDao = _lotroServer.getDeckDao();
 
         List<String> names = new ArrayList<String>(deckDao.getPlayerDeckNames(player));
         Collections.sort(names);
@@ -367,12 +366,11 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
+
+        DeckDAO deckDao = _lotroServer.getDeckDao();
 
         LotroDeck deck = deckDao.getDeckForPlayer(player, deckName);
         if (deck == null) {
@@ -398,12 +396,11 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
+
+        DeckDAO deckDao = _lotroServer.getDeckDao();
 
         LotroDeck deck = _lotroServer.validateDeck(contents);
         if (deck == null)
@@ -432,12 +429,11 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
+
+        DeckDAO deckDao = _lotroServer.getDeckDao();
 
         LotroDeck deck = deckDao.renameDeck(player, oldDeckName, deckName);
         if (deck == null)
@@ -455,12 +451,11 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
+
+        DeckDAO deckDao = _lotroServer.getDeckDao();
 
         deckDao.deleteDeckForPlayer(player, deckName);
     }
@@ -551,7 +546,9 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        Player player = _lotroServer.getPlayerDao().getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
 
         CardCollection collection = getCollection(player, collectionType);
         if (collection == null)
@@ -618,7 +615,9 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        Player player = _lotroServer.getPlayerDao().getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
 
         CardCollection collection = getCollection(player, collectionType);
         if (collection == null || !(collection instanceof MutableCardCollection))
@@ -731,9 +730,7 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
@@ -774,9 +771,7 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
@@ -798,9 +793,7 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
@@ -820,9 +813,7 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        PlayerDAO playerDao = _lotroServer.getPlayerDao();
-
-        Player player = playerDao.getPlayer(participantId);
+        Player player = _playerDao.getPlayer(participantId);
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
