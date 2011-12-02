@@ -44,7 +44,7 @@ public class Card7_134 extends AbstractMinion {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             AssignmentResult assignment = (AssignmentResult) effectResult;
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.in(assignment.getAgainst())));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.assignedAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;
