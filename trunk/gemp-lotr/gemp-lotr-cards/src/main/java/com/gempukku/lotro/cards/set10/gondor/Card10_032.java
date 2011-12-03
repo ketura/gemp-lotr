@@ -71,7 +71,7 @@ public class Card10_032 extends AbstractPermanent {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.inSkirmishAgainst(Culture.GONDOR, Race.MAN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
