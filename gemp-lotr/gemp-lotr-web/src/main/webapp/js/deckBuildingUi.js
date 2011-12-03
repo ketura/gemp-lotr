@@ -45,30 +45,30 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.deckDiv = $("#deckDiv");
 
         this.manageDecksDiv = $("<div id='manageDecks'></div>");
-        this.manageDecksDiv.append("Opened deck: ");
-        this.manageDecksDiv.append("<span id='openedDeck'><i>New deck</i></span> ");
 
-        var newDeckBut = $("<button>New deck</button>");
+        var newDeckBut = $("<button title='New deck'><span class='ui-icon ui-icon-document'></span></button>").button();
         this.manageDecksDiv.append(newDeckBut);
 
-        var saveDeckBut = $("<button>Save deck</button>");
+        var saveDeckBut = $("<button title='Save deck'><span class='ui-icon ui-icon-disk'></span></button>").button();
         this.manageDecksDiv.append(saveDeckBut);
 
-        var renameDeckBut = $("<button>Rename deck</button>");
+        var renameDeckBut = $("<button title='Rename deck'><span class='ui-icon ui-icon-tag'></span></button>").button();
         this.manageDecksDiv.append(renameDeckBut);
 
-        this.decksSelect = $("<select></select>");
+        this.decksSelect = $("<select style='vertical-align: top;'></select>");
         this.manageDecksDiv.append(this.decksSelect);
 
-        var loadDeckBut = $("<button>Load deck</button>");
+        var loadDeckBut = $("<button title='Load deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
         this.manageDecksDiv.append(loadDeckBut);
+
+        this.manageDecksDiv.append("<span id='editingDeck'>Editing deck: New deck</span>");
 
         this.deckDiv.append(this.manageDecksDiv);
 
         newDeckBut.click(
                 function() {
                     that.deckName = null;
-                    $("#openedDeck").html("<i>New deck</i>");
+                    $("#editingDeck").html("Editing deck: New deck");
                     that.clearDeck();
                 });
 
@@ -82,7 +82,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                             alert("Deck name has to have at least 3 characters and at most 40 characters.");
                         else {
                             that.deckName = newDeckName;
-                            $("#openedDeck").html(newDeckName);
+                            $("#editingDeck").text("Editing deck: " + newDeckName);
                             that.saveDeck(true);
                         }
                     } else {
@@ -92,6 +92,10 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         renameDeckBut.click(
                 function() {
+                    if (that.deckName == null) {
+                        alert("You can't rename this deck, since it's not named (saved) yet.");
+                        return;
+                    }
                     var newDeckName = prompt("Enter new name for the deck", "");
                     if (newDeckName == null)
                         return;
@@ -100,7 +104,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     else {
                         var oldDeckName = that.deckName;
                         that.deckName = newDeckName;
-                        $("#openedDeck").html(newDeckName);
+                        $("#editingDeck").text("Editing deck: " + newDeckName);
                         that.comm.renameDeck(oldDeckName, newDeckName,
                                 function() {
                                     that.loadDecks();
@@ -387,11 +391,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -798,7 +802,7 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (ringBearer.length == 1) {
                 this.clearDeck();
                 this.deckName = deckName;
-                $("#openedDeck").html(deckName);
+                $("#editingDeck").text("Editing deck: " + deckName);
 
                 this.addCardToContainer(ringBearer[0].getAttribute("blueprintId"), "deck", this.ringBearerDiv, false).addClass("cardInDeck");
                 this.addCardToContainer(root.getElementsByTagName("ring")[0].getAttribute("blueprintId"), "deck", this.ringDiv, false).addClass("cardInDeck");
@@ -876,7 +880,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     layoutUI: function(layoutDivs) {
         if (layoutDivs) {
-            var manageHeight = 30;
+            var manageHeight = 23;
 
             var padding = 5;
             var collectionWidth = this.collectionDiv.width();
