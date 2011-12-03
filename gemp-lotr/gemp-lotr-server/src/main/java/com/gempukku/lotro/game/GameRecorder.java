@@ -71,7 +71,7 @@ public class GameRecorder {
     }
 
     private File getRecordingFile(String playerId, String gameId) {
-        File gameReplayFolder = new File("i:\\gemp-lotr\\replay");
+        File gameReplayFolder = new File("/etc/gemp-lotr/replay");
         File playerReplayFolder = new File(gameReplayFolder, playerId);
         return new File(playerReplayFolder, gameId + ".xml");
     }
