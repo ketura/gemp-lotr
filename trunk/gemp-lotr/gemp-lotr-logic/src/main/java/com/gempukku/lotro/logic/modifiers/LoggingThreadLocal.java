@@ -18,7 +18,7 @@ public class LoggingThreadLocal {
     private static synchronized void initializeOutputStream() {
         if (_fos == null) {
             try {
-                _fos = new FileOutputStream(new File("I:\\dev\\longActions.txt"));
+                _fos = new FileOutputStream(new File("/etc/gemp-lotr/longActions.txt"));
             } catch (IOException exp) {
                 throw new RuntimeException(exp);
             }

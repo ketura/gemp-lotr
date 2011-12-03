@@ -8,7 +8,7 @@
         </layout>
     </appender>
     <appender name="R" class="org.apache.log4j.RollingFileAppender">
-        <param name="file" value="i:/dev/gemp-lotr.log"/>
+        <param name="file" value="logs/gemp-lotr.log"/>
         <param name="MaxFileSize" value="10MB"/>
         <param name="MaxBackupIndex" value="20"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -16,7 +16,7 @@
         </layout>
     </appender>
     <appender name="M" class="org.apache.log4j.RollingFileAppender">
-        <param name="file" value="i:/dev/modifiers.log"/>
+        <param name="file" value="logs/modifiers.log"/>
         <param name="MaxFileSize" value="100MB"/>
         <param name="MaxBackupIndex" value="20"/>
         <layout class="org.apache.log4j.PatternLayout">
