@@ -21,7 +21,7 @@ public class CollectionSerializerTest {
         collection.addCards("1_231T", library.getLotroCardBlueprint("1_231T"), 3);
         collection.addCards("1_23*", library.getLotroCardBlueprint("1_23*"), 3);
         collection.addCards("1_237T*", library.getLotroCardBlueprint("1_237T*"), 3);
-        collection.addPacks("Fellowship of the Ring", 2);
+        collection.addPacks("Fellowship of the Ring - League", 2);
 
         CollectionSerializer serializer = new CollectionSerializer(library);
 
@@ -38,7 +38,7 @@ public class CollectionSerializerTest {
         assertEquals(3, (int) result.get("1_231T"));
         assertEquals(3, (int) result.get("1_23*"));
         assertEquals(3, (int) result.get("1_237T*"));
-        assertEquals(2, (int) result.get("Fellowship of the Ring"));
+        assertEquals(2, (int) result.get("Fellowship of the Ring - League"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class CollectionSerializerTest {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
         DefaultCardCollection collection = new DefaultCardCollection(library);
-        collection.addPacks("fotrLeague", 8);
+        collection.addPacks("Fellowship of the Ring - League", 8);
 
         CollectionSerializer serializer = new CollectionSerializer(library);
 
@@ -59,6 +59,6 @@ public class CollectionSerializerTest {
 
         final Map<String, Integer> result = resultCollection.getAll();
         assertEquals(1, result.size());
-        assertEquals(8, (int) result.get("fotrLeague"));
+        assertEquals(8, (int) result.get("Fellowship of the Ring - League"));
     }
 }
