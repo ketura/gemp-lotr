@@ -39,7 +39,7 @@ public class Card5_094 extends AbstractPermanent {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Culture.ROHAN, Race.MAN) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Culture.ROHAN, Race.MAN, Filters.mounted) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             boolean atPlains = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.PLAINS);
