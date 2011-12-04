@@ -28,8 +28,8 @@ import java.util.List;
  * Easterling Host and make it strength -2 until the regroup phase to make each other [MEN] minion strength +1 until
  * the regroup phase.
  */
-public class Card11_089 extends AbstractMinion {
-    public Card11_089() {
+public class Card11_075 extends AbstractMinion {
+    public Card11_075() {
         super(5, 13, 3, 4, Race.MAN, Culture.MEN, "Easterling Host", true);
         addKeyword(Keyword.LURKER);
     }
