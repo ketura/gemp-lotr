@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.cards.effects.NegateWoundEffect;
 import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
 import com.gempukku.lotro.cards.effects.TakeOffTheOneRingEffect;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
@@ -84,7 +84,7 @@ public class Card4_001 extends AbstractAttachable {
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new PreventCardEffect(woundEffect, self.getAttachedTo()));
+            action.appendEffect(new NegateWoundEffect(woundEffect, self.getAttachedTo()));
             action.appendEffect(new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);
         }
