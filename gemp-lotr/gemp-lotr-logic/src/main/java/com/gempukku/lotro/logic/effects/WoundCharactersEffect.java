@@ -87,4 +87,8 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
         if (!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS))
             super.preventEffect(game, card);
     }
+
+    public void negateWound(LotroGame game, PhysicalCard card) {
+        super.preventEffect(game, card);
+    }
 }
