@@ -36,7 +36,7 @@ public class Card11_065 extends AbstractCompanion {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber()));
+                    new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
             return Collections.singletonList(action);
         }
         return null;
