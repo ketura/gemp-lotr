@@ -257,4 +257,8 @@ public class TriggerConditions {
         }
         return false;
     }
+
+    public static boolean moves(LotroGame game, EffectResult effectResult) {
+        return effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES;
+    }
 }
