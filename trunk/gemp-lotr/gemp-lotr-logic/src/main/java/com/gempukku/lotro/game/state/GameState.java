@@ -373,6 +373,7 @@ public class GameState {
                 removeFromSkirmish(card, false);
 
             removeAllTokens(card);
+            card.setWhileInZoneData(null);
         }
 
         for (GameStateListener listener : getAllGameStateListeners())
