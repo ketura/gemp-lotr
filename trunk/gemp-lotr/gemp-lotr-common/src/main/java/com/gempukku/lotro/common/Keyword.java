@@ -14,7 +14,7 @@ public enum Keyword implements Filterable {
     WEATHER("Weather", true), TALE("Tale", true), SPELL("Spell", true), SEARCH("Search", true), STEALTH("Stealth", true), TENTACLE("Tentacle", true),
 
     RIVER("River", true), PLAINS("Plains", true), UNDERGROUND("Underground", true), SANCTUARY("Sanctuary", true), FOREST("Forest", true), MARSH("Marsh", true), MOUNTAIN("Mountain", true),
-    BATTLEGROUND("Battleground", true),
+    BATTLEGROUND("Battleground", true), DWELLING("Dwelling", true),
 
     PIPEWEED("Pipeweed"),
 
