@@ -4,11 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -33,7 +29,7 @@ public class Card1_359 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ORC) >= 5) {
+                && PlayConditions.canSpot(game, 5, CardType.MINION, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilEndOfTurnModifierEffect(

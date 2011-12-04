@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -30,7 +30,7 @@ public class Card3_113 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE, CardType.COMPANION) >= 2;
+                && PlayConditions.canSpot(game, 2, Culture.SHIRE, CardType.COMPANION);
     }
 
     @Override

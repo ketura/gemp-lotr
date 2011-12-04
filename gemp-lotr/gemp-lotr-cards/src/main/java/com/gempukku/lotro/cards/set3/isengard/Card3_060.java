@@ -39,8 +39,7 @@ public class Card3_060 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));
-            int characterSpot = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
-            if (characterSpot >= 5) {
+            if (PlayConditions.canSpot(game, 5, CardType.COMPANION)) {
                 action.appendEffect(
                         new DiscardCardsFromPlayEffect(self, Filters.and(Side.FREE_PEOPLE, CardType.POSSESSION)));
             } else {

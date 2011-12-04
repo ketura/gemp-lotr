@@ -153,7 +153,7 @@ public class PlayConditions {
     }
 
     public static boolean canSpot(LotroGame game, int count, Filterable... filters) {
-        return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), filters) >= count;
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), count, filters);
     }
 
     public static boolean canSpotThreat(LotroGame game, int count) {
@@ -282,11 +282,11 @@ public class PlayConditions {
     }
 
     public static boolean canCardAssignToSkirmish(PhysicalCard source, LotroGame game, Filterable filter) {
-        return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()), filter) > 0;
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()), filter);
     }
 
     public static boolean canRemoveAnyCultureTokens(LotroGame game, int count, Filterable... fromFilters) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count))).size() > 0;
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count)));
     }
 
     public static boolean canRemoveTokens(LotroGame game, PhysicalCard from, Token token) {

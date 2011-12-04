@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -32,7 +32,7 @@ public class Card3_119 extends AbstractSite {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && playerId.equals(game.getGameState().getCurrentPlayerId())
                 && game.getGameState().getCurrentSite() == self
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ELF) >= 2) {
+                && PlayConditions.canSpot(game, 2, Race.ELF)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self));

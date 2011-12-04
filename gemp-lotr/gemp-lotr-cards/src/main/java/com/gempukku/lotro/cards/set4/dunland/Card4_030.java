@@ -39,7 +39,7 @@ public class Card4_030 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Race.MAN) >= 2) {
+                && PlayConditions.canSpot(game, 2, Culture.DUNLAND, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));

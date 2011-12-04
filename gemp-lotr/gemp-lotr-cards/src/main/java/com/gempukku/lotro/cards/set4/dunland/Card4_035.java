@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -24,7 +25,7 @@ public class Card4_035 extends AbstractOldEvent {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) >= 2;
+        return PlayConditions.canSpot(game, 2, Filters.siteControlled(playerId));
     }
 
     @Override

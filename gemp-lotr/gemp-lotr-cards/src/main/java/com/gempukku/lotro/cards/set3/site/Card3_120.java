@@ -30,7 +30,7 @@ public class Card3_120 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.MANEUVER, self)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 4
+                && PlayConditions.canSpot(game, 4, CardType.COMPANION)
                 && PlayConditions.canExert(self, game, Filters.owner(playerId), Culture.ISENGARD, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

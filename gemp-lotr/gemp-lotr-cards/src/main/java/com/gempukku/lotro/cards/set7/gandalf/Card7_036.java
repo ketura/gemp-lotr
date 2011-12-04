@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set7.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -37,7 +38,7 @@ public class Card7_036 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(final LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, self,
                         new Condition() {
@@ -48,7 +49,7 @@ public class Card7_036 extends AbstractCompanion {
                                     companionCultures.add(companion.getBlueprint().getCulture());
 
                                 for (Culture companionCulture : companionCultures) {
-                                    if (Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION, companionCulture) >= 3)
+                                    if (PlayConditions.canSpot(game, 3, CardType.COMPANION, companionCulture))
                                         return false;
                                 }
 

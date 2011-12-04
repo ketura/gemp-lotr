@@ -28,7 +28,7 @@ public class CountActiveEvaluator implements Evaluator {
 
     @Override
     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        final int active = Math.max(0, Filters.countSpottable(gameState, modifiersQuerying, _filters) - _over);
+        final int active = Math.max(0, Filters.countActive(gameState, modifiersQuerying, _filters) - _over);
         if (_limit == null)
             return active;
         return Math.min(_limit, active);

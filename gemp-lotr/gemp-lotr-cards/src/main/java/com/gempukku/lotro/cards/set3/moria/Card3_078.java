@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.moria;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -27,7 +28,7 @@ public class Card3_078 extends AbstractOldEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE, CardType.COMPANION) >= 2;
+                && PlayConditions.canSpot(game, 2, Culture.SHIRE, CardType.COMPANION);
     }
 
     @Override
