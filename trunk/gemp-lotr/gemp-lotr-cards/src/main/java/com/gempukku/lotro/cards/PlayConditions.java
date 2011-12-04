@@ -72,6 +72,10 @@ public class PlayConditions {
         return (phase == null || game.getGameState().getCurrentPhase() == phase) && (game.getGameState().getCurrentSite() == self);
     }
 
+    public static boolean location(LotroGame game, Filterable... filters) {
+        return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite());
+    }
+
     public static boolean stackedOn(PhysicalCard card, LotroGame game, Filterable... filters) {
         return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), card.getStackedOn());
     }
