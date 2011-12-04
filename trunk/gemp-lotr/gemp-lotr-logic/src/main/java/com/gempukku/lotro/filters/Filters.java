@@ -510,6 +510,21 @@ public class Filters {
         };
     }
 
+    public static Filter region(final int region) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                int siteNumber = physicalCard.getBlueprint().getSiteNumber();
+                if (region == 1)
+                    return siteNumber <= 3;
+                else if (region == 2)
+                    return siteNumber>3 && siteNumber<=6;
+                else
+                    return siteNumber>6;
+            }
+        };
+    }
+
     public static Filter hasAttached(final Filterable... filters) {
         return new Filter() {
             @Override
