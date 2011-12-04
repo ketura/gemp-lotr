@@ -32,7 +32,7 @@ public class Card6_007 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 2)
                 && PlayConditions.canSpot(game, 2, Filters.siteControlled(playerId))
-                && PlayConditions.canPlayFromDiscard(playerId, game, 2, Culture.DUNLAND, Race.MAN)) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, 2, 0, Culture.DUNLAND, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));

@@ -35,7 +35,7 @@ public class Card10_003 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.DWARF, CardType.MINION)
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             final ResolveSkirmishDamageAction resolveSkirmishDamageAction = game.getActionsEnvironment().findTopmostActionOfType(ResolveSkirmishDamageAction.class);
             if (resolveSkirmishDamageAction != null
                     && resolveSkirmishDamageAction.getRemainingDamage() > 0) {

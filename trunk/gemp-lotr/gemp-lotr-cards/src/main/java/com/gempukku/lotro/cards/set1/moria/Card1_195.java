@@ -31,7 +31,7 @@ public class Card1_195 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 2)
                 // You have to be able to play the MORIA possession from your discard pile to use this card
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, CardType.POSSESSION, Filters.playable(game, 2)).size() > 0) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, 2, 0, Culture.MORIA, CardType.POSSESSION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(

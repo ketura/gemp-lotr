@@ -14,8 +14,8 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.Collection;
 
 public class PlayConditions {
-    public static boolean canPayForShadowCard(LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        return game.getModifiersQuerying().getTwilightCost(game.getGameState(), self, ignoreRoamingPenalty) + twilightModifier <= game.getGameState().getTwilightPool();
+    public static boolean canPayForShadowCard(LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty) {
+        return game.getModifiersQuerying().getTwilightCost(game.getGameState(), self, ignoreRoamingPenalty) + twilightModifier <= game.getGameState().getTwilightPool() - withTwilightRemoved;
     }
 
     private static boolean containsPhase(Phase[] phases, Phase phase) {
@@ -225,6 +225,10 @@ public class PlayConditions {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile))).size() > 0;
     }
 
+    public static boolean canPlayFromHand(String playerId, LotroGame game, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile, Filterable... filters) {
+        return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile))).size() > 0;
+    }
+
     public static boolean canPlayFromDeadPile(String playerId, LotroGame game, Filterable... filters) {
         return Filters.filter(game.getGameState().getDeadPile(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, 0, false, true))).size() > 0;
     }
@@ -249,6 +253,12 @@ public class PlayConditions {
         if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
             return false;
         return Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, modifier))).size() > 0;
+    }
+
+    public static boolean canPlayFromDiscard(String playerId, LotroGame game, int withTwilightRemoved, int modifier, Filterable... filters) {
+        if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
+            return false;
+        return Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, withTwilightRemoved, modifier, false, false))).size() > 0;
     }
 
     public static boolean canDiscardFromPlay(final PhysicalCard source, LotroGame game, final PhysicalCard card) {

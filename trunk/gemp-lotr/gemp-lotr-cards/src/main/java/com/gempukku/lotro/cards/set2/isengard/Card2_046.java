@@ -39,7 +39,7 @@ public class Card2_046 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 1)
                 && PlayConditions.canExert(self, game, self)
                 // There has to be playable Uruk-hai in discard pile
-                && PlayConditions.canPlayFromDiscard(playerId, game, 1, Race.URUK_HAI)) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, 1, 0, Race.URUK_HAI)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(1));
