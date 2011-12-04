@@ -207,7 +207,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword) && hasTextRemoved(gameState, physicalCard))
                 return false;
 
-            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.KEYWORD_MODIFIER, keyword, physicalCard)) {
+            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.REMOVE_KEYWORD_MODIFIER, keyword, physicalCard)) {
                 if (modifier.isKeywordRemoved(gameState, this, physicalCard, keyword))
                     return false;
             }
@@ -215,7 +215,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (physicalCard.getBlueprint().hasKeyword(keyword))
                 return true;
 
-            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.KEYWORD_MODIFIER, keyword, physicalCard)) {
+            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.GIVE_KEYWORD_MODIFIER, keyword, physicalCard)) {
                 if (appliesKeywordModifier(gameState, modifier.getSource(), keyword))
                     if (modifier.hasKeyword(gameState, this, physicalCard, keyword))
                         return true;
@@ -233,13 +233,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword) && hasTextRemoved(gameState, physicalCard))
                 return 0;
 
-            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.KEYWORD_MODIFIER, keyword, physicalCard)) {
+            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.REMOVE_KEYWORD_MODIFIER, keyword, physicalCard)) {
                 if (modifier.isKeywordRemoved(gameState, this, physicalCard, keyword))
                     return 0;
             }
 
             int result = physicalCard.getBlueprint().getKeywordCount(keyword);
-            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.KEYWORD_MODIFIER, keyword, physicalCard)) {
+            for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.GIVE_KEYWORD_MODIFIER, keyword, physicalCard)) {
                 if (appliesKeywordModifier(gameState, modifier.getSource(), keyword))
                     result += modifier.getKeywordCountModifier(gameState, this, physicalCard, keyword);
             }
@@ -261,7 +261,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     private boolean appliesKeywordModifier(GameState gameState, PhysicalCard modifierSource, Keyword keyword) {
         if (modifierSource == null)
             return true;
-        for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.KEYWORD_MODIFIER, keyword, modifierSource)) {
+        for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.CANCEL_KEYWORD_BONUS_MODIFIER, keyword, modifierSource)) {
             if (!modifier.appliesKeywordModifier(gameState, this, modifierSource, keyword))
                 return false;
         }

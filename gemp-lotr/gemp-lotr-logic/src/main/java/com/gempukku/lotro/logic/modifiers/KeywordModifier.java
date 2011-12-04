@@ -24,7 +24,7 @@ public class KeywordModifier extends AbstractModifier implements KeywordAffectin
     }
 
     public KeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Condition condition, Keyword keyword, Evaluator evaluator) {
-        super(physicalCard, null, affectFilter, condition, ModifierEffect.KEYWORD_MODIFIER);
+        super(physicalCard, null, affectFilter, condition, ModifierEffect.GIVE_KEYWORD_MODIFIER);
         _keyword = keyword;
         _evaluator = evaluator;
     }
