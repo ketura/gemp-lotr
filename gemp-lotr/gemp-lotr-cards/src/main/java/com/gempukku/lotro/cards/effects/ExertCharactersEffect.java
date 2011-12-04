@@ -9,12 +9,14 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collection;
 
 public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     private String _playerId;
+    private Action _action;
     private PhysicalCard _source;
 
     public ExertCharactersEffect(PhysicalCard source, PhysicalCard... cards) {
@@ -24,6 +26,12 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
 
     public ExertCharactersEffect(PhysicalCard source, Filterable... filter) {
         super(filter);
+        _source = source;
+    }
+
+    public ExertCharactersEffect(Action action, PhysicalCard source, Filterable... filter) {
+        super(filter);
+        _action = action;
         _source = source;
     }
 
@@ -56,7 +64,7 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
 
         for (PhysicalCard woundedCard : cards) {
             game.getGameState().addWound(woundedCard);
-            game.getActionsEnvironment().emitEffectResult(new ExertResult(woundedCard));
+            game.getActionsEnvironment().emitEffectResult(new ExertResult(_action, woundedCard));
         }
     }
 }
