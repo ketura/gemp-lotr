@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.common.ApplicationRoot;
 import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameEvent;
@@ -71,7 +72,7 @@ public class GameRecorder {
     }
 
     private File getRecordingFile(String playerId, String gameId) {
-        File gameReplayFolder = new File("/etc/gemp-lotr/replay");
+        File gameReplayFolder = new File(ApplicationRoot.getRoot(), "replay");
         File playerReplayFolder = new File(gameReplayFolder, playerId);
         return new File(playerReplayFolder, gameId + ".xml");
     }

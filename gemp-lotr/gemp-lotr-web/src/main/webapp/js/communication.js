@@ -220,15 +220,16 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    sendChatMessage: function(room, message, callback) {
+    sendChatMessage: function(room, messages, callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/chat/" + room,
             cache: false,
             data: {
                 participantId: getUrlParam("participantId"),
-                message: message},
+                message: messages},
             success: callback,
+            traditional: true,
             error: this.failure,
             dataType: "xml"
         });

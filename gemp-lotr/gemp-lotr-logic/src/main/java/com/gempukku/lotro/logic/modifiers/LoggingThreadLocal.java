@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
+import com.gempukku.lotro.common.ApplicationRoot;
 import com.gempukku.lotro.game.PhysicalCard;
 import org.apache.log4j.Logger;
 
@@ -18,7 +19,7 @@ public class LoggingThreadLocal {
     private static synchronized void initializeOutputStream() {
         if (_fos == null) {
             try {
-                _fos = new FileOutputStream(new File("/etc/gemp-lotr/longActions.txt"));
+                _fos = new FileOutputStream(new File(ApplicationRoot.getRoot(), "longActions.txt"));
             } catch (IOException exp) {
                 throw new RuntimeException(exp);
             }
