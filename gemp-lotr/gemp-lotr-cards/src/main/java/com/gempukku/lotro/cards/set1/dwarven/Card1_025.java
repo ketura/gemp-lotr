@@ -37,7 +37,7 @@ public class Card1_025 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (self.getZone() == Zone.HAND && TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

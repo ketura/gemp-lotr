@@ -70,12 +70,12 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     protected abstract Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
 
     @Override
-    public final boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+    public final boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return checkPlayRequirements(playerId, game, self, Filters.any, twilightModifier);
     }
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, twilightModifier, false, false)
+        return super.checkPlayRequirements(playerId, game, self, 0, twilightModifier, false, false)
                 && PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self, false)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter);
     }
@@ -86,7 +86,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
         Side side = self.getBlueprint().getSide();
         if (((side == Side.FREE_PEOPLE && PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
                 || (side == Side.SHADOW && PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)))
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             actions.add(getPlayCardAction(playerId, game, self, 0, false));
         }
 

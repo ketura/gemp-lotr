@@ -53,7 +53,7 @@ public class Card5_096 extends AbstractEvent {
             RevealCardFromHandResult revealResult = (RevealCardFromHandResult) effectResult;
             if (revealResult.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())
                     && revealResult.getRevealedCard() == self
-                    && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                    && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
                         new AddBurdenEffect(self, 2));

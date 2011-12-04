@@ -41,7 +41,7 @@ public class Card1_189 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if ((TriggerConditions.forEachExerted(game, effectResult, Filters.ringBearer) || TriggerConditions.forEachWounded(game, effectResult, Filters.ringBearer))
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new PlayoutDecisionEffect(playerId,

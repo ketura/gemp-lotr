@@ -53,7 +53,7 @@ public abstract class AbstractOldEvent extends AbstractLotroCardBlueprint {
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (_playableInPhases != null) {
             if (PlayConditions.canPlayCardDuringPhase(game, _playableInPhases, self)) {
-                if (checkPlayRequirements(playerId, game, self, 0, false, false))
+                if (checkPlayRequirements(playerId, game, self, 0, 0, false, false))
                     return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
             }
         }

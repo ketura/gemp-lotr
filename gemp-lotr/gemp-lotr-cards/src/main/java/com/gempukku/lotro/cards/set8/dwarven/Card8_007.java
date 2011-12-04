@@ -30,7 +30,7 @@ public class Card8_007 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF, Keyword.DAMAGE)
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF, Keyword.DAMAGE, Filters.inSkirmish) {

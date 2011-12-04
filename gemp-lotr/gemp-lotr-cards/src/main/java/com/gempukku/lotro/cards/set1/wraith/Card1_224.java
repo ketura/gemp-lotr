@@ -41,7 +41,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)
                 && game.getGameState().isWearingRing()
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new UnrespondableEffect() {

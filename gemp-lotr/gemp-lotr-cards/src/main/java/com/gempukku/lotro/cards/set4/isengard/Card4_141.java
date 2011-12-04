@@ -39,7 +39,7 @@ public class Card4_141 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachKilled(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             action.setText(GameUtils.getCardLink(killResult.getKilledCard()) + " was killed");

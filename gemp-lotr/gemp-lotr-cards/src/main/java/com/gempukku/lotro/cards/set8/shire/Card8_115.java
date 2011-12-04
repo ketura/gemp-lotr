@@ -37,7 +37,7 @@ public class Card8_115 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachExerted(game, effectResult, CardType.MINION)
                 && PlayConditions.canExert(self, game, Filters.unboundCompanion, Race.HOBBIT)
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             ExertResult exertResult = (ExertResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             final PhysicalCard exertedCard = exertResult.getExertedCard();

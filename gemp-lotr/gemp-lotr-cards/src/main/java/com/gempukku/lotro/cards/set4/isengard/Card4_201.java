@@ -55,7 +55,7 @@ public class Card4_201 extends AbstractMinion {
         if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && self.getStackedOn().getBlueprint().getCardType() == CardType.SITE
                 && playerId.equals(self.getStackedOn().getCardController())
-                && checkPlayRequirements(playerId, game, self, -1, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, -1, false, false)) {
             return Collections.singletonList(getPlayCardAction(playerId, game, self, -1, false));
         }
         return null;

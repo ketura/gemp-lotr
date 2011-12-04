@@ -33,7 +33,7 @@ public class Card1_345 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
-                && PlayConditions.canPlayFromDiscard(playerId, game, 1, Side.SHADOW, Filters.weapon)) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, 1, 0, Side.SHADOW, Filters.weapon)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(

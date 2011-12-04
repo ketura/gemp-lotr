@@ -32,7 +32,7 @@ public class Card7_183 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachKilledBy(game, effectResult, Race.NAZGUL, Filters.or(CardType.COMPANION, CardType.ALLY))
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new WoundCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION), Filters.hasAttached(Culture.WRAITH, CardType.CONDITION)));

@@ -38,7 +38,7 @@ public class Card4_037 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.DUNLAND, Race.MAN))
-                && checkPlayRequirements(playerId, game, self, 0, false, false)) {
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PhysicalCard winner = ((CharacterWonSkirmishResult) effectResult).getWinner();
             final PlayEventAction action = new PlayEventAction(self);
             action.setText("Make " + GameUtils.getCardLink(winner) + " strength +4 and Fierce");
