@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.timing.GameStats;
 import java.util.*;
 
 public class GameState {
-    private static final int LAST_MESSAGE_STORED_COUNT = 10;
+    private static final int LAST_MESSAGE_STORED_COUNT = 15;
     private PlayerOrder _playerOrder;
 
     private Map<String, List<PhysicalCardImpl>> _adventureDecks = new HashMap<String, List<PhysicalCardImpl>>();

@@ -9,7 +9,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -40,7 +39,7 @@ public class Card2_046 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 1)
                 && PlayConditions.canExert(self, game, self)
                 // There has to be playable Uruk-hai in discard pile
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.playable(game)).size() > 0) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, 1, Race.URUK_HAI)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(1));
