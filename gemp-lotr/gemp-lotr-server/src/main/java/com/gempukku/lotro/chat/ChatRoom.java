@@ -10,13 +10,19 @@ public class ChatRoom {
     public ChatRoom() {
     }
 
-    public void postMessage(String from, String message) {
+    private void postMessage(String from, String message, boolean addToHistory) {
         ChatMessage chatMessage = new ChatMessage(new Date(), from, message);
-        _lastMessages.add(chatMessage);
-        shrinkLastMessages();
+        if (addToHistory) {
+            _lastMessages.add(chatMessage);
+            shrinkLastMessages();
+        }
         for (Map.Entry<String, ChatRoomListener> listeners : _chatRoomListeners.entrySet())
             if (!listeners.getKey().equals(from))
                 listeners.getValue().messageReceived(chatMessage);
+    }
+
+    public void postMessage(String from, String message) {
+        postMessage(from, message, true);
     }
 
     public void joinChatRoom(String playerId, ChatRoomListener listener) {
@@ -25,13 +31,13 @@ public class ChatRoom {
         for (ChatMessage lastMessage : _lastMessages)
             listener.messageReceived(lastMessage);
         if (!wasInRoom)
-            postMessage("System", playerId + " joined the room");
+            postMessage("System", playerId + " joined the room", false);
     }
 
     public void partChatRoom(String playerId) {
         boolean wasInRoom = (_chatRoomListeners.remove(playerId) != null);
         if (wasInRoom)
-            postMessage("System", playerId + " left the room");
+            postMessage("System", playerId + " left the room", false);
     }
 
     public Set<String> getUsersInRoom() {
