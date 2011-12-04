@@ -10,9 +10,12 @@ var ChatBoxUI = Class.extend({
     chatUpdateInterval: 1000,
     unsentMessages: null,
     processingMessages: null,
+    retryCount: null,
+    maxRetryCount: 5,
 
     init: function(name, div, url, showList) {
         var that = this;
+        this.retryCount = 0;
         this.name = name;
         this.div = div;
         this.unsentMessages = new Array();
@@ -29,17 +32,27 @@ var ChatBoxUI = Class.extend({
                         that.appendMessage("Server is being restarted, please wait for the restart to finish and try again later.", "warningMessage");
                         return;
                     } else {
-                        that.appendMessage("Chat had a problem communicating with the server (error " + xhr.statis + "). Retrying...", "systemMessage");
-                        setTimeout(function() {
-                            that.updateChatMessages();
-                        }, that.chatUpdateInterval);
+                        that.retryCount++;
+                        if (that.retryCount <= that.maxRetryCount) {
+                            that.appendMessage("Chat had a problem communicating with the server (error " + xhr.status + "). Retrying (" + that.retryCount + " of " + that.maxRetryCount + ")...", "systemMessage");
+                            setTimeout(function() {
+                                that.updateChatMessages();
+                            }, that.chatUpdateInterval);
+                        } else {
+                            that.appendMessage("Chat has given up on connection retry (tried " + that.maxRetryCount + "), make sure your connection with the Internet is working.", "warningMessage");
+                        }
                         return;
                     }
                 }
-                that.appendMessage("Chat had an unknown problem communicating with the server. Retrying...", "systemMessage");
-                setTimeout(function() {
-                    that.updateChatMessages();
-                }, that.chatUpdateInterval);
+                that.retryCount++;
+                if (that.retryCount <= that.maxRetryCount) {
+                    that.appendMessage("Chat had an unkown problem communicating with the server. Retrying (" + that.retryCount + " of " + that.maxRetryCount + ")...", "systemMessage");
+                    setTimeout(function() {
+                        that.updateChatMessages();
+                    }, that.chatUpdateInterval);
+                } else {
+                    that.appendMessage("Chat has given up on connection retry (tried " + that.maxRetryCount + "), make sure your connection with the Internet is working.", "warningMessage");
+                }
             }
         });
 
@@ -116,6 +129,7 @@ var ChatBoxUI = Class.extend({
     processMessages: function(xml, processAgain) {
         var root = xml.documentElement;
         if (root.tagName == 'chat') {
+            this.retryCount = 0;
             this.processingMessages = null;
             var messages = root.getElementsByTagName("message");
             for (var i = 0; i < messages.length; i++) {
