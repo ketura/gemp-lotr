@@ -24,6 +24,8 @@ public class PhysicalCardImpl implements PhysicalCard {
 
     private Object _data;
 
+    private Object _whileInZoneData;
+
     public PhysicalCardImpl(int cardId, String blueprintId, String owner, LotroCardBlueprint blueprint) {
         _cardId = cardId;
         _blueprintId = blueprintId;
@@ -138,5 +140,15 @@ public class PhysicalCardImpl implements PhysicalCard {
     @Override
     public void removeData() {
         _data = null;
+    }
+
+    @Override
+    public Object getWhileInZoneData() {
+        return _whileInZoneData;
+    }
+
+    @Override
+    public void setWhileInZoneData(Object object) {
+        _whileInZoneData = object;
     }
 }
