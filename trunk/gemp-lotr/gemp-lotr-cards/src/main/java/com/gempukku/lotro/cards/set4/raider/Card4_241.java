@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -30,7 +31,7 @@ public class Card4_241 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose RAIDER Man", Culture.RAIDER, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int bonus = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 6) ? 5 : 3;
+                        int bonus = (PlayConditions.canSpot(game, 6, CardType.COMPANION)) ? 5 : 3;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));

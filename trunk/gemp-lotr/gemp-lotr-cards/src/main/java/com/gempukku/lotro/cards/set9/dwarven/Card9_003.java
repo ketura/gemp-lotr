@@ -37,7 +37,7 @@ public class Card9_003 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.countSpottable(gameState, modifiersQuerying, Race.DWARF) >= 2)
+        if (Filters.canSpot(gameState, modifiersQuerying, 2, Race.DWARF))
             return -2;
         return 0;
     }

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -38,7 +39,7 @@ public class Card1_139 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Race.URUK_HAI) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
-                        if (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 5) {
+                        if (PlayConditions.canSpot(game, 5, CardType.COMPANION)) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(urukHai), 4), Phase.REGROUP));

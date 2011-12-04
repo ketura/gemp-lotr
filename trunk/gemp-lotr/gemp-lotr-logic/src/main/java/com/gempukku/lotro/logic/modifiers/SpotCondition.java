@@ -19,7 +19,7 @@ public class SpotCondition implements Condition {
 
     @Override
     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return Filters.countSpottable(gameState, modifiersQuerying, _filter) >= _count;
+        return Filters.canSpot(gameState, modifiersQuerying, _count, _filter);
     }
 }
 

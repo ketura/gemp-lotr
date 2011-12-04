@@ -3,12 +3,9 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 /**
  * Set: The Fellowship of the Ring
@@ -27,13 +24,6 @@ public class Card1_260 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new MoveLimitModifier(self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION) >= 7;
-                    }
-                },
-                -1);
+        return new MoveLimitModifier(self, new SpotCondition(7, CardType.COMPANION), -1);
     }
 }

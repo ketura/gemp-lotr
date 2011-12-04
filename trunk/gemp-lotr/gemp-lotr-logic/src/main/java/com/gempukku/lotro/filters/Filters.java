@@ -60,8 +60,13 @@ public class Filters {
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         Filter filter = Filters.and(filters);
         SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, filter);
-        gameState.iterateActiveCards(visitor);
-        return visitor.isSpotted();
+        return gameState.iterateActiveCards(visitor);
+    }
+
+    public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, int count, Filterable... filters) {
+        Filter filter = Filters.and(filters);
+        SpotCountFilterCardInPlayVisitor visitor = new SpotCountFilterCardInPlayVisitor(gameState, modifiersQuerying, count, filter);
+        return gameState.iterateActiveCards(visitor);
     }
 
     public static int countSpottable(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
@@ -771,12 +776,33 @@ public class Filters {
             return false;
         }
 
-        public boolean isSpotted() {
-            return _card != null;
-        }
-
         public PhysicalCard getCard() {
             return _card;
+        }
+    }
+
+    private static class SpotCountFilterCardInPlayVisitor implements PhysicalCardVisitor {
+        private GameState _gameState;
+        private ModifiersQuerying _modifiersQuerying;
+        private Filter _filter;
+        private int _spottedCount;
+        private int _searchingToSpot;
+
+        private SpotCountFilterCardInPlayVisitor(GameState gameState, ModifiersQuerying modifiersQuerying, int count, Filter filter) {
+            _gameState = gameState;
+            _modifiersQuerying = modifiersQuerying;
+            _searchingToSpot = count;
+            _filter = filter;
+        }
+
+        @Override
+        public boolean visitPhysicalCard(PhysicalCard physicalCard) {
+            if (_filter.accepts(_gameState, _modifiersQuerying, physicalCard)) {
+                _spottedCount++;
+                if (_spottedCount >= _searchingToSpot)
+                    return true;
+            }
+            return false;
         }
     }
 

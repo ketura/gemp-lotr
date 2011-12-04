@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -33,7 +32,7 @@ public class Card4_075 extends AbstractAttachableFPPossession {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ELF) >= 3;
+                && PlayConditions.canSpot(game, 3, Race.ELF);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -31,7 +32,7 @@ public class Card4_072 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.ELF) >= 3;
+                && PlayConditions.canSpot(game, 3, Race.ELF);
     }
 
     @Override

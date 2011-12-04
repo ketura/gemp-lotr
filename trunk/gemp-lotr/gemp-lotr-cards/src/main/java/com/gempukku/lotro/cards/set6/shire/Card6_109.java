@@ -68,7 +68,7 @@ public class Card6_109 extends AbstractAttachable {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION) == 0) {
+                && !PlayConditions.canSpot(game, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

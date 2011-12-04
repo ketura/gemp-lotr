@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -33,7 +34,7 @@ public class Card7_099 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                 new StrengthModifier(self, card, 2), Phase.SKIRMISH);
-                        if (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Keyword.FORTIFICATION) >= 2) {
+                        if (PlayConditions.canSpot(game, 2, Culture.GONDOR, Keyword.FORTIFICATION)) {
                             action.appendEffect(
                                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(card)));
                         }

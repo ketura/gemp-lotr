@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +28,7 @@ public class Card1_251 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 6;
+                && PlayConditions.canSpot(game, 6, CardType.COMPANION);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class SpotEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), _filters) >= _count;
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), _count, _filters);
     }
 
     @Override

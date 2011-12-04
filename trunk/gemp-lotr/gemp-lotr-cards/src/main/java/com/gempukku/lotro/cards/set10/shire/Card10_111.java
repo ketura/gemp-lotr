@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -33,7 +32,7 @@ public class Card10_111 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        final int discardCount = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION) >= 4) ? 2 : 1;
+        final int discardCount = (PlayConditions.canSpot(game, 4, Race.HOBBIT, CardType.COMPANION)) ? 2 : 1;
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override

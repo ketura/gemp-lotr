@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.elven;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -28,7 +29,7 @@ public class Card3_022 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Elrond"))
-                || Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN, CardType.ALLY) >= 2);
+                || PlayConditions.canSpot(game, 2, Culture.ELVEN, CardType.ALLY));
     }
 
     @Override
