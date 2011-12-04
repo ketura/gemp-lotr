@@ -124,6 +124,15 @@ public class Filters {
         };
     }
 
+    public static Filter maxResistance(final int resistance) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getResistance(gameState, physicalCard) <= resistance;
+            }
+        };
+    }
+
     public static Filter minResistance(final int resistance) {
         return new Filter() {
             @Override
@@ -518,9 +527,9 @@ public class Filters {
                 if (region == 1)
                     return siteNumber <= 3;
                 else if (region == 2)
-                    return siteNumber>3 && siteNumber<=6;
+                    return siteNumber > 3 && siteNumber <= 6;
                 else
-                    return siteNumber>6;
+                    return siteNumber > 6;
             }
         };
     }
