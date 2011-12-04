@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.packs.PackBox;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.common.ApplicationRoot;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DbAccess;
@@ -39,6 +40,7 @@ import javax.ws.rs.core.StreamingOutput;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -61,6 +63,11 @@ public class ServerResource {
     private PackBox _packBox;
 
     public ServerResource() {
+        if (!_test)
+            ApplicationRoot.setRoot(new File("/etc/gemp-lotr"));
+        else
+            ApplicationRoot.setRoot(new File("i:\\gemp-lotr"));
+
         _logger.debug("starting resource");
 
         try {
@@ -693,7 +700,7 @@ public class ServerResource {
     public Document postMessage(
             @PathParam("room") String room,
             @FormParam("participantId") String participantId,
-            @FormParam("message") String message,
+            @FormParam("message") List<String> messages,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         if (!_test)
             participantId = getLoggedUser(request);
@@ -702,8 +709,12 @@ public class ServerResource {
         if (chatRoom == null)
             sendError(Response.Status.NOT_FOUND);
 
-        if (message != null && message.trim().length() > 0)
-            chatRoom.sendMessage(participantId, StringEscapeUtils.escapeHtml(message));
+        if (messages != null) {
+            for (String message : messages) {
+                if (message != null && message.trim().length() > 0)
+                    chatRoom.sendMessage(participantId, StringEscapeUtils.escapeHtml(message));
+            }
+        }
 
         List<ChatMessage> chatMessages = chatRoom.getPendingMessages(participantId);
         Set<String> usersInRoom = chatRoom.getUsersInRoom();

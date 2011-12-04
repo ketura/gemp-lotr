@@ -8,25 +8,38 @@ var ChatBoxUI = Class.extend({
     showTimestamps: false,
     talkBoxHeight: 25,
     chatUpdateInterval: 1000,
+    unsentMessages: null,
+    processingMessages: null,
 
     init: function(name, div, url, showList) {
         var that = this;
         this.name = name;
         this.div = div;
+        this.unsentMessages = new Array();
         this.communication = new GempLotrCommunication(url, function(xhr, ajaxOptions, thrownError) {
             if (thrownError != "abort") {
                 if (xhr != null) {
                     if (xhr.status == 401) {
-                        that.appendMessage("Chat problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
+                        that.appendMessage("You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
+                        return;
+                    } else if (xhr.status == 404) {
+                        that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
+                        return;
+                    } else if (xhr.status == 503) {
+                        that.appendMessage("Server is being restarted, please wait for the restart to finish and try again later.", "warningMessage");
                         return;
                     } else {
-                        that.appendMessage("Chat had a problem communicating with the server (" + xhr.status + "), no new messages will be displayed, but your messages still might get sent.", "warningMessage");
-                        that.appendMessage("Reload the browser page (press F5) to resume the chat.", "warningMessage");
+                        that.appendMessage("Chat had a problem communicating with the server (error " + xhr.statis + "). Retrying...", "systemMessage");
+                        setTimeout(function() {
+                            that.updateChatMessages();
+                        }, that.chatUpdateInterval);
                         return;
                     }
                 }
-                that.appendMessage("Chat had a problem communicating with the server, no new messages will be displayed, but your messages still might get sent.", "warningMessage");
-                that.appendMessage("Reload the browser page (press F5) to resume the chat.", "warningMessage");
+                that.appendMessage("Chat had an unknown problem communicating with the server. Retrying...", "systemMessage");
+                setTimeout(function() {
+                    that.updateChatMessages();
+                }, that.chatUpdateInterval);
             }
         });
 
@@ -103,6 +116,7 @@ var ChatBoxUI = Class.extend({
     processMessages: function(xml, processAgain) {
         var root = xml.documentElement;
         if (root.tagName == 'chat') {
+            this.processingMessages = null;
             var messages = root.getElementsByTagName("message");
             for (var i = 0; i < messages.length; i++) {
                 var message = messages[i];
@@ -143,16 +157,26 @@ var ChatBoxUI = Class.extend({
     updateChatMessages: function(xml) {
         var that = this;
 
-        this.communication.updateChat(this.name, function(xml) {
-            that.processMessages(xml, true);
-        });
+        if (this.processingMessages != null) {
+            this.communication.sendChatMessage(this.name, this.processingMessages, function(xml) {
+                that.processMessages(xml, true);
+            });
+        } else if (this.unsentMessages.length > 0) {
+            this.communication.sendChatMessage(this.name, this.unsentMessages, function(xml) {
+                that.processMessages(xml, true);
+            });
+            this.processingMessages = this.unsentMessages;
+            this.unsentMessages = new Array();
+        } else {
+            this.communication.updateChat(this.name, function(xml) {
+                that.processMessages(xml, true);
+            });
+        }
     },
 
     sendMessage: function(message) {
         var that = this;
 
-        this.communication.sendChatMessage(this.name, message, function(xml) {
-            that.processMessages(xml, false);
-        });
+        this.unsentMessages.push(message);
     }
 });
