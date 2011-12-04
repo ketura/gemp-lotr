@@ -13,7 +13,7 @@ public class CancelKeywordBonusModifier extends AbstractModifier implements Keyw
     private Keyword _keyword;
 
     public CancelKeywordBonusModifier(PhysicalCard source, Keyword keyword, Filter affectFilter) {
-        super(source, "Cancel " + keyword.getHumanReadable() + " keyword", affectFilter, ModifierEffect.KEYWORD_MODIFIER);
+        super(source, "Cancel " + keyword.getHumanReadable() + " keyword", affectFilter, ModifierEffect.CANCEL_KEYWORD_BONUS_MODIFIER);
         _keyword = keyword;
     }
 
