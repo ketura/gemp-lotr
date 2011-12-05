@@ -117,7 +117,10 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
     public Effect nextEffect(LotroGame game) {
         if (!_cardRemoved) {
             _cardRemoved = true;
+            boolean fromHand = (_cardToAttach.getZone() == Zone.HAND);
             game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
+            if (fromHand)
+                game.getGameState().addCardToZone(game, _cardToAttach, Zone.VOID);
         }
 
         if (!_targetChosen) {
@@ -173,12 +176,16 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
             } else {
                 if (!_cardDiscarded) {
                     _cardDiscarded = true;
+                    if (_cardToAttach.getZone() != null)
+                        game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
                     game.getGameState().addCardToZone(game, _cardToAttach, Zone.DISCARD);
                 }
             }
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;
+                if (_cardToAttach.getZone() != null)
+                    game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
                 game.getGameState().addCardToZone(game, _cardToAttach, Zone.DISCARD);
             }
         }
