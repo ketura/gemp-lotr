@@ -7,10 +7,11 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 
 import java.util.*;
+
+import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
@@ -40,13 +41,17 @@ public abstract class AbstractAtTest {
     }
 
     protected void initializeSimplestGame(Map<String, Collection<String>> additionalCardsInDeck) throws DecisionResultInvalidException {
-        MovieFormat format = new MovieFormat(_library);
-
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
         addPlayerDeck(P1, decks, additionalCardsInDeck);
         addPlayerDeck(P2, decks, additionalCardsInDeck);
 
+        initializeGameWithDecks(decks);
+    }
+
+    protected void initializeGameWithDecks(Map<String, LotroDeck> decks) throws DecisionResultInvalidException {
         _userFeedback = new DefaultUserFeedback();
+
+        MovieFormat format = new MovieFormat(_library);
 
         _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
         _userFeedback.setGame(_game);
@@ -110,7 +115,7 @@ public abstract class AbstractAtTest {
         _game.carryOutPendingActionsUntilDecisionNeeded();
     }
 
-    private LotroDeck createSimplestDeck() {
+    protected LotroDeck createSimplestDeck() {
         LotroDeck lotroDeck = new LotroDeck();
         // 10_121,1_2
         lotroDeck.setRingBearer("10_121");
