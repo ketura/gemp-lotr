@@ -28,6 +28,7 @@ import java.util.List;
 public class Card6_108 extends AbstractMinion {
     public Card6_108() {
         super(3, 8, 2, 4, Race.WRAITH, Culture.SAURON, "Wisp of Pale Sheen");
+        addKeyword(Keyword.TWILIGHT);
     }
 
     @Override
