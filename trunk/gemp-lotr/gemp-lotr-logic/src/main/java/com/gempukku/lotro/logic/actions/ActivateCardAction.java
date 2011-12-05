@@ -16,6 +16,8 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     private boolean _sentMessage;
     private boolean _activated;
 
+    private boolean _prevented;
+
     private String _text;
 
     public ActivateCardAction(PhysicalCard physicalCard) {
@@ -48,6 +50,10 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
         return _text;
     }
 
+    public void prevent() {
+        _prevented = true;
+    }
+
     @Override
     public Effect nextEffect(LotroGame game) {
         if (!_sentMessage) {
@@ -69,7 +75,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
                 return _activateCardEffect;
             }
 
-            if (!_activateCardEffect.getActivateCardResult().isEffectCancelled()) {
+            if (!_activateCardEffect.getActivateCardResult().isEffectCancelled() && !_prevented) {
                 Effect effect = getNextEffect();
                 if (effect != null)
                     return effect;
