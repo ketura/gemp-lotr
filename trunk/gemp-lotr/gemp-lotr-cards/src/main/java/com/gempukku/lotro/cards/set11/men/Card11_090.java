@@ -32,8 +32,7 @@ public class Card11_090 extends AbstractMinion {
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return gameState.getHand(gameState.getCurrentPlayerId()).size()
-                        l
+                        return gameState.getHand(gameState.getCurrentPlayerId()).size();
                     }
                 });
     }
