@@ -174,9 +174,12 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.filterDiv.append("<div id='culture2'>"
                 + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
                 + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png'/></label>"
+                + "<input type='checkbox' id='MEN'/><label for='MEN' id='labelMEN'><img src='images/cultures/men.png'/></label>"
                 + "<input type='checkbox' id='MORIA'/><label for='MORIA' id='labelMORIA'><img src='images/cultures/moria.png'/></label>"
+                + "<input type='checkbox' id='ORC'/><label for='ORC' id='labelORC'><img src='images/cultures/orc.png'/></label>"
                 + "<input type='checkbox' id='RAIDER'/><label for='RAIDER' id='labelRAIDER'><img src='images/cultures/raider.png'/></label>"
                 + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
+                + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
                 + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
                 + "</div>");
 
@@ -391,11 +394,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
