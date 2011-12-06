@@ -66,6 +66,13 @@ public class MovementGameProcess implements GameProcess {
                         gameState.movePlayerToNextSite(game);
 
                         int siteTwilightCost = game.getModifiersQuerying().getTwilightCost(gameState, gameState.getCurrentSite(), false);
+                        if (!game.getFormat().isOrderedSites()) {
+                            final int siteNumber = gameState.getCurrentSiteNumber();
+                            if (siteNumber > 3 && siteNumber <= 6)
+                                siteTwilightCost += 3;
+                            else if (siteNumber > 6 && siteNumber <= 9)
+                                siteTwilightCost += 6;
+                        }
                         int companionCount = Filters.countActive(gameState, game.getModifiersQuerying(), CardType.COMPANION);
 
                         AddTwilightEffect effect = new AddTwilightEffect(null, siteTwilightCost + companionCount);
