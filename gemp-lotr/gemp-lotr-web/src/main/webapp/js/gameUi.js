@@ -1043,9 +1043,17 @@ var GempLotrGameUI = Class.extend({
             var cardVitalityDiv = $("<div class='cardVitality'></div>");
             tokenOverlay.append(cardVitalityDiv);
 
+            var cardSiteNumberBgDiv = $("<div class='cardSiteNumberBg'><img src='images/o_icon_compass.png' width='100%' height='100%'></div>");
+            cardSiteNumberBgDiv.css({display: "none"});
+            tokenOverlay.append(cardSiteNumberBgDiv);
+
             var cardSiteNumberDiv = $("<div class='cardSiteNumber'></div>");
             cardSiteNumberDiv.css({display: "none"});
             tokenOverlay.append(cardSiteNumberDiv);
+
+            var cardResistanceBgDiv = $("<div class='cardResistanceBg'><img src='images/o_icon_resistance.png' width='100%' height='100%'></div>");
+            cardResistanceBgDiv.css({display: "none"});
+            tokenOverlay.append(cardResistanceBgDiv);
 
             var cardResistanceDiv = $("<div class='cardResistance'></div>");
             cardResistanceDiv.css({display: "none"});
@@ -1061,7 +1069,7 @@ var GempLotrGameUI = Class.extend({
                     var x = 0.09 * maxDimension - size / 2;
                     var strengthY = 0.678 * maxDimension - size / 2;
                     var vitalityY = 0.795 * maxDimension - size / 2;
-                    var minionSiteNumberY = 0.89135 * maxDimension - size / 2;
+                    var minionSiteNumberY = 0.900 * maxDimension - size / 2;
 
                     var fontPerc = (size * 6) + "%";
                     var borderRadius = Math.ceil(size / 5) + "px";
@@ -1075,11 +1083,17 @@ var GempLotrGameUI = Class.extend({
                     var vitBgY = 0.7465 * height;
                     var vitalityBgSize = 0.105 * height;
 
+                    var thirdBoxX = 0.0532 * width;
+                    var thirdBoxY = 0.845 * height;
+                    var thirdBoxSize = 0.115 * height;
+
                     $(".cardStrengthBg", cardElem).css({position: "absolute", left: strBgX + "px", top: strBgY + "px", width: strBgWidth, height: strBgHeight});
                     $(".cardStrength", cardElem).css({position: "absolute", "font-size": fontPerc, left: x + "px", top: strengthY + "px", width: size, height: size});
                     $(".cardVitalityBg", cardElem).css({position: "absolute", left: vitBgX + "px", top: vitBgY + "px", width: vitalityBgSize, height: vitalityBgSize});
                     $(".cardVitality", cardElem).css({position: "absolute", "font-size": fontPerc, left: x + "px", top: vitalityY + "px", width: size, height: size});
+                    $(".cardSiteNumberBg", cardElem).css({position: "absolute", left: thirdBoxX + "px", top: thirdBoxY + "px", width: thirdBoxSize, height: thirdBoxSize});
                     $(".cardSiteNumber", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: minionSiteNumberY + "px", width: size, height: size});
+                    $(".cardResistanceBg", cardElem).css({position: "absolute", left: thirdBoxX + "px", top: thirdBoxY + "px", width: thirdBoxSize, height: thirdBoxSize});
                     $(".cardResistance", cardElem).css({position: "absolute", "border-radius": borderRadius, "font-size": fontPerc, left: x + "px", top: minionSiteNumberY + "px", width: size, height: size});
                 }
             };
