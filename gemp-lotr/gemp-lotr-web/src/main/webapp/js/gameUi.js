@@ -1067,11 +1067,11 @@ var GempLotrGameUI = Class.extend({
                     var size = 0.0865 * maxDimension;
 
                     var x = 0.09 * maxDimension - size / 2;
-                    var strengthY = 0.678 * maxDimension - size / 2;
-                    var vitalityY = 0.795 * maxDimension - size / 2;
-                    var minionSiteNumberY = 0.900 * maxDimension - size / 2;
+                    var strengthY = 0.688 * maxDimension - size / 2;
+                    var vitalityY = 0.800 * maxDimension - size / 2;
+                    var minionSiteNumberY = 0.905 * maxDimension - size / 2;
 
-                    var fontPerc = (size * 6) + "%";
+                    var fontPerc = (size * 5.5) + "%";
                     var borderRadius = Math.ceil(size / 5) + "px";
 
                     var strBgX = 0.03800 * maxDimension;
