@@ -709,24 +709,16 @@ var GameAnimations = Class.extend({
         var that = this;
         $("#main").queue(
                 function(next) {
-                    $(".cardStrength").css({display: "none"});
-                    $(".cardStrengthBg").css({display: "none"});
-                    $(".cardVitality").css({display: "none"});
-                    $(".cardVitalityBg").css({display: "none"});
-                    $(".cardSiteNumber").css({display: "none"});
-                    $(".cardResistance").css({display: "none"});
-
                     var charStats = element.getAttribute("charStats");
                     if (charStats != null) {
                         var charStatsArr = charStats.split(",");
                         for (var i = 0; i < charStatsArr.length; i++) {
                             var cardStats = charStatsArr[i].split("=");
                             var cardDiv = $(".card:cardId(" + cardStats[0] + ")");
+                            that.game.ensureCardHasBoxes(cardDiv);
                             var cardStatArr = cardStats[1].split("|");
-                            $(".cardStrengthBg", cardDiv).css({display: ""});
-                            $(".cardStrength", cardDiv).html(cardStatArr[0]).css({display: ""});
-                            $(".cardVitalityBg", cardDiv).css({display: ""});
-                            $(".cardVitality", cardDiv).html(cardStatArr[1]).css({display: ""});
+                            $(".cardStrength", cardDiv).html(cardStatArr[0]);
+                            $(".cardVitality", cardDiv).html(cardStatArr[1]);
                             if (cardStatArr.length > 2) {
                                 if (cardStatArr[2].indexOf("R") == 0) {
                                     var resistanceDiv = $(".cardResistance", cardDiv);
