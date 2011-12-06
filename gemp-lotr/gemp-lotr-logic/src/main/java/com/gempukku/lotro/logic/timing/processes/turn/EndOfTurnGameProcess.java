@@ -43,6 +43,6 @@ public class EndOfTurnGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new CleanupProcess();
+        return new BetweenTurnsProcess();
     }
 }

@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.StartOfTurnGameProcess;
+import com.gempukku.lotro.logic.timing.processes.turn.BetweenTurnsProcess;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,7 +47,7 @@ public class MulliganProcess implements GameProcess {
                     });
             _nextProcess = new MulliganProcess(_playOrder);
         } else {
-            _nextProcess = new StartOfTurnGameProcess();
+            _nextProcess = new BetweenTurnsProcess();
         }
     }
 
