@@ -512,6 +512,13 @@ public class Filters {
                 }
             });
 
+    public static final Filter currentSite = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return gameState.getCurrentSite() == physicalCard;
+        }
+    };
+
     public static Filter siteNumber(final int siteNumber) {
         return new Filter() {
             @Override
