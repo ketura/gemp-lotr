@@ -735,10 +735,14 @@ var GameAnimations = Class.extend({
                                     } else if (resistance.indexOf("T") == 0) {
                                         resistanceDiv.addClass("theoden");
                                         resistance = resistance.substring(1);
+                                    } else {
+                                        $(".cardResistanceBg", cardDiv).css({display: ""});
                                     }
                                     resistanceDiv.html(resistance).css({display: ""});
-                                } else
+                                } else {
                                     $(".cardSiteNumber", cardDiv).html(cardStatArr[2]).css({display: ""});
+                                    $(".cardSiteNumberBg", cardDiv).css({display: ""});
+                                }
                             }
                         }
                     }
