@@ -428,6 +428,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean isAdditionalCardType(GameState gameState, PhysicalCard card, CardType cardType) {
+        LoggingThreadLocal.logMethodStart(card, "isAdditionalCardType");
+        try {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.ADDITIONAL_CARD_TYPE, card))
+                if (modifier.isAdditionalCardTypeModifier(gameState, this, card, cardType))
+                    return true;
+            return false;
+        } finally {
+            LoggingThreadLocal.logMethodEnd();
+        }
+    }
+
+    @Override
     public boolean canTakeWound(GameState gameState, PhysicalCard card) {
         LoggingThreadLocal.logMethodStart(card, "canTakeWound");
         try {
@@ -453,9 +466,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                     return false;
             }
             return true;
-        }
-
-        finally
+        } finally
 
         {
             LoggingThreadLocal.logMethodEnd();

@@ -112,6 +112,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean isAdditionalCardTypeModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, CardType cardType) {
+        return false;
+    }
+
+    @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
         return 0;
     }

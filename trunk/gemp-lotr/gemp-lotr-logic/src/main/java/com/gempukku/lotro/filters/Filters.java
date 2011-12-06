@@ -634,7 +634,8 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (physicalCard.getBlueprint().getCardType() == cardType);
+                return (physicalCard.getBlueprint().getCardType() == cardType)
+                        || modifiersQuerying.isAdditionalCardType(gameState, physicalCard, cardType);
             }
         };
     }
