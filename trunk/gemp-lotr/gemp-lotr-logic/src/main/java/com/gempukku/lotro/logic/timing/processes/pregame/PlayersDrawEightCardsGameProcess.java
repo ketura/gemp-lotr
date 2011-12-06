@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.timing.processes.pregame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.StartOfTurnGameProcess;
+import com.gempukku.lotro.logic.timing.processes.turn.BetweenTurnsProcess;
 
 public class PlayersDrawEightCardsGameProcess implements GameProcess {
     private String _firstPlayer;
@@ -24,7 +24,7 @@ public class PlayersDrawEightCardsGameProcess implements GameProcess {
         if (game.getFormat().hasMulliganRule())
             _followingGameProcess = new MulliganProcess(game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
         else
-            _followingGameProcess = new StartOfTurnGameProcess();
+            _followingGameProcess = new BetweenTurnsProcess();
     }
 
     @Override
