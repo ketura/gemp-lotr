@@ -7,6 +7,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
 
@@ -17,7 +19,14 @@ public class TransferPermanentAction extends ActivateCardAction {
         super(card);
         _transferredCard = card;
 
-        appendCost(new PayTwilightCostEffect(card));
+        appendCost(
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        if (!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.TRANSFERS_FOR_FREE))
+                            insertCost(new PayTwilightCostEffect(card));
+                    }
+                });
         appendEffect(
                 new ChooseActiveCardsEffect(null, card.getOwner(), "Choose target to attach to", 1, 1, filter) {
                     @Override
