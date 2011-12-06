@@ -1,9 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -52,6 +49,8 @@ public interface ModifiersQuerying {
     public int getMinionSiteNumber(GameState gameState, PhysicalCard physicalCard);
 
     public int getOverwhelmMultiplier(GameState gameState, PhysicalCard card);
+
+    public boolean isAdditionalCardType(GameState gameState, PhysicalCard card, CardType cardType);
 
     // Wounds/exertions
     public boolean canTakeWound(GameState gameState, PhysicalCard card);
