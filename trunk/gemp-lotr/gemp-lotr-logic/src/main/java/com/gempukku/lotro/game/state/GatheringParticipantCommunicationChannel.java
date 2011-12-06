@@ -124,7 +124,7 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
 
     @Override
     public void setSite(PhysicalCard card) {
-        _events.add(new GameEvent(PCIP).card(card).index(card.getBlueprint().getSiteNumber()));
+        _events.add(new GameEvent(PCIP).card(card).index(card.getSiteNumber()));
     }
 
     @Override

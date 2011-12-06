@@ -72,4 +72,13 @@ public class SimplePhysicalCard implements PhysicalCard {
     @Override
     public void setWhileInZoneData(Object object) {
     }
+
+    @Override
+    public Integer getSiteNumber() {
+        return null;
+    }
+
+    @Override
+    public void setSiteNumber(Integer number) {
+    }
 }

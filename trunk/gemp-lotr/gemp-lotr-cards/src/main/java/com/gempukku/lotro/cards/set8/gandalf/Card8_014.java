@@ -30,7 +30,7 @@ public class Card8_014 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard currentSite = game.getGameState().getCurrentSite();
         if (currentSite.getBlueprint().getSiteBlock() == Block.KING
-                && currentSite.getBlueprint().getSiteNumber() >= 1 && currentSite.getBlueprint().getSiteNumber() <= 5) {
+                && currentSite.getSiteNumber() >= 1 && currentSite.getSiteNumber() <= 5) {
             action.appendEffect(
                     new HealCharactersEffect(self, Filters.gandalf));
         } else {

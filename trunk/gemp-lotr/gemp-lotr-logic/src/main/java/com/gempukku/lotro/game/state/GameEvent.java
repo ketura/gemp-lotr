@@ -167,7 +167,7 @@ public class GameEvent {
         if (stackedOn != null)
             gameEvent = gameEvent.targetCardId(stackedOn.getCardId());
         if (physicalCard.getBlueprint().getCardType() == CardType.SITE)
-            gameEvent = gameEvent.index(physicalCard.getBlueprint().getSiteNumber());
+            gameEvent = gameEvent.index(physicalCard.getSiteNumber());
         return gameEvent;
     }
 

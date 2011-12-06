@@ -67,10 +67,12 @@ var VerticalBarGroup = CardGroup.extend({
         for (var cardIndex in cardsToLayout)
             totalHeight += cardsToLayout[cardIndex].data("card").getHeightForWidth(this.width);
 
-        var resultPadding = Math.min(this.padding, (this.height - totalHeight) / (cardCount - 1));
+        var topGap = 20;
+
+        var resultPadding = Math.min(this.padding, (this.height - totalHeight - topGap) / (cardCount - 1));
 
         var x = this.x;
-        var y = this.y;
+        var y = this.y + topGap;
         var index = 10;
         for (var cardIndex in cardsToLayout) {
             var cardElem = cardsToLayout[cardIndex];
