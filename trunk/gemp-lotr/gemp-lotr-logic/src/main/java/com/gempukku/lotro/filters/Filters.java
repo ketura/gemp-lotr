@@ -389,6 +389,8 @@ public class Filters {
         }
     };
 
+    public static final Filter assignedToSkirmish = Filters.not(Filters.notAssignedToSkirmish);
+
     public static final Filter assignedAgainst(final Filterable... againstFilters) {
         return new Filter() {
             @Override

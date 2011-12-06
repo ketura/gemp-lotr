@@ -30,6 +30,6 @@ public class Card11_168 extends AbstractCompanion {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, self, null,
                 new MultiplyEvaluator(2,
-                        new CountActiveEvaluator(Filters.not(self), Filters.unboundCompanion, Filters.assignedAgainst(Filters.any))));
+                        new CountActiveEvaluator(Filters.not(self), Filters.unboundCompanion, Filters.assignedToSkirmish)));
     }
 }
