@@ -51,7 +51,7 @@ public class Card2_055 extends AbstractPermanent {
                     new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", CardType.SITE, Filters.not(Filters.owner(playerId))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int siteNumber = card.getBlueprint().getSiteNumber();
+                            int siteNumber = card.getSiteNumber();
                             action.appendEffect(
                                     new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, siteNumber, Filters.or(Keyword.MARSH, Keyword.UNDERGROUND)));
                         }

@@ -173,7 +173,7 @@ public class LotroServer extends AbstractServer {
 
     public LotroDeck validateDeck(String contents) {
         List<String> cards = Arrays.asList(contents.split(","));
-        if (cards.size() < 11)
+        if (cards.size() < 2)
             return null;
 
         try {
@@ -185,24 +185,24 @@ public class LotroServer extends AbstractServer {
             if (_lotroCardBlueprintLibrary.getLotroCardBlueprint(ring).getCardType() != CardType.THE_ONE_RING)
                 return null;
 
-            int index = 1;
-            for (String site : cards.subList(2, 11)) {
-                LotroCardBlueprint siteBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(site);
-                if (siteBlueprint.getCardType() != CardType.SITE || siteBlueprint.getSiteNumber() != index)
-                    return null;
-                index++;
-            }
+            List<String> sites = new LinkedList<String>();
+            List<String> others = new LinkedList<String>();
 
-            for (String card : cards.subList(11, cards.size()))
-                _lotroCardBlueprintLibrary.getLotroCardBlueprint(card);
+            for (String card : cards.subList(2, cards.size())) {
+                LotroCardBlueprint lotroCardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(card);
+                if (lotroCardBlueprint.getCardType() == CardType.SITE)
+                    sites.add(card);
+                else
+                    others.add(card);
+            }
 
             LotroDeck deck = new LotroDeck();
             deck.setRingBearer(cards.get(0));
             deck.setRing(cards.get(1));
-            for (int i = 2; i < 11; i++)
-                deck.addSite(cards.get(i));
-            for (int i = 11; i < cards.size(); i++)
-                deck.addCard(cards.get(i));
+            for (String site : sites)
+                deck.addSite(site);
+            for (String other : others)
+                deck.addCard(other);
             return deck;
         } catch (IllegalArgumentException exp) {
             return null;

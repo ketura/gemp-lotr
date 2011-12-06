@@ -41,7 +41,7 @@ public class Card11_045 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
-                                new PlaySiteEffect(action, playerId, null, card.getBlueprint().getSiteNumber()));
+                                new PlaySiteEffect(action, playerId, null, card.getSiteNumber()));
                     }
                 });
         return action;

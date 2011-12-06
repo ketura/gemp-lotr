@@ -523,7 +523,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getBlueprint().getSiteNumber() == siteNumber;
+                return physicalCard.getSiteNumber() == siteNumber;
             }
         };
     }
@@ -532,7 +532,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                int siteNumber = physicalCard.getBlueprint().getSiteNumber();
+                int siteNumber = physicalCard.getSiteNumber();
                 if (region == 1)
                     return siteNumber <= 3;
                 else if (region == 2)

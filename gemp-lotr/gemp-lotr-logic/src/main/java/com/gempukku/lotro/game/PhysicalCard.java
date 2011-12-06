@@ -29,4 +29,8 @@ public interface PhysicalCard extends Filterable {
     public void setWhileInZoneData(Object object);
 
     public Object getWhileInZoneData();
+
+    public void setSiteNumber(Integer number);
+
+    public Integer getSiteNumber();
 }

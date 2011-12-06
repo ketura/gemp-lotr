@@ -811,7 +811,7 @@ public class GameState {
     public PhysicalCard getSite(int siteNumber) {
         for (PhysicalCardImpl physicalCard : _inPlay) {
             LotroCardBlueprint blueprint = physicalCard.getBlueprint();
-            if (blueprint.getCardType() == CardType.SITE && blueprint.getSiteNumber() == siteNumber)
+            if (blueprint.getCardType() == CardType.SITE && physicalCard.getSiteNumber() == siteNumber)
                 return physicalCard;
         }
         return null;
