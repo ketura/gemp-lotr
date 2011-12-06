@@ -30,7 +30,8 @@ public class Card11_182 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.URUK_HAI, CardType.MINION)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.URUK_HAI, CardType.MINION)
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));
