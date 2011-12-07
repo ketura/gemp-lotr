@@ -61,8 +61,10 @@ public class DeckDAO {
 
     private Map<String, DeckVO> getPlayerDecks(Player player) {
         Map<String, DeckVO> decksByName = _decks.get(player.getId());
-        if (decksByName == null)
+        if (decksByName == null) {
             decksByName = loadPlayerDecks(player);
+            _decks.put(player.getId(), decksByName);
+        }
         return decksByName;
     }
 
