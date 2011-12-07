@@ -4,13 +4,13 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.cards.effects.PlayNextSiteEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 
 /**
@@ -37,7 +37,7 @@ public class Card8_029 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
+                new PlayNextSiteEffect(action, playerId));
         action.appendEffect(
                 new AddUntilEndOfTurnModifierEffect(
                         new TwilightCostModifier(self, Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1), -1)));
