@@ -19,6 +19,10 @@ public class DeckDAO {
         _dbAccess = dbAccess;
     }
 
+    public void clearCache() {
+        _decks.clear();
+    }
+
     public DeckVO getDeckForPlayer(Player player, String name) {
         Map<String, DeckVO> deckMap = getPlayerDecks(player);
         return deckMap.get(name);

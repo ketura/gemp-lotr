@@ -25,6 +25,10 @@ public class CollectionDAO {
         _collectionSerializer = new CollectionSerializer(library);
     }
 
+    public void clearCache() {
+        _collections.clear();
+    }
+
     public MutableCardCollection getCollectionForPlayer(Player player, String type) {
         Map<String, MutableCardCollection> playerCollections = _collections.get(player.getId());
         if (playerCollections != null) {

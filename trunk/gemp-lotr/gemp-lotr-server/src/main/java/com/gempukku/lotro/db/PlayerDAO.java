@@ -20,6 +20,10 @@ public class PlayerDAO {
         _dbAccess = dbAccess;
     }
 
+    public void clearCache() {
+        _players.clear();
+    }
+
     public Player getPlayer(String playerName) {
         if (_players.containsKey(playerName))
             return _players.get(playerName);
@@ -40,7 +44,7 @@ public class PlayerDAO {
     public Player loginUser(String login, String password) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name from player where name=? and password=?");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type from player where name=? and password=?");
             try {
                 statement.setString(1, login);
                 statement.setString(2, encodePassword(password));
@@ -49,8 +53,9 @@ public class PlayerDAO {
                     if (rs.next()) {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
+                        String type = rs.getString(3);
 
-                        return new Player(id, name);
+                        return new Player(id, name, type);
                     } else
                         return null;
                 } finally {
@@ -145,7 +150,7 @@ public class PlayerDAO {
     private Player getPlayerFromDB(String playerName) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name from player where name=?");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type from player where name=?");
             try {
                 statement.setString(1, playerName);
                 ResultSet rs = statement.executeQuery();
@@ -153,8 +158,9 @@ public class PlayerDAO {
                     if (rs.next()) {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
+                        String type = rs.getString(3);
 
-                        return new Player(id, name);
+                        return new Player(id, name, type);
                     } else {
                         return null;
                     }
