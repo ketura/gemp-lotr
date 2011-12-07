@@ -192,6 +192,27 @@ public class ServerResource {
         };
     }
 
+    private Player getResourceOwnerSafely(HttpServletRequest request, String participantId) {
+        String loggedUser = getLoggedUser(request);
+        if (_test)
+            loggedUser = participantId;
+
+        if (loggedUser == null)
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+
+        Player resourceOwner = _playerDao.getPlayer(loggedUser);
+
+        if (resourceOwner == null)
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+
+        if (resourceOwner.getType().equals("a") && participantId != null) {
+            resourceOwner = _playerDao.getPlayer(participantId);
+            if (resourceOwner == null)
+                throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
+        return resourceOwner;
+    }
+
     @Path("/gameHistory")
     @GET
     @Produces(MediaType.APPLICATION_XML)
@@ -200,31 +221,20 @@ public class ServerResource {
             @QueryParam("count") int count,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
-
         if (start < 0 || count < 1 || count > 100)
             sendError(Response.Status.BAD_REQUEST);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        if (player.getType().equals("a") && participantId != null) {
-            player = _playerDao.getPlayer(participantId);
-            if (player == null)
-                sendError(Response.Status.UNAUTHORIZED);
-        }
-
-        final List<GameHistoryEntry> playerGameHistory = _lotroServer.getPlayerGameHistory(player, start, count);
-        int recordCount = _lotroServer.getPlayerGameHistoryRecordCount(player);
+        final List<GameHistoryEntry> playerGameHistory = _lotroServer.getPlayerGameHistory(resourceOwner, start, count);
+        int recordCount = _lotroServer.getPlayerGameHistoryRecordCount(resourceOwner);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document doc = documentBuilder.newDocument();
         Element gameHistory = doc.createElement("gameHistory");
         gameHistory.setAttribute("count", String.valueOf(recordCount));
-        gameHistory.setAttribute("playerId", participantId);
+        gameHistory.setAttribute("playerId", resourceOwner.getName());
 
         for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
             Element historyEntry = doc.createElement("historyEntry");
@@ -236,10 +246,10 @@ public class ServerResource {
 
             historyEntry.setAttribute("formatName", gameHistoryEntry.getFormatName());
 
-            if (gameHistoryEntry.getWinner().equals(participantId) && gameHistoryEntry.getWinnerRecording() != null) {
+            if (gameHistoryEntry.getWinner().equals(resourceOwner.getName()) && gameHistoryEntry.getWinnerRecording() != null) {
                 historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getWinnerRecording());
                 historyEntry.setAttribute("deckName", gameHistoryEntry.getWinnerDeckName());
-            } else if (gameHistoryEntry.getLoser().equals(participantId) && gameHistoryEntry.getLoserRecording() != null) {
+            } else if (gameHistoryEntry.getLoser().equals(resourceOwner.getName()) && gameHistoryEntry.getLoserRecording() != null) {
                 historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getLoserRecording());
                 historyEntry.setAttribute("deckName", gameHistoryEntry.getLoserDeckName());
             }
@@ -261,8 +271,7 @@ public class ServerResource {
             @PathParam("gameId") String gameId,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
 
@@ -274,7 +283,7 @@ public class ServerResource {
         Document doc = documentBuilder.newDocument();
         Element gameState = doc.createElement("gameState");
 
-        gameMediator.singupUserForGame(participantId, new SerializationVisitor(doc, gameState));
+        gameMediator.singupUserForGame(resourceOwner, new SerializationVisitor(doc, gameState));
 
         doc.appendChild(gameState);
         return doc;
@@ -288,14 +297,13 @@ public class ServerResource {
             @QueryParam("cardId") int cardId,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
             sendError(Response.Status.NOT_FOUND);
 
-        return gameMediator.produceCardInfo(participantId, cardId);
+        return gameMediator.produceCardInfo(resourceOwner, cardId);
     }
 
     @Path("/game/{gameId}/concede")
@@ -304,14 +312,13 @@ public class ServerResource {
             @PathParam("gameId") String gameId,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
             sendError(Response.Status.NOT_FOUND);
 
-        gameMediator.concede(participantId);
+        gameMediator.concede(resourceOwner);
     }
 
     @Path("/game/{gameId}")
@@ -323,8 +330,7 @@ public class ServerResource {
             @FormParam("decisionId") Integer decisionId,
             @FormParam("decisionValue") String decisionValue,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         LoggingThreadLocal.start();
         try {
@@ -334,7 +340,7 @@ public class ServerResource {
 
             if (decisionId != null) {
                 try {
-                    gameMediator.playerAnswered(participantId, decisionId, decisionValue);
+                    gameMediator.playerAnswered(resourceOwner, decisionId, decisionValue);
                 } catch (RuntimeException exp) {
                     _logger.error("Error while sending decision", exp);
                     throw exp;
@@ -347,7 +353,7 @@ public class ServerResource {
             Document doc = documentBuilder.newDocument();
             Element update = doc.createElement("update");
 
-            gameMediator.processCommunicationChannel(participantId, new SerializationVisitor(doc, update));
+            gameMediator.processCommunicationChannel(resourceOwner, new SerializationVisitor(doc, update));
 
             doc.appendChild(update);
 
@@ -363,16 +369,11 @@ public class ServerResource {
     public Document listDecks(
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
-
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DeckDAO deckDao = _lotroServer.getDeckDao();
 
-        List<String> names = new ArrayList<String>(deckDao.getPlayerDeckNames(player));
+        List<String> names = new ArrayList<String>(deckDao.getPlayerDeckNames(resourceOwner));
         Collections.sort(names);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -395,14 +396,9 @@ public class ServerResource {
             @QueryParam("deckName") String deckName,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        LotroDeck deck = _lotroServer.getParticipantDeck(player, deckName);
+        LotroDeck deck = _lotroServer.getParticipantDeck(resourceOwner, deckName);
 
         if (deck == null) {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -424,14 +420,9 @@ public class ServerResource {
             @FormParam("participantId") String participantId,
             @FormParam("deckContents") String contents,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        LotroDeck deck = _lotroServer.savePlayerDeck(player, deckName, contents);
+        LotroDeck deck = _lotroServer.savePlayerDeck(resourceOwner, deckName, contents);
         if (deck == null)
             sendError(Response.Status.BAD_REQUEST);
 
@@ -453,16 +444,9 @@ public class ServerResource {
             @FormParam("deckName") String deckName,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        LotroDeck deck = _lotroServer.renamePlayerDeck(player, oldDeckName, deckName);
+        LotroDeck deck = _lotroServer.renamePlayerDeck(resourceOwner, oldDeckName, deckName);
         if (deck == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -475,16 +459,11 @@ public class ServerResource {
             @FormParam("deckName") String deckName,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
-
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DeckDAO deckDao = _lotroServer.getDeckDao();
 
-        deckDao.deleteDeckForPlayer(player, deckName);
+        deckDao.deleteDeckForPlayer(resourceOwner, deckName);
     }
 
     private Document serializeDeck(LotroDeck deck) throws ParserConfigurationException {
@@ -525,14 +504,9 @@ public class ServerResource {
             @FormParam("participantId") String participantId,
             @FormParam("deckContents") String contents,
             @Context HttpServletRequest request) {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        LotroDeck deck = _lotroServer.createTemporaryDeckForPlayer(player, contents);
+        LotroDeck deck = _lotroServer.createTemporaryDeckForPlayer(resourceOwner, contents);
         if (deck == null)
             sendError(Response.Status.BAD_REQUEST);
 
@@ -574,14 +548,9 @@ public class ServerResource {
             @QueryParam("start") int start,
             @QueryParam("count") int count,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        CardCollection collection = getCollection(player, collectionType);
+        CardCollection collection = getCollection(resourceOwner, collectionType);
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -643,14 +612,9 @@ public class ServerResource {
             @FormParam("participantId") String participantId,
             @FormParam("pack") String packId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        CardCollection collection = getCollection(player, collectionType);
+        CardCollection collection = getCollection(resourceOwner, collectionType);
         if (collection == null || !(collection instanceof MutableCardCollection))
             sendError(Response.Status.NOT_FOUND);
 
@@ -660,7 +624,7 @@ public class ServerResource {
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
 
-        _collectionDao.setCollectionForPlayer(player, collectionType, modifiableColleciton);
+        _collectionDao.setCollectionForPlayer(resourceOwner, collectionType, modifiableColleciton);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -698,14 +662,13 @@ public class ServerResource {
             @PathParam("room") String room,
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
             sendError(Response.Status.NOT_FOUND);
 
-        List<ChatMessage> chatMessages = chatRoom.joinUser(participantId);
+        List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName());
         Set<String> usersInRoom = chatRoom.getUsersInRoom();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -726,8 +689,7 @@ public class ServerResource {
             @FormParam("participantId") String participantId,
             @FormParam("message") List<String> messages,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
@@ -736,11 +698,11 @@ public class ServerResource {
         if (messages != null) {
             for (String message : messages) {
                 if (message != null && message.trim().length() > 0)
-                    chatRoom.sendMessage(participantId, StringEscapeUtils.escapeHtml(message));
+                    chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message));
             }
         }
 
-        List<ChatMessage> chatMessages = chatRoom.getPendingMessages(participantId);
+        List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
         Set<String> usersInRoom = chatRoom.getUsersInRoom();
 
         if (chatMessages == null)
@@ -762,12 +724,7 @@ public class ServerResource {
     public Document getHall(
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
-
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -776,7 +733,7 @@ public class ServerResource {
 
         Element hall = doc.createElement("hall");
 
-        _hallServer.processTables(player, new SerializeHallInfoVisitor(doc, hall));
+        _hallServer.processTables(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
         for (Map.Entry<String, String> format : _hallServer.getSupportedFormatNames().entrySet()) {
             Element formatElem = doc.createElement("format");
             formatElem.setAttribute("type", format.getKey());
@@ -803,15 +760,10 @@ public class ServerResource {
             @FormParam("deckName") String deckName,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
-
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         try {
-            _hallServer.joinTableAsPlayer(tableId, player, deckName);
+            _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
             return null;
         } catch (HallException e) {
             return marshalException(e);
@@ -825,15 +777,10 @@ public class ServerResource {
             @FormParam("deckName") String deckName,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
-
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         try {
-            _hallServer.createNewTable(format, player, deckName);
+            _hallServer.createNewTable(format, resourceOwner, deckName);
             return null;
         } catch (HallException e) {
             return marshalException(e);
@@ -845,14 +792,9 @@ public class ServerResource {
     public void leaveTable(
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
-        if (!_test)
-            participantId = getLoggedUser(request);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        Player player = _playerDao.getPlayer(participantId);
-        if (player == null)
-            sendError(Response.Status.UNAUTHORIZED);
-
-        _hallServer.leaveAwaitingTables(player);
+        _hallServer.leaveAwaitingTables(resourceOwner);
     }
 
     @GET
