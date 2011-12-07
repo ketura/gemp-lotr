@@ -47,7 +47,7 @@ public class LotroServer extends AbstractServer {
         Thread thr = new Thread(
                 new Runnable() {
                     public void run() {
-                        for (int i = 1; i <= 10; i++) {
+                        for (int i = 1; i <= 11; i++) {
                             for (int j = 1; j <= 365; j++) {
                                 String blueprintId = i + "_" + j;
                                 try {
@@ -62,6 +62,7 @@ public class LotroServer extends AbstractServer {
                                 }
                             }
                         }
+                        _defaultCollection.finishedReading();
                     }
                 }
         );

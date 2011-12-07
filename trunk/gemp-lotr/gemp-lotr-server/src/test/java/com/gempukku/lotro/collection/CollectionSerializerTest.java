@@ -22,6 +22,7 @@ public class CollectionSerializerTest {
         collection.addCards("1_23*", library.getLotroCardBlueprint("1_23*"), 3);
         collection.addCards("1_237T*", library.getLotroCardBlueprint("1_237T*"), 3);
         collection.addPacks("Fellowship of the Ring - League", 2);
+        collection.finishedReading();
 
         CollectionSerializer serializer = new CollectionSerializer(library);
 
@@ -47,6 +48,7 @@ public class CollectionSerializerTest {
 
         DefaultCardCollection collection = new DefaultCardCollection(library);
         collection.addPacks("Fellowship of the Ring - League", 8);
+        collection.finishedReading();
 
         CollectionSerializer serializer = new CollectionSerializer(library);
 

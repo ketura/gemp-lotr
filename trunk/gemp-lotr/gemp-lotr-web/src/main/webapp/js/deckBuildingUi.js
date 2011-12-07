@@ -149,6 +149,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<option value='8'>08 - Siege of Gondor</option>"
                 + "<option value='9'>09 - Reflections</option>"
                 + "<option value='10'>10 - Mount Doom</option>"
+                + "<option value='11,12,13'>War of the Ring Block</option>"
+                + "<option value='11'>11 - Shadows</option>"
+                + "<option value='12'>12 - Black Rider</option>"
+                + "<option value='13'>13 - Bloodlines</option>"
                 + "</select>");
         this.fullFilterDiv.append("<input type='text' id='cardName' value='Card name'>");
         this.fullFilterDiv.append("<select id='sort'>"
@@ -255,7 +259,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         $("#cardType").change(filterOut);
         $("#keyword").change(filterOut);
 
-        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMORIA,#labelRAIDER,#labelSAURON,#labelWRAITH").click(filterOut);
+        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH").click(filterOut);
 
         $("#countSlider").slider({
             value:18,
