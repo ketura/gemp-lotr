@@ -40,15 +40,21 @@ public class PlaySiteEffect extends AbstractEffect {
         _extraSiteFilters = extraSiteFilters;
     }
 
+    protected int getSiteNumberToPlay(LotroGame game) {
+        return _siteNumber;
+    }
+
     private Collection<PhysicalCard> getMatchingSites(LotroGame game) {
-        if (_siteNumber > 9 || _siteNumber < 1)
+        final int siteNumber = getSiteNumberToPlay(game);
+
+        if (siteNumber > 9 || siteNumber < 1)
             return Collections.emptySet();
 
         if (game.getFormat().isOrderedSites()) {
             Filter printedSiteNumber = new Filter() {
                 @Override
                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                    return physicalCard.getBlueprint().getSiteNumber() == _siteNumber;
+                    return physicalCard.getBlueprint().getSiteNumber() == siteNumber;
                 }
             };
             if (_siteBlock != null)
@@ -80,6 +86,8 @@ public class PlaySiteEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
+        final int siteNumber = getSiteNumberToPlay(game);
+
         Collection<PhysicalCard> newSite = getMatchingSites(game);
 
         if (newSite.size() > 0) {
@@ -91,7 +99,7 @@ public class PlaySiteEffect extends AbstractEffect {
                             PhysicalCard newSite = selectedCards.iterator().next();
 
                             GameState gameState = game.getGameState();
-                            PhysicalCard oldSite = gameState.getSite(_siteNumber);
+                            PhysicalCard oldSite = gameState.getSite(siteNumber);
 
                             Zone zone = null;
                             String controlled = null;
@@ -109,7 +117,7 @@ public class PlaySiteEffect extends AbstractEffect {
                             }
 
                             gameState.removeCardsFromZone(_playerId, Collections.singleton(newSite));
-                            newSite.setSiteNumber(_siteNumber);
+                            newSite.setSiteNumber(siteNumber);
                             gameState.addCardToZone(game, newSite, Zone.ADVENTURE_PATH);
                             gameState.sendMessage(newSite.getOwner() + " plays " + GameUtils.getCardLink(newSite));
 
