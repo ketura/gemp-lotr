@@ -99,6 +99,25 @@ public class ServerResource {
         _logger.debug("Resource created");
     }
 
+    @Path("/clearCache")
+    @GET
+    public String clearCache(@Context HttpServletRequest request) throws Exception {
+        String playerName = getLoggedUser(request);
+
+        Player player = _playerDao.getPlayer(playerName);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        if (!player.getType().equals("a"))
+            sendError(Response.Status.FORBIDDEN);
+
+        _playerDao.clearCache();
+        _collectionDao.clearCache();
+        _lotroServer.getDeckDao().clearCache();
+
+        return "OK";
+    }
+
     @Path("/login")
     @POST
     @Produces("text/html")

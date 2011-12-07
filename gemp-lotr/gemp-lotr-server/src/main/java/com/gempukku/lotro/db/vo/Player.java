@@ -3,10 +3,12 @@ package com.gempukku.lotro.db.vo;
 public class Player {
     private int _id;
     private String _name;
+    private String _type;
 
-    public Player(int id, String name) {
+    public Player(int id, String name, String type) {
         _id = id;
         _name = name;
+        _type = type;
     }
 
     public int getId() {
@@ -17,6 +19,10 @@ public class Player {
         return _name;
     }
 
+    public String getType() {
+        return _type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,7 +30,6 @@ public class Player {
 
         Player player = (Player) o;
 
-        if (_id != player._id) return false;
         if (_name != null ? !_name.equals(player._name) : player._name != null) return false;
 
         return true;
@@ -32,8 +37,6 @@ public class Player {
 
     @Override
     public int hashCode() {
-        int result = _id;
-        result = 31 * result + (_name != null ? _name.hashCode() : 0);
-        return result;
+        return _name != null ? _name.hashCode() : 0;
     }
 }
