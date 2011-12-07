@@ -180,7 +180,7 @@ public class LotroGameMediator {
             }
 
             if (_lotroGame.getGameState() != null && _lotroGame.getWinnerPlayerId() == null) {
-                for (Map.Entry<String, Long> playerDecision : _decisionQuerySentTimes.entrySet()) {
+                for (Map.Entry<String, Long> playerDecision : new HashMap<String, Long>(_decisionQuerySentTimes).entrySet()) {
                     String playerId = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();
                     if (currentTime > decisionSent + _playerDecisionTimeoutPeriod) {

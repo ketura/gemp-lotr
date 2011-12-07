@@ -312,8 +312,15 @@ var GempLotrGameUI = Class.extend({
 
     addBottomLeftTabPane: function() {
         var that = this;
-        this.tabPane = $("<div><ul><li><a href='#chatBox'>Chat</a></li><li><a href='#settingsBox'>Settings</a></li><li><a href='#gameOptionsBox'>Game options</a></li></ul>"
-                + "<div id='chatBox'></div><div id='settingsBox'></div><div id='gameOptionsBox'></div></div>").tabs();
+        var tabsLabels = "<li><a href='#chatBox' class='slimTab'>Chat</a></li>";
+        var tabsBodies = "<div id='chatBox' class='slimPanel'></div>";
+        if (!this.replayMode) {
+            tabsLabels += "<li><a href='#settingsBox' class='slimTab'>Settings</a></li><li><a href='#gameOptionsBox' class='slimTab'>Options</a></li><li><a href='#playersInRoomBox' class='slimTab'>Players</a></li>";
+            tabsBodies += "<div id='settingsBox' class='slimPanel'></div><div id='gameOptionsBox' class='slimPanel'></div><div id='playersInRoomBox' class='slimPanel'></div>";
+        }
+        var tabsStr = "<div id='bottomLeftTabs'><ul>" + tabsLabels + "</ul>" + tabsBodies + "</div>";
+
+        this.tabPane = $(tabsStr).tabs();
 
         $("#main").append(this.tabPane);
 
@@ -345,8 +352,16 @@ var GempLotrGameUI = Class.extend({
             $.cookie("autoAccept", "" + selected, { expires: 365 });
         });
 
+        var playerListener = function(players) {
+            var val = "";
+            for (var i = 0; i < players.length; i++)
+                val += players[i] + "<br/>";
+            $("a[href='#playersInRoomBox']").html("Players(" + players.length + ")");
+            $("#playersInRoomBox").html(val);
+        };
+
         var chatRoomName = (this.replayMode ? null : ("Game" + getUrlParam("gameId")));
-        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url);
+        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url, false, playerListener);
         this.chatBox.chatUpdateInterval = 3000;
 
         if (!this.spectatorMode && !this.replayMode) {

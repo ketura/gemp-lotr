@@ -12,9 +12,11 @@ var ChatBoxUI = Class.extend({
     processingMessages: null,
     retryCount: null,
     maxRetryCount: 5,
+    playerListener: null,
 
-    init: function(name, div, url, showList) {
+    init: function(name, div, url, showList, playerListener) {
         var that = this;
+        this.playerListener = playerListener;
         this.retryCount = 0;
         this.name = name;
         this.div = div;
@@ -149,12 +151,24 @@ var ChatBoxUI = Class.extend({
                 }
             }
 
-            if (this.chatListDiv != null) {
-                this.chatListDiv.html("");
-                var users = root.getElementsByTagName("user");
+            var users = root.getElementsByTagName("user");
+            if (this.playerListener != null) {
+                var players = new Array();
                 for (var i = 0; i < users.length; i++) {
                     var user = users[i];
                     var userName = user.childNodes[0].nodeValue;
+                    players.push(userName);
+                }
+                this.playerListener(players);
+            }
+
+            if (this.chatListDiv != null) {
+                this.chatListDiv.html("");
+                var players = new Array();
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+                    var userName = user.childNodes[0].nodeValue;
+                    players.push(userName);
                     this.chatListDiv.append("<div class='chatUser'>" + userName + "</div>");
                 }
             }
