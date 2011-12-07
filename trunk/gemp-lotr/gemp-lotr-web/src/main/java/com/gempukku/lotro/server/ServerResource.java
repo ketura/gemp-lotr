@@ -210,6 +210,12 @@ public class ServerResource {
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
+        if (player.getType().equals("a") && participantId != null) {
+            player = _playerDao.getPlayer(participantId);
+            if (player == null)
+                sendError(Response.Status.UNAUTHORIZED);
+        }
+
         final List<GameHistoryEntry> playerGameHistory = _lotroServer.getPlayerGameHistory(player, start, count);
         int recordCount = _lotroServer.getPlayerGameHistoryRecordCount(player);
 
