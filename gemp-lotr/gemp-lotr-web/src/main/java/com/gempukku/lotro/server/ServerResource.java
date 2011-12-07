@@ -377,9 +377,8 @@ public class ServerResource {
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
-        DeckDAO deckDao = _lotroServer.getDeckDao();
+        LotroDeck deck = _lotroServer.getParticipantDeck(player, deckName);
 
-        LotroDeck deck = deckDao.getDeckForPlayer(player, deckName);
         if (deck == null) {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -407,13 +406,9 @@ public class ServerResource {
         if (player == null)
             sendError(Response.Status.UNAUTHORIZED);
 
-        DeckDAO deckDao = _lotroServer.getDeckDao();
-
-        LotroDeck deck = _lotroServer.validateDeck(contents);
+        LotroDeck deck = _lotroServer.savePlayerDeck(player, deckName, contents);
         if (deck == null)
             sendError(Response.Status.BAD_REQUEST);
-
-        deckDao.saveDeckForPlayer(player, deckName, deck);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -442,7 +437,7 @@ public class ServerResource {
 
         DeckDAO deckDao = _lotroServer.getDeckDao();
 
-        LotroDeck deck = deckDao.renameDeck(player, oldDeckName, deckName);
+        LotroDeck deck = _lotroServer.renamePlayerDeck(player, oldDeckName, deckName);
         if (deck == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -508,7 +503,11 @@ public class ServerResource {
         if (!_test)
             participantId = getLoggedUser(request);
 
-        LotroDeck deck = _lotroServer.validateDeck(contents);
+        Player player = _playerDao.getPlayer(participantId);
+        if (player == null)
+            sendError(Response.Status.UNAUTHORIZED);
+
+        LotroDeck deck = _lotroServer.createTemporaryDeckForPlayer(player, contents);
         if (deck == null)
             sendError(Response.Status.BAD_REQUEST);
 
