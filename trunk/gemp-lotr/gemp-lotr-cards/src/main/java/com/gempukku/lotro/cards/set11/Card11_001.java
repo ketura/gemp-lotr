@@ -49,7 +49,7 @@ public class Card11_001 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), 1));
+        modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), 2));
         modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         return modifiers;
     }
