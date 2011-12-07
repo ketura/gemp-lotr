@@ -124,7 +124,9 @@ public class GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=?");
+                // 5 minutes minimum game
+                long minTime = 1000 * 60 * 5;
+                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=? and end_date-start_date>" + minTime);
                 try {
                     statement.setLong(1, System.currentTimeMillis() - ms);
                     ResultSet rs = statement.executeQuery();
