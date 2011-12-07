@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
+import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import com.gempukku.lotro.logic.GameUtils;
@@ -85,7 +86,7 @@ public class LotroGameMediator {
         return "Playing";
     }
 
-    public String produceCardInfo(String participantId, int cardId) {
+    public String produceCardInfo(Player player, int cardId) {
         _readLock.lock();
         try {
             PhysicalCard card = _lotroGame.getGameState().findCardById(cardId);
@@ -202,7 +203,8 @@ public class LotroGameMediator {
         }
     }
 
-    public void concede(String playerId) {
+    public void concede(Player player) {
+        String playerId = player.getName();
         _writeLock.lock();
         try {
             if (_lotroGame.getWinnerPlayerId() == null && _playersPlaying.contains(playerId)) {
@@ -214,26 +216,27 @@ public class LotroGameMediator {
         }
     }
 
-    public void playerAnswered(String lotroGameParticipant, int decisionId, String answer) {
+    public void playerAnswered(Player player, int decisionId, String answer) {
+        String playerName = player.getName();
         _writeLock.lock();
         try {
-            AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(lotroGameParticipant);
+            AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(playerName);
             if (awaitingDecision != null) {
                 if (awaitingDecision.getAwaitingDecisionId() == decisionId) {
                     try {
-                        _userFeedback.participantDecided(lotroGameParticipant);
+                        _userFeedback.participantDecided(playerName);
                         awaitingDecision.decisionMade(answer);
 
                         // Decision successfully made, add the time to user clock
-                        addTimeSpentOnDecisionToUserClock(lotroGameParticipant);
+                        addTimeSpentOnDecisionToUserClock(playerName);
 
                         _lotroGame.carryOutPendingActionsUntilDecisionNeeded();
                         startClocksForUsersPendingDecision();
 
                     } catch (DecisionResultInvalidException decisionResultInvalidException) {
                         // Participant provided wrong answer - send a warning message, and ask again for the same decision
-                        _userFeedback.sendWarning(lotroGameParticipant, decisionResultInvalidException.getWarningMessage());
-                        _userFeedback.sendAwaitingDecision(lotroGameParticipant, awaitingDecision);
+                        _userFeedback.sendWarning(playerName, decisionResultInvalidException.getWarningMessage());
+                        _userFeedback.sendAwaitingDecision(playerName, awaitingDecision);
                     }
                 }
             }
@@ -242,22 +245,23 @@ public class LotroGameMediator {
         }
     }
 
-    public void processCommunicationChannel(String participantId, ParticipantCommunicationVisitor visitor) {
+    public void processCommunicationChannel(Player player, ParticipantCommunicationVisitor visitor) {
+        String playerName = player.getName();
         _readLock.lock();
         try {
-            GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(participantId);
+            GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
             if (communicationChannel != null) {
                 for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
                     visitor.visitGameEvent(gameEvent);
 
-                String warning = _userFeedback.consumeWarning(participantId);
+                String warning = _userFeedback.consumeWarning(playerName);
                 if (warning != null)
                     visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
 
                 Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
                 for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
-                    String player = playerClock.getKey();
-                    secondsLeft.put(player, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
+                    String playerClockName = playerClock.getKey();
+                    secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
                 }
                 visitor.visitClock(secondsLeft);
             } else {
@@ -268,21 +272,21 @@ public class LotroGameMediator {
         }
     }
 
-    public void singupUserForGame(String participantId, ParticipantCommunicationVisitor visitor) {
+    public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
         _readLock.lock();
         try {
-            GatheringParticipantCommunicationChannel participantCommunicationChannel = new GatheringParticipantCommunicationChannel(participantId);
-            _communicationChannels.put(participantId, participantCommunicationChannel);
+            GatheringParticipantCommunicationChannel participantCommunicationChannel = new GatheringParticipantCommunicationChannel(player.getName());
+            _communicationChannels.put(player.getName(), participantCommunicationChannel);
 
-            _lotroGame.addGameStateListener(participantId, participantCommunicationChannel);
+            _lotroGame.addGameStateListener(player.getName(), participantCommunicationChannel);
 
             for (GameEvent gameEvent : participantCommunicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);
 
             Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
-                String player = playerClock.getKey();
-                secondsLeft.put(player, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player));
+                String playerId = playerClock.getKey();
+                secondsLeft.put(playerId, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerId));
             }
             visitor.visitClock(secondsLeft);
         } finally {
