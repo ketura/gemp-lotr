@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set8.gollum;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -39,8 +39,8 @@ public class Card8_029 extends AbstractEvent {
         action.appendEffect(
                 new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
         action.appendEffect(
-                new AddUntilEndOfPhaseModifierEffect(
-                        new TwilightCostModifier(self, Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1), -1), game.getGameState().getCurrentPhase()));
+                new AddUntilEndOfTurnModifierEffect(
+                        new TwilightCostModifier(self, Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1), -1)));
         return action;
     }
 }
