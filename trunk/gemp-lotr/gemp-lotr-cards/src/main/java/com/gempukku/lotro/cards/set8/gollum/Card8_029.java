@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.effects.PlayNextSiteEffect;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -40,7 +41,7 @@ public class Card8_029 extends AbstractEvent {
                 new PlayNextSiteEffect(action, playerId));
         action.appendEffect(
                 new AddUntilEndOfTurnModifierEffect(
-                        new TwilightCostModifier(self, Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1), -1)));
+                        new TwilightCostModifier(self, Filters.and(CardType.SITE, Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1)), -1)));
         return action;
     }
 }

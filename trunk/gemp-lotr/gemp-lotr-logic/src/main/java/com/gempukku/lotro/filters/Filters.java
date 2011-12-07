@@ -523,7 +523,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getSiteNumber() == siteNumber;
+                return (physicalCard.getSiteNumber() != null) && (physicalCard.getSiteNumber() == siteNumber);
             }
         };
     }
