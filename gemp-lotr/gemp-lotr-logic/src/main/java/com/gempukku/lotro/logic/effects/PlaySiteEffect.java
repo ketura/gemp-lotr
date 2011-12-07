@@ -41,6 +41,9 @@ public class PlaySiteEffect extends AbstractEffect {
     }
 
     private Collection<PhysicalCard> getMatchingSites(LotroGame game) {
+        if (_siteNumber > 9 || _siteNumber < 1)
+            return Collections.emptySet();
+
         if (game.getFormat().isOrderedSites()) {
             Filter printedSiteNumber = new Filter() {
                 @Override
