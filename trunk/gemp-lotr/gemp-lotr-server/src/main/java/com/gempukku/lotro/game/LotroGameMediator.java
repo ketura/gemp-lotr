@@ -79,7 +79,8 @@ public class LotroGameMediator {
     public String getGameStatus() {
         if (_lotroGame.getWinnerPlayerId() != null)
             return "Finished";
-        if (_lotroGame.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP)
+        final Phase currentPhase = _lotroGame.getGameState().getCurrentPhase();
+        if (currentPhase == Phase.PLAY_STARTING_FELLOWSHIP || currentPhase == Phase.PUT_RING_BEARER)
             return "Preparation";
         return "Playing";
     }
