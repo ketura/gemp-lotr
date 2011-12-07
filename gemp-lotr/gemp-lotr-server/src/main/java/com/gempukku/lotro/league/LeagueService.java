@@ -27,7 +27,7 @@ public class LeagueService {
     public MutableCardCollection getLeagueCollection(Player player, League league) {
         final MutableCardCollection collectionForPlayer = _collectionDao.getCollectionForPlayer(player, league.getType());
         if (collectionForPlayer == null) {
-            MutableCardCollection collection = new DefaultCardCollection(_library);
+            DefaultCardCollection collection = new DefaultCardCollection(_library);
 
             MutableCardCollection baseCollection = league.getBaseCollection();
             for (CardCollection.Item item : baseCollection.getItems(null)) {
@@ -36,6 +36,7 @@ public class LeagueService {
                 else
                     collection.addPacks(item.getBlueprintId(), item.getCount());
             }
+            collection.finishedReading();
             return collection;
         }
         return collectionForPlayer;

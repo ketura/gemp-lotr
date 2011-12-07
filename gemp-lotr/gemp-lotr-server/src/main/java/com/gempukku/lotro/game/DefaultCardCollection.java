@@ -6,11 +6,19 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Integer> _counts = new TreeMap<String, Integer>(new CardBlueprintIdComparator());
     private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>();
     private LotroCardBlueprintLibrary _library;
+
+    private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
+
+    public void finishedReading() {
+        _collectionReadyLatch.countDown();
+    }
+
     private static final Comparator<Item> NAME_COMPARATOR = new Comparator<Item>() {
         @Override
         public int compare(Item o1, Item o2) {
@@ -160,6 +168,12 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public List<Item> getItems(String filter) {
+        try {
+            _collectionReadyLatch.await();
+        } catch (InterruptedException exp) {
+            throw new RuntimeException(exp);
+        }
+
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");

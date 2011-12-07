@@ -80,6 +80,8 @@ var Card = Class.extend({
             return (cardNo >= 117 && cardNo <= 120);
         if (setNo == 10)
             return (cardNo >= 117 && cardNo <= 120);
+        if (setNo == 11)
+            return (cardNo >= 227 && cardNo <= 266);
         return false;
     },
 

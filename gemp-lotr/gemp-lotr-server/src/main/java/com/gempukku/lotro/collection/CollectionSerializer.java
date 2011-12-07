@@ -127,6 +127,7 @@ public class CollectionSerializer {
                 final String blueprintId = _cardIds.get(i);
                 collection.addCards(blueprintId, _library.getLotroCardBlueprint(blueprintId), cards[i]);
             }
+        collection.finishedReading();
 
         return collection;
     }

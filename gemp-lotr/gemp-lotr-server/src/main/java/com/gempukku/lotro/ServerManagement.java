@@ -25,6 +25,7 @@ public class ServerManagement {
         LeagueDAO leagueDao = new LeagueDAO(dbAccess, library);
         DefaultCardCollection collection = new DefaultCardCollection(library);
         collection.addPacks("Fellowship of the Ring - League", 12);
+        collection.finishedReading();
 
         leagueDao.addLeague("Test league", "league_test", collection, 20111122, 20121123);
     }
