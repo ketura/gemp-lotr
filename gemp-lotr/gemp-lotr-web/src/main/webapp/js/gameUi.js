@@ -283,7 +283,7 @@ var GempLotrGameUI = Class.extend({
         this.alertText = $("<div></div>");
         this.alertText.css({position: "absolute", left: "0px", top: "0px", width: "100%", height: "50px", scroll: "auto"});
 
-        this.alertButtons = $("<div></div>");
+        this.alertButtons = $("<div class='alertButtons'></div>");
         this.alertButtons.css({position: "absolute", left: "0px", top: "50px", width: "100%", height: "30px", scroll: "auto"});
 
         this.alertBox.append(this.alertText);
