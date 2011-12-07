@@ -26,6 +26,6 @@ public class Card11_227 extends AbstractNewSite {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.SHADOW, null,
                 new MultiplyEvaluator(2,
-                        new CountActiveEvaluator(4, null, CardType.COMPANION)));
+                        new CountActiveEvaluator(4, (Integer) null, CardType.COMPANION)));
     }
 }
