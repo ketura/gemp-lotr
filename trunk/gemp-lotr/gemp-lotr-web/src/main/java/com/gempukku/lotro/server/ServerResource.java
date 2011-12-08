@@ -24,6 +24,7 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.FixedPackBox;
 import com.gempukku.lotro.packs.LeagueStarterBox;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.RarityPackBox;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
@@ -92,6 +93,7 @@ public class ServerResource {
             _packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
             _packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox(_library, "FotR - Gandalf Starter"));
             _packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox(_library, "FotR - Aragorn Starter"));
+            _packStorage.addPackBox("FotR - Booster", new RarityPackBox(_library, 1));
 
         } catch (IOException exp) {
             _logger.error("Error while creating resource", exp);
