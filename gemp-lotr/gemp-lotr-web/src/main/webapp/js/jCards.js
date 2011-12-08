@@ -86,8 +86,14 @@ var Card = Class.extend({
     },
 
     getUrlByBlueprintId: function(blueprintId) {
-        if (blueprintId == "Fellowship of the Ring - League")
-            return "/gemp-lotr/images/boosters/fotr_booster.jpg";
+        if (blueprintId == "FotR - League Starter")
+            return "/gemp-lotr/images/boosters/fotr_league_starter.png";
+        else if (blueprintId == "FotR - Gandalf Starter")
+            return "/gemp-lotr/images/boosters/fotr_gandalf_starter.png";
+        else if (blueprintId == "FotR - Aragorn Starter")
+                return "/gemp-lotr/images/boosters/fotr_aragorn_starter.png";
+            else if (blueprintId == "FotR - Booster")
+                    return "/gemp-lotr/images/boosters/fotr_booster.png";
 
         var separator = blueprintId.indexOf("_");
         var setNo = parseInt(blueprintId.substr(0, separator));
