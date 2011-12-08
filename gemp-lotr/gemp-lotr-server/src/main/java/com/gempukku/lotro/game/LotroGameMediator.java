@@ -26,7 +26,7 @@ public class LotroGameMediator {
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
     private Set<String> _playersPlaying = new HashSet<String>();
 
-    private final int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
+    private int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
     //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
     private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
     private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
@@ -35,7 +35,8 @@ public class LotroGameMediator {
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
     private ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
 
-    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library) {
+    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer) {
+        _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -51,6 +52,10 @@ public class LotroGameMediator {
         _userFeedback = new DefaultUserFeedback();
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
+    }
+
+    public void sendMessageToPlayers(String message) {
+        _lotroGame.getGameState().sendMessage(message);
     }
 
     public void addGameStateListener(String playerId, GameStateListener listener) {

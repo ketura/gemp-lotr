@@ -1,5 +1,6 @@
 package com.gempukku.lotro.hall;
 
+import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.LotroGameParticipant;
 
@@ -9,14 +10,16 @@ public class AwaitingTable {
     private String _formatType;
     private String _formatName;
     private LotroFormat _lotroFormat;
+    private League _league;
     private Map<String, LotroGameParticipant> _players = new HashMap<String, LotroGameParticipant>();
 
     private int _capacity = 2;
 
-    public AwaitingTable(String formatType, String formatName, LotroFormat lotroFormat) {
+    public AwaitingTable(String formatType, String formatName, LotroFormat lotroFormat, League league) {
         _formatType = formatType;
         _formatName = formatName;
         _lotroFormat = lotroFormat;
+        _league = league;
     }
 
     public boolean addPlayer(LotroGameParticipant player) {
@@ -51,5 +54,9 @@ public class AwaitingTable {
 
     public LotroFormat getLotroFormat() {
         return _lotroFormat;
+    }
+
+    public League getLeague() {
+        return _league;
     }
 }

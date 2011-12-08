@@ -77,6 +77,7 @@ public class HallServer extends AbstractServer {
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
     public synchronized void createNewTable(String type, Player player, String deckName) throws HallException {
+        League league = null;
         LotroFormat format = _supportedFormats.get(type);
         String formatName = null;
         if (format != null)
@@ -84,7 +85,7 @@ public class HallServer extends AbstractServer {
 
         if (format == null) {
             // Maybe it's a league format?
-            final League league = _leagueService.getLeagueByType(type);
+            league = _leagueService.getLeagueByType(type);
             if (league != null) {
                 format = _leagueService.getLeagueFormat(league, player);
                 formatName = league.getName();
@@ -97,7 +98,7 @@ public class HallServer extends AbstractServer {
         LotroDeck lotroDeck = validateUserAndDeck(type, format, player, deckName);
 
         String tableId = String.valueOf(_nextTableId++);
-        AwaitingTable table = new AwaitingTable(type, formatName, format);
+        AwaitingTable table = new AwaitingTable(type, formatName, format, league);
         _awaitingTables.put(tableId, table);
 
         joinTableInternal(tableId, player.getName(), table, deckName, lotroDeck);
@@ -147,8 +148,11 @@ public class HallServer extends AbstractServer {
     private void createGame(String tableId, AwaitingTable awaitingTable) {
         Set<LotroGameParticipant> players = awaitingTable.getPlayers();
         LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
-        String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), awaitingTable.getFormatName(), participants);
+        League league = awaitingTable.getLeague();
+        String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), awaitingTable.getFormatName(), participants, league != null);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
+        if (league != null)
+            _leagueService.leagueGameStarting(league, lotroGameMediator);
         lotroGameMediator.startGame();
         _runningTables.put(tableId, gameId);
         _runningTableFormatNames.put(tableId, awaitingTable.getFormatName());
