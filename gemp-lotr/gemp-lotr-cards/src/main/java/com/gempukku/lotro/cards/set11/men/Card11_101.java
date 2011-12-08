@@ -1,22 +1,17 @@
 package com.gempukku.lotro.cards.set11.men;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndTransferAttachableEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -47,30 +42,7 @@ public class Card11_101 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a condition", CardType.CONDITION, Filters.attachedTo(Filters.character),
-                            new Filter() {
-                                @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
-                                        return false;
-
-                                    AbstractAttachable attachable = (AbstractAttachable) physicalCard.getBlueprint();
-                                    return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), attachable.getFullValidTargetFilter(physicalCard.getOwner(), game, physicalCard), Filters.not(physicalCard.getAttachedTo()));
-                                }
-                            }) {
-                        @Override
-                        protected void cardSelected(LotroGame game, final PhysicalCard attachment) {
-                            AbstractAttachable attachable = (AbstractAttachable) attachment.getBlueprint();
-                            action.insertEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose new eligible bearer", attachable.getFullValidTargetFilter(attachment.getOwner(), game, attachment), Filters.not(attachment.getAttachedTo())) {
-                                        @Override
-                                        protected void cardSelected(LotroGame game, PhysicalCard newBearer) {
-                                            action.insertEffect(
-                                                    new TransferPermanentEffect(attachment, newBearer));
-                                        }
-                                    });
-                        }
-                    });
+                    new ChooseAndTransferAttachableEffect(action, playerId, CardType.CONDITION, Filters.character, Filters.any));
             return Collections.singletonList(action);
         }
         return null;
