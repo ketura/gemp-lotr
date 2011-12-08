@@ -132,7 +132,7 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public synchronized String createNewGame(LotroFormat lotroFormat, String formatName, LotroGameParticipant[] participants) {
+    public synchronized String createNewGame(LotroFormat lotroFormat, String formatName, LotroGameParticipant[] participants, boolean competetive) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
@@ -141,7 +141,7 @@ public class LotroServer extends AbstractServer {
         ChatRoomMediator room = _chatServer.createChatRoom(chatRoomName, 30);
         room.sendMessage("System", "You're starting a game of " + formatName);
 
-        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary);
+        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary, competetive ? 40 : 80);
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override
@@ -152,7 +152,7 @@ public class LotroServer extends AbstractServer {
                         }
                     }
                 });
-//        if (!_test) {
+
         Map<String, String> deckNames = new HashMap<String, String>();
         for (LotroGameParticipant participant : participants)
             deckNames.put(participant.getPlayerId(), participant.getDeckName());
@@ -168,7 +168,6 @@ public class LotroServer extends AbstractServer {
                     }
                 }
         );
-//        }
 
         _runningGames.put(gameId, lotroGameMediator);
         _nextGameId++;
