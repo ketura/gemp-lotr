@@ -1,2 +1,4 @@
-Fellowship of the Ring - League
 FotR - League Starter
+FotR - Gandalf Starter
+FotR - Aragorn Starter
+FotR - Booster
