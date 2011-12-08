@@ -1,8 +1,5 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.cards.packs.DefaultPackBox;
-import com.gempukku.lotro.cards.packs.LeagueBoosterBox;
-import com.gempukku.lotro.cards.packs.PackBox;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
@@ -24,6 +21,9 @@ import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.modifiers.LoggingThreadLocal;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.packs.FixedPackBox;
+import com.gempukku.lotro.packs.LeagueStarterBox;
+import com.gempukku.lotro.packs.PacksStorage;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
@@ -60,7 +60,7 @@ public class ServerResource {
     private LeagueService _leagueService;
     private CollectionDAO _collectionDao;
     private PlayerDAO _playerDao;
-    private PackBox _packBox;
+    private PacksStorage _packStorage;
 
     public ServerResource() {
         if (!_test)
@@ -88,10 +88,14 @@ public class ServerResource {
             _hallServer = new HallServer(_lotroServer, _chatServer, _leagueService, _test);
             _hallServer.startServer();
 
-            DefaultPackBox packBox = new DefaultPackBox();
-            packBox.addBoosterBox("Fellowship of the Ring - League", new LeagueBoosterBox(_library));
-            _packBox = packBox;
+            _packStorage = new PacksStorage();
+            _packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
+            _packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox(_library, "FotR - Gandalf Starter"));
+            _packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox(_library, "FotR - Aragorn Starter"));
 
+        } catch (IOException exp) {
+            _logger.error("Error while creating resource", exp);
+            exp.printStackTrace();
         } catch (RuntimeException exp) {
             _logger.error("Error while creating resource", exp);
             exp.printStackTrace();
@@ -103,6 +107,8 @@ public class ServerResource {
     @GET
     public String clearCache(@Context HttpServletRequest request) throws Exception {
         String playerName = getLoggedUser(request);
+        if (playerName == null)
+            sendError(Response.Status.UNAUTHORIZED);
 
         Player player = _playerDao.getPlayer(playerName);
         if (player == null)
@@ -620,7 +626,7 @@ public class ServerResource {
 
         MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
 
-        List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packBox, _library);
+        List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packStorage, _library);
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -936,10 +942,7 @@ public class ServerResource {
     }
 
     private String getLoggedUser(HttpServletRequest request) {
-        String loggedUser = (String) request.getSession().getAttribute("logged");
-        if (loggedUser == null)
-            sendError(Response.Status.UNAUTHORIZED);
-        return loggedUser;
+        return (String) request.getSession().getAttribute("logged");
     }
 
     private void sendError(Response.Status status) throws WebApplicationException {

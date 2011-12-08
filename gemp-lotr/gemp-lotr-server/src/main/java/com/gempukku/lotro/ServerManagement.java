@@ -24,7 +24,7 @@ public class ServerManagement {
     private static void addLeague(DbAccess dbAccess, LotroCardBlueprintLibrary library) throws IOException, SQLException {
         LeagueDAO leagueDao = new LeagueDAO(dbAccess, library);
         DefaultCardCollection collection = new DefaultCardCollection(library);
-        collection.addPacks("Fellowship of the Ring - League", 12);
+        collection.addPacks("FotR - League Starter", 1);
         collection.finishedReading();
 
         leagueDao.addLeague("Test league", "league_test", collection, 20111122, 20121123);

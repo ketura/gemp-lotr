@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.packs.PackBox;
+import com.gempukku.lotro.packs.PacksStorage;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ public interface MutableCardCollection extends CardCollection {
 
     public void addPacks(String packId, int count);
 
-    public List<Item> openPack(String packId, PackBox packBox, LotroCardBlueprintLibrary library);
+    public List<Item> openPack(String packId, PacksStorage packBox, LotroCardBlueprintLibrary library);
 }

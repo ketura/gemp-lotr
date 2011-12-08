@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.packs.PackBox;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.packs.PacksStorage;
 
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
@@ -136,27 +136,30 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public synchronized List<Item> openPack(String packId, PackBox packBox, LotroCardBlueprintLibrary library) {
+    public synchronized List<Item> openPack(String packId, PacksStorage packsStorage, LotroCardBlueprintLibrary library) {
         Integer count = _counts.get(packId);
         if (count == null)
             return null;
         if (count > 0) {
-            List<String> packContents = packBox.openPack(packId);
+            List<Item> packContents = packsStorage.openPack(packId);
             if (packContents == null)
                 return null;
 
-            List<Item> result = new LinkedList<Item>();
-            for (String cardFromPack : packContents) {
-                LotroCardBlueprint cardBlueprint = library.getLotroCardBlueprint(cardFromPack);
-                addCards(cardFromPack, cardBlueprint, 1);
-                result.add(new Item(Item.Type.CARD, 1, cardFromPack, cardBlueprint));
+            for (Item itemFromPack : packContents) {
+                if (itemFromPack.getType() == Item.Type.PACK) {
+                    addPacks(itemFromPack.getBlueprintId(), itemFromPack.getCount());
+                } else {
+                    String cardBlueprintId = itemFromPack.getBlueprintId();
+                    LotroCardBlueprint cardBlueprint = library.getLotroCardBlueprint(cardBlueprintId);
+                    addCards(cardBlueprintId, cardBlueprint, itemFromPack.getCount());
+                }
             }
             if (count == 1)
                 _counts.remove(packId);
             else
                 _counts.put(packId, count - 1);
 
-            return result;
+            return packContents;
         }
         return null;
     }
