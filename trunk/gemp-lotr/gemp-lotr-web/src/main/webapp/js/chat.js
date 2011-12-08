@@ -28,7 +28,7 @@ var ChatBoxUI = Class.extend({
                         that.appendMessage("You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
                         return;
                     } else if (xhr.status == 404) {
-                        that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
+                        that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
                         return;
                     } else if (xhr.status == 503) {
                         that.appendMessage("Server is being restarted, please wait for the restart to finish and try again later.", "warningMessage");
