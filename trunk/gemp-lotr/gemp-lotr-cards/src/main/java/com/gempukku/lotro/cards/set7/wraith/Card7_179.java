@@ -29,7 +29,7 @@ public class Card7_179 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canSpot(game, self, Race.NAZGUL)
+                && PlayConditions.canSpot(game, Race.NAZGUL)
                 && PlayConditions.canRemoveThreat(game, self, 1)
                 && PlayConditions.canPlayFromHand(playerId, game, -2, Race.NAZGUL)) {
             ActivateCardAction action = new ActivateCardAction(self);
