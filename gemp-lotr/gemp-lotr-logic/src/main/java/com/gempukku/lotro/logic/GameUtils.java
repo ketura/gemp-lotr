@@ -87,7 +87,7 @@ public class GameUtils {
 
     public static String formatNumber(int effective, int requested) {
         if (effective != requested)
-            return effective + "(" + requested + ")";
+            return effective + "(out of " + requested + ")";
         else
             return String.valueOf(effective);
     }
