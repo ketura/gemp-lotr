@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.actions;
 
 import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -12,13 +11,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
-import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class PlayPermanentAction extends AbstractCostToEffectAction implements DiscountableAction {
     private PhysicalCard _permanentPlayed;
@@ -27,8 +22,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
     private boolean _ignoreRoamingPenalty;
 
     private boolean _cardRemoved;
-
-    private Iterator<Effect> _preCostIterator;
 
     private Effect _playCardEffect;
     private boolean _cardPlayed;
@@ -40,19 +33,13 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
 
     private boolean _discountApplied;
 
+    private boolean _skipShuffling;
+
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier, boolean ignoreRoamingPenalty) {
         _permanentPlayed = card;
         _zone = zone;
         _twilightModifier = twilightModifier;
         _ignoreRoamingPenalty = ignoreRoamingPenalty;
-
-        List<Effect> preCostEffects = new LinkedList<Effect>();
-        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + card.getZone().getHumanReadable()));
-
-        if (card.getZone() == Zone.DECK)
-            preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
-
-        _preCostIterator = preCostEffects.iterator();
 
         PhysicalCard playedFromCard = null;
         if (card.getZone() == Zone.STACKED)
@@ -61,6 +48,10 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
             playedFromCard = card.getAttachedTo();
 
         _playCardEffect = new PlayCardEffect(card.getZone(), card, zone, playedFromCard);
+    }
+
+    public void skipShufflingDeck() {
+        _skipShuffling = true;
     }
 
     @Override
@@ -90,15 +81,15 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
 
     @Override
     public Effect nextEffect(LotroGame game) {
-        if (_preCostIterator.hasNext())
-            return _preCostIterator.next();
-
         if (!_cardRemoved) {
             _cardRemoved = true;
-            boolean fromHand = (_permanentPlayed.getZone() == Zone.HAND);
+            final Zone playedFromZone = _permanentPlayed.getZone();
+            game.getGameState().sendMessage(_permanentPlayed.getOwner() + " plays " + GameUtils.getCardLink(_permanentPlayed) + " from " + playedFromZone.getHumanReadable());
             game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
-            if (fromHand)
+            if (playedFromZone == Zone.HAND)
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID);
+            if (playedFromZone == Zone.DECK && !_skipShuffling)
+                game.getGameState().shuffleDeck(_permanentPlayed.getOwner());
         }
 
         if (!_discountResolved) {

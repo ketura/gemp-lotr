@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.actions;
 import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PayPlayOnTwilightCostEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -15,10 +14,10 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
-import com.gempukku.lotro.logic.effects.SendMessageEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
 
 public class AttachPermanentAction extends AbstractCostToEffectAction implements DiscountableAction {
     private PhysicalCard _cardToAttach;
@@ -27,8 +26,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
     private ChooseActiveCardEffect _chooseTargetEffect;
     private boolean _targetChosen;
-
-    private Iterator<Effect> _preCostIterator;
 
     private Effect _playCardEffect;
     private boolean _cardPlayed;
@@ -49,7 +46,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
         _cardToAttach = card;
 
-        final Zone zone = card.getZone();
+        final Zone playedFromZone = card.getZone();
 
         _chooseTargetEffect =
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
@@ -68,14 +65,9 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
                         _twilightModifier = modifier;
 
-                        List<Effect> preCostEffects = new LinkedList<Effect>();
-                        preCostEffects.add(new SendMessageEffect(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + zone.getHumanReadable() + " on " + GameUtils.getCardLink(target)));
-                        if (zone == Zone.DECK)
-                            preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
+                        game.getGameState().sendMessage(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + playedFromZone.getHumanReadable() + " on " + GameUtils.getCardLink(target));
 
-                        _preCostIterator = preCostEffects.iterator();
-
-                        _playCardEffect = new PlayCardEffect(zone, card, target, null);
+                        _playCardEffect = new PlayCardEffect(playedFromZone, card, target, null);
                     }
                 };
     }
@@ -117,19 +109,18 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
     public Effect nextEffect(LotroGame game) {
         if (!_cardRemoved) {
             _cardRemoved = true;
-            boolean fromHand = (_cardToAttach.getZone() == Zone.HAND);
+            final Zone playedFromZone = _cardToAttach.getZone();
             game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
-            if (fromHand)
+            if (playedFromZone == Zone.HAND)
                 game.getGameState().addCardToZone(game, _cardToAttach, Zone.VOID);
+            if (playedFromZone == Zone.DECK)
+                game.getGameState().shuffleDeck(_cardToAttach.getOwner());
         }
 
         if (!_targetChosen) {
             _targetChosen = true;
             return _chooseTargetEffect;
         }
-
-        if (_preCostIterator.hasNext())
-            return _preCostIterator.next();
 
         if (!_discountResolved) {
             _discountResolved = true;

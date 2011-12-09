@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.actions;
 
 import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -15,17 +14,12 @@ import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class PlayEventAction extends AbstractCostToEffectAction implements DiscountableAction {
     private PhysicalCard _eventPlayed;
     private boolean _requiresRanger;
 
     private boolean _cardRemoved;
-
-    private Iterator<Effect> _preCostIterator;
 
     private PlayEventEffect _playCardEffect;
     private boolean _cardPlayed;
@@ -47,12 +41,6 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
     public PlayEventAction(PhysicalCard card, boolean requiresRanger) {
         _eventPlayed = card;
         _requiresRanger = requiresRanger;
-
-        List<Effect> preCostEffects = new LinkedList<Effect>();
-        if (card.getZone() == Zone.DECK)
-            preCostEffects.add(new ShuffleDeckEffect(card.getOwner()));
-
-        _preCostIterator = preCostEffects.iterator();
 
         _playCardEffect = new PlayEventEffect(card.getZone(), card, requiresRanger);
 
@@ -102,16 +90,16 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
 
     @Override
     public Effect nextEffect(LotroGame game) {
-        if (_preCostIterator.hasNext())
-            return _preCostIterator.next();
-
         if (!_cardRemoved) {
             _cardRemoved = true;
-            game.getGameState().sendMessage(_eventPlayed.getOwner() + " plays " + GameUtils.getCardLink(_eventPlayed) + " from " + _eventPlayed.getZone().getHumanReadable());
-            boolean fromHand = (_eventPlayed.getZone() == Zone.HAND);
+            final Zone playedFromZone = _eventPlayed.getZone();
+
+            game.getGameState().sendMessage(_eventPlayed.getOwner() + " plays " + GameUtils.getCardLink(_eventPlayed) + " from " + playedFromZone.getHumanReadable());
             game.getGameState().removeCardsFromZone(_eventPlayed.getOwner(), Collections.singleton(_eventPlayed));
-            if (fromHand)
+            if (playedFromZone == Zone.HAND)
                 game.getGameState().addCardToZone(game, _eventPlayed, Zone.VOID);
+            if (playedFromZone == Zone.DECK)
+                game.getGameState().shuffleDeck(_eventPlayed.getOwner());
             game.getGameState().eventPlayed(_eventPlayed);
         }
 
