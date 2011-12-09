@@ -40,7 +40,7 @@ public class Card12_026 extends AbstractEvent {
                     @Override
                     protected void spottedCards(int spotCount) {
                         action.appendEffect(
-                                new ReorderTopCardsOfDeckEffect(action playerId, spotCount));
+                                new ReorderTopCardsOfDeckEffect(action, playerId, spotCount));
                     }
                 });
         return action;
