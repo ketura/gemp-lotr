@@ -2,8 +2,6 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.ApplicationRoot;
-import com.gempukku.lotro.db.CollectionDAO;
-import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.db.vo.Player;
@@ -45,10 +43,6 @@ public class ServerResource extends AbstractResource {
     @Context
     private ChatServer _chatServer;
     @Context
-    private CollectionDAO _collectionDao;
-    @Context
-    private DeckDAO _deckDao;
-    @Context
     private GameHistoryDAO _gameHistoryDao;
 
     public ServerResource() {
@@ -60,21 +54,6 @@ public class ServerResource extends AbstractResource {
         _logger.debug("starting resource");
 
         _logger.debug("Resource created");
-    }
-
-    @Path("/clearCache")
-    @GET
-    public String clearCache(@Context HttpServletRequest request) throws Exception {
-        Player player = getResourceOwnerSafely(request, null);
-
-        if (!player.getType().equals("a"))
-            sendError(Response.Status.FORBIDDEN);
-
-        _playerDao.clearCache();
-        _collectionDao.clearCache();
-        _deckDao.clearCache();
-
-        return "OK";
     }
 
     @Path("/login")

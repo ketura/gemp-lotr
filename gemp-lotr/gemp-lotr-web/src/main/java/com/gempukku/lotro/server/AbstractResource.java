@@ -20,7 +20,7 @@ public abstract class AbstractResource {
 
     protected final Player getResourceOwnerSafely(HttpServletRequest request, String participantId) {
         String loggedUser = getLoggedUser(request);
-        if (_test)
+        if (_test && loggedUser == null)
             loggedUser = participantId;
 
         if (loggedUser == null)
