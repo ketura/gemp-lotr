@@ -1,7 +1,6 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.db.CollectionDAO;
-import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.vo.League;
@@ -17,11 +16,11 @@ public class LeagueService {
     private CollectionDAO _collectionDao;
     private LotroCardBlueprintLibrary _library;
 
-    public LeagueService(DbAccess dbAccess, CollectionDAO collectionDao, LotroCardBlueprintLibrary library) {
+    public LeagueService(LeagueDAO leagueDao, LeagueMatchDAO leagueMatchDao, CollectionDAO collectionDao, LotroCardBlueprintLibrary library) {
+        _leagueDao = leagueDao;
+        _leagueMatchDao = leagueMatchDao;
         _collectionDao = collectionDao;
         _library = library;
-        _leagueDao = new LeagueDAO(dbAccess, library);
-        _leagueMatchDao = new LeagueMatchDAO(dbAccess);
     }
 
     public Set<League> getActiveLeagues() {

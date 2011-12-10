@@ -5,11 +5,9 @@ import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.db.vo.DeckVO;
-import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -39,7 +37,9 @@ public class LotroServer extends AbstractServer {
     private boolean _test;
     private GameRecorder _gameRecorder;
 
-    public LotroServer(DbAccess dbAccess, LotroCardBlueprintLibrary library, ChatServer chatServer, boolean test) {
+    public LotroServer(DeckDAO deckDao, GameHistoryDAO gameHistoryDao, LotroCardBlueprintLibrary library, ChatServer chatServer, boolean test) {
+        _deckDao = deckDao;
+        _gameHistoryDao = gameHistoryDao;
         _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
         _test = test;
@@ -71,35 +71,11 @@ public class LotroServer extends AbstractServer {
         );
         thr.start();
 
-        _deckDao = new DeckDAO(dbAccess);
-
-        _gameHistoryDao = new GameHistoryDAO(dbAccess);
-
         _gameRecorder = new GameRecorder(_gameHistoryDao);
     }
 
     public InputStream getGameRecording(String playerId, String gameId) throws IOException {
         return _gameRecorder.getRecordedGame(playerId, gameId);
-    }
-
-    public List<GameHistoryEntry> getPlayerGameHistory(Player player, int start, int count) {
-        return _gameHistoryDao.getGameHistoryForPlayer(player, start, count);
-    }
-
-    public int getPlayerGameHistoryRecordCount(Player player) {
-        return _gameHistoryDao.getGameHistoryForPlayerCount(player);
-    }
-
-    public int getGamesPlayedCountInLastMs(long ms) {
-        return _gameHistoryDao.getGamesPlayedCountInLastMs(ms);
-    }
-
-    public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary() {
-        return _lotroCardBlueprintLibrary;
-    }
-
-    public DeckDAO getDeckDao() {
-        return _deckDao;
     }
 
     public CardCollection getDefaultCollection() {

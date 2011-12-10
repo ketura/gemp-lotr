@@ -1,0 +1,181 @@
+package com.gempukku.lotro.server;
+
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.db.CollectionDAO;
+import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.MutableCardCollection;
+import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.packs.FixedPackBox;
+import com.gempukku.lotro.packs.LeagueStarterBox;
+import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.RarityPackBox;
+import com.sun.jersey.spi.resource.Singleton;
+import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.List;
+
+@Singleton
+@Path("/collection")
+public class CollectionResource extends AbstractResource {
+    private static final Logger _logger = Logger.getLogger(CollectionResource.class);
+
+    @Context
+    private LotroServer _lotroServer;
+    @Context
+    private CollectionDAO _collectionDao;
+    @Context
+    private LotroCardBlueprintLibrary _library;
+    @Context
+    private LeagueService _leagueService;
+
+    private PacksStorage _packStorage;
+
+    public CollectionResource() {
+        try {
+            _packStorage = new PacksStorage();
+            _packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
+            _packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox(_library, "FotR - Gandalf Starter"));
+            _packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox(_library, "FotR - Aragorn Starter"));
+            _packStorage.addPackBox("FotR - Booster", new RarityPackBox(_library, 1));
+
+        } catch (IOException exp) {
+            _logger.error("Error while creating resource", exp);
+            exp.printStackTrace();
+        } catch (RuntimeException exp) {
+            _logger.error("Error while creating resource", exp);
+            exp.printStackTrace();
+        }
+    }
+
+    @Path("/{collectionType}")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getCollection(
+            @PathParam("collectionType") String collectionType,
+            @QueryParam("participantId") String participantId,
+            @QueryParam("filter") String filter,
+            @QueryParam("start") int start,
+            @QueryParam("count") int count,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        CardCollection collection = getCollection(resourceOwner, collectionType);
+        if (collection == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        List<CardCollection.Item> filteredResult = collection.getItems(filter);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element collectionElem = doc.createElement("collection");
+        collectionElem.setAttribute("count", String.valueOf(filteredResult.size()));
+        doc.appendChild(collectionElem);
+
+        int index = 0;
+        for (CardCollection.Item item : filteredResult) {
+            if (index >= start && index < start + count) {
+                String blueprintId = item.getBlueprintId();
+                if (item.getType() == CardCollection.Item.Type.CARD) {
+                    Element card = doc.createElement("card");
+                    card.setAttribute("count", String.valueOf(item.getCount()));
+                    card.setAttribute("blueprintId", blueprintId);
+                    Side side = item.getCardBlueprint().getSide();
+                    if (side != null)
+                        card.setAttribute("side", side.toString());
+                    collectionElem.appendChild(card);
+                } else {
+                    Element pack = doc.createElement("pack");
+                    pack.setAttribute("count", String.valueOf(item.getCount()));
+                    pack.setAttribute("blueprintId", blueprintId);
+                    collectionElem.appendChild(pack);
+                }
+            }
+            index++;
+        }
+
+        return doc;
+    }
+
+    private CardCollection getCollection(Player player, String collectionType) {
+        CardCollection collection = null;
+        if (collectionType.equals("default"))
+            collection = _lotroServer.getDefaultCollection();
+        else if (collectionType.equals("permanent"))
+            collection = _collectionDao.getCollectionForPlayer(player, "permanent");
+        else {
+            League league = _leagueService.getLeagueByType(collectionType);
+            if (league != null)
+                collection = _leagueService.getLeagueCollection(player, league);
+        }
+        return collection;
+    }
+
+    @Path("/{collectionType}")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document openPack(
+            @PathParam("collectionType") String collectionType,
+            @FormParam("participantId") String participantId,
+            @FormParam("pack") String packId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        CardCollection collection = getCollection(resourceOwner, collectionType);
+        if (collection == null || !(collection instanceof MutableCardCollection))
+            sendError(Response.Status.NOT_FOUND);
+
+        MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
+
+        List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packStorage, _library);
+        if (packContents == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        _collectionDao.setCollectionForPlayer(resourceOwner, collectionType, modifiableColleciton);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element collectionElem = doc.createElement("pack");
+        doc.appendChild(collectionElem);
+
+        for (CardCollection.Item item : packContents) {
+            String blueprintId = item.getBlueprintId();
+            if (item.getType() == CardCollection.Item.Type.CARD) {
+                Element card = doc.createElement("card");
+                card.setAttribute("count", String.valueOf(item.getCount()));
+                card.setAttribute("blueprintId", blueprintId);
+                Side side = item.getCardBlueprint().getSide();
+                if (side != null)
+                    card.setAttribute("side", side.toString());
+                collectionElem.appendChild(card);
+            } else {
+                Element pack = doc.createElement("pack");
+                pack.setAttribute("count", String.valueOf(item.getCount()));
+                pack.setAttribute("blueprintId", blueprintId);
+                collectionElem.appendChild(pack);
+            }
+        }
+
+        return doc;
+    }
+}

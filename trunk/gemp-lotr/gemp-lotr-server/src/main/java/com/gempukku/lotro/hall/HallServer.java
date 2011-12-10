@@ -31,24 +31,24 @@ public class HallServer extends AbstractServer {
 
     private Map<Player, Long> _lastVisitedPlayers = Collections.synchronizedMap(new LinkedHashMap<Player, Long>());
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, boolean test) {
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
         _chatServer.createChatRoom("Game Hall", 10);
 
-        addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
-        addFormat("c_fotr_block", "Community Fellowship block", "default", new FotRBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));
-        addFormat("ttt_block", "Two Towers block", "default", new TTTBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
-        addFormat("c_ttt_block", "Community Two Towers block", "default", new TTTBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));
-        addFormat("towers_standard", "Towers Standard", "default", new TowersStandardFormat(_lotroServer.getLotroCardBlueprintLibrary()));
-        addFormat("king_block", "King block", "default", new KingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
-        addFormat("c_king_block", "Community King block", "default", new KingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));
-        addFormat("movie", "Movie block", "default", new MovieFormat(_lotroServer.getLotroCardBlueprintLibrary()));
-        addFormat("war_block", "War of the Ring block", "default", new WarOfTheRingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), false));
-        addFormat("c_war_block", "Community War of the Ring block", "default", new WarOfTheRingBlockFormat(_lotroServer.getLotroCardBlueprintLibrary(), true));
+        addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(library, false));
+        addFormat("c_fotr_block", "Community Fellowship block", "default", new FotRBlockFormat(library, true));
+        addFormat("ttt_block", "Two Towers block", "default", new TTTBlockFormat(library, false));
+        addFormat("c_ttt_block", "Community Two Towers block", "default", new TTTBlockFormat(library, true));
+        addFormat("towers_standard", "Towers Standard", "default", new TowersStandardFormat(library));
+        addFormat("king_block", "King block", "default", new KingBlockFormat(library, false));
+        addFormat("c_king_block", "Community King block", "default", new KingBlockFormat(library, true));
+        addFormat("movie", "Movie block", "default", new MovieFormat(library));
+        addFormat("war_block", "War of the Ring block", "default", new WarOfTheRingBlockFormat(library, false));
+        addFormat("c_war_block", "Community War of the Ring block", "default", new WarOfTheRingBlockFormat(library, true));
 
-        addFormat("whatever", "Format for testing", "default", new FreeFormat(_lotroServer.getLotroCardBlueprintLibrary()));
+        addFormat("whatever", "Format for testing", "default", new FreeFormat(library));
     }
 
     private void addFormat(String formatCode, String formatName, String formatCollectionId, LotroFormat format) {
