@@ -9,10 +9,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.packs.FixedPackBox;
-import com.gempukku.lotro.packs.LeagueStarterBox;
 import com.gempukku.lotro.packs.PacksStorage;
-import com.gempukku.lotro.packs.RarityPackBox;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -26,7 +23,6 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.List;
 
 @Singleton
@@ -42,25 +38,8 @@ public class CollectionResource extends AbstractResource {
     private LotroCardBlueprintLibrary _library;
     @Context
     private LeagueService _leagueService;
-
+    @Context
     private PacksStorage _packStorage;
-
-    public CollectionResource() {
-        try {
-            _packStorage = new PacksStorage();
-            _packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
-            _packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox(_library, "FotR - Gandalf Starter"));
-            _packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox(_library, "FotR - Aragorn Starter"));
-            _packStorage.addPackBox("FotR - Booster", new RarityPackBox(_library, 1));
-
-        } catch (IOException exp) {
-            _logger.error("Error while creating resource", exp);
-            exp.printStackTrace();
-        } catch (RuntimeException exp) {
-            _logger.error("Error while creating resource", exp);
-            exp.printStackTrace();
-        }
-    }
 
     @Path("/{collectionType}")
     @GET

@@ -29,6 +29,11 @@ public class LeagueDAO {
         _serializer = new CollectionSerializer(_library);
     }
 
+    public void clearCache() {
+        _dateLoaded = 0;
+        _activeLeagues = null;
+    }
+
     public void addLeague(String name, String type, CardCollection collection, int startTime, int endTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
@@ -98,6 +103,7 @@ public class LeagueDAO {
         int currentDate = getCurrentDate();
         if (currentDate != _dateLoaded) {
             try {
+                _activeLeagues.clear();
                 loadActiveLeagues(currentDate);
                 _dateLoaded = currentDate;
             } catch (SQLException e) {
