@@ -53,9 +53,7 @@ public class Card2_043 extends AbstractAttachable {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.name("Lurtz"))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
-            action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), 2, true));
             return Collections.singletonList(action);
         }
         return null;

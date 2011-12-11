@@ -46,9 +46,7 @@ public class Card3_101 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION));
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
-            action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), 2, true));
             return Collections.singletonList(action);
         }
         return null;

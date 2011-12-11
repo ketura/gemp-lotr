@@ -38,11 +38,7 @@ public class Card2_012 extends AbstractPermanent {
                 && game.getGameState().getDeck(playerId).size() >= 3) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(self, playerId, false));
-            action.appendCost(
-                    new DiscardTopCardFromDeckEffect(self, playerId, false));
-            action.appendCost(
-                    new DiscardTopCardFromDeckEffect(self, playerId, false));
+                    new DiscardTopCardFromDeckEffect(self, playerId, 3, false));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {
                         @Override

@@ -38,15 +38,7 @@ public class Card1_245 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(new RemoveBurdenEffect(playerId, self));
         action.appendEffect(
-                new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
-        action.appendEffect(
-                new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
-        action.appendEffect(
-                new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
-        action.appendEffect(
-                new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
-        action.appendEffect(
-                new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
+                new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), 5, true));
         return action;
     }
 

@@ -41,8 +41,8 @@ public class Card1_265 extends AbstractResponseOldEvent {
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             int deadPileCount = game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size();
-            for (int i = 0; i < deadPileCount * 3; i++)
-                action.appendEffect(new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
+            if (deadPileCount > 0)
+                action.appendEffect(new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), deadPileCount * 3, true));
             return Collections.singletonList(action);
         }
         return null;

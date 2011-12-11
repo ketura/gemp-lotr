@@ -39,9 +39,9 @@ public class Card3_088 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         int burdens = game.getGameState().getBurdens();
-        for (int i = 0; i < burdens; i++)
+        if (burdens > 0)
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(self, playerId, true));
+                    new DiscardTopCardFromDeckEffect(self, playerId, burdens, true));
         return action;
     }
 }
