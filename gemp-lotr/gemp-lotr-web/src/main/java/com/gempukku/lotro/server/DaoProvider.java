@@ -1,7 +1,6 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.*;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
@@ -23,8 +22,6 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<LeagueMatchDAO> _leagueMatchDAOInjectable;
     private Injectable<LeaguePointsDAO> _leaguePointsDAOInjectable;
 
-    @Context
-    private LotroCardBlueprintLibrary _library;
     private DbAccess _dbAccess;
 
     public DaoProvider() {
@@ -93,7 +90,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<LeagueDAO> getLeagueDaoSafely() {
         if (_leagueDaoInjectable == null) {
-            final LeagueDAO leagueDao = new LeagueDAO(_dbAccess, _library);
+            final LeagueDAO leagueDao = new LeagueDAO(_dbAccess);
             _leagueDaoInjectable = new Injectable<LeagueDAO>() {
                 @Override
                 public LeagueDAO getValue() {
@@ -105,83 +102,59 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     }
 
     private synchronized Injectable<GameHistoryDAO> getGameHistoryDaoSafely() {
-        if (_gameHistoryDAOInjectable == null)
-            _gameHistoryDAOInjectable = new GameHistoryDaoInjectable(new GameHistoryDAO(_dbAccess));
+        if (_gameHistoryDAOInjectable == null) {
+            final GameHistoryDAO gameHistoryDAO = new GameHistoryDAO(_dbAccess);
+            _gameHistoryDAOInjectable = new Injectable<GameHistoryDAO>() {
+                @Override
+                public GameHistoryDAO getValue() {
+                    return gameHistoryDAO;
+                }
+            };
+        }
         return _gameHistoryDAOInjectable;
     }
 
     private synchronized Injectable<DeckDAO> getDeckDaoSafely() {
-        if (_deckDaoInjectable == null)
-            _deckDaoInjectable = new DeckDaoInjectable(new DeckDAO(_dbAccess));
+        if (_deckDaoInjectable == null) {
+            final DeckDAO deckDao = new DeckDAO(_dbAccess);
+            _deckDaoInjectable = new Injectable<DeckDAO>() {
+                @Override
+                public DeckDAO getValue() {
+                    return deckDao;
+                }
+            };
+        }
         return _deckDaoInjectable;
     }
 
     private synchronized Injectable<CollectionDAO> getCollectionDaoSafely() {
-        if (_collectionDaoInjectable == null)
-            _collectionDaoInjectable = new CollectionDaoInjectable(new CollectionDAO(_dbAccess, _library));
+        if (_collectionDaoInjectable == null) {
+            final CollectionDAO collectionDao = new CollectionDAO(_dbAccess);
+            _collectionDaoInjectable = new Injectable<CollectionDAO>() {
+                @Override
+                public CollectionDAO getValue() {
+                    return collectionDao;
+                }
+            };
+        }
         return _collectionDaoInjectable;
     }
 
     private synchronized Injectable<PlayerDAO> getPlayerDaoSafely() {
-        if (_playerDaoInjectable == null)
-            _playerDaoInjectable = new PlayerDaoInjectable(new PlayerDAO(_dbAccess));
+        if (_playerDaoInjectable == null) {
+            final PlayerDAO playerDao = new PlayerDAO(_dbAccess);
+            _playerDaoInjectable = new Injectable<PlayerDAO>() {
+                @Override
+                public PlayerDAO getValue() {
+                    return playerDao;
+                }
+            };
+        }
         return _playerDaoInjectable;
     }
 
     @Override
     public ComponentScope getScope() {
         return ComponentScope.Singleton;
-    }
-
-    private class PlayerDaoInjectable implements Injectable<PlayerDAO> {
-        private PlayerDAO _playerDao;
-
-        private PlayerDaoInjectable(PlayerDAO playerDao) {
-            _playerDao = playerDao;
-        }
-
-        @Override
-        public PlayerDAO getValue() {
-            return _playerDao;
-        }
-    }
-
-    private class CollectionDaoInjectable implements Injectable<CollectionDAO> {
-        private CollectionDAO _collectionDao;
-
-        private CollectionDaoInjectable(CollectionDAO collectionDao) {
-            _collectionDao = collectionDao;
-        }
-
-        @Override
-        public CollectionDAO getValue() {
-            return _collectionDao;
-        }
-    }
-
-    private class DeckDaoInjectable implements Injectable<DeckDAO> {
-        private DeckDAO _deckDao;
-
-        private DeckDaoInjectable(DeckDAO deckDao) {
-            _deckDao = deckDao;
-        }
-
-        @Override
-        public DeckDAO getValue() {
-            return _deckDao;
-        }
-    }
-
-    private class GameHistoryDaoInjectable implements Injectable<GameHistoryDAO> {
-        private GameHistoryDAO _gameHistoryDao;
-
-        private GameHistoryDaoInjectable(GameHistoryDAO gameHistoryDao) {
-            _gameHistoryDao = gameHistoryDao;
-        }
-
-        @Override
-        public GameHistoryDAO getValue() {
-            return _gameHistoryDao;
-        }
     }
 }

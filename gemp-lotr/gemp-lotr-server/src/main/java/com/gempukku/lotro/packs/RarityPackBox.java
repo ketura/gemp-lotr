@@ -3,18 +3,14 @@ package com.gempukku.lotro.packs;
 import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 import java.util.*;
 
 public class RarityPackBox implements PackBox {
     private Random _random = new Random();
-    private LotroCardBlueprintLibrary _library;
     private SetRarity _setRarity;
 
-    public RarityPackBox(LotroCardBlueprintLibrary library, int setNo) {
-        _library = library;
-
+    public RarityPackBox(int setNo) {
         RarityReader rarityReader = new RarityReader();
         _setRarity = rarityReader.getSetRarity(String.valueOf(setNo));
     }
@@ -59,7 +55,7 @@ public class RarityPackBox implements PackBox {
             card = card.replace("R", "_");
             card = card.replace("U", "_");
             card = card.replace("C", "_");
-            result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card + (foil ? "*" : ""), _library.getLotroCardBlueprint(card)));
+            result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card + (foil ? "*" : "")));
         }
     }
 }

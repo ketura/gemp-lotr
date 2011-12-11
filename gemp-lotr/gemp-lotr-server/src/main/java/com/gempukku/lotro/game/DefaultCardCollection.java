@@ -10,8 +10,6 @@ import java.util.concurrent.CountDownLatch;
 
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Integer> _counts = new TreeMap<String, Integer>(new CardBlueprintIdComparator());
-    private Map<String, LotroCardBlueprint> _cards = new TreeMap<String, LotroCardBlueprint>();
-    private LotroCardBlueprintLibrary _library;
 
     private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
 
@@ -19,14 +17,20 @@ public class DefaultCardCollection implements MutableCardCollection {
         _collectionReadyLatch.countDown();
     }
 
-    private static final Comparator<Item> NAME_COMPARATOR = new Comparator<Item>() {
+    private static class NameComparator implements Comparator<Item> {
+        private LotroCardBlueprintLibrary _library;
+
+        private NameComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+        }
+
         @Override
         public int compare(Item o1, Item o2) {
             if (o1.getType() == o2.getType()) {
                 if (o1.getType() == Item.Type.PACK)
                     return o1.getBlueprintId().compareTo(o2.getBlueprintId());
                 else
-                    return o1.getCardBlueprint().getName().compareTo(o2.getCardBlueprint().getName());
+                    return _library.getLotroCardBlueprint(o1.getBlueprintId()).getName().compareTo(_library.getLotroCardBlueprint(o2.getBlueprintId()).getName());
             } else {
                 if (o1.getType() == Item.Type.PACK)
                     return -1;
@@ -34,18 +38,26 @@ public class DefaultCardCollection implements MutableCardCollection {
                     return 1;
             }
         }
-    };
+    }
 
-    private static final Comparator<Item> TWILIGHT_COMPARATOR = new Comparator<Item>() {
+    private static class TwilightComparator implements Comparator<Item> {
+        private LotroCardBlueprintLibrary _library;
+        private NameComparator _nameComparator;
+
+        private TwilightComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+            _nameComparator = new NameComparator(library);
+        }
+
         @Override
         public int compare(Item o1, Item o2) {
             if (o1.getType() == o2.getType()) {
                 if (o1.getType() == Item.Type.PACK)
                     return o1.getBlueprintId().compareTo(o2.getBlueprintId());
                 else {
-                    int twilightResult = o1.getCardBlueprint().getTwilightCost() - o2.getCardBlueprint().getTwilightCost();
+                    int twilightResult = _library.getLotroCardBlueprint(o1.getBlueprintId()).getTwilightCost() - _library.getLotroCardBlueprint(o2.getBlueprintId()).getTwilightCost();
                     if (twilightResult == 0)
-                        return NAME_COMPARATOR.compare(o1, o2);
+                        return _nameComparator.compare(o1, o2);
                     return twilightResult;
                 }
             } else {
@@ -55,18 +67,26 @@ public class DefaultCardCollection implements MutableCardCollection {
                     return 1;
             }
         }
-    };
+    }
 
-    private static final Comparator<Item> STRENGTH_COMPARATOR = new Comparator<Item>() {
+    private static class StrengthComparator implements Comparator<Item> {
+        private LotroCardBlueprintLibrary _library;
+        private NameComparator _nameComparator;
+
+        private StrengthComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+            _nameComparator = new NameComparator(library);
+        }
+
         @Override
         public int compare(Item o1, Item o2) {
             if (o1.getType() == o2.getType()) {
                 if (o1.getType() == Item.Type.PACK)
                     return o1.getBlueprintId().compareTo(o2.getBlueprintId());
                 else {
-                    int strengthResult = getStrengthSafely(o1.getCardBlueprint()) - getStrengthSafely(o2.getCardBlueprint());
+                    int strengthResult = getStrengthSafely(_library.getLotroCardBlueprint(o1.getBlueprintId())) - getStrengthSafely(_library.getLotroCardBlueprint(o2.getBlueprintId()));
                     if (strengthResult == 0)
-                        return NAME_COMPARATOR.compare(o1, o2);
+                        return _nameComparator.compare(o1, o2);
                     return strengthResult;
                 }
             } else {
@@ -84,18 +104,26 @@ public class DefaultCardCollection implements MutableCardCollection {
                 return Integer.MAX_VALUE;
             }
         }
-    };
+    }
 
-    private static final Comparator<Item> VITALITY_COMPARATOR = new Comparator<Item>() {
+    private static class VitalityComparator implements Comparator<Item> {
+        private LotroCardBlueprintLibrary _library;
+        private NameComparator _nameComparator;
+
+        private VitalityComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+            _nameComparator = new NameComparator(library);
+        }
+
         @Override
         public int compare(Item o1, Item o2) {
             if (o1.getType() == o2.getType()) {
                 if (o1.getType() == Item.Type.PACK)
                     return o1.getBlueprintId().compareTo(o2.getBlueprintId());
                 else {
-                    int strengthResult = getVitalitySafely(o1.getCardBlueprint()) - getVitalitySafely(o2.getCardBlueprint());
+                    int strengthResult = getVitalitySafely(_library.getLotroCardBlueprint(o1.getBlueprintId())) - getVitalitySafely(_library.getLotroCardBlueprint(o2.getBlueprintId()));
                     if (strengthResult == 0)
-                        return NAME_COMPARATOR.compare(o1, o2);
+                        return _nameComparator.compare(o1, o2);
                     return strengthResult;
                 }
             } else {
@@ -113,21 +141,14 @@ public class DefaultCardCollection implements MutableCardCollection {
                 return Integer.MAX_VALUE;
             }
         }
-    };
-
-    public DefaultCardCollection(LotroCardBlueprintLibrary library) {
-        _library = library;
     }
 
     @Override
-    public void addCards(String blueprintId, LotroCardBlueprint blueprint, int count) {
-        if (blueprint == null)
-            throw new IllegalArgumentException("blueprint == null");
+    public void addCards(String blueprintId, int count) {
         Integer oldCount = _counts.get(blueprintId);
         if (oldCount == null)
             oldCount = 0;
         _counts.put(blueprintId, oldCount + count);
-        _cards.put(blueprintId, blueprint);
     }
 
     @Override
@@ -136,7 +157,7 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public synchronized List<Item> openPack(String packId, PacksStorage packsStorage, LotroCardBlueprintLibrary library) {
+    public synchronized List<Item> openPack(String packId, PacksStorage packsStorage) {
         Integer count = _counts.get(packId);
         if (count == null)
             return null;
@@ -150,8 +171,7 @@ public class DefaultCardCollection implements MutableCardCollection {
                     addPacks(itemFromPack.getBlueprintId(), itemFromPack.getCount());
                 } else {
                     String cardBlueprintId = itemFromPack.getBlueprintId();
-                    LotroCardBlueprint cardBlueprint = library.getLotroCardBlueprint(cardBlueprintId);
-                    addCards(cardBlueprintId, cardBlueprint, itemFromPack.getCount());
+                    addCards(cardBlueprintId, itemFromPack.getCount());
                 }
             }
             if (count == 1)
@@ -170,7 +190,7 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public List<Item> getItems(String filter) {
+    public List<Item> getItems(String filter, LotroCardBlueprintLibrary library) {
         try {
             _collectionReadyLatch.await();
         } catch (InterruptedException exp) {
@@ -197,35 +217,35 @@ public class DefaultCardCollection implements MutableCardCollection {
             String blueprintId = itemCount.getKey();
             int count = itemCount.getValue();
 
-            final LotroCardBlueprint blueprint = _cards.get(blueprintId);
-            if (blueprint == null)
+            if (!blueprintId.contains("_"))
                 result.add(new Item(Item.Type.PACK, count, blueprintId));
             else {
-                if (sets == null || isInSets(blueprintId, sets))
+                final LotroCardBlueprint blueprint = library.getLotroCardBlueprint(blueprintId);
+                if (sets == null || isInSets(blueprintId, sets, library))
                     if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                         if (cultures == null || cultures.contains(blueprint.getCulture()))
                             if (containsAllKeywords(blueprint, keywords))
                                 if (containsAllWords(blueprint, words))
                                     if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
-                                        result.add(new Item(Item.Type.CARD, count, blueprintId, blueprint));
+                                        result.add(new Item(Item.Type.CARD, count, blueprintId));
             }
         }
         String sort = getSort(filterParams);
         if (sort != null && sort.equals("twilight"))
-            Collections.sort(result, TWILIGHT_COMPARATOR);
+            Collections.sort(result, new TwilightComparator(library));
         else if (sort != null && sort.equals("strength"))
-            Collections.sort(result, STRENGTH_COMPARATOR);
+            Collections.sort(result, new StrengthComparator(library));
         else if (sort != null && sort.equals("vitality"))
-            Collections.sort(result, VITALITY_COMPARATOR);
+            Collections.sort(result, new VitalityComparator(library));
         else
-            Collections.sort(result, NAME_COMPARATOR);
+            Collections.sort(result, new NameComparator(library));
 
         return result;
     }
 
-    private boolean isInSets(String blueprintId, String[] sets) {
+    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library) {
         for (String set : sets)
-            if (blueprintId.startsWith(set + "_") || _library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
+            if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
                 return true;
 
         return false;

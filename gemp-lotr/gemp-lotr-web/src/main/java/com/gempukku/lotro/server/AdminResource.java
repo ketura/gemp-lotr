@@ -70,7 +70,7 @@ public class AdminResource extends AbstractResource {
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        DefaultCardCollection collection = new DefaultCardCollection(_library);
+        DefaultCardCollection collection = new DefaultCardCollection();
         String[] packs = packCollection.split("\n");
         for (String pack : packs)
             collection.addPacks(pack, 1);

@@ -33,12 +33,12 @@ public class LeagueService {
     public MutableCardCollection getLeagueCollection(Player player, League league) {
         final MutableCardCollection collectionForPlayer = _collectionDao.getCollectionForPlayer(player, league.getType());
         if (collectionForPlayer == null) {
-            DefaultCardCollection collection = new DefaultCardCollection(_library);
+            DefaultCardCollection collection = new DefaultCardCollection();
 
             MutableCardCollection baseCollection = league.getBaseCollection();
-            for (CardCollection.Item item : baseCollection.getItems(null)) {
+            for (CardCollection.Item item : baseCollection.getItems(null, _library)) {
                 if (item.getType() == CardCollection.Item.Type.CARD)
-                    collection.addCards(item.getBlueprintId(), _library.getLotroCardBlueprint(item.getBlueprintId()), item.getCount());
+                    collection.addCards(item.getBlueprintId(), item.getCount());
                 else
                     collection.addPacks(item.getBlueprintId(), item.getCount());
             }

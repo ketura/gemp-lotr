@@ -1,6 +1,5 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.packs.FixedPackBox;
 import com.gempukku.lotro.packs.LeagueStarterBox;
 import com.gempukku.lotro.packs.PacksStorage;
@@ -21,9 +20,6 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
     private static final Logger _logger = Logger.getLogger(PacksStorageProvider.class);
     private PacksStorage _packsStorage;
 
-    @Context
-    private LotroCardBlueprintLibrary _library;
-
     @Override
     public Injectable getInjectable(ComponentContext ic, Context context, Type type) {
         if (type.equals(PacksStorage.class))
@@ -40,9 +36,9 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
         try {
             PacksStorage packStorage = new PacksStorage();
             packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
-            packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox(_library, "FotR - Gandalf Starter"));
-            packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox(_library, "FotR - Aragorn Starter"));
-            packStorage.addPackBox("FotR - Booster", new RarityPackBox(_library, 1));
+            packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox("FotR - Gandalf Starter"));
+            packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox("FotR - Aragorn Starter"));
+            packStorage.addPackBox("FotR - Booster", new RarityPackBox(1));
             return packStorage;
         } catch (IOException exp) {
             _logger.error("Error while creating resource", exp);
