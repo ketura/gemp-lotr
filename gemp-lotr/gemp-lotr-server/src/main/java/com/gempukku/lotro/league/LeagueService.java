@@ -71,7 +71,7 @@ public class LeagueService {
                         public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
                             String loser = loserPlayerIdsWithReasons.keySet().iterator().next();
                             _leagueMatchDao.addPlayedMatch(league, season, winnerPlayerId, loser);
-                            _leaguePointsDao.addPoints(league, season, winnerPlayerId, 3);
+                            _leaguePointsDao.addPoints(league, season, winnerPlayerId, 2);
                             _leaguePointsDao.addPoints(league, season, loser, 1);
                         }
                     });
