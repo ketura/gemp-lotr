@@ -53,7 +53,7 @@ public class CollectionResource extends AbstractResource {
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
-        List<CardCollection.Item> filteredResult = collection.getItems(filter);
+        List<CardCollection.Item> filteredResult = collection.getItems(filter, _library);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -72,7 +72,7 @@ public class CollectionResource extends AbstractResource {
                     Element card = doc.createElement("card");
                     card.setAttribute("count", String.valueOf(item.getCount()));
                     card.setAttribute("blueprintId", blueprintId);
-                    Side side = item.getCardBlueprint().getSide();
+                    Side side = _library.getLotroCardBlueprint(blueprintId).getSide();
                     if (side != null)
                         card.setAttribute("side", side.toString());
                     collectionElem.appendChild(card);
@@ -119,7 +119,7 @@ public class CollectionResource extends AbstractResource {
 
         MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
 
-        List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packStorage, _library);
+        List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packStorage);
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -139,7 +139,7 @@ public class CollectionResource extends AbstractResource {
                 Element card = doc.createElement("card");
                 card.setAttribute("count", String.valueOf(item.getCount()));
                 card.setAttribute("blueprintId", blueprintId);
-                Side side = item.getCardBlueprint().getSide();
+                Side side = _library.getLotroCardBlueprint(blueprintId).getSide();
                 if (side != null)
                     card.setAttribute("side", side.toString());
                 collectionElem.appendChild(card);

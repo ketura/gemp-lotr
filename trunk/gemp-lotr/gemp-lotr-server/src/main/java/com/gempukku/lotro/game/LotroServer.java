@@ -42,7 +42,7 @@ public class LotroServer extends AbstractServer {
         _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
         _test = test;
-        _defaultCollection = new DefaultCardCollection(library);
+        _defaultCollection = new DefaultCardCollection();
 
         final int[] cardCounts = new int[]{365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 194, 194};
 
@@ -56,9 +56,9 @@ public class LotroServer extends AbstractServer {
                                     LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
                                     CardType cardType = cardBlueprint.getCardType();
                                     if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                                        _defaultCollection.addCards(blueprintId, cardBlueprint, 1);
+                                        _defaultCollection.addCards(blueprintId, 1);
                                     else
-                                        _defaultCollection.addCards(blueprintId, cardBlueprint, 4);
+                                        _defaultCollection.addCards(blueprintId, 4);
                                 } catch (IllegalArgumentException exp) {
 
                                 }
@@ -116,7 +116,7 @@ public class LotroServer extends AbstractServer {
         ChatRoomMediator room = _chatServer.createChatRoom(chatRoomName, 30);
         room.sendMessage("System", "You're starting a game of " + formatName);
 
-        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary, competetive ? 40 : 80);
+        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary, competetive ? 60 * 40 : 60 * 80);
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override

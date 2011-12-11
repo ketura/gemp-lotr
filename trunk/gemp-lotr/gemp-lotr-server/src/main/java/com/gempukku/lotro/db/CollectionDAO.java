@@ -2,7 +2,6 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.game.Player;
 
@@ -20,9 +19,9 @@ public class CollectionDAO {
 
     private Map<Integer, Map<String, MutableCardCollection>> _collections = new ConcurrentHashMap<Integer, Map<String, MutableCardCollection>>();
 
-    public CollectionDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
+    public CollectionDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
-        _collectionSerializer = new CollectionSerializer(library);
+        _collectionSerializer = new CollectionSerializer();
     }
 
     public void clearCache() {

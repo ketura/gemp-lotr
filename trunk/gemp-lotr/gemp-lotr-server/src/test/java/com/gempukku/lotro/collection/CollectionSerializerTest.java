@@ -16,15 +16,15 @@ public class CollectionSerializerTest {
     public void testSerializeDeserialize() throws IOException {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
-        DefaultCardCollection collection = new DefaultCardCollection(library);
-        collection.addCards("1_1", library.getLotroCardBlueprint("1_1"), 2);
-        collection.addCards("1_231T", library.getLotroCardBlueprint("1_231T"), 3);
-        collection.addCards("1_23*", library.getLotroCardBlueprint("1_23*"), 3);
-        collection.addCards("1_237T*", library.getLotroCardBlueprint("1_237T*"), 3);
+        DefaultCardCollection collection = new DefaultCardCollection();
+        collection.addCards("1_1", 2);
+        collection.addCards("1_231T", 3);
+        collection.addCards("1_23*", 3);
+        collection.addCards("1_237T*", 3);
         collection.addPacks("FotR - Booster", 2);
         collection.finishedReading();
 
-        CollectionSerializer serializer = new CollectionSerializer(library);
+        CollectionSerializer serializer = new CollectionSerializer();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         serializer.serializeCollection(collection, baos);
@@ -46,11 +46,11 @@ public class CollectionSerializerTest {
     public void testJustPack() throws IOException {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
-        DefaultCardCollection collection = new DefaultCardCollection(library);
+        DefaultCardCollection collection = new DefaultCardCollection();
         collection.addPacks("FotR - Booster", 8);
         collection.finishedReading();
 
-        CollectionSerializer serializer = new CollectionSerializer(library);
+        CollectionSerializer serializer = new CollectionSerializer();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         serializer.serializeCollection(collection, baos);

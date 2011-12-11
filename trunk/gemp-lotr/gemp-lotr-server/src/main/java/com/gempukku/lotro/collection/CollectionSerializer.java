@@ -2,7 +2,6 @@ package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.MutableCardCollection;
 
 import java.io.*;
@@ -13,10 +12,8 @@ import java.util.Map;
 public class CollectionSerializer {
     private List<String> _packIds = new ArrayList<String>();
     private List<String> _cardIds = new ArrayList<String>();
-    private LotroCardBlueprintLibrary _library;
 
-    public CollectionSerializer(LotroCardBlueprintLibrary library) {
-        _library = library;
+    public CollectionSerializer() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/packs.txt"), "UTF-8"));
             try {
@@ -107,7 +104,7 @@ public class CollectionSerializer {
     private MutableCardCollection deserializeCollectionVer0(BufferedInputStream inputStream) throws IOException {
         int packBytes = inputStream.read();
 
-        DefaultCardCollection collection = new DefaultCardCollection(_library);
+        DefaultCardCollection collection = new DefaultCardCollection();
 
         byte[] packs = new byte[packBytes];
         int read = inputStream.read(packs);
@@ -125,7 +122,7 @@ public class CollectionSerializer {
         for (int i = 0; i < cards.length; i++)
             if (cards[i] > 0) {
                 final String blueprintId = _cardIds.get(i);
-                collection.addCards(blueprintId, _library.getLotroCardBlueprint(blueprintId), cards[i]);
+                collection.addCards(blueprintId, cards[i]);
             }
         collection.finishedReading();
 

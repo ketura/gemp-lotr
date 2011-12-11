@@ -3,7 +3,6 @@ package com.gempukku.lotro.db;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.MutableCardCollection;
 
 import java.io.ByteArrayInputStream;
@@ -15,23 +14,21 @@ import java.util.*;
 
 public class LeagueDAO {
     private DbAccess _dbAccess;
-    private LotroCardBlueprintLibrary _library;
 
     private CollectionSerializer _serializer;
 
     private int _dateLoaded;
     private Set<League> _activeLeagues = new HashSet<League>();
 
-    public LeagueDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
+    public LeagueDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
-        _library = library;
 
-        _serializer = new CollectionSerializer(_library);
+        _serializer = new CollectionSerializer();
     }
 
     public void clearCache() {
         _dateLoaded = 0;
-        _activeLeagues = null;
+        _activeLeagues.clear();
     }
 
     public void addLeague(String name, String type, CardCollection collection, int startTime, int endTime) throws SQLException, IOException {
