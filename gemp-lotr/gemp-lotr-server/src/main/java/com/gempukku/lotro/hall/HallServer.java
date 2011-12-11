@@ -3,7 +3,6 @@ package com.gempukku.lotro.hall;
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.*;
 import com.gempukku.lotro.league.LeagueService;
@@ -97,7 +96,7 @@ public class HallServer extends AbstractServer {
             // Maybe it's a league format?
             league = _leagueService.getLeagueByType(type);
             if (league != null) {
-                format = _leagueService.getLeagueFormat(league, player);
+                format = _leagueService.getLeagueFormat(league);
                 formatName = league.getName();
             }
         }
@@ -123,7 +122,7 @@ public class HallServer extends AbstractServer {
             throw new HallException("You don't have a deck registered yet");
 
         try {
-            format.validateDeck(lotroDeck);
+            format.validateDeck(player, lotroDeck);
         } catch (DeckInvalidException e) {
             throw new HallException("Your registered deck is not valid for this format: " + e.getMessage());
         }

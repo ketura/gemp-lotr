@@ -2,11 +2,7 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.DeckDAO;
-import com.gempukku.lotro.db.vo.Player;
-import com.gempukku.lotro.game.DeckInvalidException;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.sun.jersey.spi.resource.Singleton;
@@ -165,7 +161,7 @@ public class DeckResource extends AbstractResource {
             String formatName = supportedFormats.getValue();
             LotroFormat format = _hallServer.getSupportedFormat(supportedFormats.getKey());
             try {
-                format.validateDeck(deck);
+                format.validateDeck(resourceOwner, deck);
                 sb.append("<b>" + formatName + "</b>: <font color='green'>valid</font><br/>");
             } catch (DeckInvalidException exp) {
                 sb.append("<b>" + formatName + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");

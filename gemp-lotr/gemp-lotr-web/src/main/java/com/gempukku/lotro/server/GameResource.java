@@ -1,9 +1,9 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.LotroGameMediator;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.logic.modifiers.LoggingThreadLocal;

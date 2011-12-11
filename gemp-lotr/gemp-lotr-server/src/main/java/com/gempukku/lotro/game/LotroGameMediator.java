@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
-import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import com.gempukku.lotro.logic.GameUtils;

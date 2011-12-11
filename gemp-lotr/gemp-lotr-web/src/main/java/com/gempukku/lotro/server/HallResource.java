@@ -1,7 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;

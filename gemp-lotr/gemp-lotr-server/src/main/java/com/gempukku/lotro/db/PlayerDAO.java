@@ -1,6 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.game.Player;
 
 import java.security.MessageDigest;
 import java.sql.Connection;

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.db.vo.DeckVO;
-import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.game.Player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

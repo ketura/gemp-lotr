@@ -1,7 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.PlayerDAO;
-import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.game.Player;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
