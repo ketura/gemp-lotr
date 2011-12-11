@@ -38,6 +38,9 @@ public class HallResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
 
         Element hall = doc.createElement("hall");
+        String motd = _hallServer.getMOTD();
+        if (motd != null)
+            hall.setAttribute("motd", motd);
 
         _hallServer.processTables(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
         for (Map.Entry<String, String> format : _hallServer.getSupportedFormatNames().entrySet()) {

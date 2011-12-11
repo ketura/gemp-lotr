@@ -73,6 +73,11 @@
             font-size: 90%;
         }
 
+        #motd {
+            color: #ffffff;
+            font-size: 90%;
+        }
+
         .ui-tabs-nav li {
             font-size: 70%;
         }
@@ -122,8 +127,6 @@
                     $("#latestNews").append("<b>Sets 01-10 are available to play.</b> "
                             + "If you find any problems with specific card or rules in general, please report it <a href='http://lotrtcgdb.com/forums/index.php/topic,7592.0.html'>at the TLHH forums</a>.");
 
-                    $("#latestNews").append("<br><font color='red'>The service is running on a hosted server, all looks great so far. Did a few changes in the chat code, so it should be more forgiving for people with a bad connection.</font>");
-
                     var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
                     chat.setBounds(2, 2, 780 - 4, 200 - 4);
                     chat.showTimestamps = true;
@@ -149,7 +152,8 @@
         </script>
     </ul>
     <div id="gameHall">
-        <div id="latestNews" style="width:780px;height:60px;"></div>
+        <div id="latestNews" style="width:780px;height:30px;"></div>
+        <div id="motd" style="width:780px;height:30px;"></div>
         <div id="hall" class="ui-widget-content"
              style="width:780px;height:260px;"></div>
         <div id="chat" class="ui-widget-content"

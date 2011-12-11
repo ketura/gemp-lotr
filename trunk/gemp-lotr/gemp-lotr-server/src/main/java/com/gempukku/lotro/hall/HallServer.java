@@ -31,6 +31,8 @@ public class HallServer extends AbstractServer {
 
     private Map<Player, Long> _lastVisitedPlayers = Collections.synchronizedMap(new LinkedHashMap<Player, Long>());
 
+    private String _motd;
+
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
@@ -49,6 +51,14 @@ public class HallServer extends AbstractServer {
         addFormat("c_war_block", "Community War of the Ring block", "default", new WarOfTheRingBlockFormat(library, true));
 
         addFormat("whatever", "Format for testing", "default", new FreeFormat(library));
+    }
+
+    public String getMOTD() {
+        return _motd;
+    }
+
+    public void setMOTD(String motd) {
+        _motd = motd;
     }
 
     private void addFormat(String formatCode, String formatName, String formatCollectionId, LotroFormat format) {
