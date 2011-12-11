@@ -42,7 +42,7 @@ public class LeagueSeasonDAO {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select season_type, max_matches from league_season where league_type=? and start>=? and end<=?");
+                PreparedStatement statement = conn.prepareStatement("select season_type, max_matches from league_season where league_type=? and start<=? and end>=?");
                 try {
                     statement.setString(1, league.getType());
                     statement.setInt(2, inTime);
