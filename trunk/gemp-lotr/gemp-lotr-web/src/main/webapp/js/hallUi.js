@@ -51,7 +51,16 @@ var GempLotrHallUI = Class.extend({
         buttonsDiv.append(editDeck);
         buttonsDiv.append(" | ");
 
-        this.supportedFormatsSelect = $("<select></select>");
+        var editLeagueDeck = $("<button>League deck builder</button>");
+        editLeagueDeck.button().click(
+                function() {
+                    location.href = 'deckBuild.html?collectionType=test_league';
+                });
+
+        buttonsDiv.append(editLeagueDeck);
+        buttonsDiv.append(" | ");
+
+        this.supportedFormatsSelect = $("<select style='width: 220px'></select>");
         this.supportedFormatsSelect.hide();
 
         this.createTableButton = $("<button>Create table</button>");
@@ -69,7 +78,7 @@ var GempLotrHallUI = Class.extend({
                 });
         this.createTableButton.hide();
 
-        this.decksSelect = $("<select></select>");
+        this.decksSelect = $("<select style='width: 220px'></select>");
         this.decksSelect.hide();
 
         buttonsDiv.append(this.supportedFormatsSelect);

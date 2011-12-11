@@ -3,6 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
+import com.gempukku.lotro.db.LeagueSeasonDAO;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
@@ -26,6 +27,8 @@ public class AdminResource extends AbstractResource {
     private DeckDAO _deckDao;
     @Context
     private LeagueDAO _leagueDao;
+    @Context
+    private LeagueSeasonDAO _leagueSeasonDao;
     @Context
     private LotroCardBlueprintLibrary _library;
     @Context
@@ -74,6 +77,23 @@ public class AdminResource extends AbstractResource {
         collection.finishedReading();
 
         _leagueDao.addLeague(name, type, collection, start, end);
+
+        return "OK";
+    }
+
+
+    @Path("/addLeagueSeason")
+    @POST
+    public String addLeagueSeason(
+            @FormParam("leagueType") String leagueType,
+            @FormParam("type") String type,
+            @FormParam("start") int start,
+            @FormParam("end") int end,
+            @FormParam("maxMatches") int maxMatches,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        _leagueSeasonDao.addSeason(leagueType, type, start, end, maxMatches);
 
         return "OK";
     }

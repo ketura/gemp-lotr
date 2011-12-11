@@ -22,5 +22,16 @@
     Packs: <textarea rows="5" cols="20" name="packCollection"></textarea><br/>
     <input type="submit" value="Create">
 </form>
+
+<h2>Add season</h2>
+
+<form method="POST" action="server/admin/addLeagueSeason">
+    League type: <input type="text" name="leagueType"><br/>
+    Season type: <input type="text" name="type"><br/>
+    Start: <input type="text" name="start"><br/>
+    End: <input type="text" name="end"><br/>
+    Max matches: <input type="text" name="maxMatches"><br/>
+    <input type="submit" value="Create">
+</form>
 </body>
 </html>

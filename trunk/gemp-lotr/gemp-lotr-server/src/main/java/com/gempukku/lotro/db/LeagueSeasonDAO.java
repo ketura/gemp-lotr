@@ -15,6 +15,29 @@ public class LeagueSeasonDAO {
         _dbAccess = dbAccess;
     }
 
+    public void addSeason(String leagueType, String seasonType, int start, int end, int maxMatches) {
+        try {
+            Connection conn = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = conn.prepareStatement("insert into league_season (league_type, season_type, start, end, max_matches) values (?, ?, ?, ?, ?)");
+                try {
+                    statement.setString(1, leagueType);
+                    statement.setString(2, seasonType);
+                    statement.setInt(3, start);
+                    statement.setInt(4, end);
+                    statement.setInt(5, maxMatches);
+                    statement.execute();
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
     public LeagueSeason getSeasonForLeague(League league, int inTime) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
