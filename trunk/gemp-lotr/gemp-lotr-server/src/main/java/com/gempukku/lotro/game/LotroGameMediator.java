@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.state.GameEvent;
@@ -111,6 +112,19 @@ public class LotroGameMediator {
                 }
                 if (modifiers.size() == 0)
                     sb.append("<br><i>nothing</i>");
+
+                Map<Token, Integer> map = _lotroGame.getGameState().getTokens(card);
+                if (map != null && map.size() > 0) {
+                    sb.append("<br><b>Tokens:</b>");
+                    for (Map.Entry<Token, Integer> tokenIntegerEntry : map.entrySet())
+                        sb.append("<br>" + tokenIntegerEntry.getKey().toString() + ": " + tokenIntegerEntry.getValue());
+                }
+
+                List<PhysicalCard> stackedCards = _lotroGame.getGameState().getStackedCards(card);
+                if (stackedCards != null && stackedCards.size() > 0) {
+                    sb.append("<br><b>Stacked cards:</b>");
+                    sb.append("<br>" + GameUtils.getAppendedNames(stackedCards));
+                }
 
                 sb.append("<br><br><b>Effective stats:</b>");
                 try {
