@@ -6,6 +6,7 @@ import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.hall.HallServer;
 import com.sun.jersey.spi.resource.Singleton;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,8 @@ public class AdminResource extends AbstractResource {
     private LeagueDAO _leagueDao;
     @Context
     private LotroCardBlueprintLibrary _library;
+    @Context
+    private HallServer _hallServer;
 
     @Path("/clearCache")
     @GET
@@ -37,6 +40,18 @@ public class AdminResource extends AbstractResource {
         _collectionDao.clearCache();
         _deckDao.clearCache();
         _leagueDao.clearCache();
+
+        return "OK";
+    }
+
+    @Path("/setMotd")
+    @POST
+    public String setMotd(
+            @FormParam("motd") String motd,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        _hallServer.setMOTD(motd);
 
         return "OK";
     }

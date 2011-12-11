@@ -3,6 +3,13 @@
 <h1>Cache</h1>
 <a href="server/admin/clearCache">Clear cache</a>
 
+<h1>Message of the Day</h1>
+
+<form method="POST" action="server/admin/setMotd">
+    MotD: <input type="text" name="motd"><br/>
+    <input type="submit" value="Set MotD">
+</form>
+
 <h1>League</h1>
 
 <h2>Add league</h2>
@@ -12,7 +19,7 @@
     Type: <input type="text" name="type"><br/>
     Start: <input type="text" name="start"><br/>
     End: <input type="text" name="end"><br/>
-    Packs: <textarea rows="5" cols="20" name="packCollection"></textarea>
+    Packs: <textarea rows="5" cols="20" name="packCollection"></textarea><br/>
     <input type="submit" value="Create">
 </form>
 </body>

@@ -139,6 +139,10 @@ var GempLotrHallUI = Class.extend({
         if (root.tagName == "hall") {
             this.tablesDiv.html("");
 
+            var motd = root.getAttribute("motd");
+            if (motd != null)
+                $("#motd").html(motd);
+
             var waiting = root.getAttribute("waiting") == "true";
 
             var tables = root.getElementsByTagName("table");
