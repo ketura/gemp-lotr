@@ -41,11 +41,7 @@ public class Card2_001 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, Filters.weapon, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new DiscardTopCardFromDeckEffect(self, playerId, false));
-            action.appendCost(
-                    new DiscardTopCardFromDeckEffect(self, playerId, false));
-            action.appendCost(
-                    new DiscardTopCardFromDeckEffect(self, playerId, false));
+                    new DiscardTopCardFromDeckEffect(self, playerId, 3, false));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.and(Culture.DWARVEN, Filters.weapon)));
             return Collections.singletonList(action);

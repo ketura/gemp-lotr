@@ -49,9 +49,9 @@ public class Card3_092 extends AbstractOldEvent {
             cardsCount++;
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.WIZARD))
             cardsCount++;
-        for (int i = 0; i < cardsCount; i++)
+        if (cardsCount > 0)
             action.appendEffect(
-                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), true));
+                    new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), cardsCount, true));
 
         return action;
     }
