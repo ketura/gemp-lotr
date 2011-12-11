@@ -3,7 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.db.vo.Player;
+import com.gempukku.lotro.game.Player;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.w3c.dom.Document;

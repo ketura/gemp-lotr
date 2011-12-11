@@ -1,10 +1,10 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.collection.CollectionSerializer;
-import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.MutableCardCollection;
+import com.gempukku.lotro.game.Player;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

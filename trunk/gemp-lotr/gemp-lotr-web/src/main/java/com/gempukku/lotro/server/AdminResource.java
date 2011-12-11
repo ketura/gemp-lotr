@@ -3,9 +3,9 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
-import com.gempukku.lotro.db.vo.Player;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
 import com.sun.jersey.spi.resource.Singleton;
 

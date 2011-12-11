@@ -1,4 +1,4 @@
-package com.gempukku.lotro.db.vo;
+package com.gempukku.lotro.game;
 
 public class Player {
     private int _id;

@@ -19,7 +19,9 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<GameHistoryDAO> _gameHistoryDAOInjectable;
 
     private Injectable<LeagueDAO> _leagueDaoInjectable;
+    private Injectable<LeagueSeasonDAO> _leagueSeasonDAOInjectable;
     private Injectable<LeagueMatchDAO> _leagueMatchDAOInjectable;
+    private Injectable<LeaguePointsDAO> _leaguePointsDAOInjectable;
 
     @Context
     private LotroCardBlueprintLibrary _library;
@@ -41,9 +43,26 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             return getGameHistoryDaoSafely();
         else if (type.equals(LeagueDAO.class))
             return getLeagueDaoSafely();
+        else if (type.equals(LeagueSeasonDAO.class))
+            return getLeagueSeasonDaoSafely();
         else if (type.equals(LeagueMatchDAO.class))
             return getLeagueMatchDaoSafely();
+        else if (type.equals(LeaguePointsDAO.class))
+            return getLeaguePointsDaoSafely();
         return null;
+    }
+
+    private synchronized Injectable<LeaguePointsDAO> getLeaguePointsDaoSafely() {
+        if (_leaguePointsDAOInjectable == null) {
+            final LeaguePointsDAO leaguePointsDAO = new LeaguePointsDAO(_dbAccess);
+            _leaguePointsDAOInjectable = new Injectable<LeaguePointsDAO>() {
+                @Override
+                public LeaguePointsDAO getValue() {
+                    return leaguePointsDAO;
+                }
+            };
+        }
+        return _leaguePointsDAOInjectable;
     }
 
     private synchronized Injectable<LeagueMatchDAO> getLeagueMatchDaoSafely() {
@@ -59,6 +78,19 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
         return _leagueMatchDAOInjectable;
     }
 
+    private synchronized Injectable<LeagueSeasonDAO> getLeagueSeasonDaoSafely() {
+        if (_leagueSeasonDAOInjectable == null) {
+            final LeagueSeasonDAO leagueSeasonDao = new LeagueSeasonDAO(_dbAccess);
+            _leagueSeasonDAOInjectable = new Injectable<LeagueSeasonDAO>() {
+                @Override
+                public LeagueSeasonDAO getValue() {
+                    return leagueSeasonDao;
+                }
+            };
+        }
+        return _leagueSeasonDAOInjectable;
+    }
+
     private synchronized Injectable<LeagueDAO> getLeagueDaoSafely() {
         if (_leagueDaoInjectable == null) {
             final LeagueDAO leagueDao = new LeagueDAO(_dbAccess, _library);
@@ -71,7 +103,6 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
         }
         return _leagueDaoInjectable;
     }
-
 
     private synchronized Injectable<GameHistoryDAO> getGameHistoryDaoSafely() {
         if (_gameHistoryDAOInjectable == null)

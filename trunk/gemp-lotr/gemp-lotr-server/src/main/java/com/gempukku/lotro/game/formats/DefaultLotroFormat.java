@@ -4,10 +4,7 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.DeckInvalidException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.HashMap;
@@ -69,7 +66,7 @@ public abstract class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
-    public void validateDeck(LotroDeck deck) throws DeckInvalidException {
+    public void validateDeck(Player player, LotroDeck deck) throws DeckInvalidException {
         try {
             // Ring-bearer
             if (deck.getRingBearer() == null)

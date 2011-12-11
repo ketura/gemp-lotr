@@ -2,6 +2,7 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
+import com.gempukku.lotro.db.vo.LeagueSeason;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,14 +17,14 @@ public class LeagueMatchDAO {
         _dbAccess = dbAccess;
     }
 
-    public Collection<LeagueMatch> getPlayerMatchesPlayedOn(League league, String player, int datePlayed) {
+    public Collection<LeagueMatch> getPlayerMatchesPlayedOn(League league, LeagueSeason leagueSeason, String player) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select winner, loser from leaguematch where league_id=? and date=? and (winner=? or loser=?)");
+                PreparedStatement statement = conn.prepareStatement("select winner, loser from league_match where league_type=? and season_type=? and (winner=? or loser=?)");
                 try {
-                    statement.setInt(1, league.getId());
-                    statement.setInt(2, datePlayed);
+                    statement.setString(1, league.getType());
+                    statement.setString(2, leagueSeason.getType());
                     statement.setString(3, player);
                     statement.setString(4, player);
                     ResultSet rs = statement.executeQuery();
@@ -50,14 +51,14 @@ public class LeagueMatchDAO {
         }
     }
 
-    public void addPlayedMatch(League league, String winner, String loser, int datePlayed) {
+    public void addPlayedMatch(League league, LeagueSeason leagueSeason, String winner, String loser) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("insert into leaguematch (league_id, date, winner, loser) values (?, ?, ?, ?)");
+                PreparedStatement statement = conn.prepareStatement("insert into league_match (league_type, season_type, winner, loser) values (?, ?, ?, ?)");
                 try {
-                    statement.setInt(1, league.getId());
-                    statement.setInt(2, datePlayed);
+                    statement.setString(1, league.getType());
+                    statement.setString(2, leagueSeason.getType());
                     statement.setString(3, winner);
                     statement.setString(4, loser);
                     statement.execute();
