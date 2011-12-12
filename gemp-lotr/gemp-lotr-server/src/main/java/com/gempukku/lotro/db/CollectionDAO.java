@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,6 +48,47 @@ public class CollectionDAO {
             return collection;
         }
         return null;
+    }
+
+    public Map<Integer, MutableCardCollection> getPlayerCollectionsByType(String type) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select player_id, collection from collection where type=?");
+                try {
+                    statement.setString(1, type);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        Map<Integer, MutableCardCollection> playerCollections = new HashMap<Integer, MutableCardCollection>();
+                        while (rs.next()) {
+                            int playerId = rs.getInt(1);
+                            Blob blob = rs.getBlob(2);
+                            try {
+                                InputStream inputStream = blob.getBinaryStream();
+                                try {
+                                    playerCollections.put(playerId, _collectionSerializer.deserializeCollection(inputStream));
+                                } finally {
+                                    inputStream.close();
+                                }
+                            } finally {
+                                blob.free();
+                            }
+                        }
+                        return playerCollections;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get player collection from DB", exp);
+        } catch (IOException exp) {
+            throw new RuntimeException("Unable to get player collection from DB", exp);
+        }
     }
 
     private MutableCardCollection getCollectionFromDB(Player player, String type) {

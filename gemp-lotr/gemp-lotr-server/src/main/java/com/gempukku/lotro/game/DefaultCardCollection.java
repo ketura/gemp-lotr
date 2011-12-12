@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 public class DefaultCardCollection implements MutableCardCollection {
-    private Map<String, Integer> _counts = new TreeMap<String, Integer>(new CardBlueprintIdComparator());
+    private Map<String, Integer> _counts = new HashMap<String, Integer>();
 
     private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
 
@@ -153,7 +153,10 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public void addPacks(String packId, int count) {
-        _counts.put(packId, count);
+        Integer oldCount = _counts.get(packId);
+        if (oldCount == null)
+            oldCount = 0;
+        _counts.put(packId, oldCount + count);
     }
 
     @Override
