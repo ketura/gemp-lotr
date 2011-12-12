@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set12.orc;
 import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,20 +33,21 @@ public class Card12_102 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        final Filter attachableToFilter = Filters.and(Filters.owner(playerId), Culture.ORC, Race.ORC);
         if (TriggerConditions.played(game, effectResult, self)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.ORC, Filters.weapon, ExtraFilters.attachableTo(game, Filters.owner(playerId), Culture.ORC, Race.ORC))) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.ORC, Filters.weapon, ExtraFilters.attachableTo(game, attachableToFilter))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),
                             Filters.and(
                                     Culture.ORC,
                                     Filters.weapon,
-                                    ExtraFilters.attachableTo(game, Filters.owner(playerId), Culture.ORC, Race.ORC)), 1, 1) {
+                                    ExtraFilters.attachableTo(game, attachableToFilter)), 1, 1) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             if (selectedCards.size() > 0) {
                                 PhysicalCard selectedCard = selectedCards.iterator().next();
-                                game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, Filters.and(Filters.owner(playerId), Culture.ORC, Race.ORC), 0));
+                                game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, attachableToFilter, 0));
                             }
                         }
                     });
