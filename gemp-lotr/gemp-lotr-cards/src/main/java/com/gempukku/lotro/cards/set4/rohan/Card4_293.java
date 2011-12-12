@@ -31,7 +31,7 @@ public class Card4_293 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.roaminMinion)
+        if (TriggerConditions.played(game, effectResult, Filters.roamingMinion)
                 && PlayConditions.canSpot(game, Keyword.VILLAGER)) {
             PlayCardResult result = (PlayCardResult) effectResult;
             OptionalTriggerAction action = new OptionalTriggerAction(self);
