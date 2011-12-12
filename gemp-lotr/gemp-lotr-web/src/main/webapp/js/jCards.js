@@ -138,7 +138,7 @@ var Card = Class.extend({
 function createCardDiv(image, text, foil, tokens) {
     var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
     if (foil) {
-        var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/holo.jpg' width='100%' height='100%'></div>");
+        var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
         cardDiv.append(foilDiv);
     }
 
