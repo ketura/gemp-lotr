@@ -38,7 +38,7 @@ public class Card10_045 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && PlayConditions.canPlayFromDiscard(playerId, game, -2, PossessionClass.MOUNT, ExtraFilters.attachableTo(game, self))) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, -2, PossessionClass.MOUNT, ExtraFilters.attachableTo(game, -2, self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId), Filters.and(PossessionClass.MOUNT, ExtraFilters.attachableTo(game, -2, self)), 1, 1) {

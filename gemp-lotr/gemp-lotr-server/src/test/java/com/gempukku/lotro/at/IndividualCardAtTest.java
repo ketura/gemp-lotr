@@ -178,4 +178,39 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // This should add burden without asking FP player for choice, since Bilbo can't be wounded, because of Consorting With Wizards
         assertEquals(2, _game.getGameState().getBurdens());
     }
+
+    @Test
+    public void mumakChieftainPlayingMumakForFree() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        initializeSimplestGame(extraCards);
+
+        PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P2, _library.getLotroCardBlueprint("10_45"));
+        PhysicalCardImpl mumak = new PhysicalCardImpl(100, "5_73", P2, _library.getLotroCardBlueprint("5_73"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, mumak, Zone.DISCARD);
+        _game.getGameState().addCardToZone(_game, mumakChieftain, Zone.HAND);
+        _game.getGameState().setTwilight(5);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        assertEquals(7, _game.getGameState().getTwilightPool());
+
+        // Play mumak chieftain
+        final AwaitingDecision shadowDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowDecision.getDecisionType());
+        validateContents(new String[]{"" + mumakChieftain.getCardId()}, ((String[]) shadowDecision.getDecisionParameters().get("cardId")));
+        playerDecided(P2, "0");
+
+        assertEquals(0, _game.getGameState().getTwilightPool());
+
+        final AwaitingDecision optionalPlayDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, optionalPlayDecision.getDecisionType());
+        validateContents(new String[]{"" + mumakChieftain.getCardId()}, ((String[]) optionalPlayDecision.getDecisionParameters().get("cardId")));
+        playerDecided(P2, "0");
+
+        assertEquals(Zone.ATTACHED, mumak.getZone());
+    }
 }
