@@ -45,7 +45,7 @@ public class Card6_068 extends AbstractMinion {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.ISENGARD, Race.ORC));
             int count = (PlayConditions.canSpot(game, 6, CardType.COMPANION)) ? 2 : 1;
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, count, count, CardType.COMPANION));
+                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;
