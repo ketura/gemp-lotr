@@ -24,6 +24,33 @@ public class PlayerDAO {
         _players.clear();
     }
 
+    public Player getPlayer(int id) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("select id, name, type from player where id=?");
+            try {
+                statement.setInt(1, id);
+                ResultSet rs = statement.executeQuery();
+                try {
+                    if (rs.next()) {
+                        String name = rs.getString(2);
+                        String type = rs.getString(3);
+
+                        return new Player(id, name, type);
+                    } else {
+                        return null;
+                    }
+                } finally {
+                    rs.close();
+                }
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
     public Player getPlayer(String playerName) {
         if (_players.containsKey(playerName))
             return _players.get(playerName);

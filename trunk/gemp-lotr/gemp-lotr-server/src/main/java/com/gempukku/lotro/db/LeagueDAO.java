@@ -53,6 +53,24 @@ public class LeagueDAO {
         }
     }
 
+    public void setBaseCollectionForLeague(League league, CardCollection collection) throws SQLException, IOException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("update league set collection=? where type=?");
+            try {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                _serializer.serializeCollection(collection, outputStream);
+                statement.setBlob(1, new ByteArrayInputStream(outputStream.toByteArray()));
+                statement.setString(2, league.getType());
+                statement.execute();
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
     private void loadActiveLeagues(int currentTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {

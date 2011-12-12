@@ -4,19 +4,21 @@ import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueSeasonDAO;
+import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
 import com.sun.jersey.spi.resource.Singleton;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Singleton
 @Path("/admin")
@@ -71,7 +73,7 @@ public class AdminResource extends AbstractResource {
         validateAdmin(request);
 
         DefaultCardCollection collection = new DefaultCardCollection();
-        String[] packs = packCollection.split("\n");
+        List<String> packs = getPacks(packCollection);
         for (String pack : packs)
             collection.addPacks(pack, 1);
         collection.finishedReading();
@@ -96,6 +98,51 @@ public class AdminResource extends AbstractResource {
         _leagueSeasonDao.addSeason(leagueType, type, start, end, maxMatches);
 
         return "OK";
+    }
+
+    @Path("/addLeagueProduct")
+    @POST
+    public String addLeagueProduct(
+            @FormParam("leagueType") String leagueType,
+            @FormParam("packProduct") String packProduct,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        League league = getLeagueByType(leagueType);
+        if (league == null)
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+
+        MutableCardCollection baseCollection = league.getBaseCollection();
+        List<String> packs = getPacks(packProduct);
+        for (String pack : packs)
+            baseCollection.addPacks(pack, 1);
+        _leagueDao.setBaseCollectionForLeague(league, baseCollection);
+
+        Map<Integer, MutableCardCollection> playerCollections = _collectionDao.getPlayerCollectionsByType(leagueType);
+        for (Map.Entry<Integer, MutableCardCollection> playerCollection : playerCollections.entrySet()) {
+            int playerId = playerCollection.getKey();
+            MutableCardCollection collection = playerCollection.getValue();
+            for (String pack : packs)
+                collection.addPacks(pack, 1);
+            Player player = _playerDao.getPlayer(playerId);
+            _collectionDao.setCollectionForPlayer(player, leagueType, collection);
+        }
+
+        return "OK";
+    }
+
+    private List<String> getPacks(String packProduct) {
+        List<String> result = new LinkedList<String>();
+        for (String pack : packProduct.split("\n"))
+            result.add(pack.trim());
+        return result;
+    }
+
+    private League getLeagueByType(String leagueType) {
+        for (League league : _leagueDao.getActiveLeagues())
+            if (league.getType().equals(leagueType))
+                return league;
+        return null;
     }
 
     private void validateAdmin(HttpServletRequest request) {
