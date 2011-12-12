@@ -790,7 +790,7 @@ public class Filters {
     }
 
     public static final Filter unboundCompanion = Filters.and(CardType.COMPANION, Filters.not(Keyword.RING_BOUND));
-    public static final Filter roaminMinion = Filters.and(CardType.MINION, Keyword.ROAMING);
+    public static final Filter roamingMinion = Filters.and(CardType.MINION, Keyword.ROAMING);
     public static final Filter mounted = Filters.hasAttached(PossessionClass.MOUNT);
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
