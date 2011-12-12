@@ -242,6 +242,19 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean playedOn(LotroGame game, EffectResult effectResult, Filterable targetFilter, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.PLAY) {
+            final PlayCardResult playResult = (PlayCardResult) effectResult;
+            final PhysicalCard attachedTo = playResult.getAttachedTo();
+            if (attachedTo == null)
+                return false;
+            PhysicalCard playedCard = playResult.getPlayedCard();
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), playedCard)
+                    && Filters.and(targetFilter).accepts(game.getGameState(), game.getModifiersQuerying(), attachedTo);
+        }
+        return false;
+    }
+
     public static boolean movesTo(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())) {
