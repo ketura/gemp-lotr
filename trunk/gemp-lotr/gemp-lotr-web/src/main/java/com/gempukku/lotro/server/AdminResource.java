@@ -3,7 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
-import com.gempukku.lotro.db.LeagueSeasonDAO;
+import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -30,7 +30,7 @@ public class AdminResource extends AbstractResource {
     @Context
     private LeagueDAO _leagueDao;
     @Context
-    private LeagueSeasonDAO _leagueSeasonDao;
+    private LeagueSerieDAO _leagueSeasonDao;
     @Context
     private LotroCardBlueprintLibrary _library;
     @Context
@@ -95,7 +95,7 @@ public class AdminResource extends AbstractResource {
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        _leagueSeasonDao.addSeason(leagueType, type, start, end, maxMatches);
+        _leagueSeasonDao.addSerie(leagueType, type, start, end, maxMatches);
 
         return "OK";
     }

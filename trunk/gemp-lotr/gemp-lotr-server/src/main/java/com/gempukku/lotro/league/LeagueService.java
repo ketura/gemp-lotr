@@ -3,7 +3,7 @@ package com.gempukku.lotro.league;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
-import com.gempukku.lotro.db.vo.LeagueSeason;
+import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 
@@ -11,13 +11,13 @@ import java.util.*;
 
 public class LeagueService {
     private LeagueDAO _leagueDao;
-    private LeagueSeasonDAO _leagueSeasonDao;
+    private LeagueSerieDAO _leagueSeasonDao;
     private LeaguePointsDAO _leaguePointsDao;
     private LeagueMatchDAO _leagueMatchDao;
     private CollectionDAO _collectionDao;
     private LotroCardBlueprintLibrary _library;
 
-    public LeagueService(LeagueDAO leagueDao, LeagueSeasonDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao, CollectionDAO collectionDao, LotroCardBlueprintLibrary library) {
+    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao, CollectionDAO collectionDao, LotroCardBlueprintLibrary library) {
         _leagueDao = leagueDao;
         _leagueSeasonDao = leagueSeasonDao;
         _leaguePointsDao = leaguePointsDao;
@@ -63,7 +63,7 @@ public class LeagueService {
     public void leagueGameStarting(final League league, LotroGameMediator gameMediator) {
         final int startDay = getCurrentDate();
 
-        final LeagueSeason season = _leagueSeasonDao.getSeasonForLeague(league, startDay);
+        final LeagueSerie season = _leagueSeasonDao.getSerieForLeague(league, startDay);
         if (season != null && isRanked(league, season, gameMediator)) {
             gameMediator.addGameResultListener(
                     new GameResultListener() {
@@ -86,7 +86,7 @@ public class LeagueService {
         return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
     }
 
-    private boolean isRanked(League league, LeagueSeason season, LotroGameMediator gameMediator) {
+    private boolean isRanked(League league, LeagueSerie season, LotroGameMediator gameMediator) {
         Set<String> playersPlaying = gameMediator.getPlayersPlaying();
         for (String player : playersPlaying) {
             int maxMatches = season.getMaxMatches();

@@ -27,7 +27,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     @Context
     private LeagueDAO _leagueDao;
     @Context
-    private LeagueSeasonDAO _leagueSeasonDao;
+    private LeagueSerieDAO _leagueSeasonDao;
     @Context
     private LeagueMatchDAO _leagueMatchDao;
     @Context

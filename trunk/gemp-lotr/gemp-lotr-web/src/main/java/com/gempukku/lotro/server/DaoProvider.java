@@ -18,7 +18,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<GameHistoryDAO> _gameHistoryDAOInjectable;
 
     private Injectable<LeagueDAO> _leagueDaoInjectable;
-    private Injectable<LeagueSeasonDAO> _leagueSeasonDAOInjectable;
+    private Injectable<LeagueSerieDAO> _leagueSeasonDAOInjectable;
     private Injectable<LeagueMatchDAO> _leagueMatchDAOInjectable;
     private Injectable<LeaguePointsDAO> _leaguePointsDAOInjectable;
 
@@ -40,7 +40,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             return getGameHistoryDaoSafely();
         else if (type.equals(LeagueDAO.class))
             return getLeagueDaoSafely();
-        else if (type.equals(LeagueSeasonDAO.class))
+        else if (type.equals(LeagueSerieDAO.class))
             return getLeagueSeasonDaoSafely();
         else if (type.equals(LeagueMatchDAO.class))
             return getLeagueMatchDaoSafely();
@@ -75,12 +75,12 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
         return _leagueMatchDAOInjectable;
     }
 
-    private synchronized Injectable<LeagueSeasonDAO> getLeagueSeasonDaoSafely() {
+    private synchronized Injectable<LeagueSerieDAO> getLeagueSeasonDaoSafely() {
         if (_leagueSeasonDAOInjectable == null) {
-            final LeagueSeasonDAO leagueSeasonDao = new LeagueSeasonDAO(_dbAccess);
-            _leagueSeasonDAOInjectable = new Injectable<LeagueSeasonDAO>() {
+            final LeagueSerieDAO leagueSeasonDao = new LeagueSerieDAO(_dbAccess);
+            _leagueSeasonDAOInjectable = new Injectable<LeagueSerieDAO>() {
                 @Override
-                public LeagueSeasonDAO getValue() {
+                public LeagueSerieDAO getValue() {
                     return leagueSeasonDao;
                 }
             };

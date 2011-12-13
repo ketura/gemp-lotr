@@ -2,7 +2,7 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
-import com.gempukku.lotro.db.vo.LeagueSeason;
+import com.gempukku.lotro.db.vo.LeagueSerie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ public class LeagueMatchDAO {
         _dbAccess = dbAccess;
     }
 
-    public Collection<LeagueMatch> getPlayerMatchesPlayedOn(League league, LeagueSeason leagueSeason, String player) {
+    public Collection<LeagueMatch> getPlayerMatchesPlayedOn(League league, LeagueSerie leagueSeason, String player) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
@@ -51,7 +51,7 @@ public class LeagueMatchDAO {
         }
     }
 
-    public void addPlayedMatch(League league, LeagueSeason leagueSeason, String winner, String loser) {
+    public void addPlayedMatch(League league, LeagueSerie leagueSeason, String winner, String loser) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
