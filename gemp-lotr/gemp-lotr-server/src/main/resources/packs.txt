@@ -2,3 +2,9 @@ FotR - League Starter
 FotR - Gandalf Starter
 FotR - Aragorn Starter
 FotR - Booster
+MoM - Gandalf Starter
+MoM - Gimli Starter
+MoM - Booster
+RotEL - Boromir Starter
+RotEL - Legolas Starter
+RotEL - Booster
