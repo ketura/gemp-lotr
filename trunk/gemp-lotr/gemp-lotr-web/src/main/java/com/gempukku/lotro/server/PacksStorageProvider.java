@@ -36,9 +36,17 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
         try {
             PacksStorage packStorage = new PacksStorage();
             packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
+
             packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox("FotR - Gandalf Starter"));
             packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox("FotR - Aragorn Starter"));
+            packStorage.addPackBox("MoM - Gandalf Starter", new FixedPackBox("MoM - Gandalf Starter"));
+            packStorage.addPackBox("MoM - Gimli Starter", new FixedPackBox("MoM - Gimli Starter"));
+            packStorage.addPackBox("RotEL - Boromir Starter", new FixedPackBox("RotEL - Boromir Starter"));
+            packStorage.addPackBox("RotEL - Legolas Starter", new FixedPackBox("RotEL - Legolas Starter"));
+
             packStorage.addPackBox("FotR - Booster", new RarityPackBox(1));
+            packStorage.addPackBox("MoM - Booster", new RarityPackBox(2));
+            packStorage.addPackBox("RotEL - Booster", new RarityPackBox(3));
             return packStorage;
         } catch (IOException exp) {
             _logger.error("Error while creating resource", exp);

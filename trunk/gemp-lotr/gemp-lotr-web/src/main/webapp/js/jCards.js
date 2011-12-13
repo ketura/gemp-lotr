@@ -94,6 +94,18 @@ var Card = Class.extend({
                 return "/gemp-lotr/images/boosters/fotr_aragorn_starter.png";
             else if (blueprintId == "FotR - Booster")
                     return "/gemp-lotr/images/boosters/fotr_booster.png";
+                else if (blueprintId == "MoM - Gandalf Starter")
+                        return "/gemp-lotr/images/boosters/mom_gandalf_starter.png";
+                    else if (blueprintId == "MoM - Gimli Starter")
+                            return "/gemp-lotr/images/boosters/mom_gimli_starter.png";
+                        else if (blueprintId == "MoM - Booster")
+                                return "/gemp-lotr/images/boosters/mom_booster.png";
+                            else if (blueprintId == "RotEL - Boromir Starter")
+                                    return "/gemp-lotr/images/boosters/rotel_boromir_starter.png";
+                                else if (blueprintId == "RotEL - Legolas Starter")
+                                        return "/gemp-lotr/images/boosters/rotel_legolas_starter.png";
+                                    else if (blueprintId == "RotEL - Booster")
+                                            return "/gemp-lotr/images/boosters/rotel_booster.png";
 
         var separator = blueprintId.indexOf("_");
         var setNo = parseInt(blueprintId.substr(0, separator));
