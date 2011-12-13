@@ -164,6 +164,34 @@ function createCardDiv(image, text, foil, tokens) {
     return cardDiv;
 }
 
+function createFullCardDiv(image, foil, horizontal) {
+    if (horizontal) {
+        var cardDiv = $("<div style='position: relative;width:497px;height:357px;'></div>");
+        cardDiv.append("<div style='position:absolute'><img src='" + image + "' width='497' height='357'></div>");
+
+        var borderDiv = $("<div class='borderOverlay' style='position:absolute;width:465px;height:325px;border-width:16px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
+        cardDiv.append(borderDiv);
+
+        if (foil) {
+            var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:497px;height:357px'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
+            cardDiv.append(foilDiv);
+        }
+    } else {
+        var cardDiv = $("<div style='position: relative;width:357px;height:497px;'></div>");
+        cardDiv.append("<div style='position:absolute'><img src='" + image + "' width='357' height='497'></div>");
+
+        var borderDiv = $("<div class='borderOverlay' style='position:absolute;width:325px;height:465px;border-width:16px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
+        cardDiv.append(borderDiv);
+
+        if (foil) {
+            var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:357px;height:497px'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
+            cardDiv.append(foilDiv);
+        }
+    }
+
+    return cardDiv;
+}
+
 function createSimpleCardDiv(image) {
     var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'></div>");
 

@@ -524,7 +524,8 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     displayCardInfo: function(card) {
         this.infoDialog.html("");
-        this.infoDialog.html("<div style='scroll: auto'><img src='" + card.imageUrl + "'></div>");
+        this.infoDialog.html("<div style='scroll: auto'></div>");
+        this.infoDialog.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
 
