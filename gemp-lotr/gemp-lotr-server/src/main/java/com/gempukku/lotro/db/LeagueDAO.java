@@ -74,7 +74,7 @@ public class LeagueDAO {
     private void loadActiveLeagues(int currentTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, collection from league where start<=? and end>=?");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, collection, start, end from league where start<=? and end>=?");
             try {
                 statement.setInt(1, currentTime);
                 statement.setInt(2, currentTime);
@@ -84,13 +84,15 @@ public class LeagueDAO {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
                         String type = rs.getString(3);
+                        int start = rs.getInt(5);
+                        int end = rs.getInt(6);
                         Blob baseCollection = rs.getBlob(4);
                         try {
                             final InputStream inputStream = baseCollection.getBinaryStream();
                             try {
                                 MutableCardCollection collection = _serializer.deserializeCollection(inputStream);
 
-                                _activeLeagues.add(new League(id, type, name, collection));
+                                _activeLeagues.add(new League(id, type, name, collection, start, end));
                             } finally {
                                 inputStream.close();
                             }
