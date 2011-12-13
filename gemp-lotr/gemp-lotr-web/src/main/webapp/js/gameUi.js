@@ -449,7 +449,13 @@ var GempLotrGameUI = Class.extend({
 
     displayCard: function(card, extraSpace) {
         this.infoDialog.html("");
-        this.infoDialog.html("<div style='scroll: auto'><div style='float: left;'><img src='" + card.imageUrl + "'></div><div id='cardEffects'></div></div>");
+        this.infoDialog.html("<div style='scroll: auto'></div>");
+        var floatCardDiv = $("<div style='float: left;'></div>");
+        floatCardDiv.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
+        this.infoDialog.append(floatCardDiv);
+        if (extraSpace)
+            this.infoDialog.append("<div id='cardEffects'></div>");
+
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
 
@@ -485,21 +491,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -514,11 +520,11 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -989,12 +995,12 @@ var GempLotrGameUI = Class.extend({
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-                    {
-                        "OK": function() {
-                            $(this).dialog("close");
-                            that.decisionFunction(id, $("#integerDecision").val());
-                        }
-                    });
+            {
+                "OK": function() {
+                    $(this).dialog("close");
+                    that.decisionFunction(id, $("#integerDecision").val());
+                }
+            });
         }
 
         $("#integerDecision").SpinnerControl({ type: 'range',
@@ -1030,12 +1036,12 @@ var GempLotrGameUI = Class.extend({
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-                    {
-                        "OK": function() {
-                            $(this).dialog("close");
-                            that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                        }
-                    });
+            {
+                "OK": function() {
+                    $(this).dialog("close");
+                    that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                }
+            });
         }
 
         this.smallDialog.dialog("open");
@@ -1399,8 +1405,8 @@ var GempLotrGameUI = Class.extend({
                     $(div).find('LI.hover').removeClass('hover');
                     $(this).parent().addClass('hover');
                 }).mouseout(function() {
-                    $(div).find('LI.hover').removeClass('hover');
-                });
+            $(div).find('LI.hover').removeClass('hover');
+        });
 
         var getRidOfContextMenu = function() {
             $(div).remove();
