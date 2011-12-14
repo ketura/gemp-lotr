@@ -32,6 +32,8 @@ public class GameState {
 
     private int _moveCount;
     private boolean _fierceSkirmishes;
+    private boolean _extraSkirmishes;
+
     private boolean _wearingRing;
     private boolean _consecutiveAction;
 
@@ -721,6 +723,14 @@ public class GameState {
 
         for (GameStateListener listener : getAllGameStateListeners())
             listener.setCurrentPlayerId(_currentPlayerId);
+    }
+
+    public boolean isExtraSkirmishes() {
+        return _extraSkirmishes;
+    }
+
+    public void setExtraSkirmishes(boolean extraSkirmishes) {
+        _extraSkirmishes = extraSkirmishes;
     }
 
     public void setFierceSkirmishes(boolean value) {

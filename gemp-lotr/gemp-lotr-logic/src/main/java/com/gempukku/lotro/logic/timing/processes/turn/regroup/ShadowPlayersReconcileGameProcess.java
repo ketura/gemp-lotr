@@ -15,7 +15,6 @@ public class ShadowPlayersReconcileGameProcess implements GameProcess {
     @Override
     public void process(LotroGame game) {
         GameState gameState = game.getGameState();
-        gameState.setFierceSkirmishes(false);
         PlayOrder reverseShadowOrder = gameState.getPlayerOrder().getClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
         reverseShadowOrder.getNextPlayer();
 
