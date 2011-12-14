@@ -15,11 +15,16 @@ public class AfterSkirmishesGameProcess implements GameProcess {
     @Override
     public void process(LotroGame game) {
         GameState gameState = game.getGameState();
-        if (!gameState.isFierceSkirmishes() && Filters.canSpot(gameState, game.getModifiersQuerying(), CardType.MINION, Keyword.FIERCE)) {
+        if (gameState.isExtraSkirmishes()) {
+            gameState.setExtraSkirmishes(false);
+            _followingGameProcess = new RegroupGameProcess();
+        } else if (!gameState.isFierceSkirmishes() && Filters.canSpot(gameState, game.getModifiersQuerying(), CardType.MINION, Keyword.FIERCE)) {
             gameState.setFierceSkirmishes(true);
             _followingGameProcess = new AssignmentGameProcess();
         } else {
-            _followingGameProcess = new RegroupGameProcess();
+            if (gameState.isFierceSkirmishes())
+                gameState.setFierceSkirmishes(false);
+            _followingGameProcess = new EndSkirmishesGameProcess();
         }
     }
 

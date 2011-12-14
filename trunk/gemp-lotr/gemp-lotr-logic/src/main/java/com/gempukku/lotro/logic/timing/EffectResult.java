@@ -29,6 +29,8 @@ public abstract class EffectResult {
         START_OF_TURN,
         END_OF_TURN,
 
+        AFTER_ALL_SKIRMISHES,
+
         RECONCILE,
 
         ZERO_VITALITY,
