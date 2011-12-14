@@ -55,6 +55,9 @@ var GempLotrDeckBuildingUI = Class.extend({
         var renameDeckBut = $("<button title='Rename deck'><span class='ui-icon ui-icon-tag'></span></button>").button();
         this.manageDecksDiv.append(renameDeckBut);
 
+        var copyDeckBut = $("<button title='Copy deck to new'><span class='ui-icon ui-icon-copy'></span></button>").button();
+        this.manageDecksDiv.append(copyDeckBut);
+
         var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
         this.manageDecksDiv.append(deleteDeckBut);
 
@@ -115,6 +118,12 @@ var GempLotrDeckBuildingUI = Class.extend({
                                         that.saveDeck(false);
                                 });
                     }
+                });
+
+        copyDeckBut.click(
+                function() {
+                    that.deckName = null;
+                    $("#editingDeck").html("Editing deck: New deck");
                 });
 
         deleteDeckBut.click(
