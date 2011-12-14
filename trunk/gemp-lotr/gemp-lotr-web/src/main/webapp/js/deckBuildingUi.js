@@ -4,7 +4,6 @@ var GempLotrDeckBuildingUI = Class.extend({
     deckDiv: null,
 
     manageDecksDiv: null,
-    decksSelect: null,
 
     ringBearerDiv: null,
     ringBearerGroup: null,
@@ -35,6 +34,8 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     checkDirtyInterval: 1000,
 
+    deckListDialog: null,
+
     init: function() {
         var that = this;
 
@@ -58,14 +59,8 @@ var GempLotrDeckBuildingUI = Class.extend({
         var copyDeckBut = $("<button title='Copy deck to new'><span class='ui-icon ui-icon-copy'></span></button>").button();
         this.manageDecksDiv.append(copyDeckBut);
 
-        var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
-        this.manageDecksDiv.append(deleteDeckBut);
-
-        this.decksSelect = $("<select style='vertical-align: top;'></select>");
-        this.manageDecksDiv.append(this.decksSelect);
-
-        var loadDeckBut = $("<button title='Load deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
-        this.manageDecksDiv.append(loadDeckBut);
+        var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-suitcase'></span></button>").button();
+        this.manageDecksDiv.append(deckListBut);
 
         this.manageDecksDiv.append("<span id='editingDeck'>Editing deck: New deck</span>");
 
@@ -113,7 +108,6 @@ var GempLotrDeckBuildingUI = Class.extend({
                         $("#editingDeck").text("Editing deck: " + newDeckName);
                         that.comm.renameDeck(oldDeckName, newDeckName,
                                 function() {
-                                    that.loadDecks();
                                     if (confirm("Do you wish to save this deck?"))
                                         that.saveDeck(false);
                                 });
@@ -126,30 +120,9 @@ var GempLotrDeckBuildingUI = Class.extend({
                     $("#editingDeck").html("Editing deck: New deck");
                 });
 
-        deleteDeckBut.click(
+        deckListBut.click(
                 function() {
-                    if (confirm("Are you sure you want to delete this deck?")) {
-                        if (that.deckName != null)
-                            that.comm.deleteDeck(that.deckName,
-                                    function() {
-                                        that.loadDecks();
-                                    });
-                        that.deckName = null;
-                        $("#editingDeck").html("Editing deck: New deck");
-                        that.clearDeck();
-                    }
-                }
-                );
-
-        loadDeckBut.click(
-                function() {
-                    var deck = that.decksSelect.val();
-                    if (deck != null) {
-                        that.comm.getDeck(deck,
-                                function(xml) {
-                                    that.setupDeck(xml, deck);
-                                });
-                    }
+                    that.loadDeckList();
                 });
 
         this.collectionDiv = $("#collectionDiv");
@@ -441,11 +414,76 @@ var GempLotrDeckBuildingUI = Class.extend({
         };
         this.infoDialog.swipe(swipeOptions);
 
-        this.loadDecks();
-
         this.getCollection();
 
         this.checkDeckStatsDirty();
+    },
+
+    loadDeckList: function() {
+        var that = this;
+        this.comm.getDecks(function(xml) {
+            if (that.deckListDialog == null) {
+                that.deckListDialog = $("<div></div>")
+                        .dialog({
+                    title: "Your stored decks",
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: true,
+                    width: 400,
+                    height: 200,
+                    modal: true
+                });
+            }
+            that.deckListDialog.html("");
+
+            var root = xml.documentElement;
+            if (root.tagName == "decks") {
+                var decks = root.getElementsByTagName("deck");
+                for (var i = 0; i < decks.length; i++) {
+                    var deck = decks[i];
+                    var deckName = decks[i].childNodes[0].nodeValue;
+                    var openDeckBut = $("<button title='Open deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
+                    var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
+
+                    var deckElem = $("<div class='deckItem'></div>");
+                    deckElem.append(openDeckBut);
+                    deckElem.append(deleteDeckBut);
+                    deckElem.append(deckName);
+
+                    that.deckListDialog.append(deckElem);
+
+                    openDeckBut.click(
+                            (function(deckName) {
+                                return function() {
+                                    that.comm.getDeck(deckName,
+                                            function(xml) {
+                                                that.setupDeck(xml, deckName);
+                                            });
+                                };
+                            })(deckName));
+
+                    deleteDeckBut.click(
+                            (function(deckName) {
+                                return function() {
+                                    if (confirm("Are you sure you want to delete this deck?")) {
+                                        that.comm.deleteDeck(deckName,
+                                                function() {
+                                                    if (that.deckName == deckName) {
+                                                        that.deckName = null;
+                                                        $("#editingDeck").html("Editing deck: New deck");
+                                                        that.clearDeck();
+                                                    }
+
+                                                    that.loadDeckList();
+                                                });
+                                    }
+                                };
+                            })(deckName));
+                }
+            }
+
+            that.deckListDialog.dialog("open");
+        });
     },
 
     clickCardFunction: function(event) {
@@ -526,29 +564,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         return true;
     },
 
-    loadDecks: function() {
-        var that = this;
-        this.comm.getDecks(function(xml) {
-            that.setupDeckList(xml);
-        });
-    },
-
-    setupDeckList: function(xml) {
-        var root = xml.documentElement;
-        if (root.tagName == "decks") {
-            this.decksSelect.html("");
-            var decks = root.getElementsByTagName("deck");
-            for (var i = 0; i < decks.length; i++) {
-                var deck = decks[i];
-                var deckName = decks[i].childNodes[0].nodeValue;
-                var deckElem = $("<option></option>");
-                deckElem.attr("value", deckName);
-                deckElem.html(deckName);
-                this.decksSelect.append(deckElem);
-            }
-        }
-    },
-
     displayCardInfo: function(card) {
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'></div>");
@@ -603,8 +618,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         else
             this.comm.saveDeck(this.deckName, deckContents, function(xml) {
                 alert("Deck was saved");
-                if (reloadList)
-                    that.loadDecks();
             });
     },
 
