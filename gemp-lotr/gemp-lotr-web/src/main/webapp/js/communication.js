@@ -185,7 +185,7 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    deleteDeck: function(deckName) {
+    deleteDeck: function(deckName, callback) {
         $.ajax({
             type: "POST",
             url: this.url + "/deck/delete",
@@ -193,6 +193,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 deckName: deckName},
+            success: callback,
             error: this.failure,
             dataType: "xml"
         });

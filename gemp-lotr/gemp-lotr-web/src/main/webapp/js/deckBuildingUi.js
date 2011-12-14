@@ -121,13 +121,16 @@ var GempLotrDeckBuildingUI = Class.extend({
                 function() {
                     if (confirm("Are you sure you want to delete this deck?")) {
                         if (that.deckName != null)
-                            that.comm.deleteDeck(that.deckName);
+                            that.comm.deleteDeck(that.deckName,
+                                    function() {
+                                        that.loadDecks();
+                                    });
                         that.deckName = null;
                         $("#editingDeck").html("Editing deck: New deck");
                         that.clearDeck();
                     }
                 }
-        );
+                );
 
         loadDeckBut.click(
                 function() {
@@ -410,11 +413,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
