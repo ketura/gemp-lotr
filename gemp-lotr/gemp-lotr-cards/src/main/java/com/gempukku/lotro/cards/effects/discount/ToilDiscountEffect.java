@@ -19,6 +19,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
     private int _minimalDiscount;
 
     private int _exertedCount;
+    private int _paidToil;
 
     public ToilDiscountEffect(Action action, PhysicalCard payingFor, String ownerId, Culture culture, int toilCount) {
         _action = action;
@@ -33,9 +34,17 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
         return null;
     }
 
+    public void incrementToil() {
+        _paidToil++;
+    }
+
     @Override
     public Type getType() {
-        return null;
+        return Type.BEFORE_TOIL;
+    }
+
+    public PhysicalCard getPayingFor() {
+        return _payingFor;
     }
 
     @Override
@@ -45,7 +54,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return _minimalDiscount <= _toilCount * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(_ownerId), _culture, Filters.character, Filters.canExert(_payingFor));
+        return _minimalDiscount <= _toilCount * (_paidToil + Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(_ownerId), _culture, Filters.character, Filters.canExert(_payingFor)));
     }
 
     @Override
@@ -72,7 +81,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
 
     @Override
     public int getDiscountPaidFor() {
-        return _exertedCount * _toilCount;
+        return (_exertedCount + _paidToil) * _toilCount;
     }
 
 }
