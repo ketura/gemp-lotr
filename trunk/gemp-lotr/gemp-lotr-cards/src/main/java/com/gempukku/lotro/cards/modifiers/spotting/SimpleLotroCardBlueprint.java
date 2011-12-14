@@ -73,6 +73,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public List<OptionalTriggerAction> getOptionalAfterTriggersFromHand(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         return null;
     }

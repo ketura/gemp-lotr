@@ -203,6 +203,19 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                     }
                 }
             }
+
+            // Optional triggers from hand
+            for (PhysicalCard cardInHand : _lotroGame.getGameState().getHand(playerId)) {
+                for (EffectResult effectResult : effectResults) {
+                    List<OptionalTriggerAction> actions = cardInHand.getBlueprint().getOptionalAfterTriggersFromHand(playerId, _lotroGame, effectResult, cardInHand);
+                    if (actions != null) {
+                        for (OptionalTriggerAction action : actions) {
+                            if (!effectResult.wasOptionalTriggerUsed(action))
+                                gatheredActions.put(action, effectResult);
+                        }
+                    }
+                }
+            }
         }
 
         for (Action gatheredAction : gatheredActions.keySet())
