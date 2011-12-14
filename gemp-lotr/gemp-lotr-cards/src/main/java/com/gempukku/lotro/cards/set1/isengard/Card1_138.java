@@ -6,8 +6,10 @@ import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -54,7 +56,7 @@ public class Card1_138 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier(self, Phase.SKIRMISH);
+        return new PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier(self, new LocationCondition(Filters.hasAttached(self)), Phase.SKIRMISH);
     }
 
     @Override
