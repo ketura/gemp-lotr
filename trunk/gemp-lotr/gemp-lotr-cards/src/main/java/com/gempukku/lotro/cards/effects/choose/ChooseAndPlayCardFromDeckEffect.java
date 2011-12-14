@@ -58,19 +58,23 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
                             List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             if (selectedCards.size() > 0) {
                                 final PhysicalCard selectedCard = selectedCards.get(0);
-                                _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier, false);
-                                _playCardAction.appendEffect(
-                                        new UnrespondableEffect() {
-                                            @Override
-                                            protected void doPlayEffect(LotroGame game) {
-                                                afterCardPlayed(selectedCard);
-                                            }
-                                        });
-                                game.getActionsEnvironment().addActionToStack(_playCardAction);
+                                cardSelectedToPlay(game, selectedCard);
                             }
                         }
                     });
         }
+    }
+
+    protected void cardSelectedToPlay(LotroGame game, final PhysicalCard selectedCard) {
+        _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier, false);
+        _playCardAction.appendEffect(
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        afterCardPlayed(selectedCard);
+                    }
+                });
+        game.getActionsEnvironment().addActionToStack(_playCardAction);
     }
 
     protected void afterCardPlayed(PhysicalCard cardPlayed) {
