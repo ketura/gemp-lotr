@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class LeaguePointsDAO {
@@ -69,21 +71,22 @@ public class LeaguePointsDAO {
         }
     }
 
-    public Map<String, Integer> getSerieStandings(League league, LeagueSerie serie) {
+    public List<Standing> getSerieStandings(League league, LeagueSerie serie) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select player_name, sum(points) from league_points where league_type=? and season_type=? group by player_name order by 2 desc");
+                PreparedStatement statement = conn.prepareStatement("select player_name, sum(points), count(*) from league_points where league_type=? and season_type=? group by player_name order by 2 desc, 3 asc");
                 try {
                     statement.setString(1, league.getType());
                     statement.setString(2, serie.getType());
                     ResultSet rs = statement.executeQuery();
                     try {
-                        Map<String, Integer> result = new LinkedHashMap<String, Integer>();
+                        List<Standing> result = new LinkedList<Standing>();
                         while (rs.next()) {
                             String playerName = rs.getString(1);
                             int sumPoints = rs.getInt(2);
-                            result.put(playerName, sumPoints);
+                            int gamesPlayed = rs.getInt(3);
+                            result.add(new Standing(playerName, sumPoints, gamesPlayed));
                         }
                         return result;
                     } finally {
@@ -97,6 +100,30 @@ public class LeaguePointsDAO {
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
+        }
+    }
+
+    public static class Standing {
+        private String _player;
+        private int _points;
+        private int _gamesPlayed;
+
+        public Standing(String player, int points, int gamesPlayed) {
+            _player = player;
+            _points = points;
+            _gamesPlayed = gamesPlayed;
+        }
+
+        public int getGamesPlayed() {
+            return _gamesPlayed;
+        }
+
+        public String getPlayer() {
+            return _player;
+        }
+
+        public int getPoints() {
+            return _points;
         }
     }
 }

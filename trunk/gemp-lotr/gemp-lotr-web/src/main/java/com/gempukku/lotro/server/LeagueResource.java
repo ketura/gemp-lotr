@@ -16,7 +16,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.List;
-import java.util.Map;
 
 @Singleton
 @Path("/league")
@@ -51,12 +50,13 @@ public class LeagueResource extends AbstractResource {
                 serieElem.setAttribute("start", String.valueOf(serie.getStart()));
                 serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
 
-                Map<String, Integer> standings = _leaguePointsDao.getSerieStandings(league, serie);
-                for (Map.Entry<String, Integer> playerPoints : standings.entrySet()) {
-                    Element standing = doc.createElement("standing");
-                    standing.setAttribute("player", playerPoints.getKey());
-                    standing.setAttribute("points", playerPoints.getValue().toString());
-                    serieElem.appendChild(standing);
+                final List<LeaguePointsDAO.Standing> standings = _leaguePointsDao.getSerieStandings(league, serie);
+                for (LeaguePointsDAO.Standing standing : standings) {
+                    Element standingElem = doc.createElement("standing");
+                    standingElem.setAttribute("player", standing.getPlayer());
+                    standingElem.setAttribute("points", String.valueOf(standing.getPoints()));
+                    standingElem.setAttribute("gamesPlayed", String.valueOf(standing.getGamesPlayed()));
+                    serieElem.appendChild(standingElem);
                 }
 
                 leagueElem.appendChild(serieElem);

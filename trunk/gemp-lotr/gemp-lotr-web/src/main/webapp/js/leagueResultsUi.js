@@ -50,21 +50,24 @@ var LeagueResultsUI = Class.extend({
                     if (standings.length > 0) {
                         var standingsTable = $("<table class='standings'></table>");
 
-                        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th></tr>");
+                        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th></tr>");
 
                         var lastPoints = -1;
+                        var lastGamesPlayed = -1;
                         var currentStanding = -1;
 
                         for (var k = 0; k < standings.length; k++) {
                             var standing = standings[k];
                             var player = standing.getAttribute("player");
                             var points = parseInt(standing.getAttribute("points"));
-                            if (points != lastPoints) {
+                            var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
+                            if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
                                 lastPoints = points;
+                                lastGamesPlayed = gamesPlayed;
                                 currentStanding = k + 1;
                             }
 
-                            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td></tr>");
+                            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
                         }
 
                         $("#leagueResults").append(standingsTable);
