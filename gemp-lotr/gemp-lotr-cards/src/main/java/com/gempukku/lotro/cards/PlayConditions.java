@@ -203,14 +203,18 @@ public class PlayConditions {
                 });
     }
 
-    public static boolean canHeal(PhysicalCard source, LotroGame game, Filterable... filters) {
+    public static boolean canHeal(PhysicalCard source, LotroGame game, final int count, Filterable... filters) {
         return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.wounded, Filters.and(filters),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
+                        return gameState.getWounds(physicalCard) >= count && modifiersQuerying.canBeHealed(gameState, physicalCard);
                     }
                 }) >= 1;
+    }
+
+    public static boolean canHeal(PhysicalCard source, LotroGame game, Filterable... filters) {
+        return canHeal(source, game, 1, filters);
     }
 
     public static boolean canPlayFromHand(String playerId, LotroGame game, Filterable... filters) {
