@@ -115,6 +115,12 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean forEachHealed(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_HEALED)
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((HealResult) effectResult).getHealedCard());
+        return false;
+    }
+
     public static boolean forEachExerted(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_EXERTED)
             return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((ExertResult) effectResult).getExertedCard());
