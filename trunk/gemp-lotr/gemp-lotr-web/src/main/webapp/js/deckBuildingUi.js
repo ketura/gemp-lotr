@@ -395,11 +395,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -425,14 +425,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                    title: "Your stored decks",
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    width: 400,
-                    height: 200,
-                    modal: true
-                });
+                            title: "Your stored decks",
+                            autoOpen: false,
+                            closeOnEscape: true,
+                            resizable: true,
+                            width: 400,
+                            height: 200,
+                            modal: true
+                        });
             }
             that.deckListDialog.html("");
 
@@ -846,6 +846,8 @@ var GempLotrDeckBuildingUI = Class.extend({
                     this.addCardToDeck(cards[i].getAttribute("blueprintId"), cards[i].getAttribute("side"));
 
                 this.layoutUI(false);
+
+                this.getCollection();
             }
         }
     },
