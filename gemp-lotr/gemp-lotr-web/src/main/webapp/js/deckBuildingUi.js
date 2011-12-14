@@ -55,6 +55,9 @@ var GempLotrDeckBuildingUI = Class.extend({
         var renameDeckBut = $("<button title='Rename deck'><span class='ui-icon ui-icon-tag'></span></button>").button();
         this.manageDecksDiv.append(renameDeckBut);
 
+        var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
+        this.manageDecksDiv.append(deleteDeckBut);
+
         this.decksSelect = $("<select style='vertical-align: top;'></select>");
         this.manageDecksDiv.append(this.decksSelect);
 
@@ -113,6 +116,18 @@ var GempLotrDeckBuildingUI = Class.extend({
                                 });
                     }
                 });
+
+        deleteDeckBut.click(
+                function() {
+                    if (confirm("Are you sure you want to delete this deck?")) {
+                        if (that.deckName != null)
+                            that.comm.deleteDeck(that.deckName);
+                        that.deckName = null;
+                        $("#editingDeck").html("Editing deck: New deck");
+                        that.clearDeck();
+                    }
+                }
+        );
 
         loadDeckBut.click(
                 function() {
@@ -395,11 +410,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
