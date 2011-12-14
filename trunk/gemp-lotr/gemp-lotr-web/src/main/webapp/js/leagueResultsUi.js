@@ -42,9 +42,11 @@ var LeagueResultsUI = Class.extend({
                     var serieName = serie.getAttribute("type");
                     var serieStart = serie.getAttribute("start");
                     var serieEnd = serie.getAttribute("end");
+                    var maxMatches = serie.getAttribute("maxMatches");
 
                     var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
                     $("#leagueResults").append("<h2 class='serieName'>" + serieText + "</h2>");
+                    $("#leagueResults").append("<sub>Maximum ranked matches in serie: " + maxMatches + "</sub>");
 
                     var standings = serie.getElementsByTagName("standing");
                     if (standings.length > 0) {
