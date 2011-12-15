@@ -28,4 +28,21 @@ public class LeagueSerie {
     public int getStart() {
         return _start;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LeagueSerie that = (LeagueSerie) o;
+
+        if (_type != null ? !_type.equals(that._type) : that._type != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return _type != null ? _type.hashCode() : 0;
+    }
 }
