@@ -213,4 +213,36 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(Zone.ATTACHED, mumak.getZone());
     }
+
+    @Test
+    public void musterFrodoAllowsToDiscardAndDraw() throws DecisionResultInvalidException {
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        final LotroDeck p1Deck = createSimplestDeck();
+        p1Deck.setRingBearer("11_164");
+        decks.put(P1, p1Deck);
+        decks.put(P2, createSimplestDeck());
+
+        initializeGameWithDecks(decks);
+
+        skipMulligans();
+
+        PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P1, _library.getLotroCardBlueprint("10_45"));
+
+        _game.getGameState().addCardToZone(_game, mumakChieftain, Zone.HAND);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        // End fellowship phase
+        playerDecided(P2, "");
+
+        playerDecided(P1, "0");
+
+        assertEquals(1, _game.getGameState().getWounds(_game.getGameState().getRingBearer(P1)));
+        assertEquals(1, _game.getGameState().getHand(P1).size());
+
+        playerDecided(P1, "0");
+
+        assertEquals(0, _game.getGameState().getHand(P1).size());
+    }
 }
