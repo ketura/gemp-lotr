@@ -26,6 +26,17 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean isAhead(LotroGame game) {
+        String currentPlayer = game.getGameState().getCurrentPlayerId();
+        int currentPosition = game.getGameState().getCurrentSiteNumber();
+        for (String player : game.getGameState().getPlayerOrder().getAllPlayers()) {
+            if (!player.equals(currentPlayer))
+                if (game.getGameState().getPlayerPosition(player) >= currentPosition)
+                    return false;
+        }
+        return true;
+    }
+
     public static boolean canDiscardFromHand(LotroGame game, String playerId, int count, Filterable... cardFilter) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), cardFilter).size() >= count;
     }
