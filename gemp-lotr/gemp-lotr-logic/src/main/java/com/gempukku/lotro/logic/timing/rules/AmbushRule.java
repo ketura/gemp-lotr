@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -34,6 +35,7 @@ public class AmbushRule {
                                 if (Filters.and(CardType.MINION, Keyword.AMBUSH, Filters.owner(playerId)).accepts(game.getGameState(), game.getModifiersQuerying(), assignedCard)) {
                                     final int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), assignedCard, Keyword.AMBUSH);
                                     OptionalTriggerAction action = new OptionalTriggerAction("ambush" + assignedCard.getCardId(), assignedCard);
+                                    action.setMessage(playerId + " uses Ambush (" + count + ") from " + GameUtils.getCardLink(assignedCard));
                                     action.setText("Ambush - add " + count);
                                     action.appendEffect(
                                             new AddTwilightEffect(assignedCard, count));
