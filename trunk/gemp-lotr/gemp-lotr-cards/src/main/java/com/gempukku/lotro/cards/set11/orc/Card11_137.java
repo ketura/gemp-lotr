@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,6 +36,7 @@ public class Card11_137 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
+                && PlayConditions.location(game, Keyword.UNDERGROUND)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.ORC, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
