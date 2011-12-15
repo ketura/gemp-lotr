@@ -136,6 +136,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.fullFilterDiv = $("<div id='fullFiltering'></div>");
         this.fullFilterDiv.append("<select id='set'>"
                 + "<option value=''>All Sets</option>"
+                + "<option value='0'>00 - Promo</option>"
                 + "<option value='1,2,3'>Fellowship Block</option>"
                 + "<option value='1'>01 - The Fellowship of the Ring</option>"
                 + "<option value='2'>02 - Mines of Moria</option>"
@@ -395,11 +396,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -425,14 +426,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                            title: "Your stored decks",
-                            autoOpen: false,
-                            closeOnEscape: true,
-                            resizable: true,
-                            width: 400,
-                            height: 200,
-                            modal: true
-                        });
+                    title: "Your stored decks",
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: true,
+                    width: 400,
+                    height: 200,
+                    modal: true
+                });
             }
             that.deckListDialog.html("");
 

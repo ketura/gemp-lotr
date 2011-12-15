@@ -44,13 +44,13 @@ public class LotroServer extends AbstractServer {
         _test = test;
         _defaultCollection = new DefaultCardCollection();
 
-        final int[] cardCounts = new int[]{365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 194, 194};
+        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 194, 194};
 
         Thread thr = new Thread(
                 new Runnable() {
                     public void run() {
-                        for (int i = 1; i <= 12; i++) {
-                            for (int j = 1; j <= cardCounts[i - 1]; j++) {
+                        for (int i = 0; i <= 12; i++) {
+                            for (int j = 1; j <= cardCounts[i]; j++) {
                                 String blueprintId = i + "_" + j;
                                 try {
                                     LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
