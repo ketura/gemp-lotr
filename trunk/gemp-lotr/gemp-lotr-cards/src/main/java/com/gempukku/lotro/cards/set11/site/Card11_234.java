@@ -1,9 +1,11 @@
 package com.gempukku.lotro.cards.set11.site;
 
 import com.gempukku.lotro.cards.AbstractNewSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +31,8 @@ public class Card11_234 extends AbstractNewSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.movesFrom(game, effectResult, self, Filters.region(2))) {
+        if (TriggerConditions.movesFrom(game, effectResult, self, Filters.region(2))
+                && PlayConditions.isPhase(game, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new WoundCharactersEffect(self, CardType.COMPANION));
