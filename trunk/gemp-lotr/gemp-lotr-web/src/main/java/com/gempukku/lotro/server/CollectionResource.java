@@ -89,6 +89,31 @@ public class CollectionResource extends AbstractResource {
         return doc;
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getCollectionTypes(
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element collectionsElem = doc.createElement("collections");
+
+        for (League league : _leagueService.getActiveLeagues()) {
+            Element collectionElem = doc.createElement("collection");
+            collectionElem.setAttribute("type", league.getType());
+            collectionElem.setAttribute("name", league.getName());
+            collectionsElem.appendChild(collectionElem);
+        }
+
+        doc.appendChild(collectionsElem);
+        return doc;
+    }
+
     private CardCollection getCollection(Player player, String collectionType) {
         CardCollection collection = null;
         if (collectionType.equals("default"))
