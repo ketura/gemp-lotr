@@ -71,7 +71,8 @@ public class Card11_216 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)
+                && self.getZone() == Zone.SHADOW_CHARACTERS) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new UnrespondableEffect() {
