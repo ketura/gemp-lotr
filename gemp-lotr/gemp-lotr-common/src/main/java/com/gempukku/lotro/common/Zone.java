@@ -12,7 +12,7 @@ public enum Zone implements Filterable {
     HAND("hand", false, true, false), DISCARD("discard", false, true, false),
 
     // Nobody sees
-    VOID("void", false, false, false), DECK("deck", false, false, false);
+    VOID("void", false, false, false), DECK("deck", false, false, false), REMOVED("removed", false, false, false);
 
     private String _humanReadable;
     private boolean _public;

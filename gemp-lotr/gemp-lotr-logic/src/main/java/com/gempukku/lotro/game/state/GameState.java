@@ -21,6 +21,7 @@ public class GameState {
     private Map<String, List<PhysicalCardImpl>> _stacked = new HashMap<String, List<PhysicalCardImpl>>();
 
     private Map<String, List<PhysicalCardImpl>> _voids = new HashMap<String, List<PhysicalCardImpl>>();
+    private Map<String, List<PhysicalCardImpl>> _removed = new HashMap<String, List<PhysicalCardImpl>>();
 
     private List<PhysicalCardImpl> _inPlay = new LinkedList<PhysicalCardImpl>();
 
@@ -71,6 +72,7 @@ public class GameState {
             _decks.put(playerId, new LinkedList<PhysicalCardImpl>());
             _hands.put(playerId, new LinkedList<PhysicalCardImpl>());
             _voids.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _removed.put(playerId, new LinkedList<PhysicalCardImpl>());
             _discards.put(playerId, new LinkedList<PhysicalCardImpl>());
             _deadPiles.put(playerId, new LinkedList<PhysicalCardImpl>());
             _stacked.put(playerId, new LinkedList<PhysicalCardImpl>());
@@ -304,6 +306,8 @@ public class GameState {
             return _hands.get(playerId);
         else if (zone == Zone.VOID)
             return _voids.get(playerId);
+        else if (zone == Zone.REMOVED)
+            return _removed.get(playerId);
         else if (zone == Zone.STACKED)
             return _stacked.get(playerId);
         else
@@ -547,6 +551,10 @@ public class GameState {
 
     public List<? extends PhysicalCard> getVoid(String playerId) {
         return Collections.unmodifiableList(_voids.get(playerId));
+    }
+
+    public List<? extends PhysicalCard> getRemoved(String playerId) {
+        return Collections.unmodifiableList(_removed.get(playerId));
     }
 
     public List<? extends PhysicalCard> getDeck(String playerId) {
