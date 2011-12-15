@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.actions.SubCostToEffectAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.PlayNextSiteEffect;
 import com.gempukku.lotro.cards.effects.PutPlayedEventIntoHandEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -14,7 +15,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
-import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
@@ -41,7 +41,7 @@ public class Card11_049 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber()));
+                new PlayNextSiteEffect(action, playerId));
         action.appendEffect(
                 new PlayoutDecisionEffect(playerId,
                         new YesNoDecision("Do you wanto return " + GameUtils.getCardLink(self) + " back into hand?") {
