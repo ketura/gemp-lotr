@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
@@ -34,6 +35,7 @@ public class MusterRule {
                             for (PhysicalCard musterCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Keyword.MUSTER)) {
                                 if (playerId.equals(musterCard.getOwner())) {
                                     OptionalTriggerAction action = new OptionalTriggerAction("muster" + musterCard.getCardId(), musterCard);
+                                    action.setMessage(playerId + " uses Muster from " + GameUtils.getCardLink(musterCard));
                                     action.setText("Use Muster");
                                     action.appendCost(
                                             new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));

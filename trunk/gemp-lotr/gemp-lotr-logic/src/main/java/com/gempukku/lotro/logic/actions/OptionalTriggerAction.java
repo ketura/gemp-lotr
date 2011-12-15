@@ -33,6 +33,10 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
         return _triggerIdentifier;
     }
 
+    public void setMessage(String message) {
+        _message = message;
+    }
+
     @Override
     public Type getType() {
         return Type.TRIGGER;
