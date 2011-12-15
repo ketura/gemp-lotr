@@ -62,6 +62,8 @@ var Card = Class.extend({
         var setNo = parseInt(blueprintId.substr(0, separator));
         var cardNo = parseInt(blueprintId.substr(separator + 1));
 
+        if (setNo == 0)
+            return (cardNo == 1 || cardNo == 4 || cardNo == 6 || cardNo == 8);
         if (setNo == 1)
             return (cardNo >= 319 && cardNo <= 363);
         if (setNo == 2)
