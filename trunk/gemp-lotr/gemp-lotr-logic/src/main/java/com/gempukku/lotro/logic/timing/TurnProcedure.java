@@ -288,6 +288,11 @@ public class TurnProcedure {
         public void doPlayEffect(LotroGame game) {
             if (_actions.size() == 1) {
                 _game.getActionsEnvironment().addActionToStack(_actions.get(0));
+            } else if (areAllActionsTheSame(game)) {
+                Action anyAction = _actions.get(0);
+                _actions.remove(anyAction);
+                _game.getActionsEnvironment().addActionToStack(anyAction);
+                _action.insertEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(_action, _actions));
             } else {
                 _game.getUserFeedback().sendAwaitingDecision(_game.getGameState().getCurrentPlayerId(),
                         new ActionSelectionDecision(_game, 1, "Required responses", _actions) {
@@ -300,6 +305,21 @@ public class TurnProcedure {
                             }
                         });
             }
+        }
+
+        private boolean areAllActionsTheSame(LotroGame game) {
+            Iterator<Action> actionIterator = _actions.iterator();
+
+            Action firstAction = actionIterator.next();
+            if (firstAction.getActionSource() == null)
+                return false;
+
+            while (actionIterator.hasNext()) {
+                Action otherAction = actionIterator.next();
+                if (otherAction.getActionSource() == null || otherAction.getActionSource().getBlueprint() != firstAction.getActionSource().getBlueprint())
+                    return false;
+            }
+            return true;
         }
     }
 }
