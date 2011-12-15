@@ -23,6 +23,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Set: Shadows
+ * Side: Shadow
+ * Culture: Wraith
+ * Twilight Cost: 0
+ * Type: Condition • Support Area
+ * Game Text: Maneuver: Remove (5) to make this condition a fierce [WRAITH] minion until the start of the regroup phase
+ * that has 10 strength and 3 vitality, and cannot bear other cards. This card is still a condition. At the start of the
+ * regroup phase, remove all tokens from here.
+ */
 public class Card11_216 extends AbstractPermanent {
     public Card11_216() {
         super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "A Shadow Rises");
