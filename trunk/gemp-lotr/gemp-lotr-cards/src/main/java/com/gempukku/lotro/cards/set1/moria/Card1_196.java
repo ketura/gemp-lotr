@@ -33,7 +33,7 @@ public class Card1_196 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && game.getGameState().getHand(playerId).size() >= 3
                 // You have to be able to play a MORIA Orc from discard to use it
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.playable(game)).size() > 0) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.MORIA, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(

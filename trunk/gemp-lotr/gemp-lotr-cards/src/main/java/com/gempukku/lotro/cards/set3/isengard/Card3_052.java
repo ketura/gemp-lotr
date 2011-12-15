@@ -32,7 +32,7 @@ public class Card3_052 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(self, game, Filters.saruman)
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Keyword.WEATHER, CardType.CONDITION, Filters.playable(game, -2)).size() > 0) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, -2, Culture.ISENGARD, Keyword.WEATHER, CardType.CONDITION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.saruman));

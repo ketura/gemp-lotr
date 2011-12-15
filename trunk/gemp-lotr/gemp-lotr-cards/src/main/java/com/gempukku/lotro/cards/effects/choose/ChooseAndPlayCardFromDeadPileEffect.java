@@ -48,7 +48,7 @@ public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
     }
 
     private Collection<PhysicalCard> getPlayableInDeadPile(LotroGame game) {
-        return Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier, false, true));
+        return Filters.filter(game.getGameState().getDeadPile(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier, false, true));
     }
 
     @Override

@@ -35,12 +35,12 @@ public class Card4_089 extends AbstractCompanion {
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && game.getGameState().getTwilightPool() < 2
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.playable(game)).size() > 0) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Side.FREE_PEOPLE, Filters.character)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.COMPANION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Side.FREE_PEOPLE, Filters.character));
             return Collections.singletonList(action);
         }
         return null;
