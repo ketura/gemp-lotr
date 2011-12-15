@@ -21,6 +21,11 @@ public class ReinforceTokenEffect extends ChooseActiveCardEffect {
     }
 
     @Override
+    public String getText(LotroGame game) {
+        return "Reinforce " + _count + " " + _token.getCulture().getHumanReadable() + " token" + (_count > 1 ? "s" : "");
+    }
+
+    @Override
     protected void cardSelected(LotroGame game, PhysicalCard card) {
         game.getGameState().addTokens(card, _token, _count);
     }
