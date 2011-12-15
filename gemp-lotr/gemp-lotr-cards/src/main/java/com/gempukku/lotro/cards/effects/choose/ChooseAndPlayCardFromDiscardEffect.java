@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -54,6 +55,8 @@ public class ChooseAndPlayCardFromDiscardEffect implements Effect {
 
     @Override
     public void playEffect(final LotroGame game) {
+        if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
+            return;
         Collection<PhysicalCard> discard = getPlayableInDiscard(game);
         if (discard.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,

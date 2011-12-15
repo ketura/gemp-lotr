@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.CardType;
@@ -34,7 +35,8 @@ public class Card1_193 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.MORIA, Filters.weapon, Zone.DISCARD, Filters.playable(game, -1))) {
+        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.MORIA, Filters.weapon, Zone.DISCARD, Filters.playable(game, -1))
+                && PlayConditions.canPlayFromDiscard(playerId, game, -1, ((DiscardCardsFromPlayResult) effectResult).getDiscardedCard())) {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             final PhysicalCard discardedCard = discardResult.getDiscardedCard();
             ActivateCardAction action = new ActivateCardAction(self);
@@ -43,9 +45,9 @@ public class Card1_193 extends AbstractPermanent {
                     new ChooseAndPlayCardFromDiscardEffect(playerId,
                             game,
                             -1, Filters.and(
-                            Culture.MORIA,
-                            Filters.weapon,
-                            discardedCard)));
+                                    Culture.MORIA,
+                                    Filters.weapon,
+                                    discardedCard)));
             return Collections.singletonList(action);
         }
         return null;

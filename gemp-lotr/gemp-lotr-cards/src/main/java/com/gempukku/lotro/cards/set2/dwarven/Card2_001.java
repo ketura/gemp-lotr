@@ -38,7 +38,7 @@ public class Card2_001 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, Filters.weapon, Filters.playable(game)).size() > 0) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.DWARVEN, Filters.weapon)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, 3, false));
