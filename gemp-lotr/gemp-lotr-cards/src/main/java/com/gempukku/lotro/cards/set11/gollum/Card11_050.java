@@ -42,13 +42,13 @@ public class Card11_050 extends AbstractPermanent {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0)
-                                        self.storeData(Keyword.FOREST);
+                                        self.setWhileInZoneData(Keyword.FOREST);
                                     else if (index == 1)
-                                        self.storeData(Keyword.MOUNTAIN);
+                                        self.setWhileInZoneData(Keyword.MOUNTAIN);
                                     else if (index == 2)
-                                        self.storeData(Keyword.PLAINS);
+                                        self.setWhileInZoneData(Keyword.PLAINS);
                                     else
-                                        self.storeData(Keyword.RIVER);
+                                        self.setWhileInZoneData(Keyword.RIVER);
                                 }
                             }));
             return Collections.singletonList(action);
