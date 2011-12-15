@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.TransferToShadowEffect;
+import com.gempukku.lotro.cards.modifiers.IsAdditionalCardTypeModifier;
 import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -53,10 +54,13 @@ public class Card11_216 extends AbstractPermanent {
                         protected void cardTransferredCallback() {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, self, Keyword.FIERCE), Phase.MANEUVER));
+                                            new IsAdditionalCardTypeModifier(self, self, CardType.MINION), Phase.REGROUP));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new MayNotBearModifier(self, self, Filters.any), Phase.MANEUVER));
+                                            new KeywordModifier(self, self, Keyword.FIERCE), Phase.REGROUP));
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new MayNotBearModifier(self, self, Filters.any), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);
