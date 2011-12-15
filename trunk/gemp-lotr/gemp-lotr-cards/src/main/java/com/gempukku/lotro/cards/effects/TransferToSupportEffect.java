@@ -17,7 +17,7 @@ public class TransferToSupportEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return _card.getZone() == Zone.ATTACHED;
+        return _card.getZone().isInPlay();
     }
 
     @Override

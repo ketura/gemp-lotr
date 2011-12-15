@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.TransferToShadowEffect;
+import com.gempukku.lotro.cards.effects.TransferToSupportEffect;
 import com.gempukku.lotro.cards.modifiers.IsAdditionalCardTypeModifier;
 import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.common.*;
@@ -82,6 +83,8 @@ public class Card11_216 extends AbstractPermanent {
                             }
                         }
                     });
+            action.appendEffect(
+                    new TransferToSupportEffect(self));
             return Collections.singletonList(action);
         }
         return null;
