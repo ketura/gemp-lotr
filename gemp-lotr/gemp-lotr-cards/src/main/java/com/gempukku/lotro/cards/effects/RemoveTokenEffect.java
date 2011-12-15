@@ -31,7 +31,7 @@ public class RemoveTokenEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Remove " + _count + " " + _token.getCulture().getHumanReadable() + " token" + (_count > 1 ? "s" : "");
     }
 
     @Override
