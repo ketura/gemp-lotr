@@ -245,4 +245,39 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(0, _game.getGameState().getHand(P1).size());
     }
+
+    @Test
+    public void legolasBowWithToil() throws DecisionResultInvalidException {
+        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        extraCards.put(P1, Arrays.asList("11_21", "11_23", "11_17"));
+        initializeSimplestGame(extraCards);
+
+        // Play first character
+        AwaitingDecision firstCharacterDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.ARBITRARY_CARDS, firstCharacterDecision.getDecisionType());
+        validateContents(new String[]{"11_21"}, ((String[]) firstCharacterDecision.getDecisionParameters().get("blueprintId")));
+
+        playerDecided(P1, getArbitraryCardId(firstCharacterDecision, "11_21"));
+
+        skipMulligans();
+
+        AwaitingDecision playFirstFellowship = _userFeedback.getAwaitingDecision(P1);
+        playerDecided(P1, getCardActionId(playFirstFellowship, "Attach Legolas"));
+
+        AwaitingDecision playSecondFellowship = _userFeedback.getAwaitingDecision(P1);
+        playerDecided(P1, getCardActionId(playSecondFellowship, "Play Elven"));
+
+        AwaitingDecision toilExertion = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_SELECTION, toilExertion.getDecisionType());
+        String legolasCardId = ((String[]) toilExertion.getDecisionParameters().get("cardId"))[0];
+        playerDecided(P1, legolasCardId);
+
+        assertEquals(1, _game.getGameState().getWounds(_game.getGameState().findCardById(Integer.parseInt(legolasCardId))));
+
+        AwaitingDecision bowHeal = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, bowHeal.getDecisionType());
+        playerDecided(P1, "0");
+
+        assertEquals(0, _game.getGameState().getWounds(_game.getGameState().findCardById(Integer.parseInt(legolasCardId))));
+    }
 }
