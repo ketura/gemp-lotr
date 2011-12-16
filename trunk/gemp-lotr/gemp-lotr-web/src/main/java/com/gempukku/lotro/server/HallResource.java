@@ -10,6 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -29,7 +30,8 @@ public class HallResource extends AbstractResource {
     @Produces(MediaType.APPLICATION_XML)
     public Document getHall(
             @QueryParam("participantId") String participantId,
-            @Context HttpServletRequest request) throws ParserConfigurationException {
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -56,8 +58,9 @@ public class HallResource extends AbstractResource {
             hall.appendChild(formatElem);
         }
 
-
         doc.appendChild(hall);
+
+        processDeliveryServiceNotification(request, response);
 
         return doc;
     }

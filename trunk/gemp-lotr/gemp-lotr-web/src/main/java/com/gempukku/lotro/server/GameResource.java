@@ -14,6 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -95,7 +96,8 @@ public class GameResource extends AbstractResource {
             @FormParam("participantId") String participantId,
             @FormParam("decisionId") Integer decisionId,
             @FormParam("decisionValue") String decisionValue,
-            @Context HttpServletRequest request) throws ParserConfigurationException {
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         LoggingThreadLocal.start();
@@ -122,6 +124,8 @@ public class GameResource extends AbstractResource {
             gameMediator.processCommunicationChannel(resourceOwner, new SerializationVisitor(doc, update));
 
             doc.appendChild(update);
+
+            processDeliveryServiceNotification(request, response);
 
             return doc;
         } finally {

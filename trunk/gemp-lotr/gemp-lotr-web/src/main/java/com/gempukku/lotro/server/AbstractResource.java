@@ -1,9 +1,11 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.Player;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -13,6 +15,15 @@ public abstract class AbstractResource {
 
     @Context
     protected PlayerDAO _playerDao;
+
+    @Context
+    protected DeliveryService _deliveryService;
+
+    protected final void processDeliveryServiceNotification(HttpServletRequest request, HttpServletResponse response) {
+        String logged = getLoggedUser(request);
+        if (logged != null && _deliveryService.hasUndeliveredPackages(logged))
+            response.addHeader("Delivery-Service-Package", "true");
+    }
 
     protected final String getLoggedUser(HttpServletRequest request) {
         return (String) request.getSession().getAttribute("logged");
