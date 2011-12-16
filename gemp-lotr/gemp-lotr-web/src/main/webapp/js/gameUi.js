@@ -124,6 +124,48 @@ var GempLotrGameUI = Class.extend({
         this.addBottomLeftTabPane();
     },
 
+    getReorganizableCardGroupForCardData: function(cardData) {
+        if (this.charactersPlayer.cardBelongs(cardData)) {
+            return this.charactersPlayer;
+        }
+        if (this.charactersOpponent.cardBelongs(cardData)) {
+            return this.charactersOpponent;
+        }
+        if (this.supportPlayer.cardBelongs(cardData)) {
+            return this.supportPlayer;
+        }
+        if (this.supportOpponent.cardBelongs(cardData)) {
+            return this.supportOpponent;
+        }
+        if (this.hand != null)
+            if (this.hand.cardBelongs(cardData)) {
+                return this.hand;
+            }
+        if (this.shadow.cardBelongs(cardData)) {
+            return this.shadow;
+        }
+
+        if (this.skirmishFellowshipGroup.cardBelongs(cardData)) {
+            return this.skirmishFellowshipGroup;
+        }
+        if (this.skirmishShadowGroup.cardBelongs(cardData)) {
+            return this.skirmishShadowGroup;
+        }
+
+        for (var characterId in this.shadowAssignGroups) {
+            if (this.shadowAssignGroups.hasOwnProperty(characterId)) {
+                if (this.shadowAssignGroups[characterId].cardBelongs(cardData)) {
+                    return this.shadowAssignGroups[characterId];
+                }
+                if (this.freePeopleAssignGroups[characterId].cardBelongs(cardData)) {
+                    return this.freePeopleAssignGroups[characterId];
+                }
+            }
+        }
+
+        return null;
+    },
+
     layoutGroupWithCard: function(cardId) {
         var cardData = $(".card:cardId(" + cardId + ")").data("card");
         if (this.advPathGroup.cardBelongs(cardData)) {
@@ -296,16 +338,22 @@ var GempLotrGameUI = Class.extend({
         this.statsDiv.append("<div class='fpArchery'></div> <div class='shadowArchery'></div> <div class='move'></div>");
         $("#main").append(this.statsDiv);
 
+        var dragFunc = function(event) {
+            return that.dragContinuesCardFunction(event);
+        };
+
         $("body").click(
                 function (event) {
                     return that.clickCardFunction(event);
                 });
         $("body").mousedown(
                 function (event) {
+                    $("body").bind("mousemove", dragFunc);
                     return that.dragStartCardFunction(event);
                 });
         $("body").mouseup(
                 function (event) {
+                    $("body").unbind("mousemove", dragFunc);
                     return that.dragStopCardFunction(event);
                 });
     },
@@ -410,10 +458,13 @@ var GempLotrGameUI = Class.extend({
         return true;
     },
 
-    dragCardData: null,
+    dragCardId: null,
+    dragCardIndex: null,
+    draggedCardIndex: null,
     dragStartX: null,
     dragStartY: null,
     successfulDrag: null,
+    draggingHorizontaly: false,
 
     dragStartCardFunction: function(event) {
         this.successfulDrag = false;
@@ -423,25 +474,92 @@ var GempLotrGameUI = Class.extend({
             if (tar.hasClass("borderOverlay")) {
                 var selectedCardElem = tar.parent();
                 if (event.which == 1) {
-                    this.dragCardData = selectedCardElem.data("card");
-                    this.dragStartX = event.clientX;
-                    this.dragStartY = event.clientY;
-                    return false;
+                    var cardData = selectedCardElem.data("card");
+                    if (cardData) {
+                        this.dragCardId = cardData.cardId;
+                        this.dragStartX = event.clientX;
+                        this.dragStartY = event.clientY;
+                        return false;
+                    }
                 }
             }
         }
         return true;
     },
 
-    dragStopCardFunction: function(event) {
-        if (this.dragCardData != null) {
-            if (this.dragStartY - event.clientY >= 20) {
-                this.displayCardInfo(this.dragCardData);
-                this.successfulDrag = true;
+    dragContinuesCardFunction: function(event) {
+        if (this.dragCardId != null) {
+            if (!this.draggingHorizontaly && Math.abs(this.dragStartX - event.clientX) >= 20) {
+                var cardElems = $(".card:cardId(" + this.dragCardId + ")");
+                if (cardElems.length > 0) {
+                    var cardElem = cardElems[0];
+                    var cardData = $(cardElem).data("card");
+                    this.draggingHorizontaly = true;
+                    var cardGroup = this.getReorganizableCardGroupForCardData(cardData);
+                    if (cardGroup != null) {
+                        var cardsInGroup = cardGroup.getCardElems();
+                        for (var i = 0; i < cardsInGroup.length; i++)
+                            if (cardsInGroup[i].data("card").cardId == this.dragCardId) {
+                                this.dragCardIndex = i;
+                                this.draggedCardIndex = i;
+                                break;
+                            }
+                    }
+                }
             }
-            this.dragCardData = null;
+            if (this.draggingHorizontaly && this.dragCardId != null && this.dragCardIndex != null) {
+                var cardElems = $(".card:cardId(" + this.dragCardId + ")");
+                if (cardElems.length > 0) {
+                    var cardElem = $(cardElems[0]);
+                    var cardData = cardElem.data("card");
+                    var cardGroup = this.getReorganizableCardGroupForCardData(cardData);
+                    if (cardGroup != null) {
+                        var cardsInGroup = cardGroup.getCardElems();
+                        var width = cardElem.width();
+                        var currentIndex;
+                        if (event.clientX < this.dragStartX)
+                            currentIndex = this.dragCardIndex - Math.floor((this.dragStartX - event.clientX) / width);
+                        else
+                            currentIndex = this.dragCardIndex + Math.floor((event.clientX - this.dragStartX) / width);
+
+                        if (currentIndex < 0)
+                            currentIndex = 0;
+                        if (currentIndex >= cardsInGroup.length)
+                            currentIndex = cardsInGroup.length - 1;
+
+                        var cardIdAtIndex = $(cardsInGroup[currentIndex]).data("card").cardId;
+                        if (cardIdAtIndex != this.dragCardId) {
+                            //                            var sizeListeners = $(cardElem).data("sizeListeners");
+                            if (currentIndex < this.draggedCardIndex)
+                                $(".card:cardId(" + cardIdAtIndex + ")").before($(".card:cardId(" + this.dragCardId + ")"));
+                            else
+                                $(".card:cardId(" + cardIdAtIndex + ")").after($(".card:cardId(" + this.dragCardId + ")"));
+                            //                            $(cardElem).data("card", cardData);
+                            //                            $(cardElem).data("sizeListeners", sizeListeners);
+                            cardGroup.layoutCards();
+                            this.draggedCardIndex = currentIndex;
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    dragStopCardFunction: function(event) {
+        if (this.dragCardId != null) {
+            if (this.dragStartY - event.clientY >= 20 && !this.draggingHorizontaly) {
+                var cardElems = $(".card:cardId(" + this.dragCardId + ")");
+                if (cardElems.length > 0) {
+                    this.displayCardInfo($(cardElems[0]).data("card"));
+                    this.successfulDrag = true;
+                }
+            }
+            this.dragCardId = null;
+            this.dragCardIndex = null;
+            this.draggedCardIndex = null;
             this.dragStartX = null;
             this.dragStartY = null;
+            this.draggingHorizontaly = false;
             return false;
         }
         return true;
