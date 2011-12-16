@@ -51,15 +51,6 @@ var GempLotrHallUI = Class.extend({
         buttonsDiv.append(editDeck);
         buttonsDiv.append(" | ");
 
-        var editLeagueDeck = $("<button>League deck builder</button>");
-        editLeagueDeck.button().click(
-                function() {
-                    location.href = 'deckBuild.html?collectionType=test_league';
-                });
-
-        buttonsDiv.append(editLeagueDeck);
-        buttonsDiv.append(" | ");
-
         this.supportedFormatsSelect = $("<select style='width: 220px'></select>");
         this.supportedFormatsSelect.hide();
 
