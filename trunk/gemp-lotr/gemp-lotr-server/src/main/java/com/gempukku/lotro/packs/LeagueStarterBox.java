@@ -29,6 +29,22 @@ public class LeagueStarterBox implements PackBox {
         result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 2, "FotR - Booster"));
         result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 2, "MoM - Booster"));
         result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 2, "RotEL - Booster"));
+
+        // Arwen
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "3_7"));
+        // Boromir
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_97"));
+        // Gimli
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_12"));
+        // Legolas
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_51"));
+        // Merry
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_303"));
+        // Pippin
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_306"));
+        // Sam
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_311"));
+
         return result;
     }
 }
