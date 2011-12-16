@@ -1,5 +1,6 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.vo.League;
@@ -30,6 +31,8 @@ public class CollectionResource extends AbstractResource {
     private LotroServer _lotroServer;
     @Context
     private CollectionDAO _collectionDao;
+    @Context
+    private DeliveryService _deliveryService;
     @Context
     private LotroCardBlueprintLibrary _library;
     @Context
@@ -145,6 +148,8 @@ public class CollectionResource extends AbstractResource {
         MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
 
         List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packStorage);
+        _deliveryService.addPackage(resourceOwner, collectionType, packContents);
+
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
 
