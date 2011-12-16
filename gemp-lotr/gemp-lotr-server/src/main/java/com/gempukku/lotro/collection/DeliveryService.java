@@ -34,10 +34,10 @@ public class DeliveryService {
         }
     }
 
-    public boolean hasUndeliveredPackages(Player player) {
+    public boolean hasUndeliveredPackages(String player) {
         _deliveryLock.readLock().lock();
         try {
-            return _undeliveredDeliverables.containsKey(player.getName());
+            return _undeliveredDeliverables.containsKey(player);
         } finally {
             _deliveryLock.readLock().unlock();
         }

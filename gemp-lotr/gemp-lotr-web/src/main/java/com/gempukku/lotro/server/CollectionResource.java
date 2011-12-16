@@ -1,6 +1,5 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.vo.League;
@@ -13,6 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -32,8 +32,6 @@ public class CollectionResource extends AbstractResource {
     @Context
     private CollectionDAO _collectionDao;
     @Context
-    private DeliveryService _deliveryService;
-    @Context
     private LotroCardBlueprintLibrary _library;
     @Context
     private LeagueService _leagueService;
@@ -49,7 +47,8 @@ public class CollectionResource extends AbstractResource {
             @QueryParam("filter") String filter,
             @QueryParam("start") int start,
             @QueryParam("count") int count,
-            @Context HttpServletRequest request) throws ParserConfigurationException {
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = getCollection(resourceOwner, collectionType);
@@ -88,6 +87,8 @@ public class CollectionResource extends AbstractResource {
             }
             index++;
         }
+
+        processDeliveryServiceNotification(request, response);
 
         return doc;
     }
@@ -138,7 +139,8 @@ public class CollectionResource extends AbstractResource {
             @PathParam("collectionType") String collectionType,
             @FormParam("participantId") String participantId,
             @FormParam("pack") String packId,
-            @Context HttpServletRequest request) throws ParserConfigurationException {
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = getCollection(resourceOwner, collectionType);
@@ -180,6 +182,8 @@ public class CollectionResource extends AbstractResource {
                 collectionElem.appendChild(pack);
             }
         }
+
+        processDeliveryServiceNotification(request, response);
 
         return doc;
     }

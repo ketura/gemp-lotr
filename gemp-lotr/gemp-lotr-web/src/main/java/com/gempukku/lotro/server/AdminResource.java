@@ -1,6 +1,5 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
@@ -23,8 +22,6 @@ import java.util.Map;
 public class AdminResource extends AbstractResource {
     @Context
     private CollectionDAO _collectionDao;
-    @Context
-    private DeliveryService _deliveryService;
     @Context
     private DeckDAO _deckDao;
     @Context
