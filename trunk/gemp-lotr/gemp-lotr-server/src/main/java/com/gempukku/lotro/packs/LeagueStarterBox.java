@@ -45,6 +45,9 @@ public class LeagueStarterBox implements PackBox {
         // Sam
         result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_311"));
 
+        // The Balrog
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "0_10"));
+
         return result;
     }
 }
