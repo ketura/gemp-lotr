@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -40,7 +41,7 @@ public class Card4_060 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, CardType.MINION, null,
+                new StrengthModifier(self, Filters.and(CardType.MINION, Filters.wounded), null,
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
