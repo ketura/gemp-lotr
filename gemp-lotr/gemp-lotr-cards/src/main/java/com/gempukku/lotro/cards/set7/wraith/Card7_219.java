@@ -19,11 +19,11 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. While you have initiative and can spot a Nazgul, Ulaire Toldea’s twilight cost is -6.
+ * Game Text: Fierce. While you have initiative and can spot a Nazgul, Úlairë Toldëa’s twilight cost is -6.
  */
 public class Card7_219 extends AbstractMinion {
     public Card7_219() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Toldea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

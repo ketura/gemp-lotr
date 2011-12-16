@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. When you play Ulaire Toldea, you may exert him to take a [WRAITH] event from your discard pile
+ * Game Text: Fierce. When you play Úlairë Toldëa, you may exert him to take a [WRAITH] event from your discard pile
  * into hand.
  */
 public class Card12_180 extends AbstractMinion {
     public Card12_180() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Toldea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

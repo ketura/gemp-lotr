@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: Enduring. Fierce. Shadow cards cannot exert Ulaire Lemenya during a skirmish phase. Skirmish: Heal Ulaire
+ * Game Text: Enduring. Fierce. Shadow cards cannot exert Úlairë Lemenya during a skirmish phase. Skirmish: Heal Úlairë
  * Lemenya to wound up to 3 other [WRAITH] minions.
  */
 public class Card10_069 extends AbstractMinion {
     public Card10_069() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
         addKeyword(Keyword.ENDURING);
         addKeyword(Keyword.FIERCE);
     }

@@ -24,12 +24,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: When you play Ulaire Nertea, spot another Nazgul to make the Free Peoples player exert a Ring-bound
+ * Game Text: When you play Úlairë Nertëa, spot another Nazgul to make the Free Peoples player exert a Ring-bound
  * companion for each Free Peoples culture you can spot over 2.
  */
 public class Card6_087 extends AbstractMinion {
     public Card6_087() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Nertea", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
     }
 
     @Override

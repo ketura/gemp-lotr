@@ -24,12 +24,12 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 2
- * Game Text: Twilight. While you can spot 2 burdens or 2 wounds on the Ring-bearer, Ulaire Nelya is fierce and
+ * Game Text: Twilight. While you can spot 2 burdens or 2 wounds on the Ring-bearer, Úlairë Nelya is fierce and
  * damage +1.
  */
 public class Card2_084 extends AbstractMinion {
     public Card2_084() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Ulaire Nelya", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
         addKeyword(Keyword.TWILIGHT);
     }
 

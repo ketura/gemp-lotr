@@ -28,11 +28,11 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Skirmish: Remove (1) to make Ulaire Attea strength +1 (limit +5).
+ * Game Text: Fierce. Skirmish: Remove (1) to make Úlairë Attëa strength +1 (limit +5).
  */
 public class Card1_229 extends AbstractMinion {
     public Card1_229() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

@@ -25,12 +25,12 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 2
- * Game Text: Enduring. Fierce. Shadow cards cannot exert Ulaire Nelya during a skirmish phase. Skirmish: Heal Ulaire
+ * Game Text: Enduring. Fierce. Shadow cards cannot exert Úlairë Nelya during a skirmish phase. Skirmish: Heal Úlairë
  * Nelya to add (1) for each burden.
  */
 public class Card10_070 extends AbstractMinion {
     public Card10_070() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Ulaire Nelya", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
         addKeyword(Keyword.ENDURING);
         addKeyword(Keyword.FIERCE);
     }

@@ -23,11 +23,11 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 2
- * Game Text: Fierce. Skirmish: Discard a [WRAITH] minion to make Ulaire Nelya strength +2.
+ * Game Text: Fierce. Skirmish: Discard a [WRAITH] minion to make Úlairë Nelya strength +2.
  */
 public class Card7_215 extends AbstractMinion {
     public Card7_215() {
-        super(5, 10, 3, 4, Race.NAZGUL, Culture.WRAITH, "Ulaire Nelya", true);
+        super(5, 10, 3, 4, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
         addKeyword(Keyword.FIERCE);
     }
 

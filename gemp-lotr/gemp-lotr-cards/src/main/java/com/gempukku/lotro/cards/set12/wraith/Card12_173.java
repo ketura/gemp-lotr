@@ -27,11 +27,11 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Skirmish: Remove (2) and discard a [WRAITH] card from hand to make Ulaire Attea strength +3.
+ * Game Text: Fierce. Skirmish: Remove (2) and discard a [WRAITH] card from hand to make Úlairë Attëa strength +3.
  */
 public class Card12_173 extends AbstractMinion {
     public Card12_173() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

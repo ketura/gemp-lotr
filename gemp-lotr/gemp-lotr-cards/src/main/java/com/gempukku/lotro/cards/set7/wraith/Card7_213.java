@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: Ulaire Lemenya is strength +1 for each other [WRAITH] minion you spot. While you can spot 3 [WRAITH]
- * minions Ulaire Lemenya is fierce. While you can spot 4 [WRAITH] minions Ulaire Lemenya is damage +1.
+ * Game Text: Úlairë Lemenya is strength +1 for each other [WRAITH] minion you spot. While you can spot 3 [WRAITH]
+ * minions Úlairë Lemenya is fierce. While you can spot 4 [WRAITH] minions Úlairë Lemenya is damage +1.
  */
 public class Card7_213 extends AbstractMinion {
     public Card7_213() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
     }
 
     @Override

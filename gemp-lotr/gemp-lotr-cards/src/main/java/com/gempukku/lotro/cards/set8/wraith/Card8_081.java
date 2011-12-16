@@ -25,11 +25,11 @@ import java.util.List;
  * Strength: 9
  * Vitality: 3
  * Site: 3
- * Game Text: Enduring. Fierce. Regroup: Discard Ulaire Otsea to add (X), where X is the current site number.
+ * Game Text: Enduring. Fierce. Regroup: Discard Úlairë Otsëa to add (X), where X is the current site number.
  */
 public class Card8_081 extends AbstractMinion {
     public Card8_081() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Otsea", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", true);
         addKeyword(Keyword.ENDURING);
         addKeyword(Keyword.FIERCE);
     }

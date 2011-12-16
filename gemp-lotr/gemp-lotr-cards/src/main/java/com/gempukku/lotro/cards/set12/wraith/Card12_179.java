@@ -23,12 +23,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 3
  * Site: 3
- * Game Text: Shadow: Exert Ulaire Otsea and discard a [WRAITH] condition from hand to discard a Free Peoples condition
+ * Game Text: Shadow: Exert Úlairë Otsëa and discard a [WRAITH] condition from hand to discard a Free Peoples condition
  * from play.
  */
 public class Card12_179 extends AbstractMinion {
     public Card12_179() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Otsea", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", true);
     }
 
     @Override

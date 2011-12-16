@@ -30,12 +30,12 @@ import java.util.List;
  * Strength: 11
  * Vitality: 4
  * Site: 3
- * Game Text: Fierce. While you can spot 6 companions, Ulaire Enquea is damage +1. Each time a companion is killed,
- * you may exert Ulaire Enquea to exert the Ring-bearer.
+ * Game Text: Fierce. While you can spot 6 companions, Úlairë Enquëa is damage +1. Each time a companion is killed,
+ * you may exert Úlairë Enquëa to exert the Ring-bearer.
  */
 public class Card7_212 extends AbstractMinion {
     public Card7_212() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Enquea", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

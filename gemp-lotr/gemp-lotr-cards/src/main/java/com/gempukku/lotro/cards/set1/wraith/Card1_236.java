@@ -23,11 +23,11 @@ import java.util.List;
  * Vitality: 3
  * Site: 3
  * Game Text: Fierce. Assignment: Spot 4 burdens to assign a companion (except the Ring-bearer) to skirmish
- * Ulaire Toldea.
+ * Úlairë Toldëa.
  */
 public class Card1_236 extends AbstractMinion {
     public Card1_236() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Toldea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

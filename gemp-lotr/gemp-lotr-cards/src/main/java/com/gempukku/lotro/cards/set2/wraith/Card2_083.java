@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 11
  * Vitality: 4
  * Site: 3
- * Game Text: Twilight. Each time Ulaire Enquea wins a skirmish, you may exert him to wound the Ring-bearer once
+ * Game Text: Twilight. Each time Úlairë Enquëa wins a skirmish, you may exert him to wound the Ring-bearer once
  * (or twice if you spot 5 burdens).
  */
 public class Card2_083 extends AbstractMinion {
     public Card2_083() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Enquea", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", true);
         addKeyword(Keyword.TWILIGHT);
     }
 

@@ -28,12 +28,12 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Each time Ulaire Toldea wins a skirmish, the Free Peoples player must exert a companion or add
+ * Game Text: Fierce. Each time Úlairë Toldëa wins a skirmish, the Free Peoples player must exert a companion or add
  * a burden.
  */
 public class Card6_088 extends AbstractMinion {
     public Card6_088() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Toldea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

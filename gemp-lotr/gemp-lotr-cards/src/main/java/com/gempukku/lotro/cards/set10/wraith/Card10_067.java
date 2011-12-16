@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 3
- * Game Text: Enduring. Fierce. Shadow cards cannot exert Ulaire Cantea during a skirmish phase. Skirmish: Heal Ulaire
- * Cantea to discard a possession borne by a character he is skirmishing.
+ * Game Text: Enduring. Fierce. Shadow cards cannot exert Úlairë Cantëa during a skirmish phase. Skirmish: Heal Úlairë
+ * Cantëa to discard a possession borne by a character he is skirmishing.
  */
 public class Card10_067 extends AbstractMinion {
     public Card10_067() {
-        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Cantea", true);
+        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Cantëa", true);
         addKeyword(Keyword.ENDURING);
         addKeyword(Keyword.FIERCE);
     }

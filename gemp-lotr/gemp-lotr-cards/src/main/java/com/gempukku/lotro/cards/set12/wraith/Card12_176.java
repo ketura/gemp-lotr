@@ -24,11 +24,11 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: When you play Ulaire Lemenya, you may play a [WRAITH] mount from your discard pile.
+ * Game Text: When you play Úlairë Lemenya, you may play a [WRAITH] mount from your discard pile.
  */
 public class Card12_176 extends AbstractMinion {
     public Card12_176() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
     }
 
     @Override

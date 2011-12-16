@@ -23,11 +23,11 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Each time Ulaire Toldea wins a skirmish, you may play the fellowship's next site.
+ * Game Text: Fierce. Each time Úlairë Toldëa wins a skirmish, you may play the fellowship's next site.
  */
 public class Card11_225 extends AbstractMinion {
     public Card11_225() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Toldea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

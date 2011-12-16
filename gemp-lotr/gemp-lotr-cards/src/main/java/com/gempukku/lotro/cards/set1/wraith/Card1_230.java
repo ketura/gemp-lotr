@@ -28,11 +28,11 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Skirmish: Exert Ulaire Cantea to discard a weapon borne by a character he is skirmishing.
+ * Game Text: Fierce. Skirmish: Exert Úlairë Cantëa to discard a weapon borne by a character he is skirmishing.
  */
 public class Card1_230 extends AbstractMinion {
     public Card1_230() {
-        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Cantea", true);
+        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Cantëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

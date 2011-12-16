@@ -28,7 +28,7 @@ import java.util.List;
  * Twilight Cost: 2
  * Type: Possession • Hand Weapon
  * Strength: +2
- * Game Text: Bearer must be Ulaire Lemenya. He is damage +1. Skirmish: Exert Ulaire Lemenya to discard a possession
+ * Game Text: Bearer must be Úlairë Lemenya. He is damage +1. Skirmish: Exert Úlairë Lemenya to discard a possession
  * borne by a character he is skirmishing.
  */
 public class Card1_225 extends AbstractAttachable {
@@ -38,7 +38,7 @@ public class Card1_225 extends AbstractAttachable {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Ulaire Lemenya");
+        return Filters.name("Úlairë Lemenya");
     }
 
     @Override

@@ -25,11 +25,11 @@ import java.util.List;
  * Strength: 9
  * Vitality: 3
  * Site: 3
- * Game Text: Shadow: Exert Ulaire Otsea to make a [WRAITH] minion fierce until the regroup phase.
+ * Game Text: Shadow: Exert Úlairë Otsëa to make a [WRAITH] minion fierce until the regroup phase.
  */
 public class Card1_235 extends AbstractMinion {
     public Card1_235() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Otsea", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", true);
     }
 
     @Override

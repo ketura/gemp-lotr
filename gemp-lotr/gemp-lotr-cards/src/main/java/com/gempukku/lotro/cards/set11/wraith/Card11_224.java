@@ -27,12 +27,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 3
  * Site: 3
- * Game Text: When you play Ulaire Otsea, you may spot a companion who has X wounds to reveal the top X cards of your
+ * Game Text: When you play Úlairë Otsëa, you may spot a companion who has X wounds to reveal the top X cards of your
  * draw deck. Take each [WRAITH] card revealed this way into hand.
  */
 public class Card11_224 extends AbstractMinion {
     public Card11_224() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Otsea", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", true);
     }
 
     @Override

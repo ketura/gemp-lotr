@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Enduring. Shadow cards cannot exert Ulaire Toldea during a skirmish phase. Skirmish: Heal Ulaire Toldea
+ * Game Text: Enduring. Shadow cards cannot exert Úlairë Toldëa during a skirmish phase. Skirmish: Heal Úlairë Toldëa
  * to make him damage +1.
  */
 public class Card10_071 extends AbstractMinion {
     public Card10_071() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Toldea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
         addKeyword(Keyword.ENDURING);
     }
 

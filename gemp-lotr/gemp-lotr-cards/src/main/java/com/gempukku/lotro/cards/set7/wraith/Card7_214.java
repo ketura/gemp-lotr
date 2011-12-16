@@ -22,11 +22,11 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: Regroup: If you have initiative, discard Ulaire Lemenya to discard a possession.
+ * Game Text: Regroup: If you have initiative, discard Úlairë Lemenya to discard a possession.
  */
 public class Card7_214 extends AbstractMinion {
     public Card7_214() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
     }
 
     @Override
