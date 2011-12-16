@@ -21,6 +21,18 @@ var CardGroup = Class.extend({
         }
     },
 
+    getCardElems: function() {
+        var cardsToLayout = new Array();
+        var that = this;
+        $(".card", this.container).each(function(index) {
+            var card = $(this).data("card");
+            if (that.belongTestFunc(card)) {
+                cardsToLayout.push($(this));
+            }
+        });
+        return cardsToLayout;
+    },
+
     cardBelongs: function(cardData) {
         return this.belongTestFunc(cardData);
     },
@@ -52,14 +64,7 @@ var VerticalBarGroup = CardGroup.extend({
     },
 
     layoutCards: function() {
-        var cardsToLayout = new Array();
-        var that = this;
-        $(".card", this.container).each(function(index) {
-            var card = $(this).data("card");
-            if (that.belongTestFunc(card)) {
-                cardsToLayout.push($(this));
-            }
-        });
+        var cardsToLayout = this.getCardElems();
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -117,14 +122,7 @@ var AdvPathCardGroup = CardGroup.extend({
     },
 
     layoutCards: function() {
-        var cardsToLayout = new Array();
-        var that = this;
-        $(".card", this.container).each(function(index) {
-            var card = $(this).data("card");
-            if (that.belongTestFunc(card)) {
-                cardsToLayout.push($(this));
-            }
-        });
+        var cardsToLayout = this.getCardElems();
 
         cardsToLayout.sort(
                 function(first, second) {
@@ -195,15 +193,7 @@ var NormalCardGroup = CardGroup.extend({
     },
 
     layoutCards: function() {
-        var cardsToLayout = new Array();
-        var that = this;
-        $(".card", this.container).each(function(index) {
-            var card = $(this).data("card");
-            if (that.belongTestFunc(card)) {
-                cardsToLayout.push($(this));
-            }
-        });
-
+        var cardsToLayout = this.getCardElems();
 
         var proportionsArray = this.getCardsWithAttachmentWidthProportion(cardsToLayout);
 
