@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Each time Ulaire Attea is assigned to a fierce skirmish involving a character who has resistance
- * 4 or less, you may exert Ulaire Attea to add a burden.
+ * Game Text: Fierce. Each time Úlairë Attëa is assigned to a fierce skirmish involving a character who has resistance
+ * 4 or less, you may exert Úlairë Attëa to add a burden.
  */
 public class Card11_219 extends AbstractMinion {
     public Card11_219() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

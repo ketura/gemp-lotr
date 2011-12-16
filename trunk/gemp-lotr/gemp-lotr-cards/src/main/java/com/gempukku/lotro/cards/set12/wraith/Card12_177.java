@@ -23,11 +23,11 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 2
- * Game Text: Fierce. Each time Ulaire Nelya wins a skirmish, you may draw a card.
+ * Game Text: Fierce. Each time Úlairë Nelya wins a skirmish, you may draw a card.
  */
 public class Card12_177 extends AbstractMinion {
     public Card12_177() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Ulaire Nelya", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
         addKeyword(Keyword.FIERCE);
     }
 

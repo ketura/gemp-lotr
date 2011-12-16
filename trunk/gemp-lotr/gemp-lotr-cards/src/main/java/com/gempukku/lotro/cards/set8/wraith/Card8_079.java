@@ -23,11 +23,11 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Enduring. Regroup: Exert Ulaire Attea and spot your [WRAITH] minion to return that minion to your hand.
+ * Game Text: Enduring. Regroup: Exert Úlairë Attëa and spot your [WRAITH] minion to return that minion to your hand.
  */
 public class Card8_079 extends AbstractMinion {
     public Card8_079() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
         addKeyword(Keyword.ENDURING);
     }
 

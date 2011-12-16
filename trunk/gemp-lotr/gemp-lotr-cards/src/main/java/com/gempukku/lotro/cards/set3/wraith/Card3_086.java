@@ -28,12 +28,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 3
  * Site: 3
- * Game Text: Twilight. Each time Ulaire Otsea wins a skirmish, you may exert him to transfer Blade Tip from your
+ * Game Text: Twilight. Each time Úlairë Otsëa wins a skirmish, you may exert him to transfer Blade Tip from your
  * support area to the Ring-bearer.
  */
 public class Card3_086 extends AbstractMinion {
     public Card3_086() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Otsea", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", true);
         addKeyword(Keyword.TWILIGHT);
     }
 

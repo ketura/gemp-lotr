@@ -25,11 +25,11 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: Regroup: If you have initiative, discard Ulaire Nertea to add a burden.
+ * Game Text: Regroup: If you have initiative, discard Úlairë Nertëa to add a burden.
  */
 public class Card7_217 extends AbstractMinion {
     public Card7_217() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Nertea", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
     }
 
     @Override

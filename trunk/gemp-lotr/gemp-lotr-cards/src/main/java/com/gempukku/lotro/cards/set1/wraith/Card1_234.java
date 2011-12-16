@@ -25,11 +25,11 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: When you play Ulaire Nertea, for each companion over 4, you may play 1 minion from your discard pile.
+ * Game Text: When you play Úlairë Nertëa, for each companion over 4, you may play 1 minion from your discard pile.
  */
 public class Card1_234 extends AbstractMinion {
     public Card1_234() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Nertea", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
     }
 
     @Override

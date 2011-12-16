@@ -26,12 +26,12 @@ import java.util.List;
  * Strength: 11
  * Vitality: 4
  * Site: 3
- * Game Text: Enduring. Shadow cards cannot exert Ulaire Enquea during a skirmish phase. Skirmish: If Ulaire Enquea
+ * Game Text: Enduring. Shadow cards cannot exert Úlairë Enquëa during a skirmish phase. Skirmish: If Úlairë Enquëa
  * is skirmishing, heal him to add a burden.
  */
 public class Card10_068 extends AbstractMinion {
     public Card10_068() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Enquea", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", true);
         addKeyword(Keyword.ENDURING);
     }
 

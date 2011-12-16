@@ -24,11 +24,11 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 3
- * Game Text: While Ulaire Cantea is at a forest or dwelling site, he is strength +2 and fierce.
+ * Game Text: While Úlairë Cantëa is at a forest or dwelling site, he is strength +2 and fierce.
  */
 public class Card11_220 extends AbstractMinion {
     public Card11_220() {
-        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Cantea", true);
+        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Cantëa", true);
     }
 
     @Override

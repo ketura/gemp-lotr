@@ -22,12 +22,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: The twilight cost of each mount is -1. While Ulaire Nertea is mounted, each Nazgul is strength +1 and has
+ * Game Text: The twilight cost of each mount is -1. While Úlairë Nertëa is mounted, each Nazgul is strength +1 and has
  * muster. (At the start of the regroup phase, you may discard a card from hand to draw a card.)
  */
 public class Card12_178 extends AbstractMinion {
     public Card12_178() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Nertea", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
     }
 
     @Override

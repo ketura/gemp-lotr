@@ -25,12 +25,12 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 2
- * Game Text: Fierce. Shadow: Exert Ulaire Nelya to replace the fellowship's current site with a site from your
+ * Game Text: Fierce. Shadow: Exert Úlairë Nelya to replace the fellowship's current site with a site from your
  * adventure deck.
  */
 public class Card11_222 extends AbstractMinion {
     public Card11_222() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Ulaire Nelya", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
         addKeyword(Keyword.FIERCE);
     }
 

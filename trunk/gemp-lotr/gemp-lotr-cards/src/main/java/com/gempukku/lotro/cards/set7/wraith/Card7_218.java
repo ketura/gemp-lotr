@@ -27,12 +27,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 3
  * Site: 3
- * Game Text: Regroup: If you have initiative, discard Ulaire Otsea to make the Free Peoples player exert a Ring-bound
+ * Game Text: Regroup: If you have initiative, discard Úlairë Otsëa to make the Free Peoples player exert a Ring-bound
  * companion twice or return and unbound companion to his or her hand.
  */
 public class Card7_218 extends AbstractMinion {
     public Card7_218() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Otsea", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", true);
     }
 
     @Override

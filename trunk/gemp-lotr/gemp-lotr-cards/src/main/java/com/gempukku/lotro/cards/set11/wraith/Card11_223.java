@@ -24,12 +24,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: Lurker. (Skirmishes involving lurker minions must be resolved after any others.) While Ulaire Nertea is
+ * Game Text: Lurker. (Skirmishes involving lurker minions must be resolved after any others.) While Úlairë Nertëa is
  * at a forest site, he is strength +2. While you can spot 6 companions, each Nazgul is strength +2.
  */
 public class Card11_223 extends AbstractMinion {
     public Card11_223() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Nertea", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
         addKeyword(Keyword.LURKER);
     }
 

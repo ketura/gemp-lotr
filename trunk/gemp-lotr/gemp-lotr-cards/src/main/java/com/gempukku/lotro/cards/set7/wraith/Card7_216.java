@@ -22,11 +22,11 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 2
- * Game Text: Fierce. Regroup: If you have initiative, discard Ulaire Nelya to exert each Ring-bound companion.
+ * Game Text: Fierce. Regroup: If you have initiative, discard Úlairë Nelya to exert each Ring-bound companion.
  */
 public class Card7_216 extends AbstractMinion {
     public Card7_216() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Ulaire Nelya", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
         addKeyword(Keyword.FIERCE);
     }
 

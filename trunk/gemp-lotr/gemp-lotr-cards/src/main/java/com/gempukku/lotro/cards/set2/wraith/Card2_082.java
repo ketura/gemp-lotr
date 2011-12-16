@@ -24,11 +24,11 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Twilight. When you play Ulaire Attea, you may wound an ally.
+ * Game Text: Twilight. When you play Úlairë Attëa, you may wound an ally.
  */
 public class Card2_082 extends AbstractMinion {
     public Card2_082() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
         addKeyword(Keyword.TWILIGHT);
     }
 

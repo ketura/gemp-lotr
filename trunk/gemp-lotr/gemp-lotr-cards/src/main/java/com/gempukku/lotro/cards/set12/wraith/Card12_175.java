@@ -28,12 +28,12 @@ import java.util.List;
  * Vitality: 4
  * Site: 3
  * Game Text: Fierce.Toil 1. (For each [WRAITH] character you exert when playing this, its twilight cost is -1)
- * Response: If you are playing a [WRAITH] event that has toil X, exert Ulaire Enquea to reduce that event's twilight
+ * Response: If you are playing a [WRAITH] event that has toil X, exert Úlairë Enquëa to reduce that event's twilight
  * cost by X.
  */
 public class Card12_175 extends AbstractMinion {
     public Card12_175() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Enquea", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", true);
         addKeyword(Keyword.FIERCE);
         addKeyword(Keyword.TOIL, 1);
     }

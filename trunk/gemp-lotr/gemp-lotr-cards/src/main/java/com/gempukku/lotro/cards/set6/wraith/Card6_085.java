@@ -22,7 +22,7 @@ import java.util.List;
  * Twilight Cost: 2
  * Type: Possession • Hand Weapon
  * Strength: +2
- * Game Text: Bearer must be a Nazgul. While bearer is Ulaire Toldea, each time he wins a skirmish the Free Peoples
+ * Game Text: Bearer must be a Nazgul. While bearer is Úlairë Toldëa, each time he wins a skirmish the Free Peoples
  * player must discard a Free Peoples possession or a Free Peoples condition.
  */
 public class Card6_085 extends AbstractAttachable {
@@ -44,7 +44,7 @@ public class Card6_085 extends AbstractAttachable {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
-                && self.getAttachedTo().getBlueprint().getName().equals("Ulaire Toldea")) {
+                && self.getAttachedTo().getBlueprint().getName().equals("Úlairë Toldëa")) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION)));

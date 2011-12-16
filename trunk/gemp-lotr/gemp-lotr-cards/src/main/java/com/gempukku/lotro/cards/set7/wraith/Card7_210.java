@@ -23,12 +23,12 @@ import java.util.List;
  * Strength: 12
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Shadow: If you have initiative, exert Ulaire Attea and spot another [WRAITH] minion to add
+ * Game Text: Fierce. Shadow: If you have initiative, exert Úlairë Attëa and spot another [WRAITH] minion to add
  * a burden.
  */
 public class Card7_210 extends AbstractMinion {
     public Card7_210() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Attea", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

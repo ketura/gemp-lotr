@@ -28,12 +28,12 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. When you play Ulaire Cantea, add a threat for each companion over 4. Maneuver: Remove 2 threats
+ * Game Text: Fierce. When you play Úlairë Cantëa, add a threat for each companion over 4. Maneuver: Remove 2 threats
  * and spot another [WRAITH] minion to discard a possession.
  */
 public class Card7_211 extends AbstractMinion {
     public Card7_211() {
-        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Cantea", true);
+        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Cantëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

@@ -17,11 +17,11 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: Each character skirmishing Ulaire Lemenya who has resistance 5 or less is strength -3.
+ * Game Text: Each character skirmishing Úlairë Lemenya who has resistance 5 or less is strength -3.
  */
 public class Card11_221 extends AbstractMinion {
     public Card11_221() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
     }
 
     @Override

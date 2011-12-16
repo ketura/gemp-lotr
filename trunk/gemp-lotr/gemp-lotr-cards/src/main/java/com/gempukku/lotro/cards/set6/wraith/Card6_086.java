@@ -27,12 +27,12 @@ import java.util.List;
  * Strength: 9
  * Vitality: 2
  * Site: 3
- * Game Text: Regroup: Exert Ulaire Lemenya and discard 3 cards from hand to return a companion (except the Ring-bearer)
+ * Game Text: Regroup: Exert Úlairë Lemenya and discard 3 cards from hand to return a companion (except the Ring-bearer)
  * to owner's hand.
  */
 public class Card6_086 extends AbstractMinion {
     public Card6_086() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
     }
 
     @Override

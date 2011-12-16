@@ -149,7 +149,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         PhysicalCard morgulBrute = _game.getGameState().getHand(P2).iterator().next();
 
         PhysicalCardImpl consortingWithWizards = new PhysicalCardImpl(100, "2_97", P1, _library.getLotroCardBlueprint("2_97"));
-        PhysicalCardImpl ulaireEnquea = new PhysicalCardImpl(101, "1_231", P2, _library.getLotroCardBlueprint("1_231"));
+        PhysicalCardImpl ÚlairëEnquëa = new PhysicalCardImpl(101, "1_231", P2, _library.getLotroCardBlueprint("1_231"));
 
         _game.getGameState().attachCard(_game, consortingWithWizards, _game.getGameState().getRingBearer(P1));
 
@@ -158,7 +158,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // End fellowship phase
         playerDecided(P1, "");
 
-        _game.getGameState().addCardToZone(_game, ulaireEnquea, Zone.SHADOW_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, ÚlairëEnquëa, Zone.SHADOW_CHARACTERS);
 
         final AwaitingDecision shadowDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowDecision.getDecisionType());

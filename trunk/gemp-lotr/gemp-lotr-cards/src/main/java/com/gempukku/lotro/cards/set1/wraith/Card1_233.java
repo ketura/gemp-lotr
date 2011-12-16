@@ -24,12 +24,12 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 2
- * Game Text: Fierce. Shadow: Exert Ulaire Nelya and spot an opponent's site to replace it with your site of the same
+ * Game Text: Fierce. Shadow: Exert Úlairë Nelya and spot an opponent's site to replace it with your site of the same
  * number.
  */
 public class Card1_233 extends AbstractMinion {
     public Card1_233() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Ulaire Nelya", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
         addKeyword(Keyword.FIERCE);
     }
 

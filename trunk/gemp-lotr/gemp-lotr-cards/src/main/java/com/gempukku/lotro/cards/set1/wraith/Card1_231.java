@@ -23,12 +23,12 @@ import java.util.List;
  * Strength: 11
  * Vitality: 4
  * Site: 3
- * Game Text: Fierce. Maneuver: Spot 6 companions (or 5 burdens) and exert Ulaire Enquea to wound a companion (except
+ * Game Text: Fierce. Maneuver: Spot 6 companions (or 5 burdens) and exert Úlairë Enquëa to wound a companion (except
  * the Ring-bearer).
  */
 public class Card1_231 extends AbstractMinion {
     public Card1_231() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Enquea", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", true);
         addKeyword(Keyword.FIERCE);
     }
 

@@ -24,12 +24,12 @@ import java.util.List;
  * Strength: 10
  * Vitality: 3
  * Site: 3
- * Game Text: Fierce. Assignment: Assign Ulaire Cantea to a companion who has resistance 0. Skirmish: Spot 6 companions
- * and another [WRAITH] card to kill a companion Ulaire Cantea is skirmishing.
+ * Game Text: Fierce. Assignment: Assign Úlairë Cantëa to a companion who has resistance 0. Skirmish: Spot 6 companions
+ * and another [WRAITH] card to kill a companion Úlairë Cantëa is skirmishing.
  */
 public class Card12_174 extends AbstractMinion {
     public Card12_174() {
-        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Ulaire Cantea", true);
+        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Cantëa", true);
         addKeyword(Keyword.FIERCE);
     }
 
