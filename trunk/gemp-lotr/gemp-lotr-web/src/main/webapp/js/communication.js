@@ -7,6 +7,29 @@ var GempLotrCommunication = Class.extend({
         this.failure = failure;
     },
 
+    getDelivery: function(callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/delivery",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId") },
+            success: callback,
+            error: null,
+            dataType: "xml"
+        });
+    },
+
+    deliveryCheck: function(callback) {
+        var that = this;
+        return function(xml, status, request) {
+            var delivery = request.getResponseHeader("Delivery-Service-Package");
+            if (delivery == "true" && window.deliveryService != null)
+                that.getDelivery(window.deliveryService);
+            callback(xml);
+        };
+    },
+
     getGameHistory: function(start, count, callback) {
         $.ajax({
             type: "GET",
@@ -16,7 +39,7 @@ var GempLotrCommunication = Class.extend({
                 start: start,
                 count: count,
                 participantId: getUrlParam("participantId") },
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -29,7 +52,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participanId: getUrlParam("participantId") },
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -40,7 +63,7 @@ var GempLotrCommunication = Class.extend({
             type: "GET",
             url: this.url + "/replay/" + replayId,
             cache: false,
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -51,7 +74,7 @@ var GempLotrCommunication = Class.extend({
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: { participantId: getUrlParam("participantId") },
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -62,7 +85,7 @@ var GempLotrCommunication = Class.extend({
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: { participantId: getUrlParam("participantId") },
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -74,7 +97,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: { cardId: cardId,
                 participantId: getUrlParam("participantId") },
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "html"
         });
@@ -88,7 +111,7 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 decisionId: decisionId,
                 decisionValue: response},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -112,7 +135,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 deckName: deckName},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -124,7 +147,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -136,7 +159,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -151,7 +174,7 @@ var GempLotrCommunication = Class.extend({
                 filter: filter,
                 start: start,
                 count: count},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -164,7 +187,12 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 pack: pack},
-            success: callback,
+            success: function(xml, status, request) {
+                var delivery = request.getResponseHeader("Delivery-Service-Package");
+                if (delivery == "true")
+
+                    callback(xml);
+            },
             error: this.failure,
             dataType: "xml"
         });
@@ -178,7 +206,7 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 deckName: deckName,
                 deckContents: contents},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -192,7 +220,7 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 oldDeckName: oldDeckName,
                 deckName: deckName},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -205,7 +233,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 deckName: deckName},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -218,7 +246,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 deckContents: contents},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "html"
         });
@@ -230,7 +258,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -242,7 +270,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -255,7 +283,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 message: messages},
-            success: callback,
+            success: this.deliveryCheck(callback),
             traditional: true,
             error: this.failure,
             dataType: "xml"
@@ -268,7 +296,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -281,7 +309,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 deckName: deckName,
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -295,7 +323,7 @@ var GempLotrCommunication = Class.extend({
                 format: format,
                 deckName: deckName,
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "xml"
         });
@@ -318,7 +346,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "html"
         });
@@ -332,7 +360,7 @@ var GempLotrCommunication = Class.extend({
                 login: login,
                 password: password,
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "html"
         });
@@ -346,7 +374,7 @@ var GempLotrCommunication = Class.extend({
                 login: login,
                 password: password,
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "html"
         });
@@ -358,7 +386,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            success: callback,
+            success: this.deliveryCheck(callback),
             error: this.failure,
             dataType: "html"
         });
