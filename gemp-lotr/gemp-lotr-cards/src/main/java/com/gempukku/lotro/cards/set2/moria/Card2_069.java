@@ -36,7 +36,9 @@ public class Card2_069 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose Elf or Dwarf", Filters.inSkirmishAgainst(Filters.or(Race.ELF, Race.DWARF))) {
+                new ChooseActiveCardEffect(self, playerId, "Choose Elf or Dwarf",
+                        Filters.or(Race.ELF, Race.DWARF),
+                        Filters.inSkirmishAgainst(Culture.MORIA, Race.ORC)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard elfOrDwarf) {
                         boolean canSpotElf = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
