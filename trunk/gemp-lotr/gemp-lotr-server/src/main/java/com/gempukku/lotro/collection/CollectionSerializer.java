@@ -27,6 +27,7 @@ public class CollectionSerializer {
             loadSet("1");
             loadSet("2");
             loadSet("3");
+            loadSet("0");
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading collection data", exp);
         }
