@@ -102,6 +102,8 @@ public class AdminResource extends AbstractResource {
     public String addLeagueProduct(
             @FormParam("leagueType") String leagueType,
             @FormParam("packProduct") String packProduct,
+            @FormParam("cardProduct") String cardProduct,
+            @FormParam("skipBaseCollection") String skipBaseCollection,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
@@ -109,16 +111,25 @@ public class AdminResource extends AbstractResource {
         if (league == null)
             throw new WebApplicationException(Response.Status.NOT_FOUND);
 
-        MutableCardCollection baseCollection = league.getBaseCollection();
-
         List<CardCollection.Item> items = new LinkedList<CardCollection.Item>();
 
         List<String> packs = getPacks(packProduct);
-        for (String pack : packs) {
-            baseCollection.addPacks(pack, 1);
+        List<String> cards = getCards(cardProduct);
+
+        for (String pack : packs)
             items.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, pack));
+        for (String card : cards)
+            items.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card));
+
+        if (skipBaseCollection == null || !skipBaseCollection.equals("true")) {
+            MutableCardCollection baseCollection = league.getBaseCollection();
+
+            for (String pack : packs)
+                baseCollection.addPacks(pack, 1);
+            for (String card : cards)
+                baseCollection.addCards(card, 1);
+            _leagueDao.setBaseCollectionForLeague(league, baseCollection);
         }
-        _leagueDao.setBaseCollectionForLeague(league, baseCollection);
 
         Map<Integer, MutableCardCollection> playerCollections = _collectionDao.getPlayerCollectionsByType(leagueType);
         for (Map.Entry<Integer, MutableCardCollection> playerCollection : playerCollections.entrySet()) {
@@ -126,6 +137,8 @@ public class AdminResource extends AbstractResource {
             MutableCardCollection collection = playerCollection.getValue();
             for (String pack : packs)
                 collection.addPacks(pack, 1);
+            for (String card : cards)
+                collection.addCards(card, 1);
             Player player = _playerDao.getPlayer(playerId);
             _collectionDao.setCollectionForPlayer(player, leagueType, collection);
             _deliveryService.addPackage(player, leagueType, items);
@@ -135,6 +148,13 @@ public class AdminResource extends AbstractResource {
     }
 
     private List<String> getPacks(String packProduct) {
+        List<String> result = new LinkedList<String>();
+        for (String pack : packProduct.split("\n"))
+            result.add(pack.trim());
+        return result;
+    }
+
+    private List<String> getCards(String packProduct) {
         List<String> result = new LinkedList<String>();
         for (String pack : packProduct.split("\n"))
             result.add(pack.trim());
