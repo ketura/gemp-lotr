@@ -63,7 +63,7 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
         return null;
     }
 
-    protected Phase getExtraPlayableInPhase() {
+    protected Phase getExtraPlayableInPhase(LotroGame game) {
         return null;
     }
 
@@ -72,7 +72,7 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
         if (PlayConditions.canPlayCardDuringPhase(game, (getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW, self)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false))
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
-        Phase extraPhase = getExtraPlayableInPhase();
+        Phase extraPhase = getExtraPlayableInPhase(game);
         if (extraPhase != null)
             if (PlayConditions.canPlayCardDuringPhase(game, extraPhase, self)
                     && checkPlayRequirements(playerId, game, self, 0, 0, false, false))
