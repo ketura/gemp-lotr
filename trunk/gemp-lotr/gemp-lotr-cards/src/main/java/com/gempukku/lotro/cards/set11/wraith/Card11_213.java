@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set11.wraith;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCardsFromHandBeneathDrawDeckEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -31,7 +32,7 @@ public class Card11_213 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSpot(game, Race.NAZGUL)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL).size() > 0) {
@@ -40,6 +41,8 @@ public class Card11_213 extends AbstractPermanent {
                     new ChooseCardsFromHandEffect(playerId, 1, 1, Race.NAZGUL) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            action.appendCost(
+                                    new RevealCardsFromHandEffect(self, playerId, selectedCards));
                             for (PhysicalCard selectedCard : selectedCards) {
                                 action.appendCost(
                                         new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, selectedCard));
