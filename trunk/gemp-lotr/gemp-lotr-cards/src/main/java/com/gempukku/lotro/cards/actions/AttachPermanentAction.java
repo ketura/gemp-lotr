@@ -133,7 +133,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
             if (_discountEffect != null) {
                 int requiredDiscount = 0;
                 if (_cardToAttach.getBlueprint().getSide() == Side.SHADOW) {
-                    int twilightCost = game.getModifiersQuerying().getPlayOnTwilightCost(game.getGameState(), _cardToAttach, _target);
+                    int twilightCost = game.getModifiersQuerying().getPlayOnTwilightCost(game.getGameState(), _cardToAttach, _target) + _twilightModifier;
                     int underPool = twilightCost - game.getGameState().getTwilightPool();
                     if (underPool > 0)
                         requiredDiscount = underPool;
