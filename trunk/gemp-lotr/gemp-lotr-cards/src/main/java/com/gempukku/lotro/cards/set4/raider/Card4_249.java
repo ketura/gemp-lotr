@@ -54,7 +54,12 @@ public class Card4_249 extends AbstractMinion {
                                     new PreventableEffect.PreventionCost() {
                                         @Override
                                         public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                            return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, Filters.unboundCompanion);
+                                            return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, Filters.unboundCompanion) {
+                                                @Override
+                                                public String getText(LotroGame game) {
+                                                    return "Discard an unbound companion";
+                                                }
+                                            };
                                         }
                                     }
                             ));
