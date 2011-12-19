@@ -103,7 +103,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
             if (_discountEffect != null) {
                 int requiredDiscount = 0;
                 if (_permanentPlayed.getBlueprint().getSide() == Side.SHADOW) {
-                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game.getGameState(), _permanentPlayed, _ignoreRoamingPenalty);
+                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game.getGameState(), _permanentPlayed, _ignoreRoamingPenalty) + _twilightModifier;
                     int underPool = twilightCost - game.getGameState().getTwilightPool();
                     if (underPool > 0)
                         requiredDiscount = underPool;
