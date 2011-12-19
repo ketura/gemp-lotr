@@ -47,6 +47,7 @@ public class HallServer extends AbstractServer {
         addFormat("c_king_block", "Community King block", "default", new KingBlockFormat(library, true));
         addFormat("movie", "Movie block", "default", new MovieFormat(library));
         addFormat("war_block", "War of the Ring block", "default", new WarOfTheRingBlockFormat(library, false));
+        addFormat("open", "Open", "default", new OpenFormat(library));
         addFormat("c_war_block", "Community War of the Ring block", "default", new WarOfTheRingBlockFormat(library, true));
 
         addFormat("whatever", "Format for testing", "default", new FreeFormat(library));
