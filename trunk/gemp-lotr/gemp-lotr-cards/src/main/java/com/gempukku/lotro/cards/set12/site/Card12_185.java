@@ -53,7 +53,7 @@ public class Card12_185 extends AbstractNewSite {
                         new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2) {
                             @Override
                             public String getText(LotroGame game) {
-                                return super.getText(game);
+                                return "Discard 2 cards from hand";
                             }
                         });
 
