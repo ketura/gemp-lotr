@@ -51,7 +51,7 @@ public class HallServer extends AbstractServer {
         addFormat("open", "Open", "default", new OpenFormat(library));
         addFormat("expanded", "Expanded", "default", new ExpandedFormat(library));
 
-        addFormat("whatever", "Format for testing", "default", new FreeFormat(library));
+//        addFormat("whatever", "Format for testing", "default", new FreeFormat(library));
     }
 
     public String getMOTD() {
