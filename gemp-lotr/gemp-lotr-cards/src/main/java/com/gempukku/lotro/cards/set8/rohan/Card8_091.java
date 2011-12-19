@@ -40,7 +40,7 @@ public class Card8_091 extends AbstractCompanion {
     }
 
     @Override
-    protected Phase getExtraPlayableInPhase() {
+    protected Phase getExtraPlayableInPhase(LotroGame game) {
         return Phase.REGROUP;
     }
 

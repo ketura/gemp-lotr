@@ -40,7 +40,7 @@ public class Card11_154 extends AbstractCompanion {
     }
 
     @Override
-    protected Phase getExtraPlayableInPhase() {
+    protected Phase getExtraPlayableInPhase(LotroGame game) {
         return Phase.SKIRMISH;
     }
 
