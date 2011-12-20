@@ -233,7 +233,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // End fellowship phase
         playerDecided(P1, "");
 
-        // End fellowship phase
+        // End shadow phase
         playerDecided(P2, "");
 
         playerDecided(P1, "0");
@@ -279,5 +279,76 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, "0");
 
         assertEquals(0, _game.getGameState().getWounds(_game.getGameState().findCardById(Integer.parseInt(legolasCardId))));
+    }
+
+    @Test
+    public void endofTheGameGivingDamagePlusOne() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        skipMulligans();
+
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(100, "1_158", P2, _library.getLotroCardBlueprint("1_158"));
+        PhysicalCardImpl endOfTheGame = new PhysicalCardImpl(100, "10_30", P1, _library.getLotroCardBlueprint("10_30"));
+
+        _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
+        _game.getGameState().addWound(aragorn);
+        _game.getGameState().addWound(aragorn);
+        _game.getGameState().addWound(aragorn);
+
+        _game.getGameState().addCardToZone(_game, endOfTheGame, Zone.HAND);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        _game.getGameState().addCardToZone(_game, urukHaiRaidingParty, Zone.SHADOW_CHARACTERS);
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        // End maneuvers phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End arhcery phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Assign
+        playerDecided(P1, aragorn.getCardId() + " " + urukHaiRaidingParty.getCardId());
+
+        // Start skirmish
+        playerDecided(P1, String.valueOf(aragorn.getCardId()));
+
+        AwaitingDecision playSkirmishEvent = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playSkirmishEvent.getDecisionType());
+        playerDecided(P1, "0");
+
+        assertEquals(10, _game.getModifiersQuerying().getStrength(_game.getGameState(), aragorn));
+
+        // End skirmish phase
+        playerDecided(P2, "");
+        playerDecided(P1, "");
+
+        AwaitingDecision skirmishWinResponse = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.ACTION_CHOICE, skirmishWinResponse.getDecisionType());
+        playerDecided(P1, getCardActionId(skirmishWinResponse, "Required"));
+
+        AwaitingDecision effectChoice = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.MULTIPLE_CHOICE, effectChoice.getDecisionType());
+
+        int index = -1;
+        String[] choices = ((String[]) effectChoice.getDecisionParameters().get("results"));
+        for (int i = 0; i < choices.length; i++)
+            if (choices[i].startsWith("Make "))
+                index = i;
+
+        playerDecided(P1, String.valueOf(index));
+
+        assertEquals(2, _game.getGameState().getWounds(urukHaiRaidingParty));
     }
 }
