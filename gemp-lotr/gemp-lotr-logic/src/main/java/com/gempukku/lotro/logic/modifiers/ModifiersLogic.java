@@ -441,6 +441,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public int getWoundsTakenInCurrentPhase(PhysicalCard card) {
+        Integer wounds = _woundsPerPhaseMap.get(card.getCardId());
+        if (wounds == null)
+            return 0;
+        return wounds;
+    }
+
+    @Override
     public boolean canTakeWound(GameState gameState, PhysicalCard card) {
         LoggingThreadLocal.logMethodStart(card, "canTakeWound");
         try {

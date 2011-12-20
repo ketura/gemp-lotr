@@ -15,4 +15,6 @@ public interface ModifiersEnvironment {
     public void addUntilEndOfTurnModifier(Modifier modifier);
 
     public void addedWound(PhysicalCard card);
+
+    public int getWoundsTakenInCurrentPhase(PhysicalCard card);
 }
