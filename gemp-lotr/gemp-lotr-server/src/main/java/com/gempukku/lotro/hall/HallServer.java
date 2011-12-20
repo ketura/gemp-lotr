@@ -27,6 +27,7 @@ public class HallServer extends AbstractServer {
     private Map<String, AwaitingTable> _awaitingTables = new ConcurrentHashMap<String, AwaitingTable>();
     private Map<String, String> _runningTables = new ConcurrentHashMap<String, String>();
     private Map<String, String> _runningTableFormatNames = new ConcurrentHashMap<String, String>();
+    private Map<String, String> _runningTableTournamentNames = new ConcurrentHashMap<String, String>();
     private int _nextTableId = 1;
 
     private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
@@ -171,6 +172,14 @@ public class HallServer extends AbstractServer {
             createGame(tableId, awaitingTable);
     }
 
+    private String getTournamentName(AwaitingTable table) {
+        String tournamentName = "Casual";
+        final League league = table.getLeague();
+        if (league != null)
+            tournamentName = league.getName() + " - " + table.getLeagueSerie().getType();
+        return tournamentName;
+    }
+
     private void createGame(String tableId, AwaitingTable awaitingTable) {
         Set<LotroGameParticipant> players = awaitingTable.getPlayers();
         LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
@@ -182,6 +191,7 @@ public class HallServer extends AbstractServer {
         lotroGameMediator.startGame();
         _runningTables.put(tableId, gameId);
         _runningTableFormatNames.put(tableId, awaitingTable.getLotroFormat().getName());
+        _runningTableTournamentNames.put(tableId, getTournamentName(awaitingTable));
         _awaitingTables.remove(tableId);
     }
 
@@ -208,14 +218,17 @@ public class HallServer extends AbstractServer {
         visitor.playerIsWaiting(isPlayerWaiting(player.getName()));
 
         Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
-        for (Map.Entry<String, AwaitingTable> table : copy.entrySet())
-            visitor.visitTable(table.getKey(), null, "Waiting", table.getValue().getLotroFormat().getName(), table.getValue().getPlayerNames(), null);
+        for (Map.Entry<String, AwaitingTable> tableInformation : copy.entrySet()) {
+            final AwaitingTable table = tableInformation.getValue();
+
+            visitor.visitTable(tableInformation.getKey(), null, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), table.getPlayerNames(), null);
+        }
 
         Map<String, String> runningCopy = new LinkedHashMap<String, String>(_runningTables);
         for (Map.Entry<String, String> runningGame : runningCopy.entrySet()) {
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
             if (lotroGameMediator != null)
-                visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), _runningTableTournamentNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
         }
 
         String playerTable = getNonFinishedPlayerTable(player.getName());
@@ -267,6 +280,7 @@ public class HallServer extends AbstractServer {
             if (_lotroServer.getGameById(runningTable.getValue()) == null) {
                 _runningTables.remove(runningTable.getKey());
                 _runningTableFormatNames.remove(runningTable.getKey());
+                _runningTableTournamentNames.remove(runningTable.getKey());
             }
         }
 
