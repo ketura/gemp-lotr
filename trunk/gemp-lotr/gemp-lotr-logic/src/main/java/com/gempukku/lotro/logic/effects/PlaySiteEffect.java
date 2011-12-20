@@ -10,7 +10,9 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -114,6 +116,10 @@ public class PlaySiteEffect extends AbstractEffect {
                                 gameState.removeCardsFromZone(_playerId, Collections.singleton(oldSite));
                                 oldSite.setSiteNumber(null);
                                 gameState.addCardToZone(game, oldSite, Zone.DECK);
+                                if (gameState.getCurrentSiteNumber() == siteNumber
+                                        && !_playerId.equals(gameState.getCurrentPlayerId()))
+                                    game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                                            new SpecialFlagModifier(null, ModifierFlag.SHADOW_PLAYER_REPLACED_CURRENT_SITE));
                             }
 
                             gameState.removeCardsFromZone(_playerId, Collections.singleton(newSite));
