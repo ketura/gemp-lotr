@@ -56,23 +56,22 @@ public class LeagueService {
         return null;
     }
 
-    public LotroFormat getLeagueFormat(League league) {
-        return new LeagueFormat(_library, this, league, true);
-    }
-
-    public void leagueGameStarting(final League league, LotroGameMediator gameMediator) {
+    public LeagueSerie getCurrentLeagueSerie(League league) {
         final int startDay = getCurrentDate();
 
-        final LeagueSerie season = _leagueSeasonDao.getSerieForLeague(league, startDay);
-        if (season != null && isRanked(league, season, gameMediator)) {
+        return _leagueSeasonDao.getSerieForLeague(league, startDay);
+    }
+
+    public void leagueGameStarting(final League league, final LeagueSerie serie, LotroGameMediator gameMediator) {
+        if (isRanked(league, serie, gameMediator)) {
             gameMediator.addGameResultListener(
                     new GameResultListener() {
                         @Override
                         public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
                             String loser = loserPlayerIdsWithReasons.keySet().iterator().next();
-                            _leagueMatchDao.addPlayedMatch(league, season, winnerPlayerId, loser);
-                            _leaguePointsDao.addPoints(league, season, winnerPlayerId, 2);
-                            _leaguePointsDao.addPoints(league, season, loser, 1);
+                            _leagueMatchDao.addPlayedMatch(league, serie, winnerPlayerId, loser);
+                            _leaguePointsDao.addPoints(league, serie, winnerPlayerId, 2);
+                            _leaguePointsDao.addPoints(league, serie, loser, 1);
                         }
                     });
             gameMediator.sendMessageToPlayers("This is a ranked game in " + league.getName());

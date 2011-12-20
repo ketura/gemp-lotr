@@ -17,17 +17,18 @@ public class LeagueSerieDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addSerie(String leagueType, String seasonType, int start, int end, int maxMatches) {
+    public void addSerie(String leagueType, String seasonType, String format, int start, int end, int maxMatches) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("insert into league_season (league_type, season_type, start, end, max_matches) values (?, ?, ?, ?, ?)");
+                PreparedStatement statement = conn.prepareStatement("insert into league_season (league_type, season_type, format, start, end, max_matches) values (?, ?, ?, ?, ?, ?)");
                 try {
                     statement.setString(1, leagueType);
                     statement.setString(2, seasonType);
-                    statement.setInt(3, start);
-                    statement.setInt(4, end);
-                    statement.setInt(5, maxMatches);
+                    statement.setString(3, format);
+                    statement.setInt(4, start);
+                    statement.setInt(5, end);
+                    statement.setInt(6, maxMatches);
                     statement.execute();
                 } finally {
                     statement.close();
@@ -44,7 +45,7 @@ public class LeagueSerieDAO {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select season_type, max_matches, start, end from league_season where league_type=? order by start asc");
+                PreparedStatement statement = conn.prepareStatement("select season_type, format, max_matches, start, end from league_season where league_type=? order by start asc");
                 try {
                     statement.setString(1, league.getType());
                     ResultSet rs = statement.executeQuery();
@@ -52,10 +53,11 @@ public class LeagueSerieDAO {
                         List<LeagueSerie> seasons = new LinkedList<LeagueSerie>();
                         while (rs.next()) {
                             String type = rs.getString(1);
-                            int maxMatches = rs.getInt(2);
-                            int start = rs.getInt(3);
-                            int end = rs.getInt(4);
-                            seasons.add(new LeagueSerie(type, maxMatches, start, end));
+                            String format = rs.getString(2);
+                            int maxMatches = rs.getInt(3);
+                            int start = rs.getInt(4);
+                            int end = rs.getInt(5);
+                            seasons.add(new LeagueSerie(type, format, maxMatches, start, end));
                         }
                         return seasons;
                     } finally {
@@ -76,7 +78,7 @@ public class LeagueSerieDAO {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select season_type, max_matches, start, end from league_season where league_type=? and start<=? and end>=?");
+                PreparedStatement statement = conn.prepareStatement("select season_type, format, max_matches, start, end from league_season where league_type=? and start<=? and end>=?");
                 try {
                     statement.setString(1, league.getType());
                     statement.setInt(2, inTime);
@@ -85,10 +87,11 @@ public class LeagueSerieDAO {
                     try {
                         if (rs.next()) {
                             String type = rs.getString(1);
-                            int maxMatches = rs.getInt(2);
-                            int start = rs.getInt(3);
-                            int end = rs.getInt(4);
-                            return new LeagueSerie(type, maxMatches, start, end);
+                            String format = rs.getString(2);
+                            int maxMatches = rs.getInt(3);
+                            int start = rs.getInt(4);
+                            int end = rs.getInt(5);
+                            return new LeagueSerie(type, format, maxMatches, start, end);
                         }
                         return null;
                     } finally {

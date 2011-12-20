@@ -2,7 +2,9 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.*;
 import com.gempukku.lotro.league.LeagueService;
@@ -14,6 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
     private LeagueService _leagueService;
+    private LotroCardBlueprintLibrary _library;
+    private CollectionDAO _collectionDao;
     private LotroServer _lotroServer;
 
     private Map<String, String> _supportedFormatNames = new LinkedHashMap<String, String>();
@@ -32,10 +36,12 @@ public class HallServer extends AbstractServer {
 
     private String _motd;
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, boolean test) {
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, CollectionDAO collectionDao, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
+        _library = library;
+        _collectionDao = collectionDao;
         _chatServer.createChatRoom("Game Hall", 10);
 
         addFormat("fotr_block", "Fellowship block", "default", new FotRBlockFormat(library, false));
@@ -89,6 +95,8 @@ public class HallServer extends AbstractServer {
      */
     public synchronized void createNewTable(String type, Player player, String deckName) throws HallException {
         League league = null;
+        LeagueSerie leagueSerie = null;
+        String collectionType = _formatCollectionIds.get(type);
         LotroFormat format = _supportedFormats.get(type);
         String formatName = null;
         if (format != null)
@@ -98,24 +106,28 @@ public class HallServer extends AbstractServer {
             // Maybe it's a league format?
             league = _leagueService.getLeagueByType(type);
             if (league != null) {
-                format = _leagueService.getLeagueFormat(league);
-                formatName = league.getName();
+                leagueSerie = _leagueService.getCurrentLeagueSerie(league);
+                if (leagueSerie == null)
+                    throw new HallException("There is no ongoing serie for that league");
+                format = _supportedFormats.get(leagueSerie.getFormat());
+                formatName = _supportedFormatNames.get(leagueSerie.getFormat());
+                collectionType = league.getType();
             }
         }
         // It's not a normal format and also not a league one
         if (format == null)
             throw new HallException("This format is not supported: " + type);
 
-        LotroDeck lotroDeck = validateUserAndDeck(type, format, player, deckName);
+        LotroDeck lotroDeck = validateUserAndDeck(format, player, deckName, collectionType);
 
         String tableId = String.valueOf(_nextTableId++);
-        AwaitingTable table = new AwaitingTable(type, formatName, format, league);
+        AwaitingTable table = new AwaitingTable(formatName, collectionType, format, league, leagueSerie);
         _awaitingTables.put(tableId, table);
 
         joinTableInternal(tableId, player.getName(), table, deckName, lotroDeck);
     }
 
-    private LotroDeck validateUserAndDeck(String type, LotroFormat format, Player player, String deckName) throws HallException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, String collectionType) throws HallException {
         if (isPlayerBusy(player.getName()))
             throw new HallException("You can't play more than one game at a time or wait at more than one table");
 
@@ -129,8 +141,20 @@ public class HallServer extends AbstractServer {
             throw new HallException("Your registered deck is not valid for this format: " + e.getMessage());
         }
 
-//        CardCollection collection = _collectionDao.getCollectionForPlayer(player, _formatCollectionIds.get(type));
-        // TODO check that player has cards in collection
+        // Now check if player owns all the cards
+        CardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType);
+
+        Map<String, Integer> deckCardCounts = CollectionUtils.getTotalCardCountForDeck(lotroDeck);
+        final Map<String, Integer> collectionCardCounts = collection.getAll();
+
+        for (Map.Entry<String, Integer> cardCount : deckCardCounts.entrySet()) {
+            final Integer collectionCount = collectionCardCounts.get(cardCount.getKey());
+            if (collectionCount == null || collectionCount < cardCount.getValue()) {
+                String cardName = _library.getLotroCardBlueprint(cardCount.getKey()).getName();
+                int owned = (collectionCount == null) ? 0 : collectionCount;
+                throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + owned);
+            }
+        }
 
         return lotroDeck;
     }
@@ -143,7 +167,7 @@ public class HallServer extends AbstractServer {
         if (awaitingTable == null)
             throw new HallException("Table is already taken or was removed");
 
-        LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getFormatType(), awaitingTable.getLotroFormat(), player, deckName);
+        LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType());
 
         joinTableInternal(tableId, player.getName(), awaitingTable, deckName, lotroDeck);
 
@@ -163,7 +187,7 @@ public class HallServer extends AbstractServer {
         String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), awaitingTable.getFormatName(), participants, league != null);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (league != null)
-            _leagueService.leagueGameStarting(league, lotroGameMediator);
+            _leagueService.leagueGameStarting(league, awaitingTable.getLeagueSerie(), lotroGameMediator);
         lotroGameMediator.startGame();
         _runningTables.put(tableId, gameId);
         _runningTableFormatNames.put(tableId, awaitingTable.getFormatName());

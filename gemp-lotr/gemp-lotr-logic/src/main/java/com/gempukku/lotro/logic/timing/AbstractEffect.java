@@ -3,7 +3,6 @@ package com.gempukku.lotro.logic.timing;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.sun.istack.internal.NotNull;
 
 import java.util.Collection;
 
@@ -11,9 +10,7 @@ public abstract class AbstractEffect implements Effect {
     private Boolean _carriedOut;
     private Boolean _successful;
 
-    protected abstract
-    @NotNull
-    FullEffectResult playEffectReturningResult(LotroGame game);
+    protected abstract FullEffectResult playEffectReturningResult(LotroGame game);
 
     @Override
     public final void playEffect(LotroGame game) {

@@ -2,12 +2,14 @@ package com.gempukku.lotro.db.vo;
 
 public class LeagueSerie {
     private String _type;
+    private String _format;
     private int _maxMatches;
     private int _start;
     private int _end;
 
-    public LeagueSerie(String type, int maxMatches, int start, int end) {
+    public LeagueSerie(String type, String format, int maxMatches, int start, int end) {
         _type = type;
+        _format = format;
         _maxMatches = maxMatches;
         _start = start;
         _end = end;
@@ -19,6 +21,10 @@ public class LeagueSerie {
 
     public String getType() {
         return _type;
+    }
+
+    public String getFormat() {
+        return _format;
     }
 
     public int getEnd() {

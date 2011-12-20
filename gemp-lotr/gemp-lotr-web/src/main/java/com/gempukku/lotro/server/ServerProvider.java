@@ -67,7 +67,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<HallServer> getHallServerInjectable() {
         if (_hallServerInjectable == null) {
-            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(), _library, false);
+            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(), _library, _collectionDao, false);
             hallServer.startServer();
             _hallServerInjectable = new Injectable<HallServer>() {
                 @Override
