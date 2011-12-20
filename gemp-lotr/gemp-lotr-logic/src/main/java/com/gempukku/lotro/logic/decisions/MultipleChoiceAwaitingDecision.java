@@ -15,18 +15,12 @@ public abstract class MultipleChoiceAwaitingDecision extends AbstractAwaitingDec
     public final void decisionMade(String result) throws DecisionResultInvalidException {
         if (result == null)
             throw new DecisionResultInvalidException();
-        int index = resultIndex(result);
-        if (index < 0)
-            throw new DecisionResultInvalidException();
 
-        validDecisionMade(index, result);
-    }
-
-    private int resultIndex(String result) {
-        for (int i = 0; i < _possibleResults.length; i++) {
-            if (_possibleResults[i].equals(result))
-                return i;
+        try {
+            int index = Integer.parseInt(result);
+            validDecisionMade(index, _possibleResults[index]);
+        } catch (NumberFormatException exp) {
+            throw new DecisionResultInvalidException("Unkown response number");
         }
-        return -1;
     }
 }

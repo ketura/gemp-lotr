@@ -62,13 +62,13 @@ public abstract class AbstractAtTest {
         playerDecided(P2, "0");
 
         // Seating choice
-        playerDecided(P1, "1");
+        playerDecided(P1, "0");
     }
 
     protected void skipMulligans() throws DecisionResultInvalidException {
         // Mulligans
-        playerDecided(P1, "No");
-        playerDecided(P2, "No");
+        playerDecided(P1, "0");
+        playerDecided(P2, "0");
     }
 
     protected void validateContents(String[] array1, String[] array2) {
@@ -94,6 +94,14 @@ public abstract class AbstractAtTest {
         for (int i = 0; i < actionTexts.length; i++)
             if (actionTexts[i].startsWith(actionTextStart))
                 return ((String[]) awaitingDecision.getDecisionParameters().get("actionId"))[i];
+        return null;
+    }
+
+    protected String getMultipleDecisionIndex(AwaitingDecision awaitingDecision, String result) {
+        String[] actionTexts = (String[]) awaitingDecision.getDecisionParameters().get("results");
+        for (int i = 0; i < actionTexts.length; i++)
+            if (actionTexts[i].equals(result))
+                return String.valueOf(i);
         return null;
     }
 
