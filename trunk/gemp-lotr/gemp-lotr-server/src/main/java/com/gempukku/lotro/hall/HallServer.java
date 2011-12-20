@@ -12,7 +12,8 @@ import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
@@ -24,19 +25,22 @@ public class HallServer extends AbstractServer {
     private Map<String, LotroFormat> _supportedFormats = new LinkedHashMap<String, LotroFormat>();
 
     // TODO Reading/writing from/to these maps is done in multiple threads
-    private Map<String, AwaitingTable> _awaitingTables = new ConcurrentHashMap<String, AwaitingTable>();
-    private Map<String, String> _runningTables = new ConcurrentHashMap<String, String>();
-    private Map<String, String> _runningTableFormatNames = new ConcurrentHashMap<String, String>();
-    private Map<String, String> _runningTableTournamentNames = new ConcurrentHashMap<String, String>();
+    private Map<String, AwaitingTable> _awaitingTables = new LinkedHashMap<String, AwaitingTable>();
+    private Map<String, String> _runningTables = new LinkedHashMap<String, String>();
+
+    private Map<String, String> _runningTableFormatNames = new HashMap<String, String>();
+    private Map<String, String> _runningTableTournamentNames = new HashMap<String, String>();
     private int _nextTableId = 1;
 
     private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
 
-    private Map<Player, Long> _lastVisitedPlayers = Collections.synchronizedMap(new LinkedHashMap<Player, Long>());
+    private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
     private String _motd;
 
     private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
+
+    private ReadWriteLock _hallTablesLock = new ReentrantReadWriteLock(false);
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, CollectionDAO collectionDao, boolean test) {
         _lotroServer = lotroServer;
@@ -58,8 +62,6 @@ public class HallServer extends AbstractServer {
         addFormat("c_war_block", new WarOfTheRingBlockFormat(library, true));
         addFormat("open", new OpenFormat(library));
         addFormat("expanded", new ExpandedFormat(library));
-
-//        addFormat("whatever", "Format for testing", "default", new FreeFormat(library));
     }
 
     public String getMOTD() {
@@ -89,34 +91,107 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public synchronized void createNewTable(String type, Player player, String deckName) throws HallException {
-        League league = null;
-        LeagueSerie leagueSerie = null;
-        CollectionType collectionType = _allCardsCollectionType;
-        LotroFormat format = _supportedFormats.get(type);
+    public void createNewTable(String type, Player player, String deckName) throws HallException {
+        _hallTablesLock.writeLock().lock();
+        try {
+            League league = null;
+            LeagueSerie leagueSerie = null;
+            CollectionType collectionType = _allCardsCollectionType;
+            LotroFormat format = _supportedFormats.get(type);
 
-        if (format == null) {
-            // Maybe it's a league format?
-            league = _leagueService.getLeagueByType(type);
-            if (league != null) {
-                leagueSerie = _leagueService.getCurrentLeagueSerie(league);
-                if (leagueSerie == null)
-                    throw new HallException("There is no ongoing serie for that league");
-                format = _supportedFormats.get(leagueSerie.getFormat());
-                collectionType = league.getCollectionType();
+            if (format == null) {
+                // Maybe it's a league format?
+                league = _leagueService.getLeagueByType(type);
+                if (league != null) {
+                    leagueSerie = _leagueService.getCurrentLeagueSerie(league);
+                    if (leagueSerie == null)
+                        throw new HallException("There is no ongoing serie for that league");
+                    format = _supportedFormats.get(leagueSerie.getFormat());
+                    collectionType = league.getCollectionType();
+                }
             }
+            // It's not a normal format and also not a league one
+            if (format == null)
+                throw new HallException("This format is not supported: " + type);
+
+            LotroDeck lotroDeck = validateUserAndDeck(format, player, deckName, collectionType);
+
+            String tableId = String.valueOf(_nextTableId++);
+            AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie);
+            _awaitingTables.put(tableId, table);
+
+            joinTableInternal(tableId, player.getName(), table, deckName, lotroDeck);
+        } finally {
+            _hallTablesLock.writeLock().unlock();
         }
-        // It's not a normal format and also not a league one
-        if (format == null)
-            throw new HallException("This format is not supported: " + type);
+    }
 
-        LotroDeck lotroDeck = validateUserAndDeck(format, player, deckName, collectionType);
+    /**
+     * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
+     */
+    public boolean joinTableAsPlayer(String tableId, Player player, String deckName) throws HallException {
+        _hallTablesLock.writeLock().lock();
+        try {
+            AwaitingTable awaitingTable = _awaitingTables.get(tableId);
+            if (awaitingTable == null)
+                throw new HallException("Table is already taken or was removed");
 
-        String tableId = String.valueOf(_nextTableId++);
-        AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie);
-        _awaitingTables.put(tableId, table);
+            LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType());
 
-        joinTableInternal(tableId, player.getName(), table, deckName, lotroDeck);
+            joinTableInternal(tableId, player.getName(), awaitingTable, deckName, lotroDeck);
+
+            return true;
+        } finally {
+            _hallTablesLock.writeLock().unlock();
+        }
+    }
+
+    public void leaveAwaitingTables(Player player) {
+        _hallTablesLock.writeLock().lock();
+        try {
+            Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
+            for (Map.Entry<String, AwaitingTable> table : copy.entrySet()) {
+                if (table.getValue().hasPlayer(player.getName())) {
+                    boolean empty = table.getValue().removePlayer(player.getName());
+                    if (empty)
+                        _awaitingTables.remove(table.getKey());
+                }
+            }
+        } finally {
+            _hallTablesLock.writeLock().unlock();
+        }
+    }
+
+    public void processTables(Player player, HallInfoVisitor visitor) {
+        _hallTablesLock.readLock().lock();
+        try {
+            _lastVisitedPlayers.put(player, System.currentTimeMillis());
+            visitor.playerIsWaiting(isPlayerWaiting(player.getName()));
+
+            for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
+                final AwaitingTable table = tableInformation.getValue();
+
+                visitor.visitTable(tableInformation.getKey(), null, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), table.getPlayerNames(), null);
+            }
+
+            for (Map.Entry<String, String> runningGame : _runningTables.entrySet()) {
+                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
+                if (lotroGameMediator != null)
+                    visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), _runningTableTournamentNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+            }
+
+            String playerTable = getNonFinishedPlayerTable(player.getName());
+            if (playerTable != null) {
+                String gameId = _runningTables.get(playerTable);
+                if (gameId != null) {
+                    LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
+                    if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished"))
+                        visitor.runningPlayerGame(gameId);
+                }
+            }
+        } finally {
+            _hallTablesLock.readLock().unlock();
+        }
     }
 
     private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType) throws HallException {
@@ -151,27 +226,6 @@ public class HallServer extends AbstractServer {
         return lotroDeck;
     }
 
-    /**
-     * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
-     */
-    public synchronized boolean joinTableAsPlayer(String tableId, Player player, String deckName) throws HallException {
-        AwaitingTable awaitingTable = _awaitingTables.get(tableId);
-        if (awaitingTable == null)
-            throw new HallException("Table is already taken or was removed");
-
-        LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType());
-
-        joinTableInternal(tableId, player.getName(), awaitingTable, deckName, lotroDeck);
-
-        return true;
-    }
-
-    private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, String deckName, LotroDeck lotroDeck) {
-        boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, deckName, lotroDeck));
-        if (tableFull)
-            createGame(tableId, awaitingTable);
-    }
-
     private String getTournamentName(AwaitingTable table) {
         String tournamentName = "Casual";
         final League league = table.getLeague();
@@ -195,15 +249,10 @@ public class HallServer extends AbstractServer {
         _awaitingTables.remove(tableId);
     }
 
-    public synchronized void leaveAwaitingTables(Player player) {
-        Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
-        for (Map.Entry<String, AwaitingTable> table : copy.entrySet()) {
-            if (table.getValue().hasPlayer(player.getName())) {
-                boolean empty = table.getValue().removePlayer(player.getName());
-                if (empty)
-                    _awaitingTables.remove(table.getKey());
-            }
-        }
+    private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, String deckName, LotroDeck lotroDeck) {
+        boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, deckName, lotroDeck));
+        if (tableFull)
+            createGame(tableId, awaitingTable);
     }
 
     private boolean isPlayerWaiting(String playerId) {
@@ -211,35 +260,6 @@ public class HallServer extends AbstractServer {
             if (awaitingTable.hasPlayer(playerId))
                 return true;
         return false;
-    }
-
-    public void processTables(Player player, HallInfoVisitor visitor) {
-        _lastVisitedPlayers.put(player, System.currentTimeMillis());
-        visitor.playerIsWaiting(isPlayerWaiting(player.getName()));
-
-        Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
-        for (Map.Entry<String, AwaitingTable> tableInformation : copy.entrySet()) {
-            final AwaitingTable table = tableInformation.getValue();
-
-            visitor.visitTable(tableInformation.getKey(), null, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), table.getPlayerNames(), null);
-        }
-
-        Map<String, String> runningCopy = new LinkedHashMap<String, String>(_runningTables);
-        for (Map.Entry<String, String> runningGame : runningCopy.entrySet()) {
-            LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
-            if (lotroGameMediator != null)
-                visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), _runningTableTournamentNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
-        }
-
-        String playerTable = getNonFinishedPlayerTable(player.getName());
-        if (playerTable != null) {
-            String gameId = _runningTables.get(playerTable);
-            if (gameId != null) {
-                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-                if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished"))
-                    visitor.runningPlayerGame(gameId);
-            }
-        }
     }
 
     private String getNonFinishedPlayerTable(String playerId) {
@@ -274,24 +294,29 @@ public class HallServer extends AbstractServer {
 
     @Override
     protected void cleanup() {
-        // Remove finished games
-        HashMap<String, String> copy = new HashMap<String, String>(_runningTables);
-        for (Map.Entry<String, String> runningTable : copy.entrySet()) {
-            if (_lotroServer.getGameById(runningTable.getValue()) == null) {
-                _runningTables.remove(runningTable.getKey());
-                _runningTableFormatNames.remove(runningTable.getKey());
-                _runningTableTournamentNames.remove(runningTable.getKey());
+        _hallTablesLock.writeLock().lock();
+        try {
+            // Remove finished games
+            HashMap<String, String> copy = new HashMap<String, String>(_runningTables);
+            for (Map.Entry<String, String> runningTable : copy.entrySet()) {
+                if (_lotroServer.getGameById(runningTable.getValue()) == null) {
+                    _runningTables.remove(runningTable.getKey());
+                    _runningTableFormatNames.remove(runningTable.getKey());
+                    _runningTableTournamentNames.remove(runningTable.getKey());
+                }
             }
-        }
 
-        long currentTime = System.currentTimeMillis();
-        Map<Player, Long> visitCopy = new LinkedHashMap<Player, Long>(_lastVisitedPlayers);
-        for (Map.Entry<Player, Long> lastVisitedPlayer : visitCopy.entrySet()) {
-            if (currentTime > lastVisitedPlayer.getValue() + _playerInactivityPeriod) {
-                Player player = lastVisitedPlayer.getKey();
-                _lastVisitedPlayers.remove(player);
-                leaveAwaitingTables(player);
+            long currentTime = System.currentTimeMillis();
+            Map<Player, Long> visitCopy = new LinkedHashMap<Player, Long>(_lastVisitedPlayers);
+            for (Map.Entry<Player, Long> lastVisitedPlayer : visitCopy.entrySet()) {
+                if (currentTime > lastVisitedPlayer.getValue() + _playerInactivityPeriod) {
+                    Player player = lastVisitedPlayer.getKey();
+                    _lastVisitedPlayers.remove(player);
+                    leaveAwaitingTables(player);
+                }
             }
+        } finally {
+            _hallTablesLock.writeLock().unlock();
         }
     }
 }
