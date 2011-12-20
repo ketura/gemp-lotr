@@ -23,6 +23,10 @@ public class League {
         return _id;
     }
 
+    public CollectionType getCollectionType() {
+        return new CollectionType(_type, _name);
+    }
+
     public String getType() {
         return _type;
     }

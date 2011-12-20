@@ -20,7 +20,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Singleton
 @Path("/deck")
@@ -157,14 +156,12 @@ public class DeckResource extends AbstractResource {
         StringBuilder sb = new StringBuilder();
         sb.append("<b>Free People</b>: " + fpCount + ", <b>Shadow</b>: " + shadowCount + "<br/>");
 
-        for (Map.Entry<String, String> supportedFormats : _hallServer.getSupportedFormatNames().entrySet()) {
-            String formatName = supportedFormats.getValue();
-            LotroFormat format = _hallServer.getSupportedFormat(supportedFormats.getKey());
+        for (LotroFormat format : _hallServer.getSupportedFormats().values()) {
             try {
                 format.validateDeck(resourceOwner, deck);
-                sb.append("<b>" + formatName + "</b>: <font color='green'>valid</font><br/>");
+                sb.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");
             } catch (DeckInvalidException exp) {
-                sb.append("<b>" + formatName + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
+                sb.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
             }
         }
 

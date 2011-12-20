@@ -9,5 +9,7 @@ public interface LotroFormat {
 
     public boolean hasMulliganRule();
 
+    public String getName();
+
     public void validateDeck(Player player, LotroDeck deck) throws DeckInvalidException;
 }

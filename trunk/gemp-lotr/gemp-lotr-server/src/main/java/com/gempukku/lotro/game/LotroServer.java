@@ -107,14 +107,14 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public synchronized String createNewGame(LotroFormat lotroFormat, String formatName, LotroGameParticipant[] participants, boolean competetive) {
+    public synchronized String createNewGame(LotroFormat lotroFormat, LotroGameParticipant[] participants, boolean competetive) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
         String chatRoomName = getChatRoomName(gameId);
 
         ChatRoomMediator room = _chatServer.createChatRoom(chatRoomName, 30);
-        room.sendMessage("System", "You're starting a game of " + formatName);
+        room.sendMessage("System", "You're starting a game of " + lotroFormat.getName());
 
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary, competetive ? 60 * 40 : 60 * 80);
         lotroGameMediator.addGameResultListener(
@@ -132,7 +132,7 @@ public class LotroServer extends AbstractServer {
         for (LotroGameParticipant participant : participants)
             deckNames.put(participant.getPlayerId(), participant.getDeckName());
 
-        final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, formatName, deckNames);
+        final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, lotroFormat.getName(), deckNames);
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override

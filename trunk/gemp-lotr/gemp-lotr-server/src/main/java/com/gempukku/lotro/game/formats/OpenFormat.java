@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 public class OpenFormat extends DefaultLotroFormat {
     public OpenFormat(LotroCardBlueprintLibrary library) {
-        super(library, Block.OTHER, true, 60, 4, true, false);
+        super(library, "Open", Block.OTHER, true, 60, 4, true, false);
         addValidSet(0);
         addValidSet(1);
         addValidSet(2);
