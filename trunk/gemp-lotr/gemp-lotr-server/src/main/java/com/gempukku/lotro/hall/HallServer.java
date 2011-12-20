@@ -24,7 +24,7 @@ public class HallServer extends AbstractServer {
 
     private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
 
-    private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
+    private final int _playerInactivityPeriod = 1000 * 20; // 10 seconds
 
     private int _nextTableId = 1;
 
