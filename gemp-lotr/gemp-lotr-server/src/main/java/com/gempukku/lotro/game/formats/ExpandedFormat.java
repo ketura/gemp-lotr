@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 public class ExpandedFormat extends DefaultLotroFormat {
     public ExpandedFormat(LotroCardBlueprintLibrary library) {
-        super(library, Block.OTHER, true, 60, 4, true, false);
+        super(library, "Expanded", Block.OTHER, true, 60, 4, true, false);
         addValidSet(0);
         addValidSet(1);
         addValidSet(2);

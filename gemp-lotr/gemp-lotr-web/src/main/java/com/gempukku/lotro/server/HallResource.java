@@ -1,6 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
@@ -45,10 +46,10 @@ public class HallResource extends AbstractResource {
             hall.setAttribute("motd", motd);
 
         _hallServer.processTables(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
-        for (Map.Entry<String, String> format : _hallServer.getSupportedFormatNames().entrySet()) {
+        for (Map.Entry<String, LotroFormat> format : _hallServer.getSupportedFormats().entrySet()) {
             Element formatElem = doc.createElement("format");
             formatElem.setAttribute("type", format.getKey());
-            formatElem.appendChild(doc.createTextNode(format.getValue()));
+            formatElem.appendChild(doc.createTextNode(format.getValue().getName()));
             hall.appendChild(formatElem);
         }
         for (League league : _hallServer.getRunningLeagues()) {

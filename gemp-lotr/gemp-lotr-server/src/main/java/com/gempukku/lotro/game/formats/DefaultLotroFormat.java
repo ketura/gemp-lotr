@@ -14,6 +14,7 @@ import java.util.Set;
 
 public abstract class DefaultLotroFormat implements LotroFormat {
     private LotroCardBlueprintLibrary _library;
+    private String _name;
     private Block _siteBlock;
     private boolean _validateShadowFPCount = true;
     private int _maximumSameName = 4;
@@ -24,14 +25,20 @@ public abstract class DefaultLotroFormat implements LotroFormat {
     private Set<String> _restrictedCards = new HashSet<String>();
     private Set<Integer> _validSets = new HashSet<Integer>();
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule, boolean canCancelRingBearerSkirmish) {
+    public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule, boolean canCancelRingBearerSkirmish) {
         _library = library;
+        _name = name;
         _siteBlock = siteBlock;
         _validateShadowFPCount = validateShadowFPCount;
         _minimumDeckSize = minimumDeckSize;
         _maximumSameName = maximumSameName;
         _mulliganRule = mulliganRule;
         _canCancelRingBearerSkirmish = canCancelRingBearerSkirmish;
+    }
+
+    @Override
+    public String getName() {
+        return _name;
     }
 
     @Override
