@@ -22,25 +22,26 @@ public class HallServer extends AbstractServer {
     private CollectionDAO _collectionDao;
     private LotroServer _lotroServer;
 
+    private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
+
+    private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
+
+    private int _nextTableId = 1;
+
+    private String _motd;
+
     private Map<String, LotroFormat> _supportedFormats = new LinkedHashMap<String, LotroFormat>();
 
-    // TODO Reading/writing from/to these maps is done in multiple threads
+
+    private ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
+
     private Map<String, AwaitingTable> _awaitingTables = new LinkedHashMap<String, AwaitingTable>();
     private Map<String, String> _runningTables = new LinkedHashMap<String, String>();
 
     private Map<String, String> _runningTableFormatNames = new HashMap<String, String>();
     private Map<String, String> _runningTableTournamentNames = new HashMap<String, String>();
-    private int _nextTableId = 1;
-
-    private final int _playerInactivityPeriod = 1000 * 10; // 10 seconds
 
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
-
-    private String _motd;
-
-    private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
-
-    private ReadWriteLock _hallTablesLock = new ReentrantReadWriteLock(false);
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, CollectionDAO collectionDao, boolean test) {
         _lotroServer = lotroServer;
@@ -92,7 +93,7 @@ public class HallServer extends AbstractServer {
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
     public void createNewTable(String type, Player player, String deckName) throws HallException {
-        _hallTablesLock.writeLock().lock();
+        _hallDataAccessLock.writeLock().lock();
         try {
             League league = null;
             LeagueSerie leagueSerie = null;
@@ -122,7 +123,7 @@ public class HallServer extends AbstractServer {
 
             joinTableInternal(tableId, player.getName(), table, deckName, lotroDeck);
         } finally {
-            _hallTablesLock.writeLock().unlock();
+            _hallDataAccessLock.writeLock().unlock();
         }
     }
 
@@ -130,7 +131,7 @@ public class HallServer extends AbstractServer {
      * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
     public boolean joinTableAsPlayer(String tableId, Player player, String deckName) throws HallException {
-        _hallTablesLock.writeLock().lock();
+        _hallDataAccessLock.writeLock().lock();
         try {
             AwaitingTable awaitingTable = _awaitingTables.get(tableId);
             if (awaitingTable == null)
@@ -142,12 +143,12 @@ public class HallServer extends AbstractServer {
 
             return true;
         } finally {
-            _hallTablesLock.writeLock().unlock();
+            _hallDataAccessLock.writeLock().unlock();
         }
     }
 
     public void leaveAwaitingTables(Player player) {
-        _hallTablesLock.writeLock().lock();
+        _hallDataAccessLock.writeLock().lock();
         try {
             Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
             for (Map.Entry<String, AwaitingTable> table : copy.entrySet()) {
@@ -158,12 +159,12 @@ public class HallServer extends AbstractServer {
                 }
             }
         } finally {
-            _hallTablesLock.writeLock().unlock();
+            _hallDataAccessLock.writeLock().unlock();
         }
     }
 
     public void processTables(Player player, HallInfoVisitor visitor) {
-        _hallTablesLock.readLock().lock();
+        _hallDataAccessLock.readLock().lock();
         try {
             _lastVisitedPlayers.put(player, System.currentTimeMillis());
             visitor.playerIsWaiting(isPlayerWaiting(player.getName()));
@@ -190,7 +191,7 @@ public class HallServer extends AbstractServer {
                 }
             }
         } finally {
-            _hallTablesLock.readLock().unlock();
+            _hallDataAccessLock.readLock().unlock();
         }
     }
 
@@ -294,7 +295,7 @@ public class HallServer extends AbstractServer {
 
     @Override
     protected void cleanup() {
-        _hallTablesLock.writeLock().lock();
+        _hallDataAccessLock.writeLock().lock();
         try {
             // Remove finished games
             HashMap<String, String> copy = new HashMap<String, String>(_runningTables);
@@ -316,7 +317,7 @@ public class HallServer extends AbstractServer {
                 }
             }
         } finally {
-            _hallTablesLock.writeLock().unlock();
+            _hallDataAccessLock.writeLock().unlock();
         }
     }
 }
