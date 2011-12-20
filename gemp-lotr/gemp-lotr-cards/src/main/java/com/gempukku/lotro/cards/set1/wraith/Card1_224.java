@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
-import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -16,6 +15,7 @@ import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 

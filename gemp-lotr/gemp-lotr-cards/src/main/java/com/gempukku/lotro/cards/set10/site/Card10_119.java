@@ -3,13 +3,13 @@ package com.gempukku.lotro.cards.set10.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.modifiers.CantHealModifier;
 import com.gempukku.lotro.cards.modifiers.CantRemoveBurdensModifier;
-import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 
 import java.util.LinkedList;
 import java.util.List;

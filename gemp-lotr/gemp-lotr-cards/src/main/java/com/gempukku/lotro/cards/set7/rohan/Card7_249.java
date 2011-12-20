@@ -4,17 +4,13 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
