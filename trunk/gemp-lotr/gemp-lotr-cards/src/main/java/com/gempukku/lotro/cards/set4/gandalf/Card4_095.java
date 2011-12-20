@@ -4,15 +4,16 @@ import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.PutPlayedEventIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -46,23 +47,7 @@ public class Card4_095 extends AbstractResponseOldEvent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gandalf));
             action.appendEffect(
-                    new AbstractSuccessfulEffect() {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return null;
-                        }
-
-                        @Override
-                        public Effect.Type getType() {
-                            return null;
-                        }
-
-                        @Override
-                        public void playEffect(LotroGame game) {
-                            ((PlayEventResult) effectResult).setTargetZone(Zone.HAND);
-                        }
-                    }
-            );
+                    new PutPlayedEventIntoHandEffect(action));
             return Collections.singletonList(action);
         }
         return null;

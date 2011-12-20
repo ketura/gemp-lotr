@@ -1,24 +1,19 @@
-package com.gempukku.lotro.logic.timing.results;
+package com.gempukku.lotro.cards.results;
 
+import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 public class PlayEventResult extends PlayCardResult {
     private boolean _eventCancelled;
+    private PlayEventAction _action;
     private boolean _requiresRanger;
-    private Zone _targetZone = Zone.DISCARD;
 
-    public PlayEventResult(Zone playedFrom, PhysicalCard playedCard, boolean requiresRanger) {
+    public PlayEventResult(PlayEventAction action, Zone playedFrom, PhysicalCard playedCard, boolean requiresRanger) {
         super(playedFrom, playedCard, null, null);
+        _action = action;
         _requiresRanger = requiresRanger;
-    }
-
-    public void setTargetZone(Zone zone) {
-        _targetZone = zone;
-    }
-
-    public Zone getTargetZone() {
-        return _targetZone;
     }
 
     public boolean isRequiresRanger() {
@@ -31,5 +26,9 @@ public class PlayEventResult extends PlayCardResult {
 
     public boolean isEventCancelled() {
         return _eventCancelled;
+    }
+
+    public PlayEventAction getPlayEventAction() {
+        return _action;
     }
 }
