@@ -86,13 +86,14 @@ public class AdminResource extends AbstractResource {
     public String addLeagueSeason(
             @FormParam("leagueType") String leagueType,
             @FormParam("type") String type,
+            @FormParam("format") String format,
             @FormParam("start") int start,
             @FormParam("end") int end,
             @FormParam("maxMatches") int maxMatches,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        _leagueSeasonDao.addSerie(leagueType, type, start, end, maxMatches);
+        _leagueSeasonDao.addSerie(leagueType, type, format, start, end, maxMatches);
 
         return "OK";
     }
