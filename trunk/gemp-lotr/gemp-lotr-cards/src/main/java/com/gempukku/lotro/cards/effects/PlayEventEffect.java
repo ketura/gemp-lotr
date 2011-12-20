@@ -1,9 +1,11 @@
-package com.gempukku.lotro.logic.effects;
+package com.gempukku.lotro.cards.effects;
 
+import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.results.PlayEventResult;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.results.PlayEventResult;
+import com.gempukku.lotro.logic.effects.PlayCardEffect;
 
 import java.util.Collections;
 
@@ -11,10 +13,10 @@ public class PlayEventEffect extends PlayCardEffect {
     private PhysicalCard _cardPlayed;
     private PlayEventResult _playEventResult;
 
-    public PlayEventEffect(Zone playedFrom, PhysicalCard cardPlayed, boolean requiresRanger) {
+    public PlayEventEffect(PlayEventAction action, Zone playedFrom, PhysicalCard cardPlayed, boolean requiresRanger) {
         super(playedFrom, cardPlayed, (Zone) null, null);
         _cardPlayed = cardPlayed;
-        _playEventResult = new PlayEventResult(playedFrom, getPlayedCard(), requiresRanger);
+        _playEventResult = new PlayEventResult(action, playedFrom, getPlayedCard(), requiresRanger);
     }
 
     public PlayEventResult getPlayEventResult() {

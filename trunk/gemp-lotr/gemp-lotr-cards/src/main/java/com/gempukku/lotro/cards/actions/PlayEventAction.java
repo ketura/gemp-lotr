@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.actions;
 
 import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.PayTwilightCostEffect;
+import com.gempukku.lotro.cards.effects.PlayEventEffect;
 import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -10,7 +11,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
-import com.gempukku.lotro.logic.effects.PlayEventEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -42,7 +42,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
         _eventPlayed = card;
         _requiresRanger = requiresRanger;
 
-        _playCardEffect = new PlayEventEffect(card.getZone(), card, requiresRanger);
+        _playCardEffect = new PlayEventEffect(this, card.getZone(), card, requiresRanger);
 
         _text = "Play " + _eventPlayed.getBlueprint().getName();
     }
