@@ -34,6 +34,10 @@ public class TriggerConditions {
                 && game.getGameState().getCurrentPhase() == phase);
     }
 
+    public static boolean endOfTurn(LotroGame game, EffectResult effectResult) {
+        return effectResult.getType() == EffectResult.Type.END_OF_TURN;
+    }
+
     public static boolean winsSkirmish(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.CHARACTER_WON_SKIRMISH) {
             CharacterWonSkirmishResult wonResult = (CharacterWonSkirmishResult) effectResult;
