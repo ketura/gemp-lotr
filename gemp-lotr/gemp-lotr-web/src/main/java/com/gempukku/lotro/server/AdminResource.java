@@ -70,7 +70,7 @@ public class AdminResource extends AbstractResource {
         validateAdmin(request);
 
         DefaultCardCollection collection = new DefaultCardCollection();
-        List<String> packs = getPacks(packCollection);
+        List<String> packs = getItems(packCollection);
         for (String pack : packs)
             collection.addPacks(pack, 1);
         collection.finishedReading();
@@ -113,8 +113,8 @@ public class AdminResource extends AbstractResource {
 
         List<CardCollection.Item> items = new LinkedList<CardCollection.Item>();
 
-        List<String> packs = getPacks(packProduct);
-        List<String> cards = getCards(cardProduct);
+        List<String> packs = getItems(packProduct);
+        List<String> cards = getItems(cardProduct);
 
         for (String pack : packs)
             items.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, pack));
@@ -147,17 +147,13 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-    private List<String> getPacks(String packProduct) {
+    private List<String> getItems(String packProduct) {
         List<String> result = new LinkedList<String>();
-        for (String pack : packProduct.split("\n"))
-            result.add(pack.trim());
-        return result;
-    }
-
-    private List<String> getCards(String packProduct) {
-        List<String> result = new LinkedList<String>();
-        for (String pack : packProduct.split("\n"))
-            result.add(pack.trim());
+        for (String pack : packProduct.split("\n")) {
+            String blueprint = pack.trim();
+            if (blueprint.length() > 0)
+                result.add(blueprint);
+        }
         return result;
     }
 
