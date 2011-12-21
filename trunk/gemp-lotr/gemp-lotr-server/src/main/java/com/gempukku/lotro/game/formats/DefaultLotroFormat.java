@@ -37,6 +37,11 @@ public abstract class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
+    public final boolean isOrderedSites() {
+        return _siteBlock != Block.OTHER;
+    }
+
+    @Override
     public String getName() {
         return _name;
     }

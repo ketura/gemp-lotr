@@ -63,9 +63,4 @@ public class ExpandedFormat extends DefaultLotroFormat {
         addRestrictedCard("4_276");
         addRestrictedCard("4_304");
     }
-
-    @Override
-    public boolean isOrderedSites() {
-        return true;
-    }
 }

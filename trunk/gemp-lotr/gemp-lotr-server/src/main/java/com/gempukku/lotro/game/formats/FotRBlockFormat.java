@@ -11,9 +11,4 @@ public class FotRBlockFormat extends DefaultLotroFormat {
         addValidSet(2);
         addValidSet(3);
     }
-
-    @Override
-    public boolean isOrderedSites() {
-        return true;
-    }
 }

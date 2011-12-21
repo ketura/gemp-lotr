@@ -30,9 +30,4 @@ public class TowersStandardFormat extends DefaultLotroFormat {
         addValidSet(5);
         addValidSet(6);
     }
-
-    @Override
-    public boolean isOrderedSites() {
-        return true;
-    }
 }

@@ -40,9 +40,4 @@ public class MovieFormat extends DefaultLotroFormat {
         addValidSet(9);
         addValidSet(10);
     }
-
-    @Override
-    public boolean isOrderedSites() {
-        return true;
-    }
 }

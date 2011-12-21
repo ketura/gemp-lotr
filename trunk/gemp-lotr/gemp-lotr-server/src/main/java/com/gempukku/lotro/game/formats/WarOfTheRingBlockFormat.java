@@ -12,9 +12,4 @@ public class WarOfTheRingBlockFormat extends DefaultLotroFormat {
         addValidSet(12);
         addValidSet(13);
     }
-
-    @Override
-    public boolean isOrderedSites() {
-        return false;
-    }
 }
