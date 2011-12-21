@@ -11,9 +11,4 @@ public class KingBlockFormat extends DefaultLotroFormat {
         addValidSet(8);
         addValidSet(10);
     }
-
-    @Override
-    public boolean isOrderedSites() {
-        return true;
-    }
 }
