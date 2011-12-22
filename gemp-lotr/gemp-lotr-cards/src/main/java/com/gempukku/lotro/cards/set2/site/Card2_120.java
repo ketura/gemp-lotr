@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -8,13 +9,12 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,20 +33,15 @@ public class Card2_120 extends AbstractSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && game.getGameState().getCurrentSite() == self) {
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-
+        if (TriggerConditions.movesTo(game, effectResult, self)
+                && playerId.equals(game.getGameState().getCurrentPlayerId())) {
             Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION);
-            for (final PhysicalCard hobbitCompanion : hobbitCompanions) {
+            if (hobbitCompanions.size() > 0) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.setText("Heal " + GameUtils.getCardLink(hobbitCompanion));
                 action.appendEffect(
-                        new HealCharactersEffect(self, hobbitCompanion));
-                actions.add(action);
+                        new ChooseAndHealCharactersEffect(action, playerId, 0, hobbitCompanions.size(), Filters.in(hobbitCompanions)));
+                return Collections.singletonList(action);
             }
-
-            return actions;
         }
         return null;
     }
