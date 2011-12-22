@@ -49,6 +49,6 @@ public class Card7_073 extends AbstractEvent {
         int minionVitality = 0;
         for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(smeagol)))
             minionVitality += game.getModifiersQuerying().getVitality(game.getGameState(), minion);
-        return smeagolVitality >= minionVitality;
+        return smeagolVitality > minionVitality;
     }
 }
