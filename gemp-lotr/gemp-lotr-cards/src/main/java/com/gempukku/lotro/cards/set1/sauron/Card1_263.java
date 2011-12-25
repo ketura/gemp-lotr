@@ -30,7 +30,7 @@ public class Card1_263 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.and(CardType.ALLY, CardType.COMPANION), Filters.and(Culture.SAURON, Race.ORC))) {
+        if (TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.or(CardType.ALLY, CardType.COMPANION), Filters.and(Culture.SAURON, Race.ORC))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
