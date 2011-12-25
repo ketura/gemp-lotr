@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 
 public class LotroServer extends AbstractServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
@@ -31,7 +32,10 @@ public class LotroServer extends AbstractServer {
 
     private DeckDAO _deckDao;
     private GameHistoryDAO _gameHistoryDao;
+
     private DefaultCardCollection _defaultCollection;
+    private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
+
     private ChatServer _chatServer;
     private boolean _test;
     private GameRecorder _gameRecorder;
@@ -64,7 +68,7 @@ public class LotroServer extends AbstractServer {
                                 }
                             }
                         }
-                        _defaultCollection.finishedReading();
+                        _collectionReadyLatch.countDown();
                     }
                 }
         );
@@ -78,7 +82,11 @@ public class LotroServer extends AbstractServer {
     }
 
     public CardCollection getDefaultCollection() {
-        _defaultCollection.waitTillLoaded();
+        try {
+            _collectionReadyLatch.await();
+        } catch (InterruptedException exp) {
+            throw new RuntimeException("Error while awaiting loading a default colleciton", exp);
+        }
         return _defaultCollection;
     }
 
