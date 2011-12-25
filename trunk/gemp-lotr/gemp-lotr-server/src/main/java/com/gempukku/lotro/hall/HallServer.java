@@ -210,7 +210,11 @@ public class HallServer extends AbstractServer {
         }
 
         // Now check if player owns all the cards
-        CardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType.getCode());
+        CardCollection collection;
+        if (collectionType.getCode().equals("default"))
+            collection = _lotroServer.getDefaultCollection();
+        else
+            collection = _collectionDao.getCollectionForPlayer(player, collectionType.getCode());
 
         Map<String, Integer> deckCardCounts = CollectionUtils.getTotalCardCountForDeck(lotroDeck);
         final Map<String, Integer> collectionCardCounts = collection.getAll();

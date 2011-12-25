@@ -187,6 +187,14 @@ public class DefaultCardCollection implements MutableCardCollection {
         return null;
     }
 
+    public void waitTillLoaded() {
+        try {
+            _collectionReadyLatch.await();
+        } catch (InterruptedException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
     @Override
     public Map<String, Integer> getAll() {
         return Collections.unmodifiableMap(_counts);
