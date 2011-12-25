@@ -6,16 +6,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.packs.PacksStorage;
 
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Integer> _counts = new HashMap<String, Integer>();
-
-    private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
-
-    public void finishedReading() {
-        _collectionReadyLatch.countDown();
-    }
 
     private static class NameComparator implements Comparator<Item> {
         private LotroCardBlueprintLibrary _library;
@@ -187,14 +180,6 @@ public class DefaultCardCollection implements MutableCardCollection {
         return null;
     }
 
-    public void waitTillLoaded() {
-        try {
-            _collectionReadyLatch.await();
-        } catch (InterruptedException exp) {
-            throw new RuntimeException(exp);
-        }
-    }
-
     @Override
     public Map<String, Integer> getAll() {
         return Collections.unmodifiableMap(_counts);
@@ -202,12 +187,6 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public List<Item> getItems(String filter, LotroCardBlueprintLibrary library) {
-        try {
-            _collectionReadyLatch.await();
-        } catch (InterruptedException exp) {
-            throw new RuntimeException(exp);
-        }
-
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");

@@ -42,7 +42,6 @@ public class LeagueService {
                 else
                     collection.addPacks(item.getBlueprintId(), item.getCount());
             }
-            collection.finishedReading();
             return collection;
         }
         return collectionForPlayer;

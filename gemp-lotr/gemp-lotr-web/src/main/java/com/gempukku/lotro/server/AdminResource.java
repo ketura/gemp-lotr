@@ -73,7 +73,6 @@ public class AdminResource extends AbstractResource {
         List<String> packs = getItems(packCollection);
         for (String pack : packs)
             collection.addPacks(pack, 1);
-        collection.finishedReading();
 
         _leagueDao.addLeague(name, type, collection, start, end);
 

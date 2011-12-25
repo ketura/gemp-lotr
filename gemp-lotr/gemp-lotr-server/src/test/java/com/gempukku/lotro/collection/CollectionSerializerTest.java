@@ -22,7 +22,6 @@ public class CollectionSerializerTest {
         collection.addCards("1_23*", 3);
         collection.addCards("1_237T*", 3);
         collection.addPacks("FotR - Booster", 2);
-        collection.finishedReading();
 
         CollectionSerializer serializer = new CollectionSerializer();
 
@@ -48,7 +47,6 @@ public class CollectionSerializerTest {
 
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addPacks("FotR - Booster", 8);
-        collection.finishedReading();
 
         CollectionSerializer serializer = new CollectionSerializer();
 
