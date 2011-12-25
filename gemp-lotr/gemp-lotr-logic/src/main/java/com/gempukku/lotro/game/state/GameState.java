@@ -395,7 +395,8 @@ public class GameState {
     }
 
     private void addCardToZone(LotroGame game, PhysicalCard card, Zone zone, boolean end) {
-        assignNewCardId(card);
+        if (zone.isInPlay())
+            assignNewCardId(card);
 
         List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
         if (end)
