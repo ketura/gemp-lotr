@@ -147,7 +147,7 @@ var GempLotrHallUI = Class.extend({
 
             var tables = root.getElementsByTagName("table");
             var tablesTable = $("<table class='tables'></table>");
-            tablesTable.append("<tr><th>Format</th><th>Tournament</th><th>Status</th><th>Players</th><th>Actions</th></tr>");
+            tablesTable.append("<tr><th width='20%'>Format</th><th width='30%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='20%'>Actions</th></tr>");
 
             for (var i = 0; i < tables.length; i++) {
                 var table = tables[i];
@@ -257,6 +257,6 @@ var GempLotrHallUI = Class.extend({
 
         row.append(actionsField);
 
-        this.container.append(row);
+        container.append(row);
     }
 });

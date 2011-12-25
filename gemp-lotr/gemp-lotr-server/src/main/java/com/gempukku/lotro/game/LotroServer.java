@@ -78,6 +78,7 @@ public class LotroServer extends AbstractServer {
     }
 
     public CardCollection getDefaultCollection() {
+        _defaultCollection.waitTillLoaded();
         return _defaultCollection;
     }
 
