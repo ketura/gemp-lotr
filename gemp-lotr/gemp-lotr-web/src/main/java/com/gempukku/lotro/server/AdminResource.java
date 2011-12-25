@@ -147,9 +147,49 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-    private List<String> getItems(String packProduct) {
+    @Path("/addLeaguePrize")
+    @POST
+    public String addLeaguePrize(
+            @FormParam("leagueType") String leagueType,
+            @FormParam("packProduct") String packProduct,
+            @FormParam("cardProduct") String cardProduct,
+            @FormParam("players") String players,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        League league = getLeagueByType(leagueType);
+        if (league == null)
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+
+        List<CardCollection.Item> items = new LinkedList<CardCollection.Item>();
+
+        List<String> packs = getItems(packProduct);
+        List<String> cards = getItems(cardProduct);
+
+        for (String pack : packs)
+            items.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, pack));
+        for (String card : cards)
+            items.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card));
+
+        List<String> playerNames = getItems(players);
+
+        for (String playerName : playerNames) {
+            Player player = _playerDao.getPlayer(playerName);
+            MutableCardCollection collection = _collectionDao.getCollectionForPlayer(player, leagueType);
+            for (String pack : packs)
+                collection.addPacks(pack, 1);
+            for (String card : cards)
+                collection.addCards(card, 1);
+            _collectionDao.setCollectionForPlayer(player, leagueType, collection);
+            _deliveryService.addPackage(player, leagueType, items);
+        }
+
+        return "OK";
+    }
+
+    private List<String> getItems(String values) {
         List<String> result = new LinkedList<String>();
-        for (String pack : packProduct.split("\n")) {
+        for (String pack : values.split("\n")) {
             String blueprint = pack.trim();
             if (blueprint.length() > 0)
                 result.add(blueprint);

@@ -21,7 +21,7 @@
     Start: <input type="text" name="start"><br/>
     End: <input type="text" name="end"><br/>
     Packs: <textarea rows="5" cols="20" name="packCollection"></textarea><br/>
-    <input type="submit" value="Create">
+    <input type="submit" value="Add league">
 </form>
 
 <h2>Add season</h2>
@@ -29,10 +29,11 @@
 <form method="POST" action="server/admin/addLeagueSeason">
     League type: <input type="text" name="leagueType"><br/>
     Season type: <input type="text" name="type"><br/>
+    Format: <input type="text" name="format"><br/>
     Start: <input type="text" name="start"><br/>
     End: <input type="text" name="end"><br/>
     Max matches: <input type="text" name="maxMatches"><br/>
-    <input type="submit" value="Create">
+    <input type="submit" value="Add season">
 </form>
 
 <h2>Add league product</h2>
@@ -42,7 +43,17 @@
     Packs: <textarea rows="5" cols="20" name="packProduct"></textarea><br/>
     Cards: <textarea rows="5" cols="20" name="cardProduct"></textarea><br/>
     Skip base collection: <input type="checkbox" name="skipBaseCollection" value="true"/><br/>
-    <input type="submit" value="Create">
+    <input type="submit" value="Add product">
+</form>
+
+<h2>Add league prize</h2>
+
+<form method="POST" action="server/admin/addLeaguePrize">
+    Type: <input type="text" name="leagueType"><br/>
+    Packs: <textarea rows="5" cols="20" name="packProduct"></textarea><br/>
+    Cards: <textarea rows="5" cols="20" name="cardProduct"></textarea><br/>
+    Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
+    <input type="submit" value="Add prize">
 </form>
 
 </body>
