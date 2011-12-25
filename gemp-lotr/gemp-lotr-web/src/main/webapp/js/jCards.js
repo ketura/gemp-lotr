@@ -115,6 +115,8 @@ var Card = Class.extend({
         var setNo = parseInt(blueprintId.substr(0, separator));
         var cardNo = parseInt(blueprintId.substr(separator + 1));
 
+        var mainLocation = this.getMainLocation(setNo, cardNo);
+
         var setNoStr;
         if (setNo < 10)
             setNoStr = "0" + setNo;
@@ -122,11 +124,27 @@ var Card = Class.extend({
             setNoStr = setNo;
 
         if (cardNo < 10)
-            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "00" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
+            return mainLocation + "LOTR" + setNoStr + "00" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
         else if (cardNo < 100)
-            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "0" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
+            return mainLocation + "LOTR" + setNoStr + "0" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
         else
-            return "http://lotrtcgdb.com/images/LOTR" + setNoStr + "" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
+            return mainLocation + "LOTR" + setNoStr + "" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
+    },
+
+    getMainLocation: function(setNo, cardNo) {
+        if (this.isErrata(setNo, cardNo))
+            return "/gemp-lotr/images/erratas/";
+        else
+            return "http://lotrtcgdb.com/images/";
+    },
+
+    isErrata: function(setNo, cardNo) {
+        if (setNo == 0)
+            return cardNo == 7;
+        else if (setNo == 1)
+            return cardNo == 12 || cardNo == 43 || cardNo == 46;
+        else
+            return false;
     },
 
     getHeightForWidth: function(width) {
