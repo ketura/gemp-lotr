@@ -50,6 +50,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         var collectionSelect = $("<select id='collectionSelect'></select>");
         collectionSelect.css({"float": "right", width: "180px"});
         collectionSelect.append("<option value='default'>All cards</option>");
+        collectionSelect.append("<option value='permanent'>My cards</option>");
         this.manageDecksDiv.append(collectionSelect);
 
         var newDeckBut = $("<button title='New deck'><span class='ui-icon ui-icon-document'></span></button>").button();
