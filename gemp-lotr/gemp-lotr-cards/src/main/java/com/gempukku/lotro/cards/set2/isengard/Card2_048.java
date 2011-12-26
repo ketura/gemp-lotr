@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
@@ -57,8 +58,7 @@ public class Card2_048 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
-                && game.getGameState().getCurrentSite() == self) {
+        if (TriggerConditions.movesFrom(game, effectResult, self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(self, CardType.COMPANION));
