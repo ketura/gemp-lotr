@@ -147,19 +147,15 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-    @Path("/addLeaguePrize")
+    @Path("/addItems")
     @POST
-    public String addLeaguePrize(
-            @FormParam("leagueType") String leagueType,
+    public String addItems(
+            @FormParam("collectionType") String collectionType,
             @FormParam("packProduct") String packProduct,
             @FormParam("cardProduct") String cardProduct,
             @FormParam("players") String players,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
-
-        League league = getLeagueByType(leagueType);
-        if (league == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         List<CardCollection.Item> items = new LinkedList<CardCollection.Item>();
 
@@ -175,16 +171,24 @@ public class AdminResource extends AbstractResource {
 
         for (String playerName : playerNames) {
             Player player = _playerDao.getPlayer(playerName);
-            MutableCardCollection collection = _collectionDao.getCollectionForPlayer(player, leagueType);
+
+            MutableCardCollection collection = getPlayerCollection(player, collectionType);
             for (String pack : packs)
                 collection.addPacks(pack, 1);
             for (String card : cards)
                 collection.addCards(card, 1);
-            _collectionDao.setCollectionForPlayer(player, leagueType, collection);
-            _deliveryService.addPackage(player, leagueType, items);
+            _collectionDao.setCollectionForPlayer(player, collectionType, collection);
+            _deliveryService.addPackage(player, collectionType, items);
         }
 
         return "OK";
+    }
+
+    private MutableCardCollection getPlayerCollection(Player player, String collectionType) {
+        MutableCardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType);
+        if (collection == null && collectionType.equals("permanent"))
+            collection = new DefaultCardCollection();
+        return collection;
     }
 
     private List<String> getItems(String values) {

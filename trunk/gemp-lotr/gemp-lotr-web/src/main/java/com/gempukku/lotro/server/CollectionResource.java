@@ -122,9 +122,11 @@ public class CollectionResource extends AbstractResource {
         CardCollection collection = null;
         if (collectionType.equals("default"))
             collection = _lotroServer.getDefaultCollection();
-        else if (collectionType.equals("permanent"))
+        else if (collectionType.equals("permanent")) {
             collection = _collectionDao.getCollectionForPlayer(player, "permanent");
-        else {
+            if (collection == null)
+                collection = new DefaultCardCollection();
+        } else {
             League league = _leagueService.getLeagueByType(collectionType);
             if (league != null)
                 collection = _leagueService.getLeagueCollection(player, league);
