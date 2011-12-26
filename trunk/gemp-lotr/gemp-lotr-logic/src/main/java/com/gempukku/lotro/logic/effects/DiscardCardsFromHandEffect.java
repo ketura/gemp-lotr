@@ -65,7 +65,7 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
             gameState.removeCardsFromZone(sourcePlayer, discardedCards);
             for (PhysicalCard card : discardedCards) {
                 gameState.addCardToZone(game, card, Zone.DISCARD);
-                game.getActionsEnvironment().emitEffectResult(new DiscardCardFromHandResult(_source, card, _forced));
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardFromHandResult(_source, card, _playerId, _forced));
             }
 
             return new FullEffectResult(discardedCards.size() == _cards.size(), discardedCards.size() == _cards.size());
