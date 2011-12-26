@@ -69,6 +69,7 @@ public abstract class DefaultLotroFormat implements LotroFormat {
     }
 
     private void validateSet(String blueprintId) throws DeckInvalidException {
+        blueprintId = _library.getBaseBlueprintId(blueprintId);
         for (int validSet : _validSets)
             if (blueprintId.startsWith(validSet + "_")
                     || _library.hasAlternateInSet(blueprintId, validSet))
