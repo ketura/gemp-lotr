@@ -38,7 +38,7 @@ var LeagueResultsUI = Class.extend({
 
                 $("#leagueResults").append("<h2>Overall results</h2>");
 
-                var standings = serie.getElementsByTagName("leagueStanding");
+                var standings = league.getElementsByTagName("leagueStanding");
                 if (standings.length > 0) {
                     var standingsTable = $("<table class='standings'></table>");
 
