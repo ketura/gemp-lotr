@@ -105,18 +105,16 @@ public class RuleUtils {
         } else {
             return Filters.and(
                     Filters.or(
-                            Filters.and(
-                                    CardType.COMPANION,
-                                    new Filter() {
-                                        @Override
-                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                            return modifiersQuerying.isAllowedToParticipateInSkirmishes(gameState, Side.SHADOW, physicalCard);
-                                        }
-                                    }
-                            ),
+                            CardType.COMPANION,
                             Filters.and(
                                     CardType.ALLY,
                                     Filters.or(
+                                            new Filter() {
+                                                @Override
+                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                                    return skipAllyLocationCheck;
+                                                }
+                                            },
                                             Filters.and(
                                                     Filters.allyAtHome,
                                                     new Filter() {
