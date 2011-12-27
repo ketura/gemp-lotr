@@ -16,18 +16,24 @@ public class ChooseAndAssignCharacterToMinionEffect extends ChooseActiveCardEffe
     private Action _action;
     private String _playerId;
     private PhysicalCard _minion;
+    private boolean _skipAllyLocationCheck;
 
     public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, PhysicalCard minion, Filterable... filters) {
+        this(action, playerId, minion, false, filters);
+    }
+
+    public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, PhysicalCard minion, boolean skipAllyLocationCheck, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose character to assign " + GameUtils.getCardLink(minion) + " to", filters);
         _action = action;
         _playerId = playerId;
         _minion = minion;
+        _skipAllyLocationCheck = skipAllyLocationCheck;
     }
 
     @Override
     protected Filter getExtraFilterForPlaying(final LotroGame game) {
         final Side side = game.getGameState().getCurrentPlayerId().equals(_playerId) ? Side.FREE_PEOPLE : Side.SHADOW;
-        return Filters.canBeAssignedToSkirmishByEffectAgainst(side, _minion);
+        return Filters.canBeAssignedToSkirmishByEffectAgainst(side, _minion, _skipAllyLocationCheck);
     }
 
     @Override
