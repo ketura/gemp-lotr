@@ -62,6 +62,15 @@ public class LeagueResource extends AbstractResource {
                 leagueElem.appendChild(serieElem);
             }
 
+            List<LeaguePointsDAO.Standing> leagueStandings = _leaguePointsDao.getLeagueStandings(league);
+            for (LeaguePointsDAO.Standing standing : leagueStandings) {
+                Element standingElem = doc.createElement("leagueStanding");
+                standingElem.setAttribute("player", standing.getPlayer());
+                standingElem.setAttribute("points", String.valueOf(standing.getPoints()));
+                standingElem.setAttribute("gamesPlayed", String.valueOf(standing.getGamesPlayed()));
+                leagueElem.appendChild(standingElem);
+            }
+
             leagues.appendChild(leagueElem);
         }
 

@@ -36,6 +36,35 @@ var LeagueResultsUI = Class.extend({
                 var leagueText = leagueName + " - " + this.getDateString(start) + " to " + this.getDateString(end);
                 $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
 
+                $("#leagueResults").append("<h2>Overall results</h2>");
+
+                var standings = serie.getElementsByTagName("leagueStanding");
+                if (standings.length > 0) {
+                    var standingsTable = $("<table class='standings'></table>");
+
+                    standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th></tr>");
+
+                    var lastPoints = -1;
+                    var lastGamesPlayed = -1;
+                    var currentStanding = -1;
+
+                    for (var k = 0; k < standings.length; k++) {
+                        var standing = standings[k];
+                        var player = standing.getAttribute("player");
+                        var points = parseInt(standing.getAttribute("points"));
+                        var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
+                        if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
+                            lastPoints = points;
+                            lastGamesPlayed = gamesPlayed;
+                            currentStanding = k + 1;
+                        }
+
+                        standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
+                    }
+
+                    $("#leagueResults").append(standingsTable);
+                }
+
                 var series = league.getElementsByTagName("serie");
                 for (var j = 0; j < series.length; j++) {
                     var serie = series[j];
