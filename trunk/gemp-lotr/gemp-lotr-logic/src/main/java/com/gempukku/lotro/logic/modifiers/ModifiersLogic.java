@@ -429,15 +429,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean isAdditionalCardType(GameState gameState, PhysicalCard card, CardType cardType) {
-        LoggingThreadLocal.logMethodStart(card, "isAdditionalCardType");
-        try {
-            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.ADDITIONAL_CARD_TYPE, card))
-                if (modifier.isAdditionalCardTypeModifier(gameState, this, card, cardType))
-                    return true;
-            return false;
-        } finally {
-            LoggingThreadLocal.logMethodEnd();
-        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.ADDITIONAL_CARD_TYPE, card))
+            if (modifier.isAdditionalCardTypeModifier(gameState, this, card, cardType))
+                return true;
+        return false;
     }
 
     @Override
