@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
@@ -15,7 +14,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
 import com.gempukku.lotro.logic.effects.AssignmentPhaseEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.FreePlayerStartsAssigningResult;
@@ -48,41 +47,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
 
                         final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.FREE_PEOPLE));
                         if (minions.size() > 0) {
-                            final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, game.getModifiersQuerying(),
-                                    Filters.or(
-                                            Filters.and(
-                                                    CardType.COMPANION,
-                                                    Filters.or(
-                                                            Filters.not(Keyword.UNHASTY),
-                                                            new Filter() {
-                                                                @Override
-                                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                                    return modifiersQuerying.isAllowedToParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
-                                                                }
-                                                            }
-                                                    )
-                                            ),
-                                            Filters.and(
-                                                    CardType.ALLY,
-                                                    Filters.or(
-                                                            Filters.and(
-                                                                    Filters.allyAtHome,
-                                                                    new Filter() {
-                                                                        @Override
-                                                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                                            return !modifiersQuerying.isAllyPreventedFromParticipatingInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
-                                                                        }
-                                                                    }),
-                                                            new Filter() {
-                                                                @Override
-                                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                                    return modifiersQuerying.isAllowedToParticipateInSkirmishes(gameState, Side.FREE_PEOPLE, physicalCard);
-                                                                }
-                                                            }
-                                                    )
-                                            )
-                                    ),
-                                    Filters.canBeAssignedToSkirmish(Side.FREE_PEOPLE));
+                            final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, game.getModifiersQuerying(), RuleUtils.getSkirmishAssignableFPCharacterFilter(Side.FREE_PEOPLE, false));
 
                             game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
                                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {

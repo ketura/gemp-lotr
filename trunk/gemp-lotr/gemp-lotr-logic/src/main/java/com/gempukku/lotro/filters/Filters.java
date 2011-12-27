@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 
 import java.util.*;
 
@@ -208,6 +209,10 @@ public class Filters {
     }
 
     public static Filter canBeAssignedToSkirmishByEffect(final Side sidePlayer) {
+        return canBeAssignedToSkirmishByEffect(sidePlayer, false);
+    }
+
+    public static Filter canBeAssignedToSkirmishByEffect(final Side sidePlayer, boolean skipAllyLocationCheck) {
         return Filters.and(
                 notAssignedToSkirmish,
                 Filters.or(
@@ -219,12 +224,9 @@ public class Filters {
                                         return !gameState.isFierceSkirmishes();
                                     }
                                 }, Keyword.FIERCE)),
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeAssignedToSkirmish(gameState, sidePlayer, physicalCard);
-                    }
-                });
+                Filters.or(
+                        CardType.MINION,
+                        RuleUtils.getSkirmishAssignableFPCharacterFilter(sidePlayer, skipAllyLocationCheck)));
     }
 
     public static Filter canBeAssignedToSkirmishByEffectIgnoreNotAssigned(final Side sidePlayer) {
@@ -263,8 +265,12 @@ public class Filters {
     }
 
     public static Filter canBeAssignedToSkirmishByEffectAgainst(final Side sidePlayer, final PhysicalCard against) {
+        return canBeAssignedToSkirmishByEffectAgainst(sidePlayer, against, false);
+    }
+
+    public static Filter canBeAssignedToSkirmishByEffectAgainst(final Side sidePlayer, final PhysicalCard against, boolean skipAllyLocationCheck) {
         return Filters.and(
-                canBeAssignedToSkirmishByEffect(sidePlayer),
+                canBeAssignedToSkirmishByEffect(sidePlayer, skipAllyLocationCheck),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
