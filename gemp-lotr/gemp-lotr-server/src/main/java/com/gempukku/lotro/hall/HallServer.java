@@ -169,16 +169,32 @@ public class HallServer extends AbstractServer {
             _lastVisitedPlayers.put(player, System.currentTimeMillis());
             visitor.playerIsWaiting(isPlayerWaiting(player.getName()));
 
+            // First waiting
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
                 final AwaitingTable table = tableInformation.getValue();
 
                 visitor.visitTable(tableInformation.getKey(), null, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), table.getPlayerNames(), null);
             }
 
+            // Then non-finished
+            Map<String, String> nonPlayingTables = new HashMap<String, String>();
+
             for (Map.Entry<String, String> runningGame : _runningTables.entrySet()) {
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
+                if (lotroGameMediator != null) {
+                    String gameStatus = lotroGameMediator.getGameStatus();
+                    if (gameStatus.equals("Finished"))
+                        visitor.visitTable(runningGame.getKey(), runningGame.getValue(), gameStatus, _runningTableFormatNames.get(runningGame.getKey()), _runningTableTournamentNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                    else
+                        nonPlayingTables.put(runningGame.getKey(), runningGame.getValue());
+                }
+            }
+
+            // Then rest
+            for (Map.Entry<String, String> nonPlayingGame : nonPlayingTables.entrySet()) {
+                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(nonPlayingGame.getValue());
                 if (lotroGameMediator != null)
-                    visitor.visitTable(runningGame.getKey(), runningGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(runningGame.getKey()), _runningTableTournamentNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                    visitor.visitTable(nonPlayingGame.getKey(), nonPlayingGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(nonPlayingGame.getKey()), _runningTableTournamentNames.get(nonPlayingGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
             }
 
             String playerTable = getNonFinishedPlayerTable(player.getName());
