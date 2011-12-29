@@ -5,13 +5,12 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,15 +33,12 @@ public class Card2_014 extends AbstractPermanent {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
             Collection<PhysicalCard> dwarfCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-            for (final PhysicalCard dwarfCompanion : dwarfCompanions) {
+            if (dwarfCompanions.size() > 0) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.setText("Heal " + GameUtils.getCardLink(dwarfCompanion));
                 action.appendEffect(
-                        new HealCharactersEffect(self, dwarfCompanion));
-                actions.add(action);
+                        new ChooseAndHealCharactersEffect(action, playerId, 0, dwarfCompanions.size(), Filters.in(dwarfCompanions)));
+                return Collections.singletonList(action);
             }
-            return actions;
         }
         return null;
     }
