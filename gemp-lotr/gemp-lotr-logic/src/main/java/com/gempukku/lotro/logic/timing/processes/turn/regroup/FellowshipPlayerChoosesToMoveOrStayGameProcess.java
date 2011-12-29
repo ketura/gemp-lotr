@@ -33,14 +33,16 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
                                                     new ShadowPhasesGameProcess()));
                                 else {
                                     _nextProcess = new PlayerReconcilesGameProcess(gameState.getCurrentPlayerId(),
-                                            new DiscardAllMinionsGameProcess());
+                                            new ReturnFollowersToSupportGameProcess(
+                                                    new DiscardAllMinionsGameProcess()));
                                 }
                             }
                         });
             }
         } else {
             _nextProcess = new PlayerReconcilesGameProcess(gameState.getCurrentPlayerId(),
-                    new DiscardAllMinionsGameProcess());
+                    new ReturnFollowersToSupportGameProcess(
+                            new DiscardAllMinionsGameProcess()));
         }
     }
 
