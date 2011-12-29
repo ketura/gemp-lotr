@@ -284,4 +284,14 @@ public class TriggerConditions {
     public static boolean moves(LotroGame game, EffectResult effectResult) {
         return effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES;
     }
+
+    public static boolean transferredCard(LotroGame game, EffectResult effectResult, Filterable transferredCard, Filterable transferredFrom, Filterable transferredTo) {
+        if (effectResult.getType() == EffectResult.Type.CARD_TRANSFERRED) {
+            CardTransferredResult transferResult = (CardTransferredResult) effectResult;
+            return (Filters.and(transferredCard).accepts(game.getGameState(), game.getModifiersQuerying(), transferResult.getTransferredCard())
+                    && (transferredFrom == null || (transferResult.getTransferredFrom() != null && Filters.and(transferredFrom).accepts(game.getGameState(), game.getModifiersQuerying(), transferResult.getTransferredFrom())))
+                    && (transferredTo == null || (transferResult.getTransferredTo() != null && Filters.and(transferredTo).accepts(game.getGameState(), game.getModifiersQuerying(), transferResult.getTransferredTo()))));
+        }
+        return false;
+    }
 }
