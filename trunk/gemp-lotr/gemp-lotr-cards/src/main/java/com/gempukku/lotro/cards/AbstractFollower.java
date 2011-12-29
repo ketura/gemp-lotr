@@ -1,24 +1,58 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
+import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
+import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractFollower extends AbstractPermanent {
-    public AbstractFollower(Side side, int twilightCost, Culture culture, String name) {
-        this(side, twilightCost, culture, name, false);
+    private int _strength;
+    private int _vitality;
+    private int _resistance;
+
+    public AbstractFollower(Side side, int twilightCost, int strength, int vitality, int resistance, Culture culture, String name) {
+        this(side, twilightCost, strength, vitality, resistance, culture, name, false);
     }
 
-    public AbstractFollower(Side side, int twilightCost, Culture culture, String name, boolean unique) {
+    public AbstractFollower(Side side, int twilightCost, int strength, int vitality, int resistance, Culture culture, String name, boolean unique) {
         super(side, twilightCost, CardType.FOLLOWER, culture, Zone.SUPPORT, name, unique);
+        _strength = strength;
+        _vitality = vitality;
+        _resistance = resistance;
+    }
+
+    @Override
+    public final List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        if (_strength != 0)
+            modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), _strength));
+        if (_vitality != 0)
+            modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), _vitality));
+        if (_resistance != 0)
+            modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), _resistance));
+
+        List<? extends Modifier> extraModifiers = getNonBasicStatsModifiers(self);
+        if (extraModifiers != null)
+            modifiers.addAll(extraModifiers);
+
+        return modifiers;
+    }
+
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return null;
     }
 
     protected abstract boolean canPayAidCost(LotroGame game, PhysicalCard self);
