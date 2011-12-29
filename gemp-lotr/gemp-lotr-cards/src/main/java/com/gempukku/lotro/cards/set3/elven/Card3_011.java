@@ -64,6 +64,6 @@ public class Card3_011 extends AbstractOldEvent {
                                 new DrawCardsEffect(playerId, integer.get()));
                     }
                 });
-        return null;
+        return action;
     }
 }
