@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set11.site;
 import com.gempukku.lotro.cards.AbstractNewSite;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,9 +33,9 @@ public class Card11_249 extends AbstractNewSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.character, Filters.minResistance(5)));
+                    new HealCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.minResistance(5)));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.character, Filters.maxResistance(4)));
+                    new ExertCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.maxResistance(4)));
             return Collections.singletonList(action);
         }
         return null;
