@@ -37,7 +37,7 @@ public class Card1_239 extends AbstractOldEvent {
         int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
         for (int i = 0; i < companionCount - 4; i++)
             action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));
+                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
         return action;
     }
 
