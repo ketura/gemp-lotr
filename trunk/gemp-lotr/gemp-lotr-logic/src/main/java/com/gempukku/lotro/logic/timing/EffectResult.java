@@ -49,7 +49,7 @@ public abstract class EffectResult {
 
         CHARACTER_WON_SKIRMISH, CHARACTER_LOST_SKIRMISH,
 
-        CHARACTER_ASSIGNED
+        CHARACTER_ASSIGNED, CARD_TRANSFERRED
     }
 
     private Type _type;
