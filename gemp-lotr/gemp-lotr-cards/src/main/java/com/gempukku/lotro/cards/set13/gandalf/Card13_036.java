@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -14,6 +15,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -33,6 +35,12 @@ import java.util.List;
 public class Card13_036 extends AbstractAttachableFPPossession {
     public Card13_036() {
         super(0, 0, 0, Culture.GANDALF, CardType.ARTIFACT, PossessionClass.PALANTIR, "The Palantir of Orthanc", true);
+    }
+
+    @Override
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(
+                new ResistanceModifier(self, Filters.hasAttached(self), -2));
     }
 
     @Override
