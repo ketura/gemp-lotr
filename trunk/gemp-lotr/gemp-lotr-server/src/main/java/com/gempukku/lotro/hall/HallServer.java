@@ -183,7 +183,7 @@ public class HallServer extends AbstractServer {
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
                 if (lotroGameMediator != null) {
                     String gameStatus = lotroGameMediator.getGameStatus();
-                    if (gameStatus.equals("Finished"))
+                    if (!gameStatus.equals("Finished"))
                         visitor.visitTable(runningGame.getKey(), runningGame.getValue(), gameStatus, _runningTableFormatNames.get(runningGame.getKey()), _runningTableTournamentNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
                     else
                         nonPlayingTables.put(runningGame.getKey(), runningGame.getValue());
