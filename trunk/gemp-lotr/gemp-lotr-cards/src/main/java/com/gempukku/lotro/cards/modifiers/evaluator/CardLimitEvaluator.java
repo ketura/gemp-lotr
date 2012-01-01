@@ -29,13 +29,7 @@ public class CardLimitEvaluator implements Evaluator {
     private int evaluateOnce(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
         LimitCounter limitCounter = _game.getModifiersEnvironment().getUntilEndOfPhaseLimitCounter(_source, _phase);
         int internalResult = _evaluator.evaluateExpression(gameState, modifiersQuerying, cardAffected);
-        int availableBonusWithLimit = 0;
-        for (int i = 0; i < internalResult; i++) {
-            int limitResult = limitCounter.incrementCounter();
-            if (limitResult <= _limit)
-                availableBonusWithLimit++;
-        }
-        return availableBonusWithLimit;
+        return limitCounter.incrementToLimit(_limit, internalResult);
     }
 
     @Override
