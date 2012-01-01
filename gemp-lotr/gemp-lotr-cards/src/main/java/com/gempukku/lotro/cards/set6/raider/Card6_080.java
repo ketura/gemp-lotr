@@ -10,6 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.modifiers.LimitCounter;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -40,10 +41,12 @@ public class Card6_080 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(3));
-            int bonus = Math.min(4, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4);
+            LimitCounter limitCounter = game.getModifiersEnvironment().getUntilEndOfPhaseLimitCounter(self, Phase.ARCHERY);
+            int bonus = Math.max(0, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4);
+            int archeryBonus = limitCounter.incrementToLimit(4, bonus);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, bonus), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, archeryBonus), Phase.ARCHERY));
             return Collections.singletonList(action);
         }
         return null;

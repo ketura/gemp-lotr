@@ -8,4 +8,12 @@ public class DefaultLimitCounter implements LimitCounter {
         _count++;
         return _count;
     }
+
+    @Override
+    public int incrementToLimit(int limit, int incrementBy) {
+        int maxIncrement = limit - _count;
+        int finalIncrement = Math.min(maxIncrement, incrementBy);
+        _count += finalIncrement;
+        return finalIncrement;
+    }
 }
