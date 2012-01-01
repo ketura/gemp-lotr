@@ -36,6 +36,8 @@ public class StartOfPhaseGameProcess implements GameProcess {
             }
         };
         action.appendEffect(
+                new TriggeringResultEffect(null, new StartOfPhaseResult(_phase, _playerId), "Start of " + _phase + " phase"));
+        action.appendEffect(
                 new AbstractSuccessfulEffect() {
                     @Override
                     public String getText(LotroGame game) {
@@ -53,8 +55,6 @@ public class StartOfPhaseGameProcess implements GameProcess {
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeStartOfPhaseActionProxies(_phase);
                     }
                 });
-        action.appendEffect(
-                new TriggeringResultEffect(null, new StartOfPhaseResult(_phase, _playerId), "Start of " + _phase + " phase"));
 
         game.getActionsEnvironment().addActionToStack(action);
     }
