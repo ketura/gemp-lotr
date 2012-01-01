@@ -4,15 +4,18 @@ import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
@@ -60,8 +63,20 @@ public class Card1_224 extends AbstractResponseOldEvent {
                                                 action.appendEffect(
                                                         new ChooseAndAssignMinionToCompanionEffect(action, playerId, ringBearer, Race.NAZGUL));
                                                 action.appendEffect(
-                                                        new AddUntilEndOfPhaseModifierEffect(
-                                                                new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));
+                                                        new AddUntilStartOfPhaseActionProxyEffect(
+                                                                new AbstractActionProxy() {
+                                                                    @Override
+                                                                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                                                                        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
+                                                                            RequiredTriggerAction action = new RequiredTriggerAction(self);
+                                                                            action.appendEffect(
+                                                                                    new AddUntilEndOfPhaseModifierEffect(
+                                                                                            new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));
+                                                                            return Collections.singletonList(action);
+                                                                        }
+                                                                        return null;
+                                                                    }
+                                                                }, Phase.SKIRMISH));
                                             }
                                         });
                             }
