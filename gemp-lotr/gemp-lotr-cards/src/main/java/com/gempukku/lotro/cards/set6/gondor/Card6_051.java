@@ -46,7 +46,7 @@ public class Card6_051 extends AbstractAttachableFPPossession {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.setText("Heal another GONDOR companion");
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, Culture.GONDOR, CardType.COMPANION));
+                    new ChooseAndHealCharactersEffect(action, playerId, Culture.GONDOR, CardType.COMPANION, Filters.not(self.getAttachedTo())));
             return Collections.singletonList(action);
         }
         return null;
