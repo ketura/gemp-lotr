@@ -1,10 +1,7 @@
 package com.gempukku.lotro.cards.set9.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -40,7 +37,8 @@ public class Card9_010 extends AbstractCompanion {
                 new AbstractModifier(self, null, Filters.and(Culture.DWARVEN, CardType.EVENT, Keyword.SKIRMISH, Filters.stackedOn(Culture.DWARVEN, CardType.CONDITION)), ModifierEffect.EXTRA_ACTION_MODIFIER) {
                     @Override
                     public List<? extends Action> getExtraPhaseActionFromStacked(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-                        if (card.getBlueprint().checkPlayRequirements(card.getOwner(), game, card, 0, 0, false, false))
+                        if (card.getBlueprint().checkPlayRequirements(card.getOwner(), game, card, 0, 0, false, false)
+                                && gameState.getCurrentPhase() == Phase.SKIRMISH)
                             return Collections.singletonList(
                                     card.getBlueprint().getPlayCardAction(card.getOwner(), game, card, 0, false));
                         return null;
