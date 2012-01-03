@@ -107,6 +107,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         return null;
     }
 
+    @Override
+    public List<? extends Modifier> getInDiscardModifiers(LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return null;
     }
