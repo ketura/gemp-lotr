@@ -21,11 +21,6 @@ public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect
     }
 
     @Override
-    public String getText(LotroGame game) {
-        return null;
-    }
-
-    @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         _resultSubAction = new SubAction(_action);
         _resultSubAction.appendEffect(new DiscardCardsFromPlayEffect(_action.getActionSource(), Filters.in(cards)));
