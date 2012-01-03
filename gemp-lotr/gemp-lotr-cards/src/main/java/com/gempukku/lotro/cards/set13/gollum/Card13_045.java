@@ -29,7 +29,7 @@ public class Card13_045 extends AbstractEvent {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        if (PlayConditions.canRemoveFromDiscardToPlay(self, game, playerId, 4, Culture.GOLLUM))
+        if (PlayConditions.canRemoveFromDiscard(self, game, playerId, 4, Culture.GOLLUM))
             twilightModifier -= 1000;
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canSpot(game, Filters.gollum);
