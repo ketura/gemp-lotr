@@ -33,6 +33,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public List<? extends Modifier> getInDiscardModifiers(LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
     public CardType getCardType() {
         return null;
     }
