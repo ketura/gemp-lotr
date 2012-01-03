@@ -355,8 +355,11 @@ public class GameState {
             if (zone.isInPlay())
                 if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == card))
                     stopAffecting(card);
-                else if (zone == Zone.STACKED)
-                    stopAffectingStacked(card);
+
+            if (zone == Zone.STACKED)
+                stopAffectingStacked(card);
+            else if (zone == Zone.DISCARD)
+                stopAffectingInDiscard(card);
 
             List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
             zoneCards.remove(card);
@@ -418,11 +421,14 @@ public class GameState {
         }
 
         if (_currentPhase != Phase.PUT_RING_BEARER) {
-            if (zone.isInPlay()) {
+            if (zone.isInPlay())
                 if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == card))
                     startAffecting(game, card);
-            } else if (zone == Zone.STACKED)
+
+            if (zone == Zone.STACKED)
                 startAffectingStacked(game, card);
+            else if (zone == Zone.DISCARD)
+                startAffectingInDiscard(game, card);
         }
     }
 
@@ -804,17 +810,25 @@ public class GameState {
         ((PhysicalCardImpl) card).startAffectingGame(game);
     }
 
-    private void startAffectingStacked(LotroGame game, PhysicalCard card) {
-        ((PhysicalCardImpl) card).startAffectingGameStacked(game);
-    }
-
     private void stopAffecting(PhysicalCard card) {
         card.removeData();
         ((PhysicalCardImpl) card).stopAffectingGame();
     }
 
+    private void startAffectingStacked(LotroGame game, PhysicalCard card) {
+        ((PhysicalCardImpl) card).startAffectingGameStacked(game);
+    }
+
     private void stopAffectingStacked(PhysicalCard card) {
         ((PhysicalCardImpl) card).stopAffectingGameStacked();
+    }
+
+    private void startAffectingInDiscard(LotroGame game, PhysicalCard card) {
+        ((PhysicalCardImpl) card).startAffectingGameInDiscard(game);
+    }
+
+    private void stopAffectingInDiscard(PhysicalCard card) {
+        ((PhysicalCardImpl) card).stopAffectingGameInDiscard();
     }
 
     public void setCurrentPhase(Phase phase) {

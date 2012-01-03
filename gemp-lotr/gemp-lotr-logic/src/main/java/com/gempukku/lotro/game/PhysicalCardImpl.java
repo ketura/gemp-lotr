@@ -21,6 +21,7 @@ public class PhysicalCardImpl implements PhysicalCard {
 
     private List<ModifierHook> _modifierHooks;
     private List<ModifierHook> _modifierHooksStacked;
+    private List<ModifierHook> _modifierHooksInDiscard;
 
     private Object _data;
 
@@ -98,6 +99,23 @@ public class PhysicalCardImpl implements PhysicalCard {
             for (ModifierHook modifierHook : _modifierHooksStacked)
                 modifierHook.stop();
             _modifierHooksStacked = null;
+        }
+    }
+
+    public void startAffectingGameInDiscard(LotroGame game) {
+        List<? extends Modifier> modifiers = _blueprint.getInDiscardModifiers(game, this);
+        if (modifiers != null) {
+            _modifierHooksInDiscard = new LinkedList<ModifierHook>();
+            for (Modifier modifier : modifiers)
+                _modifierHooksInDiscard.add(game.getModifiersEnvironment().addAlwaysOnModifier(modifier));
+        }
+    }
+
+    public void stopAffectingGameInDiscard() {
+        if (_modifierHooksInDiscard != null) {
+            for (ModifierHook modifierHook : _modifierHooksInDiscard)
+                modifierHook.stop();
+            _modifierHooksInDiscard = null;
         }
     }
 
