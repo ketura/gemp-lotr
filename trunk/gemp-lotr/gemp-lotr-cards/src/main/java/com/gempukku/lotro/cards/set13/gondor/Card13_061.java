@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemovePlayedEventFromGameEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCardsFromDiscardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -47,7 +47,7 @@ public class Card13_061 extends AbstractEvent {
                 && PlayConditions.canRemoveFromDiscardToPlay(self, game, playerId, 4, Culture.GONDOR)) {
             final PlayEventAction action = getPlayCardAction(playerId, game, self, 0, false);
             action.appendCost(
-                    new ChooseAndRemoveCardsFromDiscardEffect(action, self, playerId, 4, 4, Culture.GONDOR));
+                    new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, self, playerId, 4, 4, Culture.GONDOR));
             action.appendEffect(
                     new RemovePlayedEventFromGameEffect(action));
             return Collections.singletonList(action);
