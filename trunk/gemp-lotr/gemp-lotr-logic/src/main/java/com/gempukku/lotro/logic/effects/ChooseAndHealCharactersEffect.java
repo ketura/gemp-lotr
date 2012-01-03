@@ -57,11 +57,6 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     @Override
-    public String getText(LotroGame game) {
-        return null;
-    }
-
-    @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++)
