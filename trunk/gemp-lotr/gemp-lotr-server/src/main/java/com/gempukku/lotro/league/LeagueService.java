@@ -36,12 +36,8 @@ public class LeagueService {
             DefaultCardCollection collection = new DefaultCardCollection();
 
             MutableCardCollection baseCollection = league.getBaseCollection();
-            for (CardCollection.Item item : baseCollection.getItems(null, _library)) {
-                if (item.getType() == CardCollection.Item.Type.CARD)
-                    collection.addCards(item.getBlueprintId(), item.getCount());
-                else
-                    collection.addPacks(item.getBlueprintId(), item.getCount());
-            }
+            for (CardCollection.Item item : baseCollection.getItems(null, _library))
+                collection.addItem(item.getBlueprintId(), item.getCount());
             return collection;
         }
         return collectionForPlayer;

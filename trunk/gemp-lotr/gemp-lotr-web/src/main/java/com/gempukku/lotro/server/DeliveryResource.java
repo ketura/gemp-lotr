@@ -1,6 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
@@ -15,17 +16,20 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.List;
 import java.util.Map;
 
 @Singleton
 @Path("/delivery")
 public class DeliveryResource extends AbstractResource {
+
+    @Context
+    private LotroCardBlueprintLibrary _library;
+
     @GET
     public Document getDelivery(
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, null);
-        Map<String, List<CardCollection.Item>> delivery = _deliveryService.consumePackages(resourceOwner);
+        Map<String, ? extends CardCollection> delivery = _deliveryService.consumePackages(resourceOwner);
         if (delivery == null)
             throw new WebApplicationException(Response.Status.NOT_FOUND);
 
@@ -35,13 +39,13 @@ public class DeliveryResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
 
         Element deliveryElem = doc.createElement("delivery");
-        for (Map.Entry<String, List<CardCollection.Item>> collectionTypeItems : delivery.entrySet()) {
+        for (Map.Entry<String, ? extends CardCollection> collectionTypeItems : delivery.entrySet()) {
             String collectionType = collectionTypeItems.getKey();
-            List<CardCollection.Item> items = collectionTypeItems.getValue();
+            CardCollection items = collectionTypeItems.getValue();
 
             Element collectionTypeElem = doc.createElement("collectionType");
             collectionTypeElem.setAttribute("name", collectionType);
-            for (CardCollection.Item item : items) {
+            for (CardCollection.Item item : items.getItems(null, _library)) {
                 String blueprintId = item.getBlueprintId();
                 if (item.getType() == CardCollection.Item.Type.CARD) {
                     Element card = doc.createElement("card");

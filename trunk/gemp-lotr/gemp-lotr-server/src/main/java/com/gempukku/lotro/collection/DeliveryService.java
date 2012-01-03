@@ -1,34 +1,38 @@
 package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.game.Player;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DeliveryService {
-    private Map<String, Map<String, List<CardCollection.Item>>> _undeliveredDeliverables = new HashMap<String, Map<String, List<CardCollection.Item>>>();
+    private Map<String, Map<String, MutableCardCollection>> _undeliveredDeliverables = new HashMap<String, Map<String, MutableCardCollection>>();
 
     private ReadWriteLock _deliveryLock = new ReentrantReadWriteLock(false);
 
-    public void addPackage(Player player, String collectionType, List<CardCollection.Item> items) {
+    public void addPackage(Player player, String collectionType, CardCollection itemCollection) {
         _deliveryLock.writeLock().lock();
         try {
-            Map<String, List<CardCollection.Item>> playerDeliverables = _undeliveredDeliverables.get(player.getName());
+            Map<String, MutableCardCollection> playerDeliverables = _undeliveredDeliverables.get(player.getName());
             if (playerDeliverables == null) {
-                playerDeliverables = new HashMap<String, List<CardCollection.Item>>();
+                playerDeliverables = new HashMap<String, MutableCardCollection>();
                 _undeliveredDeliverables.put(player.getName(), playerDeliverables);
             }
-            List<CardCollection.Item> deliverablesInCollection = playerDeliverables.get(collectionType);
+            MutableCardCollection deliverablesInCollection = playerDeliverables.get(collectionType);
             if (deliverablesInCollection == null) {
-                deliverablesInCollection = new LinkedList<CardCollection.Item>();
+                deliverablesInCollection = new DefaultCardCollection();
                 playerDeliverables.put(collectionType, deliverablesInCollection);
             }
-            deliverablesInCollection.addAll(items);
+            for (Map.Entry<String, Integer> itemToAdd : itemCollection.getAll().entrySet()) {
+                String blueprintId = itemToAdd.getKey();
+                int count = itemToAdd.getValue();
+                deliverablesInCollection.addItem(blueprintId, count);
+            }
         } finally {
             _deliveryLock.writeLock().unlock();
         }
@@ -43,7 +47,7 @@ public class DeliveryService {
         }
     }
 
-    public Map<String, List<CardCollection.Item>> consumePackages(Player player) {
+    public Map<String, ? extends CardCollection> consumePackages(Player player) {
         _deliveryLock.writeLock().lock();
         try {
             return _undeliveredDeliverables.remove(player.getName());
