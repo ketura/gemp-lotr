@@ -115,7 +115,7 @@ public class CollectionSerializer {
             throw new IllegalStateException("Under-read the packs information");
         for (int i = 0; i < packs.length; i++)
             if (packs[i] > 0)
-                collection.addPacks(_packIds.get(i), packs[i]);
+                collection.addItem(_packIds.get(i), packs[i]);
 
         int cardBytes = (inputStream.read() << 8) + inputStream.read();
         byte[] cards = new byte[cardBytes];
@@ -125,7 +125,7 @@ public class CollectionSerializer {
         for (int i = 0; i < cards.length; i++)
             if (cards[i] > 0) {
                 final String blueprintId = _cardIds.get(i);
-                collection.addCards(blueprintId, cards[i]);
+                collection.addItem(blueprintId, cards[i]);
             }
 
         return collection;

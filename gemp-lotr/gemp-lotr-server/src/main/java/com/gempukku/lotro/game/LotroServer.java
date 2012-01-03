@@ -60,9 +60,9 @@ public class LotroServer extends AbstractServer {
                                     LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
                                     CardType cardType = cardBlueprint.getCardType();
                                     if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                                        _defaultCollection.addCards(blueprintId, 1);
+                                        _defaultCollection.addItem(blueprintId, 1);
                                     else
-                                        _defaultCollection.addCards(blueprintId, 4);
+                                        _defaultCollection.addItem(blueprintId, 4);
                                 } catch (IllegalArgumentException exp) {
 
                                 }

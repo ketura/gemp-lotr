@@ -24,7 +24,7 @@ public class ServerManagement {
     private static void addLeague(DbAccess dbAccess) throws IOException, SQLException {
         LeagueDAO leagueDao = new LeagueDAO(dbAccess);
         DefaultCardCollection collection = new DefaultCardCollection();
-        collection.addPacks("FotR - League Starter", 1);
+        collection.addItem("FotR - League Starter", 1);
 
         leagueDao.addLeague("Test league", "league_test", collection, 20111122, 20121123);
     }

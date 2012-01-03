@@ -137,23 +137,15 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public void addCards(String blueprintId, int count) {
-        Integer oldCount = _counts.get(blueprintId);
+    public void addItem(String itemId, int count) {
+        Integer oldCount = _counts.get(itemId);
         if (oldCount == null)
             oldCount = 0;
-        _counts.put(blueprintId, oldCount + count);
+        _counts.put(itemId, oldCount + count);
     }
 
     @Override
-    public void addPacks(String packId, int count) {
-        Integer oldCount = _counts.get(packId);
-        if (oldCount == null)
-            oldCount = 0;
-        _counts.put(packId, oldCount + count);
-    }
-
-    @Override
-    public synchronized List<Item> openPack(String packId, PacksStorage packsStorage) {
+    public synchronized CardCollection openPack(String packId, PacksStorage packsStorage) {
         Integer count = _counts.get(packId);
         if (count == null)
             return null;
@@ -162,20 +154,19 @@ public class DefaultCardCollection implements MutableCardCollection {
             if (packContents == null)
                 return null;
 
+            DefaultCardCollection packCollection = new DefaultCardCollection();
+
             for (Item itemFromPack : packContents) {
-                if (itemFromPack.getType() == Item.Type.PACK) {
-                    addPacks(itemFromPack.getBlueprintId(), itemFromPack.getCount());
-                } else {
-                    String cardBlueprintId = itemFromPack.getBlueprintId();
-                    addCards(cardBlueprintId, itemFromPack.getCount());
-                }
+                addItem(itemFromPack.getBlueprintId(), itemFromPack.getCount());
+                packCollection.addItem(itemFromPack.getBlueprintId(), itemFromPack.getCount());
             }
+
             if (count == 1)
                 _counts.remove(packId);
             else
                 _counts.put(packId, count - 1);
 
-            return packContents;
+            return packCollection;
         }
         return null;
     }

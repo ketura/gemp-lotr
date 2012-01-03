@@ -5,7 +5,10 @@ import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.MutableCardCollection;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
 import com.sun.jersey.spi.resource.Singleton;
 
@@ -72,7 +75,7 @@ public class AdminResource extends AbstractResource {
         DefaultCardCollection collection = new DefaultCardCollection();
         List<String> packs = getItems(packCollection);
         for (String pack : packs)
-            collection.addPacks(pack, 1);
+            collection.addItem(pack, 1);
 
         _leagueDao.addLeague(name, type, collection, start, end);
 
@@ -111,23 +114,23 @@ public class AdminResource extends AbstractResource {
         if (league == null)
             throw new WebApplicationException(Response.Status.NOT_FOUND);
 
-        List<CardCollection.Item> items = new LinkedList<CardCollection.Item>();
+        DefaultCardCollection items = new DefaultCardCollection();
 
         List<String> packs = getItems(packProduct);
         List<String> cards = getItems(cardProduct);
 
         for (String pack : packs)
-            items.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, pack));
+            items.addItem(pack, 1);
         for (String card : cards)
-            items.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card));
+            items.addItem(card, 1);
 
         if (skipBaseCollection == null || !skipBaseCollection.equals("true")) {
             MutableCardCollection baseCollection = league.getBaseCollection();
 
             for (String pack : packs)
-                baseCollection.addPacks(pack, 1);
+                baseCollection.addItem(pack, 1);
             for (String card : cards)
-                baseCollection.addCards(card, 1);
+                baseCollection.addItem(card, 1);
             _leagueDao.setBaseCollectionForLeague(league, baseCollection);
         }
 
@@ -136,9 +139,9 @@ public class AdminResource extends AbstractResource {
             int playerId = playerCollection.getKey();
             MutableCardCollection collection = playerCollection.getValue();
             for (String pack : packs)
-                collection.addPacks(pack, 1);
+                collection.addItem(pack, 1);
             for (String card : cards)
-                collection.addCards(card, 1);
+                collection.addItem(card, 1);
             Player player = _playerDao.getPlayer(playerId);
             _collectionDao.setCollectionForPlayer(player, leagueType, collection);
             _deliveryService.addPackage(player, leagueType, items);
@@ -157,15 +160,15 @@ public class AdminResource extends AbstractResource {
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        List<CardCollection.Item> items = new LinkedList<CardCollection.Item>();
+        DefaultCardCollection items = new DefaultCardCollection();
 
         List<String> packs = getItems(packProduct);
         List<String> cards = getItems(cardProduct);
 
         for (String pack : packs)
-            items.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, pack));
+            items.addItem(pack, 1);
         for (String card : cards)
-            items.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card));
+            items.addItem(card, 1);
 
         List<String> playerNames = getItems(players);
 
@@ -174,9 +177,9 @@ public class AdminResource extends AbstractResource {
 
             MutableCardCollection collection = getPlayerCollection(player, collectionType);
             for (String pack : packs)
-                collection.addPacks(pack, 1);
+                collection.addItem(pack, 1);
             for (String card : cards)
-                collection.addCards(card, 1);
+                collection.addItem(card, 1);
             _collectionDao.setCollectionForPlayer(player, collectionType, collection);
             _deliveryService.addPackage(player, collectionType, items);
         }

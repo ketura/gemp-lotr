@@ -3,7 +3,6 @@ package com.gempukku.lotro.collection;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -11,17 +10,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
+import static junit.framework.Assert.assertEquals;
+
 public class CollectionSerializerTest {
     @Test
     public void testSerializeDeserialize() throws IOException {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
         DefaultCardCollection collection = new DefaultCardCollection();
-        collection.addCards("1_1", 2);
-        collection.addCards("1_231T", 3);
-        collection.addCards("1_23*", 3);
-        collection.addCards("1_237T*", 3);
-        collection.addPacks("FotR - Booster", 2);
+        collection.addItem("1_1", 2);
+        collection.addItem("1_231T", 3);
+        collection.addItem("1_23*", 3);
+        collection.addItem("1_237T*", 3);
+        collection.addItem("FotR - Booster", 2);
 
         CollectionSerializer serializer = new CollectionSerializer();
 
@@ -46,7 +47,7 @@ public class CollectionSerializerTest {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
         DefaultCardCollection collection = new DefaultCardCollection();
-        collection.addPacks("FotR - Booster", 8);
+        collection.addItem("FotR - Booster", 8);
 
         CollectionSerializer serializer = new CollectionSerializer();
 

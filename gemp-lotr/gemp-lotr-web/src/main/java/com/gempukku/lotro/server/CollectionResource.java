@@ -151,7 +151,7 @@ public class CollectionResource extends AbstractResource {
 
         MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
 
-        List<CardCollection.Item> packContents = modifiableColleciton.openPack(packId, _packStorage);
+        CardCollection packContents = modifiableColleciton.openPack(packId, _packStorage);
         _deliveryService.addPackage(resourceOwner, collectionType, packContents);
 
         if (packContents == null)
@@ -167,7 +167,7 @@ public class CollectionResource extends AbstractResource {
         Element collectionElem = doc.createElement("pack");
         doc.appendChild(collectionElem);
 
-        for (CardCollection.Item item : packContents) {
+        for (CardCollection.Item item : packContents.getItems(null, _library)) {
             String blueprintId = item.getBlueprintId();
             if (item.getType() == CardCollection.Item.Type.CARD) {
                 Element card = doc.createElement("card");
