@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -68,16 +69,16 @@ public class AdminResource extends AbstractResource {
             @FormParam("type") String type,
             @FormParam("start") int start,
             @FormParam("end") int end,
-            @FormParam("packCollection") String packCollection,
+            @FormParam("product") String product,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        DefaultCardCollection collection = new DefaultCardCollection();
-        List<String> packs = getItems(packCollection);
-        for (String pack : packs)
-            collection.addItem(pack, 1);
+        DefaultCardCollection leagueCollection = new DefaultCardCollection();
+        Map<String, Integer> productItems = getProductItems(product);
+        for (Map.Entry<String, Integer> productItem : productItems.entrySet())
+            leagueCollection.addItem(productItem.getKey(), productItem.getValue());
 
-        _leagueDao.addLeague(name, type, collection, start, end);
+        _leagueDao.addLeague(name, type, leagueCollection, start, end);
 
         return "OK";
     }
@@ -104,8 +105,7 @@ public class AdminResource extends AbstractResource {
     @POST
     public String addLeagueProduct(
             @FormParam("leagueType") String leagueType,
-            @FormParam("packProduct") String packProduct,
-            @FormParam("cardProduct") String cardProduct,
+            @FormParam("product") String product,
             @FormParam("skipBaseCollection") String skipBaseCollection,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
@@ -116,21 +116,15 @@ public class AdminResource extends AbstractResource {
 
         DefaultCardCollection items = new DefaultCardCollection();
 
-        List<String> packs = getItems(packProduct);
-        List<String> cards = getItems(cardProduct);
-
-        for (String pack : packs)
-            items.addItem(pack, 1);
-        for (String card : cards)
-            items.addItem(card, 1);
+        Map<String, Integer> productItems = getProductItems(product);
+        for (Map.Entry<String, Integer> productItem : productItems.entrySet())
+            items.addItem(productItem.getKey(), productItem.getValue());
 
         if (skipBaseCollection == null || !skipBaseCollection.equals("true")) {
             MutableCardCollection baseCollection = league.getBaseCollection();
 
-            for (String pack : packs)
-                baseCollection.addItem(pack, 1);
-            for (String card : cards)
-                baseCollection.addItem(card, 1);
+            for (Map.Entry<String, Integer> productItem : productItems.entrySet())
+                baseCollection.addItem(productItem.getKey(), productItem.getValue());
             _leagueDao.setBaseCollectionForLeague(league, baseCollection);
         }
 
@@ -138,10 +132,8 @@ public class AdminResource extends AbstractResource {
         for (Map.Entry<Integer, MutableCardCollection> playerCollection : playerCollections.entrySet()) {
             int playerId = playerCollection.getKey();
             MutableCardCollection collection = playerCollection.getValue();
-            for (String pack : packs)
-                collection.addItem(pack, 1);
-            for (String card : cards)
-                collection.addItem(card, 1);
+            for (Map.Entry<String, Integer> productItem : productItems.entrySet())
+                collection.addItem(productItem.getKey(), productItem.getValue());
             Player player = _playerDao.getPlayer(playerId);
             _collectionDao.setCollectionForPlayer(player, leagueType, collection);
             _deliveryService.addPackage(player, leagueType, items);
@@ -154,21 +146,16 @@ public class AdminResource extends AbstractResource {
     @POST
     public String addItems(
             @FormParam("collectionType") String collectionType,
-            @FormParam("packProduct") String packProduct,
-            @FormParam("cardProduct") String cardProduct,
+            @FormParam("product") String product,
             @FormParam("players") String players,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
         DefaultCardCollection items = new DefaultCardCollection();
 
-        List<String> packs = getItems(packProduct);
-        List<String> cards = getItems(cardProduct);
-
-        for (String pack : packs)
-            items.addItem(pack, 1);
-        for (String card : cards)
-            items.addItem(card, 1);
+        Map<String, Integer> productItems = getProductItems(product);
+        for (Map.Entry<String, Integer> productItem : productItems.entrySet())
+            items.addItem(productItem.getKey(), productItem.getValue());
 
         List<String> playerNames = getItems(players);
 
@@ -176,10 +163,8 @@ public class AdminResource extends AbstractResource {
             Player player = _playerDao.getPlayer(playerName);
 
             MutableCardCollection collection = getPlayerCollection(player, collectionType);
-            for (String pack : packs)
-                collection.addItem(pack, 1);
-            for (String card : cards)
-                collection.addItem(card, 1);
+            for (Map.Entry<String, Integer> productItem : productItems.entrySet())
+                collection.addItem(productItem.getKey(), productItem.getValue());
             _collectionDao.setCollectionForPlayer(player, collectionType, collection);
             _deliveryService.addPackage(player, collectionType, items);
         }
@@ -200,6 +185,20 @@ public class AdminResource extends AbstractResource {
             String blueprint = pack.trim();
             if (blueprint.length() > 0)
                 result.add(blueprint);
+        }
+        return result;
+    }
+
+    private Map<String, Integer> getProductItems(String values) {
+        Map<String, Integer> result = new HashMap<String, Integer>();
+        for (String item : values.split("\n")) {
+            item = item.trim();
+            if (item.length() > 0) {
+                final String[] itemSplit = item.split("x", 2);
+                if (itemSplit.length != 2)
+                    throw new RuntimeException("Unable to parse the items");
+                result.put(itemSplit[1].trim(), Integer.parseInt(itemSplit[0].trim()));
+            }
         }
         return result;
     }
