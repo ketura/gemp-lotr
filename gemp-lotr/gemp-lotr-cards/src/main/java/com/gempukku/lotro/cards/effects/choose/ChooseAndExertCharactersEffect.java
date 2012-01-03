@@ -58,11 +58,11 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     public boolean wasSuccessful() {
-        return _resultSubAction != null && _resultSubAction.wasSuccessful();
+        return super.wasSuccessful() && _resultSubAction != null && _resultSubAction.wasSuccessful();
     }
 
     @Override
     public boolean wasCarriedOut() {
-        return _resultSubAction != null && _resultSubAction.wasCarriedOut();
+        return super.wasCarriedOut() && _resultSubAction != null && _resultSubAction.wasCarriedOut();
     }
 }

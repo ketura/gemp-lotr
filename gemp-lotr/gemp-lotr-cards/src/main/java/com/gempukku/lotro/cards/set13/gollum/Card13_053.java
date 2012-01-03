@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemovePlayedEventFromGameEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCardsFromDiscardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -50,7 +50,7 @@ public class Card13_053 extends AbstractEvent {
                 && PlayConditions.canRemoveFromDiscardToPlay(self, game, playerId, 4, Culture.GOLLUM)) {
             final PlayEventAction action = getPlayCardAction(playerId, game, self, 0, false);
             action.appendCost(
-                    new ChooseAndRemoveCardsFromDiscardEffect(action, self, playerId, 4, 4, Culture.GOLLUM));
+                    new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, self, playerId, 4, 4, Culture.GOLLUM));
             action.appendEffect(
                     new RemovePlayedEventFromGameEffect(action));
             return Collections.singletonList(action);

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set13.gollum;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCardsFromDiscardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -75,7 +75,7 @@ public class Card13_050 extends AbstractMinion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCardsFromDiscardEffect(action, self, playerId, 1, 1, Filters.name("Deagol")));
+                    new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, self, playerId, 1, 1, Filters.name("Deagol")));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, self));
             return Collections.singletonList(action);
