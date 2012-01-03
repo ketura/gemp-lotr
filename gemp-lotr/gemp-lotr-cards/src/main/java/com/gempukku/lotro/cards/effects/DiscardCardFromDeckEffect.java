@@ -36,9 +36,9 @@ public class DiscardCardFromDeckEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(GameUtils.getCardLink(_card) + " gets discarded from deck");
             gameState.removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             gameState.addCardToZone(game, _card, Zone.DISCARD);
+            gameState.sendMessage(GameUtils.getCardLink(_card) + " gets discarded from deck");
             return new FullEffectResult(true, true);
         }
         return new FullEffectResult(false, false);
