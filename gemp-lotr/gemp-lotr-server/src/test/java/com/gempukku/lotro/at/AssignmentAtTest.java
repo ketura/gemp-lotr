@@ -168,6 +168,9 @@ public class AssignmentAtTest extends AbstractAtTest {
         assertEquals(pippin, assignmentsAfterFreePlayer.get(1).getFellowshipCharacter());
         assertEquals(1, assignmentsAfterFreePlayer.get(1).getShadowCharacters().size());
         assertTrue(assignmentsAfterFreePlayer.get(1).getShadowCharacters().contains(urukHaiRaidingParty2));
+
+        AwaitingDecision skirmishChoice = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_SELECTION, skirmishChoice.getDecisionType());
     }
 
     @Test
@@ -231,5 +234,8 @@ public class AssignmentAtTest extends AbstractAtTest {
         assertEquals(2, assignmentsAfterFreePlayer.get(0).getShadowCharacters().size());
         assertTrue(assignmentsAfterFreePlayer.get(0).getShadowCharacters().contains(urukHaiRaidingParty1));
         assertTrue(assignmentsAfterFreePlayer.get(0).getShadowCharacters().contains(urukHaiRaidingParty2));
+
+        AwaitingDecision skirmishChoice = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_SELECTION, skirmishChoice.getDecisionType());
     }
 }
