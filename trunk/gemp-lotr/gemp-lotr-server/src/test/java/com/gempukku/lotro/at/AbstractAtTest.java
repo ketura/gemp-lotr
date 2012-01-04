@@ -2,6 +2,7 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.game.DefaultUserFeedback;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.formats.MovieFormat;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -81,6 +82,13 @@ public abstract class AbstractAtTest {
         }
     }
 
+    protected String[] toCardIdArray(PhysicalCard... cards) {
+        String[] result = new String[cards.length];
+        for (int i = 0; i < cards.length; i++)
+            result[i] = String.valueOf(cards[i].getCardId());
+        return result;
+    }
+
     protected String getArbitraryCardId(AwaitingDecision awaitingDecision, String blueprintId) {
         String[] blueprints = (String[]) awaitingDecision.getDecisionParameters().get("blueprintId");
         for (int i = 0; i < blueprints.length; i++)
@@ -119,7 +127,12 @@ public abstract class AbstractAtTest {
     protected void playerDecided(String player, String answer) throws DecisionResultInvalidException {
         AwaitingDecision decision = _userFeedback.getAwaitingDecision(player);
         _userFeedback.participantDecided(player);
-        decision.decisionMade(answer);
+        try {
+            decision.decisionMade(answer);
+        } catch (DecisionResultInvalidException exp) {
+            _userFeedback.sendAwaitingDecision(player, decision);
+            throw exp;
+        }
         _game.carryOutPendingActionsUntilDecisionNeeded();
     }
 
