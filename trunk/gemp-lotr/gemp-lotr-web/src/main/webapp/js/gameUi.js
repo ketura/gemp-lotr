@@ -1143,23 +1143,44 @@ var GempLotrGameUI = Class.extend({
 
         var results = this.getDecisionParameters(decision, "results");
 
-        var html = text + "<br /><select id='multipleChoiceDecision' selectedIndex='0'>";
-        for (var i = 0; i < results.length; i++)
-            html += "<option value='" + i + "'>" + results[i] + "</option>";
-        html += "</select>";
-
         var that = this;
         this.smallDialog
-                .html(html);
+                .html(text);
 
-        if (!this.replayMode) {
-            this.smallDialog.dialog("option", "buttons",
-                    {
-                        "OK": function() {
-                            $(this).dialog("close");
-                            that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                        }
-                    });
+        if (results.length > 2) {
+            var html = "<br /><select id='multipleChoiceDecision' selectedIndex='0'>";
+            for (var i = 0; i < results.length; i++)
+                html += "<option value='" + i + "'>" + results[i] + "</option>";
+            html += "</select>";
+            this.smallDialog.append(html);
+
+            if (!this.replayMode) {
+                this.smallDialog.dialog("option", "buttons",
+                        {
+                            "OK": function() {
+                                $(this).dialog("close");
+                                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                            }
+                        });
+            }
+        } else {
+            for (var i = 0; i < results.length; i++) {
+                this.smallDialog.append("<br />");
+                var but = $("<button></button>").button();
+                but.html(results[i]);
+                if (!this.replayMode) {
+                    but.click(
+                            (function(ind) {
+                                return function() {
+                                    $(this).dialog("close");
+                                    that.decisionFunction(id, "" + ind);
+                                }
+                            })(i));
+                }
+                this.smallDialog.append(but);
+            }
+            if (!this.replayMode)
+                this.smallDialog.dialog("option", "buttons", {});
         }
 
         this.smallDialog.dialog("open");
