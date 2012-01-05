@@ -35,7 +35,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
     @Override
     protected Filter getExtraFilterForPlayabilityCheck(LotroGame game) {
         return Filters.and(
-                Filters.hasWounds(_count),
+                Filters.wounded,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
