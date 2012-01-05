@@ -6,12 +6,12 @@ import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -52,20 +52,14 @@ public class Card5_056 extends AbstractMinion {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CantTakeWoundsModifier(self,
-                        new Condition() {
-                            @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
-                            }
-                        },
-                        Filters.and(
-                                self,
-                                new Filter() {
+                        new AndCondition(
+                                new PhaseCondition(Phase.ARCHERY),
+                                new Condition() {
                                     @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return gameState.getCurrentPhase() == Phase.ARCHERY;
+                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                        return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                                     }
-                                })));
+                                }), self));
         modifiers.add(
                 new CantBeAssignedToSkirmishModifier(self,
                         new Condition() {

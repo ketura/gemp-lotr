@@ -8,6 +8,8 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffe
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -51,12 +53,14 @@ public class Card4_173 extends AbstractMinion {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CantTakeWoundsModifier(self,
-                        new Condition() {
-                            @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentPhase() == Phase.ARCHERY && !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
-                            }
-                        }, self));
+                        new AndCondition(
+                                new PhaseCondition(Phase.ARCHERY),
+                                new Condition() {
+                                    @Override
+                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                        return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                                    }
+                                }), self));
         modifiers.add(
                 new CantBeAssignedToSkirmishModifier(self,
                         new Condition() {

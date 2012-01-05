@@ -1,14 +1,15 @@
 package com.gempukku.lotro.cards.set12.men;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.modifiers.conditions.FierceSkirmishCondition;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
@@ -32,12 +33,7 @@ public class Card12_060 extends AbstractMinion {
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return gameState.getCurrentPhase() == Phase.SKIRMISH && gameState.isFierceSkirmishes();
-                    }
-                },
+                new FierceSkirmishCondition(),
                 new CardMatchesEvaluator(7, 10, Filters.inSkirmishAgainst(CardType.COMPANION, Filters.maxResistance(4))));
     }
 }

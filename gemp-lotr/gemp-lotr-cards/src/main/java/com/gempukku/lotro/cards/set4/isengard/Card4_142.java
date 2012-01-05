@@ -2,14 +2,13 @@ package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.LinkedList;
@@ -40,13 +39,7 @@ public class Card4_142 extends AbstractAttachable {
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), 2));
         modifiers.add(
-                new CantTakeWoundsModifier(self,
-                        new Condition() {
-                            @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentPhase() != Phase.SKIRMISH;
-                            }
-                        }, Filters.hasAttached(self)));
+                new CantTakeWoundsModifier(self, new NotCondition(new PhaseCondition(Phase.SKIRMISH)), Filters.hasAttached(self)));
         return modifiers;
     }
 }

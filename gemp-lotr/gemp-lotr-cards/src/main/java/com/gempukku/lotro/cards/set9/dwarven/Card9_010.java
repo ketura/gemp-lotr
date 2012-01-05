@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set9.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,11 +35,10 @@ public class Card9_010 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(final LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, null, Filters.and(Culture.DWARVEN, CardType.EVENT, Keyword.SKIRMISH, Filters.stackedOn(Culture.DWARVEN, CardType.CONDITION)), ModifierEffect.EXTRA_ACTION_MODIFIER) {
+                new AbstractModifier(self, null, Filters.and(Culture.DWARVEN, CardType.EVENT, Keyword.SKIRMISH, Filters.stackedOn(Culture.DWARVEN, CardType.CONDITION)), new PhaseCondition(Phase.SKIRMISH), ModifierEffect.EXTRA_ACTION_MODIFIER) {
                     @Override
                     public List<? extends Action> getExtraPhaseActionFromStacked(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-                        if (card.getBlueprint().checkPlayRequirements(card.getOwner(), game, card, 0, 0, false, false)
-                                && gameState.getCurrentPhase() == Phase.SKIRMISH)
+                        if (card.getBlueprint().checkPlayRequirements(card.getOwner(), game, card, 0, 0, false, false))
                             return Collections.singletonList(
                                     card.getBlueprint().getPlayCardAction(card.getOwner(), game, card, 0, false));
                         return null;
