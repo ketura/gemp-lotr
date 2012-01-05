@@ -57,8 +57,6 @@ public class Card4_147 extends AbstractPermanent {
                     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
                         if (!performingPlayer.equals(gameState.getCurrentPlayerId()))
                             return true;
-                        if (gameState.getCurrentPhase() != Phase.ARCHERY)
-                            return true;
                         if (action.getActionTimeword() == Phase.ARCHERY)
                             return false;
 

@@ -5,16 +5,14 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.FierceSkirmishCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Collections;
@@ -38,12 +36,7 @@ public class Card12_116 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new CantTakeWoundsModifier(self, new Condition() {
-            @Override
-            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                return gameState.getCurrentPhase() == Phase.SKIRMISH && gameState.isFierceSkirmishes();
-            }
-        }, self);
+        return new CantTakeWoundsModifier(self, new FierceSkirmishCondition(), self);
     }
 
     @Override
