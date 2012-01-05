@@ -102,6 +102,17 @@ public class AssignmentAtTest extends AbstractAtTest {
         AwaitingDecision chooseCompanion = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_SELECTION, chooseCompanion.getDecisionType());
         validateContents(new String[]{String.valueOf(merry.getCardId()), String.valueOf(pippin.getCardId())}, (String[]) chooseCompanion.getDecisionParameters().get("cardId"));
+        playerDecided(P2, String.valueOf(merry.getCardId()));
+
+        AwaitingDecision preventDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.MULTIPLE_CHOICE, preventDecision.getDecisionType());
+        playerDecided(P1, "1");
+
+        final List<Assignment> assignments = _game.getGameState().getAssignments();
+        assertEquals(1, assignments.size());
+        assertEquals(merry, assignments.get(0).getFellowshipCharacter());
+        assertEquals(1, assignments.get(0).getShadowCharacters().size());
+        assertTrue(assignments.get(0).getShadowCharacters().contains(urukHaiRaidingParty));
     }
 
     @Test
