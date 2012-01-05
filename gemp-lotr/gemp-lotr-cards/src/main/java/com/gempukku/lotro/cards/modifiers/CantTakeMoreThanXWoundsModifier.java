@@ -32,7 +32,7 @@ public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canTakeWound(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int woundsAlreadyTaken) {
-        return woundsAlreadyTaken < _count;
+    public boolean canTakeWounds(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int woundsAlreadyTaken, int woundsToTake) {
+        return woundsAlreadyTaken + woundsToTake <= _count;
     }
 }
