@@ -45,7 +45,7 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
         SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++) {
             PhysicalCard source = (_action.getActionSource() != null) ? _action.getActionSource() : null;
-            WoundCharactersEffect woundEffect = new WoundCharactersEffect(source, Filters.in(cards));
+            WoundCharactersEffect woundEffect = new WoundCharactersEffect(source, cards.toArray(new PhysicalCard[cards.size()]));
             if (_sourceText != null)
                 woundEffect.setSourceText(_sourceText);
             subAction.appendEffect(woundEffect);
