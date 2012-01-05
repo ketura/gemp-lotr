@@ -339,7 +339,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWound(gameState, physicalCard) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
+                return modifiersQuerying.canTakeWounds(gameState, physicalCard, count) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
             }
         };
     }

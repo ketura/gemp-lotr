@@ -215,7 +215,7 @@ public class PlayConditions {
                     public boolean visitPhysicalCard(PhysicalCard physicalCard) {
                         if (filter.accepts(gameState, modifiersQuerying, physicalCard)
                                 && modifiersQuerying.getVitality(gameState, physicalCard) > times
-                                && modifiersQuerying.canTakeWound(gameState, physicalCard))
+                                && modifiersQuerying.canTakeWounds(gameState, physicalCard, times))
                             _woundableCount++;
                         return _woundableCount >= count;
                     }

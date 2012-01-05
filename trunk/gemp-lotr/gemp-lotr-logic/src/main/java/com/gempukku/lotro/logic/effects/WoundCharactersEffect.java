@@ -54,7 +54,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWound(gameState, physicalCard);
+                return modifiersQuerying.canTakeWounds(gameState, physicalCard, 1);
             }
         };
     }
