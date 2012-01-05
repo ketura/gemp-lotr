@@ -93,6 +93,7 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         AwaitingDecision assignmentActions = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, assignmentActions.getDecisionType());
+        validateContents(toCardIdArray(saruman), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
         playerDecided(P2, "0");
 
         AwaitingDecision chooseMinion = _userFeedback.getAwaitingDecision(P2);
@@ -113,6 +114,16 @@ public class AssignmentAtTest extends AbstractAtTest {
         assertEquals(merry, assignments.get(0).getFellowshipCharacter());
         assertEquals(1, assignments.get(0).getShadowCharacters().size());
         assertTrue(assignments.get(0).getShadowCharacters().contains(urukHaiRaidingParty));
+
+        playerDecided(P1, "");
+
+        AwaitingDecision assignmentActions2 = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, assignmentActions2.getDecisionType());
+        validateContents(toCardIdArray(saruman), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
+        playerDecided(P2, "0");
+
+        // This effect fails, as there is no assignable minion anymore
+        assertNull(_userFeedback.getAwaitingDecision(P2));
     }
 
     @Test
