@@ -47,11 +47,11 @@ public class Card7_071 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
-                && PlayConditions.canCardAssignToSkirmish(self, game, self)
+                && Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, CardType.MINION).accepts(game.getGameState(), game.getModifiersQuerying(), self)
                 && PlayConditions.canAddThreat(game, self, 2)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose minion to assign to Smeagol", CardType.MINION, Filters.canBeAssignedToSkirmishByEffectAgainst(Side.FREE_PEOPLE, self)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose minion to assign to Smeagol", CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, self)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertCost(

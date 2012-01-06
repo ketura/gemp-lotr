@@ -37,9 +37,8 @@ public class Card8_067 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Culture.WRAITH, CardType.MINION, Keyword.ENDURING) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        if (Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), character))
-                            action.appendEffect(
-                                    new ChooseAndAssignCharacterToMinionEffect(action, playerId, character, Filters.unboundCompanion));
+                        action.appendEffect(
+                                new ChooseAndAssignCharacterToMinionEffect(action, playerId, character, Filters.unboundCompanion));
                     }
                 });
 

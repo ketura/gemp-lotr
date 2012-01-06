@@ -19,9 +19,9 @@ public class FreePeoplePlayerMayNotAssignCharacterModifier extends AbstractModif
     }
 
     @Override
-    public boolean canBeAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public boolean isPreventedFromBeingAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         if (sidePlayer == Side.FREE_PEOPLE)
-            return false;
-        return true;
+            return true;
+        return false;
     }
 }

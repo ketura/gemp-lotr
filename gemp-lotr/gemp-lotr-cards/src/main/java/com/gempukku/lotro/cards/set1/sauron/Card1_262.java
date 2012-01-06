@@ -41,8 +41,7 @@ public class Card1_262 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-                && PlayConditions.canSpot(game, 2, Race.HOBBIT, CardType.COMPANION)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), self, Filters.notAssignedToSkirmish, Filters.canBeAssignedToSkirmish(Side.SHADOW))) {
+                && PlayConditions.canSpot(game, 2, Race.HOBBIT, CardType.COMPANION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndAssignCharacterToMinionEffect(action, game.getGameState().getCurrentPlayerId(), self, Race.HOBBIT));

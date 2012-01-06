@@ -34,8 +34,7 @@ public class Card10_063 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-                && PlayConditions.canBeAssignedToSkirmishByEffect(self, game, self)) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, Filters.unboundCompanion, Filters.hasAttached(PossessionClass.HAND_WEAPON)));

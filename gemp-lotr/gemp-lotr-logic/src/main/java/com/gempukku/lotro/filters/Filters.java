@@ -10,7 +10,6 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.RuleUtils;
 
 import java.util.*;
 
@@ -208,79 +207,86 @@ public class Filters {
         };
     }
 
-    public static Filter canBeAssignedToSkirmishByEffect(final Side sidePlayer) {
-        return canBeAssignedToSkirmishByEffect(sidePlayer, false);
+    public static Filter assignableToSkirmishAgainst(final Side assignedBySide, final Filterable againstFilter) {
+        return assignableToSkirmishAgainst(assignedBySide, againstFilter, false, false);
     }
 
-    public static Filter canBeAssignedToSkirmishByEffect(final Side sidePlayer, boolean skipAllyLocationCheck) {
+    public static Filter assignableToSkirmishAgainst(final Side assignedBySide, final Filterable againstFilter, final boolean ignoreUnassigned, final boolean allowAllyToSkirmish) {
         return Filters.and(
-                notAssignedToSkirmish,
-                Filters.or(
-                        Filters.not(CardType.MINION),
-                        Filters.or(
-                                new Filter() {
-                                    @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return !gameState.isFierceSkirmishes();
-                                    }
-                                }, Keyword.FIERCE)),
-                Filters.or(
-                        CardType.MINION,
-                        RuleUtils.getSkirmishAssignableFPCharacterFilter(sidePlayer, skipAllyLocationCheck)));
-    }
-
-    public static Filter canBeAssignedToSkirmishByEffectIgnoreNotAssigned(final Side sidePlayer) {
-        return Filters.and(
-                Filters.or(
-                        Filters.not(CardType.MINION),
-                        Filters.or(
-                                new Filter() {
-                                    @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return !gameState.isFierceSkirmishes();
-                                    }
-                                }, Keyword.FIERCE)),
+                assignableToSkirmish(assignedBySide, ignoreUnassigned, allowAllyToSkirmish),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeAssignedToSkirmish(gameState, sidePlayer, physicalCard);
+                        Map<PhysicalCard, Set<PhysicalCard>> currentAssignments = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+                        for (Assignment assignment : gameState.getAssignments())
+                            currentAssignments.put(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
+
+                        for (PhysicalCard card : Filters.filterActive(gameState, modifiersQuerying, againstFilter)) {
+                            if (card.getBlueprint().getSide() != physicalCard.getBlueprint().getSide()
+                                    && Filters.assignableToSkirmish(assignedBySide, ignoreUnassigned, allowAllyToSkirmish).accepts(gameState, modifiersQuerying, card)) {
+                                Map<PhysicalCard, Set<PhysicalCard>> afterThatAssignment = new HashMap<PhysicalCard, Set<PhysicalCard>>(currentAssignments);
+                                if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
+                                    if (afterThatAssignment.containsKey(card))
+                                        afterThatAssignment.get(card).add(physicalCard);
+                                    else
+                                        afterThatAssignment.put(card, Collections.singleton(physicalCard));
+                                } else {
+                                    if (afterThatAssignment.containsKey(physicalCard))
+                                        afterThatAssignment.get(physicalCard).add(card);
+                                    else
+                                        afterThatAssignment.put(physicalCard, Collections.singleton(card));
+                                }
+                                if (modifiersQuerying.isValidAssignments(gameState, assignedBySide, afterThatAssignment))
+                                    return true;
+                            }
+                        }
+
+                        return false;
                     }
                 });
     }
 
-    public static Filter canBeAssignedToSkirmish(final Side sidePlayer) {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                if (physicalCard.getBlueprint().getSide() == Side.SHADOW) {
-                    for (Assignment assignment : gameState.getAssignments()) {
-                        if (assignment.getFellowshipCharacter() == physicalCard
-                                || assignment.getShadowCharacters().contains(physicalCard))
-                            return false;
-                    }
-                }
-                return modifiersQuerying.canBeAssignedToSkirmish(gameState, sidePlayer, physicalCard);
-            }
-        };
-    }
+    public static Filter assignableToSkirmish(final Side assignedBySide, final boolean ignoreUnassigned, final boolean allowAllyToSkirmish) {
+        Filter assignableFilter = Filters.or(
+                Filters.and(
+                        CardType.ALLY,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                if (allowAllyToSkirmish)
+                                    return true;
+                                boolean allowedToSkirmish = modifiersQuerying.isAllyAllowedToParticipateInSkirmishes(gameState, assignedBySide, physicalCard);
+                                if (allowedToSkirmish)
+                                    return true;
+                                boolean preventedByCard = modifiersQuerying.isAllyPreventedFromParticipatingInSkirmishes(gameState, assignedBySide, physicalCard);
+                                if (preventedByCard)
+                                    return false;
+                                return physicalCard.getBlueprint().isAllyAtHome(gameState.getCurrentSiteNumber(), gameState.getCurrentSiteBlock());
+                            }
+                        }),
+                Filters.and(
+                        CardType.COMPANION,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return assignedBySide == Side.SHADOW || !modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.UNHASTY)
+                                        || modifiersQuerying.isUnhastyCompanionAllowedToParticipateInSkirmishes(gameState, physicalCard);
+                            }
+                        }),
+                Filters.and(
+                        CardType.MINION));
 
-    public static Filter canBeAssignedToSkirmishByEffectAgainst(final Side sidePlayer, final PhysicalCard against) {
-        return canBeAssignedToSkirmishByEffectAgainst(sidePlayer, against, false);
-    }
-
-    public static Filter canBeAssignedToSkirmishByEffectAgainst(final Side sidePlayer, final PhysicalCard against, boolean skipAllyLocationCheck) {
         return Filters.and(
-                canBeAssignedToSkirmishByEffect(sidePlayer, skipAllyLocationCheck),
+                assignableFilter,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        if (against.getBlueprint().getSide() == physicalCard.getBlueprint().getSide())
-                            return false;
-
-                        if (against.getBlueprint().getSide() == Side.FREE_PEOPLE)
-                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(against, Collections.singleton(physicalCard)));
-                        else
-                            return modifiersQuerying.isValidAssignments(gameState, sidePlayer, Collections.singletonMap(physicalCard, Collections.singleton(against)));
+                        if (!ignoreUnassigned) {
+                            boolean notAssignedToSkirmish = Filters.notAssignedToSkirmish.accepts(gameState, modifiersQuerying, physicalCard);
+                            if (!notAssignedToSkirmish)
+                                return false;
+                        }
+                        return modifiersQuerying.canBeAssignedToSkirmish(gameState, assignedBySide, physicalCard);
                     }
                 });
     }

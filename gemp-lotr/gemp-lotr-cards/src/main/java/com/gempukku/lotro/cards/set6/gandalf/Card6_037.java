@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.ParticipatesInSkirmishesModifier;
+import com.gempukku.lotro.cards.modifiers.UnhastyCompanionParticipatesInSkirmishedModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -47,7 +47,7 @@ public class Card6_037 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ParticipatesInSkirmishesModifier(self, self), Phase.ASSIGNMENT));
+                            new UnhastyCompanionParticipatesInSkirmishedModifier(self, self), Phase.ASSIGNMENT));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)

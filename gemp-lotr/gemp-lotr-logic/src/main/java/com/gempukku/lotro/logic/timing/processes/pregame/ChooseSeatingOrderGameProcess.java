@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.*;
 
 public class ChooseSeatingOrderGameProcess implements GameProcess {
+    private String[] _choices = new String[]{"first", "second", "third", "fourth", "fifth"};
     private Map<String, Integer> _bids;
     private PlayerOrderFeedback _playerOrderFeedback;
 
@@ -44,12 +45,26 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
         checkForNextSeating(game);
     }
 
+    private int getLastEmptySeat() {
+        boolean found = false;
+        int emptySeatIndex = -1;
+        for (int i = 0; i < _orderedPlayers.length; i++) {
+            if (_orderedPlayers[i] == null) {
+                if (found)
+                    return -1;
+                found = true;
+                emptySeatIndex = i;
+            }
+        }
+        return emptySeatIndex;
+    }
+
     private void checkForNextSeating(LotroGame game) {
-        String[] emptySeats = getEmptySeatNumbers();
-        if (emptySeats.length > 1)
-            askNextPlayerToChoosePlace(game, emptySeats);
+        int lastEmptySeat = getLastEmptySeat();
+        if (lastEmptySeat == -1)
+            askNextPlayerToChoosePlace(game);
         else {
-            _orderedPlayers[Integer.parseInt(emptySeats[0]) - 1] = _biddingOrderPlayers.next();
+            _orderedPlayers[lastEmptySeat] = _biddingOrderPlayers.next();
             _playerOrderFeedback.setPlayerOrder(new PlayerOrder(Arrays.asList(_orderedPlayers)), _orderedPlayers[0]);
         }
     }
@@ -58,25 +73,24 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
         List<String> result = new LinkedList<String>();
         for (int i = 0; i < _orderedPlayers.length; i++)
             if (_orderedPlayers[i] == null)
-                result.add(String.valueOf(i + 1));
+                result.add("Go " + _choices[i]);
         return result.toArray(new String[result.size()]);
     }
 
-    private void participantHasChosenSeat(LotroGame game, String participant, int placeNo) {
-        _orderedPlayers[placeNo - 1] = participant;
+    private void participantHasChosenSeat(LotroGame game, String participant, int placeIndex) {
+        _orderedPlayers[placeIndex] = participant;
 
         checkForNextSeating(game);
     }
 
-    private void askNextPlayerToChoosePlace(final LotroGame game, String[] emptySeatNumbers) {
+    private void askNextPlayerToChoosePlace(final LotroGame game) {
         final String playerId = _biddingOrderPlayers.next();
         game.getUserFeedback().sendAwaitingDecision(playerId,
-                new MultipleChoiceAwaitingDecision(1, "Choose a seat number at the table", emptySeatNumbers) {
+                new MultipleChoiceAwaitingDecision(1, "Choose one", getEmptySeatNumbers()) {
                     @Override
                     protected void validDecisionMade(int index, String result) {
-                        int seatNo = Integer.parseInt(result);
-                        game.getGameState().sendMessage(playerId + " chosen seat number " + seatNo);
-                        participantHasChosenSeat(game, playerId, seatNo);
+                        game.getGameState().sendMessage(playerId + " has chosen to go " + _choices[index]);
+                        participantHasChosenSeat(game, playerId, index);
                     }
                 }
         );

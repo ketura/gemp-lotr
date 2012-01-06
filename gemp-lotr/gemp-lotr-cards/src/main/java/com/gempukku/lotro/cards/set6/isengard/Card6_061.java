@@ -51,8 +51,7 @@ public class Card6_061 extends AbstractAttachable {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-                && Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndAssignMinionToCompanionEffect(action, playerId, self.getAttachedTo(), Culture.ISENGARD, CardType.MINION, Filters.lessStrengthThan(self.getAttachedTo())));

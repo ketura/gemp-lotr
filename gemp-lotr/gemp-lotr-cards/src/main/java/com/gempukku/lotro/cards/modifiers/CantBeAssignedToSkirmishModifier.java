@@ -19,7 +19,7 @@ public class CantBeAssignedToSkirmishModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
+    public boolean isPreventedFromBeingAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        return true;
     }
 }

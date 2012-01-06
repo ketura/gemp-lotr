@@ -3,13 +3,12 @@ package com.gempukku.lotro.cards.set4.dunland;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignCharacterToMinionEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDoAssignmentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -37,13 +36,7 @@ public class Card4_031 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Culture.DUNLAND, Race.MAN, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, final PhysicalCard dunlandMan) {
-                            action.insertEffect(
-                                    new ChooseAndAssignCharacterToMinionEffect(action, playerId, dunlandMan, Filters.unboundCompanion));
-                        }
-                    });
+                    new ChooseAndDoAssignmentEffect(action, playerId, Filters.and(Culture.DUNLAND, Race.MAN), Filters.unboundCompanion));
             return Collections.singletonList(action);
         }
         return null;

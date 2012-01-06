@@ -2,12 +2,11 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDoAssignmentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -26,14 +25,7 @@ public class Card1_171 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose exhausted companion", CardType.COMPANION, Filters.exhausted, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
-                    @Override
-                    protected void cardSelected(LotroGame game, final PhysicalCard companion) {
-                        action.appendEffect(
-                                new ChooseAndAssignMinionToCompanionEffect(action, playerId, companion, Culture.MORIA, Race.ORC));
-                    }
-                }
-        );
+                new ChooseAndDoAssignmentEffect(action, playerId, Filters.and(Culture.MORIA, Race.ORC), Filters.and(CardType.COMPANION, Filters.exhausted, Filters.not(Filters.ringBearer))));
         return action;
     }
 
