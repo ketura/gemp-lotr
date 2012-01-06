@@ -9,11 +9,10 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import static junit.framework.Assert.*;
 import org.junit.Test;
 
 import java.util.List;
-
-import static junit.framework.Assert.*;
 
 public class AssignmentAtTest extends AbstractAtTest {
     @Test
@@ -58,7 +57,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void sarumanAssignsToCompainon() throws DecisionResultInvalidException {
+    public void sarumanAssignsToCompanion() throws DecisionResultInvalidException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -95,10 +94,6 @@ public class AssignmentAtTest extends AbstractAtTest {
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, assignmentActions.getDecisionType());
         validateContents(toCardIdArray(saruman), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
         playerDecided(P2, "0");
-
-        AwaitingDecision chooseMinion = _userFeedback.getAwaitingDecision(P2);
-        assertEquals(AwaitingDecisionType.CARD_SELECTION, chooseMinion.getDecisionType());
-        playerDecided(P2, String.valueOf(urukHaiRaidingParty.getCardId()));
 
         AwaitingDecision chooseCompanion = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_SELECTION, chooseCompanion.getDecisionType());

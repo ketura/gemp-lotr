@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
 import com.gempukku.lotro.logic.effects.AssignmentPhaseEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 import java.util.Collection;
@@ -34,38 +33,20 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     @Override
     public void process(final LotroGame game) {
         GameState gameState = game.getGameState();
-        Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId));
+        Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId), Filters.notAssignedToSkirmish);
         if (gameState.isFierceSkirmishes())
             minionFilter = Filters.and(
                     Keyword.FIERCE,
                     minionFilter);
 
-        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.SHADOW));
+        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
         if (minions.size() > 0) {
-            final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, game.getModifiersQuerying(),
-                    Filters.or(
-                            CardType.COMPANION,
+            final Collection<PhysicalCard> freePeopleTargets =
+                    Filters.filterActive(gameState, game.getModifiersQuerying(),
                             Filters.and(
-                                    CardType.ALLY,
                                     Filters.or(
-                                            Filters.and(
-                                                    Filters.allyAtHome,
-                                                    new Filter() {
-                                                        @Override
-                                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                            return !modifiersQuerying.isAllyPreventedFromParticipatingInSkirmishes(gameState, Side.SHADOW, physicalCard);
-                                                        }
-                                                    }),
-                                            new Filter() {
-                                                @Override
-                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                    return modifiersQuerying.isAllowedToParticipateInSkirmishes(gameState, Side.SHADOW, physicalCard);
-                                                }
-                                            }
-                                    )
-                            )
-                    ),
-                    Filters.canBeAssignedToSkirmish(Side.SHADOW));
+                                            CardType.COMPANION, CardType.ALLY),
+                                    Filters.assignableToSkirmish(Side.SHADOW, true, false)));
 
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {

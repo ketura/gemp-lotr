@@ -38,15 +38,14 @@ public class Card10_022 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-                && PlayConditions.canSpot(game, Filters.gollum, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW))) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Gollum", Filters.gollum, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose Gollum", Filters.gollum, Filters.assignableToSkirmishAgainst(Side.SHADOW, Filters.and(CardType.COMPANION, Filters.hasAttached(CardType.ARTIFACT)))) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard gollum) {
                             action.appendEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.hasAttached(CardType.ARTIFACT), Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, gollum)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.hasAttached(CardType.ARTIFACT), Filters.assignableToSkirmishAgainst(Side.SHADOW, gollum)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, PhysicalCard companion) {
                                             action.appendEffect(

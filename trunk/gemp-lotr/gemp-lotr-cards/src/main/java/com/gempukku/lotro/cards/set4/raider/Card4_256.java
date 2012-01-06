@@ -47,8 +47,7 @@ public class Card4_256 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-                && PlayConditions.canSpot(game, 7, CardType.COMPANION)
-                && PlayConditions.canCardAssignToSkirmish(self, game, self)) {
+                && PlayConditions.canSpot(game, 7, CardType.COMPANION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new PreventableEffect(action,

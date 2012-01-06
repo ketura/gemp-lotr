@@ -16,11 +16,12 @@ public abstract class MultipleChoiceAwaitingDecision extends AbstractAwaitingDec
         if (result == null)
             throw new DecisionResultInvalidException();
 
+        int index;
         try {
-            int index = Integer.parseInt(result);
-            validDecisionMade(index, _possibleResults[index]);
+            index = Integer.parseInt(result);
         } catch (NumberFormatException exp) {
             throw new DecisionResultInvalidException("Unkown response number");
         }
+        validDecisionMade(index, _possibleResults[index]);
     }
 }

@@ -50,27 +50,25 @@ public class Card11_108 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));
-            if (PlayConditions.canBeAssignedToSkirmishByEffect(self, game, self)) {
-                action.appendEffect(
-                        new PreventableEffect(action,
-                                new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION, Filters.hasAttached(CardType.ARTIFACT)) {
-                                    @Override
-                                    public String getText(LotroGame game) {
-                                        return "Assign the minion to a companion bearing an artifact";
-                                    }
-                                }, game.getGameState().getCurrentPlayerId(),
-                                new PreventableEffect.PreventionCost() {
-                                    @Override
-                                    public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                        return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, CardType.ARTIFACT) {
-                                            @Override
-                                            public String getText(LotroGame game) {
-                                                return "Discard an artifact from play";
-                                            }
-                                        };
-                                    }
-                                }));
-            }
+            action.appendEffect(
+                    new PreventableEffect(action,
+                            new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION, Filters.hasAttached(CardType.ARTIFACT)) {
+                                @Override
+                                public String getText(LotroGame game) {
+                                    return "Assign the minion to a companion bearing an artifact";
+                                }
+                            }, game.getGameState().getCurrentPlayerId(),
+                            new PreventableEffect.PreventionCost() {
+                                @Override
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                    return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, CardType.ARTIFACT) {
+                                        @Override
+                                        public String getText(LotroGame game) {
+                                            return "Discard an artifact from play";
+                                        }
+                                    };
+                                }
+                            }));
             return Collections.singletonList(action);
         }
         return null;

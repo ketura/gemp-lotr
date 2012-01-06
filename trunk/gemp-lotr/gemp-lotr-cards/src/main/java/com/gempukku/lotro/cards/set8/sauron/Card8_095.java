@@ -3,7 +3,10 @@ package com.gempukku.lotro.cards.set8.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignCharacterToMinionEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,8 +37,7 @@ public class Card8_095 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-                && PlayConditions.canSpot(game, Filters.or(Filters.and(Culture.SAURON, Keyword.ENGINE), Filters.siteControlled(playerId)))
-                && Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && PlayConditions.canSpot(game, Filters.or(Filters.and(Culture.SAURON, Keyword.ENGINE), Filters.siteControlled(playerId)))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, Filters.unboundCompanion));

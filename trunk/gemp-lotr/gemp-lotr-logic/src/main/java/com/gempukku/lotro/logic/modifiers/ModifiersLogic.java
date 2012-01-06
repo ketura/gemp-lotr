@@ -491,6 +491,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean isUnhastyCompanionAllowedToParticipateInSkirmishes(GameState gameState, PhysicalCard card) {
+        LoggingThreadLocal.logMethodStart(card, "isAllyAllowedToParticipateInSkirmishes");
+        try {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.PRESENCE_MODIFIER, card)) {
+                if (modifier.isUnhastyCompanionAllowedToParticipateInSkirmishes(gameState, this, card))
+                    return true;
+            }
+            return false;
+        } finally {
+            LoggingThreadLocal.logMethodEnd();
+        }
+    }
+
+    @Override
     public boolean isAllyAllowedToParticipateInArcheryFire(GameState gameState, PhysicalCard card) {
         LoggingThreadLocal.logMethodStart(card, "isAllyAllowedToParticipateInArcheryFire");
         try {
@@ -505,11 +519,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean isAllowedToParticipateInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card) {
-        LoggingThreadLocal.logMethodStart(card, "isAllowedToParticipateInSkirmishes");
+    public boolean isAllyAllowedToParticipateInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card) {
+        LoggingThreadLocal.logMethodStart(card, "isAllyAllowedToParticipateInSkirmishes");
         try {
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.PRESENCE_MODIFIER, card)) {
-                if (modifier.isParticipateInSkirmishes(gameState, sidePlayer, this, card))
+                if (modifier.isAllyParticipateInSkirmishes(gameState, sidePlayer, this, card))
                     return true;
             }
             return false;
@@ -620,7 +634,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
-
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.ASSIGNMENT_MODIFIER)) {
             if (!modifier.isValidAssignments(gameState, side, this, assignments))
                 return false;
@@ -638,7 +651,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         LoggingThreadLocal.logMethodStart(card, "canBeAssignedToSkirmish");
         try {
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.ASSIGNMENT_MODIFIER, card))
-                if (!modifier.canBeAssignedToSkirmish(gameState, sidePlayer, this, card))
+                if (modifier.isPreventedFromBeingAssignedToSkirmish(gameState, sidePlayer, this, card))
                     return false;
             return true;
         } finally {

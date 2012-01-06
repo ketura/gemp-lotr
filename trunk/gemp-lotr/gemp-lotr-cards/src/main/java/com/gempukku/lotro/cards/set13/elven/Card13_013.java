@@ -41,11 +41,11 @@ public class Card13_013 extends AbstractPermanent {
             action.appendEffect(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.canBeAssignedToSkirmishByEffect(Side.FREE_PEOPLE)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.and(Culture.ELVEN, CardType.COMPANION))) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard minion) {
                             action.insertEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose an ELVEN companion", Culture.ELVEN, CardType.COMPANION, Filters.canBeAssignedToSkirmishByEffectAgainst(Side.FREE_PEOPLE, minion)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose an ELVEN companion", Culture.ELVEN, CardType.COMPANION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, minion)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                                             action.insertEffect(

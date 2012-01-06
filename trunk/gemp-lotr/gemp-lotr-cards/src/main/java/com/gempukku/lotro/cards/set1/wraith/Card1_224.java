@@ -54,32 +54,32 @@ public class Card1_224 extends AbstractResponseOldEvent {
                             for (Assignment assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
 
-                            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) > 0) {
-                                action.appendEffect(
-                                        new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Race.NAZGUL, Filters.canBeAssignedToSkirmishByEffect(Side.SHADOW)) {
-                                            @Override
-                                            protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
-                                                PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                                action.appendEffect(
-                                                        new ChooseAndAssignMinionToCompanionEffect(action, playerId, ringBearer, Race.NAZGUL));
-                                                action.appendEffect(
-                                                        new AddUntilStartOfPhaseActionProxyEffect(
-                                                                new AbstractActionProxy() {
-                                                                    @Override
-                                                                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                                                                        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
-                                                                            RequiredTriggerAction action = new RequiredTriggerAction(self);
-                                                                            action.appendEffect(
-                                                                                    new AddUntilEndOfPhaseModifierEffect(
-                                                                                            new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));
-                                                                            return Collections.singletonList(action);
-                                                                        }
-                                                                        return null;
+                            PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
+
+                            action.appendEffect(
+                                    new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Race.NAZGUL, Filters.assignableToSkirmishAgainst(Side.SHADOW, ringBearer)) {
+                                        @Override
+                                        protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
+                                            PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
+                                            action.appendEffect(
+                                                    new ChooseAndAssignMinionToCompanionEffect(action, playerId, ringBearer, Race.NAZGUL));
+                                            action.appendEffect(
+                                                    new AddUntilStartOfPhaseActionProxyEffect(
+                                                            new AbstractActionProxy() {
+                                                                @Override
+                                                                public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                                                                    if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
+                                                                        RequiredTriggerAction action = new RequiredTriggerAction(self);
+                                                                        action.appendEffect(
+                                                                                new AddUntilEndOfPhaseModifierEffect(
+                                                                                        new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));
+                                                                        return Collections.singletonList(action);
                                                                     }
-                                                                }, Phase.SKIRMISH));
-                                            }
-                                        });
-                            }
+                                                                    return null;
+                                                                }
+                                                            }, Phase.SKIRMISH));
+                                        }
+                                    });
                         }
                     });
             return Collections.singletonList(action);

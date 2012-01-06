@@ -14,7 +14,6 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
 import com.gempukku.lotro.logic.effects.AssignmentPhaseEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
-import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.FreePlayerStartsAssigningResult;
@@ -45,9 +44,15 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                     minionFilter,
                                     Keyword.FIERCE);
 
-                        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.canBeAssignedToSkirmish(Side.FREE_PEOPLE));
+                        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false));
                         if (minions.size() > 0) {
-                            final Collection<PhysicalCard> freePeopleTargets = Filters.filterActive(gameState, game.getModifiersQuerying(), RuleUtils.getSkirmishAssignableFPCharacterFilter(Side.FREE_PEOPLE, false));
+                            final Collection<PhysicalCard> freePeopleTargets =
+                                    Filters.filterActive(gameState, game.getModifiersQuerying(),
+                                            Filters.and(
+                                                    Filters.or(
+                                                            CardType.COMPANION, CardType.ALLY),
+                                                    Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false)));
+
 
                             game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
                                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {

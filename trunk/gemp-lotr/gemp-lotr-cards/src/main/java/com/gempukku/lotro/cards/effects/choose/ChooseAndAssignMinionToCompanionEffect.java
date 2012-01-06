@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards.effects.choose;
 
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
@@ -28,9 +27,7 @@ public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffe
     @Override
     protected Filter getExtraFilterForPlaying(final LotroGame game) {
         final Side side = game.getGameState().getCurrentPlayerId().equals(_playerId) ? Side.FREE_PEOPLE : Side.SHADOW;
-        return Filters.and(
-                CardType.MINION,
-                Filters.canBeAssignedToSkirmishByEffectAgainst(side, _companion));
+        return Filters.assignableToSkirmishAgainst(side, _companion, false, false);
     }
 
     @Override

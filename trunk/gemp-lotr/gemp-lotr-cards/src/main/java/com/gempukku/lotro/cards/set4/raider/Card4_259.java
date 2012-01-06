@@ -35,12 +35,12 @@ public class Card4_259 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose Easterling", Filters.canBeAssignedToSkirmishByEffectAgainst(Side.SHADOW, ringBearer), Keyword.EASTERLING) {
+                new ChooseActiveCardEffect(self, playerId, "Choose Easterling", Keyword.EASTERLING, Filters.assignableToSkirmishAgainst(Side.SHADOW, ringBearer)) {
                     @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, PhysicalCard minion) {
                         action.insertEffect(
                                 new PreventableEffect(action,
-                                        new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer), card),
+                                        new AssignmentEffect(playerId, ringBearer, minion),
                                         game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {
                                             @Override

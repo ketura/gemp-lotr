@@ -132,10 +132,6 @@ public class PlayConditions {
         return false;
     }
 
-    public static boolean canBeAssignedToSkirmishByEffect(PhysicalCard source, LotroGame game, Filterable... filters) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(filters), Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()));
-    }
-
     public static boolean canSelfExert(PhysicalCard self, LotroGame game) {
         return canExert(self, game, 1, 1, self);
     }
@@ -322,14 +318,6 @@ public class PlayConditions {
 
     public static boolean controllsSite(LotroGame game, String playerId) {
         return Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) != null;
-    }
-
-    public static boolean canCardAssignToSkirmish(PhysicalCard source, LotroGame game, PhysicalCard card) {
-        return Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()).accepts(game.getGameState(), game.getModifiersQuerying(), card);
-    }
-
-    public static boolean canCardAssignToSkirmish(PhysicalCard source, LotroGame game, Filterable filter) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.canBeAssignedToSkirmishByEffect(source.getBlueprint().getSide()), filter);
     }
 
     public static boolean canRemoveAnyCultureTokens(LotroGame game, int count, Filterable... fromFilters) {
