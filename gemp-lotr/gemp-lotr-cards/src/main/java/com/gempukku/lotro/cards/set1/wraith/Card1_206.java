@@ -53,7 +53,7 @@ public class Card1_206 extends AbstractPermanent {
                     new SelfDiscardEffect(self) {
                         @Override
                         public String getText(LotroGame game) {
-                            return "Exert this condition";
+                            return "Discard this condition";
                         }
                     });
 
