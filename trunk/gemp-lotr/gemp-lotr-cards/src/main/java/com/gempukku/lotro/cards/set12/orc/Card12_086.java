@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card12_086 extends AbstractAttachable {
     public Card12_086() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.MORIA, PossessionClass.HAND_WEAPON, "Cave Troll's Hammer", true);
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.ORC, PossessionClass.HAND_WEAPON, "Cave Troll's Hammer", true);
     }
 
     @Override
