@@ -93,7 +93,7 @@ public class PlayerReconcilesAction implements Action {
                                 Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                 _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, cards, false));
                                 _effectQueue.add(
-                                        new TriggeringResultEffect(new ReconcileResult(), "Player reconciled"));
+                                        new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
                             }
                         }));
             } else if (cardsInHand.size() > 0) {
@@ -110,13 +110,13 @@ public class PlayerReconcilesAction implements Action {
                                     _effectQueue.add(new DrawCardsEffect(_playerId, 8 - cardsInHandAfterDiscard));
                                 }
                                 _effectQueue.add(
-                                        new TriggeringResultEffect(new ReconcileResult(), "Player reconciled"));
+                                        new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
                             }
                         }));
             } else {
                 _effectQueue.add(new DrawCardsEffect(_playerId, 8));
                 _effectQueue.add(
-                        new TriggeringResultEffect(new ReconcileResult(), "Player reconciled"));
+                        new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
             }
         }
 
