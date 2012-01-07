@@ -61,5 +61,12 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
         for (int i = 0; i < _count; i++)
             subAction.appendEffect(new HealCharactersEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);
+
+        for (PhysicalCard character : cards)
+            forEachCardChosenToHealCallback(character);
+    }
+
+    protected void forEachCardChosenToHealCallback(PhysicalCard character) {
+
     }
 }
