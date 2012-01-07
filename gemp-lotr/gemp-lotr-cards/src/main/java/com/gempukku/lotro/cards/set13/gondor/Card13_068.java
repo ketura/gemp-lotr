@@ -37,8 +37,9 @@ public class Card13_068 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION, Filters.attachedTo(card));
-                        action.appendEffect(
-                                new ReinforceTokenEffect(self, playerId, Token.GONDOR, count));
+                        for (int i = 0; i < count; i++)
+                            action.appendEffect(
+                                    new ReinforceTokenEffect(self, playerId, Token.GONDOR));
                     }
                 });
         return action;
