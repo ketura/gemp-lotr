@@ -232,6 +232,9 @@ public class HallServer extends AbstractServer {
         else
             collection = _collectionDao.getCollectionForPlayer(player, collectionType.getCode());
 
+        if (collection == null)
+            throw new HallException("You don't have cards in the required collection to play in this format");
+
         Map<String, Integer> deckCardCounts = CollectionUtils.getTotalCardCountForDeck(lotroDeck);
         final Map<String, Integer> collectionCardCounts = collection.getAll();
 
