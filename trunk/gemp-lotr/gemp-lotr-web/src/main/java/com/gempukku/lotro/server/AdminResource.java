@@ -136,7 +136,7 @@ public class AdminResource extends AbstractResource {
                 collection.addItem(productItem.getKey(), productItem.getValue());
             Player player = _playerDao.getPlayer(playerId);
             _collectionDao.setCollectionForPlayer(player, leagueType, collection);
-            _deliveryService.addPackage(player, leagueType, items);
+            _deliveryService.addPackage(player, league.getName(), items);
         }
 
         return "OK";
@@ -150,6 +150,8 @@ public class AdminResource extends AbstractResource {
             @FormParam("players") String players,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
+
+        String packageName = getPackageNameByCollectionType(collectionType);
 
         DefaultCardCollection items = new DefaultCardCollection();
 
@@ -166,10 +168,23 @@ public class AdminResource extends AbstractResource {
             for (Map.Entry<String, Integer> productItem : productItems.entrySet())
                 collection.addItem(productItem.getKey(), productItem.getValue());
             _collectionDao.setCollectionForPlayer(player, collectionType, collection);
-            _deliveryService.addPackage(player, collectionType, items);
+            _deliveryService.addPackage(player, packageName, items);
         }
 
         return "OK";
+    }
+
+    private String getPackageNameByCollectionType(String collectionType) {
+        String packageName;
+        if (collectionType.equals("permanent"))
+            packageName = "My cards";
+        else {
+            League league = getLeagueByType(collectionType);
+            if (league == null)
+                throw new WebApplicationException(Response.Status.NOT_FOUND);
+            packageName = league.getName();
+        }
+        return packageName;
     }
 
     private MutableCardCollection getPlayerCollection(Player player, String collectionType) {

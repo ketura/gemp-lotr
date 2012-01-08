@@ -15,7 +15,7 @@ public class DeliveryService {
 
     private ReadWriteLock _deliveryLock = new ReentrantReadWriteLock(false);
 
-    public void addPackage(Player player, String collectionType, CardCollection itemCollection) {
+    public void addPackage(Player player, String packageName, CardCollection itemCollection) {
         _deliveryLock.writeLock().lock();
         try {
             Map<String, MutableCardCollection> playerDeliverables = _undeliveredDeliverables.get(player.getName());
@@ -23,10 +23,10 @@ public class DeliveryService {
                 playerDeliverables = new HashMap<String, MutableCardCollection>();
                 _undeliveredDeliverables.put(player.getName(), playerDeliverables);
             }
-            MutableCardCollection deliverablesInCollection = playerDeliverables.get(collectionType);
+            MutableCardCollection deliverablesInCollection = playerDeliverables.get(packageName);
             if (deliverablesInCollection == null) {
                 deliverablesInCollection = new DefaultCardCollection();
-                playerDeliverables.put(collectionType, deliverablesInCollection);
+                playerDeliverables.put(packageName, deliverablesInCollection);
             }
             for (Map.Entry<String, Integer> itemToAdd : itemCollection.getAll().entrySet()) {
                 String blueprintId = itemToAdd.getKey();
