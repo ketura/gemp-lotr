@@ -2,6 +2,7 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.CollectionDAO;
+import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.league.LeagueService;
@@ -31,6 +32,8 @@ public class CollectionResource extends AbstractResource {
     private LotroServer _lotroServer;
     @Context
     private CollectionDAO _collectionDao;
+    @Context
+    private LeagueDAO _leagueDao;
     @Context
     private LotroCardBlueprintLibrary _library;
     @Context
@@ -152,7 +155,7 @@ public class CollectionResource extends AbstractResource {
         MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
 
         CardCollection packContents = modifiableColleciton.openPack(packId, _packStorage);
-        _deliveryService.addPackage(resourceOwner, collectionType, packContents);
+        _deliveryService.addPackage(resourceOwner, getPackageNameByCollectionType(collectionType), packContents);
 
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
@@ -188,5 +191,25 @@ public class CollectionResource extends AbstractResource {
         processDeliveryServiceNotification(request, response);
 
         return doc;
+    }
+
+    private String getPackageNameByCollectionType(String collectionType) {
+        String packageName;
+        if (collectionType.equals("permanent"))
+            packageName = "My cards";
+        else {
+            League league = getLeagueByType(collectionType);
+            if (league == null)
+                throw new WebApplicationException(Response.Status.NOT_FOUND);
+            packageName = league.getName();
+        }
+        return packageName;
+    }
+
+    private League getLeagueByType(String leagueType) {
+        for (League league : _leagueDao.getActiveLeagues())
+            if (league.getType().equals(leagueType))
+                return league;
+        return null;
     }
 }

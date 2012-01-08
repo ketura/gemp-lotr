@@ -1,5 +1,5 @@
-var deliveryDialog = null;
-var deliveryGroup = null;
+var deliveryDialogs = {};
+var deliveryGroups = {};
 
 function deliveryService(xml) {
     log("Delivered a package:");
@@ -7,37 +7,39 @@ function deliveryService(xml) {
 
     var root = xml.documentElement;
     if (root.tagName == "delivery") {
-
-        var deliveryDialogResize = function() {
-            var width = deliveryDialog.width() + 10;
-            var height = deliveryDialog.height() + 10;
-            deliveryGroup.setBounds(2, 2, width - 2 * 2, height - 2 * 2);
-        };
-
-        if (deliveryDialog == null) {
-            deliveryDialog = $("<div></div>").dialog({
-                title: "You've received the following items",
-                autoOpen: false,
-                closeOnEscape: false,
-                resizable: true,
-                width: 400,
-                height: 200
-            });
-
-            deliveryGroup = new NormalCardGroup(deliveryDialog, function(card) {
-                return true;
-            }, false);
-
-            deliveryDialog.bind("dialogresize", deliveryDialogResize);
-            deliveryDialog.bind("dialogclose",
-                    function() {
-                        deliveryDialog.html("");
-                    });
-        }
-
         var collections = root.getElementsByTagName("collectionType");
         for (var i = 0; i < collections.length; i++) {
             var collection = collections[i];
+
+            var collectionName = collection.getAttribute("name");
+            var deliveryDialogResize = (function(name) {
+                return function() {
+                    var width = deliveryDialogs[name].width() + 10;
+                    var height = deliveryDialogs[name].height() + 10;
+                    deliveryGroups[name].setBounds(2, 2, width - 2 * 2, height - 2 * 2);
+                };
+            })(collectionName);
+
+            if (deliveryDialogs[collectionName] == null) {
+                deliveryDialogs[collectionName] = $("<div></div>").dialog({
+                    title: "New items - " + collectionName,
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: true,
+                    width: 400,
+                    height: 200
+                });
+
+                deliveryGroups[collectionName] = new NormalCardGroup(deliveryDialogs[collectionName], function(card) {
+                    return true;
+                }, false);
+
+                deliveryDialogs[collectionName].bind("dialogresize", deliveryDialogResize);
+                deliveryDialogs[collectionName].bind("dialogclose",
+                        function() {
+                            deliveryDialogs[collectionName].html("");
+                        });
+            }
 
             var packs = collection.getElementsByTagName("pack");
             for (var j = 0; j < packs.length; j++) {
@@ -48,7 +50,7 @@ function deliveryService(xml) {
                 card.tokens = {"count":count};
                 var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true);
                 cardDiv.data("card", card);
-                deliveryDialog.append(cardDiv);
+                deliveryDialogs[collectionName].append(cardDiv);
             }
 
             var cards = collection.getElementsByTagName("card");
@@ -60,11 +62,11 @@ function deliveryService(xml) {
                 card.tokens = {"count":count};
                 var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
                 cardDiv.data("card", card);
-                deliveryDialog.append(cardDiv);
+                deliveryDialogs[collectionName].append(cardDiv);
             }
-        }
 
-        deliveryDialog.dialog("open");
-        deliveryDialogResize();
+            deliveryDialogs[collectionName].dialog("open");
+            deliveryDialogResize();
+        }
     }
 }
