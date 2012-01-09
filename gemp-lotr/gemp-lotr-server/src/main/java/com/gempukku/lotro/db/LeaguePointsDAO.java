@@ -62,7 +62,7 @@ public class LeaguePointsDAO {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select player_name, sum(points), count(*) from league_points where league_type=? group by player_name order by 2 desc");
+                PreparedStatement statement = conn.prepareStatement("select player_name, sum(points), count(*) from league_points where league_type=? group by player_name order by 2 desc, 3 asc");
                 try {
                     statement.setString(1, league.getType());
                     ResultSet rs = statement.executeQuery();
