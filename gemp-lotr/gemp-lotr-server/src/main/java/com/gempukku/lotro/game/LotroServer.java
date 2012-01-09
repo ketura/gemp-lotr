@@ -1,7 +1,6 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.AbstractServer;
-import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -120,10 +119,8 @@ public class LotroServer extends AbstractServer {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
-        String chatRoomName = getChatRoomName(gameId);
 
-        ChatRoomMediator room = _chatServer.createChatRoom(chatRoomName, 30);
-        room.sendMessage("System", "You're starting a game of " + lotroFormat.getName());
+        _chatServer.createChatRoom(getChatRoomName(gameId), 30);
 
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary, competetive ? 60 * 40 : 60 * 80);
         lotroGameMediator.addGameResultListener(
@@ -136,6 +133,7 @@ public class LotroServer extends AbstractServer {
                         }
                     }
                 });
+        lotroGameMediator.sendMessageToPlayers("You're starting a game of " + lotroFormat.getName());
 
         Map<String, String> deckNames = new HashMap<String, String>();
         for (LotroGameParticipant participant : participants)
