@@ -36,7 +36,12 @@ var LeagueResultsUI = Class.extend({
                 var leagueText = leagueName + " - " + this.getDateString(start) + " to " + this.getDateString(end);
                 $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
 
-                $("#leagueResults").append("<h2>Overall results</h2>");
+                var tabDiv = $("<div width='100%'></div>");
+                var tabNavigation = $("<ul></ul>");
+                tabDiv.append(tabNavigation);
+
+                // Overall tab
+                var tabContent = $("<div id='league" + i + "overall'></div>");
 
                 var standings = league.getElementsByTagName("leagueStanding");
                 if (standings.length > 0) {
@@ -62,11 +67,17 @@ var LeagueResultsUI = Class.extend({
                         standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
                     }
 
-                    $("#leagueResults").append(standingsTable);
+                    tabContent.append(standingsTable);
                 }
+                tabDiv.append(tabContent);
+
+                tabNavigation.append("<li><a href='#league" + i + "overall'>Overall results</a></li>");
 
                 var series = league.getElementsByTagName("serie");
                 for (var j = 0; j < series.length; j++) {
+
+                    var tabContent = $("<div id='league" + i + "serie" + j + "'></div>");
+
                     var serie = series[j];
                     var serieName = serie.getAttribute("type");
                     var serieStart = serie.getAttribute("start");
@@ -74,8 +85,8 @@ var LeagueResultsUI = Class.extend({
                     var maxMatches = serie.getAttribute("maxMatches");
 
                     var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
-                    $("#leagueResults").append("<h2 class='serieName'>" + serieText + "</h2>");
-                    $("#leagueResults").append("<sub>Maximum ranked matches in serie: " + maxMatches + "</sub>");
+                    tabContent.append("<h2 class='serieName'>" + serieText + "</h2>");
+                    tabContent.append("<sub>Maximum ranked matches in serie: " + maxMatches + "</sub>");
 
                     var standings = serie.getElementsByTagName("standing");
                     if (standings.length > 0) {
@@ -101,9 +112,16 @@ var LeagueResultsUI = Class.extend({
                             standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
                         }
 
-                        $("#leagueResults").append(standingsTable);
+                        tabContent.append(standingsTable);
                     }
+                    tabDiv.append(tabContent);
+
+                    tabNavigation.append("<li><a href='#league" + i + "serie" + j + "'>Serie " + (j + 1) + "</a></li>");
                 }
+
+                tabDiv.tabs();
+
+                $("#leagueResults").append(tabDiv);
             }
         }
     }
