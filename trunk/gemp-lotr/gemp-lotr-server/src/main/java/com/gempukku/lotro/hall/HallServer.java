@@ -226,24 +226,27 @@ public class HallServer extends AbstractServer {
         }
 
         // Now check if player owns all the cards
-        CardCollection collection;
-        if (collectionType.getCode().equals("default"))
-            collection = _lotroServer.getDefaultCollection();
-        else
-            collection = _collectionDao.getCollectionForPlayer(player, collectionType.getCode());
+        OwnershipCheck ownershipCheck;
+        if (collectionType.getCode().equals("default")) {
+            // Merging player-owned cards in collection with the default one (containing all basic cards) 
+            MutableCardCollection ownedCollection = _collectionDao.getCollectionForPlayer(player, "permanent");
+            if (ownedCollection != null)
+                ownershipCheck = new MergedOwnershipCheck(_lotroServer.getDefaultCollection(), ownedCollection);
+            else
+                ownershipCheck = _lotroServer.getDefaultCollection();
+        } else
+            ownershipCheck = _collectionDao.getCollectionForPlayer(player, collectionType.getCode());
 
-        if (collection == null)
+        if (ownershipCheck == null)
             throw new HallException("You don't have cards in the required collection to play in this format");
 
         Map<String, Integer> deckCardCounts = CollectionUtils.getTotalCardCountForDeck(lotroDeck);
-        final Map<String, Integer> collectionCardCounts = collection.getAll();
 
         for (Map.Entry<String, Integer> cardCount : deckCardCounts.entrySet()) {
-            final Integer collectionCount = collectionCardCounts.get(cardCount.getKey());
-            if (collectionCount == null || collectionCount < cardCount.getValue()) {
+            final int collectionCount = ownershipCheck.getItemCount(cardCount.getKey());
+            if (collectionCount < cardCount.getValue()) {
                 String cardName = _library.getLotroCardBlueprint(cardCount.getKey()).getName();
-                int owned = (collectionCount == null) ? 0 : collectionCount;
-                throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + owned);
+                throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + collectionCount);
             }
         }
 

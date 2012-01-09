@@ -3,8 +3,10 @@ package com.gempukku.lotro.game;
 import java.util.List;
 import java.util.Map;
 
-public interface CardCollection {
+public interface CardCollection extends OwnershipCheck {
     public Map<String, Integer> getAll();
+
+    public int getItemCount(String blueprintId);
 
     public List<Item> getItems(String filter, LotroCardBlueprintLibrary library);
 

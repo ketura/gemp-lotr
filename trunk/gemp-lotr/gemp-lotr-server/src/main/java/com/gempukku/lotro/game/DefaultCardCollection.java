@@ -177,6 +177,14 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
+    public int getItemCount(String blueprintId) {
+        Integer count = _counts.get(blueprintId);
+        if (count == null)
+            return 0;
+        return count;
+    }
+
+    @Override
     public List<Item> getItems(String filter, LotroCardBlueprintLibrary library) {
         if (filter == null)
             filter = "";

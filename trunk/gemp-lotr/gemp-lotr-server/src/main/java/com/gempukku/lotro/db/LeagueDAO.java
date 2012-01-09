@@ -20,10 +20,9 @@ public class LeagueDAO {
     private int _dateLoaded;
     private Set<League> _activeLeagues = new HashSet<League>();
 
-    public LeagueDAO(DbAccess dbAccess) {
+    public LeagueDAO(DbAccess dbAccess, CollectionSerializer serializer) {
         _dbAccess = dbAccess;
-
-        _serializer = new CollectionSerializer();
+        _serializer = serializer;
     }
 
     public void clearCache() {

@@ -20,9 +20,9 @@ public class CollectionDAO {
 
     private Map<Integer, Map<String, MutableCardCollection>> _collections = new ConcurrentHashMap<Integer, Map<String, MutableCardCollection>>();
 
-    public CollectionDAO(DbAccess dbAccess) {
+    public CollectionDAO(DbAccess dbAccess, CollectionSerializer collectionSerializer) {
         _dbAccess = dbAccess;
-        _collectionSerializer = new CollectionSerializer();
+        _collectionSerializer = collectionSerializer;
     }
 
     public void clearCache() {
