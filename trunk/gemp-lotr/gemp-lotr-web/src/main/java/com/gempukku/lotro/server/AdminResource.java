@@ -50,6 +50,18 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
+    @Path("/shutdown")
+    @GET
+    public String shutdown(
+            @QueryParam("shutdown") boolean shutdown,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        _hallServer.setShutdown(shutdown);
+
+        return "OK";
+    }
+
     @Path("/setMotd")
     @POST
     public String setMotd(

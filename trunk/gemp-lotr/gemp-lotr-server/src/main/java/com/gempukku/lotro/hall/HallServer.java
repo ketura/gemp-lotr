@@ -30,6 +30,8 @@ public class HallServer extends AbstractServer {
 
     private String _motd;
 
+    private boolean _shutdown;
+
     private Map<String, LotroFormat> _supportedFormats = new LinkedHashMap<String, LotroFormat>();
 
 
@@ -65,6 +67,12 @@ public class HallServer extends AbstractServer {
         addFormat("expanded", new ExpandedFormat(library));
     }
 
+    public void setShutdown(boolean shutdown) {
+        _shutdown = shutdown;
+        if (shutdown)
+            cancelWaitingTables();
+    }
+
     public String getMOTD() {
         return _motd;
     }
@@ -89,10 +97,22 @@ public class HallServer extends AbstractServer {
         return _leagueService.getActiveLeagues();
     }
 
+    private void cancelWaitingTables() {
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            _awaitingTables.clear();
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
     public void createNewTable(String type, Player player, String deckName) throws HallException {
+        if (_shutdown)
+            throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
+
         _hallDataAccessLock.writeLock().lock();
         try {
             League league = null;
