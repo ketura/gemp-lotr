@@ -306,7 +306,7 @@ var GempLotrGameUI = Class.extend({
             $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
                     (function(index) {
                         return function() {
-                            that.discardPileDialogs[that.bottomPlayerId].dialog("open");
+                            openSizeDialog(that.discardPileDialogs[that.bottomPlayerId]);
                         };
                     })(i));
 
@@ -314,7 +314,7 @@ var GempLotrGameUI = Class.extend({
             $("#deadPile" + i).addClass("clickable").click(
                     (function(index) {
                         return function() {
-                            that.deadPileDialogs[that.allPlayerIds[index]].dialog("open");
+                            openSizeDialog(that.deadPileDialogs[that.allPlayerIds[index]]);
                         };
                     })(i));
         }
@@ -1382,7 +1382,7 @@ var GempLotrGameUI = Class.extend({
         if (!this.replayMode)
             processButtons();
 
-        this.cardActionDialog.dialog("open");
+        openSizeDialog(this.cardActionDialog);
         this.arbitraryDialogResize(false);
         $('.ui-dialog :button').blur();
     },
@@ -1649,7 +1649,7 @@ var GempLotrGameUI = Class.extend({
         if (!this.replayMode)
             processButtons();
 
-        this.cardActionDialog.dialog("open");
+        openSizeDialog(this.cardActionDialog);
         this.arbitraryDialogResize(false);
         $('.ui-dialog :button').blur();
     },

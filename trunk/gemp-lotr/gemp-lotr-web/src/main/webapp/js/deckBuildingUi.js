@@ -35,6 +35,9 @@ var GempLotrDeckBuildingUI = Class.extend({
     checkDirtyInterval: 1000,
 
     deckListDialog: null,
+    selectionDialog: null,
+    selectionGroup: null,
+    packSelectionId: null,
 
     init: function() {
         var that = this;
@@ -507,7 +510,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 }
             }
 
-            that.deckListDialog.dialog("open");
+            openSizeDialog(that.deckListDialog);
         });
     },
 
@@ -540,6 +543,50 @@ var GempLotrDeckBuildingUI = Class.extend({
                                     that.getCollection();
                                 });
                             }
+                        } else if (selectedCardElem.hasClass("cardToSelect")) {
+                            this.comm.openSelectionPack(this.getCollectionType(), this.packSelectionId, selectedCardElem.data("card").blueprintId, function() {
+                                that.getCollection();
+                            });
+                            this.selectionDialog.dialog("close");
+                        } else if (selectedCardElem.hasClass("selectionInCollection")) {
+                            var selectionDialogResize = function() {
+                                var width = that.selectionDialog.width() + 10;
+                                var height = that.selectionDialog.height() + 10;
+                                that.selectionGroup.setBounds(2, 2, width - 2 * 2, height - 2 * 2);
+                            };
+
+                            if (this.selectionDialog == null) {
+                                this.selectionDialog = $("<div></div>")
+                                        .dialog({
+                                    title: "Choose one",
+                                    autoOpen: false,
+                                    closeOnEscape: true,
+                                    resizable: true,
+                                    width: 400,
+                                    height: 200,
+                                    modal: true
+                                });
+
+                                this.selectionGroup = new NormalCardGroup(this.selectionDialog, function(card) {
+                                    return true;
+                                }, false);
+
+                                this.selectionDialog.bind("dialogresize", selectionDialogResize);
+                            }
+                            this.selectionDialog.html("");
+                            var cardData = selectedCardElem.data("card");
+                            this.packSelectionId = cardData.blueprintId;
+                            var selection = selectedCardElem.data("selection");
+                            var blueprintIds = selection.split("|");
+                            for (var i = 0; i < blueprintIds.length; i++) {
+                                var card = new Card(blueprintIds[i], "selection", "selection" + i, "player");
+                                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), false);
+                                cardDiv.data("card", card);
+                                cardDiv.addClass("cardToSelect");
+                                this.selectionDialog.append(cardDiv);
+                            }
+                            openSizeDialog(that.selectionDialog);
+                            selectionDialogResize();
                         } else if (selectedCardElem.hasClass("cardInDeck")) {
                             this.removeCardFromDeck(selectedCardElem);
                         }
@@ -889,11 +936,20 @@ var GempLotrDeckBuildingUI = Class.extend({
                 var packElem = packs[i];
                 var blueprintId = packElem.getAttribute("blueprintId");
                 var count = packElem.getAttribute("count");
-                var card = new Card(blueprintId, "pack", "collection" + i, "player");
-                card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true);
-                cardDiv.data("card", card);
-                cardDiv.addClass("packInCollection");
+                if (blueprintId.substr(0, 3) == "(S)") {
+                    var card = new Card(blueprintId, "pack", "collection" + i, "player");
+                    card.tokens = {"count":count};
+                    var cardDiv = createCardDiv(card.imageUrl, null, false, true);
+                    cardDiv.data("card", card);
+                    cardDiv.data("selection", packElem.getAttribute("contents"));
+                    cardDiv.addClass("selectionInCollection");
+                } else {
+                    var card = new Card(blueprintId, "pack", "collection" + i, "player");
+                    card.tokens = {"count":count};
+                    var cardDiv = createCardDiv(card.imageUrl, null, false, true);
+                    cardDiv.data("card", card);
+                    cardDiv.addClass("packInCollection");
+                }
                 if (this.normalCollectionDiv.is(":visible"))
                     this.normalCollectionDiv.append(cardDiv);
                 else

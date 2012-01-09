@@ -12,7 +12,7 @@ public interface CardCollection extends OwnershipCheck {
 
     public static class Item {
         public enum Type {
-            PACK, CARD
+            PACK, CARD, SELECTION
         }
 
         private Type _type;
