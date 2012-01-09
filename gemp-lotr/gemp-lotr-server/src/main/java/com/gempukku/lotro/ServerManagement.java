@@ -1,5 +1,6 @@
 package com.gempukku.lotro;
 
+import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.League;
@@ -22,7 +23,7 @@ public class ServerManagement {
     }
 
     private static void addLeague(DbAccess dbAccess) throws IOException, SQLException {
-        LeagueDAO leagueDao = new LeagueDAO(dbAccess);
+        LeagueDAO leagueDao = new LeagueDAO(dbAccess, new CollectionSerializer());
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - League Starter", 1);
 
@@ -30,7 +31,7 @@ public class ServerManagement {
     }
 
     private static League getLeague(DbAccess dbAccess, String leagueType) {
-        LeagueDAO leagueDao = new LeagueDAO(dbAccess);
+        LeagueDAO leagueDao = new LeagueDAO(dbAccess, new CollectionSerializer());
         for (League league : leagueDao.getActiveLeagues()) {
             if (league.getType().equals(leagueType))
                 return league;

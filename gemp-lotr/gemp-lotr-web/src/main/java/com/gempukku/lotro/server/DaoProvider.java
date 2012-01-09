@@ -1,5 +1,6 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.*;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
@@ -23,9 +24,11 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<LeaguePointsDAO> _leaguePointsDAOInjectable;
 
     private DbAccess _dbAccess;
+    private CollectionSerializer _collectionSerializer;
 
     public DaoProvider() {
         _dbAccess = new DbAccess();
+        _collectionSerializer = new CollectionSerializer();
     }
 
     @Override
@@ -90,7 +93,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<LeagueDAO> getLeagueDaoSafely() {
         if (_leagueDaoInjectable == null) {
-            final LeagueDAO leagueDao = new LeagueDAO(_dbAccess);
+            final LeagueDAO leagueDao = new LeagueDAO(_dbAccess, _collectionSerializer);
             _leagueDaoInjectable = new Injectable<LeagueDAO>() {
                 @Override
                 public LeagueDAO getValue() {
@@ -129,7 +132,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<CollectionDAO> getCollectionDaoSafely() {
         if (_collectionDaoInjectable == null) {
-            final CollectionDAO collectionDao = new CollectionDAO(_dbAccess);
+            final CollectionDAO collectionDao = new CollectionDAO(_dbAccess, _collectionSerializer);
             _collectionDaoInjectable = new Injectable<CollectionDAO>() {
                 @Override
                 public CollectionDAO getValue() {
