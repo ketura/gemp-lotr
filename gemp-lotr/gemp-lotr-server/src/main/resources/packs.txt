@@ -8,3 +8,4 @@ MoM - Booster
 RotEL - Boromir Starter
 RotEL - Legolas Starter
 RotEL - Booster
+(S)FotR - Tengwar

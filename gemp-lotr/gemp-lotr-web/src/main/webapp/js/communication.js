@@ -197,6 +197,25 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    openSelectionPack: function(collectionType, pack, selection, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/collection/" + collectionType,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                pack: pack,
+                selection: selection},
+            success: function(xml, status, request) {
+                var delivery = request.getResponseHeader("Delivery-Service-Package");
+                if (delivery == "true")
+
+                    callback(xml);
+            },
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
     saveDeck: function(deckName, contents, callback) {
         $.ajax({
             type: "POST",

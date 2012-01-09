@@ -85,6 +85,14 @@ public class CollectionResource extends AbstractResource {
                     Element pack = doc.createElement("pack");
                     pack.setAttribute("count", String.valueOf(item.getCount()));
                     pack.setAttribute("blueprintId", blueprintId);
+                    if (blueprintId.startsWith("(S)")) {
+                        List<CardCollection.Item> contents = _packStorage.openPack(blueprintId);
+                        StringBuilder contentsStr = new StringBuilder();
+                        for (CardCollection.Item content : contents)
+                            contentsStr.append(content.getBlueprintId()).append("|");
+                        contentsStr.delete(contentsStr.length() - 1, contentsStr.length());
+                        pack.setAttribute("contents", contentsStr.toString());
+                    }
                     collectionElem.appendChild(pack);
                 }
             }
@@ -144,6 +152,7 @@ public class CollectionResource extends AbstractResource {
             @PathParam("collectionType") String collectionType,
             @FormParam("participantId") String participantId,
             @FormParam("pack") String packId,
+            @FormParam("selection") String selection,
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -154,7 +163,7 @@ public class CollectionResource extends AbstractResource {
 
         MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
 
-        CardCollection packContents = modifiableColleciton.openPack(packId, _packStorage);
+        CardCollection packContents = modifiableColleciton.openPack(packId, selection, _packStorage);
         _deliveryService.addPackage(resourceOwner, getPackageNameByCollectionType(collectionType), packContents);
 
         if (packContents == null)

@@ -144,13 +144,31 @@ public class DefaultCardCollection implements MutableCardCollection {
         _counts.put(itemId, oldCount + count);
     }
 
+    private boolean hasSelection(String packId, String selection, PacksStorage packsStorage) {
+        for (Item item : packsStorage.openPack(packId)) {
+            if (item.getBlueprintId().equals(selection))
+                return true;
+        }
+        return false;
+    }
+
     @Override
-    public synchronized CardCollection openPack(String packId, PacksStorage packsStorage) {
+    public synchronized CardCollection openPack(String packId, String selection, PacksStorage packsStorage) {
         Integer count = _counts.get(packId);
         if (count == null)
             return null;
         if (count > 0) {
-            List<Item> packContents = packsStorage.openPack(packId);
+            List<Item> packContents = null;
+            if (selection != null && packId.startsWith("(S)")) {
+                if (hasSelection(packId, selection, packsStorage)) {
+                    packContents = new LinkedList<Item>();
+                    Item.Type type = selection.contains("_") ? Item.Type.CARD : Item.Type.PACK;
+                    packContents.add(new Item(type, 1, selection));
+                }
+            } else {
+                packContents = packsStorage.openPack(packId);
+            }
+
             if (packContents == null)
                 return null;
 
