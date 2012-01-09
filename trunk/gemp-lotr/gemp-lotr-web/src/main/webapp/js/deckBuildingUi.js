@@ -458,7 +458,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     closeOnEscape: true,
                     resizable: true,
                     width: 400,
-                    height: 200,
+                    height: 400,
                     modal: true
                 });
             }
@@ -510,7 +510,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 }
             }
 
-            openSizeDialog(that.deckListDialog);
+            that.deckListDialog.dialog("open");
         });
     },
 
