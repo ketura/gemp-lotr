@@ -46,7 +46,8 @@ public class Card5_031 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
+                && PlayConditions.canSpot(game, self, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.and(CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION))))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndAssignMinionToCompanionEffect(action, playerId, self, CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION)));
