@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.turn.assign;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
@@ -38,13 +37,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                     protected void doPlayEffect(final LotroGame game) {
                         final GameState gameState = game.getGameState();
 
-                        Filterable minionFilter = CardType.MINION;
-                        if (gameState.isFierceSkirmishes())
-                            minionFilter = Filters.and(
-                                    minionFilter,
-                                    Keyword.FIERCE);
-
-                        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false));
+                        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), CardType.MINION, Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false));
                         if (minions.size() > 0) {
                             final Collection<PhysicalCard> freePeopleTargets =
                                     Filters.filterActive(gameState, game.getModifiersQuerying(),
