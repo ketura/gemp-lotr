@@ -14,7 +14,7 @@ public class AndCondition implements Condition {
     @Override
     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
         for (Condition condition : _conditions) {
-            if (!condition.isFullfilled(gameState, modifiersQuerying))
+            if (condition != null && !condition.isFullfilled(gameState, modifiersQuerying))
                 return false;
         }
 

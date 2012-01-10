@@ -22,7 +22,7 @@ public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
 
     public CantTakeMoreThanXWoundsModifier(PhysicalCard source, final Phase phase, int count, Condition condition, Filterable... affectFilters) {
         super(source, "Can't take more than " + count + " wound(s)", Filters.and(affectFilters),
-                new AndCondition(new PhaseCondition(phase), condition), ModifierEffect.WOUND_MODIFIER);
+                (condition == null ? new PhaseCondition(phase) : new AndCondition(new PhaseCondition(phase), condition)), ModifierEffect.WOUND_MODIFIER);
         _phase = phase;
         _count = count;
     }
