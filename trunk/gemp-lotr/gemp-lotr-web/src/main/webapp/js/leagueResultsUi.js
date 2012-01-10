@@ -44,31 +44,8 @@ var LeagueResultsUI = Class.extend({
                 var tabContent = $("<div id='league" + i + "overall'></div>");
 
                 var standings = league.getElementsByTagName("leagueStanding");
-                if (standings.length > 0) {
-                    var standingsTable = $("<table class='standings'></table>");
-
-                    standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th></tr>");
-
-                    var lastPoints = -1;
-                    var lastGamesPlayed = -1;
-                    var currentStanding = -1;
-
-                    for (var k = 0; k < standings.length; k++) {
-                        var standing = standings[k];
-                        var player = standing.getAttribute("player");
-                        var points = parseInt(standing.getAttribute("points"));
-                        var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
-                        if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
-                            lastPoints = points;
-                            lastGamesPlayed = gamesPlayed;
-                            currentStanding = k + 1;
-                        }
-
-                        standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
-                    }
-
-                    tabContent.append(standingsTable);
-                }
+                if (standings.length > 0)
+                    tabContent.append(this.createStandingsTable(standings));
                 tabDiv.append(tabContent);
 
                 tabNavigation.append("<li><a href='#league" + i + "overall'>Overall results</a></li>");
@@ -89,31 +66,8 @@ var LeagueResultsUI = Class.extend({
                     tabContent.append("<sub>Maximum ranked matches in serie: " + maxMatches + "</sub>");
 
                     var standings = serie.getElementsByTagName("standing");
-                    if (standings.length > 0) {
-                        var standingsTable = $("<table class='standings'></table>");
-
-                        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th></tr>");
-
-                        var lastPoints = -1;
-                        var lastGamesPlayed = -1;
-                        var currentStanding = -1;
-
-                        for (var k = 0; k < standings.length; k++) {
-                            var standing = standings[k];
-                            var player = standing.getAttribute("player");
-                            var points = parseInt(standing.getAttribute("points"));
-                            var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
-                            if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
-                                lastPoints = points;
-                                lastGamesPlayed = gamesPlayed;
-                                currentStanding = k + 1;
-                            }
-
-                            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
-                        }
-
-                        tabContent.append(standingsTable);
-                    }
+                    if (standings.length > 0)
+                        tabContent.append(this.createStandingsTable(standings));
                     tabDiv.append(tabContent);
 
                     tabNavigation.append("<li><a href='#league" + i + "serie" + j + "'>Serie " + (j + 1) + "</a></li>");
@@ -124,5 +78,47 @@ var LeagueResultsUI = Class.extend({
                 $("#leagueResults").append(tabDiv);
             }
         }
+    },
+
+    createStandingsTable: function(standings) {
+        var standingsTable = $("<table class='standings'></table>");
+
+        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th></th><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th></tr>");
+
+        var lastPoints = -1;
+        var lastGamesPlayed = -1;
+        var currentStanding = -1;
+
+        var secondColumnBaseIndex = Math.ceil(standings.length / 2);
+
+        for (var k = 0; k < secondColumnBaseIndex; k++) {
+            var standing = standings[k];
+            var player = standing.getAttribute("player");
+            var points = parseInt(standing.getAttribute("points"));
+            var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
+            if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
+                lastPoints = points;
+                lastGamesPlayed = gamesPlayed;
+                currentStanding = k + 1;
+            }
+
+            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
+        }
+
+        for (var k = secondColumnBaseIndex; k < standings.length; k++) {
+            var standing = standings[k];
+            var player = standing.getAttribute("player");
+            var points = parseInt(standing.getAttribute("points"));
+            var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
+            if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
+                lastPoints = points;
+                lastGamesPlayed = gamesPlayed;
+                currentStanding = k + 1;
+            }
+
+            $("tr:eq(" + (k - secondColumnBaseIndex + 1) + ")", standingsTable).append("<td></td><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td>");
+        }
+
+        return standingsTable;
     }
 });

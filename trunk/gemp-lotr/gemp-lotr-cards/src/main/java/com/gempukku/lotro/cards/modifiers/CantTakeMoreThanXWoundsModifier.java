@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
-    private Phase _phase;
     private int _count;
 
     public CantTakeMoreThanXWoundsModifier(PhysicalCard source, Phase phase, int count, Filterable... affectFilters) {
@@ -23,7 +22,6 @@ public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
     public CantTakeMoreThanXWoundsModifier(PhysicalCard source, final Phase phase, int count, Condition condition, Filterable... affectFilters) {
         super(source, "Can't take more than " + count + " wound(s)", Filters.and(affectFilters),
                 (condition == null ? new PhaseCondition(phase) : new AndCondition(new PhaseCondition(phase), condition)), ModifierEffect.WOUND_MODIFIER);
-        _phase = phase;
         _count = count;
     }
 
