@@ -7,7 +7,7 @@ public enum Token {
     GONDOR(Culture.GONDOR), ISENGARD(Culture.ISENGARD), RAIDER(Culture.RAIDER), ROHAN(Culture.ROHAN), SHIRE(Culture.SHIRE),
     WRAITH(Culture.WRAITH), SAURON(Culture.SAURON), GOLLUM(Culture.GOLLUM),
 
-    URUK_HAI(Culture.URUK_HAI), MEN(Culture.MEN);
+    URUK_HAI(Culture.URUK_HAI), MEN(Culture.MEN), ORC(Culture.ORC);
 
     private Culture _culture;
 
