@@ -32,7 +32,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     @Override
     public void process(final LotroGame game) {
         GameState gameState = game.getGameState();
-        Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId), Filters.notAssignedToSkirmish);
+        Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId));
 
         final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
         if (minions.size() > 0) {
