@@ -276,6 +276,16 @@ public class PlayConditions {
         return false;
     }
 
+    public static boolean canPlayFromStacked(String playerId, LotroGame game, int withTwilightRemoved, int twilightModifier, Filterable stackedOn, Filterable... filters) {
+        final Collection<PhysicalCard> matchingStackedOn = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), stackedOn);
+        for (PhysicalCard stackedOnCard : matchingStackedOn) {
+            if (Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game, withTwilightRemoved, twilightModifier, false, false))).size() > 0)
+                return true;
+        }
+
+        return false;
+    }
+
     public static boolean canPlayFromDiscard(String playerId, LotroGame game, Filterable... filters) {
         if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
             return false;
