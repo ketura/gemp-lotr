@@ -9,10 +9,11 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import static junit.framework.Assert.*;
 import org.junit.Test;
 
 import java.util.List;
+
+import static junit.framework.Assert.*;
 
 public class AssignmentAtTest extends AbstractAtTest {
     @Test
@@ -254,5 +255,67 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         AwaitingDecision skirmishChoice = _userFeedback.getAwaitingDecision(P1);
         assertEquals(AwaitingDecisionType.CARD_SELECTION, skirmishChoice.getDecisionType());
+    }
+
+    @Test
+    public void assignmentOfFierceMinions() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        skipMulligans();
+
+        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        PhysicalCardImpl pippin = new PhysicalCardImpl(101, "1_306", P1, _library.getLotroCardBlueprint("1_306"));
+        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(102, "1_158", P2, _library.getLotroCardBlueprint("1_158"));
+        PhysicalCardImpl gateTroll = new PhysicalCardImpl(103, "6_128", P2, _library.getLotroCardBlueprint("6_128"));
+
+        _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, pippin, Zone.FREE_CHARACTERS);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        _game.getGameState().addCardToZone(_game, urukHaiRaidingParty, Zone.SHADOW_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, gateTroll, Zone.SHADOW_CHARACTERS);
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        // End maneuvers phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End arhcery phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        final List<Assignment> assignmentsBeforeFreePlayer = _game.getGameState().getAssignments();
+        assertEquals(0, assignmentsBeforeFreePlayer.size());
+
+        AwaitingDecision assignmentDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.ASSIGN_MINIONS, assignmentDecision.getDecisionType());
+        validateContents(toCardIdArray(urukHaiRaidingParty, gateTroll), (String[]) assignmentDecision.getDecisionParameters().get("minions"));
+        validateContents(toCardIdArray(merry, pippin, _game.getGameState().getRingBearer(P1)), (String[]) assignmentDecision.getDecisionParameters().get("freeCharacters"));
+
+        // No assignment from FP player
+        playerDecided(P1, "");
+
+        final List<Assignment> assignmentsAfterFreePlayer = _game.getGameState().getAssignments();
+        assertEquals(0, assignmentsAfterFreePlayer.size());
+
+        // No assignment from Shadow player
+        playerDecided(P2, "");
+
+        // End fierce assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        AwaitingDecision fierceAssignmentDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.ASSIGN_MINIONS, fierceAssignmentDecision.getDecisionType());
+        validateContents(toCardIdArray(gateTroll), (String[]) fierceAssignmentDecision.getDecisionParameters().get("minions"));
+        validateContents(toCardIdArray(merry, pippin, _game.getGameState().getRingBearer(P1)), (String[]) fierceAssignmentDecision.getDecisionParameters().get("freeCharacters"));
     }
 }
