@@ -275,6 +275,7 @@ public class Filters {
                         }),
                 Filters.and(
                         CardType.MINION,
+                        Filters.notAssignedToSkirmish,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
