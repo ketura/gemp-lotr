@@ -274,7 +274,13 @@ public class Filters {
                             }
                         }),
                 Filters.and(
-                        CardType.MINION));
+                        CardType.MINION,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return (!gameState.isFierceSkirmishes()) || modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.FIERCE);
+                            }
+                        }));
 
         return Filters.and(
                 assignableFilter,

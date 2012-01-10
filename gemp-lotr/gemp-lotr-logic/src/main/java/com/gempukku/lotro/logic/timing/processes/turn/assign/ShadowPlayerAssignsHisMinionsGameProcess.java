@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.turn.assign;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -34,10 +33,6 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     public void process(final LotroGame game) {
         GameState gameState = game.getGameState();
         Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId), Filters.notAssignedToSkirmish);
-        if (gameState.isFierceSkirmishes())
-            minionFilter = Filters.and(
-                    Keyword.FIERCE,
-                    minionFilter);
 
         final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
         if (minions.size() > 0) {
