@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game.state;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.ActionsEnvironment;
 import com.gempukku.lotro.game.LotroFormat;
@@ -28,4 +29,6 @@ public interface LotroGame {
     public String getWinnerPlayerId();
 
     public LotroFormat getFormat();
+
+    public boolean shouldAutoPass(String playerId, Phase phase);
 }
