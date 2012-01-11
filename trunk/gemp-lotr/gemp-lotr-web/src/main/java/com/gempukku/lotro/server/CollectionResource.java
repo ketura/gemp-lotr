@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.List;
+import java.util.Map;
 
 @Singleton
 @Path("/collection")
@@ -179,11 +180,11 @@ public class CollectionResource extends AbstractResource {
         Element collectionElem = doc.createElement("pack");
         doc.appendChild(collectionElem);
 
-        for (CardCollection.Item item : packContents.getItems(null, _library)) {
-            String blueprintId = item.getBlueprintId();
-            if (item.getType() == CardCollection.Item.Type.CARD) {
+        for (Map.Entry<String, Integer> itemCount : packContents.getAll().entrySet()) {
+            String blueprintId = itemCount.getKey();
+            if (blueprintId.contains("_")) {
                 Element card = doc.createElement("card");
-                card.setAttribute("count", String.valueOf(item.getCount()));
+                card.setAttribute("count", String.valueOf(itemCount.getValue()));
                 card.setAttribute("blueprintId", blueprintId);
                 Side side = _library.getLotroCardBlueprint(blueprintId).getSide();
                 if (side != null)
@@ -191,7 +192,7 @@ public class CollectionResource extends AbstractResource {
                 collectionElem.appendChild(card);
             } else {
                 Element pack = doc.createElement("pack");
-                pack.setAttribute("count", String.valueOf(item.getCount()));
+                pack.setAttribute("count", String.valueOf(itemCount.getValue()));
                 pack.setAttribute("blueprintId", blueprintId);
                 collectionElem.appendChild(pack);
             }

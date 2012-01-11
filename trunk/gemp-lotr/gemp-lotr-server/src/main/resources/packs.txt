@@ -18,3 +18,4 @@ BoHD - Eowyn Starter
 BoHD - Legolas Starter
 EoF - Faramir Starter
 EoF - Witch-king Starter
+(S)TTT - Starter

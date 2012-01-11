@@ -1,6 +1,9 @@
 var cardCache = {};
 var cardScale = 357 / 497;
 var packBlueprints = {
+    "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
+    "(S)TTT - Starter": "/gemp-lotr/images/boosters/ttt_starter_selection.png",
+
     "FotR - League Starter": "/gemp-lotr/images/boosters/fotr_league_starter.png",
 
     "FotR - Gandalf Starter": "/gemp-lotr/images/boosters/fotr_gandalf_starter.png",
@@ -25,7 +28,7 @@ var packBlueprints = {
 
     "EoF - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
     "EoF - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
-    "EoF - Booster": "/gemp-lotr/images/boosters/eof_booster.png",
+    "EoF - Booster": "/gemp-lotr/images/boosters/eof_booster.png"
 };
 
 var Card = Class.extend({
@@ -121,8 +124,6 @@ var Card = Class.extend({
     },
 
     getUrlByBlueprintId: function(blueprintId) {
-        if (blueprintId.substr(0, 3) == "(S)")
-            return "/gemp-lotr/images/boosters/selection.png";
         if (packBlueprints[blueprintId] != null)
             return packBlueprints[blueprintId];
 
