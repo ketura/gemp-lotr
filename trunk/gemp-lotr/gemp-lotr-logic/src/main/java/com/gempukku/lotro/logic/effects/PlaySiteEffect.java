@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
+import com.gempukku.lotro.logic.timing.results.ReplaceSiteResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -120,6 +121,8 @@ public class PlaySiteEffect extends AbstractEffect {
                                         && !_playerId.equals(gameState.getCurrentPlayerId()))
                                     game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                                             new SpecialFlagModifier(null, ModifierFlag.SHADOW_PLAYER_REPLACED_CURRENT_SITE));
+
+                                game.getActionsEnvironment().emitEffectResult(new ReplaceSiteResult(_playerId, siteNumber));
                             }
 
                             gameState.removeCardsFromZone(_playerId, Collections.singleton(newSite));
