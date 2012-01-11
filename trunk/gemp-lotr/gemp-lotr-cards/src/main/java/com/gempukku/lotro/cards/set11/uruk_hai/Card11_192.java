@@ -28,6 +28,6 @@ public class Card11_192 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.inSkirmishAgainst(self), -2);
+        return new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.hasAttached(self)), -2);
     }
 }
