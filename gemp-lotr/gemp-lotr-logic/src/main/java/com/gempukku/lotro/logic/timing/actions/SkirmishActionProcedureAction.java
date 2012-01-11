@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.actions;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.PlayOrder;
@@ -67,22 +68,30 @@ public class SkirmishActionProcedureAction extends SystemQueueAction {
 
             final List<Action> playableActions = game.getActionsEnvironment().getPhaseActions(playerId);
 
-            game.getUserFeedback().sendAwaitingDecision(playerId,
-                    new CardActionSelectionDecision(game, 1, "Choose action to play or Pass", playableActions) {
-                        @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Action action = getSelectedAction(result);
-                            if (action != null) {
-                                appendEffect(
-                                        new CheckIfSkirmishFinishedEffect(_playOrder, 0));
-                                game.getActionsEnvironment().addActionToStack(action);
-                            } else {
-                                if (_consecutivePasses + 1 < _playOrder.getPlayerCount())
+            if (playableActions.size() == 0 && game.shouldAutoPass(playerId, Phase.SKIRMISH)) {
+                playerPassed();
+            } else {
+                game.getUserFeedback().sendAwaitingDecision(playerId,
+                        new CardActionSelectionDecision(game, 1, "Choose action to play or Pass", playableActions) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                Action action = getSelectedAction(result);
+                                if (action != null) {
                                     appendEffect(
-                                            new PlayerPlaysNextActionEffect(_playOrder, _consecutivePasses + 1));
+                                            new CheckIfSkirmishFinishedEffect(_playOrder, 0));
+                                    game.getActionsEnvironment().addActionToStack(action);
+                                } else {
+                                    playerPassed();
+                                }
                             }
-                        }
-                    });
+                        });
+            }
+        }
+
+        private void playerPassed() {
+            if (_consecutivePasses + 1 < _playOrder.getPlayerCount())
+                appendEffect(
+                        new PlayerPlaysNextActionEffect(_playOrder, _consecutivePasses + 1));
         }
     }
 }

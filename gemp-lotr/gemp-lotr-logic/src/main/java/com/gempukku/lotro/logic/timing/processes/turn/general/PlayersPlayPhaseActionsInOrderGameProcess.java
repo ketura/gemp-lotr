@@ -42,7 +42,7 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
             }
 
             final List<Action> playableActions = game.getActionsEnvironment().getPhaseActions(playerId);
-            if (playableActions.size() == 0 & game.shouldAutoPass(playerId, game.getGameState().getCurrentPhase())) {
+            if (playableActions.size() == 0 && game.shouldAutoPass(playerId, game.getGameState().getCurrentPhase())) {
                 playerPassed();
             } else {
                 game.getUserFeedback().sendAwaitingDecision(playerId,
