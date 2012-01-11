@@ -25,6 +25,7 @@ public class RarityPackBox implements PackBox {
                 List<String> possibleCards = new LinkedList<String>();
                 possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
                 possibleCards.addAll(_setRarity.getCardsOfRarity("P"));
+                possibleCards.addAll(_setRarity.getCardsOfRarity("A"));
                 Collections.shuffle(possibleCards, _random);
                 addCards(result, possibleCards.subList(0, 1), true);
             } else if (foilRarity < 4) {
@@ -37,21 +38,31 @@ public class RarityPackBox implements PackBox {
                 addCards(result, possibleCards.subList(0, 1), true);
             }
         }
-        addRandomCardsOfRarity(result, 1, "R");
+        addRandomRareCard(result, 1);
         addRandomCardsOfRarity(result, 3, "U");
         addRandomCardsOfRarity(result, hasFoil ? 6 : 7, "C");
         return result;
     }
 
+    private void addRandomRareCard(List<CardCollection.Item> result, int count) {
+        List<String> possibleCards = new LinkedList<String>(_setRarity.getCardsOfRarity("R"));
+        possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
+        possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
+        possibleCards.addAll(_setRarity.getCardsOfRarity("A"));
+        Collections.shuffle(possibleCards, _random);
+        addCards(result, possibleCards.subList(0, count), false);
+    }
+
     private void addRandomCardsOfRarity(List<CardCollection.Item> result, int count, String rarity) {
-        List<String> possibleRares = new LinkedList<String>(_setRarity.getCardsOfRarity(rarity));
-        Collections.shuffle(possibleRares, _random);
-        addCards(result, possibleRares.subList(0, count), false);
+        List<String> possibleCards = new LinkedList<String>(_setRarity.getCardsOfRarity(rarity));
+        Collections.shuffle(possibleCards, _random);
+        addCards(result, possibleCards.subList(0, count), false);
     }
 
     private void addCards(List<CardCollection.Item> result, Collection<String> cards, boolean foil) {
         for (String card : cards) {
             card = card.replace("P", "_");
+            card = card.replace("A", "_");
             card = card.replace("R", "_");
             card = card.replace("U", "_");
             card = card.replace("C", "_");

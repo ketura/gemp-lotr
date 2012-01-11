@@ -112,6 +112,12 @@ var Card = Class.extend({
             return "/gemp-lotr/images/boosters/rotel_legolas_starter.png";
         if (blueprintId == "RotEL - Booster")
             return "/gemp-lotr/images/boosters/rotel_booster.png";
+        if (blueprintId == "TTT - Booster")
+            return "/gemp-lotr/images/boosters/ttt_booster.png";
+        if (blueprintId == "BoHD - Booster")
+            return "/gemp-lotr/images/boosters/bohd_booster.png";
+        if (blueprintId == "EoF - Booster")
+            return "/gemp-lotr/images/boosters/eof_booster.png";
 
         var separator = blueprintId.indexOf("_");
         var setNo = parseInt(blueprintId.substr(0, separator));

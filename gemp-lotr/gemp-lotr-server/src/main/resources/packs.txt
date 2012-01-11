@@ -9,3 +9,6 @@ RotEL - Boromir Starter
 RotEL - Legolas Starter
 RotEL - Booster
 (S)FotR - Tengwar
+TTT - Booster
+BoHD - Booster
+EoF - Booster
