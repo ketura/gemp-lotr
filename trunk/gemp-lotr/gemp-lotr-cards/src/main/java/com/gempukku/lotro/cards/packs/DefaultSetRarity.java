@@ -15,11 +15,16 @@ public class DefaultSetRarity implements SetRarity {
 
     @Override
     public List<String> getCardsOfRarity(String rarity) {
-        return Collections.unmodifiableList(_rarityList.get(rarity));
+        final List<String> list = _rarityList.get(rarity);
+        if (list == null)
+            return Collections.emptyList();
+        return Collections.unmodifiableList(list);
     }
 
     @Override
     public List<String> getTengwarCards() {
+        if (_tengwarCards == null)
+            return Collections.emptyList();
         return Collections.unmodifiableList(_tengwarCards);
     }
 }
