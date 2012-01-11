@@ -48,7 +48,7 @@ function deliveryService(xml) {
                 var count = packElem.getAttribute("count");
                 var card = new Card(blueprintId, "delivery", "deliveryPack" + i, "player");
                 card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true);
+                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true, true);
                 cardDiv.data("card", card);
                 deliveryDialogs[collectionName].append(cardDiv);
             }
@@ -65,7 +65,7 @@ function deliveryService(xml) {
                 deliveryDialogs[collectionName].append(cardDiv);
             }
 
-            deliveryDialogs[collectionName].dialog("open");
+            openSizeDialog(deliveryDialogs[collectionName]);
             deliveryDialogResize();
         }
     }

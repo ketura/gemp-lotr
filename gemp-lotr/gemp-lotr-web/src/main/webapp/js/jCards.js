@@ -1,5 +1,32 @@
 var cardCache = {};
 var cardScale = 357 / 497;
+var packBlueprints = {
+    "FotR - League Starter": "/gemp-lotr/images/boosters/fotr_league_starter.png",
+
+    "FotR - Gandalf Starter": "/gemp-lotr/images/boosters/fotr_gandalf_starter.png",
+    "FotR - Aragorn Starter": "/gemp-lotr/images/boosters/fotr_aragorn_starter.png",
+    "FotR - Booster": "/gemp-lotr/images/boosters/fotr_booster.png",
+
+    "MoM - Gandalf Starter": "/gemp-lotr/images/boosters/mom_gandalf_starter.png",
+    "MoM - Gimli Starter": "/gemp-lotr/images/boosters/mom_gimli_starter.png",
+    "MoM - Booster": "/gemp-lotr/images/boosters/mom_booster.png",
+
+    "RotEL - Boromir Starter": "/gemp-lotr/images/boosters/rotel_boromir_starter.png",
+    "RotEL - Legolas Starter": "/gemp-lotr/images/boosters/rotel_legolas_starter.png",
+    "RotEL - Booster": "/gemp-lotr/images/boosters/rotel_booster.png",
+
+    "TTT - Aragorn Starter": "/gemp-lotr/images/boosters/ttt_aragorn_starter.png",
+    "TTT - Theoden Starter": "/gemp-lotr/images/boosters/ttt_theoden_starter.png",
+    "TTT - Booster": "/gemp-lotr/images/boosters/ttt_booster.png",
+
+    "BoHD - Eowyn Starter": "/gemp-lotr/images/boosters/bohd_eowyn_starter.png",
+    "BoHD - Legolas Starter": "/gemp-lotr/images/boosters/bohd_legolas_starter.png",
+    "BoHD - Booster": "/gemp-lotr/images/boosters/bohd_booster.png",
+
+    "EoF - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "EoF - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "EoF - Booster": "/gemp-lotr/images/boosters/eof_booster.png",
+};
 
 var Card = Class.extend({
     blueprintId: null,
@@ -57,6 +84,10 @@ var Card = Class.extend({
         return this.foil;
     },
 
+    isPack: function() {
+        return packBlueprints[this.blueprintId] != null;
+    },
+
     isHorizontal: function(blueprintId) {
         var separator = blueprintId.indexOf("_");
         var setNo = parseInt(blueprintId.substr(0, separator));
@@ -92,32 +123,8 @@ var Card = Class.extend({
     getUrlByBlueprintId: function(blueprintId) {
         if (blueprintId.substr(0, 3) == "(S)")
             return "/gemp-lotr/images/boosters/selection.png";
-        if (blueprintId == "FotR - League Starter")
-            return "/gemp-lotr/images/boosters/fotr_league_starter.png";
-        if (blueprintId == "FotR - Gandalf Starter")
-            return "/gemp-lotr/images/boosters/fotr_gandalf_starter.png";
-        if (blueprintId == "FotR - Aragorn Starter")
-            return "/gemp-lotr/images/boosters/fotr_aragorn_starter.png";
-        if (blueprintId == "FotR - Booster")
-            return "/gemp-lotr/images/boosters/fotr_booster.png";
-        if (blueprintId == "MoM - Gandalf Starter")
-            return "/gemp-lotr/images/boosters/mom_gandalf_starter.png";
-        if (blueprintId == "MoM - Gimli Starter")
-            return "/gemp-lotr/images/boosters/mom_gimli_starter.png";
-        if (blueprintId == "MoM - Booster")
-            return "/gemp-lotr/images/boosters/mom_booster.png";
-        if (blueprintId == "RotEL - Boromir Starter")
-            return "/gemp-lotr/images/boosters/rotel_boromir_starter.png";
-        if (blueprintId == "RotEL - Legolas Starter")
-            return "/gemp-lotr/images/boosters/rotel_legolas_starter.png";
-        if (blueprintId == "RotEL - Booster")
-            return "/gemp-lotr/images/boosters/rotel_booster.png";
-        if (blueprintId == "TTT - Booster")
-            return "/gemp-lotr/images/boosters/ttt_booster.png";
-        if (blueprintId == "BoHD - Booster")
-            return "/gemp-lotr/images/boosters/bohd_booster.png";
-        if (blueprintId == "EoF - Booster")
-            return "/gemp-lotr/images/boosters/eof_booster.png";
+        if (packBlueprints[blueprintId] != null)
+            return packBlueprints[blueprintId];
 
         var separator = blueprintId.indexOf("_");
         var setNo = parseInt(blueprintId.substr(0, separator));
@@ -177,7 +184,7 @@ var Card = Class.extend({
     }
 });
 
-function createCardDiv(image, text, foil, tokens) {
+function createCardDiv(image, text, foil, tokens, noBorder) {
     var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
     if (foil) {
         var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
@@ -189,18 +196,25 @@ function createCardDiv(image, text, foil, tokens) {
         cardDiv.append(overlayDiv);
     }
     var borderDiv = $("<div class='borderOverlay'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
+    if (noBorder)
+        borderDiv.addClass("noBorder");
     cardDiv.append(borderDiv);
 
     return cardDiv;
 }
 
-function createFullCardDiv(image, foil, horizontal) {
+function createFullCardDiv(image, foil, horizontal, noBorder) {
     if (horizontal) {
         var cardDiv = $("<div style='position: relative;width:497px;height:357px;'></div>");
         cardDiv.append("<div style='position:absolute'><img src='" + image + "' width='497' height='357'></div>");
 
-        var borderDiv = $("<div class='borderOverlay' style='position:absolute;width:465px;height:325px;border-width:16px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
-        cardDiv.append(borderDiv);
+        if (noBorder) {
+            var borderDiv = $("<div class='borderOverlay,noBorder' style='position:absolute;width:497px;height:357px;border-width:0px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
+            cardDiv.append(borderDiv);
+        } else {
+            var borderDiv = $("<div class='borderOverlay' style='position:absolute;width:465px;height:325px;border-width:16px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
+            cardDiv.append(borderDiv);
+        }
 
         if (foil) {
             var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:497px;height:357px'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
@@ -210,8 +224,13 @@ function createFullCardDiv(image, foil, horizontal) {
         var cardDiv = $("<div style='position: relative;width:357px;height:497px;'></div>");
         cardDiv.append("<div style='position:absolute'><img src='" + image + "' width='357' height='497'></div>");
 
-        var borderDiv = $("<div class='borderOverlay' style='position:absolute;width:325px;height:465px;border-width:16px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
-        cardDiv.append(borderDiv);
+        if (noBorder) {
+            var borderDiv = $("<div class='borderOverlay,noBorder' style='position:absolute;width:357px;height:497px;border-width:0px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
+            cardDiv.append(borderDiv);
+        } else {
+            var borderDiv = $("<div class='borderOverlay' style='position:absolute;width:325px;height:465px;border-width:16px'><img class='actionArea' src='/gemp-lotr/images/pixel.png' width='100%' height='100%'></div>");
+            cardDiv.append(borderDiv);
+        }
 
         if (foil) {
             var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:357px;height:497px'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
