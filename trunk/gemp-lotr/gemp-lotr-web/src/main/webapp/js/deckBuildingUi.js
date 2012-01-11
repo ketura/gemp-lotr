@@ -580,7 +580,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                             var blueprintIds = selection.split("|");
                             for (var i = 0; i < blueprintIds.length; i++) {
                                 var card = new Card(blueprintIds[i], "selection", "selection" + i, "player");
-                                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), false);
+                                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), false, card.isPack());
                                 cardDiv.data("card", card);
                                 cardDiv.addClass("cardToSelect");
                                 this.selectionDialog.append(cardDiv);
@@ -639,7 +639,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     displayCardInfo: function(card) {
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'></div>");
-        this.infoDialog.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
+        this.infoDialog.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal, card.isPack()));
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
 
@@ -695,7 +695,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     addCardToContainer: function(blueprintId, zone, container, tokens) {
         var card = new Card(blueprintId, zone, "deck", "player");
-        var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), tokens);
+        var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), tokens, card.isPack());
         cardDiv.data("card", card);
         container.append(cardDiv);
         return cardDiv;
@@ -939,14 +939,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                 if (blueprintId.substr(0, 3) == "(S)") {
                     var card = new Card(blueprintId, "pack", "collection" + i, "player");
                     card.tokens = {"count":count};
-                    var cardDiv = createCardDiv(card.imageUrl, null, false, true);
+                    var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
                     cardDiv.data("card", card);
                     cardDiv.data("selection", packElem.getAttribute("contents"));
                     cardDiv.addClass("selectionInCollection");
                 } else {
                     var card = new Card(blueprintId, "pack", "collection" + i, "player");
                     card.tokens = {"count":count};
-                    var cardDiv = createCardDiv(card.imageUrl, null, false, true);
+                    var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
                     cardDiv.data("card", card);
                     cardDiv.addClass("packInCollection");
                 }

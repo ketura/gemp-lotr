@@ -359,7 +359,10 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
     var borderWidth = Math.floor(maxDimension / 30);
 
     var borderOverlay = $(".borderOverlay", cardElem);
+    if (borderOverlay.hasClass("noBorder"))
+        borderWidth = 0;
     borderOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width - 2 * borderWidth, height: height - 2 * borderWidth, "border-width": borderWidth + "px"});
+
     var sizeListeners = cardElem.data("sizeListeners");
     if (sizeListeners != null)
         for (var i = 0; i < sizeListeners.length; i++)
