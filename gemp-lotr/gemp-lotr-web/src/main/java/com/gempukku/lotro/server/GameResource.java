@@ -1,5 +1,6 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.LotroGameMediator;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
@@ -13,6 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
@@ -22,7 +24,10 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Singleton
 @Path("/game")
@@ -30,6 +35,18 @@ public class GameResource extends AbstractResource {
     private static final Logger _logger = Logger.getLogger(GameResource.class);
     @Context
     private LotroServer _lotroServer;
+
+    private static Set<Phase> _autoPassAll = new HashSet<Phase>();
+
+    static {
+        _autoPassAll.add(Phase.FELLOWSHIP);
+        _autoPassAll.add(Phase.SHADOW);
+        _autoPassAll.add(Phase.MANEUVER);
+        _autoPassAll.add(Phase.ARCHERY);
+        _autoPassAll.add(Phase.ASSIGNMENT);
+        _autoPassAll.add(Phase.SKIRMISH);
+        _autoPassAll.add(Phase.REGROUP);
+    }
 
     @Path("/{gameId}")
     @GET
@@ -45,6 +62,8 @@ public class GameResource extends AbstractResource {
         if (gameMediator == null)
             sendError(Response.Status.NOT_FOUND);
 
+        gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
+
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document doc = documentBuilder.newDocument();
@@ -54,6 +73,23 @@ public class GameResource extends AbstractResource {
 
         doc.appendChild(gameState);
         return doc;
+    }
+
+    private Set<Phase> getAutoPassPhases(HttpServletRequest request) {
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals("autoPassPhases")) {
+                final String[] phases = cookie.getValue().split(",");
+                Set<Phase> result = new HashSet<Phase>();
+                for (String phase : phases)
+                    result.add(Phase.valueOf(phase));
+                return result;
+            }
+        }
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals("autoPass") && cookie.getValue().equals("false"))
+                return Collections.emptySet();
+        }
+        return _autoPassAll;
     }
 
     @Path("/{gameId}/cardInfo")
@@ -105,6 +141,8 @@ public class GameResource extends AbstractResource {
             LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
             if (gameMediator == null)
                 sendError(Response.Status.NOT_FOUND);
+
+            gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
 
             if (decisionId != null) {
                 try {

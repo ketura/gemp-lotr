@@ -42,25 +42,32 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
             }
 
             final List<Action> playableActions = game.getActionsEnvironment().getPhaseActions(playerId);
-
-            game.getUserFeedback().sendAwaitingDecision(playerId,
-                    new CardActionSelectionDecision(game, 1, "Play " + game.getGameState().getCurrentPhase().getHumanReadable() + " action or Pass", playableActions) {
-                        @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Action action = getSelectedAction(result);
-                            if (action != null) {
-                                _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_playOrder, 0, _followingGameProcess);
-                                game.getActionsEnvironment().addActionToStack(action);
-                            } else {
-                                _consecutivePasses++;
-                                if (_consecutivePasses >= _playOrder.getPlayerCount())
-                                    _nextProcess = _followingGameProcess;
-                                else
-                                    _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_playOrder, _consecutivePasses, _followingGameProcess);
+            if (playableActions.size() == 0 & game.shouldAutoPass(playerId, game.getGameState().getCurrentPhase())) {
+                playerPassed();
+            } else {
+                game.getUserFeedback().sendAwaitingDecision(playerId,
+                        new CardActionSelectionDecision(game, 1, "Play " + game.getGameState().getCurrentPhase().getHumanReadable() + " action or Pass", playableActions) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                Action action = getSelectedAction(result);
+                                if (action != null) {
+                                    _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_playOrder, 0, _followingGameProcess);
+                                    game.getActionsEnvironment().addActionToStack(action);
+                                } else {
+                                    playerPassed();
+                                }
                             }
-                        }
-                    });
+                        });
+            }
         }
+    }
+
+    private void playerPassed() {
+        _consecutivePasses++;
+        if (_consecutivePasses >= _playOrder.getPlayerCount())
+            _nextProcess = _followingGameProcess;
+        else
+            _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(_playOrder, _consecutivePasses, _followingGameProcess);
     }
 
     @Override

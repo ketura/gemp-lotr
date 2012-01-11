@@ -34,6 +34,7 @@ public class DefaultLotroGame implements LotroGame {
     private LotroFormat _format;
 
     private Set<String> _allPlayers;
+    private Map<String, Set<Phase>> _autoPassConfiguration = new HashMap<String, Set<Phase>>();
 
     private String _winnerPlayerId;
     private Map<String, String> _losers = new HashMap<String, String>();
@@ -80,6 +81,14 @@ public class DefaultLotroGame implements LotroGame {
 
         RuleSet ruleSet = new RuleSet(this, _actionsEnvironment, _modifiersLogic);
         ruleSet.applyRuleSet();
+    }
+
+    @Override
+    public boolean shouldAutoPass(String playerId, Phase phase) {
+        final Set<Phase> passablePhases = _autoPassConfiguration.get(playerId);
+        if (passablePhases == null)
+            return false;
+        return passablePhases.contains(phase);
     }
 
     public void addGameResultListener(GameResultListener listener) {
@@ -206,5 +215,9 @@ public class DefaultLotroGame implements LotroGame {
 
     public void removeGameStateListener(GameStateListener gameStateListener) {
         _gameState.removeGameStateListener(gameStateListener);
+    }
+
+    public void setPlayerAutoPassSettings(String playerId, Set<Phase> phases) {
+        _autoPassConfiguration.put(playerId, phases);
     }
 }

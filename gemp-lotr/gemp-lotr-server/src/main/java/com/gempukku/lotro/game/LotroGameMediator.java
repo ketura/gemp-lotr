@@ -54,6 +54,12 @@ public class LotroGameMediator {
         _userFeedback.setGame(_lotroGame);
     }
 
+    public void setPlayerAutoPassSettings(String playerId, Set<Phase> phases) {
+        if (_playersPlaying.contains(playerId)) {
+            _lotroGame.setPlayerAutoPassSettings(playerId, phases);
+        }
+    }
+
     public void sendMessageToPlayers(String message) {
         _lotroGame.getGameState().sendMessage(message);
     }
