@@ -6,7 +6,7 @@ var CardGroup = Class.extend({
     height: null,
     belongTestFunc: null,
     padding: 5,
-    maxCardHeight: null,
+    maxCardHeight: 497,
     descDiv: null,
 
     init: function(container, belongTest, createDiv) {
