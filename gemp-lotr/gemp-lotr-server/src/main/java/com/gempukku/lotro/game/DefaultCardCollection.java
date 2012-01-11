@@ -8,7 +8,7 @@ import com.gempukku.lotro.packs.PacksStorage;
 import java.util.*;
 
 public class DefaultCardCollection implements MutableCardCollection {
-    private Map<String, Integer> _counts = new HashMap<String, Integer>();
+    private Map<String, Integer> _counts = new LinkedHashMap<String, Integer>();
 
     private static class NameComparator implements Comparator<Item> {
         private LotroCardBlueprintLibrary _library;
