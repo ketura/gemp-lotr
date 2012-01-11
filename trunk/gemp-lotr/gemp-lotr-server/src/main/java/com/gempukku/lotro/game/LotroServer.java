@@ -23,9 +23,11 @@ public class LotroServer extends AbstractServer {
     private LotroCardBlueprintLibrary _lotroCardBlueprintLibrary;
 
     private Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<String, LotroGameMediator>();
+    private Set<String> _gameDeathWarningsSent = new HashSet<String>();
 
     private final Map<String, Date> _finishedGamesTime = new LinkedHashMap<String, Date>();
     private final long _timeToGameDeath = 1000 * 60 * 10; // 10 minutes
+    private final long _timeToGameDeathWarning = 1000 * 60 * 9; // 9 minutes
 
     private int _nextGameId = 1;
 
@@ -95,9 +97,15 @@ public class LotroServer extends AbstractServer {
         synchronized (_finishedGamesTime) {
             LinkedHashMap<String, Date> copy = new LinkedHashMap<String, Date>(_finishedGamesTime);
             for (Map.Entry<String, Date> finishedGame : copy.entrySet()) {
+                String gameId = finishedGame.getKey();
+                if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeathWarning
+                        && !_gameDeathWarningsSent.contains(gameId)) {
+                    _chatServer.getChatRoom(getChatRoomName(gameId)).sendMessage("System", "This game is already finished and will be shortly removed, please move to the Game Hall");
+                    _gameDeathWarningsSent.add(gameId);
+                }
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeath) {
-                    String gameId = finishedGame.getKey();
                     log.debug("Removing stale game: " + gameId);
+                    _gameDeathWarningsSent.remove(gameId);
                     _runningGames.remove(gameId);
                     _chatServer.destroyChatRoom(getChatRoomName(gameId));
                     _finishedGamesTime.remove(gameId);
