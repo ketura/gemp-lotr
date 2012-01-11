@@ -37,13 +37,25 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
             PacksStorage packStorage = new PacksStorage();
             packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
 
+            packStorage.addPackBox("(S)FotR - Tengwar", new FixedPackBox("(S)FotR - Tengwar"));
+
             packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox("FotR - Gandalf Starter"));
             packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox("FotR - Aragorn Starter"));
+
             packStorage.addPackBox("MoM - Gandalf Starter", new FixedPackBox("MoM - Gandalf Starter"));
             packStorage.addPackBox("MoM - Gimli Starter", new FixedPackBox("MoM - Gimli Starter"));
+
             packStorage.addPackBox("RotEL - Boromir Starter", new FixedPackBox("RotEL - Boromir Starter"));
             packStorage.addPackBox("RotEL - Legolas Starter", new FixedPackBox("RotEL - Legolas Starter"));
-            packStorage.addPackBox("(S)FotR - Tengwar", new FixedPackBox("(S)FotR - Tengwar"));
+
+            packStorage.addPackBox("TTT - Aragorn Starter", new FixedPackBox("TTT - Aragorn Starter"));
+            packStorage.addPackBox("TTT - Theoden Starter", new FixedPackBox("TTT - Theoden Starter"));
+
+            packStorage.addPackBox("BoHD - Eowyn Starter", new FixedPackBox("BoHD - Eowyn Starter"));
+            packStorage.addPackBox("BoHD - Legolas Starter", new FixedPackBox("BoHD - Legolas Starter"));
+
+            packStorage.addPackBox("EoF - Faramir Starter", new FixedPackBox("EoF - Faramir Starter"));
+            packStorage.addPackBox("EoF - Witch-king Starter", new FixedPackBox("EoF - Witch-king Starter"));
 
             packStorage.addPackBox("FotR - Booster", new RarityPackBox(1));
             packStorage.addPackBox("MoM - Booster", new RarityPackBox(2));

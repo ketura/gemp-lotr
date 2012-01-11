@@ -12,3 +12,9 @@ RotEL - Booster
 TTT - Booster
 BoHD - Booster
 EoF - Booster
+TTT - Aragorn Starter
+TTT - Theoden Starter
+BoHD - Eowyn Starter
+BoHD - Legolas Starter
+EoF - Faramir Starter
+EoF - Witch-king Starter
