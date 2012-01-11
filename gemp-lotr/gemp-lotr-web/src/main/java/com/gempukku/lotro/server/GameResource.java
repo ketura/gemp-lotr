@@ -40,11 +40,9 @@ public class GameResource extends AbstractResource {
 
     static {
         _autoPassAll.add(Phase.FELLOWSHIP);
-        _autoPassAll.add(Phase.SHADOW);
         _autoPassAll.add(Phase.MANEUVER);
         _autoPassAll.add(Phase.ARCHERY);
         _autoPassAll.add(Phase.ASSIGNMENT);
-        _autoPassAll.add(Phase.SKIRMISH);
         _autoPassAll.add(Phase.REGROUP);
     }
 

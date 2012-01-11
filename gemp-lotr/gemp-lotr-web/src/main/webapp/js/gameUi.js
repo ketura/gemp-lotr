@@ -373,30 +373,58 @@ var GempLotrGameUI = Class.extend({
 
         this.chatBoxDiv = $("#chatBox");
 
-        $("#settingsBox").append("<input id='autoPass' type='checkbox' value='selected' /><label for='autoPass'>Auto-pass when there is no actions</label><br />");
         $("#settingsBox").append("<input id='autoAccept' type='checkbox' value='selected' /><label for='autoAccept'>Auto-accept after selecting action or card</label><br />");
 
-        var autoPass = $.cookie("autoPass");
-        if (autoPass == "true" || autoPass == null) {
-            $("#autoPass").prop("checked", true);
-            this.settingsAutoPass = true;
-        }
         var autoAccept = $.cookie("autoAccept");
         if (autoAccept == "true" || autoAccept == null) {
             $("#autoAccept").prop("checked", true);
             this.settingsAutoAccept = true;
         }
 
-        $("#autoPass").bind("change", function() {
-            var selected = $("#autoPass").prop("checked");
-            that.settingsAutoPass = selected;
-            $.cookie("autoPass", "" + selected, { expires: 365 });
-        });
-
         $("#autoAccept").bind("change", function() {
             var selected = $("#autoAccept").prop("checked");
             that.settingsAutoAccept = selected;
             $.cookie("autoAccept", "" + selected, { expires: 365 });
+        });
+
+        $("#settingsBox").append("Phases when game auto-passes for you, if you have no phase actions to play<br />");
+        $("#settingsBox").append("<input id='autoPassFELLOWSHIP' type='checkbox' value='selected' /><label for='autoPassFELLOWSHIP'>Fellowship</label><br />");
+        $("#settingsBox").append("<input id='autoPassSHADOW' type='checkbox' value='selected' /><label for='autoPassSHADOW'>Shadow</label><br />");
+        $("#settingsBox").append("<input id='autoPassMANEUVER' type='checkbox' value='selected' /><label for='autoPassMANEUVER'>Maneuver</label><br />");
+        $("#settingsBox").append("<input id='autoPassARCHERY' type='checkbox' value='selected' /><label for='autoPassARCHERY'>Archery</label><br />");
+        $("#settingsBox").append("<input id='autoPassASSIGNMENT' type='checkbox' value='selected' /><label for='autoPassASSIGNMENT'>Assignment</label><br />");
+        $("#settingsBox").append("<input id='autoPassSKIRMISH' type='checkbox' value='selected' /><label for='autoPassSKIRMISH'>Skirmish</label><br />");
+        $("#settingsBox").append("<input id='autoPassREGROUP' type='checkbox' value='selected' /><label for='autoPassREGROUP'>Regroup</label><br />");
+
+        var autoPassPhases = $.cookie("autoPassPhases");
+        if (autoPassPhases == null)
+            autoPassPhases = "FELLOWSHIP,MANEUVER,ARCHERY,ASSIGNMENT,REGROUP";
+
+        var passPhasesArr = autoPassPhases.split(",");
+        for (var i = 0; i < passPhasesArr.length; i++) {
+            $("#autoPass" + passPhasesArr[i]).prop("checked", true);
+        }
+
+        $("#autoPassFELLOWSHIP,#autoPassSHADOW,#autoPassMANEUVER,#autoPassARCHERY,#autoPassASSIGNMENT,#autoPassSKIRMISH,#autoPassREGROUP").bind("change", function() {
+            var newAutoPassPhases = "";
+            if ($("#autoPassFELLOWSHIP").prop("checked"))
+                newAutoPassPhases += ",FELLOWSHIP";
+            if ($("#autoPassSHADOW").prop("checked"))
+                newAutoPassPhases += ",SHADOW";
+            if ($("#autoPassMANEUVER").prop("checked"))
+                newAutoPassPhases += ",MANEUVER";
+            if ($("#autoPassARCHERY").prop("checked"))
+                newAutoPassPhases += ",ARCHERY";
+            if ($("#autoPassASSIGNMENT").prop("checked"))
+                newAutoPassPhases += ",ASSIGNMENT";
+            if ($("#autoPassSKIRMISH").prop("checked"))
+                newAutoPassPhases += ",SKIRMISH";
+            if ($("#autoPassREGROUP").prop("checked"))
+                newAutoPassPhases += ",REGROUP";
+
+            if (newAutoPassPhases.length > 0)
+                newAutoPassPhases = newAutoPassPhases.substr(1);
+            $.cookie("autoAcceptPhases", newAutoPassPhases, { expires: 365 });
         });
 
         var playerListener = function(players) {
