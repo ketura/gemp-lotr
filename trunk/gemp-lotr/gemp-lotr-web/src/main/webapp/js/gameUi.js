@@ -388,19 +388,19 @@ var GempLotrGameUI = Class.extend({
         });
 
         $("#settingsBox").append("Phases when game auto-passes for you, if you have no phase actions to play<br />");
-        $("#settingsBox").append("<input id='autoPassFELLOWSHIP' type='checkbox' value='selected' /><label for='autoPassFELLOWSHIP'>Fellowship</label><br />");
-        $("#settingsBox").append("<input id='autoPassSHADOW' type='checkbox' value='selected' /><label for='autoPassSHADOW'>Shadow</label><br />");
-        $("#settingsBox").append("<input id='autoPassMANEUVER' type='checkbox' value='selected' /><label for='autoPassMANEUVER'>Maneuver</label><br />");
-        $("#settingsBox").append("<input id='autoPassARCHERY' type='checkbox' value='selected' /><label for='autoPassARCHERY'>Archery</label><br />");
-        $("#settingsBox").append("<input id='autoPassASSIGNMENT' type='checkbox' value='selected' /><label for='autoPassASSIGNMENT'>Assignment</label><br />");
-        $("#settingsBox").append("<input id='autoPassSKIRMISH' type='checkbox' value='selected' /><label for='autoPassSKIRMISH'>Skirmish</label><br />");
-        $("#settingsBox").append("<input id='autoPassREGROUP' type='checkbox' value='selected' /><label for='autoPassREGROUP'>Regroup</label><br />");
+        $("#settingsBox").append("<input id='autoPassFELLOWSHIP' type='checkbox' value='selected' /><label for='autoPassFELLOWSHIP'>Fellowship</label> ");
+        $("#settingsBox").append("<input id='autoPassSHADOW' type='checkbox' value='selected' /><label for='autoPassSHADOW'>Shadow</label> ");
+        $("#settingsBox").append("<input id='autoPassMANEUVER' type='checkbox' value='selected' /><label for='autoPassMANEUVER'>Maneuver</label> ");
+        $("#settingsBox").append("<input id='autoPassARCHERY' type='checkbox' value='selected' /><label for='autoPassARCHERY'>Archery</label> ");
+        $("#settingsBox").append("<input id='autoPassASSIGNMENT' type='checkbox' value='selected' /><label for='autoPassASSIGNMENT'>Assignment</label> ");
+        $("#settingsBox").append("<input id='autoPassSKIRMISH' type='checkbox' value='selected' /><label for='autoPassSKIRMISH'>Skirmish</label> ");
+        $("#settingsBox").append("<input id='autoPassREGROUP' type='checkbox' value='selected' /><label for='autoPassREGROUP'>Regroup</label>");
 
         var autoPassPhases = $.cookie("autoPassPhases");
         if (autoPassPhases == null)
-            autoPassPhases = "FELLOWSHIP,MANEUVER,ARCHERY,ASSIGNMENT,REGROUP";
+            autoPassPhases = "FELLOWSHIP0MANEUVER0ARCHERY0ASSIGNMENT0REGROUP";
 
-        var passPhasesArr = autoPassPhases.split(",");
+        var passPhasesArr = autoPassPhases.split("0");
         for (var i = 0; i < passPhasesArr.length; i++) {
             $("#autoPass" + passPhasesArr[i]).prop("checked", true);
         }
@@ -408,23 +408,23 @@ var GempLotrGameUI = Class.extend({
         $("#autoPassFELLOWSHIP,#autoPassSHADOW,#autoPassMANEUVER,#autoPassARCHERY,#autoPassASSIGNMENT,#autoPassSKIRMISH,#autoPassREGROUP").bind("change", function() {
             var newAutoPassPhases = "";
             if ($("#autoPassFELLOWSHIP").prop("checked"))
-                newAutoPassPhases += ",FELLOWSHIP";
+                newAutoPassPhases += "0FELLOWSHIP";
             if ($("#autoPassSHADOW").prop("checked"))
-                newAutoPassPhases += ",SHADOW";
+                newAutoPassPhases += "0SHADOW";
             if ($("#autoPassMANEUVER").prop("checked"))
-                newAutoPassPhases += ",MANEUVER";
+                newAutoPassPhases += "0MANEUVER";
             if ($("#autoPassARCHERY").prop("checked"))
-                newAutoPassPhases += ",ARCHERY";
+                newAutoPassPhases += "0ARCHERY";
             if ($("#autoPassASSIGNMENT").prop("checked"))
-                newAutoPassPhases += ",ASSIGNMENT";
+                newAutoPassPhases += "0ASSIGNMENT";
             if ($("#autoPassSKIRMISH").prop("checked"))
-                newAutoPassPhases += ",SKIRMISH";
+                newAutoPassPhases += "0SKIRMISH";
             if ($("#autoPassREGROUP").prop("checked"))
-                newAutoPassPhases += ",REGROUP";
+                newAutoPassPhases += "0REGROUP";
 
             if (newAutoPassPhases.length > 0)
                 newAutoPassPhases = newAutoPassPhases.substr(1);
-            $.cookie("autoAcceptPhases", newAutoPassPhases, { expires: 365 });
+            $.cookie("autoPassPhases", newAutoPassPhases, { expires: 365 });
         });
 
         var playerListener = function(players) {
@@ -636,21 +636,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -665,11 +665,11 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -1140,12 +1140,12 @@ var GempLotrGameUI = Class.extend({
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-                    {
-                        "OK": function() {
-                            $(this).dialog("close");
-                            that.decisionFunction(id, $("#integerDecision").val());
-                        }
-                    });
+            {
+                "OK": function() {
+                    $(this).dialog("close");
+                    that.decisionFunction(id, $("#integerDecision").val());
+                }
+            });
         }
 
         $("#integerDecision").SpinnerControl({ type: 'range',
@@ -1183,12 +1183,12 @@ var GempLotrGameUI = Class.extend({
 
             if (!this.replayMode) {
                 this.smallDialog.dialog("option", "buttons",
-                        {
-                            "OK": function() {
-                                that.smallDialog.dialog("close");
-                                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                            }
-                        });
+                {
+                    "OK": function() {
+                        that.smallDialog.dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                });
             }
         } else {
             this.smallDialog.append("<br />");
@@ -1573,8 +1573,8 @@ var GempLotrGameUI = Class.extend({
                     $(div).find('LI.hover').removeClass('hover');
                     $(this).parent().addClass('hover');
                 }).mouseout(function() {
-                    $(div).find('LI.hover').removeClass('hover');
-                });
+            $(div).find('LI.hover').removeClass('hover');
+        });
 
         var getRidOfContextMenu = function() {
             $(div).remove();

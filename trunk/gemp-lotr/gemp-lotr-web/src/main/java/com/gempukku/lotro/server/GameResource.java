@@ -36,14 +36,14 @@ public class GameResource extends AbstractResource {
     @Context
     private LotroServer _lotroServer;
 
-    private static Set<Phase> _autoPassAll = new HashSet<Phase>();
+    private static Set<Phase> _autoPassDefault = new HashSet<Phase>();
 
     static {
-        _autoPassAll.add(Phase.FELLOWSHIP);
-        _autoPassAll.add(Phase.MANEUVER);
-        _autoPassAll.add(Phase.ARCHERY);
-        _autoPassAll.add(Phase.ASSIGNMENT);
-        _autoPassAll.add(Phase.REGROUP);
+        _autoPassDefault.add(Phase.FELLOWSHIP);
+        _autoPassDefault.add(Phase.MANEUVER);
+        _autoPassDefault.add(Phase.ARCHERY);
+        _autoPassDefault.add(Phase.ASSIGNMENT);
+        _autoPassDefault.add(Phase.REGROUP);
     }
 
     @Path("/{gameId}")
@@ -76,7 +76,7 @@ public class GameResource extends AbstractResource {
     private Set<Phase> getAutoPassPhases(HttpServletRequest request) {
         for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals("autoPassPhases")) {
-                final String[] phases = cookie.getValue().split(",");
+                final String[] phases = cookie.getValue().split("0");
                 Set<Phase> result = new HashSet<Phase>();
                 for (String phase : phases)
                     result.add(Phase.valueOf(phase));
@@ -87,7 +87,7 @@ public class GameResource extends AbstractResource {
             if (cookie.getName().equals("autoPass") && cookie.getValue().equals("false"))
                 return Collections.emptySet();
         }
-        return _autoPassAll;
+        return _autoPassDefault;
     }
 
     @Path("/{gameId}/cardInfo")
