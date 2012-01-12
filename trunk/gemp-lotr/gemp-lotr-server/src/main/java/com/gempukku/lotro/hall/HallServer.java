@@ -53,16 +53,12 @@ public class HallServer extends AbstractServer {
         _collectionsManager = collectionsManager;
         _chatServer.createChatRoom("Game Hall", 10);
 
-        addFormat("fotr_block", new FotRBlockFormat(library, false));
-        addFormat("c_fotr_block", new FotRBlockFormat(library, true));
-        addFormat("ttt_block", new TTTBlockFormat(library, false));
-        addFormat("c_ttt_block", new TTTBlockFormat(library, true));
+        addFormat("fotr_block", new FotRBlockFormat(library));
+        addFormat("ttt_block", new TTTBlockFormat(library));
         addFormat("towers_standard", new TowersStandardFormat(library));
-        addFormat("king_block", new KingBlockFormat(library, false));
-        addFormat("c_king_block", new KingBlockFormat(library, true));
+        addFormat("king_block", new KingBlockFormat(library));
         addFormat("movie", new MovieFormat(library));
-        addFormat("war_block", new WarOfTheRingBlockFormat(library, false));
-        addFormat("c_war_block", new WarOfTheRingBlockFormat(library, true));
+        addFormat("war_block", new WarOfTheRingBlockFormat(library));
         addFormat("open", new OpenFormat(library));
         addFormat("expanded", new ExpandedFormat(library));
     }
