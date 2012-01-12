@@ -2,7 +2,7 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.db.CollectionDAO;
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueSerie;
@@ -19,7 +19,7 @@ public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
     private LeagueService _leagueService;
     private LotroCardBlueprintLibrary _library;
-    private CollectionDAO _collectionDao;
+    private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
 
     private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
@@ -45,12 +45,12 @@ public class HallServer extends AbstractServer {
 
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, CollectionDAO collectionDao, boolean test) {
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
         _library = library;
-        _collectionDao = collectionDao;
+        _collectionsManager = collectionsManager;
         _chatServer.createChatRoom("Game Hall", 10);
 
         addFormat("fotr_block", new FotRBlockFormat(library, false));
@@ -249,13 +249,13 @@ public class HallServer extends AbstractServer {
         OwnershipCheck ownershipCheck;
         if (collectionType.getCode().equals("default")) {
             // Merging player-owned cards in collection with the default one (containing all basic cards) 
-            MutableCardCollection ownedCollection = _collectionDao.getCollectionForPlayer(player, "permanent");
+            CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent");
             if (ownedCollection != null)
                 ownershipCheck = new MergedOwnershipCheck(_lotroServer.getDefaultCollection(), ownedCollection);
             else
                 ownershipCheck = _lotroServer.getDefaultCollection();
         } else
-            ownershipCheck = _collectionDao.getCollectionForPlayer(player, collectionType.getCode());
+            ownershipCheck = _collectionsManager.getPlayerCollection(player, collectionType.getCode());
 
         if (ownershipCheck == null)
             throw new HallException("You don't have cards in the required collection to play in this format");

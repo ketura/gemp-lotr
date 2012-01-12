@@ -24,30 +24,34 @@ public class PlayerDAO {
         _players.clear();
     }
 
-    public Player getPlayer(int id) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
+    public Player getPlayer(int id) {
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type from player where id=?");
+            Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                statement.setInt(1, id);
-                ResultSet rs = statement.executeQuery();
+                PreparedStatement statement = conn.prepareStatement("select id, name, type from player where id=?");
                 try {
-                    if (rs.next()) {
-                        String name = rs.getString(2);
-                        String type = rs.getString(3);
+                    statement.setInt(1, id);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        if (rs.next()) {
+                            String name = rs.getString(2);
+                            String type = rs.getString(3);
 
-                        return new Player(id, name, type);
-                    } else {
-                        return null;
+                            return new Player(id, name, type);
+                        } else {
+                            return null;
+                        }
+                    } finally {
+                        rs.close();
                     }
                 } finally {
-                    rs.close();
+                    statement.close();
                 }
             } finally {
-                statement.close();
+                conn.close();
             }
-        } finally {
-            conn.close();
+        } catch (SQLException exp) {
+            throw new RuntimeException("Error while retrieving player", exp);
         }
     }
 

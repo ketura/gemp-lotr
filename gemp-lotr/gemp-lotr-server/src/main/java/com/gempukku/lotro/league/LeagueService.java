@@ -1,6 +1,10 @@
 package com.gempukku.lotro.league;
 
-import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.LeagueDAO;
+import com.gempukku.lotro.db.LeagueMatchDAO;
+import com.gempukku.lotro.db.LeaguePointsDAO;
+import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
 import com.gempukku.lotro.db.vo.LeagueSerie;
@@ -14,15 +18,15 @@ public class LeagueService {
     private LeagueSerieDAO _leagueSeasonDao;
     private LeaguePointsDAO _leaguePointsDao;
     private LeagueMatchDAO _leagueMatchDao;
-    private CollectionDAO _collectionDao;
+    private CollectionsManager _collectionsManager;
     private LotroCardBlueprintLibrary _library;
 
-    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao, CollectionDAO collectionDao, LotroCardBlueprintLibrary library) {
+    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao, CollectionsManager collectionsManager, LotroCardBlueprintLibrary library) {
         _leagueDao = leagueDao;
         _leagueSeasonDao = leagueSeasonDao;
         _leaguePointsDao = leaguePointsDao;
         _leagueMatchDao = leagueMatchDao;
-        _collectionDao = collectionDao;
+        _collectionsManager = collectionsManager;
         _library = library;
     }
 
@@ -30,8 +34,8 @@ public class LeagueService {
         return _leagueDao.getActiveLeagues();
     }
 
-    public MutableCardCollection getLeagueCollection(Player player, League league) {
-        final MutableCardCollection collectionForPlayer = _collectionDao.getCollectionForPlayer(player, league.getType());
+    public CardCollection getLeagueCollection(Player player, League league) {
+        final CardCollection collectionForPlayer = _collectionsManager.getPlayerCollection(player, league.getType());
         if (collectionForPlayer == null) {
             DefaultCardCollection collection = new DefaultCardCollection();
 

@@ -10,6 +10,14 @@ import java.util.*;
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Integer> _counts = new LinkedHashMap<String, Integer>();
 
+    public DefaultCardCollection() {
+
+    }
+
+    public DefaultCardCollection(CardCollection cardCollection) {
+        _counts.putAll(cardCollection.getAll());
+    }
+
     private static class NameComparator implements Comparator<Item> {
         private LotroCardBlueprintLibrary _library;
 
@@ -142,6 +150,19 @@ public class DefaultCardCollection implements MutableCardCollection {
         if (oldCount == null)
             oldCount = 0;
         _counts.put(itemId, oldCount + count);
+    }
+
+    @Override
+    public boolean removeItem(String itemId, int count) {
+        Integer oldCount = _counts.get(itemId);
+        if (oldCount == null || oldCount < count)
+            return false;
+        final int newCount = oldCount - count;
+        if (newCount == 0)
+            _counts.remove(itemId);
+        else
+            _counts.put(itemId, newCount);
+        return true;
     }
 
     private boolean hasSelection(String packId, String selection, PacksStorage packsStorage) {

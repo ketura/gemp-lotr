@@ -1,10 +1,13 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.sun.jersey.spi.resource.Singleton;
@@ -32,7 +35,7 @@ public class CollectionResource extends AbstractResource {
     @Context
     private LotroServer _lotroServer;
     @Context
-    private CollectionDAO _collectionDao;
+    private CollectionsManager _collectionsManager;
     @Context
     private LeagueDAO _leagueDao;
     @Context
@@ -135,9 +138,7 @@ public class CollectionResource extends AbstractResource {
         if (collectionType.equals("default"))
             collection = _lotroServer.getDefaultCollection();
         else if (collectionType.equals("permanent")) {
-            collection = _collectionDao.getCollectionForPlayer(player, "permanent");
-            if (collection == null)
-                collection = new DefaultCardCollection();
+            collection = _collectionsManager.getPlayerCollection(player, "permanent");
         } else {
             League league = _leagueService.getLeagueByType(collectionType);
             if (league != null)
@@ -158,19 +159,12 @@ public class CollectionResource extends AbstractResource {
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        CardCollection collection = getCollection(resourceOwner, collectionType);
-        if (collection == null || !(collection instanceof MutableCardCollection))
-            sendError(Response.Status.NOT_FOUND);
-
-        MutableCardCollection modifiableColleciton = (MutableCardCollection) collection;
-
-        CardCollection packContents = modifiableColleciton.openPack(packId, selection, _packStorage);
-        _deliveryService.addPackage(resourceOwner, getPackageNameByCollectionType(collectionType), packContents);
+        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionType, selection, _packStorage, packId);
 
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
 
-        _collectionDao.setCollectionForPlayer(resourceOwner, collectionType, modifiableColleciton);
+        _deliveryService.addPackage(resourceOwner, getPackageNameByCollectionType(collectionType), packContents);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
