@@ -17,33 +17,38 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
     @Override
     public void process(final LotroGame game) {
         final GameState gameState = game.getGameState();
+        final String currentPlayerId = gameState.getCurrentPlayerId();
         if (gameState.getMoveCount() < RuleUtils.calculateMoveLimit(game)) {
             if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)) {
-                _nextProcess = new MovementGameProcess(
-                        new EndOfPhaseGameProcess(Phase.REGROUP,
-                                new ShadowPhasesGameProcess()));
+                playerMoves();
             } else {
-                game.getUserFeedback().sendAwaitingDecision(gameState.getCurrentPlayerId(),
+                game.getUserFeedback().sendAwaitingDecision(currentPlayerId,
                         new MultipleChoiceAwaitingDecision(1, "Do you want to make another move?", new String[]{"Yes", "No"}) {
                             @Override
                             protected void validDecisionMade(int index, String result) {
                                 if (result.equals("Yes"))
-                                    _nextProcess = new MovementGameProcess(
-                                            new EndOfPhaseGameProcess(Phase.REGROUP,
-                                                    new ShadowPhasesGameProcess()));
+                                    playerMoves();
                                 else {
-                                    _nextProcess = new PlayerReconcilesGameProcess(gameState.getCurrentPlayerId(),
-                                            new ReturnFollowersToSupportGameProcess(
-                                                    new DiscardAllMinionsGameProcess()));
+                                    playerStays(currentPlayerId);
                                 }
                             }
                         });
             }
         } else {
-            _nextProcess = new PlayerReconcilesGameProcess(gameState.getCurrentPlayerId(),
-                    new ReturnFollowersToSupportGameProcess(
-                            new DiscardAllMinionsGameProcess()));
+            playerStays(currentPlayerId);
         }
+    }
+
+    private void playerMoves() {
+        _nextProcess = new MovementGameProcess(
+                new EndOfPhaseGameProcess(Phase.REGROUP,
+                        new ShadowPhasesGameProcess()));
+    }
+
+    private void playerStays(String currentPlayerId) {
+        _nextProcess = new PlayerReconcilesGameProcess(currentPlayerId,
+                new ReturnFollowersToSupportGameProcess(
+                        new DiscardAllMinionsGameProcess()));
     }
 
     @Override
