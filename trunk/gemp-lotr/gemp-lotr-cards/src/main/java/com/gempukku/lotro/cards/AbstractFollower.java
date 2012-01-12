@@ -35,6 +35,11 @@ public abstract class AbstractFollower extends AbstractPermanent {
     }
 
     @Override
+    public final Modifier getAlwaysOnModifier(PhysicalCard self) {
+        return super.getAlwaysOnModifier(self);
+    }
+
+    @Override
     public final List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         if (_strength != 0)

@@ -58,7 +58,8 @@ public class Card13_028 extends AbstractFollower {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))), new SpotCondition(Culture.GANDALF, CardType.COMPANION), -1);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(
+                new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))), new SpotCondition(Culture.GANDALF, CardType.COMPANION), -1));
     }
 }
