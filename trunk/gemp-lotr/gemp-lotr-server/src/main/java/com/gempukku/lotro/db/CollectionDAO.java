@@ -27,9 +27,6 @@ public class CollectionDAO {
         _collections.clear();
     }
 
-    public void deletePlayerCollection(int playerId, String type) {
-    }
-
     public CardCollection getCollectionForPlayer(int playerId, String type) {
         Map<String, CardCollection> playerCollections = _collections.get(playerId);
         if (playerCollections != null) {

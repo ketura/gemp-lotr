@@ -107,7 +107,6 @@ public class CollectionsManager {
                         mutableCardCollection.addItem(item.getKey(), item.getValue());
 
                     _collectionDAO.setCollectionForPlayer(player.getId(), collectionTo, mutableCardCollection);
-                    _collectionDAO.deletePlayerCollection(player.getId(), collectionFrom);
                 }
             }
         } finally {
