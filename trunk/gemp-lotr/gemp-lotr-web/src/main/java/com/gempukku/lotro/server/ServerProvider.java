@@ -1,6 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
@@ -33,7 +34,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     @Context
     private LeaguePointsDAO _leaguePointsDao;
     @Context
-    private CollectionDAO _collectionDao;
+    private CollectionsManager _collectionsManager;
     @Context
     private GameHistoryDAO _gameHistoryDao;
     @Context
@@ -54,7 +55,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<LeagueService> getLeagueServiceInjectable() {
         if (_leagueServerInjectable == null) {
-            final LeagueService leagueService = new LeagueService(_leagueDao, _leagueSeasonDao, _leaguePointsDao, _leagueMatchDao, _collectionDao, _library);
+            final LeagueService leagueService = new LeagueService(_leagueDao, _leagueSeasonDao, _leaguePointsDao, _leagueMatchDao, _collectionsManager, _library);
             _leagueServerInjectable = new Injectable<LeagueService>() {
                 @Override
                 public LeagueService getValue() {
@@ -67,7 +68,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<HallServer> getHallServerInjectable() {
         if (_hallServerInjectable == null) {
-            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(), _library, _collectionDao, false);
+            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(), _library, _collectionsManager, false);
             hallServer.startServer();
             _hallServerInjectable = new Injectable<HallServer>() {
                 @Override

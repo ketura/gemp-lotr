@@ -1,14 +1,11 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.db.CollectionDAO;
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.MutableCardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
 import com.sun.jersey.spi.resource.Singleton;
 
@@ -25,7 +22,7 @@ import java.util.Map;
 @Path("/admin")
 public class AdminResource extends AbstractResource {
     @Context
-    private CollectionDAO _collectionDao;
+    private CollectionsManager _collectionsManager;
     @Context
     private DeckDAO _deckDao;
     @Context
@@ -43,7 +40,7 @@ public class AdminResource extends AbstractResource {
         validateAdmin(request);
 
         _playerDao.clearCache();
-        _collectionDao.clearCache();
+        _collectionsManager.clearDBCache();
         _deckDao.clearCache();
         _leagueDao.clearCache();
 
@@ -140,14 +137,10 @@ public class AdminResource extends AbstractResource {
             _leagueDao.setBaseCollectionForLeague(league, baseCollection);
         }
 
-        Map<Integer, MutableCardCollection> playerCollections = _collectionDao.getPlayerCollectionsByType(leagueType);
-        for (Map.Entry<Integer, MutableCardCollection> playerCollection : playerCollections.entrySet()) {
-            int playerId = playerCollection.getKey();
-            MutableCardCollection collection = playerCollection.getValue();
-            for (Map.Entry<String, Integer> productItem : productItems.entrySet())
-                collection.addItem(productItem.getKey(), productItem.getValue());
-            Player player = _playerDao.getPlayer(playerId);
-            _collectionDao.setCollectionForPlayer(player, leagueType, collection);
+        Map<Player, CardCollection> playerCollections = _collectionsManager.getPlayersCollection(leagueType);
+        for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
+            Player player = playerCollection.getKey();
+            _collectionsManager.addItemsToPlayerCollection(player, leagueType, productItems);
             _deliveryService.addPackage(player, league.getName(), items);
         }
 
@@ -176,11 +169,32 @@ public class AdminResource extends AbstractResource {
         for (String playerName : playerNames) {
             Player player = _playerDao.getPlayer(playerName);
 
-            MutableCardCollection collection = getPlayerCollection(player, collectionType);
-            for (Map.Entry<String, Integer> productItem : productItems.entrySet())
-                collection.addItem(productItem.getKey(), productItem.getValue());
-            _collectionDao.setCollectionForPlayer(player, collectionType, collection);
+            _collectionsManager.addItemsToPlayerCollection(player, collectionType, productItems);
             _deliveryService.addPackage(player, packageName, items);
+        }
+
+        return "OK";
+    }
+
+    @Path("/moveCollections")
+    @POST
+    public String moveCollections(
+            @FormParam("collectionFrom") String collectionFrom,
+            @FormParam("collectionTo") String collectionTo,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        String toCollectionName = getPackageNameByCollectionType(collectionTo);
+
+        Map<Player, CardCollection> playerCollections = _collectionsManager.getPlayersCollection(collectionFrom);
+        for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
+            Player player = playerCollection.getKey();
+
+            CardCollection oldCollection = playerCollection.getValue();
+
+            _collectionsManager.moveCollectionToCollection(player, collectionFrom, collectionTo);
+
+            _deliveryService.addPackage(player, toCollectionName, oldCollection);
         }
 
         return "OK";
@@ -197,13 +211,6 @@ public class AdminResource extends AbstractResource {
             packageName = league.getName();
         }
         return packageName;
-    }
-
-    private MutableCardCollection getPlayerCollection(Player player, String collectionType) {
-        MutableCardCollection collection = _collectionDao.getCollectionForPlayer(player, collectionType);
-        if (collection == null && collectionType.equals("permanent"))
-            collection = new DefaultCardCollection();
-        return collection;
     }
 
     private List<String> getItems(String values) {

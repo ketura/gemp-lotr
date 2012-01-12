@@ -2,8 +2,6 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.MutableCardCollection;
-import com.gempukku.lotro.game.Player;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,7 +16,7 @@ public class CollectionDAO {
     private DbAccess _dbAccess;
     private CollectionSerializer _collectionSerializer;
 
-    private Map<Integer, Map<String, MutableCardCollection>> _collections = new ConcurrentHashMap<Integer, Map<String, MutableCardCollection>>();
+    private Map<Integer, Map<String, CardCollection>> _collections = new ConcurrentHashMap<Integer, Map<String, CardCollection>>();
 
     public CollectionDAO(DbAccess dbAccess, CollectionSerializer collectionSerializer) {
         _dbAccess = dbAccess;
@@ -29,20 +27,23 @@ public class CollectionDAO {
         _collections.clear();
     }
 
-    public MutableCardCollection getCollectionForPlayer(Player player, String type) {
-        Map<String, MutableCardCollection> playerCollections = _collections.get(player.getId());
+    public void deletePlayerCollection(int playerId, String type) {
+    }
+
+    public CardCollection getCollectionForPlayer(int playerId, String type) {
+        Map<String, CardCollection> playerCollections = _collections.get(playerId);
         if (playerCollections != null) {
-            MutableCardCollection collection = playerCollections.get(type);
+            CardCollection collection = playerCollections.get(type);
             if (collection != null)
                 return collection;
         }
 
-        MutableCardCollection collection = getCollectionFromDB(player, type);
+        CardCollection collection = getCollectionFromDB(playerId, type);
         if (collection != null) {
-            Map<String, MutableCardCollection> collectionsByType = _collections.get(player.getId());
+            Map<String, CardCollection> collectionsByType = _collections.get(playerId);
             if (collectionsByType == null) {
-                collectionsByType = new ConcurrentHashMap<String, MutableCardCollection>();
-                _collections.put(player.getId(), collectionsByType);
+                collectionsByType = new ConcurrentHashMap<String, CardCollection>();
+                _collections.put(playerId, collectionsByType);
             }
             collectionsByType.put(type, collection);
             return collection;
@@ -50,7 +51,7 @@ public class CollectionDAO {
         return null;
     }
 
-    public Map<Integer, MutableCardCollection> getPlayerCollectionsByType(String type) {
+    public Map<Integer, CardCollection> getPlayerCollectionsByType(String type) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
@@ -59,7 +60,7 @@ public class CollectionDAO {
                     statement.setString(1, type);
                     ResultSet rs = statement.executeQuery();
                     try {
-                        Map<Integer, MutableCardCollection> playerCollections = new HashMap<Integer, MutableCardCollection>();
+                        Map<Integer, CardCollection> playerCollections = new HashMap<Integer, CardCollection>();
                         while (rs.next()) {
                             int playerId = rs.getInt(1);
                             Blob blob = rs.getBlob(2);
@@ -91,13 +92,25 @@ public class CollectionDAO {
         }
     }
 
-    private MutableCardCollection getCollectionFromDB(Player player, String type) {
+    public void setCollectionForPlayer(int playerId, String type, CardCollection collection) {
+        if (!type.equals("default")) {
+            storeCollectionToDB(playerId, type, collection);
+            Map<String, CardCollection> collectionsByType = _collections.get(playerId);
+            if (collectionsByType == null) {
+                collectionsByType = new ConcurrentHashMap<String, CardCollection>();
+                _collections.put(playerId, collectionsByType);
+            }
+            collectionsByType.put(type, collection);
+        }
+    }
+
+    private CardCollection getCollectionFromDB(int playerId, String type) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = connection.prepareStatement("select collection from collection where player_id=? and type=?");
                 try {
-                    statement.setInt(1, player.getId());
+                    statement.setInt(1, playerId);
                     statement.setString(2, type);
                     ResultSet rs = statement.executeQuery();
                     try {
@@ -132,20 +145,8 @@ public class CollectionDAO {
         }
     }
 
-    public void setCollectionForPlayer(Player player, String type, MutableCardCollection collection) {
-        if (!type.equals("default")) {
-            storeCollectionToDB(player, type, collection);
-            Map<String, MutableCardCollection> collectionsByType = _collections.get(player.getId());
-            if (collectionsByType == null) {
-                collectionsByType = new ConcurrentHashMap<String, MutableCardCollection>();
-                _collections.put(player.getId(), collectionsByType);
-            }
-            collectionsByType.put(type, collection);
-        }
-    }
-
-    private void storeCollectionToDB(Player player, String type, CardCollection collection) {
-        CardCollection oldCollection = getCollectionFromDB(player, type);
+    private void storeCollectionToDB(int playerId, String type, CardCollection collection) {
+        CardCollection oldCollection = getCollectionFromDB(playerId, type);
 
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
@@ -162,7 +163,7 @@ public class CollectionDAO {
                     _collectionSerializer.serializeCollection(collection, baos);
 
                     statement.setBlob(1, new ByteArrayInputStream(baos.toByteArray()));
-                    statement.setInt(2, player.getId());
+                    statement.setInt(2, playerId);
                     statement.setString(3, type);
                     statement.execute();
                 } finally {
