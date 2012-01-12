@@ -134,17 +134,10 @@ public class CollectionResource extends AbstractResource {
     }
 
     private CardCollection getCollection(Player player, String collectionType) {
-        CardCollection collection = null;
         if (collectionType.equals("default"))
-            collection = _lotroServer.getDefaultCollection();
-        else if (collectionType.equals("permanent")) {
-            collection = _collectionsManager.getPlayerCollection(player, "permanent");
-        } else {
-            League league = _leagueService.getLeagueByType(collectionType);
-            if (league != null)
-                collection = _leagueService.getLeagueCollection(player, league);
-        }
-        return collection;
+            return _lotroServer.getDefaultCollection();
+        else
+            return _collectionsManager.getPlayerCollection(player, collectionType);
     }
 
     @Path("/{collectionType}")

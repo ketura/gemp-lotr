@@ -1,6 +1,5 @@
 package com.gempukku.lotro.league;
 
-import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeaguePointsDAO;
@@ -8,7 +7,7 @@ import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
 import com.gempukku.lotro.db.vo.LeagueSerie;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.LotroGameMediator;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 
 import java.util.*;
@@ -18,33 +17,16 @@ public class LeagueService {
     private LeagueSerieDAO _leagueSeasonDao;
     private LeaguePointsDAO _leaguePointsDao;
     private LeagueMatchDAO _leagueMatchDao;
-    private CollectionsManager _collectionsManager;
-    private LotroCardBlueprintLibrary _library;
 
-    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao, CollectionsManager collectionsManager, LotroCardBlueprintLibrary library) {
+    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao) {
         _leagueDao = leagueDao;
         _leagueSeasonDao = leagueSeasonDao;
         _leaguePointsDao = leaguePointsDao;
         _leagueMatchDao = leagueMatchDao;
-        _collectionsManager = collectionsManager;
-        _library = library;
     }
 
     public Set<League> getActiveLeagues() {
         return _leagueDao.getActiveLeagues();
-    }
-
-    public CardCollection getLeagueCollection(Player player, League league) {
-        final CardCollection collectionForPlayer = _collectionsManager.getPlayerCollection(player, league.getType());
-        if (collectionForPlayer == null) {
-            DefaultCardCollection collection = new DefaultCardCollection();
-
-            MutableCardCollection baseCollection = league.getBaseCollection();
-            for (CardCollection.Item item : baseCollection.getItems(null, _library))
-                collection.addItem(item.getBlueprintId(), item.getCount());
-            return collection;
-        }
-        return collectionForPlayer;
     }
 
     public League getLeagueByType(String type) {

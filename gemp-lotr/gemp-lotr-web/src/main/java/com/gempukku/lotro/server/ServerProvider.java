@@ -22,9 +22,14 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<LeagueService> _leagueServerInjectable;
     private Injectable<HallServer> _hallServerInjectable;
     private Injectable<LotroServer> _lotroServerInjectable;
+    private Injectable<CollectionsManager> _collectionsManagerInjectable;
 
     @Context
+    private PlayerDAO _playerDao;
+    @Context
     private DeckDAO _deckDao;
+    @Context
+    private CollectionDAO _collectionDao;
     @Context
     private LeagueDAO _leagueDao;
     @Context
@@ -33,8 +38,6 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private LeagueMatchDAO _leagueMatchDao;
     @Context
     private LeaguePointsDAO _leaguePointsDao;
-    @Context
-    private CollectionsManager _collectionsManager;
     @Context
     private GameHistoryDAO _gameHistoryDao;
     @Context
@@ -50,12 +53,14 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getHallServerInjectable();
         if (type.equals(LeagueService.class))
             return getLeagueServiceInjectable();
+        if (type.equals(CollectionsManager.class))
+            return getCollectionsManagerInjectable();
         return null;
     }
 
     private synchronized Injectable<LeagueService> getLeagueServiceInjectable() {
         if (_leagueServerInjectable == null) {
-            final LeagueService leagueService = new LeagueService(_leagueDao, _leagueSeasonDao, _leaguePointsDao, _leagueMatchDao, _collectionsManager, _library);
+            final LeagueService leagueService = new LeagueService(_leagueDao, _leagueSeasonDao, _leaguePointsDao, _leagueMatchDao);
             _leagueServerInjectable = new Injectable<LeagueService>() {
                 @Override
                 public LeagueService getValue() {
@@ -68,7 +73,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<HallServer> getHallServerInjectable() {
         if (_hallServerInjectable == null) {
-            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(), _library, _collectionsManager, false);
+            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(), _library, getCollectionsManagerInjectable().getValue(), false);
             hallServer.startServer();
             _hallServerInjectable = new Injectable<HallServer>() {
                 @Override
@@ -106,6 +111,19 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _chatServerInjectable;
+    }
+
+    private synchronized Injectable<CollectionsManager> getCollectionsManagerInjectable() {
+        if (_collectionsManagerInjectable == null) {
+            final CollectionsManager collectionsManager = new CollectionsManager(_playerDao, _collectionDao, getLeagueServiceInjectable().getValue());
+            _collectionsManagerInjectable = new Injectable<CollectionsManager>() {
+                @Override
+                public CollectionsManager getValue() {
+                    return collectionsManager;
+                }
+            };
+        }
+        return _collectionsManagerInjectable;
     }
 
     @Override

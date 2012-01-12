@@ -2,10 +2,12 @@ package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.packs.PacksStorage;
 
 import java.util.HashMap;
@@ -17,10 +19,12 @@ public class CollectionsManager {
 
     private PlayerDAO _playerDAO;
     private CollectionDAO _collectionDAO;
+    private LeagueService _leagueService;
 
-    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO) {
+    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, LeagueService leagueService) {
         _playerDAO = playerDAO;
         _collectionDAO = collectionDAO;
+        _leagueService = leagueService;
     }
 
     public void clearDBCache() {
@@ -33,6 +37,11 @@ public class CollectionsManager {
             final CardCollection collection = _collectionDAO.getCollectionForPlayer(player.getId(), collectionType);
             if (collection == null && collectionType.equals("permanent"))
                 return new DefaultCardCollection();
+            if (collection == null) {
+                final League league = _leagueService.getLeagueByType(collectionType);
+                if (league != null)
+                    return league.getBaseCollection();
+            }
             return collection;
         } finally {
             _readWriteLock.readLock().unlock();

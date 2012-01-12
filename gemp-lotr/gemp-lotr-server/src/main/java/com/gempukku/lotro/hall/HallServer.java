@@ -89,10 +89,6 @@ public class HallServer extends AbstractServer {
         return Collections.unmodifiableMap(_supportedFormats);
     }
 
-    public Set<League> getRunningLeagues() {
-        return _leagueService.getActiveLeagues();
-    }
-
     private void cancelWaitingTables() {
         _hallDataAccessLock.writeLock().lock();
         try {
