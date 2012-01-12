@@ -445,6 +445,10 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                Side expectedSide = (physicalCard.getOwner().equals(gameState.getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW);
+                if (physicalCard.getBlueprint().getSide() != expectedSide)
+                    return false;
+
                 return physicalCard.getBlueprint().checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
             }
         };
