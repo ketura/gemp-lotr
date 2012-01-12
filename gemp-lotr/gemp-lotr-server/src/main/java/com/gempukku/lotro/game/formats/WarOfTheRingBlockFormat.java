@@ -4,8 +4,8 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 public class WarOfTheRingBlockFormat extends DefaultLotroFormat {
-    public WarOfTheRingBlockFormat(LotroCardBlueprintLibrary library, boolean mulliganRule) {
-        super(library, (mulliganRule ? "Community " : "") + "War of the Ring block", Block.OTHER, true, 60, 4, mulliganRule, false);
+    public WarOfTheRingBlockFormat(LotroCardBlueprintLibrary library) {
+        super(library, "War of the Ring block", Block.OTHER, true, 60, 4, true, false);
         addRestrictedCard("11_132");
         addRestrictedCard("11_100");
         addValidSet(11);
