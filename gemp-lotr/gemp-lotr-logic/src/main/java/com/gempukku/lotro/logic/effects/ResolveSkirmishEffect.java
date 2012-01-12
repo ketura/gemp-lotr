@@ -43,9 +43,11 @@ public class ResolveSkirmishEffect extends AbstractEffect {
         if (fellowshipCharacter != null)
             multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game.getGameState(), fellowshipCharacter);
 
-        if (fpStrength * multiplier <= shadowStrength && shadowStrength != 0) {
+        if (fpStrength == 0 && shadowStrength == 0)
+            return Result.FELLOWSHIP_LOSES;
+        else if (fpStrength * multiplier <= shadowStrength) {
             return Result.FELLOWSHIP_OVERWHELMED;
-        } else if (shadowStrength >= fpStrength) {
+        } else if (fpStrength <= shadowStrength) {
             return Result.FELLOWSHIP_LOSES;
         } else if (fpStrength >= 2 * shadowStrength) {
             return Result.SHADOW_OVERWHELMED;
