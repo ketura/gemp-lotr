@@ -228,7 +228,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public Signet getSignet() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
+        return null;
     }
 
     @Override
