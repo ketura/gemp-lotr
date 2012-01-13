@@ -33,7 +33,7 @@ var LeagueResultsUI = Class.extend({
                 var start = league.getAttribute("start");
                 var end = league.getAttribute("end");
 
-                var leagueText = leagueName + " - " + this.getDateString(start) + " to " + this.getDateString(end);
+                var leagueText = leagueName;
                 $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
 
                 var tabDiv = $("<div width='100%'></div>");
