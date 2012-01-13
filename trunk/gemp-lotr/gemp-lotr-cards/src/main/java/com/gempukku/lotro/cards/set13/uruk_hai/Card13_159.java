@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set13.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountCultureTokensEvaluator;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
-
-import java.util.Map;
 
 /**
  * Set: Bloodlines
@@ -31,20 +29,6 @@ public class Card13_159 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, null,
-                new Evaluator() {
-                    @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        int count = 0;
-                        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Side.FREE_PEOPLE, Filters.hasAnyCultureTokens(1))) {
-                            for (Map.Entry<Token, Integer> tokens : gameState.getTokens(physicalCard).entrySet()) {
-                                if (tokens.getKey().getCulture() != null)
-                                    count += tokens.getValue();
-                            }
-                        }
-
-                        return count;
-                    }
-                });
+        return new StrengthModifier(self, self, null, new CountCultureTokensEvaluator(Side.FREE_PEOPLE));
     }
 }
