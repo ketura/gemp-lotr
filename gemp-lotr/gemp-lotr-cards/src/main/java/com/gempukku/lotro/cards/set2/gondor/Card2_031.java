@@ -7,11 +7,13 @@ import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
@@ -44,6 +46,11 @@ public class Card2_031 extends AbstractPermanent {
         permanentAction.appendCost(
                 new ChooseAndExertCharactersEffect(permanentAction, playerId, 1, 1, Culture.GONDOR, CardType.COMPANION));
         return permanentAction;
+    }
+
+    @Override
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+        return new ShouldSkipPhaseModifier(self, Phase.ARCHERY);
     }
 
     @Override
