@@ -38,7 +38,7 @@ public class Card12_021 extends AbstractPermanent {
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, CardType.CONDITION));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, CardType.COMPANION));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION));
             return Collections.singletonList(action);
