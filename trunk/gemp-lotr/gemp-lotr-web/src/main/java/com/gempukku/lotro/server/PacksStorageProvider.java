@@ -36,10 +36,10 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
         try {
             PacksStorage packStorage = new PacksStorage();
             packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
-            packStorage.addPackBox("TTT - League", new FixedPackBox("TTT - League"));
 
             packStorage.addPackBox("(S)FotR - Tengwar", new FixedPackBox("(S)FotR - Tengwar"));
             packStorage.addPackBox("(S)TTT - Starter", new FixedPackBox("(S)TTT - Starter"));
+            packStorage.addPackBox("(S)Booster Choice", new FixedPackBox("(S)Booster Choice"));
 
             packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox("FotR - Gandalf Starter"));
             packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox("FotR - Aragorn Starter"));
