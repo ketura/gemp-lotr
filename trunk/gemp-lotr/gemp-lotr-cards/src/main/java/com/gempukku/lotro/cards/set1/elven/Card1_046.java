@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -45,7 +46,7 @@ public class Card1_046 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
+        if (TriggerConditions.movesFrom(game, effectResult, Keyword.RIVER)
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new AddUntilEndOfTurnModifierEffect(new MoveLimitModifier(self, 1)));
