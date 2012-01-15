@@ -26,6 +26,7 @@ public class MovementGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
+        PhysicalCard currentSite = game.getGameState().getCurrentSite();
         final SystemQueueAction action = new SystemQueueAction();
         action.appendEffect(
                 new UnrespondableEffect() {
@@ -55,7 +56,15 @@ public class MovementGameProcess implements GameProcess {
                     }
                 });
         action.appendEffect(
-                new TriggeringResultEffect(new WhenMoveFromResult(), "Fellowship moved from"));
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        GameState gameState = game.getGameState();
+                        gameState.movePlayerToNextSite(game);
+                    }
+                });
+        action.appendEffect(
+                new TriggeringResultEffect(new WhenMoveFromResult(currentSite), "Fellowship moved from"));
         action.appendEffect(
                 new TriggeringResultEffect(new WhenMovesResult(), "Fellowship moves"));
         action.appendEffect(
@@ -65,7 +74,6 @@ public class MovementGameProcess implements GameProcess {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         GameState gameState = game.getGameState();
-                        gameState.movePlayerToNextSite(game);
 
                         int siteTwilightCost = game.getModifiersQuerying().getTwilightCost(gameState, gameState.getCurrentSite(), false);
                         if (!game.getFormat().isOrderedSites()) {

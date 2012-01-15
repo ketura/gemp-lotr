@@ -275,7 +275,7 @@ public class TriggerConditions {
 
     public static boolean movesFrom(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
-                && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())) {
+                && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((WhenMoveFromResult) effectResult).getSite())) {
             return true;
         }
         return false;
