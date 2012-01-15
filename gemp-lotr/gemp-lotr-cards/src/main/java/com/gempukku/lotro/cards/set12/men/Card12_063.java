@@ -30,12 +30,12 @@ public class Card12_063 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        final PhysicalCard firstActive = Filters.findFirstActive(gameState, modifiersQuerying, Filters.inSkirmishAgainst(CardType.COMPANION, Filters.wounded));
+                        final PhysicalCard firstActive = Filters.findFirstActive(gameState, modifiersQuerying, CardType.COMPANION, Filters.wounded, Filters.inSkirmishAgainst(self));
                         if (firstActive != null) {
                             int wounds = gameState.getWounds(firstActive);
                             if (Filters.maxResistance(2).accepts(gameState, modifiersQuerying, firstActive))
