@@ -88,7 +88,7 @@ public class PlayConditions {
     }
 
     public static boolean canUseSiteDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
-        return (phase == null || game.getGameState().getCurrentPhase() == phase) && (game.getGameState().getCurrentSite() == self);
+        return game.getGameState().getCurrentPhase() == phase;
     }
 
     public static boolean location(LotroGame game, Filterable... filters) {
