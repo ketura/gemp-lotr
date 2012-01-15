@@ -228,7 +228,7 @@ public abstract class AbstractModifier implements Modifier {
 
     @Override
     public boolean isPreventedFromBeingAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return true;
+        return false;
     }
 
     @Override
