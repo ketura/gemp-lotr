@@ -142,12 +142,15 @@ var Card = Class.extend({
         else
             setNoStr = setNo;
 
+        var cardStr;
         if (cardNo < 10)
-            return mainLocation + "LOTR" + setNoStr + "00" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
+            cardStr = setNoStr + "00" + cardNo;
         else if (cardNo < 100)
-            return mainLocation + "LOTR" + setNoStr + "0" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
+            cardStr = setNoStr + "0" + cardNo;
         else
-            return mainLocation + "LOTR" + setNoStr + "" + cardNo + (this.isTengwar() ? "T" : "") + ".jpg";
+            cardStr = setNoStr + "" + cardNo;
+
+        return mainLocation + "LOTR" + cardStr + (this.isTengwar() ? "T" : "") + ".jpg";
     },
 
     getMainLocation: function(setNo, cardNo) {
