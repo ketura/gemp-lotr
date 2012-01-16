@@ -94,7 +94,7 @@ public class ChooseAndDoAssignmentEffect extends AbstractSubActionEffect {
     private void assignmentSelected(LotroGame game, PhysicalCard fpCharacter, PhysicalCard minion) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
-                new AssignmentEffect(_playerId, fpCharacter, minion));
+                new AssignmentEffect(_playerId, fpCharacter, minion, _allowAllyToSkirmish));
         processSubAction(game, subAction);
     }
 }

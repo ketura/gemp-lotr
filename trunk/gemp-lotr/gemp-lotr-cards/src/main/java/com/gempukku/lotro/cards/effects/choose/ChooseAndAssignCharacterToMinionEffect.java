@@ -40,7 +40,7 @@ public class ChooseAndAssignCharacterToMinionEffect extends ChooseActiveCardEffe
     protected void cardSelected(LotroGame game, PhysicalCard card) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
-                new AssignmentEffect(_playerId, card, _minion));
+                new AssignmentEffect(_playerId, card, _minion, _skipAllyLocationCheck));
         game.getActionsEnvironment().addActionToStack(subAction);
     }
 }
