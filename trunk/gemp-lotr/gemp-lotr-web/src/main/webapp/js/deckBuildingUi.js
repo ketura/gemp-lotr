@@ -163,6 +163,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<option value='11'>11 - Shadows</option>"
                 + "<option value='12'>12 - Black Rider</option>"
                 + "<option value='13'>13 - Bloodlines</option>"
+                + "<option value='14'>14 - Expanded Middle-earth</option>"
                 + "</select>");
         this.fullFilterDiv.append("<input type='text' id='cardName' value='Card name'>");
         this.fullFilterDiv.append("<select id='sort'>"
@@ -406,11 +407,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -453,14 +454,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                    title: "Your stored decks",
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    width: 400,
-                    height: 400,
-                    modal: true
-                });
+                            title: "Your stored decks",
+                            autoOpen: false,
+                            closeOnEscape: true,
+                            resizable: true,
+                            width: 400,
+                            height: 400,
+                            modal: true
+                        });
             }
             that.deckListDialog.html("");
 
@@ -558,14 +559,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                             if (this.selectionDialog == null) {
                                 this.selectionDialog = $("<div></div>")
                                         .dialog({
-                                    title: "Choose one",
-                                    autoOpen: false,
-                                    closeOnEscape: true,
-                                    resizable: true,
-                                    width: 400,
-                                    height: 200,
-                                    modal: true
-                                });
+                                            title: "Choose one",
+                                            autoOpen: false,
+                                            closeOnEscape: true,
+                                            resizable: true,
+                                            width: 400,
+                                            height: 200,
+                                            modal: true
+                                        });
 
                                 this.selectionGroup = new NormalCardGroup(this.selectionDialog, function(card) {
                                     return true;
