@@ -18,7 +18,7 @@ public class LeagueDAO {
     private CollectionSerializer _serializer;
 
     private int _dateLoaded;
-    private Set<League> _activeLeagues = new HashSet<League>();
+    private Set<League> _activeLeagues = new LinkedHashSet<League>();
 
     public LeagueDAO(DbAccess dbAccess, CollectionSerializer serializer) {
         _dbAccess = dbAccess;
@@ -73,7 +73,7 @@ public class LeagueDAO {
     private void loadActiveLeagues(int currentTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, collection, start, end from league where start<=? and end>=?");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, collection, start, end from league where start<=? and end>=? order by start desc");
             try {
                 statement.setInt(1, currentTime);
                 statement.setInt(2, currentTime);
