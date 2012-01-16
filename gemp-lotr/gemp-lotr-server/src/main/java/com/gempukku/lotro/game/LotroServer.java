@@ -49,7 +49,7 @@ public class LotroServer extends AbstractServer {
         _test = test;
         _defaultCollection = new DefaultCardCollection();
 
-        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 194, 194};
+        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203};
 
         Thread thr = new Thread(
                 new Runnable() {

@@ -150,6 +150,9 @@ var Card = Class.extend({
         else
             cardStr = setNoStr + "" + cardNo;
 
+        if (this.isMasterworks(setNo, cardNo))
+            cardStr = setNoStr + "O0" + (cardNo - this.getMasterworksOffset(setNo));
+
         return mainLocation + "LOTR" + cardStr + (this.isTengwar() ? "T" : "") + ".jpg";
     },
 
@@ -158,6 +161,18 @@ var Card = Class.extend({
             return "/gemp-lotr/images/erratas/";
         else
             return "http://lotrtcgdb.com/images/";
+    },
+
+    getMasterworksOffset: function(setNo) {
+        return 194;
+    },
+
+    isMasterworks: function(setNo, cardNo) {
+        if (setNo == 12)
+            return cardNo > 194;
+        if (setNo == 13)
+            return cardNo > 194;
+        return false;
     },
 
     isErrata: function(setNo, cardNo) {
