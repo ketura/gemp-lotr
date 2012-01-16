@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set11.men;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -43,9 +43,13 @@ public class Card11_087 extends AbstractAttachable {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new CancelStrengthBonusModifier(self, Filters.and(CardType.POSSESSION, Filters.attachedTo(Filters.hasAttached(self), Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)))));
+                new CancelStrengthBonusTargetModifier(self,
+                        Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),
+                        CardType.POSSESSION));
         modifiers.add(
-                new CancelKeywordBonusModifier(self, Keyword.DAMAGE, Filters.and(CardType.POSSESSION, Filters.attachedTo(Filters.hasAttached(self), Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)))));
+                new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
+                        Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),
+                        CardType.POSSESSION));
         return modifiers;
     }
 }

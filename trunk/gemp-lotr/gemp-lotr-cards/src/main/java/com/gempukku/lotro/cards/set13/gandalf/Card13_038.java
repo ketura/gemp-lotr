@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set13.gandalf;
 
 import com.gempukku.lotro.cards.AbstractFollower;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -44,7 +44,8 @@ public class Card13_038 extends AbstractFollower {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new CancelStrengthBonusModifier(self, new SpotCondition(2, Culture.GANDALF, CardType.COMPANION),
-                        Filters.and(CardType.POSSESSION, Filters.attachedTo(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))))));
+                new CancelStrengthBonusTargetModifier(self, new SpotCondition(2, Culture.GANDALF, CardType.COMPANION),
+                        Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))),
+                        CardType.POSSESSION));
     }
 }

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set10.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -35,9 +35,13 @@ public class Card10_057 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new CancelStrengthBonusModifier(self, Filters.and(CardType.POSSESSION, Filters.attachedTo(CardType.COMPANION, Filters.inSkirmishAgainst(self)))));
+                new CancelStrengthBonusTargetModifier(self,
+                        Filters.and(CardType.COMPANION, Filters.inSkirmishAgainst(self)),
+                        CardType.POSSESSION));
         modifiers.add(
-                new CancelKeywordBonusModifier(self, Keyword.DAMAGE, Filters.and(CardType.POSSESSION, Filters.attachedTo(CardType.COMPANION, Filters.inSkirmishAgainst(self)))));
+                new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
+                        Filters.and(CardType.COMPANION, Filters.inSkirmishAgainst(self)),
+                        CardType.POSSESSION));
         return modifiers;
     }
 }

@@ -29,9 +29,7 @@ public class Card3_072 extends AbstractPermanent {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
-                        Filters.and(
-                                Filters.weapon,
-                                Filters.attachedTo(Filters.inSkirmishAgainst(Filters.and(Culture.ISENGARD, Race.ORC)))
-                        )));
+                        Filters.and(Filters.character, Filters.inSkirmishAgainst(Culture.ISENGARD, Race.ORC)),
+                        Filters.weapon));
     }
 }

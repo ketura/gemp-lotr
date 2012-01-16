@@ -1,18 +1,13 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
-import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: The Fellowship of the Ring
@@ -33,22 +28,6 @@ public class Card1_143 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new CancelStrengthBonusModifier(self, Filters.and(
-                // Weapon bonus (Hand or Ranged)
-                Filters.weapon,
-                // That is attached to Companion or Ally
-                Filters.attachedTo(Filters.or(CardType.COMPANION, CardType.ALLY)),
-                // In a skirmish with this minion
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        Skirmish skirmish = gameState.getSkirmish();
-                        if (skirmish != null
-                                && skirmish.getShadowCharacters().contains(self))
-                            return true;
-                        return false;
-                    }
-                }
-        ));
+        return new CancelStrengthBonusTargetModifier(self, Filters.inSkirmishAgainst(self), Filters.weapon);
     }
 }

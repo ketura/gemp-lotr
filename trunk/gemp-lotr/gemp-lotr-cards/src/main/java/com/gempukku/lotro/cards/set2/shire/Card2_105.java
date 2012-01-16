@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set2.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -39,7 +39,9 @@ public class Card2_105 extends AbstractAttachableFPPossession {
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.SHADOW, -1));
         modifiers.add(
-                new CancelStrengthBonusModifier(self, Filters.and(Filters.weapon, Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self))))));
+                new CancelStrengthBonusTargetModifier(self,
+                        Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.frodo)),
+                        Filters.weapon));
         modifiers.add(
                 new RemoveKeywordModifier(self, Filters.inSkirmishAgainst(Filters.hasAttached(self)), Keyword.DAMAGE));
         return modifiers;

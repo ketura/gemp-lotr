@@ -92,7 +92,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean appliesStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource) {
+    public boolean appliesStrengthBonusModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, PhysicalCard modifierTaget) {
         return true;
     }
 

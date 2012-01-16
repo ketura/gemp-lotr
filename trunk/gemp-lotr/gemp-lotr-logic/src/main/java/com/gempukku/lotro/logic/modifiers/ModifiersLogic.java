@@ -306,8 +306,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         try {
             int result = physicalCard.getBlueprint().getStrength();
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.STRENGTH_MODIFIER, physicalCard)) {
-                if (appliesStrengthModifier(gameState, modifier.getSource()))
-                    result += modifier.getStrengthModifier(gameState, this, physicalCard);
+                final int strengthModifier = modifier.getStrengthModifier(gameState, this, physicalCard);
+                if (strengthModifier <= 0 || appliesStrengthBonusModifier(gameState, modifier.getSource(), physicalCard))
+                    result += strengthModifier;
             }
             return Math.max(0, result);
         } finally {
@@ -315,13 +316,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         }
     }
 
-    private boolean appliesStrengthModifier(GameState gameState, PhysicalCard modifierSource) {
-        if (modifierSource == null)
-            return true;
-        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.STRENGTH_MODIFIER, modifierSource)) {
-            if (!modifier.appliesStrengthModifier(gameState, this, modifierSource))
-                return false;
-        }
+    private boolean appliesStrengthBonusModifier(GameState gameState, PhysicalCard modifierSource, PhysicalCard modifierTarget) {
+        if (modifierSource != null)
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.STRENGTH_BONUS_SOURCE_MODIFIER, modifierSource)) {
+                if (!modifier.appliesStrengthBonusModifier(gameState, this, modifierSource, modifierTarget))
+                    return false;
+            }
+        if (modifierTarget != null)
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.STRENGTH_BONUS_TARGET_MODIFIER, modifierTarget)) {
+                if (!modifier.appliesStrengthBonusModifier(gameState, this, modifierSource, modifierTarget))
+                    return false;
+            }
         return true;
     }
 
