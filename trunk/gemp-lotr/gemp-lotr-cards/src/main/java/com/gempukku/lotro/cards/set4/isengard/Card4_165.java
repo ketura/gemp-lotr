@@ -18,7 +18,7 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card4_165 extends AbstractMinion {
     public Card4_165() {
-        super(2, 7, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Othanc Warrior");
+        super(2, 7, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Orthanc Warrior");
         addKeyword(Keyword.DAMAGE);
     }
 }
