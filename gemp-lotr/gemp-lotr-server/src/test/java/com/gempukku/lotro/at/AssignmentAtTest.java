@@ -395,4 +395,47 @@ public class AssignmentAtTest extends AbstractAtTest {
             // Expected
         }
     }
+
+    @Test
+    public void dunlendingWarriorAssignsToAlly() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        skipMulligans();
+
+        PhysicalCardImpl elrond = new PhysicalCardImpl(101, "1_40", P1, _library.getLotroCardBlueprint("1_40"));
+        PhysicalCardImpl dunlendingWarrior = new PhysicalCardImpl(102, "4_18", P2, _library.getLotroCardBlueprint("4_18"));
+
+        _game.getGameState().addCardToZone(_game, elrond, Zone.SUPPORT);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        _game.getGameState().addCardToZone(_game, dunlendingWarrior, Zone.SHADOW_CHARACTERS);
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        // End maneuvers phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End arhcery phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End assignment phase
+        playerDecided(P1, "");
+
+        AwaitingDecision assignmentActions = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, assignmentActions.getDecisionType());
+        validateContents(toCardIdArray(dunlendingWarrior), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, "0");
+
+        final List<Assignment> assignmentsAfterFreePlayer = _game.getGameState().getAssignments();
+        assertEquals(1, assignmentsAfterFreePlayer.size());
+        assertEquals(elrond, assignmentsAfterFreePlayer.get(0).getFellowshipCharacter());
+        assertEquals(1, assignmentsAfterFreePlayer.get(0).getShadowCharacters().size());
+        assertTrue(assignmentsAfterFreePlayer.get(0).getShadowCharacters().contains(dunlendingWarrior));
+    }
 }
