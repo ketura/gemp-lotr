@@ -54,7 +54,7 @@ public class LotroServer extends AbstractServer {
         Thread thr = new Thread(
                 new Runnable() {
                     public void run() {
-                        for (int i = 0; i <= 13; i++) {
+                        for (int i = 0; i <= 14; i++) {
                             for (int j = 1; j <= cardCounts[i]; j++) {
                                 String blueprintId = i + "_" + j;
                                 try {
