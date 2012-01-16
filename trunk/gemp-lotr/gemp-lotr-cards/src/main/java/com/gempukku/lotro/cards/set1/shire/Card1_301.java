@@ -3,18 +3,18 @@ package com.gempukku.lotro.cards.set1.shire;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,13 +44,23 @@ public class Card1_301 extends AbstractAlly {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 3) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
-                                if (card.getBlueprint().getCulture() == Culture.SHIRE)
-                                    action.appendEffect(new PutCardFromDeckIntoHandOrDiscardEffect(card));
-                                else
-                                    action.appendEffect(new DiscardCardFromDeckEffect(card));
-                            }
+                        protected void cardsRevealed(final List<PhysicalCard> cards) {
+                            for (int i = 0; i < cards.size(); i++)
+                                action.appendEffect(
+                                        new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Filters.in(cards), Culture.SHIRE, Zone.DECK));
+
+                            action.appendEffect(
+                                    new UnrespondableEffect() {
+                                        @Override
+                                        protected void doPlayEffect(LotroGame game) {
+                                            Collection<PhysicalCard> cardsToDiscard = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Zone.DECK);
+                                            for (PhysicalCard cardToDiscard : cardsToDiscard) {
+                                                action.appendEffect(
+                                                        new DiscardCardFromDeckEffect(cardToDiscard));
+
+                                            }
+                                        }
+                                    });
                         }
                     });
             return Collections.singletonList(action);
