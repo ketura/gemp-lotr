@@ -58,12 +58,14 @@ public class LotroServer extends AbstractServer {
                             for (int j = 1; j <= cardCounts[i]; j++) {
                                 String blueprintId = i + "_" + j;
                                 try {
-                                    LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                                    CardType cardType = cardBlueprint.getCardType();
-                                    if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                                        _defaultCollection.addItem(blueprintId, 1);
-                                    else
-                                        _defaultCollection.addItem(blueprintId, 4);
+                                    if (_lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                                        LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                                        CardType cardType = cardBlueprint.getCardType();
+                                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                                            _defaultCollection.addItem(blueprintId, 1);
+                                        else
+                                            _defaultCollection.addItem(blueprintId, 4);
+                                    }
                                 } catch (IllegalArgumentException exp) {
 
                                 }

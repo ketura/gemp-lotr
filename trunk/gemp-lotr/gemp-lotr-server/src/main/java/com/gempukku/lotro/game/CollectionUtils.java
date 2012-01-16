@@ -3,6 +3,7 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CollectionUtils {
@@ -18,6 +19,13 @@ public class CollectionUtils {
             incrementCardCount(counts, site, 1);
         for (String adventureCard : deck.getAdventureCards())
             incrementCardCount(counts, adventureCard, 1);
+        return counts;
+    }
+
+    public static Map<String, Integer> getTotalCardCount(List<String> cards) {
+        Map<String, Integer> counts = new HashMap<String, Integer>();
+        for (String card : cards)
+            incrementCardCount(counts, card, 1);
         return counts;
     }
 
