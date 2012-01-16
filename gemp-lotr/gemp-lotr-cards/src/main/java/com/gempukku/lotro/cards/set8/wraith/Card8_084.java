@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set8.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -33,7 +33,8 @@ public class Card8_084 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new CancelStrengthBonusModifier(self,
-                        Filters.and(Filters.weapon, Filters.attachedTo(Race.MAN, Filters.inSkirmishAgainst(self)))));
+                new CancelStrengthBonusTargetModifier(self,
+                        Filters.and(Race.MAN, Filters.inSkirmishAgainst(self)),
+                        Filters.weapon));
     }
 }

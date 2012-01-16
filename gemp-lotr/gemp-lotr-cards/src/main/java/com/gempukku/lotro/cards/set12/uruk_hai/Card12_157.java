@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set12.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -28,6 +28,8 @@ public class Card12_157 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new CancelStrengthBonusModifier(self, Filters.and(Filters.weapon, Filters.attachedTo(Filters.inSkirmishAgainst(self))));
+        return new CancelStrengthBonusTargetModifier(self,
+                Filters.and(Filters.character, Filters.inSkirmishAgainst(self)),
+                Filters.weapon);
     }
 }

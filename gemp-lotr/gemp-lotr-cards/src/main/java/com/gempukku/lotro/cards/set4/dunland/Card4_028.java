@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -55,7 +55,9 @@ public class Card4_028 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard dunlandMan) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new CancelStrengthBonusModifier(self, Filters.and(CardType.POSSESSION, Filters.attachedTo(Filters.inSkirmishAgainst(Filters.sameCard(dunlandMan))))), Phase.SKIRMISH));
+                                            new CancelStrengthBonusTargetModifier(self,
+                                                    Filters.and(Filters.character, Filters.inSkirmishAgainst(dunlandMan)),
+                                                    CardType.POSSESSION), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);
