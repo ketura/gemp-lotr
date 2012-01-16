@@ -331,7 +331,8 @@ public class PlayConditions {
     }
 
     public static boolean canRemoveAnyCultureTokens(LotroGame game, int count, Filterable... fromFilters) {
-        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count)));
+        return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count)));
     }
 
     public static boolean canRemoveTokens(LotroGame game, PhysicalCard from, Token token) {
@@ -339,10 +340,12 @@ public class PlayConditions {
     }
 
     public static boolean canRemoveTokens(LotroGame game, PhysicalCard from, Token token, int count) {
-        return game.getGameState().getTokenCount(from, token) >= count;
+        return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
+                && game.getGameState().getTokenCount(from, token) >= count;
     }
 
     public static boolean canRemoveTokens(LotroGame game, Token token, int count, Filterable... fromFilters) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasToken(token, count))).size() > 0;
+        return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
+                && Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasToken(token, count))).size() > 0;
     }
 }

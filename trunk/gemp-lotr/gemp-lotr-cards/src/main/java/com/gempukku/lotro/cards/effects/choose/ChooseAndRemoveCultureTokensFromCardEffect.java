@@ -7,6 +7,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 
 public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCardEffect {
     private Token _token;
@@ -20,6 +21,9 @@ public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCard
 
     @Override
     protected Filter getExtraFilterForPlaying(LotroGame game) {
+        if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS))
+            return Filters.none;
+
         if (_token != null)
             return Filters.hasToken(_token, _count);
         else
