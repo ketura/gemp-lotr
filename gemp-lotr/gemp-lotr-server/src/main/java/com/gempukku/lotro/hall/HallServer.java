@@ -238,31 +238,54 @@ public class HallServer extends AbstractServer {
         }
 
         // Now check if player owns all the cards
-        OwnershipCheck ownershipCheck;
         if (collectionType.getCode().equals("default")) {
-            // Merging player-owned cards in collection with the default one (containing all basic cards) 
             CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent");
-            if (ownedCollection != null)
-                ownershipCheck = new MergedOwnershipCheck(_lotroServer.getDefaultCollection(), ownedCollection);
-            else
-                ownershipCheck = _lotroServer.getDefaultCollection();
-        } else
-            ownershipCheck = _collectionsManager.getPlayerCollection(player, collectionType.getCode());
 
-        if (ownershipCheck == null)
-            throw new HallException("You don't have cards in the required collection to play in this format");
+            LotroDeck filteredSpecialCardsDeck = new LotroDeck();
+            filteredSpecialCardsDeck.setRing(filterCard(lotroDeck.getRing(), ownedCollection));
+            filteredSpecialCardsDeck.setRingBearer(filterCard(lotroDeck.getRingBearer(), ownedCollection));
 
-        Map<String, Integer> deckCardCounts = CollectionUtils.getTotalCardCountForDeck(lotroDeck);
+            for (String site : lotroDeck.getSites())
+                filteredSpecialCardsDeck.addSite(filterCard(site, ownedCollection));
 
-        for (Map.Entry<String, Integer> cardCount : deckCardCounts.entrySet()) {
-            final int collectionCount = ownershipCheck.getItemCount(cardCount.getKey());
-            if (collectionCount < cardCount.getValue()) {
-                String cardName = _library.getLotroCardBlueprint(cardCount.getKey()).getName();
-                throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + collectionCount);
+            for (Map.Entry<String, Integer> cardCount : CollectionUtils.getTotalCardCount(lotroDeck.getAdventureCards()).entrySet()) {
+                String blueprintId = cardCount.getKey();
+                int count = cardCount.getValue();
+
+                int owned = 0;
+                if (ownedCollection != null)
+                    owned = ownedCollection.getItemCount(blueprintId);
+
+                for (int i = 0; i < owned; i++)
+                    filteredSpecialCardsDeck.addCard(blueprintId);
+                for (int i = 0; i < (count - owned); i++)
+                    filteredSpecialCardsDeck.addCard(_library.getBaseBlueprintId(blueprintId));
+            }
+
+            lotroDeck = filteredSpecialCardsDeck;
+        } else {
+            CardCollection collection = _collectionsManager.getPlayerCollection(player, collectionType.getCode());
+            if (collection == null)
+                throw new HallException("You don't have cards in the required collection to play in this format");
+
+            Map<String, Integer> deckCardCounts = CollectionUtils.getTotalCardCountForDeck(lotroDeck);
+
+            for (Map.Entry<String, Integer> cardCount : deckCardCounts.entrySet()) {
+                final int collectionCount = collection.getItemCount(cardCount.getKey());
+                if (collectionCount < cardCount.getValue()) {
+                    String cardName = _library.getLotroCardBlueprint(cardCount.getKey()).getName();
+                    throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + collectionCount);
+                }
             }
         }
 
         return lotroDeck;
+    }
+
+    private String filterCard(String blueprintId, CardCollection ownedCollection) {
+        if (ownedCollection == null || ownedCollection.getItemCount(blueprintId) == 0)
+            return _library.getBaseBlueprintId(blueprintId);
+        return blueprintId;
     }
 
     private String getTournamentName(AwaitingTable table) {
