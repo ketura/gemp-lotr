@@ -234,7 +234,7 @@ public class HallServer extends AbstractServer {
         try {
             format.validateDeck(player, lotroDeck);
         } catch (DeckInvalidException e) {
-            throw new HallException("Your registered deck is not valid for this format: " + e.getMessage());
+            throw new HallException("Your selected deck is not valid for this format: " + e.getMessage());
         }
 
         // Now check if player owns all the cards
