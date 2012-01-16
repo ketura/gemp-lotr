@@ -1,20 +1,26 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.gempukku.lotro.logic.timing.EffectResult;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import org.junit.Test;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TimingAtTest extends AbstractAtTest {
     @Test
@@ -187,5 +193,55 @@ public class TimingAtTest extends AbstractAtTest {
         _game.getGameState().stackCard(_game, tossMe, letThemCome);
 
         assertEquals(7, _game.getModifiersQuerying().getStrength(_game.getGameState(), gimli));
+    }
+
+    @Test
+    public void moveFromAndMoveTo() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        skipMulligans();
+
+        final AtomicInteger moveFrom = new AtomicInteger(0);
+        final AtomicInteger moveTo = new AtomicInteger(0);
+
+        PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
+                new AbstractSite("Blah", Block.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
+                    @Override
+                    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+                        if (TriggerConditions.movesFrom(game, effectResult, self)) {
+                            moveFrom.incrementAndGet();
+                        } else if (TriggerConditions.movesTo(game, effectResult, self)) {
+                            fail("Should not be called");
+                        }
+                        return null;
+                    }
+                });
+        moveFromSite.setSiteNumber(1);
+        PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
+                new AbstractSite("Blah", Block.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
+                    @Override
+                    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+                        if (TriggerConditions.movesTo(game, effectResult, self)) {
+                            moveTo.incrementAndGet();
+                        } else if (TriggerConditions.movesFrom(game, effectResult, self)) {
+                            fail("Should not be called");
+                        }
+                        return null;
+                    }
+                });
+        moveToSite.setSiteNumber(2);
+
+        _game.getGameState().removeCardsFromZone(P1, Collections.singleton(_game.getGameState().getCurrentSite()));
+        _game.getGameState().addCardToZone(_game, moveFromSite, Zone.ADVENTURE_PATH);
+        _game.getGameState().addCardToZone(_game, moveToSite, Zone.ADVENTURE_PATH);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        assertEquals(1, moveFrom.get());
+        assertEquals(1, moveTo.get());
     }
 }
