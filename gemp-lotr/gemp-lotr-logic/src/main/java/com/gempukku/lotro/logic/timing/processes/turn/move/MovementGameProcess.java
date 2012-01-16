@@ -56,6 +56,8 @@ public class MovementGameProcess implements GameProcess {
                     }
                 });
         action.appendEffect(
+                new TriggeringResultEffect(new WhenMoveFromResult(currentSite), "Fellowship moved from"));
+        action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
@@ -63,8 +65,6 @@ public class MovementGameProcess implements GameProcess {
                         gameState.movePlayerToNextSite(game);
                     }
                 });
-        action.appendEffect(
-                new TriggeringResultEffect(new WhenMoveFromResult(currentSite), "Fellowship moved from"));
         action.appendEffect(
                 new TriggeringResultEffect(new WhenMovesResult(), "Fellowship moves"));
         action.appendEffect(
