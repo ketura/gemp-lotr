@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_006 extends AbstractPermanent {
     public Card4_006() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Constrantly Threatening");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Constantly Threatening");
     }
 
     @Override
