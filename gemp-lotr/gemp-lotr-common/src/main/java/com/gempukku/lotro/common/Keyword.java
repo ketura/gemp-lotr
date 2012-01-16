@@ -9,7 +9,7 @@ public enum Keyword implements Filterable {
 
     RING_BOUND("Ring-Bound", true),
 
-    ENDURING("Enduring", true), ROAMING("Roaming", true), TWILIGHT("Twilight", true),
+    ENDURING("Enduring", true), ROAMING("Roaming", true), TWILIGHT("Twilight", true), HUNTER("Hunter", true, true),
 
     WEATHER("Weather", true), TALE("Tale", true), SPELL("Spell", true), SEARCH("Search", true), STEALTH("Stealth", true), TENTACLE("Tentacle", true),
 
