@@ -390,6 +390,15 @@ public class Filters {
         };
     }
 
+
+    public static Filter canHeal =
+            new Filter() {
+                @Override
+                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    return gameState.getWounds(physicalCard) > 0 && modifiersQuerying.canBeHealed(gameState, physicalCard);
+                }
+            };
+
     public static final Filter notAssignedToSkirmish = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
