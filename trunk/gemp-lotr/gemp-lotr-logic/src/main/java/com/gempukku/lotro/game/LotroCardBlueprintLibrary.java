@@ -26,9 +26,11 @@ public class LotroCardBlueprintLibrary {
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
-                    String[] split = line.split(",");
-                    _blueprintMapping.put(split[0], split[1]);
-                    addAlternatives(split[0], split[1]);
+                    if (!line.startsWith("#")) {
+                        String[] split = line.split(",");
+                        _blueprintMapping.put(split[0], split[1]);
+                        addAlternatives(split[0], split[1]);
+                    }
                 }
             } finally {
                 bufferedReader.close();
