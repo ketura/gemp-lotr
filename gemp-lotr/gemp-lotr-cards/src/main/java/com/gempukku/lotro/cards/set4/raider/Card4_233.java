@@ -44,7 +44,7 @@ public class Card4_233 extends AbstractOldEvent {
                         int bonus = Math.min(5, game.getGameState().getBurdens());
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, self, bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, bonus), Phase.SKIRMISH));
                     }
                 });
         possibleEffects.add(
@@ -58,7 +58,7 @@ public class Card4_233 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, 2), Phase.SKIRMISH));
                     }
                 });
         action.appendEffect(
