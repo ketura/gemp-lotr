@@ -70,7 +70,7 @@ public class Card5_102 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 4));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 3));
+                    new DrawCardsEffect(action, playerId, 3));
             action.appendEffect(
                     new SelfDiscardEffect(self));
             return Collections.singletonList(action);

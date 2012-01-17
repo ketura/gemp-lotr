@@ -44,7 +44,7 @@ public class Card13_180 extends AbstractEvent {
                         if (PlayConditions.canSpot(game, Race.NAZGUL))
                             count++;
                         action.appendEffect(
-                                new DrawCardsEffect(playerId, count));
+                                new DrawCardsEffect(action, playerId, count));
                     }
                 });
         return action;

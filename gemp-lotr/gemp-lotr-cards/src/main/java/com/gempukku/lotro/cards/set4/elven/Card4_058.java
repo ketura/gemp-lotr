@@ -40,7 +40,7 @@ public class Card4_058 extends AbstractOldEvent {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotted = getValidatedResult(result);
                                 action.appendEffect(
-                                        new DrawCardsEffect(playerId, spotted));
+                                        new DrawCardsEffect(action, playerId, spotted));
                             }
                         }));
         return action;

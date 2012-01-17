@@ -31,7 +31,7 @@ public class Card12_193 extends AbstractNewSite {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Race.DWARF)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

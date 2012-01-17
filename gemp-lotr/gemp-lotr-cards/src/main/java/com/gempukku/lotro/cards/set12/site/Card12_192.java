@@ -39,7 +39,7 @@ public class Card12_192 extends AbstractNewSite {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2, Side.FREE_PEOPLE));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

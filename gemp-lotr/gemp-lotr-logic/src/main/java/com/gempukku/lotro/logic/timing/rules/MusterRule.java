@@ -40,7 +40,7 @@ public class MusterRule {
                                     action.appendCost(
                                             new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
                                     action.appendEffect(
-                                            new DrawCardsEffect(playerId, 1));
+                                            new DrawCardsEffect(action, playerId, 1));
                                     actions.add(action);
                                 }
                             }

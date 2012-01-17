@@ -33,7 +33,7 @@ public class Card2_113 extends AbstractPermanent {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Bilbo"))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

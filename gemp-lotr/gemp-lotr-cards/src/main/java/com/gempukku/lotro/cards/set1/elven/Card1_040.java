@@ -46,7 +46,7 @@ public class Card1_040 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(self));
-            action.appendEffect(new DrawCardsEffect(playerId, 1));
+            action.appendEffect(new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

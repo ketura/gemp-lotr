@@ -41,7 +41,7 @@ public class Card3_001 extends AbstractAttachable {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, dwarfCompanions));
+                    new DrawCardsEffect(action, playerId, dwarfCompanions));
             return Collections.singletonList(action);
         }
         return null;

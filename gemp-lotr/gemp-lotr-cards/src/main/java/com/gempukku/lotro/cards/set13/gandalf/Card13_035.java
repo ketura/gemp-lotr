@@ -40,7 +40,7 @@ public class Card13_035 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));
         action.appendEffect(
-                new DrawCardsEffect(playerId, 1));
+                new DrawCardsEffect(action, playerId, 1));
         return action;
     }
 }

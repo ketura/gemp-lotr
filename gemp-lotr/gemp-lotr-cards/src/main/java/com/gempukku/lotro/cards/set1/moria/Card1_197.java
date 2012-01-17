@@ -37,7 +37,7 @@ public class Card1_197 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.MORIA, Race.ORC));
         action.appendEffect(
-                new DrawCardsEffect(playerId, 2));
+                new DrawCardsEffect(action, playerId, 2));
         return action;
     }
 

@@ -47,7 +47,7 @@ public class Card11_213 extends AbstractPermanent {
                                 action.appendCost(
                                         new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, selectedCard));
                                 action.appendEffect(
-                                        new DrawCardsEffect(playerId, 1));
+                                        new DrawCardsEffect(action, playerId, 1));
                             }
 
                         }

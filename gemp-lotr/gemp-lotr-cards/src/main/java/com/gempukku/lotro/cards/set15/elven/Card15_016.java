@@ -49,7 +49,7 @@ public class Card15_016 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.ELVEN));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

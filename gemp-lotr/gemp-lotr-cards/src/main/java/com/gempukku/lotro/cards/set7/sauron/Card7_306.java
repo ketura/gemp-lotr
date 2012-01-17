@@ -50,7 +50,7 @@ public class Card7_306 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.SAURON, Race.ORC)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 2));
+                    new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

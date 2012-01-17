@@ -42,7 +42,7 @@ public class Card11_181 extends AbstractMinion {
         if (TriggerConditions.forEachExerted(game, effectResult, CardType.COMPANION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

@@ -50,7 +50,7 @@ public class Card3_023 extends AbstractAttachableFPPossession {
                             int count = cardsBeingDiscarded.size();
                             if (count > 0)
                                 action.appendEffect(
-                                        new DrawCardsEffect(playerId, count));
+                                        new DrawCardsEffect(action, playerId, count));
                         }
                     });
             return Collections.singletonList(action);

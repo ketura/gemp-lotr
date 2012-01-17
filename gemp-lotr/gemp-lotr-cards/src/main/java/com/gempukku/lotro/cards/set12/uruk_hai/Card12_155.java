@@ -53,7 +53,7 @@ public class Card12_155 extends AbstractMinion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 3));
+                    new DrawCardsEffect(action, playerId, 3));
             return Collections.singletonList(action);
         }
         return null;

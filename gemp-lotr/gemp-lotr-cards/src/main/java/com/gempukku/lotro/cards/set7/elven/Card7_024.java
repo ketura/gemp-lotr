@@ -72,7 +72,7 @@ public class Card7_024 extends AbstractPermanent {
                         }
                     });
             possibleEffects.add(
-                    new DrawCardsEffect(playerId, 2));
+                    new DrawCardsEffect(action, playerId, 2));
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
             return Collections.singletonList(action);

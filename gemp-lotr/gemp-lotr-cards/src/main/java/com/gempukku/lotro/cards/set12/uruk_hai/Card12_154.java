@@ -46,7 +46,7 @@ public class Card12_154 extends AbstractMinion {
                         protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
                             if (cardsBeingDiscarded.size() > 0) {
                                 action.appendEffect(
-                                        new DrawCardsEffect(playerId, cardsBeingDiscarded.size()));
+                                        new DrawCardsEffect(action, playerId, cardsBeingDiscarded.size()));
                             }
                         }
                     });

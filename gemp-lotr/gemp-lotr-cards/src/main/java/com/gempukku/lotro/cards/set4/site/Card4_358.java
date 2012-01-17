@@ -36,7 +36,7 @@ public class Card4_358 extends AbstractSite {
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.DUNLAND, CardType.MINION));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

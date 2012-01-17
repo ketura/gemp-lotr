@@ -50,7 +50,7 @@ public class Card2_015 extends AbstractOldEvent {
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(final String opponentId) {
-                        action.insertEffect(new DrawCardsEffect(opponentId, 2));
+                        action.insertEffect(new DrawCardsEffect(action, opponentId, 2));
                         List<Effect> possibleEffects = new LinkedList<Effect>();
                         possibleEffects.add(
                                 new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false, 2, 2, Side.SHADOW) {

@@ -48,7 +48,7 @@ public class Card2_087 extends AbstractOldEvent {
                     protected void burdensSpotted(int burdensSpotted) {
                         int cardsDrawn = Math.min(5, burdensSpotted);
                         action.insertEffect(
-                                new DrawCardsEffect(playerId, cardsDrawn));
+                                new DrawCardsEffect(action, playerId, cardsDrawn));
                     }
                 });
         return action;

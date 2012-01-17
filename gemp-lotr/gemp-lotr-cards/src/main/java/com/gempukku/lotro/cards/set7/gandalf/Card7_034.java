@@ -39,7 +39,7 @@ public class Card7_034 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 2));
+                    new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

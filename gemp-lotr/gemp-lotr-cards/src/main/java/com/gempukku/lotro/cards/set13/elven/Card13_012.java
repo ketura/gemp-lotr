@@ -48,7 +48,7 @@ public class Card13_012 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, Race.ELF, Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

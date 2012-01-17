@@ -56,7 +56,7 @@ public class Card10_029 extends AbstractEvent {
                                                                             action.appendEffect(
                                                                                     new DiscardCardsFromHandEffect(self, opponentId, Collections.singleton(selectedCard), true));
                                                                             action.appendEffect(
-                                                                                    new DrawCardsEffect(opponentId, 1));
+                                                                                    new DrawCardsEffect(action, opponentId, 1));
                                                                         }
                                                                     }
                                                                 });

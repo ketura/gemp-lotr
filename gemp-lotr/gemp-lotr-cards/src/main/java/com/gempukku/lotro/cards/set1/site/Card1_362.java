@@ -30,7 +30,7 @@ public class Card1_362 extends AbstractSite {
             if (!playerId.equals(game.getGameState().getCurrentPlayerId())) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new DrawCardsEffect(playerId, game.getGameState().getBurdens()));
+                        new DrawCardsEffect(action, playerId, game.getGameState().getBurdens()));
                 return Collections.singletonList(action);
             }
         }

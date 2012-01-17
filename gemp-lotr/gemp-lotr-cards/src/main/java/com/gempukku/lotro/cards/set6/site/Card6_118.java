@@ -40,7 +40,7 @@ public class Card6_118 extends AbstractSite {
             action.appendCost(
                     new DiscardCardsFromHandEffect(self, playerId, hand, false));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 4));
+                    new DrawCardsEffect(action, playerId, 4));
             return Collections.singletonList(action);
         }
         return null;

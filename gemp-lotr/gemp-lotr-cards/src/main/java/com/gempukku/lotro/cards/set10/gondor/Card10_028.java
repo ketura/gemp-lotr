@@ -59,7 +59,7 @@ public class Card10_028 extends AbstractCompanion {
                         protected void opponentChosen(String opponentId) {
                             action.insertEffect(
                                     new OptionalEffect(action, opponentId,
-                                            new DrawCardsEffect(opponentId, 2)));
+                                            new DrawCardsEffect(action, opponentId, 2)));
                         }
                     });
             return Collections.singletonList(action);

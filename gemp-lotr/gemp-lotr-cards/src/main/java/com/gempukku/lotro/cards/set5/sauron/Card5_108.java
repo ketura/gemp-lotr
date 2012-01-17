@@ -55,7 +55,7 @@ public class Card5_108 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

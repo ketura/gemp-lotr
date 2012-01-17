@@ -66,7 +66,7 @@ public class Card9_026 extends AbstractCompanion {
                                         protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
                                             if (cardsBeingDiscarded.size() == 2)
                                                 action.appendEffect(
-                                                        new DrawCardsEffect(opponent, 2));
+                                                        new DrawCardsEffect(action, opponent, 2));
                                         }
                                     }));
                     actions.add(action);

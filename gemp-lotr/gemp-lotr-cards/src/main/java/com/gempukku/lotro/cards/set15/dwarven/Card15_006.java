@@ -44,7 +44,7 @@ public class Card15_006 extends AbstractCompanion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 3));
+                    new DrawCardsEffect(action, playerId, 3));
             action.appendEffect(
                     new ChooseAndPutCardsFromHandBeneathDrawDeckEffect(action, playerId, 3, Filters.any));
             return Collections.singletonList(action);

@@ -35,7 +35,7 @@ public class Card4_337 extends AbstractSite {
             action.appendCost(
                     new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, Filters.any));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 4));
+                    new DrawCardsEffect(action, playerId, 4));
             return Collections.singletonList(action);
         }
         return null;

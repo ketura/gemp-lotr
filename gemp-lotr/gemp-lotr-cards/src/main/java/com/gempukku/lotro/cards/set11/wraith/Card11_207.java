@@ -33,7 +33,7 @@ public class Card11_207 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new DrawCardsEffect(playerId, 3));
+                new DrawCardsEffect(action, playerId, 3));
         return action;
     }
 }

@@ -47,7 +47,7 @@ public class Card7_331 extends AbstractSite {
                                     protected void validDecisionMade(int index, String result) {
                                         if (index == 0) {
                                             action.insertEffect(
-                                                    new DrawCardsEffect(drawingPlayerId, 1));
+                                                    new DrawCardsEffect(action, drawingPlayerId, 1));
                                         }
                                     }
                                 }));

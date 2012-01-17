@@ -55,8 +55,8 @@ public class Card1_044 extends AbstractOldEvent {
                                     protected void cardsSelected(List<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {
                                             action.appendEffect(new DiscardCardsFromHandEffect(self, opponentId, selectedCards, true));
-                                            action.appendEffect(new DrawCardsEffect(playerId, 1));
-                                            action.appendEffect(new DrawCardsEffect(playerId, 1));
+                                            action.appendEffect(new DrawCardsEffect(action, playerId, 1));
+                                            action.appendEffect(new DrawCardsEffect(action, playerId, 1));
                                         }
                                     }
                                 }

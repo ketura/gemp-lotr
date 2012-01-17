@@ -52,7 +52,7 @@ public class Card12_172 extends AbstractAttachable {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.hasAttached(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 2));
+                    new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

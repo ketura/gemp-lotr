@@ -41,7 +41,7 @@ public class Card12_146 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new DrawCardsEffect(playerId, 3));
+                new DrawCardsEffect(action, playerId, 3));
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2) {

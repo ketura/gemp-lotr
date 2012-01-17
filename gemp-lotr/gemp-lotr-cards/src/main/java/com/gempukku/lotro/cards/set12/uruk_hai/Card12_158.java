@@ -42,7 +42,7 @@ public class Card12_158 extends AbstractMinion {
 
             int count = game.getGameState().getWounds(Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(self)));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, count));
+                    new DrawCardsEffect(action, playerId, count));
             return Collections.singletonList(action);
         }
         return null;

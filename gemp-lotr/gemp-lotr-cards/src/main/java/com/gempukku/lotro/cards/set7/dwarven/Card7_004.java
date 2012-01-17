@@ -38,7 +38,7 @@ public class Card7_004 extends AbstractEvent {
         action.appendCost(
                 new AddThreatsEffect(playerId, self, 1));
         action.appendEffect(
-                new DrawCardsEffect(playerId, 3));
+                new DrawCardsEffect(action, playerId, 3));
         return action;
     }
 }

@@ -54,7 +54,7 @@ public class Card1_080 extends AbstractAlly {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             action.appendEffect(new DiscardCardsFromHandEffect(self, playerId, selectedCards, false));
-                            action.appendEffect(new DrawCardsEffect(playerId, selectedCards.size()));
+                            action.appendEffect(new DrawCardsEffect(action, playerId, selectedCards.size()));
                         }
                     });
             return Collections.singletonList(action);

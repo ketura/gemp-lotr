@@ -47,7 +47,7 @@ public class Card3_049 extends AbstractOldEvent {
                     protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
                         int cardsCount = cardsBeingDiscarded.size();
                         action.appendEffect(
-                                new DrawCardsEffect(playerId, cardsCount));
+                                new DrawCardsEffect(action, playerId, cardsCount));
                     }
                 });
         return action;

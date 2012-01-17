@@ -716,6 +716,27 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
      * @return
      */
     @Override
+    public boolean canDrawCardNoIncrement(GameState gameState, String playerId) {
+        if (gameState.getCurrentPlayerId().equals(playerId)) {
+            if (gameState.getCurrentPhase() != Phase.FELLOWSHIP)
+                return true;
+            if (gameState.getCurrentPhase() == Phase.FELLOWSHIP && _drawnThisPhaseCount < 4) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Rule of 4. "You cannot draw (or take into hand) more than 4 cards during your fellowship phase."
+     *
+     * @param gameState
+     * @param playerId
+     * @return
+     */
+    @Override
     public boolean canDrawCardAndIncrement(GameState gameState, String playerId) {
         if (gameState.getCurrentPlayerId().equals(playerId)) {
             if (gameState.getCurrentPhase() != Phase.FELLOWSHIP)
