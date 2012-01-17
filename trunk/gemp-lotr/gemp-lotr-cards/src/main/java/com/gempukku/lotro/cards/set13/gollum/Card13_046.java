@@ -60,6 +60,8 @@ public class Card13_046 extends AbstractFollower {
                 && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.notAssignedToSkirmish)
                 && PlayConditions.canSelfDiscard(self, game)) {
 
+            final PhysicalCard attachedTo = self.getAttachedTo();
+
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));
@@ -68,12 +70,12 @@ public class Card13_046 extends AbstractFollower {
                         new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDeck(playerId),
                                 Filters.and(
                                         Filters.or(CardType.ARTIFACT, CardType.POSSESSION),
-                                        ExtraFilters.attachableTo(game, self.getAttachedTo())), 1, 1) {
+                                        ExtraFilters.attachableTo(game, attachedTo)), 1, 1) {
                             @Override
                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                 if (selectedCards.size() > 0) {
                                     PhysicalCard selectedCard = selectedCards.iterator().next();
-                                    game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, self.getAttachedTo(), 0));
+                                    game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, attachedTo, 0));
                                 }
                             }
                         });
