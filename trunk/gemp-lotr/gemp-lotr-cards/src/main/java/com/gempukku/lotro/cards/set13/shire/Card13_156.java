@@ -34,6 +34,7 @@ public class Card13_156 extends AbstractCompanion {
     public Card13_156() {
         super(2, 3, 4, 5, Culture.SHIRE, Race.HOBBIT, null, "Sam", true);
         addKeyword(Keyword.RING_BOUND);
+        addKeyword(Keyword.CAN_START_WITH_RING);
     }
 
     @Override
