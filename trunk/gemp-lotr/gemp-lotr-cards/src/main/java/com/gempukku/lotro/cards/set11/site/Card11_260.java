@@ -34,7 +34,7 @@ public class Card11_260 extends AbstractNewSite {
             if (playResult.getAttachedTo() != null && Filters.and(CardType.COMPANION, Filters.owner(playerId)).accepts(game.getGameState(), game.getModifiersQuerying(), playResult.getAttachedTo())) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new DrawCardsEffect(playerId, 1));
+                        new DrawCardsEffect(action, playerId, 1));
                 return Collections.singletonList(action);
             }
         }

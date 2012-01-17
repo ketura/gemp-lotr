@@ -49,7 +49,7 @@ public class Card1_099 extends AbstractOldEvent {
                             game.getGameState().putCardOnBottomOfDeck(physicalCard);
                         game.getGameState().shuffleDeck(opponentId);
 
-                        action.appendEffect(new DrawCardsEffect(opponentId, 8));
+                        action.appendEffect(new DrawCardsEffect(action, opponentId, 8));
                     }
                 });
         return action;

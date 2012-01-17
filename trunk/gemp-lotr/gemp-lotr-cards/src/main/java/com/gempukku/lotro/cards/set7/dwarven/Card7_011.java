@@ -50,7 +50,7 @@ public class Card7_011 extends AbstractEvent {
                                                         subAction.appendCost(
                                                                 new ExertCharactersEffect(self, card));
                                                         subAction.appendEffect(
-                                                                new DrawCardsEffect(playerId, 2));
+                                                                new DrawCardsEffect(action, playerId, 2));
                                                         game.getActionsEnvironment().addActionToStack(subAction);
                                                     }
                                                 }

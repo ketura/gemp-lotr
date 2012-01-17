@@ -51,7 +51,7 @@ public class Card13_027 extends AbstractPermanent {
             int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.arwen, Filters.name("Celeborn"), Filters.galadriel));
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, count));
+                    new DrawCardsEffect(action, playerId, count));
             return Collections.singletonList(action);
         }
         return null;

@@ -38,7 +38,7 @@ public class Card8_011 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.ELF));
         action.appendEffect(
-                new DrawCardsEffect(playerId, 3));
+                new DrawCardsEffect(action, playerId, 3));
         return action;
     }
 }

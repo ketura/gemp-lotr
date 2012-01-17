@@ -36,7 +36,7 @@ public class Card1_340 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Race.MAN));
-            action.appendEffect(new DrawCardsEffect(playerId, 1));
+            action.appendEffect(new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

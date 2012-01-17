@@ -36,7 +36,7 @@ public class Card1_206 extends AbstractPermanent {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SHADOW)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(self.getOwner(), 1));
+                    new DrawCardsEffect(action, self.getOwner(), 1));
             return Collections.singletonList(action);
         }
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)) {

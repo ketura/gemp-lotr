@@ -54,7 +54,7 @@ public class Card12_159 extends AbstractAttachable {
                 }, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(self.getOwner(), 1));
+                    new DrawCardsEffect(action, self.getOwner(), 1));
             return Collections.singletonList(action);
         }
         return null;

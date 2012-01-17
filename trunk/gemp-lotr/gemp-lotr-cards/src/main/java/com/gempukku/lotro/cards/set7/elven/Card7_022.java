@@ -42,7 +42,7 @@ public class Card7_022 extends AbstractPermanent {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 3));
+                    new DrawCardsEffect(action, playerId, 3));
             return Collections.singletonList(action);
         }
         return null;

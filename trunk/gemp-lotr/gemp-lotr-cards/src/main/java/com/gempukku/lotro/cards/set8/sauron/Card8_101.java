@@ -43,7 +43,7 @@ public class Card8_101 extends AbstractMinion {
             action.appendEffect(
                     new AddBurdenEffect(self, 1));
             action.appendEffect(
-                    new DrawCardsEffect(game.getGameState().getCurrentPlayerId(), 1));
+                    new DrawCardsEffect(action, game.getGameState().getCurrentPlayerId(), 1));
             return Collections.singletonList(action);
         }
         return null;

@@ -38,7 +38,7 @@ public class Card7_353 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, CardType.MINION));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 2));
+                    new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

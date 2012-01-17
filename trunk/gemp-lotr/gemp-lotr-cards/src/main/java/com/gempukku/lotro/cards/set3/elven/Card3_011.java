@@ -61,7 +61,7 @@ public class Card3_011 extends AbstractOldEvent {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         action.insertEffect(
-                                new DrawCardsEffect(playerId, integer.get()));
+                                new DrawCardsEffect(action, playerId, integer.get()));
                     }
                 });
         return action;

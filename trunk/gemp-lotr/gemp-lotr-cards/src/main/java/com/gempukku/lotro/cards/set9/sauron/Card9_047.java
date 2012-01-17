@@ -55,7 +55,7 @@ public class Card9_047 extends AbstractPermanent {
                 && (((StartOfPhaseResult) effectResult).getPlayerId().equals(playerId))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

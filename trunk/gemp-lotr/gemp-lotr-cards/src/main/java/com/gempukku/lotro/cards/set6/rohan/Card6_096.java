@@ -51,7 +51,7 @@ public class Card6_096 extends AbstractEvent {
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0)
                                         action.insertEffect(
-                                                new DrawCardsEffect(opponentId, 6));
+                                                new DrawCardsEffect(action, opponentId, 6));
                                 }
                             }));
         }

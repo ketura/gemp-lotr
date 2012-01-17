@@ -95,7 +95,7 @@ public class Card9_037 extends AbstractPermanent {
             action.appendEffect(
                     new DiscardCardsFromHandEffect(self, playerId, new HashSet<PhysicalCard>(game.getGameState().getHand(playerId)), false));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 3));
+                    new DrawCardsEffect(action, playerId, 3));
             return Collections.singletonList(action);
         }
         return null;

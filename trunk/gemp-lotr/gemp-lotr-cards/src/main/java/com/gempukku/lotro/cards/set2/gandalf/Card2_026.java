@@ -43,7 +43,7 @@ public class Card2_026 extends AbstractOldEvent {
                         protected void sitePlayedCallback(PhysicalCard site) {
                             if (game.getModifiersQuerying().hasKeyword(game.getGameState(), site, Keyword.UNDERGROUND))
                                 action.appendEffect(
-                                        new DrawCardsEffect(playerId, 1));
+                                        new DrawCardsEffect(action, playerId, 1));
                         }
                     });
         }

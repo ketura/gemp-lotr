@@ -44,7 +44,7 @@ public class Card1_180 extends AbstractAttachable {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(new DrawCardsEffect(playerId, 1));
+            action.appendEffect(new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

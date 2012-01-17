@@ -59,7 +59,7 @@ public class Card5_100 extends AbstractMinion {
                     new SelfExertEffect(self));
             action.appendEffect(
                     new PreventableEffect(action,
-                            new DrawCardsEffect(playerId, 3),
+                            new DrawCardsEffect(action, playerId, 3),
                             game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {
                                 @Override

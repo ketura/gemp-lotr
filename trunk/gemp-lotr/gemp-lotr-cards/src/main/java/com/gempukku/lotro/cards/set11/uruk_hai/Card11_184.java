@@ -47,7 +47,7 @@ public class Card11_184 extends AbstractMinion {
             action.appendCost(
                     new NegateWoundEffect(woundEffect, self));
             action.appendEffect(
-                    new DrawCardsEffect(game.getGameState().getCurrentPlayerId(), 1));
+                    new DrawCardsEffect(action, game.getGameState().getCurrentPlayerId(), 1));
             return Collections.singletonList(action);
         }
         return null;

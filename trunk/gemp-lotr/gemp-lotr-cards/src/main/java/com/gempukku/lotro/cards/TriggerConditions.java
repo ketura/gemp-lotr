@@ -171,6 +171,15 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean isDrawingACard(Effect effect, LotroGame game, String playerId) {
+        if (effect.getType() == Effect.Type.BEFORE_DRAW_CARD) {
+            DrawOneCardEffect drawEffect = (DrawOneCardEffect) effect;
+            if (drawEffect.getPlayerId().equals(playerId) && drawEffect.canDrawCard(game))
+                return true;
+        }
+        return false;
+    }
+
     public static boolean forEachKilled(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_KILLED) {
             ForEachKilledResult killResult = (ForEachKilledResult) effectResult;

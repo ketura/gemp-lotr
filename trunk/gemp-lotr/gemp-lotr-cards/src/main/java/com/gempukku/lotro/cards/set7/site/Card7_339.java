@@ -36,7 +36,7 @@ public class Card7_339 extends AbstractSite {
             action.appendCost(
                     new AddThreatsEffect(playerId, self, 1));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

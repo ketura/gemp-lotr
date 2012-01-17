@@ -38,7 +38,7 @@ public class Card15_018 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, 1, CardType.COMPANION, Keyword.HUNTER));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;

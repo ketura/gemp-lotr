@@ -89,7 +89,7 @@ public class Card9_038 extends AbstractPermanent {
             possibleEffect.add(
                     new RemoveTwilightEffect(2));
             possibleEffect.add(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffect));
             return Collections.singletonList(action);

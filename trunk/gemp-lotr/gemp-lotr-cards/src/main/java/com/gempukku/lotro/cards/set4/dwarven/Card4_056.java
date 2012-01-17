@@ -43,7 +43,7 @@ public class Card4_056 extends AbstractOldEvent {
         action.appendCost(
                 new DiscardTopCardFromDeckEffect(self, playerId, false));
         action.appendEffect(
-                new DrawCardsEffect(playerId, 2));
+                new DrawCardsEffect(action, playerId, 2));
         return action;
     }
 }

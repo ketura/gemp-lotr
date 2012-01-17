@@ -40,7 +40,7 @@ public class Card0_057 extends AbstractAttachableFPPossession {
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 2));
+                    new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

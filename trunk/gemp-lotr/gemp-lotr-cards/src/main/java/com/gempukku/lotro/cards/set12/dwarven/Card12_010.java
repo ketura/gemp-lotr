@@ -42,7 +42,7 @@ public class Card12_010 extends AbstractEvent {
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int count = getValidatedResult(result);
                                 action.appendEffect(
-                                        new DrawCardsEffect(playerId, count));
+                                        new DrawCardsEffect(action, playerId, count));
                             }
                         }));
         return action;

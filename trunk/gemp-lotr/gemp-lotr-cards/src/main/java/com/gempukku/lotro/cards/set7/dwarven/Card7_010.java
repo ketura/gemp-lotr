@@ -48,7 +48,7 @@ public class Card7_010 extends AbstractPermanent {
                             int count = Filters.filter(cardsStacked, game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN).size();
                             if (count > 0)
                                 action.appendEffect(
-                                        new DrawCardsEffect(playerId, count));
+                                        new DrawCardsEffect(action, playerId, count));
                         }
                     });
             return Collections.singletonList(action);

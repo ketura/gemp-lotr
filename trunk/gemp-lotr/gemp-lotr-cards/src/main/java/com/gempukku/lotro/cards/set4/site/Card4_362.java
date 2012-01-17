@@ -34,7 +34,7 @@ public class Card4_362 extends AbstractSite {
                     && companionCount > 4) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
-                        new DrawCardsEffect(playerId, companionCount - 4));
+                        new DrawCardsEffect(action, playerId, companionCount - 4));
                 return Collections.singletonList(action);
             }
         }

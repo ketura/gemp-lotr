@@ -33,7 +33,7 @@ public class Card11_247 extends AbstractNewSite {
                 && PlayConditions.canSpot(game, Race.DWARF)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 2));
+                    new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;

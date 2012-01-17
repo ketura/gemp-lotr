@@ -52,7 +52,7 @@ public class Card7_268 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             int cards = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.BESIEGER) ? 2 : 1;
             action.appendEffect(
-                    new DrawCardsEffect(playerId, cards));
+                    new DrawCardsEffect(action, playerId, cards));
             action.appendEffect(
                     new SelfDiscardEffect(self));
             return Collections.singletonList(action);

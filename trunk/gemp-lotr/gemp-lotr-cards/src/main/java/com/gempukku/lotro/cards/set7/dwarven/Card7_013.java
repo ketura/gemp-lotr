@@ -64,7 +64,7 @@ public class Card7_013 extends AbstractAttachable {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 4));
+                    new DrawCardsEffect(action, playerId, 4));
             return Collections.singletonList(action);
         }
         return null;

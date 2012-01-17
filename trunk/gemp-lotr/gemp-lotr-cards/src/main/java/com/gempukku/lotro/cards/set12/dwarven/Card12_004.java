@@ -30,7 +30,7 @@ public class Card12_004 extends AbstractEvent {
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Race.DWARF));
         if (PlayConditions.location(game, Filters.or(Keyword.BATTLEGROUND, Keyword.MOUNTAIN)))
             action.appendEffect(
-                    new DrawCardsEffect(playerId, 1));
+                    new DrawCardsEffect(action, playerId, 1));
         return action;
     }
 }

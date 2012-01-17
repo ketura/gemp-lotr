@@ -48,7 +48,7 @@ public class Card8_001 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
                             action.insertEffect(
-                                    new DrawCardsEffect(playerId, count));
+                                    new DrawCardsEffect(action, playerId, count));
                         }
                     }
             );

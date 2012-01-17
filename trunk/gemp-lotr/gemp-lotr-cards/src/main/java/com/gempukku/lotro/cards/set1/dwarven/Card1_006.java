@@ -38,7 +38,7 @@ public class Card1_006 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, CardType.COMPANION));
-        action.appendEffect(new DrawCardsEffect(playerId, 3));
+        action.appendEffect(new DrawCardsEffect(action, playerId, 3));
         return action;
     }
 }
