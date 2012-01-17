@@ -34,14 +34,10 @@ public class HallServer extends AbstractServer {
 
     private Map<String, LotroFormat> _supportedFormats = new LinkedHashMap<String, LotroFormat>();
 
-
     private ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
 
     private Map<String, AwaitingTable> _awaitingTables = new LinkedHashMap<String, AwaitingTable>();
-    private Map<String, String> _runningTables = new LinkedHashMap<String, String>();
-
-    private Map<String, String> _runningTableFormatNames = new HashMap<String, String>();
-    private Map<String, String> _runningTableTournamentNames = new HashMap<String, String>();
+    private Map<String, RunningTable> _runningTables = new LinkedHashMap<String, RunningTable>();
 
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
@@ -189,35 +185,31 @@ public class HallServer extends AbstractServer {
             }
 
             // Then non-finished
-            Map<String, String> nonPlayingTables = new HashMap<String, String>();
+            Map<String, RunningTable> finishedTables = new HashMap<String, RunningTable>();
 
-            for (Map.Entry<String, String> runningGame : _runningTables.entrySet()) {
-                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningGame.getValue());
+            for (Map.Entry<String, RunningTable> runningGame : _runningTables.entrySet()) {
+                final RunningTable runningTable = runningGame.getValue();
+                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null) {
                     String gameStatus = lotroGameMediator.getGameStatus();
                     if (!gameStatus.equals("Finished"))
-                        visitor.visitTable(runningGame.getKey(), runningGame.getValue(), gameStatus, _runningTableFormatNames.get(runningGame.getKey()), _runningTableTournamentNames.get(runningGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), gameStatus, runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
                     else
-                        nonPlayingTables.put(runningGame.getKey(), runningGame.getValue());
+                        finishedTables.put(runningGame.getKey(), runningTable);
                 }
             }
 
             // Then rest
-            for (Map.Entry<String, String> nonPlayingGame : nonPlayingTables.entrySet()) {
-                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(nonPlayingGame.getValue());
+            for (Map.Entry<String, RunningTable> nonPlayingGame : finishedTables.entrySet()) {
+                final RunningTable runningTable = nonPlayingGame.getValue();
+                LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null)
-                    visitor.visitTable(nonPlayingGame.getKey(), nonPlayingGame.getValue(), lotroGameMediator.getGameStatus(), _runningTableFormatNames.get(nonPlayingGame.getKey()), _runningTableTournamentNames.get(nonPlayingGame.getKey()), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                    visitor.visitTable(nonPlayingGame.getKey(), runningTable.getGameId(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
             }
 
-            String playerTable = getNonFinishedPlayerTable(player.getName());
-            if (playerTable != null) {
-                String gameId = _runningTables.get(playerTable);
-                if (gameId != null) {
-                    LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-                    if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished"))
-                        visitor.runningPlayerGame(gameId);
-                }
-            }
+            String gameId = getPlayingPlayerGameId(player.getName());
+            if (gameId != null)
+                visitor.runningPlayerGame(gameId);
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }
@@ -305,9 +297,7 @@ public class HallServer extends AbstractServer {
         if (league != null)
             _leagueService.leagueGameStarting(league, awaitingTable.getLeagueSerie(), lotroGameMediator);
         lotroGameMediator.startGame();
-        _runningTables.put(tableId, gameId);
-        _runningTableFormatNames.put(tableId, awaitingTable.getLotroFormat().getName());
-        _runningTableTournamentNames.put(tableId, getTournamentName(awaitingTable));
+        _runningTables.put(tableId, new RunningTable(gameId, awaitingTable.getLotroFormat().getName(), getTournamentName(awaitingTable)));
         _awaitingTables.remove(tableId);
     }
 
@@ -324,18 +314,13 @@ public class HallServer extends AbstractServer {
         return false;
     }
 
-    private String getNonFinishedPlayerTable(String playerId) {
-        for (Map.Entry<String, AwaitingTable> table : _awaitingTables.entrySet()) {
-            if (table.getValue().hasPlayer(playerId))
-                return table.getKey();
-        }
-
-        for (Map.Entry<String, String> runningTable : _runningTables.entrySet()) {
-            String gameId = runningTable.getValue();
+    private String getPlayingPlayerGameId(String playerId) {
+        for (Map.Entry<String, RunningTable> runningTable : _runningTables.entrySet()) {
+            String gameId = runningTable.getValue().getGameId();
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
             if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished"))
                 if (lotroGameMediator.getPlayersPlaying().contains(playerId))
-                    return runningTable.getKey();
+                    return gameId;
         }
 
         return null;
@@ -346,11 +331,13 @@ public class HallServer extends AbstractServer {
             if (awaitingTable.hasPlayer(playerId))
                 return true;
 
-        for (String gameId : _runningTables.values()) {
+        for (RunningTable runningTable : _runningTables.values()) {
+            String gameId = runningTable.getGameId();
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
             if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished") && lotroGameMediator.getPlayersPlaying().contains(playerId))
                 return true;
         }
+
         return false;
     }
 
@@ -359,13 +346,10 @@ public class HallServer extends AbstractServer {
         _hallDataAccessLock.writeLock().lock();
         try {
             // Remove finished games
-            HashMap<String, String> copy = new HashMap<String, String>(_runningTables);
-            for (Map.Entry<String, String> runningTable : copy.entrySet()) {
-                if (_lotroServer.getGameById(runningTable.getValue()) == null) {
+            HashMap<String, RunningTable> copy = new HashMap<String, RunningTable>(_runningTables);
+            for (Map.Entry<String, RunningTable> runningTable : copy.entrySet()) {
+                if (_lotroServer.getGameById(runningTable.getValue().getGameId()) == null)
                     _runningTables.remove(runningTable.getKey());
-                    _runningTableFormatNames.remove(runningTable.getKey());
-                    _runningTableTournamentNames.remove(runningTable.getKey());
-                }
             }
 
             long currentTime = System.currentTimeMillis();
