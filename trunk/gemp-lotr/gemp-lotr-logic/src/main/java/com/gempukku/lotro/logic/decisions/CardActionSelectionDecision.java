@@ -3,21 +3,31 @@ package com.gempukku.lotro.logic.decisions;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class CardActionSelectionDecision extends AbstractAwaitingDecision {
     private LotroGame _game;
-    private List<? extends Action> _actions;
+    private List<Action> _actions;
 
     public CardActionSelectionDecision(LotroGame game, int decisionId, String text, List<? extends Action> actions) {
         super(decisionId, text, AwaitingDecisionType.CARD_ACTION_CHOICE);
         _game = game;
-        _actions = actions;
+        _actions = new LinkedList<Action>(actions);
 
         setParam("actionId", getActionIds(actions));
         setParam("cardId", getCardIds(actions));
         setParam("blueprintId", getBlueprintIdsForVirtualActions(actions));
         setParam("actionText", getActionTexts(actions));
+    }
+
+    /**
+     * For testing, being able to inject an extra action at any point
+     *
+     * @param action
+     */
+    public void addAction(Action action) {
+        _actions.add(action);
     }
 
     private String[] getActionIds(List<? extends Action> actions) {
