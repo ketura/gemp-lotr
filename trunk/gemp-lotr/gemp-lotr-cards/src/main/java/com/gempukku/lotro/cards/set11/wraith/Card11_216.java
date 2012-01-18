@@ -100,4 +100,9 @@ public class Card11_216 extends AbstractPermanent {
     public int getVitality() {
         return 3;
     }
+
+    @Override
+    public int getSiteNumber() {
+        return 0;
+    }
 }

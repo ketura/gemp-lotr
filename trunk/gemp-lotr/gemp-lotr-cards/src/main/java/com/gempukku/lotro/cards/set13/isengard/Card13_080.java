@@ -98,4 +98,9 @@ public class Card13_080 extends AbstractPermanent {
     public Race getRace() {
         return Race.WIZARD;
     }
+
+    @Override
+    public int getSiteNumber() {
+        return 0;
+    }
 }
