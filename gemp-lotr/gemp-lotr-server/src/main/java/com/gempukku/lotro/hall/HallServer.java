@@ -251,8 +251,11 @@ public class HallServer extends AbstractServer {
 
                 for (int i = 0; i < fromOwned; i++)
                     filteredSpecialCardsDeck.addCard(blueprintId);
-                for (int i = 0; i < (count - fromOwned); i++)
-                    filteredSpecialCardsDeck.addCard(_library.getBaseBlueprintId(blueprintId));
+                if (count - fromOwned > 0) {
+                    String baseBlueprintId = _library.getBaseBlueprintId(blueprintId);
+                    for (int i = 0; i < (count - fromOwned); i++)
+                        filteredSpecialCardsDeck.addCard(baseBlueprintId);
+                }
             }
 
             lotroDeck = filteredSpecialCardsDeck;
