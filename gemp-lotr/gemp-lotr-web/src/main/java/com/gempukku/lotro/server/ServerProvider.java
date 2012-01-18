@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.trade.TradeServer;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
@@ -22,6 +23,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<LeagueService> _leagueServerInjectable;
     private Injectable<HallServer> _hallServerInjectable;
     private Injectable<LotroServer> _lotroServerInjectable;
+    private Injectable<TradeServer> _tradeServerInjectable;
     private Injectable<CollectionsManager> _collectionsManagerInjectable;
 
     @Context
@@ -55,6 +57,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getLeagueServiceInjectable();
         if (type.equals(CollectionsManager.class))
             return getCollectionsManagerInjectable();
+        if (type.equals(TradeServer.class))
+            return getTradeServerInjectable();
         return null;
     }
 
@@ -83,6 +87,20 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _hallServerInjectable;
+    }
+
+    private synchronized Injectable<TradeServer> getTradeServerInjectable() {
+        if (_tradeServerInjectable == null) {
+            final TradeServer tradeServer = new TradeServer(getChatServerInjectable().getValue());
+            tradeServer.startServer();
+            _tradeServerInjectable = new Injectable<TradeServer>() {
+                @Override
+                public TradeServer getValue() {
+                    return tradeServer;
+                }
+            };
+        }
+        return _tradeServerInjectable;
     }
 
     private synchronized Injectable<LotroServer> getLotroServerInjectable() {
