@@ -106,4 +106,9 @@ public class Card13_079 extends AbstractPermanent {
     public Race getRace() {
         return Race.WIZARD;
     }
+
+    @Override
+    public int getSiteNumber() {
+        return 0;
+    }
 }
