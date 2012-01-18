@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -34,7 +35,7 @@ public class Card3_029 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND
+        if (TriggerConditions.forEachCardDrawnOrPutIntoHandByOpponent(game, effectResult, playerId)
                 && game.getGameState().getCurrentPhase() == Phase.SHADOW) {
             DrawCardOrPutIntoHandResult drawResult = (DrawCardOrPutIntoHandResult) effectResult;
             if (!drawResult.getPlayerId().equals(playerId)) {

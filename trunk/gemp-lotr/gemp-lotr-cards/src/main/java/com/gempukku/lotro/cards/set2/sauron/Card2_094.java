@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set2.sauron;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -52,8 +52,7 @@ public class Card2_094 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND
-                && ((DrawCardOrPutIntoHandResult) effectResult).getPlayerId().equals(game.getGameState().getCurrentPlayerId())
+        if (TriggerConditions.forEachCardDrawnOrPutIntoHand(game, effectResult, game.getGameState().getCurrentPlayerId())
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

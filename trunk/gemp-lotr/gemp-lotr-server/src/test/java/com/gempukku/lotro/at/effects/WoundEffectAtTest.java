@@ -9,8 +9,6 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.actions.SystemQueueAction;
-import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
@@ -263,14 +261,5 @@ public class WoundEffectAtTest extends AbstractAtTest {
 
         assertEquals(1, triggerCount.get());
         assertEquals(1, preventCount.get());
-    }
-
-    private void carryOutEffectInPhaseActionByPlayer(String playerId, Effect effect) throws DecisionResultInvalidException {
-        CardActionSelectionDecision awaitingDecision = (CardActionSelectionDecision) _userFeedback.getAwaitingDecision(playerId);
-        SystemQueueAction action = new SystemQueueAction();
-        action.appendEffect(effect);
-        awaitingDecision.addAction(action);
-
-        playerDecided(playerId, "0");
     }
 }

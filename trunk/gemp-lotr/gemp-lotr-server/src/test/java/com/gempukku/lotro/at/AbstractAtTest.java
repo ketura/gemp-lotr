@@ -4,9 +4,12 @@ import com.gempukku.lotro.game.DefaultUserFeedback;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.formats.MovieFormat;
+import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
+import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.BeforeClass;
 
@@ -134,6 +137,15 @@ public abstract class AbstractAtTest {
             throw exp;
         }
         _game.carryOutPendingActionsUntilDecisionNeeded();
+    }
+
+    protected void carryOutEffectInPhaseActionByPlayer(String playerId, Effect effect) throws DecisionResultInvalidException {
+        CardActionSelectionDecision awaitingDecision = (CardActionSelectionDecision) _userFeedback.getAwaitingDecision(playerId);
+        SystemQueueAction action = new SystemQueueAction();
+        action.appendEffect(effect);
+        awaitingDecision.addAction(action);
+
+        playerDecided(playerId, "0");
     }
 
     protected LotroDeck createSimplestDeck() {
