@@ -247,10 +247,11 @@ public class HallServer extends AbstractServer {
                 int owned = 0;
                 if (ownedCollection != null)
                     owned = ownedCollection.getItemCount(blueprintId);
+                int fromOwned = Math.min(owned, count);
 
-                for (int i = 0; i < owned; i++)
+                for (int i = 0; i < fromOwned; i++)
                     filteredSpecialCardsDeck.addCard(blueprintId);
-                for (int i = 0; i < (count - owned); i++)
+                for (int i = 0; i < (count - fromOwned); i++)
                     filteredSpecialCardsDeck.addCard(_library.getBaseBlueprintId(blueprintId));
             }
 
