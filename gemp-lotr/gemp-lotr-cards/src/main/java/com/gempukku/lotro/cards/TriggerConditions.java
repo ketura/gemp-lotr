@@ -107,6 +107,30 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean forEachCardDrawnOrPutIntoHandByOpponent(LotroGame game, EffectResult effectResult, String playerId) {
+        if (effectResult.getType() == EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND) {
+            DrawCardOrPutIntoHandResult drawResult = (DrawCardOrPutIntoHandResult) effectResult;
+            return !drawResult.getPlayerId().equals(playerId);
+        }
+        return false;
+    }
+
+    public static boolean forEachCardDrawnOrPutIntoHand(LotroGame game, EffectResult effectResult, String playerId) {
+        if (effectResult.getType() == EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND) {
+            DrawCardOrPutIntoHandResult drawResult = (DrawCardOrPutIntoHandResult) effectResult;
+            return drawResult.getPlayerId().equals(playerId);
+        }
+        return false;
+    }
+
+    public static boolean forEachCardDrawn(LotroGame game, EffectResult effectResult, String playerId) {
+        if (effectResult.getType() == EffectResult.Type.DRAW_CARD_OR_PUT_INTO_HAND) {
+            DrawCardOrPutIntoHandResult drawResult = (DrawCardOrPutIntoHandResult) effectResult;
+            return drawResult.isDraw() && drawResult.getPlayerId().equals(playerId);
+        }
+        return false;
+    }
+
     public static boolean forEachDiscardedFromPlay(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_PLAY)
             return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((DiscardCardsFromPlayResult) effectResult).getDiscardedCard());

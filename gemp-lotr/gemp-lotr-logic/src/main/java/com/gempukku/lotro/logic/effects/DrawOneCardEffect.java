@@ -45,11 +45,11 @@ public class DrawOneCardEffect extends AbstractEffect implements Preventable {
             drawn++;
         }
 
-        if (drawn > 0) {
-            game.getActionsEnvironment().emitEffectResult(new DrawCardOrPutIntoHandResult(_playerId));
+        if (drawn == 1) {
+            game.getActionsEnvironment().emitEffectResult(new DrawCardOrPutIntoHandResult(_playerId, true));
             return new FullEffectResult(true, true);
         } else
-            return new FullEffectResult(false, false);
+            return new FullEffectResult(_prevented, false);
     }
 
     @Override
