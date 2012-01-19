@@ -229,14 +229,12 @@ public class DefaultCardCollection implements MutableCardCollection {
             filter = "";
         String[] filterParams = filter.split(" ");
 
-        String setStr = getSetNumber(filterParams);
-        String[] sets = null;
-        if (setStr != null)
-            sets = setStr.split(",");
+        String type = getTypeFilter(filterParams);
+        String[] sets = getSetFilter(filterParams);
         List<String> words = getWords(filterParams);
-        List<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
-        List<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
-        List<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptyList(), filterParams);
+        Set<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
+        Set<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
+        Set<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptySet(), filterParams);
         Integer siteNumber = getSiteNumber(filterParams);
 
         List<Item> result = new ArrayList<Item>();
@@ -245,19 +243,14 @@ public class DefaultCardCollection implements MutableCardCollection {
             String blueprintId = itemCount.getKey();
             int count = itemCount.getValue();
 
-            if (!blueprintId.contains("_"))
-                result.add(new Item(Item.Type.PACK, count, blueprintId));
-            else {
-                final LotroCardBlueprint blueprint = library.getLotroCardBlueprint(blueprintId);
-                if (sets == null || isInSets(blueprintId, sets, library))
-                    if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
-                        if (cultures == null || cultures.contains(blueprint.getCulture()))
-                            if (containsAllKeywords(blueprint, keywords))
-                                if (containsAllWords(blueprint, words))
-                                    if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
-                                        result.add(new Item(Item.Type.CARD, count, blueprintId));
+            if (acceptsFilters(library, blueprintId, type, sets, cardTypes, cultures, keywords, words, siteNumber)) {
+                if (!blueprintId.contains("_"))
+                    result.add(new Item(Item.Type.PACK, count, blueprintId));
+                else
+                    result.add(new Item(Item.Type.CARD, count, blueprintId));
             }
         }
+
         String sort = getSort(filterParams);
         if (sort != null && sort.equals("twilight"))
             Collections.sort(result, new TwilightComparator(library));
@@ -269,6 +262,46 @@ public class DefaultCardCollection implements MutableCardCollection {
             Collections.sort(result, new NameComparator(library));
 
         return result;
+    }
+
+    private boolean acceptsFilters(
+            LotroCardBlueprintLibrary library, String blueprintId, String type, String[] sets,
+            Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
+        if (!blueprintId.contains("_")) {
+            if (type == null || type.equals("pack"))
+                return true;
+        } else {
+            if (type == null
+                    || type.equals("card")
+                    || (type.equals("foil") && blueprintId.endsWith("*"))
+                    || (type.equals("nonFoil") && !blueprintId.endsWith("*"))) {
+                final LotroCardBlueprint blueprint = library.getLotroCardBlueprint(blueprintId);
+                if (sets == null || isInSets(blueprintId, sets, library))
+                    if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
+                        if (cultures == null || cultures.contains(blueprint.getCulture()))
+                            if (containsAllKeywords(blueprint, keywords))
+                                if (containsAllWords(blueprint, words))
+                                    if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
+                                        return true;
+            }
+        }
+        return false;
+    }
+
+    private String getTypeFilter(String[] filterParams) {
+        for (String filterParam : filterParams) {
+            if (filterParam.startsWith("type:"))
+                return filterParam.substring("type:".length());
+        }
+        return null;
+    }
+
+    private String[] getSetFilter(String[] filterParams) {
+        String setStr = getSetNumber(filterParams);
+        String[] sets = null;
+        if (setStr != null)
+            sets = setStr.split(",");
+        return sets;
     }
 
     private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library) {
@@ -312,7 +345,7 @@ public class DefaultCardCollection implements MutableCardCollection {
         return null;
     }
 
-    private boolean containsAllKeywords(LotroCardBlueprint blueprint, List<Keyword> keywords) {
+    private boolean containsAllKeywords(LotroCardBlueprint blueprint, Set<Keyword> keywords) {
         for (Keyword keyword : keywords) {
             if (blueprint == null || !blueprint.hasKeyword(keyword))
                 return false;
@@ -328,13 +361,13 @@ public class DefaultCardCollection implements MutableCardCollection {
         return true;
     }
 
-    private <T extends Enum> List<T> getEnumFilter(T[] enumValues, Class<T> enumType, String prefix, List<T> defaultResult, String[] filterParams) {
+    private <T extends Enum> Set<T> getEnumFilter(T[] enumValues, Class<T> enumType, String prefix, Set<T> defaultResult, String[] filterParams) {
         for (String filterParam : filterParams) {
             if (filterParam.startsWith(prefix + ":")) {
                 String values = filterParam.substring((prefix + ":").length());
                 if (values.startsWith("-")) {
                     values = values.substring(1);
-                    List<T> cardTypes = new LinkedList<T>(Arrays.asList(enumValues));
+                    Set<T> cardTypes = new HashSet<T>(Arrays.asList(enumValues));
                     for (String v : values.split(",")) {
                         T t = (T) Enum.valueOf(enumType, v);
                         if (t != null)
@@ -342,7 +375,7 @@ public class DefaultCardCollection implements MutableCardCollection {
                     }
                     return cardTypes;
                 } else {
-                    List<T> cardTypes = new LinkedList<T>();
+                    Set<T> cardTypes = new HashSet<T>();
                     for (String v : values.split(","))
                         cardTypes.add((T) Enum.valueOf(enumType, v));
                     return cardTypes;
