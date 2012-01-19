@@ -20,9 +20,11 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     private static class NameComparator implements Comparator<Item> {
         private LotroCardBlueprintLibrary _library;
+        private CardBlueprintIdComparator _cardBlueprintIdComparator;
 
         private NameComparator(LotroCardBlueprintLibrary library) {
             _library = library;
+            _cardBlueprintIdComparator = new CardBlueprintIdComparator();
         }
 
         @Override
@@ -30,8 +32,12 @@ public class DefaultCardCollection implements MutableCardCollection {
             if (o1.getType() == o2.getType()) {
                 if (o1.getType() == Item.Type.PACK)
                     return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-                else
-                    return _library.getLotroCardBlueprint(o1.getBlueprintId()).getName().compareTo(_library.getLotroCardBlueprint(o2.getBlueprintId()).getName());
+                else {
+                    final int nameCompareResult = _library.getLotroCardBlueprint(o1.getBlueprintId()).getName().compareTo(_library.getLotroCardBlueprint(o2.getBlueprintId()).getName());
+                    if (nameCompareResult == 0)
+                        return _cardBlueprintIdComparator.compare(o1.getBlueprintId(), o2.getBlueprintId());
+                    return nameCompareResult;
+                }
             } else {
                 if (o1.getType() == Item.Type.PACK)
                     return -1;
