@@ -170,6 +170,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                 + "<option value=''>Sort by:</option>"
                 + "<option value='name'>Name</option>"
                 + "<option value='twilight'>Twilight</option>"
+                + "<option value='siteNumber'>Site number</option>"
                 + "<option value='strength'>Strength</option>"
                 + "<option value='vitality'>Vitality</option>"
                 + "</select>");

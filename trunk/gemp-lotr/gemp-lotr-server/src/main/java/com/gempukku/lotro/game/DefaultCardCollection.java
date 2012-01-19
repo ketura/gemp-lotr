@@ -18,6 +18,48 @@ public class DefaultCardCollection implements MutableCardCollection {
         _counts.putAll(cardCollection.getAll());
     }
 
+    private static class SiteNumberComparator implements Comparator<Item> {
+        private LotroCardBlueprintLibrary _library;
+        private NameComparator _nameComparator;
+
+        private SiteNumberComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+            _nameComparator = new NameComparator(library);
+        }
+
+        @Override
+        public int compare(Item o1, Item o2) {
+            if (o1.getType() == o2.getType()) {
+                if (o1.getType() == Item.Type.PACK)
+                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+                else {
+                    int siteNumberOne;
+                    try {
+                        siteNumberOne = _library.getLotroCardBlueprint(o1.getBlueprintId()).getSiteNumber();
+                    } catch (UnsupportedOperationException exp) {
+                        siteNumberOne = 10;
+                    }
+                    int siteNumberTwo;
+                    try {
+                        siteNumberTwo = _library.getLotroCardBlueprint(o2.getBlueprintId()).getSiteNumber();
+                    } catch (UnsupportedOperationException exp) {
+                        siteNumberTwo = 10;
+                    }
+
+                    int result = siteNumberOne - siteNumberTwo;
+                    if (result == 0)
+                        return _nameComparator.compare(o1, o2);
+                    return result;
+                }
+            } else {
+                if (o1.getType() == Item.Type.PACK)
+                    return -1;
+                else
+                    return 1;
+            }
+        }
+    }
+
     private static class NameComparator implements Comparator<Item> {
         private LotroCardBlueprintLibrary _library;
         private CardBlueprintIdComparator _cardBlueprintIdComparator;
@@ -259,6 +301,8 @@ public class DefaultCardCollection implements MutableCardCollection {
 
         String sort = getSort(filterParams);
         if (sort != null && sort.equals("twilight"))
+            Collections.sort(result, new TwilightComparator(library));
+        else if (sort != null && sort.equals("siteNumber"))
             Collections.sort(result, new TwilightComparator(library));
         else if (sort != null && sort.equals("strength"))
             Collections.sort(result, new StrengthComparator(library));
