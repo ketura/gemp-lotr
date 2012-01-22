@@ -149,6 +149,11 @@ public class LotroGameMediator {
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
+                    int resistance = _lotroGame.getModifiersQuerying().getResistance(_lotroGame.getGameState(), card);
+                    sb.append("<br><b>Resistance:</b> " + resistance);
+                } catch (UnsupportedOperationException exp) {
+                }
+                try {
                     int siteNumber = _lotroGame.getModifiersQuerying().getMinionSiteNumber(_lotroGame.getGameState(), card);
                     sb.append("<br><b>Site number:</b> " + siteNumber);
                 } catch (UnsupportedOperationException exp) {
