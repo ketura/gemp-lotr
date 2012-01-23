@@ -13,7 +13,9 @@ import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KilledResult;
+import com.gempukku.lotro.logic.timing.results.ReturnCardsToHandResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import com.gempukku.lotro.logic.timing.rules.InitiativeChangeRule;
 
@@ -161,6 +163,16 @@ public class TurnProcedure {
                 if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
                     KilledResult killResult = (KilledResult) effectResult;
                     if (Filters.filter(killResult.getKilledCards(), _game.getGameState(), _game.getModifiersQuerying(), Filters.ringBearer).size() > 0)
+                        return true;
+                }
+                if (effectResult.getType() == EffectResult.Type.FOR_EACH_RETURNED_TO_HAND) {
+                    ReturnCardsToHandResult returnResult = (ReturnCardsToHandResult) effectResult;
+                    if (returnResult.getReturnedCard() == _game.getGameState().getRingBearer(_game.getGameState().getCurrentPlayerId()))
+                        return true;
+                }
+                if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_PLAY) {
+                    DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
+                    if (discardResult.getDiscardedCard() == _game.getGameState().getRingBearer(_game.getGameState().getCurrentPlayerId()))
                         return true;
                 }
             }
