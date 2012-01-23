@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
+import com.gempukku.lotro.logic.timing.results.ReturnCardsToHandResult;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -80,7 +81,8 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
         for (PhysicalCard discardedCard : discardedFromPlay)
             game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
-
+        for (PhysicalCard cardReturned : cardsToReturnToHand)
+            game.getActionsEnvironment().emitEffectResult(new ReturnCardsToHandResult(cardReturned));
 
         return new FullEffectResult(true, true);
     }
