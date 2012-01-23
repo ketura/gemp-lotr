@@ -8,8 +8,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collection;
@@ -29,8 +29,8 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
         _source = source;
     }
 
-    public ExertCharactersEffect(Action action, PhysicalCard source, Filterable... filter) {
-        super(filter);
+    public ExertCharactersEffect(Action action, PhysicalCard source, PhysicalCard... cards) {
+        super(cards);
         _action = action;
         _source = source;
     }
