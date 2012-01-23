@@ -61,6 +61,23 @@ public class LeagueService {
         }
     }
 
+    public boolean canPlayRankedGame(League league, LeagueSerie season, String player) {
+        int maxMatches = season.getMaxMatches();
+        Collection<LeagueMatch> playedInSeason = _leagueMatchDao.getPlayerMatchesPlayedOn(league, season, player);
+        if (playedInSeason.size() >= maxMatches)
+            return false;
+        return true;
+    }
+
+    public boolean canPlayRankedGame(League league, LeagueSerie season, String playerOne, String playerTwo) {
+        Collection<LeagueMatch> playedInSeason = _leagueMatchDao.getPlayerMatchesPlayedOn(league, season, playerOne);
+        for (LeagueMatch leagueMatch : playedInSeason) {
+            if (playerTwo.equals(leagueMatch.getWinner()) && playerTwo.equals(leagueMatch.getLoser()))
+                return false;
+        }
+        return true;
+    }
+
     private int getCurrentDate() {
         Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
         return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
