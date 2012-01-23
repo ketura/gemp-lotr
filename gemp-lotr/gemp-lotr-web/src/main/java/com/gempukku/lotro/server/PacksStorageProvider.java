@@ -39,6 +39,8 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
 
             packStorage.addPackBox("(S)FotR - Tengwar", new FixedPackBox("(S)FotR - Tengwar"));
             packStorage.addPackBox("(S)TTT - Starter", new FixedPackBox("(S)TTT - Starter"));
+            packStorage.addPackBox("(S)BoHD - Starter", new FixedPackBox("(S)BoHD - Starter"));
+            packStorage.addPackBox("(S)EoF - Starter", new FixedPackBox("(S)EoF - Starter"));
             packStorage.addPackBox("(S)Booster Choice", new FixedPackBox("(S)Booster Choice"));
 
             packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox("FotR - Gandalf Starter"));
