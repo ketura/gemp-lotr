@@ -20,3 +20,5 @@ EoF - Faramir Starter
 EoF - Witch-king Starter
 (S)TTT - Starter
 (S)Booster Choice
+(S)BoHD - Starter
+(S)EoF - Starter
