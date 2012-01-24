@@ -678,6 +678,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canBeReturnedToHand(GameState gameState, PhysicalCard card, PhysicalCard source) {
+        LoggingThreadLocal.logMethodStart(card, "canBeReturnedToHand");
+        try {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.RETURN_TO_HAND_MODIFIER, card))
+                if (!modifier.canBeReturnedToHand(gameState, this, card, source))
+                    return false;
+            return true;
+        } finally {
+            LoggingThreadLocal.logMethodEnd();
+        }
+    }
+
+    @Override
     public boolean canBeHealed(GameState gameState, PhysicalCard card) {
         LoggingThreadLocal.logMethodStart(card, "canBeHealed");
         try {

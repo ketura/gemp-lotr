@@ -2,11 +2,13 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
@@ -39,7 +41,13 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter).size() > 0;
+        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter,
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return (_source == null || modifiersQuerying.canBeReturnedToHand(gameState, physicalCard, _source));
+                    }
+                }).size() > 0;
     }
 
     @Override

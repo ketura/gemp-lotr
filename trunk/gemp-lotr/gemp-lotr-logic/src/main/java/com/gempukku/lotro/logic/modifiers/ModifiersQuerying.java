@@ -96,6 +96,8 @@ public interface ModifiersQuerying {
     // Others
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
 
+    public boolean canBeReturnedToHand(GameState gameState, PhysicalCard card, PhysicalCard source);
+
     public boolean canDrawCardNoIncrement(GameState gameState, String playerId);
 
     public boolean canDrawCardAndIncrement(GameState gameState, String playerId);
