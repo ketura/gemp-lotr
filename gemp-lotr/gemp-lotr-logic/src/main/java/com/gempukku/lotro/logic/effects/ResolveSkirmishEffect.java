@@ -1,8 +1,12 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
@@ -64,47 +68,56 @@ public class ResolveSkirmishEffect extends AbstractEffect {
 
         if (result == Result.FELLOWSHIP_LOSES) {
             game.getGameState().sendMessage("Skirmish finishes with a normal win");
-            game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
+            game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter())));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
                 game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.NORMAL, minion, skirmish.getFellowshipCharacter()));
             if (skirmish.getFellowshipCharacter() != null)
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, skirmish.getFellowshipCharacter(), skirmish.getShadowCharacters()));
-            for (PhysicalCard removedMinion : skirmish.getRemovedFromSkirmish())
+            for (PhysicalCard removedMinion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), in(skirmish.getRemovedFromSkirmish())))
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, removedMinion, skirmish.getFellowshipCharacter()));
         } else if (result == Result.SHADOW_LOSES) {
             game.getGameState().sendMessage("Skirmish finishes with a normal win");
-            game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
+            game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters()));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, minion, skirmish.getFellowshipCharacter()));
             if (skirmish.getFellowshipCharacter() != null)
                 game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.NORMAL, skirmish.getFellowshipCharacter(), skirmish.getShadowCharacters()));
-            for (PhysicalCard removedMinion : skirmish.getRemovedFromSkirmish())
+            for (PhysicalCard removedMinion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), in(skirmish.getRemovedFromSkirmish())))
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, removedMinion, skirmish.getFellowshipCharacter()));
         } else if (result == Result.FELLOWSHIP_OVERWHELMED) {
             game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
-            game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
+            game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter())));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
                 game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.OVERWHELM, minion, skirmish.getFellowshipCharacter()));
             if (skirmish.getFellowshipCharacter() != null)
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, skirmish.getFellowshipCharacter(), skirmish.getShadowCharacters()));
-            for (PhysicalCard removedMinion : skirmish.getRemovedFromSkirmish())
+            for (PhysicalCard removedMinion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), in(skirmish.getRemovedFromSkirmish())))
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, removedMinion, skirmish.getFellowshipCharacter()));
         } else {
             game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
-            game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
+            game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters()));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, minion, skirmish.getFellowshipCharacter()));
             if (skirmish.getFellowshipCharacter() != null)
                 game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.OVERWHELM, skirmish.getFellowshipCharacter(), skirmish.getShadowCharacters()));
-            for (PhysicalCard removedMinion : skirmish.getRemovedFromSkirmish())
+            for (PhysicalCard removedMinion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), in(skirmish.getRemovedFromSkirmish())))
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, removedMinion, skirmish.getFellowshipCharacter()));
         }
 
         return new FullEffectResult(true, true);
+    }
+
+    private Filter in(final Set<Integer> cardIds) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return cardIds.contains(physicalCard.getCardId());
+            }
+        };
     }
 
     private Set<PhysicalCard> fpList(PhysicalCard card) {

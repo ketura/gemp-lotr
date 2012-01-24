@@ -10,7 +10,7 @@ public class Skirmish {
     private Set<PhysicalCard> _shadowCharacters;
     private boolean _cancelled;
 
-    private Set<PhysicalCard> _removedFromSkirmish = new HashSet<PhysicalCard>();
+    private Set<Integer> _removedFromSkirmish = new HashSet<Integer>();
 
     public Skirmish(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;
@@ -30,10 +30,10 @@ public class Skirmish {
     }
 
     public void addRemovedFromSkirmish(PhysicalCard loser) {
-        _removedFromSkirmish.add(loser);
+        _removedFromSkirmish.add(loser.getCardId());
     }
 
-    public Set<PhysicalCard> getRemovedFromSkirmish() {
+    public Set<Integer> getRemovedFromSkirmish() {
         return _removedFromSkirmish;
     }
 
