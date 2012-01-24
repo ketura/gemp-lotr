@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -26,6 +27,12 @@ import java.util.List;
 public class Card4_283 extends AbstractAttachableFPPossession {
     public Card4_283() {
         super(2, 0, 0, Culture.ROHAN, PossessionClass.MOUNT, "Horse of Rohan");
+    }
+
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
+                && PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN);
     }
 
     @Override
