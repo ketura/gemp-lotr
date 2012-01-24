@@ -237,6 +237,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canBeReturnedToHand(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
     public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return true;
     }

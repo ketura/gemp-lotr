@@ -36,6 +36,8 @@ public class RuleSet {
 
         new FrodoAndSamRule(_modifiersLogic).applyRule();
 
+        new RingBearerRule(_modifiersLogic).applyRule();
+
         new ThreatRule(_actionsEnvironment).applyRule();
     }
 }
