@@ -64,6 +64,7 @@ public class LeagueService {
                             _leaguePointsDao.addPoints(league, serie, winnerPlayerId, 2);
                             _leaguePointsDao.addPoints(league, serie, loser, 1);
                             _leagueStandings.remove(league);
+                            _leagueSerieStandings.remove(serie);
                         }
                     });
             gameMediator.sendMessageToPlayers("This is a ranked game in " + league.getName());
