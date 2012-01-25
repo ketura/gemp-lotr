@@ -7,22 +7,24 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     ringBearerDiv: null,
     ringBearerGroup: null,
+
     ringDiv: null,
     ringGroup: null,
+
     siteDiv: null,
     siteGroup: null,
+
     collectionDiv: null,
+
     normalCollectionDiv: null,
     normalCollectionGroup: null,
-    specialCollectionDiv: null,
-    specialCollectionGroup: null,
+
     selectionFunc: null,
-    pageDiv: null,
-    fullFilterDiv: null,
-    filterDiv: null,
     drawDeckDiv: null,
+
     fpDeckGroup: null,
     shadowDeckGroup: null,
+
     start: 0,
     count: 18,
     filter: null,
@@ -39,12 +41,23 @@ var GempLotrDeckBuildingUI = Class.extend({
     selectionGroup: null,
     packSelectionId: null,
 
+    cardFilter: null,
+
     init: function() {
         var that = this;
 
-        this.filter = "cardType:-SITE,THE_ONE_RING";
-
         this.comm = new GempLotrCommunication("/gemp-lotr/server", that.processError);
+
+        this.cardFilter = new CardFilter("/gemp-lotr/server", $("#collectionDiv"),
+                function() {
+                    that.clearCollection();
+                },
+                function(type, blueprintId, count, side, contents) {
+                    that.addCardToCollection(type, blueprintId, count, side, contents);
+                },
+                function() {
+                    that.finishCollection();
+                });
 
         this.deckDiv = $("#deckDiv");
 
@@ -136,189 +149,9 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.collectionDiv = $("#collectionDiv");
 
-        this.pageDiv = $("<div></div>");
-        this.pageDiv.append("<button id='previousPage' style='float: left;'>Previous page</button>");
-        this.pageDiv.append("<button id='nextPage' style='float: right;'>Next page</button>");
-        this.pageDiv.append("<div id='countSlider' style='left: 50px; top: 10px; width: 200px;'></div>");
-        this.collectionDiv.append(this.pageDiv);
-
-        this.fullFilterDiv = $("<div id='fullFiltering'></div>");
-        this.fullFilterDiv.append("<select id='set'>"
-                + "<option value=''>All Sets</option>"
-                + "<option value='0'>00 - Promo</option>"
-                + "<option value='1,2,3'>Fellowship Block</option>"
-                + "<option value='1'>01 - The Fellowship of the Ring</option>"
-                + "<option value='2'>02 - Mines of Moria</option>"
-                + "<option value='3'>03 - Realms of the Elf-lords</option>"
-                + "<option value='4,5,6'>Towers Block</option>"
-                + "<option value='4'>04 - The Two Towers</option>"
-                + "<option value='5'>05 - Battle of Helm's Deep</option>"
-                + "<option value='6'>06 - Ents of Fangorn</option>"
-                + "<option value='7,8,10'>King Block</option>"
-                + "<option value='7'>07 - The Return of the King</option>"
-                + "<option value='8'>08 - Siege of Gondor</option>"
-                + "<option value='9'>09 - Reflections</option>"
-                + "<option value='10'>10 - Mount Doom</option>"
-                + "<option value='11,12,13'>War of the Ring Block</option>"
-                + "<option value='11'>11 - Shadows</option>"
-                + "<option value='12'>12 - Black Rider</option>"
-                + "<option value='13'>13 - Bloodlines</option>"
-                + "<option value='14'>14 - Expanded Middle-earth</option>"
-                + "</select>");
-        this.fullFilterDiv.append("<input type='text' id='cardName' value='Card name'>");
-        this.fullFilterDiv.append("<select id='sort'>"
-                + "<option value=''>Sort by:</option>"
-                + "<option value='name'>Name</option>"
-                + "<option value='twilight'>Twilight</option>"
-                + "<option value='siteNumber'>Site number</option>"
-                + "<option value='strength'>Strength</option>"
-                + "<option value='vitality'>Vitality</option>"
-                + "</select>");
-        this.collectionDiv.append(this.fullFilterDiv);
-
-        this.filterDiv = $("<div id='filtering'></div>");
-
-        this.filterDiv.append("<div id='culture1'>"
-                + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.png'/></label>"
-                + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.png'/></label>"
-                + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.png'/></label>"
-                + "<input type='checkbox' id='GONDOR'/><label for='GONDOR' id='labelGONDOR'><img src='images/cultures/gondor.png'/></label>"
-                + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
-                + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
-                + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
-                + "</div>");
-        this.filterDiv.append("<div id='culture2'>"
-                + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
-                + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png'/></label>"
-                + "<input type='checkbox' id='MEN'/><label for='MEN' id='labelMEN'><img src='images/cultures/men.png'/></label>"
-                + "<input type='checkbox' id='MORIA'/><label for='MORIA' id='labelMORIA'><img src='images/cultures/moria.png'/></label>"
-                + "<input type='checkbox' id='ORC'/><label for='ORC' id='labelORC'><img src='images/cultures/orc.png'/></label>"
-                + "<input type='checkbox' id='RAIDER'/><label for='RAIDER' id='labelRAIDER'><img src='images/cultures/raider.png'/></label>"
-                + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
-                + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
-                + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
-                + "</div>");
-
-        var combos = $("<div></div>");
-
-        combos.append(" <select id='cardType'>"
-                + "<option value=''>All Card Types</option>"
-                + "<option value='COMPANION'>Companions</option>"
-                + "<option value='ALLY'>Allies</option>"
-                + "<option value='MINION'>Minions</option>"
-                + "<option value='POSSESSION'>Possessions</option>"
-                + "<option value='ARTIFACT'>Artifacts</option>"
-                + "<option value='EVENT'>Events</option>"
-                + "<option value='CONDITION'>Conditions</option>"
-                + "<option value='POSSESSION,ARTIFACT'>Items</option>"
-                + "<option value='COMPANION,ALLY,MINION'>Characters</option>"
-                + "</select>");
-        combos.append(" <select id='keyword'>"
-                + "<option value=''>No keyword filtering</option>"
-                + "<option value='ARCHER'>Archer</option>"
-                + "<option value='BESIEGER'>Besieger</option>"
-                + "<option value='CORSAIR'>Corsair</option>"
-                + "<option value='EASTERLING'>Easterling</option>"
-                + "<option value='ENDURING'>Enduring</option>"
-                + "<option value='ENGINE'>Engine</option>"
-                + "<option value='FIERCE'>Fierce</option>"
-                + "<option value='FORTIFICATION'>Fortification</option>"
-                + "<option value='KNIGHT'>Knight</option>"
-                + "<option value='LURKER'>Lurker</option>"
-                + "<option value='MACHINE'>Machine</option>"
-                + "<option value='MUSTER'>Muster</option>"
-                + "<option value='PIPEWEED'>Pipeweed</option>"
-                + "<option value='RANGER'>Ranger</option>"
-                + "<option value='RING_BOUND'>Ring-bound</option>"
-                + "<option value='SEARCH'>Search</option>"
-                + "<option value='SOUTHRON'>Southron</option>"
-                + "<option value='SPELL'>Spell</option>"
-                + "<option value='STEALTH'>Stealth</option>"
-                + "<option value='TALE'>Tale</option>"
-                + "<option value='TENTACLE'>Tentacle</option>"
-                + "<option value='TRACKER'>Tracker</option>"
-                + "<option value='TWILIGHT'>Twilight</option>"
-                + "<option value='UNHASTY'>Unhasty</option>"
-                + "<option value='VALIANT'>Valiant</option>"
-                + "<option value='VILLAGER'>Villager</option>"
-                + "<option value='WARG_RIDER'>Warg-rider</option>"
-                + "<option value='WEATHER'>Weather</option>"
-                + "</select>");
-        this.filterDiv.append(combos);
-
-        this.collectionDiv.append(this.filterDiv);
-
-        $("#culture1").buttonset();
-        $("#culture2").buttonset();
-
-        var fullFilterChanged = function() {
-            that.start = 0;
-            that.getCollection();
-            return true;
-        };
-
-        $("#set").change(fullFilterChanged);
-        $("#cardName").change(fullFilterChanged);
-        $("#sort").change(fullFilterChanged);
-        $("#collectionSelect").change(fullFilterChanged);
-
-        var filterOut = function() {
-            that.filter = that.calculateNormalFilter();
-            that.start = 0;
-            that.getCollection();
-            return true;
-        };
-
-        $("#cardType").change(filterOut);
-        $("#keyword").change(filterOut);
-
-        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH").click(filterOut);
-
-        $("#countSlider").slider({
-            value:18,
-            min: 4,
-            max: 40,
-            step: 1,
-            disabled: true,
-            slide: function(event, ui) {
-                that.start = 0;
-                that.count = ui.value;
-                that.getCollection();
-            }
-        });
-
-        $("#previousPage").button({
-            text: false,
-            icons: {
-                primary: "ui-icon-circle-triangle-w"
-            },
-            disabled: true
-        }).click(
+        $("#collectionSelect").change(
                 function() {
-                    $("#previousPage").button("option", "disabled", true);
-                    $("#nextPage").button("option", "disabled", true);
-                    $("#countSlider").button("option", "disabled", true);
-                    $(".card", that.normalCollectionDiv).remove();
-                    $(".card", that.specialCollectionDiv).remove();
-                    that.start -= that.count;
-                    that.getCollection();
-                });
-
-        $("#nextPage").button({
-            text: false,
-            icons: {
-                primary: "ui-icon-circle-triangle-e"
-            },
-            disabled: true
-        }).click(
-                function() {
-                    $("#previousPage").button("option", "disabled", true);
-                    $("#nextPage").button("option", "disabled", true);
-                    $("#countSlider").button("option", "disabled", true);
-                    $(".card", that.normalCollectionDiv).remove();
-                    $(".card", that.specialCollectionDiv).remove();
-                    that.start += that.count;
-                    that.getCollection();
+                    that.cardFilter.setCollectionType(that.getCollectionType());
                 });
 
         this.normalCollectionDiv = $("<div></div>");
@@ -328,19 +161,12 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.normalCollectionGroup.maxCardHeight = 200;
         this.collectionDiv.append(this.normalCollectionDiv);
 
-        this.specialCollectionDiv = $("<div></div>");
-        this.specialCollectionDiv.hide();
-        this.specialCollectionGroup = new NormalCardGroup(this.specialCollectionDiv, function(card) {
-            return true;
-        });
-        this.specialCollectionGroup.maxCardHeight = 200;
-        this.collectionDiv.append(this.specialCollectionDiv);
-
         this.ringBearerDiv = $("<div>Ring Bearer</div>");
         this.ringBearerDiv.click(
                 function() {
-                    if ($(".card", that.ringBearerDiv).length == 0)
+                    if ($(".card", that.ringBearerDiv).length == 0) {
                         that.showPredefinedFilter("keyword:CAN_START_WITH_RING", that.ringBearerDiv);
+                    }
                 });
         this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function(card) {
             return true;
@@ -359,13 +185,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.deckDiv.append(this.ringDiv);
 
         this.siteDiv = $("<div>Sites</div>");
-        this.siteDiv.click(
-                (function (container) {
-                    return function() {
-                        if ($(".card", container).length < 9)
-                            that.showPredefinedFilter("cardType:SITE", container);
-                    };
-                })(this.siteDiv));
         this.deckDiv.append(this.siteDiv);
         this.siteGroup = new VerticalBarGroup(this.siteDiv, function(card) {
             return true;
@@ -408,11 +227,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -429,9 +248,14 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.getCollectionTypes();
 
-        this.getCollection();
+        this.cardFilter.setFilter("cardType:-THE_ONE_RING");
+        this.cardFilter.setCollectionType("default");
 
         this.checkDeckStatsDirty();
+    },
+
+    getCollectionType: function() {
+        return $("#collectionSelect option:selected").prop("value");
     },
 
     getCollectionTypes: function() {
@@ -455,14 +279,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                            title: "Your stored decks",
-                            autoOpen: false,
-                            closeOnEscape: true,
-                            resizable: true,
-                            width: 400,
-                            height: 400,
-                            modal: true
-                        });
+                    title: "Your stored decks",
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: true,
+                    width: 400,
+                    height: 400,
+                    modal: true
+                });
             }
             that.deckListDialog.html("");
 
@@ -542,12 +366,12 @@ var GempLotrDeckBuildingUI = Class.extend({
                         } else if (selectedCardElem.hasClass("packInCollection")) {
                             if (confirm("Would you like to open this pack?")) {
                                 this.comm.openPack(this.getCollectionType(), selectedCardElem.data("card").blueprintId, function() {
-                                    that.getCollection();
+                                    that.cardFilter.getCollection();
                                 });
                             }
                         } else if (selectedCardElem.hasClass("cardToSelect")) {
                             this.comm.openSelectionPack(this.getCollectionType(), this.packSelectionId, selectedCardElem.data("card").blueprintId, function() {
-                                that.getCollection();
+                                that.cardFilter.getCollection();
                             });
                             this.selectionDialog.dialog("close");
                         } else if (selectedCardElem.hasClass("selectionInCollection")) {
@@ -560,14 +384,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                             if (this.selectionDialog == null) {
                                 this.selectionDialog = $("<div></div>")
                                         .dialog({
-                                            title: "Choose one",
-                                            autoOpen: false,
-                                            closeOnEscape: true,
-                                            resizable: true,
-                                            width: 400,
-                                            height: 200,
-                                            modal: true
-                                        });
+                                    title: "Choose one",
+                                    autoOpen: false,
+                                    closeOnEscape: true,
+                                    resizable: true,
+                                    width: 400,
+                                    height: 200,
+                                    modal: true
+                                });
 
                                 this.selectionGroup = new NormalCardGroup(this.selectionDialog, function(card) {
                                     return true;
@@ -704,13 +528,9 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     showPredefinedFilter: function(filter, container) {
-        this.normalCollectionDiv.hide();
-        this.filterDiv.hide();
-        this.specialCollectionDiv.show();
+        this.cardFilter.enableDetailFilters(false);
+        this.cardFilter.setFilter(filter);
 
-        this.filter = filter;
-        this.start = 0;
-        this.getCollection();
         var that = this;
         this.selectionFunc = function(blueprintId) {
             var cardDiv = this.addCardToContainer(blueprintId, "special", container, false);
@@ -722,75 +542,25 @@ var GempLotrDeckBuildingUI = Class.extend({
     },
 
     showNormalFilter: function() {
-        this.specialCollectionDiv.hide();
-        this.normalCollectionDiv.show();
-        this.filterDiv.show();
-
-        this.filter = this.calculateNormalFilter();
-        this.start = 0;
-        this.getCollection();
+        this.cardFilter.enableDetailFilters(true);
+        this.cardFilter.setFilter("cardType:-THE_ONE_RING");
 
         this.selectionFunc = this.addCardToDeckAndLayout;
     },
 
     addCardToDeckAndLayout: function(blueprintId, side) {
         var that = this;
-        this.addCardToDeck(blueprintId, side);
-        if (side == "FREE_PEOPLE")
+        if (side == "FREE_PEOPLE") {
+            this.addCardToDeck(blueprintId, side);
             that.fpDeckGroup.layoutCards();
-        else
+        } else if (side == "SHADOW") {
+            this.addCardToDeck(blueprintId, side);
             that.shadowDeckGroup.layoutCards();
-    },
-
-    calculateFullFilterPostfix: function() {
-        var setNo = $("#set option:selected").prop("value");
-        if (setNo != "")
-            setNo = " set:" + setNo;
-
-        var sort = $("#sort option:selected").prop("value");
-        if (sort != "")
-            sort = " sort:" + sort;
-
-        var cardName = $("#cardName").val();
-        if (cardName == "Card name")
-            cardName = "";
-        else {
-            var cardNameElems = cardName.split(" ");
-            cardName = "";
-            for (var i = 0; i < cardNameElems.length; i++)
-                cardName += " name:" + cardNameElems[i];
+        } else if (side == null) {
+            var div = this.addCardToContainer(blueprintId, side, this.siteDiv, false)
+            div.addClass("cardInDeck");
+            that.siteGroup.layoutCards();
         }
-
-        return setNo + sort + cardName;
-    },
-
-    calculateNormalFilter: function() {
-        var cultures = new Array();
-        $("label", $("#culture1")).each(
-                function() {
-                    if ($(this).hasClass("ui-state-active"))
-                        cultures.push($(this).prop("id").substring(5));
-                });
-        $("label", $("#culture2")).each(
-                function() {
-                    if ($(this).hasClass("ui-state-active"))
-                        cultures.push($(this).prop("id").substring(5));
-                });
-
-        var cardType = $("#cardType option:selected").prop("value");
-        if (cardType == "")
-            cardType = "cardType:-SITE,THE_ONE_RING";
-        else
-            cardType = "cardType:" + cardType;
-
-        var keyword = $("#keyword option:selected").prop("value");
-        if (keyword != "")
-            keyword = " keyword:" + keyword;
-
-        if (cultures.length > 0)
-            return cardType + " culture:" + cultures + keyword;
-        else
-            return cardType + keyword;
     },
 
     addCardToDeck: function(blueprintId, side) {
@@ -872,17 +642,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.deckDirty = true;
     },
 
-    getCollectionType: function() {
-        return $("#collectionSelect option:selected").prop("value");
-    },
-
-    getCollection: function() {
-        var that = this;
-        this.comm.getCollection(this.getCollectionType(), this.filter + this.calculateFullFilterPostfix(), this.start, this.count, function(xml) {
-            that.displayCollection(xml);
-        });
-    },
-
     clearDeck: function() {
         $(".cardInDeck").each(
                 function() {
@@ -918,77 +677,51 @@ var GempLotrDeckBuildingUI = Class.extend({
 
                 this.layoutUI(false);
 
-                this.getCollection();
+                this.cardFilter.getCollection();
             }
         }
     },
 
-    displayCollection: function(xml) {
-        log(xml);
-        var root = xml.documentElement;
-        if (root.tagName == "collection") {
-            if (this.normalCollectionDiv.is(":visible")) {
-                $(".card", this.normalCollectionDiv).remove();
-            } else {
-                $(".card", this.specialCollectionDiv).remove();
-            }
+    clearCollection: function() {
+        $(".card", this.normalCollectionDiv).remove();
+    },
 
-            var packs = root.getElementsByTagName("pack");
-            for (var i = 0; i < packs.length; i++) {
-                var packElem = packs[i];
-                var blueprintId = packElem.getAttribute("blueprintId");
-                var count = packElem.getAttribute("count");
-                if (blueprintId.substr(0, 3) == "(S)") {
-                    var card = new Card(blueprintId, "pack", "collection" + i, "player");
-                    card.tokens = {"count":count};
-                    var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
-                    cardDiv.data("card", card);
-                    cardDiv.data("selection", packElem.getAttribute("contents"));
-                    cardDiv.addClass("selectionInCollection");
-                } else {
-                    var card = new Card(blueprintId, "pack", "collection" + i, "player");
-                    card.tokens = {"count":count};
-                    var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
-                    cardDiv.data("card", card);
-                    cardDiv.addClass("packInCollection");
-                }
-                if (this.normalCollectionDiv.is(":visible"))
-                    this.normalCollectionDiv.append(cardDiv);
-                else
-                    this.specialCollectionDiv.append(cardDiv);
-            }
-
-            var cards = root.getElementsByTagName("card");
-            for (var i = 0; i < cards.length; i++) {
-                var cardElem = cards[i];
-                var blueprintId = cardElem.getAttribute("blueprintId");
-                var count = cardElem.getAttribute("count");
-                var card = new Card(blueprintId, cardElem.getAttribute("side"), "collection" + i, "player");
-                var countInDeck = 0;
-                $(".card", this.deckDiv).each(
-                        function () {
-                            var tempCardData = $(this).data("card");
-                            if (blueprintId == tempCardData.blueprintId)
-                                countInDeck++;
-                        });
-                card.tokens = {"count":count - countInDeck};
-                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
+    addCardToCollection: function(type, blueprintId, count, side, contents) {
+        if (type == "pack") {
+            if (blueprintId.substr(0, 3) == "(S)") {
+                var card = new Card(blueprintId, "pack", "collection", "player");
+                card.tokens = {"count":count};
+                var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
                 cardDiv.data("card", card);
-                cardDiv.addClass("cardInCollection");
-                if (this.normalCollectionDiv.is(":visible"))
-                    this.normalCollectionDiv.append(cardDiv);
-                else
-                    this.specialCollectionDiv.append(cardDiv);
+                cardDiv.data("selection", contents);
+                cardDiv.addClass("selectionInCollection");
+            } else {
+                var card = new Card(blueprintId, "pack", "collection", "player");
+                card.tokens = {"count":count};
+                var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
+                cardDiv.data("card", card);
+                cardDiv.addClass("packInCollection");
             }
-
-            this.normalCollectionGroup.layoutCards();
-            this.specialCollectionGroup.layoutCards();
-
-            $("#previousPage").button("option", "disabled", this.start == 0);
-            var cnt = parseInt(root.getAttribute("count"));
-            $("#nextPage").button("option", "disabled", (this.start + this.count) >= cnt);
-            $("#countSlider").slider("option", "disabled", false);
+            this.normalCollectionDiv.append(cardDiv);
+        } else if (type == "card") {
+            var card = new Card(blueprintId, side, "collection", "player");
+            var countInDeck = 0;
+            $(".card", this.deckDiv).each(
+                    function () {
+                        var tempCardData = $(this).data("card");
+                        if (blueprintId == tempCardData.blueprintId)
+                            countInDeck++;
+                    });
+            card.tokens = {"count":count - countInDeck};
+            var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
+            cardDiv.data("card", card);
+            cardDiv.addClass("cardInCollection");
+            this.normalCollectionDiv.append(cardDiv);
         }
+    },
+
+    finishCollection: function() {
+        this.normalCollectionGroup.layoutCards();
     },
 
     layoutUI: function(layoutDivs) {
@@ -1022,19 +755,13 @@ var GempLotrDeckBuildingUI = Class.extend({
 
             this.bottomBarDiv.css({ position: "absolute", left: padding * 2 + sitesWidth , top: manageHeight + padding + deckHeight - 50, width: deckWidth - (sitesWidth + padding) - padding, height: 50 });
 
-            this.pageDiv.css({ position: "absolute", left: padding, top: 0, width: collectionWidth - padding, height: 50 });
-            $("#countSlider").css({width: collectionWidth - padding - 100});
-            this.fullFilterDiv.css({position:"absolute", left: padding, top: 50, width: collectionWidth - padding, height: 30});
-            this.filterDiv.css({ position: "absolute", left: padding, top: 80, width: collectionWidth - padding, height: 80 });
+            this.cardFilter.layoutUi(padding, 0, collectionWidth - padding, 160);
             this.normalCollectionDiv.css({ position: "absolute", left: padding, top: 160, width: collectionWidth - padding * 2, height: collectionHeight - 160 });
-            this.specialCollectionDiv.css({ position: "absolute", left: padding, top: 80, width: collectionWidth - padding * 2, height: collectionHeight - 80 });
 
             this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 160);
-            this.specialCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 80);
         } else {
             this.layoutDeck();
             this.normalCollectionGroup.layoutCards();
-            this.specialCollectionGroup.layoutCards();
         }
     },
 

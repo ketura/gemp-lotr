@@ -10,6 +10,10 @@ var CardFilter = Class.extend({
     start: 0,
     count: 18,
 
+    pageDiv: null,
+    fullFilterDiv: null,
+    filterDiv: null,
+
     previousPageBut: null,
     nextPageBut: null,
     countSlider: null,
@@ -45,10 +49,17 @@ var CardFilter = Class.extend({
         $("#keyword").prop("disabled", !enable);
     },
 
+    setFilter: function(filter) {
+        this.filter = filter;
+
+        this.start = 0;
+        this.getCollection();
+    },
+
     buildUi: function(elem) {
         var that = this;
 
-        var pageDiv = $("<div></div>");
+        this.pageDiv = $("<div></div>");
 
         this.previousPageBut = $("<button id='previousPage' style='float: left;'>Previous page</button>").button({
             text: false,
@@ -89,14 +100,14 @@ var CardFilter = Class.extend({
             }
         });
 
-        pageDiv.append(this.previousPageBut);
-        pageDiv.append(this.nextPageBut);
-        pageDiv.append(this.countSlider);
+        this.pageDiv.append(this.previousPageBut);
+        this.pageDiv.append(this.nextPageBut);
+        this.pageDiv.append(this.countSlider);
 
-        elem.append(pageDiv);
+        elem.append(this.pageDiv);
 
-        var fullFilterDiv = $("<div></div>");
-        this.setSelect = $("<select>"
+        this.fullFilterDiv = $("<div></div>");
+        this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
                 + "<option value=''>All Sets</option>"
                 + "<option value='0'>00 - Promo</option>"
                 + "<option value='1,2,3'>Fellowship Block</option>"
@@ -118,8 +129,8 @@ var CardFilter = Class.extend({
                 + "<option value='13'>13 - Bloodlines</option>"
                 + "<option value='14'>14 - Expanded Middle-earth</option>"
                 + "</select>");
-        this.nameInput = $("<input type='text' value='Card name'>");
-        this.sortSelect = $("<select>"
+        this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 80%;'>");
+        this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
                 + "<option value=''>Sort by:</option>"
                 + "<option value='name'>Name</option>"
                 + "<option value='twilight'>Twilight</option>"
@@ -128,15 +139,15 @@ var CardFilter = Class.extend({
                 + "<option value='vitality'>Vitality</option>"
                 + "</select>");
 
-        fullFilterDiv.append(this.setSelect);
-        fullFilterDiv.append(this.nameInput);
-        fullFilterDiv.append(this.sortSelect);
+        this.fullFilterDiv.append(this.setSelect);
+        this.fullFilterDiv.append(this.nameInput);
+        this.fullFilterDiv.append(this.sortSelect);
 
-        elem.append(fullFilterDiv);
+        elem.append(this.fullFilterDiv);
 
-        var filterDiv = $("<div></div>");
+        this.filterDiv = $("<div></div>");
 
-        filterDiv.append("<div id='culture1'>"
+        this.filterDiv.append("<div id='culture1'>"
                 + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.png'/></label>"
                 + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.png'/></label>"
                 + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.png'/></label>"
@@ -145,7 +156,7 @@ var CardFilter = Class.extend({
                 + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
                 + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
                 + "</div>");
-        filterDiv.append("<div id='culture2'>"
+        this.filterDiv.append("<div id='culture2'>"
                 + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
                 + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png'/></label>"
                 + "<input type='checkbox' id='MEN'/><label for='MEN' id='labelMEN'><img src='images/cultures/men.png'/></label>"
@@ -159,19 +170,20 @@ var CardFilter = Class.extend({
 
         var combos = $("<div></div>");
 
-        combos.append(" <select id='cardType'>"
+        combos.append(" <select id='cardType' style='font-size: 80%;'>"
                 + "<option value=''>All Card Types</option>"
-                + "<option value='COMPANION'>Companions</option>"
+                + "<option value='COMPANION,ALLY,MINION'>Characters</option>"
+                + "<option value='POSSESSION,ARTIFACT'>Items</option>"
+                + "<option value='SITE'>Sites</option>"
                 + "<option value='ALLY'>Allies</option>"
+                + "<option value='ARTIFACT'>Artifacts</option>"
+                + "<option value='COMPANION'>Companions</option>"
+                + "<option value='CONDITION'>Conditions</option>"
+                + "<option value='EVENT'>Events</option>"
                 + "<option value='MINION'>Minions</option>"
                 + "<option value='POSSESSION'>Possessions</option>"
-                + "<option value='ARTIFACT'>Artifacts</option>"
-                + "<option value='EVENT'>Events</option>"
-                + "<option value='CONDITION'>Conditions</option>"
-                + "<option value='POSSESSION,ARTIFACT'>Items</option>"
-                + "<option value='COMPANION,ALLY,MINION'>Characters</option>"
                 + "</select>");
-        combos.append(" <select id='keyword'>"
+        combos.append(" <select id='keyword' style='font-size: 80%;'>"
                 + "<option value=''>No keyword filtering</option>"
                 + "<option value='ARCHER'>Archer</option>"
                 + "<option value='BESIEGER'>Besieger</option>"
@@ -202,9 +214,9 @@ var CardFilter = Class.extend({
                 + "<option value='WARG_RIDER'>Warg-rider</option>"
                 + "<option value='WEATHER'>Weather</option>"
                 + "</select>");
-        filterDiv.append(combos);
+        this.filterDiv.append(combos);
 
-        elem.append(filterDiv);
+        elem.append(this.filterDiv);
 
         $("#culture1").buttonset();
         $("#culture2").buttonset();
@@ -230,6 +242,13 @@ var CardFilter = Class.extend({
         $("#keyword").change(filterOut);
 
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH").click(filterOut);
+    },
+
+    layoutUi: function(x, y, width, height) {
+        this.pageDiv.css({ position: "absolute", left: x, top: y, width: width, height: 50 });
+        this.countSlider.css({width: width - 100});
+        this.fullFilterDiv.css({position:"absolute", left: x, top: y + 50, width: width, height: 30});
+        this.filterDiv.css({ position: "absolute", left: x, top: y + 80, width: width, height: 80 });
     },
 
     disableNavigation: function() {
@@ -291,7 +310,7 @@ var CardFilter = Class.extend({
 
     getCollection: function() {
         var that = this;
-        this.comm.getCollection(this.collectionType, this.filter + this.calculateFullFilterPostfix(), this.start, this.count, function(xml) {
+        this.communication.getCollection(this.collectionType, this.filter + this.calculateFullFilterPostfix(), this.start, this.count, function(xml) {
             that.displayCollection(xml);
         });
     },

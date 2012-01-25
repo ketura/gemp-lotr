@@ -303,7 +303,7 @@ public class DefaultCardCollection implements MutableCardCollection {
         if (sort != null && sort.equals("twilight"))
             Collections.sort(result, new TwilightComparator(library));
         else if (sort != null && sort.equals("siteNumber"))
-            Collections.sort(result, new TwilightComparator(library));
+            Collections.sort(result, new SiteNumberComparator(library));
         else if (sort != null && sort.equals("strength"))
             Collections.sort(result, new StrengthComparator(library));
         else if (sort != null && sort.equals("vitality"))

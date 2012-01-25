@@ -188,10 +188,7 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 pack: pack},
             success: function(xml, status, request) {
-                var delivery = request.getResponseHeader("Delivery-Service-Package");
-                if (delivery == "true")
-
-                    callback(xml);
+                callback(xml);
             },
             error: this.failure,
             dataType: "xml"
@@ -207,10 +204,7 @@ var GempLotrCommunication = Class.extend({
                 pack: pack,
                 selection: selection},
             success: function(xml, status, request) {
-                var delivery = request.getResponseHeader("Delivery-Service-Package");
-                if (delivery == "true")
-
-                    callback(xml);
+                callback(xml);
             },
             error: this.failure,
             dataType: "xml"
