@@ -8,7 +8,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class RuleUtils {
     public static int calculateFellowshipArcheryTotal(LotroGame game) {
@@ -64,10 +66,15 @@ public class RuleUtils {
     }
 
     public static int getFellowshipSkirmishStrength(LotroGame game) {
-        if (game.getGameState().getSkirmish() == null)
+        final Skirmish skirmish = game.getGameState().getSkirmish();
+        if (skirmish == null)
             return 0;
 
-        PhysicalCard fpChar = game.getGameState().getSkirmish().getFellowshipCharacter();
+        final Evaluator overrideEvaluator = skirmish.getFpStrengthOverrideEvaluator();
+        if (overrideEvaluator != null)
+            return overrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+
+        PhysicalCard fpChar = skirmish.getFellowshipCharacter();
         if (fpChar == null)
             return 0;
 
