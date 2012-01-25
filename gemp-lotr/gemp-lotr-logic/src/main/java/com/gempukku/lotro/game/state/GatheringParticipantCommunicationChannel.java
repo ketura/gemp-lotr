@@ -4,11 +4,12 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
-import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.*;
+
+import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
@@ -53,6 +54,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
         if (freePeople != null)
             gameEvent.cardId(freePeople.getCardId());
         _events.add(gameEvent);
+    }
+
+    @Override
+    public void addToSkirmish(PhysicalCard card) {
+        _events.add(new GameEvent(ATS).card(card));
     }
 
     @Override

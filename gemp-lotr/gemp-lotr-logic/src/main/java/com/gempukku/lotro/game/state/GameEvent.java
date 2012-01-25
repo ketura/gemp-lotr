@@ -15,7 +15,7 @@ public class GameEvent {
         P, GPC, TC, PP, TP,
         PCIP, MCIP, RCFP,
         AA, RA,
-        SS, RFS, ES,
+        SS, RFS, ATS, ES,
         AT, RT,
         M, W,
         GS,

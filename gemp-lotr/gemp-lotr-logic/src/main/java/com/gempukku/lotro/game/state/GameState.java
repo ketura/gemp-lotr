@@ -326,6 +326,13 @@ public class GameState {
         }
     }
 
+    public void replaceInSkirmishMinion(PhysicalCard card, PhysicalCard removeMinion) {
+        removeFromSkirmish(removeMinion);
+        _skirmish.getShadowCharacters().add(card);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.addToSkirmish(card);
+    }
+
     private void removeFromSkirmish(PhysicalCard card, boolean notify) {
         if (_skirmish.getFellowshipCharacter() == card) {
             _skirmish.setFellowshipCharacter(null);

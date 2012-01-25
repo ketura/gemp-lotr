@@ -33,6 +33,8 @@ public interface GameStateListener {
 
     public void startSkirmish(PhysicalCard fp, Set<PhysicalCard> minions);
 
+    public void addToSkirmish(PhysicalCard card);
+
     public void removeFromSkirmish(PhysicalCard card);
 
     public void finishSkirmish();
