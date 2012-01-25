@@ -232,6 +232,12 @@ public class PlayConditions {
         return canHeal(source, game, 1, filters);
     }
 
+    public static boolean canPlayFromDeck(String playerId, LotroGame game, Filterable... filters) {
+        if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
+            return false;
+        return Filters.filter(game.getGameState().getDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
+    }
+
     public static boolean canPlayFromHand(String playerId, LotroGame game, Filterable... filters) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(filters, Filters.playable(game))).size() > 0;
     }
