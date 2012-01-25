@@ -137,7 +137,7 @@ public class LeagueService {
         int position = 1;
         LeagueStanding lastStanding = null;
         for (LeagueStanding leagueStanding : leagueStandings) {
-            if (lastStanding == null || LEAGUE_STANDING_COMPARATOR.compare(lastStanding, lastStanding) != 0)
+            if (lastStanding == null || LEAGUE_STANDING_COMPARATOR.compare(leagueStanding, lastStanding) != 0)
                 standing = position;
             leagueStanding.setStanding(standing);
             position++;
