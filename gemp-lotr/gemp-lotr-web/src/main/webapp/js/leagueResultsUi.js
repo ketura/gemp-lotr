@@ -83,40 +83,30 @@ var LeagueResultsUI = Class.extend({
     createStandingsTable: function(standings) {
         var standingsTable = $("<table class='standings'></table>");
 
-        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th></th><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th></tr>");
-
-        var lastPoints = -1;
-        var lastGamesPlayed = -1;
-        var currentStanding = -1;
+        standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th><th></th><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th></tr>");
 
         var secondColumnBaseIndex = Math.ceil(standings.length / 2);
 
         for (var k = 0; k < secondColumnBaseIndex; k++) {
             var standing = standings[k];
+            var currentStanding = standing.getAttribute("standing");
             var player = standing.getAttribute("player");
             var points = parseInt(standing.getAttribute("points"));
             var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
-            if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
-                lastPoints = points;
-                lastGamesPlayed = gamesPlayed;
-                currentStanding = k + 1;
-            }
+            var opponentWinPerc = standing.getAttribute("opponentWin");
 
-            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td></tr>");
+            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td></tr>");
         }
 
         for (var k = secondColumnBaseIndex; k < standings.length; k++) {
             var standing = standings[k];
+            var currentStanding = standing.getAttribute("standing");
             var player = standing.getAttribute("player");
             var points = parseInt(standing.getAttribute("points"));
             var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
-            if (points != lastPoints || gamesPlayed != lastGamesPlayed) {
-                lastPoints = points;
-                lastGamesPlayed = gamesPlayed;
-                currentStanding = k + 1;
-            }
+            var opponentWinPerc = standing.getAttribute("opponentWin");
 
-            $("tr:eq(" + (k - secondColumnBaseIndex + 1) + ")", standingsTable).append("<td></td><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td>");
+            $("tr:eq(" + (k - secondColumnBaseIndex + 1) + ")", standingsTable).append("<td></td><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td>");
         }
 
         return standingsTable;

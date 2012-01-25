@@ -7,16 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class LeaguePointsDAO {
     private DbAccess _dbAccess;
-
-    private Map<League, List<Standing>> _leagueStandings = new ConcurrentHashMap<League, List<Standing>>();
-    private Map<LeagueSerie, List<Standing>> _serieStandings = new ConcurrentHashMap<LeagueSerie, List<Standing>>();
 
     public LeaguePointsDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -42,23 +37,9 @@ public class LeaguePointsDAO {
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
         }
-
-        _leagueStandings.remove(league);
-        _serieStandings.remove(serie);
     }
 
-    public List<Standing> getLeagueStandings(League league) {
-        List<Standing> standings = _leagueStandings.get(league);
-        if (standings == null) {
-            synchronized (this) {
-                standings = loadLeagueStandings(league);
-                _leagueStandings.put(league, standings);
-            }
-        }
-        return standings;
-    }
-
-    private List<Standing> loadLeagueStandings(League league) {
+    public Map<String, Points> getLeaguePoints(League league) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
@@ -67,14 +48,7 @@ public class LeaguePointsDAO {
                     statement.setString(1, league.getType());
                     ResultSet rs = statement.executeQuery();
                     try {
-                        List<Standing> result = new LinkedList<Standing>();
-                        while (rs.next()) {
-                            String playerName = rs.getString(1);
-                            int sumPoints = rs.getInt(2);
-                            int gamesPlayed = rs.getInt(3);
-                            result.add(new Standing(playerName, sumPoints, gamesPlayed));
-                        }
-                        return result;
+                        return createPoints(rs);
                     } finally {
                         rs.close();
                     }
@@ -89,18 +63,18 @@ public class LeaguePointsDAO {
         }
     }
 
-    public List<Standing> getSerieStandings(League league, LeagueSerie serie) {
-        List<Standing> standings = _serieStandings.get(serie);
-        if (standings == null) {
-            synchronized (this) {
-                standings = loadSerieStandings(league, serie);
-                _serieStandings.put(serie, standings);
-            }
+    private Map<String, Points> createPoints(ResultSet rs) throws SQLException {
+        Map<String, Points> result = new HashMap<String, Points>();
+        while (rs.next()) {
+            String playerName = rs.getString(1);
+            int sumPoints = rs.getInt(2);
+            int gamesPlayed = rs.getInt(3);
+            result.put(playerName, new Points(sumPoints, gamesPlayed));
         }
-        return standings;
+        return result;
     }
 
-    private List<Standing> loadSerieStandings(League league, LeagueSerie serie) {
+    public Map<String, Points> getLeagueSeriePoints(League league, LeagueSerie serie) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
@@ -110,14 +84,7 @@ public class LeaguePointsDAO {
                     statement.setString(2, serie.getType());
                     ResultSet rs = statement.executeQuery();
                     try {
-                        List<Standing> result = new LinkedList<Standing>();
-                        while (rs.next()) {
-                            String playerName = rs.getString(1);
-                            int sumPoints = rs.getInt(2);
-                            int gamesPlayed = rs.getInt(3);
-                            result.add(new Standing(playerName, sumPoints, gamesPlayed));
-                        }
-                        return result;
+                        return createPoints(rs);
                     } finally {
                         rs.close();
                     }
@@ -132,23 +99,17 @@ public class LeaguePointsDAO {
         }
     }
 
-    public static class Standing {
-        private String _player;
+    public static class Points {
         private int _points;
         private int _gamesPlayed;
 
-        public Standing(String player, int points, int gamesPlayed) {
-            _player = player;
+        public Points(int points, int gamesPlayed) {
             _points = points;
             _gamesPlayed = gamesPlayed;
         }
 
         public int getGamesPlayed() {
             return _gamesPlayed;
-        }
-
-        public String getPlayer() {
-            return _player;
         }
 
         public int getPoints() {

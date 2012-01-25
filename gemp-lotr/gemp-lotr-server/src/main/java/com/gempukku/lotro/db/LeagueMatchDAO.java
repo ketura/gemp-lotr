@@ -17,6 +17,69 @@ public class LeagueMatchDAO {
         _dbAccess = dbAccess;
     }
 
+    public Collection<LeagueMatch> getLeagueMatches(League league) {
+        try {
+            Connection conn = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = conn.prepareStatement("select winner, loser from league_match where league_type=?");
+                try {
+                    statement.setString(1, league.getType());
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        Set<LeagueMatch> result = new HashSet<LeagueMatch>();
+                        while (rs.next()) {
+                            String winner = rs.getString(1);
+                            String loser = rs.getString(2);
+
+                            result.add(new LeagueMatch(winner, loser));
+                        }
+                        return result;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
+    public Collection<LeagueMatch> getLeagueSerieMatches(League league, LeagueSerie leagueSerie) {
+        try {
+            Connection conn = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = conn.prepareStatement("select winner, loser from league_match where league_type=? and season_type=?");
+                try {
+                    statement.setString(1, league.getType());
+                    statement.setString(2, leagueSerie.getType());
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        Set<LeagueMatch> result = new HashSet<LeagueMatch>();
+                        while (rs.next()) {
+                            String winner = rs.getString(1);
+                            String loser = rs.getString(2);
+
+                            result.add(new LeagueMatch(winner, loser));
+                        }
+                        return result;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
     public Collection<LeagueMatch> getPlayerMatchesPlayedOn(League league, LeagueSerie leagueSeason, String player) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
