@@ -36,7 +36,8 @@ public class Card15_039 extends AbstractAttachable {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.activated(game, effectResult, Filters.not(Filters.owner(playerId)))
+        if (PlayConditions.canSpot(game, 2, Race.HOBBIT, Keyword.RING_BOUND)
+                && TriggerConditions.activated(game, effectResult, Filters.not(Filters.owner(playerId)))
                 && ((ActivateCardResult) effectResult).getActionTimeword() == Phase.SKIRMISH
                 && PlayConditions.canSpot(game, Filters.inSkirmish, Filters.gollumOrSmeagol)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
