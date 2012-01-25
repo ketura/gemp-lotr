@@ -943,6 +943,8 @@ var GempLotrGameUI = Class.extend({
             this.animations.removeAssignment(gameEvent, animate);
         } else if (eventType == "SS") {
             this.animations.startSkirmish(gameEvent, animate);
+        } else if (eventType == "ATS") {
+            this.animations.addToSkirmish(gameEvent, animate);
         } else if (eventType == "RFS") {
             this.animations.removeFromSkirmish(gameEvent, animate);
         } else if (eventType == "ES") {
