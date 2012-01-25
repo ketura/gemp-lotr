@@ -88,7 +88,7 @@ public class LeagueService {
         List<LeagueStanding> serieStandings = _leagueSerieStandings.get(leagueSerie);
         if (serieStandings == null) {
             synchronized (this) {
-                serieStandings = createLeagueStandings(league);
+                serieStandings = createLeagueSerieStandings(league, leagueSerie);
                 _leagueSerieStandings.put(leagueSerie, serieStandings);
             }
         }
