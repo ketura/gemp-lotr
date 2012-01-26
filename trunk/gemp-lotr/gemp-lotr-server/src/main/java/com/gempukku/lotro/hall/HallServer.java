@@ -314,7 +314,7 @@ public class HallServer extends AbstractServer {
             LeagueSerie leagueSerie = awaitingTable.getLeagueSerie();
             if (!_leagueService.canPlayRankedGame(league, leagueSerie, playerId))
                 throw new HallException("You have already played max games in league");
-            if (!_leagueService.canPlayRankedGame(league, leagueSerie, awaitingTable.getPlayerNames().iterator().next(), playerId))
+            if (awaitingTable.getPlayerNames().size() != 0 && !_leagueService.canPlayRankedGame(league, leagueSerie, awaitingTable.getPlayerNames().iterator().next(), playerId))
                 throw new HallException("You have already played ranked league game against this player in that series");
         }
         boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, deckName, lotroDeck));
