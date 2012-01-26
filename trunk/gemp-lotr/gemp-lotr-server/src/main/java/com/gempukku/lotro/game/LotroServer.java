@@ -49,7 +49,9 @@ public class LotroServer extends AbstractServer {
         _test = test;
         _defaultCollection = new DefaultCardCollection();
 
-        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15};
+        // Hunters have 1-194 normal cards, 9 "O" cards, and 3 extra to cover the different culture versions of 15_60
+
+        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 206};
 
         Thread thr = new Thread(
                 new Runnable() {
