@@ -10,12 +10,12 @@ import com.gempukku.lotro.logic.modifiers.KeywordAffectingModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
-public class CancelKeywordBonusModifier extends AbstractModifier implements KeywordAffectingModifier {
+public class CancelKeywordBonusTargetModifier extends AbstractModifier implements KeywordAffectingModifier {
     private Keyword _keyword;
     private Filterable _sourceFilter;
 
-    public CancelKeywordBonusModifier(PhysicalCard source, Keyword keyword, Filterable affectFilter, Filterable sourceFilter) {
-        super(source, "Cancel " + keyword.getHumanReadable() + " keyword", affectFilter, ModifierEffect.CANCEL_KEYWORD_BONUS_MODIFIER);
+    public CancelKeywordBonusTargetModifier(PhysicalCard source, Keyword keyword, Filterable affectFilter, Filterable sourceFilter) {
+        super(source, "Cancel " + keyword.getHumanReadable() + " keyword", affectFilter, ModifierEffect.CANCEL_KEYWORD_BONUS_TARGET_MODIFIER);
         _keyword = keyword;
         _sourceFilter = sourceFilter;
     }

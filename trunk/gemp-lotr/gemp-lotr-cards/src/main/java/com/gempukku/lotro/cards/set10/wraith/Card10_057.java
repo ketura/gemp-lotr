@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set10.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusTargetModifier;
 import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -39,7 +39,7 @@ public class Card10_057 extends AbstractMinion {
                         Filters.and(CardType.COMPANION, Filters.inSkirmishAgainst(self)),
                         CardType.POSSESSION));
         modifiers.add(
-                new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
+                new CancelKeywordBonusTargetModifier(self, Keyword.DAMAGE,
                         Filters.and(CardType.COMPANION, Filters.inSkirmishAgainst(self)),
                         CardType.POSSESSION));
         return modifiers;
