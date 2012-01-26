@@ -216,7 +216,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                 return true;
 
             for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.GIVE_KEYWORD_MODIFIER, keyword, physicalCard)) {
-                if (appliesKeywordModifier(gameState, modifier.getSource(), keyword))
+                if (appliesKeywordModifier(gameState, physicalCard, modifier.getSource(), keyword))
                     if (modifier.hasKeyword(gameState, this, physicalCard, keyword))
                         return true;
             }
@@ -240,7 +240,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
             int result = physicalCard.getBlueprint().getKeywordCount(keyword);
             for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.GIVE_KEYWORD_MODIFIER, keyword, physicalCard)) {
-                if (appliesKeywordModifier(gameState, modifier.getSource(), keyword))
+                if (appliesKeywordModifier(gameState, physicalCard, modifier.getSource(), keyword))
                     result += modifier.getKeywordCountModifier(gameState, this, physicalCard, keyword);
             }
             return Math.max(0, result);
@@ -258,10 +258,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return true;
     }
 
-    private boolean appliesKeywordModifier(GameState gameState, PhysicalCard modifierSource, Keyword keyword) {
+    private boolean appliesKeywordModifier(GameState gameState, PhysicalCard affecting, PhysicalCard modifierSource, Keyword keyword) {
         if (modifierSource == null)
             return true;
-        for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.CANCEL_KEYWORD_BONUS_MODIFIER, keyword, modifierSource)) {
+        for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.CANCEL_KEYWORD_BONUS_TARGET_MODIFIER, keyword, affecting)) {
             if (!modifier.appliesKeywordModifier(gameState, this, modifierSource, keyword))
                 return false;
         }

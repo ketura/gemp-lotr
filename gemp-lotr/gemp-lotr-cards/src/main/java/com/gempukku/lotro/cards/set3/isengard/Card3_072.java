@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusTargetModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +28,7 @@ public class Card3_072 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
+                new CancelKeywordBonusTargetModifier(self, Keyword.DAMAGE,
                         Filters.and(Filters.character, Filters.inSkirmishAgainst(Culture.ISENGARD, Race.ORC)),
                         Filters.weapon));
     }

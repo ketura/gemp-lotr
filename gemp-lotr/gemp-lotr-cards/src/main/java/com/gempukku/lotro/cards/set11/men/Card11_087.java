@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set11.men;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusModifier;
+import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusTargetModifier;
 import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -47,7 +47,7 @@ public class Card11_087 extends AbstractAttachable {
                         Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),
                         CardType.POSSESSION));
         modifiers.add(
-                new CancelKeywordBonusModifier(self, Keyword.DAMAGE,
+                new CancelKeywordBonusTargetModifier(self, Keyword.DAMAGE,
                         Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),
                         CardType.POSSESSION));
         return modifiers;
