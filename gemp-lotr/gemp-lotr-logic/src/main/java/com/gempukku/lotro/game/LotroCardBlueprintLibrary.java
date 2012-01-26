@@ -90,7 +90,7 @@ public class LotroCardBlueprintLibrary {
         return blueprint;
     }
 
-    private String stripBlueprintModifiers(String blueprintId) {
+    public String stripBlueprintModifiers(String blueprintId) {
         if (blueprintId.endsWith("*"))
             blueprintId = blueprintId.substring(0, blueprintId.length() - 1);
         if (blueprintId.endsWith("T"))

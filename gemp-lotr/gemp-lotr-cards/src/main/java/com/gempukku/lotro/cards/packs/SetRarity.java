@@ -4,5 +4,8 @@ import java.util.List;
 
 public interface SetRarity {
     public List<String> getCardsOfRarity(String rarity);
+
     public List<String> getTengwarCards();
+
+    public String getCardRarity(String cardId);
 }

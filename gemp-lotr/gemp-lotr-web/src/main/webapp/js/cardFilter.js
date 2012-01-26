@@ -21,6 +21,7 @@ var CardFilter = Class.extend({
     setSelect: null,
     nameInput: null,
     sortSelect: null,
+    raritySelect: null,
 
     init: function(url, elem, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
         this.communication = new GempLotrCommunication(url,
@@ -129,7 +130,7 @@ var CardFilter = Class.extend({
                 + "<option value='13'>13 - Bloodlines</option>"
                 + "<option value='14'>14 - Expanded Middle-earth</option>"
                 + "</select>");
-        this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 80%;'>");
+        this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
                 + "<option value=''>Sort by:</option>"
                 + "<option value='name'>Name</option>"
@@ -138,10 +139,20 @@ var CardFilter = Class.extend({
                 + "<option value='strength'>Strength</option>"
                 + "<option value='vitality'>Vitality</option>"
                 + "</select>");
+        this.raritySelect = $("<select style='width: 40px; font-size: 80%;'>"
+                + "<option value=''>Rarity:</option>"
+                + "<option value='R'>Rare</option>"
+                + "<option value='U'>Uncommon</option>"
+                + "<option value='C'>Common</option>"
+                + "<option value='A'>Alternate Image</option>"
+                + "<option value='P'>Promo</option>"
+                + "<option value='unknown'>Unknown</option>"
+                + "</select>");
 
         this.fullFilterDiv.append(this.setSelect);
         this.fullFilterDiv.append(this.nameInput);
         this.fullFilterDiv.append(this.sortSelect);
+        this.fullFilterDiv.append(this.raritySelect);
 
         elem.append(this.fullFilterDiv);
 
@@ -237,6 +248,7 @@ var CardFilter = Class.extend({
         this.setSelect.change(fullFilterChanged);
         this.nameInput.change(fullFilterChanged);
         this.sortSelect.change(fullFilterChanged);
+        this.raritySelect.change(fullFilterChanged);
 
         var filterOut = function() {
             that.filter = that.calculateNormalFilter();
@@ -317,7 +329,11 @@ var CardFilter = Class.extend({
                 cardName += " name:" + cardNameElems[i];
         }
 
-        return setNo + sort + cardName;
+        var rarity = $("option:selected", this.raritySelect).prop("value");
+        if (rarity != "")
+            rarity = " rarity:" + rarity;
+
+        return setNo + sort + cardName + rarity;
     },
 
     getCollection: function() {

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -272,12 +273,13 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public List<Item> getItems(String filter, LotroCardBlueprintLibrary library) {
+    public List<Item> getItems(String filter, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");
 
         String type = getTypeFilter(filterParams);
+        String rarity = getRarityFilter(filterParams);
         String[] sets = getSetFilter(filterParams);
         List<String> words = getWords(filterParams);
         Set<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
@@ -291,7 +293,7 @@ public class DefaultCardCollection implements MutableCardCollection {
             String blueprintId = itemCount.getKey();
             int count = itemCount.getValue();
 
-            if (acceptsFilters(library, blueprintId, type, sets, cardTypes, cultures, keywords, words, siteNumber)) {
+            if (acceptsFilters(library, rarities, blueprintId, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber)) {
                 if (!blueprintId.contains("_"))
                     result.add(new Item(Item.Type.PACK, count, blueprintId));
                 else
@@ -315,7 +317,7 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     private boolean acceptsFilters(
-            LotroCardBlueprintLibrary library, String blueprintId, String type, String[] sets,
+            LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities, String blueprintId, String type, String rarity, String[] sets,
             Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
         if (!blueprintId.contains("_")) {
             if (type == null || type.equals("pack"))
@@ -326,13 +328,14 @@ public class DefaultCardCollection implements MutableCardCollection {
                     || (type.equals("foil") && blueprintId.endsWith("*"))
                     || (type.equals("nonFoil") && !blueprintId.endsWith("*"))) {
                 final LotroCardBlueprint blueprint = library.getLotroCardBlueprint(blueprintId);
-                if (sets == null || isInSets(blueprintId, sets, library))
-                    if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
-                        if (cultures == null || cultures.contains(blueprint.getCulture()))
-                            if (containsAllKeywords(blueprint, keywords))
-                                if (containsAllWords(blueprint, words))
-                                    if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
-                                        return true;
+                if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
+                    if (sets == null || isInSets(blueprintId, sets, library))
+                        if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
+                            if (cultures == null || cultures.contains(blueprint.getCulture()))
+                                if (containsAllKeywords(blueprint, keywords))
+                                    if (containsAllWords(blueprint, words))
+                                        if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
+                                            return true;
             }
         }
         return false;
@@ -346,12 +349,32 @@ public class DefaultCardCollection implements MutableCardCollection {
         return null;
     }
 
+    private String getRarityFilter(String[] filterParams) {
+        for (String filterParam : filterParams) {
+            if (filterParam.startsWith("rarity:"))
+                return filterParam.substring("rarity:".length());
+        }
+        return null;
+    }
+
     private String[] getSetFilter(String[] filterParams) {
         String setStr = getSetNumber(filterParams);
         String[] sets = null;
         if (setStr != null)
             sets = setStr.split(",");
         return sets;
+    }
+
+    private boolean isRarity(String blueprintId, String rarity, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
+        if (blueprintId.contains("_")) {
+            SetRarity setRarity = rarities.get(blueprintId.substring(0, blueprintId.indexOf("_")));
+            if (setRarity == null && rarity.equals("unknown"))
+                return true;
+            if (setRarity != null && setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId)).equals(rarity))
+                return true;
+            return false;
+        }
+        return true;
     }
 
     private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library) {
