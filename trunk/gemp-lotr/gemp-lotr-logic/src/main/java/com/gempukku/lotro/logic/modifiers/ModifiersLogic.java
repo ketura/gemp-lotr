@@ -466,6 +466,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canTakeWoundsFromLosingSkirmish(GameState gameState, PhysicalCard card, Set<PhysicalCard> winners) {
+        LoggingThreadLocal.logMethodStart(card, "canTakeWound");
+        try {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.WOUND_MODIFIER, card)) {
+                if (!modifier.canTakeWoundsFromLosingSkirmish(gameState, this, card, winners))
+                    return false;
+            }
+            return true;
+        } finally {
+            LoggingThreadLocal.logMethodEnd();
+        }
+    }
+
+    @Override
     public boolean canTakeArcheryWound(GameState gameState, PhysicalCard card) {
         LoggingThreadLocal.logMethodStart(card, "canTakeArcheryWound");
         try {

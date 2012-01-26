@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.timing.actions;
 
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -43,7 +44,13 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
 
         if (_remainingDamage > 0) {
             _remainingDamage--;
-            return new WoundCharactersEffect(_skirmishResult.getWinners(), Filters.in(_skirmishResult.getInSkirmishLosers()));
+            return new WoundCharactersEffect(_skirmishResult.getWinners(), Filters.in(_skirmishResult.getInSkirmishLosers()),
+                    new Filter() {
+                        @Override
+                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            return modifiersQuerying.canTakeWoundsFromLosingSkirmish(gameState, physicalCard, _skirmishResult.getWinners());
+                        }
+                    });
         }
 
         return null;
