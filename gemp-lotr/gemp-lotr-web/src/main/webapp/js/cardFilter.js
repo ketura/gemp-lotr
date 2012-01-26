@@ -214,6 +214,13 @@ var CardFilter = Class.extend({
                 + "<option value='WARG_RIDER'>Warg-rider</option>"
                 + "<option value='WEATHER'>Weather</option>"
                 + "</select>");
+        combos.append(" <select id='type' style='font-size: 80%'>"
+                + "<option value=''>All types</option>"
+                + "<option value='pack'>Packs</option>"
+                + "<option value='card'>Cards</option>"
+                + "<option value='foil'>Foils</option>"
+                + "<option value='nonFoil'>Non-foils</option>"
+                + "</select>");
         this.filterDiv.append(combos);
 
         elem.append(this.filterDiv);
@@ -240,6 +247,7 @@ var CardFilter = Class.extend({
 
         $("#cardType").change(filterOut);
         $("#keyword").change(filterOut);
+        $("#type").change(filterOut);
 
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH").click(filterOut);
     },
@@ -272,7 +280,7 @@ var CardFilter = Class.extend({
 
         var cardType = $("#cardType option:selected").prop("value");
         if (cardType == "")
-            cardType = "cardType:-SITE,THE_ONE_RING";
+            cardType = "cardType:-THE_ONE_RING";
         else
             cardType = "cardType:" + cardType;
 
@@ -280,10 +288,14 @@ var CardFilter = Class.extend({
         if (keyword != "")
             keyword = " keyword:" + keyword;
 
+        var type = $("#type option:selected").prop("value");
+        if (type != "")
+            type = " type:" + type;
+
         if (cultures.length > 0)
-            return cardType + " culture:" + cultures + keyword;
+            return cardType + " culture:" + cultures + keyword + type;
         else
-            return cardType + keyword;
+            return cardType + keyword + type;
     },
 
     calculateFullFilterPostfix: function() {
