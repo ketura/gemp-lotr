@@ -357,6 +357,15 @@ public class Filters {
         };
     }
 
+    public static final Filter canBeDiscarded(final PhysicalCard source) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.canBeDiscardedFromPlay(gameState, physicalCard, source);
+            }
+        };
+    }
+
     public static final Filter canTakeWound = canTakeWounds(1);
 
     public static final Filter exhausted = new Filter() {
