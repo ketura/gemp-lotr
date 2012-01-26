@@ -165,7 +165,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringBearerDiv.click(
                 function() {
                     if ($(".card", that.ringBearerDiv).length == 0) {
-                        that.showPredefinedFilter("keyword:CAN_START_WITH_RING", that.ringBearerDiv);
+                        that.showPredefinedFilter("keyword:CAN_START_WITH_RING type:card", that.ringBearerDiv);
                     }
                 });
         this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function(card) {
@@ -177,7 +177,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringDiv.click(
                 function() {
                     if ($(".card", that.ringDiv).length == 0)
-                        that.showPredefinedFilter("cardType:THE_ONE_RING", that.ringDiv);
+                        that.showPredefinedFilter("cardType:THE_ONE_RING type:card", that.ringDiv);
                 });
         this.ringGroup = new NormalCardGroup(this.ringDiv, function(card) {
             return true;
