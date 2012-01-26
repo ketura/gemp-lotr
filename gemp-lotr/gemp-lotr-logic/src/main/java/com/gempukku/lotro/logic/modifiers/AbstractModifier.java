@@ -137,6 +137,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canTakeWoundsFromLosingSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Set<PhysicalCard> winners) {
+        return true;
+    }
+
+    @Override
     public boolean canTakeArcheryWound(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return true;
     }
