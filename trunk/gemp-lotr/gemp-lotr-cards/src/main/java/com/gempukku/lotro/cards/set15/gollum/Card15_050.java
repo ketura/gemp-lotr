@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
 import com.gempukku.lotro.cards.effects.PutRandomCardFromHandOnBottomOfDeckEffect;
+import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.CardType;
@@ -44,12 +45,12 @@ public class Card15_050 extends AbstractEvent {
                     @Override
                     protected void afterCardPlayed(PhysicalCard cardPlayed) {
                         if (Filters.and(Culture.GOLLUM, CardType.CONDITION).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlayed))
-                            action.appendEffect(
+                            action.insertEffect(
                                     new OptionalEffect(action, playerId,
                                             new ChooseOpponentEffect(playerId) {
                                                 @Override
                                                 protected void opponentChosen(String opponentId) {
-                                                    action.appendEffect(
+                                                    action.insertEffect(
                                                             new PutRandomCardFromHandOnBottomOfDeckEffect(opponentId));
                                                 }
 
@@ -60,6 +61,8 @@ public class Card15_050 extends AbstractEvent {
                                             }));
                     }
                 });
+        action.appendEffect(
+                new ShuffleDeckEffect(playerId));
         return action;
     }
 }
