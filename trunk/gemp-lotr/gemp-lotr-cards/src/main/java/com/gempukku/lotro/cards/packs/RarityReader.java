@@ -16,6 +16,7 @@ public class RarityReader {
                 String line;
                 List<String> tengwar = new LinkedList<String>();
                 Map<String, List<String>> cardsByRarity = new HashMap<String, List<String>>();
+                Map<String, String> cardRarity = new HashMap<String, String>();
 
                 while ((line = bufferedReader.readLine()) != null) {
                     if (line.endsWith("T"))
@@ -30,10 +31,11 @@ public class RarityReader {
                             cardsByRarity.put(rarity, cards);
                         }
                         cards.add(line);
+                        cardRarity.put(setNo + "_" + line.substring(setNo.length() + 1), rarity);
                     }
                 }
 
-                return new DefaultSetRarity(tengwar, cardsByRarity);
+                return new DefaultSetRarity(tengwar, cardsByRarity, cardRarity);
             } finally {
                 bufferedReader.close();
             }

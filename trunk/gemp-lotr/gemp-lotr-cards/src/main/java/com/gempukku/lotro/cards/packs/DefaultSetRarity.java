@@ -7,10 +7,12 @@ import java.util.Map;
 public class DefaultSetRarity implements SetRarity {
     private List<String> _tengwarCards;
     private Map<String, List<String>> _rarityList;
+    private Map<String, String> _cardsRarity;
 
-    public DefaultSetRarity(List<String> tengwarCards, Map<String, List<String>> rarityList) {
+    public DefaultSetRarity(List<String> tengwarCards, Map<String, List<String>> rarityList, Map<String, String> cardsRarity) {
         _tengwarCards = tengwarCards;
         _rarityList = rarityList;
+        _cardsRarity = cardsRarity;
     }
 
     @Override
@@ -26,5 +28,10 @@ public class DefaultSetRarity implements SetRarity {
         if (_tengwarCards == null)
             return Collections.emptyList();
         return Collections.unmodifiableList(_tengwarCards);
+    }
+
+    @Override
+    public String getCardRarity(String cardId) {
+        return _cardsRarity.get(cardId);
     }
 }

@@ -1,5 +1,7 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.cards.packs.RarityReader;
+import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.LeagueDAO;
@@ -24,6 +26,7 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +48,20 @@ public class CollectionResource extends AbstractResource {
     @Context
     private PacksStorage _packStorage;
 
+    private Map<String, SetRarity> _rarities;
+
+    public CollectionResource() {
+        _rarities = new HashMap<String, SetRarity>();
+        RarityReader reader = new RarityReader();
+        _rarities.put("0", reader.getSetRarity("0"));
+        _rarities.put("1", reader.getSetRarity("1"));
+        _rarities.put("2", reader.getSetRarity("2"));
+        _rarities.put("3", reader.getSetRarity("3"));
+        _rarities.put("4", reader.getSetRarity("4"));
+        _rarities.put("5", reader.getSetRarity("5"));
+        _rarities.put("6", reader.getSetRarity("6"));
+    }
+
     @Path("/{collectionType}")
     @GET
     @Produces(MediaType.APPLICATION_XML)
@@ -62,7 +79,7 @@ public class CollectionResource extends AbstractResource {
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
-        List<CardCollection.Item> filteredResult = collection.getItems(filter, _library);
+        List<CardCollection.Item> filteredResult = collection.getItems(filter, _library, _rarities);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
