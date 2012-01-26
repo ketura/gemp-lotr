@@ -8,13 +8,14 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -349,5 +350,28 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, String.valueOf(index));
 
         assertEquals(2, _game.getGameState().getWounds(urukHaiRaidingParty));
+    }
+
+    @Test
+    public void oneGoodTurnDeservesAnother() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl smeagol = new PhysicalCardImpl(100, "5_29", P1, _library.getLotroCardBlueprint("5_29"));
+        PhysicalCardImpl oneGoodTurnDeservesAnother = new PhysicalCardImpl(101, "11_49", P1, _library.getLotroCardBlueprint("11_49"));
+
+        _game.getGameState().addCardToZone(_game, oneGoodTurnDeservesAnother, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, smeagol, Zone.FREE_CHARACTERS);
+
+        skipMulligans();
+
+        playerDecided(P1, "0");
+
+        assertEquals(1, _game.getGameState().getBurdens());
+        assertEquals(0, _game.getGameState().getHand(P1).size());
+
+        playerDecided(P1, "0");
+
+        assertEquals(2, _game.getGameState().getBurdens());
+        assertEquals(1, _game.getGameState().getHand(P1).size());
     }
 }

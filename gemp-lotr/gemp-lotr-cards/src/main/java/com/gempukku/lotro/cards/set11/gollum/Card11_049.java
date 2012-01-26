@@ -44,7 +44,7 @@ public class Card11_049 extends AbstractEvent {
                 new PlayNextSiteEffect(action, playerId));
         action.appendEffect(
                 new PlayoutDecisionEffect(playerId,
-                        new YesNoDecision("Do you wanto return " + GameUtils.getCardLink(self) + " back into hand?") {
+                        new YesNoDecision("Do you want to return " + GameUtils.getCardLink(self) + " back into hand?") {
                             @Override
                             protected void yes() {
                                 SubCostToEffectAction subAction = new SubCostToEffectAction(action);
