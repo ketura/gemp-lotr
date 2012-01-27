@@ -15,20 +15,26 @@ import java.util.List;
 public class PreventableEffect extends AbstractSubActionEffect {
     private CostToEffectAction _action;
     private Effect _effectToExecute;
+    private Effect _insteadEffect;
     private Iterator<String> _choicePlayers;
     private PreventionCost _preventionCost;
 
     public PreventableEffect(CostToEffectAction action, Effect effectToExecute, String[] choicePlayers, PreventionCost preventionCost) {
-        this(action, effectToExecute, Arrays.asList(choicePlayers), preventionCost);
+        this(action, effectToExecute, Arrays.asList(choicePlayers), preventionCost, null);
     }
 
     public PreventableEffect(CostToEffectAction action, Effect effectToExecute, String choicePlayer, PreventionCost preventionCost) {
-        this(action, effectToExecute, Collections.singletonList(choicePlayer), preventionCost);
+        this(action, effectToExecute, Collections.singletonList(choicePlayer), preventionCost, null);
     }
 
-    public PreventableEffect(CostToEffectAction action, Effect effectToExecute, List<String> choicePlayers, PreventionCost preventionCost) {
+    public PreventableEffect(CostToEffectAction action, Effect effectToExecute, String choicePlayer, PreventionCost preventionCost, Effect insteadEffect) {
+        this(action, effectToExecute, Collections.singletonList(choicePlayer), preventionCost, insteadEffect);
+    }
+
+    public PreventableEffect(CostToEffectAction action, Effect effectToExecute, List<String> choicePlayers, PreventionCost preventionCost, Effect insteadEffect) {
         _action = action;
         _effectToExecute = effectToExecute;
+        _insteadEffect = insteadEffect;
         _choicePlayers = choicePlayers.iterator();
         _preventionCost = preventionCost;
     }
@@ -50,7 +56,7 @@ public class PreventableEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        final PreventSubAction subAction = new PreventSubAction(_action, _effectToExecute, _choicePlayers, _preventionCost);
+        final PreventSubAction subAction = new PreventSubAction(_action, _effectToExecute, _choicePlayers, _preventionCost, _insteadEffect);
         processSubAction(game, subAction);
     }
 
