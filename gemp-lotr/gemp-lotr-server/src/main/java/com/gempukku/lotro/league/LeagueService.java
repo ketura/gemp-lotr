@@ -9,7 +9,6 @@ import com.gempukku.lotro.db.vo.LeagueMatch;
 import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroGameMediator;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -231,21 +230,6 @@ public class LeagueService {
     private int getCurrentDate() {
         Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
         return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
-    }
-
-    private boolean isRanked(League league, LeagueSerie season, LotroGameMediator gameMediator) {
-        Set<String> playersPlaying = gameMediator.getPlayersPlaying();
-        for (String player : playersPlaying) {
-            int maxMatches = season.getMaxMatches();
-            Collection<LeagueMatch> playedInSeason = _leagueMatchDao.getPlayerMatchesPlayedOn(league, season, player);
-            if (playedInSeason.size() >= maxMatches)
-                return false;
-            for (LeagueMatch leagueMatch : playedInSeason) {
-                if (playersPlaying.contains(leagueMatch.getWinner()) && playersPlaying.contains(leagueMatch.getLoser()))
-                    return false;
-            }
-        }
-        return true;
     }
 
     private class MultipleComparator<T> implements Comparator<T> {
