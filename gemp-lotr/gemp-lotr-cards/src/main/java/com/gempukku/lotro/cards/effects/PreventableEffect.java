@@ -31,6 +31,10 @@ public class PreventableEffect extends AbstractSubActionEffect {
         this(action, effectToExecute, Collections.singletonList(choicePlayer), preventionCost, insteadEffect);
     }
 
+    public PreventableEffect(CostToEffectAction action, Effect effectToExecute, List<String> choicePlayers, PreventionCost preventionCost) {
+        this(action, effectToExecute, choicePlayers, preventionCost, null);
+    }
+
     public PreventableEffect(CostToEffectAction action, Effect effectToExecute, List<String> choicePlayers, PreventionCost preventionCost, Effect insteadEffect) {
         _action = action;
         _effectToExecute = effectToExecute;
