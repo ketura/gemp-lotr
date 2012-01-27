@@ -232,6 +232,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public String getExtraDisplayableInformation(PhysicalCard self) {
+        return null;
+    }
+
+    @Override
     public Direction getSiteDirection() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }

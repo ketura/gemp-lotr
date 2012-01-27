@@ -132,6 +132,12 @@ public class LotroGameMediator {
                     sb.append("<br>" + GameUtils.getAppendedNames(stackedCards));
                 }
 
+                final String extraDisplayableInformation = card.getBlueprint().getExtraDisplayableInformation(card);
+                if (extraDisplayableInformation != null) {
+                    sb.append("<br><b>Extra information:</b>");
+                    sb.append("<br>" + extraDisplayableInformation);
+                }
+
                 sb.append("<br><br><b>Effective stats:</b>");
                 try {
                     int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card, false);
