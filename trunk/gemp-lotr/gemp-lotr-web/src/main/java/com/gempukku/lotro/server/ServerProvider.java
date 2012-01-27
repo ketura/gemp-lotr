@@ -2,6 +2,7 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
@@ -25,6 +26,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<LotroServer> _lotroServerInjectable;
     private Injectable<TradeServer> _tradeServerInjectable;
     private Injectable<CollectionsManager> _collectionsManagerInjectable;
+    private Injectable<DeliveryService> _deliveryServiceInjectable;
 
     @Context
     private PlayerDAO _playerDao;
@@ -59,6 +61,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getCollectionsManagerInjectable();
         if (type.equals(TradeServer.class))
             return getTradeServerInjectable();
+        if (type.equals(DeliveryService.class))
+            return getDeliveryServiceInjectable();
         return null;
     }
 
@@ -73,6 +77,19 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _leagueServerInjectable;
+    }
+
+    private synchronized Injectable<DeliveryService> getDeliveryServiceInjectable() {
+        if (_leagueServerInjectable == null) {
+            final DeliveryService deliveryService = new DeliveryService();
+            _deliveryServiceInjectable = new Injectable<DeliveryService>() {
+                @Override
+                public DeliveryService getValue() {
+                    return deliveryService;
+                }
+            };
+        }
+        return _deliveryServiceInjectable;
     }
 
     private synchronized Injectable<HallServer> getHallServerInjectable() {
@@ -133,7 +150,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<CollectionsManager> getCollectionsManagerInjectable() {
         if (_collectionsManagerInjectable == null) {
-            final CollectionsManager collectionsManager = new CollectionsManager(_playerDao, _collectionDao, getLeagueServiceInjectable().getValue());
+            final CollectionsManager collectionsManager = new CollectionsManager(_playerDao, _collectionDao, getLeagueServiceInjectable().getValue(), getDeliveryServiceInjectable().getValue());
             _collectionsManagerInjectable = new Injectable<CollectionsManager>() {
                 @Override
                 public CollectionsManager getValue() {

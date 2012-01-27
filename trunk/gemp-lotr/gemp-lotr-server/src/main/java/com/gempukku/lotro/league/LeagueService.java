@@ -7,8 +7,9 @@ import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
 import com.gempukku.lotro.db.vo.LeagueSerie;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroGameMediator;
-import com.gempukku.lotro.logic.timing.GameResultListener;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,11 +29,57 @@ public class LeagueService {
     private Map<League, List<LeagueStanding>> _leagueStandings = new ConcurrentHashMap<League, List<LeagueStanding>>();
     private Map<LeagueSerie, List<LeagueStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerie, List<LeagueStanding>>();
 
+    private Map<String, List<String>> _winnerPromos = new HashMap<String, List<String>>();
+
     public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao) {
         _leagueDao = leagueDao;
         _leagueSeasonDao = leagueSeasonDao;
         _leaguePointsDao = leaguePointsDao;
         _leagueMatchDao = leagueMatchDao;
+
+        List<String> fotrPromos = new ArrayList<String>();
+        fotrPromos.add("0_1");
+        fotrPromos.add("0_2");
+        fotrPromos.add("0_3");
+        fotrPromos.add("0_4");
+        fotrPromos.add("0_5");
+        fotrPromos.add("0_6");
+        fotrPromos.add("0_7");
+        fotrPromos.add("0_8");
+        fotrPromos.add("0_9");
+        fotrPromos.add("0_10");
+        fotrPromos.add("0_11");
+        fotrPromos.add("0_12");
+        fotrPromos.add("0_13");
+        fotrPromos.add("0_14");
+        fotrPromos.add("0_15");
+        fotrPromos.add("0_34");
+        fotrPromos.add("0_36");
+        fotrPromos.add("0_37");
+        fotrPromos.add("0_41");
+        fotrPromos.add("0_42");
+        fotrPromos.add("0_43");
+        _winnerPromos.put("fotr_block", fotrPromos);
+
+        List<String> tttPromos = new ArrayList<String>();
+        tttPromos.add("0_16");
+        tttPromos.add("0_17");
+        tttPromos.add("0_18");
+        tttPromos.add("0_19");
+        tttPromos.add("0_21");
+        tttPromos.add("0_22");
+        tttPromos.add("0_30");
+        tttPromos.add("0_32");
+        tttPromos.add("0_33");
+        tttPromos.add("0_35");
+        tttPromos.add("0_38");
+        tttPromos.add("0_39");
+        tttPromos.add("0_40");
+        tttPromos.add("0_44");
+        tttPromos.add("0_45");
+        tttPromos.add("0_46");
+        tttPromos.add("0_47");
+        _winnerPromos.put("ttt_block", tttPromos);
     }
 
     public Set<League> getActiveLeagues() {
@@ -53,24 +100,33 @@ public class LeagueService {
         return _leagueSeasonDao.getSerieForLeague(league, startDay);
     }
 
-    public void leagueGameStarting(final League league, final LeagueSerie serie, LotroGameMediator gameMediator) {
-        if (isRanked(league, serie, gameMediator)) {
-            gameMediator.addGameResultListener(
-                    new GameResultListener() {
-                        @Override
-                        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                            String loser = loserPlayerIdsWithReasons.keySet().iterator().next();
-                            _leagueMatchDao.addPlayedMatch(league, serie, winnerPlayerId, loser);
-                            _leaguePointsDao.addPoints(league, serie, winnerPlayerId, 2);
-                            _leaguePointsDao.addPoints(league, serie, loser, 1);
-                            _leagueStandings.remove(league);
-                            _leagueSerieStandings.remove(serie);
-                        }
-                    });
-            gameMediator.sendMessageToPlayers("This is a ranked game in " + league.getName());
-        } else {
-            gameMediator.sendMessageToPlayers("This is NOT a ranked game in " + league.getName());
+    public CardCollection reportLeagueGameResult(League league, LeagueSerie serie, String winner, String loser) {
+        _leagueMatchDao.addPlayedMatch(league, serie, winner, loser);
+        _leaguePointsDao.addPoints(league, serie, winner, 2);
+        _leaguePointsDao.addPoints(league, serie, loser, 1);
+        _leagueStandings.remove(league);
+        _leagueSerieStandings.remove(serie);
+
+        int count = 0;
+        Collection<LeagueMatch> playerMatchesPlayedOn = _leagueMatchDao.getPlayerMatchesPlayedOn(league, serie, winner);
+        for (LeagueMatch leagueMatch : playerMatchesPlayedOn) {
+            if (leagueMatch.getWinner().equals(winner))
+                count++;
         }
+
+        DefaultCardCollection winnerPrize = new DefaultCardCollection();
+        winnerPrize.addItem("(S)Booster Choice", 1);
+        if (count == 2 || count == 4) {
+            winnerPrize.addItem(getRandomPromoForBlock(serie.getFormat()), 1);
+        } else if (count == 6 || count == 8 || count == 10) {
+            winnerPrize.addItem(getRandomPromoForBlock(serie.getFormat()) + "*", 1);
+        }
+        return winnerPrize;
+    }
+
+    private String getRandomPromoForBlock(String format) {
+        final List<String> promos = _winnerPromos.get(format);
+        return promos.get(new Random().nextInt(promos.size()));
     }
 
     public List<LeagueStanding> getLeagueStandings(League league) {

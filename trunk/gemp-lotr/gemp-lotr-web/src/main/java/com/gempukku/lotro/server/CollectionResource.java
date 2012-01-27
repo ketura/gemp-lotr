@@ -174,8 +174,6 @@ public class CollectionResource extends AbstractResource {
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
 
-        _deliveryService.addPackage(resourceOwner, getPackageNameByCollectionType(collectionType), packContents);
-
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
@@ -205,25 +203,5 @@ public class CollectionResource extends AbstractResource {
         processDeliveryServiceNotification(request, response);
 
         return doc;
-    }
-
-    private String getPackageNameByCollectionType(String collectionType) {
-        String packageName;
-        if (collectionType.equals("permanent"))
-            packageName = "My cards";
-        else {
-            League league = getLeagueByType(collectionType);
-            if (league == null)
-                throw new WebApplicationException(Response.Status.NOT_FOUND);
-            packageName = league.getName();
-        }
-        return packageName;
-    }
-
-    private League getLeagueByType(String leagueType) {
-        for (League league : _leagueDao.getActiveLeagues())
-            if (league.getType().equals(leagueType))
-                return league;
-        return null;
     }
 }
