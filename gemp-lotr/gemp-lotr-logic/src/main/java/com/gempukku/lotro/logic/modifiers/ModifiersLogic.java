@@ -840,6 +840,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return false;
     }
 
+    @Override
+    public boolean canReplaceSite(GameState gameState, String playerId, PhysicalCard siteToReplace) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.REPLACE_SITE_MODIFIER, siteToReplace))
+            if (!modifier.isSiteReplaceable(gameState, this, playerId))
+                return false;
+
+        return true;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

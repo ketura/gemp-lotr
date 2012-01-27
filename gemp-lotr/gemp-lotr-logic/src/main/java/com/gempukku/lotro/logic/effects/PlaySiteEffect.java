@@ -93,7 +93,9 @@ public class PlaySiteEffect extends AbstractEffect {
 
         Collection<PhysicalCard> newSite = getMatchingSites(game);
 
-        if (newSite.size() > 0) {
+        PhysicalCard currentSite = game.getGameState().getSite(siteNumber);
+
+        if (newSite.size() > 0 && (currentSite == null || game.getModifiersQuerying().canReplaceSite(game.getGameState(), _playerId, currentSite))) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(
                     new ChooseArbitraryCardsEffect(_playerId, "Choose site to play", newSite, 1, 1) {
@@ -143,6 +145,9 @@ public class PlaySiteEffect extends AbstractEffect {
 
             game.getActionsEnvironment().addActionToStack(subAction);
             return new FullEffectResult(true, true);
+        } else if (newSite.size() > 0) {
+            game.getGameState().sendMessage("Can't replace a site");
+            return new FullEffectResult(false, false);
         } else {
             game.getGameState().sendMessage("Can't find a matching site to play in " + _playerId + " adventure deck");
             return new FullEffectResult(false, false);
