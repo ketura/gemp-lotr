@@ -666,7 +666,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getBlueprint().getName() != null && physicalCard.getBlueprint().getName().equals(name);
+                return name != null && physicalCard.getBlueprint().getName() != null && physicalCard.getBlueprint().getName().equals(name);
             }
         };
     }
