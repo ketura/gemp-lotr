@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.*;
@@ -568,6 +569,22 @@ public class Filters {
             }
         };
     }
+
+    public static Filter siteInCurrentRegion = Filters.and(CardType.SITE,
+            new Filter() {
+                @Override
+                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    int siteNumber = physicalCard.getSiteNumber();
+                    int region;
+                    if (siteNumber <= 3)
+                        region = 1;
+                    else if (siteNumber > 3 && siteNumber <= 6)
+                        region = 2;
+                    else
+                        region = 3;
+                    return GameUtils.getRegion(gameState) == region;
+                }
+            });
 
     public static Filter region(final int region) {
         return new Filter() {

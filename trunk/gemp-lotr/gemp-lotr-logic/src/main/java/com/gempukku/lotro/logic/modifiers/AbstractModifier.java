@@ -292,6 +292,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean isSiteReplaceable(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        return true;
+    }
+
+    @Override
     public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying) {
         return null;
     }
