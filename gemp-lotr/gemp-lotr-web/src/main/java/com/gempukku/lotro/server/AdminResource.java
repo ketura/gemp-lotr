@@ -141,7 +141,6 @@ public class AdminResource extends AbstractResource {
         for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
             Player player = playerCollection.getKey();
             _collectionsManager.addItemsToPlayerCollection(player, leagueType, productItems);
-            _deliveryService.addPackage(player, league.getName(), items);
         }
 
         return "OK";
@@ -156,8 +155,6 @@ public class AdminResource extends AbstractResource {
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        String packageName = getPackageNameByCollectionType(collectionType);
-
         DefaultCardCollection items = new DefaultCardCollection();
 
         Map<String, Integer> productItems = getProductItems(product);
@@ -170,7 +167,6 @@ public class AdminResource extends AbstractResource {
             Player player = _playerDao.getPlayer(playerName);
 
             _collectionsManager.addItemsToPlayerCollection(player, collectionType, productItems);
-            _deliveryService.addPackage(player, packageName, items);
         }
 
         return "OK";
@@ -184,33 +180,14 @@ public class AdminResource extends AbstractResource {
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        String toCollectionName = getPackageNameByCollectionType(collectionTo);
-
         Map<Player, CardCollection> playerCollections = _collectionsManager.getPlayersCollection(collectionFrom);
         for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
             Player player = playerCollection.getKey();
 
-            CardCollection oldCollection = playerCollection.getValue();
-
             _collectionsManager.moveCollectionToCollection(player, collectionFrom, collectionTo);
-
-            _deliveryService.addPackage(player, toCollectionName, oldCollection);
         }
 
         return "OK";
-    }
-
-    private String getPackageNameByCollectionType(String collectionType) {
-        String packageName;
-        if (collectionType.equals("permanent"))
-            packageName = "My cards";
-        else {
-            League league = getLeagueByType(collectionType);
-            if (league == null)
-                throw new WebApplicationException(Response.Status.NOT_FOUND);
-            packageName = league.getName();
-        }
-        return packageName;
     }
 
     private List<String> getItems(String values) {

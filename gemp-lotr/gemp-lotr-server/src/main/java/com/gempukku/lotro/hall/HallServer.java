@@ -9,6 +9,7 @@ import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.*;
 import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
@@ -298,11 +299,20 @@ public class HallServer extends AbstractServer {
     private void createGame(String tableId, AwaitingTable awaitingTable) {
         Set<LotroGameParticipant> players = awaitingTable.getPlayers();
         LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
-        League league = awaitingTable.getLeague();
+        final League league = awaitingTable.getLeague();
+        final LeagueSerie leagueSerie = awaitingTable.getLeagueSerie();
         String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), participants, league != null);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-        if (league != null)
-            _leagueService.leagueGameStarting(league, awaitingTable.getLeagueSerie(), lotroGameMediator);
+        if (league != null) {
+            lotroGameMediator.addGameResultListener(
+                    new GameResultListener() {
+                        @Override
+                        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                            final CardCollection winnerPrize = _leagueService.reportLeagueGameResult(league, leagueSerie, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
+                            _collectionsManager.addItemsToPlayerCollection(winnerPlayerId, "permanent", winnerPrize.getAll());
+                        }
+                    });
+        }
         lotroGameMediator.startGame();
         _runningTables.put(tableId, new RunningTable(gameId, awaitingTable.getLotroFormat().getName(), getTournamentName(awaitingTable)));
         _awaitingTables.remove(tableId);
