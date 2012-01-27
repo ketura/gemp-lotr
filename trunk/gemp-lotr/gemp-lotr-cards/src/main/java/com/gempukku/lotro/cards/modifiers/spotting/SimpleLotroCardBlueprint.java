@@ -198,6 +198,11 @@ public class SimpleLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public String getExtraDisplayableInformation(PhysicalCard self) {
+        return null;
+    }
+
+    @Override
     public boolean isUnique() {
         return false;
     }

@@ -57,6 +57,13 @@ public class Card11_050 extends AbstractPermanent {
     }
 
     @Override
+    public String getExtraDisplayableInformation(PhysicalCard self) {
+        if (self.getWhileInZoneData() != null)
+            return "Selected keyword is: " + ((Keyword) self.getWhileInZoneData()).getHumanReadable();
+        return null;
+    }
+
+    @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, (Keyword) self.getWhileInZoneData())
                 && PlayConditions.canExert(self, game, Filters.gollumOrSmeagol)) {

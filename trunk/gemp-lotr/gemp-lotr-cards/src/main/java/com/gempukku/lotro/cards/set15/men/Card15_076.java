@@ -53,4 +53,11 @@ public class Card15_076 extends AbstractPermanent {
         }
         return null;
     }
+
+    @Override
+    public String getExtraDisplayableInformation(PhysicalCard self) {
+        if (self.getWhileInZoneData() != null)
+            return "Random site name is: " + self.getWhileInZoneData();
+        return null;
+    }
 }
