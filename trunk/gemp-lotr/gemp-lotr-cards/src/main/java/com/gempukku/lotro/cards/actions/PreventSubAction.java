@@ -15,14 +15,16 @@ public class PreventSubAction extends SubAction {
     private Effect _effectToExecute;
     private Iterator<String> _choicePlayers;
     private PreventableEffect.PreventionCost _preventionCost;
+    private Effect _insteadEffect;
 
     private Effect _playerPreventionCost;
 
-    public PreventSubAction(Action action, Effect effectToExecute, Iterator<String> choicePlayers, PreventableEffect.PreventionCost preventionCost) {
+    public PreventSubAction(Action action, Effect effectToExecute, Iterator<String> choicePlayers, PreventableEffect.PreventionCost preventionCost, Effect insteadEffect) {
         super(action);
         _effectToExecute = effectToExecute;
         _choicePlayers = choicePlayers;
         _preventionCost = preventionCost;
+        _insteadEffect = insteadEffect;
 
         appendEffect(new DecideIfPossible());
     }
@@ -65,6 +67,8 @@ public class PreventSubAction extends SubAction {
         protected void doPlayEffect(LotroGame game) {
             if (!_playerPreventionCost.wasCarriedOut())
                 appendEffect(new DecideIfPossible());
+            else if (_insteadEffect != null)
+                appendEffect(_insteadEffect);
         }
     }
 }
