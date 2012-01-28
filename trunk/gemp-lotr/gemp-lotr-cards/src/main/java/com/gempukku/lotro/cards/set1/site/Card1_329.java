@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.modifiers.CantPlayCardsModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.modifiers.CantPlayCardsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
