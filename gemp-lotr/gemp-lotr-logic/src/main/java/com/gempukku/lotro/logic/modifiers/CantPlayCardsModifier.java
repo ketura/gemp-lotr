@@ -1,13 +1,9 @@
-package com.gempukku.lotro.cards.modifiers;
+package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class CantPlayCardsModifier extends AbstractModifier {
