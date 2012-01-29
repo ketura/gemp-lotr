@@ -59,18 +59,11 @@ public class Card1_002 extends AbstractAttachable {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
-            WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
-                List<Action> actions = new LinkedList<Action>();
-
-                ActivateCardAction action = new ActivateCardAction(self);
-                action.appendEffect(new NegateWoundEffect(woundEffect, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(self, 1));
-                action.appendEffect(new PutOnTheOneRingEffect());
-
-                actions.add(action);
-                return actions;
-            }
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendEffect(new NegateWoundEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
+            action.appendEffect(new AddBurdenEffect(self, 1));
+            action.appendEffect(new PutOnTheOneRingEffect());
+            return Collections.singletonList(action);
         }
         return null;
     }
@@ -80,13 +73,10 @@ public class Card1_002 extends AbstractAttachable {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
-            WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new NegateWoundEffect(woundEffect, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(self, 1));
-                return Collections.singletonList(action);
-            }
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(new NegateWoundEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
+            action.appendEffect(new AddBurdenEffect(self, 1));
+            return Collections.singletonList(action);
         }
         return null;
     }

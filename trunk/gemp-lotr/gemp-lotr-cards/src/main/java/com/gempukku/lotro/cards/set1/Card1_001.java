@@ -79,13 +79,10 @@ public class Card1_001 extends AbstractAttachable {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
-            WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            if (woundEffect.getAffectedCardsMinusPrevented(game).contains(self.getAttachedTo())) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new NegateWoundEffect(woundEffect, self.getAttachedTo()));
-                action.appendEffect(new AddBurdenEffect(self, 2));
-                return Collections.singletonList(action);
-            }
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(new NegateWoundEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
+            action.appendEffect(new AddBurdenEffect(self, 2));
+            return Collections.singletonList(action);
         }
         return null;
     }
