@@ -3,8 +3,8 @@ var cardScale = 357 / 497;
 var packBlueprints = {
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
     "(S)TTT - Starter": "/gemp-lotr/images/boosters/ttt_starter_selection.png",
-    "(S)BoHD - Starter": "/gemp-lotr/images/boosters/ttt_starter_selection.png",
-    "(S)EoF - Starter": "/gemp-lotr/images/boosters/ttt_starter_selection.png",
+    "(S)BoHD - Starter": "/gemp-lotr/images/boosters/bohd_starter_selection.png",
+    "(S)EoF - Starter": "/gemp-lotr/images/boosters/eof_starter_selection.png",
     "(S)Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
 
     "FotR - League Starter": "/gemp-lotr/images/boosters/fotr_league_starter.png",
