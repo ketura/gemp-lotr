@@ -80,7 +80,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     }
 
     private synchronized Injectable<DeliveryService> getDeliveryServiceInjectable() {
-        if (_leagueServerInjectable == null) {
+        if (_deliveryServiceInjectable == null) {
             final DeliveryService deliveryService = new DeliveryService();
             _deliveryServiceInjectable = new Injectable<DeliveryService>() {
                 @Override
