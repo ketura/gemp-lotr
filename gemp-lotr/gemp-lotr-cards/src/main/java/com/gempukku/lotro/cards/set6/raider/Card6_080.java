@@ -5,12 +5,12 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.LimitCounter;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -41,12 +41,9 @@ public class Card6_080 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(3));
-            LimitCounter limitCounter = game.getModifiersEnvironment().getUntilEndOfPhaseLimitCounter(self, Phase.ARCHERY);
-            int bonus = Math.max(0, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4);
-            int archeryBonus = limitCounter.incrementToLimit(4, bonus);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, archeryBonus), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, null, new CardLimitEvaluator(game, self, Phase.ARCHERY, 4, new CountActiveEvaluator(4, CardType.COMPANION))), Phase.ARCHERY));
             return Collections.singletonList(action);
         }
         return null;
