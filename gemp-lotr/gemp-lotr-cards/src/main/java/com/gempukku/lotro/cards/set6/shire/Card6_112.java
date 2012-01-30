@@ -4,11 +4,11 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
@@ -33,19 +33,19 @@ public class Card6_112 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose unbound Hobbit", Race.HOBBIT, Filters.unboundCompanion) {
+        action.appendCost(
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion) {
                     @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard card) {
+                    protected void forEachCardExertedCallback(PhysicalCard character) {
                         int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.GANDALF, CardType.COMPANION);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, count), Phase.SKIRMISH));
+                                        new StrengthModifier(self, character, count), Phase.SKIRMISH));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, card, Keyword.DAMAGE, count), Phase.SKIRMISH));
+                                        new KeywordModifier(self, character, Keyword.DAMAGE, count), Phase.SKIRMISH));
                     }
                 });
         return action;
