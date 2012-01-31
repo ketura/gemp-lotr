@@ -57,7 +57,7 @@ public class Card11_050 extends AbstractPermanent {
     }
 
     @Override
-    public String getExtraDisplayableInformation(PhysicalCard self) {
+    public String getDisplayableInformation(PhysicalCard self) {
         if (self.getWhileInZoneData() != null)
             return "Selected keyword is: " + ((Keyword) self.getWhileInZoneData()).getHumanReadable();
         return null;

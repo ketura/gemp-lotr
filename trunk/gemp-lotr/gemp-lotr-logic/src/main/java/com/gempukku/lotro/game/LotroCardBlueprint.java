@@ -89,7 +89,7 @@ public interface LotroCardBlueprint {
 
     public Direction getSiteDirection();
 
-    public String getExtraDisplayableInformation(PhysicalCard self);
+    public String getDisplayableInformation(PhysicalCard self);
 
     public enum Direction {
         LEFT, RIGHT
