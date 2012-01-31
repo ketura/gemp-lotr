@@ -59,7 +59,7 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
         return 0;
     }
 
-    protected DiscountEffect getDiscountEffect(Action action, String playerId, LotroGame game, PhysicalCard self) {
+    protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
         return null;
     }
 
