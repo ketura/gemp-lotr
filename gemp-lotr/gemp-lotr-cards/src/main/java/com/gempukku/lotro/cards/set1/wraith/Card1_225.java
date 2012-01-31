@@ -3,15 +3,13 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -55,18 +53,8 @@ public class Card1_225 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
-            Skirmish skirmish = game.getGameState().getSkirmish();
-            if (skirmish != null
-                    && skirmish.getShadowCharacters().contains(self.getAttachedTo())) {
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose possession borne by character he is skirmishing", CardType.POSSESSION, Filters.hasAttached(skirmish.getFellowshipCharacter())) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard possession) {
-                                action.appendEffect(
-                                        new DiscardCardsFromPlayEffect(self, possession));
-                            }
-                        });
-            }
+            action.appendEffect(
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(Filters.character, Filters.inSkirmishAgainst(self))));
             return Collections.singletonList(action);
         }
         return null;
