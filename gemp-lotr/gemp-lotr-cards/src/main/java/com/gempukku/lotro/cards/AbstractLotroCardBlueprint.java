@@ -232,7 +232,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public String getExtraDisplayableInformation(PhysicalCard self) {
+    public String getDisplayableInformation(PhysicalCard self) {
         return null;
     }
 

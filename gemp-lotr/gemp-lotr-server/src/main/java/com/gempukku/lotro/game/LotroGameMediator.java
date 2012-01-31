@@ -132,7 +132,7 @@ public class LotroGameMediator {
                     sb.append("<br>" + GameUtils.getAppendedNames(stackedCards));
                 }
 
-                final String extraDisplayableInformation = card.getBlueprint().getExtraDisplayableInformation(card);
+                final String extraDisplayableInformation = card.getBlueprint().getDisplayableInformation(card);
                 if (extraDisplayableInformation != null) {
                     sb.append("<br><b>Extra information:</b>");
                     sb.append("<br>" + extraDisplayableInformation);
