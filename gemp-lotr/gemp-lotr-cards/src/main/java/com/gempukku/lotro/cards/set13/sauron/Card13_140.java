@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set13.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.discount.ExertCharactersDiscountEffect;
 import com.gempukku.lotro.common.CardType;
@@ -11,7 +12,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.timing.Action;
 
 /**
  * Set: Bloodlines
@@ -38,7 +38,7 @@ public class Card13_140 extends AbstractMinion {
     }
 
     @Override
-    protected DiscountEffect getDiscountEffect(Action action, String playerId, LotroGame game, PhysicalCard self) {
+    protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
         return new ExertCharactersDiscountEffect(action, self, playerId, GameUtils.getRegion(game.getGameState()), CardType.MINION);
     }
 }
