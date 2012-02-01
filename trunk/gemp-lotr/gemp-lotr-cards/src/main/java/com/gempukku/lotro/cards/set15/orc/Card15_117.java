@@ -41,7 +41,7 @@ public class Card15_117 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new KeywordModifier(self, self, null, Keyword.DAMAGE, new CountActiveEvaluator(5, null, CardType.COMPANION));
+        return new KeywordModifier(self, self, null, Keyword.DAMAGE, new CountActiveEvaluator(5, (Integer) null, CardType.COMPANION));
     }
 
     @Override
