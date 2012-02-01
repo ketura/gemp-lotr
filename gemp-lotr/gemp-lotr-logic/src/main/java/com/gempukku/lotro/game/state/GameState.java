@@ -823,19 +823,33 @@ public class GameState {
     }
 
     private void startAffectingStacked(LotroGame game, PhysicalCard card) {
-        ((PhysicalCardImpl) card).startAffectingGameStacked(game);
+        if (isCardAffectingGame(card))
+            ((PhysicalCardImpl) card).startAffectingGameStacked(game);
     }
 
     private void stopAffectingStacked(PhysicalCard card) {
-        ((PhysicalCardImpl) card).stopAffectingGameStacked();
+        if (isCardAffectingGame(card))
+            ((PhysicalCardImpl) card).stopAffectingGameStacked();
     }
 
     private void startAffectingInDiscard(LotroGame game, PhysicalCard card) {
-        ((PhysicalCardImpl) card).startAffectingGameInDiscard(game);
+        if (isCardAffectingGame(card))
+            ((PhysicalCardImpl) card).startAffectingGameInDiscard(game);
     }
 
     private void stopAffectingInDiscard(PhysicalCard card) {
-        ((PhysicalCardImpl) card).stopAffectingGameInDiscard();
+        if (isCardAffectingGame(card))
+            ((PhysicalCardImpl) card).stopAffectingGameInDiscard();
+    }
+
+    private boolean isCardAffectingGame(PhysicalCard card) {
+        final Side side = card.getBlueprint().getSide();
+        if (side == Side.SHADOW)
+            return !getCurrentPlayerId().equals(card.getOwner());
+        else if (side == Side.FREE_PEOPLE)
+            return getCurrentPlayerId().equals(card.getOwner());
+        else
+            return false;
     }
 
     public void setCurrentPhase(Phase phase) {
