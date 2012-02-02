@@ -31,7 +31,8 @@ public class Card5_008 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canExert(self, game, Race.DWARF, CardType.COMPANION)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
+                && PlayConditions.canExert(self, game, Race.DWARF, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, CardType.COMPANION));
