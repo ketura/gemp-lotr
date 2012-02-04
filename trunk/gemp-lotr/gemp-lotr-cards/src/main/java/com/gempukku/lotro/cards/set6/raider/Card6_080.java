@@ -43,7 +43,7 @@ public class Card6_080 extends AbstractMinion {
                     new RemoveTwilightEffect(3));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, null, new CardLimitEvaluator(game, self, Phase.ARCHERY, 4, new CountActiveEvaluator(4, CardType.COMPANION))), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, null, new CardLimitEvaluator(game, self, Phase.ARCHERY, 4, new CountActiveEvaluator(4, (Integer) null, CardType.COMPANION))), Phase.ARCHERY));
             return Collections.singletonList(action);
         }
         return null;
