@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card6_047 extends AbstractResponseEvent {
     public Card6_047() {
-        super(Side.SHADOW, 0, Culture.GOLLUM, "You're a Lier and a Thief");
+        super(Side.SHADOW, 0, Culture.GOLLUM, "You're a Liar and a Thief");
     }
 
     @Override
