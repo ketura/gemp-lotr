@@ -1,9 +1,11 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -39,11 +41,13 @@ public class Card4_141 extends AbstractResponseOldEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachKilled(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))
+                && PlayConditions.canExert(self, game, Culture.ISENGARD, CardType.MINION)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             action.setText(GameUtils.getCardLink(killResult.getKilledCard()) + " was killed");
-
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
             boolean hasSpecific = Filters.or(Filters.aragorn, Filters.gandalf, Filters.name("Theoden")).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());
             action.appendEffect(
                     new AddBurdenEffect(self, hasSpecific ? 2 : 1));
