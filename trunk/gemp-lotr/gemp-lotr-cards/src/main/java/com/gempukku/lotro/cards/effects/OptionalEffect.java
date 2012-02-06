@@ -35,16 +35,17 @@ public class OptionalEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(final LotroGame game) {
-        game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new MultipleChoiceAwaitingDecision(1, "Do you wish to " + _optionalEffect.getText(game) + "?", new String[]{"Yes", "No"}) {
-                    @Override
-                    protected void validDecisionMade(int index, String result) {
-                        if (index == 0) {
-                            SubAction subAction = new SubAction(_action);
-                            subAction.appendEffect(_optionalEffect);
-                            processSubAction(game, subAction);
+        if (_optionalEffect.isPlayableInFull(game))
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new MultipleChoiceAwaitingDecision(1, "Do you wish to " + _optionalEffect.getText(game) + "?", new String[]{"Yes", "No"}) {
+                        @Override
+                        protected void validDecisionMade(int index, String result) {
+                            if (index == 0) {
+                                SubAction subAction = new SubAction(_action);
+                                subAction.appendEffect(_optionalEffect);
+                                processSubAction(game, subAction);
+                            }
                         }
-                    }
-                });
+                    });
     }
 }
