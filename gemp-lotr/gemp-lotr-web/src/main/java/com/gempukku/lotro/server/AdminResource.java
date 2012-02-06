@@ -4,9 +4,12 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueSerieDAO;
-import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
+import com.gempukku.lotro.league.LeagueService;
 import com.sun.jersey.spi.resource.Singleton;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +26,8 @@ import java.util.Map;
 public class AdminResource extends AbstractResource {
     @Context
     private CollectionsManager _collectionsManager;
+    @Context
+    private LeagueService _leagueService;
     @Context
     private DeckDAO _deckDao;
     @Context
@@ -78,16 +83,10 @@ public class AdminResource extends AbstractResource {
             @FormParam("type") String type,
             @FormParam("start") int start,
             @FormParam("end") int end,
-            @FormParam("product") String product,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        DefaultCardCollection leagueCollection = new DefaultCardCollection();
-        Map<String, Integer> productItems = getProductItems(product);
-        for (Map.Entry<String, Integer> productItem : productItems.entrySet())
-            leagueCollection.addItem(productItem.getKey(), productItem.getValue());
-
-        _leagueDao.addLeague(name, type, leagueCollection, start, end);
+        _leagueDao.addLeague(name, type, start, end);
 
         return "OK";
     }
@@ -99,49 +98,14 @@ public class AdminResource extends AbstractResource {
             @FormParam("leagueType") String leagueType,
             @FormParam("type") String type,
             @FormParam("format") String format,
+            @FormParam("product") String product,
             @FormParam("start") int start,
             @FormParam("end") int end,
             @FormParam("maxMatches") int maxMatches,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        _leagueSeasonDao.addSerie(leagueType, type, format, start, end, maxMatches);
-
-        return "OK";
-    }
-
-    @Path("/addLeagueProduct")
-    @POST
-    public String addLeagueProduct(
-            @FormParam("leagueType") String leagueType,
-            @FormParam("product") String product,
-            @FormParam("skipBaseCollection") String skipBaseCollection,
-            @Context HttpServletRequest request) throws Exception {
-        validateAdmin(request);
-
-        League league = getLeagueByType(leagueType);
-        if (league == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-
-        DefaultCardCollection items = new DefaultCardCollection();
-
-        Map<String, Integer> productItems = getProductItems(product);
-        for (Map.Entry<String, Integer> productItem : productItems.entrySet())
-            items.addItem(productItem.getKey(), productItem.getValue());
-
-        if (skipBaseCollection == null || !skipBaseCollection.equals("true")) {
-            MutableCardCollection baseCollection = league.getBaseCollection();
-
-            for (Map.Entry<String, Integer> productItem : productItems.entrySet())
-                baseCollection.addItem(productItem.getKey(), productItem.getValue());
-            _leagueDao.setBaseCollectionForLeague(league, baseCollection);
-        }
-
-        Map<Player, CardCollection> playerCollections = _collectionsManager.getPlayersCollection(leagueType);
-        for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
-            Player player = playerCollection.getKey();
-            _collectionsManager.addItemsToPlayerCollection(player, leagueType, productItems);
-        }
+        _leagueSeasonDao.addSerie(leagueType, type, format, product, start, end, maxMatches);
 
         return "OK";
     }
@@ -166,7 +130,7 @@ public class AdminResource extends AbstractResource {
         for (String playerName : playerNames) {
             Player player = _playerDao.getPlayer(playerName);
 
-            _collectionsManager.addItemsToPlayerCollection(player, collectionType, productItems);
+            _collectionsManager.addItemsToPlayerCollection(_leagueService, player, collectionType, productItems);
         }
 
         return "OK";
@@ -212,13 +176,6 @@ public class AdminResource extends AbstractResource {
             }
         }
         return result;
-    }
-
-    private League getLeagueByType(String leagueType) {
-        for (League league : _leagueDao.getActiveLeagues())
-            if (league.getType().equals(leagueType))
-                return league;
-        return null;
     }
 
     private void validateAdmin(HttpServletRequest request) {

@@ -75,6 +75,10 @@ public class CollectionResource extends AbstractResource {
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
+        final League league = _leagueService.getLeagueByType(collectionType);
+        if (league != null)
+            _leagueService.ensurePlayerIsInLeague(resourceOwner, league);
+
         CardCollection collection = getCollection(resourceOwner, collectionType);
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
@@ -169,7 +173,7 @@ public class CollectionResource extends AbstractResource {
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionType, selection, _packStorage, packId);
+        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(_leagueService, resourceOwner, collectionType, selection, _packStorage, packId);
 
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);

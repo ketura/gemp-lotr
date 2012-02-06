@@ -37,7 +37,7 @@ public class LeagueResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
         Element leagues = doc.createElement("leagues");
 
-        for (League league : _leagueDao.getActiveLeagues()) {
+        for (League league : _leagueService.getActiveLeagues()) {
             Element leagueElem = doc.createElement("league");
             leagueElem.setAttribute("type", league.getType());
             leagueElem.setAttribute("name", league.getName());

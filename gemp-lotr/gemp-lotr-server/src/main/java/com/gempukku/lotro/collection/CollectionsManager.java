@@ -19,13 +19,11 @@ public class CollectionsManager {
 
     private PlayerDAO _playerDAO;
     private CollectionDAO _collectionDAO;
-    private LeagueService _leagueService;
     private DeliveryService _deliveryService;
 
-    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, LeagueService leagueService, DeliveryService deliveryService) {
+    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, DeliveryService deliveryService) {
         _playerDAO = playerDAO;
         _collectionDAO = collectionDAO;
-        _leagueService = leagueService;
         _deliveryService = deliveryService;
     }
 
@@ -39,14 +37,18 @@ public class CollectionsManager {
             final CardCollection collection = _collectionDAO.getCollectionForPlayer(player.getId(), collectionType);
             if (collection == null && collectionType.equals("permanent"))
                 return new DefaultCardCollection();
-            if (collection == null) {
-                final League league = _leagueService.getLeagueByType(collectionType);
-                if (league != null)
-                    return league.getBaseCollection();
-            }
             return collection;
         } finally {
             _readWriteLock.readLock().unlock();
+        }
+    }
+
+    public void addPlayerCollection(Player player, String collectionType, CardCollection cardCollection) {
+        _readWriteLock.writeLock().lock();
+        try {
+            _collectionDAO.setCollectionForPlayer(player.getId(), collectionType, cardCollection);
+        } finally {
+            _readWriteLock.writeLock().unlock();
         }
     }
 
@@ -65,7 +67,7 @@ public class CollectionsManager {
         }
     }
 
-    public CardCollection openPackInPlayerCollection(Player player, String collectionType, String selection, PacksStorage packsStorage, String packId) {
+    public CardCollection openPackInPlayerCollection(LeagueService leagueService, Player player, String collectionType, String selection, PacksStorage packsStorage, String packId) {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType);
@@ -75,7 +77,7 @@ public class CollectionsManager {
             final CardCollection packContents = mutableCardCollection.openPack(packId, selection, packsStorage);
             if (packContents != null) {
                 _collectionDAO.setCollectionForPlayer(player.getId(), collectionType, mutableCardCollection);
-                addPackage(player, collectionType, packContents);
+                addPackage(leagueService, player, collectionType, packContents);
             }
             return packContents;
         } finally {
@@ -83,7 +85,7 @@ public class CollectionsManager {
         }
     }
 
-    public void addItemsToPlayerCollection(Player player, String collectionType, Map<String, Integer> items) {
+    public void addItemsToPlayerCollection(LeagueService leagueService, Player player, String collectionType, Map<String, Integer> items) {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType);
@@ -96,15 +98,15 @@ public class CollectionsManager {
                 }
 
                 _collectionDAO.setCollectionForPlayer(player.getId(), collectionType, mutableCardCollection);
-                addPackage(player, collectionType, addedCards);
+                addPackage(leagueService, player, collectionType, addedCards);
             }
         } finally {
             _readWriteLock.writeLock().unlock();
         }
     }
 
-    public void addItemsToPlayerCollection(String player, String collectionType, Map<String, Integer> items) {
-        addItemsToPlayerCollection(_playerDAO.getPlayer(player), collectionType, items);
+    public void addItemsToPlayerCollection(LeagueService leagueService, String player, String collectionType, Map<String, Integer> items) {
+        addItemsToPlayerCollection(leagueService, _playerDAO.getPlayer(player), collectionType, items);
     }
 
     public void moveCollectionToCollection(Player player, String collectionFrom, String collectionTo) {
@@ -119,7 +121,7 @@ public class CollectionsManager {
                         mutableCardCollection.addItem(item.getKey(), item.getValue());
 
                     _collectionDAO.setCollectionForPlayer(player.getId(), collectionTo, mutableCardCollection);
-                    addPackage(player, collectionTo, oldCollection);
+                    addPackage(null, player, collectionTo, oldCollection);
                 }
             }
         } finally {
@@ -154,8 +156,8 @@ public class CollectionsManager {
             _collectionDAO.setCollectionForPlayer(playerOne.getId(), collectionType, playerOneCollection);
             _collectionDAO.setCollectionForPlayer(playerTwo.getId(), collectionType, playerTwoCollection);
 
-            addPackage(playerOne, collectionType, addedCardsPlayerOne);
-            addPackage(playerTwo, collectionType, addedCardsPlayerTwo);
+            addPackage(null, playerOne, collectionType, addedCardsPlayerOne);
+            addPackage(null, playerTwo, collectionType, addedCardsPlayerTwo);
 
             return true;
         } finally {
@@ -177,16 +179,16 @@ public class CollectionsManager {
         }
     }
 
-    private void addPackage(Player player, String collectionType, CardCollection cards) {
-        _deliveryService.addPackage(player, getPackageNameByCollectionType(collectionType), cards);
+    private void addPackage(LeagueService leagueService, Player player, String collectionType, CardCollection cards) {
+        _deliveryService.addPackage(player, getPackageNameByCollectionType(leagueService, collectionType), cards);
     }
 
-    private String getPackageNameByCollectionType(String collectionType) {
+    private String getPackageNameByCollectionType(LeagueService leagueService, String collectionType) {
         String packageName;
         if (collectionType.equals("permanent"))
             packageName = "My cards";
         else {
-            League league = _leagueService.getLeagueByType(collectionType);
+            League league = leagueService.getLeagueByType(collectionType);
             packageName = league.getName();
         }
         return packageName;

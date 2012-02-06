@@ -1,5 +1,6 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeaguePointsDAO;
@@ -9,7 +10,11 @@ import com.gempukku.lotro.db.vo.LeagueMatch;
 import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.MutableCardCollection;
+import com.gempukku.lotro.game.Player;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,17 +29,22 @@ public class LeagueService {
     private LeagueSerieDAO _leagueSeasonDao;
     private LeaguePointsDAO _leaguePointsDao;
     private LeagueMatchDAO _leagueMatchDao;
+    private CollectionsManager _collectionsManager;
 
     private Map<League, List<LeagueStanding>> _leagueStandings = new ConcurrentHashMap<League, List<LeagueStanding>>();
     private Map<LeagueSerie, List<LeagueStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerie, List<LeagueStanding>>();
 
     private Map<String, List<String>> _winnerPromos = new HashMap<String, List<String>>();
 
-    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao) {
+    private int _activeLeaguesLoadedDate;
+    private Set<League> _activeLeagues;
+
+    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao, CollectionsManager collectionsManager) {
         _leagueDao = leagueDao;
         _leagueSeasonDao = leagueSeasonDao;
         _leaguePointsDao = leaguePointsDao;
         _leagueMatchDao = leagueMatchDao;
+        _collectionsManager = collectionsManager;
 
         List<String> fotrPromos = new ArrayList<String>();
         fotrPromos.add("0_1");
@@ -81,8 +91,68 @@ public class LeagueService {
         _winnerPromos.put("ttt_block", tttPromos);
     }
 
+    private int getCurrentDate() {
+        Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private synchronized void ensureLoadedCurrentLeagues() {
+        int currentDate = getCurrentDate();
+        if (currentDate != _activeLeaguesLoadedDate) {
+            try {
+                _activeLeagues = _leagueDao.loadActiveLeagues(currentDate);
+                _activeLeaguesLoadedDate = currentDate;
+                processLoadedLeagues(currentDate);
+            } catch (SQLException e) {
+                throw new RuntimeException("Unable to load Leagues", e);
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to load Leagues", e);
+            }
+        }
+    }
+
     public Set<League> getActiveLeagues() {
-        return _leagueDao.getActiveLeagues();
+        if (getCurrentDate() == _activeLeaguesLoadedDate)
+            return Collections.unmodifiableSet(_activeLeagues);
+        else {
+            ensureLoadedCurrentLeagues();
+            return Collections.unmodifiableSet(_activeLeagues);
+        }
+    }
+
+    private void processLoadedLeagues(int currentDate) {
+        for (League activeLeague : _activeLeagues) {
+            for (LeagueSerie leagueSerie : _leagueSeasonDao.getSeriesForLeague(activeLeague)) {
+                if (leagueSerie.getStart() >= currentDate && !leagueSerie.wasCollectionGiven()) {
+                    for (Map.Entry<Player, CardCollection> playerLeagueCollection : _collectionsManager.getPlayersCollection(activeLeague.getType()).entrySet()) {
+                        _collectionsManager.addItemsToPlayerCollection(this, playerLeagueCollection.getKey(), activeLeague.getType(), leagueSerie.getSerieCollection());
+                    }
+                    _leagueSeasonDao.setCollectionGiven(leagueSerie);
+                }
+            }
+        }
+    }
+
+    public synchronized void ensurePlayerIsInLeague(Player player, League league) {
+        if (_collectionsManager.getPlayerCollection(player, league.getCollectionType().getCode()) == null) {
+            playerJoinsLeague(player, league);
+        }
+    }
+
+    private void playerJoinsLeague(Player player, League league) {
+        for (League activeLeague : getActiveLeagues()) {
+            if (activeLeague.getType().equals(league.getType())) {
+                MutableCardCollection startingCollection = new DefaultCardCollection();
+                final List<LeagueSerie> seriesForLeague = _leagueSeasonDao.getSeriesForLeague(league);
+                for (LeagueSerie leagueSerie : seriesForLeague) {
+                    if (leagueSerie.wasCollectionGiven()) {
+                        for (Map.Entry<String, Integer> serieCollectionItem : leagueSerie.getSerieCollection().entrySet())
+                            startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue());
+                    }
+                }
+                _collectionsManager.addPlayerCollection(player, league.getType(), startingCollection);
+            }
+        }
     }
 
     public League getLeagueByType(String type) {
@@ -99,7 +169,7 @@ public class LeagueService {
         return _leagueSeasonDao.getSerieForLeague(league, startDay);
     }
 
-    public CardCollection reportLeagueGameResult(League league, LeagueSerie serie, String winner, String loser) {
+    public void reportLeagueGameResult(League league, LeagueSerie serie, String winner, String loser) {
         _leagueMatchDao.addPlayedMatch(league, serie, winner, loser);
         _leaguePointsDao.addPoints(league, serie, winner, 2);
         _leaguePointsDao.addPoints(league, serie, loser, 1);
@@ -120,7 +190,7 @@ public class LeagueService {
         } else if (count == 6 || count == 8 || count == 10) {
             winnerPrize.addItem(getRandomPromoForBlock(serie.getFormat()) + "*", 1);
         }
-        return winnerPrize;
+        _collectionsManager.addItemsToPlayerCollection(this, winner, "permanent", winnerPrize.getAll());
     }
 
     private String getRandomPromoForBlock(String format) {
@@ -225,11 +295,6 @@ public class LeagueService {
                 return false;
         }
         return true;
-    }
-
-    private int getCurrentDate() {
-        Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-        return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
     }
 
     private class MultipleComparator<T> implements Comparator<T> {
