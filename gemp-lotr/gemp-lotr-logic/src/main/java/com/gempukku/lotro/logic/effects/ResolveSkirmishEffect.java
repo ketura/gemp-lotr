@@ -63,7 +63,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
         Result result = getUpcomingResult(game);
 
         if (result == Result.FELLOWSHIP_LOSES) {
-            game.getGameState().sendMessage("Skirmish finishes with a normal win");
+            game.getGameState().sendMessage("Skirmish resolved with a normal win");
             game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
@@ -73,7 +73,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
             for (PhysicalCard removedMinion : skirmish.getRemovedFromSkirmish())
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, removedMinion, skirmish.getFellowshipCharacter()));
         } else if (result == Result.SHADOW_LOSES) {
-            game.getGameState().sendMessage("Skirmish finishes with a normal win");
+            game.getGameState().sendMessage("Skirmish resolved with a normal win");
             game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
@@ -83,7 +83,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
             for (PhysicalCard removedMinion : skirmish.getRemovedFromSkirmish())
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, removedMinion, skirmish.getFellowshipCharacter()));
         } else if (result == Result.FELLOWSHIP_OVERWHELMED) {
-            game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
+            game.getGameState().sendMessage("Skirmish resolved with an overwhelm");
             game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
@@ -93,7 +93,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
             for (PhysicalCard removedMinion : skirmish.getRemovedFromSkirmish())
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, removedMinion, skirmish.getFellowshipCharacter()));
         } else {
-            game.getGameState().sendMessage("Skirmish finishes with an overwhelm");
+            game.getGameState().sendMessage("Skirmish resolved with an overwhelm");
             game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
 
             for (PhysicalCard minion : skirmish.getShadowCharacters())
