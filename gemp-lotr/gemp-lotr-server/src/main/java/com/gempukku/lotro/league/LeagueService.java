@@ -221,7 +221,7 @@ public class LeagueService {
     public boolean canPlayRankedGame(League league, LeagueSerie season, String playerOne, String playerTwo) {
         Collection<LeagueMatch> playedInSeason = _leagueMatchDao.getPlayerMatchesPlayedOn(league, season, playerOne);
         for (LeagueMatch leagueMatch : playedInSeason) {
-            if (playerTwo.equals(leagueMatch.getWinner()) && playerTwo.equals(leagueMatch.getLoser()))
+            if (playerTwo.equals(leagueMatch.getWinner()) || playerTwo.equals(leagueMatch.getLoser()))
                 return false;
         }
         return true;
