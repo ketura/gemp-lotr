@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.OptionalEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -42,7 +43,14 @@ public class Card1_234 extends AbstractMinion {
             int minions = Math.max(0, companions - 4);
             for (int i = 0; i < minions; i++) {
                 action.appendEffect(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION));
+                        new OptionalEffect(action, playerId,
+                                new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "PlayConditions minion from your discard pile";
+                                    }
+                                }
+                        ));
             }
             return Collections.singletonList(action);
         }
