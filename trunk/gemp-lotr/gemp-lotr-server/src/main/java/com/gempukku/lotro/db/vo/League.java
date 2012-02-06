@@ -1,20 +1,16 @@
 package com.gempukku.lotro.db.vo;
 
-import com.gempukku.lotro.game.MutableCardCollection;
-
 public class League {
     private int _id;
     private String _type;
     private String _name;
-    private MutableCardCollection _baseCollection;
     private int _start;
     private int _end;
 
-    public League(int id, String type, String name, MutableCardCollection baseCollection, int start, int end) {
+    public League(int id, String type, String name, int start, int end) {
         _id = id;
         _type = type;
         _name = name;
-        _baseCollection = baseCollection;
         _start = start;
         _end = end;
     }
@@ -33,10 +29,6 @@ public class League {
 
     public String getName() {
         return _name;
-    }
-
-    public MutableCardCollection getBaseCollection() {
-        return _baseCollection;
     }
 
     public int getEnd() {

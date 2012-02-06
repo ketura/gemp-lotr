@@ -1,17 +1,24 @@
 package com.gempukku.lotro.db.vo;
 
+import java.util.Collections;
+import java.util.Map;
+
 public class LeagueSerie {
     private String _leagueType;
     private String _type;
     private String _format;
+    private Map<String, Integer> _serieCollection;
+    private int _status;
     private int _maxMatches;
     private int _start;
     private int _end;
 
-    public LeagueSerie(String leagueType, String type, String format, int maxMatches, int start, int end) {
+    public LeagueSerie(String leagueType, String type, String format, Map<String, Integer> serieCollection, int status, int maxMatches, int start, int end) {
         _leagueType = leagueType;
         _type = type;
         _format = format;
+        _serieCollection = serieCollection;
+        _status = status;
         _maxMatches = maxMatches;
         _start = start;
         _end = end;
@@ -19,6 +26,10 @@ public class LeagueSerie {
 
     public int getMaxMatches() {
         return _maxMatches;
+    }
+
+    public String getLeagueType() {
+        return _leagueType;
     }
 
     public String getType() {
@@ -35,6 +46,14 @@ public class LeagueSerie {
 
     public int getStart() {
         return _start;
+    }
+
+    public boolean wasCollectionGiven() {
+        return _status == 1;
+    }
+
+    public Map<String, Integer> getSerieCollection() {
+        return Collections.unmodifiableMap(_serieCollection);
     }
 
     @Override

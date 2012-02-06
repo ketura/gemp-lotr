@@ -308,8 +308,7 @@ public class HallServer extends AbstractServer {
                     new GameResultListener() {
                         @Override
                         public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                            final CardCollection winnerPrize = _leagueService.reportLeagueGameResult(league, leagueSerie, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
-                            _collectionsManager.addItemsToPlayerCollection(winnerPlayerId, "permanent", winnerPrize.getAll());
+                            _leagueService.reportLeagueGameResult(league, leagueSerie, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
                         }
                     });
         }
