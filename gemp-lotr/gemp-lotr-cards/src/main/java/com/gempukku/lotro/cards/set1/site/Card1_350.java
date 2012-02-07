@@ -2,8 +2,10 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -42,7 +44,7 @@ public class Card1_350 extends AbstractSite {
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                 return (self.getData() == null);
                             }
-                        }), -2);
+                        }), new PhaseCondition(Phase.SHADOW), -2);
     }
 
     @Override
