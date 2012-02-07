@@ -1,5 +1,12 @@
 var cardCache = {};
 var cardScale = 357 / 497;
+var fixedImages = {
+    // "Forth the Three Hunters!" cards, separate special images
+    "15_204": "http://lotrtcgdb.com/images/LOTR15060D.jpg",
+    "15_205":  "http://lotrtcgdb.com/images/LOTR15060E.jpg",
+    "15_206":  "http://lotrtcgdb.com/images/LOTR15060G.jpg"
+};
+
 var packBlueprints = {
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
     "(S)TTT - Starter": "/gemp-lotr/images/boosters/ttt_starter_selection.png",
@@ -125,10 +132,15 @@ var Card = Class.extend({
             return (cardNo >= 185 && cardNo <= 194);
         if (setNo == 13)
             return (cardNo >= 185 && cardNo <= 194);
+        if (setNo == 15)
+            return (cardNo >= 187 && cardNo <= 194);
         return false;
     },
 
     getUrlByBlueprintId: function(blueprintId) {
+        if (fixedImages[blueprintId] != null)
+            return fixedImages[blueprintId];
+
         if (packBlueprints[blueprintId] != null)
             return packBlueprints[blueprintId];
 
@@ -174,6 +186,8 @@ var Card = Class.extend({
             return cardNo > 194;
         if (setNo == 13)
             return cardNo > 194;
+        if (setNo == 15)
+            return cardNo > 194 && cardNo < 204;
         return false;
     },
 
