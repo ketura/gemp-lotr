@@ -104,9 +104,9 @@ public class LeagueSerieDAO {
     private Map<String, Integer> createCollection(String collection) {
         Map<String, Integer> result = new HashMap<String, Integer>();
         if (collection != null) {
-            final String[] items = collection.split("|");
+            final String[] items = collection.split("\n");
             for (String item : items) {
-                final String[] xes = item.split("x", 2);
+                final String[] xes = item.trim().split("x", 2);
                 result.put(xes[1], Integer.parseInt(xes[0]));
             }
         }
