@@ -91,6 +91,12 @@ public class LeagueService {
         _winnerPromos.put("ttt_block", tttPromos);
     }
 
+    public void clearCache() {
+        _leagueSerieStandings.clear();
+        _leagueStandings.clear();
+        _activeLeaguesLoadedDate = 0;
+    }
+
     private int getCurrentDate() {
         Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
         return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
@@ -123,7 +129,7 @@ public class LeagueService {
     private void processLoadedLeagues(int currentDate) {
         for (League activeLeague : _activeLeagues) {
             for (LeagueSerie leagueSerie : _leagueSeasonDao.getSeriesForLeague(activeLeague)) {
-                if (leagueSerie.getStart() >= currentDate && !leagueSerie.wasCollectionGiven()) {
+                if (leagueSerie.getStart() <= currentDate && !leagueSerie.wasCollectionGiven()) {
                     for (Map.Entry<Player, CardCollection> playerLeagueCollection : _collectionsManager.getPlayersCollection(activeLeague.getType()).entrySet()) {
                         _collectionsManager.addItemsToPlayerCollection(this, playerLeagueCollection.getKey(), activeLeague.getType(), leagueSerie.getSerieCollection());
                     }
@@ -150,7 +156,7 @@ public class LeagueService {
                             startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue());
                     }
                 }
-                _collectionsManager.addPlayerCollection(player, league.getType(), startingCollection);
+                _collectionsManager.addPlayerCollection(this, player, league.getType(), startingCollection);
             }
         }
     }

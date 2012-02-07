@@ -43,10 +43,11 @@ public class CollectionsManager {
         }
     }
 
-    public void addPlayerCollection(Player player, String collectionType, CardCollection cardCollection) {
+    public void addPlayerCollection(LeagueService leagueService, Player player, String collectionType, CardCollection cardCollection) {
         _readWriteLock.writeLock().lock();
         try {
             _collectionDAO.setCollectionForPlayer(player.getId(), collectionType, cardCollection);
+            addPackage(leagueService, player, collectionType, cardCollection);
         } finally {
             _readWriteLock.writeLock().unlock();
         }
