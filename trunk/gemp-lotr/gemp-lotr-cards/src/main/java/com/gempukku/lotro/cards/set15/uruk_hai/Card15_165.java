@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card15_165 extends AbstractMinion {
     public Card15_165() {
-        super(3, 8, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "Merciless Berserker", true);
+        super(3, 8, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "Merciless Berserker");
         addKeyword(Keyword.DAMAGE, 1);
     }
 
