@@ -22,3 +22,6 @@ EoF - Witch-king Starter
 (S)Booster Choice
 (S)BoHD - Starter
 (S)EoF - Starter
+(S)FotR - Starter
+(S)MoM - Starter
+(S)RotEL - Starter
