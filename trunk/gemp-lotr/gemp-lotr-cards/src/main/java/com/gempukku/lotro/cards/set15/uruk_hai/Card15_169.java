@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card15_169 extends AbstractMinion {
     public Card15_169() {
-        super(3, 7, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "Sentry Uruk", true);
+        super(3, 7, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "Seeking Uruk", true);
         addKeyword(Keyword.FIERCE);
         addKeyword(Keyword.HUNTER, 1);
     }
