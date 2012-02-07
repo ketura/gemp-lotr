@@ -129,6 +129,12 @@ var CardFilter = Class.extend({
                 + "<option value='12'>12 - Black Rider</option>"
                 + "<option value='13'>13 - Bloodlines</option>"
                 + "<option value='14'>14 - Expanded Middle-earth</option>"
+                + "<option value='15,17,18'>Hunters Block</option>"
+                + "<option value='15'>15 - The Hunters</option>"
+                + "<option value='16'>16 - The Wraith Collection</option>"
+                + "<option value='17'>17 - Rise of Saruman</option>"
+                + "<option value='18'>18 - Treachery & Deceit</option>"
+                + "<option value='19'>19 - Ages End</option>"
                 + "</select>");
         this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
