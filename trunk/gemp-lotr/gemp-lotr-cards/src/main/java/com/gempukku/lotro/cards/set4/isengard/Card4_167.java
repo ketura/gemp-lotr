@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,16 +37,12 @@ public class Card4_167 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
-                    @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        if (Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Race.URUK_HAI).size() > 0) {
-                            if (performingPlayer.equals(gameState.getCurrentPlayerId())
-                                    && action.getActionTimeword() == Phase.SKIRMISH)
-                                return false;
-                        }
-                        return true;
-                    }
-                });
+                new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
+                        new Condition() {
+                            @Override
+                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                return Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Race.URUK_HAI).size() > 0;
+                            }
+                        }, Side.FREE_PEOPLE, Phase.SKIRMISH));
     }
 }
