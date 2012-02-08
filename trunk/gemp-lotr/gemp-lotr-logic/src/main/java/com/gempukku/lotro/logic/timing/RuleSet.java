@@ -19,6 +19,7 @@ public class RuleSet {
     public void applyRuleSet() {
         new RoamingRule(_modifiersLogic).applyRule();
         new EnduringRule(_modifiersLogic).applyRule();
+        new HunterRule(_modifiersLogic).applyRule();
 
         new MusterRule(_actionsEnvironment).applyRule();
 
