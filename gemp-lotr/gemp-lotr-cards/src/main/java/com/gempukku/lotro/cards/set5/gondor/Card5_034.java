@@ -30,7 +30,7 @@ public class Card5_034 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
-                                new DiscardCardsFromPlayEffect(self, Filters.and(Side.SHADOW, Filters.attachedTo(self))));
+                                new DiscardCardsFromPlayEffect(self, Filters.and(Side.SHADOW, Filters.attachedTo(card))));
                     }
                 });
         return action;
