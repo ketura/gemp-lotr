@@ -11,9 +11,15 @@ import java.util.Map;
 
 public class CanSpotCultureTokensCondition implements Condition {
     private int _count;
+    private Token _token;
 
     public CanSpotCultureTokensCondition(int count) {
         _count = count;
+    }
+
+    public CanSpotCultureTokensCondition(int count, Token token) {
+        _count = count;
+        _token = token;
     }
 
     @Override
@@ -21,7 +27,8 @@ public class CanSpotCultureTokensCondition implements Condition {
         int count = 0;
         for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.hasAnyCultureTokens(1))) {
             for (Map.Entry<Token, Integer> tokenCountEntry : gameState.getTokens(physicalCard).entrySet()) {
-                if (tokenCountEntry.getKey().getCulture() != null) {
+                if ((_token == null && tokenCountEntry.getKey().getCulture() != null)
+                        || (tokenCountEntry.getKey() == _token)) {
                     count += tokenCountEntry.getValue();
                     if (count >= _count)
                         return true;

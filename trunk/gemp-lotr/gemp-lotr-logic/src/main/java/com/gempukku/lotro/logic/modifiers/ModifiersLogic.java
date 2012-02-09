@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.*;
 
@@ -649,6 +650,29 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         }
 
         return activateCardActions;
+    }
+
+    @Override
+    public boolean canPayExtraCostsToPlay(GameState gameState, PhysicalCard target) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.EXTRA_COST_MODIFIER, target)) {
+            if (!modifier.canPayExtraCostsToPlay(gameState, this, target))
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public List<? extends Effect> getExtraCostsToPlay(GameState gameState, Action action, PhysicalCard target) {
+        List<Effect> extraCardActions = new LinkedList<Effect>();
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.EXTRA_COST_MODIFIER, target)) {
+            List<? extends Effect> effects = modifier.getExtraCostsToPlay(gameState, this, action, target);
+            if (effects != null)
+                extraCardActions.addAll(effects);
+        }
+
+        return extraCardActions;
     }
 
     @Override

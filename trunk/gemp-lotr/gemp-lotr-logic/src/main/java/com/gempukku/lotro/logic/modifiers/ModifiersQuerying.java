@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.List;
@@ -94,6 +95,10 @@ public interface ModifiersQuerying {
     public List<? extends ActivateCardAction> getExtraPhaseActions(GameState gameState, PhysicalCard target);
 
     public List<? extends Action> getExtraPhaseActionsFromStacked(GameState gameState, PhysicalCard target);
+
+    public boolean canPayExtraCostsToPlay(GameState gameState, PhysicalCard target);
+
+    public List<? extends Effect> getExtraCostsToPlay(GameState gameState, Action action, PhysicalCard target);
 
     // Others
     public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
