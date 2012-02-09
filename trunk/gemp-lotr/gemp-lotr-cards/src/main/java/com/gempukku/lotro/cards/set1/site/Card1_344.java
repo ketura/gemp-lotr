@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -34,8 +35,7 @@ public class Card1_344 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && game.getGameState().getCurrentSite() == self) {
+        if (TriggerConditions.movesTo(game, effectResult, self)) {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
             boolean gimliCanExert = PlayConditions.canExert(self, game, Filters.gimli);
             boolean twoOtherCanExert = PlayConditions.canExert(self, game, 1, 2, Filters.not(Filters.gimli), CardType.COMPANION);

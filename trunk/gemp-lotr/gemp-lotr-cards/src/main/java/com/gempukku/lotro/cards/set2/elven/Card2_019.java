@@ -40,7 +40,7 @@ public class Card2_019 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
         action.appendEffect(
                 new WoundCharactersEffect(self, Race.NAZGUL));
-        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER))
+        if (PlayConditions.location(game, Keyword.RIVER))
             action.appendEffect(
                     new WoundCharactersEffect(self, Race.NAZGUL));
         return action;

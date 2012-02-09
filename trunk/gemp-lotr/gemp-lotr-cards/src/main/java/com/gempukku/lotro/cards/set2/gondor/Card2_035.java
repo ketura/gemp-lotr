@@ -2,14 +2,12 @@ package com.gempukku.lotro.cards.set2.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: Mines of Moria
@@ -33,12 +31,6 @@ public class Card2_035 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new ArcheryTotalModifier(self, Side.SHADOW,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.FOREST);
-                    }
-                }, -2);
+        return new ArcheryTotalModifier(self, Side.SHADOW, new LocationCondition(Keyword.FOREST), -2);
     }
 }

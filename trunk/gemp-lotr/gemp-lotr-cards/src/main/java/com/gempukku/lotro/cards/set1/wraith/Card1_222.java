@@ -40,9 +40,8 @@ public class Card1_222 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 3)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
-            if (!game.getGameState().getCurrentSite().getOwner().equals(playerId))
-                action.appendEffect(
-                        new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, game.getGameState().getCurrentSiteNumber()));
+            action.appendEffect(
+                    new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, game.getGameState().getCurrentSiteNumber()));
             return Collections.singletonList(action);
         }
         return null;
