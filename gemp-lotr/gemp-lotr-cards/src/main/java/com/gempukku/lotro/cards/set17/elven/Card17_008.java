@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set17.elven;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ReinforceTokenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -67,6 +68,8 @@ public class Card17_008 extends AbstractEvent {
                                     new ReinforceTokenEffect(self, playerId, Token.ELVEN));
                     }
                 });
+        action.appendEffect(
+                new ChoiceEffect(action, playerId, possibleEffects));
         return action;
     }
 }
