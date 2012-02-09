@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
@@ -40,7 +41,7 @@ public class Card1_338 extends AbstractSite {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getCurrentSite() == self && (self.getData() == null);
+                                return (self.getData() == null);
                             }
                         }), -5);
     }
@@ -48,7 +49,7 @@ public class Card1_338 extends AbstractSite {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Race.NAZGUL)
-                && game.getGameState().getCurrentSite() == self)
+                && PlayConditions.location(game, self))
             self.storeData(new Object());
         return null;
     }

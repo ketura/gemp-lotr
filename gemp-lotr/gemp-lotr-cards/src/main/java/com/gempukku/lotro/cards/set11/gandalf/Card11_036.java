@@ -38,7 +38,7 @@ public class Card11_036 extends AbstractEvent {
         action.appendEffect(
                 new RevealCardsFromHandEffect(self, playerId, new HashSet<PhysicalCard>(game.getGameState().getHand(playerId))));
         int companionCount = Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size();
-        int penalty = companionCount * ((Filters.and(Keyword.BATTLEGROUND).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())) ? -4 : -3);
+        int penalty = companionCount * (PlayConditions.location(game, Keyword.BATTLEGROUND) ? -4 : -3);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, penalty, CardType.MINION));
         return action;

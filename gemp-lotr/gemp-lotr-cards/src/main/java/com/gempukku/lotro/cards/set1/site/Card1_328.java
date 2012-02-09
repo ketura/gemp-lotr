@@ -2,14 +2,11 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: The Fellowship of the Ring
@@ -26,13 +23,6 @@ public class Card1_328 extends AbstractSite {
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
         return new RoamingPenaltyModifier(self,
-                Filters.and(
-                        Race.NAZGUL,
-                        new Filter() {
-                            @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return (gameState.getCurrentSite() == self);
-                            }
-                        }), -2);
+                Race.NAZGUL, new LocationCondition(self), -2);
     }
 }

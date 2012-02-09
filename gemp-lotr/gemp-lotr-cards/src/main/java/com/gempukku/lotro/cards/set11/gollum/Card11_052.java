@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
@@ -26,7 +25,7 @@ public class Card11_052 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canSpot(game, Culture.GOLLUM, CardType.MINION)
-                && Filters.and(Keyword.MOUNTAIN).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())
+                && PlayConditions.location(game, Keyword.MOUNTAIN)
                 && PlayConditions.canPlayFromDiscard(playerId, game, CardType.MINION);
     }
 

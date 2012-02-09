@@ -3,15 +3,13 @@ package com.gempukku.lotro.cards.set2.dwarven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -41,16 +39,8 @@ public class Card2_008 extends AbstractPermanent {
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new TwilightCostModifier(self,
-                Filters.and(
-                        Culture.MORIA,
-                        Race.ORC,
-                        new Filter() {
-                            @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return !modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.UNDERGROUND);
-                            }
-                        }
-                ), 2);
+                Filters.and(Culture.MORIA, Race.ORC),
+                new LocationCondition(Filters.not(Keyword.UNDERGROUND)), 2);
     }
 
     @Override

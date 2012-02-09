@@ -2,13 +2,12 @@ package com.gempukku.lotro.cards.set11.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.state.LotroGame;
 
 /**
  * Set: Shadows
@@ -34,7 +33,7 @@ public class Card11_029 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GANDALF, Race.WIZARD));
-        int count = Filters.and(Keyword.DWELLING).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite()) ? 2 : 1;
+        int count = PlayConditions.location(game, Keyword.DWELLING) ? 2 : 1;
         action.appendEffect(
                 new RemoveBurdenEffect(playerId, self, count));
         return action;

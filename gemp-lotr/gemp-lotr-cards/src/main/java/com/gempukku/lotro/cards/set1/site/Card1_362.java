@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,8 +26,7 @@ public class Card1_362 extends AbstractSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && game.getGameState().getCurrentSite() == self) {
+        if (TriggerConditions.movesTo(game, effectResult, self)) {
             if (!playerId.equals(game.getGameState().getCurrentPlayerId())) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(

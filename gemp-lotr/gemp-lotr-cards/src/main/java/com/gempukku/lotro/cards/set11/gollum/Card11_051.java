@@ -10,7 +10,6 @@ import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -62,7 +61,7 @@ public class Card11_051 extends AbstractCompanion {
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSelfExert(self, game)
-                && Filters.and(Keyword.MARSH).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())) {
+                && PlayConditions.location(game, Keyword.MARSH)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));

@@ -47,7 +47,7 @@ public class Card2_012 extends AbstractPermanent {
                                     new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
                                             new AddUntilEndOfPhaseModifierEffect(
                                                     new StrengthModifier(self, Filters.sameCard(dwarf), 1), Phase.SKIRMISH)));
-                            if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND))
+                            if (PlayConditions.location(game, Keyword.UNDERGROUND))
                                 action.appendEffect(
                                         new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
                                                 new AddUntilEndOfPhaseModifierEffect(

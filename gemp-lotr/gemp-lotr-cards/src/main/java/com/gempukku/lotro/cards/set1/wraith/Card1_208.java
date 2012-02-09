@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
@@ -48,7 +49,7 @@ public class Card1_208 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
+        if (PlayConditions.location(game, Keyword.UNDERGROUND)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new SelfDiscardEffect(self));
             return Collections.singletonList(action);

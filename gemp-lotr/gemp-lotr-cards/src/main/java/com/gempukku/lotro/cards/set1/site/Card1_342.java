@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
@@ -28,7 +29,7 @@ public class Card1_342 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (game.getGameState().getCurrentSite() == self
+        if (PlayConditions.location(game, self)
                 && self.getData() == null
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER)) {
             self.storeData(new Object());
