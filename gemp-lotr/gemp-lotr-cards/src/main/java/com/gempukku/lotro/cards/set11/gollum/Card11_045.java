@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.effects.PlaySiteEffect;
  */
 public class Card11_045 extends AbstractEvent {
     public Card11_045() {
-        super(Side.SHADOW, 0, Culture.GOLLUM, "Led Stray", Phase.SHADOW);
+        super(Side.SHADOW, 0, Culture.GOLLUM, "Led Astray", Phase.SHADOW);
     }
 
     @Override
