@@ -35,6 +35,11 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
         DiscountEffect discountEffect = getDiscountEffect(action, playerId, game, self);
         if (discountEffect != null)
             action.setDiscountEffect(discountEffect);
+
+        List<? extends Effect> extraCosts = game.getModifiersQuerying().getExtraCostsToPlay(game.getGameState(), self);
+        for (Effect extraCost : extraCosts)
+            action.appendCost(extraCost);
+
         return action;
     }
 
