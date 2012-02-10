@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -281,6 +282,15 @@ public class TriggerConditions {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
             PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
             return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), playedCard);
+        }
+        return false;
+    }
+
+    public static boolean playedFromZone(LotroGame game, EffectResult effectResult, Zone zone, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.PLAY) {
+            final PlayCardResult playResult = (PlayCardResult) effectResult;
+            PhysicalCard playedCard = playResult.getPlayedCard();
+            return (playResult.getPlayedFrom() == zone && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), playedCard));
         }
         return false;
     }
