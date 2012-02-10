@@ -88,6 +88,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                             final Set<PhysicalCard> selectedAttachments = getSelectedCardsByResponse(result);
                             if (selectedAttachments.size() == 1) {
                                 final PhysicalCard attachment = selectedAttachments.iterator().next();
+                                final PhysicalCard transferredFrom = attachment.getAttachedTo();
                                 AbstractAttachable attachable = (AbstractAttachable) attachment.getBlueprint();
                                 final Collection<PhysicalCard> validTargets = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(game, attachment, attachable));
                                 game.getUserFeedback().sendAwaitingDecision(
@@ -97,10 +98,15 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                                 final Set<PhysicalCard> selectedTargets = getSelectedCardsByResponse(result);
                                                 if (selectedTargets.size() == 1) {
-                                                    PhysicalCard selectedTarget = selectedTargets.iterator().next();
+                                                    final PhysicalCard selectedTarget = selectedTargets.iterator().next();
                                                     SubAction subAction = new SubAction(_action);
                                                     subAction.appendEffect(
-                                                            new TransferPermanentEffect(attachment, selectedTarget));
+                                                            new TransferPermanentEffect(attachment, selectedTarget) {
+                                                                @Override
+                                                                protected void afterTransferredCallback() {
+                                                                    afterTransferCallback(attachment, transferredFrom, selectedTarget);
+                                                                }
+                                                            });
                                                     game.getActionsEnvironment().addActionToStack(subAction);
                                                 }
                                             }
@@ -111,5 +117,9 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                     });
         }
         return new FullEffectResult(false, false);
+    }
+
+    protected void afterTransferCallback(PhysicalCard transferredCard, PhysicalCard transferredFrom, PhysicalCard transferredTo) {
+
     }
 }
