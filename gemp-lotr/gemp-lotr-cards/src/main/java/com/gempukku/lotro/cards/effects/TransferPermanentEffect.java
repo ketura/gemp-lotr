@@ -45,8 +45,14 @@ public class TransferPermanentEffect extends AbstractEffect {
             game.getActionsEnvironment().emitEffectResult(
                     new CardTransferredResult(_physicalCard, transferredFrom, _targetCard));
 
+            afterTransferredCallback();
+
             return new FullEffectResult(true, true);
         }
         return new FullEffectResult(false, false);
+    }
+
+    protected void afterTransferredCallback() {
+
     }
 }
