@@ -10,7 +10,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -83,9 +82,9 @@ public class Card2_108 extends AbstractAttachable {
 
         @Override
         public boolean isPlayableInFull(LotroGame game) {
-            Skirmish skirmish = game.getGameState().getSkirmish();
-            return (skirmish != null && skirmish.getFellowshipCharacter() == _attachedTo
-                    && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL).size() > 0);
+            return super.isPlayableInFull(game)
+                    && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Filters.inSkirmish)
+                    && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.inSkirmish);
         }
     }
 }
