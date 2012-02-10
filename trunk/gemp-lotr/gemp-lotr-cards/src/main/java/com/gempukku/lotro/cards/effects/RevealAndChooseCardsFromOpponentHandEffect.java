@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.effects;
 
-import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -21,11 +21,11 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
     private String _opponentId;
     private PhysicalCard _source;
     private String _text;
-    private Filter _selectionFilter;
+    private Filterable _selectionFilter;
     private int _minChosen;
     private int _maxChosen;
 
-    protected RevealAndChooseCardsFromOpponentHandEffect(Action action, String playerId, String opponentId, PhysicalCard source, String text, Filter selectionFilter, int minChosen, int maxChosen) {
+    protected RevealAndChooseCardsFromOpponentHandEffect(Action action, String playerId, String opponentId, PhysicalCard source, String text, Filterable selectionFilter, int minChosen, int maxChosen) {
         _action = action;
         _playerId = playerId;
         _opponentId = opponentId;
