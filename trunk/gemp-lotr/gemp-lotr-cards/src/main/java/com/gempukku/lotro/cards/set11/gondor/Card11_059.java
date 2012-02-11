@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set11.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,7 +36,7 @@ public class Card11_059 extends AbstractAttachableFPPossession {
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Keyword.RANGER), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Keyword.RANGER), new NotCondition(new LocationCondition(Keyword.RIVER)), Keyword.DAMAGE, 1));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), new LocationCondition(Keyword.RIVER), Keyword.DAMAGE, 1));
         return modifiers;
