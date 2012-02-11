@@ -36,7 +36,7 @@ public class Card13_130 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 3, Filters.owner(playerId), Culture.ROHAN, CardType.COMPANION));
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 3, Filters.owner(playerId), Culture.ROHAN, CardType.COMPANION, Filters.mounted));
         return action;
     }
 
