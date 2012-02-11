@@ -30,65 +30,22 @@ public class LeagueService {
     private LeaguePointsDAO _leaguePointsDao;
     private LeagueMatchDAO _leagueMatchDao;
     private CollectionsManager _collectionsManager;
+    private LeaguePrizes _leaguePrizes;
 
     private Map<League, List<LeagueStanding>> _leagueStandings = new ConcurrentHashMap<League, List<LeagueStanding>>();
     private Map<LeagueSerie, List<LeagueStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerie, List<LeagueStanding>>();
 
-    private Map<String, List<String>> _winnerPromos = new HashMap<String, List<String>>();
-
     private int _activeLeaguesLoadedDate;
     private Set<League> _activeLeagues;
 
-    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao, CollectionsManager collectionsManager) {
+    public LeagueService(LeagueDAO leagueDao, LeagueSerieDAO leagueSeasonDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao,
+                         CollectionsManager collectionsManager) {
         _leagueDao = leagueDao;
         _leagueSeasonDao = leagueSeasonDao;
         _leaguePointsDao = leaguePointsDao;
         _leagueMatchDao = leagueMatchDao;
         _collectionsManager = collectionsManager;
-
-        List<String> fotrPromos = new ArrayList<String>();
-        fotrPromos.add("0_1");
-        fotrPromos.add("0_2");
-        fotrPromos.add("0_3");
-        fotrPromos.add("0_4");
-        fotrPromos.add("0_5");
-        fotrPromos.add("0_6");
-        fotrPromos.add("0_7");
-        fotrPromos.add("0_8");
-        fotrPromos.add("0_9");
-        fotrPromos.add("0_10");
-        fotrPromos.add("0_11");
-        fotrPromos.add("0_12");
-        fotrPromos.add("0_13");
-        fotrPromos.add("0_14");
-        fotrPromos.add("0_15");
-        fotrPromos.add("0_34");
-        fotrPromos.add("0_36");
-        fotrPromos.add("0_37");
-        fotrPromos.add("0_41");
-        fotrPromos.add("0_42");
-        fotrPromos.add("0_43");
-        _winnerPromos.put("fotr_block", fotrPromos);
-
-        List<String> tttPromos = new ArrayList<String>();
-        tttPromos.add("0_16");
-        tttPromos.add("0_17");
-        tttPromos.add("0_18");
-        tttPromos.add("0_19");
-        tttPromos.add("0_21");
-        tttPromos.add("0_22");
-        tttPromos.add("0_30");
-        tttPromos.add("0_32");
-        tttPromos.add("0_33");
-        tttPromos.add("0_35");
-        tttPromos.add("0_38");
-        tttPromos.add("0_39");
-        tttPromos.add("0_40");
-        tttPromos.add("0_44");
-        tttPromos.add("0_45");
-        tttPromos.add("0_46");
-        tttPromos.add("0_47");
-        _winnerPromos.put("ttt_block", tttPromos);
+        _leaguePrizes = new LeaguePrizes();
     }
 
     public void clearCache() {
@@ -182,26 +139,25 @@ public class LeagueService {
         _leagueStandings.remove(league);
         _leagueSerieStandings.remove(serie);
 
+        awardPrizesToPlayer(league, serie, winner, true);
+        awardPrizesToPlayer(league, serie, loser, false);
+    }
+
+    private void awardPrizesToPlayer(League league, LeagueSerie serie, String player, boolean winner) {
         int count = 0;
-        Collection<LeagueMatch> playerMatchesPlayedOn = _leagueMatchDao.getPlayerMatchesPlayedOn(league, serie, winner);
+        Collection<LeagueMatch> playerMatchesPlayedOn = _leagueMatchDao.getPlayerMatchesPlayedOn(league, serie, player);
         for (LeagueMatch leagueMatch : playerMatchesPlayedOn) {
-            if (leagueMatch.getWinner().equals(winner))
+            if (leagueMatch.getWinner().equals(player))
                 count++;
         }
 
-        DefaultCardCollection winnerPrize = new DefaultCardCollection();
-        winnerPrize.addItem("(S)Booster Choice", 1);
-        if (count == 2 || count == 4) {
-            winnerPrize.addItem(getRandomPromoForBlock(serie.getFormat()), 1);
-        } else if (count == 6 || count == 8 || count == 10) {
-            winnerPrize.addItem(getRandomPromoForBlock(serie.getFormat()) + "*", 1);
-        }
-        _collectionsManager.addItemsToPlayerCollection(this, winner, "permanent", winnerPrize.getAll());
-    }
-
-    private String getRandomPromoForBlock(String format) {
-        final List<String> promos = _winnerPromos.get(format);
-        return promos.get(new Random().nextInt(promos.size()));
+        CardCollection prize;
+        if (winner)
+            prize = _leaguePrizes.getPrizeForLeagueMatchWinner(count, playerMatchesPlayedOn.size(), league, serie);
+        else
+            prize = _leaguePrizes.getPrizeForLeagueMatchLoser(count, playerMatchesPlayedOn.size(), league, serie);
+        if (prize != null)
+            _collectionsManager.addItemsToPlayerCollection(this, player, "permanent", prize.getAll());
     }
 
     public List<LeagueStanding> getLeagueStandings(League league) {
