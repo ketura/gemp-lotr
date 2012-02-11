@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set17.gondor;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.OpponentsCantPlayPhaseEventsOrSpecialAbilitiesModifier;
+import com.gempukku.lotro.cards.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,8 +37,8 @@ public class Card17_034 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new OpponentsCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
-                new SpotCondition(Filters.hasAttached(self), Filters.inSkirmish), self.getOwner(), Phase.SKIRMISH);
+        return new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
+                new SpotCondition(Filters.hasAttached(self), Filters.inSkirmish), Side.SHADOW, Phase.SKIRMISH);
     }
 
     @Override
