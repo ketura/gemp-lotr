@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,14 +33,19 @@ public class Card4_364 extends AbstractCompanion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                 && PlayConditions.canSpot(game, Race.HOBBIT, Filters.unboundCompanion)) {
-            int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, Filters.unboundCompanion);
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
-            for (int i = 0; i < count; i++)
-                action.appendEffect(
-                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendEffect(
+                    new ForEachYouSpotEffect(playerId, Race.HOBBIT, Filters.unboundCompanion) {
+                        @Override
+                        protected void spottedCards(int spotCount) {
+                            for (int i = 0; i < spotCount; i++)
+                                action.appendEffect(
+                                        new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;
