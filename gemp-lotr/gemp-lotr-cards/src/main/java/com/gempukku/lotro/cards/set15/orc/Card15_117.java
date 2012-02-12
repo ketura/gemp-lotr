@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set15.orc;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
+import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
@@ -49,6 +50,10 @@ public class Card15_117 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSelfExert(self, 2, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new SelfExertEffect(self));
+            action.appendCost(
+                    new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.assignableToSkirmishAgainst(Side.SHADOW, self)) {
                         @Override
