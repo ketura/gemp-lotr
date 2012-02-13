@@ -8,14 +8,13 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import static junit.framework.Assert.assertEquals;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -428,5 +427,21 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         // Should not cancel skirmish (since it's a ring-bearer)
         assertEquals(Phase.SKIRMISH, _game.getGameState().getCurrentPhase());
+    }
+
+    @Test
+    public void frodoCantBePlayedInStartingFellowship() throws DecisionResultInvalidException {
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        final LotroDeck p1Deck = createSimplestDeck();
+        p1Deck.setRingBearer("13_156");
+        p1Deck.addCard("4_301");
+        decks.put(P1, p1Deck);
+
+        decks.put(P2, createSimplestDeck());
+
+        initializeGameWithDecks(decks);
+
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.MULTIPLE_CHOICE, decision.getDecisionType());
     }
 }
