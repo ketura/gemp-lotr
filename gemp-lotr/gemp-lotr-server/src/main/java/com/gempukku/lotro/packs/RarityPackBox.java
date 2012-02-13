@@ -60,13 +60,7 @@ public class RarityPackBox implements PackBox {
     }
 
     private void addCards(List<CardCollection.Item> result, Collection<String> cards, boolean foil) {
-        for (String card : cards) {
-            card = card.replace("P", "_");
-            card = card.replace("A", "_");
-            card = card.replace("R", "_");
-            card = card.replace("U", "_");
-            card = card.replace("C", "_");
+        for (String card : cards)
             result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card + (foil ? "*" : "")));
-        }
     }
 }

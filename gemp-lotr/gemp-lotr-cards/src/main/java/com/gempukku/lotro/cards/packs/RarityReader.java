@@ -30,8 +30,9 @@ public class RarityReader {
                             cards = new LinkedList<String>();
                             cardsByRarity.put(rarity, cards);
                         }
-                        cards.add(line);
-                        cardRarity.put(setNo + "_" + line.substring(setNo.length() + 1), rarity);
+                        String blueprintId = setNo + "_" + line.substring(setNo.length() + 1);
+                        cards.add(blueprintId);
+                        cardRarity.put(blueprintId, rarity);
                     }
                 }
 
