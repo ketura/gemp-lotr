@@ -5,6 +5,7 @@ import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeaguePointsDAO;
 import com.gempukku.lotro.db.LeagueSerieDAO;
+import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
 import com.gempukku.lotro.db.vo.LeagueSerie;
@@ -88,7 +89,7 @@ public class LeagueService {
             for (LeagueSerie leagueSerie : _leagueSeasonDao.getSeriesForLeague(activeLeague)) {
                 if (leagueSerie.getStart() <= currentDate && !leagueSerie.wasCollectionGiven()) {
                     for (Map.Entry<Player, CardCollection> playerLeagueCollection : _collectionsManager.getPlayersCollection(activeLeague.getType()).entrySet()) {
-                        _collectionsManager.addItemsToPlayerCollection(this, playerLeagueCollection.getKey(), activeLeague.getType(), leagueSerie.getSerieCollection());
+                        _collectionsManager.addItemsToPlayerCollection(playerLeagueCollection.getKey(), activeLeague.getCollectionType(), leagueSerie.getSerieCollection());
                     }
                     _leagueSeasonDao.setCollectionGiven(leagueSerie);
                 }
@@ -97,9 +98,8 @@ public class LeagueService {
     }
 
     public synchronized void ensurePlayerIsInLeague(Player player, League league) {
-        if (_collectionsManager.getPlayerCollection(player, league.getCollectionType().getCode()) == null) {
+        if (_collectionsManager.getPlayerCollection(player, league.getType()) == null)
             playerJoinsLeague(player, league);
-        }
     }
 
     private void playerJoinsLeague(Player player, League league) {
@@ -113,7 +113,7 @@ public class LeagueService {
                             startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue());
                     }
                 }
-                _collectionsManager.addPlayerCollection(this, player, league.getType(), startingCollection);
+                _collectionsManager.addPlayerCollection(player, league.getCollectionType(), startingCollection);
             }
         }
     }
@@ -157,7 +157,7 @@ public class LeagueService {
         else
             prize = _leaguePrizes.getPrizeForLeagueMatchLoser(count, playerMatchesPlayedOn.size(), league, serie);
         if (prize != null)
-            _collectionsManager.addItemsToPlayerCollection(this, player, "permanent", prize.getAll());
+            _collectionsManager.addItemsToPlayerCollection(player, new CollectionType("permanent", "My cards"), prize.getAll());
     }
 
     public List<LeagueStanding> getLeagueStandings(League league) {

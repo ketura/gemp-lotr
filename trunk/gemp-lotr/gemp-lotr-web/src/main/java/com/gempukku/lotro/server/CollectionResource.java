@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.LeagueDAO;
+import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -173,7 +174,8 @@ public class CollectionResource extends AbstractResource {
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(_leagueService, resourceOwner, collectionType, selection, _packStorage, packId);
+        CollectionType collectionTypeObj = createCollectionType(collectionType);
+        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _packStorage, packId);
 
         if (packContents == null)
             sendError(Response.Status.NOT_FOUND);
@@ -207,5 +209,12 @@ public class CollectionResource extends AbstractResource {
         processDeliveryServiceNotification(request, response);
 
         return doc;
+    }
+
+    private CollectionType createCollectionType(String collectionType) {
+        if (collectionType.equals("permanent"))
+            return new CollectionType("permanent", "My cards");
+
+        return _leagueService.getLeagueByType(collectionType).getCollectionType();
     }
 }

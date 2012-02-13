@@ -4,6 +4,7 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueSerieDAO;
+import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -131,7 +132,7 @@ public class AdminResource extends AbstractResource {
         for (String playerName : playerNames) {
             Player player = _playerDao.getPlayer(playerName);
 
-            _collectionsManager.addItemsToPlayerCollection(_leagueService, player, collectionType, productItems);
+            _collectionsManager.addItemsToPlayerCollection(player, createCollectionType(collectionType), productItems);
         }
 
         return "OK";
@@ -149,7 +150,7 @@ public class AdminResource extends AbstractResource {
         for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
             Player player = playerCollection.getKey();
 
-            _collectionsManager.moveCollectionToCollection(player, collectionFrom, collectionTo);
+            _collectionsManager.moveCollectionToCollection(player, createCollectionType(collectionFrom), createCollectionType(collectionTo));
         }
 
         return "OK";
@@ -184,5 +185,12 @@ public class AdminResource extends AbstractResource {
 
         if (!player.getType().equals("a"))
             sendError(Response.Status.FORBIDDEN);
+    }
+
+    private CollectionType createCollectionType(String collectionType) {
+        if (collectionType.equals("permanent"))
+            return new CollectionType("permanent", "My cards");
+
+        return _leagueService.getLeagueByType(collectionType).getCollectionType();
     }
 }
