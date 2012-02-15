@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card16_004 extends AbstractMinion {
     public Card16_004() {
-        super(3, 8, 2, 3, Race.WRAITH, Culture.WRAITH, "Dead Faces");
+        super(2, 4, 2, 3, Race.WRAITH, Culture.WRAITH, "Dead Faces");
         addKeyword(Keyword.ENDURING);
     }
 
