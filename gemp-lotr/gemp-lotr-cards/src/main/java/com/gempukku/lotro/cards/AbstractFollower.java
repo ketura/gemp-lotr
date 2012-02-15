@@ -71,7 +71,6 @@ public abstract class AbstractFollower extends AbstractPermanent {
     @Override
     public final List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
-                && self.getZone() == Zone.SUPPORT
                 && canPayAidCost(game, self)
                 && PlayConditions.canSpot(game, getFollowerTarget(game, self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
