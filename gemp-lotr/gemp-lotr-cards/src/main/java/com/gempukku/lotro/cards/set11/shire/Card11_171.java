@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card11_171 extends AbstractAttachableFPPossession {
     public Card11_171() {
-        super(1, 0, 0, Culture.SHIRE, PossessionClass.BOX, "Salt from the Shite");
+        super(1, 0, 0, Culture.SHIRE, PossessionClass.BOX, "Salt from the Shire");
     }
 
     @Override
