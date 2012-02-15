@@ -792,6 +792,10 @@ public class GameState {
             for (PhysicalCardImpl stackedCard : stackedCards)
                 if (isCardInPlayActive(stackedCard.getStackedOn()))
                     startAffectingStacked(game, stackedCard);
+
+        for (List<PhysicalCardImpl> discardedCards : _discards.values())
+            for (PhysicalCardImpl discardedCard : discardedCards)
+                startAffectingInDiscard(game, discardedCard);
     }
 
     public void reapplyAffectingForCard(LotroGame game, PhysicalCard card) {
@@ -811,6 +815,10 @@ public class GameState {
             for (PhysicalCardImpl stackedCard : stackedCards)
                 if (isCardInPlayActive(stackedCard.getStackedOn()))
                     stopAffectingStacked(stackedCard);
+
+        for (List<PhysicalCardImpl> discardedCards : _discards.values())
+            for (PhysicalCardImpl discardedCard : discardedCards)
+                stopAffectingInDiscard(discardedCard);
     }
 
     private void startAffecting(LotroGame game, PhysicalCard card) {
