@@ -197,6 +197,7 @@ var CardFilter = Class.extend({
                 + "<option value='COMPANION'>Companions</option>"
                 + "<option value='CONDITION'>Conditions</option>"
                 + "<option value='EVENT'>Events</option>"
+                + "<option value='FOLLOWER'>Followers</option>"
                 + "<option value='MINION'>Minions</option>"
                 + "<option value='POSSESSION'>Possessions</option>"
                 + "</select>");
