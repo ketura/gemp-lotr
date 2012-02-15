@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card9_052 extends AbstractAlly {
     public Card9_052() {
-        super(5, Block.FELLOWSHIP, 2, 14, 9, null, Culture.SHIRE, "Tob Bombadil", true);
+        super(5, Block.FELLOWSHIP, 2, 14, 9, null, Culture.SHIRE, "Tom Bombadil", true);
     }
 
     @Override
