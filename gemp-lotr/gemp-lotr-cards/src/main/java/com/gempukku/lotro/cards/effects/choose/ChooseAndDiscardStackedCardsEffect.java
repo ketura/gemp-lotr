@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -58,6 +59,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
         if (discardableCards.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), discardableCards));
+            discardingCardsCallback(discardableCards);
             processSubAction(game, subAction);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -67,9 +69,14 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), selectedCards));
+                            discardingCardsCallback(selectedCards);
                             processSubAction(game, subAction);
                         }
                     });
         }
+    }
+
+    protected void discardingCardsCallback(Collection<PhysicalCard> cards) {
+
     }
 }
