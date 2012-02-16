@@ -195,6 +195,15 @@ public class Filters {
         };
     }
 
+    public static Filter maxPrintedTwilightCost(final int printedTwilightCost) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getBlueprint().getTwilightCost() <= printedTwilightCost;
+            }
+        };
+    }
+
     public static Filter hasToken(final Token token) {
         return hasToken(token, 1);
     }
