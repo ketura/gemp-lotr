@@ -620,7 +620,7 @@ public class Filters {
         };
     }
 
-    public static Filter hasStacked(final Filterable filter) {
+    public static Filter hasStacked(final Filterable... filter) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
