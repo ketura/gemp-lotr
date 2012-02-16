@@ -93,6 +93,8 @@ public interface Modifier {
 
     public boolean canHaveTransferredOn(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard playedCard, PhysicalCard target);
 
+    public boolean canBeTransferred(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard attachment);
+
     public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId);
 
     public boolean isValidAssignments(GameState gameState, Side Side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, Set<PhysicalCard> minions);

@@ -228,6 +228,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canBeTransferred(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard attachment) {
+        return true;
+    }
+
+    @Override
     public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
         return false;
     }
