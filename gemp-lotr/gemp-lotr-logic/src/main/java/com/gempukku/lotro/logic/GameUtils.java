@@ -93,11 +93,6 @@ public class GameUtils {
     }
 
     public static int getRegion(GameState gameState) {
-        final int siteNumber = gameState.getCurrentSiteNumber();
-        if (siteNumber <= 3)
-            return 1;
-        if (siteNumber <= 6)
-            return 2;
-        return 3;
+        return (gameState.getCurrentSiteNumber() - 1) / 3;
     }
 }
