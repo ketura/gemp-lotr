@@ -201,11 +201,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return false;
     }
 
+    private boolean hasAllKeywordsRemoved(GameState gameState, PhysicalCard card) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.LOSE_ALL_KEYWORDS_MODIFIER, card)) {
+            if (modifier.lostAllKeywords(gameState, this, card))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         LoggingThreadLocal.logMethodStart(physicalCard, "hasKeyword " + keyword.getHumanReadable());
         try {
-            if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword) && hasTextRemoved(gameState, physicalCard))
+            if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword) &&
+                    (hasTextRemoved(gameState, physicalCard) || hasAllKeywordsRemoved(gameState, physicalCard)))
                 return false;
 
             for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.REMOVE_KEYWORD_MODIFIER, keyword, physicalCard)) {
@@ -231,7 +240,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getKeywordCount " + keyword.getHumanReadable());
         try {
-            if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword) && hasTextRemoved(gameState, physicalCard))
+            if (isCandidateForKeywordRemovalWithTextRemoval(gameState, physicalCard, keyword)
+                    && (hasTextRemoved(gameState, physicalCard) || hasAllKeywordsRemoved(gameState, physicalCard)))
                 return 0;
 
             for (Modifier modifier : getKeywordModifiersAffectingCard(gameState, ModifierEffect.REMOVE_KEYWORD_MODIFIER, keyword, physicalCard)) {

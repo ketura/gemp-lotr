@@ -321,4 +321,9 @@ public abstract class AbstractModifier implements Modifier {
     public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
         return 0;
     }
+
+    @Override
+    public boolean lostAllKeywords(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard card) {
+        return false;
+    }
 }

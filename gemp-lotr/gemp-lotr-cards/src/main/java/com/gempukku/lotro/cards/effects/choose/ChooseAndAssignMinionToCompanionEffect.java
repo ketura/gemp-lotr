@@ -34,7 +34,16 @@ public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffe
     protected void cardSelected(LotroGame game, PhysicalCard card) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
-                new AssignmentEffect(_playerId, _companion, card));
+                new AssignmentEffect(_playerId, _companion, card) {
+                    @Override
+                    protected void assignmentMadeCallback(PhysicalCard fpChar, PhysicalCard minion) {
+                        ChooseAndAssignMinionToCompanionEffect.this.assignmentMadeCallback(fpChar, minion);
+                    }
+                });
         game.getActionsEnvironment().addActionToStack(subAction);
+    }
+
+    protected void assignmentMadeCallback(PhysicalCard fpChar, PhysicalCard minion) {
+
     }
 }

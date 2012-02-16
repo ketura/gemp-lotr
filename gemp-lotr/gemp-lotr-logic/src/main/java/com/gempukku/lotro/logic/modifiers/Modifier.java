@@ -128,4 +128,6 @@ public interface Modifier {
     public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying);
 
     public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying);
+
+    public boolean lostAllKeywords(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard card);
 }
