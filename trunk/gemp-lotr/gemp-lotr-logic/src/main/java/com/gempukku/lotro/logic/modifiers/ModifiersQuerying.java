@@ -90,6 +90,8 @@ public interface ModifiersQuerying {
 
     public boolean canHaveTransferredOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
 
+    public boolean canBeTransferred(GameState gameState, PhysicalCard attachment);
+
     public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId);
 
     public List<? extends ActivateCardAction> getExtraPhaseActions(GameState gameState, PhysicalCard target);

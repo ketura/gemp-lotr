@@ -629,6 +629,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canBeTransferred(GameState gameState, PhysicalCard attachment) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.TRANSFER_MODIFIER, attachment))
+            if (!modifier.canBeTransferred(gameState, this, attachment))
+                return false;
+        return true;
+    }
+
+    @Override
     public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId) {
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.ACTION_MODIFIER))
             if (modifier.shouldSkipPhase(gameState, this, phase, playerId))
