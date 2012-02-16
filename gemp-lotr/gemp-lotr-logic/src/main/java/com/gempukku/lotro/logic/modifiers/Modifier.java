@@ -123,6 +123,8 @@ public interface Modifier {
 
     public boolean isSiteReplaceable(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
 
+    public boolean canPlaySite(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
+
     public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying);
 
     public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying);

@@ -873,6 +873,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return true;
     }
 
+    @Override
+    public boolean canPlaySite(GameState gameState, String playerId) {
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.PLAY_SITE_MODIFIER))
+            if (!modifier.canPlaySite(gameState, this, playerId))
+                return false;
+
+        return true;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

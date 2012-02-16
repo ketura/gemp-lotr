@@ -122,4 +122,6 @@ public interface ModifiersQuerying {
     public boolean hasFlagActive(GameState gameState, ModifierFlag modifierFlag);
 
     public boolean canReplaceSite(GameState gameState, String playerId, PhysicalCard siteToReplace);
+
+    public boolean canPlaySite(GameState gameState, String playerId);
 }
