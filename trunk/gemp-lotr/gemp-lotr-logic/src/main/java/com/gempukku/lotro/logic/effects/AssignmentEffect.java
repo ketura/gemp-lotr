@@ -58,8 +58,14 @@ public class AssignmentEffect extends AbstractEffect {
             game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _fpChar, _minion));
             game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _minion, _fpChar));
 
+            assignmentMadeCallback(_fpChar, _minion);
+
             return new FullEffectResult(true, true);
         }
         return new FullEffectResult(false, false);
+    }
+
+    protected void assignmentMadeCallback(PhysicalCard fpChar, PhysicalCard minion) {
+
     }
 }
