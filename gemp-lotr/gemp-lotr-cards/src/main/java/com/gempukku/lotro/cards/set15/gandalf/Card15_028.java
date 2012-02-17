@@ -3,9 +3,12 @@ package com.gempukku.lotro.cards.set15.gandalf;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
@@ -26,6 +29,13 @@ public class Card15_028 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, new SpotCondition(3, Race.ENT), 2);
+        return new StrengthModifier(self, self,
+                new Condition() {
+                    @Override
+                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
+                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 3;
+                    }
+                }, 2);
     }
 }

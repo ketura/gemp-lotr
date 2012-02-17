@@ -10,10 +10,12 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
@@ -39,7 +41,14 @@ public class Card15_036 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, new SpotCondition(4, Race.ENT), 3);
+        return new StrengthModifier(self, self,
+                new Condition() {
+                    @Override
+                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
+                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 4;
+                    }
+                }, 3);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -119,7 +118,7 @@ public interface Modifier {
 
     public boolean canDiscardCardsFromTopOfDeck(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source);
 
-    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter);
+    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable filter);
 
     public boolean hasFlagActive(GameState gameState, ModifiersQuerying modifiersQuerying, ModifierFlag modifierFlag);
 

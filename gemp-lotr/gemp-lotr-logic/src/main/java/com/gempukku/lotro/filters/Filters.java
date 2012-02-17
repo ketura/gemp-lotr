@@ -71,10 +71,7 @@ public class Filters {
     }
 
     public static int countSpottable(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
-        Filter filter = Filters.and(filters);
-        GetCardsMatchingFilterVisitor visitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, filter);
-        gameState.iterateActiveCards(visitor);
-        return modifiersQuerying.getSpotCount(gameState, filter, visitor.getCounter());
+        return countActive(gameState, modifiersQuerying, filters);
     }
 
     public static Collection<PhysicalCard> filterActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {

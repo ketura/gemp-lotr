@@ -1,9 +1,7 @@
 package com.gempukku.lotro.cards.modifiers;
 
-import com.gempukku.lotro.cards.modifiers.spotting.SimpleLotroCardBlueprint;
-import com.gempukku.lotro.cards.modifiers.spotting.SimplePhysicalCard;
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
@@ -18,16 +16,10 @@ public class PossessionClassSpotModifier extends AbstractModifier {
         _possessionClass = possessionClass;
     }
 
+
     @Override
-    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
-        if (filter.accepts(gameState, modifiersQuerying,
-                new SimplePhysicalCard(
-                        new SimpleLotroCardBlueprint() {
-                            @Override
-                            public PossessionClass getPossessionClass() {
-                                return _possessionClass;
-                            }
-                        })))
+    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable filter) {
+        if (filter == _possessionClass)
             return 1;
         return 0;
     }

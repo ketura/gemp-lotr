@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -119,7 +118,7 @@ public interface ModifiersQuerying {
 
     public Side hasInitiative(GameState gameState);
 
-    public int getSpotCount(GameState gameState, Filter filter, int inPlayCount);
+    public int getSpotBonus(GameState gameState, Filterable filter);
 
     public boolean hasFlagActive(GameState gameState, ModifierFlag modifierFlag);
 

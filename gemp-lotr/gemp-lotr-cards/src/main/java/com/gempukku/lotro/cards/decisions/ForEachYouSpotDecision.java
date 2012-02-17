@@ -25,6 +25,7 @@ public abstract class ForEachYouSpotDecision extends IntegerAwaitingDecision {
     public Map<String, Object> getDecisionParameters() {
         Map<String, Object> result = super.getDecisionParameters();
         int count = Filters.countSpottable(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), _filter);
+        count += _lotroGame.getModifiersQuerying().getSpotBonus(_lotroGame.getGameState(), _filter);
         _max = count;
         result.put("max", String.valueOf(count));
         if (_defaultValue > _max)
