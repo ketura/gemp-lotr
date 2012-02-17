@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set13.rohan;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -37,7 +37,7 @@ public class Card13_128 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountSpottableEvaluator(Side.SHADOW, CardType.POSSESSION));
+        return new StrengthModifier(self, self, null, new CountActiveEvaluator(Side.SHADOW, CardType.POSSESSION));
     }
 
     @Override

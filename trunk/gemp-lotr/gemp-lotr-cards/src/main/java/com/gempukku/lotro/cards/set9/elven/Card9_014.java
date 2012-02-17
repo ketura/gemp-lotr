@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set9.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -36,6 +36,6 @@ public class Card9_014 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new ResistanceModifier(self, Filters.and(self, Filters.hasAttached(Filters.or(CardType.THE_ONE_RING, CardType.ARTIFACT))), new CountSpottableEvaluator(Culture.ELVEN, CardType.COMPANION)));
+                new ResistanceModifier(self, Filters.and(self, Filters.hasAttached(Filters.or(CardType.THE_ONE_RING, CardType.ARTIFACT))), new CountActiveEvaluator(Culture.ELVEN, CardType.COMPANION)));
     }
 }

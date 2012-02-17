@@ -33,7 +33,7 @@ public class Card12_038 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.GOLLUM);
+        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GOLLUM);
         action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, count) {
                     @Override

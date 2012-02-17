@@ -34,8 +34,8 @@ public class Card15_127 extends AbstractEvent {
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                int hunters = Filters.countSpottable(gameState, modifiersQuerying, Keyword.HUNTER);
-                                int valiantMen = Filters.countSpottable(gameState, modifiersQuerying, Race.MAN, Keyword.VALIANT);
+                                int hunters = Filters.countActive(gameState, modifiersQuerying, Keyword.HUNTER);
+                                int valiantMen = Filters.countActive(gameState, modifiersQuerying, Race.MAN, Keyword.VALIANT);
                                 return Math.max(hunters, valiantMen);
                             }
                         }, Culture.ROHAN, Race.MAN));

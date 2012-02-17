@@ -50,7 +50,7 @@ public class Card3_102 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int allies = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.ALLY);
+            int allies = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.ALLY);
             action.appendEffect(
                     new AddTwilightEffect(self, allies));
             return Collections.singletonList(action);

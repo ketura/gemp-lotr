@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set12.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -29,6 +29,6 @@ public class Card12_161 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountSpottableEvaluator(CardType.COMPANION));
+        return new StrengthModifier(self, self, null, new CountActiveEvaluator(CardType.COMPANION));
     }
 }

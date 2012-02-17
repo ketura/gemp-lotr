@@ -34,8 +34,8 @@ public class Card14_004 extends AbstractCompanion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.ARCHERY)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
-                > Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
+                > Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

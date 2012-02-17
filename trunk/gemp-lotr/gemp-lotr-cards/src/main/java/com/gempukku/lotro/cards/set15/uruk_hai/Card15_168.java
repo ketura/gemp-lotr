@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set15.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -31,6 +31,6 @@ public class Card15_168 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountSpottableEvaluator(Filters.not(self), Culture.URUK_HAI, Keyword.HUNTER));
+        return new StrengthModifier(self, self, null, new CountActiveEvaluator(Filters.not(self), Culture.URUK_HAI, Keyword.HUNTER));
     }
 }

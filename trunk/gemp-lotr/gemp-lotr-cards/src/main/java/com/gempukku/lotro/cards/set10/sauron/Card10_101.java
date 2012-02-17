@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set10.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -43,6 +43,6 @@ public class Card10_101 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, self, null, new CountSpottableEvaluator(CardType.POSSESSION)));
+                new StrengthModifier(self, self, null, new CountActiveEvaluator(CardType.POSSESSION)));
     }
 }

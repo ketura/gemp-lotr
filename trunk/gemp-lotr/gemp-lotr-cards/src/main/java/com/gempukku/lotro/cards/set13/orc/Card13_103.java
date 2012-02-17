@@ -40,7 +40,7 @@ public class Card13_103 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.CONDITION);
+            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.CONDITION);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ORC, count));
             return Collections.singletonList(action);

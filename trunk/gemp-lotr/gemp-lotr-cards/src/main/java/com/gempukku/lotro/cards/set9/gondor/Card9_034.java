@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -43,7 +43,7 @@ public class Card9_034 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.or(Filters.name("Elendil"), Filters.name("Isildur"))), null, new CountSpottableEvaluator(6, Culture.GONDOR, CardType.ARTIFACT)));
+                new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.or(Filters.name("Elendil"), Filters.name("Isildur"))), null, new CountActiveEvaluator(6, Culture.GONDOR, CardType.ARTIFACT)));
     }
 
     @Override

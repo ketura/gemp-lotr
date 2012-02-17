@@ -39,7 +39,7 @@ public class Card6_112 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.GANDALF, CardType.COMPANION);
+                        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GANDALF, CardType.COMPANION);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, character, count), Phase.SKIRMISH));

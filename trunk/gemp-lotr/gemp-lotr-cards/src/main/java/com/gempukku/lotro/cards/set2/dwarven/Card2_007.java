@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -27,6 +27,6 @@ public class Card2_007 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountSpottableEvaluator(4, Culture.DWARVEN, Keyword.TALE));
+        return new StrengthModifier(self, self, null, new CountActiveEvaluator(4, Culture.DWARVEN, Keyword.TALE));
     }
 }

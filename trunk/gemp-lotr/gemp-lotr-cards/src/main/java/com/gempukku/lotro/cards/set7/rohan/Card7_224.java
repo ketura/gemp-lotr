@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -44,7 +44,7 @@ public class Card7_224 extends AbstractCompanion {
                     new SelfExertEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, null, new CountSpottableEvaluator(Filters.uncontrolledSite, Keyword.PLAINS)), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, null, new CountActiveEvaluator(Filters.uncontrolledSite, Keyword.PLAINS)), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;

@@ -38,8 +38,8 @@ public class Card15_079 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION)
-                                        > Filters.countSpottable(gameState, modifiersQuerying, CardType.MINION);
+                                return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION)
+                                        > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
                             }
                         }, 2));
         modifiers.add(
@@ -47,8 +47,8 @@ public class Card15_079 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION)
-                                        > Filters.countSpottable(gameState, modifiersQuerying, CardType.MINION);
+                                return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION)
+                                        > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
                             }
                         }, Keyword.ARCHER, 1));
         return modifiers;

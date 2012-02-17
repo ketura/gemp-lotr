@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set15.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.modifiers.conditions.FierceSkirmishCondition;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -32,6 +32,6 @@ public class Card15_169 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(self, Filters.inSkirmish), new FierceSkirmishCondition(), new CountSpottableEvaluator(Keyword.HUNTER));
+        return new StrengthModifier(self, Filters.and(self, Filters.inSkirmish), new FierceSkirmishCondition(), new CountActiveEvaluator(Keyword.HUNTER));
     }
 }

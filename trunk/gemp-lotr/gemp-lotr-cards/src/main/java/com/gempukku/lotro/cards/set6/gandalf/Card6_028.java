@@ -54,8 +54,8 @@ public class Card6_028 extends AbstractCompanion {
                 new KeywordModifier(self, self, new Condition() {
                     @Override
                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countSpottable(gameState, modifiersQuerying, CardType.MINION) >
-                                Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION);
+                        return Filters.countActive(gameState, modifiersQuerying, CardType.MINION) >
+                                Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
                     }
                 }, Keyword.DEFENDER, 1));
     }

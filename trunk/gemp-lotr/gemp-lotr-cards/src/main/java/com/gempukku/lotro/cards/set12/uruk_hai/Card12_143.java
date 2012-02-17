@@ -35,7 +35,7 @@ public class Card12_143 extends AbstractEvent {
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return Filters.countSpottable(gameState, modifiersQuerying, Filters.not(cardAffected), Culture.URUK_HAI, CardType.MINION);
+                                return Filters.countActive(gameState, modifiersQuerying, Filters.not(cardAffected), Culture.URUK_HAI, CardType.MINION);
                             }
                         }, Culture.URUK_HAI, CardType.MINION));
         return action;

@@ -29,7 +29,7 @@ public class Card12_075 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.MEN);
+        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.MEN);
         action.appendEffect(
                 new AddTwilightEffect(self, count));
         return action;

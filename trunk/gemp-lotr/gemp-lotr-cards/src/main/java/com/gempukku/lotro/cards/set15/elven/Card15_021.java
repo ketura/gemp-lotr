@@ -36,7 +36,7 @@ public class Card15_021 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION,
+        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION,
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

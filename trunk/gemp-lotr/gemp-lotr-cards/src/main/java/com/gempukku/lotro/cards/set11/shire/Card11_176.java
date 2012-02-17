@@ -24,7 +24,7 @@ public class Card11_176 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION);
+        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION);
         for (int i = 0; i < count; i++)
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 0, 1, Race.HOBBIT));

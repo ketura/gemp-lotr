@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -40,6 +40,6 @@ public class Card4_245 extends AbstractMinion {
         return Collections.singletonList(
                 new ArcheryTotalModifier(self, Side.SHADOW,
                         new SpotCondition(Filters.not(self), Keyword.SOUTHRON),
-                        new CountSpottableEvaluator(Filters.siteControlled(self.getOwner()))));
+                        new CountActiveEvaluator(Filters.siteControlled(self.getOwner()))));
     }
 }

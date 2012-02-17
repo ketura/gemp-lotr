@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set15.gollum;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +27,7 @@ public class Card15_045 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(
-                        action, self, playerId, new CountSpottableEvaluator(Race.HOBBIT, Keyword.RING_BOUND), Filters.smeagol));
+                        action, self, playerId, new CountActiveEvaluator(Race.HOBBIT, Keyword.RING_BOUND), Filters.smeagol));
         return action;
     }
 }

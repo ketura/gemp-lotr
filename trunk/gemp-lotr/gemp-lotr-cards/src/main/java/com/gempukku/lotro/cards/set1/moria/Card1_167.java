@@ -33,7 +33,7 @@ public class Card1_167 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose MORIA Orc", Culture.MORIA, Race.ORC) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard orc) {
-                        int bonus = Math.min(4, Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.not(Filters.sameCard(orc))));
+                        int bonus = Math.min(4, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.not(Filters.sameCard(orc))));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(orc), bonus), Phase.SKIRMISH));

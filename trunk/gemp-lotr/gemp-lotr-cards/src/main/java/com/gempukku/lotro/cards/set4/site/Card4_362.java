@@ -29,7 +29,7 @@ public class Card4_362 extends AbstractSite {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
                 && game.getGameState().getCurrentSite() == self) {
-            int companionCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
             if (!playerId.equals(game.getGameState().getCurrentPlayerId())
                     && companionCount > 4) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);

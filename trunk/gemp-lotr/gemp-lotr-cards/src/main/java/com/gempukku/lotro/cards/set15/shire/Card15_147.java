@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set15.shire;
 import com.gempukku.lotro.cards.AbstractFollower;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -50,6 +50,6 @@ public class Card15_147 extends AbstractFollower {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.hasAttached(self), null, new CountSpottableEvaluator(CardType.MINION, Keyword.FIERCE)));
+                new StrengthModifier(self, Filters.hasAttached(self), null, new CountActiveEvaluator(CardType.MINION, Keyword.FIERCE)));
     }
 }

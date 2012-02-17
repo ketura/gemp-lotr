@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set13.shire;
 import com.gempukku.lotro.cards.AbstractFollower;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -52,6 +52,6 @@ public class Card13_150 extends AbstractFollower {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.hasAttached(self), null, new CountSpottableEvaluator(Race.HOBBIT, Keyword.RING_BOUND)));
+                new StrengthModifier(self, Filters.hasAttached(self), null, new CountActiveEvaluator(Race.HOBBIT, Keyword.RING_BOUND)));
     }
 }

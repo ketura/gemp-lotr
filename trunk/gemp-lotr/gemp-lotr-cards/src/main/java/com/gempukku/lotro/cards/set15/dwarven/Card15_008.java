@@ -32,7 +32,7 @@ public class Card15_008 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Keyword.HUNTER);
+                        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Keyword.HUNTER);
                         if (count > 0) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

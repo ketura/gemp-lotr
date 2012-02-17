@@ -39,7 +39,7 @@ public class Card15_109 extends AbstractMinion {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(),
-                            Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.character, Keyword.HUNTER), true));
+                            Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.character, Keyword.HUNTER), true));
             return Collections.singletonList(action);
         }
         return null;

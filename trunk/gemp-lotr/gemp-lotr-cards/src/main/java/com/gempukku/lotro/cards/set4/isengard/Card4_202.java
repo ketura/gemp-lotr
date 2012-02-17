@@ -39,7 +39,7 @@ public class Card4_202 extends AbstractMinion {
                 new StrengthModifier(self, self, null, new Evaluator() {
                     @Override
                     public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-                        return 2 * Filters.countSpottable(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner()));
+                        return 2 * Filters.countActive(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner()));
                     }
                 }));
     }

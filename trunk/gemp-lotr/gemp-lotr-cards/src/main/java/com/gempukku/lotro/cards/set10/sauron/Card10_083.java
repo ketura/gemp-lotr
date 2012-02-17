@@ -31,7 +31,7 @@ public class Card10_083 extends AbstractMinion {
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
         if (Filters.canSpot(gameState, modifiersQuerying, Filters.not(self), Culture.SAURON, Race.URUK_HAI))
-            return -Filters.countSpottable(gameState, modifiersQuerying, CardType.POSSESSION);
+            return -Filters.countActive(gameState, modifiersQuerying, CardType.POSSESSION);
         return 0;
     }
 }

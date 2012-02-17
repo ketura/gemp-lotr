@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.rohan;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -53,7 +53,7 @@ public class Card7_365 extends AbstractCompanion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, null, new CountSpottableEvaluator(CardType.COMPANION, Keyword.VALIANT)), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, null, new CountActiveEvaluator(CardType.COMPANION, Keyword.VALIANT)), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;

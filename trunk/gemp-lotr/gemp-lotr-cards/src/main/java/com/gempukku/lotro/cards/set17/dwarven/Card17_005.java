@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -36,7 +36,7 @@ public class Card17_005 extends AbstractEvent {
         else
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(
-                            action, self, playerId, new CountSpottableEvaluator(Race.DWARF), Race.DWARF));
+                            action, self, playerId, new CountActiveEvaluator(Race.DWARF), Race.DWARF));
         return action;
     }
 }

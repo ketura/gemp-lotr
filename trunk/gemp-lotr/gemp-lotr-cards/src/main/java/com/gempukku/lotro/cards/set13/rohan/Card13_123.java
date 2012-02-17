@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set13.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -43,7 +43,7 @@ public class Card13_123 extends AbstractCompanion {
         modifiers.add(
                 new StrengthModifier(self, self,
                         new NotCondition(new SpotCondition(Filters.not(self), CardType.COMPANION, Filters.assignedToSkirmish)),
-                        new CountSpottableEvaluator(Filters.not(self), CardType.COMPANION, Culture.ROHAN)));
+                        new CountActiveEvaluator(Filters.not(self), CardType.COMPANION, Culture.ROHAN)));
         return modifiers;
     }
 }

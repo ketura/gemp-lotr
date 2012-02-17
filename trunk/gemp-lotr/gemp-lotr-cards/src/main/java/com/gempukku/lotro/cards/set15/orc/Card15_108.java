@@ -37,7 +37,7 @@ public class Card15_108 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, Filters.or(CardType.POSSESSION, CardType.ARTIFACT));
+            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, Filters.or(CardType.POSSESSION, CardType.ARTIFACT));
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.FORTIFICATION));

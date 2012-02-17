@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set15.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -31,6 +31,6 @@ public class Card15_071 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountSpottableEvaluator(CardType.MINION, Keyword.ROAMING));
+        return new StrengthModifier(self, self, null, new CountActiveEvaluator(CardType.MINION, Keyword.ROAMING));
     }
 }

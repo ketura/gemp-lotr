@@ -54,7 +54,7 @@ public class Card15_067 extends AbstractPermanent {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countSpottable(gameState, modifiersQuerying, Culture.GONDOR, Keyword.RANGER);
+        return -Filters.countActive(gameState, modifiersQuerying, Culture.GONDOR, Keyword.RANGER);
     }
 
     @Override

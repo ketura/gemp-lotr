@@ -48,16 +48,16 @@ public class Card14_005 extends AbstractCompanion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countSpottable(gameState, modifiersQuerying, CardType.MINION)
-                                        > Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION);
+                                return Filters.countActive(gameState, modifiersQuerying, CardType.MINION)
+                                        > Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
                             }
                         }, new Evaluator() {
-                    @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return Filters.countSpottable(gameState, modifiersQuerying, CardType.MINION)
-                                - Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION);
-                    }
-                }
+                            @Override
+                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                                return Filters.countActive(gameState, modifiersQuerying, CardType.MINION)
+                                        - Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
+                            }
+                        }
                 ));
         return modifiers;
     }

@@ -39,7 +39,7 @@ public class Card7_238 extends AbstractEvent {
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(String opponentId) {
-                        int cardCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.mounted);
+                        int cardCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.mounted);
                         for (int i = 0; i < cardCount; i++) {
                             List<Effect> possibleEffects = new LinkedList<Effect>();
                             possibleEffects.add(

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set13.gollum;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,6 +23,6 @@ public class Card13_044 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.gollum, null, new CountSpottableEvaluator(CardType.COMPANION, Keyword.RING_BOUND));
+        return new StrengthModifier(self, Filters.gollum, null, new CountActiveEvaluator(CardType.COMPANION, Keyword.RING_BOUND));
     }
 }
