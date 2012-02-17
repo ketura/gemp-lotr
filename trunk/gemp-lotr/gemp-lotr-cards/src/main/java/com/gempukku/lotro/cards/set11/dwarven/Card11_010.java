@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,6 +40,7 @@ public class Card11_010 extends AbstractCompanion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Race.DWARF, CardType.COMPANION)
+                && PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.canDiscardFromPlay(self, game, 2, Culture.DWARVEN, Filters.not(Filters.character))) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
 
