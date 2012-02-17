@@ -32,7 +32,7 @@ public class Card15_131 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int huntersCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.character, Keyword.HUNTER);
+        int huntersCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.character, Keyword.HUNTER);
         for (int i = 0; i < huntersCount; i++)
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.POSSESSION));

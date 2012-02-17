@@ -35,7 +35,7 @@ public class Card14_014 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.ASSIGNMENT)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int countCompanions = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            int countCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
             for (int i = 0; i < countCompanions; i++)
                 action.appendEffect(
                         new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI));

@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -55,7 +55,7 @@ public class Card7_293 extends AbstractMinion {
                                             new StrengthModifier(self, card, null,
                                                     new NegativeEvaluator(
                                                             new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3,
-                                                                    new CountSpottableEvaluator(Filters.not(self), Culture.SAURON, Race.ORC)))), Phase.SKIRMISH));
+                                                                    new CountActiveEvaluator(Filters.not(self), Culture.SAURON, Race.ORC)))), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);

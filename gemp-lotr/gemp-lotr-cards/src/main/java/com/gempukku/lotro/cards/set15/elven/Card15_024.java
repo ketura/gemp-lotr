@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -53,7 +53,7 @@ public class Card15_024 extends AbstractPermanent {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                            new CountSpottableEvaluator(CardType.COMPANION, Keyword.ARCHER), Culture.ELVEN, CardType.COMPANION));
+                            new CountActiveEvaluator(CardType.COMPANION, Keyword.ARCHER), Culture.ELVEN, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

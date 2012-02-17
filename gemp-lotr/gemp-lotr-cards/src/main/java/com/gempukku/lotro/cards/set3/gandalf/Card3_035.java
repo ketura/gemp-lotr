@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -47,7 +47,7 @@ public class Card3_035 extends AbstractPermanent {
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), null,
                                                     new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3,
-                                                            new CountSpottableEvaluator(CardType.COMPANION, Signet.GANDALF))), Phase.SKIRMISH));
+                                                            new CountActiveEvaluator(CardType.COMPANION, Signet.GANDALF))), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);

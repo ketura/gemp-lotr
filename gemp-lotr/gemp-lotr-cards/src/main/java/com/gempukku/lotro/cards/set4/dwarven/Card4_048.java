@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -37,6 +37,6 @@ public class Card4_048 extends AbstractCompanion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, self, null,
-                        new CountSpottableEvaluator(Filters.and(Filters.unboundCompanion, Race.HOBBIT))));
+                        new CountActiveEvaluator(Filters.and(Filters.unboundCompanion, Race.HOBBIT))));
     }
 }

@@ -51,7 +51,7 @@ public class Card1_091 extends AbstractAttachableFPPossession {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
-                                    int companionsCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+                                    int companionsCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
                                     spotCount = Math.min(spotCount, companionsCount);
                                     action.appendEffect(
                                             new ChooseAndHealCharactersEffect(action, playerId, spotCount, spotCount, CardType.COMPANION));

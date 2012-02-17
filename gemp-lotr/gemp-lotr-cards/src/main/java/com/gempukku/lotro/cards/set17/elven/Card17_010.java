@@ -41,7 +41,7 @@ public class Card17_010 extends AbstractPermanent {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTokenEffect(self, self, Token.ELVEN, Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Keyword.HUNTER)));
+                    new AddTokenEffect(self, self, Token.ELVEN, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Keyword.HUNTER)));
             return Collections.singletonList(action);
         }
         return null;

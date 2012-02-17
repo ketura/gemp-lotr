@@ -36,7 +36,7 @@ public class Card8_102 extends AbstractMinion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countSpottable(gameState, modifiersQuerying, Culture.SAURON, Keyword.ENGINE);
+        return -Filters.countActive(gameState, modifiersQuerying, Culture.SAURON, Keyword.ENGINE);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set15.orc;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -46,7 +46,7 @@ public class Card15_099 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new AddThreatsEffect(playerId, self, new CountSpottableEvaluator(Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.ARTIFACT))));
+                    new AddThreatsEffect(playerId, self, new CountActiveEvaluator(Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.ARTIFACT))));
             return Collections.singletonList(action);
         }
         return null;

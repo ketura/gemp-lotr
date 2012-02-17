@@ -46,7 +46,7 @@ public class Card12_112 extends AbstractCompanion {
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSelfExert(self, game)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION) > Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION) > Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));

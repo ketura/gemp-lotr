@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -42,7 +42,7 @@ public class Card6_099 extends AbstractMinion {
                     new SelfExertEffect(self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                            new CountSpottableEvaluator(CardType.MINION, Keyword.TWILIGHT),
+                            new CountActiveEvaluator(CardType.MINION, Keyword.TWILIGHT),
                             CardType.MINION, Filters.or(Culture.SAURON, Keyword.TWILIGHT)));
             return Collections.singletonList(action);
         }

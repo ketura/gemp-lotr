@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -32,6 +32,6 @@ public class Card1_049 extends AbstractAttachable {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), null, new CountSpottableEvaluator(3, Race.ELF));
+        return new StrengthModifier(self, Filters.hasAttached(self), null, new CountActiveEvaluator(3, Race.ELF));
     }
 }

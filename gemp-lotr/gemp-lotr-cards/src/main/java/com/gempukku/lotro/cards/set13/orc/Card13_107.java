@@ -31,8 +31,8 @@ public class Card13_107 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && (
-                Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.CONDITION)
-                        > Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.MINION))
+                Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.CONDITION)
+                        > Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.MINION))
                 && PlayConditions.canDiscardFromPlay(self, game, Filters.owner(playerId), Culture.ORC, CardType.CONDITION)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.ORC, CardType.MINION);
     }

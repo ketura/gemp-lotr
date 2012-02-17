@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -42,6 +42,6 @@ public class Card4_073 extends AbstractCompanion {
                                         CardType.CONDITION
                                 )
                         ), null,
-                        new CountSpottableEvaluator(Filters.and(Filters.unboundCompanion, Race.HOBBIT))));
+                        new CountActiveEvaluator(Filters.and(Filters.unboundCompanion, Race.HOBBIT))));
     }
 }

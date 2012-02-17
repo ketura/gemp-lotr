@@ -43,7 +43,7 @@ public class Card1_155 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(self));
             // TODO this should give option to player to spot less
-            int isengardMinionCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
+            int isengardMinionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
             for (int i = 0; i < isengardMinionCount; i++) {
                 action.appendEffect(
                         new UnrespondableEffect() {

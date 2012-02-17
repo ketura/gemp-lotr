@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -27,6 +27,6 @@ public class Card1_163 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountSpottableEvaluator(Culture.MORIA, Race.ORC, Filters.not(self)));
+        return new StrengthModifier(self, self, null, new CountActiveEvaluator(Culture.MORIA, Race.ORC, Filters.not(self)));
     }
 }

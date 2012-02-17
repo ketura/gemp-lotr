@@ -33,7 +33,7 @@ public class Card8_090 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Theoden")));
-        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Signet.THÉODEN);
+        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Signet.THÉODEN);
         for (int i = 0; i < count; i++)
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));

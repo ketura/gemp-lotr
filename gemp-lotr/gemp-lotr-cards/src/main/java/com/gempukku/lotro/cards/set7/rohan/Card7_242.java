@@ -40,8 +40,8 @@ public class Card7_242 extends AbstractAttachableFPPossession {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Merry")));
-            int countSpottable = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, CardType.COMPANION);
-            for (int i = 0; i < countSpottable; i++) {
+            int countActive = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, CardType.COMPANION);
+            for (int i = 0; i < countActive; i++) {
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             }

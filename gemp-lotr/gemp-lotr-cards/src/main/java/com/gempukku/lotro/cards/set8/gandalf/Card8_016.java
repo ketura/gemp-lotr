@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -39,7 +39,7 @@ public class Card8_016 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new NegativeEvaluator(new CountSpottableEvaluator(Signet.GANDALF)), CardType.MINION, Filters.inSkirmishAgainst(Filters.unboundCompanion)));
+                        new NegativeEvaluator(new CountActiveEvaluator(Signet.GANDALF)), CardType.MINION, Filters.inSkirmishAgainst(Filters.unboundCompanion)));
         return action;
     }
 }

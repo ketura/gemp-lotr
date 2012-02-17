@@ -29,8 +29,8 @@ public class Card13_192 extends AbstractNewSite {
                 new Condition() {
                     @Override
                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countSpottable(gameState, modifiersQuerying, CardType.COMPANION)
-                                > Filters.countSpottable(gameState, modifiersQuerying, CardType.MINION);
+                        return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION)
+                                > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
                     }
                 }, 1);
     }

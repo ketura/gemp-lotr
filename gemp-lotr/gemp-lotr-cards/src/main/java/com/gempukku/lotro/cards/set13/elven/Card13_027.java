@@ -48,7 +48,7 @@ public class Card13_027 extends AbstractPermanent {
         if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.isPhase(game, Phase.REGROUP)
                 && PlayConditions.canSpot(game, Filters.or(Filters.arwen, Filters.name("Celeborn"), Filters.galadriel))) {
-            int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.arwen, Filters.name("Celeborn"), Filters.galadriel));
+            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.arwen, Filters.name("Celeborn"), Filters.galadriel));
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, count));

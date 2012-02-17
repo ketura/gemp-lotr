@@ -44,8 +44,8 @@ public class Card15_103 extends AbstractMinion {
                 new Condition() {
                     @Override
                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countSpottable(gameState, modifiersQuerying, CardType.SITE, Zone.ADVENTURE_PATH)
-                                > Filters.countSpottable(gameState, modifiersQuerying, CardType.MINION);
+                        return Filters.countActive(gameState, modifiersQuerying, CardType.SITE, Zone.ADVENTURE_PATH)
+                                > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
                     }
                 }, 5);
     }

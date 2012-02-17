@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set13.men;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -33,6 +33,6 @@ public class Card13_096 extends AbstractMinion {
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, self,
                 new SpotCondition(Filters.not(self), Culture.MEN, CardType.MINION),
-                new MultiplyEvaluator(2, new CountSpottableEvaluator(CardType.COMPANION, Filters.assignedToSkirmish)));
+                new MultiplyEvaluator(2, new CountActiveEvaluator(CardType.COMPANION, Filters.assignedToSkirmish)));
     }
 }

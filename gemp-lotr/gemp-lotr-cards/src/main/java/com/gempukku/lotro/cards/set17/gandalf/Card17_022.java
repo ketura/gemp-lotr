@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set17.gandalf;
 
 import com.gempukku.lotro.cards.AbstractFollower;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -50,6 +50,6 @@ public class Card17_022 extends AbstractFollower {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self, Filters.hasAttached(self), null, new CountSpottableEvaluator(Filters.not(self), Culture.GANDALF, CardType.FOLLOWER)));
+                new StrengthModifier(self, Filters.hasAttached(self), null, new CountActiveEvaluator(Filters.not(self), Culture.GANDALF, CardType.FOLLOWER)));
     }
 }

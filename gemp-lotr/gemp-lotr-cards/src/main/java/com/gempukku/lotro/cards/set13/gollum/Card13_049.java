@@ -48,7 +48,7 @@ public class Card13_049 extends AbstractPermanent {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTokenEffect(self, self, Token.GOLLUM, Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.GOLLUM)));
+                    new AddTokenEffect(self, self, Token.GOLLUM, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GOLLUM)));
             return Collections.singletonList(action);
         }
         return null;

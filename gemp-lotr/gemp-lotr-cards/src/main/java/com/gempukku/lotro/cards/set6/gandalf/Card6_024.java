@@ -31,7 +31,7 @@ public class Card6_024 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an Ent", Race.ENT) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int unboundHobbit = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, Filters.unboundCompanion);
+                        int unboundHobbit = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, Filters.unboundCompanion);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, unboundHobbit), Phase.SKIRMISH));

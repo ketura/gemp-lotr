@@ -35,7 +35,7 @@ public class Card4_008 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Chooose DUNLAND Man", Culture.DUNLAND, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int bonus = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+                        int bonus = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));

@@ -43,7 +43,7 @@ public class Card7_267 extends AbstractEvent {
                                 new DiscardTopCardFromDeckEffect(self, opponentId, 1, true) {
                                     @Override
                                     protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
-                                        final int besiegerCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Keyword.BESIEGER);
+                                        final int besiegerCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Keyword.BESIEGER);
                                         for (PhysicalCard card : cards) {
                                             if (card.getBlueprint().getTwilightCost() < besiegerCount) {
                                                 action.appendEffect(

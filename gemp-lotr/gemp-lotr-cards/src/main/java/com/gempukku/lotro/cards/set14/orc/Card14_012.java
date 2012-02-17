@@ -38,8 +38,8 @@ public class Card14_012 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.ASSIGNMENT)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)
-                > Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)
+                > Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
                 && PlayConditions.canPlayFromDiscard(playerId, game, 2, 0, Culture.ORC, Race.ORC)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

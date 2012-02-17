@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set12.men;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -39,7 +39,7 @@ public class Card12_057 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, self, null, new CountSpottableEvaluator(Filters.not(self), Filters.character)));
+                new StrengthModifier(self, self, null, new CountActiveEvaluator(Filters.not(self), Filters.character)));
         modifiers.add(
                 new KeywordModifier(self, self, new SpotCondition(CardType.COMPANION, Filters.maxResistance(3)), Keyword.DAMAGE, 1));
         modifiers.add(

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set10.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -38,6 +38,6 @@ public class Card10_006 extends AbstractCompanion {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), null,
-                        new MultiplyEvaluator(-2, new CountSpottableEvaluator(CardType.MINION, Filters.wounded))));
+                        new MultiplyEvaluator(-2, new CountActiveEvaluator(CardType.MINION, Filters.wounded))));
     }
 }

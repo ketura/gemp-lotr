@@ -36,7 +36,7 @@ public class Card15_037 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countSpottable(gameState, modifiersQuerying, Culture.GANDALF, CardType.CONDITION);
+        return -Filters.countActive(gameState, modifiersQuerying, Culture.GANDALF, CardType.CONDITION);
     }
 
     @Override
