@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -866,8 +865,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public int getSpotCount(GameState gameState, Filter filter, int inPlayCount) {
-        int result = inPlayCount;
+    public int getSpotBonus(GameState gameState, Filterable filter) {
+        int result = 0;
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
             result += modifier.getSpotCountModifier(gameState, this, filter);
         return Math.max(0, result);

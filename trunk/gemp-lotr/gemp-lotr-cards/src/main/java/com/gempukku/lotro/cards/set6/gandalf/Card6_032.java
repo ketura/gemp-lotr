@@ -36,6 +36,7 @@ public class Card6_032 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -2 * Filters.countSpottable(gameState, modifiersQuerying, Filters.or(Race.ENT, Filters.and(Race.HOBBIT, Filters.unboundCompanion)));
+        return -2 * (Filters.countSpottable(gameState, modifiersQuerying, Filters.or(Race.ENT, Filters.and(Race.HOBBIT, Filters.unboundCompanion)))
+                + modifiersQuerying.getSpotBonus(gameState, Race.ENT));
     }
 }

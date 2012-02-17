@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -31,23 +31,21 @@ public class Card15_032 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Race.ENT);
+                && (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.ENT) + game.getModifiersQuerying().getSpotBonus(game.getGameState(), Race.ENT)) > 1;
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
-        if (PlayConditions.canSpot(game, Race.ENT)) {
-            possibleEffects.add(
-                    new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.GANDALF, CardType.COMPANION) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Take a GANDALF companion into hand from your draw deck";
-                        }
-                    });
-        }
-        if (PlayConditions.canSpot(game, 2, Race.ENT)) {
+        possibleEffects.add(
+                new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.GANDALF, CardType.COMPANION) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Take a GANDALF companion into hand from your draw deck";
+                    }
+                });
+        if ((Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.ENT) + game.getModifiersQuerying().getSpotBonus(game.getGameState(), Race.ENT)) >= 2) {
             possibleEffects.add(
                     new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.GANDALF, CardType.COMPANION) {
                         @Override

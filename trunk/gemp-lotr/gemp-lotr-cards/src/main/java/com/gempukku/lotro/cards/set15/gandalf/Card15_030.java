@@ -6,9 +6,9 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
@@ -29,11 +29,19 @@ public class Card15_030 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countSpottable(gameState, modifiersQuerying, Race.ENT);
+        return -Filters.countActive(gameState, modifiersQuerying, Race.ENT)
+                - modifiersQuerying.getSpotBonus(gameState, Race.ENT);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new StrengthModifier(self, self, new SpotCondition(4, Filters.not(self), Race.ENT), 4);
+    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+        return new StrengthModifier(self, self,
+                new Condition() {
+                    @Override
+                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                        return Filters.countActive(gameState, modifiersQuerying, Filters.not(self), Race.ENT)
+                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 4;
+                    }
+                }, 4);
     }
 }

@@ -298,7 +298,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
+    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable filter) {
         return 0;
     }
 
