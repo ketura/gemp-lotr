@@ -37,6 +37,10 @@ public class PlayConditions {
         return true;
     }
 
+    public static boolean canLiberateASite(LotroGame game) {
+        return PlayConditions.canSpot(game, Filters.siteControlledByShadowPlayer(game.getGameState().getCurrentPlayerId()));
+    }
+
     public static boolean canDiscardFromHand(LotroGame game, String playerId, int count, Filterable... cardFilter) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), cardFilter).size() >= count;
     }
