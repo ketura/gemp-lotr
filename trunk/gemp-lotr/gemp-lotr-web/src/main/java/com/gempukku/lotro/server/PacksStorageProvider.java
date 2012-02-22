@@ -1,9 +1,6 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.packs.FixedPackBox;
-import com.gempukku.lotro.packs.LeagueStarterBox;
-import com.gempukku.lotro.packs.PacksStorage;
-import com.gempukku.lotro.packs.RarityPackBox;
+import com.gempukku.lotro.packs.*;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
@@ -36,6 +33,8 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
         try {
             PacksStorage packStorage = new PacksStorage();
             packStorage.addPackBox("FotR - League Starter", new LeagueStarterBox());
+            packStorage.addPackBox("Random FotR Foil Common", new RandomFoilPack("C", new String[]{"1", "2", "3"}));
+            packStorage.addPackBox("Random FotR Foil Uncommon", new RandomFoilPack("U", new String[]{"1", "2", "3"}));
 
             packStorage.addPackBox("(S)FotR - Starter", new FixedPackBox("(S)FotR - Starter"));
             packStorage.addPackBox("(S)MoM - Starter", new FixedPackBox("(S)MoM - Starter"));
