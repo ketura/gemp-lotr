@@ -20,6 +20,8 @@ var packBlueprints = {
     "(S)Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
 
     "FotR - League Starter": "/gemp-lotr/images/boosters/fotr_league_starter.png",
+    "Random FotR Foil Common": "/gemp-lotr/images/boosters/random_foil.png",
+    "Random FotR Foil Uncommon": "/gemp-lotr/images/boosters/random_foil.png",
 
     "FotR - Gandalf Starter": "/gemp-lotr/images/boosters/fotr_gandalf_starter.png",
     "FotR - Aragorn Starter": "/gemp-lotr/images/boosters/fotr_aragorn_starter.png",
