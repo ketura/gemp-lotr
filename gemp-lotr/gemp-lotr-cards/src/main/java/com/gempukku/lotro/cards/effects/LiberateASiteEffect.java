@@ -72,8 +72,13 @@ public class LiberateASiteEffect extends AbstractEffect {
             for (PhysicalCard discardedCard : discardedCards)
                 game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
 
+            liberatedSiteCallback(siteToLiberate);
+
             return new FullEffectResult(true, true);
         }
         return new FullEffectResult(false, false);
+    }
+
+    public void liberatedSiteCallback(PhysicalCard liberatedSite) {
     }
 }
