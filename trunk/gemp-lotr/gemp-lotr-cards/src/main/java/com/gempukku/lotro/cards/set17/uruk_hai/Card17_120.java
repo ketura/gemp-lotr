@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set17.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,7 +39,9 @@ public class Card17_120 extends AbstractMinion {
             if (keyword.isTerrain())
                 modifiers.add(
                         new KeywordModifier(self, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH),
-                                new SpotCondition(Filters.siteControlled(self.getOwner()), keyword), keyword, 1));
+                                new AndCondition(
+                                        new SpotCondition(self, Filters.assignedToSkirmish),
+                                        new SpotCondition(Filters.siteControlled(self.getOwner()), keyword)), keyword, 1));
         }
         return modifiers;
     }
