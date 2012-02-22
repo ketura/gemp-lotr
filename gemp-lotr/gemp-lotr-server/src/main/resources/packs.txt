@@ -25,3 +25,5 @@ EoF - Witch-king Starter
 (S)FotR - Starter
 (S)MoM - Starter
 (S)RotEL - Starter
+Random FotR Foil Common
+Random FotR Foil Uncommon
