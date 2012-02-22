@@ -33,7 +33,7 @@ public class Card12_013 extends AbstractEvent {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
                                 if (modifiersQuerying.getResistance(gameState, cardAffected) >= 4) {
-                                    return Filters.countActive(gameState, modifiersQuerying, CardType.POSSESSION, Filters.attachedTo(cardAffected));
+                                    return 2 * Filters.countActive(gameState, modifiersQuerying, CardType.POSSESSION, Filters.attachedTo(cardAffected));
                                 } else {
                                     return 2;
                                 }
