@@ -13,8 +13,9 @@ public enum Keyword implements Filterable {
 
     WEATHER("Weather", true), TALE("Tale", true), SPELL("Spell", true), SEARCH("Search", true), STEALTH("Stealth", true), TENTACLE("Tentacle", true),
 
-    RIVER("River", true), PLAINS("Plains", true), UNDERGROUND("Underground", true), SANCTUARY("Sanctuary", true), FOREST("Forest", true), MARSH("Marsh", true), MOUNTAIN("Mountain", true),
-    BATTLEGROUND("Battleground", true), DWELLING("Dwelling", true),
+    RIVER("River", true, false, true), PLAINS("Plains", true, false, true), UNDERGROUND("Underground", true, false, true),
+    SANCTUARY("Sanctuary", true, false, true), FOREST("Forest", true, false, true), MARSH("Marsh", true, false, true),
+    MOUNTAIN("Mountain", true, false, true), BATTLEGROUND("Battleground", true, false, true), DWELLING("Dwelling", true, false, true),
 
     PIPEWEED("Pipeweed"),
 
@@ -28,6 +29,7 @@ public enum Keyword implements Filterable {
     private String _humanReadable;
     private boolean _infoDisplayable;
     private boolean _multiples;
+    private boolean _terrain;
 
     private Keyword(String humanReadable) {
         this(humanReadable, false);
@@ -38,9 +40,14 @@ public enum Keyword implements Filterable {
     }
 
     private Keyword(String humanReadable, boolean infoDisplayable, boolean multiples) {
+        this(humanReadable, infoDisplayable, multiples, false);
+    }
+
+    private Keyword(String humanReadable, boolean infoDisplayable, boolean multiples, boolean terrain) {
         _humanReadable = humanReadable;
         _infoDisplayable = infoDisplayable;
         _multiples = multiples;
+        _terrain = terrain;
     }
 
     public String getHumanReadable() {
@@ -53,5 +60,9 @@ public enum Keyword implements Filterable {
 
     public boolean isMultiples() {
         return _multiples;
+    }
+
+    public boolean isTerrain() {
+        return _terrain;
     }
 }
