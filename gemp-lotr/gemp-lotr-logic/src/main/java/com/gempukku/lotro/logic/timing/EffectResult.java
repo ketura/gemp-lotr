@@ -52,7 +52,7 @@ public abstract class EffectResult {
 
         CHARACTER_ASSIGNED, CARD_TRANSFERRED,
 
-        REPLACE_SITE
+        REPLACE_SITE, TAKE_CONTROL_OF_SITE
     }
 
     private Type _type;
