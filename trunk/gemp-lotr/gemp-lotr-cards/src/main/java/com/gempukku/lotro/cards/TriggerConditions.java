@@ -25,6 +25,14 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean takenControlOfASite(EffectResult effectResult, String playerId) {
+        if (effectResult.getType() == EffectResult.Type.TAKE_CONTROL_OF_SITE) {
+            TakeControlOfSiteResult takeResult = (TakeControlOfSiteResult) effectResult;
+            return takeResult.getPlayerId().equals(playerId);
+        }
+        return false;
+    }
+
     public static boolean startOfPhase(LotroGame game, EffectResult effectResult, Phase phase) {
         return (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                 && game.getGameState().getCurrentPhase() == phase);
