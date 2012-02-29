@@ -67,7 +67,7 @@ public class TakeControlOfASiteEffect extends AbstractEffect implements Preventa
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         PhysicalCard site = getFirstControllableSite(game);
         if (site != null && !_prevented) {
-            game.getGameState().takeControlOfCard(_playerId, site, Zone.SUPPORT);
+            game.getGameState().takeControlOfCard(_playerId, game, site, Zone.SUPPORT);
             game.getGameState().sendMessage(_playerId + " took control of " + GameUtils.getCardLink(site));
             game.getActionsEnvironment().emitEffectResult(new TakeControlOfSiteResult(_playerId));
             return new FullEffectResult(true, true);

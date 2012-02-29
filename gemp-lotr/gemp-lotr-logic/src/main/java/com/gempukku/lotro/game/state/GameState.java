@@ -242,14 +242,18 @@ public class GameState {
             listener.cardMoved(card);
     }
 
-    public void takeControlOfCard(String playerId, PhysicalCard card, Zone zone) {
+    public void takeControlOfCard(String playerId, LotroGame game, PhysicalCard card, Zone zone) {
         ((PhysicalCardImpl) card).setCardController(playerId);
         ((PhysicalCardImpl) card).setZone(zone);
+        if (card.getBlueprint().getCardType() == CardType.SITE)
+            startAffectingControlledSite(game, card);
         for (GameStateListener listener : getAllGameStateListeners())
             listener.cardMoved(card);
     }
 
     public void loseControlOfCard(PhysicalCard card, Zone zone) {
+        if (card.getBlueprint().getCardType() == CardType.SITE)
+            stopAffectingControlledSite(card);
         ((PhysicalCardImpl) card).setCardController(null);
         ((PhysicalCardImpl) card).setZone(zone);
         for (GameStateListener listener : getAllGameStateListeners())
@@ -781,6 +785,10 @@ public class GameState {
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getCardType() != CardType.SITE)
                 startAffecting(game, physicalCard);
+            else if (physicalCard.getBlueprint().getCardType() == CardType.SITE &&
+                    physicalCard.getCardController() != null) {
+                startAffectingControlledSite(game, physicalCard);
+            }
         }
 
         // Current site is affecting
@@ -798,6 +806,10 @@ public class GameState {
                 startAffectingInDiscard(game, discardedCard);
     }
 
+    private void startAffectingControlledSite(LotroGame game, PhysicalCard physicalCard) {
+        ((PhysicalCardImpl) physicalCard).startAffectingGameControlledSite(game);
+    }
+
     public void reapplyAffectingForCard(LotroGame game, PhysicalCard card) {
         ((PhysicalCardImpl) card).stopAffectingGame();
         ((PhysicalCardImpl) card).startAffectingGame(game);
@@ -807,6 +819,10 @@ public class GameState {
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getCardType() != CardType.SITE)
                 stopAffecting(physicalCard);
+            else if (physicalCard.getBlueprint().getCardType() == CardType.SITE &&
+                    physicalCard.getCardController() != null) {
+                stopAffectingControlledSite(physicalCard);
+            }
         }
 
         stopAffecting(getCurrentSite());
@@ -819,6 +835,10 @@ public class GameState {
         for (List<PhysicalCardImpl> discardedCards : _discards.values())
             for (PhysicalCardImpl discardedCard : discardedCards)
                 stopAffectingInDiscard(discardedCard);
+    }
+
+    private void stopAffectingControlledSite(PhysicalCard physicalCard) {
+        ((PhysicalCardImpl) physicalCard).stopAffectingGameControlledSite();
     }
 
     private void startAffecting(LotroGame game, PhysicalCard card) {

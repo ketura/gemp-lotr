@@ -51,6 +51,8 @@ public interface LotroCardBlueprint {
 
     public List<? extends Modifier> getInDiscardModifiers(LotroGame game, PhysicalCard self);
 
+    public List<? extends Modifier> getControlledSiteModifiers(LotroGame game, PhysicalCard self);
+
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile);
 
     public CostToEffectAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty);

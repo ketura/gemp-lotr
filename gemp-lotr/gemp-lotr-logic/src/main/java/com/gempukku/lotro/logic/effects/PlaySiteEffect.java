@@ -134,7 +134,7 @@ public class PlaySiteEffect extends AbstractEffect {
                             gameState.sendMessage(newSite.getOwner() + " plays " + GameUtils.getCardLink(newSite));
 
                             if (controlled != null) {
-                                gameState.takeControlOfCard(controlled, newSite, zone);
+                                gameState.takeControlOfCard(controlled, game, newSite, zone);
                                 for (PhysicalCard physicalCard : stacked)
                                     gameState.stackCard(game, physicalCard, newSite);
                             }
