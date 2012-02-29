@@ -37,7 +37,7 @@ public class Card18_004 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
-                && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.name("Arwen"))
+                && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.arwen)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Culture.ELVEN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
