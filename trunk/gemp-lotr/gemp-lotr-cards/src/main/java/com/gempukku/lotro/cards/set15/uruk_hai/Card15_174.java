@@ -56,7 +56,7 @@ public class Card15_174 extends AbstractMinion {
                                                             siteOnPath.setSiteNumber(controlledNumber);
                                                             controlledSite.setSiteNumber(onPathNumber);
                                                             game.getGameState().loseControlOfCard(controlledSite, Zone.ADVENTURE_PATH);
-                                                            game.getGameState().takeControlOfCard(playerId, siteOnPath, Zone.SUPPORT);
+                                                            game.getGameState().takeControlOfCard(playerId, game, siteOnPath, Zone.SUPPORT);
                                                         }
                                                     });
                                         }
