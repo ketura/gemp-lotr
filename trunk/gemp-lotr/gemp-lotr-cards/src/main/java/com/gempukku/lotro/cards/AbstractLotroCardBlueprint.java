@@ -14,10 +14,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     private String _name;
@@ -165,6 +162,13 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public Set<PossessionClass> getPossessionClasses() {
+        final PossessionClass possessionClass = getPossessionClass();
+        if (possessionClass != null)
+            return Collections.singleton(possessionClass);
+        return null;
+    }
+
     public PossessionClass getPossessionClass() {
         return null;
     }

@@ -13,6 +13,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.List;
+import java.util.Set;
 
 public interface LotroCardBlueprint {
     public Side getSide();
@@ -87,7 +88,7 @@ public interface LotroCardBlueprint {
 
     public int getSiteNumber();
 
-    public PossessionClass getPossessionClass();
+    public Set<PossessionClass> getPossessionClasses();
 
     public Direction getSiteDirection();
 

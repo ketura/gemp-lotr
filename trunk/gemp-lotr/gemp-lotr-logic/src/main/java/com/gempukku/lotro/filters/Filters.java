@@ -159,7 +159,8 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return physicalCard.getBlueprint().getPossessionClass() == possessionClass;
+                final Set<PossessionClass> possessionClasses = physicalCard.getBlueprint().getPossessionClasses();
+                return possessionClasses != null && possessionClasses.contains(possessionClass);
             }
         };
     }
