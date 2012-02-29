@@ -141,6 +141,8 @@ var Card = Class.extend({
             return (cardNo >= 185 && cardNo <= 194);
         if (setNo == 15)
             return (cardNo >= 187 && cardNo <= 194);
+        if (setNo == 17)
+            return (cardNo >= 145 && cardNo <= 148);
         return false;
     },
 
@@ -185,6 +187,8 @@ var Card = Class.extend({
     },
 
     getMasterworksOffset: function(setNo) {
+        if (setNo == 17)
+            return 148;
         return 194;
     },
 
@@ -195,6 +199,8 @@ var Card = Class.extend({
             return cardNo > 194;
         if (setNo == 15)
             return cardNo > 194 && cardNo < 204;
+        if (setNo == 17)
+            return cardNo > 148;
         return false;
     },
 
