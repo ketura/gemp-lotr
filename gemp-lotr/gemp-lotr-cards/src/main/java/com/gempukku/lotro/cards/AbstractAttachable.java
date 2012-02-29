@@ -41,16 +41,18 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        PossessionClass possessionClass = getPossessionClass();
-                        if (possessionClass != null) {
-                            boolean extraPossessionClass = isExtraPossessionClass(game, self, physicalCard);
-                            List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
-                            Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), possessionClass);
-                            if (matchingClassPossessions.size() > 1)
-                                return false;
-                            if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&
-                                    !((AbstractAttachable) matchingClassPossessions.iterator().next().getBlueprint()).isExtraPossessionClass(game, self, physicalCard))
-                                return false;
+                        Set<PossessionClass> possessionClasses = getPossessionClasses();
+                        if (possessionClasses != null) {
+                            for (PossessionClass possessionClass : possessionClasses) {
+                                boolean extraPossessionClass = isExtraPossessionClass(game, self, physicalCard);
+                                List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
+                                Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, gameState, modifiersQuerying, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), possessionClass);
+                                if (matchingClassPossessions.size() > 1)
+                                    return false;
+                                if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&
+                                        !((AbstractAttachable) matchingClassPossessions.iterator().next().getBlueprint()).isExtraPossessionClass(game, self, physicalCard))
+                                    return false;
+                            }
                         }
                         return true;
                     }
