@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set15.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -39,7 +40,8 @@ public class Card15_180 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingWounded(effect, game, Filters.owner(playerId), CardType.MINION, Keyword.HUNTER)) {
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.owner(playerId), CardType.MINION, Keyword.HUNTER)
+                && PlayConditions.isPhase(game, Phase.SKIRMISH)) {
             ActivateCardAction action = new ActivateCardAction(self);
             final Collection<PhysicalCard> woundedCharacters = ((WoundCharactersEffect) effect).getAffectedCardsMinusPrevented(game);
             action.appendCost(
