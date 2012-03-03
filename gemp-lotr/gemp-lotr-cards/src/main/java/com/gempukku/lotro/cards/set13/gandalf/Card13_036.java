@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set13.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -55,8 +56,9 @@ public class Card13_036 extends AbstractAttachableFPPossession {
     @Override
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
         AttachPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        permanentAction.appendCost(
-                new ChooseAndDiscardCardsFromPlayEffect(permanentAction, playerId, 1, 1, Filters.name(getName())));
+        if (PlayConditions.canSpot(game, Filters.name(getName())))
+            permanentAction.appendCost(
+                    new ChooseAndDiscardCardsFromPlayEffect(permanentAction, playerId, 1, 1, Filters.name(getName())));
         return permanentAction;
     }
 
