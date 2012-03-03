@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set15.elven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -53,7 +53,7 @@ public class Card15_015 extends AbstractPermanent {
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.ELVEN, Race.ELF));
             return Collections.singletonList(action);
