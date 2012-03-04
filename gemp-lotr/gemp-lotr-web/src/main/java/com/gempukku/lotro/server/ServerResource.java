@@ -50,10 +50,6 @@ public class ServerResource extends AbstractResource {
             ApplicationRoot.setRoot(new File("/etc/gemp-lotr"));
         else
             ApplicationRoot.setRoot(new File("i:\\gemp-lotr"));
-
-        _logger.debug("starting resource");
-
-        _logger.debug("Resource created");
     }
 
     @Path("/login")

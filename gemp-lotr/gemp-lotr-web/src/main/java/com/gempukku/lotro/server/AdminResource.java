@@ -5,10 +5,7 @@ import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.sun.jersey.spi.resource.Singleton;
@@ -39,6 +36,8 @@ public class AdminResource extends AbstractResource {
     private LotroCardBlueprintLibrary _library;
     @Context
     private HallServer _hallServer;
+    @Context
+    private LotroServer _lotroServer;
 
     @Path("/clearCache")
     @GET
@@ -50,6 +49,17 @@ public class AdminResource extends AbstractResource {
         _deckDao.clearCache();
         _leagueDao.clearCache();
         _leagueService.clearCache();
+
+        return "OK";
+    }
+
+    @Path("/migrate")
+    @GET
+    public String migrate(
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        _lotroServer.migrateReplays();
 
         return "OK";
     }

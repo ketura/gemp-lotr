@@ -16,11 +16,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
+import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 public class GameRecorder {
     private static String _possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -30,6 +30,46 @@ public class GameRecorder {
 
     public GameRecorder(GameHistoryDAO gameHistoryDao) {
         _gameHistoryDao = gameHistoryDao;
+    }
+
+    public void migrateReplays() {
+        System.out.println("Migrating replays");
+        try {
+            File gameReplayFolder = new File(ApplicationRoot.getRoot(), "replay");
+            for (File file : gameReplayFolder.listFiles()) {
+                System.out.println("Migrating user: " + file.getName());
+                for (File replayFile : file.listFiles()) {
+                    if (replayFile.getName().endsWith(".xml")) {
+                        if (replayFile.length() > 0)
+                            zipFile(replayFile);
+                        replayFile.delete();
+                    }
+                }
+            }
+        } catch (IOException exp) {
+            System.out.println("Exception: " + exp.getMessage());
+            exp.printStackTrace();
+        }
+    }
+
+    private void zipFile(File replayFile) throws IOException {
+        OutputStream out = getRecordingWriteStream(replayFile.getParentFile().getName(), replayFile.getName().substring(0, replayFile.getName().length() - 4));
+        try {
+            // Associate a file input stream for the current file
+            FileInputStream in = new FileInputStream(replayFile);
+            try {
+                // Transfer bytes from the current file to the ZIP file
+
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = in.read(buffer)) > 0)
+                    out.write(buffer, 0, len);
+            } finally {
+                in.close();
+            }
+        } finally {
+            out.close();
+        }
     }
 
     private String randomUid() {
@@ -46,7 +86,7 @@ public class GameRecorder {
         final File file = getRecordingFile(playerId, gameId);
         if (!file.exists() || !file.isFile())
             return null;
-        return new FileInputStream(file);
+        return new InflaterInputStream(new FileInputStream(file));
     }
 
     public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, final String formatName, final Map<String, String> deckNames) {
@@ -74,7 +114,15 @@ public class GameRecorder {
     private File getRecordingFile(String playerId, String gameId) {
         File gameReplayFolder = new File(ApplicationRoot.getRoot(), "replay");
         File playerReplayFolder = new File(gameReplayFolder, playerId);
-        return new File(playerReplayFolder, gameId + ".xml");
+        return new File(playerReplayFolder, gameId + ".xml.gz");
+    }
+
+    private OutputStream getRecordingWriteStream(String playerId, String gameId) throws IOException {
+        File recordingFile = getRecordingFile(playerId, gameId);
+        recordingFile.getParentFile().mkdirs();
+
+        Deflater deflater = new Deflater(9);
+        return new DeflaterOutputStream(new FileOutputStream(recordingFile), deflater);
     }
 
     private Map<String, String> saveRecordedChannels(Map<String, GatheringParticipantCommunicationChannel> gameProgress) {
@@ -82,43 +130,50 @@ public class GameRecorder {
         for (Map.Entry<String, GatheringParticipantCommunicationChannel> playerRecordings : gameProgress.entrySet()) {
             String playerId = playerRecordings.getKey();
 
-            File replayFile;
-            String gameRecordingId;
-            do {
-                gameRecordingId = randomUid();
-                replayFile = getRecordingFile(playerId, gameRecordingId);
-            } while (replayFile.exists());
-
-            replayFile.getParentFile().mkdirs();
-
+            String gameRecordingId = getRecordingId(playerId);
             final List<GameEvent> gameEvents = playerRecordings.getValue().consumeGameEvents();
 
             try {
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-                Document doc = documentBuilder.newDocument();
-                Element gameReplay = doc.createElement("gameReplay");
-                EventSerializer serializer = new EventSerializer();
-                for (GameEvent gameEvent : gameEvents) {
-                    gameReplay.appendChild(serializer.serializeEvent(doc, gameEvent));
+                OutputStream replayStream = getRecordingWriteStream(playerId, gameRecordingId);
+                try {
+                    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                    Document doc = documentBuilder.newDocument();
+                    Element gameReplay = doc.createElement("gameReplay");
+                    EventSerializer serializer = new EventSerializer();
+                    for (GameEvent gameEvent : gameEvents) {
+                        gameReplay.appendChild(serializer.serializeEvent(doc, gameEvent));
+                    }
+
+                    doc.appendChild(gameReplay);
+
+                    // Prepare the DOM document for writing
+                    Source source = new DOMSource(doc);
+
+                    // Prepare the output file
+                    Result streamResult = new StreamResult(replayStream);
+
+                    // Write the DOM document to the file
+                    Transformer xformer = TransformerFactory.newInstance().newTransformer();
+                    xformer.transform(source, streamResult);
+                } finally {
+                    replayStream.close();
                 }
-
-                doc.appendChild(gameReplay);
-
-                // Prepare the DOM document for writing
-                Source source = new DOMSource(doc);
-
-                // Prepare the output file
-                Result streamResult = new StreamResult(replayFile);
-
-                // Write the DOM document to the file
-                Transformer xformer = TransformerFactory.newInstance().newTransformer();
-                xformer.transform(source, streamResult);
             } catch (Exception exp) {
 
             }
             result.put(playerId, gameRecordingId);
         }
+        return result;
+    }
+
+    private String getRecordingId(String playerId) {
+        String result;
+        File recordingFile;
+        do {
+            result = randomUid();
+            recordingFile = getRecordingFile(playerId, result);
+        } while (recordingFile.exists());
         return result;
     }
 }
