@@ -82,6 +82,10 @@ public class LotroServer extends AbstractServer {
         _gameRecorder = new GameRecorder(_gameHistoryDao);
     }
 
+    public void migrateReplays() {
+        _gameRecorder.migrateReplays();
+    }
+
     public InputStream getGameRecording(String playerId, String gameId) throws IOException {
         return _gameRecorder.getRecordedGame(playerId, gameId);
     }
