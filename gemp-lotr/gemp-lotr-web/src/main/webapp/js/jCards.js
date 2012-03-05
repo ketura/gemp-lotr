@@ -17,6 +17,7 @@ var packBlueprints = {
     "(S)EoF - Starter": "/gemp-lotr/images/boosters/eof_starter_selection.png",
 
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
+    "(S)TTT - Tengwar": "/gemp-lotr/images/boosters/ttt_tengwar_selection.png",
     "(S)Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
 
     "FotR - League Starter": "/gemp-lotr/images/boosters/fotr_league_starter.png",
